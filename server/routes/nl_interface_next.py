@@ -136,6 +136,7 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
   contained_in_classification = "<None>"
   correlation_classification = "<None>"
   clustering_classification = "<None>"
+  event_classification = "<None>"
 
   for classification in query_detection.classifications:
     if classification.type == ClassificationType.RANKING:
@@ -145,6 +146,8 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
     elif classification.type == ClassificationType.TIME_DELTA:
       time_delta_classification = str(
           classification.attributes.time_delta_types)
+    elif classification.type == ClassificationType.EVENT:
+      event_classification = str(classification.attributes.event_types)
     elif classification.type == ClassificationType.COMPARISON:
       comparison_classification = str(classification.type)
     elif classification.type == ClassificationType.CONTAINED_IN:
@@ -174,6 +177,7 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
       'clustering_classification': clustering_classification,
       'comparison_classification': comparison_classification,
       'correlation_classification': correlation_classification,
+      'event_classification': event_classification,
       'data_spec': context_history,
   }
   if query_detection.places_detected:
@@ -255,11 +259,13 @@ def _detection(orig_query, cleaned_query) -> Detection:
   time_delta_classification = model.heuristic_time_delta_classification(query)
   contained_in_classification = model.query_classification(
       "contained_in", query)
+  event_classification = model.heuristic_event_classification(query)
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Comparison classification: {comparison_classification}')
   logging.info(f'Temporal classification: {temporal_classification}')
   logging.info(f'TimeDelta classification: {time_delta_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
+  logging.info(f'Event Classification: {event_classification}')
 
   # Set the Classifications list.
   classifications = []
@@ -271,6 +277,8 @@ def _detection(orig_query, cleaned_query) -> Detection:
     classifications.append(contained_in_classification)
   if time_delta_classification is not None:
     classifications.append(time_delta_classification)
+  if event_classification is not None:
+    classifications.append(event_classification)
 
   # Correlation classification
   correlation_classification = model.heuristic_correlation_classification(query)

@@ -112,6 +112,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     comparisonClassification: props.debugData["comparison_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
+    eventClassification: props.debugData["event_classification"],
     dataSpec: props.debugData["data_spec"],
   };
 
@@ -187,6 +188,9 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <Col>
               Correlation classification: {debugInfo.correlationClassification}
             </Col>
+          </Row>
+          <Row>
+            <Col>Event classification: {debugInfo.eventClassification}</Col>
           </Row>
           <Row>
             <b>All SVs Matched (with scores):</b>
