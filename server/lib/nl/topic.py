@@ -83,8 +83,8 @@ _PEER_GROUP_TO_OVERRIDE = {
 }
 
 _SVPG_NAMES_OVERRIDE = {
-        "dc/svpg/JobsPeerGroup": "Categories of Jobs",
-        "dc/svpg/SolarPotentialDetails": "Solar Potential",
+    "dc/svpg/JobsPeerGroup": "Categories of Jobs",
+    "dc/svpg/SolarPotentialDetails": "Solar Potential",
 }
 
 
