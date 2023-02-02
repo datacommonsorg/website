@@ -205,6 +205,16 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "vs",
             "versus",
         ],
+        "TimeDelta": {
+            "Increase": [
+                "grow(n|th)",
+                "increased?",
+            ],
+            "Decrease": [
+                "decreased?",
+                "shr(ink|unk)",
+            ],
+        },
     }
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {

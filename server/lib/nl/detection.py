@@ -100,6 +100,12 @@ class PeriodType(Enum):
   FROM = 3
 
 
+class TimeDeltaType(Enum):
+  """Indicates whether query refers to an increase or decrease in SV values."""
+  INCREASE = 0
+  DECREASE = 1
+
+
 class ClassificationAttributes(ABC):
   """Abstract class to hold classification attributes."""
   pass
@@ -171,6 +177,16 @@ class CorrelationClassificationAttributes(ClassificationAttributes):
   correlation_trigger_words: str
 
 
+@dataclass
+class TimeDeltaClassificationAttributes(ClassificationAttributes):
+  """Time Delta classification attributes."""
+  time_delta_types: List[TimeDeltaType]
+
+  # List of words which made this a time-delta query:
+  # e.g. "increase", "decrease", "growth", etc
+  time_delta_trigger_words: List[str]
+
+
 class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
@@ -180,7 +196,8 @@ class ClassificationType(IntEnum):
   CORRELATION = 5
   CLUSTERING = 6
   COMPARISON = 7
-  UNKNOWN = 8
+  TIME_DELTA = 8
+  UNKNOWN = 9
 
 
 # The supported classifications in order. Later entry is preferred.
@@ -190,6 +207,7 @@ RANKED_CLASSIFICATION_TYPES = [
     ClassificationType.CONTAINED_IN,
     ClassificationType.RANKING,
     ClassificationType.CORRELATION,
+    ClassificationType.TIME_DELTA,
 ]
 
 
