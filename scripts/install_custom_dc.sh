@@ -14,6 +14,8 @@
 # limitations under the License.
 set -e
 
+CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.1.0
+
 TERRAFORM_PATH=$(which terraform)
 if [[ -n "$TERRAFORM_PATH" ]]; then
     echo "Found Terraform: ${TERRAFORM_PATH}"
@@ -63,16 +65,21 @@ ROOT=$PWD
 
 # Clone DC website repo and mixer submodule.
 if [[ ! -d "website" ]]; then
-  git clone https://github.com/datacommonsorg/website
+  git clone https://github.com/datacommonsorg/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 fi
 
 cd website
+WEBSITE_GITHASH=$(git rev-parse --short=7 HEAD)
+
 # Always force Mixer submodule to be cloned.
 rm -rf mixer
 git submodule foreach git pull origin master
 git submodule update --init --recursive
 
 WEBSITE_ROOT=$PWD
+
+cd mixer
+MIXER_GITHASH=$(git rev-parse --short=7 HEAD)
 
 cd $WEBSITE_ROOT/deploy/terraform-datacommons-website/examples/setup
 
@@ -100,12 +107,15 @@ terraform init \
 # <project_id>-datacommons.com is the default domain name defined in setup/main.tf
 terraform apply \
   -var="project_id=$PROJECT_ID" \
-  -var="dc_website_domain=$DOMAIN" -auto-approve
+  -var="dc_website_domain=$DOMAIN" \
+  -var="website_githash=$WEBSITE_GITHASH" \
+  -var="mixer_githash=$MIXER_GITHASH" \
+  -auto-approve
 
 # Run the BT automation Terraform script to set up BT loader.
 cd $ROOT
 if [[ ! -d "tools" ]]; then
-  git clone https://github.com/datacommonsorg/tools
+  git clone https://github.com/datacommonsorg/tools --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 fi
 
 
