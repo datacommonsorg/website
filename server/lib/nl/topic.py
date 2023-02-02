@@ -68,11 +68,11 @@ def get_topics(sv_dcids: List[str]):
 def get_topic_vars(topic: str, rank: int):
   if not utils.is_topic(topic) or rank >= _MIN_TOPIC_RANK:
     return []
-  vars = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
-  if not vars:
+  svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
+  if not svs:
     # Lookup KG
-    vars = dc.property_values(nodes=[topic], prop='relevantVariable')[topic]
-  return vars
+    svs = dc.property_values(nodes=[topic], prop='relevantVariable')[topic]
+  return svs
 
 
 def get_topic_peers(sv_dcids: List[str]):
@@ -96,7 +96,7 @@ def svpg_name(sv: str):
 
 
 def _get_svpg_vars(svpg: str) -> List[str]:
-  vars = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
-  if not vars:
-    vars = dc.property_values(nodes=[svpg], prop='member')[svpg]
-  return vars
+  svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
+  if not svs:
+    svs = dc.property_values(nodes=[svpg], prop='member')[svpg]
+  return svs
