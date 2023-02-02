@@ -143,6 +143,8 @@ def extend_svs(svs: Dict[str, List[str]]):
       svg_parent = svg_parents[0]
       svg_siblings = dc.property_values([svg_parent], "specializationOf",
                                         False)[svg_parent]
+      if not svg_siblings:
+        continue
       svg_siblings_info = dc.get_variable_group_info(svg_siblings, [])
       for item in svg_siblings_info['data']:
         for sv_info in item['info'].get('childStatVars', []):
