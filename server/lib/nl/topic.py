@@ -58,7 +58,7 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Percent_Building_SuitableForSolar_ProjectSunroof",
         "Amount_SolarPotential",
         "Count_SolarPanelPotential",
-        "Count_SolarPanelPotential",
+        "Median_Amount_SolarGenerationPotential",
         "Count_SolarPanel",
     ]
 }
