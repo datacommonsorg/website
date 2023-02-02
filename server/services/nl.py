@@ -241,14 +241,26 @@ class Model:
     return NLClassifier(type=ClassificationType.TIME_DELTA,
                         attributes=attributes)
 
-  def comparison_classification(self, query) -> Union[NLClassifier, None]:
+  def heuristic_comparison_classification(self,
+                                          query) -> Union[NLClassifier, None]:
     # make query lowercase for string matching
     query = query.lower()
-    if "compare" in query:
-      attributes = ComparisonClassificationAttributes(
-          comparison_trigger_words=['compare'])
-      return NLClassifier(type=ClassificationType.COMPARISON,
-                          attributes=attributes)
+    comparison_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS[
+        "Comparison"]
+    trigger_words = []
+    for keyword in comparison_heuristics:
+      # look for keyword surrounded by spaces or start/end delimiters
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+    # If no matches, this query is not a comparison query
+    if not trigger_words:
+      return None
+
+    attributes = ComparisonClassificationAttributes(
+        comparison_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.COMPARISON,
+                        attributes=attributes)
 
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
     ranking_type = RankingType.NONE
