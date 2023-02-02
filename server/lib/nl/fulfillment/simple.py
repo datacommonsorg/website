@@ -14,6 +14,7 @@
 
 from typing import List
 
+from lib.nl import utils
 from lib.nl.detection import Place
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
@@ -41,6 +42,11 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     # When there are too many, comparing latest values is better
     # (than, say, breaking it into multiple timeline charts)
     chart_type = ChartType.BAR_CHART
+  if chart_type == ChartType.TIMELINE_CHART:
+    if utils.has_series_with_single_datapoint(places[0].dcid, chart_vars.svs):
+      # Demote to bar chart if single point.
+      # TODO: eventually for single SV case, make it a highlight chart
+      chart_type = ChartType.BAR_CHART
   return add_chart_to_utterance(chart_type, state, chart_vars, places,
                                 chart_origin)
 

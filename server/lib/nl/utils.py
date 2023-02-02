@@ -23,6 +23,7 @@ from typing import Dict, List, Set, Union
 import lib.nl.constants as constants
 import lib.nl.detection as detection
 import lib.util as util
+from routes.api.series import series_core
 import services.datacommons as dc
 
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
@@ -165,6 +166,19 @@ def ranked_svs_for_place(place: str, svs: List[str],
                          key=lambda pair: pair[1],
                          reverse=reverse)
   return [sv for sv, _ in svs_with_vals]
+
+
+def has_series_with_single_datapoint(place: str, svs: List[str]):
+  series_data = series_core(entities=[place], variables=svs, all_facets=False)
+  for _, place_data in series_data['data'].items():
+    if place not in place_data:
+      continue
+    series = place_data[place]['series']
+    if len(series) < 2:
+      logging.info('Found single data point series in %s - %s', place,
+                   ', '.join(svs))
+      return True
+  return False
 
 
 #

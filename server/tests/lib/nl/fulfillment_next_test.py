@@ -47,7 +47,7 @@ from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 # - variable.extend_svs
 # - utils.sv_existence_for_places
 # - utils.get_sample_child_places
-# - fulfillment.base._svg_or_topic_to_svs
+# - fulfillment.base._build_chart_vars
 #
 class TestDataSpecNext(unittest.TestCase):
 
@@ -211,7 +211,7 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This exercises Topic expansion.
   @patch.object(variable, 'extend_svs')
-  @patch.object(base, '_svg_or_topic_to_svs')
+  @patch.object(base, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_simple_with_topic(self, mock_sv_existence, mock_topic_to_svs,
                              mock_extend_svs):
@@ -257,7 +257,7 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
   @patch.object(utils, 'ranked_svs_for_place')
-  @patch.object(base, '_svg_or_topic_to_svs')
+  @patch.object(base, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
                               mock_ranked_svs, mock_extend_svs):
