@@ -255,11 +255,14 @@ def _build_chart_vars(state: PopulateState, sv: str,
   return []
 
 
-def open_topics_ordered(svs: List[str]) -> List[str]:
+# Takes a list of ordered vars which may contain SV and topic,
+# opens up "highly ranked" topics into SVs and returns it
+# ordered.
+def open_top_topics_ordered(svs: List[str]) -> List[str]:
   opened_svs = []
   sv_set = set()
-  for rank, sv in enumerate(svs):
-    for sv in _open_topic_in_var(sv, rank):
+  for rank, var in enumerate(svs):
+    for sv in _open_topic_in_var(var, rank):
       if sv not in sv_set:
         opened_svs.append(sv)
         sv_set.add(sv)
