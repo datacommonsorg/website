@@ -67,10 +67,10 @@ if [[ ! -d "website" ]]; then
 fi
 
 cd website
-if [[ ! -d "mixer" ]]; then
-  git submodule foreach git pull origin master
-  git submodule update --init --recursive
-fi
+# Always force Mixer submodule to be cloned.
+rm -rf mixer
+git submodule foreach git pull origin master
+git submodule update --init --recursive
 
 WEBSITE_ROOT=$PWD
 
