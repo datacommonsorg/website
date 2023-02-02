@@ -123,6 +123,8 @@ def _add_charts(state: PopulateState, places: List[Place],
     # REQUIRES: len(places) == 1
     places_to_check = utils.get_sample_child_places(places[0].dcid,
                                                     state.place_type.value)
+  if not places_to_check:
+    return False
 
   # Map of main SV -> peer SVs
   sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
@@ -173,6 +175,17 @@ def _add_charts(state: PopulateState, places: List[Place],
                    ', '.join(places_to_check), ', '.join(extended_svs))
 
   return found
+
+
+def overview_fallback(state: PopulateState, places: List[Place],
+                      chart_origin: ChartOriginType) -> bool:
+  # Overview chart is a safe fallback.
+  state.block_id += 1
+  chart_vars = ChartVars(svs=[],
+                         block_id=state.block_id,
+                         include_percapita=False)
+  return add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
+                                places, chart_origin)
 
 
 def _get_place_dcids(places: List[Place]) -> List[str]:
