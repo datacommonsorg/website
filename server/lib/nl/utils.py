@@ -170,6 +170,21 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
   return [sv for sv, _ in svs_with_vals]
 
 
+def has_series_with_single_datapoint(place: str, svs: List[str]):
+  series_data = util.series_core(entities=[place],
+                                 variables=svs,
+                                 all_facets=False)
+  for _, place_data in series_data['data'].items():
+    if place not in place_data:
+      continue
+    series = place_data[place]['series']
+    if len(series) < 2:
+      logging.info('Found single data point series in %s - %s', place,
+                   ', '.join(svs))
+      return True
+  return False
+
+
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the growth rate of the time-series.
 def rank_svs_by_growth_rate(place: str, svs: List[str],

@@ -352,6 +352,20 @@ CONTAINED_IN_CONFIG = """
        }
      }
    }
+   blocks {
+     columns {
+       tiles {
+         title: "Income_Farm"
+         type: MAP
+         stat_var_key: "Income_Farm"
+       }
+       tiles {
+         title: "Income_Farm - Per Capita"
+         type: MAP
+         stat_var_key: "Income_Farm_pc"
+       }
+     }
+   }
    stat_var_spec {
      key: "Count_Farm"
      value {
@@ -369,7 +383,24 @@ CONTAINED_IN_CONFIG = """
        name: "Count_Farm"
      }
    }
- }
+   stat_var_spec {
+     key: "Income_Farm"
+     value {
+       stat_var: "Income_Farm"
+       name: "Income_Farm"
+     }
+   }
+   stat_var_spec {
+     key: "Income_Farm_pc"
+     value {
+       stat_var: "Income_Farm"
+       denom: "Count_Person"
+       unit: "%"
+       scaling: 100.0
+       name: "Income_Farm"
+     }
+   }
+  }
 """
 
 CORRELATION_CONFIG = """
@@ -391,6 +422,16 @@ CORRELATION_CONFIG = """
        }
      }
    }
+   blocks {
+     columns {
+       tiles {
+         title: "Income_Farm vs. Mean_Precipitation"
+         type: SCATTER
+         stat_var_key: "Income_Farm_scatter"
+         stat_var_key: "Mean_Precipitation_scatter"
+       }
+     }
+   }
    stat_var_spec {
      key: "Count_Farm_scatter"
      value {
@@ -405,7 +446,14 @@ CORRELATION_CONFIG = """
        name: "Mean_Precipitation"
      }
    }
- }
+   stat_var_spec {
+     key: "Income_Farm_scatter"
+     value {
+       stat_var: "Income_Farm"
+       name: "Income_Farm"
+     }
+   }
+}
 """
 
 RANKING_ACROSS_PLACES_CONFIG = """
