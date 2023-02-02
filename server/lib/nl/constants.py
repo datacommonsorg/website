@@ -192,6 +192,14 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "Best": ["best",],
             "Worst": ["worst",],
         },
+        "Comparison": [
+            "compare(s|d)?",
+            "comparison",
+            "(is|has|have)( a| the)? \w+er",
+            # WARNING: These will conflate with Correlation
+            "vs",
+            "versus",
+        ],
         "Correlation": [
             "correlate",
             "correlated",
@@ -202,6 +210,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "related to",
             "related with",
             "related between",
+            # WARNING: These will conflate with Comparison
             "vs",
             "versus",
         ],
