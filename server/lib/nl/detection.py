@@ -100,7 +100,7 @@ class PeriodType(Enum):
   FROM = 3
 
 
-class TimeDeltaType(Enum):
+class TimeDeltaType(IntEnum):
   """Indicates whether query refers to an increase or decrease in SV values."""
   INCREASE = 0
   DECREASE = 1
