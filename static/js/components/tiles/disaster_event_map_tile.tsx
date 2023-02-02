@@ -85,6 +85,8 @@ export function DisasterEventMapTile(
   const prevDisasterEventData = useRef(null);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
   const { geoJsonData } = useContext(DataContext);
+  const shouldShowMap =
+    placeInfo && !_.isEmpty(geoJsonData) && !_.isEmpty(geoJsonData.features);
 
   useEffect(() => {
     // On initial loading of the component, get list of all European countries
@@ -104,8 +106,7 @@ export function DisasterEventMapTile(
   useEffect(() => {
     // re-draw map if placeInfo, geoJsonData, or disasterEventData changes
     if (
-      placeInfo &&
-      !_.isEmpty(geoJsonData) &&
+      shouldShowMap &&
       !_.isEqual(props.disasterEventData, prevDisasterEventData.current)
     ) {
       prevDisasterEventData.current = props.disasterEventData;
@@ -136,7 +137,7 @@ export function DisasterEventMapTile(
       allowEmbed={false}
     >
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
-        {_.isEmpty(geoJsonData.features) ? (
+        {!shouldShowMap ? (
           <div className={`${CSS_SELECTOR_PREFIX}-error-message`}>
             Sorry, we do not have maps for this place.
           </div>
