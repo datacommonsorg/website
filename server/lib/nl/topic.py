@@ -30,6 +30,7 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/AmountOfFarmInventoryByType",
     ],
     "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
+    "dc/topic/MedicalConditions": ["dc/svpg/MedicalConditionsPeerGroup"],
     # TODO(nhdiaz): Remove after demos. This topic is only used for a custom DC.
     "dc/topic/SolarPotential": ["dc/svpg/SolarPotentialDetails"],
 }
@@ -73,6 +74,20 @@ _PEER_GROUP_TO_OVERRIDE = {
         "dc/8p97n7l96lgg8",
         "Count_Worker_NAICSUtilities",
     ],
+    "dc/svpg/MedicalConditionsPeerGroup": [
+        "Percent_Person_WithArthritis",
+        "Percent_Person_WithAsthma",
+        "Percent_Person_WithCancerExcludingSkinCancer",
+        "Percent_Person_WithChronicKidneyDisease",
+        "Percent_Person_WithChronicObstructivePulmonaryDisease",
+        "Percent_Person_WithCoronaryHeartDisease",
+        "Percent_Person_WithDiabetes",
+        "Percent_Person_WithHighBloodPressure",
+        "Percent_Person_WithHighCholesterol",
+        "Percent_Person_WithMentalHealthNotGood",
+        "Percent_Person_WithPhysicalHealthNotGood",
+        "Percent_Person_WithStroke",
+    ],
     "dc/svpg/SolarPotentialDetails": [
         "Count_Building_SuitableForSolar",
         "Percent_Building_SuitableForSolar_ProjectSunroof",
@@ -86,6 +101,7 @@ _PEER_GROUP_TO_OVERRIDE = {
 _SVPG_NAMES_OVERRIDE = {
     "dc/svpg/JobsPeerGroup": "Categories of Jobs",
     "dc/svpg/SolarPotentialDetails": "Solar Potential",
+    "dc/svpg/MedicalConditionsPeerGroup": "Medical Conditions",
 }
 
 
