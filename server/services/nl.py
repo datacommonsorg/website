@@ -30,6 +30,8 @@ from lib.nl.detection import PeriodType
 from lib.nl.detection import RankingClassificationAttributes
 from lib.nl.detection import RankingType
 from lib.nl.detection import TemporalClassificationAttributes
+from lib.nl.detection import TimeDeltaClassificationAttributes
+from lib.nl.detection import TimeDeltaType
 from lib.nl.place_detection import NLPlaceDetector
 from lib.nl.training import NLQueryClassificationData
 from lib.nl.training import NLQueryClassificationModel
@@ -141,8 +143,10 @@ class Model:
         logging.info(
             self.classification_models[key].classification_type.categories)
       except Exception as e:
-        logging.info(
+        # Log the exception and raise it.
+        logging.error(
             f'Classification Model {key} could not be trained. Error: {e}')
+        raise Exception(e)
 
   # TODO (juliawu): Add unit-testing
   def heuristic_ranking_classification(self,
@@ -189,6 +193,53 @@ class Model:
     attributes = RankingClassificationAttributes(
         ranking_type=ranking_types, ranking_trigger_words=all_trigger_words)
     return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
+
+  # TODO(juliawu): This code is similar to the ranking classifier. Extract out
+  #                helper functions to make more DRY.
+  # TODO(juliawu): Add unit-tests.
+  def heuristic_time_delta_classification(
+      self, query: str) -> Union[NLClassifier, None]:
+    """Determine if query is a 'Time-Delta' type.
+
+    Uses heuristics instead of ML-based classification.
+
+    Args:
+      query (str): the user's input
+
+    Returns:
+      NLClassifier with TimeDeltaClassificationAttributes
+    """
+    subtype_map = {
+        "Increase": TimeDeltaType.INCREASE,
+        "Decrease": TimeDeltaType.DECREASE,
+    }
+    time_delta_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS[
+        "TimeDelta"]
+    time_delta_subtypes = time_delta_heuristics.keys()
+    query = query.lower()
+    subtypes_matched = []
+    trigger_words = []
+    for subtype in time_delta_subtypes:
+      type_trigger_words = []
+
+      for keyword in time_delta_heuristics[subtype]:
+        # look for keyword surrounded by spaces or start/end delimiters
+        regex = r"(^|\W)" + keyword + r"($|\W)"
+        type_trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+      if len(type_trigger_words) > 0:
+        subtypes_matched.append(subtype_map[subtype])
+      trigger_words += type_trigger_words
+
+    # If no matches, this query is not a time-delta query
+    if len(trigger_words) == 0:
+      return None
+
+    attributes = TimeDeltaClassificationAttributes(
+        time_delta_types=subtypes_matched,
+        time_delta_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.TIME_DELTA,
+                        attributes=attributes)
 
   def comparison_classification(self, query) -> Union[NLClassifier, None]:
     # make query lowercase for string matching
