@@ -65,7 +65,7 @@ ROOT=$PWD
 
 # Clone DC website repo and mixer submodule.
 if [[ ! -d "website" ]]; then
-  git clone https://github.com/datacommonsorg/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
+  git clone https://github.com/Fructokinase/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 fi
 
 cd website
