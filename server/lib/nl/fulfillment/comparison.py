@@ -17,6 +17,7 @@ from typing import List
 from lib.nl.detection import Place
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
+from lib.nl.fulfillment.base import overview_fallback
 from lib.nl.fulfillment.base import populate_charts_for_places
 from lib.nl.fulfillment.base import PopulateState
 from lib.nl.fulfillment.context import places_for_comparison_from_context
@@ -30,7 +31,7 @@ def populate(uttr: Utterance) -> bool:
   # by directly inferring the list of places to compare.
   state = PopulateState(uttr=uttr,
                         main_cb=_populate_cb,
-                        fallback_cb=_fallback_cb)
+                        fallback_cb=overview_fallback)
   for places_to_compare in places_for_comparison_from_context(uttr):
     if populate_charts_for_places(state, places_to_compare):
       return True
@@ -44,12 +45,3 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                          chart_origin)
   return True
-
-
-def _fallback_cb(state: PopulateState, places: List[Place],
-                 chart_origin: ChartOriginType) -> bool:
-  # TODO: Poor choice, do better.
-  sv = "Count_Person"
-  state.block_id += 1
-  chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
-  return _populate_cb(state, chart_vars, places, chart_origin)
