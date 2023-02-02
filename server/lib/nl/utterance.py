@@ -25,6 +25,8 @@ from lib.nl.detection import ClassificationType
 from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
 from lib.nl.detection import Detection
+from lib.nl.detection import EventClassificationAttributes
+from lib.nl.detection import EventType
 from lib.nl.detection import NLClassifier
 from lib.nl.detection import Place
 from lib.nl.detection import RankingClassificationAttributes
@@ -140,6 +142,8 @@ def _classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       else:
         # This could also be a simple string (rather than string enum)
         cdict['contained_in_place_type'] = cip
+    elif isinstance(c.attributes, EventClassificationAttributes):
+      cdict['event_type'] = c.attributes.event_types
     elif isinstance(c.attributes, RankingClassificationAttributes):
       cdict['ranking_type'] = c.attributes.ranking_type
     elif isinstance(c.attributes, TimeDeltaClassificationAttributes):
@@ -158,6 +162,10 @@ def _dict_to_classification(
       attributes = ContainedInClassificationAttributes(
           contained_in_place_type=ContainedInPlaceType(
               cdict['contained_in_place_type']))
+    elif 'event_type' in cdict:
+      attributes = EventClassificationAttributes(
+          event_types=[EventType(e) for e in cdict['event_type']],
+          event_trigger_words=[])
     elif 'ranking_type' in cdict:
       attributes = RankingClassificationAttributes(
           ranking_type=[RankingType(r) for r in cdict['ranking_type']],
