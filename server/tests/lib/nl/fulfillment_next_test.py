@@ -256,7 +256,7 @@ class TestDataSpecNext(unittest.TestCase):
   # This follows up on test_simple().  It relies on topic as well.
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'ranked_svs_for_place')
+  @patch.object(utils, 'rank_svs_by_latest_value')
   @patch.object(base, '_svg_or_topic_to_svs')
   @patch.object(utils, 'sv_existence_for_places')
   def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,

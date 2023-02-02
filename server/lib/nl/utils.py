@@ -14,6 +14,7 @@
 """Utility functions for use by the NL modules."""
 
 import copy
+import datetime
 import json
 import logging
 import os
@@ -28,6 +29,8 @@ import services.datacommons as dc
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
+
+_THRESHOLD_DATE_FOR_GROWTH_RATE = '2012'
 
 
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
@@ -146,8 +149,8 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
 
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the ranking order.
-def ranked_svs_for_place(place: str, svs: List[str],
-                         order: detection.RankingType) -> List[str]:
+def rank_svs_by_latest_value(place: str, svs: List[str],
+                             order: detection.RankingType) -> List[str]:
   points_data = util.point_core(entities=[place],
                                 variables=svs,
                                 date='',
@@ -165,6 +168,87 @@ def ranked_svs_for_place(place: str, svs: List[str],
                          key=lambda pair: pair[1],
                          reverse=reverse)
   return [sv for sv, _ in svs_with_vals]
+
+
+# Given a place and a list of existing SVs, this API ranks the SVs
+# per the ranking order.
+def rank_svs_by_growth_rate(place: str, svs: List[str],
+                            growth_direction: detection.TimeDeltaType,
+                            rank_order: detection.RankingType) -> List[str]:
+  series_data = util.series_core(entities=[place],
+                                 variables=svs,
+                                 all_facets=False)
+
+  svs_with_vals = []
+  for sv, place_data in series_data['data'].items():
+    if place not in place_data:
+      continue
+    series = place_data[place]['series']
+    if len(series) < 2:
+      continue
+
+    try:
+      net_growth_rate = compute_growth_rate(series)
+    except Exception as e:
+      logging.error('Growth rate computation failed: %s', str(e))
+      continue
+
+    if net_growth_rate > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
+      continue
+    if net_growth_rate < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
+      continue
+
+    svs_with_vals.append((sv, net_growth_rate))
+
+  if not rank_order:
+    reverse = True if growth_direction == detection.TimeDeltaType.INCREASE else False
+  else:
+    reverse = True  # Descending order
+    if growth_direction == detection.TimeDeltaType.INCREASE and rank_order == detection.RankingType.LOW:
+      # lowest growing
+      reverse = False
+    elif growth_direction == detection.TimeDeltaType.DECREASE and rank_order == detection.RankingType.HIGH:
+      # Highest shrinking
+      reverse = False
+
+  logging.info(f'Rank order: {reverse}')
+  svs_with_vals = sorted(svs_with_vals,
+                         key=lambda pair: pair[1],
+                         reverse=reverse)
+  logging.info(svs_with_vals)
+  return [sv for sv, _ in svs_with_vals]
+
+
+def compute_growth_rate(series: List[Dict]) -> float:
+  latest = None
+  earliest = None
+  for s in series:
+    if s['date'] < _THRESHOLD_DATE_FOR_GROWTH_RATE:
+      continue
+    if not latest or s['date'] > latest['date']:
+      latest = s
+    if not earliest or s['date'] < earliest['date']:
+      earliest = s
+  if latest == earliest:
+    raise ValueError('Dates are the same!')
+  if len(latest['date']) != len(earliest['date']):
+    raise ValueError('Dates have different granularity')
+
+  val_delta = latest['value'] - earliest['value']
+  date_delta = _datestr_to_date(latest['date']) - _datestr_to_date(
+      earliest['date'])
+  return float(val_delta) / float(date_delta.days)
+
+
+def _datestr_to_date(datestr: str) -> int:
+  parts = datestr.split('-')
+  if len(parts) == 1:
+    return datetime.date(int(parts[0]), 1, 1)
+  elif len(parts) == 2:
+    return datetime.date(int(parts[0]), int(parts[1]), 1)
+  elif len(parts) == 3:
+    return datetime.date(int(parts[0]), int(parts[1]), int(parts[2]))
+  raise ValueError(f'Unable to parse date {datestr}')
 
 
 #

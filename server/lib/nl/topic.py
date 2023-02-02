@@ -29,6 +29,7 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
     ],
+    "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
 }
 
 _PEER_GROUP_TO_OVERRIDE = {
@@ -51,10 +52,28 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Amount_FarmInventory_UplandCotton",
         "Amount_FarmInventory_WheatForGrain",
         "Amout_FarmInventory_CornForGrain",
-    ]
+    ],
+    "dc/svpg/JobsPeerGroup": [
+        "Count_Worker_NAICSAccommodationFoodServices",
+        "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        "Count_Worker_NAICSConstruction",
+        "Count_Worker_NAICSEducationalServices",
+        "Count_Worker_NAICSHealthCareSocialAssistance",
+        "dc/ndg1xk1e9frc2",
+        "Count_Worker_NAICSFinanceInsurance",
+        "Count_Worker_NAICSInformation",
+        "Count_Worker_NAICSArtsEntertainmentRecreation",
+        "dc/f18sq8w498j4f",
+        "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+        "dc/4mm2p1rxr5wz4",
+        "Count_Worker_NAICSOtherServices",
+        "dc/8p97n7l96lgg8",
+        "Count_Worker_NAICSUtilities",
+    ],
 }
 
-_SVPG_NAMES_OVERRIDE = {}
+_SVPG_NAMES_OVERRIDE = {"dc/svpg/JobsPeerGroup": "Categories of Jobs"}
 
 
 def get_topics(sv_dcids: List[str]):
