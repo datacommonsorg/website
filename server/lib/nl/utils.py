@@ -264,7 +264,9 @@ def _compute_growth(earliest: Dict, latest: Dict,
   val_delta = latest['value'] - earliest['value']
   date_delta = _datestr_to_date(latest['date']) - _datestr_to_date(
       earliest['date'])
-  return float(val_delta) / float(date_delta.days)
+  # Compute % growth per day
+  start = 0.000001 if earliest['value'] == 0 else earliest['value']
+  return float(val_delta) / (float(date_delta.days) * start)
 
 
 def _datestr_to_date(datestr: str) -> datetime.date:
