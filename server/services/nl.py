@@ -25,6 +25,8 @@ from lib.nl.detection import ComparisonClassificationAttributes
 from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
 from lib.nl.detection import CorrelationClassificationAttributes
+from lib.nl.detection import EventClassificationAttributes
+from lib.nl.detection import EventType
 from lib.nl.detection import NLClassifier
 from lib.nl.detection import PeriodType
 from lib.nl.detection import RankingClassificationAttributes
@@ -148,6 +150,61 @@ class Model:
             f'Classification Model {key} could not be trained. Error: {e}')
         raise Exception(e)
 
+  # TODO (juliawu): This function shares a lot of structure with the ranking
+  #                 and time_delta classifiers. Need to refactor for DRYness.
+  # TODO (juliawu): Add unit-testing.
+  def heuristic_event_classification(self, query) -> Union[NLClassifier, None]:
+    """Determine if query is a event type.
+
+    Determine if query is referring to fires, floods, droughts, storms, or other
+    event type nodes/SVs. Uses heuristics instead of ML-based classification.
+
+    Args:
+      query (str): the user's input
+
+    Returns:
+      NLClassifier with EventClassificationAttributes
+    """
+    # make query lowercase for string matching
+    query = query.lower()
+
+    # heuristics
+    subtype_map = {
+        "ExtremeCold": EventType.COLD,
+        "Cyclone": EventType.CYCLONE,
+        "Earthquake": EventType.EARTHQUAKE,
+        "Drought": EventType.DROUGHT,
+        "Fire": EventType.FIRE,
+        "Flood": EventType.FLOOD,
+        "ExtremeHeat": EventType.HEAT,
+        "WetBulb": EventType.WETBULB,
+    }
+    event_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["Event"]
+    event_subtypes = event_heuristics.keys()
+
+    event_types = []
+    all_trigger_words = []
+
+    for subtype in event_subtypes:
+      subtype_trigger_words = []
+
+      for keyword in event_heuristics[subtype]:
+        # look for keyword surrounded by spaces or start/end delimiters
+        regex = r"(^|\W)" + keyword + r"($|\W)"
+        subtype_trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+      if len(subtype_trigger_words) > 0:
+        event_types.append(subtype_map[subtype])
+      all_trigger_words += subtype_trigger_words
+
+    # If no matches, this query is not an event query
+    if len(all_trigger_words) == 0:
+      return None
+
+    attributes = EventClassificationAttributes(
+        event_types=event_types, event_trigger_words=all_trigger_words)
+    return NLClassifier(type=ClassificationType.EVENT, attributes=attributes)
+
   # TODO (juliawu): Add unit-testing
   def heuristic_ranking_classification(self,
                                        query) -> Union[NLClassifier, None]:
@@ -241,14 +298,26 @@ class Model:
     return NLClassifier(type=ClassificationType.TIME_DELTA,
                         attributes=attributes)
 
-  def comparison_classification(self, query) -> Union[NLClassifier, None]:
+  def heuristic_comparison_classification(self,
+                                          query) -> Union[NLClassifier, None]:
     # make query lowercase for string matching
     query = query.lower()
-    if "compare" in query:
-      attributes = ComparisonClassificationAttributes(
-          comparison_trigger_words=['compare'])
-      return NLClassifier(type=ClassificationType.COMPARISON,
-                          attributes=attributes)
+    comparison_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS[
+        "Comparison"]
+    trigger_words = []
+    for keyword in comparison_heuristics:
+      # look for keyword surrounded by spaces or start/end delimiters
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+    # If no matches, this query is not a comparison query
+    if not trigger_words:
+      return None
+
+    attributes = ComparisonClassificationAttributes(
+        comparison_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.COMPARISON,
+                        attributes=attributes)
 
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
     ranking_type = RankingType.NONE

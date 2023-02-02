@@ -109,6 +109,10 @@ def is_svg(sv):
   return sv.startswith("dc/g/")
 
 
+def is_svpg(sv):
+  return sv.startswith("dc/svpg/")
+
+
 def is_sv(sv):
   return not (is_topic(sv) or is_svg(sv))
 
@@ -199,8 +203,8 @@ def get_sample_child_places(main_place_dcid: str,
               '_sample_child_place returning %s',
               ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
           return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
-  logging.info('_sample_child_place returning %s', main_place_dcid)
-  return [main_place_dcid]
+  logging.info('_sample_child_place returning empty')
+  return []
 
 
 def get_sv_name(all_svs: List[str]) -> Dict:
