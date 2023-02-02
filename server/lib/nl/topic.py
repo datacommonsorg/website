@@ -29,6 +29,7 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
     ],
+    "dc/topic/SolarPotential": ["dc/svpg/SolarPotentialDetails"]
 }
 
 _PEER_GROUP_TO_OVERRIDE = {
@@ -51,10 +52,18 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Amount_FarmInventory_UplandCotton",
         "Amount_FarmInventory_WheatForGrain",
         "Amout_FarmInventory_CornForGrain",
+    ],
+    "dc/svpg/SolarPotentialDetails": [
+        "Count_Building_SuitableForSolar",
+        "Percent_Building_SuitableForSolar_ProjectSunroof",
+        "Amount_SolarPotential",
+        "Count_SolarPanelPotential",
+        "Count_SolarPanelPotential",
+        "Count_SolarPanel",
     ]
 }
 
-_SVPG_NAMES_OVERRIDE = {}
+_SVPG_NAMES_OVERRIDE = {"dc/svpg/SolarPotentialDetails": "Solar Potential"}
 
 
 def get_topics(sv_dcids: List[str]):
