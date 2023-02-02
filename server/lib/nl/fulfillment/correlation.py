@@ -20,6 +20,7 @@ from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import Place
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
+from lib.nl.fulfillment.base import open_top_topics_ordered
 from lib.nl.fulfillment.base import PopulateState
 from lib.nl.fulfillment.context import classifications_of_type_from_context
 from lib.nl.fulfillment.context import places_from_context
@@ -27,6 +28,9 @@ from lib.nl.fulfillment.context import svs_from_context
 from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
+
+_MAX_CONTEXT_SVS = 3
+_MAX_MAIN_SVS = 5
 
 #
 # Handler for CORRELATION chart.  This does not use the populate_charts() logic
@@ -72,7 +76,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
-  main_svs = utils.get_only_svs(state.uttr.svs)
+  main_svs = open_top_topics_ordered(state.uttr.svs)
   main_svs = utils.sv_existence_for_places(places_to_check, main_svs)
   if not main_svs:
     logging.info('Correlation found no Main SV')
@@ -80,26 +84,26 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 
   # For related SV, walk up the chain to find all SVs.
   context_svs = []
-  svs_set = set()
   for c_svs in svs_from_context(state.uttr):
-    for sv in utils.get_only_svs(c_svs):
-      if sv in svs_set:
-        continue
-      svs_set.add(sv)
-      context_svs.append(sv)
-  context_svs = utils.sv_existence_for_places(places_to_check, context_svs)
+    opened_svs = open_top_topics_ordered(c_svs)
+    context_svs = utils.sv_existence_for_places(places_to_check, opened_svs)
+    if context_svs:
+      break
   if not context_svs:
     logging.info('Correlation found no Context SV')
     return False
 
+  main_svs = main_svs[:_MAX_MAIN_SVS]
+  context_svs = context_svs[:_MAX_CONTEXT_SVS]
   logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
   logging.info('Correlation Context SVs: %s', ', '.join(context_svs))
 
-  # Pick a single context SV for the results
-  # TODO: Maybe consider more.
   found = False
   for main_sv in main_svs:
-    found |= _populate_correlation_chart(state, place, main_sv, context_svs[0])
+    for context_sv in context_svs:
+      if main_sv == context_sv:
+        continue
+      found |= _populate_correlation_chart(state, place, main_sv, context_sv)
   return found
 
 

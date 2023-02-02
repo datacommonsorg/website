@@ -54,7 +54,6 @@ def fulfill(query_detection: Detection,
   # If we could not detect query_type from user-query, infer from past context.
   if (uttr.query_type == ClassificationType.UNKNOWN):
     uttr.query_type = context.query_type_from_context(uttr)
-  logging.info(uttr.query_type)
 
   # Add detected places.
   if (query_detection.places_detected):
@@ -63,6 +62,7 @@ def fulfill(query_detection: Detection,
   # Each query-type has its own handler. Each knows what arguments it needs and
   # will call on the *_from_context() routines to obtain missing arguments.
   #
+  logging.info(uttr.query_type)
   if (uttr.query_type == ClassificationType.SIMPLE):
     simple.populate(uttr)
   elif (uttr.query_type == ClassificationType.CORRELATION):
@@ -90,7 +90,7 @@ def fulfill(query_detection: Detection,
 # TODO: Maybe improve in future.
 def rank_charts(utterance: Utterance):
   for chart in utterance.chartCandidates:
-    print("Chart: %s %s\n" % (chart.places, chart.svs))
+    logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates
 
 

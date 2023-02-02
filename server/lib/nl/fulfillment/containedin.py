@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 from typing import List
 
 from lib.nl.detection import ClassificationType
@@ -56,15 +57,18 @@ def populate(uttr: Utterance) -> bool:
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  contained_places: List[Place],
                  chart_origin: ChartOriginType) -> bool:
+  logging.info('populate_cb for contained-in')
+
   if not state.place_type:
     return False
   if not chart_vars:
     return False
   if len(contained_places) > 1:
     return False
-  if len(chart_vars.svs) > 1:
-    # We don't handle peer group SVs
-    return False
-  add_chart_to_utterance(ChartType.MAP_CHART, state, chart_vars,
-                         contained_places, chart_origin)
+
+  for sv in chart_vars.svs:
+    cv = chart_vars
+    cv.svs = [sv]
+    add_chart_to_utterance(ChartType.MAP_CHART, state, cv, contained_places,
+                           chart_origin)
   return True

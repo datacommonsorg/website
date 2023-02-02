@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 from typing import List
 
 from lib.nl.detection import Place
@@ -40,6 +41,7 @@ def populate(uttr: Utterance) -> bool:
 
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
+  logging.info('populate_cb for comparison')
   if len(places) < 2:
     return False
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
