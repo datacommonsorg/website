@@ -333,7 +333,7 @@ def choropleth_data(dcid):
   # Get data for all the stat vars for every place we will need and process the data
   numerator_resp = lib_util.point_within_core(display_dcid, display_level,
                                               list(stat_vars), '', False)
-  denominator_resp = series_api.series_core(list(geos), list(denoms), False)
+  denominator_resp = lib_util.series_core(list(geos), list(denoms), False)
 
   result = {}
   # Process the data for each config

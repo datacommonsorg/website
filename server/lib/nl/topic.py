@@ -29,8 +29,19 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
     ],
+    "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
+    "dc/topic/MedicalConditions": ["dc/svpg/MedicalConditionsPeerGroup"],
     # TODO(nhdiaz): Remove after demos. This topic is only used for a custom DC.
-    "dc/topic/SolarPotential": ["dc/svpg/SolarPotentialDetails"]
+    "dc/topic/SolarPotential": [
+        "Count_Building_SuitableForSolar",
+        "Percent_Building_SuitableForSolar_ProjectSunroof",
+        "Amount_SolarPotential",
+        "dc/svpg/SolarEnergyGenerationPotential",
+        "Count_SolarPanelPotential",
+        "dc/svpg/SolarPanelPotential",
+        "Amount_CarbonDioxideAbatement",
+        "Count_SolarPanel",
+    ],
 }
 
 _PEER_GROUP_TO_OVERRIDE = {
@@ -54,17 +65,64 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Amount_FarmInventory_WheatForGrain",
         "Amout_FarmInventory_CornForGrain",
     ],
-    "dc/svpg/SolarPotentialDetails": [
-        "Count_Building_SuitableForSolar",
-        "Percent_Building_SuitableForSolar_ProjectSunroof",
-        "Amount_SolarPotential",
-        "Count_SolarPanelPotential",
-        "Median_Amount_SolarGenerationPotential",
-        "Count_SolarPanel",
-    ]
+    "dc/svpg/JobsPeerGroup": [
+        "Count_Worker_NAICSAccommodationFoodServices",
+        "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        "Count_Worker_NAICSConstruction",
+        "Count_Worker_NAICSEducationalServices",
+        "Count_Worker_NAICSHealthCareSocialAssistance",
+        "dc/ndg1xk1e9frc2",
+        "Count_Worker_NAICSFinanceInsurance",
+        "Count_Worker_NAICSInformation",
+        "Count_Worker_NAICSArtsEntertainmentRecreation",
+        "dc/f18sq8w498j4f",
+        "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+        "dc/4mm2p1rxr5wz4",
+        "Count_Worker_NAICSOtherServices",
+        "dc/8p97n7l96lgg8",
+        "Count_Worker_NAICSUtilities",
+    ],
+    "dc/svpg/MedicalConditionsPeerGroup": [
+        "Percent_Person_WithArthritis",
+        "Percent_Person_WithAsthma",
+        "Percent_Person_WithCancerExcludingSkinCancer",
+        "Percent_Person_WithChronicKidneyDisease",
+        "Percent_Person_WithChronicObstructivePulmonaryDisease",
+        "Percent_Person_WithCoronaryHeartDisease",
+        "Percent_Person_WithDiabetes",
+        "Percent_Person_WithHighBloodPressure",
+        "Percent_Person_WithHighCholesterol",
+        "Percent_Person_WithMentalHealthNotGood",
+        "Percent_Person_WithPhysicalHealthNotGood",
+        "Percent_Person_WithStroke",
+    ],
+    "dc/svpg/SolarEnergyGenerationPotential": [
+        "Amount_SolarGenerationPotential_FlatRoofSpace",
+        "Amount_SolarGenerationPotential_NorthFacingRoofSpace",
+        "Amount_SolarGenerationPotential_EastFacingRoofSpace",
+        "Amount_SolarGenerationPotential_SouthFacingRoofSpace",
+        "Amount_SolarGenerationPotential_WestFacingRoofSpace",
+    ],
+    "dc/svpg/SolarPanelPotential": [
+        "Count_SolarPanelPotential_FlatRoofSpace",
+        "Count_SolarPanelPotential_NorthFacingRoofSpace",
+        "Count_SolarPanelPotential_EastFacingRoofSpace",
+        "Count_SolarPanelPotential_SouthFacingRoofSpace",
+        "Count_SolarPanelPotential_WestFacingRoofSpace",
+    ],
 }
 
-_SVPG_NAMES_OVERRIDE = {"dc/svpg/SolarPotentialDetails": "Solar Potential"}
+_SVPG_NAMES_OVERRIDE = {
+    "dc/svpg/JobsPeerGroup":
+        "Categories of Jobs",
+    "dc/svpg/MedicalConditionsPeerGroup":
+        "Medical Conditions",
+    "dc/svpg/SolarEnergyGenerationPotential":
+        "Solar Energy Generation Potential",
+    "dc/svpg/SolarPanelPotential":
+        "Solar Panel Potential",
+}
 
 
 def get_topics(sv_dcids: List[str]):
