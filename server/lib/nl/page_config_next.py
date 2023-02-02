@@ -21,11 +21,36 @@ from config.subject_page_pb2 import StatVarSpec
 from config.subject_page_pb2 import SubjectPageConfig
 from config.subject_page_pb2 import Tile
 from lib.nl import utils
+from lib.nl.detection import EventType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
 from lib.nl.utterance import ChartSpec
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
+
+# NOTE: This relies on disaster config's event_type_spec IDs.
+_EVENT_TYPE_TO_CONFIG_KEY = {
+    EventType.COLD: "cold",
+    EventType.CYCLONE: "storm",
+    EventType.DROUGHT: "drought",
+    EventType.EARTHQUAKE: "earthquake",
+    EventType.FIRE: "fire",
+    EventType.FLOOD: "flood",
+    EventType.HEAT: "heat",
+    EventType.WETBULB: "wetbulb",
+}
+
+# Override the names from configs.  These have plurals, etc.
+_EVENT_TYPE_TO_DISPLAY_NAME = {
+    EventType.COLD: "Extreme Cold Events",
+    EventType.CYCLONE: "Storms",
+    EventType.DROUGHT: "Droughts",
+    EventType.EARTHQUAKE: "Earthquakes",
+    EventType.FIRE: "Fires",
+    EventType.FLOOD: "Floods",
+    EventType.HEAT: "Exteme Heat Events",
+    EventType.WETBULB: "High Wet-bulb Temperature Events",
+}
 
 
 #
@@ -350,8 +375,12 @@ def _place_overview_block(column):
   tile.type = Tile.TileType.PLACE_OVERVIEW
 
 
-def _event_chart_block(metadata, block, column, place: Place, event_id: str,
+def _event_chart_block(metadata, block, column, place: Place, event_key: str,
                        attr, event_config):
+
+  # Map EventType to config key.
+  event_type = EventType(int(event_key))
+  event_id = _EVENT_TYPE_TO_CONFIG_KEY[event_type]
 
   if event_id == 'earthquake':
     eq_val = metadata.event_type_spec[event_id]
@@ -365,13 +394,15 @@ def _event_chart_block(metadata, block, column, place: Place, event_id: str,
     filter.upper_limit = 10
     filter.lower_limit = 6
   elif event_id in event_config.metadata.event_type_spec:
-    for k, v in event_config.metadata.event_type_spec.items():
-      metadata.event_type_spec[k].CopyFrom(v)
+    metadata.event_type_spec[event_id].CopyFrom(
+        event_config.metadata.event_type_spec[event_id])
   else:
     logging.error('ID not found in event_type_spec: %s', event_id)
     return
 
   event_name = metadata.event_type_spec[event_id].name
+  if event_type in _EVENT_TYPE_TO_DISPLAY_NAME:
+    event_name = _EVENT_TYPE_TO_DISPLAY_NAME[event_type]
   block.title = event_name + ' in ' + place.name
   block.type = Block.DISASTER_EVENT
 

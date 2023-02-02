@@ -36,7 +36,6 @@ PLACE_ONLY_UTTR = {
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.PLACE_OVERVIEW,
@@ -67,7 +66,6 @@ SIMPLE_UTTR = {
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -84,7 +82,6 @@ SIMPLE_UTTR = {
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -115,7 +112,6 @@ SIMPLE_WITH_SV_EXT_UTTR = {
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -132,7 +128,6 @@ SIMPLE_WITH_SV_EXT_UTTR = {
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -163,7 +158,6 @@ SIMPLE_WITH_TOPIC_UTTR = {
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -180,7 +174,6 @@ SIMPLE_WITH_TOPIC_UTTR = {
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -197,7 +190,6 @@ SIMPLE_WITH_TOPIC_UTTR = {
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -231,7 +223,6 @@ COMPARISON_UTTR = {
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.BAR_CHART,
@@ -252,7 +243,6 @@ COMPARISON_UTTR = {
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.BAR_CHART,
@@ -287,7 +277,6 @@ CONTAINED_IN_UTTR = {
             'include_percapita': True,
             'place_type': 'County',
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': 1,
@@ -333,7 +322,6 @@ CORRELATION_UTTR = {
             'include_percapita': False,
             'place_type': 'County',
             'ranking_types': [],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.SCATTER_CHART,
@@ -383,7 +371,6 @@ RANKING_ACROSS_PLACES_UTTR = {
             'include_percapita': True,
             'place_type': 'County',
             'ranking_types': [1],
-            'event_types': [],
             'title': ''
         },
         'chart_type': ChartType.RANKING_CHART,
@@ -413,7 +400,6 @@ RANKING_ACROSS_SVS_UTTR = {
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [RankingType.HIGH],
-            'event_types': [],
             'title': ''
         },
         'chart_type':

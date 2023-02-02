@@ -40,7 +40,6 @@ class PopulateState:
   fallback_cb: any
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
-  event_types: List[EventType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   block_id: int = 0
 
@@ -71,7 +70,6 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
       "class": primary_vs_secondary,
       "place_type": state.place_type,
       "ranking_types": state.ranking_types,
-      "event_types": state.event_types,
       "block_id": chart_vars.block_id,
       "include_percapita": chart_vars.include_percapita,
       "title": chart_vars.title,

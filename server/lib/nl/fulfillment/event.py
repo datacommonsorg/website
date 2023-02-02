@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+from typing import List
 
 from lib.nl import detection
 from lib.nl import utils
@@ -23,18 +24,6 @@ import lib.nl.utterance as nl_uttr
 #
 # Handler for Event queries.
 #
-
-# NOTE: This relies on disaster config's event_type_spec IDs.
-_EVENT_TYPE_TO_CONFIG_KEY = {
-    detection.EventType.COLD: "cold",
-    detection.EventType.CYCLONE: "storm",
-    detection.EventType.DROUGHT: "drought",
-    detection.EventType.EARTHQUAKE: "earthquake",
-    detection.EventType.FIRE: "fire",
-    detection.EventType.FLOOD: "flood",
-    detection.EventType.HEAT: "heat",
-    detection.EventType.WETBULB: "wetbulb",
-}
 
 
 def populate(uttr: nl_uttr.Utterance) -> bool:
@@ -60,27 +49,28 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
       base.PopulateState(uttr=uttr,
                          main_cb=None,
                          fallback_cb=None,
-                         event_types=event_types,
-                         ranking_types=ranking_types))
+                         ranking_types=ranking_types), event_types)
 
 
-def _populate_event(state: base.PopulateState) -> bool:
+def _populate_event(state: base.PopulateState,
+                    event_types: List[detection.EventType]) -> bool:
   for pl in state.uttr.places:
-    if (_populate_event_for_place(state, pl)):
+    if (_populate_event_for_place(state, event_types, pl)):
       return True
   for pl in ctx.places_from_context(state.uttr):
-    if (_populate_event_for_place(state, pl)):
+    if (_populate_event_for_place(state, event_types, pl)):
       return True
   return False
 
 
 def _populate_event_for_place(state: base.PopulateState,
+                              event_types: List[detection.EventType],
                               place: detection.Place) -> bool:
   # TODO: Perform some form of existence check.
 
-  event_key = _EVENT_TYPE_TO_CONFIG_KEY[state.event_types[0]]
+  etype_str = str(event_types[0].value)
   state.block_id += 1
-  chart_vars = base.ChartVars(svs=[event_key],
+  chart_vars = base.ChartVars(svs=[etype_str],
                               block_id=state.block_id,
                               include_percapita=False)
   return base.add_chart_to_utterance(base.ChartType.EVENT_CHART, state,
