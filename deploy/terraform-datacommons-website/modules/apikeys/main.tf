@@ -98,7 +98,7 @@ resource "google_secret_manager_secret" "maps_api_key_secret" {
   project      =  var.project_id
 
   replication {
-    user_managed = {
+    user_managed {
       replicas {
         location = var.location
       }
