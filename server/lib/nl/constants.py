@@ -214,6 +214,24 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "vs",
             "versus",
         ],
+        "Event": {
+            "Fire": ["(wild)?fires?",],
+            "Drought": ["droughts?",],
+            "Flood": ["floods?",],
+            "Cyclone": [
+                "tropical storms?",
+                "cyclones?",
+                "hurricanes?",
+                "typhoons?",
+            ],
+            "ExtremeHeat": [
+                "(extreme )?heat",
+                "extreme(ly)? hot",
+            ],
+            "ExtremeCold": ["(extreme(ly)? )?cold",],
+            "WetBulb": ["wet(\W?)bulb",],
+            "Earthquake": ["earthquakes?",]
+        },
         "TimeDelta": {
             "Increase": [
                 "grow(n|th)",
