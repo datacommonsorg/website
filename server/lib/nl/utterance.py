@@ -29,9 +29,9 @@ from lib.nl.detection import NLClassifier
 from lib.nl.detection import Place
 from lib.nl.detection import RankingClassificationAttributes
 from lib.nl.detection import RankingType
+from lib.nl.detection import SimpleClassificationAttributes
 from lib.nl.detection import TimeDeltaClassificationAttributes
 from lib.nl.detection import TimeDeltaType
-from lib.nl.detection import SimpleClassificationAttributes
 
 # How far back does the context go back.
 CTX_LOOKBACK_LIMIT = 5
@@ -164,8 +164,8 @@ def _dict_to_classification(
           ranking_trigger_words=[])
     elif 'time_delta_type' in cdict:
       attributes = TimeDeltaClassificationAttributes(
-        time_delta_types=[TimeDeltaType(t) for t in cdict['time_delta_type']],
-        time_delta_trigger_words=[])
+          time_delta_types=[TimeDeltaType(t) for t in cdict['time_delta_type']],
+          time_delta_trigger_words=[])
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
                      attributes=attributes))
