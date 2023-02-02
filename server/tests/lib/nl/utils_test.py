@@ -130,12 +130,13 @@ class TestComputeGrowthRate(unittest.TestCase):
             'date': '2017',
             'value': 10
         },
+        # should be ignored
         {
             'date': '2009',
             'value': 30
-        },  # should be ignored
+        },
     ]
-    # 20 - 10 / (2 * 365)
+    # (20 - 10) / (2 years * 10)
     self.assertEqual(0.0013698630136986301, utils.compute_growth_rate(s))
 
   def test_month_unadjusted(self):
@@ -153,7 +154,7 @@ class TestComputeGrowthRate(unittest.TestCase):
             'value': 20
         },
     ]
-    # 20 - 10 / (24 months)
+    # (10 - 20) / (24 months * 20)
     self.assertEqual(-0.0006849315068493151, utils.compute_growth_rate(s))
 
   # Here we will pick 2017-06 instead of 2017-01 to match the latest month (2017-06),
@@ -185,6 +186,7 @@ class TestComputeGrowthRate(unittest.TestCase):
             'value': 200
         },
     ]
+    # (10 - 20) / (24 months * 20)
     self.assertEqual(-0.0006849315068493151, utils.compute_growth_rate(s))
 
   def test_day(self):
@@ -202,7 +204,7 @@ class TestComputeGrowthRate(unittest.TestCase):
             'value': 10
         },
     ]
-    # 20 - 10 / (35)
+    # (20 - 10) / (2 years * 10)
     self.assertEqual(0.0013698630136986301, utils.compute_growth_rate(s))
 
   def test_error(self):
