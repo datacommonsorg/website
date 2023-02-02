@@ -20,7 +20,7 @@ from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import Place
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
-from lib.nl.fulfillment.base import open_topics_ordered
+from lib.nl.fulfillment.base import open_top_topics_ordered
 from lib.nl.fulfillment.base import PopulateState
 from lib.nl.fulfillment.context import classifications_of_type_from_context
 from lib.nl.fulfillment.context import places_from_context
@@ -76,7 +76,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
-  main_svs = open_topics_ordered(state.uttr.svs)
+  main_svs = open_top_topics_ordered(state.uttr.svs)
   main_svs = utils.sv_existence_for_places(places_to_check, main_svs)
   if not main_svs:
     logging.info('Correlation found no Main SV')
@@ -85,7 +85,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   # For related SV, walk up the chain to find all SVs.
   context_svs = []
   for c_svs in svs_from_context(state.uttr):
-    opened_svs = open_topics_ordered(c_svs)
+    opened_svs = open_top_topics_ordered(c_svs)
     context_svs = utils.sv_existence_for_places(places_to_check, opened_svs)
     if context_svs:
       break
