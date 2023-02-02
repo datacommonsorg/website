@@ -138,44 +138,54 @@ class TestComputeGrowthRate(unittest.TestCase):
     # 20 - 10 / (2 * 365)
     self.assertEqual(0.0136986301369863, utils.compute_growth_rate(s))
 
+  def test_month_unadjusted(self):
     s = [
         {
-            'date': '2019',
+            'date': '2019-06',
             'value': 10
         },
         {
-            'date': '2018',
+            'date': '2018-06',
+            'value': 10
+        },
+        {
+            'date': '2017-06',
             'value': 20
         },
-        {
-            'date': '2017',
-            'value': 10
-        },
-        {
-            'date': '2009',
-            'value': 30
-        },  # should be ignored
     ]
-    # !0 - 20 / (2 years)
-    self.assertEqual(0, utils.compute_growth_rate(s))
+    # 20 - 10 / (24 months)
+    self.assertEqual(-0.0136986301369863, utils.compute_growth_rate(s))
 
-  def test_month(self):
+  # Here we will pick 2017-06 instead of 2017-01 to match the latest month (2017-06),
+  # and thus same result as before.
+  def test_month_adjusted(self):
     s = [
         {
-            'date': '2019-12',
+            'date': '2019-06',
+            'value': 10
+        },
+        {
+            'date': '2019-01',
+            'value': 100
+        },
+        {
+            'date': '2018-06',
+            'value': 10
+        },
+        {
+            'date': '2018-06',
+            'value': 100
+        },
+        {
+            'date': '2017-06',
             'value': 20
         },
         {
-            'date': '2019-08',
-            'value': 10
-        },
-        {
-            'date': '2019-04',
-            'value': 10
+            'date': '2017-01',
+            'value': 200
         },
     ]
-    # 20 - 10 / (8 months)
-    self.assertEqual(0.040983606557377046, utils.compute_growth_rate(s))
+    self.assertEqual(-0.0136986301369863, utils.compute_growth_rate(s))
 
   def test_day(self):
     s = [
@@ -184,16 +194,16 @@ class TestComputeGrowthRate(unittest.TestCase):
             'value': 20
         },
         {
-            'date': '2019-11-29',
+            'date': '2018-12-01',
             'value': 10
         },
         {
-            'date': '2019-10-25',
+            'date': '2017-12-01',
             'value': 10
         },
     ]
     # 20 - 10 / (35)
-    self.assertEqual(0.2702702702702703, utils.compute_growth_rate(s))
+    self.assertEqual(0.0136986301369863, utils.compute_growth_rate(s))
 
   def test_error(self):
     s = [

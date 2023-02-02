@@ -29,6 +29,7 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
     ],
+    "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
     # TODO(nhdiaz): Remove after demos. This topic is only used for a custom DC.
     "dc/topic/SolarPotential": ["dc/svpg/SolarPotentialDetails"],
 }

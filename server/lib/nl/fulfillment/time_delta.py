@@ -37,7 +37,7 @@ from lib.nl.utterance import Utterance
 def populate(uttr: Utterance):
   time_delta_classification = context.classifications_of_type_from_utterance(
       uttr, ClassificationType.TIME_DELTA)
-  logging.info('IN Ranking Across Vars')
+  logging.info('In Time-delta')
 
   # Get time delta type
   if (not time_delta_classification or
@@ -67,6 +67,7 @@ def populate(uttr: Utterance):
 
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
+  logging.info('In Time-delta callback')
   if not state.time_delta_types:
     return False
   if len(places) > 1:

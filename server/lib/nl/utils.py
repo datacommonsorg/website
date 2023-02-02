@@ -171,7 +171,7 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
 
 
 # Given a place and a list of existing SVs, this API ranks the SVs
-# per the ranking order.
+# per the growth rate of the time-series.
 def rank_svs_by_growth_rate(place: str, svs: List[str],
                             growth_direction: detection.TimeDeltaType,
                             rank_order: detection.RankingType) -> List[str]:
@@ -208,7 +208,7 @@ def rank_svs_by_growth_rate(place: str, svs: List[str],
       # lowest growing
       reverse = False
     elif growth_direction == detection.TimeDeltaType.DECREASE and rank_order == detection.RankingType.HIGH:
-      # Highest shrinking
+      # highest shrinking
       reverse = False
 
   logging.info(f'Rank order: {reverse}')
@@ -219,6 +219,7 @@ def rank_svs_by_growth_rate(place: str, svs: List[str],
   return [sv for sv, _ in svs_with_vals]
 
 
+# Computes net growth-rate for a time-series including only recent (since 2012) observations.
 def compute_growth_rate(series: List[Dict]) -> float:
   latest = None
   earliest = None
@@ -229,10 +230,36 @@ def compute_growth_rate(series: List[Dict]) -> float:
       latest = s
     if not earliest or s['date'] < earliest['date']:
       earliest = s
+
   if latest == earliest:
     raise ValueError('Dates are the same!')
   if len(latest['date']) != len(earliest['date']):
     raise ValueError('Dates have different granularity')
+
+  return _compute_growth(earliest, latest, series)
+
+
+def _compute_growth(earliest: Dict, latest: Dict,
+                    series: List[Dict]) -> datetime.date:
+  eparts = earliest['date'].split('-')
+  lparts = latest['date'].split('-')
+
+  if len(eparts) == 2 and eparts[1] != lparts[1]:
+    # Monthly data often has seasonal effects. So try to pick the earliest date
+    # in the same month as the latest date.
+    new_earliest_date = eparts[0] + '-' + lparts[1]
+    new_earliest = None
+    for v in series:
+      if v['date'] == new_earliest_date:
+        new_earliest = v
+        break
+    if new_earliest and new_earliest_date != latest['date']:
+      logging.info('Changing start month from %s to %s to match %s',
+                   earliest['date'], new_earliest_date, latest['date'])
+      earliest = new_earliest
+    else:
+      logging.info('First and last months diverge: %s vs. %s', earliest['date'],
+                   latest['date'])
 
   val_delta = latest['value'] - earliest['value']
   date_delta = _datestr_to_date(latest['date']) - _datestr_to_date(
@@ -240,7 +267,7 @@ def compute_growth_rate(series: List[Dict]) -> float:
   return float(val_delta) / float(date_delta.days)
 
 
-def _datestr_to_date(datestr: str) -> int:
+def _datestr_to_date(datestr: str) -> datetime.date:
   parts = datestr.split('-')
   if len(parts) == 1:
     return datetime.date(int(parts[0]), 1, 1)
