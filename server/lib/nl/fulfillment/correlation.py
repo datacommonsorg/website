@@ -67,6 +67,8 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   # Get child place samples for existence check.
   places_to_check = utils.get_sample_child_places(place.dcid,
                                                   state.place_type.value)
+  if not places_to_check:
+    return False
 
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`

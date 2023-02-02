@@ -22,7 +22,8 @@ from lib.nl.fulfillment import comparison
 from lib.nl.fulfillment import containedin
 from lib.nl.fulfillment import context
 from lib.nl.fulfillment import correlation
-from lib.nl.fulfillment import ranking
+from lib.nl.fulfillment import ranking_across_places
+from lib.nl.fulfillment import ranking_across_vars
 from lib.nl.fulfillment import simple
 from lib.nl.utterance import Utterance
 
@@ -68,7 +69,12 @@ def fulfill(query_detection: Detection,
   elif (uttr.query_type == ClassificationType.CONTAINED_IN):
     containedin.populate(uttr)
   elif (uttr.query_type == ClassificationType.RANKING):
-    ranking.populate(uttr)
+    current_contained_classification = context.classifications_of_type_from_utterance(
+        uttr, ClassificationType.CONTAINED_IN)
+    if current_contained_classification:
+      ranking_across_places.populate(uttr)
+    else:
+      ranking_across_vars.populate(uttr)
   elif (uttr.query_type == ClassificationType.COMPARISON):
     comparison.populate(uttr)
   rank_charts(uttr)
