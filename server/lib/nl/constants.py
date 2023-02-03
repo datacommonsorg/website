@@ -242,6 +242,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
                 "grew",
                 "gain",
                 "increased?",
+                "increasing",
                 "surge(d)?",
                 "surging",
                 "rise(d|n)?",
@@ -249,6 +250,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             ],
             "Decrease": [
                 "decreased?",
+                "decreasing",
                 "shr(ank|ink|unk)(ing)?",
                 "reduced?",
                 "reduc(ing|tion)",

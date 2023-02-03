@@ -145,6 +145,7 @@ class TestHeuristicTimeDeltaClassifier(unittest.TestCase):
       ("What places have experienced a rise in cost of living"),
       ("What states have seen an increase in poverty"),
       ("What countries have seen a rise in the unemployment rate"),
+      ("Places with increasing crime"),
   ])
   def test_detect_increasing(self, query):
     expected = [TimeDeltaType.INCREASE]
@@ -173,6 +174,7 @@ class TestHeuristicTimeDeltaClassifier(unittest.TestCase):
       ("Has the number of people living in poverty decreased"),
       ("Are there areas where the number of homeless people has declined"),
       ("What countries have seen a drop in the number of people with health"),
+      ("Places with decreasing crime"),
   ])
   def test_detect_decreasing(self, query):
     expected = [TimeDeltaType.DECREASE]
