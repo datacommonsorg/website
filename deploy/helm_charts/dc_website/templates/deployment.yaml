@@ -130,11 +130,10 @@ spec:
             requests:
               memory: "8G"
           args:
-
             - --base_bigtable_info=$(BASE_BIGTABLE_INFO)
             - --custom_bigtable_info=$(CUSTOM_BIGTABLE_INFO)
             - --mixer_project=$(MIXER_PROJECT)
-            - --bq_dataset=$(BIGQUERY)
+            - --bq_dataset=$(BIG_QUERY)
             - --schema_path=/datacommons/mapping
             - --memdb_path=/datacommons/memdb
             {{- if eq $.Values.mixer.useTMCFCSVData true }}

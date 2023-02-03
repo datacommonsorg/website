@@ -13,7 +13,7 @@ website:
   image:
     repository: gcr.io/datcom-ci/datacommons-website
     pullPolicy: Always
-    tag: "custom-api-root"
+    tag:
 
   flaskEnv:
   secretGCPProjectID:
@@ -55,7 +55,7 @@ mixer:
   image:
     repository: gcr.io/datcom-ci/datacommons-mixer
     pullPolicy: Always
-    tag: "latest"
+    tag:
 
     useTMCFCSVData: false
     tmcfCSVBucket: ""

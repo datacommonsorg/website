@@ -14,6 +14,7 @@
 """Utterance JSONs for tests."""
 
 from lib.nl.detection import ClassificationType
+from lib.nl.detection import EventType
 from lib.nl.detection import RankingType
 from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartType
@@ -521,4 +522,39 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'svs': ['Count_Person_Female']
     }],
     'svs': ['Count_Person_Male', 'Count_Person_Female']
+}
+
+EVENT_UTTR = {
+    'classifications': [{
+        'event_type': [EventType.FIRE],
+        'type': ClassificationType.EVENT
+    }, {
+        'ranking_type': [RankingType.HIGH],
+        'type': ClassificationType.RANKING
+    }],
+    'places': [{
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
+    'query': 'foo sv in place',
+    'query_type': ClassificationType.EVENT,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 1,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [RankingType.HIGH],
+            'title': ''
+        },
+        'chart_type': ChartType.EVENT_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['4']
+    }],
+    'svs': []
 }
