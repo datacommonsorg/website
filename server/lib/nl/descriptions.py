@@ -127,7 +127,7 @@ def build_category_description(uttr: Utterance, sv2name) -> str:
   place_names = _join_list_phrase([p.name for p in first_chart.places])
   svs = _get_svs(uttr, sv2name)
 
-  if first_chart.attr['chart_type']:
+  if first_chart.attr.get('chart_type', None):
     chart_type = first_chart.attr['chart_type']
     if len(uttr.rankedCharts) > 1 or first_chart.attr['include_percapita']:
       # TODO: Find a more robust pluralization method.
