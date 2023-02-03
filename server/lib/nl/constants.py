@@ -263,7 +263,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
                 "loss",
             ],
         },
-        "Overview": ["tell me about",],
+        "Overview": ["tell me (more )?about",],
     }
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
