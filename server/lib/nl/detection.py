@@ -199,6 +199,12 @@ class EventClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
+class OverviewClassificationAttributes(ClassificationAttributes):
+  """Overview classification attributes"""
+  overview_trigger_words: List[str]
+
+
+@dataclass
 class TimeDeltaClassificationAttributes(ClassificationAttributes):
   """Time Delta classification attributes."""
   time_delta_types: List[TimeDeltaType]
@@ -219,7 +225,8 @@ class ClassificationType(IntEnum):
   COMPARISON = 7
   TIME_DELTA = 8
   EVENT = 9
-  UNKNOWN = 10
+  OVERVIEW = 10
+  UNKNOWN = 11
 
 
 # The supported classifications in order. Later entry is preferred.
@@ -231,6 +238,7 @@ RANKED_CLASSIFICATION_TYPES = [
     ClassificationType.CORRELATION,
     ClassificationType.TIME_DELTA,
     ClassificationType.EVENT,
+    ClassificationType.OVERVIEW,
 ]
 
 

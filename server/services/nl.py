@@ -28,6 +28,7 @@ from lib.nl.detection import CorrelationClassificationAttributes
 from lib.nl.detection import EventClassificationAttributes
 from lib.nl.detection import EventType
 from lib.nl.detection import NLClassifier
+from lib.nl.detection import OverviewClassificationAttributes
 from lib.nl.detection import PeriodType
 from lib.nl.detection import RankingClassificationAttributes
 from lib.nl.detection import RankingType
@@ -318,6 +319,26 @@ class Model:
         comparison_trigger_words=trigger_words)
     return NLClassifier(type=ClassificationType.COMPARISON,
                         attributes=attributes)
+
+  def heuristic_overview_classification(self,
+                                        query) -> Union[NLClassifier, None]:
+    """Heuristic-based classifier for overview queries."""
+    # make query lowercase for string matching
+    query = query.lower()
+    overview_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["Overview"]
+    trigger_words = []
+    for keyword in overview_heuristics:
+      # look for keyword surrounded by spaces or start/end delimiters
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+    # If no matches, this query is not an overview query
+    if not trigger_words:
+      return None
+
+    attributes = OverviewClassificationAttributes(
+        overview_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.OVERVIEW, attributes=attributes)
 
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
     ranking_type = RankingType.NONE
