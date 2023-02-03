@@ -89,6 +89,8 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const showPlaceColumn =
     Object.keys(eventPlaces).length / topEvents.length >
     MIN_PERCENT_PLACE_NAMES;
+  const showNameColumn =
+    topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
 
   return (
     <div
@@ -105,7 +107,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
               <thead>
                 <tr>
                   <td></td>
-                  <td>Name</td>
+                  {showNameColumn && <td>Name</td>}
                   {showPlaceColumn && <td>{props.enclosedPlaceType}</td>}
                   {(props.topEventMetadata.showStartDate ||
                     props.topEventMetadata.showEndDate) && <td>Date</td>}
@@ -123,13 +125,13 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
-                      <td>
-                        <a href={`/browser/${event.placeDcid}`}>
-                          {isUnnamedEvent(event.placeName)
-                            ? "Unnamed event"
-                            : event.placeName}
-                        </a>
-                      </td>
+                      {showNameColumn && (
+                        <td>
+                          <a href={`/browser/${event.placeDcid}`}>
+                            {getEventName(event)}
+                          </a>
+                        </td>
+                      )}
                       {showPlaceColumn && (
                         <td>
                           {eventPlaces[event.placeDcid]
@@ -281,11 +283,24 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       []
     );
   }
-}
 
-function isUnnamedEvent(name: string) {
-  return (
-    name.indexOf("started on") > 0 ||
-    (name.indexOf("Event at") > 0 && name.indexOf(" on ") > 0)
-  );
+  function isUnnamedEvent(name: string) {
+    return (
+      name.indexOf("started on") > 0 ||
+      (name.indexOf("Event at") > 0 && name.indexOf(" on ") > 0)
+    );
+  }
+
+  function getEventName(event: DisasterEventPoint) {
+    let name = event.placeName;
+    if (isUnnamedEvent(name)) {
+      const eventTypeName = props.eventTypeSpec.name;
+      if (eventPlaces[event.placeDcid]) {
+        name = `${eventTypeName} event in ${eventPlaces[event.placeDcid].name}`;
+      } else {
+        name = `${eventTypeName} event at lat/long: ${event.latitude},${event.longitude}`;
+      }
+    }
+    return name;
+  }
 }
