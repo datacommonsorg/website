@@ -28,6 +28,9 @@ from lib.nl.utterance import Utterance
 # Number of variables to plot in a chart (largely Timeline chart)
 _MAX_VARS_PER_CHART = 5
 
+OVERVIEW_TEXT = "{place} is a {place_type} in {parent_place}. It has a population of {population} in {population_year}. Here is more information about {place}."
+TIMELINE_TEXT = "Here is some information about {svs} and more in {place_name}."
+
 
 def populate(uttr: Utterance) -> bool:
   return populate_charts(
@@ -37,6 +40,8 @@ def populate(uttr: Utterance) -> bool:
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for simple')
+  description = TIMELINE_TEXT.format(place_name = ", ".join([p.name for p in places]),
+    svs = ", ".join(chart_vars.svs))
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.
     chart_type = ChartType.TIMELINE_CHART
@@ -50,7 +55,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
       # TODO: eventually for single SV case, make it a highlight chart
       chart_type = ChartType.BAR_CHART
   return add_chart_to_utterance(chart_type, state, chart_vars, places,
-                                chart_origin)
+                                chart_origin, "some charts")
 
 
 def _fallback_cb(state: PopulateState, places: List[Place],

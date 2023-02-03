@@ -70,6 +70,7 @@ class ChartSpec:
   svs: List[str]
   # A list of key-value attributes interpreted per chart_type
   attr: Dict
+  description: str = None
 
 
 # The main Utterance data structure that represents all state
@@ -101,6 +102,8 @@ class Utterance:
   answerPlaces: List[str]
   # Linked list of past utterances
   prev_utterance: Utterance
+  # If any of the detected variables are topics, the topic dcid.
+  topic: str = None
 
 
 #

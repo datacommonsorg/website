@@ -88,5 +88,5 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     cv = chart_vars
     cv.svs = [sv]
     found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state, cv, places,
-                                    chart_origin)
+                                    chart_origin, "time delta")
   return found

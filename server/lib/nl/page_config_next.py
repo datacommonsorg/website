@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import random
 from typing import Dict, List
 
 from config.subject_page_pb2 import Block
@@ -20,13 +21,66 @@ from config.subject_page_pb2 import RankingTileSpec
 from config.subject_page_pb2 import StatVarSpec
 from config.subject_page_pb2 import SubjectPageConfig
 from config.subject_page_pb2 import Tile
+from lib.nl import topic
 from lib.nl import utils
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
 from lib.nl.utterance import ChartSpec
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
+from lib.nl.detection import ContainedInClassificationAttributes
 
+# OVERVIEW_TEXT = "{place_name} is a {place_type} in {parent_place}. It has a population of {population} in {population_year}. Here is more information about {place}."
+OVERVIEW_TEXT = "{place_name} is a {place_type}{parent_place}. Here is more information about {place_name}."
+
+INFO_SYNONYMS = ["an overview of", "some information about", "some data about"]
+
+def _strip_sv_name(sv_name: str) -> str:
+  ret = sv_name.replace('Number of', '')
+  ret = ret.split(' in the ')[-1]
+  ret = ret.split(':')[-1]
+  return ret
+
+
+def _build_category_description(uttr: Utterance, sv2name) -> str:
+  first_chart = uttr.rankedCharts[0]
+  main_place = first_chart.places[0]
+  if first_chart.chart_type == ChartType.PLACE_OVERVIEW:
+    parent_places = utils.parent_place_names(main_place.dcid)
+    parent_place = ' in ' + ', '.join(sorted(parent_places, reverse=True)) if parent_places else ''
+    return OVERVIEW_TEXT.format(place_name=main_place.name, place_type=main_place.place_type.lower(), parent_place=parent_place)
+
+  desc = ''
+  if uttr.topic:
+    desc = topic.get_topic_name(uttr.topic).lower()
+    # if desc:
+    #   desc = ' about the' + desc.lower()
+
+  by = ''
+  if len(uttr.classifications) and isinstance(uttr.classifications[0].attributes, ContainedInClassificationAttributes):
+    place_type = uttr.classifications[0].attributes.contained_in_place_type
+    by = ' by ' + place_type.value.lower()
+    # if first_chart.description:
+    #   return "Here are some {chart}{desc} of {place} by {by}.".format(
+    #     chart=first_chart.description,
+    #     bar=place_type, desc=desc.lower(), place=main_place.name, by=place_type.value.lower())
+
+  if first_chart.description:
+    if desc:
+      return "Here are some {chart} about the {desc} of {place_name}{by}.".format(
+        chart=first_chart.description, desc=desc.lower(), place_name=main_place.name, by=by)
+    else:
+      return "Here are some {chart} about \"{sv1}\" and more in {place_name}{by}.".format(
+        chart=first_chart.description, sv1=sv2name[first_chart.svs[0]], place_name=main_place.name, by=by)
+  elif desc:
+    return "Here is {info_of} the {desc} in {place}, including \"{sv1}\" and more{by}.".format(
+      info_of=random.choice(INFO_SYNONYMS),
+      desc=desc.lower(), place=main_place.name, sv1=_strip_sv_name(sv2name[first_chart.svs[0]]), by=by)
+  return "Here is {info_of} about \"{sv1}\" and more in {place_name}{by}.".format(
+    info_of=random.choice(INFO_SYNONYMS),
+    place_name=main_place.name, sv1=_strip_sv_name(sv2name[first_chart.svs[0]]), by=by)
+    # category.description = "{place_name} is a {place_type}. Here is more information about {sv_name}.".format(
+    #   place_name = main_place.name, place_type = main_place.place_type, sv_name = sv2name[first_chart.svs[0]])
 
 #
 # Given an Utterance, build the final Chart config proto.
@@ -54,6 +108,12 @@ def build_page_config(uttr: Utterance) -> SubjectPageConfig:
   all_svs = list(all_svs)
   sv2name = utils.get_sv_name(all_svs)
 
+  # Add a human answer to the query
+  desc = _build_category_description(uttr, sv2name)
+  if desc:
+    category.description = desc
+
+  # Build chart blocks
   prev_block_id = -1
   block = None
   column = None
@@ -68,6 +128,8 @@ def build_page_config(uttr: Utterance) -> SubjectPageConfig:
       if block:
         category.blocks.append(block)
       block = Block()
+      # if cspec.description:
+      #   block.description = cspec.description
       column = block.columns.add()
       prev_block_id = block_id
 

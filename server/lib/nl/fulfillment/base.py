@@ -40,6 +40,8 @@ class PopulateState:
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
+  # If svs came from a topic, the topic dcid.
+  source_topic: str = ""
   block_id: int = 0
 
 
@@ -53,6 +55,8 @@ class ChartVars:
   title: str = ""
   # Represents a peer-group of SVs from a Topic.
   is_topic_peer_group: bool = False
+  # If svs came from a topic, the topic dcid.
+  # source_topic: str = ""
 
 
 #
@@ -60,7 +64,7 @@ class ChartVars:
 #
 def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
                            chart_vars: ChartVars, places: List[Place],
-                           primary_vs_secondary: ChartOriginType) -> bool:
+                           primary_vs_secondary: ChartOriginType, desc:str=None) -> bool:
   if state.place_type and isinstance(state.place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
     state.place_type = state.place_type.value
@@ -77,7 +81,8 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
                  svs=chart_vars.svs,
                  places=places,
                  utterance=state.uttr,
-                 attr=attr)
+                 attr=attr,
+                 description=desc)
   state.uttr.chartCandidates.append(ch)
   return True
 
@@ -191,7 +196,7 @@ def overview_fallback(state: PopulateState, places: List[Place],
                          block_id=state.block_id,
                          include_percapita=False)
   return add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
-                                places, chart_origin)
+                                places, chart_origin, "overview fallback")
 
 
 def _get_place_dcids(places: List[Place]) -> List[str]:
@@ -217,9 +222,13 @@ def _build_chart_vars(state: PopulateState, sv: str,
   if utils.is_sv(sv):
     state.block_id += 1
     return [ChartVars(svs=[sv], block_id=state.block_id)]
+  # XXX do something here?
   if utils.is_topic(sv):
     topic_vars = topic.get_topic_vars(sv, rank)
     peer_groups = topic.get_topic_peers(topic_vars)
+    # description = topic.get_topic_name(sv)
+    # state.source_topic = sv
+    state.uttr.topic = sv
 
     # Classify into two lists.
     just_svs = []
@@ -239,7 +248,8 @@ def _build_chart_vars(state: PopulateState, sv: str,
     for v in just_svs:
       # Skip PC for this case (per prior implementation)
       charts.append(
-          ChartVars(svs=[v], block_id=state.block_id, include_percapita=False))
+          ChartVars(svs=[v], block_id=state.block_id, include_percapita=False))#, source_topic=topic))
+      # description = None
 
     # 2. Make a block for every peer-group in svpgs
     for (title, svpg) in svpgs:

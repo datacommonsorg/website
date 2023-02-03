@@ -79,4 +79,4 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                                                   chart_vars.svs,
                                                   state.ranking_types[0])
   return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
-                                chart_origin)
+                                chart_origin, "ranked data")
