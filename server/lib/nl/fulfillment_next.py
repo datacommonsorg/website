@@ -75,6 +75,8 @@ def fulfill(query_detection: Detection,
     overview_classification = context.classifications_of_type_from_utterance(
         uttr, ClassificationType.OVERVIEW)
     if overview_classification and not filtered_svs:
+      # We detected some overview words ("tell me about") *and* there were
+      # no SVs in current utterance, so consider it a place overview.
       fulfillment_type = 'OVERVIEW'
       overview.populate(uttr)
     else:
