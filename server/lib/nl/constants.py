@@ -162,9 +162,9 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         "Ranking": {
             "High": [
                 "most",
-                "top",
+                "(?<!bottom to )top",
                 "best",  # leaving here for backwards-compatibility
-                "highest",
+                "(?<!lowest to )highest",
                 "high",
                 "largest",
                 "biggest",
@@ -180,14 +180,15 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             ],
             "Low": [
                 "least",
-                "bottom",
+                "(?<!top to )bottom",
                 "worst",  # leaving here for backwards-compatibility
-                "lowest",
+                "(?<!highest to )lowest",
                 "low",
                 "smallest",
                 "weakest",
                 "youngest",
                 "poorest",
+                "healthiest",
                 "ascending",
                 "bottom to top",
                 "lowest to highest",

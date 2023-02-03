@@ -205,7 +205,6 @@ class Model:
         event_types=event_types, event_trigger_words=all_trigger_words)
     return NLClassifier(type=ClassificationType.EVENT, attributes=attributes)
 
-  # TODO (juliawu): Add unit-testing
   def heuristic_ranking_classification(self,
                                        query) -> Union[NLClassifier, None]:
     """Determine if query is a ranking type.
