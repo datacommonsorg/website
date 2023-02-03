@@ -53,6 +53,12 @@ _EVENT_TYPE_TO_DISPLAY_NAME = {
     EventType.WETBULB: "High Wet-bulb Temperature Events",
 }
 
+_EVENT_FALLBACK_CHILD_PLACES = {
+    "Country": "State",
+    "State": "County",
+    "County": "City",
+}
+
 
 #
 # Given an Utterance, build the final Chart config proto.
@@ -401,6 +407,10 @@ def _event_chart_block(metadata, block, column, place: Place, event_key: str,
     logging.error('ID not found in event_type_spec: %s', event_id)
     return
 
+  if not place.place_type in metadata.contained_place_types:
+    metadata.contained_place_types[
+        place.place_type] = _EVENT_FALLBACK_CHILD_PLACES.get(
+            place.place_type, "Place")
   event_name = metadata.event_type_spec[event_id].name
   if event_type in _EVENT_TYPE_TO_DISPLAY_NAME:
     event_name = _EVENT_TYPE_TO_DISPLAY_NAME[event_type]
