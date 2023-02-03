@@ -21,7 +21,7 @@ from lib.nl.utterance import ChartType
 from lib.nl.utterance import TimeDeltaType
 
 # Utterance for Place Overview.
-PLACE_ONLY_UTTR = {
+SIMPLE_PLACE_ONLY_UTTR = {
     'classifications': [],
     'places': [{
         'dcid': 'geoId/06',
@@ -42,6 +42,38 @@ PLACE_ONLY_UTTR = {
         'chart_type': ChartType.PLACE_OVERVIEW,
         'places': [{
             'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': []
+    }],
+    'svs': [],
+}
+
+# Utterance for Place Overview.
+OVERVIEW_PLACE_ONLY_UTTR = {
+    'classifications': [{
+        'type': ClassificationType.OVERVIEW
+    }],
+    'places': [{
+        'dcid': 'geoId/01',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
+    'query': 'foo sv in place',
+    'query_type': ClassificationType.SIMPLE,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 1,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.PLACE_OVERVIEW,
+        'places': [{
+            'dcid': 'geoId/01',
             'name': 'Foo Place',
             'place_type': 'State'
         }],

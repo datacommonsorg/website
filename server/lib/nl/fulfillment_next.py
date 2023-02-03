@@ -24,6 +24,7 @@ from lib.nl.fulfillment import containedin
 from lib.nl.fulfillment import context
 from lib.nl.fulfillment import correlation
 from lib.nl.fulfillment import event
+from lib.nl.fulfillment import overview
 from lib.nl.fulfillment import ranking_across_places
 from lib.nl.fulfillment import ranking_across_vars
 from lib.nl.fulfillment import simple
@@ -71,8 +72,14 @@ def fulfill(query_detection: Detection,
   # Each query-type has its own handler. Each knows what arguments it needs and
   # will call on the *_from_context() routines to obtain missing arguments.
   if (uttr.query_type == ClassificationType.SIMPLE):
-    fulfillment_type = 'SIMPLE'
-    simple.populate(uttr)
+    overview_classification = context.classifications_of_type_from_utterance(
+        uttr, ClassificationType.OVERVIEW)
+    if overview_classification and not filtered_svs:
+      fulfillment_type = 'OVERVIEW'
+      overview.populate(uttr)
+    else:
+      fulfillment_type = 'SIMPLE'
+      simple.populate(uttr)
   elif (uttr.query_type == ClassificationType.CORRELATION):
     fulfillment_type = 'CORRELATION'
     correlation.populate(uttr)
