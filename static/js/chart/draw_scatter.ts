@@ -66,6 +66,8 @@ const MIN_LOGSCALE_VAL = 1e-11;
 const HIGHLIGHT_QUADRANT_SECTIONS = 4;
 // Min number of points in a quadrant to highlight
 const MIN_HIGHLIGHT_POINTS = 4;
+const MIN_TEXT_LABEL_HEIGHT = 10;
+const MIN_TEXT_LABEL_LENGTH = 95;
 
 enum ScaleType {
   LOG,
@@ -620,7 +622,7 @@ function getQuadrantHighlightPoints(
     // go layer by layer starting at the outside corner of each quadrant and add
     // points until the whole quadrant has been searched or min number of points
     // has been added.
-    const points = [];
+    const points: Point[] = [];
     let layer = 0;
     while (
       layer < HIGHLIGHT_QUADRANT_SECTIONS &&
@@ -658,7 +660,21 @@ function getQuadrantHighlightPoints(
       }
       layer++;
     }
-    result[quadrant] = points;
+    // filter out points that are too close to other points
+    result[quadrant] = points.filter((point, idx) => {
+      for (let i = idx - 1; i >= 0; i--) {
+        const iPoint = points[i];
+        const diffX = xScale(point.xVal) - xScale(iPoint.xVal);
+        const diffY = yScale(point.yVal) - yScale(iPoint.yVal);
+        if (
+          Math.abs(diffX) < MIN_TEXT_LABEL_LENGTH &&
+          Math.abs(diffY) < MIN_TEXT_LABEL_HEIGHT
+        ) {
+          return false;
+        }
+      }
+      return true;
+    });
   }
   return result;
 }
