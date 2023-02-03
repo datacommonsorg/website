@@ -22,6 +22,7 @@ from lib.nl.fulfillment import comparison
 from lib.nl.fulfillment import containedin
 from lib.nl.fulfillment import context
 from lib.nl.fulfillment import correlation
+from lib.nl.fulfillment import event
 from lib.nl.fulfillment import ranking_across_places
 from lib.nl.fulfillment import ranking_across_vars
 from lib.nl.fulfillment import simple
@@ -78,6 +79,8 @@ def fulfill(query_detection: Detection,
       ranking_across_vars.populate(uttr)
   elif (uttr.query_type == ClassificationType.COMPARISON):
     comparison.populate(uttr)
+  elif (uttr.query_type == ClassificationType.EVENT):
+    event.populate(uttr)
   elif (uttr.query_type == ClassificationType.TIME_DELTA):
     time_delta.populate(uttr)
   rank_charts(uttr)
