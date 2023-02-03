@@ -56,7 +56,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
       # TODO: eventually for single SV case, make it a highlight chart
       chart_type = ChartType.BAR_CHART
   return add_chart_to_utterance(chart_type, state, chart_vars, places,
-                                chart_origin, "some charts")
+                                chart_origin, "charts")
 
 
 def _fallback_cb(state: PopulateState, places: List[Place],
