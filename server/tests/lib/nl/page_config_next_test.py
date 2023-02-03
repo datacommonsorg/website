@@ -13,10 +13,10 @@
 # limitations under the License.
 """Integration tests for NL Next chart generation."""
 
+import random
 from typing import Dict
 import unittest
 from unittest.mock import patch
-import random
 
 from config.subject_page_pb2 import SubjectPageConfig
 from google.protobuf import text_format
@@ -673,10 +673,13 @@ class TestPageConfigNext(unittest.TestCase):
   ])
   @patch.object(utils, 'parent_place_names')
   @patch.object(utils, 'get_sv_name')
-  def test_main(self, test_name, uttr_dict, config_str, mock_sv_name, mock_parent_place_names):
+  def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
+                mock_parent_place_names):
     random.seed(1)
-    mock_sv_name.side_effect = (lambda svs: {sv: "{}-name".format(sv) for sv in svs})
-    mock_parent_place_names.side_effect = (lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
+    mock_sv_name.side_effect = (
+        lambda svs: {sv: "{}-name".format(sv) for sv in svs})
+    mock_parent_place_names.side_effect = (
+        lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
     got = _run(uttr_dict)
     self.maxDiff = None
     self.assertEqual(got, _textproto(config_str), test_name + ' failed!')
