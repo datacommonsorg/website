@@ -21,14 +21,14 @@ from config.subject_page_pb2 import StatVarSpec
 from config.subject_page_pb2 import SubjectPageConfig
 from config.subject_page_pb2 import Tile
 from lib.nl import utils
+from lib.nl.constants import EVENT_TYPE_TO_DISPLAY_NAME
+import lib.nl.descriptions as lib_desc
 from lib.nl.detection import EventType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
 from lib.nl.utterance import ChartSpec
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
-from lib.nl.constants import EVENT_TYPE_TO_DISPLAY_NAME
-import lib.nl.descriptions as lib_desc
 
 # NOTE: This relies on disaster config's event_type_spec IDs.
 # TODO: Consider switching these strings to proto enums and use those directly.

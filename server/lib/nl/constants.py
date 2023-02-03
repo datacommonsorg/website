@@ -14,6 +14,7 @@
 """Various constants for NL detection."""
 
 from typing import Dict, List, Set, Union
+
 from lib.nl.detection import EventType
 
 STOP_WORDS: Set[str] = {

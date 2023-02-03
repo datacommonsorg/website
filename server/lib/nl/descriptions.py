@@ -18,21 +18,22 @@
 
 import logging
 import random
-from typing import Dict, List
+from typing import List
 
 from lib.nl import detection
 from lib.nl import topic
 from lib.nl import utils
+from lib.nl.constants import EVENT_TYPE_TO_DISPLAY_NAME
 from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import EventClassificationAttributes
 import lib.nl.fulfillment.context as ctx
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
-from lib.nl.constants import EVENT_TYPE_TO_DISPLAY_NAME
 
 INFO_SYNONYMS = ["an overview of", "some information about", "some data about"]
 
 
+# Remove extraneous parts of the stat var name that does not read well in a sentence.
 def _strip_sv_name(sv_name: str) -> str:
   ret = sv_name.replace('Number of', '')
   ret = ret.split(' in the ')[-1]
@@ -53,6 +54,7 @@ def _join_list_phrase(l: List[str]) -> str:
   return ret
 
 
+# If utterance contains an event, returns the display name of the event. If not, empty string.
 def _get_event_description(uttr: Utterance) -> str:
   event_classification = ctx.classifications_of_type_from_utterance(
       uttr, detection.ClassificationType.EVENT)
@@ -64,6 +66,7 @@ def _get_event_description(uttr: Utterance) -> str:
   return ''
 
 
+# If utterance contains a contained in classification, returns a phrase ' by <contained_place_type>'. If not, empty string.
 def _get_contained_in(uttr: Utterance) -> str:
   if len(uttr.classifications) and isinstance(
       uttr.classifications[0].attributes, ContainedInClassificationAttributes):
@@ -72,6 +75,7 @@ def _get_contained_in(uttr: Utterance) -> str:
   return ''
 
 
+# If there are sv's in the utterance, builds a phrase '<sv>, <sv> and more' depending on the number of sv's. If not, empty string.
 def _get_svs(uttr: Utterance, sv2name) -> str:
   svs = uttr.rankedCharts[0].svs
   logging.info(svs)
@@ -96,7 +100,6 @@ def _get_svs(uttr: Utterance, sv2name) -> str:
   return sv0
 
 
-
 # Returns a string to be used as the category description, aka main text response, to the user's query.
 def build_category_description(uttr: Utterance, sv2name) -> str:
   first_chart = uttr.rankedCharts[0]
@@ -113,7 +116,7 @@ def build_category_description(uttr: Utterance, sv2name) -> str:
   desc = ''
   event_desc = _get_event_description(uttr)
   if event_desc:
-      desc = event_desc
+    desc = event_desc
   elif uttr.topic:
     desc = topic.get_topic_name(uttr.topic).lower()
     if desc == 'economy':
