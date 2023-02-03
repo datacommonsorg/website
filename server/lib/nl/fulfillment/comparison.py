@@ -34,12 +34,18 @@ def populate(uttr: Utterance) -> bool:
   state = PopulateState(uttr=uttr,
                         main_cb=_populate_cb,
                         fallback_cb=overview_fallback)
-  for places_to_compare in places_for_comparison_from_context(uttr):
+  place_comparison_candidates = places_for_comparison_from_context(uttr)
+  for places_to_compare in place_comparison_candidates:
+    dcids = [p.dcid for p in places_to_compare]
+    utils.update_counter(uttr.counters, 'comparison_place_candidates', dcids)
     if populate_charts_for_places(state, places_to_compare):
       return True
     else:
       utils.update_counter(uttr.counters, 'comparison_failed_populate_places',
-                           [p.dcid for p in places_to_compare])
+                           dcids)
+  if not place_comparison_candidates:
+    utils.update_counter(uttr.counters,
+                         'comparison_failed_to_find_multiple_places', 1)
   return False
 
 

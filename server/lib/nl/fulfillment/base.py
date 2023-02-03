@@ -138,12 +138,10 @@ def _add_charts(state: PopulateState, places: List[Place],
   if state.place_type:
     # REQUIRES: len(places) == 1
     places_to_check = utils.get_sample_child_places(places[0].dcid,
-                                                    state.place_type.value)
-    if not places_to_check:
-      utils.update_counter(state.uttr.counters, 'failed_sample_child_places',
-                           places[0].dcid + ' - ' + state.place_type.value)
-
+                                                    state.place_type.value,
+                                                    state.uttr.counters)
   if not places_to_check:
+    # Counter updated in get_sample_child_places
     return False
 
   # Map of main SV -> peer SVs

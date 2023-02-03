@@ -80,11 +80,10 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   # Get child place samples for existence check.
   places_to_check = utils.get_sample_child_places(place.dcid,
-                                                  state.place_type.value)
+                                                  state.place_type.value,
+                                                  state.uttr.counters)
   if not places_to_check:
-    utils.update_counter(state.uttr.counters,
-                         'correlation_failed_sample_child_places',
-                         place.dcid + ' - ' + state.place_type.value)
+    # Counter updated in get_sample_child_places
     return False
 
   # For the main SV of correlation, we expect a variable to

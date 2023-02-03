@@ -314,8 +314,8 @@ def _datestr_to_date(datestr: str) -> datetime.date:
 #
 # TODO: Maybe dedupe with data_spec.py
 #
-def get_sample_child_places(main_place_dcid: str,
-                            contained_place_type: str) -> List[str]:
+def _get_sample_child_places(main_place_dcid: str,
+                             contained_place_type: str) -> List[str]:
   """Find a sampled child place"""
   logging.info('_sample_child_place: for %s - %s', main_place_dcid,
                contained_place_type)
@@ -346,6 +346,17 @@ def get_sample_child_places(main_place_dcid: str,
           return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
   logging.info('_sample_child_place returning empty')
   return []
+
+
+def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
+                            counters: Dict) -> List[str]:
+  result = _get_sample_child_places(main_place_dcid, contained_place_type)
+  update_counter(counters, 'child_places_result', {
+      'place': main_place_dcid,
+      'type': contained_place_type,
+      'result': result
+  })
+  return result
 
 
 def get_sv_name(all_svs: List[str]) -> Dict:
