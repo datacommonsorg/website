@@ -29,7 +29,9 @@ from lib.nl.detection import RankingType
 from lib.nl.utterance import ChartSpec
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
-from lib.nl.detection import ContainedInClassificationAttributes
+from lib.nl.detection import ContainedInClassificationAttributes, EventClassificationAttributes
+import lib.nl.fulfillment.context as ctx
+from lib.nl import detection
 
 # NOTE: This relies on disaster config's event_type_spec IDs.
 # TODO: Consider switching these strings to proto enums and use those directly.
@@ -65,7 +67,10 @@ def _strip_sv_name(sv_name: str) -> str:
   ret = sv_name.replace('Number of', '')
   ret = ret.split(' in the ')[-1]
   ret = ret.split(':')[-1]
-  return ret
+  ret = ret.split('Percentage of')[-1]
+  ret = ret.split('Population of')[-1]
+  ret = ret.split('Population With')[-1]
+  return ret.strip()
 
 
 def _build_category_description(uttr: Utterance, sv2name) -> str:
@@ -77,10 +82,14 @@ def _build_category_description(uttr: Utterance, sv2name) -> str:
     return OVERVIEW_TEXT.format(place_name=main_place.name, place_type=main_place.place_type.lower(), parent_place=parent_place)
 
   desc = ''
-  if uttr.topic:
+  event_classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.EVENT)
+  if event_classification and isinstance(event_classification[0].attributes, EventClassificationAttributes):
+    event_types = event_classification[0].attributes.event_types
+    if event_types and _EVENT_TYPE_TO_DISPLAY_NAME[event_types[0]]:
+      desc = _EVENT_TYPE_TO_DISPLAY_NAME[event_types[0]].lower()
+  elif uttr.topic:
     desc = topic.get_topic_name(uttr.topic).lower()
-    # if desc:
-    #   desc = ' about the' + desc.lower()
 
   by = ''
   if len(uttr.classifications) and isinstance(uttr.classifications[0].attributes, ContainedInClassificationAttributes):
@@ -93,16 +102,22 @@ def _build_category_description(uttr: Utterance, sv2name) -> str:
 
   if first_chart.description:
     if desc:
-      return "Here are some {chart} about the {desc} of {place_name}{by}.".format(
+      return "Here are some {chart} about the {desc} in {place_name}{by}.".format(
         chart=first_chart.description, desc=desc.lower(), place_name=main_place.name, by=by)
     else:
       return "Here are some {chart} about \"{sv1}\" and more in {place_name}{by}.".format(
-        chart=first_chart.description, sv1=sv2name[first_chart.svs[0]], place_name=main_place.name, by=by)
+        chart=first_chart.description, sv1=_strip_sv_name(sv2name[first_chart.svs[0]]), place_name=main_place.name, by=by)
   elif desc:
-    return "Here is {info_of} the {desc} in {place}, including \"{sv1}\" and more{by}.".format(
+    sv_name = sv2name[first_chart.svs[0]]
+    if sv_name != first_chart.svs[0]:
+      sv_name=_strip_sv_name(sv_name)
+      return "Here is {info_of} the {desc} in {place}, including \"{sv1}\" and more{by}.".format(
+        info_of=random.choice(INFO_SYNONYMS),
+        desc=desc.lower(), place=main_place.name, sv1=sv_name, by=by)
+    return "Here is {info_of} the {desc} in {place}{by}.".format(
       info_of=random.choice(INFO_SYNONYMS),
-      desc=desc.lower(), place=main_place.name, sv1=_strip_sv_name(sv2name[first_chart.svs[0]]), by=by)
-  return "Here is {info_of} about \"{sv1}\" and more in {place_name}{by}.".format(
+      desc=desc.lower(), place=main_place.name, by=by)
+  return "Here is {info_of} \"{sv1}\" and more in {place_name}{by}.".format(
     info_of=random.choice(INFO_SYNONYMS),
     place_name=main_place.name, sv1=_strip_sv_name(sv2name[first_chart.svs[0]]), by=by)
     # category.description = "{place_name} is a {place_type}. Here is more information about {sv_name}.".format(
