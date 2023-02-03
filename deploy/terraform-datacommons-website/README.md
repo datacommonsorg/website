@@ -42,10 +42,9 @@ Before this module can be used on a project, you must ensure that the following 
 
 Please follow the [gcloud install doc](https://cloud.google.com/sdk/docs/install) and the [gsutil install doc](https://cloud.google.com/storage/docs/gsutil_install) to install both cli tools in the machine that is calling Terraform. Some modules may need to call gcloud/gsutil in the background.
 
+## Notes
 
-# Notes
-
-## null resources
+### null resources
 
 There are several resources named "null_resource" throughout the examples and modules. A null_resource does not represent a GCP resource. Instead, it executes script as if the completion of the script is the "create" operation. It is a workaround for things to be automated for which no official Terraform resource exists.
 

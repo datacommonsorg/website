@@ -64,9 +64,8 @@ gsutil ls -b -p $PROJECT_ID gs://$TF_STATE_BUCKET || gsutil mb -l us-central1 -p
 ROOT=$PWD
 
 # Clone DC website repo and mixer submodule.
-if [[ ! -d "website" ]]; then
-  git clone https://github.com/datacommonsorg/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
-fi
+rm -rf website
+git clone https://github.com/datacommonsorg/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 
 cd website
 WEBSITE_GITHASH=$(git rev-parse --short=7 HEAD)
@@ -114,9 +113,9 @@ terraform apply \
 
 # Run the BT automation Terraform script to set up BT loader.
 cd $ROOT
-if [[ ! -d "tools" ]]; then
-  git clone https://github.com/datacommonsorg/tools --branch $CUSTOM_DC_RELEASE_TAG --single-branch
-fi
+
+rm -rf tools
+git clone https://github.com/datacommonsorg/tools --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 
 
 # TODO(alex): support custom robot SA and resource bucket name.
