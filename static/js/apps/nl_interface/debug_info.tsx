@@ -107,6 +107,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     svScores: props.debugData["sv_matching"],
     svSentences: props.debugData["svs_to_sentences"],
     rankingClassification: props.debugData["ranking_classification"],
+    overviewClassification: props.debugData["overview_classification"],
     temporalClassification: props.debugData["temporal_classification"],
     timeDeltaClassification: props.debugData["time_delta_classification"],
     comparisonClassification: props.debugData["comparison_classification"],
@@ -191,6 +192,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>Event classification: {debugInfo.eventClassification}</Col>
+          </Row>
+          <Row>
+            <Col>
+              Overview classification: {debugInfo.overviewClassification}
+            </Col>
           </Row>
           <Row>
             <b>All SVs Matched (with scores):</b>

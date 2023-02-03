@@ -15,6 +15,7 @@
 
 import unittest
 
+from lib.nl.detection import ClassificationType
 from lib.nl.detection import EventType
 from lib.nl.detection import RankingType
 from lib.nl.detection import TimeDeltaType
@@ -129,6 +130,41 @@ class TestHeuristicEventClassifier(unittest.TestCase):
       ("Give me the average number of days with snowfall in Minneapolis"),
       ("How many people in Seattle"),
       ("Men with disabilities in the USA how many"),
+  ])
+  def test_no_false_positives(self, query):
+    # If no matches, classifier returns None
+    result = self._classifier(query)
+    self.assertIsNone(result)
+
+
+class TestHeuristicOverviewClassifier(unittest.TestCase):
+
+  @classmethod
+  def setUpClass(cls) -> None:
+    cls._classifier = Model.heuristic_overview_classification
+
+  @parameterized.expand([
+      ("Tell me about palo alto"),
+      ("new tell me about cambridge"),
+  ])
+  def test_detect_overview(self, query):
+    expected = ClassificationType.OVERVIEW
+    classification = self._classifier(query)
+    result = classification.type
+    self.assertEqual(result, expected)
+
+  @parameterized.expand([
+      ("Number of poor women in Mountain View"),
+      ("Hearing impaired in CA"),
+      ("What is the median age of residents in Chicago?"),
+      ("What is the average annual greenhouse gas emissions in Mexico City?"),
+      ("infant deaths in the united states"),
+      ("What is the population of hispanic people in Texas?"),
+      ("Give me the average number of days with snowfall in Minneapolis"),
+      ("How many people in Seattle"),
+      ("Men with disabilities in the USA how many"),
+      ("what about berkeley"),
+      ("how about in oregon"),
   ])
   def test_no_false_positives(self, query):
     # If no matches, classifier returns None
