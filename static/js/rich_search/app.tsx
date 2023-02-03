@@ -59,6 +59,7 @@ function App({
               <Container className="place-options" fluid={true}>
                 <div className="place-options-section">
                   <TextSearchBar
+                    inputId="query-search-input"
                     onSearch={onSearch}
                     initialValue={query}
                     placeholder='For example "doctorate degrees in the USA"'

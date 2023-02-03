@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import { Button, Input, InputGroup } from "reactstrap";
 
 interface TextSearchBarPropType {
+  inputId: string;
   onSearch: (string) => void;
   initialValue: string;
   placeholder: string;
@@ -32,6 +33,7 @@ interface TextSearchBarPropType {
 export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
   const [invalid, setInvalid] = useState(false);
   const [value, setValue] = useState<string>("");
+  const inputRef = createRef<HTMLInputElement>();
   useEffect(() => {
     setValue(props.initialValue);
   }, [props.initialValue]);
@@ -39,6 +41,8 @@ export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
     <div className="input-query">
       <InputGroup>
         <Input
+          id={props.inputId}
+          innerRef={inputRef}
           invalid={invalid}
           placeholder={props.placeholder}
           value={value}
@@ -50,7 +54,7 @@ export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
           className="pac-target-input"
           autoFocus={props.shouldAutoFocus}
         />
-        <Button onClick={handleSearch} className="rich-search-button">
+        <Button onClick={handleSearch} id="rich-search-button">
           <span className="material-icons search rich-search-icon">search</span>
         </Button>
       </InputGroup>
@@ -58,8 +62,10 @@ export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
   );
 
   function handleSearch(): void {
-    if (value) {
-      props.onSearch(value);
+    // TODO(beets): Undo the reliance on 'value' state and use the input's directly.
+    const inputVal = value || inputRef.current.value;
+    if (inputVal) {
+      props.onSearch(inputVal);
       if (props.clearValueOnSearch) {
         setValue("");
       }
