@@ -16,6 +16,7 @@
 import unittest
 
 from lib.nl.detection import RankingType
+from lib.nl.detection import TimeDeltaType
 from parameterized import parameterized
 from services.nl import Model
 
@@ -117,6 +118,92 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
       ("Which cities has fertility rate shrunk?"),
       ("Places where average age shrunk"),
       ("places with reduction in crime"),
+  ])
+  def test_no_false_positives(self, query):
+    # If no matches, classifier returns None
+    result = self._classifier(query)
+    self.assertIsNone(result)
+
+
+class TestHeuristicTimeDeltaClassifier(unittest.TestCase):
+  """Test heuristic-based time-delta classifier"""
+
+  @classmethod
+  def setUpClass(cls) -> None:
+    cls._classifier = Model.heuristic_time_delta_classification
+
+  @parameterized.expand([
+      ("What countries have seen the greatest increase in median income"),
+      ("Which places have seen the most increase in population?"),
+      ("Which cities have the highest growth rate of median income?"),
+      ("What countries have seen the greatest increase in median income"),
+      ("How has population grown in the last 4 years"),
+      ("median income growth in PA"),
+      ("median age grew, yes or no"),
+      ("where has there been a surge in number of storms"),
+      ("where are covid cases surging"),
+      ("What places have experienced a rise in cost of living"),
+      ("What states have seen an increase in poverty"),
+      ("What countries have seen a rise in the unemployment rate"),
+  ])
+  def test_detect_increasing(self, query):
+    expected = [TimeDeltaType.INCREASE]
+    classification = self._classifier(query)
+    result = classification.attributes.time_delta_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("places with greatest drop in life expectancy"),
+      ("Areas with the biggest population decline"),
+      ("Areas with the most significant population loss"),
+      ("Which places have seen the most decrease in population"),
+      ("What are the cities with the biggest decrease in unemployment"),
+      ("What are the states with the biggest drop in median income"),
+      ("Which cities has fertility rate shrunk?"),
+      ("Places where average age shrunk"),
+      ("places with reduction in crime"),
+      ("Where has the population decreased in the past 5 years"),
+      ("Are there places that have seen a decrease in average salary"),
+      ("How much has the average house price dropped in the last year"),
+      ("What are the areas where housing prices have decreased"),
+      ("Are there cities with a drop in population",),
+      ("Are there places where gas prices have declined"),
+      ("Are there places that have experienced a fall in average temperature"),
+      ("What states have experienced a decrease in cost of living"),
+      ("Has the number of people living in poverty decreased"),
+      ("Are there areas where the number of homeless people has declined"),
+      ("What countries have seen a drop in the number of people with health"),
+  ])
+  def test_detect_decreasing(self, query):
+    expected = [TimeDeltaType.DECREASE]
+    classification = self._classifier(query)
+    result = classification.attributes.time_delta_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("Violent crime count in London for the year 2001"),
+      ("How has the population of New York City changed over the past century?"
+      ),
+      ("What events happened on June 15, 2022?"),
+      ("States with highest GINI index"),
+      ("Which counties in CA have the highest population density"),
+      ("Where in America has the oldest population"),
+      ("Cities with the lowest crime rates"),
+      ("Countries whose populations are growing the slowest"),
+      ("States with the lowest gender income equality"),
+      ("Show me per capita rates of heart disease in USA"),
+      ("What is the average per household income of US States?"),
+      ("What places experienced wet bulb temperatures over 35 C?"),
+      ("Number of poor women in Mountain View"),
+      ("Hearing impaired in CA"),
+      ("What is the median age of residents in Chicago?"),
+      ("What is the average annual greenhouse gas emissions in Mexico City?"),
+      ("infant deaths in the united states"),
+      ("How does crime in Palo Alto compare to that of Santa Clara?"),
+      ("What is the GDP of USA? How does that compare to Russia?"),
+      ("Which state has better air quality, CA, OR, or WA?"),
+      ("Which has a higher population, X or Y?"),
+      ("What county has better education, A or B?"),
   ])
   def test_no_false_positives(self, query):
     # If no matches, classifier returns None
