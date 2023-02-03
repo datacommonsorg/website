@@ -54,6 +54,9 @@ def pick_best(probs):
 
 def pick_option(class_model, q, categories):
   """Return the assigned label or Inconclusive."""
+  if not q:
+    return "Inconclusive"
+
   probs = class_model.predict_proba([q])[0]
   if pick_best(probs):
     return categories[class_model.predict([q])[0]]
@@ -422,6 +425,9 @@ class Model:
 
     # Making an API call to the NL models server for get the embedding for the query.
     query_encoded = dc.nl_embeddings_vector(query)
+    if not query_encoded:
+      return None
+
     # TODO: when the correlation classifier is ready, remove this following conditional.
     if type_string in ["ranking", "temporal", "contained_in"]:
       classification_model: NLQueryClassificationModel = self.classification_models[
