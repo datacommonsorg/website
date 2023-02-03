@@ -377,3 +377,13 @@ def get_only_svs(svs: List[str]) -> List[str]:
     if is_sv(sv):
       ret.append(sv)
   return ret
+
+
+# Returns a list of parent place names for a dcid.
+def parent_place_names(dcid: str)->List[str]:
+  parent_dcids = dc.property_values(nodes=[dcid], prop='containedInPlace')[dcid]
+  if parent_dcids:
+    names = dc.property_values(nodes=parent_dcids, prop='name')
+    ret = [names[p][0] for p in parent_dcids]
+    return ret
+  return None
