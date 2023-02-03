@@ -13,6 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+variable "website_githash" {
+  type        =  string
+  description = "Determines which DC website image to use."
+}
+
+variable "mixer_githash" {
+  type        =  string
+  description = "Determines which DC Mixer image to use."
+}
+
 variable "project_id" {
   type        = string
   description = "This is the same GCP project id from the setup step."
