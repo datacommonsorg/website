@@ -114,4 +114,5 @@ def _populate_correlation_chart(state: PopulateState, place: Place, sv_1: str,
                          block_id=state.block_id,
                          include_percapita=False)
   return add_chart_to_utterance(ChartType.SCATTER_CHART, state, chart_vars,
-                                [place], ChartOriginType.PRIMARY_CHART, "scatter charts")
+                                [place], ChartOriginType.PRIMARY_CHART,
+                                "scatter charts")

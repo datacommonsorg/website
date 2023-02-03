@@ -21,17 +21,18 @@ from config.subject_page_pb2 import RankingTileSpec
 from config.subject_page_pb2 import StatVarSpec
 from config.subject_page_pb2 import SubjectPageConfig
 from config.subject_page_pb2 import Tile
+from lib.nl import detection
 from lib.nl import topic
 from lib.nl import utils
+from lib.nl.detection import ContainedInClassificationAttributes
+from lib.nl.detection import EventClassificationAttributes
 from lib.nl.detection import EventType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
+import lib.nl.fulfillment.context as ctx
 from lib.nl.utterance import ChartSpec
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
-from lib.nl.detection import ContainedInClassificationAttributes, EventClassificationAttributes
-import lib.nl.fulfillment.context as ctx
-from lib.nl import detection
 
 # NOTE: This relies on disaster config's event_type_spec IDs.
 # TODO: Consider switching these strings to proto enums and use those directly.
@@ -58,10 +59,8 @@ _EVENT_TYPE_TO_DISPLAY_NAME = {
     EventType.WETBULB: "High Wet-bulb Temperature Events",
 }
 
-# OVERVIEW_TEXT = "{place_name} is a {place_type} in {parent_place}. It has a population of {population} in {population_year}. Here is more information about {place}."
-OVERVIEW_TEXT = "{place_name} is a {place_type}{parent_place}. Here is more information about {place_name}."
-
 INFO_SYNONYMS = ["an overview of", "some information about", "some data about"]
+
 
 def _strip_sv_name(sv_name: str) -> str:
   ret = sv_name.replace('Number of', '')
@@ -78,13 +77,18 @@ def _build_category_description(uttr: Utterance, sv2name) -> str:
   main_place = first_chart.places[0]
   if first_chart.chart_type == ChartType.PLACE_OVERVIEW:
     parent_places = utils.parent_place_names(main_place.dcid)
-    parent_place = ' in ' + ', '.join(sorted(parent_places, reverse=True)) if parent_places else ''
-    return OVERVIEW_TEXT.format(place_name=main_place.name, place_type=main_place.place_type.lower(), parent_place=parent_place)
+    parent_place = ' in ' + ', '.join(sorted(
+        parent_places, reverse=True)) if parent_places else ''
+    "{place_name} is a {place_type}{parent_place}. Here is more information about {place_name}.".format(
+        place_name=main_place.name,
+        place_type=main_place.place_type.lower(),
+        parent_place=parent_place)
 
   desc = ''
   event_classification = ctx.classifications_of_type_from_utterance(
       uttr, detection.ClassificationType.EVENT)
-  if event_classification and isinstance(event_classification[0].attributes, EventClassificationAttributes):
+  if event_classification and isinstance(event_classification[0].attributes,
+                                         EventClassificationAttributes):
     event_types = event_classification[0].attributes.event_types
     if event_types and _EVENT_TYPE_TO_DISPLAY_NAME[event_types[0]]:
       desc = _EVENT_TYPE_TO_DISPLAY_NAME[event_types[0]].lower()
@@ -92,36 +96,45 @@ def _build_category_description(uttr: Utterance, sv2name) -> str:
     desc = topic.get_topic_name(uttr.topic).lower()
 
   by = ''
-  if len(uttr.classifications) and isinstance(uttr.classifications[0].attributes, ContainedInClassificationAttributes):
+  if len(uttr.classifications) and isinstance(
+      uttr.classifications[0].attributes, ContainedInClassificationAttributes):
     place_type = uttr.classifications[0].attributes.contained_in_place_type
     by = ' by ' + place_type.value.lower()
-    # if first_chart.description:
-    #   return "Here are some {chart}{desc} of {place} by {by}.".format(
-    #     chart=first_chart.description,
-    #     bar=place_type, desc=desc.lower(), place=main_place.name, by=place_type.value.lower())
 
   if first_chart.description:
     if desc:
       return "Here are some {chart} about the {desc} in {place_name}{by}.".format(
-        chart=first_chart.description, desc=desc.lower(), place_name=main_place.name, by=by)
+          chart=first_chart.description,
+          desc=desc.lower(),
+          place_name=main_place.name,
+          by=by)
     else:
       return "Here are some {chart} about \"{sv1}\" and more in {place_name}{by}.".format(
-        chart=first_chart.description, sv1=_strip_sv_name(sv2name[first_chart.svs[0]]), place_name=main_place.name, by=by)
+          chart=first_chart.description,
+          sv1=_strip_sv_name(sv2name[first_chart.svs[0]]),
+          place_name=main_place.name,
+          by=by)
   elif desc:
     sv_name = sv2name[first_chart.svs[0]]
     if sv_name != first_chart.svs[0]:
-      sv_name=_strip_sv_name(sv_name)
+      sv_name = _strip_sv_name(sv_name)
       return "Here is {info_of} the {desc} in {place}, including \"{sv1}\" and more{by}.".format(
-        info_of=random.choice(INFO_SYNONYMS),
-        desc=desc.lower(), place=main_place.name, sv1=sv_name, by=by)
+          info_of=random.choice(INFO_SYNONYMS),
+          desc=desc.lower(),
+          place=main_place.name,
+          sv1=sv_name,
+          by=by)
     return "Here is {info_of} the {desc} in {place}{by}.".format(
-      info_of=random.choice(INFO_SYNONYMS),
-      desc=desc.lower(), place=main_place.name, by=by)
+        info_of=random.choice(INFO_SYNONYMS),
+        desc=desc.lower(),
+        place=main_place.name,
+        by=by)
   return "Here is {info_of} \"{sv1}\" and more in {place_name}{by}.".format(
-    info_of=random.choice(INFO_SYNONYMS),
-    place_name=main_place.name, sv1=_strip_sv_name(sv2name[first_chart.svs[0]]), by=by)
-    # category.description = "{place_name} is a {place_type}. Here is more information about {sv_name}.".format(
-    #   place_name = main_place.name, place_type = main_place.place_type, sv_name = sv2name[first_chart.svs[0]])
+      info_of=random.choice(INFO_SYNONYMS),
+      place_name=main_place.name,
+      sv1=_strip_sv_name(sv2name[first_chart.svs[0]]),
+      by=by)
+
 
 #
 # Given an Utterance, build the final Chart config proto.

@@ -40,8 +40,9 @@ def populate(uttr: Utterance) -> bool:
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for simple')
-  description = TIMELINE_TEXT.format(place_name = ", ".join([p.name for p in places]),
-    svs = ", ".join(chart_vars.svs))
+  description = TIMELINE_TEXT.format(place_name=", ".join(
+      [p.name for p in places]),
+                                     svs=", ".join(chart_vars.svs))
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.
     chart_type = ChartType.TIMELINE_CHART

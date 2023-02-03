@@ -70,8 +70,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     cv = chart_vars
     cv.svs = [sv]
     add_chart_to_utterance(ChartType.MAP_CHART, state, cv, contained_places,
-                           chart_origin,
-                           "maps")
-                            # "contained in populate {count} {place_type}".format(count=len(contained_places),
-                            #  place_type=contained_places[0].place_type))
+                           chart_origin, "maps")
+    # "contained in populate {count} {place_type}".format(count=len(contained_places),
+    #  place_type=contained_places[0].place_type))
   return True

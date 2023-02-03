@@ -64,9 +64,12 @@ class ChartVars:
 #
 # Base helper to add a chart spec to an utterance.
 #
-def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
-                           chart_vars: ChartVars, places: List[Place],
-                           primary_vs_secondary: ChartOriginType, desc:str=None) -> bool:
+def add_chart_to_utterance(chart_type: ChartType,
+                           state: PopulateState,
+                           chart_vars: ChartVars,
+                           places: List[Place],
+                           primary_vs_secondary: ChartOriginType,
+                           desc: str = None) -> bool:
   if state.place_type and isinstance(state.place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
     state.place_type = state.place_type.value
@@ -250,7 +253,8 @@ def _build_chart_vars(state: PopulateState, sv: str,
     for v in just_svs:
       # Skip PC for this case (per prior implementation)
       charts.append(
-          ChartVars(svs=[v], block_id=state.block_id, include_percapita=False))#, source_topic=topic))
+          ChartVars(svs=[v], block_id=state.block_id,
+                    include_percapita=False))  #, source_topic=topic))
       # description = None
 
     # 2. Make a block for every peer-group in svpgs

@@ -154,7 +154,7 @@ def get_topic_peers(sv_dcids: List[str]):
   return ret
 
 
-def get_topic_name(topic_dcid: str)->str:
+def get_topic_name(topic_dcid: str) -> str:
   resp = dc.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
   if resp:
     return resp[0]
