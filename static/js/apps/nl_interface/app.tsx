@@ -55,7 +55,7 @@ export function App(): JSX.Element {
           } else {
             clearInterval(timer);
           }
-        }, 2000);
+        }, 10000);
         return () => clearInterval(timer);
       }
     }
