@@ -238,7 +238,6 @@ RANKED_CLASSIFICATION_TYPES = [
     ClassificationType.CORRELATION,
     ClassificationType.TIME_DELTA,
     ClassificationType.EVENT,
-    ClassificationType.OVERVIEW,
 ]
 
 

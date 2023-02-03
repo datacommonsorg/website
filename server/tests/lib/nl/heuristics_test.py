@@ -145,7 +145,6 @@ class TestHeuristicOverviewClassifier(unittest.TestCase):
 
   @parameterized.expand([
       ("Tell me about palo alto"),
-      ("more about tulare county"),
       ("new tell me about cambridge"),
   ])
   def test_detect_overview(self, query):
