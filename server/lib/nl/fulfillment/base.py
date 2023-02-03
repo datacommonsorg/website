@@ -30,6 +30,8 @@ from lib.nl.utterance import ChartSpec
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
 
+# TODO: Factor classification processing functions into a common place.
+
 
 # Data structure to store state for a single "populate" call.
 @dataclass

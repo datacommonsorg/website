@@ -58,6 +58,7 @@ module "apikeys" {
   source                   =  "../../modules/apikeys"
   project_id               = var.project_id
   dc_website_domain        = var.dc_website_domain
+  location                 = var.region
 
   resource_suffix          = local.resource_suffix
 }
@@ -127,6 +128,9 @@ module "k8s_resources" {
     kubernetes = kubernetes.datcom
     helm       = helm.datcom
   }
+
+  website_githash          =   var.website_githash
+  mixer_githash            =   var.mixer_githash
 
   source                   =  "../../modules/helm"
   project_id               = var.project_id
