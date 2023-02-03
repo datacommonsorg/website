@@ -169,11 +169,12 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
                 "largest",
                 "biggest",
                 "greatest",
-                "strongest",
+                "strongest?",
                 "richest",
                 "sickest",
                 "illest",
                 "oldest",
+                "major",  # as in 'major storms'
                 "descending",
                 "top to bottom",
                 "highest to lowest",

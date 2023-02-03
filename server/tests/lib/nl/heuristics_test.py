@@ -162,6 +162,8 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
       ("Richest countries by GDP"),
       ("Give me a top to bottom ranking of cities by population"),
       ("CO2 emissions by country, highest to lowest"),
+      ("major fires in california"),
+      ("what are the major causes of poverty in the world?"),
   ])
   def test_detect_highs(self, query: str):
     expected = [RankingType.HIGH]
