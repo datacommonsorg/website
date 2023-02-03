@@ -16,6 +16,7 @@
 import logging
 from typing import List
 
+from lib.nl import utils
 from lib.nl.detection import ClassificationType
 from lib.nl.detection import Detection
 from lib.nl.fulfillment import comparison
@@ -39,6 +40,10 @@ _SV_THRESHOLD = 0.5
 #
 def fulfill(query_detection: Detection,
             currentUtterance: Utterance) -> Utterance:
+
+  filtered_svs = filter_svs(query_detection.svs_detected.sv_dcids,
+                            query_detection.svs_detected.sv_scores)
+
   # Construct Utterance datastructure.
   uttr = Utterance(prev_utterance=currentUtterance,
                    query=query_detection.original_query,
@@ -46,11 +51,11 @@ def fulfill(query_detection: Detection,
                    detection=query_detection,
                    places=[],
                    classifications=query_detection.classifications,
-                   svs=filter_svs(query_detection.svs_detected.sv_dcids,
-                                  query_detection.svs_detected.sv_scores),
+                   svs=filtered_svs,
                    chartCandidates=[],
                    rankedCharts=[],
                    answerPlaces=[])
+  uttr.counters['filtered_svs'] = filtered_svs
 
   # If we could not detect query_type from user-query, infer from past context.
   if (uttr.query_type == ClassificationType.UNKNOWN):
@@ -60,29 +65,40 @@ def fulfill(query_detection: Detection,
   if (query_detection.places_detected):
     uttr.places.append(query_detection.places_detected.main_place)
 
+  logging.info('Handled query_type: %d', uttr.query_type.value)
+  fulfillment_type = 'UNHANDLED - ' + str(uttr.query_type.value)
+
   # Each query-type has its own handler. Each knows what arguments it needs and
   # will call on the *_from_context() routines to obtain missing arguments.
-  #
-  logging.info(uttr.query_type)
   if (uttr.query_type == ClassificationType.SIMPLE):
+    fulfillment_type = 'SIMPLE'
     simple.populate(uttr)
   elif (uttr.query_type == ClassificationType.CORRELATION):
+    fulfillment_type = 'CORRELATION'
     correlation.populate(uttr)
   elif (uttr.query_type == ClassificationType.CONTAINED_IN):
+    fulfillment_type = 'CONTAINED_IN'
     containedin.populate(uttr)
   elif (uttr.query_type == ClassificationType.RANKING):
     current_contained_classification = context.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if current_contained_classification:
+      fulfillment_type = 'RANKING_ACROSS_PLACES'
       ranking_across_places.populate(uttr)
     else:
+      fulfillment_type = 'RANKING_ACROSS_VARS'
       ranking_across_vars.populate(uttr)
   elif (uttr.query_type == ClassificationType.COMPARISON):
+    fulfillment_type = 'COMPARISON'
     comparison.populate(uttr)
   elif (uttr.query_type == ClassificationType.EVENT):
+    fulfillment_type = 'EVENT'
     event.populate(uttr)
   elif (uttr.query_type == ClassificationType.TIME_DELTA):
+    fulfillment_type = 'TIME_DELTA'
     time_delta.populate(uttr)
+
+  uttr.counters['fulfillment_type'] = fulfillment_type
   rank_charts(uttr)
   return uttr
 

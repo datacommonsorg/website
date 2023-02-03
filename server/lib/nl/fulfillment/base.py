@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 from dataclasses import field
 import logging
-from typing import List
+from typing import Dict, List
 
 from lib.nl import topic
 from lib.nl import utils
@@ -81,6 +81,7 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
                  utterance=state.uttr,
                  attr=attr)
   state.uttr.chartCandidates.append(ch)
+  utils.update_counter(state.uttr.counters, 'num_chart_candidates', 1)
   return True
 
 
@@ -93,9 +94,15 @@ def populate_charts(state: PopulateState) -> bool:
   for pl in state.uttr.places:
     if (populate_charts_for_places(state, [pl])):
       return True
+    else:
+      utils.update_counter(state.uttr.counters, 'failed_populate_main_place',
+                           pl.dcid)
   for pl in context.places_from_context(state.uttr):
     if (populate_charts_for_places(state, [pl])):
       return True
+    else:
+      utils.update_counter(state.uttr.counters, 'failed_populate_context_place',
+                           pl.dcid)
   return False
 
 
@@ -103,15 +110,20 @@ def populate_charts(state: PopulateState) -> bool:
 def populate_charts_for_places(state: PopulateState,
                                places: List[Place]) -> bool:
   if (len(state.uttr.svs) > 0):
-    foundCharts = _add_charts(state, places, state.uttr.svs)
-    if foundCharts:
+    if _add_charts(state, places, state.uttr.svs):
       return True
+    else:
+      utils.update_counter(state.uttr.counters, 'failed_populate_main_svs',
+                           state.uttr.svs)
   for svs in context.svs_from_context(state.uttr):
-    foundCharts = _add_charts(state, places, svs)
-    if foundCharts:
+    if _add_charts(state, places, svs):
       return True
+    else:
+      utils.update_counter(state.uttr.counters, 'failed_populate_context_svs',
+                           svs)
   logging.info('Doing fallback for %s - %s',
                ', '.join(_get_place_names(places)), ', '.join(state.uttr.svs))
+  utils.update_counter(state.uttr.counters, 'num_populate_fallbacks', 1)
   return state.fallback_cb(state, places, ChartOriginType.PRIMARY_CHART)
 
 
@@ -126,12 +138,16 @@ def _add_charts(state: PopulateState, places: List[Place],
   if state.place_type:
     # REQUIRES: len(places) == 1
     places_to_check = utils.get_sample_child_places(places[0].dcid,
-                                                    state.place_type.value)
+                                                    state.place_type.value,
+                                                    state.uttr.counters)
   if not places_to_check:
+    # Counter updated in get_sample_child_places
     return False
 
   # Map of main SV -> peer SVs
   sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
+  utils.update_counter(state.uttr.counters, 'stat_var_extensions',
+                       sv2extensions)
 
   # A set used to ensure that a set of SVs are constructed into charts
   # only once. For example SV1 and SV2 may both be main SVs, and part of
@@ -146,6 +162,12 @@ def _add_charts(state: PopulateState, places: List[Place],
     for chart_vars in chart_vars_list:
       exist_svs = utils.sv_existence_for_places(places_to_check, chart_vars.svs)
       if exist_svs:
+        if len(exist_svs) < len(chart_vars.svs):
+          utils.update_counter(
+              state.uttr.counters, 'failed_partial_existence_check', {
+                  'places': places_to_check,
+                  'svs': list(set(chart_vars.svs) - set(exist_svs)),
+              })
         logging.info('Existence check succeeded for %s - %s',
                      ', '.join(places_to_check), ', '.join(exist_svs))
         chart_vars.svs = exist_svs
@@ -153,7 +175,14 @@ def _add_charts(state: PopulateState, places: List[Place],
         if state.main_cb(state, chart_vars, places,
                          ChartOriginType.PRIMARY_CHART):
           found = True
+        else:
+          utils.update_counter(state.uttr.counters,
+                               'failed_populate_callback_primary', 1)
       else:
+        utils.update_counter(state.uttr.counters, 'failed_existence_check', {
+            'places': places_to_check,
+            'svs': chart_vars.svs
+        })
         logging.info('Existence check failed for %s - %s',
                      ', '.join(places_to_check), ', '.join(chart_vars.svs))
 
@@ -176,7 +205,15 @@ def _add_charts(state: PopulateState, places: List[Place],
       if state.main_cb(state, chart_vars, places,
                        ChartOriginType.SECONDARY_CHART):
         found = True
+      else:
+        utils.update_counter(state.uttr.counters,
+                             'failed_populate_callback_secondary', 1)
     elif len(exist_svs) < len(extended_svs):
+      utils.update_counter(
+          state.uttr.counters, 'failed_existence_check_extended_svs', {
+              'places': places_to_check,
+              'svs': list(set(extended_svs) - set(exist_svs))
+          })
       logging.info('Existence check failed for %s - %s',
                    ', '.join(places_to_check), ', '.join(extended_svs))
 
@@ -252,6 +289,12 @@ def _build_chart_vars(state: PopulateState, sv: str,
                     include_percapita=False,
                     title=title,
                     is_topic_peer_group=True))
+
+    utils.update_counter(state.uttr.counters, 'topics_processed',
+                         {sv: {
+                             'svs': just_svs,
+                             'peer_groups': svpgs,
+                         }})
     return charts
 
   return []
@@ -260,18 +303,18 @@ def _build_chart_vars(state: PopulateState, sv: str,
 # Takes a list of ordered vars which may contain SV and topic,
 # opens up "highly ranked" topics into SVs and returns it
 # ordered.
-def open_top_topics_ordered(svs: List[str]) -> List[str]:
+def open_top_topics_ordered(svs: List[str], counters: Dict) -> List[str]:
   opened_svs = []
   sv_set = set()
   for rank, var in enumerate(svs):
-    for sv in _open_topic_in_var(var, rank):
+    for sv in _open_topic_in_var(var, rank, counters):
       if sv not in sv_set:
         opened_svs.append(sv)
         sv_set.add(sv)
   return opened_svs
 
 
-def _open_topic_in_var(sv: str, rank: int) -> List[str]:
+def _open_topic_in_var(sv: str, rank: int, counters: Dict) -> List[str]:
   if utils.is_sv(sv):
     return [sv]
   if utils.is_topic(sv):
@@ -291,6 +334,13 @@ def _open_topic_in_var(sv: str, rank: int) -> List[str]:
     svs = just_svs
     for (title, svpg) in svpgs:
       svs.extend(svpg)
+
+    utils.update_counter(counters, 'topics_processed',
+                         {sv: {
+                             'svs': just_svs,
+                             'peer_groups': svpgs,
+                         }})
+
     return svs
 
   return []

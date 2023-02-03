@@ -114,6 +114,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
     eventClassification: props.debugData["event_classification"],
+    counters: props.debugData["counters"],
     dataSpec: props.debugData["data_spec"],
   };
 
@@ -216,7 +217,15 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Data Spec</b>
+            <b>Debug Counters</b>
+          </Row>
+          <Row>
+            <Col>
+              <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
+            </Col>
+          </Row>
+          <Row>
+            <b>Utterances</b>
           </Row>
           <Row>
             <Col>
