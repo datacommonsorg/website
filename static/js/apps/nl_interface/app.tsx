@@ -20,6 +20,7 @@
 
 import React, { useEffect, useState } from "react";
 
+import { getUrlToken } from "../../tools/stat_var/util";
 import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
@@ -27,6 +28,39 @@ import { QuerySearch } from "./query_search";
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
+
+  // Executes a single query through the search box.
+  // TODO: Do this by going through state/props instead of directly manipulating the DOM.
+  function executePrompt(prompt: string) {
+    if (prompt) {
+      (
+        document.getElementById("query-search-input") as HTMLInputElement
+      ).value = prompt;
+      (
+        document.getElementById("rich-search-button") as HTMLButtonElement
+      ).click();
+    }
+  }
+
+  useEffect(() => {
+    // Runs each prompt (';' separated) 10s apart.
+    const urlPrompts = getUrlToken("q");
+    if (urlPrompts) {
+      const prompts = urlPrompts.split(";");
+      executePrompt(prompts.shift());
+      if (prompts.length) {
+        const timer = setInterval(() => {
+          const p = prompts.shift();
+          if (p) {
+            executePrompt(p);
+          } else {
+            clearInterval(timer);
+          }
+        }, 10000);
+        return () => clearInterval(timer);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     // Scroll to the last query.

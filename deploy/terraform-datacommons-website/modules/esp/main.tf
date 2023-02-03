@@ -15,6 +15,12 @@
  */
 
 resource "null_resource" "fetch_mixer_grpc_latest_pb" {
+  # Alwways fetch the latest gRPC protobuf.
+  # This makes sure that /tmp/mixer-grpc.latest.pb exists even in re-runs.
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
   provisioner "local-exec" {
     command = "gsutil cp ${var.mixer_grpc_pb_gcs_path} /tmp/mixer-grpc.latest.pb"
   }

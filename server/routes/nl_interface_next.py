@@ -37,6 +37,7 @@ import lib.nl.fulfillment_next as fulfillment
 import lib.nl.page_config_next as nl_page_config
 import lib.nl.utils as utils
 import lib.nl.utterance as nl_utterance
+from lib.util import get_disaster_dashboard_configs
 import requests
 import services.datacommons as dc
 
@@ -131,15 +132,25 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
 
   ranking_classification = "<None>"
   temporal_classification = "<None>"
+  time_delta_classification = "<None>"
+  comparison_classification = "<None>"
   contained_in_classification = "<None>"
   correlation_classification = "<None>"
   clustering_classification = "<None>"
+  event_classification = "<None>"
 
   for classification in query_detection.classifications:
     if classification.type == ClassificationType.RANKING:
       ranking_classification = str(classification.attributes.ranking_type)
     elif classification.type == ClassificationType.TEMPORAL:
       temporal_classification = str(classification.type)
+    elif classification.type == ClassificationType.TIME_DELTA:
+      time_delta_classification = str(
+          classification.attributes.time_delta_types)
+    elif classification.type == ClassificationType.EVENT:
+      event_classification = str(classification.attributes.event_types)
+    elif classification.type == ClassificationType.COMPARISON:
+      comparison_classification = str(classification.type)
     elif classification.type == ClassificationType.CONTAINED_IN:
       contained_in_classification = str(classification.type)
       contained_in_classification = \
@@ -162,9 +173,12 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,
       'temporal_classification': temporal_classification,
+      'time_delta_classification': time_delta_classification,
       'contained_in_classification': contained_in_classification,
       'clustering_classification': clustering_classification,
+      'comparison_classification': comparison_classification,
       'correlation_classification': correlation_classification,
+      'event_classification': event_classification,
       'data_spec': context_history,
   }
   if query_detection.places_detected:
@@ -241,14 +255,18 @@ def _detection(orig_query, cleaned_query) -> Detection:
 
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)
-  comparison_classification = model.comparison_classification(query)
+  comparison_classification = model.heuristic_comparison_classification(query)
   temporal_classification = model.query_classification("temporal", query)
+  time_delta_classification = model.heuristic_time_delta_classification(query)
   contained_in_classification = model.query_classification(
       "contained_in", query)
+  event_classification = model.heuristic_event_classification(query)
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Comparison classification: {comparison_classification}')
   logging.info(f'Temporal classification: {temporal_classification}')
+  logging.info(f'TimeDelta classification: {time_delta_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
+  logging.info(f'Event Classification: {event_classification}')
 
   # Set the Classifications list.
   classifications = []
@@ -258,6 +276,10 @@ def _detection(orig_query, cleaned_query) -> Detection:
     classifications.append(comparison_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
+  if time_delta_classification is not None:
+    classifications.append(time_delta_classification)
+  if event_classification is not None:
+    classifications.append(event_classification)
 
   # Correlation classification
   correlation_classification = model.heuristic_correlation_classification(query)
@@ -312,6 +334,19 @@ def data():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+
+  # TODO: Switch to NL-specific event configs instead of relying
+  # on disaster dashboard's.
+  disaster_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
+  if current_app.config['LOCAL']:
+    # Reload configs for faster local iteration.
+    disaster_configs = get_disaster_dashboard_configs()
+  disaster_config = None
+  if disaster_configs:
+    disaster_config = disaster_configs[0]
+  else:
+    logging.error('Unable to load event configs!')
+
   original_query = request.args.get('q')
   context_history = request.get_json().get('contextHistory', [])
   escaped_context_history = escape(context_history)
@@ -342,7 +377,8 @@ def data():
   utterance = fulfillment.fulfill(query_detection, prev_utterance)
 
   if utterance.rankedCharts:
-    page_config_pb = nl_page_config.build_page_config(utterance)
+    page_config_pb = nl_page_config.build_page_config(utterance,
+                                                      disaster_config)
     page_config = json.loads(MessageToJson(page_config_pb))
     # Use the first chart's place as main place.
     main_place = utterance.rankedCharts[0].places[0]

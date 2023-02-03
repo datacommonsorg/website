@@ -62,6 +62,19 @@ gcloud alpha services api-keys create \
 --api-target=service=maps-backend.googleapis.com \
 --api-target=service=places-backend.googleapis.com
 
+EOT
+  }
+}
+
+resource "null_resource" "maps_api_key_fetch" {
+  # Regardless of the state, we always want to fetch the API key to a tmp file so
+  # the api key can be found in /tmp even in re-runs.
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  provisioner "local-exec" {
+    command = <<EOT
 touch /tmp/dc-website-api-key
 
 API_KEY_NAME=$(gcloud alpha services api-keys list --project=${var.project_id} --filter='displayName=maps-api-key${var.resource_suffix}' --format='value(name)' | head -n 1)
@@ -69,13 +82,15 @@ gcloud alpha services api-keys get-key-string $API_KEY_NAME --format='value(keyS
 
 EOT
   }
+
+  depends_on = [null_resource.maps_api_key]
 }
 
 # Needed because file(https://www.terraform.io/language/functions/file)
 # cannot be used for dynamically generated files.
 data "local_file" "website_api_key" {
   filename = "/tmp/dc-website-api-key"
-  depends_on = [null_resource.maps_api_key]
+  depends_on = [null_resource.maps_api_key_fetch]
 }
 
 resource "google_secret_manager_secret" "maps_api_key_secret" {
@@ -83,7 +98,11 @@ resource "google_secret_manager_secret" "maps_api_key_secret" {
   project      =  var.project_id
 
   replication {
-    automatic = true
+    user_managed {
+      replicas {
+        location = var.location
+      }
+    }
   }
 
   depends_on = [null_resource.maps_api_key]

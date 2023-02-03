@@ -162,29 +162,33 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         "Ranking": {
             "High": [
                 "most",
-                "top",
+                "(?<!bottom to )top",
                 "best",  # leaving here for backwards-compatibility
-                "highest",
+                "(?<!lowest to )highest",
                 "high",
-                "smallest",
+                "largest",
+                "biggest",
+                "greatest",
                 "strongest",
                 "richest",
                 "sickest",
                 "illest",
+                "oldest",
                 "descending",
                 "top to bottom",
                 "highest to lowest",
             ],
             "Low": [
                 "least",
-                "bottom",
+                "(?<!top to )bottom",
                 "worst",  # leaving here for backwards-compatibility
-                "lowest",
+                "(?<!highest to )lowest",
                 "low",
-                "largest",
+                "smallest",
                 "weakest",
                 "youngest",
                 "poorest",
+                "healthiest",
                 "ascending",
                 "bottom to top",
                 "lowest to highest",
@@ -192,6 +196,14 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "Best": ["best",],
             "Worst": ["worst",],
         },
+        "Comparison": [
+            "compare(s|d)?",
+            "comparison",
+            "(is|has|have)( a| the)? \w+er",
+            # WARNING: These will conflate with Correlation
+            "vs",
+            "versus",
+        ],
         "Correlation": [
             "correlate",
             "correlated",
@@ -202,9 +214,38 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "related to",
             "related with",
             "related between",
+            # WARNING: These will conflate with Comparison
             "vs",
             "versus",
         ],
+        "Event": {
+            "Fire": ["(wild)?fires?",],
+            "Drought": ["droughts?",],
+            "Flood": ["floods?",],
+            "Cyclone": [
+                "tropical storms?",
+                "cyclones?",
+                "hurricanes?",
+                "typhoons?",
+            ],
+            "ExtremeHeat": [
+                "(extreme )?heat",
+                "extreme(ly)? hot",
+            ],
+            "ExtremeCold": ["(extreme(ly)? )?cold",],
+            "WetBulb": ["wet(\W?)bulb",],
+            "Earthquake": ["earthquakes?",]
+        },
+        "TimeDelta": {
+            "Increase": [
+                "grow(n|th)",
+                "increased?",
+            ],
+            "Decrease": [
+                "decreased?",
+                "shr(ink|unk)",
+            ],
+        },
     }
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {

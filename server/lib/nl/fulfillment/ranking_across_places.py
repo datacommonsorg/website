@@ -14,7 +14,6 @@
 
 from typing import List
 
-from lib.nl import utils
 from lib.nl.detection import ClassificationType
 from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
@@ -24,6 +23,7 @@ from lib.nl.detection import RankingType
 from lib.nl.fulfillment import context
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
+from lib.nl.fulfillment.base import overview_fallback
 from lib.nl.fulfillment.base import populate_charts
 from lib.nl.fulfillment.base import PopulateState
 from lib.nl.utterance import ChartOriginType
@@ -32,18 +32,9 @@ from lib.nl.utterance import Utterance
 
 
 #
-# This handles both ranking across places and ranking across SVS.
-#
-# * For ranking across places, we should detect a ranking and contained-in
-#   classification in the current utterance.  For example, [counties with most rainfall],
-#   assuming california is in the context.
-# * For ranking across SVS, we should detect a ranking, but not contained-in
-#   classification in the current utterance.  In the callback, we will also
-#   check that the SVs are part of a peer group (only those are comparable!).
-#   For example, [most grown agricultural things], again assuming california
-#   is in the context.
-#   TODO: consider checking for common units, especially when we rely on
-#         auto-expanded peer groups of SVs.
+# For ranking across places, we should detect a ranking and contained-in
+# classification in the current utterance.  For example, [counties with most rainfall],
+# assuming california is in the context.
 #
 def populate(uttr: Utterance):
   # Get the RANKING classifications from the current utterance. That is what
@@ -68,21 +59,10 @@ def populate(uttr: Utterance):
       if populate_charts(
           PopulateState(uttr=uttr,
                         main_cb=_populate_cb,
-                        fallback_cb=_fallback_cb,
+                        fallback_cb=overview_fallback,
                         place_type=place_type,
                         ranking_types=ranking_types)):
         return True
-    else:
-      # Ranking among stat-vars.
-      if populate_charts(
-          PopulateState(uttr=uttr,
-                        main_cb=_populate_cb,
-                        fallback_cb=_fallback_cb,
-                        ranking_types=ranking_types)):
-        return True
-
-  # TODO: Consider if we want to go inside past contained-in classifications.
-  # That might be a bit non-intuitive though.
 
   # Fallback
   ranking_types = [RankingType.HIGH]
@@ -90,7 +70,7 @@ def populate(uttr: Utterance):
   return populate_charts(
       PopulateState(uttr=uttr,
                     main_cb=_populate_cb,
-                    fallback_cb=_fallback_cb,
+                    fallback_cb=overview_fallback,
                     place_type=place_type,
                     ranking_types=ranking_types))
 
@@ -101,25 +81,10 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     return False
   if len(places) > 1:
     return False
+  if not state.place_type:
+    return False
+  if len(chart_vars.svs) != 1:
+    return False
 
-  if state.place_type and len(chart_vars.svs) == 1:
-    # Ranking among places.
-    return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
-                                  places, chart_origin)
-  elif (not state.place_type and chart_vars.is_topic_peer_group and
-        len(chart_vars.svs) > 1):
-    # Ranking among peer group of SVs.
-    chart_vars.svs = utils.ranked_svs_for_place(places[0].dcid, chart_vars.svs,
-                                                state.ranking_types[0])
-    return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars,
-                                  places, chart_origin)
-  return False
-
-
-def _fallback_cb(state: PopulateState, containing_places: List[Place],
-                 chart_origin: ChartOriginType) -> bool:
-  # TODO: Poor choice, do better.
-  sv = "Count_Person"
-  state.block_id += 1
-  chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
-  return _populate_cb(state, chart_vars, containing_places, chart_origin)
+  return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
+                                places, chart_origin)

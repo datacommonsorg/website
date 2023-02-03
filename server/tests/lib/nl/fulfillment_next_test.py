@@ -34,20 +34,25 @@ from lib.nl.fulfillment import base
 from tests.lib.nl.test_utterance import COMPARISON_UTTR
 from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from tests.lib.nl.test_utterance import CORRELATION_UTTR
+from tests.lib.nl.test_utterance import EVENT_UTTR
 from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_BAR_DOWNGRADE_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
+from tests.lib.nl.test_utterance import TIME_DELTA_UTTR
 
 
 #
-# External interfaces that need mocking:
+# External interfaces that may need mocking:
 # - variable.extend_svs
 # - utils.sv_existence_for_places
 # - utils.get_sample_child_places
-# - fulfillment.base._svg_or_topic_to_svs
+# - utils.has_series_with_single_datapoint
+# - fulfillment.base._build_chart_vars
+# - fulfillment.base.open_topics_ordered
 #
 class TestDataSpecNext(unittest.TestCase):
 
@@ -65,8 +70,10 @@ class TestDataSpecNext(unittest.TestCase):
 
   # Example: [male population in california]
   @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'has_series_with_single_datapoint')
   @patch.object(utils, 'sv_existence_for_places')
-  def test_simple(self, mock_sv_existence, mock_extend_svs):
+  def test_simple(self, mock_sv_existence, mock_single_datapoint,
+                  mock_extend_svs):
     # First 2 SVs should be considered, and 3rd one dropped.
     detection = _detection(
         'geoId/06',
@@ -76,6 +83,7 @@ class TestDataSpecNext(unittest.TestCase):
     # MOCK:
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
+    mock_single_datapoint.return_value = False
     # - Make SVs exist
     mock_sv_existence.side_effect = [['Count_Person_Male'],
                                      ['Count_Person_Female']]
@@ -85,6 +93,31 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, SIMPLE_UTTR)
 
+  # Example: [male population in california]
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'has_series_with_single_datapoint')
+  @patch.object(utils, 'sv_existence_for_places')
+  def test_simple_barchart_downgrade(self, mock_sv_existence,
+                                     mock_single_datapoint, mock_extend_svs):
+    # First 2 SVs should be considered, and 3rd one dropped.
+    detection = _detection(
+        'geoId/06',
+        ['Count_Person_Male', 'Count_Person_Female', 'Count_Person_Foo'],
+        [0.6, 0.51, 0.4])
+
+    # MOCK:
+    # - Do no SV extensions
+    mock_extend_svs.return_value = {}
+    mock_single_datapoint.return_value = True
+    # - Make SVs exist
+    mock_sv_existence.side_effect = [['Count_Person_Male'],
+                                     ['Count_Person_Female']]
+
+    got = _run(detection, [])
+
+    self.maxDiff = None
+    self.assertEqual(got, SIMPLE_BAR_DOWNGRADE_UTTR)
+
   # This follows up on test_simple()
   # Example: [how many farms in its counties]
   @patch.object(variable, 'extend_svs')
@@ -93,7 +126,7 @@ class TestDataSpecNext(unittest.TestCase):
   def test_contained_in(self, mock_sv_existence, mock_child_places,
                         mock_extend_svs):
     # Detect a single SV for farms, with NO place.
-    detection = _detection(None, ['Count_Farm'], [0.6],
+    detection = _detection(None, ['Count_Farm', 'Income_Farm'], [0.6, 0.52],
                            ClassificationType.CONTAINED_IN)
 
     # MOCK:
@@ -102,7 +135,7 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Farm']]
+    mock_sv_existence.side_effect = [['Count_Farm'], ['Income_Farm']]
 
     got = _run(detection, [SIMPLE_UTTR])
 
@@ -126,7 +159,8 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Farm'], ['Mean_Precipitation']]
+    mock_sv_existence.side_effect = [['Count_Farm', 'Income_Farm'],
+                                     ['Mean_Precipitation']]
 
     # Pass in both simple and contained-in utterances.
     got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR])
@@ -187,8 +221,10 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This exercises SV expansion to peers.
   @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'has_series_with_single_datapoint')
   @patch.object(utils, 'sv_existence_for_places')
-  def test_simple_with_sv_extension(self, mock_sv_existence, mock_extend_svs):
+  def test_simple_with_sv_extension(self, mock_sv_existence,
+                                    mock_single_datapoint, mock_extend_svs):
     # Detect a single SV.
     detection = _detection('geoId/06', ['Count_Person_Male'], [0.6])
 
@@ -203,6 +239,7 @@ class TestDataSpecNext(unittest.TestCase):
                                          'Count_Person_Male',
                                          'Count_Person_Female'
                                      ]]
+    mock_single_datapoint.return_value = False
 
     got = _run(detection, [])
 
@@ -211,10 +248,11 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This exercises Topic expansion.
   @patch.object(variable, 'extend_svs')
-  @patch.object(base, '_svg_or_topic_to_svs')
+  @patch.object(base, '_build_chart_vars')
+  @patch.object(utils, 'has_series_with_single_datapoint')
   @patch.object(utils, 'sv_existence_for_places')
-  def test_simple_with_topic(self, mock_sv_existence, mock_topic_to_svs,
-                             mock_extend_svs):
+  def test_simple_with_topic(self, mock_sv_existence, mock_single_datapoint,
+                             mock_topic_to_svs, mock_extend_svs):
     # Detect a topic.
     detection = _detection('geoId/06', ['dc/topic/Agriculture'], [0.6])
 
@@ -240,6 +278,7 @@ class TestDataSpecNext(unittest.TestCase):
                        include_percapita=False,
                        is_topic_peer_group=True)
     ]
+    mock_single_datapoint.return_value = False
     # - Make SVs exist. Importantly, in the order in which the ChartVars were set.
     #   Make Wheat inventory fail existence check.
     mock_sv_existence.side_effect = [['Count_Farm'], ['Area_Farm'],
@@ -256,11 +295,13 @@ class TestDataSpecNext(unittest.TestCase):
   # This follows up on test_simple().  It relies on topic as well.
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'ranked_svs_for_place')
-  @patch.object(base, '_svg_or_topic_to_svs')
+  @patch.object(utils, 'rank_svs_by_latest_value')
+  @patch.object(base, '_build_chart_vars')
+  @patch.object(utils, 'has_series_with_single_datapoint')
   @patch.object(utils, 'sv_existence_for_places')
-  def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
-                              mock_ranked_svs, mock_extend_svs):
+  def test_ranking_across_svs(self, mock_sv_existence, mock_single_datapoint,
+                              mock_topic_to_svs, mock_rank_svs,
+                              mock_extend_svs):
     # Ranking, no place.
     detection = _detection(None, ['dc/topic/Agriculture'], [0.6],
                            ClassificationType.RANKING)
@@ -286,7 +327,48 @@ class TestDataSpecNext(unittest.TestCase):
         'Count_Farm'
     ], ['FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley']]
     # Differently order result
-    mock_ranked_svs.return_value = [
+    mock_rank_svs.return_value = [
+        'FarmInventory_Barley',
+        'FarmInventory_Rice',
+        'FarmInventory_Wheat',
+    ]
+    mock_single_datapoint.return_value = False
+
+    # Pass in just simple utterance
+    got = _run(detection, [SIMPLE_UTTR])
+
+    self.maxDiff = None
+    self.assertEqual(got, RANKING_ACROSS_SVS_UTTR)
+
+  # This follows up on test_simple().  It relies on topic as well.
+  # Example: [what are the most grown agricultural things?]
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'rank_svs_by_growth_rate')
+  @patch.object(base, '_build_chart_vars')
+  @patch.object(utils, 'sv_existence_for_places')
+  def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
+                      mock_extend_svs):
+    # Ranking, no place.
+    detection = _detection(None, ['dc/topic/AgricultureProduction'], [0.6],
+                           ClassificationType.TIME_DELTA)
+
+    # MOCK:
+    # - Do no SV extensions
+    mock_extend_svs.return_value = {}
+    mock_topic_to_svs.return_value = [
+        base.ChartVars(svs=[
+            'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
+        ],
+                       block_id=2,
+                       include_percapita=False,
+                       is_topic_peer_group=True)
+    ]
+    # - Make SVs exist
+    mock_sv_existence.side_effect = [[
+        'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
+    ]]
+    # Differently order result
+    mock_rank_svs.return_value = [
         'FarmInventory_Barley',
         'FarmInventory_Rice',
         'FarmInventory_Wheat',
@@ -296,7 +378,13 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [SIMPLE_UTTR])
 
     self.maxDiff = None
-    self.assertEqual(got, RANKING_ACROSS_SVS_UTTR)
+    self.assertEqual(got, TIME_DELTA_UTTR)
+
+  def test_event(self):
+    detection = _detection('geoId/06', [], [], ClassificationType.EVENT)
+    got = _run(detection, [])
+    self.maxDiff = None
+    self.assertEqual(got, EVENT_UTTR)
 
 
 # Helper to construct Detection() class.
@@ -349,6 +437,25 @@ def _detection(place: str,
                      attributes=nl_detection.RankingClassificationAttributes(
                          ranking_type=[RankingType.HIGH],
                          ranking_trigger_words=['most', 'highest']))
+    ]
+  elif query_type == ClassificationType.TIME_DELTA:
+    detection.classifications = [
+        NLClassifier(type=ClassificationType.TIME_DELTA,
+                     attributes=nl_detection.TimeDeltaClassificationAttributes(
+                         time_delta_types=[nl_detection.TimeDeltaType.INCREASE],
+                         time_delta_trigger_words=['growth']))
+    ]
+  elif query_type == ClassificationType.EVENT:
+    # Include ranking too.
+    detection.classifications = [
+        NLClassifier(type=ClassificationType.EVENT,
+                     attributes=nl_detection.EventClassificationAttributes(
+                         event_types=[nl_detection.EventType.FIRE],
+                         event_trigger_words=['earthquake'])),
+        NLClassifier(type=ClassificationType.RANKING,
+                     attributes=nl_detection.RankingClassificationAttributes(
+                         ranking_type=[RankingType.HIGH],
+                         ranking_trigger_words=['most']))
     ]
 
   return detection

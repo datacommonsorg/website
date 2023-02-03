@@ -14,9 +14,11 @@
 """Utterance JSONs for tests."""
 
 from lib.nl.detection import ClassificationType
+from lib.nl.detection import EventType
 from lib.nl.detection import RankingType
 from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartType
+from lib.nl.utterance import TimeDeltaType
 
 # Utterance for Place Overview.
 PLACE_ONLY_UTTR = {
@@ -285,8 +287,24 @@ CONTAINED_IN_UTTR = {
             'place_type': 'State'
         }],
         'svs': ['Count_Farm']
+    }, {
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': True,
+            'place_type': 'County',
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': 1,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['Income_Farm']
     }],
-    'svs': ['Count_Farm']
+    'svs': ['Count_Farm', 'Income_Farm']
 }
 
 # Utterance for correlation wrt previous SV.
@@ -314,6 +332,22 @@ CORRELATION_UTTR = {
             'place_type': 'State'
         }],
         'svs': ['Count_Farm', 'Mean_Precipitation']
+    }, {
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': 'County',
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.SCATTER_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['Income_Farm', 'Mean_Precipitation']
     }],
     'svs': ['Mean_Precipitation']
 }
@@ -381,4 +415,146 @@ RANKING_ACROSS_SVS_UTTR = {
         ]
     }],
     'svs': ['dc/topic/Agriculture']
+}
+
+# Utterance for time-delta query
+TIME_DELTA_UTTR = {
+    'classifications': [{
+        'time_delta_type': [TimeDeltaType.INCREASE],
+        'type': ClassificationType.TIME_DELTA
+    }],
+    'places': [],
+    'query': 'foo sv in place',
+    'query_type': ClassificationType.TIME_DELTA,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Barley']
+    }, {
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Rice']
+    }, {
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Wheat']
+    }],
+    'svs': ['dc/topic/AgricultureProduction']
+}
+
+# Sample as SIMPLE_UTTR, but TIMELINE_CHARTs turned into BAR_CHARTs.
+SIMPLE_BAR_DOWNGRADE_UTTR = {
+    'classifications': [],
+    'places': [{
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
+    'query': 'foo sv in place',
+    'query_type': ClassificationType.SIMPLE,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 1,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': True,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.BAR_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['Count_Person_Male']
+    }, {
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': True,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.BAR_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['Count_Person_Female']
+    }],
+    'svs': ['Count_Person_Male', 'Count_Person_Female']
+}
+
+EVENT_UTTR = {
+    'classifications': [{
+        'event_type': [EventType.FIRE],
+        'type': ClassificationType.EVENT
+    }, {
+        'ranking_type': [RankingType.HIGH],
+        'type': ClassificationType.RANKING
+    }],
+    'places': [{
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
+    'query': 'foo sv in place',
+    'query_type': ClassificationType.EVENT,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 1,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [RankingType.HIGH],
+            'title': ''
+        },
+        'chart_type': ChartType.EVENT_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['4']
+    }],
+    'svs': []
 }
