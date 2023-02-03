@@ -52,6 +52,8 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
       # TODO: eventually for single SV case, make it a highlight chart
       chart_type = ChartType.BAR_CHART
       chart_vars.response_type = "bar chart"
+      utils.update_counter(state.uttr.counters,
+                           'simple_timeline_to_bar_demotions', 1)
   return add_chart_to_utterance(chart_type, state, chart_vars, places,
                                 chart_origin)
 

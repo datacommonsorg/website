@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from typing import List
 
 from lib.nl import detection
@@ -33,6 +32,7 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
       not isinstance(event_classification[0].attributes,
                      detection.EventClassificationAttributes) or
       not event_classification[0].attributes.event_types):
+    utils.update_counter(uttr.counters, 'event_failed_no_event_types', 1)
     return False
   event_types = event_classification[0].attributes.event_types
 
@@ -57,16 +57,22 @@ def _populate_event(state: base.PopulateState,
   for pl in state.uttr.places:
     if (_populate_event_for_place(state, event_types, pl)):
       return True
+    else:
+      utils.update_counter(state.uttr.counters,
+                           'event_failed_populate_main_place', pl.dcid)
   for pl in ctx.places_from_context(state.uttr):
     if (_populate_event_for_place(state, event_types, pl)):
       return True
+    else:
+      utils.update_counter(state.uttr.counters,
+                           'event_failed_populate_context_place', pl.dcid)
   return False
 
 
 def _populate_event_for_place(state: base.PopulateState,
                               event_types: List[detection.EventType],
                               place: detection.Place) -> bool:
-  # TODO: Perform some form of existence check.
+  # TODO: Perform some form of existence checks.
 
   etype_str = str(event_types[0].value)
   state.block_id += 1

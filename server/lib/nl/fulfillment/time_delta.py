@@ -67,24 +67,37 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for time_delta')
   if not state.time_delta_types:
+    utils.update_counter(state.uttr.counters,
+                         'time-delta_failed_cb_notimedeltatypes', 1)
     return False
   if len(places) > 1:
+    utils.update_counter(state.uttr.counters,
+                         'time-delta_failed_cb_toomanyplaces',
+                         [p.dcid for p in places])
     return False
   if len(chart_vars.svs) < 2:
+    utils.update_counter(state.uttr.counters, 'time-delta_failed_cb_toofewsvs',
+                         chart_vars.svs)
     return False
   if not chart_vars.is_topic_peer_group:
+    utils.update_counter(state.uttr.counters,
+                         'time-delta_failed_cb_nopeergroup', chart_vars.svs)
     return False
 
   found = False
   # Compute time-delta ranks.
   rank_order = state.ranking_types[0] if state.ranking_types else None
   logging.info('Attempting to compute growth rate stats')
-  chart_vars.svs = utils.rank_svs_by_growth_rate(
+  ranked_svs = utils.rank_svs_by_growth_rate(
       place=places[0].dcid,
       svs=chart_vars.svs,
       growth_direction=state.time_delta_types[0],
       rank_order=rank_order)
-  for sv in chart_vars.svs:
+  utils.update_counter(state.uttr.counters, 'time-delta_reranked_svs', {
+      'orig': chart_vars.svs,
+      'ranked': ranked_svs,
+  })
+  for sv in ranked_svs:
     cv = chart_vars
     cv.svs = [sv]
     cv.response_type = "growth chart"

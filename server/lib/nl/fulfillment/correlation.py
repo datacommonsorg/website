@@ -54,6 +54,10 @@ def populate(uttr: Utterance) -> bool:
                       fallback_cb=None,
                       place_type=place_type)):
       return True
+    else:
+      utils.update_counter(uttr.counters,
+                           'correlation_failed_populate_placestype',
+                           place_type.value)
   return False
 
 
@@ -61,40 +65,61 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
   for pl in state.uttr.places:
     if (_populate_correlation_for_place(state, pl)):
       return True
+    else:
+      utils.update_counter(state.uttr.counters,
+                           'correlation_failed_populate_main_place', pl.dcid)
   for pl in places_from_context(state.uttr):
     if (_populate_correlation_for_place(state, pl)):
       return True
+    else:
+      utils.update_counter(state.uttr.counters,
+                           'correlation_failed_populate_context_place', pl.dcid)
   return False
 
 
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   # Get child place samples for existence check.
   places_to_check = utils.get_sample_child_places(place.dcid,
-                                                  state.place_type.value)
+                                                  state.place_type.value,
+                                                  state.uttr.counters)
   if not places_to_check:
+    # Counter updated in get_sample_child_places
     return False
 
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
-  main_svs = open_top_topics_ordered(state.uttr.svs)
+  main_svs = open_top_topics_ordered(state.uttr.svs, state.uttr.counters)
   main_svs = utils.sv_existence_for_places(places_to_check, main_svs)
   if not main_svs:
+    utils.update_counter(state.uttr.counters,
+                         'correlation_failed_existence_check_main_sv', main_svs)
+    utils.update_counter(state.uttr.counters,
+                         'correlation_failed_missing_main_sv', 1)
     logging.info('Correlation found no Main SV')
     return False
 
   # For related SV, walk up the chain to find all SVs.
   context_svs = []
   for c_svs in svs_from_context(state.uttr):
-    opened_svs = open_top_topics_ordered(c_svs)
+    opened_svs = open_top_topics_ordered(c_svs, state.uttr.counters)
     context_svs = utils.sv_existence_for_places(places_to_check, opened_svs)
     if context_svs:
       break
+    else:
+      utils.update_counter(state.uttr.counters,
+                           'correlation_failed_existence_check_context_sv',
+                           opened_svs)
   if not context_svs:
+    utils.update_counter(state.uttr.counters,
+                         'correlation_failed_missing_context_sv', 1)
     logging.info('Correlation found no Context SV')
     return False
 
   main_svs = main_svs[:_MAX_MAIN_SVS]
   context_svs = context_svs[:_MAX_CONTEXT_SVS]
+  utils.update_counter(state.uttr.counters, 'correlation_main_svs', main_svs)
+  utils.update_counter(state.uttr.counters, 'correlation_context_svs',
+                       context_svs)
   logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
   logging.info('Correlation Context SVs: %s', ', '.join(context_svs))
 

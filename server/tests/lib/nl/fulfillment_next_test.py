@@ -35,10 +35,11 @@ from tests.lib.nl.test_utterance import COMPARISON_UTTR
 from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from tests.lib.nl.test_utterance import CORRELATION_UTTR
 from tests.lib.nl.test_utterance import EVENT_UTTR
-from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
+from tests.lib.nl.test_utterance import OVERVIEW_PLACE_ONLY_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_BAR_DOWNGRADE_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
@@ -66,7 +67,7 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [])
 
     self.maxDiff = None
-    self.assertEqual(got, PLACE_ONLY_UTTR)
+    self.assertEqual(got, SIMPLE_PLACE_ONLY_UTTR)
 
   # Example: [male population in california]
   @patch.object(variable, 'extend_svs')
@@ -92,6 +93,25 @@ class TestDataSpecNext(unittest.TestCase):
 
     self.maxDiff = None
     self.assertEqual(got, SIMPLE_UTTR)
+
+  def test_simple_with_overview(self):
+    # Query type simple with OVERVIEW classifier
+    detection = _detection(
+        'geoId/01',
+        # Very low scores that we should ignore all SVs.
+        ['Count_Farm', 'Income_Farm'],
+        [0.4, 0.2])
+    # Set comparison classifier
+    detection.classifications = [
+        NLClassifier(type=ClassificationType.OVERVIEW,
+                     attributes=nl_detection.OverviewClassificationAttributes(
+                         overview_trigger_words=['tell me']))
+    ]
+
+    got = _run(detection, [SIMPLE_UTTR])
+
+    self.maxDiff = None
+    self.assertEqual(got, OVERVIEW_PLACE_ONLY_UTTR)
 
   # Example: [male population in california]
   @patch.object(variable, 'extend_svs')
@@ -385,6 +405,37 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [])
     self.maxDiff = None
     self.assertEqual(got, EVENT_UTTR)
+
+  # Example: [male population in california]
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'has_series_with_single_datapoint')
+  @patch.object(utils, 'sv_existence_for_places')
+  def test_counters_simple(self, mock_sv_existence, mock_single_datapoint,
+                           mock_extend_svs):
+    # First 2 SVs should be considered, and 3rd one dropped.
+    detection = _detection(
+        'geoId/06',
+        ['Count_Person_Male', 'Count_Person_Female', 'Count_Person_Foo'],
+        [0.6, 0.51, 0.4])
+
+    # MOCK:
+    # - Do no SV extensions
+    mock_extend_svs.return_value = {}
+    mock_single_datapoint.return_value = False
+    # - Make SVs exist
+    mock_sv_existence.side_effect = [['Count_Person_Male'],
+                                     ['Count_Person_Female']]
+
+    got = fulfillment_next.fulfill(detection, None).counters
+
+    self.maxDiff = None
+    _COUNTERS = {
+        'filtered_svs': ['Count_Person_Male', 'Count_Person_Female'],
+        'fulfillment_type': 'SIMPLE',
+        'num_chart_candidates': 2,
+        'stat_var_extensions': [{}]
+    }
+    self.assertEqual(got, _COUNTERS)
 
 
 # Helper to construct Detection() class.

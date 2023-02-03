@@ -118,7 +118,20 @@ to be brought up locally (in a separate process):
 ```bash
 ./run_nl_server.sh -p 6060
 ```
-By default the NL server runs on port 6060. 
+
+By default the NL server runs on port 6060.
+
+### Use Local Mixer
+
+If local mixer is needed, can start it locally by following [this
+instruction](https://github.com/datacommonsorg/mixer/blob/master/docs/developer_guide.md#develop-mixer-locally-with-docker-and-kubernetes).
+This allows development with custom BigTable or mixer code change.
+
+Then start the Flask server with `-l` option to let it use the local mixer:
+
+```bash
+./run_server.sh -l
+```
 
 ## Deploy local changes to dev insance in GCP
 

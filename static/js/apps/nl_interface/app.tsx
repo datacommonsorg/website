@@ -30,6 +30,7 @@ export function App(): JSX.Element {
   const [contextList, setContextList] = useState<any[]>([]);
 
   // Executes a single query through the search box.
+  // TODO: Do this by going through state/props instead of directly manipulating the DOM.
   function executePrompt(prompt: string) {
     if (prompt) {
       (
@@ -42,7 +43,7 @@ export function App(): JSX.Element {
   }
 
   useEffect(() => {
-    // Runs each prompt (';' separated) 2s apart.
+    // Runs each prompt (';' separated) 10s apart.
     const urlPrompts = getUrlToken("q");
     if (urlPrompts) {
       const prompts = urlPrompts.split(";");
