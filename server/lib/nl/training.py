@@ -17,6 +17,7 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List
 
+from lib.nl.detection import BinaryClassificationResultType
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.linear_model import LogisticRegression
 
@@ -25,7 +26,7 @@ from sklearn.linear_model import LogisticRegression
 class NLQueryClassificationType:
   """Types of classifications supported in the NL module."""
   name: str
-  categories: Dict[str, str]
+  categories: Dict[str, BinaryClassificationResultType]
 
 
 @dataclass
@@ -66,9 +67,9 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
             classification_type=NLQueryClassificationType(
                 name="ranking",
                 categories={
-                    "1": "Rankings-High",
-                    "2": "Rankings-Low",
-                    "3": "No Ranking",
+                    "1": BinaryClassificationResultType.SUCCESS,
+                    "2": BinaryClassificationResultType.SUCCESS,
+                    "3": BinaryClassificationResultType.FAILURE,
                 },
             ),
             training_sentences={
@@ -172,8 +173,8 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
             classification_type=NLQueryClassificationType(
                 name="temporal",
                 categories={
-                    "1": "Temporal",
-                    "2": "Not Temporal",
+                    "1": BinaryClassificationResultType.SUCCESS,
+                    "2": BinaryClassificationResultType.FAILURE,
                 },
             ),
             training_sentences={
@@ -275,8 +276,8 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
             classification_type=NLQueryClassificationType(
                 name="contained_in",
                 categories={
-                    "1": "Contained In",
-                    "2": "Not Contained In",
+                    "1": BinaryClassificationResultType.SUCCESS,
+                    "2": BinaryClassificationResultType.FAILURE,
                 },
             ),
             training_sentences={
