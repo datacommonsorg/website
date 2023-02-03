@@ -22,8 +22,10 @@ from lib.nl.fulfillment import comparison
 from lib.nl.fulfillment import containedin
 from lib.nl.fulfillment import context
 from lib.nl.fulfillment import correlation
-from lib.nl.fulfillment import ranking
+from lib.nl.fulfillment import ranking_across_places
+from lib.nl.fulfillment import ranking_across_vars
 from lib.nl.fulfillment import simple
+from lib.nl.fulfillment import time_delta
 from lib.nl.utterance import Utterance
 
 # We will ignore SV detections that are below this threshold
@@ -52,7 +54,6 @@ def fulfill(query_detection: Detection,
   # If we could not detect query_type from user-query, infer from past context.
   if (uttr.query_type == ClassificationType.UNKNOWN):
     uttr.query_type = context.query_type_from_context(uttr)
-  logging.info(uttr.query_type)
 
   # Add detected places.
   if (query_detection.places_detected):
@@ -61,6 +62,7 @@ def fulfill(query_detection: Detection,
   # Each query-type has its own handler. Each knows what arguments it needs and
   # will call on the *_from_context() routines to obtain missing arguments.
   #
+  logging.info(uttr.query_type)
   if (uttr.query_type == ClassificationType.SIMPLE):
     simple.populate(uttr)
   elif (uttr.query_type == ClassificationType.CORRELATION):
@@ -68,9 +70,16 @@ def fulfill(query_detection: Detection,
   elif (uttr.query_type == ClassificationType.CONTAINED_IN):
     containedin.populate(uttr)
   elif (uttr.query_type == ClassificationType.RANKING):
-    ranking.populate(uttr)
+    current_contained_classification = context.classifications_of_type_from_utterance(
+        uttr, ClassificationType.CONTAINED_IN)
+    if current_contained_classification:
+      ranking_across_places.populate(uttr)
+    else:
+      ranking_across_vars.populate(uttr)
   elif (uttr.query_type == ClassificationType.COMPARISON):
     comparison.populate(uttr)
+  elif (uttr.query_type == ClassificationType.TIME_DELTA):
+    time_delta.populate(uttr)
   rank_charts(uttr)
   return uttr
 
@@ -81,7 +90,7 @@ def fulfill(query_detection: Detection,
 # TODO: Maybe improve in future.
 def rank_charts(utterance: Utterance):
   for chart in utterance.chartCandidates:
-    print("Chart: %s %s\n" % (chart.places, chart.svs))
+    logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates
 
 

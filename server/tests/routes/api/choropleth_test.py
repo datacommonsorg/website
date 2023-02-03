@@ -305,7 +305,7 @@ class TestChoroplethData(unittest.TestCase):
 
   @patch('routes.api.choropleth.dc.get_places_in')
   @patch('routes.api.choropleth.lib_util.point_within_core')
-  @patch('routes.api.choropleth.series_api.series_core')
+  @patch('routes.api.choropleth.lib_util.series_core')
   @patch('routes.api.choropleth.get_choropleth_display_level')
   @patch('routes.api.choropleth.get_choropleth_configs')
   @patch('routes.api.shared.get_stat_vars')

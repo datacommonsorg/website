@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 from typing import List
 
+from lib.nl import utils
 from lib.nl.detection import Place
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
@@ -34,6 +36,7 @@ def populate(uttr: Utterance) -> bool:
 
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
+  logging.info('populate_cb for simple')
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.
     chart_type = ChartType.TIMELINE_CHART
@@ -41,6 +44,11 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     # When there are too many, comparing latest values is better
     # (than, say, breaking it into multiple timeline charts)
     chart_type = ChartType.BAR_CHART
+  if chart_type == ChartType.TIMELINE_CHART:
+    if utils.has_series_with_single_datapoint(places[0].dcid, chart_vars.svs):
+      # Demote to bar chart if single point.
+      # TODO: eventually for single SV case, make it a highlight chart
+      chart_type = ChartType.BAR_CHART
   return add_chart_to_utterance(chart_type, state, chart_vars, places,
                                 chart_origin)
 

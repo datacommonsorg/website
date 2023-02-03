@@ -23,6 +23,7 @@ from lib.nl import variable
 from lib.nl.detection import ContainedInPlaceType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
+from lib.nl.detection import TimeDeltaType
 from lib.nl.fulfillment import context
 from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartSpec
@@ -38,6 +39,7 @@ class PopulateState:
   fallback_cb: any
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
+  time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   block_id: int = 0
 
 
@@ -115,7 +117,7 @@ def populate_charts_for_places(state: PopulateState,
 # TODO: Batch existence check calls
 def _add_charts(state: PopulateState, places: List[Place],
                 svs: List[str]) -> bool:
-  print("Add chart %s %s" % (', '.join(_get_place_names(places)), svs))
+  logging.info("Add chart %s %s" % (', '.join(_get_place_names(places)), svs))
 
   # If there is a child place_type, get child place samples for existence check.
   places_to_check = _get_place_dcids(places)
@@ -123,6 +125,8 @@ def _add_charts(state: PopulateState, places: List[Place],
     # REQUIRES: len(places) == 1
     places_to_check = utils.get_sample_child_places(places[0].dcid,
                                                     state.place_type.value)
+  if not places_to_check:
+    return False
 
   # Map of main SV -> peer SVs
   sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
@@ -136,10 +140,12 @@ def _add_charts(state: PopulateState, places: List[Place],
   for rank, sv in enumerate(svs):
 
     # Infer charts for the main SV/Topic.
-    chart_vars_list = _svg_or_topic_to_svs(state, sv, rank)
+    chart_vars_list = _build_chart_vars(state, sv, rank)
     for chart_vars in chart_vars_list:
       exist_svs = utils.sv_existence_for_places(places_to_check, chart_vars.svs)
       if exist_svs:
+        logging.info('Existence check succeeded for %s - %s',
+                     ', '.join(places_to_check), ', '.join(exist_svs))
         chart_vars.svs = exist_svs
         # Now that we've found existing vars, call the per-chart-type callback.
         if state.main_cb(state, chart_vars, places,
@@ -172,7 +178,20 @@ def _add_charts(state: PopulateState, places: List[Place],
       logging.info('Existence check failed for %s - %s',
                    ', '.join(places_to_check), ', '.join(extended_svs))
 
+  logging.info("Add chart %s %s returning %r" %
+               (', '.join(_get_place_names(places)), svs, found))
   return found
+
+
+def overview_fallback(state: PopulateState, places: List[Place],
+                      chart_origin: ChartOriginType) -> bool:
+  # Overview chart is a safe fallback.
+  state.block_id += 1
+  chart_vars = ChartVars(svs=[],
+                         block_id=state.block_id,
+                         include_percapita=False)
+  return add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
+                                places, chart_origin)
 
 
 def _get_place_dcids(places: List[Place]) -> List[str]:
@@ -193,8 +212,8 @@ def _get_place_names(places: List[Place]) -> List[str]:
 # Returns a list of ChartVars, where each ChartVars may be a single SV or
 # group of SVs.
 #
-def _svg_or_topic_to_svs(state: PopulateState, sv: str,
-                         rank: int) -> List[ChartVars]:
+def _build_chart_vars(state: PopulateState, sv: str,
+                      rank: int) -> List[ChartVars]:
   if utils.is_sv(sv):
     state.block_id += 1
     return [ChartVars(svs=[sv], block_id=state.block_id)]
@@ -232,5 +251,44 @@ def _svg_or_topic_to_svs(state: PopulateState, sv: str,
                     title=title,
                     is_topic_peer_group=True))
     return charts
+
+  return []
+
+
+# Takes a list of ordered vars which may contain SV and topic,
+# opens up "highly ranked" topics into SVs and returns it
+# ordered.
+def open_top_topics_ordered(svs: List[str]) -> List[str]:
+  opened_svs = []
+  sv_set = set()
+  for rank, var in enumerate(svs):
+    for sv in _open_topic_in_var(var, rank):
+      if sv not in sv_set:
+        opened_svs.append(sv)
+        sv_set.add(sv)
+  return opened_svs
+
+
+def _open_topic_in_var(sv: str, rank: int) -> List[str]:
+  if utils.is_sv(sv):
+    return [sv]
+  if utils.is_topic(sv):
+    topic_vars = topic.get_topic_vars(sv, rank)
+    peer_groups = topic.get_topic_peers(topic_vars)
+
+    # Classify into two lists.
+    just_svs = []
+    svpgs = []
+    for v in topic_vars:
+      if v in peer_groups and peer_groups[v]:
+        title = topic.svpg_name(v)
+        svpgs.append((title, peer_groups[v]))
+      else:
+        just_svs.append(v)
+
+    svs = just_svs
+    for (title, svpg) in svpgs:
+      svs.extend(svpg)
+    return svs
 
   return []
