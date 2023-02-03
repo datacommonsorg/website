@@ -377,3 +377,20 @@ def get_only_svs(svs: List[str]) -> List[str]:
     if is_sv(sv):
       ret.append(sv)
   return ret
+
+
+# Convenience function to help update counters.
+#
+# For a given counter, caller should always pass the same type
+# for value.  If value is numeric, then its a single added
+# counter, otherwise, counter is a list of values.
+def update_counter(dbg_counters: Dict, counter: str, value: any):
+  should_add = counter not in dbg_counters
+  if isinstance(value, int) or isinstance(value, float):
+    if should_add:
+      dbg_counters[counter] = 0
+    dbg_counters[counter] += value
+  else:
+    if should_add:
+      dbg_counters[counter] = []
+    dbg_counters[counter].append(value)

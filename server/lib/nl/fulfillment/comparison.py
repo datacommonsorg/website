@@ -15,6 +15,7 @@
 import logging
 from typing import List
 
+from lib.nl import utils
 from lib.nl.detection import Place
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
@@ -36,6 +37,9 @@ def populate(uttr: Utterance) -> bool:
   for places_to_compare in places_for_comparison_from_context(uttr):
     if populate_charts_for_places(state, places_to_compare):
       return True
+    else:
+      utils.update_counter(uttr.counters, 'comparison_failed_populate_places',
+                           [p.dcid for p in places_to_compare])
   return False
 
 
@@ -43,6 +47,8 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for comparison')
   if len(places) < 2:
+    utils.update_counter(state.uttr.counters,
+                         'comparison_failed_cb_toofewplaces', 1)
     return False
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                          chart_origin)

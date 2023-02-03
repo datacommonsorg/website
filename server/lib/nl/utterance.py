@@ -17,6 +17,7 @@
 #
 
 from dataclasses import dataclass
+from dataclasses import field
 from enum import IntEnum
 import logging
 from typing import Dict, List
@@ -102,6 +103,10 @@ class Utterance:
   answerPlaces: List[str]
   # Linked list of past utterances
   prev_utterance: Utterance
+  # Debug counters that are cleared out before serializing.
+  # Some of these might be promoted to the main Debug Info display,
+  # but everything else will appear in the raw output.
+  counters: Dict = field(default_factory=dict)
 
 
 #

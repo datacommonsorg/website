@@ -386,6 +386,37 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, EVENT_UTTR)
 
+  # Example: [male population in california]
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'has_series_with_single_datapoint')
+  @patch.object(utils, 'sv_existence_for_places')
+  def test_counters_simple(self, mock_sv_existence, mock_single_datapoint,
+                           mock_extend_svs):
+    # First 2 SVs should be considered, and 3rd one dropped.
+    detection = _detection(
+        'geoId/06',
+        ['Count_Person_Male', 'Count_Person_Female', 'Count_Person_Foo'],
+        [0.6, 0.51, 0.4])
+
+    # MOCK:
+    # - Do no SV extensions
+    mock_extend_svs.return_value = {}
+    mock_single_datapoint.return_value = False
+    # - Make SVs exist
+    mock_sv_existence.side_effect = [['Count_Person_Male'],
+                                     ['Count_Person_Female']]
+
+    got = fulfillment_next.fulfill(detection, None).counters
+
+    self.maxDiff = None
+    _COUNTERS = {
+        'filtered_svs': ['Count_Person_Male', 'Count_Person_Female'],
+        'fulfillment_type': 'SIMPLE',
+        'num_chart_candidates': 2,
+        'stat_var_extensions': [{}]
+    }
+    self.assertEqual(got, _COUNTERS)
+
 
 # Helper to construct Detection() class.
 def _detection(place: str,

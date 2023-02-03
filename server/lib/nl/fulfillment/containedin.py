@@ -15,6 +15,7 @@
 import logging
 from typing import List
 
+from lib.nl import utils
 from lib.nl.detection import ClassificationType
 from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
@@ -45,13 +46,21 @@ def populate(uttr: Utterance) -> bool:
                       fallback_cb=overview_fallback,
                       place_type=place_type)):
       return True
+    else:
+      utils.update_counter(uttr.counters,
+                           'containedin_failed_populate_placetype',
+                           place_type.value)
   # TODO: poor default; should do this based on main place
   place_type = ContainedInPlaceType.COUNTY
-  return populate_charts(
+  result = populate_charts(
       PopulateState(uttr=uttr,
                     main_cb=_populate_cb,
                     fallback_cb=overview_fallback,
                     place_type=place_type))
+  if not result:
+    utils.update_counter(uttr.counters, 'containedin_failed_populate_fallback',
+                         place_type.value)
+  return result
 
 
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
@@ -60,10 +69,21 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('populate_cb for contained-in')
 
   if not state.place_type:
+    utils.update_counter(state.uttr.counters,
+                         'containedin_failed_cb_missing_type', 1)
     return False
   if not chart_vars:
+    utils.update_counter(state.uttr.counters,
+                         'containedin_failed_cb_missing_chat_vars', 1)
+    return False
+  if not chart_vars.svs:
+    utils.update_counter(state.uttr.counters,
+                         'containedin_failed_cb_missing_svs', 1)
     return False
   if len(contained_places) > 1:
+    utils.update_counter(state.uttr.counters,
+                         'containedin_failed_cb_toomanyplaces',
+                         contained_places)
     return False
 
   for sv in chart_vars.svs:

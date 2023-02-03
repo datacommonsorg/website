@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 from typing import List
 
+from lib.nl import utils
 from lib.nl.detection import ClassificationType
 from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
@@ -63,6 +65,10 @@ def populate(uttr: Utterance):
                         place_type=place_type,
                         ranking_types=ranking_types)):
         return True
+      else:
+        utils.update_counter(uttr.counters,
+                             'ranking-across-places_failed_populate_placetype',
+                             place_type.value)
 
   # Fallback
   ranking_types = [RankingType.HIGH]
@@ -77,13 +83,24 @@ def populate(uttr: Utterance):
 
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
+  logging.info('populate_cb for ranking_across_places')
   if not state.ranking_types:
+    utils.update_counter(state.uttr.counters,
+                         'ranking-across-places_failed_norankingtypes', 1)
     return False
   if len(places) > 1:
+    utils.update_counter(state.uttr.counters,
+                         'ranking-across-places_failed_toomanyplaces',
+                         [p.dcid for p in places])
     return False
   if not state.place_type:
+    utils.update_counter(state.uttr.counters,
+                         'ranking-across-places_failed_noplacetype', 1)
     return False
   if len(chart_vars.svs) != 1:
+    utils.update_counter(state.uttr.counters,
+                         'ranking-across-places_failed_toomanysvs',
+                         [chart_vars.svs])
     return False
 
   return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,

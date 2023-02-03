@@ -117,8 +117,10 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
 
 
-def _result_with_debug_info(data_dict, status, query_detection: Detection,
-                            context_history: List[Dict]):
+def _result_with_debug_info(data_dict: Dict, status: str,
+                            query_detection: Detection,
+                            uttr_history: List[Dict],
+                            debug_counters: Dict) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -164,8 +166,8 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
       clustering_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
       clustering_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
 
-  # TODO: Revisit debug info to add places and variables in context
-  # TODO: Add SVs that were actually used
+  logging.info(uttr_history)
+  logging.info(debug_counters)
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
@@ -179,7 +181,8 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
       'comparison_classification': comparison_classification,
       'correlation_classification': correlation_classification,
       'event_classification': event_classification,
-      'data_spec': context_history,
+      'counters': debug_counters,
+      'data_spec': uttr_history,
   }
   if query_detection.places_detected:
     debug_info.update({
@@ -365,7 +368,8 @@ def data():
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   _detection("", ""), escaped_context_history)
+                                   _detection("", ""), escaped_context_history,
+                                   {})
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -373,7 +377,6 @@ def data():
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
-  logging.info(prev_utterance)
   utterance = fulfillment.fulfill(query_detection, prev_utterance)
 
   if utterance.rankedCharts:
@@ -388,6 +391,8 @@ def data():
     logging.info('Found empty place for query "%s"',
                  query_detection.original_query)
 
+  dbg_counters = utterance.counters
+  utterance.counters = None
   context_history = nl_utterance.save_utterance(utterance)
 
   data_dict = {
@@ -409,5 +414,5 @@ def data():
       status_str += '**No SVs Found**.'
 
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
-                                      context_history)
+                                      context_history, dbg_counters)
   return data_dict
