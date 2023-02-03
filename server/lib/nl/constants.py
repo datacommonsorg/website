@@ -174,6 +174,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
                 "sickest",
                 "illest",
                 "oldest",
+                "major",  # as in 'major storms'
                 "descending",
                 "top to bottom",
                 "highest to lowest",
@@ -238,12 +239,28 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         },
         "TimeDelta": {
             "Increase": [
-                "grow(n|th)",
+                "grow(n|th)?",
+                "grew",
+                "gain",
                 "increased?",
+                "increasing",
+                "surge(d)?",
+                "surging",
+                "rise(d|n)?",
+                "rising",
             ],
             "Decrease": [
                 "decreased?",
-                "shr(ink|unk)",
+                "decreasing",
+                "shr(ank|ink|unk)(ing)?",
+                "reduced?",
+                "reduc(ing|tion)",
+                "decline(d)?",
+                "declining",
+                "plummet(ed|ing)?",
+                "fall(en)?",
+                "drop(ped|s)?",
+                "loss",
             ],
         },
     }

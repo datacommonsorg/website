@@ -58,6 +58,9 @@ def pick_best(probs):
 
 def pick_option(class_model, q, categories):
   """Return the assigned label or Inconclusive."""
+  if not q:
+    return "Inconclusive"
+
   probs = class_model.predict_proba([q])[0]
   if pick_best(probs):
     return categories[class_model.predict([q])[0]]
@@ -152,7 +155,6 @@ class Model:
 
   # TODO (juliawu): This function shares a lot of structure with the ranking
   #                 and time_delta classifiers. Need to refactor for DRYness.
-  # TODO (juliawu): Add unit-testing.
   def heuristic_event_classification(self, query) -> Union[NLClassifier, None]:
     """Determine if query is a event type.
 
@@ -252,7 +254,6 @@ class Model:
 
   # TODO(juliawu): This code is similar to the ranking classifier. Extract out
   #                helper functions to make more DRY.
-  # TODO(juliawu): Add unit-tests.
   def heuristic_time_delta_classification(
       self, query: str) -> Union[NLClassifier, None]:
     """Determine if query is a 'Time-Delta' type.
@@ -539,6 +540,9 @@ class Model:
 
     # Making an API call to the NL models server for get the embedding for the query.
     query_encoded = dc.nl_embeddings_vector(query)
+    if not query_encoded:
+      return None
+
     # TODO: when the correlation classifier is ready, remove this following conditional.
     if type_string in ["ranking", "temporal", "contained_in"]:
       classification_model: NLQueryClassificationModel = self.classification_models[
