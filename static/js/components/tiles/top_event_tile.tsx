@@ -18,23 +18,27 @@
  * Component for rendering a tile which ranks events by severity.
  */
 
+import axios from "axios";
 import _ from "lodash";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { ChartEmbed } from "../../place/chart_embed";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
+import { CoordinatePlace } from "../../types/place_types";
 import {
   EventTypeSpec,
   TopEventTileSpec,
 } from "../../types/subject_page_proto_types";
+import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { formatNumber } from "../../utils/string_utils";
 
 const RANKING_COUNT = 10;
+const MIN_PERCENT_PLACE_NAMES = 0.4;
 
 interface TopEventTilePropType {
   id: string;
@@ -43,12 +47,16 @@ interface TopEventTilePropType {
   topEventMetadata: TopEventTileSpec;
   eventTypeSpec: EventTypeSpec;
   disasterEventData: DisasterEventPointData;
+  // Place type to show the event map for
+  enclosedPlaceType: string;
   className?: string;
 }
 
 export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
+  const [eventPlaces, setEventPlaces] =
+    useState<Record<string, NamedPlace>>(null);
   const severityFilter = props.eventTypeSpec.defaultSeverityFilter;
   const severityProp = severityFilter.prop;
   const severityDisplay = severityFilter.displayName || severityFilter.prop;
@@ -56,6 +64,10 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     props.disasterEventData,
     props.topEventMetadata.reverseSort
   );
+
+  useEffect(() => {
+    fetchEventPlaceData(topEvents);
+  }, [props]);
 
   const displayPropNames = {};
   const displayPropUnits = {};
@@ -71,9 +83,12 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     }
   }
 
-  if (topEvents === undefined) {
+  if (topEvents === undefined || eventPlaces == null) {
     return <></>;
   }
+  const showPlaceColumn =
+    Object.keys(eventPlaces).length / topEvents.length >
+    MIN_PERCENT_PLACE_NAMES;
 
   return (
     <div
@@ -91,6 +106,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                 <tr>
                   <td></td>
                   <td>Name</td>
+                  {showPlaceColumn && <td>{props.enclosedPlaceType}</td>}
                   {(props.topEventMetadata.showStartDate ||
                     props.topEventMetadata.showEndDate) && <td>Date</td>}
                   {props.topEventMetadata.displayProp &&
@@ -114,6 +130,13 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                             : event.placeName}
                         </a>
                       </td>
+                      {showPlaceColumn && (
+                        <td>
+                          {eventPlaces[event.placeDcid]
+                            ? eventPlaces[event.placeDcid].name
+                            : "N/A"}
+                        </td>
+                      )}
                       {(props.topEventMetadata.showStartDate ||
                         props.topEventMetadata.showEndDate) && (
                         <td>
@@ -167,6 +190,57 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
+
+  function getKeyFromLatLng(latitude: number, longitude: number): string {
+    return `${latitude}^${longitude}`;
+  }
+
+  function fetchEventPlaceData(events: DisasterEventPoint[]): void {
+    const latitudes = [];
+    const longitudes = [];
+    events.forEach((event) => {
+      if (!event.latitude || !event.longitude) {
+        return;
+      }
+      latitudes.push(event.latitude);
+      longitudes.push(event.longitude);
+    });
+    axios
+      .get<CoordinatePlace[]>("/api/place/coords2places", {
+        params: {
+          latitudes,
+          longitudes,
+          placeType: props.enclosedPlaceType,
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        const latLngPlaces: Record<string, NamedPlace> = {};
+        if (resp.data) {
+          resp.data.forEach((coordPlace) => {
+            const key = getKeyFromLatLng(
+              coordPlace.latitude,
+              coordPlace.longitude
+            );
+            latLngPlaces[key] = {
+              dcid: coordPlace.placeDcid,
+              name: coordPlace.placeName,
+            };
+          });
+        }
+        const eventPlaces = {};
+        events.forEach((event) => {
+          const latLngKey = getKeyFromLatLng(event.latitude, event.longitude);
+          if (latLngKey in latLngPlaces) {
+            eventPlaces[event.placeDcid] = latLngPlaces[latLngKey];
+          }
+        });
+        setEventPlaces(eventPlaces);
+      })
+      .catch(() => {
+        setEventPlaces({});
+      });
+  }
 
   function rankEventData(
     disasterEventData: DisasterEventPointData,
