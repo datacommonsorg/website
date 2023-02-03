@@ -34,6 +34,7 @@ from lib.nl.fulfillment import base
 from tests.lib.nl.test_utterance import COMPARISON_UTTR
 from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from tests.lib.nl.test_utterance import CORRELATION_UTTR
+from tests.lib.nl.test_utterance import EVENT_UTTR
 from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
@@ -379,6 +380,12 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, TIME_DELTA_UTTR)
 
+  def test_event(self):
+    detection = _detection('geoId/06', [], [], ClassificationType.EVENT)
+    got = _run(detection, [])
+    self.maxDiff = None
+    self.assertEqual(got, EVENT_UTTR)
+
 
 # Helper to construct Detection() class.
 def _detection(place: str,
@@ -437,6 +444,18 @@ def _detection(place: str,
                      attributes=nl_detection.TimeDeltaClassificationAttributes(
                          time_delta_types=[nl_detection.TimeDeltaType.INCREASE],
                          time_delta_trigger_words=['growth']))
+    ]
+  elif query_type == ClassificationType.EVENT:
+    # Include ranking too.
+    detection.classifications = [
+        NLClassifier(type=ClassificationType.EVENT,
+                     attributes=nl_detection.EventClassificationAttributes(
+                         event_types=[nl_detection.EventType.FIRE],
+                         event_trigger_words=['earthquake'])),
+        NLClassifier(type=ClassificationType.RANKING,
+                     attributes=nl_detection.RankingClassificationAttributes(
+                         ranking_type=[RankingType.HIGH],
+                         ranking_trigger_words=['most']))
     ]
 
   return detection

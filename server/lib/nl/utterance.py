@@ -59,6 +59,7 @@ class ChartType(IntEnum):
   BAR_CHART = 3
   PLACE_OVERVIEW = 4
   SCATTER_CHART = 5
+  EVENT_CHART = 6
 
 
 # Enough of a spec per chart to create the chart config proto.
