@@ -252,7 +252,6 @@ class Model:
 
   # TODO(juliawu): This code is similar to the ranking classifier. Extract out
   #                helper functions to make more DRY.
-  # TODO(juliawu): Add unit-tests.
   def heuristic_time_delta_classification(
       self, query: str) -> Union[NLClassifier, None]:
     """Determine if query is a 'Time-Delta' type.
