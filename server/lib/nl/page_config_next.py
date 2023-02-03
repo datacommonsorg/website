@@ -79,7 +79,7 @@ def _build_category_description(uttr: Utterance, sv2name) -> str:
     parent_places = utils.parent_place_names(main_place.dcid)
     parent_place = ' in ' + ', '.join(sorted(
         parent_places, reverse=True)) if parent_places else ''
-    "{place_name} is a {place_type}{parent_place}. Here is more information about {place_name}.".format(
+    return "{place_name} is a {place_type}{parent_place}. Here is more information about {place_name}.".format(
         place_name=main_place.name,
         place_type=main_place.place_type.lower(),
         parent_place=parent_place)
@@ -182,10 +182,9 @@ def build_page_config(
     block_id = cspec.attr['block_id']
     if block_id != prev_block_id:
       if block:
+        continue
         category.blocks.append(block)
       block = Block()
-      # if cspec.description:
-      #   block.description = cspec.description
       column = block.columns.add()
       prev_block_id = block_id
 
