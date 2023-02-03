@@ -59,7 +59,7 @@ SIMPLE_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-   description: "Here is an overview of Count_Person_Male-name in Foo Place."
+   description: "Here are some timelines about Count_Person_Male-name in Foo Place."
    blocks {
      columns {
        tiles {
@@ -130,7 +130,7 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-  description: "Here is an overview of Count_Person_Male-name in Foo Place."
+  description: "Here are some timelines about Count_Person_Male-name in Foo Place."
    blocks {
      columns {
        tiles {
@@ -203,7 +203,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-  description: "Here is an overview of Count_Farm-name in Foo Place."
+  description: "Here are some timelines about Count_Farm-name in Foo Place."
    blocks {
      columns {
        tiles {
@@ -264,7 +264,7 @@ COMPARISON_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-  description: "Here is an overview of Count_Person_Male-name in Foo Place and Foo Place."
+  description: "Here are some comparison charts about Count_Person_Male-name in Foo Place and Foo Place."
    blocks {
      columns {
        tiles {
@@ -347,7 +347,7 @@ CONTAINED_IN_CONFIG = """
    }
  }
  categories {
-  description: "Here is an overview of Count_Farm-name in Foo Place by county."
+  description: "Here are some comparison maps about Count_Farm-name in Foo Place by county."
    blocks {
      columns {
        tiles {
@@ -422,7 +422,7 @@ CORRELATION_CONFIG = """
    }
  }
  categories {
-  description: "Here is an overview of Count_Farm-name and Mean_Precipitation-name in Foo Place."
+  description: "Here are some scatter charts about Count_Farm-name and Mean_Precipitation-name in Foo Place."
    blocks {
      columns {
        tiles {
@@ -476,7 +476,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
    }
  }
  categories {
-  description: "Here is an overview of Count_Agricultural_Workers-name in Foo Place."
+  description: "Here are some ranking tables about Count_Agricultural_Workers-name in Foo Place."
    blocks {
      columns {
        tiles {
@@ -524,7 +524,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-  description: "Here is an overview of FarmInventory_Barley-name, FarmInventory_Rice-name and more in Foo Place."
+  description: "Here is a ranked bar chart about FarmInventory_Barley-name, FarmInventory_Rice-name and more in Foo Place."
    blocks {
      columns {
        tiles {
