@@ -15,10 +15,125 @@
 
 import unittest
 
+from lib.nl.detection import EventType
 from lib.nl.detection import RankingType
 from lib.nl.detection import TimeDeltaType
 from parameterized import parameterized
 from services.nl import Model
+
+
+class TestHeuristicEventClassifier(unittest.TestCase):
+  """Test heuristic-based ranking classifier"""
+
+  @classmethod
+  def setUpClass(cls) -> None:
+    cls._classifier = Model.heuristic_event_classification
+
+  @parameterized.expand([
+      ("What is the deadliest tropical storm in history?"),
+      ("What is the most powerful tropical storm on record?"),
+      ("What is the most active hurricane season on record?"),
+      ("What were the costliest hurricanes in history?"),
+      ("What was the most destructive cyclone"),
+      ("Typhoons in Asia"),
+  ])
+  def test_detect_cyclone(self, query):
+    expected = [EventType.CYCLONE]
+    classification = self._classifier(query)
+    result = classification.attributes.event_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("What are the chances of a drought in the next 10 years?"),
+      ("Tell me about droughts in Africa"),
+  ])
+  def test_detect_drought(self, query):
+    expected = [EventType.DROUGHT]
+    classification = self._classifier(query)
+    result = classification.attributes.event_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("When was the last earthquake in CA above 6 on the richter scale?"),
+      ("What was the magnitude of the largest earthquake in California in the last 10 years?"
+      ),
+      ("What is the probability of an earthquake in California in the next year?"
+      ),
+  ])
+  def test_detect_earthquake(self, query):
+    expected = [EventType.EARTHQUAKE]
+    classification = self._classifier(query)
+    result = classification.attributes.event_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("Which places were affected the most by extreme cold last year?"),
+      ("cities that were extremely cold in the past decade"),
+  ])
+  def test_detect_extreme_cold(self, query):
+    expected = [EventType.COLD]
+    classification = self._classifier(query)
+    result = classification.attributes.event_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("Which places were affected the most by extreme heat last year?"),
+      ("cities that were extremely hot in the last year"),
+  ])
+  def test_detect_extreme_heat(self, query):
+    expected = [EventType.HEAT]
+    classification = self._classifier(query)
+    result = classification.attributes.event_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("Which were the biggest fires in California of the last decade?"),
+      ("Tell me about wildfires in Africa"),
+      ("Wildland Fires in CA"),
+  ])
+  def test_detect_fire(self, query):
+    expected = [EventType.FIRE]
+    classification = self._classifier(query)
+    result = classification.attributes.event_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("What is the probability of a flood in my city in the next 5 years?"),
+      ("Where were the largest floods by area"),
+  ])
+  def test_detect_flood(self, query):
+    expected = [EventType.FLOOD]
+    classification = self._classifier(query)
+    result = classification.attributes.event_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("What is the wet bulb temperature in Death Valley?"),
+      ("Which cities have highest wet-bulb temperatures?"),
+      ("Places with high wetbulb temperatures"),
+      ("Wetbulb readings for Maine"),
+  ])
+  def test_detect_wet_bulb(self, query):
+    expected = [EventType.WETBULB]
+    classification = self._classifier(query)
+    result = classification.attributes.event_types
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
+      ("Number of poor women in Mountain View"),
+      ("Hearing impaired in CA"),
+      ("What is the median age of residents in Chicago?"),
+      ("What is the average annual greenhouse gas emissions in Mexico City?"),
+      ("infant deaths in the united states"),
+      ("What is the population of hispanic people in Texas?"),
+      ("Give me the average number of days with snowfall in Minneapolis"),
+      ("How many people in Seattle"),
+      ("Men with disabilities in the USA how many"),
+  ])
+  def test_no_false_positives(self, query):
+    # If no matches, classifier returns None
+    result = self._classifier(query)
+    self.assertIsNone(result)
 
 
 class TestHeuristicRankingClassifier(unittest.TestCase):
@@ -51,7 +166,6 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
   def test_detect_highs(self, query: str):
     expected = [RankingType.HIGH]
     classification = self._classifier(query)
-    print(classification)
     result = classification.attributes.ranking_type
     self.assertCountEqual(result, expected)
 
