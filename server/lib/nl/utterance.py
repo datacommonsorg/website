@@ -71,8 +71,6 @@ class ChartSpec:
   svs: List[str]
   # A list of key-value attributes interpreted per chart_type
   attr: Dict
-  # Chart description to pass on for page config creation. For now, describes type of charts.
-  description: str = None
 
 
 # The main Utterance data structure that represents all state

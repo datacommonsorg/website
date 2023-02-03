@@ -78,5 +78,6 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   chart_vars.svs = utils.rank_svs_by_latest_value(places[0].dcid,
                                                   chart_vars.svs,
                                                   state.ranking_types[0])
+  chart_vars.response_type="ranked bar chart"
   return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
-                                chart_origin, "ranked data")
+                                chart_origin)

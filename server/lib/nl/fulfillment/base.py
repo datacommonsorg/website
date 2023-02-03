@@ -57,6 +57,8 @@ class ChartVars:
   title: str = ""
   # Represents a peer-group of SVs from a Topic.
   is_topic_peer_group: bool = False
+  # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
+  response_type: str = ""
 
 
 #
@@ -66,8 +68,7 @@ def add_chart_to_utterance(chart_type: ChartType,
                            state: PopulateState,
                            chart_vars: ChartVars,
                            places: List[Place],
-                           primary_vs_secondary: ChartOriginType,
-                           desc: str = None) -> bool:
+                           primary_vs_secondary: ChartOriginType) -> bool:
   if state.place_type and isinstance(state.place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
     state.place_type = state.place_type.value
@@ -79,13 +80,13 @@ def add_chart_to_utterance(chart_type: ChartType,
       "block_id": chart_vars.block_id,
       "include_percapita": chart_vars.include_percapita,
       "title": chart_vars.title,
+      "chart_type": chart_vars.response_type,
   }
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  places=places,
                  utterance=state.uttr,
-                 attr=attr,
-                 description=desc)
+                 attr=attr)
   state.uttr.chartCandidates.append(ch)
   return True
 

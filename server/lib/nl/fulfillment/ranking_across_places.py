@@ -86,5 +86,6 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   if len(chart_vars.svs) != 1:
     return False
 
+  chart_vars.response_type = "ranking table"
   return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
-                                places, chart_origin, "ranking tables")
+                                places, chart_origin)

@@ -44,6 +44,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('populate_cb for comparison')
   if len(places) < 2:
     return False
+  chart_vars.response_type = "comparison chart"
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
-                         chart_origin, "comparisons")
+                         chart_origin)
   return True
