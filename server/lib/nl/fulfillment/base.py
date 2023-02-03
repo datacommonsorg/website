@@ -177,7 +177,7 @@ def _add_charts(state: PopulateState, places: List[Place],
           found = True
         else:
           utils.update_counter(state.uttr.counters,
-                               'failed_point_callback_primary', 1)
+                               'failed_populate_callback_primary', 1)
       else:
         utils.update_counter(state.uttr.counters, 'failed_existence_check', {
             'places': places_to_check,
@@ -207,7 +207,7 @@ def _add_charts(state: PopulateState, places: List[Place],
         found = True
       else:
         utils.update_counter(state.uttr.counters,
-                             'failed_point_callback_secondary', 1)
+                             'failed_populate_callback_secondary', 1)
     elif len(exist_svs) < len(extended_svs):
       utils.update_counter(
           state.uttr.counters, 'failed_existence_check_extended_svs', {
