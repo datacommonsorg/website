@@ -34,6 +34,8 @@ from tests.lib.nl.test_utterance import SIMPLE_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 
+# TODO: Move these configs to test_data/*.textproto
+
 PLACE_ONLY_CONFIG = """
  metadata {
    place_dcid: "geoId/06"

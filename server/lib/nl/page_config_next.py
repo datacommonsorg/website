@@ -29,6 +29,7 @@ from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
 
 # NOTE: This relies on disaster config's event_type_spec IDs.
+# TODO: Consider switching these strings to proto enums and use those directly.
 _EVENT_TYPE_TO_CONFIG_KEY = {
     EventType.COLD: "cold",
     EventType.CYCLONE: "storm",
@@ -388,11 +389,11 @@ def _event_chart_block(metadata, block, column, place: Place, event_key: str,
     eq_val.name = 'Earthquake'
     eq_val.event_type_dcids.append('EarthquakeEvent')
     eq_val.color = '#930000'
-    filter = eq_val.default_severity_filter
-    filter.prop = 'magnitude'
-    filter.display_name = 'Magnitude'
-    filter.upper_limit = 10
-    filter.lower_limit = 6
+    sev_filter = eq_val.default_severity_filter
+    sev_filter.prop = 'magnitude'
+    sev_filter.display_name = 'Magnitude'
+    sev_filter.upper_limit = 10
+    sev_filter.lower_limit = 6
   elif event_id in event_config.metadata.event_type_spec:
     metadata.event_type_spec[event_id].CopyFrom(
         event_config.metadata.event_type_spec[event_id])
