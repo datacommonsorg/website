@@ -185,6 +185,10 @@ def create_app():
   cfg = libconfig.get_config()
   app.config.from_object(cfg)
 
+  # USE_LOCAL_MIXER
+  if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
+    app.config['API_ROOT'] = 'http://127.0.0.1:8081'
+
   # Init extentions
   from cache import cache
 
@@ -298,8 +302,8 @@ def create_app():
       return False
 
   if not cfg.TEST:
-    timeout = 5 * 60  # seconds
-    sleep_seconds = 10
+    timeout = 120  # seconds
+    sleep_seconds = 5
     total_sleep_seconds = 0
     urls = get_health_check_urls()
     up_status = {url: False for url in urls}
@@ -311,6 +315,7 @@ def create_app():
 
       if all(up_status.values()):
         break
+      logging.info("Mixer not ready, waiting for %s seconds", sleep_seconds)
       time.sleep(sleep_seconds)
       total_sleep_seconds += sleep_seconds
       if total_sleep_seconds > timeout:

@@ -117,8 +117,10 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
 
 
-def _result_with_debug_info(data_dict, status, query_detection: Detection,
-                            context_history: List[Dict]):
+def _result_with_debug_info(data_dict: Dict, status: str,
+                            query_detection: Detection,
+                            uttr_history: List[Dict],
+                            debug_counters: Dict) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -131,6 +133,7 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
     svs_dict = _empty_svs_score_dict()
 
   ranking_classification = "<None>"
+  overview_classification = "<None>"
   temporal_classification = "<None>"
   time_delta_classification = "<None>"
   comparison_classification = "<None>"
@@ -142,6 +145,8 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
   for classification in query_detection.classifications:
     if classification.type == ClassificationType.RANKING:
       ranking_classification = str(classification.attributes.ranking_type)
+    elif classification.type == ClassificationType.OVERVIEW:
+      overview_classification = str(classification.type)
     elif classification.type == ClassificationType.TEMPORAL:
       temporal_classification = str(classification.type)
     elif classification.type == ClassificationType.TIME_DELTA:
@@ -164,14 +169,15 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
       clustering_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
       clustering_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
 
-  # TODO: Revisit debug info to add places and variables in context
-  # TODO: Add SVs that were actually used
+  logging.info(uttr_history)
+  logging.info(debug_counters)
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,
+      'overview_classification': overview_classification,
       'temporal_classification': temporal_classification,
       'time_delta_classification': time_delta_classification,
       'contained_in_classification': contained_in_classification,
@@ -179,7 +185,8 @@ def _result_with_debug_info(data_dict, status, query_detection: Detection,
       'comparison_classification': comparison_classification,
       'correlation_classification': correlation_classification,
       'event_classification': event_classification,
-      'data_spec': context_history,
+      'counters': debug_counters,
+      'data_spec': uttr_history,
   }
   if query_detection.places_detected:
     debug_info.update({
@@ -256,6 +263,7 @@ def _detection(orig_query, cleaned_query) -> Detection:
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)
   comparison_classification = model.heuristic_comparison_classification(query)
+  overview_classification = model.heuristic_overview_classification(query)
   temporal_classification = model.query_classification("temporal", query)
   time_delta_classification = model.heuristic_time_delta_classification(query)
   contained_in_classification = model.query_classification(
@@ -267,6 +275,7 @@ def _detection(orig_query, cleaned_query) -> Detection:
   logging.info(f'TimeDelta classification: {time_delta_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
   logging.info(f'Event Classification: {event_classification}')
+  logging.info(f'Overview classification: {overview_classification}')
 
   # Set the Classifications list.
   classifications = []
@@ -280,6 +289,8 @@ def _detection(orig_query, cleaned_query) -> Detection:
     classifications.append(time_delta_classification)
   if event_classification is not None:
     classifications.append(event_classification)
+  if overview_classification is not None:
+    classifications.append(overview_classification)
 
   # Correlation classification
   correlation_classification = model.heuristic_correlation_classification(query)
@@ -365,7 +376,8 @@ def data():
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   _detection("", ""), escaped_context_history)
+                                   _detection("", ""), escaped_context_history,
+                                   {})
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -373,7 +385,6 @@ def data():
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
-  logging.info(prev_utterance)
   utterance = fulfillment.fulfill(query_detection, prev_utterance)
 
   if utterance.rankedCharts:
@@ -388,6 +399,8 @@ def data():
     logging.info('Found empty place for query "%s"',
                  query_detection.original_query)
 
+  dbg_counters = utterance.counters
+  utterance.counters = None
   context_history = nl_utterance.save_utterance(utterance)
 
   data_dict = {
@@ -409,5 +422,5 @@ def data():
       status_str += '**No SVs Found**.'
 
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
-                                      context_history)
+                                      context_history, dbg_counters)
   return data_dict

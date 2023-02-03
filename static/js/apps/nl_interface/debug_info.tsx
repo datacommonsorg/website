@@ -107,12 +107,14 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     svScores: props.debugData["sv_matching"],
     svSentences: props.debugData["svs_to_sentences"],
     rankingClassification: props.debugData["ranking_classification"],
+    overviewClassification: props.debugData["overview_classification"],
     temporalClassification: props.debugData["temporal_classification"],
     timeDeltaClassification: props.debugData["time_delta_classification"],
     comparisonClassification: props.debugData["comparison_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
     eventClassification: props.debugData["event_classification"],
+    counters: props.debugData["counters"],
     dataSpec: props.debugData["data_spec"],
   };
 
@@ -193,6 +195,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <Col>Event classification: {debugInfo.eventClassification}</Col>
           </Row>
           <Row>
+            <Col>
+              Overview classification: {debugInfo.overviewClassification}
+            </Col>
+          </Row>
+          <Row>
             <b>All SVs Matched (with scores):</b>
           </Row>
           <Row>
@@ -210,7 +217,15 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Data Spec</b>
+            <b>Debug Counters</b>
+          </Row>
+          <Row>
+            <Col>
+              <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
+            </Col>
+          </Row>
+          <Row>
+            <b>Utterances</b>
           </Row>
           <Row>
             <Col>

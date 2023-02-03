@@ -83,7 +83,9 @@ def places_for_comparison_from_context(uttr: Utterance) -> List[List[Place]]:
       while (second and second_uttr_count < CTX_LOOKBACK_LIMIT + 1):
         # For the first place, add all combinations of the second.
         if second.places:
-          ans.append(second.places + first.places)
+          combined_places = _combine_places(second.places, first.places)
+          if len(combined_places) > 1:
+            ans.append(combined_places)
         second = second.prev_utterance
         second_uttr_count = second_uttr_count + 1
     elif len(first.places) > 1:
@@ -92,6 +94,11 @@ def places_for_comparison_from_context(uttr: Utterance) -> List[List[Place]]:
     first = first.prev_utterance
     first_uttr_count = first_uttr_count + 1
   return ans
+
+
+def _combine_places(l1: List[Place], l2: List[Place]) -> List[Place]:
+  dcids = set([p.dcid for p in l1])
+  return l1 + [p for p in l2 if p.dcid not in dcids]
 
 
 def query_type_from_context(uttr: Utterance) -> List[ClassificationType]:
