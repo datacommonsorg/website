@@ -102,7 +102,8 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
 
   @parameterized.expand([
       ("Violent crime count in London for the year 2001"),
-      ("How has the population of New York City changed over the past century?"),
+      ("How has the population of New York City changed over the past century?"
+      ),
       ("What events happened on June 15, 2022?"),
       ("Show me per capita rates of heart disease in USA"),
       ("What is the average per household income of US States?"),
