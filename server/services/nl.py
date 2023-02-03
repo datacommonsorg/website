@@ -152,7 +152,6 @@ class Model:
 
   # TODO (juliawu): This function shares a lot of structure with the ranking
   #                 and time_delta classifiers. Need to refactor for DRYness.
-  # TODO (juliawu): Add unit-testing.
   def heuristic_event_classification(self, query) -> Union[NLClassifier, None]:
     """Determine if query is a event type.
 
