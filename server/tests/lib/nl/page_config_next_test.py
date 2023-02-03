@@ -27,9 +27,9 @@ from tests.lib.nl.test_utterance import COMPARISON_UTTR
 from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from tests.lib.nl.test_utterance import CORRELATION_UTTR
 from tests.lib.nl.test_utterance import EVENT_UTTR
-from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
@@ -649,7 +649,7 @@ categories {
 class TestPageConfigNext(unittest.TestCase):
 
   @parameterized.expand([
-      ["Place Only", PLACE_ONLY_UTTR, PLACE_ONLY_CONFIG],
+      ["Place Only", SIMPLE_PLACE_ONLY_UTTR, PLACE_ONLY_CONFIG],
       ["Simple", SIMPLE_UTTR, SIMPLE_CONFIG],
       [
           "Simple with SV extensions", SIMPLE_WITH_SV_EXT_UTTR,
