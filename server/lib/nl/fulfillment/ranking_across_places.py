@@ -86,23 +86,28 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('populate_cb for ranking_across_places')
   if not state.ranking_types:
     utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_norankingtypes', 1)
+                         'ranking-across-places_failed_cb_norankingtypes', 1)
     return False
   if len(places) > 1:
     utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_toomanyplaces',
+                         'ranking-across-places_failed_cb_toomanyplaces',
                          [p.dcid for p in places])
     return False
   if not state.place_type:
     utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_noplacetype', 1)
+                         'ranking-across-places_failed_cb_noplacetype', 1)
     return False
-  if len(chart_vars.svs) != 1:
+  if not chart_vars.svs:
     utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_toomanysvs',
+                         'ranking-across-places_failed_cb_emptysvs',
                          [chart_vars.svs])
     return False
 
+  vars = chart_vars.svs
   chart_vars.response_type = "ranking table"
-  return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
-                                places, chart_origin)
+  for sv in vars:
+    cv = chart_vars
+    cv.svs = [sv]
+    add_chart_to_utterance(ChartType.RANKING_CHART, state, cv, places,
+                           chart_origin)
+  return True

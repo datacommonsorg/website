@@ -113,6 +113,8 @@ export function getCappedStatVarDate(statVar: string): string {
     statVar.includes("AggregateMax_Percentile") ||
     statVar.includes("AggregateMin_Median") ||
     statVar.includes("AggregateMax_Median") ||
+    statVar.includes("ProjectedMax_Until") ||
+    statVar.includes("ProjectedMin_Until") ||
     statVar.includes("NumberOfMonths_")
   ) {
     return MAX_YEAR;

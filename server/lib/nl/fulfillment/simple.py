@@ -54,6 +54,10 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
       chart_vars.response_type = "bar chart"
       utils.update_counter(state.uttr.counters,
                            'simple_timeline_to_bar_demotions', 1)
+
+  if chart_vars.is_topic_peer_group:
+    chart_vars.include_percapita = True
+
   return add_chart_to_utterance(chart_type, state, chart_vars, places,
                                 chart_origin)
 
