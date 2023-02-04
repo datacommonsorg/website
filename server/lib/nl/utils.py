@@ -30,8 +30,6 @@ _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.jso
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
-_THRESHOLD_DATE_FOR_GROWTH_RATE = '2012'
-
 
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
   """Adds (in place) every string (in lower case) to a Set of strings."""
@@ -250,8 +248,6 @@ def compute_growth_rate(series: List[Dict]) -> float:
   earliest = None
   # TODO: Apparently series is ordered, so simplify.
   for s in series:
-    if s['date'] < _THRESHOLD_DATE_FOR_GROWTH_RATE:
-      continue
     if not latest or s['date'] > latest['date']:
       latest = s
     if not earliest or s['date'] < earliest['date']:

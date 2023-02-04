@@ -103,6 +103,8 @@ def build_page_config(
       if block:
         category.blocks.append(block)
       block = Block()
+      if cspec.attr['title']:
+        block.title = cspec.attr['title']
       column = block.columns.add()
       prev_block_id = block_id
 
@@ -419,19 +421,20 @@ def _event_chart_block(metadata, block, column, place: Place, event_key: str,
   block.title = event_name + ' in ' + place.name
   block.type = Block.DISASTER_EVENT
 
-  tile = column.tiles.add()
   rank_high = RankingType.HIGH in attr['ranking_types']
   if rank_high:
+    tile = column.tiles.add()
     # TODO: Handle top event for earthquakes
     if not _maybe_copy_top_event(event_id, block, tile, event_config):
+      tile = column.tiles.add()
       tile.type = Tile.TOP_EVENT
       top_event = tile.top_event_tile_spec
       top_event.event_type_key = event_id
       top_event.display_prop.append('name')
       top_event.show_start_date = True
-  else:
-    tile.type = Tile.DISASTER_EVENT_MAP
-    tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
+  tile = column.tiles.add()
+  tile.type = Tile.DISASTER_EVENT_MAP
+  tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
 
 
 def _maybe_copy_top_event(event_id, block, tile, event_config):
