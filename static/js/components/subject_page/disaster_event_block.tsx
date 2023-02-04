@@ -305,6 +305,7 @@ function renderTiles(
                 provenanceInfo: {},
               }
             }
+            enclosedPlaceType={enclosedPlaceType}
           />
         );
       }
