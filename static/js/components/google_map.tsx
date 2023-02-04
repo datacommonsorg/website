@@ -31,6 +31,7 @@ import _ from "lodash";
 import React from "react";
 
 const DEFAULT_MAP_ZOOM = 4;
+const MAP_BOUNDS_PADDING = 0;
 
 /**
  * Response format of /api/place/mapinfo/.
@@ -98,7 +99,13 @@ function drawKmlCoordinates(
   const bounds = new google.maps.LatLngBounds();
   bounds.extend(sw);
   bounds.extend(ne);
-  map.fitBounds(bounds);
+
+  // add listener to set bounds after map finishes loading.
+  // fitting bounds needs to be called after map finishes loading
+  // otherwise, the map will zoom all the way out to earth.
+  map.addListener("idle", () => {
+    map.fitBounds(bounds, MAP_BOUNDS_PADDING);
+  });
 
   // Add polygons
   if (mapInfo.coordinateSequenceSet) {
