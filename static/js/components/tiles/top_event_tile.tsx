@@ -122,6 +122,9 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
               </thead>
               <tbody>
                 {topEvents.map((event, i) => {
+                  const placeName = eventPlaces[event.placeDcid]
+                    ? eventPlaces[event.placeDcid].name
+                    : "N/A";
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
@@ -134,9 +137,13 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                       )}
                       {showPlaceColumn && (
                         <td>
-                          {eventPlaces[event.placeDcid]
-                            ? eventPlaces[event.placeDcid].name
-                            : "N/A"}
+                          {showNameColumn ? (
+                            placeName
+                          ) : (
+                            <a href={`/browser/${event.placeDcid}`}>
+                              {placeName}
+                            </a>
+                          )}
                         </td>
                       )}
                       {(props.topEventMetadata.showStartDate ||
