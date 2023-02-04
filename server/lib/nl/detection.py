@@ -96,7 +96,7 @@ class ContainedInPlaceType(Enum):
   DISTRICT = "District"
   TOWN = "Town"
   ZIP = "CensusZipCodeTabulationArea"
-  # Across is a generic containedInPlaceType which determines if the 
+  # Across is a generic containedInPlaceType which determines if the
   # query is using the word "across".
   ACROSS = "Across"
 
