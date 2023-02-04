@@ -254,6 +254,16 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
     self.assertCountEqual(result, expected)
 
   @parameterized.expand([
+      ("what are the projected temperature extremes in california"),
+      ("extreme temperatures in USA"),
+  ])
+  def test_detect_extreme(self, query):
+    expected = [RankingType.EXTREME]
+    classification = self._classifier(query)
+    result = classification.attributes.ranking_type
+    self.assertCountEqual(result, expected)
+
+  @parameterized.expand([
       ("Violent crime count in London for the year 2001"),
       ("How has the population of New York City changed over the past century?"
       ),
