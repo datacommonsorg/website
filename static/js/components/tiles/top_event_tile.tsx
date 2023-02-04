@@ -125,6 +125,11 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                   const placeName = eventPlaces[event.placeDcid]
                     ? eventPlaces[event.placeDcid].name
                     : "N/A";
+                  const showDateRange =
+                    props.topEventMetadata.showStartDate &&
+                    props.topEventMetadata.showEndDate &&
+                    event.endDate &&
+                    event.startDate;
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
@@ -151,9 +156,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                         <td>
                           {props.topEventMetadata.showStartDate &&
                             event.startDate}
-                          {props.topEventMetadata.showStartDate &&
-                            props.topEventMetadata.showEndDate &&
-                            "-"}
+                          {showDateRange && " to "}
                           {props.topEventMetadata.showEndDate && event.endDate}
                         </td>
                       )}

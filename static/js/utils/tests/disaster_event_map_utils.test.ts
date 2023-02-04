@@ -530,6 +530,7 @@ test("fetch data for all disasters with date as YYYY-MM", () => {
       color: DISASTER_EVENT_COLORS[disasterType],
       defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
       displayProp: DISASTER_DISPLAY_PROP[disasterType],
+      endDateProp: [],
     };
   });
   return fetchDisasterEventPoints({
@@ -571,6 +572,7 @@ test("fetch data for all disasters with date as YYYY", () => {
       color: DISASTER_EVENT_COLORS[disasterType],
       defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
       displayProp: DISASTER_DISPLAY_PROP[disasterType],
+      endDateProp: [],
     };
   });
   return fetchDisasterEventPoints({
@@ -614,6 +616,7 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[STORM_DISASTER_TYPE_ID],
     displayProp: DISASTER_DISPLAY_PROP[STORM_DISASTER_TYPE_ID],
+    endDateProp: [],
   };
   return fetchDisasterEventPoints({
     eventTypeSpecs: [eventSpec],
@@ -646,6 +649,7 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[STORM_DISASTER_TYPE_ID],
     displayProp: DISASTER_DISPLAY_PROP[STORM_DISASTER_TYPE_ID],
+    endDateProp: [],
   };
   return fetchDisasterEventPoints({
     eventTypeSpecs: [eventSpec],
@@ -679,6 +683,7 @@ test("fetch data for single event with date as YYYY-MM", () => {
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
     displayProp: DISASTER_DISPLAY_PROP[EARTHQUAKE_DISASTER_TYPE_ID],
+    endDateProp: [],
   };
   return fetchDisasterEventPoints({
     eventTypeSpecs: [eventSpec],
@@ -710,6 +715,7 @@ test("fetch data for single event with date as YYYY", () => {
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
     displayProp: DISASTER_DISPLAY_PROP[EARTHQUAKE_DISASTER_TYPE_ID],
+    endDateProp: [],
   };
   return fetchDisasterEventPoints({
     eventTypeSpecs: [eventSpec],
@@ -748,6 +754,7 @@ test("getMapPointsData", () => {
       color: "",
       defaultSeverityFilter: null,
       displayProp: [],
+      endDateProp: [],
     },
     [FIRE_DISASTER_TYPE_ID]: {
       id: FIRE_DISASTER_TYPE_ID,
@@ -761,6 +768,7 @@ test("getMapPointsData", () => {
         upperLimit: 10,
       },
       displayProp: [],
+      endDateProp: [],
     },
     [EARTHQUAKE_DISASTER_TYPE_ID]: {
       id: EARTHQUAKE_DISASTER_TYPE_ID,
@@ -769,6 +777,7 @@ test("getMapPointsData", () => {
       color: "",
       defaultSeverityFilter: null,
       displayProp: [],
+      endDateProp: [],
     },
   };
   const expectedMapPointsData = {

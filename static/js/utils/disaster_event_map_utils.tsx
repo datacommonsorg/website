@@ -216,19 +216,17 @@ function parseEventPropVal(
  * @param eventType event type to get data for
  * @param place place to get data for
  * @param dateRange Dates to use for data retrieval (YYYY-MM), [start,end]
- * @param disasterType The disaster type that the event type belongs to
+ * @param eventTypeSpec The event type spec that this event type belongs to
  * @param severityFilter Severity props to get data about
  * @param useCache If true, uses data from the event cache (otherwise uses JSON cache).
- * @param eventDisplayProps Other event properties to extract.
  */
 function fetchEventPoints(
   eventType: string,
   place: string,
   dateRange: [string, string],
-  disasterType: string,
+  eventTypeSpec: EventTypeSpec,
   severityFilter?: SeverityFilter,
-  useCache?: boolean,
-  eventDisplayProps?: EventDisplayProp[]
+  useCache?: boolean
 ): Promise<DisasterEventPointData> {
   const reqParams = {
     eventType: eventType,
@@ -279,8 +277,8 @@ function fetchEventPoints(
           }
         }
         const displayProps = {};
-        if (eventDisplayProps) {
-          for (const dp of eventDisplayProps) {
+        if (eventTypeSpec.displayProp) {
+          for (const dp of eventTypeSpec.displayProp) {
             if (dp.prop in eventData.propVals) {
               const val = parseEventPropVal(
                 eventData.propVals[dp.prop].vals,
@@ -298,17 +296,22 @@ function fetchEventPoints(
           !_.isEmpty(eventData.propVals.name.vals)
             ? eventData.propVals.name.vals[0]
             : eventData.dcid;
-        const endDate =
-          !_.isEmpty(eventData.propVals.endDate) &&
-          !_.isEmpty(eventData.propVals.endDate.vals)
-            ? eventData.propVals.endDate.vals[0]
-            : "";
+        let endDate = "";
+        for (const prop of eventTypeSpec.endDateProp || []) {
+          if (
+            prop in eventData.propVals &&
+            !_.isEmpty(eventData.propVals[prop].vals)
+          ) {
+            endDate = eventData.propVals[prop].vals[0];
+            break;
+          }
+        }
         result.eventPoints.push({
           placeDcid: eventData.dcid,
           placeName: name,
           latitude: eventData.geoLocations[0].point.latitude,
           longitude: eventData.geoLocations[0].point.longitude,
-          disasterType,
+          disasterType: eventTypeSpec.id,
           startDate: !_.isEmpty(eventData.dates) ? eventData.dates[0] : "",
           severity,
           displayProps,
@@ -387,10 +390,9 @@ export function fetchDisasterEventPoints(
           eventType,
           dataOptions.place,
           dateRange,
-          eventSpec.id,
+          eventSpec,
           dataOptions.severityFilters[eventSpec.id],
-          dataOptions.useCache,
-          eventSpec.displayProp
+          dataOptions.useCache
         )
       );
     }
