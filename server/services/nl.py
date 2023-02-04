@@ -365,7 +365,7 @@ class Model:
         "district": ContainedInPlaceType.DISTRICT,
         "province": ContainedInPlaceType.PROVINCE,
         "town": ContainedInPlaceType.TOWN,
-        "zip": ContainedInPlaceType.ZIP
+        "zip": ContainedInPlaceType.ZIP,
     })
     query = query.lower()
     for place_type, place_enum in place_type_to_enum.items():
@@ -380,7 +380,11 @@ class Model:
 
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
-      return None
+      # Try to check if the special case of ACROSS can be found.
+      if "across" in query:
+        contained_in_place_type = ContainedInPlaceType.ACROSS
+      else:
+        return None
 
     # TODO: need to detect the type of place for this contained in.
     attributes = ContainedInClassificationAttributes(
