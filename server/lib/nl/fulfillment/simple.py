@@ -40,15 +40,18 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.
     chart_type = ChartType.TIMELINE_CHART
+    chart_vars.response_type = "timeline"
   else:
     # When there are too many, comparing latest values is better
     # (than, say, breaking it into multiple timeline charts)
     chart_type = ChartType.BAR_CHART
+    chart_vars.response_type = "bar chart"
   if chart_type == ChartType.TIMELINE_CHART:
     if utils.has_series_with_single_datapoint(places[0].dcid, chart_vars.svs):
       # Demote to bar chart if single point.
       # TODO: eventually for single SV case, make it a highlight chart
       chart_type = ChartType.BAR_CHART
+      chart_vars.response_type = "bar chart"
       utils.update_counter(state.uttr.counters,
                            'simple_timeline_to_bar_demotions', 1)
 

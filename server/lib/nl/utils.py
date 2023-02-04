@@ -386,6 +386,16 @@ def get_only_svs(svs: List[str]) -> List[str]:
   return ret
 
 
+# Returns a list of parent place names for a dcid.
+def parent_place_names(dcid: str) -> List[str]:
+  parent_dcids = dc.property_values(nodes=[dcid], prop='containedInPlace')[dcid]
+  if parent_dcids:
+    names = dc.property_values(nodes=parent_dcids, prop='name')
+    ret = [names[p][0] for p in parent_dcids]
+    return ret
+  return None
+
+
 # Convenience function to help update counters.
 #
 # For a given counter, caller should always pass the same type

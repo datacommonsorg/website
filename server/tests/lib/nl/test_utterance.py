@@ -33,10 +33,12 @@ SIMPLE_PLACE_ONLY_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.PLACE_OVERVIEW,
@@ -65,10 +67,12 @@ OVERVIEW_PLACE_ONLY_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.PLACE_OVERVIEW,
@@ -95,10 +99,12 @@ SIMPLE_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': 'timeline',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -111,10 +117,12 @@ SIMPLE_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'timeline',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -141,10 +149,12 @@ SIMPLE_WITH_SV_EXT_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': 'timeline',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -157,10 +167,12 @@ SIMPLE_WITH_SV_EXT_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'timeline',
             'class': ChartOriginType.SECONDARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -187,10 +199,12 @@ SIMPLE_WITH_TOPIC_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': 'timeline',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -203,10 +217,12 @@ SIMPLE_WITH_TOPIC_UTTR = {
     }, {
         'attr': {
             'block_id': 1,
+            'chart_type': 'timeline',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -219,10 +235,12 @@ SIMPLE_WITH_TOPIC_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'timeline',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -252,10 +270,12 @@ COMPARISON_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': 'comparison chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.BAR_CHART,
@@ -272,10 +292,12 @@ COMPARISON_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'comparison chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.BAR_CHART,
@@ -306,10 +328,12 @@ CONTAINED_IN_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': 'comparison map',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': 'County',
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': 1,
@@ -322,10 +346,12 @@ CONTAINED_IN_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'comparison map',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': 'County',
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': 1,
@@ -351,10 +377,12 @@ CORRELATION_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': 'scatter chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': 'County',
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.SCATTER_CHART,
@@ -367,10 +395,12 @@ CORRELATION_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'scatter chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': 'County',
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.SCATTER_CHART,
@@ -400,10 +430,12 @@ RANKING_ACROSS_PLACES_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': 'ranking table',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': 'County',
             'ranking_types': [1],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.RANKING_CHART,
@@ -429,10 +461,12 @@ RANKING_ACROSS_SVS_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 2,
+            'chart_type': 'ranked bar chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [RankingType.HIGH],
+            'source_topic': 'dc/topic/Agriculture',
             'title': ''
         },
         'chart_type':
@@ -461,10 +495,12 @@ TIME_DELTA_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 2,
+            'chart_type': 'growth chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -477,10 +513,12 @@ TIME_DELTA_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'growth chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -493,10 +531,12 @@ TIME_DELTA_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'growth chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
             'title': ''
         },
         'chart_type': ChartType.TIMELINE_CHART,
@@ -523,10 +563,12 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': 'bar chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.BAR_CHART,
@@ -539,10 +581,12 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
     }, {
         'attr': {
             'block_id': 2,
+            'chart_type': 'bar chart',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.BAR_CHART,
@@ -574,10 +618,12 @@ EVENT_UTTR = {
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
+            'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [RankingType.HIGH],
+            'source_topic': '',
             'title': ''
         },
         'chart_type': ChartType.EVENT_CHART,

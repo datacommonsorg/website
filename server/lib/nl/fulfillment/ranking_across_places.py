@@ -104,6 +104,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     return False
 
   vars = chart_vars.svs
+  chart_vars.response_type = "ranking table"
   for sv in vars:
     cv = chart_vars
     cv.svs = [sv]

@@ -138,6 +138,7 @@ def _populate_correlation_chart(state: PopulateState, place: Place, sv_1: str,
   # TODO: Handle per-capita carefully.
   chart_vars = ChartVars(svs=[sv_1, sv_2],
                          block_id=state.block_id,
-                         include_percapita=False)
+                         include_percapita=False,
+                         response_type="scatter chart")
   return add_chart_to_utterance(ChartType.SCATTER_CHART, state, chart_vars,
                                 [place], ChartOriginType.PRIMARY_CHART)
