@@ -78,6 +78,12 @@ class RankingType(IntEnum):
   WORST = 4
 
 
+class BinaryClassificationResultType(IntEnum):
+  """Generic result of binary classification: Success/Failure."""
+  FAILURE = 0
+  SUCCESS = 1
+
+
 class ContainedInPlaceType(Enum):
   """ContainedInPlaceType indicates the type of places."""
   # PLACE is the most generic type.
