@@ -582,7 +582,7 @@ function addTextLabels(
 /**
  * Gets at least MIN_HIGHLIGHT_POINTS points to highlight in each quadrant for a
  * list of quadrants
- * 
+ *
  * TODO: split this function up into smaller functions
  */
 function getQuadrantHighlightPoints(
@@ -594,10 +594,8 @@ function getQuadrantHighlightPoints(
   const numSectionsPerAxis = HIGHLIGHT_QUADRANT_SECTIONS * 2;
   const xScaleRange = xScale.range();
   const yScaleRange = yScale.range();
-  const xSectionLength =
-    (xScaleRange[1] - xScaleRange[0]) / numSectionsPerAxis;
-  const ySectionLength =
-    (yScaleRange[0] - yScaleRange[1]) / numSectionsPerAxis;
+  const xSectionLength = (xScaleRange[1] - xScaleRange[0]) / numSectionsPerAxis;
+  const ySectionLength = (yScaleRange[0] - yScaleRange[1]) / numSectionsPerAxis;
   // Get the list of points in each section of the chart
   const sectionPoints = {};
   for (const point of points) {
