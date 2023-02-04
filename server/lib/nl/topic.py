@@ -78,16 +78,30 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_Worker_NAICSConstruction",
         "Count_Worker_NAICSEducationalServices",
         "Count_Worker_NAICSHealthCareSocialAssistance",
+        # Manufacturing
         "dc/ndg1xk1e9frc2",
         "Count_Worker_NAICSFinanceInsurance",
         "Count_Worker_NAICSInformation",
         "Count_Worker_NAICSArtsEntertainmentRecreation",
-        "dc/f18sq8w498j4f",
         "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-        "dc/4mm2p1rxr5wz4",
         "Count_Worker_NAICSOtherServices",
+        # Transportation and Warehousing
         "dc/8p97n7l96lgg8",
         "Count_Worker_NAICSUtilities",
+        # Retail Trade
+        "dc/p69tpsldf99h7",
+        "Count_Worker_NAICSRealEstateRentalLeasing",
+        "Count_Worker_NAICSPublicAdministration",
+        "Count_Worker_NAICSWholesaleTrade",
+        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+        "Count_Worker_NAICSPublicAdministration",
+        "Count_Worker_NAICSManagementOfCompaniesEnterprises",
+
+        # This is an almost dup of 
+        # Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices
+        # "dc/f18sq8w498j4f",
+        # Subsumed by Retail Trade
+        # "dc/4mm2p1rxr5wz4",
     ],
     "dc/svpg/MedicalConditionsPeerGroup": [
         "Percent_Person_WithArthritis",
