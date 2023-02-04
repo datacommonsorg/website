@@ -16,11 +16,7 @@ import logging
 from typing import List
 
 from lib.nl import utils
-from lib.nl.detection import ClassificationType
 from lib.nl.detection import Place
-from lib.nl.detection import RankingClassificationAttributes
-from lib.nl.detection import TimeDeltaClassificationAttributes
-from lib.nl.fulfillment import context
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
 from lib.nl.fulfillment.base import overview_fallback
@@ -35,26 +31,10 @@ from lib.nl.utterance import Utterance
 # Computes growth rate and ranks charts of comparable peer SVs.
 #
 def populate(uttr: Utterance):
-  time_delta_classification = context.classifications_of_type_from_utterance(
-      uttr, ClassificationType.TIME_DELTA)
-  # Get time delta type
-  if (not time_delta_classification or
-      not isinstance(time_delta_classification[0].attributes,
-                     TimeDeltaClassificationAttributes) or
-      not time_delta_classification[0].attributes.time_delta_types):
+  time_delta = utils.get_time_delta_types(uttr)
+  if not time_delta:
     return False
-  time_delta = time_delta_classification[0].attributes.time_delta_types
-
-  # Get potential ranking type
-  current_ranking_classification = context.classifications_of_type_from_utterance(
-      uttr, ClassificationType.RANKING)
-  ranking_types = []
-  if (current_ranking_classification and
-      isinstance(current_ranking_classification[0].attributes,
-                 RankingClassificationAttributes) and
-      current_ranking_classification[0].attributes.ranking_type):
-    ranking_types = current_ranking_classification[0].attributes.ranking_type
-
+  ranking_types = utils.get_ranking_types(uttr)
   return populate_charts(
       PopulateState(uttr=uttr,
                     main_cb=_populate_cb,

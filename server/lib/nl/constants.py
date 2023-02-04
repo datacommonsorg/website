@@ -303,3 +303,9 @@ EVENT_TYPE_TO_DISPLAY_NAME = {
     EventType.HEAT: "Exteme Heat Events",
     EventType.WETBULB: "High Wet-bulb Temperature Events",
 }
+
+CHILD_PLACES_TYPES = {
+    "Country": "State",
+    "State": "County",
+    "County": "City",
+}

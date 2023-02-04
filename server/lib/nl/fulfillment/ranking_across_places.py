@@ -15,14 +15,11 @@
 import logging
 from typing import List
 
+from lib.nl import topic
 from lib.nl import utils
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
 from lib.nl.detection import Place
-from lib.nl.detection import RankingClassificationAttributes
 from lib.nl.detection import RankingType
-from lib.nl.fulfillment import context
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
 from lib.nl.fulfillment.base import overview_fallback
@@ -41,34 +38,20 @@ from lib.nl.utterance import Utterance
 def populate(uttr: Utterance):
   # Get the RANKING classifications from the current utterance. That is what
   # let us infer this is ranking query-type.
-  current_ranking_classification = context.classifications_of_type_from_utterance(
-      uttr, ClassificationType.RANKING)
-
-  if (current_ranking_classification and
-      isinstance(current_ranking_classification[0].attributes,
-                 RankingClassificationAttributes) and
-      current_ranking_classification[0].attributes.ranking_type):
-    ranking_types = current_ranking_classification[0].attributes.ranking_type
-
-    current_contained_classification = context.classifications_of_type_from_utterance(
-        uttr, ClassificationType.CONTAINED_IN)
-    if (current_contained_classification and
-        isinstance(current_contained_classification[0].attributes,
-                   ContainedInClassificationAttributes)):
-      # Ranking among places.
-      place_type = current_contained_classification[
-          0].attributes.contained_in_place_type
-      if populate_charts(
-          PopulateState(uttr=uttr,
-                        main_cb=_populate_cb,
-                        fallback_cb=overview_fallback,
-                        place_type=place_type,
-                        ranking_types=ranking_types)):
-        return True
-      else:
-        utils.update_counter(uttr.counters,
-                             'ranking-across-places_failed_populate_placetype',
-                             place_type.value)
+  ranking_types = utils.get_ranking_types(uttr)
+  place_type = utils.get_contained_in_type(uttr)
+  if ranking_types and place_type:
+    if populate_charts(
+        PopulateState(uttr=uttr,
+                      main_cb=_populate_cb,
+                      fallback_cb=overview_fallback,
+                      place_type=place_type,
+                      ranking_types=ranking_types)):
+      return True
+    else:
+      utils.update_counter(uttr.counters,
+                           'ranking-across-places_failed_populate_placetype',
+                           place_type.value)
 
   # Fallback
   ranking_types = [RankingType.HIGH]
