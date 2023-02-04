@@ -395,9 +395,11 @@ def clean_sv_name(name: str) -> str:
       ' Workers',
   ]
   for p in _PREFIXES:
-    name = name.removeprefix(p)
+    if name.startswith(p):
+      name = name[len(p):]
   for s in _SUFFIXES:
-    name = name.removesuffix(s)
+    if name.endswith(s):
+      name = name[:-len(s)]
   return name
 
 
