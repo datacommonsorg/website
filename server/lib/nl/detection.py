@@ -199,6 +199,12 @@ class EventClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
+class ExtremesClassificationAttributes(ClassificationAttributes):
+  """Extremes classification attributes"""
+  extremes_trigger_words: List[str]
+
+
+@dataclass
 class OverviewClassificationAttributes(ClassificationAttributes):
   """Overview classification attributes"""
   overview_trigger_words: List[str]
@@ -225,8 +231,9 @@ class ClassificationType(IntEnum):
   COMPARISON = 7
   TIME_DELTA = 8
   EVENT = 9
-  OVERVIEW = 10
-  UNKNOWN = 11
+  EXTREME = 10
+  OVERVIEW = 11
+  UNKNOWN = 12
 
 
 # The supported classifications in order. Later entry is preferred.

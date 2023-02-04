@@ -114,6 +114,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
     eventClassification: props.debugData["event_classification"],
+    extremesClassification: props.debugData["extremes_classification"],
     counters: props.debugData["counters"],
     dataSpec: props.debugData["data_spec"],
   };
@@ -193,6 +194,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>Event classification: {debugInfo.eventClassification}</Col>
+          </Row>
+          <Row>
+            <Col>
+              Extremes classification: {debugInfo.extremesClassification}
+            </Col>
           </Row>
           <Row>
             <Col>

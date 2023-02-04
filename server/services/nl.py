@@ -27,6 +27,7 @@ from lib.nl.detection import ContainedInPlaceType
 from lib.nl.detection import CorrelationClassificationAttributes
 from lib.nl.detection import EventClassificationAttributes
 from lib.nl.detection import EventType
+from lib.nl.detection import ExtremesClassificationAttributes
 from lib.nl.detection import NLClassifier
 from lib.nl.detection import OverviewClassificationAttributes
 from lib.nl.detection import PeriodType
@@ -207,6 +208,35 @@ class Model:
     attributes = EventClassificationAttributes(
         event_types=event_types, event_trigger_words=all_trigger_words)
     return NLClassifier(type=ClassificationType.EVENT, attributes=attributes)
+
+  # TODO (juliawu): This code shares a lot of structure with the Overview
+  #                 classifier. Need to refactor to make code more DRY.
+  def heuristic_extremes_classification(self,
+                                        query) -> Union[NLClassifier, None]:
+    """Heuristic-based classifier for extremes queries.
+
+    Args:
+      query (str): the user's input as a string
+
+    Returns:
+      NLClassifier with ExtremesClassificationAttributes
+    """
+    # make query lowercase for string matching
+    query = query.lower()
+    extremes_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["Extreme"]
+    trigger_words = []
+    for keyword in extremes_heuristics:
+      # look for keyword surrounded by spaces or start/end delimiters
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+    # If no matches, this query is not an overview query
+    if not trigger_words:
+      return None
+
+    attributes = ExtremesClassificationAttributes(
+        extremes_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.EXTREME, attributes=attributes)
 
   def heuristic_ranking_classification(self,
                                        query) -> Union[NLClassifier, None]:

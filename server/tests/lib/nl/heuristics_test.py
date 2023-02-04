@@ -137,6 +137,41 @@ class TestHeuristicEventClassifier(unittest.TestCase):
     self.assertIsNone(result)
 
 
+class TestHeuristicExtremesClassifier(unittest.TestCase):
+
+  @classmethod
+  def setUpClass(cls) -> None:
+    cls._classifier = Model.heuristic_extremes_classification
+
+  @parameterized.expand([
+      ("what are the projected temperature extremes in california"),
+      ("extreme weather events in USA"),
+  ])
+  def test_detect_extremes(self, query):
+    expected = ClassificationType.EXTREME
+    classification = self._classifier(query)
+    result = classification.type
+    self.assertEqual(result, expected)
+
+  @parameterized.expand([
+      ("Number of poor women in Mountain View"),
+      ("Hearing impaired in CA"),
+      ("What is the median age of residents in Chicago?"),
+      ("What is the average annual greenhouse gas emissions in Mexico City?"),
+      ("infant deaths in the united states"),
+      ("What is the population of hispanic people in Texas?"),
+      ("Give me the average number of days with snowfall in Minneapolis"),
+      ("How many people in Seattle"),
+      ("Men with disabilities in the USA how many"),
+      ("what about berkeley"),
+      ("how about in oregon"),
+  ])
+  def test_no_false_positives(self, query):
+    # If no matches, classifier returns None
+    result = self._classifier(query)
+    self.assertIsNone(result)
+
+
 class TestHeuristicOverviewClassifier(unittest.TestCase):
 
   @classmethod

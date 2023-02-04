@@ -239,6 +239,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "WetBulb": ["wet(\W?)bulb",],
             "Earthquake": ["earthquakes?",]
         },
+        "Extreme": ["extremes?",],
         "TimeDelta": {
             "Increase": [
                 "grow(n|th)?",
@@ -299,6 +300,6 @@ EVENT_TYPE_TO_DISPLAY_NAME = {
     EventType.EARTHQUAKE: "Earthquakes",
     EventType.FIRE: "Fires",
     EventType.FLOOD: "Floods",
-    EventType.HEAT: "Exteme Heat Events",
+    EventType.HEAT: "Extreme Heat Events",
     EventType.WETBULB: "High Wet-bulb Temperature Events",
 }
