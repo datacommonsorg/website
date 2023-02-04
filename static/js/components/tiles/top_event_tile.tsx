@@ -296,9 +296,9 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     if (isUnnamedEvent(name)) {
       const eventTypeName = props.eventTypeSpec.name;
       if (eventPlaces[event.placeDcid]) {
-        name = `${eventTypeName} event in ${eventPlaces[event.placeDcid].name}`;
+        name = `${eventTypeName} in ${eventPlaces[event.placeDcid].name}`;
       } else {
-        name = `${eventTypeName} event at lat/long: ${event.latitude},${event.longitude}`;
+        name = `${eventTypeName} at lat/long: ${event.latitude},${event.longitude}`;
       }
     }
     return name;
