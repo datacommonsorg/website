@@ -284,7 +284,10 @@ def _build_chart_vars(state: PopulateState, sv: str,
     for v in just_svs:
       # Skip PC for this case (per prior implementation)
       charts.append(
-          ChartVars(svs=[v], block_id=state.block_id, include_percapita=False, source_topic=sv))
+          ChartVars(svs=[v],
+                    block_id=state.block_id,
+                    include_percapita=False,
+                    source_topic=sv))
 
     # 2. Make a block for every peer-group in svpgs
     for (title, svpg) in svpgs:

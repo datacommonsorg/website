@@ -54,7 +54,9 @@ def _join_list_phrase(l: List[str]) -> str:
   return ret
 
 
-# If utterance contains an event, returns the display name of the event. If not, empty string.
+# If utterance contains an event, returns the display name of the event. If not,
+# empty string.
+# TODO: pass info using ChartSpec.attr.
 def _get_event_description(uttr: Utterance) -> str:
   event_classification = ctx.classifications_of_type_from_utterance(
       uttr, detection.ClassificationType.EVENT)
@@ -66,7 +68,9 @@ def _get_event_description(uttr: Utterance) -> str:
   return ''
 
 
-# If utterance contains a contained in classification, returns a phrase ' by <contained_place_type>'. If not, empty string.
+# If utterance contains a contained in classification, returns a phrase ' by
+# <contained_place_type>'. If not, empty string.
+# TODO: pass info using ChartSpec.attr.
 def _get_contained_in(uttr: Utterance) -> str:
   if len(uttr.classifications) and isinstance(
       uttr.classifications[0].attributes, ContainedInClassificationAttributes):
@@ -75,7 +79,8 @@ def _get_contained_in(uttr: Utterance) -> str:
   return ''
 
 
-# If there are sv's in the utterance, builds a phrase '<sv>, <sv> and more' depending on the number of sv's. If not, empty string.
+# If there are sv's in the utterance, builds a phrase '<sv>, <sv> and more'
+# depending on the number of sv's. If not, empty string.
 def _get_svs(uttr: Utterance, sv2name) -> str:
   svs = uttr.rankedCharts[0].svs
   logging.info(svs)

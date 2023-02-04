@@ -21,8 +21,8 @@ from unittest.mock import patch
 from config.subject_page_pb2 import SubjectPageConfig
 from google.protobuf import text_format
 from lib.nl import page_config_next
-from lib.nl import utils
 from lib.nl import topic
+from lib.nl import utils
 from lib.nl import utterance
 from parameterized import parameterized
 from tests.lib.nl.test_utterance import COMPARISON_UTTR
