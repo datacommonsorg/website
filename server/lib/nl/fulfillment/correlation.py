@@ -135,6 +135,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 def _populate_correlation_chart(state: PopulateState, place: Place, sv_1: str,
                                 sv_2: str) -> bool:
   state.block_id += 1
+  # TODO: Handle per-capita carefully.
   chart_vars = ChartVars(svs=[sv_1, sv_2],
                          block_id=state.block_id,
                          include_percapita=False,
