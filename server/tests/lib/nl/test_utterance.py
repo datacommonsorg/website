@@ -220,7 +220,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'attr': {
             'block_id': 2,
             'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
+            'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
             'title': ''
@@ -430,7 +430,7 @@ RANKING_ACROSS_SVS_UTTR = {
         'attr': {
             'block_id': 2,
             'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
+            'include_percapita': True,
             'place_type': None,
             'ranking_types': [RankingType.HIGH],
             'title': ''

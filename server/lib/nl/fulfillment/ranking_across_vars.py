@@ -102,5 +102,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                            'ranked': ranked_svs,
                        })
   chart_vars.svs = ranked_svs
+  # Show per-capita too.
+  chart_vars.include_percapita = True
   return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                                 chart_origin)

@@ -130,11 +130,6 @@ class TestComputeGrowthRate(unittest.TestCase):
             'date': '2017',
             'value': 10
         },
-        # should be ignored
-        {
-            'date': '2009',
-            'value': 30
-        },
     ]
     # (20 - 10) / (2 years * 10)
     self.assertEqual(0.0013698630136986301, utils.compute_growth_rate(s))

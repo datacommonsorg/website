@@ -31,6 +31,12 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
     ],
     "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
     "dc/topic/MedicalConditions": ["dc/svpg/MedicalConditionsPeerGroup"],
+    "dc/topic/ProjectedClimateExtremes": [
+        "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp",
+        "dc/svpg/ProjectedClimateExtremes_LowestMinTemp",
+        "dc/svpg/ProjectedClimateExtremes_HighestMeanTemp",
+        "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp",
+    ],
     # TODO(nhdiaz): Remove after demos. This topic is only used for a custom DC.
     "dc/topic/SolarPotential": [
         "Count_Building_SuitableForSolar",
@@ -111,6 +117,26 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_SolarPanelPotential_SouthFacingRoofSpace",
         "Count_SolarPanelPotential_WestFacingRoofSpace",
     ],
+    "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp": [
+        "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245",
+        "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245",
+        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245",
+    ],
+    "dc/svpg/ProjectedClimateExtremes_HighestMeanTemp": [
+        "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
+        "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
+        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
+    ],
+    "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp": [
+        "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
+        "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
+        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
+    ],
+    "dc/svpg/ProjectedClimateExtremes_LowestMinTemp": [
+        "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245",
+        "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245",
+        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245",
+    ],
 }
 
 _SVPG_NAMES_OVERRIDE = {
@@ -122,6 +148,14 @@ _SVPG_NAMES_OVERRIDE = {
         "Solar Energy Generation Potential",
     "dc/svpg/SolarPanelPotential":
         "Solar Panel Potential",
+    "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
+        "Projected highest increase in max temperature (SSP2, RCP4.5, Base 2015)",
+    "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
+        "Projected highest decrease in min temperature (SSP2, RCP4.5, Base 2015)",
+    "dc/svpg/ProjectedClimateExtremes_HighestMeanTemp":
+        "Projected highest decrease in mean temperature (SSP2, RCP4.5, Base 2015)",
+    "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp":
+        "Projected highest decrease in mean temperature (SSP2, RCP4.5, Base 2015)",
 }
 
 
