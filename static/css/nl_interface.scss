@@ -204,6 +204,8 @@ $answer-min-height: 100vh;
 .expando:hover,
 h2,
 h3,
+.category p,
+.disaster-event-map-selectors-section,
 .nl-query-error p {
   color: white;
 }
@@ -295,6 +297,10 @@ $loading-dot-color: #fff;
       background-color: rgba(193, 193, 193, 0.2);
     }
   }
+}
+
+.disaster-event-map-selectors-section {
+  padding-bottom: 10px;
 }
 
 .chart-container {
