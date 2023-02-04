@@ -85,11 +85,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                          [chart_vars.svs])
     return False
 
-  vars = chart_vars.svs
   chart_vars.response_type = "ranking table"
-  for sv in vars:
-    cv = chart_vars
-    cv.svs = [sv]
-    add_chart_to_utterance(ChartType.RANKING_CHART, state, cv, places,
-                           chart_origin)
+  add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars, places,
+                         chart_origin)
   return True

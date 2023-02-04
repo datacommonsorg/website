@@ -511,6 +511,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
  categories {
   description: "Here are some ranking tables about Count_Agricultural_Workers-name in Foo Place."
    blocks {
+     title: "Count_Agricultural_Workers-name"      
      columns {
        tiles {
          title: "Count_Agricultural_Workers-name in Foo Place"
@@ -529,6 +530,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
       }
     }
     blocks {
+      title: "Count_Agricultural_Workers-name - Per Capita"
       columns {
        tiles {
          title: "Per Capita Count_Agricultural_Workers-name in Foo Place"

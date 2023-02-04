@@ -28,9 +28,49 @@ import lib.nl.utterance as nl_uttr
 import lib.util as util
 import services.datacommons as dc
 
+# TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
+
+_SV_DISPLAY_NAME_OVERRIDE = {
+    "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
+        "Extreme Max Temperature before 2030",
+    "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
+        "Extreme Max Temperature before 2040",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
+        "Extreme Max Temperature before 2050",
+    "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
+        "Extreme Min Temperature before 2030",
+    "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
+        "Extreme Min Temperature before 2040",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
+        "Extreme Min Temperature before 2050",
+    "Percent_Person_WithArthritis":
+        "Arthritis",
+    "Percent_Person_WithAsthma":
+        "Asthma",
+    "Percent_Person_WithCancerExcludingSkinCancer":
+        "Cancer (excluding skin cancer)",
+    "Percent_Person_WithChronicKidneyDisease":
+        "Chronic Kidney Disease",
+    "Percent_Person_WithChronicObstructivePulmonaryDisease":
+        "Chronic Obstructive Pulmonary Disease",
+    "Percent_Person_WithCoronaryHeartDisease":
+        "Coronary Heart Disease",
+    "Percent_Person_WithDiabetes":
+        "Diabetes",
+    "Percent_Person_WithHighBloodPressure":
+        "High Bood Pressure",
+    "Percent_Person_WithHighCholesterol":
+        "High Cholesterol",
+    "Percent_Person_WithMentalHealthNotGood":
+        "Mental Health Issues",
+    "Percent_Person_WithPhysicalHealthNotGood":
+        "Physical Health Issues",
+    "Percent_Person_WithStroke":
+        "Stroke",
+}
 
 
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
@@ -368,11 +408,14 @@ def get_sv_name(all_svs: List[str]) -> Dict:
   title_by_sv_dcid = {}
   with open(title_config_path) as f:
     title_by_sv_dcid = json.load(f)
+
   sv_name_map = {}
   # If a curated name is found return that,
   # Else return the name property for SV.
   for sv in all_svs:
-    if sv in title_by_sv_dcid:
+    if sv in _SV_DISPLAY_NAME_OVERRIDE:
+      sv_name_map[sv] = _SV_DISPLAY_NAME_OVERRIDE[sv]
+    elif sv in title_by_sv_dcid:
       sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
     else:
       sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
