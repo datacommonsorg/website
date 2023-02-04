@@ -296,3 +296,13 @@ $loading-dot-color: #fff;
     }
   }
 }
+
+.chart-container {
+  .legend div {
+    font-size: 12px;
+
+    a {
+      text-shadow: 0 1px 6px #000;
+    }
+  }
+}
