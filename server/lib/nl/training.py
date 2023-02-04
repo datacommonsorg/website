@@ -308,6 +308,13 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
                     "Places having the most parks and green spaces",
                     "Places with the highest average temperature",
                     "counties within 100 miles of san francisco",
+                    "highest temperature across California",
+                    # Some examples for "across"
+                    "across this state",
+                    "income distribution across the country",
+                    "povery levels across",
+                    "across all counties",
+                    "across cities",
                 ],
                 "2": [
                     "Number of poor women in Mountain View",
