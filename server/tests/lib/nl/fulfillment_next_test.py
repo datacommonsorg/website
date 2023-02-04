@@ -100,13 +100,8 @@ class TestDataSpecNext(unittest.TestCase):
         'geoId/01',
         # Very low scores that we should ignore all SVs.
         ['Count_Farm', 'Income_Farm'],
-        [0.4, 0.2])
-    # Set comparison classifier
-    detection.classifications = [
-        NLClassifier(type=ClassificationType.OVERVIEW,
-                     attributes=nl_detection.OverviewClassificationAttributes(
-                         overview_trigger_words=['tell me']))
-    ]
+        [0.4, 0.2],
+        ClassificationType.OVERVIEW)
 
     got = _run(detection, [SIMPLE_UTTR])
 
@@ -507,6 +502,12 @@ def _detection(place: str,
                      attributes=nl_detection.RankingClassificationAttributes(
                          ranking_type=[RankingType.HIGH],
                          ranking_trigger_words=['most']))
+    ]
+  elif query_type == ClassificationType.OVERVIEW:
+    detection.classifications = [
+        NLClassifier(type=ClassificationType.OVERVIEW,
+                     attributes=nl_detection.OverviewClassificationAttributes(
+                         overview_trigger_words=['tell me']))
     ]
 
   return detection

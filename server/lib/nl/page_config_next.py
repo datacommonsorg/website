@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import logging
-from typing import List
+from typing import Dict, List
 
 from config.subject_page_pb2 import Block
 from config.subject_page_pb2 import RankingTileSpec
@@ -45,26 +45,63 @@ _EVENT_TYPE_TO_CONFIG_KEY = {
 }
 
 
+class PageConfigBuilder:
+
+  def __init__(self, uttr):
+    self.uttr = uttr
+    self.page_config = SubjectPageConfig()
+
+    metadata = self.page_config.metadata
+    first_chart = uttr.rankedCharts[0]
+    main_place = first_chart.places[0]
+    metadata.place_dcid.append(main_place.dcid)
+    if (first_chart.chart_type == ChartType.MAP_CHART or
+        first_chart.chart_type == ChartType.RANKING_CHART or
+        first_chart.chart_type == ChartType.SCATTER_CHART):
+      metadata.contained_place_types[main_place.place_type] = \
+        first_chart.attr['place_type']
+
+    self.category = self.page_config.categories.add()
+    self.block = None
+    self.column = None
+    self.prev_block_id = -1
+
+    self.ignore_block_id_check = False
+    if (uttr.query_type == ClassificationType.RANKING and
+        utils.get_contained_in_type(uttr)):
+      self.ignore_block_id_check = True
+
+  # Returns a Block and a Column
+  def new_chart(self, attr: Dict) -> any:
+    block_id = attr['block_id']
+    if block_id != self.prev_block_id or self.ignore_block_id_check:
+      if self.block:
+        self.category.blocks.append(self.block)
+      self.block = Block()
+      if attr['title']:
+        self.block.title = attr['title']
+      self.column = self.block.columns.add()
+      self.prev_block_id = block_id
+    return self.block, self.column
+
+  def update_sv_spec(self, stat_var_spec_map):
+    for sv_key, spec in stat_var_spec_map.items():
+      self.category.stat_var_spec[sv_key].CopyFrom(spec)
+
+  def finalize(self) -> SubjectPageConfig:
+    if self.block:
+      self.category.blocks.append(self.block)
+      self.block = None
+
+
 #
 # Given an Utterance, build the final Chart config proto.
 #
 def build_page_config(
     uttr: Utterance,
     event_config: SubjectPageConfig = None) -> SubjectPageConfig:
-  # Init
-  page_config = SubjectPageConfig()
-  # Set metadata
-  first_chart = uttr.rankedCharts[0]
-  main_place = first_chart.places[0]
-  page_config.metadata.place_dcid.append(main_place.dcid)
-  if (first_chart.chart_type == ChartType.MAP_CHART or
-      first_chart.chart_type == ChartType.RANKING_CHART or
-      first_chart.chart_type == ChartType.SCATTER_CHART):
-    page_config.metadata.contained_place_types[main_place.place_type] = \
-      first_chart.attr['place_type']
 
-  # Set category data
-  category = page_config.categories.add()
+  builder = PageConfigBuilder(uttr)
 
   # Get names of all SVs
   all_svs = set()
@@ -77,43 +114,27 @@ def build_page_config(
   try:
     desc = lib_desc.build_category_description(uttr, sv2name)
     if desc:
-      category.description = desc
+      builder.category.description = desc
   except Exception as err:
     utils.update_counter(uttr.counters, 'failed_category_description_build',
                          str(err))
     logging.warning("Error building category description", err)
 
   # Build chart blocks
-  prev_block_id = -1
-  block = None
-  column = None
-  ignore_block_id_check = False
-  # TODO: Unlike other shapes, ranking always has a chart-spec per block.
-  if uttr.query_type == ClassificationType.RANKING and utils.get_contained_in_type(
-      uttr):
-    ignore_block_id_check = True
   for cspec in uttr.rankedCharts:
     if not cspec.places:
       continue
     stat_var_spec_map = {}
 
-    # Handle new block and column creation.
-    block_id = cspec.attr['block_id']
-    if block_id != prev_block_id or ignore_block_id_check:
-      if block:
-        category.blocks.append(block)
-      block = Block()
-      column = block.columns.add()
-      prev_block_id = block_id
-
     # Call per-chart handlers.
-
     if cspec.chart_type == ChartType.PLACE_OVERVIEW:
       place = cspec.places[0]
+      block, column = builder.new_chart(cspec.attr)
       block.title = place.name
       _place_overview_block(column)
 
     elif cspec.chart_type == ChartType.TIMELINE_CHART:
+      _, column = builder.new_chart(cspec.attr)
       if len(cspec.svs) > 1:
         stat_var_spec_map = _single_place_multiple_var_timeline_block(
             column, cspec.svs, sv2name, cspec.attr)
@@ -122,6 +143,7 @@ def build_page_config(
             column, cspec.svs[0], sv2name, cspec.attr)
 
     elif cspec.chart_type == ChartType.BAR_CHART:
+      _, column = builder.new_chart(cspec.attr)
       stat_var_spec_map = _multiple_place_bar_block(column, cspec.places,
                                                     cspec.svs, sv2name,
                                                     cspec.attr)
@@ -129,42 +151,52 @@ def build_page_config(
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not _is_map_or_ranking_compatible(cspec):
         continue
-      stat_var_spec_map = _map_chart_block(column, cspec.svs[0], sv2name,
-                                           cspec.attr)
+      for sv in cspec.svs:
+        _, column = builder.new_chart(cspec.attr)
+        stat_var_spec_map.update(
+            _map_chart_block(column, sv, sv2name, cspec.attr))
 
     elif cspec.chart_type == ChartType.RANKING_CHART:
       if not _is_map_or_ranking_compatible(cspec):
         continue
-      pri_sv = cspec.svs[0]
       pri_place = cspec.places[0]
-      stat_var_spec_map = {}
-      stat_var_spec_map.update(
-          _ranking_chart_block_nopc(column, pri_place, pri_sv, sv2name,
-                                    cspec.attr))
-      if cspec.attr['include_percapita'] and _should_add_percapita(pri_sv):
-        category.blocks.append(block)
-        block = Block()
-        column = block.columns.add()
+      for idx, sv in enumerate(cspec.svs):
+        block, column = builder.new_chart(cspec.attr)
+        if idx > 0 and cspec.attr['source_topic']:
+          # For a peer-group of SVs, set the title only once.
+          builder.block.title = ''
+        elif not builder.block.title:
+          # For the first SV, if title weren't already set, set it to
+          # the SV name.
+          builder.block.title = sv2name[sv]
         stat_var_spec_map.update(
-            _ranking_chart_block_pc(column, pri_place, pri_sv, sv2name,
-                                    cspec.attr))
+            _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
+                                      cspec.attr))
+        if cspec.attr['include_percapita'] and _should_add_percapita(sv):
+          main_title = builder.block.title
+          block, column = builder.new_chart(cspec.attr)
+          if main_title:
+            builder.block.title = main_title + ' - Per Capita'
+          stat_var_spec_map.update(
+              _ranking_chart_block_pc(column, pri_place, sv, sv2name,
+                                      cspec.attr))
     elif cspec.chart_type == ChartType.SCATTER_CHART:
+      _, column = builder.new_chart(cspec.attr)
       stat_var_spec_map = _scatter_chart_block(column, cspec.places[0],
                                                cspec.svs, sv2name, cspec.attr)
 
     elif cspec.chart_type == ChartType.EVENT_CHART and event_config:
-      _event_chart_block(page_config.metadata, block, column, cspec.places[0],
-                         cspec.svs[0], cspec.attr, event_config)
+      block, column = builder.new_chart(cspec.attr)
+      _event_chart_block(builder.page_config.metadata, block, column,
+                         cspec.places[0], cspec.svs[0], cspec.attr,
+                         event_config)
 
-    for sv_key, spec in stat_var_spec_map.items():
-      category.stat_var_spec[sv_key].CopyFrom(spec)
+    builder.update_sv_spec(stat_var_spec_map)
 
-  # If there is an active block, add it.
-  if block:
-    category.blocks.append(block)
+  builder.finalize()
 
-  logging.info(page_config)
-  return page_config
+  logging.info(builder.page_config)
+  return builder.page_config
 
 
 def _single_place_single_var_timeline_block(column, sv_dcid, sv2name, attr):
@@ -497,9 +529,6 @@ def _maybe_copy_top_event(event_id, block, tile, event_config):
 def _is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
   if len(cspec.places) > 1:
     logging.error('Incompatible MAP/RANKING: too-many-places ', cspec)
-    return False
-  if len(cspec.svs) > 1:
-    logging.error('Incompatible MAP/RANKING: too-many-svs', cspec)
     return False
   if 'place_type' not in cspec.attr or not cspec.attr['place_type']:
     logging.error('Incompatible MAP/RANKING: missing-place-type', cspec)

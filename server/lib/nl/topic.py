@@ -34,8 +34,6 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/ProjectedClimateExtremes": [
         "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp",
         "dc/svpg/ProjectedClimateExtremes_LowestMinTemp",
-        "dc/svpg/ProjectedClimateExtremes_HighestMeanTemp",
-        "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp",
     ],
     # TODO(nhdiaz): Remove after demos. This topic is only used for a custom DC.
     "dc/topic/SolarPotential": [
@@ -172,6 +170,11 @@ _SVPG_NAMES_OVERRIDE = {
         "Projected highest decrease in mean temperature (SSP2, RCP4.5, Base 2015)",
 }
 
+_TOPIC_NAMES_OVERRIDE = {
+    "dc/topic/ProjectedClimateExtremes": "Projected Climate Extremes",
+    "dc/topic/SolarPotential": "Solar Potential",
+}
+
 
 def get_topics(sv_dcids: List[str]):
   """Returns a list of SV's to use for the topic if the topic is ranked highly during detection."""
@@ -203,6 +206,8 @@ def get_topic_peers(sv_dcids: List[str]):
 
 
 def get_topic_name(topic_dcid: str) -> str:
+  if topic_dcid in _TOPIC_NAMES_OVERRIDE:
+    return _TOPIC_NAMES_OVERRIDE[topic_dcid]
   resp = dc.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
   if resp:
     return resp[0]
