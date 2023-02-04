@@ -97,7 +97,7 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_Worker_NAICSPublicAdministration",
         "Count_Worker_NAICSManagementOfCompaniesEnterprises",
 
-        # This is an almost dup of 
+        # This is an almost dup of
         # Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices
         # "dc/f18sq8w498j4f",
         # Subsumed by Retail Trade
