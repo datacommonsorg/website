@@ -16,10 +16,7 @@ import logging
 from typing import List
 
 from lib.nl import utils
-from lib.nl.detection import ClassificationType
 from lib.nl.detection import Place
-from lib.nl.detection import RankingClassificationAttributes
-from lib.nl.fulfillment import context
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
 from lib.nl.fulfillment.base import overview_fallback
@@ -42,15 +39,8 @@ from lib.nl.utterance import Utterance
 def populate(uttr: Utterance):
   # Get the RANKING classifications from the current utterance. That is what
   # let us infer this is ranking query-type.
-  current_ranking_classification = context.classifications_of_type_from_utterance(
-      uttr, ClassificationType.RANKING)
-
-  if (current_ranking_classification and
-      isinstance(current_ranking_classification[0].attributes,
-                 RankingClassificationAttributes) and
-      current_ranking_classification[0].attributes.ranking_type):
-    ranking_types = current_ranking_classification[0].attributes.ranking_type
-
+  ranking_types = utils.get_ranking_types(uttr)
+  if ranking_types:
     # Ranking among stat-vars.
     if populate_charts(
         PopulateState(uttr=uttr,

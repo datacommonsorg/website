@@ -21,13 +21,14 @@ from config.subject_page_pb2 import StatVarSpec
 from config.subject_page_pb2 import SubjectPageConfig
 from config.subject_page_pb2 import Tile
 from lib.nl import utils
-from lib.nl.constants import EVENT_TYPE_TO_DISPLAY_NAME
+import lib.nl.constants as constants
 import lib.nl.descriptions as lib_desc
 from lib.nl.detection import EventType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
 from lib.nl.utterance import ChartSpec
 from lib.nl.utterance import ChartType
+from lib.nl.utterance import ClassificationType
 from lib.nl.utterance import Utterance
 
 # NOTE: This relies on disaster config's event_type_spec IDs.
@@ -41,12 +42,6 @@ _EVENT_TYPE_TO_CONFIG_KEY = {
     EventType.FLOOD: "flood",
     EventType.HEAT: "heat",
     EventType.WETBULB: "wetbulb",
-}
-
-_EVENT_FALLBACK_CHILD_PLACES = {
-    "Country": "State",
-    "State": "County",
-    "County": "City",
 }
 
 
@@ -92,6 +87,11 @@ def build_page_config(
   prev_block_id = -1
   block = None
   column = None
+  ignore_block_id_check = False
+  # TODO: Unlike other shapes, ranking always has a chart-spec per block.
+  if uttr.query_type == ClassificationType.RANKING and utils.get_contained_in_type(
+      uttr):
+    ignore_block_id_check = True
   for cspec in uttr.rankedCharts:
     if not cspec.places:
       continue
@@ -99,12 +99,10 @@ def build_page_config(
 
     # Handle new block and column creation.
     block_id = cspec.attr['block_id']
-    if block_id != prev_block_id:
+    if block_id != prev_block_id or ignore_block_id_check:
       if block:
         category.blocks.append(block)
       block = Block()
-      if cspec.attr['title']:
-        block.title = cspec.attr['title']
       column = block.columns.add()
       prev_block_id = block_id
 
@@ -131,17 +129,25 @@ def build_page_config(
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not _is_map_or_ranking_compatible(cspec):
         continue
-      stat_var_spec_map = _map_chart_block(column, cspec.places[0],
-                                           cspec.svs[0], sv2name, cspec.attr)
+      stat_var_spec_map = _map_chart_block(column, cspec.svs[0], sv2name,
+                                           cspec.attr)
 
     elif cspec.chart_type == ChartType.RANKING_CHART:
-      # TODO: Ranking chart block title.
       if not _is_map_or_ranking_compatible(cspec):
         continue
-      stat_var_spec_map = _ranking_chart_block(column, cspec.places[0],
-                                               cspec.svs[0], sv2name,
-                                               cspec.attr)
-
+      pri_sv = cspec.svs[0]
+      pri_place = cspec.places[0]
+      stat_var_spec_map = {}
+      stat_var_spec_map.update(
+          _ranking_chart_block_nopc(column, pri_place, pri_sv, sv2name,
+                                    cspec.attr))
+      if cspec.attr['include_percapita'] and _should_add_percapita(pri_sv):
+        category.blocks.append(block)
+        block = Block()
+        column = block.columns.add()
+        stat_var_spec_map.update(
+            _ranking_chart_block_pc(column, pri_place, pri_sv, sv2name,
+                                    cspec.attr))
     elif cspec.chart_type == ChartType.SCATTER_CHART:
       stat_var_spec_map = _scatter_chart_block(column, cspec.places[0],
                                                cspec.svs, sv2name, cspec.attr)
@@ -265,7 +271,14 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
   return stat_var_spec_map
 
 
-def _map_chart_block(column, pri_place: Place, pri_sv: str, sv2name, attr):
+def _map_chart_block(column, pri_sv: str, sv2name, attr):
+  svs_map = _map_chart_block_nopc(column, pri_sv, sv2name)
+  if attr['include_percapita'] and _should_add_percapita(pri_sv):
+    svs_map.update(_map_chart_block_pc(column, pri_sv, sv2name))
+  return svs_map
+
+
+def _map_chart_block_nopc(column, pri_sv: str, sv2name):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
@@ -274,19 +287,22 @@ def _map_chart_block(column, pri_place: Place, pri_sv: str, sv2name, attr):
 
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
+  return stat_var_spec_map
 
-  # The per capita tile
-  if attr['include_percapita'] and _should_add_percapita(pri_sv):
-    tile = column.tiles.add()
-    sv_key = pri_sv + "_pc"
-    tile.stat_var_key.append(sv_key)
-    tile.type = Tile.TileType.MAP
-    tile.title = sv2name[pri_sv] + " - Per Capita"
-    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
-                                            denom="Count_Person",
-                                            name=sv2name[pri_sv],
-                                            scaling=100,
-                                            unit="%")
+
+def _map_chart_block_pc(column, pri_sv: str, sv2name):
+  tile = column.tiles.add()
+  sv_key = pri_sv + "_pc"
+  tile.stat_var_key.append(sv_key)
+  tile.type = Tile.TileType.MAP
+  tile.title = sv2name[pri_sv] + " - Per Capita"
+
+  stat_var_spec_map = {}
+  stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
+                                          denom="Count_Person",
+                                          name=sv2name[pri_sv],
+                                          scaling=100,
+                                          unit="%")
   return stat_var_spec_map
 
 
@@ -311,9 +327,23 @@ def _set_ranking_tile_spec(ranking_types: List[RankingType], pri_sv: str,
       ranking_tile_spec.show_highest = True
     elif RankingType.LOW in ranking_types:
       ranking_tile_spec.show_lowest = True
+    elif RankingType.EXTREME in ranking_types:
+      if _does_extreme_mean_low(pri_sv):
+        ranking_tile_spec.show_lowest = True
+      else:
+        ranking_tile_spec.show_highest = True
 
 
-def _ranking_chart_block(column, pri_place: Place, pri_sv: str, sv2name, attr):
+def _does_extreme_mean_low(sv: str) -> bool:
+  _MIN_SV_PATTERNS = ['ProjectedMin', 'Min_Temperature']
+  for p in _MIN_SV_PATTERNS:
+    if p in sv:
+      return True
+  return False
+
+
+def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str, sv2name,
+                              attr):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
@@ -324,21 +354,32 @@ def _ranking_chart_block(column, pri_place: Place, pri_sv: str, sv2name, attr):
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
 
+  # Also add a map chart.
+  stat_var_spec_map.update(_map_chart_block_nopc(column, pri_sv, sv2name))
+
+  return stat_var_spec_map
+
+
+def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str, sv2name,
+                            attr):
   # The per capita tile
-  if attr['include_percapita'] and _should_add_percapita(pri_sv):
-    tile = column.tiles.add()
-    sv_key = pri_sv + "_pc"
-    tile.stat_var_key.append(sv_key)
-    tile.type = Tile.TileType.RANKING
-    _set_ranking_tile_spec(attr['ranking_types'], pri_sv,
-                           tile.ranking_tile_spec)
-    tile.title = ''.join(
-        ['Per Capita ', sv2name[pri_sv], ' in ', pri_place.name])
-    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
-                                            denom="Count_Person",
-                                            name=sv2name[pri_sv],
-                                            scaling=100,
-                                            unit="%")
+  tile = column.tiles.add()
+  sv_key = pri_sv + "_pc"
+  tile.stat_var_key.append(sv_key)
+  tile.type = Tile.TileType.RANKING
+  _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
+  tile.title = ''.join(['Per Capita ', sv2name[pri_sv], ' in ', pri_place.name])
+
+  stat_var_spec_map = {}
+  stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
+                                          denom="Count_Person",
+                                          name=sv2name[pri_sv],
+                                          scaling=100,
+                                          unit="%")
+
+  # Also add a map chart.
+  stat_var_spec_map.update(_map_chart_block_pc(column, pri_sv, sv2name))
+
   return stat_var_spec_map
 
 
@@ -413,11 +454,11 @@ def _event_chart_block(metadata, block, column, place: Place, event_key: str,
 
   if not place.place_type in metadata.contained_place_types:
     metadata.contained_place_types[
-        place.place_type] = _EVENT_FALLBACK_CHILD_PLACES.get(
+        place.place_type] = constants.CHILD_PLACES_TYPES.get(
             place.place_type, "Place")
   event_name = metadata.event_type_spec[event_id].name
-  if event_type in EVENT_TYPE_TO_DISPLAY_NAME:
-    event_name = EVENT_TYPE_TO_DISPLAY_NAME[event_type]
+  if event_type in constants.EVENT_TYPE_TO_DISPLAY_NAME:
+    event_name = constants.EVENT_TYPE_TO_DISPLAY_NAME[event_type]
   block.title = event_name + ' in ' + place.name
   block.type = Block.DISASTER_EVENT
 

@@ -23,6 +23,8 @@ from typing import Dict, List, Set, Union
 
 import lib.nl.constants as constants
 import lib.nl.detection as detection
+import lib.nl.fulfillment.context as ctx
+import lib.nl.utterance as nl_uttr
 import lib.util as util
 import services.datacommons as dc
 
@@ -371,11 +373,32 @@ def get_sv_name(all_svs: List[str]) -> Dict:
   # Else return the name property for SV.
   for sv in all_svs:
     if sv in title_by_sv_dcid:
-      sv_name_map[sv] = title_by_sv_dcid[sv]
+      sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
     else:
-      sv_name_map[sv] = uncurated_names[sv]
+      sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 
   return sv_name_map
+
+
+# TODO: Remove this hack by fixing the name in schema and config.
+def clean_sv_name(name: str) -> str:
+  _PREFIXES = [
+      'Population of People Working in the ',
+      'Population of People Working in ',
+      'Population of People ',
+      'Population Working in the ',
+      'Population Working in ',
+      'Number of the ',
+      'Number of ',
+  ]
+  _SUFFIXES = [
+      ' Workers',
+  ]
+  for p in _PREFIXES:
+    name = name.removeprefix(p)
+  for s in _SUFFIXES:
+    name = name.removesuffix(s)
+  return name
 
 
 def get_only_svs(svs: List[str]) -> List[str]:
@@ -411,3 +434,40 @@ def update_counter(dbg_counters: Dict, counter: str, value: any):
     if should_add:
       dbg_counters[counter] = []
     dbg_counters[counter].append(value)
+
+
+def get_contained_in_type(
+    uttr: nl_uttr.Utterance) -> detection.ContainedInPlaceType:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.CONTAINED_IN)
+  place_type = None
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.ContainedInClassificationAttributes)):
+    # Ranking among places.
+    place_type = classification[0].attributes.contained_in_place_type
+  return place_type
+
+
+def get_ranking_types(uttr: nl_uttr.Utterance) -> List[detection.RankingType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.RANKING)
+  ranking_types = []
+  if (classification and isinstance(classification[0].attributes,
+                                    detection.RankingClassificationAttributes)):
+    # Ranking among places.
+    ranking_types = classification[0].attributes.ranking_type
+  return ranking_types
+
+
+def get_time_delta_types(
+    uttr: nl_uttr.Utterance) -> List[detection.TimeDeltaType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.TIME_DELTA)
+  time_delta = []
+  # Get time delta type
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.TimeDeltaClassificationAttributes)):
+    time_delta = classification[0].attributes.time_delta_types
+  return time_delta

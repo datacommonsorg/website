@@ -522,6 +522,15 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
+         title: "Count_Agricultural_Workers-name"
+         type: MAP
+         stat_var_key: "Count_Agricultural_Workers"
+       }
+      }
+    }
+    blocks {
+      columns {
+       tiles {
          title: "Per Capita Count_Agricultural_Workers-name in Foo Place"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers_pc"
@@ -529,6 +538,11 @@ RANKING_ACROSS_PLACES_CONFIG = """
            show_highest: true
            ranking_count: 10
          }
+       }
+       tiles {
+         title: "Count_Agricultural_Workers-name - Per Capita"
+         type: MAP
+         stat_var_key: "Count_Agricultural_Workers_pc"
        }
      }
    }
