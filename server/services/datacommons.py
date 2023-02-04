@@ -287,6 +287,18 @@ def resolve_id(in_ids, in_prop, out_prop):
   })
 
 
+def resolve_coordinates(coordinates):
+  """Resolves a list of coordinates.
+
+  Args:
+      coordinates: a list of { longitude: number, latitude: number }.
+  """
+  url = get_service_url('/v1/recon/resolve/coordinate')
+  return post(url, {
+      'coordinates': coordinates,
+  })
+
+
 def get_event_collection(event_type,
                          affected_place,
                          date,
