@@ -302,3 +302,13 @@ $loading-dot-color: #fff;
 .disaster-event-map-selectors-section {
   padding-bottom: 10px;
 }
+
+.chart-container {
+  .legend div {
+    font-size: 12px;
+
+    a {
+      text-shadow: 0 0 7px #000;
+    }
+  }
+}
