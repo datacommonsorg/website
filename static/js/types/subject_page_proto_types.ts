@@ -80,6 +80,13 @@ export interface TopEventTileSpec {
   reverseSort: boolean;
 }
 
+export interface ScatterTileSpec {
+  highlightTopRight?: boolean;
+  highlightTopLeft?: boolean;
+  highlightBottomRight?: boolean;
+  highlightBottomLeft?: boolean;
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
@@ -89,6 +96,7 @@ export interface TileConfig {
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;
+  scatterTileSpec?: ScatterTileSpec;
 }
 
 export interface ColumnConfig {

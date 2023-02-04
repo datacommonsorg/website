@@ -28,9 +28,11 @@ import {
   ScatterPlotOptions,
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
+import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
+import { ScatterTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -46,6 +48,7 @@ interface ScatterTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  scatterTileSpec: ScatterTileSpec;
   // Extra classes to add to the container.
   className?: string;
 }
@@ -90,9 +93,15 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   useEffect(() => {
     if (scatterChartData && !_.isEmpty(scatterChartData.points)) {
-      draw(scatterChartData, svgContainer, props.svgChartHeight, tooltip);
+      draw(
+        scatterChartData,
+        svgContainer,
+        props.svgChartHeight,
+        tooltip,
+        props.scatterTileSpec || {}
+      );
     }
-  }, [props.svgChartHeight, scatterChartData]);
+  }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
 
   if (!scatterChartData) {
     return null;
@@ -273,9 +282,22 @@ function draw(
   chartData: ScatterChartData,
   svgContainer: React.RefObject<HTMLDivElement>,
   svgChartHeight: number,
-  tooltip: React.RefObject<HTMLDivElement>
+  tooltip: React.RefObject<HTMLDivElement>,
+  scatterTileSpec: ScatterTileSpec
 ): void {
   const width = svgContainer.current.offsetWidth;
+  const shouldHighlightQuadrants = {
+    [ChartQuadrant.TOP_LEFT]: scatterTileSpec.highlightTopLeft,
+    [ChartQuadrant.TOP_RIGHT]: scatterTileSpec.highlightTopRight,
+    [ChartQuadrant.BOTTOM_LEFT]: scatterTileSpec.highlightBottomLeft,
+    [ChartQuadrant.BOTTOM_RIGHT]: scatterTileSpec.highlightBottomRight,
+  };
+  const highlightPoints = [
+    ChartQuadrant.TOP_LEFT,
+    ChartQuadrant.TOP_RIGHT,
+    ChartQuadrant.BOTTOM_LEFT,
+    ChartQuadrant.BOTTOM_RIGHT,
+  ].filter((quadrant) => shouldHighlightQuadrants[quadrant]);
   const plotOptions: ScatterPlotOptions = {
     xPerCapita: !_.isEmpty(chartData.xStatVar.denom),
     yPerCapita: !_.isEmpty(chartData.yStatVar.denom),
@@ -285,6 +307,7 @@ function draw(
     showDensity: true,
     showLabels: false,
     showRegression: false,
+    highlightPoints,
   };
   const yLabel = getStatVarName(
     chartData.yStatVar.statVar,
