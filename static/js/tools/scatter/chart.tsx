@@ -225,6 +225,7 @@ function plot(
     showDensity: props.display.showDensity,
     showLabels: props.display.showLabels,
     showRegression: props.display.showRegression,
+    highlightPoints: [],
   };
   const ScatterPlotProperties: ScatterPlotProperties = {
     width: svgContainerRealWidth,

@@ -189,6 +189,7 @@ function renderTiles(
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
             }
             className={className}
+            scatterTileSpec={tile.scatterTileSpec}
           />
         );
       case "BIVARIATE":
