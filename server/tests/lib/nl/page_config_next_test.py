@@ -572,6 +572,10 @@ EVENT_CONFIG = """
        }
      }
    }
+   contained_place_types {
+    key: "State"
+    value: "County"
+   }
  }
  categories {
    blocks {
