@@ -80,6 +80,8 @@ class PageConfigBuilder:
       self.block = Block()
       if attr['title']:
         self.block.title = attr['title']
+      if attr['description']:
+        self.block.description = attr['description']
       self.column = self.block.columns.add()
       self.prev_block_id = block_id
     return self.block, self.column
@@ -163,12 +165,14 @@ def build_page_config(
       for idx, sv in enumerate(cspec.svs):
         block, column = builder.new_chart(cspec.attr)
         if idx > 0 and cspec.attr['source_topic']:
-          # For a peer-group of SVs, set the title only once.
+          # For a peer-group of SVs, set the title and description only once.
           builder.block.title = ''
+          builder.block.description = ''
         elif not builder.block.title:
           # For the first SV, if title weren't already set, set it to
           # the SV name.
           builder.block.title = sv2name[sv]
+          # TODO: Maybe insert sv description here.
         stat_var_spec_map.update(
             _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
                                       cspec.attr))
