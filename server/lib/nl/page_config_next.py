@@ -44,6 +44,7 @@ _EVENT_TYPE_TO_CONFIG_KEY = {
     EventType.WETBULB: "wetbulb",
 }
 
+
 class PageConfigBuilder:
 
   def __init__(self, uttr):
