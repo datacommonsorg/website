@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import logging
-from typing import Dict, List
+from typing import List
 
 from config.subject_page_pb2 import Block
 from config.subject_page_pb2 import RankingTileSpec
@@ -21,6 +21,8 @@ from config.subject_page_pb2 import StatVarSpec
 from config.subject_page_pb2 import SubjectPageConfig
 from config.subject_page_pb2 import Tile
 from lib.nl import utils
+from lib.nl.constants import EVENT_TYPE_TO_DISPLAY_NAME
+import lib.nl.descriptions as lib_desc
 from lib.nl.detection import EventType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
@@ -39,18 +41,6 @@ _EVENT_TYPE_TO_CONFIG_KEY = {
     EventType.FLOOD: "flood",
     EventType.HEAT: "heat",
     EventType.WETBULB: "wetbulb",
-}
-
-# Override the names from configs.  These have plurals, etc.
-_EVENT_TYPE_TO_DISPLAY_NAME = {
-    EventType.COLD: "Extreme Cold Events",
-    EventType.CYCLONE: "Storms",
-    EventType.DROUGHT: "Droughts",
-    EventType.EARTHQUAKE: "Earthquakes",
-    EventType.FIRE: "Fires",
-    EventType.FLOOD: "Floods",
-    EventType.HEAT: "Exteme Heat Events",
-    EventType.WETBULB: "High Wet-bulb Temperature Events",
 }
 
 
@@ -82,6 +72,17 @@ def build_page_config(
   all_svs = list(all_svs)
   sv2name = utils.get_sv_name(all_svs)
 
+  # Add a human answer to the query
+  try:
+    desc = lib_desc.build_category_description(uttr, sv2name)
+    if desc:
+      category.description = desc
+  except Exception as err:
+    utils.update_counter(uttr.counters, 'failed_category_description_build',
+                         str(err))
+    logging.warning("Error building category description", err)
+
+  # Build chart blocks
   prev_block_id = -1
   block = None
   column = None
@@ -367,6 +368,7 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
   tile.stat_var_key.extend(sv_key_pair)
   tile.type = Tile.TileType.SCATTER
   tile.title = f"{sv_names[0]} vs. {sv_names[1]}"
+  tile.scatter_tile_spec.highlight_top_right = True
 
   return stat_var_spec_map
 
@@ -402,8 +404,8 @@ def _event_chart_block(metadata, block, column, place: Place, event_key: str,
     return
 
   event_name = metadata.event_type_spec[event_id].name
-  if event_type in _EVENT_TYPE_TO_DISPLAY_NAME:
-    event_name = _EVENT_TYPE_TO_DISPLAY_NAME[event_type]
+  if event_type in EVENT_TYPE_TO_DISPLAY_NAME:
+    event_name = EVENT_TYPE_TO_DISPLAY_NAME[event_type]
   block.title = event_name + ' in ' + place.name
   block.type = Block.DISASTER_EVENT
 

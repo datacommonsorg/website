@@ -56,6 +56,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     utils.update_counter(state.uttr.counters,
                          'comparison_failed_cb_toofewplaces', 1)
     return False
+  chart_vars.response_type = "comparison chart"
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                          chart_origin)
   return True

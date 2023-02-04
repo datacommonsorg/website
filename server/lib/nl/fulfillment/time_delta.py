@@ -100,6 +100,8 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   for sv in ranked_svs:
     cv = chart_vars
     cv.svs = [sv]
+    cv.response_type = "growth chart"
+    # TODO: desc string should take into account rank order
     found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state, cv, places,
                                     chart_origin)
   return found

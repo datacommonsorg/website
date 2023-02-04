@@ -15,6 +15,8 @@
 
 from typing import Dict, List, Set, Union
 
+from lib.nl.detection import EventType
+
 STOP_WORDS: Set[str] = {
     'ourselves',
     'hers',
@@ -287,4 +289,16 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "administrativearea3": "administrative area 3 places",
     "administrativearea4": "administrative area 4 places",
     "administrativearea5": "administrative area 5 places",
+}
+
+# Override the names from configs.  These have plurals, etc.
+EVENT_TYPE_TO_DISPLAY_NAME = {
+    EventType.COLD: "Extreme Cold Events",
+    EventType.CYCLONE: "Storms",
+    EventType.DROUGHT: "Droughts",
+    EventType.EARTHQUAKE: "Earthquakes",
+    EventType.FIRE: "Fires",
+    EventType.FLOOD: "Floods",
+    EventType.HEAT: "Exteme Heat Events",
+    EventType.WETBULB: "High Wet-bulb Temperature Events",
 }

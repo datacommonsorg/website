@@ -114,6 +114,13 @@ message TopEventTileSpec {
   bool reverse_sort = 5;
 }
 
+message ScatterTileSpec {
+  bool highlight_top_right = 1;
+  bool highlight_top_left = 2;
+  bool highlight_bottom_right = 3;
+  bool highlight_bottom_left = 4;
+}
+
 message Tile {
   // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
   // with any required fields for your new TileType. Also, specify what block types can render
@@ -160,6 +167,7 @@ message Tile {
     RankingTileSpec ranking_tile_spec = 5;
     DisasterEventMapTileSpec disaster_event_map_tile_spec = 6;
     TopEventTileSpec top_event_tile_spec = 8;
+    ScatterTileSpec scatter_tile_spec = 9;
   }
 }
 

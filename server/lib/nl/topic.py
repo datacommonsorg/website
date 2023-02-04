@@ -154,6 +154,13 @@ def get_topic_peers(sv_dcids: List[str]):
   return ret
 
 
+def get_topic_name(topic_dcid: str) -> str:
+  resp = dc.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
+  if resp:
+    return resp[0]
+  return topic_dcid.split('/')[-1]
+
+
 def svpg_name(sv: str):
   name = _SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
