@@ -86,10 +86,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                          contained_places)
     return False
 
-  for sv in chart_vars.svs:
-    cv = chart_vars
-    cv.svs = [sv]
-    cv.response_type = "comparison map"
-    add_chart_to_utterance(ChartType.MAP_CHART, state, cv, contained_places,
-                           chart_origin)
+  chart_vars.response_type = "comparison map"
+  add_chart_to_utterance(ChartType.MAP_CHART, state, chart_vars,
+                         contained_places, chart_origin)
   return True

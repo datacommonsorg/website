@@ -162,13 +162,11 @@ def json_event_data():
   filter_prop = request.args.get('filterProp', '')
   filter_unit = request.args.get('filterUnit', '')
   filter_upper_limit = float(request.args.get('filterUpperLimit', float("inf")))
-  print("after upper_limit")
   filter_lower_limit = float(request.args.get('filterLowerLimit',
                                               -float("inf")))
   event_points = []
   disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
   date_list = get_date_list(min_date, max_date)
-  print("after datelist")
   for date in date_list:
     for event in disaster_data.get(event_type, {}).get(date, []):
       if (keep_event(event, place, filter_prop, filter_unit, filter_upper_limit,
@@ -191,7 +189,6 @@ def json_event_data():
             continue
           event_formatted["propVals"][eventKey] = {"vals": [event[eventKey]]}
         event_points.append(event_formatted)
-  print("after getting data")
   result = {}
   if event_points:
     result = {"eventCollection": {"events": event_points, "provenanceInfo": {}}}

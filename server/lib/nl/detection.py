@@ -52,7 +52,7 @@ class SVDetection:
 
 
 class RankingType(IntEnum):
-  """RankingType indicates the type of rankning specified."""
+  """RankingType indicates the type of ranking specified."""
   NONE = 0
 
   # HIGH is for queries like:
@@ -77,6 +77,17 @@ class RankingType(IntEnum):
   # Ex: "Worst cities by crime" -> show HIGH crime cities
   WORST = 4
 
+  # EXTREME is for queries with the word "extreme"
+  # Necessary for SVs where the top could be most positive or most negative
+  # Ex: "Temperature extremes" -> show high and very low temperatures
+  EXTREME = 5
+
+
+class BinaryClassificationResultType(IntEnum):
+  """Generic result of binary classification: Success/Failure."""
+  FAILURE = 0
+  SUCCESS = 1
+
 
 class ContainedInPlaceType(Enum):
   """ContainedInPlaceType indicates the type of places."""
@@ -90,6 +101,9 @@ class ContainedInPlaceType(Enum):
   DISTRICT = "District"
   TOWN = "Town"
   ZIP = "CensusZipCodeTabulationArea"
+  # Across is a generic containedInPlaceType which determines if the
+  # query is using the word "across".
+  ACROSS = "Across"
 
 
 class EventType(IntEnum):
@@ -238,6 +252,7 @@ RANKED_CLASSIFICATION_TYPES = [
     ClassificationType.CORRELATION,
     ClassificationType.TIME_DELTA,
     ClassificationType.EVENT,
+    ClassificationType.OVERVIEW,
 ]
 
 

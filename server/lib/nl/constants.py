@@ -198,6 +198,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             ],
             "Best": ["best",],
             "Worst": ["worst",],
+            "Extreme": ["extremes?",]
         },
         "Comparison": [
             "compare(s|d)?",
@@ -301,4 +302,10 @@ EVENT_TYPE_TO_DISPLAY_NAME = {
     EventType.FLOOD: "Floods",
     EventType.HEAT: "Exteme Heat Events",
     EventType.WETBULB: "High Wet-bulb Temperature Events",
+}
+
+CHILD_PLACES_TYPES = {
+    "Country": "State",
+    "State": "County",
+    "County": "City",
 }

@@ -17,6 +17,7 @@ from dataclasses import field
 import logging
 from typing import Dict, List
 
+from lib.nl import constants
 from lib.nl import topic
 from lib.nl import utils
 from lib.nl import variable
@@ -115,6 +116,8 @@ def populate_charts(state: PopulateState) -> bool:
 # Populate charts given a place.
 def populate_charts_for_places(state: PopulateState,
                                places: List[Place]) -> bool:
+  maybe_handle_contained_in_fallback(state, places)
+
   if (len(state.uttr.svs) > 0):
     if _add_charts(state, places, state.uttr.svs):
       return True
@@ -354,3 +357,14 @@ def _open_topic_in_var(sv: str, rank: int, counters: Dict) -> List[str]:
     return svs
 
   return []
+
+
+def maybe_handle_contained_in_fallback(state: PopulateState,
+                                       places: List[Place]):
+  if utils.get_contained_in_type(
+      state.uttr) == ContainedInPlaceType.ACROSS and len(places) == 1:
+    ptype = places[0].place_type
+    state.place_type = ContainedInPlaceType(
+        constants.CHILD_PLACES_TYPES.get(ptype, 'County'))
+    utils.update_counter(state.uttr.counters, 'contained_in_across_fallback',
+                         state.place_type.value)

@@ -19,6 +19,7 @@ import re
 from typing import Dict, List, Union
 
 import lib.nl.constants as constants
+from lib.nl.detection import BinaryClassificationResultType
 from lib.nl.detection import ClassificationType
 from lib.nl.detection import ClusteringClassificationAttributes
 from lib.nl.detection import ComparisonClassificationAttributes
@@ -57,16 +58,17 @@ def pick_best(probs):
   return False
 
 
-def pick_option(class_model, q, categories):
+def pick_option(class_model, q,
+                categories) -> Union[BinaryClassificationResultType, None]:
   """Return the assigned label or Inconclusive."""
   if not q:
-    return "Inconclusive"
+    return None
 
   probs = class_model.predict_proba([q])[0]
   if pick_best(probs):
     return categories[class_model.predict([q])[0]]
   else:
-    return "Inconclusive."
+    return None
 
 
 def _prefix_length(s1, s2):
@@ -116,7 +118,7 @@ class Model:
     for cat in categories:
       for s in input_sentences[cat]:
         sentences.append(s)
-        labels.append(str(cat))
+        labels.append(cat)
 
     embeddings = []
     for s in sentences:
@@ -225,6 +227,7 @@ class Model:
         "Low": RankingType.LOW,
         "Best": RankingType.BEST,
         "Worst": RankingType.WORST,
+        "Extreme": RankingType.EXTREME,
     }
 
     # make query lowercase for string matching
@@ -340,23 +343,8 @@ class Model:
         overview_trigger_words=trigger_words)
     return NLClassifier(type=ClassificationType.OVERVIEW, attributes=attributes)
 
-  def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
-    ranking_type = RankingType.NONE
-    if prediction == "Rankings-High":
-      ranking_type = RankingType.HIGH
-    elif prediction == "Rankings-Low":
-      RankingType.LOW
-
-    if ranking_type == RankingType.NONE:
-      return None
-
-    # TODO: need to detect trigger words.
-    attributes = RankingClassificationAttributes(ranking_type=ranking_type,
-                                                 ranking_trigger_words=[])
-    return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
-
   def _temporal_classification(self, prediction) -> Union[NLClassifier, None]:
-    if prediction != "Temporal":
+    if prediction == BinaryClassificationResultType.FAILURE:
       return None
 
     # TODO: need to detect the date and type.
@@ -366,7 +354,7 @@ class Model:
 
   def _containedin_classification(self, prediction,
                                   query: str) -> Union[NLClassifier, None]:
-    if prediction != "Contained In":
+    if prediction == BinaryClassificationResultType.FAILURE:
       return None
 
     contained_in_place_type = ContainedInPlaceType.PLACE
@@ -378,7 +366,7 @@ class Model:
         "district": ContainedInPlaceType.DISTRICT,
         "province": ContainedInPlaceType.PROVINCE,
         "town": ContainedInPlaceType.TOWN,
-        "zip": ContainedInPlaceType.ZIP
+        "zip": ContainedInPlaceType.ZIP,
     })
     query = query.lower()
     for place_type, place_enum in place_type_to_enum.items():
@@ -393,7 +381,11 @@ class Model:
 
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
-      return None
+      # Try to check if the special case of ACROSS can be found.
+      if "across" in query:
+        contained_in_place_type = ContainedInPlaceType.ACROSS
+      else:
+        return None
 
     # TODO: need to detect the type of place for this contained in.
     attributes = ContainedInClassificationAttributes(
@@ -565,7 +557,7 @@ class Model:
       return None
 
     # TODO: when the correlation classifier is ready, remove this following conditional.
-    if type_string in ["ranking", "temporal", "contained_in"]:
+    if type_string in ["temporal", "contained_in"]:
       classification_model: NLQueryClassificationModel = self.classification_models[
           type_string]
       logging.info(
@@ -577,9 +569,9 @@ class Model:
       prediction = pick_option(
           classification_model.classification_model, query_encoded,
           classification_model.classification_type.categories)
+      if prediction is None:
+        return None
 
-      if type_string == "ranking":
-        return self._ranking_classification(prediction)
       elif type_string == "temporal":
         return self._temporal_classification(prediction)
       elif type_string == "contained_in":

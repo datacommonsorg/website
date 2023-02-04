@@ -227,6 +227,12 @@ SIMPLE_WITH_TOPIC_CONFIG = """
          stat_var_key: "FarmInventory_Rice"
          stat_var_key: "FarmInventory_Barley"
        }
+       tiles {
+         title: "Compare with Other Variables - Per Capita"
+         type: LINE
+         stat_var_key: "FarmInventory_Rice_pc"
+         stat_var_key: "FarmInventory_Barley_pc"
+       }
      }
    }
    stat_var_spec {
@@ -251,9 +257,29 @@ SIMPLE_WITH_TOPIC_CONFIG = """
      }
    }
    stat_var_spec {
+     key: "FarmInventory_Barley_pc"
+     value {
+       stat_var: "FarmInventory_Barley"
+       denom: "Count_Person"
+       unit: "%"
+       scaling: 100.0
+       name: "FarmInventory_Barley-name"
+     }
+   }
+   stat_var_spec {
      key: "FarmInventory_Rice"
      value {
        stat_var: "FarmInventory_Rice"
+       name: "FarmInventory_Rice-name"
+     }
+   }
+   stat_var_spec {
+     key: "FarmInventory_Rice_pc"
+     value {
+       stat_var: "FarmInventory_Rice"
+       denom: "Count_Person"
+       unit: "%"
+       scaling: 100.0
        name: "FarmInventory_Rice-name"
      }
    }
@@ -485,6 +511,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
  categories {
   description: "Here are some ranking tables about Count_Agricultural_Workers-name in Foo Place."
    blocks {
+     title: "Count_Agricultural_Workers-name"      
      columns {
        tiles {
          title: "Count_Agricultural_Workers-name in Foo Place"
@@ -496,6 +523,16 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
+         title: "Count_Agricultural_Workers-name"
+         type: MAP
+         stat_var_key: "Count_Agricultural_Workers"
+       }
+      }
+    }
+    blocks {
+      title: "Count_Agricultural_Workers-name - Per Capita"
+      columns {
+       tiles {
          title: "Per Capita Count_Agricultural_Workers-name in Foo Place"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers_pc"
@@ -503,6 +540,11 @@ RANKING_ACROSS_PLACES_CONFIG = """
            show_highest: true
            ranking_count: 10
          }
+       }
+       tiles {
+         title: "Count_Agricultural_Workers-name - Per Capita"
+         type: MAP
+         stat_var_key: "Count_Agricultural_Workers_pc"
        }
      }
    }
@@ -531,7 +573,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-  description: "Here is a ranked bar chart about agriculture in Foo Place."
+  description: "Here are some ranked bar charts about agriculture in Foo Place."
    blocks {
      columns {
        tiles {
@@ -540,6 +582,14 @@ RANKING_ACROSS_SVS_CONFIG = """
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block"
          stat_var_key: "FarmInventory_Wheat_multiple_place_bar_block"
+         comparison_places: "geoId/06"
+       }
+       tiles {
+         title: "Compare with Other Variables - Per Capita"
+         type: BAR
+         stat_var_key: "FarmInventory_Barley_multiple_place_bar_block_pc"
+         stat_var_key: "FarmInventory_Rice_multiple_place_bar_block_pc"
+         stat_var_key: "FarmInventory_Wheat_multiple_place_bar_block_pc"
          comparison_places: "geoId/06"
        }
      }
@@ -552,6 +602,16 @@ RANKING_ACROSS_SVS_CONFIG = """
      }
    }
    stat_var_spec {
+     key: "FarmInventory_Barley_multiple_place_bar_block_pc"
+     value {
+       stat_var: "FarmInventory_Barley"
+       denom: "Count_Person"
+       unit: "%"
+       scaling: 100.0
+       name: "FarmInventory_Barley-name"
+     }
+   }
+   stat_var_spec {
      key: "FarmInventory_Rice_multiple_place_bar_block"
      value {
        stat_var: "FarmInventory_Rice"
@@ -559,9 +619,29 @@ RANKING_ACROSS_SVS_CONFIG = """
      }
    }
    stat_var_spec {
+     key: "FarmInventory_Rice_multiple_place_bar_block_pc"
+     value {
+       stat_var: "FarmInventory_Rice"
+       denom: "Count_Person"
+       unit: "%"
+       scaling: 100.0
+       name: "FarmInventory_Rice-name"
+     }
+   }
+   stat_var_spec {
      key: "FarmInventory_Wheat_multiple_place_bar_block"
      value {
        stat_var: "FarmInventory_Wheat"
+       name: "FarmInventory_Wheat-name"
+     }
+   }
+   stat_var_spec {
+     key: "FarmInventory_Wheat_multiple_place_bar_block_pc"
+     value {
+       stat_var: "FarmInventory_Wheat"
+       denom: "Count_Person"
+       unit: "%"
+       scaling: 100.0
        name: "FarmInventory_Wheat-name"
      }
    }
@@ -589,6 +669,10 @@ EVENT_CONFIG = """
        }
      }
    }
+   contained_place_types {
+    key: "State"
+    value: "County"
+   }
  }
  categories {
    description: "Here is an overview of fires in Foo Place."
@@ -600,6 +684,12 @@ EVENT_CONFIG = """
          top_event_tile_spec {
            event_type_key: "fire"
            show_start_date: true
+         }
+       }
+       tiles {
+         type: DISASTER_EVENT_MAP
+         disaster_event_map_tile_spec {
+           event_type_keys: "fire"
          }
        }
      }

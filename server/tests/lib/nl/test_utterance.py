@@ -63,7 +63,7 @@ OVERVIEW_PLACE_ONLY_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
+    'query_type': ClassificationType.OVERVIEW,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -237,7 +237,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
             'block_id': 2,
             'chart_type': 'timeline',
             'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
+            'include_percapita': True,
             'place_type': None,
             'ranking_types': [],
             'source_topic': '',
@@ -463,7 +463,7 @@ RANKING_ACROSS_SVS_UTTR = {
             'block_id': 2,
             'chart_type': 'ranked bar chart',
             'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
+            'include_percapita': True,
             'place_type': None,
             'ranking_types': [RankingType.HIGH],
             'source_topic': 'dc/topic/Agriculture',

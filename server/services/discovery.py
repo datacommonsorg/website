@@ -158,6 +158,7 @@ endpoints = Endpoints([
     '/v1/info/variable-group',
     # Recon APIs
     '/v1/recon/resolve/id',
+    '/v1/recon/resolve/coordinate',
     # Bio APIs
     '/internal/bio',
     # Misc

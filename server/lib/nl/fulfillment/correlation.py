@@ -20,6 +20,7 @@ from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import Place
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
+from lib.nl.fulfillment.base import maybe_handle_contained_in_fallback
 from lib.nl.fulfillment.base import open_top_topics_ordered
 from lib.nl.fulfillment.base import PopulateState
 from lib.nl.fulfillment.context import classifications_of_type_from_context
@@ -78,6 +79,8 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
 
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
+  maybe_handle_contained_in_fallback(state, [place])
+
   # Get child place samples for existence check.
   places_to_check = utils.get_sample_child_places(place.dcid,
                                                   state.place_type.value,
@@ -135,6 +138,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 def _populate_correlation_chart(state: PopulateState, place: Place, sv_1: str,
                                 sv_2: str) -> bool:
   state.block_id += 1
+  # TODO: Handle per-capita carefully.
   chart_vars = ChartVars(svs=[sv_1, sv_2],
                          block_id=state.block_id,
                          include_percapita=False,

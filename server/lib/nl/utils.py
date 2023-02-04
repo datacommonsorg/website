@@ -23,14 +23,54 @@ from typing import Dict, List, Set, Union
 
 import lib.nl.constants as constants
 import lib.nl.detection as detection
+import lib.nl.fulfillment.context as ctx
+import lib.nl.utterance as nl_uttr
 import lib.util as util
 import services.datacommons as dc
 
+# TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
-_THRESHOLD_DATE_FOR_GROWTH_RATE = '2012'
+_SV_DISPLAY_NAME_OVERRIDE = {
+    "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
+        "Extreme Max Temperature before 2030",
+    "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
+        "Extreme Max Temperature before 2040",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
+        "Extreme Max Temperature before 2050",
+    "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
+        "Extreme Min Temperature before 2030",
+    "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
+        "Extreme Min Temperature before 2040",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
+        "Extreme Min Temperature before 2050",
+    "Percent_Person_WithArthritis":
+        "Arthritis",
+    "Percent_Person_WithAsthma":
+        "Asthma",
+    "Percent_Person_WithCancerExcludingSkinCancer":
+        "Cancer (excluding skin cancer)",
+    "Percent_Person_WithChronicKidneyDisease":
+        "Chronic Kidney Disease",
+    "Percent_Person_WithChronicObstructivePulmonaryDisease":
+        "Chronic Obstructive Pulmonary Disease",
+    "Percent_Person_WithCoronaryHeartDisease":
+        "Coronary Heart Disease",
+    "Percent_Person_WithDiabetes":
+        "Diabetes",
+    "Percent_Person_WithHighBloodPressure":
+        "High Bood Pressure",
+    "Percent_Person_WithHighCholesterol":
+        "High Cholesterol",
+    "Percent_Person_WithMentalHealthNotGood":
+        "Mental Health Issues",
+    "Percent_Person_WithPhysicalHealthNotGood":
+        "Physical Health Issues",
+    "Percent_Person_WithStroke":
+        "Stroke",
+}
 
 
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
@@ -250,8 +290,6 @@ def compute_growth_rate(series: List[Dict]) -> float:
   earliest = None
   # TODO: Apparently series is ordered, so simplify.
   for s in series:
-    if s['date'] < _THRESHOLD_DATE_FOR_GROWTH_RATE:
-      continue
     if not latest or s['date'] > latest['date']:
       latest = s
     if not earliest or s['date'] < earliest['date']:
@@ -370,16 +408,42 @@ def get_sv_name(all_svs: List[str]) -> Dict:
   title_by_sv_dcid = {}
   with open(title_config_path) as f:
     title_by_sv_dcid = json.load(f)
+
   sv_name_map = {}
   # If a curated name is found return that,
   # Else return the name property for SV.
   for sv in all_svs:
-    if sv in title_by_sv_dcid:
-      sv_name_map[sv] = title_by_sv_dcid[sv]
+    if sv in _SV_DISPLAY_NAME_OVERRIDE:
+      sv_name_map[sv] = _SV_DISPLAY_NAME_OVERRIDE[sv]
+    elif sv in title_by_sv_dcid:
+      sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
     else:
-      sv_name_map[sv] = uncurated_names[sv]
+      sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 
   return sv_name_map
+
+
+# TODO: Remove this hack by fixing the name in schema and config.
+def clean_sv_name(name: str) -> str:
+  _PREFIXES = [
+      'Population of People Working in the ',
+      'Population of People Working in ',
+      'Population of People ',
+      'Population Working in the ',
+      'Population Working in ',
+      'Number of the ',
+      'Number of ',
+  ]
+  _SUFFIXES = [
+      ' Workers',
+  ]
+  for p in _PREFIXES:
+    if name.startswith(p):
+      name = name[len(p):]
+  for s in _SUFFIXES:
+    if name.endswith(s):
+      name = name[:-len(s)]
+  return name
 
 
 def get_only_svs(svs: List[str]) -> List[str]:
@@ -415,3 +479,40 @@ def update_counter(dbg_counters: Dict, counter: str, value: any):
     if should_add:
       dbg_counters[counter] = []
     dbg_counters[counter].append(value)
+
+
+def get_contained_in_type(
+    uttr: nl_uttr.Utterance) -> detection.ContainedInPlaceType:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.CONTAINED_IN)
+  place_type = None
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.ContainedInClassificationAttributes)):
+    # Ranking among places.
+    place_type = classification[0].attributes.contained_in_place_type
+  return place_type
+
+
+def get_ranking_types(uttr: nl_uttr.Utterance) -> List[detection.RankingType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.RANKING)
+  ranking_types = []
+  if (classification and isinstance(classification[0].attributes,
+                                    detection.RankingClassificationAttributes)):
+    # Ranking among places.
+    ranking_types = classification[0].attributes.ranking_type
+  return ranking_types
+
+
+def get_time_delta_types(
+    uttr: nl_uttr.Utterance) -> List[detection.TimeDeltaType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.TIME_DELTA)
+  time_delta = []
+  # Get time delta type
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.TimeDeltaClassificationAttributes)):
+    time_delta = classification[0].attributes.time_delta_types
+  return time_delta
