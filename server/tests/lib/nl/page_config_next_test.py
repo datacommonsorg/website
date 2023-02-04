@@ -22,6 +22,7 @@ from config.subject_page_pb2 import SubjectPageConfig
 from google.protobuf import text_format
 from lib.nl import page_config_next
 from lib.nl import utils
+from lib.nl import topic
 from lib.nl import utterance
 from parameterized import parameterized
 from tests.lib.nl.test_utterance import COMPARISON_UTTR
@@ -203,7 +204,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-  description: "Here are some timelines about Count_Farm-name in Foo Place."
+  description: "Here are some timelines about agriculture in Foo Place."
    blocks {
      columns {
        tiles {
@@ -524,7 +525,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-  description: "Here is a ranked bar chart about FarmInventory_Barley-name, FarmInventory_Rice-name and more in Foo Place."
+  description: "Here is a ranked bar chart about agriculture in Foo Place."
    blocks {
      columns {
        tiles {
@@ -671,15 +672,17 @@ class TestPageConfigNext(unittest.TestCase):
       ],
       ["RankingAcrossSVs", RANKING_ACROSS_SVS_UTTR, RANKING_ACROSS_SVS_CONFIG],
   ])
+  @patch.object(topic, 'get_topic_name')
   @patch.object(utils, 'parent_place_names')
   @patch.object(utils, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
-                mock_parent_place_names):
+                mock_parent_place_names, mock_topic_name):
     random.seed(1)
     mock_sv_name.side_effect = (
         lambda svs: {sv: "{}-name".format(sv) for sv in svs})
     mock_parent_place_names.side_effect = (
         lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
+    mock_topic_name.side_effect = (lambda dcid: dcid.split('/')[-1])
     got = _run(uttr_dict)
     self.maxDiff = None
     self.assertEqual(got, _textproto(config_str), test_name + ' failed!')

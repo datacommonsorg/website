@@ -42,8 +42,6 @@ class PopulateState:
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
-  # If svs came from a topic, the topic dcid.
-  source_topic: str = ""
   block_id: int = 0
 
 
@@ -59,6 +57,8 @@ class ChartVars:
   is_topic_peer_group: bool = False
   # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
   response_type: str = ""
+  # If svs came from a topic, the topic dcid.
+  source_topic: str = ""
 
 
 #
@@ -79,6 +79,7 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
       "include_percapita": chart_vars.include_percapita,
       "title": chart_vars.title,
       "chart_type": chart_vars.response_type,
+      "source_topic": chart_vars.source_topic
   }
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
@@ -235,7 +236,7 @@ def overview_fallback(state: PopulateState, places: List[Place],
                          block_id=state.block_id,
                          include_percapita=False)
   return add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
-                                places, chart_origin, "overview")
+                                places, chart_origin)
 
 
 def _get_place_dcids(places: List[Place]) -> List[str]:
@@ -264,7 +265,6 @@ def _build_chart_vars(state: PopulateState, sv: str,
   if utils.is_topic(sv):
     topic_vars = topic.get_topic_vars(sv, rank)
     peer_groups = topic.get_topic_peers(topic_vars)
-    state.uttr.topic = sv
 
     # Classify into two lists.
     just_svs = []
@@ -284,7 +284,7 @@ def _build_chart_vars(state: PopulateState, sv: str,
     for v in just_svs:
       # Skip PC for this case (per prior implementation)
       charts.append(
-          ChartVars(svs=[v], block_id=state.block_id, include_percapita=False))
+          ChartVars(svs=[v], block_id=state.block_id, include_percapita=False, source_topic=sv))
 
     # 2. Make a block for every peer-group in svpgs
     for (title, svpg) in svpgs:
@@ -294,7 +294,8 @@ def _build_chart_vars(state: PopulateState, sv: str,
                     block_id=state.block_id,
                     include_percapita=False,
                     title=title,
-                    is_topic_peer_group=True))
+                    is_topic_peer_group=True,
+                    source_topic=sv))
 
     utils.update_counter(state.uttr.counters, 'topics_processed',
                          {sv: {

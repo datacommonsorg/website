@@ -103,8 +103,6 @@ class Utterance:
   answerPlaces: List[str]
   # Linked list of past utterances
   prev_utterance: Utterance
-  # If any of the detected variables are topics, the topic dcid.
-  topic: str = None
   # Debug counters that are cleared out before serializing.
   # Some of these might be promoted to the main Debug Info display,
   # but everything else will appear in the raw output.

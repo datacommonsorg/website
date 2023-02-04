@@ -115,10 +115,11 @@ def build_category_description(uttr: Utterance, sv2name) -> str:
 
   desc = ''
   event_desc = _get_event_description(uttr)
+  source_topic = first_chart.attr.get('source_topic', None)
   if event_desc:
     desc = event_desc
-  elif uttr.topic:
-    desc = topic.get_topic_name(uttr.topic).lower()
+  elif source_topic:
+    desc = topic.get_topic_name(source_topic).lower()
     if desc == 'economy':
       # TODO: Find a better heuristic for this.
       desc = 'the ' + desc

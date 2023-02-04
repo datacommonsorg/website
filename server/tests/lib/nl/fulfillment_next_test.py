@@ -285,11 +285,13 @@ class TestDataSpecNext(unittest.TestCase):
             svs=['Count_Farm'],
             block_id=1,
             include_percapita=False,
+            source_topic='dc/topic/Agriculture'
         ),
         base.ChartVars(
             svs=['Area_Farm'],
             block_id=1,
             include_percapita=False,
+            source_topic='dc/topic/Agriculture'
         ),
         base.ChartVars(svs=[
             'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
@@ -340,7 +342,8 @@ class TestDataSpecNext(unittest.TestCase):
         ],
                        block_id=2,
                        include_percapita=False,
-                       is_topic_peer_group=True)
+                       is_topic_peer_group=True,
+            source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
     mock_sv_existence.side_effect = [[
@@ -381,7 +384,8 @@ class TestDataSpecNext(unittest.TestCase):
         ],
                        block_id=2,
                        include_percapita=False,
-                       is_topic_peer_group=True)
+                       is_topic_peer_group=True,
+            source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
     mock_sv_existence.side_effect = [[

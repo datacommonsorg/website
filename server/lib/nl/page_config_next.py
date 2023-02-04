@@ -78,6 +78,7 @@ def build_page_config(
     if desc:
       category.description = desc
   except Exception as err:
+    utils.update_counter(uttr.counters, 'failed_category_description_build', str(err))
     logging.warning("Error building category description", err)
 
   # Build chart blocks
