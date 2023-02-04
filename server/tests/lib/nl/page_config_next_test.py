@@ -263,7 +263,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
        denom: "Count_Person"
        unit: "%"
        scaling: 100.0
-       name: "FarmInventory_Barley"
+       name: "FarmInventory_Barley-name"
      }
    }
    stat_var_spec {
@@ -280,7 +280,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
        denom: "Count_Person"
        unit: "%"
        scaling: 100.0
-       name: "FarmInventory_Rice"
+       name: "FarmInventory_Rice-name"
      }
    }
  }
@@ -557,7 +557,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    place_dcid: "geoId/06"
  }
  categories {
-  description: "Here is a ranked bar chart about agriculture in Foo Place."
+  description: "Here are some ranked bar charts about agriculture in Foo Place."
    blocks {
      columns {
        tiles {
@@ -592,7 +592,7 @@ RANKING_ACROSS_SVS_CONFIG = """
        denom: "Count_Person"
        unit: "%"
        scaling: 100.0
-       name: "FarmInventory_Barley"
+       name: "FarmInventory_Barley-name"
      }
    }
    stat_var_spec {
@@ -609,7 +609,7 @@ RANKING_ACROSS_SVS_CONFIG = """
        denom: "Count_Person"
        unit: "%"
        scaling: 100.0
-       name: "FarmInventory_Rice"
+       name: "FarmInventory_Rice-name"
      }
    }
    stat_var_spec {
@@ -626,7 +626,7 @@ RANKING_ACROSS_SVS_CONFIG = """
        denom: "Count_Person"
        unit: "%"
        scaling: 100.0
-       name: "FarmInventory_Wheat"
+       name: "FarmInventory_Wheat-name"
      }
    }
  }
