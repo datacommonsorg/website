@@ -396,10 +396,10 @@ def clean_sv_name(name: str) -> str:
   ]
   for p in _PREFIXES:
     if name.startswith(p):
-        name = name[len(p):]
+      name = name[len(p):]
   for s in _SUFFIXES:
     if name.endswith(s):
-        name = name[:-len(s)]
+      name = name[:-len(s)]
   return name
 
 
