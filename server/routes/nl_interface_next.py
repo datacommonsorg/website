@@ -141,7 +141,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
   correlation_classification = "<None>"
   clustering_classification = "<None>"
   event_classification = "<None>"
-  extremes_classification = "<None>"
 
   for classification in query_detection.classifications:
     if classification.type == ClassificationType.RANKING:
@@ -155,8 +154,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
           classification.attributes.time_delta_types)
     elif classification.type == ClassificationType.EVENT:
       event_classification = str(classification.attributes.event_types)
-    elif classification.type == ClassificationType.EXTREME:
-      extremes_classification = str(classification.type)
     elif classification.type == ClassificationType.COMPARISON:
       comparison_classification = str(classification.type)
     elif classification.type == ClassificationType.CONTAINED_IN:
@@ -188,7 +185,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       'comparison_classification': comparison_classification,
       'correlation_classification': correlation_classification,
       'event_classification': event_classification,
-      'extremes_classification': extremes_classification,
       'counters': debug_counters,
       'data_spec': uttr_history,
   }
@@ -273,14 +269,12 @@ def _detection(orig_query, cleaned_query) -> Detection:
   contained_in_classification = model.query_classification(
       "contained_in", query)
   event_classification = model.heuristic_event_classification(query)
-  extremes_classification = model.heuristic_extremes_classification(query)
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Comparison classification: {comparison_classification}')
   logging.info(f'Temporal classification: {temporal_classification}')
   logging.info(f'TimeDelta classification: {time_delta_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
   logging.info(f'Event Classification: {event_classification}')
-  logging.info(f'Extremes classification: {extremes_classification}')
   logging.info(f'Overview classification: {overview_classification}')
 
   # Set the Classifications list.
@@ -295,8 +289,6 @@ def _detection(orig_query, cleaned_query) -> Detection:
     classifications.append(time_delta_classification)
   if event_classification is not None:
     classifications.append(event_classification)
-  if extremes_classification is not None:
-    classifications.append(extremes_classification)
   if overview_classification is not None:
     classifications.append(overview_classification)
 
