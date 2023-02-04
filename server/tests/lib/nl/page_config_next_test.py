@@ -653,6 +653,10 @@ EVENT_CONFIG = """
        }
      }
    }
+   contained_place_types {
+    key: "State"
+    value: "County"
+   }
  }
  categories {
    description: "Here is an overview of fires in Foo Place."
