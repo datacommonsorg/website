@@ -431,6 +431,9 @@ CORRELATION_CONFIG = """
          type: SCATTER
          stat_var_key: "Count_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
+         scatter_tile_spec {
+          highlight_top_right: True
+         }
        }
      }
    }
@@ -441,6 +444,9 @@ CORRELATION_CONFIG = """
          type: SCATTER
          stat_var_key: "Income_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
+         scatter_tile_spec {
+          highlight_top_right: True
+         }
        }
      }
    }

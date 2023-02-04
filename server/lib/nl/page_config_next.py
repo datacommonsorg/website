@@ -367,6 +367,7 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
   tile.stat_var_key.extend(sv_key_pair)
   tile.type = Tile.TileType.SCATTER
   tile.title = f"{sv_names[0]} vs. {sv_names[1]}"
+  tile.scatter_tile_spec.highlight_top_right = True
 
   return stat_var_spec_map
 
