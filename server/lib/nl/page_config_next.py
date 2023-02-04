@@ -49,6 +49,7 @@ _EVENT_FALLBACK_CHILD_PLACES = {
     "County": "City",
 }
 
+
 #
 # Given an Utterance, build the final Chart config proto.
 #
