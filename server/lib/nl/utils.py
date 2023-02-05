@@ -34,18 +34,18 @@ _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.jso
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
 _SV_DISPLAY_NAME_OVERRIDE = {
-    "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme max temperature increase before 2030",
-    "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme max temperature increase before 2040",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme max temperature increase before 2050",
-    "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme min temperature decrease before 2030",
-    "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme min temperature decrease before 2040",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme min temperature decrease before 2050",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
+        "Highest max temperature increase by 2050 per RCP 2.6 (optimistic) scenario",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
+        "Highest max temperature increase by 2050 per RCP 4.5 (intermediate) scenario",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
+        "Highest max temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
+        "Highest min temperature decrease by 2050 per RCP 2.6 (optimistic) scenario",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
+        "Highest min temperature decrease by 2050 per RCP 4.5 (intermediate) scenario",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
+        "Highest min temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario",
     "Percent_Person_WithArthritis":
         "Arthritis",
     "Percent_Person_WithAsthma":
