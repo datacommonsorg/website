@@ -29,6 +29,10 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
     ],
+    "dc/topic/Income": [
+        "dc/svpg/IndividualIncome",
+        "dc/svpg/HouseholdIncome",
+    ],
     "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
     "dc/topic/MedicalConditions": ["dc/svpg/MedicalConditionsPeerGroup"],
     "dc/topic/ProjectedClimateExtremes": [
@@ -140,6 +144,11 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_SolarPanelPotential_SouthFacingRoofSpace",
         "Count_SolarPanelPotential_WestFacingRoofSpace",
     ],
+    "dc/svpg/IndividualIncome": [
+        "Median_Income_Person",
+        "Median_Earnings_Person",
+    ],
+    "dc/svpg/HouseholdIncome": ["Median_Income_Household",],
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp": [
         "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245",
         "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245",
@@ -201,6 +210,10 @@ _SVPG_NAMES_OVERRIDE = {
         "Projected highest decrease in mean temperature (SSP2, RCP4.5, Base 2015)",
     "dc/svpg/ClimateChange_FEMARisk":
         "Risk due to various Natural Hazards",
+    "dc/svpg/IndividualIncome":
+        "Individual Income",
+    "dc/svpg/HouseholdIncome":
+        "Houshold Income",
 }
 
 _SVPG_DESC_OVERRIDE = {
