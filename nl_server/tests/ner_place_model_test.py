@@ -97,6 +97,7 @@ class TestNERPlaces(unittest.TestCase):
           ["seattle", "london"]
       ],
       # Check that the full place string is detected.
+      ["tell me about Placer county", ["placer county"]],
       ["tell me about Santa Clara county", ["santa clara county"]],
       ["median income in Santa Clara County", ["santa clara county"]],
       ["family earnings in santa Clara county", ["santa clara county"]],

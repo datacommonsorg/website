@@ -36,6 +36,7 @@ class NLPlaceDetector:
                                                        constants.STOP_WORDS)
     query_with_period = query + "."
     query_title_case = query.title()
+    query_without_stop_words_title_case = query_without_stop_words.title()
 
     # TODO: work on finding a better fix for important places which are
     # not getting detected.
@@ -48,7 +49,8 @@ class NLPlaceDetector:
 
     # Now try all versions of the query.
     for q in [
-        query, query_without_stop_words, query_with_period, query_title_case
+        query, query_without_stop_words, query_with_period, query_title_case,
+        query_without_stop_words_title_case
     ]:
       logging.info(f"Trying place detection with: {q}")
       try:
