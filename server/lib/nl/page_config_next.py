@@ -509,7 +509,7 @@ def _event_chart_block(metadata, block, column, place: Place, event_key: str,
       top_event.event_type_key = event_id
       top_event.display_prop.append('name')
       top_event.show_start_date = True
-  tile = column.tiles.add()
+  tile = block.columns.add().tiles.add()
   tile.type = Tile.DISASTER_EVENT_MAP
   tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
 
