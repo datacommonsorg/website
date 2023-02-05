@@ -220,6 +220,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
      }
    }
    blocks {
+    description: "svpg desc"
      columns {
        tiles {
          title: "Compare with Other Variables"

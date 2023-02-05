@@ -288,6 +288,7 @@ class TestDataSpecNext(unittest.TestCase):
             'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
         ],
                        block_id=2,
+                       description='svpg desc',
                        include_percapita=False,
                        is_topic_peer_group=True)
     ]
