@@ -395,8 +395,10 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, TIME_DELTA_UTTR)
 
-  def test_event(self):
+  @patch.object(utils, 'event_existence_for_place')
+  def test_event(self, mock_event_existence):
     detection = _detection('geoId/06', [], [], ClassificationType.EVENT)
+    mock_event_existence.return_value = True
     got = _run(detection, [])
     self.maxDiff = None
     self.assertEqual(got, EVENT_UTTR)

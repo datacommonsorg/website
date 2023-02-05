@@ -35,6 +35,17 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp",
         "dc/svpg/ProjectedClimateExtremes_LowestMinTemp",
     ],
+    "dc/topic/ClimateChange": [
+        "event/heat",
+        "event/cold",
+        "event/flood",
+        "event/fire",
+        "event/drought",
+        "event/wetbulb",
+        "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp",
+        "dc/svpg/ProjectedClimateExtremes_LowestMinTemp",
+        "dc/svpg/ClimateChange_FEMARisk",
+    ],
     # TODO(nhdiaz): Remove after demos. This topic is only used for a custom DC.
     "dc/topic/SolarPotential": [
         "Count_Building_SuitableForSolar",
@@ -149,6 +160,26 @@ _PEER_GROUP_TO_OVERRIDE = {
         "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245",
         "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245",
     ],
+    "dc/svpg/ClimateChange_FEMARisk": [
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_AvalancheEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_CoastalFloodEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_ColdWaveEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_DroughtEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_EarthquakeEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_HailEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_HeatWaveEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_HurricaneEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_IceStormEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_LandslideEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_LightningEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_RiverineFloodingEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_StrongWindEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_TornadoEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_TsunamiEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_VolcanicActivityEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_WildfireEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_WinterWeatherEvent",
+    ],
 }
 
 _SVPG_NAMES_OVERRIDE = {
@@ -168,10 +199,13 @@ _SVPG_NAMES_OVERRIDE = {
         "Projected highest decrease in mean temperature (SSP2, RCP4.5, Base 2015)",
     "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp":
         "Projected highest decrease in mean temperature (SSP2, RCP4.5, Base 2015)",
+    "dc/svpg/ClimateChange_FEMARisk":
+        "Risk due to various Natural Hazards",
 }
 
 _TOPIC_NAMES_OVERRIDE = {
     "dc/topic/ProjectedClimateExtremes": "Projected Climate Extremes",
+    "dc/topic/ClimateChange": "Climate Change",
     "dc/topic/SolarPotential": "Solar Potential",
 }
 

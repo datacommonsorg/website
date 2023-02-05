@@ -152,15 +152,16 @@ def build_category_description(uttr: Utterance, sv2name) -> str:
         place_name=place_names,
         by=by)
   elif desc:
-    sv_name = sv2name[first_chart.svs[0]]
-    if sv_name != first_chart.svs[0]:
-      sv_name = _strip_sv_name(sv_name)
-      return "Here is {info_of} {desc} in {place}, including {sv1} and more{by}.".format(
-          info_of=random.choice(INFO_SYNONYMS),
-          desc=desc.lower(),
-          place=place_names,
-          sv1=sv_name,
-          by=by)
+    if first_chart.svs:
+      sv_name = sv2name[first_chart.svs[0]]
+      if sv_name != first_chart.svs[0]:
+        sv_name = _strip_sv_name(sv_name)
+        return "Here is {info_of} {desc} in {place}, including {sv1} and more{by}.".format(
+            info_of=random.choice(INFO_SYNONYMS),
+            desc=desc.lower(),
+            place=place_names,
+            sv1=sv_name,
+            by=by)
     return "Here is {info_of} {desc} in {place_name}{by}.".format(
         info_of=random.choice(INFO_SYNONYMS),
         desc=desc.lower(),
