@@ -687,6 +687,8 @@ EVENT_CONFIG = """
            show_start_date: true
          }
        }
+     }
+     columns {
        tiles {
          type: DISASTER_EVENT_MAP
          disaster_event_map_tile_spec {
