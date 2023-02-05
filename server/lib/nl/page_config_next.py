@@ -31,19 +31,6 @@ from lib.nl.utterance import ChartType
 from lib.nl.utterance import ClassificationType
 from lib.nl.utterance import Utterance
 
-# NOTE: This relies on disaster config's event_type_spec IDs.
-# TODO: Consider switching these strings to proto enums and use those directly.
-_EVENT_TYPE_TO_CONFIG_KEY = {
-    EventType.COLD: "cold",
-    EventType.CYCLONE: "storm",
-    EventType.DROUGHT: "drought",
-    EventType.EARTHQUAKE: "earthquake",
-    EventType.FIRE: "fire",
-    EventType.FLOOD: "flood",
-    EventType.HEAT: "heat",
-    EventType.WETBULB: "wetbulb",
-}
-
 
 class PageConfigBuilder:
 
@@ -120,7 +107,7 @@ def build_page_config(
   except Exception as err:
     utils.update_counter(uttr.counters, 'failed_category_description_build',
                          str(err))
-    logging.warning("Error building category description", err)
+    logging.warning("Error building category description: %s", str(err))
 
   # Build chart blocks
   for cspec in uttr.rankedCharts:
@@ -192,8 +179,7 @@ def build_page_config(
     elif cspec.chart_type == ChartType.EVENT_CHART and event_config:
       block, column = builder.new_chart(cspec.attr)
       _event_chart_block(builder.page_config.metadata, block, column,
-                         cspec.places[0], cspec.svs[0], cspec.attr,
-                         event_config)
+                         cspec.places[0], cspec.event, cspec.attr, event_config)
 
     builder.update_sv_spec(stat_var_spec_map)
 
@@ -463,12 +449,11 @@ def _place_overview_block(column):
   tile.type = Tile.TileType.PLACE_OVERVIEW
 
 
-def _event_chart_block(metadata, block, column, place: Place, event_key: str,
-                       attr, event_config):
+def _event_chart_block(metadata, block, column, place: Place,
+                       event_type: EventType, attr, event_config):
 
   # Map EventType to config key.
-  event_type = EventType(int(event_key))
-  event_id = _EVENT_TYPE_TO_CONFIG_KEY[event_type]
+  event_id = constants.EVENT_TYPE_TO_CONFIG_KEY[event_type]
 
   if event_id == 'earthquake':
     eq_val = metadata.event_type_spec[event_id]
@@ -498,8 +483,8 @@ def _event_chart_block(metadata, block, column, place: Place, event_key: str,
   block.title = event_name + ' in ' + place.name
   block.type = Block.DISASTER_EVENT
 
-  rank_high = RankingType.HIGH in attr['ranking_types']
-  if rank_high:
+  if (RankingType.HIGH in attr['ranking_types'] or
+      RankingType.EXTREME in attr['ranking_types']):
     tile = column.tiles.add()
     # TODO: Handle top event for earthquakes
     if not _maybe_copy_top_event(event_id, block, tile, event_config):

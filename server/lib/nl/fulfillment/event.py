@@ -72,11 +72,17 @@ def _populate_event(state: base.PopulateState,
 def _populate_event_for_place(state: base.PopulateState,
                               event_types: List[detection.EventType],
                               place: detection.Place) -> bool:
-  # TODO: Perform some form of existence checks.
+  event_type = event_types[0]
+  if not utils.event_existence_for_place(place.dcid, event_type):
+    utils.update_counter(state.uttr.counters, 'event_failed_existence_check', {
+        'place': place.dcid,
+        'event': event_type
+    })
+    return False
 
-  etype_str = str(event_types[0].value)
   state.block_id += 1
-  chart_vars = base.ChartVars(svs=[etype_str],
+  chart_vars = base.ChartVars(svs=[],
+                              event=event_types[0],
                               block_id=state.block_id,
                               include_percapita=False)
   return base.add_chart_to_utterance(base.ChartType.EVENT_CHART, state,

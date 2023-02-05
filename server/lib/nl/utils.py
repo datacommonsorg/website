@@ -35,17 +35,17 @@ _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
 _SV_DISPLAY_NAME_OVERRIDE = {
     "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme Max Temperature before 2030",
+        "Extreme max temperature increase before 2030",
     "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme Max Temperature before 2040",
+        "Extreme max temperature increase before 2040",
     "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme Max Temperature before 2050",
+        "Extreme max temperature increase before 2050",
     "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme Min Temperature before 2030",
+        "Extreme min temperature decrease before 2030",
     "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme Min Temperature before 2040",
+        "Extreme min temperature decrease before 2040",
     "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme Min Temperature before 2050",
+        "Extreme min temperature decrease before 2050",
     "Percent_Person_WithArthritis":
         "Arthritis",
     "Percent_Person_WithAsthma":
@@ -158,6 +158,23 @@ def is_svpg(sv):
 
 def is_sv(sv):
   return not (is_topic(sv) or is_svg(sv))
+
+
+# Checks if there is an event in the last 1 year.
+def event_existence_for_place(place: str, event: detection.EventType) -> bool:
+  for event_type in constants.EVENT_TYPE_TO_DC_TYPES[event]:
+    date_list = dc.get_event_collection_date(event_type,
+                                             place).get('eventCollectionDate',
+                                                        {}).get('dates', [])
+    cur_year = datetime.datetime.now().year
+    logging.info(cur_year)
+    prev_year = str(cur_year - 1)
+    cur_year = str(cur_year)
+    # A crude recency check
+    for date in date_list:
+      if date.startswith(cur_year) or date.startswith(prev_year):
+        return True
+  return False
 
 
 #

@@ -48,6 +48,7 @@ SIMPLE_PLACE_ONLY_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': []
     }],
     'svs': [],
@@ -83,6 +84,7 @@ OVERVIEW_PLACE_ONLY_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': []
     }],
     'svs': [],
@@ -116,6 +118,7 @@ SIMPLE_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Person_Male']
     }, {
         'attr': {
@@ -135,6 +138,7 @@ SIMPLE_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Person_Female']
     }],
     'svs': ['Count_Person_Male', 'Count_Person_Female']
@@ -168,6 +172,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Person_Male']
     }, {
         'attr': {
@@ -187,6 +192,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Person_Male', 'Count_Person_Female']
     }],
     'svs': ['Count_Person_Male']
@@ -220,6 +226,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Farm']
     }, {
         'attr': {
@@ -239,6 +246,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Area_Farm']
     }, {
         'attr': {
@@ -258,6 +266,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['FarmInventory_Rice', 'FarmInventory_Barley']
     }],
     'svs': ['dc/topic/Agriculture']
@@ -298,6 +307,7 @@ COMPARISON_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Person_Male']
     }, {
         'attr': {
@@ -321,6 +331,7 @@ COMPARISON_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Person_Female']
     }],
     'svs': []
@@ -354,6 +365,7 @@ CONTAINED_IN_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Farm']
     }, {
         'attr': {
@@ -373,6 +385,7 @@ CONTAINED_IN_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Income_Farm']
     }],
     'svs': ['Count_Farm', 'Income_Farm']
@@ -405,6 +418,7 @@ CORRELATION_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Farm', 'Mean_Precipitation']
     }, {
         'attr': {
@@ -424,6 +438,7 @@ CORRELATION_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Income_Farm', 'Mean_Precipitation']
     }],
     'svs': ['Mean_Precipitation']
@@ -460,6 +475,7 @@ RANKING_ACROSS_PLACES_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Agricultural_Workers']
     }],
     'svs': ['Count_Agricultural_Workers']
@@ -493,6 +509,8 @@ RANKING_ACROSS_SVS_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event':
+            None,
         'svs': [
             'FarmInventory_Barley', 'FarmInventory_Rice', 'FarmInventory_Wheat'
         ]
@@ -527,6 +545,7 @@ TIME_DELTA_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['FarmInventory_Barley']
     }, {
         'attr': {
@@ -546,6 +565,7 @@ TIME_DELTA_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['FarmInventory_Rice']
     }, {
         'attr': {
@@ -565,6 +585,7 @@ TIME_DELTA_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['FarmInventory_Wheat']
     }],
     'svs': ['dc/topic/AgricultureProduction']
@@ -598,6 +619,7 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Person_Male']
     }, {
         'attr': {
@@ -617,6 +639,7 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'event': None,
         'svs': ['Count_Person_Female']
     }],
     'svs': ['Count_Person_Male', 'Count_Person_Female']
@@ -655,7 +678,8 @@ EVENT_UTTR = {
             'name': 'Foo Place',
             'place_type': 'State'
         }],
-        'svs': ['4']
+        'event': EventType.FIRE,
+        'svs': []
     }],
     'svs': []
 }

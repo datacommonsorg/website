@@ -46,6 +46,9 @@ def populate(uttr: Utterance):
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for time_delta')
+  if chart_vars.event:
+    utils.update_counter(state.uttr.counters, 'time-delta_failed_cb_events', 1)
+    return False
   if not state.time_delta_types:
     utils.update_counter(state.uttr.counters,
                          'time-delta_failed_cb_notimedeltatypes', 1)

@@ -37,6 +37,13 @@ def populate(uttr: Utterance) -> bool:
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for simple')
+
+  if chart_vars.event:
+    # This can happen if an event is part of a topic and it can be triggered
+    # on a non-contained-in and non-ranking query.
+    return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
+                                  places, chart_origin)
+
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.
     chart_type = ChartType.TIMELINE_CHART
