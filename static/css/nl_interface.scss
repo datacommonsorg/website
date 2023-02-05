@@ -303,17 +303,25 @@ $loading-dot-color: #fff;
   padding-bottom: 10px;
 }
 
+.disaster-event-map-tile {
+    display: flex;
+    flex-direction: column;
 .disaster-event-map-container {
   height: 100%;
   .disaster-event-map-chart-section {
     display: flex;
     flex-direction: column;
-    svg {
-      height: 100%;
-      width: 100%;
-      display: block;
+
+    .svg-container {
+      min-height: 400px;
+      svg {
+        height: 100%;
+        width: 100%;
+        display: block;
+      }
     }
   }
+}
 }
 
 .chart-container.map-chart {
