@@ -60,11 +60,11 @@ class NLPlaceDetector:
       except Exception as e:
         logging.info(
             f"NER model raised an exception for query: '{q}'. Exception: {e}")
-    
+
     places_to_return = []
     # Check if any of the detected place strings are entirely contained inside
     # another detected string. If so, give the longer place string preference.
-    # Example: in the query "how about new york state", if both "new york" and 
+    # Example: in the query "how about new york state", if both "new york" and
     # "new york state" are detected, then prefer "new york state". Similary for
     # "new york city", "san mateo county", "santa clara county" etc.
     for i in range(0, len(places_found)):
