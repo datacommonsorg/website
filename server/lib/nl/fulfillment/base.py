@@ -310,7 +310,7 @@ def _build_chart_vars(state: PopulateState, sv: str,
     utils.update_counter(state.uttr.counters, 'topics_processed',
                          {sv: {
                              'svs': just_svs,
-                             'peer_groups': svs,
+                             'peer_groups': svpgs,
                          }})
     return charts
 
