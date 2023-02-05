@@ -204,6 +204,16 @@ npm test testfilename -- -u
 
 ## Other Developing Tips
 
+### Deploy latest code/data
+
+The autopush instance(autopush.datacommons.org) always has the latest code and
+data. For this to happen in other dev/demo instance, in a clean git checkout,
+simply run:
+
+```bash
+./script/deploy_latest.sh <ENV_NAME>
+```
+
 ### Debug Flask in Visual Studio Code
 
 1. [Optional] Update variables in 'env' of 'Flask' configurations in
