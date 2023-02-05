@@ -70,6 +70,12 @@ _SV_DISPLAY_NAME_OVERRIDE = {
         "Physical Health Issues",
     "Percent_Person_WithStroke":
         "Stroke",
+    "Median_Income_Person":
+        "Individual Median Income",
+    "Median_Income_Household":
+        "Household Median Income",
+    "Median_Earnings_Person":
+        "Individual Median Earnings",
 }
 
 
