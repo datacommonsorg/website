@@ -203,6 +203,27 @@ _SVPG_NAMES_OVERRIDE = {
         "Risk due to various Natural Hazards",
 }
 
+_SVPG_DESC_OVERRIDE = {
+    "dc/svpg/MedicalConditionsPeerGroup":
+        "Estimates of the percentage of people in living with these medical conditions, provided by the CDC.",
+    "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
+        "These are the largest differences between "
+        "the projected maximum temperature and observed maximum temperature in 2015, "
+        "according to RCP4.5, SSP2",
+    "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
+        "These are the largest differences between "
+        "the projected minimum temperature and observed minimum temperature in 2015, "
+        "according to RCP4.5, SSP2",
+    "dc/svpg/ProjectedClimateExtremes_HighestMeanTemp":
+        "These are the largest differences between "
+        "the projected average temperature and observed average temperature in 2015, "
+        "according to RCP4.5, SSP2",
+    "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp":
+        "These are the largest differences between "
+        "the projected average temperature and observed average temperature in 2015, "
+        "according to RCP4.5, SSP2",
+}
+
 _TOPIC_NAMES_OVERRIDE = {
     "dc/topic/ProjectedClimateExtremes": "Projected Climate Extremes",
     "dc/topic/ClimateChange": "Climate Change",
@@ -252,6 +273,15 @@ def svpg_name(sv: str):
   name = _SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
     resp = dc.property_values(nodes=[sv], prop='name')[sv]
+    if resp:
+      name = resp[0]
+  return name
+
+
+def svpg_description(sv: str):
+  name = _SVPG_DESC_OVERRIDE.get(sv, '')
+  if not name:
+    resp = dc.property_values(nodes=[sv], prop='description')[sv]
     if resp:
       name = resp[0]
   return name

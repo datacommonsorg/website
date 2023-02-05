@@ -58,7 +58,7 @@ metadata {
       event_type_dcids: "WildlandFireEvent"
       event_type_dcids: "WildfireEvent"
       event_type_dcids: "FireEvent"
-      color: "#f9c532"
+      color: "#f01212"
       default_severity_filter: {
         prop: "area"
         display_name: "Area"
@@ -148,7 +148,7 @@ metadata {
       id: "heat"
       name: "Extreme Heat"
       event_type_dcids: "HeatTemperatureEvent"
-      color: "#f01212"
+      color: "#ffa000"
       default_severity_filter: {
         prop: "differenceTemperature"
         display_name: "Difference"
