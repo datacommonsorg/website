@@ -73,7 +73,7 @@ class NLPlaceDetector:
         if i == j:
           continue
         # Checking if the place at index i is contained entirely inside
-        # another place at index j != 1. If so, it can be ignored.
+        # another place at index j != i. If so, it can be ignored.
         if places_found[i] in places_found[j]:
           ignore = True
       if not ignore:
