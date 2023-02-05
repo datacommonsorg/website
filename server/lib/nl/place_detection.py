@@ -50,6 +50,7 @@ class NLPlaceDetector:
     for q in [
         query, query_without_stop_words, query_with_period, query_title_case
     ]:
+      logging.info(f"Trying place detection with: {q}")
       try:
         for p in self.detect_place_ner(q):
           # Add if not already done. Also check for the special places which get
@@ -59,7 +60,23 @@ class NLPlaceDetector:
       except Exception as e:
         logging.info(
             f"NER model raised an exception for query: '{q}'. Exception: {e}")
-      if places_found:
-        break
+    
+    places_to_return = []
+    # Check if any of the detected place strings are entirely contained inside
+    # another detected string. If so, give the longer place string preference.
+    # Example: in the query "how about new york state", if both "new york" and 
+    # "new york state" are detected, then prefer "new york state". Similary for
+    # "new york city", "san mateo county", "santa clara county" etc.
+    for i in range(0, len(places_found)):
+      ignore = False
+      for j in range(0, len(places_found)):
+        if i == j:
+          continue
+        # Checking if the place at index i is contained entirely inside
+        # another place at index j != 1. If so, it can be ignored.
+        if places_found[i] in places_found[j]:
+          ignore = True
+      if not ignore:
+        places_to_return.append(places_found[i])
 
-    return places_found
+    return places_to_return
