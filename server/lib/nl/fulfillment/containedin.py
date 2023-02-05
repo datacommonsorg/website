@@ -68,6 +68,9 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for contained-in')
 
+  if chart_vars.event:
+    utils.update_counter(state.uttr.counters, 'containedin_failed_cb_events', 1)
+    return False
   if not state.place_type:
     utils.update_counter(state.uttr.counters,
                          'containedin_failed_cb_missing_type', 1)

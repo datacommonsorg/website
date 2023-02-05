@@ -37,7 +37,7 @@ from lib.nl.detection import TimeDeltaClassificationAttributes
 from lib.nl.detection import TimeDeltaType
 
 # How far back does the context go back.
-CTX_LOOKBACK_LIMIT = 5
+CTX_LOOKBACK_LIMIT = 8
 
 
 # Forward declaration since Utterance contains a pointer to itself.
@@ -70,6 +70,7 @@ class ChartSpec:
   utterance: Utterance
   places: List[Place]
   svs: List[str]
+  event: EventType
   # A list of key-value attributes interpreted per chart_type
   attr: Dict
 
@@ -193,6 +194,7 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
     cdict['chart_type'] = c.chart_type
     cdict['places'] = _place_to_dict(c.places)
     cdict['svs'] = c.svs
+    cdict['event'] = c.event
     cdict['attr'] = c.attr
     charts_dict.append(cdict)
   return charts_dict
@@ -205,6 +207,7 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
         ChartSpec(chart_type=ChartType(cdict['chart_type']),
                   places=_dict_to_place(cdict['places']),
                   svs=cdict['svs'],
+                  event=cdict['event'],
                   attr=cdict['attr'],
                   utterance=None))
   return charts

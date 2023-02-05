@@ -198,7 +198,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             ],
             "Best": ["best",],
             "Worst": ["worst",],
-            "Extreme": ["extremes?",]
+            "Extreme": ["extremes?", "impact"]
         },
         "Comparison": [
             "compare(s|d)?",
@@ -292,6 +292,8 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "administrativearea5": "administrative area 5 places",
 }
 
+# TODO: Unify the different event maps by using a struct value.
+
 # Override the names from configs.  These have plurals, etc.
 EVENT_TYPE_TO_DISPLAY_NAME = {
     EventType.COLD: "Extreme Cold Events",
@@ -302,6 +304,34 @@ EVENT_TYPE_TO_DISPLAY_NAME = {
     EventType.FLOOD: "Floods",
     EventType.HEAT: "Exteme Heat Events",
     EventType.WETBULB: "High Wet-bulb Temperature Events",
+}
+
+# NOTE: This relies on disaster config's event_type_spec IDs.
+# TODO: Consider switching these strings to proto enums and use those directly.
+EVENT_TYPE_TO_CONFIG_KEY = {
+    EventType.COLD: "cold",
+    EventType.CYCLONE: "storm",
+    EventType.DROUGHT: "drought",
+    EventType.EARTHQUAKE: "earthquake",
+    EventType.FIRE: "fire",
+    EventType.FLOOD: "flood",
+    EventType.HEAT: "heat",
+    EventType.WETBULB: "wetbulb",
+}
+
+EVENT_CONFIG_KEY_TO_EVENT_TYPE = {
+    v: k for k, v in EVENT_TYPE_TO_CONFIG_KEY.items()
+}
+
+EVENT_TYPE_TO_DC_TYPES = {
+    EventType.COLD: ["ColdTemperatureEvent"],
+    EventType.CYCLONE: ["CycloneEvent"],
+    EventType.DROUGHT: ["DroughtEvent"],
+    EventType.EARTHQUAKE: ["EarthquakeEvent"],
+    EventType.FIRE: ["WildlandFireEvent", "WildfireEvent", "FireEvent"],
+    EventType.FLOOD: ["FloodEvent"],
+    EventType.HEAT: ["HeatTemperatureEvent"],
+    EventType.WETBULB: ["WetBulbTemperatureEvent"],
 }
 
 CHILD_PLACES_TYPES = {
