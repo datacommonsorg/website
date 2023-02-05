@@ -198,7 +198,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             ],
             "Best": ["best",],
             "Worst": ["worst",],
-            "Extreme": ["extremes?",]
+            "Extreme": ["extremes?", "impact"]
         },
         "Comparison": [
             "compare(s|d)?",
