@@ -54,6 +54,7 @@ class ChartVars:
   block_id: int
   include_percapita: bool = True
   title: str = ""
+  description: str = ""
   # Represents a peer-group of SVs from a Topic.
   is_topic_peer_group: bool = False
   # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
@@ -79,6 +80,7 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
       "block_id": chart_vars.block_id,
       "include_percapita": chart_vars.include_percapita,
       "title": chart_vars.title,
+      "description": chart_vars.description,
       "chart_type": chart_vars.response_type,
       "source_topic": chart_vars.source_topic
   }
@@ -275,7 +277,8 @@ def _build_chart_vars(state: PopulateState, sv: str,
     for v in topic_vars:
       if v in peer_groups and peer_groups[v]:
         title = topic.svpg_name(v)
-        svpgs.append((title, peer_groups[v]))
+        description = topic.svpg_description(v)
+        svpgs.append((title, description, peer_groups[v]))
       else:
         just_svs.append(v)
 
@@ -293,20 +296,21 @@ def _build_chart_vars(state: PopulateState, sv: str,
                     source_topic=sv))
 
     # 2. Make a block for every peer-group in svpgs
-    for (title, svpg) in svpgs:
+    for (title, description, svs) in svpgs:
       state.block_id += 1
       charts.append(
-          ChartVars(svs=svpg,
+          ChartVars(svs=svs,
                     block_id=state.block_id,
                     include_percapita=False,
                     title=title,
+                    description=description,
                     is_topic_peer_group=True,
                     source_topic=sv))
 
     utils.update_counter(state.uttr.counters, 'topics_processed',
                          {sv: {
                              'svs': just_svs,
-                             'peer_groups': svpgs,
+                             'peer_groups': svs,
                          }})
     return charts
 
