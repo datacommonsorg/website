@@ -225,11 +225,18 @@ h3,
   text-align: right;
 }
 
+.nl-result .container {
+  position: relative;
+}
+
 .debug-info-toggle.show {
   color: #666;
   font-size: 0.8rem;
   padding-top: .5em;
   margin-bottom: -1em;
+  position: absolute;
+  top: .5rem;
+  right: -2.5rem;
 }
 
 .debug-info-toggle.hide {
