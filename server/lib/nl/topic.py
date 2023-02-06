@@ -204,7 +204,7 @@ _SVPG_NAMES_OVERRIDE = {
 
 _SVPG_DESC_OVERRIDE = {
     "dc/svpg/MedicalConditionsPeerGroup":
-        "Estimates of the percentage of people in living with these medical conditions, provided by the CDC.",
+        "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
         "Highest temperature likely to be reached by 2050 compared to average observed "
         "max temperature of 30 years. Reported values are differences in temperature.",
