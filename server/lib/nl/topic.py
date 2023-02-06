@@ -150,24 +150,14 @@ _PEER_GROUP_TO_OVERRIDE = {
     ],
     "dc/svpg/HouseholdIncome": ["Median_Income_Household",],
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp": [
-        "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245",
-        "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245",
-        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245",
-    ],
-    "dc/svpg/ProjectedClimateExtremes_HighestMeanTemp": [
-        "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
-        "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
-        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
-    ],
-    "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp": [
-        "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
-        "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
-        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Temperature_SSP245",
+        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60",
     ],
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp": [
-        "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245",
-        "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245",
-        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245",
+        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60",
     ],
     "dc/svpg/ClimateChange_FEMARisk": [
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_AvalancheEvent",
@@ -201,13 +191,9 @@ _SVPG_NAMES_OVERRIDE = {
     "dc/svpg/SolarPanelPotential":
         "Solar Panel Potential",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "Projected highest increase in max temperature (SSP2, RCP4.5, Base 2015)",
+        "Projected highest increase in max temperature in different scenarios",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "Projected highest decrease in min temperature (SSP2, RCP4.5, Base 2015)",
-    "dc/svpg/ProjectedClimateExtremes_HighestMeanTemp":
-        "Projected highest decrease in mean temperature (SSP2, RCP4.5, Base 2015)",
-    "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp":
-        "Projected highest decrease in mean temperature (SSP2, RCP4.5, Base 2015)",
+        "Projected highest decrease in min temperature in different scenarios",
     "dc/svpg/ClimateChange_FEMARisk":
         "Risk due to various Natural Hazards",
     "dc/svpg/IndividualIncome":
@@ -220,21 +206,11 @@ _SVPG_DESC_OVERRIDE = {
     "dc/svpg/MedicalConditionsPeerGroup":
         "Estimates of the percentage of people in living with these medical conditions, provided by the CDC.",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "These are the largest differences between "
-        "the projected maximum temperature and observed maximum temperature in 2015, "
-        "according to RCP4.5, SSP2",
+        "Highest temperature likely to be reached by 2050 compared to average observed "
+        "max temperature of 30 years. Reported values are differences in temperature.",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "These are the largest differences between "
-        "the projected minimum temperature and observed minimum temperature in 2015, "
-        "according to RCP4.5, SSP2",
-    "dc/svpg/ProjectedClimateExtremes_HighestMeanTemp":
-        "These are the largest differences between "
-        "the projected average temperature and observed average temperature in 2015, "
-        "according to RCP4.5, SSP2",
-    "dc/svpg/ProjectedClimateExtremes_LowestMeanTemp":
-        "These are the largest differences between "
-        "the projected average temperature and observed average temperature in 2015, "
-        "according to RCP4.5, SSP2",
+        "Lowest temperature likely to be reached by 2050 compared to average observed "
+        "min temperature of 30 years. Reported values are differences in temperature.",
 }
 
 _TOPIC_NAMES_OVERRIDE = {
