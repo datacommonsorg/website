@@ -35,17 +35,17 @@ _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
 _SV_DISPLAY_NAME_OVERRIDE = {
     "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "Highest max temperature increase by 2050 per RCP 2.6 (optimistic) scenario",
+        "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (°C)",
     "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "Highest max temperature increase by 2050 per RCP 4.5 (intermediate) scenario",
+        "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (°C)",
     "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "Highest max temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario",
+        "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
     "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "Highest min temperature decrease by 2050 per RCP 2.6 (optimistic) scenario",
+        "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (°C)",
     "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "Highest min temperature decrease by 2050 per RCP 4.5 (intermediate) scenario",
+        "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (°C)",
     "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "Highest min temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario",
+        "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
     "Percent_Person_WithArthritis":
         "Arthritis",
     "Percent_Person_WithAsthma":
