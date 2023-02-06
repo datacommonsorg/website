@@ -668,6 +668,9 @@ EVENT_CONFIG = """
          upper_limit: 1000.0
          display_name: "Area"
        }
+       end_date_prop: "endDate"
+       end_date_prop: "containmentDate"
+       end_date_prop: "controlledDate"
      }
    }
    contained_place_types {
@@ -720,6 +723,9 @@ metadata {
         upper_limit: 1000
         lower_limit: 25
       }
+     end_date_prop: "endDate"
+     end_date_prop: "containmentDate"
+     end_date_prop: "controlledDate"
     }
   }
 }
