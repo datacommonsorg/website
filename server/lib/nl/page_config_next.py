@@ -100,14 +100,14 @@ def build_page_config(
   sv2name = utils.get_sv_name(all_svs)
 
   # Add a human answer to the query
-  try:
-    desc = lib_desc.build_category_description(uttr, sv2name)
-    if desc:
-      builder.category.description = desc
-  except Exception as err:
-    utils.update_counter(uttr.counters, 'failed_category_description_build',
-                         str(err))
-    logging.warning("Error building category description: %s", str(err))
+  # try:
+  #   desc = lib_desc.build_category_description(uttr, sv2name)
+  #   if desc:
+  #     builder.category.description = desc
+  # except Exception as err:
+  #   utils.update_counter(uttr.counters, 'failed_category_description_build',
+  #                        str(err))
+  #   logging.warning("Error building category description: %s", str(err))
 
   # Build chart blocks
   for cspec in uttr.rankedCharts:
@@ -494,10 +494,6 @@ def _event_chart_block(metadata, block, column, place: Place,
       top_event.event_type_key = event_id
       top_event.display_prop.append('name')
       top_event.show_start_date = True
-      top_event.show_end_date = True
-  else:
-    tile.type = Tile.DISASTER_EVENT_MAP
-    tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
   tile = block.columns.add().tiles.add()
   tile.type = Tile.DISASTER_EVENT_MAP
   tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
