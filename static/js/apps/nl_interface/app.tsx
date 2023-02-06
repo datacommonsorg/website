@@ -36,9 +36,11 @@ export function App(): JSX.Element {
       (
         document.getElementById("query-search-input") as HTMLInputElement
       ).value = prompt;
+      setTimeout(() => {
       (
         document.getElementById("rich-search-button") as HTMLButtonElement
       ).click();
+      }, 2000);
     }
   }
 
@@ -56,7 +58,7 @@ export function App(): JSX.Element {
           } else {
             clearInterval(timer);
           }
-        }, 10000);
+        }, 5000);
         return () => clearInterval(timer);
       }
     }
