@@ -202,7 +202,7 @@ def create_app():
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
   if cfg.ENV_NAME == 'STANFORD' or os.environ.get(
-      'FLASK_ENV') == 'autopush' or cfg.LOCAL and not cfg.LITE:
+      'FLASK_ENV') in ['autopush', 'dev'] or cfg.LOCAL and not cfg.LITE:
     register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
   if cfg.TEST:
     # disaster dashboard tests require stanford's routes to be registered.
