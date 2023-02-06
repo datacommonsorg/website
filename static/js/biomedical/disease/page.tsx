@@ -22,18 +22,6 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-const DISEASE_TREATMENT_COLUMNS = [
-  { id: "node", name: "Parent Node" },
-  { id: "id", name: "Compound ID" },
-  { id: "name", name: "Compound Name" },
-  { id: "clinicalPhaseNumber", name: "FDA Clinical Phase" },
-];
-const DISEASE_CONTRAINDICATION_COLUMNS = [
-  { id: "node", name: "Parent Node" },
-  { id: "id", name: "Compound ID" },
-  { id: "name", name: "Compound Name" },
-  { id: "drugSource", name: "Drug Source" },
-];
 import { MapTile } from "../../components/tiles/map_tile";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { getEntityLink } from "../bio_charts_utils";
@@ -56,6 +44,19 @@ import {
   DiseaseGeneAssociationData,
   DiseaseSymptomAssociationData,
 } from "./types";
+
+const DISEASE_TREATMENT_COLUMNS = [
+  { id: "node", name: "Parent Node" },
+  { id: "id", name: "Compound ID" },
+  { id: "name", name: "Compound Name" },
+  { id: "clinicalPhaseNumber", name: "FDA Clinical Phase" },
+];
+const DISEASE_CONTRAINDICATION_COLUMNS = [
+  { id: "node", name: "Parent Node" },
+  { id: "id", name: "Compound ID" },
+  { id: "name", name: "Compound Name" },
+  { id: "drugSource", name: "Drug Source" },
+];
 
 export interface PagePropType {
   dcid: string;

@@ -336,6 +336,10 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
   if (!data) {
     return false;
   }
+  // check for null values
+  if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
+    return false;
+  }
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "medicalCondition") {
       continue;
@@ -348,6 +352,6 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
     if (!_.isEmpty(medicalCondition)) {
       return true;
     }
-    return false;
   }
+  return false;
 }
