@@ -82,6 +82,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
                   config={category}
                   eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
                   svgChartHeight={
+                    // TODO: Unroll this for NL and use container offset from CSS instead.
                     props.svgChartHeight
                       ? props.svgChartHeight
                       : SVG_CHART_HEIGHT

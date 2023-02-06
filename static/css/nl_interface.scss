@@ -219,13 +219,19 @@ h3,
   cursor: pointer;
 }
 
+.debug-info-toggle {
+  display: block;
+  text-align: right;
+}
+
 .debug-info-toggle.show {
-  color: #ccc;
+  color: #666;
   font-size: 0.8rem;
+  padding-top: .5em;
+  margin-bottom: -1em;
 }
 
 .debug-info-toggle.hide {
-  float: right;
   font-weight: bold;
 }
 
@@ -240,6 +246,10 @@ h3,
   td {
     border: 1px solid black;
   }
+}
+
+.nl-result .subtopic.notitle {
+  border-color: #999 !important;
 }
 
 // From https://codepen.io/nzbin/pen/GGrXbp
