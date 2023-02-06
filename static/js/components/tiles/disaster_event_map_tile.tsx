@@ -53,6 +53,7 @@ import { ReplacementStrings } from "../../utils/tile_utils";
 import { DataContext } from "../subject_page/data_context";
 import { ChartTileContainer } from "./chart_tile";
 
+const MAP_PADDING_PX = 10;
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
@@ -218,8 +219,9 @@ export function DisasterEventMapTile(
     geoJsonData: GeoJsonData,
     disasterEventData: DisasterEventPointData
   ): void {
-    const width = svgContainerRef.current.offsetWidth;
-    const height = (width * 2) / 5;
+    const width = svgContainerRef.current.offsetWidth - (2 * MAP_PADDING_PX);
+    const height = Math.max(svgContainerRef.current.offsetHeight -  (2 * MAP_PADDING_PX),
+                            (width * 2) / 5);
     const zoomParams = {
       zoomInButtonId: ZOOM_IN_BUTTON_ID,
       zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
