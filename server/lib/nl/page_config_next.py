@@ -26,6 +26,7 @@ import lib.nl.descriptions as lib_desc
 from lib.nl.detection import EventType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
+from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartSpec
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import ClassificationType
@@ -66,7 +67,7 @@ class PageConfigBuilder:
         self.category.blocks.append(self.block)
       self.block = Block()
       if attr['title']:
-        self.block.title = attr['title']
+        self.block.title = _prefix_related(attr['title'], attr)
       if attr['description']:
         self.block.description = attr['description']
       self.column = self.block.columns.add()
@@ -162,7 +163,7 @@ def build_page_config(
         elif not builder.block.title:
           # For the first SV, if title weren't already set, set it to
           # the SV name.
-          builder.block.title = sv2name[sv]
+          builder.block.title = _prefix_related(sv2name[sv], cspec.attr)
           # TODO: Maybe insert sv description here.
         stat_var_spec_map.update(
             _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
@@ -171,7 +172,8 @@ def build_page_config(
           main_title = builder.block.title
           block, column = builder.new_chart(cspec.attr)
           if main_title:
-            builder.block.title = main_title + ' - Per Capita'
+            builder.block.title = _prefix_related(main_title + ' - Per Capita',
+                                                  cspec.attr)
           stat_var_spec_map.update(
               _ranking_chart_block_pc(column, pri_place, sv, sv2name,
                                       cspec.attr))
@@ -531,6 +533,12 @@ def _is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
     logging.error('Incompatible MAP/RANKING: missing-place-type', cspec)
     return False
   return True
+
+
+def _prefix_related(title: str, attr: Dict) -> str:
+  if title and attr.get('class', None) == ChartOriginType.SECONDARY_CHART:
+    return 'Related: ' + title
+  return title
 
 
 #
