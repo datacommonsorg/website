@@ -219,7 +219,10 @@ export function DisasterEventMapTile(
     disasterEventData: DisasterEventPointData
   ): void {
     const width = svgContainerRef.current.offsetWidth;
-    const height = Math.max(svgContainerRef.current.offsetHeight, (width * 2) / 5);
+    const height = Math.max(
+      svgContainerRef.current.offsetHeight,
+      (width * 2) / 5
+    );
     const zoomParams = {
       zoomInButtonId: ZOOM_IN_BUTTON_ID,
       zoomOutButtonId: ZOOM_OUT_BUTTON_ID,

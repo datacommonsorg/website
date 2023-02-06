@@ -280,7 +280,10 @@ function draw(
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
   const width = svgContainer.current.offsetWidth;
-  const height = Math.max(svgContainer.current.offsetHeight, props.svgChartHeight);
+  const height = Math.max(
+    svgContainer.current.offsetHeight,
+    props.svgChartHeight
+  );
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,

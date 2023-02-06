@@ -37,9 +37,9 @@ export function App(): JSX.Element {
         document.getElementById("query-search-input") as HTMLInputElement
       ).value = prompt;
       setTimeout(() => {
-      (
-        document.getElementById("rich-search-button") as HTMLButtonElement
-      ).click();
+        (
+          document.getElementById("rich-search-button") as HTMLButtonElement
+        ).click();
       }, 2000);
     }
   }
