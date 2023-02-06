@@ -33,8 +33,8 @@ cd $ROOT
 git submodule update --init --recursive
 cd $ROOT/mixer
 git remote set-url origin https://github.com/datacommonsorg/mixer.git
-git pull origin master
 git checkout master
+git pull origin master
 
 # Deploy autopush instance
 gsutil cp gs://datcom-control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
