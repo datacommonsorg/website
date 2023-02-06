@@ -536,7 +536,7 @@ def _is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
 
 
 def _prefix_related(title: str, attr: Dict) -> str:
-  if attr.get('class', None) == ChartOriginType.SECONDARY_CHART:
+  if title and attr.get('class', None) == ChartOriginType.SECONDARY_CHART:
     return 'Related: ' + title
   return title
 
