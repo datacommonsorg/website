@@ -78,6 +78,21 @@ _SV_DISPLAY_NAME_OVERRIDE = {
         "Individual Median Earnings",
 }
 
+_SV_DISPLAY_FOOTNOTE_OVERRIDE = {
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
+        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
+        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
+        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
+        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
+        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
+        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+}
+
 
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
   """Adds (in place) every string (in lower case) to a Set of strings."""
@@ -467,6 +482,21 @@ def clean_sv_name(name: str) -> str:
     if name.endswith(s):
       name = name[:-len(s)]
   return name
+
+
+def get_sv_footnote(all_svs: List[str]) -> Dict:
+  sv2footnote_raw = dc.property_values(all_svs, 'footnote')
+  uncurated_footnotes = {
+      sv: footnotes[0] if footnotes else ''
+      for sv, footnotes in sv2footnote_raw.items()
+  }
+  sv_map = {}
+  for sv in all_svs:
+    if sv in _SV_DISPLAY_FOOTNOTE_OVERRIDE:
+      sv_map[sv] = _SV_DISPLAY_FOOTNOTE_OVERRIDE[sv]
+    else:
+      sv_map[sv] = uncurated_footnotes[sv]
+  return sv_map
 
 
 def get_only_svs(svs: List[str]) -> List[str]:

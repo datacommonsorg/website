@@ -85,6 +85,7 @@ function renderBlocks(
               enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
               description={block.description}
+              footnote={block.footnote}
               columns={block.columns}
               eventTypeSpec={props.eventTypeSpec}
             />
@@ -99,6 +100,7 @@ function renderBlocks(
               enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
               description={block.description}
+              footnote={block.footnote}
               columns={block.columns}
               statVarProvider={svProvider}
               svgChartHeight={props.svgChartHeight}

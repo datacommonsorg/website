@@ -176,6 +176,8 @@ message Tile {
 message Block {
   string title = 1;
   string description = 2;
+  // For now, a single footnote that goes across the bottom of each block.
+  string footnote = 5;
 
   message Column {
     repeated Tile tiles = 1;

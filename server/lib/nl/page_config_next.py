@@ -99,6 +99,9 @@ def build_page_config(
   all_svs = list(all_svs)
   sv2name = utils.get_sv_name(all_svs)
 
+  # Get footnotes of all SVs
+  sv2footnote = utils.get_sv_footnote(all_svs)
+
   # Add a human answer to the query
   # try:
   #   desc = lib_desc.build_category_description(uttr, sv2name)
@@ -151,6 +154,7 @@ def build_page_config(
       pri_place = cspec.places[0]
       for idx, sv in enumerate(cspec.svs):
         block, column = builder.new_chart(cspec.attr)
+        block.footnote = sv2footnote[sv]
         if idx > 0 and cspec.attr['source_topic']:
           # For a peer-group of SVs, set the title and description only once.
           builder.block.title = ''

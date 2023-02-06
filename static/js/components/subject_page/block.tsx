@@ -23,11 +23,7 @@ import React from "react";
 import { HIDE_TILE_CLASS } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
-import {
-  ColumnConfig,
-  EventTypeSpec,
-  TileConfig,
-} from "../../types/subject_page_proto_types";
+import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 import {
   getColumnTileClassName,
@@ -54,6 +50,7 @@ export interface BlockPropType {
   enclosedPlaceType: string;
   title?: string;
   description: string;
+  footnote?: string;
   columns: ColumnConfig[];
   statVarProvider: StatVarProvider;
   // Height, in px, for the tile SVG charts.
@@ -68,6 +65,7 @@ export function Block(props: BlockPropType): JSX.Element {
       id={props.id}
       title={props.title}
       description={props.description}
+      footnote={props.footnote}
     >
       <div className="block-body row">
         {props.columns &&
