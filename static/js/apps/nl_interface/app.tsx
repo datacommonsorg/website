@@ -25,41 +25,66 @@ import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 
+const CHARACTER_INPUT_INTERVAL = 50;
+const PROMPT_SEARCH_DELAY = 1000;
+const NEXT_PROMPT_DELAY = 2500;
+
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
 
-  // Executes a single query through the search box.
-  // TODO: Do this by going through state/props instead of directly manipulating the DOM.
-  function executePrompt(prompt: string) {
-    if (prompt) {
-      (
-        document.getElementById("query-search-input") as HTMLInputElement
-      ).value = prompt;
-      setTimeout(() => {
-        (
-          document.getElementById("rich-search-button") as HTMLButtonElement
-        ).click();
-      }, 2000);
-    }
+  // Updates the query search input box value.
+  function updateSearchInput(input: string) {
+    (document.getElementById("query-search-input") as HTMLInputElement).value =
+      input;
+  }
+
+  // Searches for the query in the query search box.
+  function executeSearch(): void {
+    (
+      document.getElementById("rich-search-button") as HTMLButtonElement
+    ).click();
   }
 
   useEffect(() => {
     // Runs each prompt (';' separated) 10s apart.
+    // TODO: Do this by going through state/props instead of directly
+    // manipulating the DOM.
     const urlPrompts = getUrlToken("q");
     if (urlPrompts) {
       const prompts = urlPrompts.split(";");
-      executePrompt(prompts.shift());
       if (prompts.length) {
-        const timer = setInterval(() => {
-          const p = prompts.shift();
-          if (p) {
-            executePrompt(p);
-          } else {
-            clearInterval(timer);
+        let prompt = prompts.shift();
+        let inputLength = 1;
+        let pauseQueryInput = false;
+        const inputTimer = setInterval(() => {
+          if (!prompt) {
+            clearInterval(inputTimer);
+            return;
           }
-        }, 5000);
-        return () => clearInterval(timer);
+          if (pauseQueryInput) {
+            return;
+          }
+          if (inputLength <= prompt.length) {
+            updateSearchInput(prompt.substring(0, inputLength));
+          }
+          if (inputLength === prompt.length) {
+            pauseQueryInput = true;
+            setTimeout(() => {
+              // Search for the current input after PROMPT_SEARCH_DELAY ms.
+              executeSearch();
+              setTimeout(() => {
+                // Start typing the input for the next prompt after
+                // NEXT_PROMPT_DELAY ms.
+                pauseQueryInput = false;
+                prompt = prompts.shift();
+                inputLength = 1;
+              }, NEXT_PROMPT_DELAY);
+            }, PROMPT_SEARCH_DELAY);
+          }
+          inputLength++;
+        }, CHARACTER_INPUT_INTERVAL);
+        return () => clearInterval(inputTimer);
       }
     }
   }, []);

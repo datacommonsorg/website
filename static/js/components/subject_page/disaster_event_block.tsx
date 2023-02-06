@@ -60,6 +60,7 @@ interface DisasterEventBlockPropType {
   description: string;
   columns: ColumnConfig[];
   eventTypeSpec: Record<string, EventTypeSpec>;
+  footnote?: string;
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;
@@ -115,6 +116,7 @@ export function DisasterEventBlock(
       id={props.id}
       title={props.title}
       description={props.description}
+      footnote={props.footnote}
     >
       <DisasterEventMapSelectors
         blockId={props.id}
