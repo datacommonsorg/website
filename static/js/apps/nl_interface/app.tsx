@@ -27,7 +27,7 @@ import { QuerySearch } from "./query_search";
 
 const CHARACTER_INPUT_INTERVAL = 50;
 const PROMPT_SEARCH_DELAY = 1000;
-const NEXT_PROMPT_DELAY = 2500;
+const NEXT_PROMPT_DELAY = 5000;
 
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
