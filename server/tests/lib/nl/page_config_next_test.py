@@ -529,6 +529,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
          stat_var_key: "Count_Agricultural_Workers"
        }
       }
+      footnote: "Count_Agricultural_Workers-footnote"
     }
     blocks {
       title: "Count_Agricultural_Workers-name - Per Capita"
@@ -777,25 +778,31 @@ class TestPageConfigNext(unittest.TestCase):
       ],
       ["RankingAcrossSVs", RANKING_ACROSS_SVS_UTTR, RANKING_ACROSS_SVS_CONFIG],
   ])
+  @patch.object(utils, 'get_sv_footnote')
   @patch.object(topic, 'get_topic_name')
   @patch.object(utils, 'parent_place_names')
   @patch.object(utils, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
-                mock_parent_place_names, mock_topic_name):
+                mock_parent_place_names, mock_topic_name, mock_sv_footnote):
     random.seed(1)
     mock_sv_name.side_effect = (
         lambda svs: {sv: "{}-name".format(sv) for sv in svs})
     mock_parent_place_names.side_effect = (
         lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
     mock_topic_name.side_effect = (lambda dcid: dcid.split('/')[-1])
+    mock_sv_footnote.side_effect = (
+        lambda svs: {sv: "{}-footnote".format(sv) for sv in svs})
+
     got = _run(uttr_dict)
     self.maxDiff = None
     self.assertEqual(got, _textproto(config_str), test_name + ' failed!')
 
+  @patch.object(utils, 'get_sv_footnote')
   @patch.object(utils, 'get_sv_name')
-  def test_event(self, mock_sv_name):
+  def test_event(self, mock_sv_name, mock_sv_footnote):
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs: {sv: sv for sv in svs})
+    mock_sv_footnote.side_effect = (lambda svs: {sv: '' for sv in svs})
 
     disaster_config = SubjectPageConfig()
     text_format.Parse(DISASTER_TEST_CONFIG, disaster_config)

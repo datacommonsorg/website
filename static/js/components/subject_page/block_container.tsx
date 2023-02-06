@@ -25,6 +25,7 @@ export interface BlockContainerPropType {
   title?: string;
   description: string;
   children?: React.ReactNode;
+  footnote?: string;
 }
 
 export function BlockContainer(props: BlockContainerPropType): JSX.Element {
@@ -36,6 +37,9 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       {props.title && <h3>{props.title}</h3>}
       {props.description && <p className="block-desc">{props.description}</p>}
       {props.children}
+      {props.footnote && (
+        <footer className="block-footer">* {props.footnote}</footer>
+      )}
     </section>
   );
 }

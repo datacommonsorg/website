@@ -107,6 +107,7 @@ export interface ColumnConfig {
 export interface BlockConfig {
   title?: string;
   description: string;
+  footnote?: string;
   columns: ColumnConfig[];
   type?: string;
 }
