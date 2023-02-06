@@ -103,14 +103,14 @@ def build_page_config(
   sv2footnote = utils.get_sv_footnote(all_svs)
 
   # Add a human answer to the query
-  try:
-    desc = lib_desc.build_category_description(uttr, sv2name)
-    if desc:
-      builder.category.description = desc
-  except Exception as err:
-    utils.update_counter(uttr.counters, 'failed_category_description_build',
-                         str(err))
-    logging.warning("Error building category description: %s", str(err))
+  # try:
+  #   desc = lib_desc.build_category_description(uttr, sv2name)
+  #   if desc:
+  #     builder.category.description = desc
+  # except Exception as err:
+  #   utils.update_counter(uttr.counters, 'failed_category_description_build',
+  #                        str(err))
+  #   logging.warning("Error building category description: %s", str(err))
 
   # Build chart blocks
   for cspec in uttr.rankedCharts:

@@ -815,6 +815,8 @@ class TestPageConfigNext(unittest.TestCase):
 def _textproto(s):
   config = SubjectPageConfig()
   text_format.Parse(s, config)
+  # Temporarily drop category descriptions
+  config.categories[0].description = ''
   return text_format.MessageToString(config)
 
 
