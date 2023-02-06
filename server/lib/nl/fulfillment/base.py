@@ -17,10 +17,12 @@ from dataclasses import field
 import logging
 from typing import Dict, List
 
+from lib.nl import constants
 from lib.nl import topic
 from lib.nl import utils
 from lib.nl import variable
 from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import EventType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
 from lib.nl.detection import TimeDeltaType
@@ -31,6 +33,8 @@ from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
 
 # TODO: Factor classification processing functions into a common place.
+
+_EVENT_PREFIX = 'event/'
 
 
 # Data structure to store state for a single "populate" call.
@@ -48,17 +52,20 @@ class PopulateState:
 # Data structure for configuring the vars that go into a chart.
 @dataclass
 class ChartVars:
+  # Only one of svs or events is set.
   svs: List[str]
   # Represents a grouping of charts on the resulting display.
   block_id: int
   include_percapita: bool = True
   title: str = ""
+  description: str = ""
   # Represents a peer-group of SVs from a Topic.
   is_topic_peer_group: bool = False
   # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
   response_type: str = ""
   # If svs came from a topic, the topic dcid.
   source_topic: str = ""
+  event: EventType = None
 
 
 #
@@ -78,11 +85,13 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
       "block_id": chart_vars.block_id,
       "include_percapita": chart_vars.include_percapita,
       "title": chart_vars.title,
+      "description": chart_vars.description,
       "chart_type": chart_vars.response_type,
       "source_topic": chart_vars.source_topic
   }
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
+                 event=chart_vars.event,
                  places=places,
                  utterance=state.uttr,
                  attr=attr)
@@ -115,6 +124,8 @@ def populate_charts(state: PopulateState) -> bool:
 # Populate charts given a place.
 def populate_charts_for_places(state: PopulateState,
                                places: List[Place]) -> bool:
+  maybe_handle_contained_in_fallback(state, places)
+
   if (len(state.uttr.svs) > 0):
     if _add_charts(state, places, state.uttr.svs):
       return True
@@ -166,31 +177,48 @@ def _add_charts(state: PopulateState, places: List[Place],
     # Infer charts for the main SV/Topic.
     chart_vars_list = _build_chart_vars(state, sv, rank)
     for chart_vars in chart_vars_list:
-      exist_svs = utils.sv_existence_for_places(places_to_check, chart_vars.svs)
-      if exist_svs:
-        if len(exist_svs) < len(chart_vars.svs):
-          utils.update_counter(
-              state.uttr.counters, 'failed_partial_existence_check', {
-                  'places': places_to_check,
-                  'svs': list(set(chart_vars.svs) - set(exist_svs)),
-              })
-        logging.info('Existence check succeeded for %s - %s',
-                     ', '.join(places_to_check), ', '.join(exist_svs))
-        chart_vars.svs = exist_svs
-        # Now that we've found existing vars, call the per-chart-type callback.
-        if state.main_cb(state, chart_vars, places,
-                         ChartOriginType.PRIMARY_CHART):
-          found = True
+      if chart_vars.event:
+        event = chart_vars.event
+        # For this check the parent place.
+        if utils.event_existence_for_place(places[0].dcid, event):
+          if state.main_cb(state, chart_vars, places,
+                           ChartOriginType.PRIMARY_CHART):
+            found = True
+          else:
+            utils.update_counter(state.uttr.counters,
+                                 'failed_populate_callback_primary_event', 1)
         else:
-          utils.update_counter(state.uttr.counters,
-                               'failed_populate_callback_primary', 1)
+          utils.update_counter(state.uttr.counters, 'failed_existence_check', {
+              'places': places,
+              'event': event
+          })
       else:
-        utils.update_counter(state.uttr.counters, 'failed_existence_check', {
-            'places': places_to_check,
-            'svs': chart_vars.svs
-        })
-        logging.info('Existence check failed for %s - %s',
-                     ', '.join(places_to_check), ', '.join(chart_vars.svs))
+        exist_svs = utils.sv_existence_for_places(places_to_check,
+                                                  chart_vars.svs)
+        if exist_svs:
+          if len(exist_svs) < len(chart_vars.svs):
+            utils.update_counter(
+                state.uttr.counters, 'failed_partial_existence_check', {
+                    'places': places_to_check,
+                    'svs': list(set(chart_vars.svs) - set(exist_svs)),
+                })
+          logging.info('Existence check succeeded for %s - %s',
+                       ', '.join(places_to_check), ', '.join(exist_svs))
+          chart_vars.svs = exist_svs
+          # Now that we've found existing vars, call the per-chart-type callback.
+          if state.main_cb(state, chart_vars, places,
+                           ChartOriginType.PRIMARY_CHART):
+            found = True
+          else:
+            utils.update_counter(state.uttr.counters,
+                                 'failed_populate_callback_primary', 1)
+        else:
+          utils.update_counter(state.uttr.counters, 'failed_existence_check', {
+              'places': places_to_check,
+              'svs': chart_vars.svs
+          })
+          logging.info('Existence check failed for %s - %s',
+                       ', '.join(places_to_check), ', '.join(chart_vars.svs))
 
     # Infer comparison charts with extended SVs.
     extended_svs = sv2extensions.get(sv, [])
@@ -272,7 +300,8 @@ def _build_chart_vars(state: PopulateState, sv: str,
     for v in topic_vars:
       if v in peer_groups and peer_groups[v]:
         title = topic.svpg_name(v)
-        svpgs.append((title, peer_groups[v]))
+        description = topic.svpg_description(v)
+        svpgs.append((title, description, peer_groups[v]))
       else:
         just_svs.append(v)
 
@@ -283,20 +312,32 @@ def _build_chart_vars(state: PopulateState, sv: str,
     charts = []
     for v in just_svs:
       # Skip PC for this case (per prior implementation)
+      svs = []
+      event = None
+      if v.startswith(_EVENT_PREFIX):
+        config_key = v[len(_EVENT_PREFIX):]
+        etype = constants.EVENT_CONFIG_KEY_TO_EVENT_TYPE.get(config_key, None)
+        if not etype:
+          continue
+        event = etype
+      else:
+        svs = [v]
       charts.append(
-          ChartVars(svs=[v],
+          ChartVars(svs=svs,
+                    event=event,
                     block_id=state.block_id,
                     include_percapita=False,
                     source_topic=sv))
 
     # 2. Make a block for every peer-group in svpgs
-    for (title, svpg) in svpgs:
+    for (title, description, svs) in svpgs:
       state.block_id += 1
       charts.append(
-          ChartVars(svs=svpg,
+          ChartVars(svs=svs,
                     block_id=state.block_id,
                     include_percapita=False,
                     title=title,
+                    description=description,
                     is_topic_peer_group=True,
                     source_topic=sv))
 
@@ -354,3 +395,14 @@ def _open_topic_in_var(sv: str, rank: int, counters: Dict) -> List[str]:
     return svs
 
   return []
+
+
+def maybe_handle_contained_in_fallback(state: PopulateState,
+                                       places: List[Place]):
+  if utils.get_contained_in_type(
+      state.uttr) == ContainedInPlaceType.ACROSS and len(places) == 1:
+    ptype = places[0].place_type
+    state.place_type = ContainedInPlaceType(
+        constants.CHILD_PLACES_TYPES.get(ptype, 'County'))
+    utils.update_counter(state.uttr.counters, 'contained_in_across_fallback',
+                         state.place_type.value)

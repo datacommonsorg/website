@@ -71,10 +71,8 @@ def fulfill(query_detection: Detection,
 
   # Each query-type has its own handler. Each knows what arguments it needs and
   # will call on the *_from_context() routines to obtain missing arguments.
-  if (uttr.query_type == ClassificationType.SIMPLE):
-    overview_classification = context.classifications_of_type_from_utterance(
-        uttr, ClassificationType.OVERVIEW)
-    if overview_classification and not filtered_svs:
+  if (uttr.query_type == ClassificationType.OVERVIEW):
+    if not filtered_svs:
       # We detected some overview words ("tell me about") *and* there were
       # no SVs in current utterance, so consider it a place overview.
       fulfillment_type = 'OVERVIEW'
@@ -82,6 +80,9 @@ def fulfill(query_detection: Detection,
     else:
       fulfillment_type = 'SIMPLE'
       simple.populate(uttr)
+  elif (uttr.query_type == ClassificationType.SIMPLE):
+    fulfillment_type = 'SIMPLE'
+    simple.populate(uttr)
   elif (uttr.query_type == ClassificationType.CORRELATION):
     fulfillment_type = 'CORRELATION'
     correlation.populate(uttr)

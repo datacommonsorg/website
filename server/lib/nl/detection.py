@@ -52,7 +52,7 @@ class SVDetection:
 
 
 class RankingType(IntEnum):
-  """RankingType indicates the type of rankning specified."""
+  """RankingType indicates the type of ranking specified."""
   NONE = 0
 
   # HIGH is for queries like:
@@ -76,6 +76,11 @@ class RankingType(IntEnum):
   # Necessary for processing SVs wth negative intent
   # Ex: "Worst cities by crime" -> show HIGH crime cities
   WORST = 4
+
+  # EXTREME is for queries with the word "extreme"
+  # Necessary for SVs where the top could be most positive or most negative
+  # Ex: "Temperature extremes" -> show high and very low temperatures
+  EXTREME = 5
 
 
 class BinaryClassificationResultType(IntEnum):
@@ -247,6 +252,7 @@ RANKED_CLASSIFICATION_TYPES = [
     ClassificationType.CORRELATION,
     ClassificationType.TIME_DELTA,
     ClassificationType.EVENT,
+    ClassificationType.OVERVIEW,
 ]
 
 

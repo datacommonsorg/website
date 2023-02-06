@@ -227,6 +227,7 @@ class Model:
         "Low": RankingType.LOW,
         "Best": RankingType.BEST,
         "Worst": RankingType.WORST,
+        "Extreme": RankingType.EXTREME,
     }
 
     # make query lowercase for string matching

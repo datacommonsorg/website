@@ -68,6 +68,9 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for contained-in')
 
+  if chart_vars.event:
+    utils.update_counter(state.uttr.counters, 'containedin_failed_cb_events', 1)
+    return False
   if not state.place_type:
     utils.update_counter(state.uttr.counters,
                          'containedin_failed_cb_missing_type', 1)
@@ -86,10 +89,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                          contained_places)
     return False
 
-  for sv in chart_vars.svs:
-    cv = chart_vars
-    cv.svs = [sv]
-    cv.response_type = "comparison map"
-    add_chart_to_utterance(ChartType.MAP_CHART, state, cv, contained_places,
-                           chart_origin)
+  chart_vars.response_type = "comparison map"
+  add_chart_to_utterance(ChartType.MAP_CHART, state, chart_vars,
+                         contained_places, chart_origin)
   return True

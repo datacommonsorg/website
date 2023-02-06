@@ -16,13 +16,9 @@ import logging
 from typing import List
 
 from lib.nl import utils
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
 from lib.nl.detection import Place
-from lib.nl.detection import RankingClassificationAttributes
 from lib.nl.detection import RankingType
-from lib.nl.fulfillment import context
 from lib.nl.fulfillment.base import add_chart_to_utterance
 from lib.nl.fulfillment.base import ChartVars
 from lib.nl.fulfillment.base import overview_fallback
@@ -41,34 +37,20 @@ from lib.nl.utterance import Utterance
 def populate(uttr: Utterance):
   # Get the RANKING classifications from the current utterance. That is what
   # let us infer this is ranking query-type.
-  current_ranking_classification = context.classifications_of_type_from_utterance(
-      uttr, ClassificationType.RANKING)
-
-  if (current_ranking_classification and
-      isinstance(current_ranking_classification[0].attributes,
-                 RankingClassificationAttributes) and
-      current_ranking_classification[0].attributes.ranking_type):
-    ranking_types = current_ranking_classification[0].attributes.ranking_type
-
-    current_contained_classification = context.classifications_of_type_from_utterance(
-        uttr, ClassificationType.CONTAINED_IN)
-    if (current_contained_classification and
-        isinstance(current_contained_classification[0].attributes,
-                   ContainedInClassificationAttributes)):
-      # Ranking among places.
-      place_type = current_contained_classification[
-          0].attributes.contained_in_place_type
-      if populate_charts(
-          PopulateState(uttr=uttr,
-                        main_cb=_populate_cb,
-                        fallback_cb=overview_fallback,
-                        place_type=place_type,
-                        ranking_types=ranking_types)):
-        return True
-      else:
-        utils.update_counter(uttr.counters,
-                             'ranking-across-places_failed_populate_placetype',
-                             place_type.value)
+  ranking_types = utils.get_ranking_types(uttr)
+  place_type = utils.get_contained_in_type(uttr)
+  if ranking_types and place_type:
+    if populate_charts(
+        PopulateState(uttr=uttr,
+                      main_cb=_populate_cb,
+                      fallback_cb=overview_fallback,
+                      place_type=place_type,
+                      ranking_types=ranking_types)):
+      return True
+    else:
+      utils.update_counter(uttr.counters,
+                           'ranking-across-places_failed_populate_placetype',
+                           place_type.value)
 
   # Fallback
   ranking_types = [RankingType.HIGH]
@@ -86,23 +68,30 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('populate_cb for ranking_across_places')
   if not state.ranking_types:
     utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_norankingtypes', 1)
+                         'ranking-across-places_failed_cb_norankingtypes', 1)
     return False
   if len(places) > 1:
     utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_toomanyplaces',
+                         'ranking-across-places_failed_cb_toomanyplaces',
                          [p.dcid for p in places])
     return False
   if not state.place_type:
     utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_noplacetype', 1)
+                         'ranking-across-places_failed_cb_noplacetype', 1)
     return False
-  if len(chart_vars.svs) != 1:
+  if not chart_vars.svs and not chart_vars.event:
     utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_toomanysvs',
-                         [chart_vars.svs])
+                         'ranking-across-places_failed_cb_emptyvars', {
+                             'svs': chart_vars.svs,
+                             'event': chart_vars.event,
+                         })
     return False
 
-  chart_vars.response_type = "ranking table"
-  return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
-                                places, chart_origin)
+  if chart_vars.event:
+    chart_vars.response_type = "event chart"
+    return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
+                                  places, chart_origin)
+  else:
+    chart_vars.response_type = "ranking table"
+    return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
+                                  places, chart_origin)

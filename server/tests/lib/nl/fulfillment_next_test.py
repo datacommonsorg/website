@@ -100,13 +100,8 @@ class TestDataSpecNext(unittest.TestCase):
         'geoId/01',
         # Very low scores that we should ignore all SVs.
         ['Count_Farm', 'Income_Farm'],
-        [0.4, 0.2])
-    # Set comparison classifier
-    detection.classifications = [
-        NLClassifier(type=ClassificationType.OVERVIEW,
-                     attributes=nl_detection.OverviewClassificationAttributes(
-                         overview_trigger_words=['tell me']))
-    ]
+        [0.4, 0.2],
+        ClassificationType.OVERVIEW)
 
     got = _run(detection, [SIMPLE_UTTR])
 
@@ -293,6 +288,7 @@ class TestDataSpecNext(unittest.TestCase):
             'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
         ],
                        block_id=2,
+                       description='svpg desc',
                        include_percapita=False,
                        is_topic_peer_group=True)
     ]
@@ -400,8 +396,10 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, TIME_DELTA_UTTR)
 
-  def test_event(self):
+  @patch.object(utils, 'event_existence_for_place')
+  def test_event(self, mock_event_existence):
     detection = _detection('geoId/06', [], [], ClassificationType.EVENT)
+    mock_event_existence.return_value = True
     got = _run(detection, [])
     self.maxDiff = None
     self.assertEqual(got, EVENT_UTTR)
@@ -507,6 +505,12 @@ def _detection(place: str,
                      attributes=nl_detection.RankingClassificationAttributes(
                          ranking_type=[RankingType.HIGH],
                          ranking_trigger_words=['most']))
+    ]
+  elif query_type == ClassificationType.OVERVIEW:
+    detection.classifications = [
+        NLClassifier(type=ClassificationType.OVERVIEW,
+                     attributes=nl_detection.OverviewClassificationAttributes(
+                         overview_trigger_words=['tell me']))
     ]
 
   return detection

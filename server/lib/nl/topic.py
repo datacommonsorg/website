@@ -29,8 +29,27 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
     ],
+    "dc/topic/Income": [
+        "dc/svpg/IndividualIncome",
+        "dc/svpg/HouseholdIncome",
+    ],
     "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
     "dc/topic/MedicalConditions": ["dc/svpg/MedicalConditionsPeerGroup"],
+    "dc/topic/ProjectedClimateExtremes": [
+        "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp",
+        "dc/svpg/ProjectedClimateExtremes_LowestMinTemp",
+    ],
+    "dc/topic/ClimateChange": [
+        "event/heat",
+        "event/cold",
+        "event/flood",
+        "event/fire",
+        "event/drought",
+        "event/wetbulb",
+        "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp",
+        "dc/svpg/ProjectedClimateExtremes_LowestMinTemp",
+        "dc/svpg/ClimateChange_FEMARisk",
+    ],
     # TODO(nhdiaz): Remove after demos. This topic is only used for a custom DC.
     "dc/topic/SolarPotential": [
         "Count_Building_SuitableForSolar",
@@ -72,16 +91,30 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_Worker_NAICSConstruction",
         "Count_Worker_NAICSEducationalServices",
         "Count_Worker_NAICSHealthCareSocialAssistance",
+        # Manufacturing
         "dc/ndg1xk1e9frc2",
         "Count_Worker_NAICSFinanceInsurance",
         "Count_Worker_NAICSInformation",
         "Count_Worker_NAICSArtsEntertainmentRecreation",
-        "dc/f18sq8w498j4f",
         "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-        "dc/4mm2p1rxr5wz4",
         "Count_Worker_NAICSOtherServices",
+        # Transportation and Warehousing
         "dc/8p97n7l96lgg8",
         "Count_Worker_NAICSUtilities",
+        # Retail Trade
+        "dc/p69tpsldf99h7",
+        "Count_Worker_NAICSRealEstateRentalLeasing",
+        "Count_Worker_NAICSPublicAdministration",
+        "Count_Worker_NAICSWholesaleTrade",
+        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+        "Count_Worker_NAICSPublicAdministration",
+
+        # This is an almost dup of
+        # Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices
+        # "dc/f18sq8w498j4f",
+        # Subsumed by Retail Trade
+        # "dc/4mm2p1rxr5wz4",
+        # "Count_Worker_NAICSManagementOfCompaniesEnterprises",
     ],
     "dc/svpg/MedicalConditionsPeerGroup": [
         "Percent_Person_WithArthritis",
@@ -111,6 +144,41 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_SolarPanelPotential_SouthFacingRoofSpace",
         "Count_SolarPanelPotential_WestFacingRoofSpace",
     ],
+    "dc/svpg/IndividualIncome": [
+        "Median_Income_Person",
+        "Median_Earnings_Person",
+    ],
+    "dc/svpg/HouseholdIncome": ["Median_Income_Household",],
+    "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp": [
+        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60",
+    ],
+    "dc/svpg/ProjectedClimateExtremes_LowestMinTemp": [
+        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60",
+    ],
+    "dc/svpg/ClimateChange_FEMARisk": [
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_AvalancheEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_CoastalFloodEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_ColdWaveEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_DroughtEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_EarthquakeEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_HailEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_HeatWaveEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_HurricaneEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_IceStormEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_LandslideEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_LightningEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_RiverineFloodingEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_StrongWindEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_TornadoEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_TsunamiEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_VolcanicActivityEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_WildfireEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_WinterWeatherEvent",
+    ],
 }
 
 _SVPG_NAMES_OVERRIDE = {
@@ -122,6 +190,33 @@ _SVPG_NAMES_OVERRIDE = {
         "Solar Energy Generation Potential",
     "dc/svpg/SolarPanelPotential":
         "Solar Panel Potential",
+    "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
+        "Projected highest increase in max temperature in different scenarios",
+    "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
+        "Projected highest decrease in min temperature in different scenarios",
+    "dc/svpg/ClimateChange_FEMARisk":
+        "Risk due to various Natural Hazards",
+    "dc/svpg/IndividualIncome":
+        "Individual Income",
+    "dc/svpg/HouseholdIncome":
+        "Houshold Income",
+}
+
+_SVPG_DESC_OVERRIDE = {
+    "dc/svpg/MedicalConditionsPeerGroup":
+        "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
+    "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
+        "Highest temperature likely to be reached by 2050 compared to average observed "
+        "max temperature of 30 years. Reported values are differences in temperature.",
+    "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
+        "Lowest temperature likely to be reached by 2050 compared to average observed "
+        "min temperature of 30 years. Reported values are differences in temperature.",
+}
+
+_TOPIC_NAMES_OVERRIDE = {
+    "dc/topic/ProjectedClimateExtremes": "Projected Climate Extremes",
+    "dc/topic/ClimateChange": "Climate Change",
+    "dc/topic/SolarPotential": "Solar Potential",
 }
 
 
@@ -155,6 +250,8 @@ def get_topic_peers(sv_dcids: List[str]):
 
 
 def get_topic_name(topic_dcid: str) -> str:
+  if topic_dcid in _TOPIC_NAMES_OVERRIDE:
+    return _TOPIC_NAMES_OVERRIDE[topic_dcid]
   resp = dc.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
   if resp:
     return resp[0]
@@ -165,6 +262,15 @@ def svpg_name(sv: str):
   name = _SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
     resp = dc.property_values(nodes=[sv], prop='name')[sv]
+    if resp:
+      name = resp[0]
+  return name
+
+
+def svpg_description(sv: str):
+  name = _SVPG_DESC_OVERRIDE.get(sv, '')
+  if not name:
+    resp = dc.property_values(nodes=[sv], prop='description')[sv]
     if resp:
       name = resp[0]
   return name

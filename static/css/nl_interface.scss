@@ -26,7 +26,7 @@ $page-vertical-margin: 2rem;
 $query-vertical-margin: 2rem;
 $page-background-color: #26272c;
 $answer-background-color: #3e414c;
-$chart-svg-height: 160px;
+$chart-svg-height: 200px;
 $answer-min-height: 100vh;
 
 #main-header,
@@ -219,13 +219,19 @@ h3,
   cursor: pointer;
 }
 
+.debug-info-toggle {
+  display: block;
+  text-align: right;
+}
+
 .debug-info-toggle.show {
-  color: #ccc;
+  color: #666;
   font-size: 0.8rem;
+  padding-top: .5em;
+  margin-bottom: -1em;
 }
 
 .debug-info-toggle.hide {
-  float: right;
   font-weight: bold;
 }
 
@@ -240,6 +246,10 @@ h3,
   td {
     border: 1px solid black;
   }
+}
+
+.nl-result .subtopic.notitle {
+  border-color: #999 !important;
 }
 
 // From https://codepen.io/nzbin/pen/GGrXbp
@@ -301,4 +311,46 @@ $loading-dot-color: #fff;
 
 .disaster-event-map-selectors-section {
   padding-bottom: 10px;
+}
+
+.disaster-event-map-tile {
+    display: flex;
+    flex-direction: column;
+.disaster-event-map-container {
+  height: 100%;
+  .disaster-event-map-chart-section {
+    display: flex;
+    flex-direction: column;
+
+    .svg-container {
+      min-height: 400px;
+      svg {
+        height: 100%;
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+}
+}
+
+.chart-container.map-chart {
+  display: flex;
+  flex-direction: column;
+
+  svg {
+    height: 100%;
+    width: 100%;
+    display: block;
+  }
+}
+
+.chart-container {
+  .legend div {
+    font-size: 12px;
+
+    a {
+      text-shadow: 0 0 7px #000;
+    }
+  }
 }

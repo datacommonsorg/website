@@ -19,6 +19,12 @@
 
 set -e
 
+ENV=$1
+if [[ $ENV == "" ]]; then
+  ENV="autopush"
+fi
+echo "Run autopush for env: $ENV"
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
@@ -39,15 +45,21 @@ for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.
   export TABLE="$(gsutil cat "$src")"
   yq eval -i '.tables += [env(TABLE)]' deploy/storage/base_bigtable_info.yaml
 done
-$ROOT/scripts/deploy_gke.sh autopush us-central1
-$ROOT/scripts/deploy_gke.sh autopush europe-west2
 
-# Deploy stanford instance
-# yq eval -i 'del(.tables)' deploy/overlays/stanford/custom_bigtable_info.yaml
-# yq eval -i '.tables = []' deploy/overlays/stanford/custom_bigtable_info.yaml
-# for src in $(gsutil ls gs://datcom-stanford-resources/control/latest_base_cache_version.txt); do
-#   echo "Copying $src"
-#   export TABLE="$(gsutil cat "$src")"
-#   yq eval -i '.tables += [env(TABLE)]' deploy/overlays/stanford/custom_bigtable_info.yaml
-# done
-# $ROOT/scripts/deploy_gke.sh stanford us-central1
+cd $ROOT
+
+# Deploy in primary region
+PRIMARY_REGION=$(yq eval '.region.primary' deploy/gke/autopush.yaml)
+$ROOT/scripts/deploy_gke.sh $ENV $PRIMARY_REGION
+
+# Deploy in other regions
+len=$(yq eval '.region.others | length' deploy/gke/"$ENV".yaml)
+for index in $(seq 0 $(($len-1)));
+do
+  export index=$index
+  REGION=$(yq eval '.region.others[env(index)]' deploy/gke/"$ENV".yaml)
+  echo $REGION
+  if [[ $REGION != '' ]]; then
+    $ROOT/scripts/deploy_gke.sh $ENV $REGION
+  fi
+done
