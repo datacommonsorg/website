@@ -66,6 +66,9 @@ metadata {
         upper_limit: 1000
         lower_limit: 25
       }
+      end_date_prop: "endDate"
+      end_date_prop: "containmentDate"
+      end_date_prop: "controlledDate"
     }
   }
   event_type_spec {
@@ -291,6 +294,7 @@ categories {
         top_event_tile_spec {
           event_type_key: "fire"
           show_start_date: true
+          show_end_date: true
         }
       }
     }

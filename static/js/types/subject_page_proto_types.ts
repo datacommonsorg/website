@@ -42,6 +42,7 @@ export interface EventTypeSpec {
   color: string;
   defaultSeverityFilter: SeverityFilter;
   displayProp: EventDisplayProp[];
+  endDateProp: string[];
 }
 
 export interface PageMetadataConfig {
