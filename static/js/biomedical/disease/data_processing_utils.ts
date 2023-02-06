@@ -331,10 +331,8 @@ export function getDiseaseCommonName(data: GraphNodes): string {
  * @param data
  * @returns boolean indicating if desired stat var exists
  */
-export function getDiseasePrevalenceID(data: GraphNodes): boolean {
+export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
   // sets the default value of the boolean as false
-  let diseasePrevalenceExists = false;
-  let medicalCondition = "";
   if (!data) {
     return false;
   }
@@ -346,10 +344,10 @@ export function getDiseasePrevalenceID(data: GraphNodes): boolean {
     if (_.isEmpty(neighbour.nodes)) {
       continue;
     }
-    medicalCondition = neighbour.nodes[0].value;
+    const medicalCondition = neighbour.nodes[0].value;
     if (!_.isEmpty(medicalCondition)) {
-      diseasePrevalenceExists = true;
+      return true;
     }
-    return diseasePrevalenceExists;
+    return false;
   }
 }

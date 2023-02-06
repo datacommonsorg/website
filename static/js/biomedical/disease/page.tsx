@@ -22,20 +22,31 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+const DISEASE_TREATMENT_COLUMNS = [
+  { id: "node", name: "Parent Node" },
+  { id: "id", name: "Compound ID" },
+  { id: "name", name: "Compound Name" },
+  { id: "clinicalPhaseNumber", name: "FDA Clinical Phase" },
+];
+const DISEASE_CONTRAINDICATION_COLUMNS = [
+  { id: "node", name: "Parent Node" },
+  { id: "id", name: "Compound ID" },
+  { id: "name", name: "Compound Name" },
+  { id: "drugSource", name: "Drug Source" },
+];
 import { MapTile } from "../../components/tiles/map_tile";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { GraphNodes } from "../../shared/types";
 import { getEntityLink } from "../bio_charts_utils";
 import {
   drawDiseaseGeneAssocChart,
   drawDiseaseSymptomAssociationChart,
 } from "./chart";
 import {
+  doesDiseasePrevalenceIDexist,
   getCompoundDiseaseContraindication,
   getCompoundDiseaseTreatment,
   getDiseaseCommonName,
   getDiseaseGeneAssociation,
-  getDiseasePrevalenceID,
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
 import { DrugTreatmentTable } from "./drug_table";
@@ -53,22 +64,24 @@ export interface PagePropType {
 
 // fields for each of the charts, ex:
 export interface PageStateType {
-  data: GraphNodes;
   diseaseGeneAssociation: DiseaseGeneAssociationData[];
   diseaseSymptomAssociation: DiseaseSymptomAssociationData[];
   chemicalCompoundDiseaseTreatment: CompoundDiseaseTreatmentData[];
   chemicalCompoundDiseaseContraindication: CompoundDiseaseContraindicationData[];
+  diseaseCommonName: string;
+  diseasePrevalenceIDexists: boolean;
 }
 
 export class Page extends React.Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
     super(props);
     this.state = {
-      data: null,
       diseaseGeneAssociation: null,
       diseaseSymptomAssociation: null,
       chemicalCompoundDiseaseTreatment: null,
       chemicalCompoundDiseaseContraindication: null,
+      diseaseCommonName: null,
+      diseasePrevalenceIDexists: null,
     };
   }
 
@@ -87,20 +100,8 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     );
   }
   render(): JSX.Element {
-    const diseaseName = getDiseaseCommonName(this.state.data);
+    const diseaseName = this.state.diseaseCommonName;
     const diseaseLink = getEntityLink(this.props.dcid);
-    const diseaseTreatmentColumns = [
-      { id: "node", name: "Parent Node" },
-      { id: "id", name: "Compound ID" },
-      { id: "name", name: "Compound Name" },
-      { id: "clinicalPhaseNumber", name: "FDA Clinical Phase" },
-    ];
-    const diseaseContraindicationColumns = [
-      { id: "node", name: "Parent Node" },
-      { id: "id", name: "Compound ID" },
-      { id: "name", name: "Compound Name" },
-      { id: "drugSource", name: "Drug Source" },
-    ];
     const diseasePrevalenceStatVarDcid =
       "Count_MedicalConditionIncident_Condition" + this.props.dcid;
     const statVarDisease = {
@@ -111,10 +112,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       log: false,
       name: "diseaseData",
     };
-    // Render the graphs only when the data is not null
-    if (this.state.data === null) {
-      return null;
-    }
     return (
       <>
         <h2>{diseaseName}</h2>
@@ -158,7 +155,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             <div>
               <div id="table"></div>
               <DrugTreatmentTable
-                columns={diseaseTreatmentColumns}
+                columns={DISEASE_TREATMENT_COLUMNS}
                 data={this.state.chemicalCompoundDiseaseTreatment}
               />
             </div>
@@ -176,14 +173,14 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             <div>
               <div id="table"></div>
               <DrugTreatmentTable
-                columns={diseaseContraindicationColumns}
+                columns={DISEASE_CONTRAINDICATION_COLUMNS}
                 data={this.state.chemicalCompoundDiseaseContraindication}
               />
             </div>
           </>
         )}
         <div>
-          {getDiseasePrevalenceID(this.state.data) && (
+          {this.state.diseasePrevalenceIDexists && (
             <>
               <h5>Disease Prevalance Data</h5>
               <p>
@@ -209,7 +206,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   private fetchData(): void {
     axios.get("/api/disease/" + this.props.dcid).then((resp) => {
       this.setState({
-        data: resp.data,
         diseaseGeneAssociation: getDiseaseGeneAssociation(resp.data),
         diseaseSymptomAssociation: getDiseaseSymptomAssociation(resp.data),
         chemicalCompoundDiseaseTreatment: getCompoundDiseaseTreatment(
@@ -217,6 +213,8 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         ),
         chemicalCompoundDiseaseContraindication:
           getCompoundDiseaseContraindication(resp.data),
+        diseaseCommonName: getDiseaseCommonName(resp.data),
+        diseasePrevalenceIDexists: doesDiseasePrevalenceIDexist(resp.data),
       });
     });
   }
