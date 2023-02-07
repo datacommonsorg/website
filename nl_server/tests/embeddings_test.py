@@ -27,6 +27,7 @@ import yaml
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+
 def _get_embeddings_file_name() -> str:
   model_config_path = os.path.join(_root_dir, 'deploy/base/model.yaml')
   with open(model_config_path) as f:

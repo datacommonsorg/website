@@ -23,8 +23,8 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import Flask
 from flask import g
-from flask import request
 from flask import redirect
+from flask import request
 from flask_babel import Babel
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
@@ -197,7 +197,6 @@ def create_app():
     cache.init_app(app)
   else:
     cache.init_app(app, {'CACHE_TYPE': 'null'})
-
 
   # Configure ingress
   ingress_config_path = os.environ.get(

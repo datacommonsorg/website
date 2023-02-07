@@ -84,7 +84,8 @@ def get_topic_page_config():
 # Returns list of disaster dashboard configs loaded as SubjectPageConfig protos
 def get_disaster_dashboard_configs():
   dashboard_configs = []
-  dashboard_configs_dir = os.path.join(_root_dir, "config", "disaster_dashboard")
+  dashboard_configs_dir = os.path.join(_root_dir, "config",
+                                       "disaster_dashboard")
   for filename in os.listdir(dashboard_configs_dir):
     filepath = os.path.join(dashboard_configs_dir, filename)
     dashboard_configs.append(get_subject_page_config(filepath))

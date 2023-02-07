@@ -13,14 +13,15 @@
 # limitations under the License.
 """Data Commons static content routes."""
 
-import os
 from datetime import date
+import os
 
 import babel.dates as babel_dates
 from flask import Blueprint
 from flask import g
 from flask import render_template
-from server.services import datacommons as dc
+
+from services import datacommons as dc
 
 bp = Blueprint('static', __name__)
 
