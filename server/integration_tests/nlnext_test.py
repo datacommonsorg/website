@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import json
 from multiprocessing import Process
 import os
@@ -56,6 +57,7 @@ class IntegrationTest(LiveServerTestCase):
     resp = requests.post(self.get_server_url() +
                          '/nlnext/data?q=san%20jose%20population',
                          json={})
+    logging.info(json.dumps(resp.json(), sort_keys=True))
     if _TEST_MODE == 'write':
       with open(os.path.join(_dir, 'test_data', 'sample.json'), 'w') as infile:
         infile.write(json.dumps(resp.json(), indent=2))

@@ -29,4 +29,4 @@ COPY nl_server/. /workspace/nl_server/
 
 # Run server
 WORKDIR /workspace
-CMD exec gunicorn --timeout 60 --bind :6060 main:app
+CMD exec gunicorn --timeout 60 --bind :6060 nl_app:app
