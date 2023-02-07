@@ -25,6 +25,9 @@ from config import subject_page_pb2
 from google.protobuf import text_format
 import services.datacommons as dc
 
+_ready_check_timeout = 120  # seconds
+_ready_check_sleep_seconds = 5
+
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
     "economics",
@@ -226,8 +229,6 @@ def is_up(url: str):
 
 
 def check_backend_ready(urls: List[str]):
-  timeout = 120  # seconds
-  sleep_seconds = 5
   total_sleep_seconds = 0
   up_status = {url: False for url in urls}
   while not all(up_status.values()):
@@ -237,8 +238,10 @@ def check_backend_ready(urls: List[str]):
       up_status[url] = is_up(url)
     if all(up_status.values()):
       break
-    logging.info('%s not ready, waiting for %s seconds', urls, sleep_seconds)
-    time.sleep(sleep_seconds)
-    total_sleep_seconds += sleep_seconds
-    if total_sleep_seconds > timeout:
-      raise RuntimeError('%s not ready after %s second' % urls, timeout)
+    logging.info('%s not ready, waiting for %s seconds', urls,
+                 _ready_check_sleep_seconds)
+    time.sleep(_ready_check_sleep_seconds)
+    total_sleep_seconds += _ready_check_sleep_seconds
+    if total_sleep_seconds > _ready_check_timeout:
+      raise RuntimeError('%s not ready after %s second' % urls,
+                         _ready_check_timeout)

@@ -48,4 +48,4 @@ build/helm/**/*.tgz
 *.tfstate.*
 pylist.json
 
-log.txt
+pytest_log.txt
