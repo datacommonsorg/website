@@ -18,12 +18,14 @@ import unittest
 
 import lib.range as lib_range
 
+_root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 class TestChart(unittest.TestCase):
 
   def setUp(self):
     self.charts = []
-    chart_config_dir = os.path.join("config", "chart_config")
+    chart_config_dir = os.path.join(_root_dir, "config", "chart_config")
     for filename in os.listdir(chart_config_dir):
       if filename.endswith(".json"):
         with open(os.path.join(chart_config_dir, filename),
