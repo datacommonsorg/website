@@ -148,7 +148,10 @@ function run_webdriver_test {
 # Run integration test for NL interface
 function run_integration_test {
   setup_python
+  export ENABLE_MODEL=true
   export FLASK_ENV=integration-test
+  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export TEST_MODE=test
   python3 -m pytest server/integration_tests/
 }
 

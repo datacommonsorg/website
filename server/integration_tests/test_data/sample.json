@@ -8,12 +8,16 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": ["Count_Person"],
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
                     "title": "Total Number of People in a Population",
                     "type": "LINE"
                   },
                   {
-                    "statVarKey": ["Count_Person_pc"],
+                    "statVarKey": [
+                      "Count_Person_pc"
+                    ],
                     "title": "Total Number of People in a Population - Per Capita",
                     "type": "LINE"
                   }
@@ -26,7 +30,9 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": ["geoId/0668000"],
+                    "comparisonPlaces": [
+                      "geoId/0668000"
+                    ],
                     "statVarKey": [
                       "Count_Person_AmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block",
                       "Count_Person_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
@@ -44,7 +50,9 @@
                     "type": "BAR"
                   },
                   {
-                    "comparisonPlaces": ["geoId/0668000"],
+                    "comparisonPlaces": [
+                      "geoId/0668000"
+                    ],
                     "statVarKey": [
                       "Count_Person_AmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block_pc",
                       "Count_Person_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc",
@@ -70,12 +78,16 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": ["Count_Person_TwoOrMoreRaces"],
+                    "statVarKey": [
+                      "Count_Person_TwoOrMoreRaces"
+                    ],
                     "title": "Multiracial People",
                     "type": "LINE"
                   },
                   {
-                    "statVarKey": ["Count_Person_TwoOrMoreRaces_pc"],
+                    "statVarKey": [
+                      "Count_Person_TwoOrMoreRaces_pc"
+                    ],
                     "title": "Multiracial People - Per Capita",
                     "type": "LINE"
                   }
@@ -88,12 +100,16 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": ["Count_Person_Female"],
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
                     "title": "Females",
                     "type": "LINE"
                   },
                   {
-                    "statVarKey": ["Count_Person_Female_pc"],
+                    "statVarKey": [
+                      "Count_Person_Female_pc"
+                    ],
                     "title": "Females - Per Capita",
                     "type": "LINE"
                   }
@@ -106,7 +122,10 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": ["Count_Person_Female", "Count_Person_Male"],
+                    "statVarKey": [
+                      "Count_Person_Female",
+                      "Count_Person_Male"
+                    ],
                     "title": "Compare with Other Variables",
                     "type": "LINE"
                   },
@@ -127,12 +146,16 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": ["Count_Person_SomeOtherRaceAlone"],
+                    "statVarKey": [
+                      "Count_Person_SomeOtherRaceAlone"
+                    ],
                     "title": "People Who Identify as Some Other Race Alone",
                     "type": "LINE"
                   },
                   {
-                    "statVarKey": ["Count_Person_SomeOtherRaceAlone_pc"],
+                    "statVarKey": [
+                      "Count_Person_SomeOtherRaceAlone_pc"
+                    ],
                     "title": "People Who Identify as Some Other Race Alone - Per Capita",
                     "type": "LINE"
                   }
@@ -145,12 +168,16 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": ["Count_Person_Male"],
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
                     "title": "Males",
                     "type": "LINE"
                   },
                   {
-                    "statVarKey": ["Count_Person_Male_pc"],
+                    "statVarKey": [
+                      "Count_Person_Male_pc"
+                    ],
                     "title": "Males - Per Capita",
                     "type": "LINE"
                   }
@@ -163,12 +190,16 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": ["Count_Person_Employed"],
+                    "statVarKey": [
+                      "Count_Person_Employed"
+                    ],
                     "title": "Population With Current Employment",
                     "type": "LINE"
                   },
                   {
-                    "statVarKey": ["Count_Person_Employed_pc"],
+                    "statVarKey": [
+                      "Count_Person_Employed_pc"
+                    ],
                     "title": "Population With Current Employment - Per Capita",
                     "type": "LINE"
                   }
@@ -205,12 +236,16 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": ["Count_Person_InLaborForce"],
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
                     "title": "People in the Labor Force",
                     "type": "LINE"
                   },
                   {
-                    "statVarKey": ["Count_Person_InLaborForce_pc"],
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_pc"
+                    ],
                     "title": "People in the Labor Force - Per Capita",
                     "type": "LINE"
                   }
@@ -219,7 +254,6 @@
             ]
           }
         ],
-        "description": "Here are some timelines about Total  People in a Population in San Jose.",
         "statVarSpec": {
           "Count_Person": {
             "name": "Total Number of People in a Population",
@@ -434,7 +468,9 @@
       }
     ],
     "metadata": {
-      "placeDcid": ["geoId/0668000"]
+      "placeDcid": [
+        "geoId/0668000"
+      ]
     }
   },
   "context": [
@@ -475,7 +511,9 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person"]
+          "svs": [
+            "Count_Person"
+          ]
         },
         {
           "attr": {
@@ -533,7 +571,9 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person_TwoOrMoreRaces"]
+          "svs": [
+            "Count_Person_TwoOrMoreRaces"
+          ]
         },
         {
           "attr": {
@@ -556,7 +596,9 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person_Female"]
+          "svs": [
+            "Count_Person_Female"
+          ]
         },
         {
           "attr": {
@@ -579,7 +621,10 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person_Female", "Count_Person_Male"]
+          "svs": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ]
         },
         {
           "attr": {
@@ -602,7 +647,9 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person_SomeOtherRaceAlone"]
+          "svs": [
+            "Count_Person_SomeOtherRaceAlone"
+          ]
         },
         {
           "attr": {
@@ -625,7 +672,9 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person_Male"]
+          "svs": [
+            "Count_Person_Male"
+          ]
         },
         {
           "attr": {
@@ -648,7 +697,9 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person_Employed"]
+          "svs": [
+            "Count_Person_Employed"
+          ]
         },
         {
           "attr": {
@@ -671,7 +722,10 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person_Employed", "Count_Person_Unemployed"]
+          "svs": [
+            "Count_Person_Employed",
+            "Count_Person_Unemployed"
+          ]
         },
         {
           "attr": {
@@ -694,7 +748,9 @@
               "place_type": "City"
             }
           ],
-          "svs": ["Count_Person_InLaborForce"]
+          "svs": [
+            "Count_Person_InLaborForce"
+          ]
         }
       ],
       "svs": [
@@ -719,26 +775,46 @@
     "counters": {
       "failed_existence_check": [
         {
-          "places": ["geoId/0668000"],
-          "svs": ["Count_Person_PerArea"]
+          "places": [
+            "geoId/0668000"
+          ],
+          "svs": [
+            "Count_Person_PerArea"
+          ]
         },
         {
-          "places": ["geoId/0668000"],
-          "svs": ["Count_Person_OneRace"]
+          "places": [
+            "geoId/0668000"
+          ],
+          "svs": [
+            "Count_Person_OneRace"
+          ]
         },
         {
-          "places": ["geoId/0668000"],
-          "svs": ["GrowthRate_Count_Person"]
+          "places": [
+            "geoId/0668000"
+          ],
+          "svs": [
+            "GrowthRate_Count_Person"
+          ]
         }
       ],
       "failed_existence_check_extended_svs": [
         {
-          "places": ["geoId/0668000"],
-          "svs": ["Count_Person_PerArea"]
+          "places": [
+            "geoId/0668000"
+          ],
+          "svs": [
+            "Count_Person_PerArea"
+          ]
         },
         {
-          "places": ["geoId/0668000"],
-          "svs": ["GrowthRate_Count_Person"]
+          "places": [
+            "geoId/0668000"
+          ],
+          "svs": [
+            "GrowthRate_Count_Person"
+          ]
         }
       ],
       "filtered_svs": [
@@ -757,15 +833,25 @@
       "num_chart_candidates": 10,
       "stat_var_extensions": [
         {
-          "Count_Person": ["Count_Person"],
+          "Count_Person": [
+            "Count_Person"
+          ],
           "Count_Person_Employed": [
             "Count_Person_Employed",
             "dc/nm9hcklgg5zb3",
             "Count_Person_Unemployed"
           ],
-          "Count_Person_Female": ["Count_Person_Female", "Count_Person_Male"],
-          "Count_Person_InLaborForce": ["Count_Person_InLaborForce"],
-          "Count_Person_Male": ["Count_Person_Female", "Count_Person_Male"],
+          "Count_Person_Female": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ],
+          "Count_Person_InLaborForce": [
+            "Count_Person_InLaborForce"
+          ],
+          "Count_Person_Male": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ],
           "Count_Person_OneRace": [
             "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
             "Count_Person_AmericanIndianAndAlaskaNativeAlone",
@@ -811,7 +897,9 @@
             "Count_Person_WhiteAloneNotHispanicOrLatino",
             "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
           ],
-          "Count_Person_PerArea": ["Count_Person_PerArea"],
+          "Count_Person_PerArea": [
+            "Count_Person_PerArea"
+          ],
           "Count_Person_SomeOtherRaceAlone": [
             "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
             "Count_Person_AmericanIndianAndAlaskaNativeAlone",
@@ -902,7 +990,9 @@
             "Count_Person_WhiteAloneNotHispanicOrLatino",
             "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
           ],
-          "GrowthRate_Count_Person": ["GrowthRate_Count_Person"]
+          "GrowthRate_Count_Person": [
+            "GrowthRate_Count_Person"
+          ]
         }
       ]
     },
@@ -944,7 +1034,9 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person"]
+            "svs": [
+              "Count_Person"
+            ]
           },
           {
             "attr": {
@@ -1002,7 +1094,9 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person_TwoOrMoreRaces"]
+            "svs": [
+              "Count_Person_TwoOrMoreRaces"
+            ]
           },
           {
             "attr": {
@@ -1025,7 +1119,9 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person_Female"]
+            "svs": [
+              "Count_Person_Female"
+            ]
           },
           {
             "attr": {
@@ -1048,7 +1144,10 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person_Female", "Count_Person_Male"]
+            "svs": [
+              "Count_Person_Female",
+              "Count_Person_Male"
+            ]
           },
           {
             "attr": {
@@ -1071,7 +1170,9 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person_SomeOtherRaceAlone"]
+            "svs": [
+              "Count_Person_SomeOtherRaceAlone"
+            ]
           },
           {
             "attr": {
@@ -1094,7 +1195,9 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person_Male"]
+            "svs": [
+              "Count_Person_Male"
+            ]
           },
           {
             "attr": {
@@ -1117,7 +1220,9 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person_Employed"]
+            "svs": [
+              "Count_Person_Employed"
+            ]
           },
           {
             "attr": {
@@ -1140,7 +1245,10 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person_Employed", "Count_Person_Unemployed"]
+            "svs": [
+              "Count_Person_Employed",
+              "Count_Person_Unemployed"
+            ]
           },
           {
             "attr": {
@@ -1163,7 +1271,9 @@
                 "place_type": "City"
               }
             ],
-            "svs": ["Count_Person_InLaborForce"]
+            "svs": [
+              "Count_Person_InLaborForce"
+            ]
           }
         ],
         "svs": [
@@ -1185,15 +1295,23 @@
     "main_place_name": "San Jose",
     "original_query": "san jose population",
     "overview_classification": "<None>",
-    "places_detected": ["san jose"],
+    "places_detected": [
+      "san jose"
+    ],
     "query_with_places_removed": "population",
     "ranking_classification": "<None>",
     "status": "",
     "sv_matching": {
       "CosineScore": [
-        1.0000003576278687, 0.7283596396446228, 0.7178686261177063,
-        0.7034323215484619, 0.6976733207702637, 0.6928902268409729,
-        0.6686383485794067, 0.6643331050872803, 0.6525824069976807,
+        1.0000003576278687,
+        0.7283596396446228,
+        0.7178685665130615,
+        0.7034323811531067,
+        0.6976733207702637,
+        0.6928901672363281,
+        0.6686383485794067,
+        0.6643331050872803,
+        0.6525824069976807,
         0.6525824069976807
       ],
       "SV": [
@@ -1212,7 +1330,7 @@
         "Count_Person": [
           "Population (1.0000003576278687)",
           "Population count (0.832172155380249)",
-          "Size of the population (0.8301714658737183)",
+          "Size of the population (0.8301712870597839)",
           "Total number of people in the population (0.8141127824783325)",
           "Total Number of People in a Population (0.808671772480011)",
           "Total number of people in a population (0.808671772480011)",
@@ -1222,23 +1340,31 @@
           "Population with current employment (0.6525824069976807)",
           "Population With Current Employment (0.6525824069976807)"
         ],
-        "Count_Person_Female": ["Population: Female (0.6928902268409729)"],
+        "Count_Person_Female": [
+          "Population: Female (0.6928901672363281)"
+        ],
         "Count_Person_InLaborForce": [
           "Population with current employment (0.6525824069976807)"
         ],
-        "Count_Person_Male": ["Population: Male (0.6643331050872803)"],
-        "Count_Person_OneRace": ["Population: One Race (0.7178686261177063)"],
-        "Count_Person_PerArea": ["Population Density (0.7283596396446228)"],
+        "Count_Person_Male": [
+          "Population: Male (0.6643331050872803)"
+        ],
+        "Count_Person_OneRace": [
+          "Population: One Race (0.7178685665130615)"
+        ],
+        "Count_Person_PerArea": [
+          "Population Density (0.7283596396446228)"
+        ],
         "Count_Person_SomeOtherRaceAlone": [
           "Population: Some Other Race Alone (0.6686383485794067)"
         ],
         "Count_Person_TwoOrMoreRaces": [
-          "Population: Two or More Races (0.7034323215484619)"
+          "Population: Two or More Races (0.7034323811531067)"
         ],
         "GrowthRate_Count_Person": [
           "Increase in population (0.6976733207702637)",
-          "Population growth rate (0.6845789551734924)",
-          "Population Growth Rate (0.6845789551734924)",
+          "Population growth rate (0.684579074382782)",
+          "Population Growth Rate (0.684579074382782)",
           "Rate of population growth (0.6638180613517761)",
           "Rate of Population Growth (0.6638180613517761)"
         ]
@@ -1248,7 +1374,7 @@
       "Count_Person": [
         "Population (1.0000003576278687)",
         "Population count (0.832172155380249)",
-        "Size of the population (0.8301714658737183)",
+        "Size of the population (0.8301712870597839)",
         "Total number of people in the population (0.8141127824783325)",
         "Total Number of People in a Population (0.808671772480011)",
         "Total number of people in a population (0.808671772480011)",
@@ -1258,23 +1384,31 @@
         "Population with current employment (0.6525824069976807)",
         "Population With Current Employment (0.6525824069976807)"
       ],
-      "Count_Person_Female": ["Population: Female (0.6928902268409729)"],
+      "Count_Person_Female": [
+        "Population: Female (0.6928901672363281)"
+      ],
       "Count_Person_InLaborForce": [
         "Population with current employment (0.6525824069976807)"
       ],
-      "Count_Person_Male": ["Population: Male (0.6643331050872803)"],
-      "Count_Person_OneRace": ["Population: One Race (0.7178686261177063)"],
-      "Count_Person_PerArea": ["Population Density (0.7283596396446228)"],
+      "Count_Person_Male": [
+        "Population: Male (0.6643331050872803)"
+      ],
+      "Count_Person_OneRace": [
+        "Population: One Race (0.7178685665130615)"
+      ],
+      "Count_Person_PerArea": [
+        "Population Density (0.7283596396446228)"
+      ],
       "Count_Person_SomeOtherRaceAlone": [
         "Population: Some Other Race Alone (0.6686383485794067)"
       ],
       "Count_Person_TwoOrMoreRaces": [
-        "Population: Two or More Races (0.7034323215484619)"
+        "Population: Two or More Races (0.7034323811531067)"
       ],
       "GrowthRate_Count_Person": [
         "Increase in population (0.6976733207702637)",
-        "Population growth rate (0.6845789551734924)",
-        "Population Growth Rate (0.6845789551734924)",
+        "Population growth rate (0.684579074382782)",
+        "Population Growth Rate (0.684579074382782)",
         "Rate of population growth (0.6638180613517761)",
         "Rate of Population Growth (0.6638180613517761)"
       ]

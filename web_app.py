@@ -17,18 +17,13 @@ This module contains the request handler codes and the main app.
 """
 
 import logging
-import os
 import sys
 import threading
 import time
 
-import flask
-from flask import request
 import requests
 
 from server.__init__ import create_app
-from server.services import datacommons as dc
-from server.services.discovery import configure_endpoints_from_ingress
 
 logging.basicConfig(
     level=logging.INFO,
@@ -37,17 +32,7 @@ logging.basicConfig(
     datefmt="%H:%M:%S",
 )
 
-# Needs to be called before create_app.
-ingress_config_path = os.environ.get(
-    'INGRESS_CONFIG_PATH')  # See deployment yamls.
-if ingress_config_path:
-  configure_endpoints_from_ingress(ingress_config_path)
-
 app = create_app()
-app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
-app.jinja_env.globals['NAME'] = app.config['NAME']
-app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
-app.secret_key = os.urandom(24)
 
 WARM_UP_ENDPOINTS = [
     "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",
@@ -69,45 +54,7 @@ def send_warmup_requests():
       time.sleep(1)
 
 
-@app.before_request
-def before_request():
-  scheme = request.headers.get('X-Forwarded-Proto')
-  if scheme and scheme == 'http' and request.url.startswith('http://'):
-    url = request.url.replace('http://', 'https://', 1)
-    code = 301
-    return flask.redirect(url, code=code)
-
-
-# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
-@app.route('/translator')
-def translator_handler():
-  return flask.render_template('translator.html')
-
-
-@app.route('/healthz')
-def healthz():
-  return "very healthy"
-
-
-# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
-@app.route('/mcf_playground')
-def mcf_playground():
-  return flask.render_template('mcf_playground.html')
-
-
-# TODO(shifucun): get branch cache version from mixer
-@app.route('/version')
-def version():
-  mixer_version = dc.version()
-  return flask.render_template('version.html',
-                               website_hash=os.environ.get("WEBSITE_HASH"),
-                               mixer_hash=mixer_version['gitHash'],
-                               tables=mixer_version['tables'],
-                               bigquery=mixer_version['bigquery'])
-
-
-if not (app.config["TEST"] or app.config["WEBDRIVER"] or
-        app.config['INTEGRATION'] or app.config["LOCAL"]):
+if not (app.config["TEST"] or app.config["WEBDRIVER"] or app.config["LOCAL"]):
   thread = threading.Thread(target=send_warmup_requests)
   thread.start()
 

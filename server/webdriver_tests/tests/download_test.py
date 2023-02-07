@@ -21,6 +21,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
+
 from server.webdriver_tests.base_test import WebdriverBaseTest
 import server.webdriver_tests.shared as shared
 

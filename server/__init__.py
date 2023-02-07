@@ -16,16 +16,13 @@ import json
 import logging
 import os
 import tempfile
-import time
-from typing import List
-import urllib.error
-import urllib.request
 
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import Flask
 from flask import g
+from flask import redirect
 from flask import request
 from flask_babel import Babel
 from google.cloud import secretmanager
@@ -39,6 +36,7 @@ import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 import server.lib.util as libutil
+from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
@@ -207,6 +205,12 @@ def create_app():
   else:
     cache.init_app(app, {'CACHE_TYPE': 'null'})
 
+  # Configure ingress
+  ingress_config_path = os.environ.get(
+      'INGRESS_CONFIG_PATH')  # See deployment yamls.
+  if ingress_config_path:
+    configure_endpoints_from_ingress(ingress_config_path)
+
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
@@ -312,9 +316,16 @@ def create_app():
     requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
     g.locale_choices = i18n.locale_choices(requested_locale)
     g.locale = g.locale_choices[0]
-
     # Add commonly used config flags.
     g.env_name = app.config.get('ENV_NAME', None)
+
+  @app.before_request
+  def before_request():
+    scheme = request.headers.get('X-Forwarded-Proto')
+    if scheme and scheme == 'http' and request.url.startswith('http://'):
+      url = request.url.replace('http://', 'https://', 1)
+      code = 301
+      return redirect(url, code=code)
 
   @babel.localeselector
   def get_locale():
@@ -336,5 +347,11 @@ def create_app():
   def log_unhandled(e):
     if e is not None:
       logging.error('Error thrown for request: %s, error: %s', request, e)
+
+  # Jinja env
+  app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
+  app.jinja_env.globals['NAME'] = app.config['NAME']
+  app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
+  app.secret_key = os.urandom(24)
 
   return app

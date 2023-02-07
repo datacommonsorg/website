@@ -19,14 +19,15 @@ import os
 from flask_testing import LiveServerTestCase
 import requests
 
-import nl_app
+from nl_server.__init__ import create_app as create_nl_app
+from server.__init__ import create_app as create_web_app
 import server.lib.util as libutil
-import web_app
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
-_WEB_SERVER_URL = 'http://127.0.0.1:5000'
 _NL_SERVER_URL = 'http://127.0.0.1:6060'
+
+_TEST_MODE = os.environ['TEST_MODE']
 
 
 class IntegrationTest(LiveServerTestCase):
@@ -35,10 +36,11 @@ class IntegrationTest(LiveServerTestCase):
   def setUpClass(cls):
 
     def start_nl_server(app):
-      app.run(port=6060, debug=False, use_reloader=False)
+      app.run(port=6060, debug=False, use_reloader=False, threaded=True)
 
+    nl_app = create_nl_app()
     # Create a thread that will contain our running server
-    cls.proc = Process(target=start_nl_server, args=(nl_app.app,), daemon=True)
+    cls.proc = Process(target=start_nl_server, args=(nl_app,), daemon=True)
     cls.proc.start()
     libutil.check_backend_ready([_NL_SERVER_URL + '/healthz'])
 
@@ -48,19 +50,20 @@ class IntegrationTest(LiveServerTestCase):
 
   def create_app(self):
     """Returns the Flask Server running Data Commons."""
-    app_instance = web_app.app
-    app_instance.config['LIVESERVER_PORT'] = 5000
-    return app_instance
+    return create_web_app()
 
   def test_sample(self):
-    resp = requests.post(_WEB_SERVER_URL +
+    resp = requests.post(self.get_server_url() +
                          '/nlnext/data?q=san%20jose%20population',
                          json={})
-    with open(os.path.join(_dir, 'test_data', 'sample.json'), 'r') as infile:
-      # infile.write(json.dumps(resp.json(), indent=2))
-      expected = json.load(infile)
-      a, b = (
-          json.dumps(resp.json(), sort_keys=True),
-          json.dumps(expected, sort_keys=True),
-      )
-      assert a == b
+    if _TEST_MODE == 'write':
+      with open(os.path.join(_dir, 'test_data', 'sample.json'), 'w') as infile:
+        infile.write(json.dumps(resp.json(), indent=2))
+    else:
+      with open(os.path.join(_dir, 'test_data', 'sample.json'), 'r') as infile:
+        expected = json.load(infile)
+        a, b = (
+            json.dumps(resp.json(), sort_keys=True),
+            json.dumps(expected, sort_keys=True),
+        )
+        assert a == b
