@@ -26,12 +26,6 @@ logging.basicConfig(
 
 app = create_app()
 
-
-@app.route('/healthz')
-def healthz():
-  return ""
-
-
 if __name__ == '__main__':
   # This is used when running locally only. When deploying to GKE,
   # a webserver process such as Gunicorn will serve the app.

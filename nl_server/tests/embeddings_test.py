@@ -24,10 +24,12 @@ from parameterized import parameterized
 from sklearn.metrics.pairwise import cosine_similarity
 import yaml
 
+_root_dir = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 def _get_embeddings_file_name() -> str:
-  model_config_path = os.path.abspath(
-      os.path.join(os.path.curdir, '..', 'deploy/base/model.yaml'))
+  model_config_path = os.path.join(_root_dir, 'deploy/base/model.yaml')
   with open(model_config_path) as f:
     model = yaml.full_load(f)
     return model['embeddings_file']

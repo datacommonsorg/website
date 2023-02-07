@@ -339,7 +339,7 @@ def page():
 #
 # The main Data Handler function
 #
-@bp.route('/data', methods=['GET', 'POST'])
+@bp.route('/data', methods=['POST'])
 def data():
   """Data handler."""
   if (os.environ.get('FLASK_ENV') == 'production' or
@@ -359,8 +359,11 @@ def data():
     logging.error('Unable to load event configs!')
 
   original_query = request.args.get('q')
-  context_history = request.get_json().get('contextHistory', [])
-  escaped_context_history = escape(context_history)
+  context_history = []
+  escaped_context_history = []
+  if request.get_json():
+    context_history = request.get_json().get('contextHistory', [])
+    escaped_context_history = escape(context_history)
   logging.info(context_history)
 
   query = str(escape(utils.remove_punctuations(original_query)))

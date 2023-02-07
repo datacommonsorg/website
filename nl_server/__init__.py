@@ -29,8 +29,9 @@ def create_app():
 
   model_config_path = '/datacommons/model/model.yaml'
   if flask_env == 'local' or flask_env == 'test':
-    model_config_path = os.path.abspath(
-        os.path.join(os.path.curdir, '..', 'deploy/base/model.yaml'))
+    model_config_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        'deploy/base/model.yaml')
   app.config['MODEL_CONFIG_PATH'] = model_config_path
 
   # Initialize the NL module.

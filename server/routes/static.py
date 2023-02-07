@@ -14,11 +14,13 @@
 """Data Commons static content routes."""
 
 from datetime import date
+import os
 
 import babel.dates as babel_dates
 from flask import Blueprint
 from flask import g
 from flask import render_template
+from services import datacommons as dc
 
 bp = Blueprint('static', __name__)
 
@@ -73,3 +75,31 @@ def feedback():
   if g.env_name == 'IITM':
     return render_template('custom_dc/iitm/feedback.html')
   return render_template('static/feedback.html')
+
+
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
+@bp.route('/translator')
+def translator_handler():
+  return render_template('translator.html')
+
+
+@bp.route('/healthz')
+def healthz():
+  return "very healthy"
+
+
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
+@bp.route('/mcf_playground')
+def mcf_playground():
+  return render_template('mcf_playground.html')
+
+
+# TODO(shifucun): get branch cache version from mixer
+@bp.route('/version')
+def version():
+  mixer_version = dc.version()
+  return render_template('version.html',
+                         website_hash=os.environ.get("WEBSITE_HASH"),
+                         mixer_hash=mixer_version['gitHash'],
+                         tables=mixer_version['tables'],
+                         bigquery=mixer_version['bigquery'])

@@ -17,13 +17,15 @@ import os
 import unittest
 
 import lib.range as lib_range
+import lib.util as lib_util
 
 
 class TestChart(unittest.TestCase):
 
   def setUp(self):
     self.charts = []
-    chart_config_dir = os.path.join("config", "chart_config")
+    chart_config_dir = os.path.join(lib_util.get_repo_root(), "config",
+                                    "chart_config")
     for filename in os.listdir(chart_config_dir):
       if filename.endswith(".json"):
         with open(os.path.join(chart_config_dir, filename),

@@ -54,7 +54,6 @@ class StagingConfig(Config):
 
 class AutopushConfig(Config):
   GA_ACCOUNT = 'G-Y6ZXZ9JK3H'
-  ADMIN = True
   GCS_BUCKET = 'datcom-website-autopush-resources'
   pass
 
@@ -130,7 +129,6 @@ class LocalBaseConfig(Config):
 
 class LocalConfig(LocalBaseConfig):
   SECRET_PROJECT = 'datcom-website-dev'
-  ADMIN = True
 
 
 class LocalLiteConfig(LocalBaseConfig):

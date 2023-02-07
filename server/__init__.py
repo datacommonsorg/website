@@ -16,8 +16,6 @@ import json
 import logging
 import os
 import tempfile
-import time
-import urllib.error
 import urllib.request
 
 import firebase_admin
@@ -25,6 +23,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import Flask
 from flask import g
+from flask import redirect
 from flask import request
 from flask_babel import Babel
 from google.cloud import secretmanager
@@ -37,6 +36,7 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
+from services.discovery import configure_endpoints_from_ingress
 from services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
@@ -198,6 +198,12 @@ def create_app():
   else:
     cache.init_app(app, {'CACHE_TYPE': 'null'})
 
+  # Configure ingress
+  ingress_config_path = os.environ.get(
+      'INGRESS_CONFIG_PATH')  # See deployment yamls.
+  if ingress_config_path:
+    configure_endpoints_from_ingress(ingress_config_path)
+
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
@@ -278,6 +284,7 @@ def create_app():
 
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
+    libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
     import lib.nl.training as libnl
     import services.nl as nl
@@ -289,38 +296,9 @@ def create_app():
     nl_model = nl.Model(app, libnl.CLASSIFICATION_INFO, classification_types)
     app.config['NL_MODEL'] = nl_model
 
-  def is_up(url: str):
-    if not url.lower().startswith('http'):
-      raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
-
-    try:
-      # Disable Bandit security check 310. http scheme is already checked above.
-      # Codacity still calls out the error so disable the check.
-      # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
-      urllib.request.urlopen(url)  # nosec B310
-      return True
-    except urllib.error.URLError:
-      return False
-
   if not cfg.TEST:
-    timeout = 120  # seconds
-    sleep_seconds = 5
-    total_sleep_seconds = 0
     urls = get_health_check_urls()
-    up_status = {url: False for url in urls}
-    while not all(up_status.values()):
-      for url in urls:
-        if up_status[url]:
-          continue
-        up_status[url] = is_up(url)
-
-      if all(up_status.values()):
-        break
-      logging.info("Mixer not ready, waiting for %s seconds", sleep_seconds)
-      time.sleep(sleep_seconds)
-      total_sleep_seconds += sleep_seconds
-      if total_sleep_seconds > timeout:
-        raise RuntimeError('Mixer not ready after %s second' % timeout)
+    libutil.check_backend_ready(urls)
 
   # Add variables to the per-request global context.
   @app.before_request
@@ -332,6 +310,12 @@ def create_app():
 
     # Add commonly used config flags.
     g.env_name = app.config.get('ENV_NAME', None)
+
+    scheme = request.headers.get('X-Forwarded-Proto')
+    if scheme and scheme == 'http' and request.url.startswith('http://'):
+      url = request.url.replace('http://', 'https://', 1)
+      code = 301
+      return redirect(url, code=code)
 
   @babel.localeselector
   def get_locale():
@@ -353,5 +337,11 @@ def create_app():
   def log_unhandled(e):
     if e is not None:
       logging.error('Error thrown for request: %s, error: %s', request, e)
+
+  # Jinja env
+  app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
+  app.jinja_env.globals['NAME'] = app.config['NAME']
+  app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
+  app.secret_key = os.urandom(24)
 
   return app

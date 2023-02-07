@@ -24,6 +24,11 @@ from flask import request
 bp = Blueprint('main', __name__, url_prefix='/')
 
 
+@bp.route('/healthz')
+def healthz():
+  return ""
+
+
 def _query_embedding(query: str) -> Tuple[List[float], str]:
   try:
     nl_embeddings = current_app.config['NL_EMBEDDINGS']

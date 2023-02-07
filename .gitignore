@@ -47,3 +47,5 @@ build/helm/**/*.tgz
 *.tfstate
 *.tfstate.*
 pylist.json
+
+pytest_log.txt

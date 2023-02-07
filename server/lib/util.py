@@ -15,11 +15,18 @@
 from datetime import datetime
 import hashlib
 import json
+import logging
 import os
+import time
+from typing import List
+import urllib
 
 from config import subject_page_pb2
 from google.protobuf import text_format
 import services.datacommons as dc
+
+_ready_check_timeout = 120  # seconds
+_ready_check_sleep_seconds = 5
 
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
@@ -42,10 +49,17 @@ TOPIC_PAGE_CONFIGS = {
 }
 
 
+def get_repo_root():
+  '''Get the absolute path of the repo root directory
+  '''
+  return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 def get_chart_config():
   chart_config = []
   for filename in PLACE_EXPLORER_CATEGORIES:
-    with open(os.path.join('config', 'chart_config', filename + '.json'),
+    with open(os.path.join(get_repo_root(), 'config', 'chart_config',
+                           filename + '.json'),
               encoding='utf-8') as f:
       chart_config.extend(json.load(f))
   return chart_config
@@ -67,7 +81,7 @@ def get_topic_page_config():
   for topic_id, filenames in TOPIC_PAGE_CONFIGS.items():
     configs = []
     for filename in filenames:
-      filepath = os.path.join('config', 'topic_page', topic_id,
+      filepath = os.path.join(get_repo_root(), 'config', 'topic_page', topic_id,
                               filename + '.textproto')
       configs.append(get_subject_page_config(filepath))
     topic_configs[topic_id] = configs
@@ -77,7 +91,8 @@ def get_topic_page_config():
 # Returns list of disaster dashboard configs loaded as SubjectPageConfig protos
 def get_disaster_dashboard_configs():
   dashboard_configs = []
-  dashboard_configs_dir = os.path.join("config", "disaster_dashboard")
+  dashboard_configs_dir = os.path.join(get_repo_root(), "config",
+                                       "disaster_dashboard")
   for filename in os.listdir(dashboard_configs_dir):
     filepath = os.path.join(dashboard_configs_dir, filename)
     dashboard_configs.append(get_subject_page_config(filepath))
@@ -197,3 +212,36 @@ def _compact_series(series_resp, all_facets):
           }
   result['data'] = data
   return result
+
+
+def is_up(url: str):
+  if not url.lower().startswith('http'):
+    raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
+
+  try:
+    # Disable Bandit security check 310. http scheme is already checked above.
+    # Codacity still calls out the error so disable the check.
+    # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
+    urllib.request.urlopen(url)  # nosec B310
+    return True
+  except urllib.error.URLError:
+    return False
+
+
+def check_backend_ready(urls: List[str]):
+  total_sleep_seconds = 0
+  up_status = {url: False for url in urls}
+  while not all(up_status.values()):
+    for url in urls:
+      if up_status[url]:
+        continue
+      up_status[url] = is_up(url)
+    if all(up_status.values()):
+      break
+    logging.info('%s not ready, waiting for %s seconds', urls,
+                 _ready_check_sleep_seconds)
+    time.sleep(_ready_check_sleep_seconds)
+    total_sleep_seconds += _ready_check_sleep_seconds
+    if total_sleep_seconds > _ready_check_timeout:
+      raise RuntimeError('%s not ready after %s second' % urls,
+                         _ready_check_timeout)
