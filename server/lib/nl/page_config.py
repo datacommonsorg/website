@@ -18,6 +18,7 @@ from typing import Dict, List
 
 from config import subject_page_pb2
 from lib.nl import topic
+from lib.nl import utils
 from lib.nl.constants import PLACE_TYPE_TO_PLURALS
 from lib.nl.data_spec import DataSpec
 from lib.nl.detection import ClassificationType
@@ -28,11 +29,6 @@ from lib.nl.detection import RankingType
 from services import datacommons as dc
 
 CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
-
-
-def pluralize_place_type(place_type: str) -> str:
-  return PLACE_TYPE_TO_PLURALS.get(place_type.lower(),
-                                   PLACE_TYPE_TO_PLURALS["place"])
 
 
 def get_sv_name(svs):
@@ -337,7 +333,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     if primary_sv in contained_place_spec.svs:
       block = category.blocks.add()
       block.title = "{} in {}".format(
-          pluralize_place_type(
+          utils.pluralize_place_type(
               contained_place_spec.contained_place_type).capitalize(),
           main_place_spec.name)
       column = block.columns.add()

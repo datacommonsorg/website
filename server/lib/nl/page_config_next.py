@@ -306,30 +306,32 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
 
 
 def _map_chart_block(column, place: Place, pri_sv: str, sv2name, attr):
-  svs_map = _map_chart_block_nopc(column, place, pri_sv, sv2name)
+  svs_map = _map_chart_block_nopc(column, place, pri_sv, sv2name, attr)
   if attr['include_percapita'] and _should_add_percapita(pri_sv):
-    svs_map.update(_map_chart_block_pc(column, place, pri_sv, sv2name))
+    svs_map.update(_map_chart_block_pc(column, place, pri_sv, sv2name, attr))
   return svs_map
 
 
-def _map_chart_block_nopc(column, place: Place, pri_sv: str, sv2name):
+def _map_chart_block_nopc(column, place: Place, pri_sv: str, sv2name: Dict,
+                          attr: Dict):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
   tile.type = Tile.TileType.MAP
-  tile.title = _with_place(sv2name[pri_sv], place)
+  tile.title = _with_containment(sv2name[pri_sv], place, attr)
 
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
   return stat_var_spec_map
 
 
-def _map_chart_block_pc(column, place: Place, pri_sv: str, sv2name):
+def _map_chart_block_pc(column, place: Place, pri_sv: str, sv2name: Dict,
+                        attr: Dict):
   tile = column.tiles.add()
   sv_key = pri_sv + "_pc"
   tile.stat_var_key.append(sv_key)
   tile.type = Tile.TileType.MAP
-  tile.title = _with_pc(_with_place(sv2name[pri_sv], place))
+  tile.title = _with_pc(_with_containment(sv2name[pri_sv], place, attr))
 
   stat_var_spec_map = {}
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
@@ -376,34 +378,34 @@ def _does_extreme_mean_low(sv: str) -> bool:
   return False
 
 
-def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str, sv2name,
-                              attr):
+def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
+                              sv2name: Dict, attr: Dict):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
   tile.type = Tile.TileType.RANKING
   _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
-  tile.title = _with_place(sv2name[pri_sv], pri_place)
+  tile.title = _with_containment(sv2name[pri_sv], pri_place, attr)
 
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
 
   # Also add a map chart.
   stat_var_spec_map.update(
-      _map_chart_block_nopc(column, pri_place, pri_sv, sv2name))
+      _map_chart_block_nopc(column, pri_place, pri_sv, sv2name, attr))
 
   return stat_var_spec_map
 
 
-def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str, sv2name,
-                            attr):
+def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
+                            sv2name: Dict, attr: Dict):
   # The per capita tile
   tile = column.tiles.add()
   sv_key = pri_sv + "_pc"
   tile.stat_var_key.append(sv_key)
   tile.type = Tile.TileType.RANKING
   _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
-  tile.title = _with_pc(_with_place(sv2name[pri_sv], pri_place))
+  tile.title = _with_pc(_with_containment(sv2name[pri_sv], pri_place, attr))
 
   stat_var_spec_map = {}
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
@@ -414,13 +416,13 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str, sv2name,
 
   # Also add a map chart.
   stat_var_spec_map.update(
-      _map_chart_block_pc(column, pri_place, pri_sv, sv2name))
+      _map_chart_block_pc(column, pri_place, pri_sv, sv2name, attr))
 
   return stat_var_spec_map
 
 
 def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
-                         attr):
+                         attr: Dict):
   assert len(sv_pair) == 2
 
   sv_names = [sv2name[sv_pair[0]], sv2name[sv_pair[1]]]
@@ -452,7 +454,8 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
   tile = column.tiles.add()
   tile.stat_var_key.extend(sv_key_pair)
   tile.type = Tile.TileType.SCATTER
-  tile.title = _with_place(f"{sv_names[0]} vs. {sv_names[1]}", pri_place)
+  tile.title = _with_containment(f"{sv_names[0]} vs. {sv_names[1]}", pri_place,
+                                 attr)
   tile.scatter_tile_spec.highlight_top_right = True
 
   return stat_var_spec_map
@@ -547,6 +550,11 @@ def _prefix_related(title: str, attr: Dict) -> str:
   if title and attr.get('class', None) == ChartOriginType.SECONDARY_CHART:
     return 'Related: ' + title
   return title
+
+
+def _with_containment(title: str, place: Place, attr: Dict) -> str:
+  pt = attr.get('place_type', 'Place')
+  return _with_place(title, place) + ' ' + utils.pluralize_place_type(pt)
 
 
 def _with_place(title: str, place: Place) -> str:

@@ -379,12 +379,12 @@ CONTAINED_IN_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name in Foo Place"
+         title: "Count_Farm-name in Foo Place counties"
          type: MAP
          stat_var_key: "Count_Farm"
        }
        tiles {
-         title: "Per Capita Count_Farm-name in Foo Place"
+         title: "Per Capita Count_Farm-name in Foo Place counties"
          type: MAP
          stat_var_key: "Count_Farm_pc"
        }
@@ -393,12 +393,12 @@ CONTAINED_IN_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name in Foo Place"
+         title: "Income_Farm-name in Foo Place counties"
          type: MAP
          stat_var_key: "Income_Farm"
        }
        tiles {
-         title: "Per Capita Income_Farm-name in Foo Place"
+         title: "Per Capita Income_Farm-name in Foo Place counties"
          type: MAP
          stat_var_key: "Income_Farm_pc"
        }
@@ -454,7 +454,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name vs. Mean_Precipitation-name in Foo Place"
+         title: "Count_Farm-name vs. Mean_Precipitation-name in Foo Place counties"
          type: SCATTER
          stat_var_key: "Count_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -467,7 +467,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name vs. Mean_Precipitation-name in Foo Place"
+         title: "Income_Farm-name vs. Mean_Precipitation-name in Foo Place counties"
          type: SCATTER
          stat_var_key: "Income_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -515,7 +515,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
      title: "Count_Agricultural_Workers-name"      
      columns {
        tiles {
-         title: "Count_Agricultural_Workers-name in Foo Place"
+         title: "Count_Agricultural_Workers-name in Foo Place counties"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers"
          ranking_tile_spec {
@@ -524,7 +524,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
-         title: "Count_Agricultural_Workers-name in Foo Place"
+         title: "Count_Agricultural_Workers-name in Foo Place counties"
          type: MAP
          stat_var_key: "Count_Agricultural_Workers"
        }
@@ -535,7 +535,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
       title: "Per Capita Count_Agricultural_Workers-name"
       columns {
        tiles {
-         title: "Per Capita Count_Agricultural_Workers-name in Foo Place"
+         title: "Per Capita Count_Agricultural_Workers-name in Foo Place counties"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers_pc"
          ranking_tile_spec {
@@ -544,7 +544,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
-         title: "Per Capita Count_Agricultural_Workers-name in Foo Place"
+         title: "Per Capita Count_Agricultural_Workers-name in Foo Place counties"
          type: MAP
          stat_var_key: "Count_Agricultural_Workers_pc"
        }
