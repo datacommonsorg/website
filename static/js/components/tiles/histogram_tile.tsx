@@ -49,6 +49,15 @@ interface HistogramData {
 }
 
 /**
+ * Determine whether to show the histogram Tile.
+ * Tile should only be shown if there is data available.
+ * @param histogramData data used by the histogram tile
+ */
+function shouldShowHistogram(histogramData: HistogramData): boolean {
+  return histogramData && !_.isEmpty(histogramData.dataPoints);
+}
+
+/**
  * Main histogram tile component
  */
 export function HistogramTile(props: HistogramTilePropType): JSX.Element {
@@ -69,12 +78,12 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
   }, [props, rawData]);
 
   useEffect(() => {
-    if (histogramData && !_.isEmpty(histogramData.dataPoints)) {
+    if (shouldShowHistogram(histogramData)) {
       draw(props, histogramData.dataPoints);
     }
   }, [props, histogramData]);
 
-  if (!histogramData || _.isEmpty(histogramData.dataPoints)) {
+  if (!shouldShowHistogram(histogramData)) {
     return null;
   }
   const rs: ReplacementStrings = {
@@ -82,16 +91,20 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
     date: "",
   };
   return (
-    <ChartTileContainer
-      title={props.title}
-      sources={histogramData.sources}
-      replacementStrings={rs}
-      className={`${props.className} histogram-chart`}
-      allowEmbed={true}
-      getDataCsv={() => dataPointsToCsv(histogramData.dataPoints)}
-    >
-      <div id={props.id} className="svg-container" ref={svgContainer}></div>
-    </ChartTileContainer>
+    <>
+      {shouldShowHistogram(histogramData) && (
+        <ChartTileContainer
+          title={props.title}
+          sources={histogramData.sources}
+          replacementStrings={rs}
+          className={`${props.className} histogram-chart`}
+          allowEmbed={true}
+          getDataCsv={() => dataPointsToCsv(histogramData.dataPoints)}
+        >
+          <div id={props.id} className="svg-container" ref={svgContainer}></div>
+        </ChartTileContainer>
+      )}
+    </>
   );
 }
 

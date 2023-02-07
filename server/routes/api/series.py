@@ -14,9 +14,13 @@
 
 from cache import cache
 from flask import Blueprint
+from flask import escape
 from flask import request
 from lib import util
 import services.datacommons as dc
+import datetime
+import dateutil
+import logging
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
@@ -63,7 +67,7 @@ def series_within_core(parent_entity, child_type, variables, all_facets):
 
 # TODO(juliawu): We should adjust how we bin based on the data,
 #                instead of just cutting data off
-def get_binned_series(entities, variables, year):
+def get_binned_series(entities, variables, start, end):
   """Get observation series for entities and variables, for a given year.
   
   Bins observations from a series for plotting in the histogram tile.
@@ -107,7 +111,7 @@ def get_binned_series(entities, variables, year):
 
       # Get the latest month we have data for
       latest_month = DEFAULT_LAST_MONTH
-      if series:
+      if len(series)>0:
         latest_date = series[-1].get('date', '')
         if latest_date[:len("YYYY")] == year and len(latest_date) >= len("YYYY-MM"):
           latest_month = int(latest_date[len("YYYY-"):len("YYYY-MM")])
@@ -171,7 +175,7 @@ def series_within():
   """Gets the observation for child entities of a certain place
   type contained in a parent entity at a given date.
 
-  Note: the perferred facet is returned.
+  Note: the preferred facet is returned.
   """
   parent_entity = request.args.get('parent_entity')
   if not parent_entity:
@@ -208,8 +212,8 @@ def series_within_all():
 # TODO(juliawu): Event Maps are using currentdate - 1 year for the last year
 #                filter. Support for this needs to be added.
 @bp.route('/binned')
-@bp.route('/binned/<path:year>')
-def series_binned(year='2022'):
+@bp.route('/binned/<path:start>/<path:end>')
+def series_binned(start=None, end=None):
   """Get observations binned by time-period.
   
   Used for pre-binning data for the histogram tile. Currently only "bins" data
@@ -228,4 +232,10 @@ def series_binned(year='2022'):
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return get_binned_series(entities, variables, year)
+  if not start and not end:
+    end = datetime.datetime.now()
+    start = end - datetime.timedelta(days=365)
+  else:
+    start = dateutil.parser.parse(escape(start))
+    end = dateutil.parser.parse(escape(end))
+  return get_binned_series(entities, variables, start, end)
