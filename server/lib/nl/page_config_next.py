@@ -130,10 +130,10 @@ def build_page_config(
       _, column = builder.new_chart(cspec.attr)
       if len(cspec.svs) > 1:
         stat_var_spec_map = _single_place_multiple_var_timeline_block(
-            column, cspec.svs, sv2name, cspec.attr)
+            column, cspec.places[0], cspec.svs, sv2name, cspec.attr)
       else:
         stat_var_spec_map = _single_place_single_var_timeline_block(
-            column, cspec.svs[0], sv2name, cspec.attr)
+            column, cspec.places[0], cspec.svs[0], sv2name, cspec.attr)
 
     elif cspec.chart_type == ChartType.BAR_CHART:
       _, column = builder.new_chart(cspec.attr)
@@ -147,7 +147,7 @@ def build_page_config(
       for sv in cspec.svs:
         _, column = builder.new_chart(cspec.attr)
         stat_var_spec_map.update(
-            _map_chart_block(column, sv, sv2name, cspec.attr))
+            _map_chart_block(column, cspec.places[0], sv, sv2name, cspec.attr))
 
     elif cspec.chart_type == ChartType.RANKING_CHART:
       if not _is_map_or_ranking_compatible(cspec):
@@ -172,7 +172,7 @@ def build_page_config(
           main_title = builder.block.title
           block, column = builder.new_chart(cspec.attr)
           if main_title:
-            builder.block.title = _prefix_related(main_title + ' - Per Capita',
+            builder.block.title = _prefix_related(_with_pc(main_title),
                                                   cspec.attr)
           stat_var_spec_map.update(
               _ranking_chart_block_pc(column, pri_place, sv, sv2name,
@@ -195,15 +195,16 @@ def build_page_config(
   return builder.page_config
 
 
-def _single_place_single_var_timeline_block(column, sv_dcid, sv2name, attr):
+def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
+                                            attr):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
+  title = _with_place(sv2name[sv_dcid], place)
+
   # Line chart for the stat var
   sv_key = sv_dcid
-  tile = Tile(type=Tile.TileType.LINE,
-              title=sv2name[sv_dcid],
-              stat_var_key=[sv_key])
+  tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[sv_key])
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                           name=sv2name[sv_dcid])
   column.tiles.append(tile)
@@ -212,7 +213,7 @@ def _single_place_single_var_timeline_block(column, sv_dcid, sv2name, attr):
   if attr['include_percapita'] and _should_add_percapita(sv_dcid):
     sv_key = sv_dcid + '_pc'
     tile = Tile(type=Tile.TileType.LINE,
-                title=sv2name[sv_dcid] + " - Per Capita",
+                title=_with_pc(title),
                 stat_var_key=[sv_key])
     stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                             name=sv2name[sv_dcid],
@@ -223,11 +224,13 @@ def _single_place_single_var_timeline_block(column, sv_dcid, sv2name, attr):
   return stat_var_spec_map
 
 
-def _single_place_multiple_var_timeline_block(column, svs, sv2name, attr):
+def _single_place_multiple_var_timeline_block(column, place, svs, sv2name,
+                                              attr):
   """A column with two chart, all stat vars and per capita"""
   stat_var_spec_map = {}
 
-  title = attr['title'] if attr['title'] else "Compare with Other Variables"
+  title = attr['title'] if attr['title'] else "Comparison with Other Variables"
+  title = _with_place(title, place)
 
   # Line chart for the stat var
   tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[])
@@ -240,7 +243,7 @@ def _single_place_multiple_var_timeline_block(column, svs, sv2name, attr):
   # Line chart for the stat var per capita
   svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
-    tile = Tile(type=Tile.TileType.LINE, title=title + " - Per Capita")
+    tile = Tile(type=Tile.TileType.LINE, title=_with_pc(title))
     for sv in svs_pc:
       sv_key = sv + '_pc'
       tile.stat_var_key.append(sv_key)
@@ -264,10 +267,13 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
     title = attr['title']
   elif len(svs) > 1:
     # This suggests we are comparing against SV peers from SV extension
-    title = 'Compare with Other Variables'
+    title = 'Comparison with Other Variables'
   else:
     # This is the case of multiple places for a single SV
-    title = 'Total'
+    title = sv2name[svs[0]]
+
+  if len(places) == 1:
+    title = _with_place(title, places[0])
 
   # Total
   tile = Tile(type=Tile.TileType.BAR,
@@ -282,7 +288,7 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
   # Per Capita
   svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
-    pc_title = title + ' - Per Capita' if title != 'Total' else 'Per Capita'
+    pc_title = _with_pc(title)
     tile = Tile(type=Tile.TileType.BAR,
                 title=pc_title,
                 comparison_places=[x.dcid for x in places])
@@ -299,31 +305,31 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
   return stat_var_spec_map
 
 
-def _map_chart_block(column, pri_sv: str, sv2name, attr):
-  svs_map = _map_chart_block_nopc(column, pri_sv, sv2name)
+def _map_chart_block(column, place: Place, pri_sv: str, sv2name, attr):
+  svs_map = _map_chart_block_nopc(column, place, pri_sv, sv2name)
   if attr['include_percapita'] and _should_add_percapita(pri_sv):
-    svs_map.update(_map_chart_block_pc(column, pri_sv, sv2name))
+    svs_map.update(_map_chart_block_pc(column, place, pri_sv, sv2name))
   return svs_map
 
 
-def _map_chart_block_nopc(column, pri_sv: str, sv2name):
+def _map_chart_block_nopc(column, place: Place, pri_sv: str, sv2name):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
   tile.type = Tile.TileType.MAP
-  tile.title = sv2name[pri_sv]
+  tile.title = _with_place(sv2name[pri_sv], place)
 
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
   return stat_var_spec_map
 
 
-def _map_chart_block_pc(column, pri_sv: str, sv2name):
+def _map_chart_block_pc(column, place: Place, pri_sv: str, sv2name):
   tile = column.tiles.add()
   sv_key = pri_sv + "_pc"
   tile.stat_var_key.append(sv_key)
   tile.type = Tile.TileType.MAP
-  tile.title = sv2name[pri_sv] + " - Per Capita"
+  tile.title = _with_pc(_with_place(sv2name[pri_sv], place))
 
   stat_var_spec_map = {}
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
@@ -377,13 +383,14 @@ def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str, sv2name,
   tile.stat_var_key.append(pri_sv)
   tile.type = Tile.TileType.RANKING
   _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
-  tile.title = ''.join([sv2name[pri_sv], ' in ', pri_place.name])
+  tile.title = _with_place(sv2name[pri_sv], pri_place)
 
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
 
   # Also add a map chart.
-  stat_var_spec_map.update(_map_chart_block_nopc(column, pri_sv, sv2name))
+  stat_var_spec_map.update(
+      _map_chart_block_nopc(column, pri_place, pri_sv, sv2name))
 
   return stat_var_spec_map
 
@@ -396,7 +403,7 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str, sv2name,
   tile.stat_var_key.append(sv_key)
   tile.type = Tile.TileType.RANKING
   _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
-  tile.title = ''.join(['Per Capita ', sv2name[pri_sv], ' in ', pri_place.name])
+  tile.title = _with_pc(_with_place(sv2name[pri_sv], pri_place))
 
   stat_var_spec_map = {}
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
@@ -406,7 +413,8 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str, sv2name,
                                           unit="%")
 
   # Also add a map chart.
-  stat_var_spec_map.update(_map_chart_block_pc(column, pri_sv, sv2name))
+  stat_var_spec_map.update(
+      _map_chart_block_pc(column, pri_place, pri_sv, sv2name))
 
   return stat_var_spec_map
 
@@ -444,7 +452,7 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
   tile = column.tiles.add()
   tile.stat_var_key.extend(sv_key_pair)
   tile.type = Tile.TileType.SCATTER
-  tile.title = f"{sv_names[0]} vs. {sv_names[1]}"
+  tile.title = _with_place(f"{sv_names[0]} vs. {sv_names[1]}", pri_place)
   tile.scatter_tile_spec.highlight_top_right = True
 
   return stat_var_spec_map
@@ -486,7 +494,7 @@ def _event_chart_block(metadata, block, column, place: Place,
   event_name = metadata.event_type_spec[event_id].name
   if event_type in constants.EVENT_TYPE_TO_DISPLAY_NAME:
     event_name = constants.EVENT_TYPE_TO_DISPLAY_NAME[event_type]
-  block.title = event_name + ' in ' + place.name
+  block.title = _with_place(event_name, place)
   block.type = Block.DISASTER_EVENT
 
   if (RankingType.HIGH in attr['ranking_types'] or
@@ -539,6 +547,18 @@ def _prefix_related(title: str, attr: Dict) -> str:
   if title and attr.get('class', None) == ChartOriginType.SECONDARY_CHART:
     return 'Related: ' + title
   return title
+
+
+def _with_place(title: str, place: Place) -> str:
+  if title:
+    return title + ' in ' + place.name
+  return place.name
+
+
+def _with_pc(title: str) -> str:
+  if title:
+    return 'Per Capita ' + title
+  return 'Per Capita'
 
 
 #
