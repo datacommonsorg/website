@@ -78,7 +78,8 @@ export function D3Map(props: D3MapProps): JSX.Element {
   const { placeInfo, statVar, display } = useContext(Context);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const chartContainerRef = useRef<HTMLDivElement>();
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
 
   const draw = useCallback(() => {
     if (
@@ -150,7 +151,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
     );
     document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawD3Map(
-      MAP_CONTAINER_ID,
+      mapContainerRef.current,
       props.geoJsonData,
       height,
       width - legendWidth,
@@ -187,7 +188,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
         return point.placeDcid in props.mapPointValues;
       });
       addMapPoints(
-        MAP_CONTAINER_ID,
+        mapContainerRef.current,
         filteredMapPoints,
         props.mapPointValues,
         projection,
@@ -249,7 +250,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
     return (
       <div className="map-section-container">
         <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
-          <div id={MAP_CONTAINER_ID}></div>
+          <div id={MAP_CONTAINER_ID} ref={mapContainerRef}></div>
           <div id={LEGEND_CONTAINER_ID}></div>
         </div>
         <div className="zoom-button-section">

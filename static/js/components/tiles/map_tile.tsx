@@ -84,7 +84,7 @@ interface MapChartData {
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
-  const svgContainer = useRef(null);
+  const svgContainer = useRef<HTMLDivElement>(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
@@ -276,7 +276,7 @@ function processData(
 function draw(
   chartData: MapChartData,
   props: MapTilePropType,
-  svgContainer: React.RefObject<HTMLElement>
+  svgContainer: React.RefObject<HTMLDivElement>
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
   const width = svgContainer.current.offsetWidth;
@@ -322,7 +322,7 @@ function draw(
     height
   );
   drawD3Map(
-    props.id,
+    svgContainer.current,
     chartData.geoJson,
     height,
     width,

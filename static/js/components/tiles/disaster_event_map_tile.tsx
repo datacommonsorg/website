@@ -114,7 +114,7 @@ export function DisasterEventMapTile(
     }
   }, [placeInfo, geoJsonData, props.disasterEventData]);
 
-  if (geoJsonData == null) {
+  if (geoJsonData == null || !placeInfo) {
     return null;
   }
 
@@ -227,7 +227,6 @@ export function DisasterEventMapTile(
       zoomInButtonId: ZOOM_IN_BUTTON_ID,
       zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
     };
-    document.getElementById(props.id).innerHTML = "";
     const isUsaPlace = isChildPlaceOf(
       placeInfo.selectedPlace.dcid,
       USA_PLACE_DCID,
@@ -240,7 +239,7 @@ export function DisasterEventMapTile(
       height
     );
     drawD3Map(
-      props.id,
+      svgContainerRef.current,
       geoJsonData,
       height,
       width,
@@ -264,7 +263,7 @@ export function DisasterEventMapTile(
     );
     for (const mapPointsData of Object.values(allMapPointsData)) {
       const pointsLayer = addMapPoints(
-        props.id,
+        svgContainerRef.current,
         mapPointsData.points,
         mapPointsData.values,
         projection,
