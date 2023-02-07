@@ -21,7 +21,11 @@
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { HIDE_TILE_CLASS } from "../../constants/subject_page_constants";
+import {
+  COLUMN_ID_PREFIX,
+  HIDE_TILE_CLASS,
+  TILE_ID_PREFIX,
+} from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
@@ -42,6 +46,7 @@ import {
 import {
   getColumnTileClassName,
   getColumnWidth,
+  getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
 import { DisasterEventMapFilters } from "../tiles/disaster_event_map_filters";
@@ -135,7 +140,7 @@ export function DisasterEventBlock(
         <div className="block-column-container row">
           {props.columns &&
             props.columns.map((column, idx) => {
-              const id = `${props.id}col${idx}`;
+              const id = getId(props.id, COLUMN_ID_PREFIX, idx);
               const columnTileClassName = getColumnTileClassName(column);
               return (
                 <Column
@@ -146,6 +151,7 @@ export function DisasterEventBlock(
                   tiles={renderTiles(
                     column.tiles,
                     props,
+                    id,
                     minIdxToHide,
                     disasterEventData,
                     columnTileClassName
@@ -238,6 +244,7 @@ function getBlockEventTypeSpecs(
 function renderTiles(
   tiles: TileConfig[],
   props: DisasterEventBlockPropType,
+  columnId: string,
   minIdxToHide: number,
   disasterEventData: Record<string, DisasterEventPointData>,
   tileClassName?: string
@@ -246,7 +253,7 @@ function renderTiles(
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
-    const id = `${props.id}tile${i}`;
+    const id = getId(columnId, TILE_ID_PREFIX, -1);
     const enclosedPlaceType = props.enclosedPlaceType;
     const classNameList = [];
     if (tileClassName) {

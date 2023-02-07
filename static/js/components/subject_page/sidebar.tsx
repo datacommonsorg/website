@@ -21,11 +21,16 @@
 import _ from "lodash";
 import React from "react";
 
+import {
+  BLOCK_ID_PREFIX,
+  CATEGORY_ID_PREFIX,
+} from "../../constants/subject_page_constants";
 import { randDomId } from "../../shared/util";
 import { CategoryConfig } from "../../types/subject_page_proto_types";
-import { getRelLink } from "../../utils/subject_page_utils";
+import { getId } from "../../utils/subject_page_utils";
 
 interface SubjectPageSidebarPropType {
+  id: string;
   /**
    * Categories from the page config.
    */
@@ -39,13 +44,15 @@ export function SubjectPageSidebar(
     <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {!_.isEmpty(props.categories) &&
-          props.categories.map((category) => {
+          props.categories.map((category, idx) => {
+            const categoryId = getId(props.id, CATEGORY_ID_PREFIX, idx);
             // Add the category
-            const elements = [renderItem(category.title, true)];
+            const elements = [renderItem(category.title, true, categoryId)];
             // Add all child blocks
-            category.blocks.forEach((block) => {
+            category.blocks.forEach((block, idx) => {
+              const blockId = getId(categoryId, BLOCK_ID_PREFIX, idx);
               if (block.title) {
-                elements.push(renderItem(block.title, false));
+                elements.push(renderItem(block.title, false, blockId));
               }
             });
             return elements;
@@ -55,7 +62,11 @@ export function SubjectPageSidebar(
   );
 }
 
-function renderItem(title: string, isCategory: boolean): JSX.Element {
+function renderItem(
+  title: string,
+  isCategory: boolean,
+  redirectItemId: string
+): JSX.Element {
   if (!title) {
     return null;
   }
@@ -64,7 +75,7 @@ function renderItem(title: string, isCategory: boolean): JSX.Element {
       key={randDomId()}
       className={`nav-item ${isCategory ? "category" : ""}`}
     >
-      <a href={`#${getRelLink(title)}`}>{title}</a>
+      <a href={`#${redirectItemId}`}>{title}</a>
     </li>
   );
 }
