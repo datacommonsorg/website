@@ -22,3 +22,8 @@
 export const DEFAULT_PAGE_PLACE_TYPE = "Place";
 // Class name for hidden tiles.
 export const HIDE_TILE_CLASS = "tile-hidden";
+// Id prefixes for each type of subject page component
+export const CATEGORY_ID_PREFIX = "cat";
+export const BLOCK_ID_PREFIX = "blk";
+export const COLUMN_ID_PREFIX = "col";
+export const TILE_ID_PREFIX = "tile";

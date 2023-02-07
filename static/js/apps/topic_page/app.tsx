@@ -47,12 +47,17 @@ interface AppPropType {
   topicsSummary: TopicsSummary;
 }
 
+const PAGE_ID = "topic";
+
 export function App(props: AppPropType): JSX.Element {
   return (
     <>
       <div className="row">
         <div className="col-md-3x col-lg-2 order-last order-lg-0">
-          <SubjectPageSidebar categories={props.pageConfig.categories} />
+          <SubjectPageSidebar
+            id={PAGE_ID}
+            categories={props.pageConfig.categories}
+          />
         </div>
         <div className="row col-md-9x col-lg-10">
           <PageSelector
@@ -61,6 +66,7 @@ export function App(props: AppPropType): JSX.Element {
             topicsSummary={props.topicsSummary}
           />
           <SubjectPageMainPane
+            id={PAGE_ID}
             place={props.place}
             pageConfig={props.pageConfig}
           />
