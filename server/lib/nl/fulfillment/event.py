@@ -14,11 +14,11 @@
 
 from typing import List
 
-from lib.nl import detection
-from lib.nl import utils
-import lib.nl.fulfillment.base as base
-import lib.nl.fulfillment.context as ctx
-import lib.nl.utterance as nl_uttr
+from server.lib.nl import detection
+from server.lib.nl import utils
+import server.lib.nl.fulfillment.base as base
+import server.lib.nl.fulfillment.context as ctx
+import server.lib.nl.utterance as nl_uttr
 
 #
 # Handler for Event queries.

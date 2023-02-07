@@ -17,7 +17,6 @@ import json
 import logging
 import urllib.parse
 
-from cache import cache
 from flask import Blueprint
 from flask import current_app
 from flask import g
@@ -25,11 +24,13 @@ from flask import request
 from flask import Response
 from flask import url_for
 from flask_babel import gettext
-import lib.i18n as i18n
-from routes.api.shared import names
-import routes.api.shared as shared_api
-from services.datacommons import fetch_data
-import services.datacommons as dc
+
+from server.cache import cache
+import server.lib.i18n as i18n
+from server.routes.api.shared import names
+import server.routes.api.shared as shared_api
+from server.services.datacommons import fetch_data
+import server.services.datacommons as dc
 
 CHILD_PLACE_LIMIT = 50
 

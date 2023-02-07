@@ -20,7 +20,8 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 from flask import Response
-import services.datacommons as dc
+
+import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')

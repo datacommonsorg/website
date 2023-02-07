@@ -16,20 +16,19 @@
 import logging
 from typing import List
 
-from lib.nl import utils
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import Detection
-from lib.nl.fulfillment import comparison
-from lib.nl.fulfillment import containedin
-from lib.nl.fulfillment import context
-from lib.nl.fulfillment import correlation
-from lib.nl.fulfillment import event
-from lib.nl.fulfillment import overview
-from lib.nl.fulfillment import ranking_across_places
-from lib.nl.fulfillment import ranking_across_vars
-from lib.nl.fulfillment import simple
-from lib.nl.fulfillment import time_delta
-from lib.nl.utterance import Utterance
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import Detection
+from server.lib.nl.fulfillment import comparison
+from server.lib.nl.fulfillment import containedin
+from server.lib.nl.fulfillment import context
+from server.lib.nl.fulfillment import correlation
+from server.lib.nl.fulfillment import event
+from server.lib.nl.fulfillment import overview
+from server.lib.nl.fulfillment import ranking_across_places
+from server.lib.nl.fulfillment import ranking_across_vars
+from server.lib.nl.fulfillment import simple
+from server.lib.nl.fulfillment import time_delta
+from server.lib.nl.utterance import Utterance
 
 # We will ignore SV detections that are below this threshold
 _SV_THRESHOLD = 0.5

@@ -22,19 +22,19 @@ from enum import IntEnum
 import logging
 from typing import Dict, List
 
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import ContainedInClassificationAttributes
-from lib.nl.detection import ContainedInPlaceType
-from lib.nl.detection import Detection
-from lib.nl.detection import EventClassificationAttributes
-from lib.nl.detection import EventType
-from lib.nl.detection import NLClassifier
-from lib.nl.detection import Place
-from lib.nl.detection import RankingClassificationAttributes
-from lib.nl.detection import RankingType
-from lib.nl.detection import SimpleClassificationAttributes
-from lib.nl.detection import TimeDeltaClassificationAttributes
-from lib.nl.detection import TimeDeltaType
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import ContainedInClassificationAttributes
+from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import Detection
+from server.lib.nl.detection import EventClassificationAttributes
+from server.lib.nl.detection import EventType
+from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import Place
+from server.lib.nl.detection import RankingClassificationAttributes
+from server.lib.nl.detection import RankingType
+from server.lib.nl.detection import SimpleClassificationAttributes
+from server.lib.nl.detection import TimeDeltaClassificationAttributes
+from server.lib.nl.detection import TimeDeltaType
 
 # How far back does the context go back.
 CTX_LOOKBACK_LIMIT = 8

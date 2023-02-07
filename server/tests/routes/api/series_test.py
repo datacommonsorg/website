@@ -15,8 +15,8 @@ import json
 import unittest
 from unittest import mock
 
-from main import app
-import tests.routes.api.mock_data as mock_data
+import server.tests.routes.api.mock_data as mock_data
+from web_app import app
 
 
 class TestApiSeriesWithin(unittest.TestCase):
@@ -44,7 +44,7 @@ class TestApiSeriesWithin(unittest.TestCase):
                                         })
     assert no_stat_var.status_code == 400
 
-  @mock.patch('services.datacommons.post')
+  @mock.patch('server.services.datacommons.post')
   def test_api_observations_series_within_all(self, post):
     result = {
         'data': {

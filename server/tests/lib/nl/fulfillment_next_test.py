@@ -17,33 +17,33 @@ from typing import Dict, List
 import unittest
 from unittest.mock import patch
 
-from lib.nl import fulfillment_next
-from lib.nl import utils
-from lib.nl import utterance
-from lib.nl import variable
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import ContainedInPlaceType
-from lib.nl.detection import Detection
-from lib.nl.detection import NLClassifier
-from lib.nl.detection import Place
-from lib.nl.detection import PlaceDetection
-from lib.nl.detection import RankingType
-from lib.nl.detection import SVDetection
-import lib.nl.detection as nl_detection
-from lib.nl.fulfillment import base
-from tests.lib.nl.test_utterance import COMPARISON_UTTR
-from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
-from tests.lib.nl.test_utterance import CORRELATION_UTTR
-from tests.lib.nl.test_utterance import EVENT_UTTR
-from tests.lib.nl.test_utterance import OVERVIEW_PLACE_ONLY_UTTR
-from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
-from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_BAR_DOWNGRADE_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
-from tests.lib.nl.test_utterance import TIME_DELTA_UTTR
+from server.lib.nl import fulfillment_next
+from server.lib.nl import utils
+from server.lib.nl import utterance
+from server.lib.nl import variable
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import Detection
+from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import Place
+from server.lib.nl.detection import PlaceDetection
+from server.lib.nl.detection import RankingType
+from server.lib.nl.detection import SVDetection
+import server.lib.nl.detection as nl_detection
+from server.lib.nl.fulfillment import base
+from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
+from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
+from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
+from server.tests.lib.nl.test_utterance import EVENT_UTTR
+from server.tests.lib.nl.test_utterance import OVERVIEW_PLACE_ONLY_UTTR
+from server.tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
+from server.tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_BAR_DOWNGRADE_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
+from server.tests.lib.nl.test_utterance import TIME_DELTA_UTTR
 
 
 #

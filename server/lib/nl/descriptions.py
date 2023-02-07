@@ -20,15 +20,15 @@ import logging
 import random
 from typing import List
 
-from lib.nl import detection
-from lib.nl import topic
-from lib.nl import utils
-from lib.nl.constants import EVENT_TYPE_TO_DISPLAY_NAME
-from lib.nl.detection import ContainedInClassificationAttributes
-from lib.nl.detection import EventClassificationAttributes
-import lib.nl.fulfillment.context as ctx
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import Utterance
+from server.lib.nl import detection
+from server.lib.nl import topic
+from server.lib.nl import utils
+from server.lib.nl.constants import EVENT_TYPE_TO_DISPLAY_NAME
+from server.lib.nl.detection import ContainedInClassificationAttributes
+from server.lib.nl.detection import EventClassificationAttributes
+import server.lib.nl.fulfillment.context as ctx
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import Utterance
 
 INFO_SYNONYMS = ["an overview of", "some information about", "some data about"]
 

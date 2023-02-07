@@ -16,7 +16,8 @@
 import json
 
 import flask
-import services.datacommons as dc
+
+import server.services.datacommons as dc
 
 bp = flask.Blueprint('api.node', __name__, url_prefix='/api/node')
 

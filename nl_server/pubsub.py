@@ -14,10 +14,11 @@
 
 import json
 
-import gcs
 from google.cloud import pubsub_v1
 from google.cloud import storage
-import loader
+
+from nl_server import gcs
+from nl_server import loader
 
 AUTOPUSH_FOLDER = 'autopush/'
 TOPIC_NAME = 'projects/datcom-204919/topics/nl-models-update'

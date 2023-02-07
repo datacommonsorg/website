@@ -15,7 +15,7 @@
 
 import re
 
-import services.datacommons as dc
+import server.services.datacommons as dc
 
 
 def names(dcids):

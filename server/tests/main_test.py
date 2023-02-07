@@ -14,7 +14,7 @@
 
 import unittest
 
-from main import app
+from web_app import app
 
 
 class TestRoute(unittest.TestCase):

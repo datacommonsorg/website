@@ -22,12 +22,13 @@ import sys
 import threading
 import time
 
-from __init__ import create_app
 import flask
 from flask import request
 import requests
-import services.datacommons as dc
-from services.discovery import configure_endpoints_from_ingress
+
+from server.__init__ import create_app
+from server.services import datacommons as dc
+from server.services.discovery import configure_endpoints_from_ingress
 
 logging.basicConfig(
     level=logging.INFO,
@@ -105,7 +106,8 @@ def version():
                                bigquery=mixer_version['bigquery'])
 
 
-if not (app.config["TEST"] or app.config["WEBDRIVER"] or app.config["LOCAL"]):
+if not (app.config["TEST"] or app.config["WEBDRIVER"] or
+        app.config['INTEGRATION'] or app.config["LOCAL"]):
   thread = threading.Thread(target=send_warmup_requests)
   thread.start()
 

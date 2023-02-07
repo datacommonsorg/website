@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from cache import cache
 from flask import Blueprint
 from flask import request
-from lib import util
-import services.datacommons as dc
+
+from server.cache import cache
+from server.lib import util
+import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
@@ -27,12 +28,12 @@ bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 #                instead of cutting it off.
 def get_binned_series(entities, variables, year):
   """Get observation series for entities and variables, for a given year.
-  
+
   Bins observations from a series for plotting in the histogram tile.
   Currently, binning is done by only returning observations for a given year.
   This is done by assuming the dates of the series are in 'YYYY-MM' format,
   filtering for observations from the given year, and then imputing 0 for
-  any months missing, up to the end of the series. 
+  any months missing, up to the end of the series.
 
   Note: This assumes the dates of the series are in 'YYYY-MM' format.
 
@@ -40,9 +41,9 @@ def get_binned_series(entities, variables, year):
     entities (list): DCIDs of entities to query
     variables (list): DCIDs of variables to query
     year (str): year in "YYYY" format to get observations for
-  
+
   Returns:
-    JSON response from server, with series containing only observations from 
+    JSON response from server, with series containing only observations from
     the specified year.
   """
   # Get raw series from mixer
@@ -144,15 +145,15 @@ def series_within_all():
 @bp.route('/binned/<path:year>')
 def series_binned(year='2022'):
   """Get observations binned by time-period.
-  
+
   Used for pre-binning data for the histogram tile. Currently only "bins" data
   by returning only observations from a specific year.
 
   Args:
     year: the year to get observations for
-  
+
   Returns:
-    JSON response from server, with series containing only observations from 
+    JSON response from server, with series containing only observations from
     the specified year.
   """
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))

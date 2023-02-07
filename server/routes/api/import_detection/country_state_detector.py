@@ -15,12 +15,12 @@
 
 from typing import Dict, List, Optional, Set
 
-from routes.api.import_detection.detection_types import DCProperty
-from routes.api.import_detection.detection_types import DCType
-from routes.api.import_detection.detection_types import TypeProperty
-from routes.api.import_detection.place_detector_abstract import \
+from server.routes.api.import_detection.detection_types import DCProperty
+from server.routes.api.import_detection.detection_types import DCType
+from server.routes.api.import_detection.detection_types import TypeProperty
+from server.routes.api.import_detection.place_detector_abstract import \
     PlaceDetectorInterface
-import routes.api.import_detection.utils as utils
+import server.routes.api.import_detection.utils as utils
 
 
 class CountryStateDetector(PlaceDetectorInterface):
