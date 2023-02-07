@@ -14,12 +14,14 @@
 """Module for NL page data spec"""
 
 from dataclasses import dataclass
-from typing import Dict, List
 import logging
-import pandas as pd
+from typing import Dict, List
 
-from lib.nl.detection import ClassificationType, Detection
-from lib.nl import variable, topic
+from lib.nl import topic
+from lib.nl import variable
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import Detection
+import pandas as pd
 import services.datacommons as dc
 
 

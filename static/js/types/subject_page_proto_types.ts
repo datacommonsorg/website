@@ -23,9 +23,16 @@ import { StatVarSpec } from "../shared/types";
 
 export interface SeverityFilter {
   prop: string;
+  displayName?: string;
   unit: string;
   upperLimit: number;
   lowerLimit: number;
+}
+
+export interface EventDisplayProp {
+  prop: string;
+  displayName: string;
+  unit?: string;
 }
 
 export interface EventTypeSpec {
@@ -34,6 +41,8 @@ export interface EventTypeSpec {
   eventTypeDcids: string[];
   color: string;
   defaultSeverityFilter: SeverityFilter;
+  displayProp: EventDisplayProp[];
+  endDateProp: string[];
 }
 
 export interface PageMetadataConfig {
@@ -67,6 +76,16 @@ export interface DisasterEventMapTileSpec {
 export interface TopEventTileSpec {
   eventTypeKey: string;
   displayProp: string[];
+  showStartDate: boolean;
+  showEndDate: boolean;
+  reverseSort: boolean;
+}
+
+export interface ScatterTileSpec {
+  highlightTopRight?: boolean;
+  highlightTopLeft?: boolean;
+  highlightBottomRight?: boolean;
+  highlightBottomLeft?: boolean;
 }
 
 export interface TileConfig {
@@ -78,6 +97,7 @@ export interface TileConfig {
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;
+  scatterTileSpec?: ScatterTileSpec;
 }
 
 export interface ColumnConfig {
@@ -87,6 +107,7 @@ export interface ColumnConfig {
 export interface BlockConfig {
   title?: string;
   description: string;
+  footnote?: string;
   columns: ColumnConfig[];
   type?: string;
 }

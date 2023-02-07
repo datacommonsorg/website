@@ -23,8 +23,13 @@ export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export FLASK_ENV=local
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
-python3 -m pip install --upgrade pip
-pip3 install -r nl_server/requirements.txt -q
 cd nl_server/
+python3 -m pip install --upgrade pip
+
+# Custom packages installation for nl_server.
+echo "nl_server custom requirements installation: starting."
+./requirements_install.sh
+echo "nl_server custom requirements installation: done."
+
 python3 main.py $PORT
 cd ..

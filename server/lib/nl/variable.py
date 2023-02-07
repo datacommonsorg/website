@@ -14,7 +14,8 @@
 """Module for NL page variable"""
 
 from abc import ABC
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from dataclasses import field
 from typing import Dict, List
 
 import services.datacommons as dc
@@ -119,7 +120,7 @@ def extend_svs(svs: Dict[str, List[str]]):
   svg2childsvs = {}
   svginfo = dc.get_variable_group_info(list(sv2svg.values()), [])
   for item in svginfo['data']:
-    svg2childsvs[item['node']] = item['info']['childStatVars']
+    svg2childsvs[item['node']] = item['info'].get('childStatVars', [])
 
   res = {}
   for sv, svg in sv2svg.items():
@@ -128,19 +129,27 @@ def extend_svs(svs: Dict[str, List[str]]):
     sv_obj = None
     for child_sv in svg2childsvs[svg]:
       if child_sv['id'] == sv:
-        sv_obj = parse_sv(child_sv['definition'])
+        if 'definition' in child_sv:
+          sv_obj = parse_sv(child_sv['definition'])
         break
     if not sv_obj:
       continue
     if len(svg_obj.pvs) == len(sv_obj.pvs):
       # There are no direct siblings of this sv in the current svg.
       # need to look for in-direct siblings
-      svg_parent = dc.property_values([svg], "specializationOf", True)[svg][0]
+      svg_parents = dc.property_values([svg], "specializationOf", True)[svg]
+      if not svg_parents:
+        continue
+      svg_parent = svg_parents[0]
       svg_siblings = dc.property_values([svg_parent], "specializationOf",
                                         False)[svg_parent]
+      if not svg_siblings:
+        continue
       svg_siblings_info = dc.get_variable_group_info(svg_siblings, [])
       for item in svg_siblings_info['data']:
         for sv_info in item['info'].get('childStatVars', []):
+          if 'definition' not in sv_info:
+            continue
           curr_sv_obj = parse_sv(sv_info['definition'])
           if curr_sv_obj.mp != sv_obj.mp:
             continue

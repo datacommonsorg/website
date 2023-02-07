@@ -20,13 +20,74 @@
 
 import React, { useEffect, useState } from "react";
 
+import { getUrlToken } from "../../tools/stat_var/util";
 import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 
+const CHARACTER_INPUT_INTERVAL = 50;
+const PROMPT_SEARCH_DELAY = 1000;
+const NEXT_PROMPT_DELAY = 5000;
+
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
+
+  // Updates the query search input box value.
+  function updateSearchInput(input: string) {
+    (document.getElementById("query-search-input") as HTMLInputElement).value =
+      input;
+  }
+
+  // Searches for the query in the query search box.
+  function executeSearch(): void {
+    (
+      document.getElementById("rich-search-button") as HTMLButtonElement
+    ).click();
+  }
+
+  useEffect(() => {
+    // Runs each prompt (';' separated) 10s apart.
+    // TODO: Do this by going through state/props instead of directly
+    // manipulating the DOM.
+    const urlPrompts = getUrlToken("q");
+    if (urlPrompts) {
+      const prompts = urlPrompts.split(";");
+      if (prompts.length) {
+        let prompt = prompts.shift();
+        let inputLength = 1;
+        let pauseQueryInput = false;
+        const inputTimer = setInterval(() => {
+          if (!prompt) {
+            clearInterval(inputTimer);
+            return;
+          }
+          if (pauseQueryInput) {
+            return;
+          }
+          if (inputLength <= prompt.length) {
+            updateSearchInput(prompt.substring(0, inputLength));
+          }
+          if (inputLength === prompt.length) {
+            pauseQueryInput = true;
+            setTimeout(() => {
+              // Search for the current input after PROMPT_SEARCH_DELAY ms.
+              executeSearch();
+              setTimeout(() => {
+                // Start typing the input for the next prompt after
+                // NEXT_PROMPT_DELAY ms.
+                pauseQueryInput = false;
+                prompt = prompts.shift();
+                inputLength = 1;
+              }, NEXT_PROMPT_DELAY);
+            }, PROMPT_SEARCH_DELAY);
+          }
+          inputLength++;
+        }, CHARACTER_INPUT_INTERVAL);
+        return () => clearInterval(inputTimer);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     // Scroll to the last query.

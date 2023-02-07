@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 import json
+import unittest
 from unittest.mock import patch
 
 from main import app
-import routes.api.shared as shared_api
 import routes.api.choropleth as choropleth_api
+import routes.api.shared as shared_api
 
 
 class TestChoroplethPlaces(unittest.TestCase):
@@ -304,8 +304,8 @@ class TestChoroplethDataHelpers(unittest.TestCase):
 class TestChoroplethData(unittest.TestCase):
 
   @patch('routes.api.choropleth.dc.get_places_in')
-  @patch('routes.api.choropleth.point_api.point_within_core')
-  @patch('routes.api.choropleth.series_api.series_core')
+  @patch('routes.api.choropleth.lib_util.point_within_core')
+  @patch('routes.api.choropleth.lib_util.series_core')
   @patch('routes.api.choropleth.get_choropleth_display_level')
   @patch('routes.api.choropleth.get_choropleth_configs')
   @patch('routes.api.shared.get_stat_vars')

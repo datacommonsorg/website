@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Blueprint, request
 from cache import cache
+from flask import Blueprint
+from flask import request
+from lib import util
 import services.datacommons as dc
-import logging
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
@@ -94,8 +95,8 @@ def get_binned_series(entities, variables, year):
       }
     }
   """
-  # Get raw api response from mixer
-  data = series_core(entities, variables, False)
+  # Get raw series from mixer
+  data = util.series_core(entities, variables, False)
 
   for stat_var in variables:
     for location in data['data'][stat_var].keys():
@@ -148,7 +149,7 @@ def series():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return series_core(entities, variables, False)
+  return util.series_core(entities, variables, False)
 
 
 @bp.route('/all')
@@ -161,7 +162,7 @@ def series_all():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return series_core(entities, variables, True)
+  return util.series_core(entities, variables, True)
 
 
 @bp.route('/within')
@@ -181,7 +182,7 @@ def series_within():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return series_within_core(parent_entity, child_type, variables, False)
+  return util.series_within_core(parent_entity, child_type, variables, False)
 
 
 @bp.route('/within/all')
@@ -201,7 +202,7 @@ def series_within_all():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return series_within_core(parent_entity, child_type, variables, True)
+  return util.series_within_core(parent_entity, child_type, variables, True)
 
 
 # TODO(juliawu): Event Maps are using currentdate - 1 year for the last year

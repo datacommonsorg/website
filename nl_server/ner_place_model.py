@@ -14,13 +14,14 @@
 """Managing the NER model for place detection."""
 
 from typing import List
-import en_core_web_md
+
+import en_core_web_lg
 
 
 class NERPlaces:
 
   def __init__(self) -> None:
-    self.ner_model = en_core_web_md.load()
+    self.ner_model = en_core_web_lg.load()
 
   def detect_places_ner(self, query: str) -> List[str]:
     """Use the NER model to detect places in `query`.

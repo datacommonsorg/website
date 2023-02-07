@@ -16,7 +16,7 @@
 
 import React from "react";
 
-import { Map } from "./map";
+import { GoogleMap } from "../components/google_map";
 import { Ranking } from "./ranking";
 
 interface OverviewPropType {
@@ -36,7 +36,7 @@ class Overview extends React.Component<OverviewPropType> {
       <section className="factoid col-12">
         <div className="row">
           <div className="col-12 col-md-4">
-            <Map dcid={this.props.dcid}></Map>
+            <GoogleMap dcid={this.props.dcid}></GoogleMap>
           </div>
           <div className="col-12 col-md-8">
             <Ranking

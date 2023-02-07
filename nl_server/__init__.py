@@ -14,14 +14,11 @@
 
 import logging
 import os
-import threading
-import yaml
 
 from flask import Flask
-
-import pubsub
-import routes
 import loader
+import routes
+import yaml
 
 
 def create_app():
@@ -43,10 +40,5 @@ def create_app():
       logging.error("No configuration found for model")
       return
     loader.load_model(app, model['embeddings_file'])
-
-  # Auto update the model
-  if flask_env == 'local' or flask_env == 'autopush':
-    thread = threading.Thread(target=pubsub.subscribe, args=(app,))
-    thread.start()
 
   return app

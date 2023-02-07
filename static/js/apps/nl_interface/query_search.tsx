@@ -67,6 +67,7 @@ export function QuerySearch(props: QuerySearchPropType): JSX.Element {
               </div>
             )}
             <TextSearchBar
+              inputId="query-search-input"
               onSearch={(q) => {
                 setShowHistory(false);
                 props.onQuerySearched(q);

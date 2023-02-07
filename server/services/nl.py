@@ -13,27 +13,37 @@
 # limitations under the License.
 """NL Model manager client."""
 
-from lib.nl.place_detection import NLPlaceDetector
-from lib.nl.detection import NLClassifier, ClassificationType
-from lib.nl.detection import ClusteringClassificationAttributes, ComparisonClassificationAttributes
-from lib.nl.detection import ContainedInClassificationAttributes, ContainedInPlaceType
-from lib.nl.detection import CorrelationClassificationAttributes
-from lib.nl.detection import RankingClassificationAttributes, RankingType
-from lib.nl.detection import PeriodType, TemporalClassificationAttributes
-from lib.nl.training import NLQueryClassificationData, NLQueryClassificationModel
-from lib.nl.training import NLQueryClusteringDetectionModel
-from services import datacommons as dc
-
-import lib.nl.constants as constants
-import lib.nl.utils as utils
-
+from collections import OrderedDict
+import logging
+import re
 from typing import Dict, List, Union
 
+import lib.nl.constants as constants
+from lib.nl.detection import BinaryClassificationResultType
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ClusteringClassificationAttributes
+from lib.nl.detection import ComparisonClassificationAttributes
+from lib.nl.detection import ContainedInClassificationAttributes
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import CorrelationClassificationAttributes
+from lib.nl.detection import EventClassificationAttributes
+from lib.nl.detection import EventType
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import OverviewClassificationAttributes
+from lib.nl.detection import PeriodType
+from lib.nl.detection import RankingClassificationAttributes
+from lib.nl.detection import RankingType
+from lib.nl.detection import TemporalClassificationAttributes
+from lib.nl.detection import TimeDeltaClassificationAttributes
+from lib.nl.detection import TimeDeltaType
+from lib.nl.place_detection import NLPlaceDetector
+from lib.nl.training import NLQueryClassificationData
+from lib.nl.training import NLQueryClassificationModel
+from lib.nl.training import NLQueryClusteringDetectionModel
+import lib.nl.utils as utils
 import numpy as np
 import pandas as pd
-import logging
-from collections import OrderedDict
-import re
+from services import datacommons as dc
 
 ALL_STOP_WORDS = utils.combine_stop_words()
 
@@ -48,13 +58,17 @@ def pick_best(probs):
   return False
 
 
-def pick_option(class_model, q, categories):
+def pick_option(class_model, q,
+                categories) -> Union[BinaryClassificationResultType, None]:
   """Return the assigned label or Inconclusive."""
+  if not q:
+    return None
+
   probs = class_model.predict_proba([q])[0]
   if pick_best(probs):
     return categories[class_model.predict([q])[0]]
   else:
-    return "Inconclusive."
+    return None
 
 
 def _prefix_length(s1, s2):
@@ -104,7 +118,7 @@ class Model:
     for cat in categories:
       for s in input_sentences[cat]:
         sentences.append(s)
-        labels.append(str(cat))
+        labels.append(cat)
 
     embeddings = []
     for s in sentences:
@@ -137,10 +151,65 @@ class Model:
         logging.info(
             self.classification_models[key].classification_type.categories)
       except Exception as e:
-        logging.info(
+        # Log the exception and raise it.
+        logging.error(
             f'Classification Model {key} could not be trained. Error: {e}')
+        raise Exception(e)
 
-  # TODO (juliawu): Add unit-testing
+  # TODO (juliawu): This function shares a lot of structure with the ranking
+  #                 and time_delta classifiers. Need to refactor for DRYness.
+  def heuristic_event_classification(self, query) -> Union[NLClassifier, None]:
+    """Determine if query is a event type.
+
+    Determine if query is referring to fires, floods, droughts, storms, or other
+    event type nodes/SVs. Uses heuristics instead of ML-based classification.
+
+    Args:
+      query (str): the user's input
+
+    Returns:
+      NLClassifier with EventClassificationAttributes
+    """
+    # make query lowercase for string matching
+    query = query.lower()
+
+    # heuristics
+    subtype_map = {
+        "ExtremeCold": EventType.COLD,
+        "Cyclone": EventType.CYCLONE,
+        "Earthquake": EventType.EARTHQUAKE,
+        "Drought": EventType.DROUGHT,
+        "Fire": EventType.FIRE,
+        "Flood": EventType.FLOOD,
+        "ExtremeHeat": EventType.HEAT,
+        "WetBulb": EventType.WETBULB,
+    }
+    event_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["Event"]
+    event_subtypes = event_heuristics.keys()
+
+    event_types = []
+    all_trigger_words = []
+
+    for subtype in event_subtypes:
+      subtype_trigger_words = []
+
+      for keyword in event_heuristics[subtype]:
+        # look for keyword surrounded by spaces or start/end delimiters
+        regex = r"(^|\W)" + keyword + r"($|\W)"
+        subtype_trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+      if len(subtype_trigger_words) > 0:
+        event_types.append(subtype_map[subtype])
+      all_trigger_words += subtype_trigger_words
+
+    # If no matches, this query is not an event query
+    if len(all_trigger_words) == 0:
+      return None
+
+    attributes = EventClassificationAttributes(
+        event_types=event_types, event_trigger_words=all_trigger_words)
+    return NLClassifier(type=ClassificationType.EVENT, attributes=attributes)
+
   def heuristic_ranking_classification(self,
                                        query) -> Union[NLClassifier, None]:
     """Determine if query is a ranking type.
@@ -158,6 +227,7 @@ class Model:
         "Low": RankingType.LOW,
         "Best": RankingType.BEST,
         "Worst": RankingType.WORST,
+        "Extreme": RankingType.EXTREME,
     }
 
     # make query lowercase for string matching
@@ -186,32 +256,95 @@ class Model:
         ranking_type=ranking_types, ranking_trigger_words=all_trigger_words)
     return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
 
-  def comparison_classification(self, query) -> Union[NLClassifier, None]:
-    # make query lowercase for string matching
+  # TODO(juliawu): This code is similar to the ranking classifier. Extract out
+  #                helper functions to make more DRY.
+  def heuristic_time_delta_classification(
+      self, query: str) -> Union[NLClassifier, None]:
+    """Determine if query is a 'Time-Delta' type.
+
+    Uses heuristics instead of ML-based classification.
+
+    Args:
+      query (str): the user's input
+
+    Returns:
+      NLClassifier with TimeDeltaClassificationAttributes
+    """
+    subtype_map = {
+        "Increase": TimeDeltaType.INCREASE,
+        "Decrease": TimeDeltaType.DECREASE,
+    }
+    time_delta_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS[
+        "TimeDelta"]
+    time_delta_subtypes = time_delta_heuristics.keys()
     query = query.lower()
-    if "compare" in query:
-      attributes = ComparisonClassificationAttributes(
-          comparison_trigger_words=['compare'])
-      return NLClassifier(type=ClassificationType.COMPARISON,
-                          attributes=attributes)
+    subtypes_matched = []
+    trigger_words = []
+    for subtype in time_delta_subtypes:
+      type_trigger_words = []
 
-  def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
-    ranking_type = RankingType.NONE
-    if prediction == "Rankings-High":
-      ranking_type = RankingType.HIGH
-    elif prediction == "Rankings-Low":
-      RankingType.LOW
+      for keyword in time_delta_heuristics[subtype]:
+        # look for keyword surrounded by spaces or start/end delimiters
+        regex = r"(^|\W)" + keyword + r"($|\W)"
+        type_trigger_words += [w.group() for w in re.finditer(regex, query)]
 
-    if ranking_type == RankingType.NONE:
+      if len(type_trigger_words) > 0:
+        subtypes_matched.append(subtype_map[subtype])
+      trigger_words += type_trigger_words
+
+    # If no matches, this query is not a time-delta query
+    if len(trigger_words) == 0:
       return None
 
-    # TODO: need to detect trigger words.
-    attributes = RankingClassificationAttributes(ranking_type=ranking_type,
-                                                 ranking_trigger_words=[])
-    return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
+    attributes = TimeDeltaClassificationAttributes(
+        time_delta_types=subtypes_matched,
+        time_delta_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.TIME_DELTA,
+                        attributes=attributes)
+
+  def heuristic_comparison_classification(self,
+                                          query) -> Union[NLClassifier, None]:
+    # make query lowercase for string matching
+    query = query.lower()
+    comparison_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS[
+        "Comparison"]
+    trigger_words = []
+    for keyword in comparison_heuristics:
+      # look for keyword surrounded by spaces or start/end delimiters
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+    # If no matches, this query is not a comparison query
+    if not trigger_words:
+      return None
+
+    attributes = ComparisonClassificationAttributes(
+        comparison_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.COMPARISON,
+                        attributes=attributes)
+
+  def heuristic_overview_classification(self,
+                                        query) -> Union[NLClassifier, None]:
+    """Heuristic-based classifier for overview queries."""
+    # make query lowercase for string matching
+    query = query.lower()
+    overview_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["Overview"]
+    trigger_words = []
+    for keyword in overview_heuristics:
+      # look for keyword surrounded by spaces or start/end delimiters
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+    # If no matches, this query is not an overview query
+    if not trigger_words:
+      return None
+
+    attributes = OverviewClassificationAttributes(
+        overview_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.OVERVIEW, attributes=attributes)
 
   def _temporal_classification(self, prediction) -> Union[NLClassifier, None]:
-    if prediction != "Temporal":
+    if prediction == BinaryClassificationResultType.FAILURE:
       return None
 
     # TODO: need to detect the date and type.
@@ -221,7 +354,7 @@ class Model:
 
   def _containedin_classification(self, prediction,
                                   query: str) -> Union[NLClassifier, None]:
-    if prediction != "Contained In":
+    if prediction == BinaryClassificationResultType.FAILURE:
       return None
 
     contained_in_place_type = ContainedInPlaceType.PLACE
@@ -233,7 +366,7 @@ class Model:
         "district": ContainedInPlaceType.DISTRICT,
         "province": ContainedInPlaceType.PROVINCE,
         "town": ContainedInPlaceType.TOWN,
-        "zip": ContainedInPlaceType.ZIP
+        "zip": ContainedInPlaceType.ZIP,
     })
     query = query.lower()
     for place_type, place_enum in place_type_to_enum.items():
@@ -248,7 +381,11 @@ class Model:
 
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
-      return None
+      # Try to check if the special case of ACROSS can be found.
+      if "across" in query:
+        contained_in_place_type = ContainedInPlaceType.ACROSS
+      else:
+        return None
 
     # TODO: need to detect the type of place for this contained in.
     attributes = ContainedInClassificationAttributes(
@@ -416,8 +553,11 @@ class Model:
 
     # Making an API call to the NL models server for get the embedding for the query.
     query_encoded = dc.nl_embeddings_vector(query)
+    if not query_encoded:
+      return None
+
     # TODO: when the correlation classifier is ready, remove this following conditional.
-    if type_string in ["ranking", "temporal", "contained_in"]:
+    if type_string in ["temporal", "contained_in"]:
       classification_model: NLQueryClassificationModel = self.classification_models[
           type_string]
       logging.info(
@@ -429,9 +569,9 @@ class Model:
       prediction = pick_option(
           classification_model.classification_model, query_encoded,
           classification_model.classification_type.categories)
+      if prediction is None:
+        return None
 
-      if type_string == "ranking":
-        return self._ranking_classification(prediction)
       elif type_string == "temporal":
         return self._temporal_classification(prediction)
       elif type_string == "contained_in":

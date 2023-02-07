@@ -14,17 +14,84 @@
 """Utility functions for use by the NL modules."""
 
 import copy
+import datetime
 import json
 import logging
 import os
 import re
-from typing import Dict, List, Union, Set
-import services.datacommons as dc
-import lib.nl.constants as constants
+from typing import Dict, List, Set, Union
 
+import lib.nl.constants as constants
+import lib.nl.detection as detection
+import lib.nl.fulfillment.context as ctx
+import lib.nl.utterance as nl_uttr
+import lib.util as util
+import services.datacommons as dc
+
+# TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
+
+_SV_DISPLAY_NAME_OVERRIDE = {
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
+        "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (°C)",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
+        "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (°C)",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
+        "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
+        "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (°C)",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
+        "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (°C)",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
+        "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
+    "Percent_Person_WithArthritis":
+        "Arthritis",
+    "Percent_Person_WithAsthma":
+        "Asthma",
+    "Percent_Person_WithCancerExcludingSkinCancer":
+        "Cancer (excluding skin cancer)",
+    "Percent_Person_WithChronicKidneyDisease":
+        "Chronic Kidney Disease",
+    "Percent_Person_WithChronicObstructivePulmonaryDisease":
+        "Chronic Obstructive Pulmonary Disease",
+    "Percent_Person_WithCoronaryHeartDisease":
+        "Coronary Heart Disease",
+    "Percent_Person_WithDiabetes":
+        "Diabetes",
+    "Percent_Person_WithHighBloodPressure":
+        "High Bood Pressure",
+    "Percent_Person_WithHighCholesterol":
+        "High Cholesterol",
+    "Percent_Person_WithMentalHealthNotGood":
+        "Mental Health Issues",
+    "Percent_Person_WithPhysicalHealthNotGood":
+        "Physical Health Issues",
+    "Percent_Person_WithStroke":
+        "Stroke",
+    "Median_Income_Person":
+        "Individual Median Income",
+    "Median_Income_Household":
+        "Household Median Income",
+    "Median_Earnings_Person":
+        "Individual Median Earnings",
+}
+
+_SV_DISPLAY_FOOTNOTE_OVERRIDE = {
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
+        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
+        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
+        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
+        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
+        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
+        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+}
 
 
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
@@ -106,8 +173,29 @@ def is_svg(sv):
   return sv.startswith("dc/g/")
 
 
+def is_svpg(sv):
+  return sv.startswith("dc/svpg/")
+
+
 def is_sv(sv):
   return not (is_topic(sv) or is_svg(sv))
+
+
+# Checks if there is an event in the last 1 year.
+def event_existence_for_place(place: str, event: detection.EventType) -> bool:
+  for event_type in constants.EVENT_TYPE_TO_DC_TYPES[event]:
+    date_list = dc.get_event_collection_date(event_type,
+                                             place).get('eventCollectionDate',
+                                                        {}).get('dates', [])
+    cur_year = datetime.datetime.now().year
+    logging.info(cur_year)
+    prev_year = str(cur_year - 1)
+    cur_year = str(cur_year)
+    # A crude recency check
+    for date in date_list:
+      if date.startswith(cur_year) or date.startswith(prev_year):
+        return True
+  return False
 
 
 #
@@ -137,14 +225,173 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
   return existing_svs
 
 
+# Given a place and a list of existing SVs, this API ranks the SVs
+# per the ranking order.
+def rank_svs_by_latest_value(place: str, svs: List[str],
+                             order: detection.RankingType) -> List[str]:
+  points_data = util.point_core(entities=[place],
+                                variables=svs,
+                                date='',
+                                all_facets=False)
+
+  svs_with_vals = []
+  for sv, place_data in points_data['data'].items():
+    if place not in place_data:
+      continue
+    point = place_data[place]
+    svs_with_vals.append((sv, point['value']))
+
+  reverse = False if order == detection.RankingType.LOW else True
+  svs_with_vals = sorted(svs_with_vals,
+                         key=lambda pair: pair[1],
+                         reverse=reverse)
+  return [sv for sv, _ in svs_with_vals]
+
+
+def has_series_with_single_datapoint(place: str, svs: List[str]):
+  series_data = util.series_core(entities=[place],
+                                 variables=svs,
+                                 all_facets=False)
+  for _, place_data in series_data['data'].items():
+    if place not in place_data:
+      continue
+    series = place_data[place]['series']
+    if len(series) < 2:
+      logging.info('Found single data point series in %s - %s', place,
+                   ', '.join(svs))
+      return True
+  return False
+
+
+# Given a place and a list of existing SVs, this API ranks the SVs
+# per the growth rate of the time-series.
+def rank_svs_by_growth_rate(place: str, svs: List[str],
+                            growth_direction: detection.TimeDeltaType,
+                            rank_order: detection.RankingType) -> List[str]:
+  series_data = util.series_core(entities=[place],
+                                 variables=svs,
+                                 all_facets=False)
+
+  svs_with_vals = []
+  for sv, place_data in series_data['data'].items():
+    if place not in place_data:
+      continue
+    series = place_data[place]['series']
+    if len(series) < 2:
+      continue
+
+    try:
+      net_growth_rate = compute_growth_rate(series)
+    except Exception as e:
+      logging.error('Growth rate computation failed: %s', str(e))
+      continue
+
+    if net_growth_rate > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
+      continue
+    if net_growth_rate < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
+      continue
+
+    svs_with_vals.append((sv, net_growth_rate))
+
+  # (growth_direction, rank_order) -> reverse
+  sort_map = {
+      # Jobs that grew
+      (detection.TimeDeltaType.INCREASE, None):
+          True,
+      # Jobs that shrunk
+      (detection.TimeDeltaType.DECREASE, None):
+          False,
+      # Highest growing jobs
+      (detection.TimeDeltaType.INCREASE, detection.RankingType.HIGH):
+          True,
+      # Lowest growing jobs
+      (detection.TimeDeltaType.INCREASE, detection.RankingType.LOW):
+          False,
+      # Highest shrinking jobs
+      (detection.TimeDeltaType.DECREASE, detection.RankingType.HIGH):
+          False,
+      # Lowest shrinking jobs
+      (detection.TimeDeltaType.DECREASE, detection.RankingType.LOW):
+          True,
+  }
+
+  svs_with_vals = sorted(svs_with_vals,
+                         key=lambda pair: pair[1],
+                         reverse=sort_map[(growth_direction, rank_order)])
+  logging.info(svs_with_vals)
+  return [sv for sv, _ in svs_with_vals]
+
+
+# Computes net growth-rate for a time-series including only recent (since 2012) observations.
+def compute_growth_rate(series: List[Dict]) -> float:
+  latest = None
+  earliest = None
+  # TODO: Apparently series is ordered, so simplify.
+  for s in series:
+    if not latest or s['date'] > latest['date']:
+      latest = s
+    if not earliest or s['date'] < earliest['date']:
+      earliest = s
+
+  if not latest or not earliest:
+    raise ValueError('Could not find valid points')
+  if latest == earliest:
+    raise ValueError('Dates are the same!')
+  if len(latest['date']) != len(earliest['date']):
+    raise ValueError('Dates have different granularity')
+
+  return _compute_growth(earliest, latest, series)
+
+
+def _compute_growth(earliest: Dict, latest: Dict,
+                    series: List[Dict]) -> datetime.date:
+  eparts = earliest['date'].split('-')
+  lparts = latest['date'].split('-')
+
+  if len(eparts) == 2 and eparts[1] != lparts[1]:
+    # Monthly data often has seasonal effects. So try to pick the earliest date
+    # in the same month as the latest date.
+    new_earliest_date = eparts[0] + '-' + lparts[1]
+    new_earliest = None
+    for v in series:
+      if v['date'] == new_earliest_date:
+        new_earliest = v
+        break
+    if new_earliest and new_earliest_date != latest['date']:
+      logging.info('Changing start month from %s to %s to match %s',
+                   earliest['date'], new_earliest_date, latest['date'])
+      earliest = new_earliest
+    else:
+      logging.info('First and last months diverge: %s vs. %s', earliest['date'],
+                   latest['date'])
+
+  val_delta = latest['value'] - earliest['value']
+  date_delta = _datestr_to_date(latest['date']) - _datestr_to_date(
+      earliest['date'])
+  # Compute % growth per day
+  start = 0.000001 if earliest['value'] == 0 else earliest['value']
+  return float(val_delta) / (float(date_delta.days) * start)
+
+
+def _datestr_to_date(datestr: str) -> datetime.date:
+  parts = datestr.split('-')
+  if len(parts) == 1:
+    return datetime.date(int(parts[0]), 1, 1)
+  elif len(parts) == 2:
+    return datetime.date(int(parts[0]), int(parts[1]), 1)
+  elif len(parts) == 3:
+    return datetime.date(int(parts[0]), int(parts[1]), int(parts[2]))
+  raise ValueError(f'Unable to parse date {datestr}')
+
+
 #
 # Given a place DCID and a child place type, returns a sample list
 # of places of that child type.
 #
 # TODO: Maybe dedupe with data_spec.py
 #
-def get_sample_child_places(main_place_dcid: str,
-                            contained_place_type: str) -> List[str]:
+def _get_sample_child_places(main_place_dcid: str,
+                             contained_place_type: str) -> List[str]:
   """Find a sampled child place"""
   logging.info('_sample_child_place: for %s - %s', main_place_dcid,
                contained_place_type)
@@ -173,8 +420,19 @@ def get_sample_child_places(main_place_dcid: str,
               '_sample_child_place returning %s',
               ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
           return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
-  logging.info('_sample_child_place returning %s', main_place_dcid)
-  return [main_place_dcid]
+  logging.info('_sample_child_place returning empty')
+  return []
+
+
+def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
+                            counters: Dict) -> List[str]:
+  result = _get_sample_child_places(main_place_dcid, contained_place_type)
+  update_counter(counters, 'child_places_result', {
+      'place': main_place_dcid,
+      'type': contained_place_type,
+      'result': result
+  })
+  return result
 
 
 def get_sv_name(all_svs: List[str]) -> Dict:
@@ -188,16 +446,57 @@ def get_sv_name(all_svs: List[str]) -> Dict:
   title_by_sv_dcid = {}
   with open(title_config_path) as f:
     title_by_sv_dcid = json.load(f)
+
   sv_name_map = {}
   # If a curated name is found return that,
   # Else return the name property for SV.
   for sv in all_svs:
-    if sv in title_by_sv_dcid:
-      sv_name_map[sv] = title_by_sv_dcid[sv]
+    if sv in _SV_DISPLAY_NAME_OVERRIDE:
+      sv_name_map[sv] = _SV_DISPLAY_NAME_OVERRIDE[sv]
+    elif sv in title_by_sv_dcid:
+      sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
     else:
-      sv_name_map[sv] = uncurated_names[sv]
+      sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 
   return sv_name_map
+
+
+# TODO: Remove this hack by fixing the name in schema and config.
+def clean_sv_name(name: str) -> str:
+  _PREFIXES = [
+      'Population of People Working in the ',
+      'Population of People Working in ',
+      'Population of People ',
+      'Population Working in the ',
+      'Population Working in ',
+      'Number of the ',
+      'Number of ',
+  ]
+  _SUFFIXES = [
+      ' Workers',
+  ]
+  for p in _PREFIXES:
+    if name.startswith(p):
+      name = name[len(p):]
+  for s in _SUFFIXES:
+    if name.endswith(s):
+      name = name[:-len(s)]
+  return name
+
+
+def get_sv_footnote(all_svs: List[str]) -> Dict:
+  sv2footnote_raw = dc.property_values(all_svs, 'footnote')
+  uncurated_footnotes = {
+      sv: footnotes[0] if footnotes else ''
+      for sv, footnotes in sv2footnote_raw.items()
+  }
+  sv_map = {}
+  for sv in all_svs:
+    if sv in _SV_DISPLAY_FOOTNOTE_OVERRIDE:
+      sv_map[sv] = _SV_DISPLAY_FOOTNOTE_OVERRIDE[sv]
+    else:
+      sv_map[sv] = uncurated_footnotes[sv]
+  return sv_map
 
 
 def get_only_svs(svs: List[str]) -> List[str]:
@@ -206,3 +505,67 @@ def get_only_svs(svs: List[str]) -> List[str]:
     if is_sv(sv):
       ret.append(sv)
   return ret
+
+
+# Returns a list of parent place names for a dcid.
+def parent_place_names(dcid: str) -> List[str]:
+  parent_dcids = dc.property_values(nodes=[dcid], prop='containedInPlace')[dcid]
+  if parent_dcids:
+    names = dc.property_values(nodes=parent_dcids, prop='name')
+    ret = [names[p][0] for p in parent_dcids]
+    return ret
+  return None
+
+
+# Convenience function to help update counters.
+#
+# For a given counter, caller should always pass the same type
+# for value.  If value is numeric, then its a single added
+# counter, otherwise, counter is a list of values.
+def update_counter(dbg_counters: Dict, counter: str, value: any):
+  should_add = counter not in dbg_counters
+  if isinstance(value, int) or isinstance(value, float):
+    if should_add:
+      dbg_counters[counter] = 0
+    dbg_counters[counter] += value
+  else:
+    if should_add:
+      dbg_counters[counter] = []
+    dbg_counters[counter].append(value)
+
+
+def get_contained_in_type(
+    uttr: nl_uttr.Utterance) -> detection.ContainedInPlaceType:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.CONTAINED_IN)
+  place_type = None
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.ContainedInClassificationAttributes)):
+    # Ranking among places.
+    place_type = classification[0].attributes.contained_in_place_type
+  return place_type
+
+
+def get_ranking_types(uttr: nl_uttr.Utterance) -> List[detection.RankingType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.RANKING)
+  ranking_types = []
+  if (classification and isinstance(classification[0].attributes,
+                                    detection.RankingClassificationAttributes)):
+    # Ranking among places.
+    ranking_types = classification[0].attributes.ranking_type
+  return ranking_types
+
+
+def get_time_delta_types(
+    uttr: nl_uttr.Utterance) -> List[detection.TimeDeltaType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.TIME_DELTA)
+  time_delta = []
+  # Get time delta type
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.TimeDeltaClassificationAttributes)):
+    time_delta = classification[0].attributes.time_delta_types
+  return time_delta

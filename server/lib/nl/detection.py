@@ -15,7 +15,8 @@
 # The following classes are used for the NL Detection.
 from abc import ABC
 from dataclasses import dataclass
-from enum import Enum, IntEnum
+from enum import Enum
+from enum import IntEnum
 from typing import Dict, List
 
 
@@ -51,7 +52,7 @@ class SVDetection:
 
 
 class RankingType(IntEnum):
-  """RankingType indicates the type of rankning specified."""
+  """RankingType indicates the type of ranking specified."""
   NONE = 0
 
   # HIGH is for queries like:
@@ -76,6 +77,17 @@ class RankingType(IntEnum):
   # Ex: "Worst cities by crime" -> show HIGH crime cities
   WORST = 4
 
+  # EXTREME is for queries with the word "extreme"
+  # Necessary for SVs where the top could be most positive or most negative
+  # Ex: "Temperature extremes" -> show high and very low temperatures
+  EXTREME = 5
+
+
+class BinaryClassificationResultType(IntEnum):
+  """Generic result of binary classification: Success/Failure."""
+  FAILURE = 0
+  SUCCESS = 1
+
 
 class ContainedInPlaceType(Enum):
   """ContainedInPlaceType indicates the type of places."""
@@ -89,6 +101,21 @@ class ContainedInPlaceType(Enum):
   DISTRICT = "District"
   TOWN = "Town"
   ZIP = "CensusZipCodeTabulationArea"
+  # Across is a generic containedInPlaceType which determines if the
+  # query is using the word "across".
+  ACROSS = "Across"
+
+
+class EventType(IntEnum):
+  """Indicates which type of event(s) a query is referring to."""
+  COLD = 0  # ColdTemperatureEvent
+  CYCLONE = 1  # CycloneEvent
+  EARTHQUAKE = 2  # EarthquakeEvent
+  DROUGHT = 3  # DroughtEvent
+  FIRE = 4  # WildfireEvent or WildlandFireEvent
+  FLOOD = 5  # FloodEvent
+  HEAT = 6  # HeatTemperatureEvent
+  WETBULB = 7  # WetBulbTemperatureEvent
 
 
 class PeriodType(Enum):
@@ -97,6 +124,12 @@ class PeriodType(Enum):
   EXACT = 1
   UNTIL = 2
   FROM = 3
+
+
+class TimeDeltaType(IntEnum):
+  """Indicates whether query refers to an increase or decrease in SV values."""
+  INCREASE = 0
+  DECREASE = 1
 
 
 class ClassificationAttributes(ABC):
@@ -170,6 +203,31 @@ class CorrelationClassificationAttributes(ClassificationAttributes):
   correlation_trigger_words: str
 
 
+@dataclass
+class EventClassificationAttributes(ClassificationAttributes):
+  """Event classification attributes"""
+  event_types: List[EventType]
+
+  # Words that made this a event query
+  event_trigger_words: List[str]
+
+
+@dataclass
+class OverviewClassificationAttributes(ClassificationAttributes):
+  """Overview classification attributes"""
+  overview_trigger_words: List[str]
+
+
+@dataclass
+class TimeDeltaClassificationAttributes(ClassificationAttributes):
+  """Time Delta classification attributes."""
+  time_delta_types: List[TimeDeltaType]
+
+  # List of words which made this a time-delta query:
+  # e.g. "increase", "decrease", "growth", etc
+  time_delta_trigger_words: List[str]
+
+
 class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
@@ -179,7 +237,10 @@ class ClassificationType(IntEnum):
   CORRELATION = 5
   CLUSTERING = 6
   COMPARISON = 7
-  UNKNOWN = 8
+  TIME_DELTA = 8
+  EVENT = 9
+  OVERVIEW = 10
+  UNKNOWN = 11
 
 
 # The supported classifications in order. Later entry is preferred.
@@ -189,6 +250,9 @@ RANKED_CLASSIFICATION_TYPES = [
     ClassificationType.CONTAINED_IN,
     ClassificationType.RANKING,
     ClassificationType.CORRELATION,
+    ClassificationType.TIME_DELTA,
+    ClassificationType.EVENT,
+    ClassificationType.OVERVIEW,
 ]
 
 

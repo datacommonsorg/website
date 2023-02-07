@@ -47,6 +47,7 @@ import {
   MapPointsData,
 } from "../types/disaster_event_map_types";
 import {
+  EventDisplayProp,
   EventTypeSpec,
   SeverityFilter,
 } from "../types/subject_page_proto_types";
@@ -186,31 +187,52 @@ export function fetchDateList(
 }
 
 /**
- * Get event points for a specific event type, place, and date
+ * Parses the first value of returned values from the event API, parsed as a number.
+ * @param values Values to extract.
+ * @param unit Unit to parse out.
+ * @param reqParams Object to use for logging if there is an error.
+ */
+function parseEventPropVal(
+  values: string[],
+  unit: string,
+  reqParams?: any
+): number {
+  if (!_.isEmpty(values)) {
+    // Get value by taking the first val, trimming the unit from the string, and
+    // converting it into a number.
+    console.assert(
+      values[0].length > unit.length,
+      "event values do not contain unit, please check filter config, %o",
+      reqParams
+    );
+    return Number(values[0].substring(unit.length));
+  }
+  return Number.NaN;
+}
+
+/**
+ * Get event points for a specific event type, place, and date. Events are
+ * processed to only include required data based on the config.
  * @param eventType event type to get data for
  * @param place place to get data for
- * @param date date used for data retrieval (YYYY-MM)
- * @param disasterType the disaster type that the event type belongs to
- * @param severityProps list of severity props to get data about
- * @param minDate a finer granularity date (than the date used for data retrieval)
- *                to use as a min date of returned event points.
- * @param maxDate a finer granularity date (than the date used for data retrieval)
- *                to use as a max date of returned event points.
+ * @param dateRange Dates to use for data retrieval (YYYY-MM), [start,end]
+ * @param eventTypeSpec The event type spec that this event type belongs to
+ * @param severityFilter Severity props to get data about
+ * @param useCache If true, uses data from the event cache (otherwise uses JSON cache).
  */
 function fetchEventPoints(
   eventType: string,
   place: string,
-  date: string,
-  disasterType: string,
+  dateRange: [string, string],
+  eventTypeSpec: EventTypeSpec,
   severityFilter?: SeverityFilter,
-  minDate?: string,
-  maxDate?: string,
   useCache?: boolean
 ): Promise<DisasterEventPointData> {
   const reqParams = {
     eventType: eventType,
     place: place,
-    date: date,
+    minDate: dateRange[0],
+    maxDate: dateRange[1],
   };
   if (severityFilter) {
     reqParams["filterProp"] = severityFilter.prop;
@@ -242,27 +264,30 @@ function fetchEventPoints(
         ) {
           return;
         }
-        if (
-          eventData.dates[0] < minDate ||
-          eventData.dates[0].substring(0, maxDate.length) > maxDate
-        ) {
-          return;
-        }
         const severity = {};
         if (severityFilter && severityFilter.prop in eventData.propVals) {
           const severityVals = eventData.propVals[severityFilter.prop].vals;
-          if (!_.isEmpty(severityVals)) {
-            // Get value by taking the first severity val, trimming the unit
-            // from the string, and converting it into a number.
-            const unit = severityFilter.unit || "";
-            console.assert(
-              severityVals[0].length > unit.length,
-              "severity values do not contain unit, please check filter config, %o",
-              reqParams
-            );
-            const val = Number(severityVals[0].substring(unit.length));
-            if (!isNaN(val)) {
-              severity[severityFilter.prop] = val;
+          const val = parseEventPropVal(
+            severityVals,
+            severityFilter.unit || "",
+            reqParams
+          );
+          if (!isNaN(val)) {
+            severity[severityFilter.prop] = val;
+          }
+        }
+        const displayProps = {};
+        if (eventTypeSpec.displayProp) {
+          for (const dp of eventTypeSpec.displayProp) {
+            if (dp.prop in eventData.propVals) {
+              const val = parseEventPropVal(
+                eventData.propVals[dp.prop].vals,
+                dp.unit || "",
+                reqParams
+              );
+              if (!isNaN(val)) {
+                displayProps[dp.prop] = val;
+              }
             }
           }
         }
@@ -271,25 +296,37 @@ function fetchEventPoints(
           !_.isEmpty(eventData.propVals.name.vals)
             ? eventData.propVals.name.vals[0]
             : eventData.dcid;
-        const endDate =
-          !_.isEmpty(eventData.propVals.endDate) &&
-          !_.isEmpty(eventData.propVals.endDate.vals)
-            ? eventData.propVals.endDate.vals[0]
-            : "";
+        let endDate = "";
+        for (const prop of eventTypeSpec.endDateProp || []) {
+          if (
+            prop in eventData.propVals &&
+            !_.isEmpty(eventData.propVals[prop].vals)
+          ) {
+            endDate = eventData.propVals[prop].vals[0];
+            break;
+          }
+        }
         result.eventPoints.push({
           placeDcid: eventData.dcid,
           placeName: name,
           latitude: eventData.geoLocations[0].point.latitude,
           longitude: eventData.geoLocations[0].point.longitude,
-          disasterType,
+          disasterType: eventTypeSpec.id,
           startDate: !_.isEmpty(eventData.dates) ? eventData.dates[0] : "",
           severity,
+          displayProps,
           endDate,
           provenanceId: eventData.provenanceId,
         });
         seenEvents.add(eventData.dcid);
       });
       return result;
+    })
+    .catch(() => {
+      return {
+        eventPoints: [],
+        provenanceInfo: {},
+      };
     });
 }
 
@@ -339,55 +376,25 @@ function getDateRange(selectedDate: string): [string, string] {
 export function fetchDisasterEventPoints(
   dataOptions: DisasterDataOptions
 ): Promise<Record<string, DisasterEventPointData>> {
-  // Dates to fetch data for.
+  // Date range to fetch data for.
   const dateRange = getDateRange(dataOptions.selectedDate);
-  const dates = [];
-  const minYear = dateRange[0].substring(0, 4);
-  const maxYear = dateRange[1].substring(0, 4);
-  // The minimum length of a date string from dates in the dateRange and dates
-  // used for data retrieval. Dates used for data retrieval are YYYY-MM.
-  const minDateLength = Math.min(dateRange[0].length, 7);
-  // Loop through every YYYY-MM date between minYear-01 and maxYear-12 and add
-  // all dates that are within the dateRange.
-  for (let year = Number(minYear); year <= Number(maxYear); year++) {
-    for (let month = 1; month <= 12; month++) {
-      const date = `${year.toString()}-${month.toString().padStart(2, "0")}`;
-      if (
-        date.substring(0, minDateLength) <
-        dateRange[0].substring(0, minDateLength)
-      ) {
-        continue;
-      }
-      if (
-        date.substring(0, minDateLength) >
-        dateRange[1].substring(0, minDateLength)
-      ) {
-        break;
-      }
-      dates.push(date);
-    }
-  }
   const promises = [];
   // list of spec ids that correspond to the spec id used for the promise at
   // that index in the list of promises.
   const promiseSpecId = [];
   for (const eventSpec of dataOptions.eventTypeSpecs) {
     for (const eventType of eventSpec.eventTypeDcids) {
-      for (const date of dates) {
-        promiseSpecId.push(eventSpec.id);
-        promises.push(
-          fetchEventPoints(
-            eventType,
-            dataOptions.place,
-            date,
-            eventSpec.id,
-            dataOptions.severityFilters[eventSpec.id],
-            dateRange[0].length > 7 ? dateRange[0] : "",
-            dateRange[1].length > 7 ? dateRange[1] : "",
-            dataOptions.useCache
-          )
-        );
-      }
+      promiseSpecId.push(eventSpec.id);
+      promises.push(
+        fetchEventPoints(
+          eventType,
+          dataOptions.place,
+          dateRange,
+          eventSpec,
+          dataOptions.severityFilters[eventSpec.id],
+          dataOptions.useCache
+        )
+      );
     }
   }
   return Promise.all(promises).then((resp) => {

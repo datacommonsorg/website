@@ -17,16 +17,16 @@ import base64
 import collections
 import json
 import logging
+from typing import Dict, List
 import urllib.parse
 import zlib
+
 from cache import cache
 from flask import current_app
-from typing import Dict, List
-
 import lib.config as libconfig
-from services.discovery import get_service_url
-from services.discovery import get_health_check_urls
 import requests
+from services.discovery import get_health_check_urls
+from services.discovery import get_service_url
 
 cfg = libconfig.get_config()
 
@@ -284,6 +284,18 @@ def resolve_id(in_ids, in_prop, out_prop):
       'ids': in_ids,
       'in_prop': in_prop,
       'out_prop': out_prop,
+  })
+
+
+def resolve_coordinates(coordinates):
+  """Resolves a list of coordinates.
+
+  Args:
+      coordinates: a list of { longitude: number, latitude: number }.
+  """
+  url = get_service_url('/v1/recon/resolve/coordinate')
+  return post(url, {
+      'coordinates': coordinates,
   })
 
 

@@ -13,9 +13,9 @@
 # limitations under the License.
 
 import unittest
-import routes.api.shared as shared
-
 from unittest.mock import patch
+
+import routes.api.shared as shared
 
 
 class TestNames(unittest.TestCase):

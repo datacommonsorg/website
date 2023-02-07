@@ -13,12 +13,11 @@
 # limitations under the License.
 """Tests for nl_place_detection."""
 
-from parameterized import parameterized
-
 import unittest
 from unittest.mock import patch
 
 from lib.nl.place_detection import NLPlaceDetector
+from parameterized import parameterized
 
 
 class TestPlaceDetector(unittest.TestCase):

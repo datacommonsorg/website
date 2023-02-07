@@ -102,6 +102,11 @@ h3 {
   text-decoration: underline;
 }
 
+.map-container {
+  height: 100%;
+  min-height: 160px;
+}
+
 #menu a {
   color: var(--dc-gray);
   display: inline-block;
@@ -196,11 +201,6 @@ h3 {
 .factoid td {
   font-size: 0.9rem;
   padding: 0.25rem;
-}
-
-#map-container {
-  height: 100%;
-  min-height: 160px;
 }
 
 #sidebar-outer {

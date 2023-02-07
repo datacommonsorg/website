@@ -14,6 +14,8 @@
 # limitations under the License.
 set -e
 
+CUSTOM_DC_RELEASE_TAG=custom-dc-v0.1.0
+
 TERRAFORM_PATH=$(which terraform)
 if [[ -n "$TERRAFORM_PATH" ]]; then
     echo "Found Terraform: ${TERRAFORM_PATH}"
@@ -56,23 +58,27 @@ fi
 echo "Installing Custom Datacommons web application in $PROJECT_ID."
 
 # Create a Terraform state bucket if it does not exist already
-TF_STATE_BUCKET=gs://$PROJECT_ID-terraform-state
-gsutil ls -b $TF_STATE_BUCKET || gsutil mb -l us-central1 -p $PROJECT_ID $TF_STATE_BUCKET
+TF_STATE_BUCKET=$PROJECT_ID-terraform-state
+gsutil ls -b -p $PROJECT_ID gs://$TF_STATE_BUCKET || gsutil mb -l us-central1 -p $PROJECT_ID gs://$TF_STATE_BUCKET
 
 ROOT=$PWD
 
 # Clone DC website repo and mixer submodule.
-if [[ ! -d "website" ]]; then
-  git clone https://github.com/datacommonsorg/website
-fi
+rm -rf website
+git clone https://github.com/datacommonsorg/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 
 cd website
-if [[ ! -d "mixer" ]]; then
-  git submodule foreach git pull origin master
-  git submodule update --init --recursive
-fi
+WEBSITE_GITHASH=$(git rev-parse --short=7 HEAD)
+
+# Always force Mixer submodule to be cloned.
+rm -rf mixer
+git submodule foreach git pull origin master
+git submodule update --init --recursive
 
 WEBSITE_ROOT=$PWD
+
+cd mixer
+MIXER_GITHASH=$(git rev-parse --short=7 HEAD)
 
 cd $WEBSITE_ROOT/deploy/terraform-datacommons-website/examples/setup
 
@@ -100,13 +106,16 @@ terraform init \
 # <project_id>-datacommons.com is the default domain name defined in setup/main.tf
 terraform apply \
   -var="project_id=$PROJECT_ID" \
-  -var="dc_website_domain=$DOMAIN" -auto-approve
+  -var="dc_website_domain=$DOMAIN" \
+  -var="website_githash=$WEBSITE_GITHASH" \
+  -var="mixer_githash=$MIXER_GITHASH" \
+  -auto-approve
 
 # Run the BT automation Terraform script to set up BT loader.
 cd $ROOT
-if [[ ! -d "tools" ]]; then
-  git clone https://github.com/datacommonsorg/tools
-fi
+
+rm -rf tools
+git clone https://github.com/datacommonsorg/tools --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 
 
 # TODO(alex): support custom robot SA and resource bucket name.

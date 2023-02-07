@@ -13,11 +13,11 @@
 # limitations under the License.
 """Tests for utils functions."""
 
-from parameterized import parameterized
 import unittest
 
 import lib.nl.constants as constants
 import lib.nl.utils as utils
+from parameterized import parameterized
 
 
 class TestNLUtilsAddToSet(unittest.TestCase):
@@ -112,3 +112,112 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
   ])
   def test_query_remove_punctuation(self, query, expected):
     self.assertEqual(utils.remove_punctuations(query), expected)
+
+
+class TestComputeGrowthRate(unittest.TestCase):
+
+  def test_year(self):
+    s = [
+        {
+            'date': '2019',
+            'value': 20
+        },
+        {
+            'date': '2018',
+            'value': 10
+        },
+        {
+            'date': '2017',
+            'value': 10
+        },
+    ]
+    # (20 - 10) / (2 years * 10)
+    self.assertEqual(0.0013698630136986301, utils.compute_growth_rate(s))
+
+  def test_month_unadjusted(self):
+    s = [
+        {
+            'date': '2019-06',
+            'value': 10
+        },
+        {
+            'date': '2018-06',
+            'value': 10
+        },
+        {
+            'date': '2017-06',
+            'value': 20
+        },
+    ]
+    # (10 - 20) / (24 months * 20)
+    self.assertEqual(-0.0006849315068493151, utils.compute_growth_rate(s))
+
+  # Here we will pick 2017-06 instead of 2017-01 to match the latest month (2017-06),
+  # and thus same result as before.
+  def test_month_adjusted(self):
+    s = [
+        {
+            'date': '2019-06',
+            'value': 10
+        },
+        {
+            'date': '2019-01',
+            'value': 100
+        },
+        {
+            'date': '2018-06',
+            'value': 10
+        },
+        {
+            'date': '2018-06',
+            'value': 100
+        },
+        {
+            'date': '2017-06',
+            'value': 20
+        },
+        {
+            'date': '2017-01',
+            'value': 200
+        },
+    ]
+    # (10 - 20) / (24 months * 20)
+    self.assertEqual(-0.0006849315068493151, utils.compute_growth_rate(s))
+
+  def test_day(self):
+    s = [
+        {
+            'date': '2019-12-01',
+            'value': 20
+        },
+        {
+            'date': '2018-12-01',
+            'value': 10
+        },
+        {
+            'date': '2017-12-01',
+            'value': 10
+        },
+    ]
+    # (20 - 10) / (2 years * 10)
+    self.assertEqual(0.0013698630136986301, utils.compute_growth_rate(s))
+
+  def test_error(self):
+    s = [
+        {
+            'date': '2019-12-01',
+            'value': 20
+        },
+        {
+            'date': '2018-11',
+            'value': 10
+        },
+        {
+            'date': '2017',
+            'value': 10
+        },
+    ]
+    with self.assertRaises(ValueError) as context:
+      utils.compute_growth_rate(s)
+    self.assertTrue(
+        'Dates have different granularity' in str(context.exception))

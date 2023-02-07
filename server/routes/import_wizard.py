@@ -13,9 +13,11 @@
 # limitations under the License.
 """Import Wizard routes"""
 
-import flask
 import os
-from flask import Blueprint, render_template
+
+import flask
+from flask import Blueprint
+from flask import render_template
 
 bp = Blueprint('import_wizard', __name__, url_prefix='/import')
 

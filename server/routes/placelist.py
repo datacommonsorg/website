@@ -14,10 +14,9 @@
 
 import collections
 
+from cache import cache
 from flask import Blueprint
 from flask import render_template
-
-from cache import cache
 from routes.api.place import child_fetch
 from services.datacommons import fetch_data
 

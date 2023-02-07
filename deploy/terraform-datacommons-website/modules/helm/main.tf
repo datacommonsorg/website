@@ -36,8 +36,18 @@ resource "helm_release" "datcom_website" {
   # timeout    = 300
 
   set {
+    name  = "website.image.tag"
+    value = var.website_githash
+  }
+
+  set {
     name  = "website.githash"
     value = var.website_githash
+  }
+
+  set {
+    name  = "mixer.image.tag"
+    value = var.mixer_githash
   }
 
   set {

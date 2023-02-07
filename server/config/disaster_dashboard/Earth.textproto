@@ -43,6 +43,7 @@ metadata {
       color: "#3cbad1"
       default_severity_filter: {
         prop: "area"
+        display_name: "Area"
         unit: "SquareKilometer"
         upper_limit: 1000
         lower_limit: 25
@@ -57,13 +58,17 @@ metadata {
       event_type_dcids: "WildlandFireEvent"
       event_type_dcids: "WildfireEvent"
       event_type_dcids: "FireEvent"
-      color: "#f9c532"
+      color: "#f01212"
       default_severity_filter: {
         prop: "area"
+        display_name: "Area"
         unit: "SquareKilometer"
         upper_limit: 1000
         lower_limit: 25
       }
+      end_date_prop: "endDate"
+      end_date_prop: "containmentDate"
+      end_date_prop: "controlledDate"
     }
   }
   event_type_spec {
@@ -75,6 +80,7 @@ metadata {
       event_type_dcids: "CycloneEvent"
       default_severity_filter: {
         prop: "maxWindSpeed"
+        display_name: "Max Wind Speed"
         unit: "Knot"
         upper_limit: 100000
         lower_limit: 64
@@ -106,6 +112,7 @@ metadata {
       color: "#ff5dd6"
       default_severity_filter: {
         prop: "area",
+        display_name: "Area"
         unit: "SquareKilometer"
         upper_limit: 100000,
         lower_limit: 10
@@ -121,9 +128,20 @@ metadata {
       color: "#7700e6"
       default_severity_filter: {
         prop: "wetBulbTemperature"
+        display_name: "Wet Bulb"
         unit: "Celsius",
         upper_limit: 37,
         lower_limit: 31
+      }
+      display_prop {
+        prop: "humidity"
+        display_name: "Humidity"
+        unit: "Percent"
+      }
+      display_prop {
+        prop: "temperature"
+        display_name: "Temp"
+        unit: "Celsius"
       }
     }
   }
@@ -133,13 +151,19 @@ metadata {
       id: "heat"
       name: "Extreme Heat"
       event_type_dcids: "HeatTemperatureEvent"
-      color: "#f01212"
+      color: "#ffa000"
       default_severity_filter: {
         prop: "differenceTemperature"
+        display_name: "Difference"
         unit: "Celsius"
         # If updating the lower_limit, also update the Extreme Heat event description (below, in this file).
         upper_limit: 35
         lower_limit: 18
+      }
+      display_prop {
+        prop: "referenceTemperature"
+        display_name: "Reference"
+        unit: "Celsius"
       }
     }
   }
@@ -152,10 +176,16 @@ metadata {
       color: "#304ffe"
       default_severity_filter: {
         prop: "differenceTemperature"
+        display_name: "Difference"
         unit: "Celsius"
         # If updating the upper_limit, also update the Extreme Cold event description (below, in this file).
         upper_limit: -18
         lower_limit: -35
+      }
+      display_prop {
+        prop: "referenceTemperature"
+        display_name: "Reference"
+        unit: "Celsius"
       }
     }
   }
@@ -186,7 +216,7 @@ categories {
 
 categories {
   title: "Drought"
-  description: 
+  description:
     "Droughts are measured using the Standardized Precipitation Index (SPI), "
     "which quantifies the precipitation deficit at a given location for a set "
     "timescale. Places where the 9-month SPI was less than -1.5 are considered "
@@ -210,9 +240,10 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe drought events in the last year"
+        title: "Most severe drought events"
         top_event_tile_spec {
           event_type_key: "drought"
+          show_start_date: true
         }
       }
     }
@@ -259,9 +290,11 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe fires in the last year"
+        title: "Most severe fires"
         top_event_tile_spec {
           event_type_key: "fire"
+          show_start_date: true
+          show_end_date: true
         }
       }
     }
@@ -314,9 +347,10 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe floods in the last year"
+        title: "Most severe floods"
         top_event_tile_spec {
           event_type_key: "flood"
+          show_start_date: true
         }
       }
     }
@@ -363,7 +397,7 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe cyclones in the last year"
+        title: "Most severe cyclones"
         top_event_tile_spec {
           event_type_key: "storm"
         }
@@ -411,9 +445,12 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe wet bulb in the last year"
+        title: "Most severe wet bulb"
         top_event_tile_spec {
           event_type_key: "wetbulb"
+          show_start_date: true
+          display_prop: "humidity"
+          display_prop: "temperature"
         }
       }
     }
@@ -443,7 +480,7 @@ categories {
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
-        disaster_event_map_tile_spec: {
+        disaster_event_map_tile_spec {
           event_type_keys: "heat"
         }
       }
@@ -461,9 +498,11 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe heat events in the last year"
+        title: "Most severe heat events"
         top_event_tile_spec {
           event_type_key: "heat"
+          display_prop: "referenceTemperature"
+          show_start_date: true
         }
       }
     }
@@ -511,9 +550,12 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe cold events in the last year"
+        title: "Most severe cold events"
         top_event_tile_spec {
           event_type_key: "cold"
+          display_prop: "referenceTemperature"
+          show_start_date: true
+          reverse_sort: true
         }
       }
     }

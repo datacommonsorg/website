@@ -15,12 +15,23 @@
 import logging
 
 from lib.nl import utils
-from lib.nl.detection import ClassificationType, \
-  ContainedInClassificationAttributes, Place
-from lib.nl.utterance import Utterance, ChartOriginType, ChartType
-from lib.nl.fulfillment.base import PopulateState, ChartVars, add_chart_to_utterance
-from lib.nl.fulfillment.context import classifications_of_type_from_context, \
-  places_from_context, svs_from_context
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ContainedInClassificationAttributes
+from lib.nl.detection import Place
+from lib.nl.fulfillment.base import add_chart_to_utterance
+from lib.nl.fulfillment.base import ChartVars
+from lib.nl.fulfillment.base import maybe_handle_contained_in_fallback
+from lib.nl.fulfillment.base import open_top_topics_ordered
+from lib.nl.fulfillment.base import PopulateState
+from lib.nl.fulfillment.context import classifications_of_type_from_context
+from lib.nl.fulfillment.context import places_from_context
+from lib.nl.fulfillment.context import svs_from_context
+from lib.nl.utterance import ChartOriginType
+from lib.nl.utterance import ChartType
+from lib.nl.utterance import Utterance
+
+_MAX_CONTEXT_SVS = 3
+_MAX_MAIN_SVS = 5
 
 #
 # Handler for CORRELATION chart.  This does not use the populate_charts() logic
@@ -44,6 +55,10 @@ def populate(uttr: Utterance) -> bool:
                       fallback_cb=None,
                       place_type=place_type)):
       return True
+    else:
+      utils.update_counter(uttr.counters,
+                           'correlation_failed_populate_placestype',
+                           place_type.value)
   return False
 
 
@@ -51,55 +66,82 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
   for pl in state.uttr.places:
     if (_populate_correlation_for_place(state, pl)):
       return True
+    else:
+      utils.update_counter(state.uttr.counters,
+                           'correlation_failed_populate_main_place', pl.dcid)
   for pl in places_from_context(state.uttr):
     if (_populate_correlation_for_place(state, pl)):
       return True
+    else:
+      utils.update_counter(state.uttr.counters,
+                           'correlation_failed_populate_context_place', pl.dcid)
   return False
 
 
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
+  maybe_handle_contained_in_fallback(state, [place])
+
   # Get child place samples for existence check.
   places_to_check = utils.get_sample_child_places(place.dcid,
-                                                  state.place_type.value)
+                                                  state.place_type.value,
+                                                  state.uttr.counters)
+  if not places_to_check:
+    # Counter updated in get_sample_child_places
+    return False
 
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
-  main_svs = utils.get_only_svs(state.uttr.svs)
+  main_svs = open_top_topics_ordered(state.uttr.svs, state.uttr.counters)
   main_svs = utils.sv_existence_for_places(places_to_check, main_svs)
   if not main_svs:
+    utils.update_counter(state.uttr.counters,
+                         'correlation_failed_existence_check_main_sv', main_svs)
+    utils.update_counter(state.uttr.counters,
+                         'correlation_failed_missing_main_sv', 1)
     logging.info('Correlation found no Main SV')
     return False
 
   # For related SV, walk up the chain to find all SVs.
   context_svs = []
-  svs_set = set()
   for c_svs in svs_from_context(state.uttr):
-    for sv in utils.get_only_svs(c_svs):
-      if sv in svs_set:
-        continue
-      svs_set.add(sv)
-      context_svs.append(sv)
-  context_svs = utils.sv_existence_for_places(places_to_check, context_svs)
+    opened_svs = open_top_topics_ordered(c_svs, state.uttr.counters)
+    context_svs = utils.sv_existence_for_places(places_to_check, opened_svs)
+    if context_svs:
+      break
+    else:
+      utils.update_counter(state.uttr.counters,
+                           'correlation_failed_existence_check_context_sv',
+                           opened_svs)
   if not context_svs:
+    utils.update_counter(state.uttr.counters,
+                         'correlation_failed_missing_context_sv', 1)
     logging.info('Correlation found no Context SV')
     return False
 
+  main_svs = main_svs[:_MAX_MAIN_SVS]
+  context_svs = context_svs[:_MAX_CONTEXT_SVS]
+  utils.update_counter(state.uttr.counters, 'correlation_main_svs', main_svs)
+  utils.update_counter(state.uttr.counters, 'correlation_context_svs',
+                       context_svs)
   logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
   logging.info('Correlation Context SVs: %s', ', '.join(context_svs))
 
-  # Pick a single context SV for the results
-  # TODO: Maybe consider more.
   found = False
   for main_sv in main_svs:
-    found |= _populate_correlation_chart(state, place, main_sv, context_svs[0])
+    for context_sv in context_svs:
+      if main_sv == context_sv:
+        continue
+      found |= _populate_correlation_chart(state, place, main_sv, context_sv)
   return found
 
 
 def _populate_correlation_chart(state: PopulateState, place: Place, sv_1: str,
                                 sv_2: str) -> bool:
   state.block_id += 1
+  # TODO: Handle per-capita carefully.
   chart_vars = ChartVars(svs=[sv_1, sv_2],
                          block_id=state.block_id,
-                         include_percapita=False)
+                         include_percapita=False,
+                         response_type="scatter chart")
   return add_chart_to_utterance(ChartType.SCATTER_CHART, state, chart_vars,
                                 [place], ChartOriginType.PRIMARY_CHART)

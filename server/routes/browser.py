@@ -16,7 +16,10 @@
 
 import logging
 
-from flask import Blueprint, g, render_template
+from flask import Blueprint
+from flask import current_app
+from flask import g
+from flask import render_template
 import routes.api.shared as shared_api
 
 bp = Blueprint('browser', __name__, url_prefix='/browser')
@@ -38,4 +41,7 @@ def browser_node(dcid):
       node_name = api_name
   except Exception as e:
     logging.info(e)
-  return render_template('/browser/node.html', dcid=dcid, node_name=node_name)
+  return render_template('/browser/node.html',
+                         dcid=dcid,
+                         node_name=node_name,
+                         maps_api_key=current_app.config['MAPS_API_KEY'])

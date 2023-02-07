@@ -16,19 +16,26 @@
 import json
 import urllib.parse
 
+from cache import cache
+from flask import Blueprint
+from flask import current_app
+from flask import g
+from flask import make_response
+from flask import request
+from flask import Response
+from flask import send_file
+from flask import url_for
+from geojson_rewind import rewind
+import lib.util as lib_util
+import routes.api.landing_page as landing_page_api
+from routes.api.place import EQUIVALENT_PLACE_TYPES
+import routes.api.place as place_api
+import routes.api.point as point_api
+import routes.api.series as series_api
+from routes.api.shared import is_float
 import routes.api.shared as shared_api
 import services.datacommons as dc
-import lib.util as lib_util
-import routes.api.place as place_api
-import routes.api.series as series_api
-import routes.api.point as point_api
-import routes.api.landing_page as landing_page_api
 
-from routes.api.shared import is_float
-from geojson_rewind import rewind
-from cache import cache
-from flask import Blueprint, current_app, request, Response, g, url_for, send_file, make_response
-from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 
@@ -324,9 +331,9 @@ def choropleth_data(dcid):
   if not stat_vars or not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   # Get data for all the stat vars for every place we will need and process the data
-  numerator_resp = point_api.point_within_core(display_dcid, display_level,
-                                               list(stat_vars), '', False)
-  denominator_resp = series_api.series_core(list(geos), list(denoms), False)
+  numerator_resp = lib_util.point_within_core(display_dcid, display_level,
+                                              list(stat_vars), '', False)
+  denominator_resp = lib_util.series_core(list(geos), list(denoms), False)
 
   result = {}
   # Process the data for each config

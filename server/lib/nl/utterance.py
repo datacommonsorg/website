@@ -16,18 +16,28 @@
 # Utterance data structure and associate libraries
 #
 
-import logging
-
-from typing import List, Dict
-
 from dataclasses import dataclass
+from dataclasses import field
 from enum import IntEnum
-from lib.nl.detection import ContainedInPlaceType, ClassificationType, RankingType, \
-  Detection, NLClassifier, Place, RankingClassificationAttributes, \
-    ContainedInClassificationAttributes, SimpleClassificationAttributes
+import logging
+from typing import Dict, List
+
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ContainedInClassificationAttributes
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import Detection
+from lib.nl.detection import EventClassificationAttributes
+from lib.nl.detection import EventType
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import RankingClassificationAttributes
+from lib.nl.detection import RankingType
+from lib.nl.detection import SimpleClassificationAttributes
+from lib.nl.detection import TimeDeltaClassificationAttributes
+from lib.nl.detection import TimeDeltaType
 
 # How far back does the context go back.
-CTX_LOOKBACK_LIMIT = 5
+CTX_LOOKBACK_LIMIT = 8
 
 
 # Forward declaration since Utterance contains a pointer to itself.
@@ -50,6 +60,7 @@ class ChartType(IntEnum):
   BAR_CHART = 3
   PLACE_OVERVIEW = 4
   SCATTER_CHART = 5
+  EVENT_CHART = 6
 
 
 # Enough of a spec per chart to create the chart config proto.
@@ -59,6 +70,7 @@ class ChartSpec:
   utterance: Utterance
   places: List[Place]
   svs: List[str]
+  event: EventType
   # A list of key-value attributes interpreted per chart_type
   attr: Dict
 
@@ -92,6 +104,10 @@ class Utterance:
   answerPlaces: List[str]
   # Linked list of past utterances
   prev_utterance: Utterance
+  # Debug counters that are cleared out before serializing.
+  # Some of these might be promoted to the main Debug Info display,
+  # but everything else will appear in the raw output.
+  counters: Dict = field(default_factory=dict)
 
 
 #
@@ -133,8 +149,12 @@ def _classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       else:
         # This could also be a simple string (rather than string enum)
         cdict['contained_in_place_type'] = cip
+    elif isinstance(c.attributes, EventClassificationAttributes):
+      cdict['event_type'] = c.attributes.event_types
     elif isinstance(c.attributes, RankingClassificationAttributes):
       cdict['ranking_type'] = c.attributes.ranking_type
+    elif isinstance(c.attributes, TimeDeltaClassificationAttributes):
+      cdict['time_delta_type'] = c.attributes.time_delta_types
 
     classifications_dict.append(cdict)
   return classifications_dict
@@ -149,10 +169,18 @@ def _dict_to_classification(
       attributes = ContainedInClassificationAttributes(
           contained_in_place_type=ContainedInPlaceType(
               cdict['contained_in_place_type']))
+    elif 'event_type' in cdict:
+      attributes = EventClassificationAttributes(
+          event_types=[EventType(e) for e in cdict['event_type']],
+          event_trigger_words=[])
     elif 'ranking_type' in cdict:
       attributes = RankingClassificationAttributes(
           ranking_type=[RankingType(r) for r in cdict['ranking_type']],
           ranking_trigger_words=[])
+    elif 'time_delta_type' in cdict:
+      attributes = TimeDeltaClassificationAttributes(
+          time_delta_types=[TimeDeltaType(t) for t in cdict['time_delta_type']],
+          time_delta_trigger_words=[])
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
                      attributes=attributes))
@@ -166,6 +194,7 @@ def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
     cdict['chart_type'] = c.chart_type
     cdict['places'] = _place_to_dict(c.places)
     cdict['svs'] = c.svs
+    cdict['event'] = c.event
     cdict['attr'] = c.attr
     charts_dict.append(cdict)
   return charts_dict
@@ -178,6 +207,7 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
         ChartSpec(chart_type=ChartType(cdict['chart_type']),
                   places=_dict_to_place(cdict['places']),
                   svs=cdict['svs'],
+                  event=cdict['event'],
                   attr=cdict['attr'],
                   utterance=None))
   return charts

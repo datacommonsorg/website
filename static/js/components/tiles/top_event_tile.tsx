@@ -18,24 +18,27 @@
  * Component for rendering a tile which ranks events by severity.
  */
 
+import axios from "axios";
 import _ from "lodash";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { ChartEmbed } from "../../place/chart_embed";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
+import { CoordinatePlace } from "../../types/place_types";
 import {
   EventTypeSpec,
   TopEventTileSpec,
 } from "../../types/subject_page_proto_types";
+import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { formatNumber } from "../../utils/string_utils";
 
 const RANKING_COUNT = 10;
-const NUM_FRACTION_DIGITS = 0;
+const MIN_PERCENT_PLACE_NAMES = 0.4;
 
 interface TopEventTilePropType {
   id: string;
@@ -44,18 +47,50 @@ interface TopEventTilePropType {
   topEventMetadata: TopEventTileSpec;
   eventTypeSpec: EventTypeSpec;
   disasterEventData: DisasterEventPointData;
+  // Place type to show the event map for
+  enclosedPlaceType: string;
   className?: string;
 }
 
 export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
-  const severityProp = props.eventTypeSpec.defaultSeverityFilter.prop;
-  const topEvents = rankEventData(props.disasterEventData);
+  const [eventPlaces, setEventPlaces] =
+    useState<Record<string, NamedPlace>>(null);
+  const severityFilter = props.eventTypeSpec.defaultSeverityFilter;
+  const severityProp = severityFilter.prop;
+  const severityDisplay = severityFilter.displayName || severityFilter.prop;
+  const topEvents = rankEventData(
+    props.disasterEventData,
+    props.topEventMetadata.reverseSort
+  );
 
-  if (topEvents === undefined) {
+  useEffect(() => {
+    fetchEventPlaceData(topEvents);
+  }, [props]);
+
+  const displayPropNames = {};
+  const displayPropUnits = {};
+  if (props.topEventMetadata.displayProp) {
+    for (const dp of props.topEventMetadata.displayProp) {
+      for (const edp of props.eventTypeSpec.displayProp) {
+        if (edp.prop == dp) {
+          displayPropNames[dp] = edp.displayName;
+          displayPropUnits[dp] = edp.unit;
+          break;
+        }
+      }
+    }
+  }
+
+  if (topEvents === undefined || eventPlaces == null) {
     return <></>;
   }
+  const showPlaceColumn =
+    Object.keys(eventPlaces).length / topEvents.length >
+    MIN_PERCENT_PLACE_NAMES;
+  const showNameColumn =
+    topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
 
   return (
     <div
@@ -69,23 +104,80 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
           <div className="ranking-list">
             <h4>{props.title}</h4>
             <table>
+              <thead>
+                <tr>
+                  <td></td>
+                  {showNameColumn && <td>Name</td>}
+                  {showPlaceColumn && <td>{props.enclosedPlaceType}</td>}
+                  {(props.topEventMetadata.showStartDate ||
+                    props.topEventMetadata.showEndDate) && <td>Date</td>}
+                  {props.topEventMetadata.displayProp &&
+                    props.topEventMetadata.displayProp.map((dp, i) => (
+                      <td key={i} className="stat">
+                        {displayPropNames[dp]}
+                      </td>
+                    ))}
+                  <td className="stat">{severityDisplay}</td>
+                </tr>
+              </thead>
               <tbody>
                 {topEvents.map((event, i) => {
+                  const placeName = eventPlaces[event.placeDcid]
+                    ? eventPlaces[event.placeDcid].name
+                    : "N/A";
+                  const showDateRange =
+                    props.topEventMetadata.showStartDate &&
+                    props.topEventMetadata.showEndDate &&
+                    event.endDate &&
+                    event.startDate;
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
-                      <td className="place-name">
-                        <a href={`/browser/${event.placeDcid}`}>
-                          {event.placeName}
-                        </a>
-                      </td>
+                      {showNameColumn && (
+                        <td>
+                          <a href={`/browser/${event.placeDcid}`}>
+                            {getEventName(event)}
+                          </a>
+                        </td>
+                      )}
+                      {showPlaceColumn && (
+                        <td>
+                          {showNameColumn ? (
+                            placeName
+                          ) : (
+                            <a href={`/browser/${event.placeDcid}`}>
+                              {placeName}
+                            </a>
+                          )}
+                        </td>
+                      )}
+                      {(props.topEventMetadata.showStartDate ||
+                        props.topEventMetadata.showEndDate) && (
+                        <td>
+                          {props.topEventMetadata.showStartDate &&
+                            event.startDate}
+                          {showDateRange && " to "}
+                          {props.topEventMetadata.showEndDate && event.endDate}
+                        </td>
+                      )}
+                      {props.topEventMetadata.displayProp &&
+                        props.topEventMetadata.displayProp.map((dp, i) => {
+                          return (
+                            <td key={i} className="stat">
+                              {formatNumber(
+                                event.displayProps[dp],
+                                displayPropUnits[dp],
+                                false
+                              )}
+                            </td>
+                          );
+                        })}
                       <td className="stat">
                         <span className="num-value">
                           {formatNumber(
                             event.severity[severityProp],
                             props.eventTypeSpec.defaultSeverityFilter.unit,
-                            false,
-                            NUM_FRACTION_DIGITS
+                            false
                           )}
                         </span>
                       </td>
@@ -111,15 +203,71 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     </div>
   );
 
+  function getKeyFromLatLng(latitude: number, longitude: number): string {
+    return `${latitude}^${longitude}`;
+  }
+
+  function fetchEventPlaceData(events: DisasterEventPoint[]): void {
+    const latitudes = [];
+    const longitudes = [];
+    events.forEach((event) => {
+      if (!event.latitude || !event.longitude) {
+        return;
+      }
+      latitudes.push(event.latitude);
+      longitudes.push(event.longitude);
+    });
+    axios
+      .get<CoordinatePlace[]>("/api/place/coords2places", {
+        params: {
+          latitudes,
+          longitudes,
+          placeType: props.enclosedPlaceType,
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        const latLngPlaces: Record<string, NamedPlace> = {};
+        if (resp.data) {
+          resp.data.forEach((coordPlace) => {
+            const key = getKeyFromLatLng(
+              coordPlace.latitude,
+              coordPlace.longitude
+            );
+            latLngPlaces[key] = {
+              dcid: coordPlace.placeDcid,
+              name: coordPlace.placeName,
+            };
+          });
+        }
+        const eventPlaces = {};
+        events.forEach((event) => {
+          const latLngKey = getKeyFromLatLng(event.latitude, event.longitude);
+          if (latLngKey in latLngPlaces) {
+            eventPlaces[event.placeDcid] = latLngPlaces[latLngKey];
+          }
+        });
+        setEventPlaces(eventPlaces);
+      })
+      .catch(() => {
+        setEventPlaces({});
+      });
+  }
+
   function rankEventData(
-    disasterEventData: DisasterEventPointData
+    disasterEventData: DisasterEventPointData,
+    isReverse: boolean
   ): DisasterEventPoint[] {
     const filteredPoints = disasterEventData.eventPoints.filter(
       (a) => !_.isEmpty(a.severity)
     );
-    filteredPoints.sort(
-      (a, b) => b.severity[severityProp] - a.severity[severityProp]
-    );
+    filteredPoints.sort((a, b) => {
+      if (isReverse) {
+        return a.severity[severityProp] - b.severity[severityProp];
+      } else {
+        return b.severity[severityProp] - a.severity[severityProp];
+      }
+    });
     return filteredPoints.slice(0, RANKING_COUNT);
   }
 
@@ -144,5 +292,25 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       "",
       []
     );
+  }
+
+  function isUnnamedEvent(name: string) {
+    return (
+      name.indexOf("started on") > 0 ||
+      (name.indexOf("Event at") > 0 && name.indexOf(" on ") > 0)
+    );
+  }
+
+  function getEventName(event: DisasterEventPoint) {
+    let name = event.placeName;
+    if (isUnnamedEvent(name)) {
+      const eventTypeName = props.eventTypeSpec.name;
+      if (eventPlaces[event.placeDcid]) {
+        name = `${eventTypeName} in ${eventPlaces[event.placeDcid].name}`;
+      } else {
+        name = `${eventTypeName} at lat/long: ${event.latitude},${event.longitude}`;
+      }
+    }
+    return name;
   }
 }

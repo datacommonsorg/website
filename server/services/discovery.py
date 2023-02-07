@@ -28,9 +28,9 @@ Default behaviour:
 
 import itertools
 from typing import Dict, List, Union
-import yaml
 
 import lib.config as libconfig
+import yaml
 
 cfg = libconfig.get_config()
 
@@ -158,6 +158,7 @@ endpoints = Endpoints([
     '/v1/info/variable-group',
     # Recon APIs
     '/v1/recon/resolve/id',
+    '/v1/recon/resolve/coordinate',
     # Bio APIs
     '/internal/bio',
     # Misc

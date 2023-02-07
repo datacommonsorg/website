@@ -17,15 +17,19 @@ import json
 import logging
 import urllib.parse
 
-from flask import Blueprint, request, Response, url_for, g, current_app
-from flask_babel import gettext
-
 from cache import cache
-import routes.api.shared as shared_api
-import services.datacommons as dc
-from services.datacommons import fetch_data
-from routes.api.shared import names
+from flask import Blueprint
+from flask import current_app
+from flask import g
+from flask import request
+from flask import Response
+from flask import url_for
+from flask_babel import gettext
 import lib.i18n as i18n
+from routes.api.shared import names
+import routes.api.shared as shared_api
+from services.datacommons import fetch_data
+import services.datacommons as dc
 
 CHILD_PLACE_LIMIT = 50
 
@@ -736,6 +740,56 @@ def placeid2dcid():
       if dcid in PLACE_OVERRIDE:
         dcid = PLACE_OVERRIDE[dcid]
       result[inId] = dcid
+  return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/coords2places')
+def coords2places():
+  """API endpoint to get place name and dcid based on latitude/longitude
+      coordinates and the place type to retrieve.
+
+    Assume that the latitude/longitude at the same list index is a coordinate.
+
+    Returns a list of { latitude: number, longitude: number, placeDcid: str, placeName: str } objects.
+  """
+  latitudes = request.args.getlist("latitudes")
+  longitudes = request.args.getlist("longitudes")
+  place_type = request.args.get("placeType", "")
+  # Get resolved place coordinate information for each coordinate of interest
+  coordinates = []
+  for idx in range(0, min(len(latitudes), len(longitudes))):
+    coordinates.append({
+        'latitude': latitudes[idx],
+        'longitude': longitudes[idx]
+    })
+  place_coordinates = dc.resolve_coordinates(coordinates).get(
+      "placeCoordinates", [])
+  # Get the place types for each place dcid in the resolved place coordinates
+  dcids_to_get_type = set()
+  for place_coord in place_coordinates:
+    dcids_to_get_type.update(place_coord.get('placeDcids', []))
+  place_types = dc.property_values(list(dcids_to_get_type), 'typeOf')
+  # Get the place names for the places that are of the requested place type
+  dcids_to_get_name = filter(
+      lambda place: place_type in place_types.get(place, []),
+      list(dcids_to_get_type))
+  place_names = names(list(dcids_to_get_name))
+  # Populate results. For each resolved place coordinate, if there is an
+  # attached place of the requested place type, add it to the result.
+  result = []
+  for place_coord in place_coordinates:
+    for place in place_coord.get("placeDcids", []):
+      if place in place_names:
+        place_name = place_names[place]
+        if not place_name:
+          place_name = place
+        result.append({
+            'longitude': place_coord.get("longitude"),
+            'latitude': place_coord.get("latitude"),
+            'placeDcid': place,
+            'placeName': place_name
+        })
+        break
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
