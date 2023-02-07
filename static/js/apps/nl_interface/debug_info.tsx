@@ -126,7 +126,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     <>
       {!showDebug && (
         <a className="debug-info-toggle show" onClick={toggleShowDebug}>
-          Show debug info
+          <span className="material-icons">bug_report</span>
         </a>
       )}
       {showDebug && (
