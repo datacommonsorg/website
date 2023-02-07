@@ -25,7 +25,7 @@ from nl_server.embeddings import Embeddings
 from nl_server.loader import nl_cache_path
 from nl_server.loader import nl_embeddings_cache_key
 
-_root_dir = os.path.join(
+_root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 

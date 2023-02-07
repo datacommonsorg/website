@@ -135,7 +135,7 @@ function run_py_test {
 function run_webdriver_test {
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   setup_python
-  if [ ! -d dist  ]
+  if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1

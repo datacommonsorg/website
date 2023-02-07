@@ -20,8 +20,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_tests.base_test import WebdriverBaseTest
-import webdriver_tests.shared as shared
+from server.webdriver_tests.base_test import WebdriverBaseTest
+import server.webdriver_tests.shared as shared
 
 SCATTER_URL = '/tools/scatter'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
