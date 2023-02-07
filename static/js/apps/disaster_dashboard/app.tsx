@@ -27,6 +27,8 @@ import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { ChildPlaces } from "./child_places";
 import { ParentBreadcrumbs } from "./parent_breadcrumbs";
 
+const PAGE_ID = "disaster";
+
 interface AppPropType {
   /**
    * The place to show the dashboard for.
@@ -47,7 +49,10 @@ export function App(props: AppPropType): JSX.Element {
     <>
       <div className="row">
         <div className="col-md-3x col-lg-2 order-last order-lg-0">
-          <SubjectPageSidebar categories={props.dashboardConfig.categories} />
+          <SubjectPageSidebar
+            id={PAGE_ID}
+            categories={props.dashboardConfig.categories}
+          />
           <ChildPlaces parentPlace={props.place}></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
@@ -57,6 +62,7 @@ export function App(props: AppPropType): JSX.Element {
             parentPlaces={props.parentPlaces}
           ></ParentBreadcrumbs>
           <SubjectPageMainPane
+            id={PAGE_ID}
             place={props.place}
             pageConfig={props.dashboardConfig}
             parentPlaces={props.parentPlaces}

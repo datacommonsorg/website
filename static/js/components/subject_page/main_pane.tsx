@@ -21,15 +21,18 @@
 import _ from "lodash";
 import React, { memo, useEffect, useState } from "react";
 
+import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
-import { fetchGeoJsonData } from "../../utils/subject_page_utils";
+import { fetchGeoJsonData, getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
 import { DataContext } from "./data_context";
 
 interface SubjectPageMainPanePropType {
+  // Id for this subject page.
+  id: string;
   // The place to show the page for.
   place: NamedTypedPlace;
   // Config of the page
@@ -71,7 +74,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
     <div id="subject-page-main-pane">
       {!_.isEmpty(props.pageConfig) &&
         props.pageConfig.categories.map((category, idx) => {
-          const id = `cat${idx}`;
+          const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
           return (
             <DataContext.Provider key={id} value={{ geoJsonData }}>
               <ErrorBoundary>

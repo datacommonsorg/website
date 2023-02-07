@@ -7,4 +7,5 @@
 
 .git
 .env
-log.txt
+
+pytest_log.txt

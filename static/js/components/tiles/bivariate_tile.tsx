@@ -340,7 +340,7 @@ function draw(
   };
 
   drawBivariate(
-    props.id,
+    svgContainer,
     legend,
     chartData.points,
     chartData.geoJson,

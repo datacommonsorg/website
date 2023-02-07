@@ -20,6 +20,7 @@ import babel.dates as babel_dates
 from flask import Blueprint
 from flask import g
 from flask import render_template
+from services import datacommons as dc
 
 from server.services import datacommons as dc
 
@@ -103,4 +104,8 @@ def version():
                          website_hash=os.environ.get("WEBSITE_HASH"),
                          mixer_hash=mixer_version['gitHash'],
                          tables=mixer_version['tables'],
+<<<<<<< HEAD
                          bigquery=mixer_version['bigquery'])
+=======
+                         bigquery=mixer_version['bigquery'])
+>>>>>>> 44df40a8227a02bd5c3e7e019426989d4c2be736

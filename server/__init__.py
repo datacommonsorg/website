@@ -319,8 +319,6 @@ def create_app():
     # Add commonly used config flags.
     g.env_name = app.config.get('ENV_NAME', None)
 
-  @app.before_request
-  def before_request():
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
       url = request.url.replace('http://', 'https://', 1)
