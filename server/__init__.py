@@ -289,7 +289,7 @@ def create_app():
 
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
-    libutil.check_backend_ready([app.config['NL_ROOT']])
+    libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
     import server.lib.nl.training as libnl
     import server.services.nl as nl
