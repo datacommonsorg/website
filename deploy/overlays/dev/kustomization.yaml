@@ -47,4 +47,4 @@ patchesStrategicMerge:
     metadata:
       name: website-app
     spec:
-      replicas: 6
+      replicas: 3

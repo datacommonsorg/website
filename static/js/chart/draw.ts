@@ -908,7 +908,12 @@ function drawLineChart(
 
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => d.time))
+    .domain(
+      d3.extent(
+        dataGroups.flatMap((dg) => dg.value),
+        (d) => d.time
+      )
+    )
     .range([leftWidth, width - MARGIN.right]);
 
   let singlePointLabel = null;
