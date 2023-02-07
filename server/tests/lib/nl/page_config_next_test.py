@@ -684,7 +684,7 @@ EVENT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Most severe fires"
+         title: "Most severe fires in Foo Place"
          type: TOP_EVENT
          top_event_tile_spec {
            event_type_key: "fire"
@@ -694,6 +694,7 @@ EVENT_CONFIG = """
      }
      columns {
        tiles {
+         title: "Fires in Foo Place"
          type: DISASTER_EVENT_MAP
          disaster_event_map_tile_spec {
            event_type_keys: "fire"

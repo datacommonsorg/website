@@ -505,19 +505,20 @@ def _event_chart_block(metadata, block, column, place: Place,
     tile = column.tiles.add()
     # TODO: Handle top event for earthquakes
     if not _maybe_copy_top_event(event_id, block, tile, event_config):
-      tile = column.tiles.add()
       tile.type = Tile.TOP_EVENT
+      tile.title = _with_place(event_name, place)
       top_event = tile.top_event_tile_spec
       top_event.event_type_key = event_id
       top_event.display_prop.append('name')
       top_event.show_start_date = True
       top_event.show_end_date = True
-  else:
-    tile.type = Tile.DISASTER_EVENT_MAP
-    tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
+    else:
+      tile.title = _with_place(tile.title, place)
+
   tile = block.columns.add().tiles.add()
   tile.type = Tile.DISASTER_EVENT_MAP
   tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
+  tile.title = _with_place(event_name, place)
 
 
 def _maybe_copy_top_event(event_id, block, tile, event_config):
