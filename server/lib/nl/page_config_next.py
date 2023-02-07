@@ -555,7 +555,7 @@ def _prefix_related(title: str, attr: Dict) -> str:
 
 def _with_containment(title: str, place: Place, attr: Dict) -> str:
   pt = attr.get('place_type', 'Place')
-  return _with_place(title, place) + ' ' + utils.pluralize_place_type(pt)
+  return title + ' in ' + utils.pluralize_place_type(pt) + ' of ' + place.name
 
 
 def _with_place(title: str, place: Place) -> str:
