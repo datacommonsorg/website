@@ -45,13 +45,17 @@ TOPIC_PAGE_CONFIGS = {
     'poverty': ['USA', 'India'],
 }
 
-_root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def get_repo_root():
+  '''Get the absolute path of the repo root directory
+  '''
+  return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def get_chart_config():
   chart_config = []
   for filename in PLACE_EXPLORER_CATEGORIES:
-    with open(os.path.join(_root_dir, 'config', 'chart_config',
+    with open(os.path.join(get_repo_root(), 'config', 'chart_config',
                            filename + '.json'),
               encoding='utf-8') as f:
       chart_config.extend(json.load(f))
@@ -74,7 +78,7 @@ def get_topic_page_config():
   for topic_id, filenames in TOPIC_PAGE_CONFIGS.items():
     configs = []
     for filename in filenames:
-      filepath = os.path.join(_root_dir, 'config', 'topic_page', topic_id,
+      filepath = os.path.join(get_repo_root(), 'config', 'topic_page', topic_id,
                               filename + '.textproto')
       configs.append(get_subject_page_config(filepath))
     topic_configs[topic_id] = configs
@@ -84,7 +88,7 @@ def get_topic_page_config():
 # Returns list of disaster dashboard configs loaded as SubjectPageConfig protos
 def get_disaster_dashboard_configs():
   dashboard_configs = []
-  dashboard_configs_dir = os.path.join(_root_dir, "config",
+  dashboard_configs_dir = os.path.join(get_repo_root(), "config",
                                        "disaster_dashboard")
   for filename in os.listdir(dashboard_configs_dir):
     filepath = os.path.join(dashboard_configs_dir, filename)
