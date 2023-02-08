@@ -84,7 +84,7 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_stanford_dc(app, is_test, is_local):
+def register_routes_stanford_dc(app, is_local):
   # Install blueprints specific to Stanford DC
   from server.routes import disasters
   from server.routes import event
@@ -93,14 +93,21 @@ def register_routes_stanford_dc(app, is_test, is_local):
   app.register_blueprint(disaster_api.bp)
   app.register_blueprint(event.bp)
 
-  if not is_test:
-    # load disaster dashboard configs
-    disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
-    app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
-    if not is_local or os.environ.get('ENABLE_DISASTER_JSON') == 'true':
-      disaster_dashboard_data = get_disaster_dashboard_data(
-          app.config['GCS_BUCKET'])
-      app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+  if app.config['TEST']:
+    return
+
+  # load disaster dashboard configs
+  disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
+  app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
+
+  if app.config['INTEGRATION']:
+    return
+
+  # load disaster json data
+  if not is_local or os.environ.get('ENABLE_DISASTER_JSON') == 'true':
+    disaster_dashboard_data = get_disaster_dashboard_data(
+        app.config['GCS_BUCKET'])
+    app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
 
 def register_routes_admin(app):
@@ -210,13 +217,15 @@ def create_app():
   if cfg.ENV_NAME == 'STANFORD' or os.environ.get('FLASK_ENV') in [
       'autopush', 'dev'
   ] or cfg.LOCAL and not cfg.LITE:
-    register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
-  if cfg.TEST:
+    register_routes_stanford_dc(app, cfg.LOCAL)
+
+  if cfg.TEST or cfg.INTEGRATION:
     # disaster dashboard tests require stanford's routes to be registered.
     register_routes_base_dc(app)
-    register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
+    register_routes_stanford_dc(app, cfg.LOCAL)
   else:
     register_routes_base_dc(app)
+
   if cfg.ADMIN:
     register_routes_admin(app)
     cred = credentials.ApplicationDefault()
@@ -307,7 +316,6 @@ def create_app():
     requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
     g.locale_choices = i18n.locale_choices(requested_locale)
     g.locale = g.locale_choices[0]
-
     # Add commonly used config flags.
     g.env_name = app.config.get('ENV_NAME', None)
 

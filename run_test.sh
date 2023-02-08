@@ -145,18 +145,30 @@ function run_webdriver_test {
   python3 -m pytest -n 10 --reruns 3 server/webdriver_tests/tests/
 }
 
+# Run integration test for NL interface
+function run_integration_test {
+  setup_python
+  export ENABLE_MODEL=true
+  export FLASK_ENV=integration-test
+  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export TEST_MODE=test
+  python3 -m pytest -vv server/integration_tests/
+}
+
 function run_all_tests {
   run_py_test
   run_npm_build
   run_webdriver_test
   run_npm_lint_test
   run_npm_test
+  run_integration_test
 }
 
 function help {
   echo "Usage: $0 -pwblcsaf"
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
+  echo "-i       Run integration tests"
   echo "-o       Build for production (ignores dev dependencies)"
   echo "-b       Run client install and build"
   echo "-l       Run client lint test"
@@ -167,7 +179,7 @@ function help {
 }
 
 # Always reset the variable null.
-while getopts tpwotblcsaf OPTION; do
+while getopts tpwiotblcsaf OPTION; do
   case $OPTION in
     p)
         echo -e "### Running server tests"
@@ -176,6 +188,10 @@ while getopts tpwotblcsaf OPTION; do
     w)
         echo -e "### Running webdriver tests"
         run_webdriver_test
+        ;;
+    i)
+        echo -e "### Running integration tests"
+        run_integration_test
         ;;
     o)
         echo -e "### Production flag enabled"

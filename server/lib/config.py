@@ -34,6 +34,7 @@ ENV = {
     'dev',
     # Test
     'test',
+    'integration-test',
     # Webdriver
     'webdriver',
     # Minikube
