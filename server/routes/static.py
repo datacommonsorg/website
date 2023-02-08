@@ -20,7 +20,8 @@ import babel.dates as babel_dates
 from flask import Blueprint
 from flask import g
 from flask import render_template
-from services import datacommons as dc
+
+from server.services import datacommons as dc
 
 bp = Blueprint('static', __name__)
 

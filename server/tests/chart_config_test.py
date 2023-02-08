@@ -16,8 +16,8 @@ import json
 import os
 import unittest
 
-import lib.range as lib_range
-import lib.util as lib_util
+import server.lib.range as lib_range
+import server.lib.util as lib_util
 
 
 class TestChart(unittest.TestCase):

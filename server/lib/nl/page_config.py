@@ -16,16 +16,16 @@ import json
 import os
 from typing import Dict, List
 
-from config import subject_page_pb2
-from lib.nl import topic
-from lib.nl.constants import PLACE_TYPE_TO_PLURALS
-from lib.nl.data_spec import DataSpec
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import Detection
-from lib.nl.detection import NLClassifier
-from lib.nl.detection import Place
-from lib.nl.detection import RankingType
-from services import datacommons as dc
+from server.config import subject_page_pb2
+from server.lib.nl import topic
+from server.lib.nl.constants import PLACE_TYPE_TO_PLURALS
+from server.lib.nl.data_spec import DataSpec
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import Detection
+from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import Place
+from server.lib.nl.detection import RankingType
+from server.services import datacommons as dc
 
 CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 

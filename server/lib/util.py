@@ -21,9 +21,10 @@ import time
 from typing import List
 import urllib
 
-from config import subject_page_pb2
 from google.protobuf import text_format
-import services.datacommons as dc
+
+from server.config import subject_page_pb2
+import server.services.datacommons as dc
 
 _ready_check_timeout = 120  # seconds
 _ready_check_sleep_seconds = 5

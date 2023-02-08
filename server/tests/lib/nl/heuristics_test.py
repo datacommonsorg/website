@@ -15,12 +15,13 @@
 
 import unittest
 
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import EventType
-from lib.nl.detection import RankingType
-from lib.nl.detection import TimeDeltaType
 from parameterized import parameterized
-from services.nl import Model
+
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import EventType
+from server.lib.nl.detection import RankingType
+from server.lib.nl.detection import TimeDeltaType
+from server.services.nl import Model
 
 
 class TestHeuristicEventClassifier(unittest.TestCase):

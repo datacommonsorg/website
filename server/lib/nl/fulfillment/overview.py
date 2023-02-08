@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from lib.nl import utils
-from lib.nl.detection import Place
-from lib.nl.fulfillment.base import add_chart_to_utterance
-from lib.nl.fulfillment.base import ChartVars
-from lib.nl.fulfillment.base import PopulateState
-import lib.nl.fulfillment.context as ctx
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import Utterance
+from server.lib.nl import utils
+from server.lib.nl.detection import Place
+from server.lib.nl.fulfillment import context as ctx
+from server.lib.nl.fulfillment.base import add_chart_to_utterance
+from server.lib.nl.fulfillment.base import ChartVars
+from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import Utterance
 
 # A simple fulfiller to add a PLACE_OVERVIEW chart by finding places in context.
 

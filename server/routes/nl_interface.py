@@ -25,19 +25,20 @@ from flask import escape
 from flask import render_template
 from flask import request
 from google.protobuf.json_format import MessageToJson
-import lib.nl.data_spec as nl_data_spec
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import ContainedInPlaceType
-from lib.nl.detection import Detection
-from lib.nl.detection import NLClassifier
-from lib.nl.detection import Place
-from lib.nl.detection import PlaceDetection
-from lib.nl.detection import SimpleClassificationAttributes
-from lib.nl.detection import SVDetection
-import lib.nl.page_config as nl_page_config
-import lib.nl.utils as utils
 import requests
-import services.datacommons as dc
+
+import server.lib.nl.data_spec as nl_data_spec
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import Detection
+from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import Place
+from server.lib.nl.detection import PlaceDetection
+from server.lib.nl.detection import SimpleClassificationAttributes
+from server.lib.nl.detection import SVDetection
+import server.lib.nl.page_config as nl_page_config
+import server.lib.nl.utils as utils
+import server.services.datacommons as dc
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 

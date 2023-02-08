@@ -16,9 +16,10 @@ import logging
 import os
 
 from flask import Flask
-import loader
-import routes
 import yaml
+
+import nl_server.loader as loader
+import nl_server.routes as routes
 
 
 def create_app():

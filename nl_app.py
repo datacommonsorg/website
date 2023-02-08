@@ -15,7 +15,7 @@
 
 import logging
 
-from __init__ import create_app
+from nl_server.__init__ import create_app
 
 logging.basicConfig(
     level=logging.INFO,

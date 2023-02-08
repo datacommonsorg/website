@@ -25,21 +25,22 @@ from flask import escape
 from flask import render_template
 from flask import request
 from google.protobuf.json_format import MessageToJson
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import Detection
-from lib.nl.detection import NLClassifier
-from lib.nl.detection import Place
-from lib.nl.detection import PlaceDetection
-from lib.nl.detection import RANKED_CLASSIFICATION_TYPES
-from lib.nl.detection import SimpleClassificationAttributes
-from lib.nl.detection import SVDetection
-import lib.nl.fulfillment_next as fulfillment
-import lib.nl.page_config_next as nl_page_config
-import lib.nl.utils as utils
-import lib.nl.utterance as nl_utterance
-from lib.util import get_disaster_dashboard_configs
 import requests
-import services.datacommons as dc
+
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import Detection
+from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import Place
+from server.lib.nl.detection import PlaceDetection
+from server.lib.nl.detection import RANKED_CLASSIFICATION_TYPES
+from server.lib.nl.detection import SimpleClassificationAttributes
+from server.lib.nl.detection import SVDetection
+import server.lib.nl.fulfillment_next as fulfillment
+import server.lib.nl.page_config_next as nl_page_config
+import server.lib.nl.utils as utils
+import server.lib.nl.utterance as nl_utterance
+from server.lib.util import get_disaster_dashboard_configs
+import server.services.datacommons as dc
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 
