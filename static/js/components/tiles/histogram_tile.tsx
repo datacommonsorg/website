@@ -197,6 +197,8 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
     dateSetting: string,
     setHistogramData: (data: DataPoint[]) => void
   ): void {
+    // TODO(juliawu): detect whether to bin by month or day depending on the
+    //                user's selected time setting
     // TODO(juliawu): add 'last30days' case handling
     const histogramData = binDataByMonth(disasterEventPoints, dateSetting);
     setHistogramData(histogramData);
