@@ -489,7 +489,12 @@ export function addMapPoints(
     });
   const minDotSize = minDotRadius || Math.max(minRegionDiagonal * 0.02, 1.1);
   const filteredMapPoints = mapPoints.filter((point) => {
-    return !_.isNull(projection([point.longitude, point.latitude]));
+    const projectedPoint = projection([point.longitude, point.latitude]);
+    return (
+      projectedPoint &&
+      !_.isNaN(projectedPoint[0]) &&
+      !_.isNaN(projectedPoint[1])
+    );
   });
   let pointSizeScale = null;
   if (!_.isEmpty(mapPointValues)) {
