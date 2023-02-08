@@ -21,7 +21,7 @@ source .env/bin/activate
 PORT=8080
 ENV=local
 ENABLE_MODEL=false
-PROTOC_VERSION=3.21.12
+PROTOC_VERSION=3.21.9
 
 function help {
   echo "Usage: $0 -epm"

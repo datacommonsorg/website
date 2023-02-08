@@ -234,7 +234,9 @@ categories {
       tiles {
         type: HISTOGRAM
         title: "SPI - 9 month"
-        stat_var_key: "spi_9"
+        histogram_tile_spec {
+          event_type_key: "drought"
+        }
       }
     }
     columns {
@@ -274,18 +276,18 @@ categories {
           event_type_keys: "fire"
         }
       }
-      tiles {
-        # TODO: Need to specify P1Y
-        type: HISTOGRAM
-        title: "Number of fires last year"
-        stat_var_key: "fire_count"
-      }
-      tiles {
-        # TODO: Need to specify P1Y
-        type: HISTOGRAM
-        title: "Total area affected by fires last year"
-        stat_var_key: "fire_area"
-      }
+      # tiles {
+      #   # TODO: Need to specify P1Y
+      #   type: HISTOGRAM
+      #   title: "Number of fires last year"
+      #   stat_var_key: "fire_count"
+      # }
+      # tiles {
+      #   # TODO: Need to specify P1Y
+      #   type: HISTOGRAM
+      #   title: "Total area affected by fires last year"
+      #   stat_var_key: "fire_area"
+      # }
     }
     columns {
       tiles {
@@ -331,18 +333,18 @@ categories {
           event_type_keys: "flood"
         }
       }
-      tiles {
-        # TODO: Need to specify P1Y
-        type: HISTOGRAM
-        title: "Number of floods last year"
-        stat_var_key: "flood_count"
-      }
-      tiles {
-        # TODO: Need to specify P1Y
-        type: HISTOGRAM
-        title: "Total area affected by floods last year"
-        stat_var_key: "flood_area"
-      }
+      # tiles {
+      #   # TODO: Need to specify P1Y
+      #   type: HISTOGRAM
+      #   title: "Number of floods last year"
+      #   stat_var_key: "flood_count"
+      # }
+      # tiles {
+      #   # TODO: Need to specify P1Y
+      #   type: HISTOGRAM
+      #   title: "Total area affected by floods last year"
+      #   stat_var_key: "flood_area"
+      # }
     }
     columns {
       tiles {
@@ -536,16 +538,16 @@ categories {
           event_type_keys: "cold"
         }
       }
-      tiles {
-        type: HISTOGRAM
-        title: "Number of extreme cold events last year"
-        stat_var_key: "cold_count"
-      }
-      tiles {
-        type: HISTOGRAM
-        title: "Total area affected by extreme cold events last year"
-        stat_var_key: "cold_area"
-      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Number of extreme cold events last year"
+      #   stat_var_key: "cold_count"
+      # }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by extreme cold events last year"
+      #   stat_var_key: "cold_area"
+      # }
     }
     columns {
       tiles {

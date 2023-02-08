@@ -209,18 +209,6 @@ function renderTiles(
             {tile.description}
           </p>
         );
-      case "HISTOGRAM":
-        return (
-          <HistogramTile
-            key={id}
-            id={id}
-            title={tile.title}
-            place={props.place}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
-            svgChartHeight={props.svgChartHeight}
-            className={className}
-          />
-        );
       case "PLACE_OVERVIEW":
         return <PlaceOverviewTile key={id} place={props.place} />;
       default:
