@@ -24,6 +24,7 @@ bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
 DEFAULT_LAST_MONTH = 12  # December ends the year
 
+
 def compact_series(series_resp, all_facets):
   result = {
       'facets': series_resp.get('facets', {}),
@@ -60,9 +61,6 @@ def series_core(entities, variables, all_facets):
 def series_within_core(parent_entity, child_type, variables, all_facets):
   resp = dc.obs_series_within(parent_entity, child_type, variables, all_facets)
   return compact_series(resp, all_facets)
-
-
-
 
 
 @bp.route('', strict_slashes=False)
@@ -129,5 +127,3 @@ def series_within_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   return util.series_within_core(parent_entity, child_type, variables, True)
-
-

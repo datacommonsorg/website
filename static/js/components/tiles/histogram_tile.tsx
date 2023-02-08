@@ -28,10 +28,6 @@ import {
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
-import {
-  EventTypeSpec,
-  HistogramTileSpec,
-} from "../../types/subject_page_proto_types";
 import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/disaster_event_map_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
@@ -53,9 +49,8 @@ function getMonthString(date: Date): string {
 }
 
 /**
- * Helper function for getting all months along x-axis to display
- * @param dateSetting
- * @returns
+ * Helper function for getting all months along x-axis to display.
+ * Used for initializing bins when binning monthly.
  */
 function getMonthsArray(
   dateSetting: string,
@@ -113,16 +108,16 @@ function binDataByMonth(
   }
 
   for (const event of disasterEventPoints) {
-    // get start time in YYYY-MM
+    // Get start time in YYYY-MM
     const eventMonth = event.startDate.slice(0, "YYYY-MM".length);
 
-    // increment count in corresponding bin
+    // Increment count in corresponding bin
     if (bins.has(eventMonth)) {
       bins.set(eventMonth, bins.get(eventMonth) + 1);
     }
   }
 
-  // format binned data into DataPoint[]
+  // Format binned data into DataPoint[]
   const histogramData = new Array<DataPoint>();
   bins.forEach((value, label) => {
     histogramData.push({ label: label, value: value });
