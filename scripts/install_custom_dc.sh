@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.1.4
+CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.1.5
 
 TERRAFORM_PATH=$(which terraform)
 if [[ -n "$TERRAFORM_PATH" ]]; then

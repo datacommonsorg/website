@@ -104,8 +104,8 @@ resource "google_dns_record_set" "website_record" {
 
   count = var.register_domain ? 1 : 0
 
-  name         = "${google_dns_managed_zone.datacommons_zone.dns_name}"
-  managed_zone = google_dns_managed_zone.datacommons_zone.name
+  name         = "${google_dns_managed_zone.datacommons_zone[0].dns_name}"
+  managed_zone = google_dns_managed_zone.datacommons_zone[0].name
   type         = "A"
   ttl          = 300
   project      = var.project_id
@@ -150,7 +150,7 @@ resource "null_resource" "cloud_domain" {
       CONTACT_LOCALITY                    = var.contact_locality
       ARRAY_CONTACT_ADDRESSES             = local.single_quoted_array_contact_addresses
       ARRAY_CONTACT_RECIPIENTS            = local.single_quoted_array_contact_recipients
-      DNS_ZONE_NAME                       = google_dns_managed_zone.datacommons_zone.name
+      DNS_ZONE_NAME                       = google_dns_managed_zone.datacommons_zone[0].name
     }
   }
 
