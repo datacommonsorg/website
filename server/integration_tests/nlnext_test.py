@@ -69,7 +69,7 @@ class IntegrationTest(LiveServerTestCase):
         expected['debug'] = {}
         expected['context'] = {}
         a, b = (
-            json.dumps(resp.json(), sort_keys=True),
+            json.dumps(resp, sort_keys=True),
             json.dumps(expected, sort_keys=True),
         )
         assert a == b
