@@ -17,12 +17,13 @@ import os
 import unittest
 
 from diskcache import Cache
-from embeddings import Embeddings
-from loader import nl_cache_path
-from loader import nl_embeddings_cache_key
 from parameterized import parameterized
 from sklearn.metrics.pairwise import cosine_similarity
 import yaml
+
+from nl_server.embeddings import Embeddings
+from nl_server.loader import nl_cache_path
+from nl_server.loader import nl_embeddings_cache_key
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

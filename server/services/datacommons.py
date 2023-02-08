@@ -21,12 +21,13 @@ from typing import Dict, List
 import urllib.parse
 import zlib
 
-from cache import cache
 from flask import current_app
-import lib.config as libconfig
 import requests
-from services.discovery import get_health_check_urls
-from services.discovery import get_service_url
+
+from server.cache import cache
+import server.lib.config as libconfig
+from server.services.discovery import get_health_check_urls
+from server.services.discovery import get_service_url
 
 cfg = libconfig.get_config()
 

@@ -16,12 +16,12 @@ import json
 import unittest
 from unittest import mock
 
-from main import app
+from web_app import app
 
 
 class TestVariablePath(unittest.TestCase):
 
-  @mock.patch('routes.api.variable.dc.get_variable_ancestors')
+  @mock.patch('server.routes.api.variable.dc.get_variable_ancestors')
   def test_variable_path(self, mock_result):
 
     def side_effect(dcid):

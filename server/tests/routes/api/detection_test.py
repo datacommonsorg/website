@@ -17,7 +17,7 @@ import json
 from typing import Any, List
 import unittest
 
-from main import app
+from web_app import app
 
 
 class TestDetection(unittest.TestCase):

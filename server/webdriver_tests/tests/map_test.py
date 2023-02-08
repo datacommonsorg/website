@@ -18,8 +18,9 @@ import urllib.request
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_tests.base_test import WebdriverBaseTest
-import webdriver_tests.shared as shared
+
+from server.webdriver_tests.base_test import WebdriverBaseTest
+import server.webdriver_tests.shared as shared
 
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'

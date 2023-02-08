@@ -17,17 +17,13 @@ This module contains the request handler codes and the main app.
 """
 
 import logging
-import os
 import sys
 import threading
 import time
 
-from __init__ import create_app
-import flask
-from flask import request
 import requests
-import services.datacommons as dc
-from services.discovery import configure_endpoints_from_ingress
+
+from server.__init__ import create_app
 
 logging.basicConfig(
     level=logging.INFO,

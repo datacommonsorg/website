@@ -15,9 +15,9 @@
 import logging
 from typing import List
 
-import lib.nl.constants as constants
-import lib.nl.utils as utils
-from services import datacommons as dc
+import server.lib.nl.constants as constants
+import server.lib.nl.utils as utils
+from server.services import datacommons as dc
 
 
 class NLPlaceDetector:

@@ -15,8 +15,8 @@
 import os
 
 import flask
-from lib.gcs import list_png
-import services.datacommons as dc
+
+from server.lib.gcs import list_png
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 

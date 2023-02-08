@@ -17,12 +17,13 @@ from dataclasses import dataclass
 import logging
 from typing import Dict, List
 
-from lib.nl import topic
-from lib.nl import variable
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import Detection
 import pandas as pd
-import services.datacommons as dc
+
+from server.lib.nl import topic
+from server.lib.nl import variable
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import Detection
+import server.services.datacommons as dc
 
 
 @dataclass

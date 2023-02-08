@@ -32,16 +32,16 @@ function setup_python {
 
   # Downloading the named-entity recognition (NER) library spacy and the large EN model
   # using the guidelines here: https://spacy.io/usage/models#production
-  # Unfortunately, pip is not able to recognize this data (as a library) as part of 
+  # Unfortunately, pip is not able to recognize this data (as a library) as part of
   # requirements.txt and will try to download a new version every single time.
   # Reason for doing this here is that if the library is already installed, no need
-  # to download > 560Mb file. 
+  # to download > 560Mb file.
   if python3 -c "import en_core_web_lg" &> /dev/null; then
       echo 'NER model (en_core_web_lg) already installed.'
   else
       echo 'Installing the NER model: en_core_web_lg'
       pip3 install $(spacy info en_core_web_lg --url)
-fi  
+fi
 }
 
 # Run test for client side code.
@@ -104,9 +104,7 @@ function run_npm_build () {
 function run_py_test {
   setup_python
   export FLASK_ENV=test
-  cd server
-  python3 -m pytest tests/ -s --ignore=sustainability
-  cd ..
+  python3 -m pytest server/tests/ -s --ignore=sustainability
 
   # TODO(beets): add tests for other private dc instances
   # export FLASK_ENV=test-sustainability
@@ -117,9 +115,9 @@ function run_py_test {
   echo "nl_server custom requirements installation: starting."
   ./requirements_install.sh
   echo "nl_server custom requirements installation: done."
-  python3 -m pytest tests/ -s
   cd ..
-  
+  python3 -m pytest nl_server/tests/ -s
+
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py; then
     echo "Fix Python lint errors by running ./run_test.sh -f"
@@ -137,16 +135,14 @@ function run_py_test {
 function run_webdriver_test {
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   setup_python
-  cd server
-  if [ ! -d dist  ]
+  if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 10 --reruns 3 webdriver_tests/tests/
-  cd ..
+  python3 -m pytest -n 10 --reruns 3 server/webdriver_tests/tests/
 }
 
 function run_all_tests {

@@ -15,7 +15,8 @@
 from flask import Blueprint
 from flask import current_app
 from flask import request
-import services.datacommons as dc
+
+import server.services.datacommons as dc
 
 bp = Blueprint("variable-group", __name__, url_prefix='/api/variable-group')
 

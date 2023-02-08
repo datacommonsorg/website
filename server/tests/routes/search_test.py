@@ -15,7 +15,7 @@
 import unittest
 from unittest.mock import patch
 
-from main import app
+from web_app import app
 
 
 class TestSearchPages(unittest.TestCase):
@@ -35,7 +35,7 @@ class TestSearchPages(unittest.TestCase):
     assert response.status_code == 200
     assert b"Search the Data Commons Graph" in response.data
 
-  @patch('services.datacommons.search')
+  @patch('server.services.datacommons.search')
   def test_search_dc_query(self, mock_dc_search):
     mock_dc_search.return_value = {
         'section': [{

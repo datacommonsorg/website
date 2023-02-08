@@ -30,6 +30,6 @@ python3 -m pip install --upgrade pip
 echo "nl_server custom requirements installation: starting."
 ./requirements_install.sh
 echo "nl_server custom requirements installation: done."
-
-python3 main.py $PORT
 cd ..
+
+python3 nl_app.py $PORT

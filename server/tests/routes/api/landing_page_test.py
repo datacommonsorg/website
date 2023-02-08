@@ -18,9 +18,10 @@ from unittest.mock import patch
 
 from flask import Flask
 from flask_babel import Babel
-import lib.util as libutil
-from main import app
-import routes.api.landing_page as landing_page
+
+import server.lib.util as libutil
+import server.routes.api.landing_page as landing_page
+from web_app import app
 
 # TODO(shifucun): add test for api endpoint.
 
@@ -69,7 +70,7 @@ class TestBuildSpec(unittest.TestCase):
     }]
     with self.context:
       result = landing_page.build_spec(chart_config, target_category="Overview")
-      with open('tests/test_data/golden_config.json') as f:
+      with open('server/tests/test_data/golden_config.json') as f:
         expected = json.load(f)
         assert expected == result
 
@@ -82,7 +83,8 @@ class TestBuildSpec(unittest.TestCase):
       for topic, configs in topic_data.items():
         got[category][topic] = [c['title'] for c in configs]
     # Get expected text
-    with open('tests/test_data/golden_menu_text.json', encoding='utf-8') as f:
+    with open('server/tests/test_data/golden_menu_text.json',
+              encoding='utf-8') as f:
       expect = json.load(f)
       self.assertEqual(got, expect)
 
@@ -120,7 +122,7 @@ class TestI18n(unittest.TestCase):
         "geoId/0684536": {}
     }
 
-  @patch('routes.api.place.fetch_data')
+  @patch('server.routes.api.place.fetch_data')
   def test_child_places_i18n(self, mock_fetch_data):
     mock_fetch_data.side_effect = self.side_effect
 

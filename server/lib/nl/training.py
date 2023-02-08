@@ -17,9 +17,10 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List
 
-from lib.nl.detection import BinaryClassificationResultType
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.linear_model import LogisticRegression
+
+from server.lib.nl.detection import BinaryClassificationResultType
 
 
 @dataclass

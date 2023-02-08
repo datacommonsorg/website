@@ -18,23 +18,24 @@ from typing import Dict
 import unittest
 from unittest.mock import patch
 
-from config.subject_page_pb2 import SubjectPageConfig
 from google.protobuf import text_format
-from lib.nl import page_config_next
-from lib.nl import topic
-from lib.nl import utils
-from lib.nl import utterance
 from parameterized import parameterized
-from tests.lib.nl.test_utterance import COMPARISON_UTTR
-from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
-from tests.lib.nl.test_utterance import CORRELATION_UTTR
-from tests.lib.nl.test_utterance import EVENT_UTTR
-from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
-from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
+
+from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.nl import page_config_next
+from server.lib.nl import topic
+from server.lib.nl import utils
+from server.lib.nl import utterance
+from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
+from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
+from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
+from server.tests.lib.nl.test_utterance import EVENT_UTTR
+from server.tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
+from server.tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 
 # TODO: Move these configs to test_data/*.textproto
 
@@ -512,7 +513,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
  categories {
   description: "Here are some ranking tables about Count_Agricultural_Workers-name in Foo Place."
    blocks {
-     title: "Count_Agricultural_Workers-name"      
+     title: "Count_Agricultural_Workers-name"
      columns {
        tiles {
          title: "Count_Agricultural_Workers-name in Foo Place"

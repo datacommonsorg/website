@@ -14,7 +14,8 @@
 
 from flask import Blueprint
 from flask import request
-import services.datacommons as dc
+
+import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("observation_dates", __name__)
