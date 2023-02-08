@@ -295,17 +295,12 @@ function renderTiles(
         );
       }
       case "HISTOGRAM": {
-        const eventTypeSpec =
-          props.eventTypeSpec[tile.histogramTileSpec.eventTypeKey];
         return (
           <HistogramTile
             key={id}
             id={id}
             title={tile.title}
             place={props.place}
-            enclosedPlaceType={enclosedPlaceType}
-            eventTypeSpec={eventTypeSpec}
-            histogramMetaData={tile.histogramTileSpec}
             selectedDate={getDate(props.id)}
             disasterEventData={
               disasterEventData[tile.histogramTileSpec.eventTypeKey] || {

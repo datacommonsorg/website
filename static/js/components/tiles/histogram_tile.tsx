@@ -39,9 +39,6 @@ import { ChartTileContainer } from "./chart_tile";
 
 interface HistogramTilePropType {
   disasterEventData: DisasterEventPointData;
-  eventTypeSpec: EventTypeSpec;
-  enclosedPlaceType: string;
-  histogramMetaData: HistogramTileSpec;
   id: string;
   place: NamedTypedPlace;
   selectedDate: string;
