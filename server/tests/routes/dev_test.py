@@ -15,7 +15,7 @@
 import unittest
 from unittest.mock import patch
 
-from main import app
+from web_app import app
 
 
 class TestRoute(unittest.TestCase):
@@ -24,7 +24,7 @@ class TestRoute(unittest.TestCase):
     response = app.test_client().get('/dev/')
     assert response.status_code == 200
 
-  @patch('routes.dev.list_png')
+  @patch('server.routes.dev.list_png')
   def test_screenshot(self, mock_list_png):
     mock_list_png.side_effect = (lambda bucket, prefix: [])
     response = app.test_client().get('/dev/screenshot/folder')

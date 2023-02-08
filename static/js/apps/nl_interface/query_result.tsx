@@ -143,6 +143,7 @@ export const QueryResult = memo(function QueryResult(
           {debugData && <DebugInfo debugData={debugData}></DebugInfo>}
           {chartsData && chartsData.config && (
             <SubjectPageMainPane
+              id={`pg${props.queryIdx}`}
               place={chartsData.place}
               pageConfig={chartsData.config}
               svgChartHeight={SVG_CHART_HEIGHT}

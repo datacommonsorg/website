@@ -21,12 +21,12 @@ import os
 import re
 from typing import Dict, List, Set, Union
 
-import lib.nl.constants as constants
-import lib.nl.detection as detection
-import lib.nl.fulfillment.context as ctx
-import lib.nl.utterance as nl_uttr
-import lib.util as util
-import services.datacommons as dc
+import server.lib.nl.constants as constants
+import server.lib.nl.detection as detection
+import server.lib.nl.fulfillment.context as ctx
+import server.lib.nl.utterance as nl_uttr
+import server.lib.util as util
+import server.services.datacommons as dc
 
 # TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"

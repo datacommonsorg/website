@@ -16,28 +16,28 @@ import json
 import logging
 import os
 import tempfile
-import time
-import urllib.error
-import urllib.request
 
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import Flask
 from flask import g
+from flask import redirect
 from flask import request
 from flask_babel import Babel
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
-import lib.config as libconfig
-from lib.disaster_dashboard import get_disaster_dashboard_data
-import lib.i18n as i18n
-import lib.util as libutil
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
-from services.discovery import get_health_check_urls
+
+import server.lib.config as libconfig
+from server.lib.disaster_dashboard import get_disaster_dashboard_data
+import server.lib.i18n as i18n
+import server.lib.util as libutil
+from server.services.discovery import configure_endpoints_from_ingress
+from server.services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -54,14 +54,14 @@ def createMiddleWare(app, exporter):
 
 def register_routes_base_dc(app):
   # apply the blueprints for all apps
-  from routes import dev
-  from routes import disease
-  from routes import import_wizard
-  from routes import placelist
-  from routes import protein
-  from routes import redirects
-  from routes import special_announcement
-  from routes import topic_page
+  from server.routes import dev
+  from server.routes import disease
+  from server.routes import import_wizard
+  from server.routes import placelist
+  from server.routes import protein
+  from server.routes import redirects
+  from server.routes import special_announcement
+  from server.routes import topic_page
   app.register_blueprint(dev.bp)
   app.register_blueprint(disease.bp)
   app.register_blueprint(placelist.bp)
@@ -70,9 +70,9 @@ def register_routes_base_dc(app):
   app.register_blueprint(special_announcement.bp)
   app.register_blueprint(topic_page.bp)
 
-  from routes.api import disease as disease_api
-  from routes.api import protein as protein_api
-  from routes.api.import_detection import detection as detection_api
+  from server.routes.api import disease as disease_api
+  from server.routes.api import protein as protein_api
+  from server.routes.api.import_detection import detection as detection_api
   app.register_blueprint(detection_api.bp)
   app.register_blueprint(disease_api.bp)
   app.register_blueprint(import_wizard.bp)
@@ -84,43 +84,50 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_stanford_dc(app, is_test, is_local):
+def register_routes_stanford_dc(app, is_local):
   # Install blueprints specific to Stanford DC
-  from routes import disasters
-  from routes import event
-  from routes.api import disaster_api
+  from server.routes import disasters
+  from server.routes import event
+  from server.routes.api import disaster_api
   app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_api.bp)
   app.register_blueprint(event.bp)
 
-  if not is_test:
-    # load disaster dashboard configs
-    disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
-    app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
-    if not is_local or os.environ.get('ENABLE_DISASTER_JSON') == 'true':
-      disaster_dashboard_data = get_disaster_dashboard_data(
-          app.config['GCS_BUCKET'])
-      app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+  if app.config['TEST']:
+    return
+
+  # load disaster dashboard configs
+  disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
+  app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
+
+  if app.config['INTEGRATION']:
+    return
+
+  # load disaster json data
+  if not is_local or os.environ.get('ENABLE_DISASTER_JSON') == 'true':
+    disaster_dashboard_data = get_disaster_dashboard_data(
+        app.config['GCS_BUCKET'])
+    app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
 
 def register_routes_admin(app):
-  from routes import user
+  from server.routes import user
   app.register_blueprint(user.bp)
-  from routes.api import user as user_api
+  from server.routes.api import user as user_api
   app.register_blueprint(user_api.bp)
 
 
 def register_routes_common(app):
   # apply the blueprints for main app
-  from routes import browser
-  from routes import factcheck
-  from routes import nl_interface
-  from routes import nl_interface_next
-  from routes import place
-  from routes import ranking
-  from routes import search
-  from routes import static
-  from routes import tools
+  from server.routes import browser
+  from server.routes import factcheck
+  from server.routes import nl_interface
+  from server.routes import nl_interface_next
+  from server.routes import place
+  from server.routes import ranking
+  from server.routes import search
+  from server.routes import static
+  from server.routes import tools
   app.register_blueprint(browser.bp)
   app.register_blueprint(nl_interface.bp)
   app.register_blueprint(nl_interface_next.bp)
@@ -130,22 +137,22 @@ def register_routes_common(app):
   app.register_blueprint(static.bp)
   app.register_blueprint(tools.bp)
   # TODO: Extract more out to base_dc
-  from routes.api import browser as browser_api
-  from routes.api import choropleth
-  from routes.api import csv
-  from routes.api import facets
-  from routes.api import landing_page
-  from routes.api import node
-  from routes.api import observation_dates
-  from routes.api import observation_existence
-  from routes.api import place as place_api
-  from routes.api import point
-  from routes.api import ranking as ranking_api
-  from routes.api import series
-  from routes.api import stats
-  from routes.api import translator
-  from routes.api import variable
-  from routes.api import variable_group
+  from server.routes.api import browser as browser_api
+  from server.routes.api import choropleth
+  from server.routes.api import csv
+  from server.routes.api import facets
+  from server.routes.api import landing_page
+  from server.routes.api import node
+  from server.routes.api import observation_dates
+  from server.routes.api import observation_existence
+  from server.routes.api import place as place_api
+  from server.routes.api import point
+  from server.routes.api import ranking as ranking_api
+  from server.routes.api import series
+  from server.routes.api import stats
+  from server.routes.api import translator
+  from server.routes.api import variable
+  from server.routes.api import variable_group
   app.register_blueprint(browser_api.bp)
   app.register_blueprint(choropleth.bp)
   app.register_blueprint(csv.bp)
@@ -190,7 +197,7 @@ def create_app():
     app.config['API_ROOT'] = 'http://127.0.0.1:8081'
 
   # Init extentions
-  from cache import cache
+  from server.cache import cache
 
   # For some instance with fast updated data, we may not want to use memcache.
   if app.config['USE_MEMCACHE']:
@@ -198,19 +205,27 @@ def create_app():
   else:
     cache.init_app(app, {'CACHE_TYPE': 'null'})
 
+  # Configure ingress
+  ingress_config_path = os.environ.get(
+      'INGRESS_CONFIG_PATH')  # See deployment yamls.
+  if ingress_config_path:
+    configure_endpoints_from_ingress(ingress_config_path)
+
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
   if cfg.ENV_NAME == 'STANFORD' or os.environ.get('FLASK_ENV') in [
       'autopush', 'dev'
   ] or cfg.LOCAL and not cfg.LITE:
-    register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
-  if cfg.TEST:
+    register_routes_stanford_dc(app, cfg.LOCAL)
+
+  if cfg.TEST or cfg.INTEGRATION:
     # disaster dashboard tests require stanford's routes to be registered.
     register_routes_base_dc(app)
-    register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
+    register_routes_stanford_dc(app, cfg.LOCAL)
   else:
     register_routes_base_dc(app)
+
   if cfg.ADMIN:
     register_routes_admin(app)
     cred = credentials.ApplicationDefault()
@@ -278,9 +293,10 @@ def create_app():
 
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
+    libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
-    import lib.nl.training as libnl
-    import services.nl as nl
+    import server.lib.nl.training as libnl
+    import server.services.nl as nl
 
     # For the classification types available, check lib.training (libnl).
     classification_types = [
@@ -289,38 +305,9 @@ def create_app():
     nl_model = nl.Model(app, libnl.CLASSIFICATION_INFO, classification_types)
     app.config['NL_MODEL'] = nl_model
 
-  def is_up(url: str):
-    if not url.lower().startswith('http'):
-      raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
-
-    try:
-      # Disable Bandit security check 310. http scheme is already checked above.
-      # Codacity still calls out the error so disable the check.
-      # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
-      urllib.request.urlopen(url)  # nosec B310
-      return True
-    except urllib.error.URLError:
-      return False
-
   if not cfg.TEST:
-    timeout = 120  # seconds
-    sleep_seconds = 5
-    total_sleep_seconds = 0
     urls = get_health_check_urls()
-    up_status = {url: False for url in urls}
-    while not all(up_status.values()):
-      for url in urls:
-        if up_status[url]:
-          continue
-        up_status[url] = is_up(url)
-
-      if all(up_status.values()):
-        break
-      logging.info("Mixer not ready, waiting for %s seconds", sleep_seconds)
-      time.sleep(sleep_seconds)
-      total_sleep_seconds += sleep_seconds
-      if total_sleep_seconds > timeout:
-        raise RuntimeError('Mixer not ready after %s second' % timeout)
+    libutil.check_backend_ready(urls)
 
   # Add variables to the per-request global context.
   @app.before_request
@@ -329,9 +316,14 @@ def create_app():
     requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
     g.locale_choices = i18n.locale_choices(requested_locale)
     g.locale = g.locale_choices[0]
-
     # Add commonly used config flags.
     g.env_name = app.config.get('ENV_NAME', None)
+
+    scheme = request.headers.get('X-Forwarded-Proto')
+    if scheme and scheme == 'http' and request.url.startswith('http://'):
+      url = request.url.replace('http://', 'https://', 1)
+      code = 301
+      return redirect(url, code=code)
 
   @babel.localeselector
   def get_locale():
@@ -353,5 +345,11 @@ def create_app():
   def log_unhandled(e):
     if e is not None:
       logging.error('Error thrown for request: %s, error: %s', request, e)
+
+  # Jinja env
+  app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
+  app.jinja_env.globals['NAME'] = app.config['NAME']
+  app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
+  app.secret_key = os.urandom(24)
 
   return app

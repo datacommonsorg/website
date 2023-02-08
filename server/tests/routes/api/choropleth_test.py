@@ -16,15 +16,15 @@ import json
 import unittest
 from unittest.mock import patch
 
-from main import app
-import routes.api.choropleth as choropleth_api
-import routes.api.shared as shared_api
+import server.routes.api.choropleth as choropleth_api
+import server.routes.api.shared as shared_api
+from web_app import app
 
 
 class TestChoroplethPlaces(unittest.TestCase):
 
-  @patch('routes.api.choropleth.place_api.parent_places')
-  @patch('routes.api.choropleth.place_api.get_place_type')
+  @patch('server.routes.api.choropleth.place_api.parent_places')
+  @patch('server.routes.api.choropleth.place_api.get_place_type')
   def test_get_choropleth_display_level_has_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid1"
@@ -33,8 +33,8 @@ class TestChoroplethPlaces(unittest.TestCase):
     result = choropleth_api.get_choropleth_display_level(dcid)
     assert result == (dcid, "AdministrativeArea1")
 
-  @patch('routes.api.choropleth.place_api.parent_places')
-  @patch('routes.api.choropleth.place_api.get_place_type')
+  @patch('server.routes.api.choropleth.place_api.parent_places')
+  @patch('server.routes.api.choropleth.place_api.get_place_type')
   def test_get_choropleth_display_level_equivalent_has_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid2"
@@ -43,8 +43,8 @@ class TestChoroplethPlaces(unittest.TestCase):
     result = choropleth_api.get_choropleth_display_level(dcid)
     assert result == (dcid, "AdministrativeArea2")
 
-  @patch('routes.api.choropleth.place_api.parent_places')
-  @patch('routes.api.choropleth.place_api.get_place_type')
+  @patch('server.routes.api.choropleth.place_api.parent_places')
+  @patch('server.routes.api.choropleth.place_api.get_place_type')
   def test_get_choropleth_display_level_has_no_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid3"
@@ -60,8 +60,8 @@ class TestChoroplethPlaces(unittest.TestCase):
     result = choropleth_api.get_choropleth_display_level(dcid)
     assert result == (None, None)
 
-  @patch('routes.api.choropleth.place_api.parent_places')
-  @patch('routes.api.choropleth.place_api.get_place_type')
+  @patch('server.routes.api.choropleth.place_api.parent_places')
+  @patch('server.routes.api.choropleth.place_api.get_place_type')
   def test_get_choropleth_display_level_parent_places(self, mock_place_type,
                                                       mock_parents):
     dcid = "test_dcid4"
@@ -77,8 +77,8 @@ class TestChoroplethPlaces(unittest.TestCase):
     result = choropleth_api.get_choropleth_display_level(dcid)
     assert result == (parent_dcid, "County")
 
-  @patch('routes.api.choropleth.place_api.parent_places')
-  @patch('routes.api.choropleth.place_api.get_place_type')
+  @patch('server.routes.api.choropleth.place_api.parent_places')
+  @patch('server.routes.api.choropleth.place_api.get_place_type')
   def test_get_choropleth_display_level_parent_has_equivalent(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid5"
@@ -100,11 +100,11 @@ class TestChoroplethPlaces(unittest.TestCase):
     def side_effect(*args):
       return args[0]
 
-    @patch('routes.api.choropleth.dc.get_places_in')
-    @patch('routes.api.choropleth.coerce_geojson_to_righthand_rule')
-    @patch('routes.api.choropleth.dc.property_values')
-    @patch('routes.api.choropleth.place_api.get_display_name')
-    @patch('routes.api.choropleth.get_choropleth_display_level')
+    @patch('server.routes.api.choropleth.dc.get_places_in')
+    @patch('server.routes.api.choropleth.coerce_geojson_to_righthand_rule')
+    @patch('server.routes.api.choropleth.dc.property_values')
+    @patch('server.routes.api.choropleth.place_api.get_display_name')
+    @patch('server.routes.api.choropleth.get_choropleth_display_level')
     def test_get_geojson(self, mock_display_level, mock_display_name,
                          mock_geojson_values, mock_choropleth_helper,
                          mock_places):
@@ -138,10 +138,10 @@ class TestChoroplethPlaces(unittest.TestCase):
       assert len(response_data['features']) == 2
       assert len(response_data['properties']['current_geo']) == dcid1
 
-    @patch('routes.api.choropleth.dc.get_places_in')
-    @patch('routes.api.choropleth.coerce_geojson_to_righthand_rule')
-    @patch('routes.api.choropleth.dc.property_values')
-    @patch('routes.api.choropleth.place_api.get_display_name')
+    @patch('server.routes.api.choropleth.dc.get_places_in')
+    @patch('server.routes.api.choropleth.coerce_geojson_to_righthand_rule')
+    @patch('server.routes.api.choropleth.dc.property_values')
+    @patch('server.routes.api.choropleth.place_api.get_display_name')
     def test_get_geojson_with_place_type(self, mock_display_name,
                                          mock_geojson_values,
                                          mock_choropleth_helper, mock_places):
@@ -303,12 +303,12 @@ class TestChoroplethDataHelpers(unittest.TestCase):
 
 class TestChoroplethData(unittest.TestCase):
 
-  @patch('routes.api.choropleth.dc.get_places_in')
-  @patch('routes.api.choropleth.lib_util.point_within_core')
-  @patch('routes.api.choropleth.lib_util.series_core')
-  @patch('routes.api.choropleth.get_choropleth_display_level')
-  @patch('routes.api.choropleth.get_choropleth_configs')
-  @patch('routes.api.shared.get_stat_vars')
+  @patch('server.routes.api.choropleth.dc.get_places_in')
+  @patch('server.routes.api.choropleth.lib_util.point_within_core')
+  @patch('server.routes.api.choropleth.lib_util.series_core')
+  @patch('server.routes.api.choropleth.get_choropleth_display_level')
+  @patch('server.routes.api.choropleth.get_choropleth_configs')
+  @patch('server.routes.api.shared.get_stat_vars')
   def testRoute(self, mock_stat_vars, mock_configs, mock_display_level,
                 mock_denom_data, mock_num_data, mock_places_in):
     test_dcid = 'test_dcid'

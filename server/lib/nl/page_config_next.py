@@ -15,22 +15,22 @@
 import logging
 from typing import Dict, List
 
-from config.subject_page_pb2 import Block
-from config.subject_page_pb2 import RankingTileSpec
-from config.subject_page_pb2 import StatVarSpec
-from config.subject_page_pb2 import SubjectPageConfig
-from config.subject_page_pb2 import Tile
-from lib.nl import utils
-import lib.nl.constants as constants
-import lib.nl.descriptions as lib_desc
-from lib.nl.detection import EventType
-from lib.nl.detection import Place
-from lib.nl.detection import RankingType
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartSpec
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import ClassificationType
-from lib.nl.utterance import Utterance
+from server.config.subject_page_pb2 import Block
+from server.config.subject_page_pb2 import RankingTileSpec
+from server.config.subject_page_pb2 import StatVarSpec
+from server.config.subject_page_pb2 import SubjectPageConfig
+from server.config.subject_page_pb2 import Tile
+from server.lib.nl import utils
+import server.lib.nl.constants as constants
+import server.lib.nl.descriptions as lib_desc
+from server.lib.nl.detection import EventType
+from server.lib.nl.detection import Place
+from server.lib.nl.detection import RankingType
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartSpec
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import ClassificationType
+from server.lib.nl.utterance import Utterance
 
 
 class PageConfigBuilder:

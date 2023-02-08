@@ -19,7 +19,8 @@ import os
 import flask
 from flask import Blueprint
 from flask import render_template
-import routes.api.shared as shared_api
+
+import server.routes.api.shared as shared_api
 
 bp = Blueprint('disease', __name__, url_prefix='/bio/disease')
 

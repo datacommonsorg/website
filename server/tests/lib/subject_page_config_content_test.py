@@ -14,8 +14,8 @@
 
 import unittest
 
-from config import subject_page_pb2
-import lib.util as libutil
+from server.config import subject_page_pb2
+import server.lib.util as libutil
 
 TileType = subject_page_pb2.Tile.TileType
 BlockType = subject_page_pb2.Block.BlockType

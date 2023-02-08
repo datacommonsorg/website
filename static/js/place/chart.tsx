@@ -515,7 +515,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT
       );
       drawD3Map(
-        this.props.id,
+        this.svgContainerElement.current,
         this.state.geoJson,
         CHART_HEIGHT,
         elem.offsetWidth,

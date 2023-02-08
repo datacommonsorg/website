@@ -17,20 +17,20 @@ from dataclasses import field
 import logging
 from typing import Dict, List
 
-from lib.nl import constants
-from lib.nl import topic
-from lib.nl import utils
-from lib.nl import variable
-from lib.nl.detection import ContainedInPlaceType
-from lib.nl.detection import EventType
-from lib.nl.detection import Place
-from lib.nl.detection import RankingType
-from lib.nl.detection import TimeDeltaType
-from lib.nl.fulfillment import context
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartSpec
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import Utterance
+from server.lib.nl import constants
+from server.lib.nl import topic
+from server.lib.nl import utils
+from server.lib.nl import variable
+from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import EventType
+from server.lib.nl.detection import Place
+from server.lib.nl.detection import RankingType
+from server.lib.nl.detection import TimeDeltaType
+from server.lib.nl.fulfillment import context
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartSpec
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import Utterance
 
 # TODO: Factor classification processing functions into a common place.
 

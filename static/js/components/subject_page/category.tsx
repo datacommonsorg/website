@@ -21,13 +21,14 @@
 import React, { memo } from "react";
 import ReactMarkdown from "react-markdown";
 
+import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
 import {
   CategoryConfig,
   EventTypeSpec,
 } from "../../types/subject_page_proto_types";
-import { getRelLink } from "../../utils/subject_page_utils";
+import { getId, getRelLink } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
 import { DisasterEventBlock } from "./disaster_event_block";
@@ -51,10 +52,7 @@ export const Category = memo(function Category(
 ): JSX.Element {
   const svProvider = new StatVarProvider(props.config.statVarSpec);
   return (
-    <article
-      className="category col-12"
-      id={props.config.title ? getRelLink(props.config.title) : randDomId()}
-    >
+    <article className="category col-12" id={props.id}>
       {props.config.title && (
         <h2 className="block-title">{props.config.title}</h2>
       )}
@@ -74,7 +72,7 @@ function renderBlocks(
     return <></>;
   }
   const blocksJsx = props.config.blocks.map((block, i) => {
-    const id = block.title ? getRelLink(block.title) : `${props.id}blk${i}`;
+    const id = getId(props.id, BLOCK_ID_PREFIX, i);
     switch (block.type) {
       case "DISASTER_EVENT":
         return (
