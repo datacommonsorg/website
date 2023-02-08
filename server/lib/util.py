@@ -49,8 +49,6 @@ TOPIC_PAGE_CONFIGS = {
     'poverty': ['USA', 'India'],
 }
 
-_root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 def get_repo_root():
   '''Get the absolute path of the repo root directory
