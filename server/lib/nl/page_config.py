@@ -19,7 +19,6 @@ from typing import Dict, List
 from server.config import subject_page_pb2
 from server.lib.nl import topic
 from server.lib.nl import utils
-from server.lib.nl.constants import PLACE_TYPE_TO_PLURALS
 from server.lib.nl.data_spec import DataSpec
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Detection

@@ -150,13 +150,13 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Comparison with Other Variables in Foo Place"
+         title: "Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Per Capita Comparison with Other Variables in Foo Place"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
          stat_var_key: "Count_Person_Female_pc"
@@ -224,13 +224,13 @@ SIMPLE_WITH_TOPIC_CONFIG = """
     description: "svpg desc"
      columns {
        tiles {
-         title: "Comparison with Other Variables in Foo Place"
+         title: "Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice"
          stat_var_key: "FarmInventory_Barley"
        }
        tiles {
-         title: "Per Capita Comparison with Other Variables in Foo Place"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice_pc"
          stat_var_key: "FarmInventory_Barley_pc"
@@ -580,7 +580,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Comparison with Other Variables in Foo Place"
+         title: "Compared with Other Variables in Foo Place"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block"
@@ -588,7 +588,7 @@ RANKING_ACROSS_SVS_CONFIG = """
          comparison_places: "geoId/06"
        }
        tiles {
-         title: "Per Capita Comparison with Other Variables in Foo Place"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block_pc"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block_pc"
