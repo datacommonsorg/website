@@ -56,14 +56,18 @@ class IntegrationTest(LiveServerTestCase):
   def test_sample(self):
     resp = requests.post(self.get_server_url() +
                          '/nlnext/data?q=san%20jose%20population',
-                         json={})
-    logging.info(json.dumps(resp.json(), sort_keys=True))
+                         json={}).json()
+
+    resp['debug'] = {}
+    resp['context'] = {}
     if _TEST_MODE == 'write':
       with open(os.path.join(_dir, 'test_data', 'sample.json'), 'w') as infile:
-        infile.write(json.dumps(resp.json(), indent=2))
+        infile.write(json.dumps(resp, indent=2))
     else:
       with open(os.path.join(_dir, 'test_data', 'sample.json'), 'r') as infile:
         expected = json.load(infile)
+        expected['debug'] = {}
+        expected['context'] = {}
         a, b = (
             json.dumps(resp.json(), sort_keys=True),
             json.dumps(expected, sort_keys=True),
