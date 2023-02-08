@@ -327,7 +327,8 @@ export function drawBivariate(
     properties.isUsaPlace,
     properties.placeDcid,
     properties.width,
-    properties.height
+    properties.height,
+    geoJson
   );
   drawD3Map(
     containerRef.current,
@@ -335,14 +336,11 @@ export function drawBivariate(
     properties.height,
     properties.width,
     dataPoints,
-    "",
     colorScale,
     redirectAction,
     getTooltipHtml,
     () => true,
-    false,
     properties.showMapBoundaries,
-    projection,
-    properties.placeDcid
+    projection
   );
 }
