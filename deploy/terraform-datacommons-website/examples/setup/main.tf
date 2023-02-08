@@ -84,6 +84,9 @@ resource "google_compute_global_address" "dc_website_ingress_ip" {
 }
 
 resource "google_dns_managed_zone" "datacommons_zone" {
+
+  count = var.register_domain ? 1 : 0
+
   name          = format("datacommons%s", local.resource_suffix)
   dns_name      = format("%s.", local.dc_website_domain)
   project       = var.project_id
@@ -125,6 +128,9 @@ locals {
 # null_resource isn't a cloud resource.
 # It is used for running the script to represent "create" method.
 resource "null_resource" "cloud_domain" {
+
+  count = var.register_domain ? 1 : 0
+
   provisioner "local-exec" {
     command = "sh register_dc_website_domain.sh"
     working_dir = path.module

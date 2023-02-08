@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=custom-dc-v0.1.0
+CUSTOM_DC_RELEASE_TAG=-test-custom-dc-v0.1.2
 
 TERRAFORM_PATH=$(which terraform)
 if [[ -n "$TERRAFORM_PATH" ]]; then
@@ -65,7 +65,7 @@ ROOT=$PWD
 
 # Clone DC website repo and mixer submodule.
 rm -rf website
-git clone https://github.com/datacommonsorg/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
+git clone https://github.com/Fructokinase/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 
 cd website
 WEBSITE_GITHASH=$(git rev-parse --short=7 HEAD)
@@ -89,6 +89,7 @@ terraform init \
 terraform apply \
   -var="project_id=$PROJECT_ID" \
   -var="contact_email=$CONTACT_EMAIL" \
+  ${REGISTER_DOMAIN:+-var="register_domain=true"} \
   ${CUSTOM_DC_DOMAIN:+-var="dc_website_domain=$CUSTOM_DC_DOMAIN"} \
   -auto-approve
 
