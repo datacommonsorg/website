@@ -21,6 +21,7 @@ variable "project_id" {
 variable "contact_email" {
   type        = string
   description = "Contact email for domain. Must be a valid email and will be used for activating the domain."
+  default     = null
 }
 
 variable "website_robot_account_id" {

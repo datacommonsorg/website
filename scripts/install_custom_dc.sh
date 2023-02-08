@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=-test-custom-dc-v0.1.2
+CUSTOM_DC_RELEASE_TAG=-test-custom-dc-v0.1.3
 
 TERRAFORM_PATH=$(which terraform)
 if [[ -n "$TERRAFORM_PATH" ]]; then
@@ -43,7 +43,7 @@ if [[ -z "$PROJECT_ID" ]]; then
     exit 1
 fi
 
-if [[ -z "$CONTACT_EMAIL" ]]; then
+if [ -n "$REGISTER_DOMAIN" ] && [ -z "$CONTACT_EMAIL" ]; then
     echo "Error: environment variable CONTACT_EMAIL is required but not set." 1>&2
     echo "Please set CONTACT_EMAIL by running the following command." 1>&2
     echo "export CONTACT_EMAIL=<Email that you have access to in order to activate the domain.>" 1>&2
@@ -88,7 +88,7 @@ terraform init \
 
 terraform apply \
   -var="project_id=$PROJECT_ID" \
-  -var="contact_email=$CONTACT_EMAIL" \
+  ${REGISTER_DOMAIN:+-var="contact_email=$CONTACT_EMAIL"} \
   ${REGISTER_DOMAIN:+-var="register_domain=true"} \
   ${CUSTOM_DC_DOMAIN:+-var="dc_website_domain=$CUSTOM_DC_DOMAIN"} \
   -auto-approve
