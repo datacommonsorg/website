@@ -20,11 +20,12 @@ import io
 from flask import Blueprint
 from flask import make_response
 from flask import request
-from routes.api.shared import date_greater_equal_min
-from routes.api.shared import date_lesser_equal_max
-from routes.api.shared import is_valid_date
-from routes.api.shared import names
-import services.datacommons as dc
+
+from server.routes.api.shared import date_greater_equal_min
+from server.routes.api.shared import date_lesser_equal_max
+from server.routes.api.shared import is_valid_date
+from server.routes.api.shared import names
+import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("csv", __name__, url_prefix='/api/csv')

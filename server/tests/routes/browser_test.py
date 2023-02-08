@@ -15,7 +15,7 @@
 import unittest
 from unittest.mock import patch
 
-from main import app
+from web_app import app
 
 
 class TestStaticPage(unittest.TestCase):
@@ -25,7 +25,7 @@ class TestStaticPage(unittest.TestCase):
     assert response.status_code == 200
     assert b"The Data Commons Graph is constructed by" in response.data
 
-  @patch('routes.api.shared.names')
+  @patch('server.routes.api.shared.names')
   def test_browser_node(self, mock_names):
     dcid = 'geoId/06'
     mock_names.return_value = {dcid: 'California'}

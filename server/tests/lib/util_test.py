@@ -15,7 +15,7 @@
 import datetime
 import unittest
 
-import lib.util as lib_util
+import server.lib.util as lib_util
 
 
 class TestParseDate(unittest.TestCase):

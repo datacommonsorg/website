@@ -20,14 +20,18 @@
 
 import React from "react";
 
-import { HIDE_TILE_CLASS } from "../../constants/subject_page_constants";
+import {
+  COLUMN_ID_PREFIX,
+  HIDE_TILE_CLASS,
+  TILE_ID_PREFIX,
+} from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
-import { randDomId } from "../../shared/util";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 import {
   getColumnTileClassName,
   getColumnWidth,
+  getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
 import { BarTile } from "../tiles/bar_tile";
@@ -70,7 +74,7 @@ export function Block(props: BlockPropType): JSX.Element {
       <div className="block-body row">
         {props.columns &&
           props.columns.map((column, idx) => {
-            const id = `${props.id}col${idx}`;
+            const id = getId(props.id, COLUMN_ID_PREFIX, idx);
             const columnTileClassName = getColumnTileClassName(column);
             return (
               <Column
@@ -81,6 +85,7 @@ export function Block(props: BlockPropType): JSX.Element {
                 tiles={renderTiles(
                   column.tiles,
                   props,
+                  id,
                   minIdxToHide,
                   columnTileClassName
                 )}
@@ -95,6 +100,7 @@ export function Block(props: BlockPropType): JSX.Element {
 function renderTiles(
   tiles: TileConfig[],
   props: BlockPropType,
+  columnId: string,
   minIdxToHide: number,
   tileClassName?: string
 ): JSX.Element {
@@ -102,7 +108,7 @@ function renderTiles(
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
-    const id = randDomId();
+    const id = getId(columnId, TILE_ID_PREFIX, i);
     const enclosedPlaceType = props.enclosedPlaceType;
     const classNameList = [];
     if (tileClassName) {

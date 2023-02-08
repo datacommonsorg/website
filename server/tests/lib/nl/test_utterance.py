@@ -13,12 +13,12 @@
 # limitations under the License.
 """Utterance JSONs for tests."""
 
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import EventType
-from lib.nl.detection import RankingType
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import TimeDeltaType
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import EventType
+from server.lib.nl.detection import RankingType
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import TimeDeltaType
 
 # Utterance for Place Overview.
 SIMPLE_PLACE_ONLY_UTTR = {

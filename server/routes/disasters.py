@@ -15,16 +15,17 @@
 
 import json
 
-from config import subject_page_pb2
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import escape
 from google.protobuf.json_format import MessageToJson
-import lib.subject_page_config as lib_subject_page_config
-import lib.util
-import routes.api.place as place_api
-import services.datacommons as dc
+
+from server.config import subject_page_pb2
+import server.lib.subject_page_config as lib_subject_page_config
+import server.lib.util
+import server.routes.api.place as place_api
+import server.services.datacommons as dc
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
@@ -48,7 +49,7 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    all_configs = lib.util.get_disaster_dashboard_configs()
+    all_configs = server.lib.util.get_disaster_dashboard_configs()
 
   if len(all_configs) < 1:
     return "Error: no config installed"

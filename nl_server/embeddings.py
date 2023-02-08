@@ -17,11 +17,12 @@ import os
 from typing import Dict, List, Union
 
 from datasets import load_dataset
-import gcs
 from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 import torch
+
+import nl_server.gcs as gcs
 
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'

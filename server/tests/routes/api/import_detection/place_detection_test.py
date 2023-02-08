@@ -16,11 +16,11 @@ from dataclasses import dataclass
 from typing import Dict, List
 import unittest
 
-from routes.api.import_detection.detection_types import DCProperty
-from routes.api.import_detection.detection_types import DCType
-from routes.api.import_detection.detection_types import TypeProperty
-import routes.api.import_detection.place_detection as pd
-import routes.api.import_detection.utils as utils
+from server.routes.api.import_detection.detection_types import DCProperty
+from server.routes.api.import_detection.detection_types import DCType
+from server.routes.api.import_detection.detection_types import TypeProperty
+import server.routes.api.import_detection.place_detection as pd
+import server.routes.api.import_detection.utils as utils
 
 
 class TestPlaceDetection(unittest.TestCase):

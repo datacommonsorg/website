@@ -19,6 +19,7 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+COPY web_app.py /workspace/web_app.py
 COPY server/requirements.txt /workspace/server/requirements.txt
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip3 install --no-cache-dir \
@@ -37,5 +38,5 @@ COPY static/. /workspace/static/
 RUN npm run-script build
 
 # Run server
-WORKDIR /workspace/server
-CMD exec gunicorn --timeout 60 --bind :8080 main:app
+WORKDIR /workspace
+CMD exec gunicorn --timeout 60 --bind :8080 web_app:app

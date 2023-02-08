@@ -34,6 +34,7 @@ ENV = {
     'dev',
     # Test
     'test',
+    'integration-test',
     # Webdriver
     'webdriver',
     # Minikube
@@ -54,7 +55,7 @@ def map_config_string(env):
   env_list[index + 1] = env[index + 1].upper()
   env_list[0] = env[0].upper()
   env_updated = "".join(env_list).replace('-', '')
-  return 'configmodule.{}Config'.format(env_updated)
+  return 'server.configmodule.{}Config'.format(env_updated)
 
 
 def get_config():

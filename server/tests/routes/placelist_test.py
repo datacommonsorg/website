@@ -15,12 +15,12 @@
 import unittest
 from unittest.mock import patch
 
-from main import app
+from web_app import app
 
 
 class TestRoute(unittest.TestCase):
 
-  @patch('routes.placelist.fetch_data')
+  @patch('server.routes.placelist.fetch_data')
   def test_index(self, mock_fetch_data):
     mock_response = {
         'Country': {
@@ -39,7 +39,7 @@ class TestRoute(unittest.TestCase):
     assert response.status_code == 200
     assert b'United States' in response.data
 
-  @patch('routes.placelist.child_fetch')
+  @patch('server.routes.placelist.child_fetch')
   def test_node(self, mock_child_fetch):
     mock_response = {
         'County': [{
@@ -67,7 +67,7 @@ class TestRoute(unittest.TestCase):
     response = app.test_client().get('/placelist/geoId/06')
     self.assertTrue(mock_child_fetch.assert_called_once)
 
-  @patch('routes.placelist.child_fetch')
+  @patch('server.routes.placelist.child_fetch')
   def test_no_child(self, mock_child_fetch):
     mock_child_fetch.return_value = {}
     response = app.test_client().get('/placelist/geoId/07')

@@ -15,7 +15,7 @@
 
 from typing import Dict, List, Set, Union
 
-from lib.nl.detection import EventType
+from server.lib.nl.detection import EventType
 
 STOP_WORDS: Set[str] = {
     'ourselves',

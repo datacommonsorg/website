@@ -15,9 +15,10 @@
 
 import unittest
 
-import lib.nl.constants as constants
-import lib.nl.utils as utils
 from parameterized import parameterized
+
+import server.lib.nl.constants as constants
+import server.lib.nl.utils as utils
 
 
 class TestNLUtilsAddToSet(unittest.TestCase):

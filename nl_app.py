@@ -15,7 +15,7 @@
 
 import logging
 
-from __init__ import create_app
+from nl_server.__init__ import create_app
 
 logging.basicConfig(
     level=logging.INFO,
@@ -25,12 +25,6 @@ logging.basicConfig(
 )
 
 app = create_app()
-
-
-@app.route('/healthz')
-def healthz():
-  return ""
-
 
 if __name__ == '__main__':
   # This is used when running locally only. When deploying to GKE,

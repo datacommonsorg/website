@@ -280,7 +280,7 @@ export interface BivariateProperties {
  * @param getTooltipHtml function to get the html to show in the tooltip
  */
 export function drawBivariate(
-  containerId: string,
+  containerRef: React.RefObject<HTMLDivElement>,
   legendRef: React.RefObject<HTMLDivElement>,
   points: { [placeDcid: string]: Point },
   geoJson: GeoJsonData,
@@ -330,7 +330,7 @@ export function drawBivariate(
     properties.height
   );
   drawD3Map(
-    containerId,
+    containerRef.current,
     geoJson,
     properties.height,
     properties.width,

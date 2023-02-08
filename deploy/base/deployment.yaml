@@ -220,9 +220,9 @@ spec:
                   key: serviceName
           resources:
             limits:
-              memory: "2G"
+              memory: "1G"
             requests:
-              memory: "2G"
+              memory: "1G"
           readinessProbe:
             httpGet:
               path: /healthz

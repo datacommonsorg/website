@@ -15,8 +15,8 @@
 
 from typing import List
 
-from lib.nl import utils
-import services.datacommons as dc
+from server.lib.nl import utils
+import server.services.datacommons as dc
 
 _MIN_TOPIC_RANK = 2
 

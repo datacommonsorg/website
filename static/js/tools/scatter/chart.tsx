@@ -272,7 +272,7 @@ function plot(
       ),
     };
     drawBivariate(
-      SVG_CONTAINER_ID,
+      svgContainerRef,
       mapLegendRef,
       props.points,
       geoJsonData,

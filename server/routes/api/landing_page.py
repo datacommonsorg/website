@@ -24,7 +24,6 @@ import logging
 import time
 import urllib.parse
 
-from cache import cache
 from flask import Blueprint
 from flask import current_app
 from flask import g
@@ -32,9 +31,11 @@ from flask import request
 from flask import Response
 from flask import url_for
 from flask_babel import gettext
-import lib.range as lib_range
-import routes.api.place as place_api
-import services.datacommons as dc
+
+from server.cache import cache
+import server.lib.range as lib_range
+import server.routes.api.place as place_api
+import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')

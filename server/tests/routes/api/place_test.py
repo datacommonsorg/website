@@ -16,16 +16,14 @@ import json
 import unittest
 from unittest.mock import patch
 
-from main import app
-import routes.api.place as place_api
-from services import datacommons as dc
+from web_app import app
 
 
 class TestCoords2Places(unittest.TestCase):
 
-  @patch('routes.api.place.dc.resolve_coordinates')
-  @patch('routes.api.place.names')
-  @patch('routes.api.place.dc.property_values')
+  @patch('server.routes.api.place.dc.resolve_coordinates')
+  @patch('server.routes.api.place.names')
+  @patch('server.routes.api.place.dc.property_values')
   def test_get_places_for_coords(self, mock_property_values, mock_place_names,
                                  mock_resolve_coordinates):
     test_coordinates = [{
