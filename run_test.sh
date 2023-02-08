@@ -116,7 +116,7 @@ function run_py_test {
   ./requirements_install.sh
   echo "nl_server custom requirements installation: done."
   cd ..
-  python3 -m pytest nl_server/tests/ -s
+  python3 -m pytest nl_server/tests/ -s -vv
 
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py; then
