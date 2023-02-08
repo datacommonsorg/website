@@ -101,6 +101,9 @@ resource "google_dns_managed_zone" "datacommons_zone" {
 }
 
 resource "google_dns_record_set" "website_record" {
+
+  count = var.register_domain ? 1 : 0
+
   name         = "${google_dns_managed_zone.datacommons_zone.dns_name}"
   managed_zone = google_dns_managed_zone.datacommons_zone.name
   type         = "A"
