@@ -17,7 +17,6 @@ from flask import request
 
 from server.cache import cache
 from server.lib import util
-import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
