@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.1.5
+CUSTOM_DC_RELEASE_TAG=custom-dc-v0.1.0
 
 TERRAFORM_PATH=$(which terraform)
 if [[ -n "$TERRAFORM_PATH" ]]; then
@@ -50,6 +50,12 @@ if [ -n "$REGISTER_DOMAIN" ] && [ -z "$CONTACT_EMAIL" ]; then
     exit 1
 fi
 
+if [ -z "$REGISTER_DOMAIN" ] && [ -z "$CUSTOM_DC_DOMAIN" ]; then
+  echo "Error: environment variable CUSTOM_DC_DOMAIN is required because default domain is not used." 1>&2
+  echo "Default domain is not used because environment variable REGISTER_DOMAIN is not set."  1>&2
+  echo "export CUSTOM_DC_DOMAIN=<Domain that you own> if you intend to use a domain that you own." 1>&2
+fi
+
 if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
   echo "Custom domain name detected through the variable CUSTOM_DC_DOMAIN"
   echo "Will register $CUSTOM_DC_DOMAIN."
@@ -65,7 +71,7 @@ ROOT=$PWD
 
 # Clone DC website repo and mixer submodule.
 rm -rf website
-git clone https://github.com/Fructokinase/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
+git clone https://github.com/datacommonsorg/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 
 cd website
 WEBSITE_GITHASH=$(git rev-parse --short=7 HEAD)
