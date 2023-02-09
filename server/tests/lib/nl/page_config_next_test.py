@@ -65,12 +65,12 @@ SIMPLE_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Male-name"
+         title: "Count_Person_Male-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
        }
        tiles {
-         title: "Count_Person_Male-name - Per Capita"
+         title: "Per Capita Count_Person_Male-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
        }
@@ -79,12 +79,12 @@ SIMPLE_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Female-name"
+         title: "Count_Person_Female-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Count_Person_Female-name - Per Capita"
+         title: "Per Capita Count_Person_Female-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Female_pc"
        }
@@ -136,12 +136,12 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Male-name"
+         title: "Count_Person_Male-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
        }
        tiles {
-         title: "Count_Person_Male-name - Per Capita"
+         title: "Per Capita Count_Person_Male-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
        }
@@ -150,13 +150,13 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compare with Other Variables"
+         title: "Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Compare with Other Variables - Per Capita"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
          stat_var_key: "Count_Person_Female_pc"
@@ -209,12 +209,12 @@ SIMPLE_WITH_TOPIC_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name"
+         title: "Count_Farm-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Farm"
        }
        tiles {
-         title: "Area_Farm-name"
+         title: "Area_Farm-name in Foo Place"
          type: LINE
          stat_var_key: "Area_Farm"
        }
@@ -224,13 +224,13 @@ SIMPLE_WITH_TOPIC_CONFIG = """
     description: "svpg desc"
      columns {
        tiles {
-         title: "Compare with Other Variables"
+         title: "Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice"
          stat_var_key: "FarmInventory_Barley"
        }
        tiles {
-         title: "Compare with Other Variables - Per Capita"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice_pc"
          stat_var_key: "FarmInventory_Barley_pc"
@@ -297,14 +297,14 @@ COMPARISON_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Total"
+         title: "Count_Person_Male-name"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block"
          comparison_places: "geoId/06"
          comparison_places: "geoId/32"
        }
        tiles {
-         title: "Per Capita"
+         title: "Per Capita Count_Person_Male-name"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block_pc"
          comparison_places: "geoId/06"
@@ -315,14 +315,14 @@ COMPARISON_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Total"
+         title: "Count_Person_Female-name"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block"
          comparison_places: "geoId/06"
          comparison_places: "geoId/32"
        }
        tiles {
-         title: "Per Capita"
+         title: "Per Capita Count_Person_Female-name"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block_pc"
          comparison_places: "geoId/06"
@@ -380,12 +380,12 @@ CONTAINED_IN_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name"
+         title: "Count_Farm-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Count_Farm"
        }
        tiles {
-         title: "Count_Farm-name - Per Capita"
+         title: "Per Capita Count_Farm-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Count_Farm_pc"
        }
@@ -394,12 +394,12 @@ CONTAINED_IN_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name"
+         title: "Income_Farm-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Income_Farm"
        }
        tiles {
-         title: "Income_Farm-name - Per Capita"
+         title: "Per Capita Income_Farm-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Income_Farm_pc"
        }
@@ -455,7 +455,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name vs. Mean_Precipitation-name"
+         title: "Count_Farm-name vs. Mean_Precipitation-name in Counties of Foo Place"
          type: SCATTER
          stat_var_key: "Count_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -468,7 +468,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name vs. Mean_Precipitation-name"
+         title: "Income_Farm-name vs. Mean_Precipitation-name in Counties of Foo Place"
          type: SCATTER
          stat_var_key: "Income_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -516,7 +516,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
      title: "Count_Agricultural_Workers-name"
      columns {
        tiles {
-         title: "Count_Agricultural_Workers-name in Foo Place"
+         title: "Count_Agricultural_Workers-name in Counties of Foo Place"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers"
          ranking_tile_spec {
@@ -525,7 +525,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
-         title: "Count_Agricultural_Workers-name"
+         title: "Count_Agricultural_Workers-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Count_Agricultural_Workers"
        }
@@ -533,10 +533,10 @@ RANKING_ACROSS_PLACES_CONFIG = """
       footnote: "Count_Agricultural_Workers-footnote"
     }
     blocks {
-      title: "Count_Agricultural_Workers-name - Per Capita"
+      title: "Per Capita Count_Agricultural_Workers-name"
       columns {
        tiles {
-         title: "Per Capita Count_Agricultural_Workers-name in Foo Place"
+         title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers_pc"
          ranking_tile_spec {
@@ -545,7 +545,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
-         title: "Count_Agricultural_Workers-name - Per Capita"
+         title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Count_Agricultural_Workers_pc"
        }
@@ -580,7 +580,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compare with Other Variables"
+         title: "Compared with Other Variables in Foo Place"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block"
@@ -588,7 +588,7 @@ RANKING_ACROSS_SVS_CONFIG = """
          comparison_places: "geoId/06"
        }
        tiles {
-         title: "Compare with Other Variables - Per Capita"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block_pc"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block_pc"
@@ -685,7 +685,7 @@ EVENT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Most severe fires"
+         title: "Most severe fires in Foo Place"
          type: TOP_EVENT
          top_event_tile_spec {
            event_type_key: "fire"
@@ -695,6 +695,7 @@ EVENT_CONFIG = """
      }
      columns {
        tiles {
+         title: "Fires in Foo Place"
          type: DISASTER_EVENT_MAP
          disaster_event_map_tile_spec {
            event_type_keys: "fire"
