@@ -51,6 +51,8 @@ function getMonthString(date: Date): string {
 /**
  * Helper function for getting all months along x-axis to display.
  * Used for initializing bins when binning monthly.
+ *
+ * Note: assumes disasterEventPoints given are sorted chronologically.
  */
 function getMonthsArray(
   dateSetting: string,
@@ -59,8 +61,8 @@ function getMonthsArray(
   // get start and end of dates to show data for
   let [startDate, endDate] = getDateRange(dateSetting);
 
-  // specify months if dateSetting is just a year
-  if (dateSetting.length == "YYYY".length) {
+  // specify full dates if start and end dates are just YYYY
+  if (startDate.length == "YYYY".length && endDate.length == "YYYY".length) {
     startDate = `${startDate}-01-01`;
     endDate = `${endDate}-12-31`;
   }
@@ -78,8 +80,8 @@ function getMonthsArray(
   // Fill in months between start and end dates
   const months = new Array<string>();
   for (
-    let date = new Date(startDate);
-    getMonthString(date) <= getMonthString(new Date(endDate));
+    let date = new Date(startDate + "Z");
+    getMonthString(date) <= getMonthString(new Date(endDate + "Z"));
     date.setMonth(date.getMonth() + 1)
   ) {
     months.push(getMonthString(new Date(date)));
@@ -130,7 +132,7 @@ function binDataByMonth(
  * Helper function to determine if data exists to display.
  */
 function shouldShowHistogram(histogramData: DataPoint[]): boolean {
-  return histogramData && !_.isEmpty(histogramData);
+  return !_.isEmpty(histogramData);
 }
 
 /**
