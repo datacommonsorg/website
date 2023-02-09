@@ -37,7 +37,6 @@ import {
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
-import { HistogramTile } from "../tiles/histogram_tile";
 import { LineTile } from "../tiles/line_tile";
 import { MapTile } from "../tiles/map_tile";
 import { PlaceOverviewTile } from "../tiles/place_overview_tile";
