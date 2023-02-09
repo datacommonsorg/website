@@ -29,7 +29,7 @@ SIMPLE_PLACE_ONLY_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
+    'query_type': ClassificationType.OVERVIEW,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,

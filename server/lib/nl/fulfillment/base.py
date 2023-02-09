@@ -42,7 +42,7 @@ _EVENT_PREFIX = 'event/'
 class PopulateState:
   uttr: Utterance
   main_cb: any
-  fallback_cb: any
+  fallback_cb: any = None
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
@@ -141,7 +141,9 @@ def populate_charts_for_places(state: PopulateState,
   logging.info('Doing fallback for %s - %s',
                ', '.join(_get_place_names(places)), ', '.join(state.uttr.svs))
   utils.update_counter(state.uttr.counters, 'num_populate_fallbacks', 1)
-  return state.fallback_cb(state, places, ChartOriginType.PRIMARY_CHART)
+  if state.fallback_cb:
+    return state.fallback_cb(state, places, ChartOriginType.PRIMARY_CHART)
+  return False
 
 
 # Add charts given a place and a list of stat-vars.

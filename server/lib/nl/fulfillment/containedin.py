@@ -42,10 +42,7 @@ def populate(uttr: Utterance) -> bool:
       continue
     place_type = classification.attributes.contained_in_place_type
     if populate_charts(
-        PopulateState(uttr=uttr,
-                      main_cb=_populate_cb,
-                      fallback_cb=overview_fallback,
-                      place_type=place_type)):
+        PopulateState(uttr=uttr, main_cb=_populate_cb, place_type=place_type)):
       return True
     else:
       utils.update_counter(uttr.counters,
@@ -54,10 +51,7 @@ def populate(uttr: Utterance) -> bool:
   # TODO: poor default; should do this based on main place
   place_type = ContainedInPlaceType.COUNTY
   result = populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    fallback_cb=overview_fallback,
-                    place_type=place_type))
+      PopulateState(uttr=uttr, main_cb=_populate_cb, place_type=place_type))
   if not result:
     utils.update_counter(uttr.counters, 'containedin_failed_populate_fallback',
                          place_type.value)

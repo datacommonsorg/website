@@ -46,10 +46,8 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
     ranking_types = ranking_classification[0].attributes.ranking_type
 
   return _populate_event(
-      base.PopulateState(uttr=uttr,
-                         main_cb=None,
-                         fallback_cb=None,
-                         ranking_types=ranking_types), event_types)
+      base.PopulateState(uttr=uttr, main_cb=None, ranking_types=ranking_types),
+      event_types)
 
 
 def _populate_event(state: base.PopulateState,

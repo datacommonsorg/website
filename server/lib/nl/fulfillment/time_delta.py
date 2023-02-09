@@ -38,7 +38,6 @@ def populate(uttr: Utterance):
   return populate_charts(
       PopulateState(uttr=uttr,
                     main_cb=_populate_cb,
-                    fallback_cb=overview_fallback,
                     ranking_types=ranking_types,
                     time_delta_types=time_delta))
 

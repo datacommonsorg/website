@@ -32,7 +32,6 @@ from server.lib.nl.detection import Detection
 from server.lib.nl.detection import NLClassifier
 from server.lib.nl.detection import Place
 from server.lib.nl.detection import PlaceDetection
-from server.lib.nl.detection import RANKED_CLASSIFICATION_TYPES
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import SVDetection
 import server.lib.nl.fulfillment_next as fulfillment
@@ -309,23 +308,7 @@ def _detection(orig_query, cleaned_query) -> Detection:
                    cleaned_query=cleaned_query,
                    places_detected=place_detection,
                    svs_detected=sv_detection,
-                   query_type=_query_type_from_classifications(classifications),
                    classifications=classifications)
-
-
-def _query_type_from_classifications(classifications):
-  ans = ClassificationType.SIMPLE
-  for cl in classifications:
-    if (_classification_rank_order(cl.type) > _classification_rank_order(ans)):
-      ans = cl.type
-  return ans
-
-
-def _classification_rank_order(cl: ClassificationType) -> int:
-  if cl in RANKED_CLASSIFICATION_TYPES:
-    return RANKED_CLASSIFICATION_TYPES.index(cl) + 1
-  else:
-    return 0
 
 
 @bp.route('/', strict_slashes=True)

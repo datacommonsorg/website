@@ -255,6 +255,29 @@ RANKED_CLASSIFICATION_TYPES = [
     ClassificationType.OVERVIEW,
 ]
 
+QUERY_TYPE_FALLBACK = {
+    # No fallback
+    ClassificationType.OVERVIEW:
+        None,
+    ClassificationType.SIMPLE:
+        None,
+
+    ClassificationType.EVENT:
+        ClassificationType.SIMPLE,
+    ClassificationType.TIME_DELTA:
+        ClassificationType.RANKING,
+    ClassificationType.RANKING:
+        ClassificationType.CONTAINED_IN,
+    ClassificationType.CONTAINED_IN:
+        ClassificationType.SIMPLE,
+
+    # Not fully sure about this fallback.
+    ClassificationType.CORRELATION:
+        ClassificationType.COMPARISON,
+    ClassificationType.COMPARISON:
+        ClassificationType.CONTAINED_IN,
+}
+
 
 @dataclass
 class NLClassifier:
@@ -271,4 +294,3 @@ class Detection:
   places_detected: PlaceDetection
   svs_detected: SVDetection
   classifications: List[NLClassifier]
-  query_type: ClassificationType = ClassificationType.UNKNOWN

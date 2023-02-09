@@ -16,8 +16,12 @@
 import logging
 from typing import List
 
+from server.lib.nl import utils
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Detection
+from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import QUERY_TYPE_FALLBACK
+from server.lib.nl.detection import RANKED_CLASSIFICATION_TYPES
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
 from server.lib.nl.fulfillment import context
@@ -47,7 +51,7 @@ def fulfill(query_detection: Detection,
   # Construct Utterance datastructure.
   uttr = Utterance(prev_utterance=currentUtterance,
                    query=query_detection.original_query,
-                   query_type=query_detection.query_type,
+                   query_type=ClassificationType.UNKNOWN,
                    detection=query_detection,
                    places=[],
                    classifications=query_detection.classifications,
@@ -57,59 +61,98 @@ def fulfill(query_detection: Detection,
                    answerPlaces=[])
   uttr.counters['filtered_svs'] = filtered_svs
 
-  # If we could not detect query_type from user-query, infer from past context.
-  if (uttr.query_type == ClassificationType.UNKNOWN):
-    uttr.query_type = context.query_type_from_context(uttr)
-
   # Add detected places.
   if (query_detection.places_detected):
     uttr.places.append(query_detection.places_detected.main_place)
 
-  logging.info('Handled query_type: %d', uttr.query_type.value)
-  fulfillment_type = 'UNHANDLED - ' + str(uttr.query_type.value)
+  query_type = None
+  while True:
+    query_type = _get_next_query_type(query_detection.classifications,
+                                      query_type)
+    if query_type == None:
+      break
+    if fulfill_for_query_type(query_detection, uttr, query_type):
+      rank_charts(uttr)
+      break
+  return uttr
 
+
+def fulfill_for_query_type(query_detection: Detection, uttr: Utterance,
+                           query_type: ClassificationType) -> bool:
+  logging.info('Handled query_type: %d', uttr.query_type.value)
+  # Reset previous state
+  uttr.query_type = query_type
+  uttr.chartCandidates = []
+
+  # If we could not detect query_type from user-query, infer from past context.
+  if (uttr.query_type == ClassificationType.UNKNOWN):
+    uttr.query_type = context.query_type_from_context(uttr)
+
+  found = False
   # Each query-type has its own handler. Each knows what arguments it needs and
   # will call on the *_from_context() routines to obtain missing arguments.
   if (uttr.query_type == ClassificationType.OVERVIEW):
-    if not filtered_svs:
+    if not uttr.svs:
       # We detected some overview words ("tell me about") *and* there were
       # no SVs in current utterance, so consider it a place overview.
       fulfillment_type = 'OVERVIEW'
-      overview.populate(uttr)
+      found = overview.populate(uttr)
     else:
       fulfillment_type = 'SIMPLE'
-      simple.populate(uttr)
+      found = simple.populate(uttr)
   elif (uttr.query_type == ClassificationType.SIMPLE):
     fulfillment_type = 'SIMPLE'
-    simple.populate(uttr)
+    found = simple.populate(uttr)
   elif (uttr.query_type == ClassificationType.CORRELATION):
     fulfillment_type = 'CORRELATION'
-    correlation.populate(uttr)
+    found = correlation.populate(uttr)
   elif (uttr.query_type == ClassificationType.CONTAINED_IN):
     fulfillment_type = 'CONTAINED_IN'
-    containedin.populate(uttr)
+    found = containedin.populate(uttr)
   elif (uttr.query_type == ClassificationType.RANKING):
     current_contained_classification = context.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if current_contained_classification:
       fulfillment_type = 'RANKING_ACROSS_PLACES'
-      ranking_across_places.populate(uttr)
+      found = ranking_across_places.populate(uttr)
     else:
       fulfillment_type = 'RANKING_ACROSS_VARS'
-      ranking_across_vars.populate(uttr)
+      found = ranking_across_vars.populate(uttr)
   elif (uttr.query_type == ClassificationType.COMPARISON):
     fulfillment_type = 'COMPARISON'
-    comparison.populate(uttr)
+    found = comparison.populate(uttr)
   elif (uttr.query_type == ClassificationType.EVENT):
     fulfillment_type = 'EVENT'
-    event.populate(uttr)
+    found = event.populate(uttr)
   elif (uttr.query_type == ClassificationType.TIME_DELTA):
     fulfillment_type = 'TIME_DELTA'
-    time_delta.populate(uttr)
+    found = time_delta.populate(uttr)
 
-  uttr.counters['fulfillment_type'] = fulfillment_type
-  rank_charts(uttr)
-  return uttr
+  utils.update_counter(uttr.counters, 'fulfillment_type', fulfillment_type)
+  return found
+
+
+def _get_next_query_type(classifications: List[NLClassifier],
+                         query_type: ClassificationType) -> ClassificationType:
+  if query_type == None:
+    return _query_type_from_classifications(classifications)
+  else:
+    return QUERY_TYPE_FALLBACK.get(query_type, ClassificationType.SIMPLE)
+
+
+def _query_type_from_classifications(classifications):
+  ans = ClassificationType.SIMPLE
+  for cl in classifications:
+    if (_classification_rank_order(cl.type) > _classification_rank_order(ans)):
+      ans = cl.type
+  return ans
+
+
+def _classification_rank_order(cl: ClassificationType) -> int:
+  if cl in RANKED_CLASSIFICATION_TYPES:
+    return RANKED_CLASSIFICATION_TYPES.index(cl) + 1
+  else:
+    return 0
 
 
 #

@@ -429,7 +429,7 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     _COUNTERS = {
         'filtered_svs': ['Count_Person_Male', 'Count_Person_Female'],
-        'fulfillment_type': 'SIMPLE',
+        'fulfillment_type': ['SIMPLE'],
         'num_chart_candidates': 2,
         'stat_var_extensions': [{}]
     }
@@ -458,7 +458,6 @@ def _detection(place: str,
                                                  svs_to_sentences={},
                                                  sv_dcids=svs,
                                                  sv_scores=scores))
-  detection.query_type = query_type
   if query_type == ClassificationType.COMPARISON:
     # Set comparison classifier
     detection.classifications = [

@@ -32,9 +32,7 @@ from server.lib.nl.utterance import Utterance
 def populate(uttr: Utterance) -> bool:
   # NOTE: The COMPARISON attribute has no additional parameters.  So start
   # by directly inferring the list of places to compare.
-  state = PopulateState(uttr=uttr,
-                        main_cb=_populate_cb,
-                        fallback_cb=overview_fallback)
+  state = PopulateState(uttr=uttr, main_cb=_populate_cb)
   place_comparison_candidates = places_for_comparison_from_context(uttr)
   for places_to_compare in place_comparison_candidates:
     dcids = [p.dcid for p in places_to_compare]
