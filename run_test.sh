@@ -155,6 +155,15 @@ function run_integration_test {
   python3 -m pytest -vv server/integration_tests/
 }
 
+function update_integration_test_golden {
+  setup_python
+  export ENABLE_MODEL=true
+  export FLASK_ENV=integration-test
+  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export TEST_MODE=write
+  python3 -m pytest -vv server/integration_tests/
+}
+
 function run_all_tests {
   run_py_test
   run_npm_build
@@ -169,6 +178,7 @@ function help {
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
   echo "-i       Run integration tests"
+  echo "-g       Update integration test golden files"
   echo "-o       Build for production (ignores dev dependencies)"
   echo "-b       Run client install and build"
   echo "-l       Run client lint test"
@@ -179,7 +189,7 @@ function help {
 }
 
 # Always reset the variable null.
-while getopts tpwiotblcsaf OPTION; do
+while getopts tpwigotblcsaf OPTION; do
   case $OPTION in
     p)
         echo -e "### Running server tests"
@@ -192,6 +202,10 @@ while getopts tpwiotblcsaf OPTION; do
     i)
         echo -e "### Running integration tests"
         run_integration_test
+        ;;
+    g)
+        echo -e "### Updating integration test goldens"
+        update_integration_test_golden 
         ;;
     o)
         echo -e "### Production flag enabled"

@@ -1,0 +1,232 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "filtered_svs": [
+      "Count_WildfireEvent"
+    ],
+    "fulfillment_type": "EVENT",
+    "num_chart_candidates": 1
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "event_type": [
+            4
+          ],
+          "type": 9
+        }
+      ],
+      "places": [],
+      "query": "Where were the major fires in the last year",
+      "query_type": 9,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 6,
+          "event": 4,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "Place"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "svs": [
+        "Count_WildfireEvent"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            5
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "Across",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "Place"
+        }
+      ],
+      "query": "What are the projected temperature extremes across California",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest increase in max temperature in different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "Place"
+            }
+          ],
+          "svs": [
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest decrease in min temperature in different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "Place"
+            }
+          ],
+          "svs": [
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+          ]
+        }
+      ],
+      "svs": [
+        "dc/topic/ProjectedClimateExtremes",
+        "Count_HeatEvent"
+      ]
+    }
+  ],
+  "event_classification": "[<EventType.FIRE: 4>]",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "original_query": "Where were the major fires in the last year",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "<None>"
+  ],
+  "query_with_places_removed": "Where were the major fires in the last year",
+  "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.6448161005973816,
+      0.4775705933570862,
+      0.37844347953796387
+    ],
+    "SV": [
+      "Count_WildfireEvent",
+      "Count_CriminalActivities_Arson",
+      "Annual_ExpectedLoss_NaturalHazardImpact"
+    ],
+    "SV_to_Sentences": {
+      "Annual_ExpectedLoss_NaturalHazardImpact": [
+        "Estimated annual loss from natural hazard impacts (0.37844347953796387)",
+        "The yearly financial impact of natural disasters (0.37651515007019043)",
+        "The annual price tag of natural disasters (0.3635178804397583)",
+        "Annual Expected Loss from Natural Hazard Impact (0.36098629236221313)"
+      ],
+      "Count_CriminalActivities_Arson": [
+        "Number of arson incidents (0.4775705933570862)",
+        "Total number of arson cases (0.43985700607299805)",
+        "Number of Arson Crimes (0.42383068799972534)",
+        "Number of arson crimes (0.42383068799972534)",
+        "Number of arson charges (0.4197373688220978)",
+        "Count of Criminal Activities: Arson (0.4024435877799988)",
+        "Total number of arson offenses (0.4007202088832855)",
+        "Number of crimes counted as Arson (0.39464402198791504)"
+      ],
+      "Count_WildfireEvent": [
+        "Number of wild fires (0.6448161005973816)",
+        "Number of wildfires (0.6082714796066284)",
+        "Number of Wildfires (0.6082714796066284)",
+        "Number of forest fires (0.5873435735702515)",
+        "Number of vegetation fires (0.5820397138595581)",
+        "Number of bush fires (0.5716055035591125)",
+        "Number of wildfire events (0.5425778031349182)",
+        "Count of Wildfire Event (0.5045324563980103)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Annual_ExpectedLoss_NaturalHazardImpact": [
+      "Estimated annual loss from natural hazard impacts (0.37844347953796387)",
+      "The yearly financial impact of natural disasters (0.37651515007019043)",
+      "The annual price tag of natural disasters (0.3635178804397583)",
+      "Annual Expected Loss from Natural Hazard Impact (0.36098629236221313)"
+    ],
+    "Count_CriminalActivities_Arson": [
+      "Number of arson incidents (0.4775705933570862)",
+      "Total number of arson cases (0.43985700607299805)",
+      "Number of Arson Crimes (0.42383068799972534)",
+      "Number of arson crimes (0.42383068799972534)",
+      "Number of arson charges (0.4197373688220978)",
+      "Count of Criminal Activities: Arson (0.4024435877799988)",
+      "Total number of arson offenses (0.4007202088832855)",
+      "Number of crimes counted as Arson (0.39464402198791504)"
+    ],
+    "Count_WildfireEvent": [
+      "Number of wild fires (0.6448161005973816)",
+      "Number of wildfires (0.6082714796066284)",
+      "Number of Wildfires (0.6082714796066284)",
+      "Number of forest fires (0.5873435735702515)",
+      "Number of vegetation fires (0.5820397138595581)",
+      "Number of bush fires (0.5716055035591125)",
+      "Number of wildfire events (0.5425778031349182)",
+      "Count of Wildfire Event (0.5045324563980103)"
+    ]
+  },
+  "temporal_classification": "<None>",
+  "time_delta_classification": "<None>"
+}
