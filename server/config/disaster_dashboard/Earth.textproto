@@ -233,7 +233,7 @@ categories {
       }
       tiles {
         type: HISTOGRAM
-        title: "SPI - 9 month"
+        title: "Number of droughts"
         histogram_tile_spec {
           event_type_key: "drought"
         }
