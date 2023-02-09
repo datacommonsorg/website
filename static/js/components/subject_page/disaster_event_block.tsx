@@ -258,7 +258,7 @@ function renderTiles(
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
-    const id = getId(columnId, TILE_ID_PREFIX, -1);
+    const id = getId(columnId, TILE_ID_PREFIX, i);
     const enclosedPlaceType = props.enclosedPlaceType;
     const classNameList = [];
     if (tileClassName) {

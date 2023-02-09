@@ -94,7 +94,7 @@ function binDataByMonth(
   disasterEventPoints: DisasterEventPoint[],
   dateSetting: string
 ): DataPoint[] {
-  if (!disasterEventPoints) {
+  if (_.isEmpty(disasterEventPoints)) {
     return [];
   }
 
@@ -127,6 +127,13 @@ function binDataByMonth(
 }
 
 /**
+ * Helper function to determine if data exists to display.
+ */
+function shouldShowHistogram(histogramData: DataPoint[]): boolean {
+  return histogramData && !_.isEmpty(histogramData);
+}
+
+/**
  * Main histogram tile component
  */
 export function HistogramTile(props: HistogramTilePropType): JSX.Element {
@@ -145,7 +152,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
   }, [props]);
 
   useEffect(() => {
-    if (histogramData) {
+    if (shouldShowHistogram(histogramData)) {
       renderHistogram(props, histogramData);
     }
   }, [props, histogramData]);
@@ -166,7 +173,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
   //                 present at 6 months but not 30 days
   return (
     <>
-      {histogramData && (
+      {shouldShowHistogram(histogramData) && (
         <ChartTileContainer
           title={props.title}
           sources={sources}
