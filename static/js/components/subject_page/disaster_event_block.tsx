@@ -228,7 +228,7 @@ function getBlockEventTypeSpecs(
   for (const column of columns) {
     for (const t of column.tiles) {
       if (t.disasterEventMapTileSpec) {
-        t.disasterEventMapTileSpec.eventTypeKeys.forEach((specId) => {
+        t.disasterEventMapTileSpec.pointEventTypeKey.forEach((specId) => {
           relevantEventSpecs[specId] = fullEventTypeSpec[specId];
         });
       }
@@ -270,7 +270,7 @@ function renderTiles(
           eventPoints: [],
           provenanceInfo: {},
         };
-        tile.disasterEventMapTileSpec.eventTypeKeys.forEach((eventKey) => {
+        tile.disasterEventMapTileSpec.pointEventTypeKey.forEach((eventKey) => {
           if (!(eventKey in disasterEventData)) {
             return;
           }
