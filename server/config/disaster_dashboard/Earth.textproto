@@ -277,7 +277,6 @@ categories {
         }
       }
       tiles {
-        # TODO: Need to specify P1Y
         type: HISTOGRAM
         title: "Number of fires"
         histogram_tile_spec {
@@ -285,7 +284,6 @@ categories {
         }
       }
       # tiles {
-      #   # TODO: Need to specify P1Y
       #   type: HISTOGRAM
       #   title: "Total area affected by fires last year"
       #   stat_var_key: "fire_area"
@@ -336,7 +334,6 @@ categories {
         }
       }
       tiles {
-        # TODO: Need to specify P1Y
         type: HISTOGRAM
         title: "Number of floods"
         histogram_tile_spec {
@@ -344,7 +341,6 @@ categories {
         }
       }
       # tiles {
-      #   # TODO: Need to specify P1Y
       #   type: HISTOGRAM
       #   title: "Total area affected by floods last year"
       #   stat_var_key: "flood_area"
