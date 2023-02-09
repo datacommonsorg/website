@@ -41,6 +41,7 @@ _TEST_MODE = os.environ['TEST_MODE']
 
 _TEST_DATA = 'test_data'
 
+
 class IntegrationTest(LiveServerTestCase):
 
   @classmethod
@@ -67,20 +68,24 @@ class IntegrationTest(LiveServerTestCase):
 
   # TODO: Validate contexts as well eventually.
   def run_sequence(self, test_dir, queries):
-    ctx={}
+    ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(self.get_server_url() + f'/nlnext/data?q={q}',
-                           json={'contextHistory': ctx}).json()
+                           json={
+                               'contextHistory': ctx
+                           }).json()
 
       ctx = resp['context']
       dbg = resp['debug']
       resp['debug'] = {}
       resp['context'] = {}
-      json_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}', 'chart_config.json')
+      json_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
+                               'chart_config.json')
       if _TEST_MODE == 'write':
         json_dir = os.path.dirname(json_file)
-        if not os.path.isdir(json_dir): os.makedirs(json_dir)
+        if not os.path.isdir(json_dir):
+          os.makedirs(json_dir)
         with open(json_file, 'w') as infile:
           infile.write(json.dumps(resp, indent=2))
 
@@ -105,13 +110,13 @@ class IntegrationTest(LiveServerTestCase):
 
   def test_demo_feb2023(self):
     self.run_sequence('demo_feb2023', [
-      'What are the projected temperature extremes across California',
-      'Where were the major fires in the last year',
-      'Tell me about Placer County',
-      'What were the most common jobs there',
-      'Which jobs have grown the most',
-      'What are the most common health issues there',
-      'Which counties in california have the highest levels of blood pressure',
-      'Which counties in the US have the highest levels of blood pressure',
-      'How does this correlate with income',
+        'What are the projected temperature extremes across California',
+        'Where were the major fires in the last year',
+        'Tell me about Placer County',
+        'What were the most common jobs there',
+        'Which jobs have grown the most',
+        'What are the most common health issues there',
+        'Which counties in california have the highest levels of blood pressure',
+        'Which counties in the US have the highest levels of blood pressure',
+        'How does this correlate with income',
     ])
