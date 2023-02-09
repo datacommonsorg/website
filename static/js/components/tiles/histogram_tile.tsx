@@ -52,8 +52,6 @@ function getMonthString(date: Date): string {
 /**
  * Helper function for getting all months along x-axis to display.
  * Used for initializing bins when binning monthly.
- *
- * Note: assumes disasterEventPoints given are sorted chronologically.
  */
 function getMonthsArray(
   dateSetting: string,
@@ -72,6 +70,10 @@ function getMonthsArray(
   // before the end of the date range. This prevents us from incorrectly
   // imputing 0s for dates the source(s) may not yet have data for.
   if (!_.isEmpty(disasterEventPoints)) {
+    // Sort events into chronological order
+    disasterEventPoints.sort((a, b) =>
+      a.startDate < b.startDate ? -1 : a.startDate > b.startDate ? 1 : 0
+    );
     const lastDate =
       disasterEventPoints[disasterEventPoints.length - 1].startDate;
     if (lastDate < endDate) {
