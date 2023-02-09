@@ -11,14 +11,14 @@
                     "statVarKey": [
                       "Count_Person"
                     ],
-                    "title": "Total Number of People in a Population",
+                    "title": "Total Number of People in a Population in San Jose",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_pc"
                     ],
-                    "title": "Total Number of People in a Population - Per Capita",
+                    "title": "Per Capita Total Number of People in a Population in San Jose",
                     "type": "LINE"
                   }
                 ]
@@ -46,7 +46,7 @@
                       "Count_Person_WhiteAlone_multiple_place_bar_block",
                       "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Compare with Other Variables",
+                    "title": "Compared with Other Variables in San Jose",
                     "type": "BAR"
                   },
                   {
@@ -66,7 +66,7 @@
                       "Count_Person_WhiteAlone_multiple_place_bar_block_pc",
                       "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc"
                     ],
-                    "title": "Compare with Other Variables - Per Capita",
+                    "title": "Per Capita Compared with Other Variables in San Jose",
                     "type": "BAR"
                   }
                 ]
@@ -81,14 +81,14 @@
                     "statVarKey": [
                       "Count_Person_TwoOrMoreRaces"
                     ],
-                    "title": "Multiracial People",
+                    "title": "Multiracial People in San Jose",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_TwoOrMoreRaces_pc"
                     ],
-                    "title": "Multiracial People - Per Capita",
+                    "title": "Per Capita Multiracial People in San Jose",
                     "type": "LINE"
                   }
                 ]
@@ -103,14 +103,14 @@
                     "statVarKey": [
                       "Count_Person_Female"
                     ],
-                    "title": "Females",
+                    "title": "Females in San Jose",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Female_pc"
                     ],
-                    "title": "Females - Per Capita",
+                    "title": "Per Capita Females in San Jose",
                     "type": "LINE"
                   }
                 ]
@@ -126,7 +126,7 @@
                       "Count_Person_Female",
                       "Count_Person_Male"
                     ],
-                    "title": "Compare with Other Variables",
+                    "title": "Compared with Other Variables in San Jose",
                     "type": "LINE"
                   },
                   {
@@ -134,7 +134,7 @@
                       "Count_Person_Female_pc",
                       "Count_Person_Male_pc"
                     ],
-                    "title": "Compare with Other Variables - Per Capita",
+                    "title": "Per Capita Compared with Other Variables in San Jose",
                     "type": "LINE"
                   }
                 ]
@@ -149,14 +149,14 @@
                     "statVarKey": [
                       "Count_Person_SomeOtherRaceAlone"
                     ],
-                    "title": "People Who Identify as Some Other Race Alone",
+                    "title": "People Who Identify as Some Other Race Alone in San Jose",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_SomeOtherRaceAlone_pc"
                     ],
-                    "title": "People Who Identify as Some Other Race Alone - Per Capita",
+                    "title": "Per Capita People Who Identify as Some Other Race Alone in San Jose",
                     "type": "LINE"
                   }
                 ]
@@ -171,14 +171,14 @@
                     "statVarKey": [
                       "Count_Person_Male"
                     ],
-                    "title": "Males",
+                    "title": "Males in San Jose",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Male_pc"
                     ],
-                    "title": "Males - Per Capita",
+                    "title": "Per Capita Males in San Jose",
                     "type": "LINE"
                   }
                 ]
@@ -193,14 +193,14 @@
                     "statVarKey": [
                       "Count_Person_Employed"
                     ],
-                    "title": "Population With Current Employment",
+                    "title": "Population With Current Employment in San Jose",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Employed_pc"
                     ],
-                    "title": "Population With Current Employment - Per Capita",
+                    "title": "Per Capita Population With Current Employment in San Jose",
                     "type": "LINE"
                   }
                 ]
@@ -216,7 +216,7 @@
                       "Count_Person_Employed",
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Compare with Other Variables",
+                    "title": "Compared with Other Variables in San Jose",
                     "type": "LINE"
                   },
                   {
@@ -224,7 +224,7 @@
                       "Count_Person_Employed_pc",
                       "Count_Person_Unemployed_pc"
                     ],
-                    "title": "Compare with Other Variables - Per Capita",
+                    "title": "Per Capita Compared with Other Variables in San Jose",
                     "type": "LINE"
                   }
                 ]
@@ -239,14 +239,14 @@
                     "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
-                    "title": "People in the Labor Force",
+                    "title": "People in the Labor Force in San Jose",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_InLaborForce_pc"
                     ],
-                    "title": "People in the Labor Force - Per Capita",
+                    "title": "Per Capita People in the Labor Force in San Jose",
                     "type": "LINE"
                   }
                 ]
