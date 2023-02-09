@@ -155,9 +155,10 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                         props.topEventMetadata.showEndDate) && (
                         <td>
                           {props.topEventMetadata.showStartDate &&
-                            event.startDate}
+                            formatDateString(event.startDate)}
                           {showDateRange && " to "}
-                          {props.topEventMetadata.showEndDate && event.endDate}
+                          {props.topEventMetadata.showEndDate &&
+                            formatDateString(event.endDate)}
                         </td>
                       )}
                       {props.topEventMetadata.displayProp &&
@@ -312,5 +313,14 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       }
     }
     return name;
+  }
+
+  /**
+   * Given a string containing a datetime in ISO 8601 format, return only the
+   * date portion, without the time portion.
+   * @param dateString date in ISO 8601 format
+   */
+  function formatDateString(dateString: string): string {
+    return dateString.slice(0, "YYYY-MM-DD".length);
   }
 }
