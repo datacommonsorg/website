@@ -106,7 +106,7 @@ message DisasterEventMapTileSpec {
 }
 
 message HistogramTileSpec {
- string event_type_key = 1;
+  string event_type_key = 1;
 }
 
 message TopEventTileSpec {
