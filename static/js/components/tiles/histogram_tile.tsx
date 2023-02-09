@@ -28,7 +28,6 @@ import {
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
-import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/disaster_event_map_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
