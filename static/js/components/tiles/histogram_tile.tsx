@@ -182,7 +182,6 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
           replacementStrings={rs}
           className={"histogram-chart"}
           allowEmbed={false}
-          getDataCsv={() => dataPointsToCsv(histogramData)}
         >
           <div id={props.id} className="svg-container" ref={svgContainer}></div>
         </ChartTileContainer>
