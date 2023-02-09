@@ -28,12 +28,14 @@ import {
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
+import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import { getDateRange } from "../../utils/disaster_event_map_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface HistogramTilePropType {
   disasterEventData: DisasterEventPointData;
+  eventTypeSpec: EventTypeSpec;
   id: string;
   place: NamedTypedPlace;
   selectedDate: string;
@@ -212,6 +214,13 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
   ): void {
     const elem = document.getElementById(props.id);
     elem.innerHTML = "";
-    drawHistogram(props.id, elem.clientWidth, elem.clientHeight, histogramData);
+    drawHistogram(
+      props.id,
+      elem.clientWidth,
+      elem.clientHeight,
+      histogramData,
+      undefined,
+      props.eventTypeSpec.color
+    );
   }
 }
