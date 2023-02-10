@@ -400,6 +400,7 @@ categories {
         title: "Most severe cyclones"
         top_event_tile_spec {
           event_type_key: "storm"
+          show_start_date: true
         }
       }
     }
