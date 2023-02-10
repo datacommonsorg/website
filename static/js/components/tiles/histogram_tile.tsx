@@ -165,7 +165,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
 
   // format event data if data is available
   useEffect(() => {
-    if (props.disasterEventData.eventPoints) {
+    if (props.disasterEventData && props.disasterEventData.eventPoints) {
       processData(
         props.disasterEventData.eventPoints,
         props.selectedDate,
@@ -188,9 +188,13 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
 
   // organize provenance info to pass to ChartTileContainer
   const sources = new Set<string>();
-  Object.values(props.disasterEventData.provenanceInfo).forEach((provInfo) => {
-    sources.add(provInfo.provenanceUrl);
-  });
+  if (props.disasterEventData && props.disasterEventData.provenanceInfo) {
+    Object.values(props.disasterEventData.provenanceInfo).forEach(
+      (provInfo) => {
+        sources.add(provInfo.provenanceUrl);
+      }
+    );
+  }
 
   // TODO (juliawu): add "sorry, we don't have data" message if data is
   //                 present at 6 months but not 30 days
