@@ -1,0 +1,34 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "type": "PLACE_OVERVIEW"
+                  }
+                ]
+              }
+            ],
+            "title": "Placer County"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/06061"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/06061",
+    "name": "Placer County",
+    "place_type": "County"
+  }
+}
