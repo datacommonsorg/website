@@ -52,6 +52,62 @@ class ChartOriginType(IntEnum):
   SECONDARY_CHART = 1
 
 
+# This often has 1:1 correspondence with ClassificationType, but a single
+# classification like RANKING might correspond to different query types
+# (ranking across vars vs. ranking across places).
+class QueryType(IntEnum):
+  OTHER = 0
+  SIMPLE = 1
+  RANKING_ACROSS_PLACES = 2
+  RANKING_ACROSS_VARS = 3
+  CONTAINED_IN = 4
+  CORRELATION = 5
+  COMPARISON = 6
+  TIME_DELTA = 7
+  EVENT = 8
+  OVERVIEW = 9
+  UNKNOWN = 11
+
+
+# The supported rankings in order. Later entry is preferred.
+RANKED_QUERY_TYPES = [
+    QueryType.SIMPLE,
+    QueryType.COMPARISON,
+    QueryType.CONTAINED_IN,
+    QueryType.RANKING_ACROSS_VARS,
+    QueryType.RANKING_ACROSS_PLACES,
+    QueryType.CORRELATION,
+    QueryType.TIME_DELTA,
+    QueryType.EVENT,
+    QueryType.OVERVIEW,
+]
+
+# The ClassificationTypes not in this map rely on additional fields of detection.
+DIRECT_CLASSIFICATION_TO_QUERY_TYPE = {
+    ClassificationType.SIMPLE:
+        QueryType.SIMPLE,
+    ClassificationType.CONTAINED_IN:
+        QueryType.CONTAINED_IN,
+    ClassificationType.CORRELATION:
+        QueryType.CORRELATION,
+    ClassificationType.COMPARISON:
+        QueryType.COMPARISON,
+    ClassificationType.TIME_DELTA:
+        QueryType.TIME_DELTA,
+    ClassificationType.EVENT:
+        QueryType.EVENT,
+    # Unsupported classification-types
+    ClassificationType.UNKNOWN:
+        QueryType.UNKNOWN,
+    ClassificationType.OTHER:
+        QueryType.UNKNOWN,
+    ClassificationType.TEMPORAL:
+        QueryType.UNKNOWN,
+    ClassificationType.CLUSTERING:
+        QueryType.UNKNOWN,
+}
+
+
 # Type of chart.
 class ChartType(IntEnum):
   TIMELINE_CHART = 0

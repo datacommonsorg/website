@@ -97,8 +97,10 @@
       "dc/topic/ProjectedClimateExtremes",
       "Count_HeatEvent"
     ],
-    "fulfillment_type": "RANKING_ACROSS_PLACES",
     "num_chart_candidates": 2,
+    "processed_fulfillment_types": [
+      "ranking_across_places"
+    ],
     "stat_var_extensions": [
       {
         "Count_HeatEvent": [

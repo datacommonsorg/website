@@ -7,8 +7,10 @@
     "filtered_svs": [
       "dc/topic/Jobs"
     ],
-    "fulfillment_type": "TIME_DELTA",
     "num_chart_candidates": 15,
+    "processed_fulfillment_types": [
+      "time_delta"
+    ],
     "stat_var_extensions": [
       {}
     ],
@@ -109,7 +111,7 @@
       ],
       "places": [],
       "query": "Which jobs have grown the most",
-      "query_type": 8,
+      "query_type": 7,
       "ranked_charts": [
         {
           "attr": {
@@ -532,7 +534,7 @@
       ],
       "places": [],
       "query": "What were the most common jobs there",
-      "query_type": 2,
+      "query_type": 3,
       "ranked_charts": [
         {
           "attr": {
@@ -602,7 +604,7 @@
         }
       ],
       "query": "Tell me about Placer County",
-      "query_type": 10,
+      "query_type": 9,
       "ranked_charts": [
         {
           "attr": {
@@ -647,7 +649,7 @@
       ],
       "places": [],
       "query": "Where were the major fires in the last year",
-      "query_type": 9,
+      "query_type": 8,
       "ranked_charts": [
         {
           "attr": {

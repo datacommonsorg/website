@@ -429,7 +429,7 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     _COUNTERS = {
         'filtered_svs': ['Count_Person_Male', 'Count_Person_Female'],
-        'fulfillment_type': ['SIMPLE'],
+        'processed_fulfillment_types': ['simple'],
         'num_chart_candidates': 2,
         'stat_var_extensions': [{}]
     }

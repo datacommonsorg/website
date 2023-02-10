@@ -243,42 +243,6 @@ class ClassificationType(IntEnum):
   UNKNOWN = 11
 
 
-# The supported classifications in order. Later entry is preferred.
-RANKED_CLASSIFICATION_TYPES = [
-    ClassificationType.SIMPLE,
-    ClassificationType.COMPARISON,
-    ClassificationType.CONTAINED_IN,
-    ClassificationType.RANKING,
-    ClassificationType.CORRELATION,
-    ClassificationType.TIME_DELTA,
-    ClassificationType.EVENT,
-    ClassificationType.OVERVIEW,
-]
-
-QUERY_TYPE_FALLBACK = {
-    # No fallback
-    ClassificationType.OVERVIEW:
-        None,
-    ClassificationType.SIMPLE:
-        None,
-
-    ClassificationType.EVENT:
-        ClassificationType.SIMPLE,
-    ClassificationType.TIME_DELTA:
-        ClassificationType.RANKING,
-    ClassificationType.RANKING:
-        ClassificationType.CONTAINED_IN,
-    ClassificationType.CONTAINED_IN:
-        ClassificationType.SIMPLE,
-
-    # Not fully sure about this fallback.
-    ClassificationType.CORRELATION:
-        ClassificationType.COMPARISON,
-    ClassificationType.COMPARISON:
-        ClassificationType.CONTAINED_IN,
-}
-
-
 @dataclass
 class NLClassifier:
   """Classifier."""
