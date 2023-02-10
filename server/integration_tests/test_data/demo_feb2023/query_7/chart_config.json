@@ -15,14 +15,14 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Bood Pressure in California",
+                    "title": "High Bood Pressure in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Bood Pressure",
+                    "title": "High Bood Pressure in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -42,14 +42,14 @@
                     "statVarKey": [
                       "Percent_Person_WithArthritis"
                     ],
-                    "title": "Arthritis in California",
+                    "title": "Arthritis in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithArthritis"
                     ],
-                    "title": "Arthritis",
+                    "title": "Arthritis in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -69,14 +69,14 @@
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma in California",
+                    "title": "Asthma in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma",
+                    "title": "Asthma in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -96,14 +96,14 @@
                     "statVarKey": [
                       "Percent_Person_WithCancerExcludingSkinCancer"
                     ],
-                    "title": "Cancer (excluding skin cancer) in California",
+                    "title": "Cancer (excluding skin cancer) in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithCancerExcludingSkinCancer"
                     ],
-                    "title": "Cancer (excluding skin cancer)",
+                    "title": "Cancer (excluding skin cancer) in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -123,14 +123,14 @@
                     "statVarKey": [
                       "Percent_Person_WithChronicKidneyDisease"
                     ],
-                    "title": "Chronic Kidney Disease in California",
+                    "title": "Chronic Kidney Disease in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithChronicKidneyDisease"
                     ],
-                    "title": "Chronic Kidney Disease",
+                    "title": "Chronic Kidney Disease in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -150,14 +150,14 @@
                     "statVarKey": [
                       "Percent_Person_WithChronicObstructivePulmonaryDisease"
                     ],
-                    "title": "Chronic Obstructive Pulmonary Disease in California",
+                    "title": "Chronic Obstructive Pulmonary Disease in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithChronicObstructivePulmonaryDisease"
                     ],
-                    "title": "Chronic Obstructive Pulmonary Disease",
+                    "title": "Chronic Obstructive Pulmonary Disease in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -177,14 +177,14 @@
                     "statVarKey": [
                       "Percent_Person_WithCoronaryHeartDisease"
                     ],
-                    "title": "Coronary Heart Disease in California",
+                    "title": "Coronary Heart Disease in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithCoronaryHeartDisease"
                     ],
-                    "title": "Coronary Heart Disease",
+                    "title": "Coronary Heart Disease in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -204,14 +204,14 @@
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes in California",
+                    "title": "Diabetes in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
-                    "title": "Diabetes",
+                    "title": "Diabetes in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -231,14 +231,14 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Bood Pressure in California",
+                    "title": "High Bood Pressure in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Bood Pressure",
+                    "title": "High Bood Pressure in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -258,14 +258,14 @@
                     "statVarKey": [
                       "Percent_Person_WithHighCholesterol"
                     ],
-                    "title": "High Cholesterol in California",
+                    "title": "High Cholesterol in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithHighCholesterol"
                     ],
-                    "title": "High Cholesterol",
+                    "title": "High Cholesterol in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -285,14 +285,14 @@
                     "statVarKey": [
                       "Percent_Person_WithMentalHealthNotGood"
                     ],
-                    "title": "Mental Health Issues in California",
+                    "title": "Mental Health Issues in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithMentalHealthNotGood"
                     ],
-                    "title": "Mental Health Issues",
+                    "title": "Mental Health Issues in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -312,14 +312,14 @@
                     "statVarKey": [
                       "Percent_Person_WithPhysicalHealthNotGood"
                     ],
-                    "title": "Physical Health Issues in California",
+                    "title": "Physical Health Issues in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithPhysicalHealthNotGood"
                     ],
-                    "title": "Physical Health Issues",
+                    "title": "Physical Health Issues in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -339,14 +339,14 @@
                     "statVarKey": [
                       "Percent_Person_WithStroke"
                     ],
-                    "title": "Stroke in California",
+                    "title": "Stroke in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithStroke"
                     ],
-                    "title": "Stroke",
+                    "title": "Stroke in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -409,7 +409,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Place": "County"
+        "State": "County"
       },
       "placeDcid": [
         "geoId/06"
@@ -421,6 +421,6 @@
   "place": {
     "dcid": "geoId/06",
     "name": "California",
-    "place_type": "Place"
+    "place_type": "State"
   }
 }

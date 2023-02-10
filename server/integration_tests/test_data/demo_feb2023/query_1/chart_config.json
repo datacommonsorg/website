@@ -15,14 +15,14 @@
                     "statVarKey": [
                       "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in California",
+                    "title": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
+                    "title": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -44,14 +44,14 @@
                     "statVarKey": [
                       "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in California",
+                    "title": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C)",
+                    "title": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -71,14 +71,14 @@
                     "statVarKey": [
                       "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in California",
+                    "title": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
+                    "title": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -98,14 +98,14 @@
                     "statVarKey": [
                       "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in California",
+                    "title": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
+                    "title": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -127,14 +127,14 @@
                     "statVarKey": [
                       "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in California",
+                    "title": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C)",
+                    "title": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -154,14 +154,14 @@
                     "statVarKey": [
                       "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in California",
+                    "title": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in Counties of California",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
+                    "title": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in Counties of California",
                     "type": "MAP"
                   }
                 ]
@@ -200,7 +200,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Place": "County"
+        "State": "County"
       },
       "placeDcid": [
         "geoId/06"
@@ -212,6 +212,6 @@
   "place": {
     "dcid": "geoId/06",
     "name": "California",
-    "place_type": "Place"
+    "place_type": "State"
   }
 }

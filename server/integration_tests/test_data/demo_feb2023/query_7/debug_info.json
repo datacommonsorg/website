@@ -77,7 +77,7 @@
         {
           "dcid": "geoId/06",
           "name": "California",
-          "place_type": "Place"
+          "place_type": "State"
         }
       ],
       "query": "Which counties in california have the highest levels of blood pressure",
@@ -103,7 +103,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -130,7 +130,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -791,7 +791,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": []
@@ -818,7 +818,7 @@
         {
           "dcid": "geoId/06",
           "name": "California",
-          "place_type": "Place"
+          "place_type": "State"
         }
       ],
       "query": "What are the projected temperature extremes across California",
@@ -844,7 +844,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -873,7 +873,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [

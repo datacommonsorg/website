@@ -361,7 +361,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": []
@@ -388,7 +388,7 @@
         {
           "dcid": "geoId/06",
           "name": "California",
-          "place_type": "Place"
+          "place_type": "State"
         }
       ],
       "query": "What are the projected temperature extremes across California",
@@ -414,7 +414,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -443,7 +443,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [

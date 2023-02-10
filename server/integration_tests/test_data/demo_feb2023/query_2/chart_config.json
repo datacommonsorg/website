@@ -8,7 +8,7 @@
               {
                 "tiles": [
                   {
-                    "title": "Most severe fires",
+                    "title": "Most severe fires in California",
                     "topEventTileSpec": {
                       "eventTypeKey": "fire",
                       "showEndDate": true,
@@ -26,6 +26,7 @@
                         "fire"
                       ]
                     },
+                    "title": "Fires in California",
                     "type": "DISASTER_EVENT_MAP"
                   }
                 ]
@@ -38,7 +39,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Place": "Place"
+        "State": "County"
       },
       "eventTypeSpec": {
         "fire": {
@@ -74,6 +75,6 @@
   "place": {
     "dcid": "geoId/06",
     "name": "California",
-    "place_type": "Place"
+    "place_type": "State"
   }
 }

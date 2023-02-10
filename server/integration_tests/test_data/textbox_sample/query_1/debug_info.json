@@ -69,7 +69,7 @@
         {
           "dcid": "geoId/06",
           "name": "California",
-          "place_type": "Place"
+          "place_type": "State"
         }
       ],
       "query": "family earnings in california",
@@ -93,7 +93,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -118,7 +118,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -144,7 +144,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -169,7 +169,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -194,7 +194,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -219,7 +219,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
@@ -244,7 +244,7 @@
             {
               "dcid": "geoId/06",
               "name": "California",
-              "place_type": "Place"
+              "place_type": "State"
             }
           ],
           "svs": [
