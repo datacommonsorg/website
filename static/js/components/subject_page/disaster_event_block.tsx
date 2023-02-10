@@ -302,6 +302,8 @@ function renderTiles(
         );
       }
       case "HISTOGRAM": {
+        const eventTypeSpec =
+          props.eventTypeSpec[tile.histogramTileSpec.eventTypeKey];
         return (
           <HistogramTile
             key={id}
@@ -309,6 +311,7 @@ function renderTiles(
             title={tile.title}
             place={props.place}
             selectedDate={getDate(props.id)}
+            eventTypeSpec={eventTypeSpec}
             disasterEventData={
               disasterEventData[tile.histogramTileSpec.eventTypeKey] || {
                 eventPoints: [],

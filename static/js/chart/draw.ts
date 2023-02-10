@@ -589,7 +589,8 @@ function drawHistogram(
   chartWidth: number,
   chartHeight: number,
   dataPoints: DataPoint[],
-  unit?: string
+  unit?: string,
+  fillColor?: string
 ): void {
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
@@ -630,7 +631,7 @@ function drawHistogram(
   addYAxis(yAxis, chartWidth, y, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const color = getColorFn(["A"])("A"); // we only need one color
+  const color = fillColor ? fillColor : getColorFn(["A"])("A"); // we only need one color
 
   chart
     .append("g")
