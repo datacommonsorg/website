@@ -53,6 +53,10 @@ message EventTypeSpec {
   repeated DisplayProp display_prop = 6;
   // List of props that could be used to hold the end date for this event type
   repeated string end_date_prop = 7;
+  // The prop to use to get the polygon geojson for this event type
+  string polygon_geo_json_prop = 8;
+  // The prop to use to get the path geojson for this event type
+  string path_geo_json_prop = 9;
 }
 
 message PageMetadata {
@@ -100,9 +104,12 @@ message RankingTileSpec {
 }
 
 message DisasterEventMapTileSpec {
-  // Keys for event type specs defined in the PageMetadata that should be displayed
-  // TODO: Rename this to be singular.
-  repeated string event_type_keys = 1;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as points on the map
+  repeated string point_event_type_key = 1;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as polygons on the map
+  repeated string polygon_event_type_key = 2;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as paths on the map
+  repeated string path_event_type_key = 3;
 }
 
 message HistogramTileSpec {
