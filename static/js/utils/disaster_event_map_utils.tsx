@@ -362,7 +362,7 @@ function getCustomDateRanges(): { [dateKey: string]: [string, string] } {
  * Gets the date range to use for fetching disaster event data when given a
  * selectedDate string.
  */
-function getDateRange(selectedDate: string): [string, string] {
+export function getDateRange(selectedDate: string): [string, string] {
   const customDateRanges = getCustomDateRanges();
   return selectedDate in customDateRanges
     ? customDateRanges[selectedDate]
