@@ -48,6 +48,20 @@ function getMonthString(date: Date): string {
 }
 
 /**
+ * Helper function to get the last date of a YYYY-MM string.
+ * For example, given "2003-02", return "2003-02-28"
+ */
+function getLastDayOfMonth(dateString: string): string {
+  const inputDate = new Date(`${dateString}Z`);
+  const lastDay = new Date(
+    inputDate.getUTCFullYear(),
+    inputDate.getUTCMonth() + 1,
+    0
+  );
+  return lastDay.toISOString().slice(0, "YYYY-MM-DD".length);
+}
+
+/**
  * Helper function for getting all months along x-axis to display.
  * Used for initializing bins when binning monthly.
  */
@@ -58,10 +72,16 @@ function getMonthsArray(
   // get start and end of dates to show data for
   let [startDate, endDate] = getDateRange(dateSetting);
 
-  // specify full dates if start and end dates are just YYYY
+  // specify full dates if start and end dates are just YYYY or YYYY-MM
   if (startDate.length == "YYYY".length && endDate.length == "YYYY".length) {
     startDate = `${startDate}-01-01`;
     endDate = `${endDate}-12-31`;
+  } else if (
+    startDate.length == "YYYY-MM".length &&
+    endDate.length == "YYYY-MM".length
+  ) {
+    startDate = `${startDate}-01`;
+    endDate = `${getLastDayOfMonth(endDate)}`;
   }
 
   // Update end date to the latest date we have data for, if our data ends
