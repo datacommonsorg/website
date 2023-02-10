@@ -222,22 +222,24 @@ export function generateLegend(
 /**
  * Generate a svg that contains a color scale legend
  *
- * @param containerId id of the container to draw the legend in
+ * @param containerElement element to draw the legend in
  * @param height height of the legend
  * @param colorScale the color scale to use for the legend
  * @param unit unit of measurement
  * @param marginLeft left margin of the legend
  *
- * @return width of the svg
+ * @return width of the svg including the margins
  */
 export function generateLegendSvg(
-  containerId: string,
+  containerElement: HTMLDivElement,
   height: number,
   colorScale: d3.ScaleLinear<number, number>,
   unit: string,
   marginLeft: number
 ): number {
-  const svg = d3.select(`#${containerId}`).append("svg");
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+  const svg = container.append("svg");
   const legendWidth =
     generateLegend(svg, height, colorScale, unit) + marginLeft;
   svg
