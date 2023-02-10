@@ -569,3 +569,9 @@ def get_time_delta_types(
                  detection.TimeDeltaClassificationAttributes)):
     time_delta = classification[0].attributes.time_delta_types
   return time_delta
+
+
+def pluralize_place_type(place_type: str) -> str:
+  result = constants.PLACE_TYPE_TO_PLURALS.get(
+      place_type.lower(), constants.PLACE_TYPE_TO_PLURALS["place"])
+  return result.title()

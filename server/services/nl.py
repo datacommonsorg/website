@@ -570,6 +570,7 @@ class Model:
       prediction = pick_option(
           classification_model.classification_model, query_encoded,
           classification_model.classification_type.categories)
+      logging.info(f'Prediction is {prediction}')
       if prediction is None:
         return None
 
