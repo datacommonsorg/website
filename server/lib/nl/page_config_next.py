@@ -547,7 +547,7 @@ def _event_chart_block(metadata, block, column, place: Place,
 
   tile = block.columns.add().tiles.add()
   tile.type = Tile.DISASTER_EVENT_MAP
-  tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
+  tile.disaster_event_map_tile_spec.point_event_type_key.append(event_id)
   tile.title = event_title
 
 

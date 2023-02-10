@@ -37,7 +37,6 @@ import {
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
-import { HistogramTile } from "../tiles/histogram_tile";
 import { LineTile } from "../tiles/line_tile";
 import { MapTile } from "../tiles/map_tile";
 import { PlaceOverviewTile } from "../tiles/place_overview_tile";
@@ -214,18 +213,6 @@ function renderTiles(
           <p key={id} className="description-tile">
             {tile.description}
           </p>
-        );
-      case "HISTOGRAM":
-        return (
-          <HistogramTile
-            key={id}
-            id={id}
-            title={tile.title}
-            place={props.place}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
-            svgChartHeight={props.svgChartHeight}
-            className={className}
-          />
         );
       case "PLACE_OVERVIEW":
         return <PlaceOverviewTile key={id} place={props.place} />;
