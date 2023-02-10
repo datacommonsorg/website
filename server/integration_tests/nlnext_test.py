@@ -117,6 +117,6 @@ class IntegrationTest(LiveServerTestCase):
         'Which jobs have grown the most',
         'What are the most common health issues there',
         'Which counties in california have the highest levels of blood pressure',
-        'Which counties in the US have the highest levels of blood pressure',
+        'Which counties in the USA have the highest levels of blood pressure',
         'How does this correlate with income',
     ])

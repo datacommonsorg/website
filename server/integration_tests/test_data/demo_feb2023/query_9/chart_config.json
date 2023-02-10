@@ -15,26 +15,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Income vs. High Bood Pressure in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Person_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Individual Median Income vs. Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of California",
+                    "title": "Individual Median Income vs. High Bood Pressure in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -53,26 +34,7 @@
                       "Median_Earnings_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Earnings vs. High Bood Pressure in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Individual Median Earnings vs. Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of California",
+                    "title": "Individual Median Earnings vs. High Bood Pressure in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -91,26 +53,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income vs. High Bood Pressure in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Household Median Income vs. Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of California",
+                    "title": "Household Median Income vs. High Bood Pressure in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -129,26 +72,7 @@
                       "Mean_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Households vs. High Bood Pressure in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Average Income for Households vs. Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of California",
+                    "title": "Average Income for Households vs. High Bood Pressure in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -167,26 +91,7 @@
                       "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Total Wages Paid to Professional, Scientific, and Technical Services vs. High Bood Pressure in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Total Wages Paid to Professional, Scientific, and Technical Services vs. Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of California",
+                    "title": "Total Wages Paid to Professional, Scientific, and Technical Services vs. High Bood Pressure in Counties of United States of America",
                     "type": "SCATTER"
                   }
                 ]
@@ -211,10 +116,6 @@
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
           },
-          "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter": {
-            "name": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;",
-            "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
-          },
           "Percent_Person_WithHighBloodPressure_scatter": {
             "name": "High Bood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure"
@@ -228,18 +129,18 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "State": "County"
+        "Country": "County"
       },
       "placeDcid": [
-        "geoId/06"
+        "country/USA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
-    "place_type": "State"
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
   }
 }

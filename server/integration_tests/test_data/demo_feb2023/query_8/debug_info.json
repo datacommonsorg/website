@@ -6,28 +6,28 @@
   "counters": {
     "child_places_result": [
       {
-        "place": "geoId/06",
+        "place": "country/USA",
         "result": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
+          "geoId/01001",
+          "geoId/01003",
+          "geoId/01005",
+          "geoId/01007",
+          "geoId/01009",
+          "geoId/01011",
+          "geoId/01013",
+          "geoId/01015",
+          "geoId/01017",
+          "geoId/01019",
+          "geoId/01021",
+          "geoId/01023",
+          "geoId/01025",
+          "geoId/01027",
+          "geoId/01029",
+          "geoId/01031",
+          "geoId/01033",
+          "geoId/01035",
+          "geoId/01037",
+          "geoId/01039"
         ],
         "type": "County"
       }
@@ -35,15 +35,12 @@
     "filtered_svs": [
       "Percent_Person_WithHighBloodPressure",
       "dc/g/Person_MedicalCondition-HighBloodPressure",
-      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+      "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
     ],
     "fulfillment_type": "RANKING_ACROSS_PLACES",
-    "num_chart_candidates": 3,
+    "num_chart_candidates": 2,
     "stat_var_extensions": [
       {
-        "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-          "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
-        ],
         "Percent_Person_WithHighBloodPressure": [
           "Percent_Person_WithAllTeethLoss",
           "Percent_Person_WithArthritis",
@@ -76,8 +73,14 @@
           "type": 4
         }
       ],
-      "places": [],
-      "query": "Which counties in the US have the highest levels of blood pressure",
+      "places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Which counties in the USA have the highest levels of blood pressure",
       "query_type": 2,
       "ranked_charts": [
         {
@@ -98,9 +101,9 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
@@ -125,9 +128,9 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
@@ -144,39 +147,12 @@
             "Percent_Person_WithPhysicalHealthNotGood",
             "Percent_Person_WithStroke"
           ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "ranking table",
-            "class": 0,
-            "description": "",
-            "include_percapita": true,
-            "place_type": "County",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 2,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
-          ]
         }
       ],
       "svs": [
         "Percent_Person_WithHighBloodPressure",
         "dc/g/Person_MedicalCondition-HighBloodPressure",
-        "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+        "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
       ]
     },
     {
@@ -1009,82 +985,94 @@
     }
   ],
   "event_classification": "<None>",
-  "main_place_dcid": "<None>",
-  "main_place_name": "<None>",
-  "original_query": "Which counties in the US have the highest levels of blood pressure",
+  "main_place_dcid": "country/USA",
+  "main_place_name": "United States of America",
+  "original_query": "Which counties in the USA have the highest levels of blood pressure",
   "overview_classification": "<None>",
   "places_detected": [
-    "<None>"
+    "usa"
   ],
-  "query_with_places_removed": "Which counties in the US have the highest levels of blood pressure",
+  "query_with_places_removed": "which counties in the have the highest levels of blood pressure",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6132043600082397,
-      0.5247436165809631,
-      0.501012921333313
+      0.6393455266952515,
+      0.5648802518844604,
+      0.5272606611251831,
+      0.49340176582336426,
+      0.484770804643631
     ],
     "SV": [
       "Percent_Person_WithHighBloodPressure",
       "dc/g/Person_MedicalCondition-HighBloodPressure",
+      "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication",
+      "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication",
       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
     ],
     "SV_to_Sentences": {
       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-        "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.501012921333313)",
-        "percent of  people with high blood pressure who are taking blood pressure medication  among people who are 18 years or older in age (0.4553433060646057)"
+        "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.484770804643631)"
       ],
       "Percent_Person_WithHighBloodPressure": [
-        "Prevalence: High Blood Pressure (0.6132043600082397)",
-        "Proportion of people with high blood pressure (0.555888831615448)",
-        "Percentage of individuals with high blood pressure (0.5518703460693359)",
-        "Percentage of the population that has high blood pressure (0.5437746644020081)",
-        "Percent of people with high blood pressure (0.5406100749969482)",
-        "Percentage of people with high blood pressure (0.5388301014900208)",
-        "Percentage of the population with high blood pressure (0.5343760848045349)",
-        "Percentage of people who have high blood pressure (0.5314314365386963)",
-        "percent of people that have high blood pressure (0.5300126075744629)",
-        "Percentage of Population With High Blood Pressure (0.523178219795227)",
-        "Percentage of population with high blood pressure (0.523178219795227)",
-        "Percentage of people with uncontrolled hypertension (0.4999319016933441)",
-        "Percentage of people with hypertension (0.49770596623420715)",
-        "Percentage of the population with hypertension (0.4859023094177246)",
-        "Percentage of people with high BP (0.4813385009765625)"
+        "Prevalence: High Blood Pressure (0.6393455266952515)",
+        "Proportion of people with high blood pressure (0.5782811641693115)",
+        "Percentage of individuals with high blood pressure (0.556043267250061)",
+        "Percentage of the population that has high blood pressure (0.539158046245575)",
+        "Percentage of people who have high blood pressure (0.535609781742096)",
+        "Percent of people with high blood pressure (0.5325265526771545)",
+        "Percentage of people with high blood pressure (0.5309882164001465)",
+        "percent of people that have high blood pressure (0.5249311327934265)",
+        "Percentage of the population with high blood pressure (0.5236257314682007)",
+        "Percentage of population with high blood pressure (0.5058218836784363)",
+        "Percentage of Population With High Blood Pressure (0.5058218836784363)",
+        "Percentage of people with uncontrolled hypertension (0.5010706186294556)"
+      ],
+      "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
+        "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340176582336426)",
+        "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.48412132263183594)"
       ],
       "dc/g/Person_MedicalCondition-HighBloodPressure": [
-        "people with high blood pressure (0.5247436165809631)",
-        "Number of People With High Blood Pressure (0.5211241841316223)",
-        "Person With Medical Condition = High Blood Pressure (0.5052477121353149)"
+        "Person With Medical Condition = High Blood Pressure (0.5648802518844604)",
+        "Number of People With High Blood Pressure (0.5599534511566162)",
+        "people with high blood pressure (0.5592368245124817)"
+      ],
+      "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
+        "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.5272606611251831)",
+        "high blood pressure patients who are taking blood pressure medication (0.5227408409118652)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-      "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.501012921333313)",
-      "percent of  people with high blood pressure who are taking blood pressure medication  among people who are 18 years or older in age (0.4553433060646057)"
+      "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.484770804643631)"
     ],
     "Percent_Person_WithHighBloodPressure": [
-      "Prevalence: High Blood Pressure (0.6132043600082397)",
-      "Proportion of people with high blood pressure (0.555888831615448)",
-      "Percentage of individuals with high blood pressure (0.5518703460693359)",
-      "Percentage of the population that has high blood pressure (0.5437746644020081)",
-      "Percent of people with high blood pressure (0.5406100749969482)",
-      "Percentage of people with high blood pressure (0.5388301014900208)",
-      "Percentage of the population with high blood pressure (0.5343760848045349)",
-      "Percentage of people who have high blood pressure (0.5314314365386963)",
-      "percent of people that have high blood pressure (0.5300126075744629)",
-      "Percentage of Population With High Blood Pressure (0.523178219795227)",
-      "Percentage of population with high blood pressure (0.523178219795227)",
-      "Percentage of people with uncontrolled hypertension (0.4999319016933441)",
-      "Percentage of people with hypertension (0.49770596623420715)",
-      "Percentage of the population with hypertension (0.4859023094177246)",
-      "Percentage of people with high BP (0.4813385009765625)"
+      "Prevalence: High Blood Pressure (0.6393455266952515)",
+      "Proportion of people with high blood pressure (0.5782811641693115)",
+      "Percentage of individuals with high blood pressure (0.556043267250061)",
+      "Percentage of the population that has high blood pressure (0.539158046245575)",
+      "Percentage of people who have high blood pressure (0.535609781742096)",
+      "Percent of people with high blood pressure (0.5325265526771545)",
+      "Percentage of people with high blood pressure (0.5309882164001465)",
+      "percent of people that have high blood pressure (0.5249311327934265)",
+      "Percentage of the population with high blood pressure (0.5236257314682007)",
+      "Percentage of population with high blood pressure (0.5058218836784363)",
+      "Percentage of Population With High Blood Pressure (0.5058218836784363)",
+      "Percentage of people with uncontrolled hypertension (0.5010706186294556)"
+    ],
+    "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
+      "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340176582336426)",
+      "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.48412132263183594)"
     ],
     "dc/g/Person_MedicalCondition-HighBloodPressure": [
-      "people with high blood pressure (0.5247436165809631)",
-      "Number of People With High Blood Pressure (0.5211241841316223)",
-      "Person With Medical Condition = High Blood Pressure (0.5052477121353149)"
+      "Person With Medical Condition = High Blood Pressure (0.5648802518844604)",
+      "Number of People With High Blood Pressure (0.5599534511566162)",
+      "people with high blood pressure (0.5592368245124817)"
+    ],
+    "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
+      "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.5272606611251831)",
+      "high blood pressure patients who are taking blood pressure medication (0.5227408409118652)"
     ]
   },
   "temporal_classification": "<None>",

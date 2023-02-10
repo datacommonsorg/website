@@ -6,36 +6,35 @@
   "counters": {
     "child_places_result": [
       {
-        "place": "geoId/06",
+        "place": "country/USA",
         "result": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
+          "geoId/01001",
+          "geoId/01003",
+          "geoId/01005",
+          "geoId/01007",
+          "geoId/01009",
+          "geoId/01011",
+          "geoId/01013",
+          "geoId/01015",
+          "geoId/01017",
+          "geoId/01019",
+          "geoId/01021",
+          "geoId/01023",
+          "geoId/01025",
+          "geoId/01027",
+          "geoId/01029",
+          "geoId/01031",
+          "geoId/01033",
+          "geoId/01035",
+          "geoId/01037",
+          "geoId/01039"
         ],
         "type": "County"
       }
     ],
     "correlation_context_svs": [
       [
-        "Percent_Person_WithHighBloodPressure",
-        "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+        "Percent_Person_WithHighBloodPressure"
       ]
     ],
     "correlation_main_svs": [
@@ -66,7 +65,7 @@
       "WagesTotal_Worker_NAICSUtilities"
     ],
     "fulfillment_type": "CORRELATION",
-    "num_chart_candidates": 10,
+    "num_chart_candidates": 5,
     "topics_processed": [
       {
         "dc/topic/Income": {
@@ -121,9 +120,9 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
@@ -147,14 +146,14 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
-            "Median_Income_Person",
-            "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+            "Median_Earnings_Person",
+            "Percent_Person_WithHighBloodPressure"
           ]
         },
         {
@@ -173,13 +172,13 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
-            "Median_Earnings_Person",
+            "Median_Income_Household",
             "Percent_Person_WithHighBloodPressure"
           ]
         },
@@ -199,14 +198,14 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
-            "Median_Earnings_Person",
-            "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+            "Mean_Income_Household",
+            "Percent_Person_WithHighBloodPressure"
           ]
         },
         {
@@ -225,144 +224,14 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "Median_Income_Household",
-            "Percent_Person_WithHighBloodPressure"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 6,
-            "chart_type": "scatter chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "County",
-            "ranking_types": [],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 5,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "Median_Income_Household",
-            "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 7,
-            "chart_type": "scatter chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "County",
-            "ranking_types": [],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 5,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "Mean_Income_Household",
-            "Percent_Person_WithHighBloodPressure"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 8,
-            "chart_type": "scatter chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "County",
-            "ranking_types": [],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 5,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "Mean_Income_Household",
-            "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 9,
-            "chart_type": "scatter chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "County",
-            "ranking_types": [],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 5,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
             "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices",
             "Percent_Person_WithHighBloodPressure"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 10,
-            "chart_type": "scatter chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "County",
-            "ranking_types": [],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 5,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices",
-            "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
           ]
         }
       ],
@@ -398,8 +267,14 @@
           "type": 4
         }
       ],
-      "places": [],
-      "query": "Which counties in the US have the highest levels of blood pressure",
+      "places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Which counties in the USA have the highest levels of blood pressure",
       "query_type": 2,
       "ranked_charts": [
         {
@@ -420,9 +295,9 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
@@ -447,9 +322,9 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
             }
           ],
           "svs": [
@@ -466,39 +341,12 @@
             "Percent_Person_WithPhysicalHealthNotGood",
             "Percent_Person_WithStroke"
           ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "ranking table",
-            "class": 0,
-            "description": "",
-            "include_percapita": true,
-            "place_type": "County",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 2,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
-          ]
         }
       ],
       "svs": [
         "Percent_Person_WithHighBloodPressure",
         "dc/g/Person_MedicalCondition-HighBloodPressure",
-        "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+        "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
       ]
     },
     {
