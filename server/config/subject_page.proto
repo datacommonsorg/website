@@ -112,6 +112,10 @@ message DisasterEventMapTileSpec {
   repeated string path_event_type_key = 3;
 }
 
+message HistogramTileSpec {
+  string event_type_key = 1;
+}
+
 message TopEventTileSpec {
   // Key for event type specs defined in the PageMetadata that should be displayed
   // Ranked by severity prop.
@@ -154,7 +158,7 @@ message Tile {
     DESCRIPTION = 8;
     // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
-    // allowed in BlockTypes: TYPE_NONE
+    // allowed in BlockTypes: DISASTER_EVENT
     PLACE_OVERVIEW = 11;
     // allowed in BlockTypes: DISASTER_EVENT
     TOP_EVENT = 12;
@@ -177,6 +181,7 @@ message Tile {
     DisasterEventMapTileSpec disaster_event_map_tile_spec = 6;
     TopEventTileSpec top_event_tile_spec = 8;
     ScatterTileSpec scatter_tile_spec = 9;
+    HistogramTileSpec histogram_tile_spec = 10;
   }
 }
 

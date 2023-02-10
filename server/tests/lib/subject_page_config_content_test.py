@@ -29,12 +29,12 @@ BLOCK_TYPE_ALLOWED_TILES = {
         TileType.RANKING: "",
         TileType.HIGHLIGHT: "",
         TileType.DESCRIPTION: "",
-        TileType.HISTOGRAM: "",
         TileType.PLACE_OVERVIEW: "",
     },
     BlockType.DISASTER_EVENT: {
         TileType.DISASTER_EVENT_MAP: "",
-        TileType.TOP_EVENT: ""
+        TileType.TOP_EVENT: "",
+        TileType.HISTOGRAM: "",
     }
 }
 

@@ -52,6 +52,7 @@ import {
 import { DisasterEventMapFilters } from "../tiles/disaster_event_map_filters";
 import { DisasterEventMapSelectors } from "../tiles/disaster_event_map_selectors";
 import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
+import { HistogramTile } from "../tiles/histogram_tile";
 import { TopEventTile } from "../tiles/top_event_tile";
 import { BlockContainer } from "./block_container";
 import { Column } from "./column";
@@ -236,6 +237,10 @@ function getBlockEventTypeSpecs(
         const specId = t.topEventTileSpec.eventTypeKey;
         relevantEventSpecs[specId] = fullEventTypeSpec[specId];
       }
+      if (t.histogramTileSpec) {
+        const specId = t.histogramTileSpec.eventTypeKey;
+        relevantEventSpecs[specId] = fullEventTypeSpec[specId];
+      }
     }
   }
   return relevantEventSpecs;
@@ -253,7 +258,7 @@ function renderTiles(
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
-    const id = getId(columnId, TILE_ID_PREFIX, -1);
+    const id = getId(columnId, TILE_ID_PREFIX, i);
     const enclosedPlaceType = props.enclosedPlaceType;
     const classNameList = [];
     if (tileClassName) {
@@ -293,6 +298,26 @@ function renderTiles(
             enclosedPlaceType={enclosedPlaceType}
             eventTypeSpec={eventTypeSpec}
             disasterEventData={specEventData}
+          />
+        );
+      }
+      case "HISTOGRAM": {
+        const eventTypeSpec =
+          props.eventTypeSpec[tile.histogramTileSpec.eventTypeKey];
+        return (
+          <HistogramTile
+            key={id}
+            id={id}
+            title={tile.title}
+            place={props.place}
+            selectedDate={getDate(props.id)}
+            eventTypeSpec={eventTypeSpec}
+            disasterEventData={
+              disasterEventData[tile.histogramTileSpec.eventTypeKey] || {
+                eventPoints: [],
+                provenanceInfo: {},
+              }
+            }
           />
         );
       }
