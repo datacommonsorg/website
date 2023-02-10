@@ -27,7 +27,7 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
 } from "../shared/constants";
 import { NamedPlace } from "../shared/types";
-import { generateLegend, getPlacePathId } from "./draw_map_utils";
+import { getPlacePathId } from "./draw_map_utils";
 import {
   GeoJsonData,
   GeoJsonFeature,
@@ -53,15 +53,11 @@ const GEO_STROKE_COLOR = "#fff";
 const HIGHLIGHTED_STROKE_COLOR = "#202020";
 const STROKE_WIDTH = "0.5px";
 const HIGHLIGHTED_STROKE_WIDTH = "1.25px";
-const TICK_SIZE = 6;
-const LEGEND_MARGIN_TOP = 4;
-const LEGEND_MARGIN_BOTTOM = TICK_SIZE;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
 export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME = "region-highlighted-no-click";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
-const LEGEND_CLASS_NAME = "legend";
 const MAP_ITEMS_GROUP_ID = "map-items";
 const MAP_GEO_REGIONS_ID = "map-geo-regions";
 const STARTING_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
@@ -228,13 +224,16 @@ function addTooltip(containerElement: HTMLDivElement): void {
  * @param enclosingPlaceDcid the enclosing place of the map
  * @param mapWidth the width of the map
  * @param mapHeight the height of the map
- * @returns
+ * @param geoJson the geojson data that will be drawn with this projection
+ * @param zoomDcid dcid of a region to zoom in on
  */
 export function getProjection(
   isUSAPlace: boolean,
   enclosingPlaceDcid: string,
   mapWidth: number,
-  mapHeight: number
+  mapHeight: number,
+  geoJson: GeoJsonData,
+  zoomDcid?: string
 ): d3.GeoProjection {
   const isEurope = enclosingPlaceDcid == EUROPE_NAMED_TYPED_PLACE.dcid;
   const isAsia = enclosingPlaceDcid == ASIA_NAMED_TYPED_PLACE.dcid;
@@ -263,6 +262,36 @@ export function getProjection(
       .scale(mapHeight / 1.5)
       .precision(0.1);
   }
+  const geomap = d3.geoPath().projection(projection);
+
+  // Update projection to scale and center map
+  let isMapFitted = false || isEurope || isAsia;
+  if (zoomDcid) {
+    const geoJsonFeature = geoJson.features.find(
+      (feature) => feature.properties.geoDcid === zoomDcid
+    );
+    if (geoJsonFeature) {
+      fitSize(
+        mapWidth,
+        mapHeight,
+        geoJsonFeature,
+        projection,
+        geomap,
+        ZOOMED_SCALE_AMOUNT
+      );
+      isMapFitted = true;
+    }
+  }
+  if (!isMapFitted) {
+    fitSize(
+      mapWidth,
+      mapHeight,
+      geoJson,
+      projection,
+      geomap,
+      REGULAR_SCALE_AMOUNT
+    );
+  }
   return projection;
 }
 
@@ -290,15 +319,12 @@ function getValue(
  * @param chartHeight height for the chart
  * @param chartWidth width for the chart
  * @param dataValues data values for plotting
- * @param unit the unit of measurement
  * @param colorScale the color scale to use for drawing the map and legend
  * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
  * @param canClickRegion function to determine if a region on the map is clickable
- * @param shouldGenerateLegend whether legend needs to be generated
  * @param shouldShowBoundaryLines whether each region should have boundary lines shown
  * @param projection projection to use for the map
- * @param enclosingPlaceDcid DCID of enclosing place that might have special projections
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
  * @param zoomParams the parameters needed to add zoom functionality for the map
  */
@@ -310,15 +336,12 @@ export function drawD3Map(
   dataValues: {
     [placeDcid: string]: number;
   },
-  unit: string,
   colorScale: d3.ScaleLinear<number | string, number>,
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   canClickRegion: (placeDcid: string) => boolean,
-  shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
-  enclosingPlaceDcid?: string,
   zoomDcid?: string,
   zoomParams?: MapZoomParams
 ): void {
@@ -340,51 +363,6 @@ export function drawD3Map(
     .data(geoJson.features);
 
   const geomap = d3.geoPath().projection(projection);
-
-  if (shouldGenerateLegend) {
-    const legendHeight = chartHeight - LEGEND_MARGIN_BOTTOM - LEGEND_MARGIN_TOP;
-    const legendWidth = generateLegend(
-      svg,
-      legendHeight,
-      colorScale as d3.ScaleLinear<number, number>,
-      unit
-    );
-    chartWidth -= legendWidth;
-    svg
-      .select(`.${LEGEND_CLASS_NAME}`)
-      .attr("transform", `translate(${chartWidth}, ${LEGEND_MARGIN_TOP})`);
-  }
-
-  // Scale and center the map
-  const isEurope = enclosingPlaceDcid == EUROPE_NAMED_TYPED_PLACE.dcid;
-  const isAsia = enclosingPlaceDcid == ASIA_NAMED_TYPED_PLACE.dcid;
-  let isMapFitted = false || isEurope || isAsia;
-  if (zoomDcid) {
-    const geoJsonFeature = geoJson.features.find(
-      (feature) => feature.properties.geoDcid === zoomDcid
-    );
-    if (geoJsonFeature) {
-      fitSize(
-        chartWidth,
-        chartHeight,
-        geoJsonFeature,
-        projection,
-        geomap,
-        ZOOMED_SCALE_AMOUNT
-      );
-      isMapFitted = true;
-    }
-  }
-  if (!isMapFitted) {
-    fitSize(
-      chartWidth,
-      chartHeight,
-      geoJson,
-      projection,
-      geomap,
-      REGULAR_SCALE_AMOUNT
-    );
-  }
 
   // Build map objects.
   const mapObjects = mapRegionsLayer
@@ -511,7 +489,12 @@ export function addMapPoints(
     });
   const minDotSize = minDotRadius || Math.max(minRegionDiagonal * 0.02, 1.1);
   const filteredMapPoints = mapPoints.filter((point) => {
-    return !_.isNull(projection([point.longitude, point.latitude]));
+    const projectedPoint = projection([point.longitude, point.latitude]);
+    return (
+      projectedPoint &&
+      !_.isNaN(projectedPoint[0]) &&
+      !_.isNaN(projectedPoint[1])
+    );
   });
   let pointSizeScale = null;
   if (!_.isEmpty(mapPointValues)) {

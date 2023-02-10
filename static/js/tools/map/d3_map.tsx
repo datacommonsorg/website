@@ -80,6 +80,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
+  const legendContainerRef = useRef<HTMLDivElement>(null);
 
   const draw = useCallback(() => {
     if (
@@ -128,7 +129,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
     );
     const legendHeight = height * LEGEND_HEIGHT_SCALING;
     const legendWidth = generateLegendSvg(
-      LEGEND_CONTAINER_ID,
+      legendContainerRef.current,
       legendHeight,
       colorScale,
       "",
@@ -147,16 +148,16 @@ export function D3Map(props: D3MapProps): JSX.Element {
       isUSAPlace,
       placeInfo.value.enclosingPlace.dcid,
       width - legendWidth,
-      height
+      height,
+      props.geoJsonData,
+      zoomDcid
     );
-    document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawD3Map(
       mapContainerRef.current,
       props.geoJsonData,
       height,
       width - legendWidth,
       props.mapDataValues,
-      "",
       colorScale,
       redirectAction,
       getTooltipHtml(
@@ -166,13 +167,11 @@ export function D3Map(props: D3MapProps): JSX.Element {
         props.unit
       ),
       canClickRegion(placeInfo.value, props.europeanCountries),
-      false,
       shouldShowMapBoundaries(
         placeInfo.value.selectedPlace,
         placeInfo.value.enclosedPlaceType
       ),
       projection,
-      placeInfo.value.enclosingPlace.dcid,
       zoomDcid,
       zoomParams
     );
@@ -251,7 +250,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
       <div className="map-section-container">
         <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
           <div id={MAP_CONTAINER_ID} ref={mapContainerRef}></div>
-          <div id={LEGEND_CONTAINER_ID}></div>
+          <div id={LEGEND_CONTAINER_ID} ref={legendContainerRef}></div>
         </div>
         <div className="zoom-button-section">
           <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
