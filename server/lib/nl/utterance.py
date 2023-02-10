@@ -69,45 +69,6 @@ class QueryType(IntEnum):
   UNKNOWN = 11
 
 
-# The supported rankings in order. Later entry is preferred.
-RANKED_QUERY_TYPES = [
-    QueryType.SIMPLE,
-    QueryType.COMPARISON,
-    QueryType.CONTAINED_IN,
-    QueryType.RANKING_ACROSS_VARS,
-    QueryType.RANKING_ACROSS_PLACES,
-    QueryType.CORRELATION,
-    QueryType.TIME_DELTA,
-    QueryType.EVENT,
-    QueryType.OVERVIEW,
-]
-
-# The ClassificationTypes not in this map rely on additional fields of detection.
-DIRECT_CLASSIFICATION_TO_QUERY_TYPE = {
-    ClassificationType.SIMPLE:
-        QueryType.SIMPLE,
-    ClassificationType.CONTAINED_IN:
-        QueryType.CONTAINED_IN,
-    ClassificationType.CORRELATION:
-        QueryType.CORRELATION,
-    ClassificationType.COMPARISON:
-        QueryType.COMPARISON,
-    ClassificationType.TIME_DELTA:
-        QueryType.TIME_DELTA,
-    ClassificationType.EVENT:
-        QueryType.EVENT,
-    # Unsupported classification-types
-    ClassificationType.UNKNOWN:
-        QueryType.UNKNOWN,
-    ClassificationType.OTHER:
-        QueryType.UNKNOWN,
-    ClassificationType.TEMPORAL:
-        QueryType.UNKNOWN,
-    ClassificationType.CLUSTERING:
-        QueryType.UNKNOWN,
-}
-
-
 # Type of chart.
 class ChartType(IntEnum):
   TIMELINE_CHART = 0

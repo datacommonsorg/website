@@ -22,7 +22,6 @@ from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import ChartVars
-from server.lib.nl.fulfillment.base import overview_fallback
 from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.base import PopulateState
 from server.lib.nl.fulfillment.context import \

@@ -42,7 +42,6 @@ _EVENT_PREFIX = 'event/'
 class PopulateState:
   uttr: Utterance
   main_cb: any
-  fallback_cb: any = None
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
@@ -141,8 +140,6 @@ def populate_charts_for_places(state: PopulateState,
   logging.info('Doing fallback for %s - %s',
                ', '.join(_get_place_names(places)), ', '.join(state.uttr.svs))
   utils.update_counter(state.uttr.counters, 'num_populate_fallbacks', 1)
-  if state.fallback_cb:
-    return state.fallback_cb(state, places, ChartOriginType.PRIMARY_CHART)
   return False
 
 
@@ -256,17 +253,6 @@ def _add_charts(state: PopulateState, places: List[Place],
   logging.info("Add chart %s %s returning %r" %
                (', '.join(_get_place_names(places)), svs, found))
   return found
-
-
-def overview_fallback(state: PopulateState, places: List[Place],
-                      chart_origin: ChartOriginType) -> bool:
-  # Overview chart is a safe fallback.
-  state.block_id += 1
-  chart_vars = ChartVars(svs=[],
-                         block_id=state.block_id,
-                         include_percapita=False)
-  return add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
-                                places, chart_origin)
 
 
 def _get_place_dcids(places: List[Place]) -> List[str]:
