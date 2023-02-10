@@ -43,7 +43,8 @@ export interface EventTypeSpec {
   defaultSeverityFilter: SeverityFilter;
   displayProp: EventDisplayProp[];
   endDateProp: string[];
-  geoJsonProp: string;
+  polygonGeoJsonProp?: string;
+  pathGeoJsonProp?: string;
 }
 
 export interface PageMetadataConfig {
