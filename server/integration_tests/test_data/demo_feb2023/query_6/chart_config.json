@@ -1,0 +1,103 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
+                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
+                      "Percent_Person_WithArthritis_multiple_place_bar_block",
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
+                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
+                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block"
+                    ],
+                    "title": "Medical Conditions in Placer County",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "description": "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
+            "title": "Medical Conditions"
+          }
+        ],
+        "statVarSpec": {
+          "Percent_Person_WithArthritis_multiple_place_bar_block": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis"
+          },
+          "Percent_Person_WithAsthma_multiple_place_bar_block": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block": {
+            "name": "Cancer (excluding skin cancer)",
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer"
+          },
+          "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block": {
+            "name": "Chronic Kidney Disease",
+            "statVar": "Percent_Person_WithChronicKidneyDisease"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease"
+          },
+          "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
+            "name": "Coronary Heart Disease",
+            "statVar": "Percent_Person_WithCoronaryHeartDisease"
+          },
+          "Percent_Person_WithDiabetes_multiple_place_bar_block": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes"
+          },
+          "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
+            "name": "High Bood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure"
+          },
+          "Percent_Person_WithHighCholesterol_multiple_place_bar_block": {
+            "name": "High Cholesterol",
+            "statVar": "Percent_Person_WithHighCholesterol"
+          },
+          "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
+            "name": "Mental Health Issues",
+            "statVar": "Percent_Person_WithMentalHealthNotGood"
+          },
+          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
+            "name": "Physical Health Issues",
+            "statVar": "Percent_Person_WithPhysicalHealthNotGood"
+          },
+          "Percent_Person_WithStroke_multiple_place_bar_block": {
+            "name": "Stroke",
+            "statVar": "Percent_Person_WithStroke"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/06061"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/06061",
+    "name": "Placer County",
+    "place_type": "County"
+  }
+}
