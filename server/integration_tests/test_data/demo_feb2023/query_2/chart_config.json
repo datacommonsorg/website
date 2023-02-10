@@ -22,7 +22,7 @@
                 "tiles": [
                   {
                     "disasterEventMapTileSpec": {
-                      "eventTypeKeys": [
+                      "pointEventTypeKey": [
                         "fire"
                       ]
                     },

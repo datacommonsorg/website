@@ -698,7 +698,7 @@ EVENT_CONFIG = """
          title: "Fires in Foo Place"
          type: DISASTER_EVENT_MAP
          disaster_event_map_tile_spec {
-           event_type_keys: "fire"
+           point_event_type_key: "fire"
          }
        }
      }
@@ -741,7 +741,7 @@ categories {
       tiles {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
-          event_type_keys: "fire"
+          point_event_type_key: "fire"
         }
       }
     }
