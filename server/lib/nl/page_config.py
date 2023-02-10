@@ -18,7 +18,7 @@ from typing import Dict, List
 
 from server.config import subject_page_pb2
 from server.lib.nl import topic
-from server.lib.nl.constants import PLACE_TYPE_TO_PLURALS
+from server.lib.nl import utils
 from server.lib.nl.data_spec import DataSpec
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Detection
@@ -28,11 +28,6 @@ from server.lib.nl.detection import RankingType
 from server.services import datacommons as dc
 
 CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
-
-
-def pluralize_place_type(place_type: str) -> str:
-  return PLACE_TYPE_TO_PLURALS.get(place_type.lower(),
-                                   PLACE_TYPE_TO_PLURALS["place"])
 
 
 def get_sv_name(svs):
@@ -337,7 +332,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     if primary_sv in contained_place_spec.svs:
       block = category.blocks.add()
       block.title = "{} in {}".format(
-          pluralize_place_type(
+          utils.pluralize_place_type(
               contained_place_spec.contained_place_type).capitalize(),
           main_place_spec.name)
       column = block.columns.add()

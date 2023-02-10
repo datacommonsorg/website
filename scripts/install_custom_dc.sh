@@ -43,11 +43,17 @@ if [[ -z "$PROJECT_ID" ]]; then
     exit 1
 fi
 
-if [[ -z "$CONTACT_EMAIL" ]]; then
+if [ -n "$REGISTER_DOMAIN" ] && [ -z "$CONTACT_EMAIL" ]; then
     echo "Error: environment variable CONTACT_EMAIL is required but not set." 1>&2
     echo "Please set CONTACT_EMAIL by running the following command." 1>&2
     echo "export CONTACT_EMAIL=<Email that you have access to in order to activate the domain.>" 1>&2
     exit 1
+fi
+
+if [ -z "$REGISTER_DOMAIN" ] && [ -z "$CUSTOM_DC_DOMAIN" ]; then
+  echo "Error: environment variable CUSTOM_DC_DOMAIN is required because default domain is not used." 1>&2
+  echo "Default domain is not used because environment variable REGISTER_DOMAIN is not set."  1>&2
+  echo "export CUSTOM_DC_DOMAIN=<Domain that you own> if you intend to use a domain that you own." 1>&2
 fi
 
 if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
@@ -88,7 +94,8 @@ terraform init \
 
 terraform apply \
   -var="project_id=$PROJECT_ID" \
-  -var="contact_email=$CONTACT_EMAIL" \
+  ${REGISTER_DOMAIN:+-var="contact_email=$CONTACT_EMAIL"} \
+  ${REGISTER_DOMAIN:+-var="register_domain=true"} \
   ${CUSTOM_DC_DOMAIN:+-var="dc_website_domain=$CUSTOM_DC_DOMAIN"} \
   -auto-approve
 

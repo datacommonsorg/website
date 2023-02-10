@@ -231,11 +231,13 @@ categories {
           event_type_keys: "drought"
         }
       }
-      # tiles {
-      #   type: HISTOGRAM
-      #   title: "SPI - 9 month"
-      #   stat_var_key: "spi_9"
-      # }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of droughts"
+        histogram_tile_spec {
+          event_type_key: "drought"
+        }
+      }
     }
     columns {
       tiles {
@@ -274,14 +276,14 @@ categories {
           event_type_keys: "fire"
         }
       }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of fires"
+        histogram_tile_spec {
+          event_type_key: "fire"
+        }
+      }
       # tiles {
-      #   # TODO: Need to specify P1Y
-      #   type: HISTOGRAM
-      #   title: "Number of fires last year"
-      #   stat_var_key: "fire_count"
-      # }
-      # tiles {
-      #   # TODO: Need to specify P1Y
       #   type: HISTOGRAM
       #   title: "Total area affected by fires last year"
       #   stat_var_key: "fire_area"
@@ -331,14 +333,14 @@ categories {
           event_type_keys: "flood"
         }
       }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of floods"
+        histogram_tile_spec {
+          event_type_key: "flood"
+        }
+      }
       # tiles {
-      #   # TODO: Need to specify P1Y
-      #   type: HISTOGRAM
-      #   title: "Number of floods last year"
-      #   stat_var_key: "flood_count"
-      # }
-      # tiles {
-      #   # TODO: Need to specify P1Y
       #   type: HISTOGRAM
       #   title: "Total area affected by floods last year"
       #   stat_var_key: "flood_area"
@@ -388,11 +390,13 @@ categories {
           event_type_keys: "storm"
         }
       }
-      # tiles {
-      #   type: HISTOGRAM
-      #   title: "Number of cyclones last year"
-      #   stat_var_key: "cyclone_all"
-      # }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of cyclones"
+        histogram_tile_spec {
+          event_type_key: "storm"
+        }
+      }
     }
     columns {
       tiles {
@@ -400,6 +404,7 @@ categories {
         title: "Most severe cyclones"
         top_event_tile_spec {
           event_type_key: "storm"
+          show_start_date: true
         }
       }
     }
@@ -431,11 +436,13 @@ categories {
           event_type_keys: "wetbulb"
         }
       }
-      # tiles {
-      #   type: HISTOGRAM
-      #   title: "Number of wet bulb events last year"
-      #   stat_var_key: "wetbulb_count"
-      # }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of wet bulb events"
+        histogram_tile_spec {
+          event_type_key: "wetbulb"
+        }
+      }
       # tiles {
       #   type: HISTOGRAM
       #   title: "Total area affected by wet bulb events last year"
@@ -484,11 +491,13 @@ categories {
           event_type_keys: "heat"
         }
       }
-      # tiles {
-      #   type: HISTOGRAM
-      #   title: "Number of extreme heat events last year"
-      #   stat_var_key: "heat_count"
-      # }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of extreme heat events"
+        histogram_tile_spec {
+          event_type_key: "heat"
+        }
+      }
       # tiles {
       #   type: HISTOGRAM
       #   title: "Total area affected by extreme heat events last year"
@@ -536,11 +545,13 @@ categories {
           event_type_keys: "cold"
         }
       }
-      # tiles {
-      #   type: HISTOGRAM
-      #   title: "Number of extreme cold events last year"
-      #   stat_var_key: "cold_count"
-      # }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of extreme cold events"
+        histogram_tile_spec {
+          event_type_key: "cold"
+        }
+      }
       # tiles {
       #   type: HISTOGRAM
       #   title: "Total area affected by extreme cold events last year"

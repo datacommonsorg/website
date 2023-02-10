@@ -73,6 +73,10 @@ export interface DisasterEventMapTileSpec {
   eventTypeKeys: string[];
 }
 
+export interface HistogramTileSpec {
+  eventTypeKey: string;
+}
+
 export interface TopEventTileSpec {
   eventTypeKey: string;
   displayProp: string[];
@@ -98,6 +102,7 @@ export interface TileConfig {
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;
   scatterTileSpec?: ScatterTileSpec;
+  histogramTileSpec?: HistogramTileSpec;
 }
 
 export interface ColumnConfig {
