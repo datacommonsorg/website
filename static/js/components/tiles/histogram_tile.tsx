@@ -134,9 +134,12 @@ function binDataByMonth(
     // Get start time in YYYY-MM
     const eventMonth = event.startDate.slice(0, "YYYY-MM".length);
 
-    // Increment count in corresponding bin
-    if (bins.has(eventMonth)) {
+    // Increment count in corresponding bin if event has at least
+    // monthly granularity
+    if (bins.has(eventMonth) && eventMonth.length == "YYYY-MM".length) {
       bins.set(eventMonth, bins.get(eventMonth) + 1);
+    } else {
+      console.log(`Skipped event ${event} that started on ${eventMonth}`);
     }
   }
 
