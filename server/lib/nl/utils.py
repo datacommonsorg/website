@@ -572,5 +572,6 @@ def get_time_delta_types(
 
 
 def pluralize_place_type(place_type: str) -> str:
-  return constants.PLACE_TYPE_TO_PLURALS.get(
+  result = constants.PLACE_TYPE_TO_PLURALS.get(
       place_type.lower(), constants.PLACE_TYPE_TO_PLURALS["place"])
+  return result.title()
