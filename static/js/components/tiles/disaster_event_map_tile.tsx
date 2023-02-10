@@ -236,7 +236,9 @@ export function DisasterEventMapTile(
       isUsaPlace,
       placeInfo.selectedPlace.dcid,
       width,
-      height
+      height,
+      geoJsonData,
+      placeInfo.selectedPlace.dcid
     );
     drawD3Map(
       svgContainerRef.current,
@@ -244,17 +246,14 @@ export function DisasterEventMapTile(
       height,
       width,
       {} /* dataValues: no data values to show on the base map */,
-      "" /* units: no units to show */,
       null /* colorScale: no color scale since no data shown on the base map */,
       (geoDcid: GeoJsonFeatureProperties) =>
         redirectAction(geoDcid.geoDcid) /* redirectAction */,
       (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
       () => true /* canClickRegion: allow all regions to be clickable */,
-      false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
       true /* shouldShowBoundaryLines */,
       projection,
       placeInfo.selectedPlace.dcid,
-      placeInfo.selectedPlace.dcid /* zoomDcid */,
       zoomParams
     );
     const allMapPointsData = getMapPointsData(

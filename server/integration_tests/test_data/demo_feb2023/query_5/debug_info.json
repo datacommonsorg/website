@@ -1,0 +1,923 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "filtered_svs": [
+      "dc/topic/Jobs"
+    ],
+    "fulfillment_type": "TIME_DELTA",
+    "num_chart_candidates": 15,
+    "stat_var_extensions": [
+      {}
+    ],
+    "time-delta_reranked_svs": [
+      {
+        "orig": [
+          "Count_Worker_NAICSAccommodationFoodServices",
+          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+          "Count_Worker_NAICSAgricultureForestryFishingHunting",
+          "Count_Worker_NAICSConstruction",
+          "Count_Worker_NAICSEducationalServices",
+          "Count_Worker_NAICSHealthCareSocialAssistance",
+          "dc/ndg1xk1e9frc2",
+          "Count_Worker_NAICSFinanceInsurance",
+          "Count_Worker_NAICSInformation",
+          "Count_Worker_NAICSArtsEntertainmentRecreation",
+          "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+          "Count_Worker_NAICSOtherServices",
+          "dc/8p97n7l96lgg8",
+          "Count_Worker_NAICSUtilities",
+          "dc/p69tpsldf99h7",
+          "Count_Worker_NAICSRealEstateRentalLeasing",
+          "Count_Worker_NAICSPublicAdministration",
+          "Count_Worker_NAICSWholesaleTrade",
+          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+          "Count_Worker_NAICSPublicAdministration"
+        ],
+        "ranked": [
+          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+          "Count_Worker_NAICSHealthCareSocialAssistance",
+          "Count_Worker_NAICSWholesaleTrade",
+          "Count_Worker_NAICSFinanceInsurance",
+          "Count_Worker_NAICSRealEstateRentalLeasing",
+          "Count_Worker_NAICSArtsEntertainmentRecreation",
+          "Count_Worker_NAICSConstruction",
+          "dc/p69tpsldf99h7",
+          "Count_Worker_NAICSAccommodationFoodServices",
+          "Count_Worker_NAICSOtherServices",
+          "Count_Worker_NAICSEducationalServices",
+          "Count_Worker_NAICSPublicAdministration",
+          "Count_Worker_NAICSInformation",
+          "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+        ]
+      }
+    ],
+    "topics_processed": [
+      {
+        "dc/topic/Jobs": {
+          "peer_groups": [
+            [
+              "Categories of Jobs",
+              "",
+              [
+                "Count_Worker_NAICSAccommodationFoodServices",
+                "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+                "Count_Worker_NAICSAgricultureForestryFishingHunting",
+                "Count_Worker_NAICSConstruction",
+                "Count_Worker_NAICSEducationalServices",
+                "Count_Worker_NAICSHealthCareSocialAssistance",
+                "dc/ndg1xk1e9frc2",
+                "Count_Worker_NAICSFinanceInsurance",
+                "Count_Worker_NAICSInformation",
+                "Count_Worker_NAICSArtsEntertainmentRecreation",
+                "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+                "Count_Worker_NAICSOtherServices",
+                "dc/8p97n7l96lgg8",
+                "Count_Worker_NAICSUtilities",
+                "dc/p69tpsldf99h7",
+                "Count_Worker_NAICSRealEstateRentalLeasing",
+                "Count_Worker_NAICSPublicAdministration",
+                "Count_Worker_NAICSWholesaleTrade",
+                "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+                "Count_Worker_NAICSPublicAdministration"
+              ]
+            ]
+          ],
+          "svs": []
+        }
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "time_delta_type": [
+            0
+          ],
+          "type": 8
+        }
+      ],
+      "places": [],
+      "query": "Which jobs have grown the most",
+      "query_type": 8,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSHealthCareSocialAssistance"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSWholesaleTrade"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSFinanceInsurance"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSRealEstateRentalLeasing"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSArtsEntertainmentRecreation"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSConstruction"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "dc/p69tpsldf99h7"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSAccommodationFoodServices"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSOtherServices"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSEducationalServices"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSPublicAdministration"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSInformation"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "growth chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          ]
+        }
+      ],
+      "svs": [
+        "dc/topic/Jobs"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        }
+      ],
+      "places": [],
+      "query": "What were the most common jobs there",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranked bar chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSOtherServices",
+            "dc/ndg1xk1e9frc2",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "dc/8p97n7l96lgg8",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSUtilities",
+            "Count_Worker_NAICSAgricultureForestryFishingHunting",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          ]
+        }
+      ],
+      "svs": [
+        "dc/topic/Jobs",
+        "Count_Worker_NAICSTotalAllIndustries",
+        "dc/g/Person_Industry-NAICS/10",
+        "dc/g/Person_Industry-NAICS/11",
+        "dc/g/Person_Industry-NAICS/451"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 10
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer County",
+          "place_type": "County"
+        }
+      ],
+      "query": "Tell me about Placer County",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "event_type": [
+            4
+          ],
+          "type": 9
+        }
+      ],
+      "places": [],
+      "query": "Where were the major fires in the last year",
+      "query_type": 9,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 6,
+          "event": 4,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "svs": [
+        "Count_WildfireEvent"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            5
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "Across",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "What are the projected temperature extremes across California",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest increase in max temperature in different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest decrease in min temperature in different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+          ]
+        }
+      ],
+      "svs": [
+        "dc/topic/ProjectedClimateExtremes",
+        "Count_HeatEvent"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "original_query": "Which jobs have grown the most",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "<None>"
+  ],
+  "query_with_places_removed": "Which jobs have grown the most",
+  "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.6188302040100098,
+      0.49103933572769165,
+      0.4876808822154999,
+      0.4832382798194885,
+      0.4818311333656311,
+      0.4818311333656311,
+      0.4818311333656311,
+      0.48132240772247314,
+      0.4787801504135132,
+      0.4775923192501068,
+      0.4775923192501068,
+      0.47642314434051514,
+      0.47545942664146423,
+      0.4719375669956207
+    ],
+    "SV": [
+      "dc/topic/Jobs",
+      "dc/g/Person_Industry-NAICS/54",
+      "dc/g/Person_Industry-NAICS/10",
+      "dc/hlxvn1t8b9bhh",
+      "dc/g/Person_Industry-NAICS/33",
+      "dc/g/Person_Industry-NAICS/JOLTS300000",
+      "dc/g/Person_Industry-NAICS/3133",
+      "dc/g/Person_Industry-NAICS/451",
+      "dc/g/Person_Industry-NAICS/11",
+      "Count_Person_Employed",
+      "Count_Person_InLaborForce",
+      "dc/g/Person_Industry-NAICS/51",
+      "Count_Worker_NAICSAgricultureForestryFishingHunting",
+      "dc/g/Person_Industry-NAICS/71"
+    ],
+    "SV_to_Sentences": {
+      "Count_Person_Employed": [
+        "Population with current employment (0.4775923192501068)",
+        "Population With Current Employment (0.4775923192501068)"
+      ],
+      "Count_Person_InLaborForce": [
+        "Population with current employment (0.4775923192501068)"
+      ],
+      "Count_Worker_NAICSAgricultureForestryFishingHunting": [
+        "Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.47545942664146423)"
+      ],
+      "dc/g/Person_Industry-NAICS/10": [
+        "workers in total, all industries industry (0.4876808822154999)"
+      ],
+      "dc/g/Person_Industry-NAICS/11": [
+        "People working in the agriculture, forestry, fishing, and hunting industry (0.4787801504135132)",
+        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.4787801504135132)",
+        "workers in agriculture, forestry, fishing and hunting industry (0.4772951602935791)"
+      ],
+      "dc/g/Person_Industry-NAICS/3133": [
+        "workers in manufacturing industry (0.4818311333656311)"
+      ],
+      "dc/g/Person_Industry-NAICS/33": [
+        "workers in manufacturing industry (0.4818311333656311)"
+      ],
+      "dc/g/Person_Industry-NAICS/451": [
+        "workers in sports, hobby, music instrument, book stores industry (0.48132240772247314)"
+      ],
+      "dc/g/Person_Industry-NAICS/51": [
+        "workers in information industry (0.47642314434051514)"
+      ],
+      "dc/g/Person_Industry-NAICS/54": [
+        "workers in professional, scientific, and technical services industry (0.49103933572769165)"
+      ],
+      "dc/g/Person_Industry-NAICS/71": [
+        "workers in arts, entertainment, and recreation industry (0.4719375669956207)"
+      ],
+      "dc/g/Person_Industry-NAICS/JOLTS300000": [
+        "workers in manufacturing industry (0.4818311333656311)"
+      ],
+      "dc/hlxvn1t8b9bhh": [
+        "agriculture workers (0.4832382798194885)",
+        "workers in agriculture (0.4748057723045349)"
+      ],
+      "dc/topic/Jobs": [
+        "Jobs (0.6188302040100098)",
+        "Employment Positions (0.5317986607551575)",
+        "Careers (0.5294848084449768)",
+        "Work Occupations (0.5167797803878784)",
+        "Professions (0.5073134899139404)",
+        "Occupational professions (0.4855183959007263)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_Person_Employed": [
+      "Population with current employment (0.4775923192501068)",
+      "Population With Current Employment (0.4775923192501068)"
+    ],
+    "Count_Person_InLaborForce": [
+      "Population with current employment (0.4775923192501068)"
+    ],
+    "Count_Worker_NAICSAgricultureForestryFishingHunting": [
+      "Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.47545942664146423)"
+    ],
+    "dc/g/Person_Industry-NAICS/10": [
+      "workers in total, all industries industry (0.4876808822154999)"
+    ],
+    "dc/g/Person_Industry-NAICS/11": [
+      "People working in the agriculture, forestry, fishing, and hunting industry (0.4787801504135132)",
+      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.4787801504135132)",
+      "workers in agriculture, forestry, fishing and hunting industry (0.4772951602935791)"
+    ],
+    "dc/g/Person_Industry-NAICS/3133": [
+      "workers in manufacturing industry (0.4818311333656311)"
+    ],
+    "dc/g/Person_Industry-NAICS/33": [
+      "workers in manufacturing industry (0.4818311333656311)"
+    ],
+    "dc/g/Person_Industry-NAICS/451": [
+      "workers in sports, hobby, music instrument, book stores industry (0.48132240772247314)"
+    ],
+    "dc/g/Person_Industry-NAICS/51": [
+      "workers in information industry (0.47642314434051514)"
+    ],
+    "dc/g/Person_Industry-NAICS/54": [
+      "workers in professional, scientific, and technical services industry (0.49103933572769165)"
+    ],
+    "dc/g/Person_Industry-NAICS/71": [
+      "workers in arts, entertainment, and recreation industry (0.4719375669956207)"
+    ],
+    "dc/g/Person_Industry-NAICS/JOLTS300000": [
+      "workers in manufacturing industry (0.4818311333656311)"
+    ],
+    "dc/hlxvn1t8b9bhh": [
+      "agriculture workers (0.4832382798194885)",
+      "workers in agriculture (0.4748057723045349)"
+    ],
+    "dc/topic/Jobs": [
+      "Jobs (0.6188302040100098)",
+      "Employment Positions (0.5317986607551575)",
+      "Careers (0.5294848084449768)",
+      "Work Occupations (0.5167797803878784)",
+      "Professions (0.5073134899139404)",
+      "Occupational professions (0.4855183959007263)"
+    ]
+  },
+  "temporal_classification": "<None>",
+  "time_delta_classification": "[<TimeDeltaType.INCREASE: 0>]"
+}
