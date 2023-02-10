@@ -53,8 +53,10 @@ message EventTypeSpec {
   repeated DisplayProp display_prop = 6;
   // List of props that could be used to hold the end date for this event type
   repeated string end_date_prop = 7;
-  // The prop to use to get the geojson for each event
-  string geo_json_prop = 8;
+  // The prop to use to get the polygon geojson for this event type
+  string polygon_geo_json_prop = 8;
+  // The prop to use to get the path geojson for this event type
+  string path_geo_json_prop = 9;
 }
 
 message PageMetadata {

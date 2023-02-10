@@ -85,7 +85,7 @@ metadata {
         upper_limit: 100000
         lower_limit: 64
       }
-      geo_json_prop: "geoJsonCoordinates"
+      path_geo_json_prop: "geoJsonCoordinates"
     }
   }
   event_type_spec {
@@ -118,7 +118,7 @@ metadata {
         upper_limit: 100000,
         lower_limit: 10
       }
-      geo_json_prop: "geoJsonCoordinatesDP1"
+      polygon_geo_json_prop: "geoJsonCoordinatesDP1"
     }
   }
   event_type_spec {
