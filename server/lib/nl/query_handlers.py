@@ -155,26 +155,26 @@ def _classification_to_query_type(cl: NLClassifier,
 
 # Given the list of previous query_types, decides the next query_type to fallback to.
 def next_query_type(query_types: List[QueryType]) -> QueryType:
-  next = None
-  prev = query_types[-1]
-  config = QUERY_HANDLERS.get(prev, None)
+  next_type = None
+  prev_type = query_types[-1]
+  config = QUERY_HANDLERS.get(prev_type, None)
   if not config:
     return None
 
-  if prev == config.direct_fallback:
+  if prev_type == config.direct_fallback:
     # No fallback
-    next = None
+    next_type = None
   elif config.direct_fallback != None:
-    next = config.direct_fallback
-  elif prev == QueryType.COMPARISON:
+    next_type = config.direct_fallback
+  elif prev_type == QueryType.COMPARISON:
     if QueryType.CORRELATION not in query_types:
-      next = QueryType.CORRELATION
+      next_type = QueryType.CORRELATION
     else:
-      next = QueryType.CONTAINED_IN
-  elif prev == QueryType.CORRELATION:
+      next_type = QueryType.CONTAINED_IN
+  elif prev_type == QueryType.CORRELATION:
     if QueryType.COMPARISON not in query_types:
-      next = QueryType.COMPARISON
+      next_type = QueryType.COMPARISON
     else:
-      next = QueryType.CONTAINED_IN
+      next_type = QueryType.CONTAINED_IN
 
-  return next
+  return next_type

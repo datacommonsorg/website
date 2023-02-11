@@ -13,7 +13,6 @@
 # limitations under the License.
 """Module for NL page data spec"""
 
-from dataclasses import dataclass
 import logging
 from typing import List
 
