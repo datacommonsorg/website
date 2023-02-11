@@ -37,7 +37,7 @@ def populate(uttr: Utterance) -> bool:
 
 
 def _add_place_overview(place: Place, uttr: Utterance):
-  state = PopulateState(uttr=uttr, main_cb=None, fallback_cb=None)
+  state = PopulateState(uttr=uttr, main_cb=None)
   state.block_id += 1
   chart_vars = ChartVars(svs=[],
                          block_id=state.block_id,

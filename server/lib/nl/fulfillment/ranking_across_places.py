@@ -16,12 +16,9 @@ import logging
 from typing import List
 
 from server.lib.nl import utils
-from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import Place
-from server.lib.nl.detection import RankingType
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import ChartVars
-from server.lib.nl.fulfillment.base import overview_fallback
 from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.base import PopulateState
 from server.lib.nl.utterance import ChartOriginType
@@ -43,7 +40,6 @@ def populate(uttr: Utterance):
     if populate_charts(
         PopulateState(uttr=uttr,
                       main_cb=_populate_cb,
-                      fallback_cb=overview_fallback,
                       place_type=place_type,
                       ranking_types=ranking_types)):
       return True
@@ -52,15 +48,7 @@ def populate(uttr: Utterance):
                            'ranking-across-places_failed_populate_placetype',
                            place_type.value)
 
-  # Fallback
-  ranking_types = [RankingType.HIGH]
-  place_type = ContainedInPlaceType.COUNTY
-  return populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    fallback_cb=overview_fallback,
-                    place_type=place_type,
-                    ranking_types=ranking_types))
+  return False
 
 
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
