@@ -229,7 +229,7 @@ function getBlockEventTypeSpecs(
   for (const column of columns) {
     for (const t of column.tiles) {
       if (t.disasterEventMapTileSpec) {
-        t.disasterEventMapTileSpec.eventTypeKeys.forEach((specId) => {
+        t.disasterEventMapTileSpec.pointEventTypeKey.forEach((specId) => {
           relevantEventSpecs[specId] = fullEventTypeSpec[specId];
         });
       }
@@ -275,7 +275,7 @@ function renderTiles(
           eventPoints: [],
           provenanceInfo: {},
         };
-        tile.disasterEventMapTileSpec.eventTypeKeys.forEach((eventKey) => {
+        tile.disasterEventMapTileSpec.pointEventTypeKey.forEach((eventKey) => {
           if (!(eventKey in disasterEventData)) {
             return;
           }
@@ -302,6 +302,8 @@ function renderTiles(
         );
       }
       case "HISTOGRAM": {
+        const eventTypeSpec =
+          props.eventTypeSpec[tile.histogramTileSpec.eventTypeKey];
         return (
           <HistogramTile
             key={id}
@@ -309,6 +311,7 @@ function renderTiles(
             title={tile.title}
             place={props.place}
             selectedDate={getDate(props.id)}
+            eventTypeSpec={eventTypeSpec}
             disasterEventData={
               disasterEventData[tile.histogramTileSpec.eventTypeKey] || {
                 eventPoints: [],

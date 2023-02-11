@@ -43,6 +43,8 @@ export interface EventTypeSpec {
   defaultSeverityFilter: SeverityFilter;
   displayProp: EventDisplayProp[];
   endDateProp: string[];
+  polygonGeoJsonProp?: string;
+  pathGeoJsonProp?: string;
 }
 
 export interface PageMetadataConfig {
@@ -70,7 +72,9 @@ export interface RankingTileSpec {
 }
 
 export interface DisasterEventMapTileSpec {
-  eventTypeKeys: string[];
+  pointEventTypeKey: string[];
+  polygonEventTypeKey: string[];
+  pathEventTypeKey: string[];
 }
 
 export interface HistogramTileSpec {
