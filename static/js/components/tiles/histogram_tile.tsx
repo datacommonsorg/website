@@ -67,10 +67,7 @@ function getLastDayOfMonth(dateString: string): string {
  * Helper function for getting all months along x-axis to display.
  * Used for initializing bins when binning monthly.
  */
-function getMonthsArray(
-  dateSetting: string,
-  disasterEventPoints: DisasterEventPoint[]
-): string[] {
+function getMonthsArray(dateSetting: string): string[] {
   // get start and end of dates to show data for
   let [startDate, endDate] = getDateRange(dateSetting);
 
@@ -86,20 +83,6 @@ function getMonthsArray(
     endDate = `${getLastDayOfMonth(endDate)}`;
   }
 
-  // Update end date to the latest date we have data for, if our data ends
-  // before the end of the date range. This prevents us from incorrectly
-  // imputing 0s for dates the source(s) may not yet have data for.
-  if (!_.isEmpty(disasterEventPoints)) {
-    // Sort events into chronological order
-    disasterEventPoints.sort((a, b) =>
-      a.startDate < b.startDate ? -1 : a.startDate > b.startDate ? 1 : 0
-    );
-    const lastDate =
-      disasterEventPoints[disasterEventPoints.length - 1].startDate;
-    if (lastDate < endDate) {
-      endDate = lastDate;
-    }
-  }
   // Fill in months between start and end dates
   const months = new Array<string>();
   for (
@@ -127,7 +110,7 @@ function binDataByMonth(
   const bins = new Map<string, number>();
 
   // Initialize all bins at zero
-  const monthsToPlot = getMonthsArray(dateSetting, disasterEventPoints);
+  const monthsToPlot = getMonthsArray(dateSetting);
   for (const month of monthsToPlot) {
     bins.set(month, 0);
   }
