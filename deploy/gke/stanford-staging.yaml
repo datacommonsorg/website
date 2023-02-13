@@ -16,9 +16,11 @@
 # This is a yaml template to create gcp/gke configuration.
 # Copy this file to `config.yaml` and use that.
 project: datcom-stanford-staging
-domain: staging.stanford.datacommons.org
+domain: staging.datacommons.stanford.edu
 ip: 34.160.11.67
 region:
   primary: us-central1
+  others:
+    -
 nodes: 1
 storage_project: datcom-store
