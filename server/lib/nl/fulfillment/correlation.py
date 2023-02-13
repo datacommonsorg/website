@@ -51,10 +51,7 @@ def populate(uttr: Utterance) -> bool:
       continue
     place_type = classification.attributes.contained_in_place_type
     if _populate_correlation_for_place_type(
-        PopulateState(uttr=uttr,
-                      main_cb=None,
-                      fallback_cb=None,
-                      place_type=place_type)):
+        PopulateState(uttr=uttr, main_cb=None, place_type=place_type)):
       return True
     else:
       utils.update_counter(uttr.counters,

@@ -544,8 +544,10 @@ def _event_chart_block(metadata, block, column, place: Place,
       top_event.show_end_date = True
     else:
       tile.title = _decorate_chart_title(title=tile.title, place=place)
+    tile = block.columns.add().tiles.add()
+  else:
+    tile = column.tiles.add()
 
-  tile = block.columns.add().tiles.add()
   tile.type = Tile.DISASTER_EVENT_MAP
   tile.disaster_event_map_tile_spec.point_event_type_key.append(event_id)
   tile.title = event_title

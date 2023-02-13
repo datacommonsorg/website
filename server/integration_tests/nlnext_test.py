@@ -120,3 +120,14 @@ class IntegrationTest(LiveServerTestCase):
         'Which counties in the USA have the highest levels of blood pressure',
         'How does this correlate with income',
     ])
+
+  def test_demo_fallback(self):
+    self.run_sequence(
+        'demo_fallback',
+        [
+            # We have no stats on this, so we should return Palo Alto overview.
+            'Number of Shakespeare fans in Palo Alto',
+            # We have no crime at county-level in CA, so we should fall back as:
+            # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
+            'counties in California with highest crime',
+        ])

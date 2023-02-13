@@ -7,8 +7,10 @@
     "filtered_svs": [
       "Count_WildfireEvent"
     ],
-    "fulfillment_type": "EVENT",
-    "num_chart_candidates": 1
+    "num_chart_candidates": 1,
+    "processed_fulfillment_types": [
+      "event"
+    ]
   },
   "data_spec": [
     {
@@ -28,7 +30,7 @@
       ],
       "places": [],
       "query": "Where were the major fires in the last year",
-      "query_type": 9,
+      "query_type": 8,
       "ranked_charts": [
         {
           "attr": {

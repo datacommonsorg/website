@@ -37,8 +37,10 @@
       "dc/g/Person_MedicalCondition-HighBloodPressure",
       "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
     ],
-    "fulfillment_type": "RANKING_ACROSS_PLACES",
     "num_chart_candidates": 2,
+    "processed_fulfillment_types": [
+      "ranking_across_places"
+    ],
     "stat_var_extensions": [
       {
         "Percent_Person_WithHighBloodPressure": [
@@ -166,7 +168,7 @@
       ],
       "places": [],
       "query": "What are the most common health issues there",
-      "query_type": 2,
+      "query_type": 3,
       "ranked_charts": [
         {
           "attr": {
@@ -231,7 +233,7 @@
       ],
       "places": [],
       "query": "Which jobs have grown the most",
-      "query_type": 8,
+      "query_type": 7,
       "ranked_charts": [
         {
           "attr": {
@@ -654,7 +656,7 @@
       ],
       "places": [],
       "query": "What were the most common jobs there",
-      "query_type": 2,
+      "query_type": 3,
       "ranked_charts": [
         {
           "attr": {
@@ -724,7 +726,7 @@
         }
       ],
       "query": "Tell me about Placer County",
-      "query_type": 10,
+      "query_type": 9,
       "ranked_charts": [
         {
           "attr": {
@@ -769,7 +771,7 @@
       ],
       "places": [],
       "query": "Where were the major fires in the last year",
-      "query_type": 9,
+      "query_type": 8,
       "ranked_charts": [
         {
           "attr": {
