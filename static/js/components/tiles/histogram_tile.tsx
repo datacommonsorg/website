@@ -43,6 +43,13 @@ interface HistogramTilePropType {
 }
 
 /**
+ * Helper function to get YYYY-MM-DD prefix of a Date object.
+ */
+function getDayString(date: Date): string {
+  return date.toISOString().slice(0, "YYYY-MM-DD".length);
+}
+
+/**
  * Helper function to get YYYY-MM prefix of a Date object.
  */
 function getMonthString(date: Date): string {
@@ -61,6 +68,38 @@ function getLastDayOfMonth(dateString: string): string {
     0
   );
   return lastDay.toISOString().slice(0, "YYYY-MM-DD".length);
+}
+
+/**
+ * Helper function for getting all days along x-axis to display.
+ * Used for initializing bins when binning daily.
+ */
+function getDaysArray(dateSetting: string): string[] {
+  // get start and end of dates to show data for
+  let [startDate, endDate] = getDateRange(dateSetting);
+
+  // specify full dates if start and end dates are just YYYY or YYYY-MM
+  if (startDate.length == "YYYY".length && endDate.length == "YYYY".length) {
+    startDate = `${startDate}-01-01`;
+    endDate = `${endDate}-12-31`;
+  } else if (
+    startDate.length == "YYYY-MM".length &&
+    endDate.length == "YYYY-MM".length
+  ) {
+    startDate = `${startDate}-01`;
+    endDate = `${getLastDayOfMonth(endDate)}`;
+  }
+
+  // Fill in days between start and end dates
+  const days = new Array<string>();
+  for (
+    let date = new Date(startDate + "Z");
+    getDayString(date) <= getDayString(new Date(endDate + "Z"));
+    date.setUTCDate(date.getUTCDate() + 1)
+  ) {
+    days.push(getDayString(new Date(date)));
+  }
+  return days;
 }
 
 /**
@@ -113,6 +152,58 @@ function getMonthsArray(
 }
 
 /**
+ * Helper function to bin data into daily bins
+ */
+function binDataByDay(
+  disasterEventPoints: DisasterEventPoint[],
+  dateSetting: string
+): DataPoint[] {
+  if (_.isEmpty(disasterEventPoints)) {
+    return [];
+  }
+
+  // Track YYYY-MM-DD -> number of events
+  const bins = new Map<string, number>();
+
+  // Initialize all bins at zero
+  const daysToPlot = getDaysArray(dateSetting);
+  for (const day of daysToPlot) {
+    bins.set(day, 0);
+  }
+
+  for (const event of disasterEventPoints) {
+    // Get start time in YYYY-MM-DD
+    const eventDay = event.startDate.slice(0, "YYYY-MM-DD".length);
+
+    // Increment count in corresponding bin if event has at least
+    // daily granularity
+    if (bins.has(eventDay) && eventDay.length == "YYYY-MM-DD".length) {
+      bins.set(eventDay, bins.get(eventDay) + 1);
+    } else {
+      console.log(`Skipped event ${event} that started on ${eventDay}`);
+    }
+  }
+
+  // Return [] if we skipped every event.
+  if (Array.from(bins.values()).every((value) => value == 0)) {
+    console.log(
+      "[Histogram] Skipped plotting all events. Either the events were not " +
+        "within the provided time frame or the events did not have at least " +
+        "daily temporal resolution."
+    );
+    return [];
+  }
+
+  // Format binned data into DataPoint[]
+  const histogramData = new Array<DataPoint>();
+  bins.forEach((value, label) => {
+    histogramData.push({ label: label, value: value });
+  });
+
+  return histogramData;
+}
+
+/**
  * Helper function to bin data by month
  */
 function binDataByMonth(
@@ -143,6 +234,16 @@ function binDataByMonth(
     } else {
       console.log(`Skipped event ${event} that started on ${eventMonth}`);
     }
+  }
+
+  // Return [] if we skipped every event.
+  if (Array.from(bins.values()).every((value) => value == 0)) {
+    console.log(
+      "[Histogram] Skipped plotting all events. Either the events were not " +
+        "within the provided time frame or the events did not have at least " +
+        "monthly temporal resolution."
+    );
+    return [];
   }
 
   // Format binned data into DataPoint[]
@@ -227,10 +328,19 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
     dateSetting: string,
     setHistogramData: (data: DataPoint[]) => void
   ): void {
-    // TODO(juliawu): detect whether to bin by month or day depending on the
-    //                user's selected time setting
-    // TODO(juliawu): add 'last30days' case handling
-    const histogramData = binDataByMonth(disasterEventPoints, dateSetting);
+    let histogramData = [];
+    // Try binning by day if dateSetting is "last 30 days" or a month
+    if (
+      dateSetting == "lastThirtyDays" ||
+      dateSetting.length == "YYYY-MM".length
+    ) {
+      histogramData = binDataByDay(disasterEventPoints, dateSetting);
+    }
+    // Bin by month for all other cases
+    // Also fallback to monthly binning if daily binning returns no data
+    if (_.isEmpty(histogramData)) {
+      histogramData = binDataByMonth(disasterEventPoints, dateSetting);
+    }
     setHistogramData(histogramData);
   }
 
