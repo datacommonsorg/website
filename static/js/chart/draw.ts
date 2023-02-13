@@ -46,7 +46,7 @@ const MARGIN = {
   left: 0, // margin between chart and left edge
   grid: 10, // margin between y-axis and chart content
 };
-const ROTATE_MARGIN_BOTTOM = 50; // margin bottom to use for histogram
+const ROTATE_MARGIN_BOTTOM = 75; // margin bottom to use for histogram
 const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
