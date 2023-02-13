@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.5.0
+CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.6.0
 
 sudo chmod a+w /etc/hosts
 export APIS="googleapis.com www.googleapis.com storage.googleapis.com iam.googleapis.com container.googleapis.com cloudresourcemanager.googleapis.com"
@@ -120,8 +120,10 @@ terraform init \
 
 CLUSTER_NAME=$(terraform output -json cluster_name)
 if [[ -n "$CLUSTER_NAME" ]]; then
+  REGION=$(terraform output -json cluster_region)
+  echo "This is a refresh-run. Fetching credentials from $CLUSTER_NAME, region: $REGION"
   gcloud container clusters get-credentials $CLUSTER_NAME \
-    --region $(terraform output -json cluster_region) \
+    --region  $REGION \
     --project $PROJECT_ID
 fi
 
