@@ -230,7 +230,7 @@ categories {
       tiles {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
-          point_event_type_key: "drought"
+          polygon_event_type_key: "drought"
         }
       }
       tiles {
@@ -389,7 +389,7 @@ categories {
       tiles {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
-          point_event_type_key: "storm"
+          path_event_type_key: "storm"
         }
       }
       tiles {

@@ -24,10 +24,16 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 
 import {
   addMapPoints,
+  addPathLayer,
+  addPolygonLayer,
   drawD3Map,
   getProjection,
 } from "../../chart/draw_d3_map";
-import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import {
+  GeoJsonData,
+  GeoJsonFeature,
+  GeoJsonFeatureProperties,
+} from "../../chart/types";
 import {
   EARTH_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
@@ -40,8 +46,12 @@ import {
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
-import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
+  DisasterEventMapTileSpec,
+  EventTypeSpec,
+} from "../../types/subject_page_proto_types";
+import {
+  fetchEventGeoJson,
   getMapPointsData,
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
@@ -72,8 +82,10 @@ interface DisasterEventMapTilePropType {
   enclosedPlaceType: string;
   // Map of eventType id to EventTypeSpec
   eventTypeSpec: Record<string, EventTypeSpec>;
-  // disaster event data to show on the event map
-  disasterEventData: DisasterEventPointData;
+  // DisasterEventPointData to use for this tile
+  disasterEventData: Record<string, DisasterEventPointData>;
+  // Tile spec with information about what to show on this map
+  tileSpec: DisasterEventMapTileSpec;
 }
 
 export function DisasterEventMapTile(
@@ -82,11 +94,36 @@ export function DisasterEventMapTile(
   const svgContainerRef = useRef(null);
   const infoCardRef = useRef(null);
   const europeanPlaces = useRef([]);
-  const prevDisasterEventData = useRef(null);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
   const { geoJsonData } = useContext(DataContext);
+  const [polygonGeoJson, setPolygonGeoJson] = useState(null);
+  const [pathGeoJson, setPathGeoJson] = useState(null);
   const shouldShowMap =
-    placeInfo && !_.isEmpty(geoJsonData) && !_.isEmpty(geoJsonData.features);
+    placeInfo &&
+    !_.isEmpty(geoJsonData) &&
+    !_.isEmpty(geoJsonData.features) &&
+    !_.isNull(polygonGeoJson) &&
+    !_.isNull(pathGeoJson);
+
+  useEffect(() => {
+    // re-fetch event geojson data for paths and polygons when disaster event
+    // data changes or tile spec changes
+    fetchEventGeoJsonData(
+      props.tileSpec.pathEventTypeKey,
+      "pathGeoJsonProp",
+      setPathGeoJson
+    );
+    fetchEventGeoJsonData(
+      props.tileSpec.polygonEventTypeKey,
+      "polygonGeoJsonProp",
+      setPolygonGeoJson
+    );
+  }, [
+    props.disasterEventData,
+    props.tileSpec,
+    setPathGeoJson,
+    setPolygonGeoJson,
+  ]);
 
   useEffect(() => {
     // On initial loading of the component, get list of all European countries
@@ -104,15 +141,22 @@ export function DisasterEventMapTile(
   }, [props]);
 
   useEffect(() => {
-    // re-draw map if placeInfo, geoJsonData, or disasterEventData changes
-    if (
-      shouldShowMap &&
-      !_.isEqual(props.disasterEventData, prevDisasterEventData.current)
-    ) {
-      prevDisasterEventData.current = props.disasterEventData;
-      draw(placeInfo, geoJsonData, props.disasterEventData);
+    if (shouldShowMap) {
+      draw(
+        placeInfo,
+        geoJsonData,
+        props.disasterEventData,
+        polygonGeoJson,
+        pathGeoJson
+      );
     }
-  }, [placeInfo, geoJsonData, props.disasterEventData]);
+  }, [
+    placeInfo,
+    geoJsonData,
+    props.disasterEventData,
+    polygonGeoJson,
+    pathGeoJson,
+  ]);
 
   if (geoJsonData == null || !placeInfo) {
     return null;
@@ -124,8 +168,10 @@ export function DisasterEventMapTile(
   };
 
   const sources = new Set<string>();
-  Object.values(props.disasterEventData.provenanceInfo).forEach((provInfo) => {
-    sources.add(provInfo.provenanceUrl);
+  Object.values(props.disasterEventData).forEach((eventData) => {
+    Object.values(eventData.provenanceInfo).forEach((provInfo) => {
+      sources.add(provInfo.provenanceUrl);
+    });
   });
 
   return (
@@ -211,12 +257,57 @@ export function DisasterEventMapTile(
   }
 
   /**
+   * Fetches and sets the geojson for a list of event types and the key to use
+   * for getting the geojson prop.
+   */
+  function fetchEventGeoJsonData(
+    eventTypeKeys: string[],
+    geoJsonPropKey: string,
+    setEventTypeGeoJson: (eventTypeGeoJson: Record<string, GeoJsonData>) => void
+  ): void {
+    if (_.isEmpty(eventTypeKeys)) {
+      setEventTypeGeoJson({});
+      return;
+    }
+    const geoJsonPromises = eventTypeKeys.map((eventType) => {
+      if (
+        props.disasterEventData[eventType] &&
+        geoJsonPropKey in props.eventTypeSpec[eventType]
+      ) {
+        const eventDcids = props.disasterEventData[eventType].eventPoints.map(
+          (point) => point.placeDcid
+        );
+        return fetchEventGeoJson(
+          eventDcids,
+          props.eventTypeSpec[eventType][geoJsonPropKey]
+        );
+      }
+    });
+    Promise.all(geoJsonPromises)
+      .then((geoJsons) => {
+        const eventTypeGeoJsonData = {};
+        eventTypeKeys.forEach((type, i) => {
+          if (!geoJsons[i]) {
+            return;
+          }
+          eventTypeGeoJsonData[type] = geoJsons[i];
+        });
+        setEventTypeGeoJson(eventTypeGeoJsonData);
+      })
+      .catch(() => {
+        setEventTypeGeoJson({});
+      });
+  }
+
+  /**
    * Draws the disaster event map
    */
   function draw(
     placeInfo: DisasterEventMapPlaceInfo,
     geoJsonData: GeoJsonData,
-    disasterEventData: DisasterEventPointData
+    disasterEventData: Record<string, DisasterEventPointData>,
+    polygonGeoJson: GeoJsonData,
+    pathGeoJson: GeoJsonData
   ): void {
     const width = svgContainerRef.current.offsetWidth;
     const height = Math.max(
@@ -256,11 +347,11 @@ export function DisasterEventMapTile(
       placeInfo.selectedPlace.dcid,
       zoomParams
     );
-    const allMapPointsData = getMapPointsData(
-      disasterEventData.eventPoints,
-      props.eventTypeSpec
-    );
-    for (const mapPointsData of Object.values(allMapPointsData)) {
+    for (const eventType of props.tileSpec.pointEventTypeKey || []) {
+      const mapPointsData = getMapPointsData(
+        disasterEventData[eventType].eventPoints,
+        props.eventTypeSpec[eventType]
+      );
       const pointsLayer = addMapPoints(
         svgContainerRef.current,
         mapPointsData.points,
@@ -281,6 +372,49 @@ export function DisasterEventMapTile(
           point,
           d3.event
         )
+      );
+    }
+    // map of disaster event point id to the disaster event point
+    const pointsMap = {};
+    Object.values(disasterEventData).forEach((data) => {
+      data.eventPoints.forEach((point) => {
+        pointsMap[point.placeDcid] = point;
+      });
+    });
+    for (const eventType of props.tileSpec.polygonEventTypeKey || []) {
+      if (!(eventType in polygonGeoJson)) {
+        continue;
+      }
+      addPolygonLayer(
+        svgContainerRef.current,
+        polygonGeoJson[eventType],
+        projection,
+        () => props.eventTypeSpec[eventType].color,
+        (geoFeature: GeoJsonFeature) =>
+          onPointClicked(
+            infoCardRef.current,
+            svgContainerRef.current,
+            pointsMap[geoFeature.properties.geoDcid],
+            d3.event
+          )
+      );
+    }
+    for (const eventType of props.tileSpec.pathEventTypeKey || []) {
+      if (!(eventType in pathGeoJson)) {
+        continue;
+      }
+      addPathLayer(
+        svgContainerRef.current,
+        pathGeoJson[eventType],
+        projection,
+        () => props.eventTypeSpec[eventType].color,
+        (geoFeature: GeoJsonFeature) =>
+          onPointClicked(
+            infoCardRef.current,
+            svgContainerRef.current,
+            pointsMap[geoFeature.properties.geoDcid],
+            d3.event
+          )
       );
     }
   }

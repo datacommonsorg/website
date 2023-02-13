@@ -61,6 +61,10 @@ const ZOOMED_SCALE_AMOUNT = 0.7;
 const MAP_ITEMS_GROUP_ID = "map-items";
 const MAP_GEO_REGIONS_ID = "map-geo-regions";
 const STARTING_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
+const MAP_POLYGON_LAYER_CLASS = "map-polygon-layer";
+const MAP_POLYGON_HIGHLIGHT_CLASS = "map-polygon-highlight";
+const MAP_PATH_LAYER_CLASS = "map-path-layer";
+const MAP_PATH_HIGHLIGHT_CLASS = "map-path-highlight";
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -139,13 +143,21 @@ const onMouseOver =
       containerElement,
       geo.properties.geoDcid,
       canClickRegion(geo.properties.geoDcid)
+        ? HOVER_HIGHLIGHTED_CLASS_NAME
+        : HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME
     );
   };
 
 const onMouseOut =
   (containerElement: HTMLDivElement) =>
   (geo: GeoJsonFeature): void => {
-    mouseOutAction(containerElement, geo.properties.geoDcid);
+    mouseOutAction(containerElement, geo.properties.geoDcid, [
+      HOVER_HIGHLIGHTED_CLASS_NAME,
+      HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
+    ]);
+    d3.select(containerElement)
+      .select(`#${TOOLTIP_ID}`)
+      .style("display", "none");
   };
 
 const onMouseMove =
@@ -156,7 +168,13 @@ const onMouseMove =
   ) =>
   (geo: GeoJsonFeature) => {
     const placeDcid = geo.properties.geoDcid;
-    mouseHoverAction(containerElement, placeDcid, canClickRegion(placeDcid));
+    mouseHoverAction(
+      containerElement,
+      placeDcid,
+      canClickRegion(placeDcid)
+        ? HOVER_HIGHLIGHTED_CLASS_NAME
+        : HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME
+    );
     const place = {
       dcid: placeDcid,
       name: geo.properties.name,
@@ -173,41 +191,42 @@ const onMapClick =
   (geo: GeoJsonFeature) => {
     if (!canClickRegion(geo.properties.geoDcid)) return;
     redirectAction(geo.properties);
-    mouseOutAction(containerElement, geo.properties.geoDcid);
+    mouseOutAction(containerElement, geo.properties.geoDcid, [
+      HOVER_HIGHLIGHTED_CLASS_NAME,
+      HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME,
+    ]);
+    d3.select(containerElement)
+      .select(`#${TOOLTIP_ID}`)
+      .style("display", "none");
   };
 
 function mouseOutAction(
   containerElement: HTMLDivElement,
-  placeDcid: string
+  placeDcid: string,
+  hoverClassNames: string[]
 ): void {
   const container = d3.select(containerElement);
   container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
-  container
-    .select(`#${getPlacePathId(placeDcid)}`)
-    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
-    .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false);
+  const pathSelection = container.select(`#${getPlacePathId(placeDcid)}`);
+  for (const className of hoverClassNames) {
+    pathSelection.classed(className, false);
+  }
   // bring original highlighted region back to the top
   container.select("." + HIGHLIGHTED_CLASS_NAME).raise();
-  container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 
 function mouseHoverAction(
   containerElement: HTMLDivElement,
   placeDcid: string,
-  canClick: boolean
+  hoverClassName: string
 ): void {
   const container = d3
     .select(containerElement)
     .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
-  const geoPath = container.select(`#${getPlacePathId(placeDcid)}`).raise();
-  // show highlighted border and show cursor as a pointer
-  if (canClick) {
-    geoPath.classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
-  } else {
-    geoPath.classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, true);
-  }
-  // show tooltip
-  container.select(`#${TOOLTIP_ID}`).style("display", "block");
+  container
+    .select(`#${getPlacePathId(placeDcid)}`)
+    .raise()
+    .classed(hoverClassName, true);
 }
 
 function addTooltip(containerElement: HTMLDivElement): void {
@@ -312,6 +331,36 @@ function getValue(
   return undefined;
 }
 
+// Adds a layer of geojson features to a map and returns that layer
+function addGeoJsonLayer(
+  containerElement: HTMLDivElement,
+  geoJson: GeoJsonData,
+  projection: d3.GeoProjection,
+  layerClassName?: string,
+  layerId?: string
+): d3.Selection<SVGPathElement, GeoJsonFeature, SVGGElement, unknown> {
+  // Create the new layer
+  const mapObjectsLayer = d3
+    .select(containerElement)
+    .select(`#${MAP_ITEMS_GROUP_ID}`)
+    .append("g");
+  if (layerClassName) {
+    mapObjectsLayer.attr("class", layerClassName);
+  }
+  if (layerId) {
+    mapObjectsLayer.attr("id", layerId);
+  }
+
+  // Add the map objects on the layer
+  const geomap = d3.geoPath().projection(projection);
+  return mapObjectsLayer
+    .selectAll("path")
+    .data(geoJson.features)
+    .enter()
+    .append("path")
+    .attr("d", geomap);
+}
+
 /**
  * Draws the base d3 map
  * @param containerElement div element to draw the choropleth in
@@ -353,22 +402,15 @@ export function drawD3Map(
     .attr("viewBox", `0 0 ${chartWidth} ${chartHeight}`)
     .attr("preserveAspectRatio", "xMidYMid meet");
   const map = svg.append("g").attr("id", MAP_ITEMS_GROUP_ID);
-
-  // Combine path elements from D3 content.
-  const mapRegionsLayer = map
-    .append("g")
-    .attr("class", "map-regions")
-    .attr("id", MAP_GEO_REGIONS_ID)
-    .selectAll("path")
-    .data(geoJson.features);
-
-  const geomap = d3.geoPath().projection(projection);
-
-  // Build map objects.
-  const mapObjects = mapRegionsLayer
-    .enter()
-    .append("path")
-    .attr("d", geomap)
+  // Build the map objects
+  const mapObjects = addGeoJsonLayer(
+    containerElement,
+    geoJson,
+    projection,
+    "",
+    MAP_GEO_REGIONS_ID
+  );
+  mapObjects
     .attr("class", (geo: GeoJsonFeature) => {
       // highlight the place of the current page
       if (
@@ -551,4 +593,93 @@ export function addMapPoints(
       });
   }
   return mapPointsLayer;
+}
+
+/**
+ * Adds a layer of polygons to a map
+ * @param containerElement
+ * @param geoJson
+ * @param projection
+ * @param getRegionColor
+ * @param onClick
+ */
+export function addPolygonLayer(
+  containerElement: HTMLDivElement,
+  geoJson: GeoJsonData,
+  projection: d3.GeoProjection,
+  getRegionColor: (geoDcid: string) => string,
+  onClick: (geoFeature: GeoJsonFeature) => void
+): void {
+  // Build the map objects
+  const mapObjects = addGeoJsonLayer(
+    containerElement,
+    geoJson,
+    projection,
+    MAP_POLYGON_LAYER_CLASS
+  );
+  mapObjects
+    .attr("fill", (d: GeoJsonFeature) => {
+      return getRegionColor(d.properties.geoDcid);
+    })
+    .attr("id", (d: GeoJsonFeature) => {
+      return getPlacePathId(d.properties.geoDcid);
+    })
+    .on("mouseover", (d: GeoJsonFeature) => {
+      mouseHoverAction(
+        containerElement,
+        d.properties.geoDcid,
+        MAP_POLYGON_HIGHLIGHT_CLASS
+      );
+    })
+    .on("mouseout", (d: GeoJsonFeature) => {
+      mouseOutAction(containerElement, d.properties.geoDcid, [
+        MAP_POLYGON_HIGHLIGHT_CLASS,
+      ]);
+    })
+    .on("click", onClick);
+}
+
+/**
+ * Adds a layer of paths to a map
+ * @param containerElement
+ * @param geoJson
+ * @param projection
+ * @param getRegionColor
+ * @param onClick
+ */
+export function addPathLayer(
+  containerElement: HTMLDivElement,
+  geoJson: GeoJsonData,
+  projection: d3.GeoProjection,
+  getRegionColor: (geoDcid: string) => string,
+  onClick: (feature: GeoJsonFeature) => void
+): void {
+  // Build map objects.
+  const mapObjects = addGeoJsonLayer(
+    containerElement,
+    geoJson,
+    projection,
+    MAP_PATH_LAYER_CLASS
+  );
+  mapObjects
+    .attr("id", (d: GeoJsonFeature) => {
+      return getPlacePathId(d.properties.geoDcid);
+    })
+    .attr("stroke-width", STROKE_WIDTH)
+    .attr("stroke", (d: GeoJsonFeature) => {
+      return getRegionColor(d.properties.geoDcid);
+    })
+    .on("mouseover", (d: GeoJsonFeature) => {
+      mouseHoverAction(
+        containerElement,
+        d.properties.geoDcid,
+        MAP_PATH_HIGHLIGHT_CLASS
+      );
+    })
+    .on("mouseout", (d: GeoJsonFeature) => {
+      mouseOutAction(containerElement, d.properties.geoDcid, [
+        MAP_PATH_HIGHLIGHT_CLASS,
+      ]);
+    })
+    .on("click", onClick);
 }

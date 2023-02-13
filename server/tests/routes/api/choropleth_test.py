@@ -20,6 +20,24 @@ import server.routes.api.choropleth as choropleth_api
 import server.routes.api.shared as shared_api
 from web_app import app
 
+GEOJSON_MULTIPOLYGON_GEOMETRY = {
+    "coordinates": [[[[180.0, 40.0], [180.0, 50.0], [170.0, 50.0],
+                      [170.0, 40.0], [180.0, 40.0]]],
+                    [[[-170.0, 40.0], [-170.0, 50.0], [-180.0, 50.0],
+                      [-180.0, 40.0], [-170.0, 40.0]]]],
+    "type": "MultiPolygon"
+}
+GEOJSON_POLYGON_GEOMETRY = {
+    "coordinates": [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0],
+                     [100.0, 0.0]]],
+    "type": "Polygon"
+}
+GEOJSON_MULTILINE_GEOMETRY = {
+    "coordinates": [[[170.0, 45.0], [180.0, 45.0]],
+                    [[-180.0, 45.0], [-170.0, 45.0]]],
+    "type": "MultiLineString"
+}
+
 
 class TestChoroplethPlaces(unittest.TestCase):
 
@@ -94,85 +112,143 @@ class TestChoroplethPlaces(unittest.TestCase):
     result = choropleth_api.get_choropleth_display_level(dcid)
     assert result == (parent_dcid, "County")
 
-  class TestGetGeoJson(unittest.TestCase):
 
-    @staticmethod
-    def side_effect(*args):
-      return args[0]
+class TestGetGeoJson(unittest.TestCase):
 
-    @patch('server.routes.api.choropleth.dc.get_places_in')
-    @patch('server.routes.api.choropleth.coerce_geojson_to_righthand_rule')
-    @patch('server.routes.api.choropleth.dc.property_values')
-    @patch('server.routes.api.choropleth.place_api.get_display_name')
-    @patch('server.routes.api.choropleth.get_choropleth_display_level')
-    def test_get_geojson(self, mock_display_level, mock_display_name,
-                         mock_geojson_values, mock_choropleth_helper,
-                         mock_places):
-      dcid1 = "dcid1"
-      dcid2 = "dcid2"
-      mock_display_level.return_value = ("parentDcid", "State")
+  @staticmethod
+  def side_effect(*args):
+    return args[0]
 
-      def get_places_in_(*args):
-        if args[0] == ["parentDcid"] and args[1] == "State":
-          return {"parentDcid": [dcid1, dcid2]}
-        else:
-          return {args[0]: []}
+  @patch('server.routes.api.choropleth.dc.get_places_in')
+  @patch('server.routes.api.choropleth.rewind')
+  @patch('server.routes.api.choropleth.dc.property_values')
+  @patch('server.routes.api.choropleth.place_api.get_display_name')
+  @patch('server.routes.api.choropleth.get_choropleth_display_level')
+  def test_get_geojson(self, mock_display_level, mock_display_name,
+                       mock_geojson_values, mock_rewind_geojson, mock_places):
+    dcid1 = "dcid1"
+    dcid2 = "dcid2"
+    parentDcid = "parentDcid"
+    mock_display_level.return_value = (parentDcid, "State")
 
-      mock_places.side_effect = get_places_in_
-      mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
-      mock_geojson_values.return_value = {
-          dcid1: json.dumps({
-              "coordinates": [],
-              "type": "Polygon"
-          }),
-          dcid2: json.dumps({
-              "coordinates": [],
-              "type": "MultiPolygon"
-          })
-      }
-      mock_choropleth_helper.side_effect = self.side_effect
-      response = app.test_client().get('/api/choropleth/geojson?placeDcid=' +
-                                       dcid1)
-      assert response.status_code == 200
-      response_data = json.loads(response.data)
-      assert len(response_data['features']) == 2
-      assert len(response_data['properties']['current_geo']) == dcid1
+    def get_places_in_(*args):
+      if args[0] == [parentDcid] and args[1] == "State":
+        return {parentDcid: [dcid1, dcid2]}
+      else:
+        return None
 
-    @patch('server.routes.api.choropleth.dc.get_places_in')
-    @patch('server.routes.api.choropleth.coerce_geojson_to_righthand_rule')
-    @patch('server.routes.api.choropleth.dc.property_values')
-    @patch('server.routes.api.choropleth.place_api.get_display_name')
-    def test_get_geojson_with_place_type(self, mock_display_name,
-                                         mock_geojson_values,
-                                         mock_choropleth_helper, mock_places):
-      dcid1 = "dcid1"
-      dcid2 = "dcid2"
+    mock_places.side_effect = get_places_in_
+    mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
+    mock_geojson_values.return_value = {
+        dcid1: [json.dumps(GEOJSON_POLYGON_GEOMETRY)],
+        dcid2: [json.dumps(GEOJSON_MULTIPOLYGON_GEOMETRY)]
+    }
+    mock_rewind_geojson.side_effect = self.side_effect
+    response = app.test_client().get(
+        f'/api/choropleth/geojson?placeDcid={parentDcid}')
+    assert response.status_code == 200
+    response_data = json.loads(response.data)
+    assert response_data == {
+        'type': 'FeatureCollection',
+        'features': [{
+            'type': 'Feature',
+            'id': 'dcid1',
+            'properties': {
+                'name': 'dcid1',
+                'geoDcid': 'dcid1'
+            },
+            'geometry': {
+                'type':
+                    'MultiPolygon',
+                'coordinates': [[[[100.0, 0.0], [100.0, 1.0], [101.0, 1.0],
+                                  [101.0, 0.0], [100.0, 0.0]]]]
+            }
+        }, {
+            'type': 'Feature',
+            'id': 'dcid2',
+            'properties': {
+                'name': 'dcid2',
+                'geoDcid': 'dcid2'
+            },
+            'geometry': {
+                'type':
+                    'MultiPolygon',
+                'coordinates': [[[[180.0, 40.0], [170.0, 40.0], [170.0, 50.0],
+                                  [180.0, 50.0], [180.0, 40.0]]],
+                                [[[-170.0, 40.0], [-180.0,
+                                                   40.0], [-180.0, 50.0],
+                                  [-170.0, 50.0], [-170.0, 40.0]]]]
+            }
+        }],
+        'properties': {
+            'current_geo': 'parentDcid'
+        }
+    }
 
-      def get_places_in_(*args):
-        if args[0] == ["parentDcid"] and args[1] == "State":
-          return {"parentDcid": [dcid1, dcid2]}
-        else:
-          return {args[0]: []}
+  @patch('server.routes.api.choropleth.dc.get_places_in')
+  @patch('server.routes.api.choropleth.rewind')
+  @patch('server.routes.api.choropleth.dc.property_values')
+  @patch('server.routes.api.choropleth.place_api.get_display_name')
+  def test_get_geojson_with_place_type(self, mock_display_name,
+                                       mock_geojson_values, mock_rewind_geojson,
+                                       mock_places):
+    dcid1 = "dcid1"
+    dcid2 = "dcid2"
+    parentDcid = "parentDcid"
 
-      mock_places.side_effect = get_places_in_
-      mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
-      mock_geojson_values.return_value = {
-          dcid1: json.dumps({
-              "coordinates": [],
-              "type": "Polygon"
-          }),
-          dcid2: json.dumps({
-              "coordinates": [],
-              "type": "MultiPolygon"
-          })
-      }
-      mock_choropleth_helper.side_effect = self.side_effect
-      response = app.test_client().get(
-          f'/api/choropleth/geojson?placeDcid=${dcid1}&placeType=State')
-      assert response.status_code == 200
-      response_data = json.loads(response.data)
-      assert len(response_data['features']) == 2
-      assert len(response_data['properties']['current_geo']) == dcid1
+    def get_places_in_(*args):
+      if args[0] == [parentDcid] and args[1] == "State":
+        return {parentDcid: [dcid1, dcid2]}
+      else:
+        return None
+
+    mock_places.side_effect = get_places_in_
+    mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
+    mock_geojson_values.return_value = {
+        dcid1: [json.dumps(GEOJSON_POLYGON_GEOMETRY)],
+        dcid2: [json.dumps(GEOJSON_MULTIPOLYGON_GEOMETRY)]
+    }
+    mock_rewind_geojson.side_effect = self.side_effect
+    response = app.test_client().get(
+        f'/api/choropleth/geojson?placeDcid={parentDcid}&placeType=State')
+    assert response.status_code == 200
+    response_data = json.loads(response.data)
+    assert response_data == {
+        'type': 'FeatureCollection',
+        'features': [{
+            'type': 'Feature',
+            'id': 'dcid1',
+            'properties': {
+                'name': 'dcid1',
+                'geoDcid': 'dcid1'
+            },
+            'geometry': {
+                'type':
+                    'MultiPolygon',
+                'coordinates': [[[[100.0, 0.0], [100.0, 1.0], [101.0, 1.0],
+                                  [101.0, 0.0], [100.0, 0.0]]]]
+            }
+        }, {
+            'type': 'Feature',
+            'id': 'dcid2',
+            'properties': {
+                'name': 'dcid2',
+                'geoDcid': 'dcid2'
+            },
+            'geometry': {
+                'type':
+                    'MultiPolygon',
+                'coordinates': [[[[180.0, 40.0], [170.0, 40.0], [170.0, 50.0],
+                                  [180.0, 50.0], [180.0, 40.0]]],
+                                [[[-170.0, 40.0], [-180.0,
+                                                   40.0], [-180.0, 50.0],
+                                  [-170.0, 50.0], [-170.0, 40.0]]]]
+            }
+        }],
+        'properties': {
+            'current_geo': 'parentDcid'
+        }
+    }
 
 
 class TestChoroplethDataHelpers(unittest.TestCase):
@@ -477,3 +553,96 @@ class TestChoroplethData(unittest.TestCase):
         }
     }
     assert response_data == expected_data
+
+
+class TestGetEntityGeoJson(unittest.TestCase):
+
+  @patch('server.routes.api.choropleth.rewind')
+  @patch('server.routes.api.choropleth.dc.property_values')
+  def test_get_geojson(self, mock_geojson_values, mock_geojson_rewind):
+    dcid1 = "dcid1"
+    dcid2 = "dcid2"
+    dcid3 = "dcid3"
+    dcid4 = "dcid4"
+    dcid5 = "dcid5"
+    geojson_prop = "geoJsonProp"
+    test_geojson_1 = json.dumps(GEOJSON_POLYGON_GEOMETRY)
+    test_geojson_2 = json.dumps(GEOJSON_MULTIPOLYGON_GEOMETRY)
+    test_geojson_3 = json.dumps(GEOJSON_MULTILINE_GEOMETRY)
+
+    def geojson_side_effect(entities, prop):
+      if entities == [dcid1, dcid2, dcid3, dcid4, dcid5
+                     ] and prop == geojson_prop:
+        return {
+            dcid1: [test_geojson_1, test_geojson_2],
+            dcid2: [test_geojson_1],
+            dcid3: [test_geojson_2],
+            dcid4: [],
+            dcid5: [test_geojson_3]
+        }
+      else:
+        return None
+
+    mock_geojson_values.side_effect = geojson_side_effect
+
+    def geojson_rewind_side_effect(geojson):
+      return geojson
+
+    mock_geojson_rewind.side_effect = geojson_rewind_side_effect
+
+    response = app.test_client().post(
+        '/api/choropleth/entity-geojson',
+        json={
+            "entities": [dcid1, dcid2, dcid3, dcid4, dcid5],
+            "geoJsonProp": geojson_prop
+        })
+    assert response.status_code == 200
+    response_data = json.loads(response.data)
+    assert response_data == {
+        'type': 'FeatureCollection',
+        'features': [{
+            'type': 'Feature',
+            'id': 'dcid2',
+            'properties': {
+                'name': 'dcid2',
+                'geoDcid': 'dcid2'
+            },
+            'geometry': {
+                'type':
+                    'MultiPolygon',
+                'coordinates': [[[[100.0, 0.0], [100.0, 1.0], [101.0, 1.0],
+                                  [101.0, 0.0], [100.0, 0.0]]]]
+            }
+        }, {
+            'type': 'Feature',
+            'id': 'dcid3',
+            'properties': {
+                'name': 'dcid3',
+                'geoDcid': 'dcid3'
+            },
+            'geometry': {
+                'type':
+                    'MultiPolygon',
+                'coordinates': [[[[180.0, 40.0], [170.0, 40.0], [170.0, 50.0],
+                                  [180.0, 50.0], [180.0, 40.0]]],
+                                [[[-170.0, 40.0], [-180.0,
+                                                   40.0], [-180.0, 50.0],
+                                  [-170.0, 50.0], [-170.0, 40.0]]]]
+            }
+        }, {
+            'type': 'Feature',
+            'id': 'dcid5',
+            'properties': {
+                'name': 'dcid5',
+                'geoDcid': 'dcid5'
+            },
+            'geometry': {
+                'coordinates': [[[170.0, 45.0], [180.0, 45.0]],
+                                [[-180.0, 45.0], [-170.0, 45.0]]],
+                'type': 'MultiLineString'
+            }
+        }],
+        'properties': {
+            'current_geo': ''
+        }
+    }

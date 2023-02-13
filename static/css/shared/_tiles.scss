@@ -284,9 +284,25 @@ $border-radius: 0.5rem;
   
   .dot {
     stroke-width: 0.3px;
-    opacity: .7;
+  }
+
+  .dot,
+  .map-polygon-layer,
+  .map-path-layer path {
+    opacity: .7
   }
   
+  .map-path-highlight {
+    stroke-width: 1.5px;
+    opacity: 1;
+  }
+
+  .map-polygon-highlight {
+    stroke: black;
+    stroke-width: 0.5px;
+    opacity: 1;
+  }
+
   .dot:hover,
   .dot:focus {
     stroke: black;

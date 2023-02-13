@@ -221,6 +221,39 @@ export function DisasterEventBlock(
   }
 }
 
+// Get the relevant event type specs for a tile
+function getTileEventTypeSpecs(
+  fullEventTypeSpec: Record<string, EventTypeSpec>,
+  tile: TileConfig
+): Record<string, EventTypeSpec> {
+  const relevantEventSpecs = {};
+  if (tile.disasterEventMapTileSpec) {
+    const pointEventTypeKeys =
+      tile.disasterEventMapTileSpec.pointEventTypeKey || [];
+    const polygonEventTypeKeys =
+      tile.disasterEventMapTileSpec.polygonEventTypeKey || [];
+    const pathEventTypeKeys =
+      tile.disasterEventMapTileSpec.pathEventTypeKey || [];
+    [
+      ...pointEventTypeKeys,
+      ...polygonEventTypeKeys,
+      ...pathEventTypeKeys,
+    ].forEach((specId) => {
+      relevantEventSpecs[specId] = fullEventTypeSpec[specId];
+    });
+  }
+  if (tile.topEventTileSpec) {
+    const specId = tile.topEventTileSpec.eventTypeKey;
+    relevantEventSpecs[specId] = fullEventTypeSpec[specId];
+  }
+  if (tile.histogramTileSpec) {
+    const specId = tile.histogramTileSpec.eventTypeKey;
+    relevantEventSpecs[specId] = fullEventTypeSpec[specId];
+  }
+  return relevantEventSpecs;
+}
+
+// Gets all the relevant event type specs for a list of columns
 function getBlockEventTypeSpecs(
   fullEventTypeSpec: Record<string, EventTypeSpec>,
   columns: ColumnConfig[]
@@ -228,19 +261,8 @@ function getBlockEventTypeSpecs(
   const relevantEventSpecs: Record<string, EventTypeSpec> = {};
   for (const column of columns) {
     for (const t of column.tiles) {
-      if (t.disasterEventMapTileSpec) {
-        t.disasterEventMapTileSpec.pointEventTypeKey.forEach((specId) => {
-          relevantEventSpecs[specId] = fullEventTypeSpec[specId];
-        });
-      }
-      if (t.topEventTileSpec) {
-        const specId = t.topEventTileSpec.eventTypeKey;
-        relevantEventSpecs[specId] = fullEventTypeSpec[specId];
-      }
-      if (t.histogramTileSpec) {
-        const specId = t.histogramTileSpec.eventTypeKey;
-        relevantEventSpecs[specId] = fullEventTypeSpec[specId];
-      }
+      const tileSpecs = getTileEventTypeSpecs(fullEventTypeSpec, t);
+      Object.assign(relevantEventSpecs, tileSpecs);
     }
   }
   return relevantEventSpecs;
@@ -270,25 +292,11 @@ function renderTiles(
     const className = classNameList.join(" ");
     switch (tile.type) {
       case "DISASTER_EVENT_MAP": {
-        const eventTypeSpec = {};
-        const specEventData = {
-          eventPoints: [],
-          provenanceInfo: {},
-        };
-        tile.disasterEventMapTileSpec.pointEventTypeKey.forEach((eventKey) => {
-          if (!(eventKey in disasterEventData)) {
-            return;
-          }
-          eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey];
-          specEventData.eventPoints.push(
-            ...disasterEventData[eventKey].eventPoints
-          );
-          Object.assign(
-            specEventData.provenanceInfo,
-            disasterEventData[eventKey].provenanceInfo
-          );
+        const eventTypeSpec = getTileEventTypeSpecs(props.eventTypeSpec, tile);
+        const specEventData = {};
+        Object.keys(eventTypeSpec).forEach((specId) => {
+          specEventData[specId] = disasterEventData[specId];
         });
-
         return (
           <DisasterEventMapTile
             key={id}
@@ -298,6 +306,7 @@ function renderTiles(
             enclosedPlaceType={enclosedPlaceType}
             eventTypeSpec={eventTypeSpec}
             disasterEventData={specEventData}
+            tileSpec={tile.disasterEventMapTileSpec}
           />
         );
       }
