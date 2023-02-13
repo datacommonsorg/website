@@ -105,6 +105,9 @@ export function formatNumber(
   useDefaultFormat?: boolean,
   numFractionDigits?: number
 ): string {
+  if (isNaN(value)) {
+    return "-";
+  }
   if (useDefaultFormat) {
     return Intl.NumberFormat("en-US").format(value);
   }
