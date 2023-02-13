@@ -48,11 +48,11 @@ export function DisasterEventMapInfoCard(
         {props.eventData.endDate && (
           <span>End Date: {props.eventData.endDate}</span>
         )}
-        {props.eventData.severity &&
+        {props.eventData.displayProps &&
           Object.keys(props.eventData.displayProps).map((prop) => {
             return (
               <span key={prop}>
-                {prop}: {formatNumber(props.eventData.severity[prop])}
+                {prop}: {formatNumber(props.eventData.displayProps[prop])}
               </span>
             );
           })}

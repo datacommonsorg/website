@@ -320,7 +320,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     if (props.topEventMetadata.showStartDate && event.startDate) {
       ret += formatDateString(event.startDate);
       if (props.topEventMetadata.showEndDate && event.endDate) {
-        ret += " - ";
+        ret += " — ";
       }
     }
     if (props.topEventMetadata.showEndDate && event.endDate) {
