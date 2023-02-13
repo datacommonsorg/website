@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.3.0
+CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.4.0
 
 sudo chmod a+w /etc/hosts
 export APIS="googleapis.com www.googleapis.com storage.googleapis.com iam.googleapis.com container.googleapis.com cloudresourcemanager.googleapis.com"
@@ -61,6 +61,7 @@ if [ -z "$REGISTER_DOMAIN" ] && [ -z "$CUSTOM_DC_DOMAIN" ]; then
   echo "Error: environment variable CUSTOM_DC_DOMAIN is required because default domain is not used." 1>&2
   echo "Default domain is not used because environment variable REGISTER_DOMAIN is not set."  1>&2
   echo "export CUSTOM_DC_DOMAIN=<Domain that you own> if you intend to use a domain that you own." 1>&2
+  exit 1
 fi
 
 if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
@@ -113,13 +114,20 @@ if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
   DOMAIN=$CUSTOM_DC_DOMAIN
 fi
 
+CLUSTER_NAME=$(terraform output -json cluster_name)
+if [[ -n "$CLUSTER_NAME" ]]; then
+  gcloud container clusters get-credentials $CLUSTER_NAME \
+    --region $(terraform output -json cluster_region) \
+    --project $PROJECT_ID
+fi
+
+gsutil cp \
+  gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_GITHASH.pb \
+  deploy/terraform-datacommons-website/modules/esp/mixer-grpc.$MIXER_GITHASH.pb
+
 terraform init \
   -backend-config="bucket=$TF_STATE_BUCKET" \
   -backend-config="prefix=website_v1"
-
-gcloud container clusters \
-    get-credentials datacommons-us-central1 \
-    --region us-central1 --project $PROJECT_ID
 
 # <project_id>-datacommons.com is the default domain name defined in setup/main.tf
 terraform apply \

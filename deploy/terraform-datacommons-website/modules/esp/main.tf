@@ -13,30 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
- locals {
-   mixer_grpc_pb_gcs_path = format("gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.%s.pb", var.mixer_githash)
- }
-
-resource "null_resource" "fetch_mixer_grpc_pb" {
-  # Alwways fetch the latest gRPC protobuf.
-  # This makes sure that /tmp/mixer-grpc.latest.pb exists even in re-runs.
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-
-  provisioner "local-exec" {
-    command = "gsutil cp ${local.mixer_grpc_pb_gcs_path} /tmp/mixer-grpc.${var.mixer_githash}.pb"
-  }
-}
-
 # Needed because file(https://www.terraform.io/language/functions/file)
 # cannot be used for dynamically generated files.
+# Once https://github.com/GoogleCloudPlatform/magic-modules/pull/6895
+# is merged, this can be replaced with google_storage_bucket_object_content so that
+# mixer grpc pb can be fetched directly from gcs, as opposed first downloading it locally.
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/storage_bucket_object_content
 data "local_file" "mixer_grpc_pb" {
-  filename = "/tmp/mixer-grpc.${var.mixer_githash}.pb"
-  depends_on = [
-    null_resource.fetch_mixer_grpc_pb
-  ]
+  filename = ${path.module}/mixer-grpc.${var.mixer_githash}.pb
 }
 
 # Note: deleted endpoints cannot be re-created.
