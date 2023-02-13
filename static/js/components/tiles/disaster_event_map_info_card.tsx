@@ -33,7 +33,6 @@ interface DisasterEventMapInfoCardPropType {
 export function DisasterEventMapInfoCard(
   props: DisasterEventMapInfoCardPropType
 ): JSX.Element {
-  debugger;
   return (
     <div className="disaster-event-map-info-card-content">
       <div className="disaster-event-map-info-card-header">
