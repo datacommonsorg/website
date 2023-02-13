@@ -5,8 +5,10 @@
   "correlation_classification": "<None>",
   "counters": {
     "filtered_svs": [],
-    "fulfillment_type": "OVERVIEW",
-    "num_chart_candidates": 1
+    "num_chart_candidates": 1,
+    "processed_fulfillment_types": [
+      "overview"
+    ]
   },
   "data_spec": [
     {
@@ -23,7 +25,7 @@
         }
       ],
       "query": "Tell me about Placer County",
-      "query_type": 10,
+      "query_type": 9,
       "ranked_charts": [
         {
           "attr": {
@@ -68,7 +70,7 @@
       ],
       "places": [],
       "query": "Where were the major fires in the last year",
-      "query_type": 9,
+      "query_type": 8,
       "ranked_charts": [
         {
           "attr": {

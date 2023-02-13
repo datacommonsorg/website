@@ -52,6 +52,23 @@ class ChartOriginType(IntEnum):
   SECONDARY_CHART = 1
 
 
+# This often has 1:1 correspondence with ClassificationType, but a single
+# classification like RANKING might correspond to different query types
+# (ranking across vars vs. ranking across places).
+class QueryType(IntEnum):
+  OTHER = 0
+  SIMPLE = 1
+  RANKING_ACROSS_PLACES = 2
+  RANKING_ACROSS_VARS = 3
+  CONTAINED_IN = 4
+  CORRELATION = 5
+  COMPARISON = 6
+  TIME_DELTA = 7
+  EVENT = 8
+  OVERVIEW = 9
+  UNKNOWN = 11
+
+
 # Type of chart.
 class ChartType(IntEnum):
   TIMELINE_CHART = 0

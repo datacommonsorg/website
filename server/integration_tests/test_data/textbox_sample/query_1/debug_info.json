@@ -12,8 +12,10 @@
       "Median_Income_Household_MarriedCoupleFamilyHousehold",
       "Median_Income_Household"
     ],
-    "fulfillment_type": "SIMPLE",
     "num_chart_candidates": 7,
+    "processed_fulfillment_types": [
+      "simple"
+    ],
     "stat_var_extensions": [
       {
         "Mean_Income_Household_FamilyHousehold": [
