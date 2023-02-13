@@ -17,6 +17,8 @@ ip: 34.95.84.25
 domain: datacommons.feedingamerica.org
 region:
   primary: us-central1
+  others:
+    -
 nodes: 1
 storage_project: datcom-store
 tmcf_csv_bucket: datcom-feedingamerica-resources
