@@ -91,7 +91,6 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     MIN_PERCENT_PLACE_NAMES;
   const showNameColumn =
     topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
-  const addLinkToDate = !showNameColumn && !showPlaceColumn;
 
   return (
     <div
@@ -137,18 +136,16 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                       )}
                       {showPlaceColumn && (
                         <td>
-                          {showNameColumn ? (
-                            placeName
-                          ) : (
-                            addEventLink(event.placeDcid, placeName)
-                          )}
+                          {showNameColumn
+                            ? placeName
+                            : addEventLink(event.placeDcid, placeName)}
                         </td>
                       )}
                       {displayDate && (
                         <td>
-                          {(!showNameColumn && !showPlaceColumn) ?
-                          addEventLink(event.placeDcid, displayDate) :
-                          displayDate}
+                          {!showNameColumn && !showPlaceColumn
+                            ? addEventLink(event.placeDcid, displayDate)
+                            : displayDate}
                         </td>
                       )}
                       {props.topEventMetadata.displayProp &&
@@ -315,23 +312,19 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   }
 
   function addEventLink(eventId: string, displayStr: string): JSX.Element {
-    return (
-      <a href={`/browser/${eventId}`}>
-        {displayStr}
-      </a>
-    );
+    return <a href={`/browser/${eventId}`}>{displayStr}</a>;
   }
 
   function getDisplayDate(event: DisasterEventPoint): string {
-    let ret = '';
+    let ret = "";
     if (props.topEventMetadata.showStartDate && event.startDate) {
       ret += formatDateString(event.startDate);
       if (props.topEventMetadata.showEndDate && event.endDate) {
-        ret += ' - ';
+        ret += " - ";
       }
     }
     if (props.topEventMetadata.showEndDate && event.endDate) {
-      ret += formatDateString(event.endDate)
+      ret += formatDateString(event.endDate);
     }
     return ret;
   }
