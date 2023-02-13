@@ -93,33 +93,17 @@ resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
   }
 }
 
-data "google_container_cluster" "dc_web_cluster" {
-  name = module.cluster.name
-  location = var.region
-  project = var.project_id
-
-  depends_on = [module.cluster]
-}
-
-data "google_client_config" "default" {}
-
 provider "kubernetes" {
   alias = "datcom"
-  host  = "https://${data.google_container_cluster.dc_web_cluster.endpoint}"
-  token = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(
-    data.google_container_cluster.dc_web_cluster.master_auth[0].cluster_ca_certificate
-  )
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
 }
 
 provider "helm" {
   alias = "datcom"
   kubernetes {
-    host                   = "https://${data.google_container_cluster.dc_web_cluster.endpoint}"
-    token                  = data.google_client_config.default.access_token
-    cluster_ca_certificate = base64decode(
-      data.google_container_cluster.dc_web_cluster.master_auth[0].cluster_ca_certificate
-    )
+    config_path = "~/.kube/config"
   }
 }
 
