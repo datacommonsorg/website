@@ -596,7 +596,7 @@ export function addMapPoints(
 }
 
 /**
- * Adds a layer of polygons to a map
+ * Adds a layer of polygons on top of a map
  * @param containerElement
  * @param geoJson
  * @param projection
@@ -640,7 +640,7 @@ export function addPolygonLayer(
 }
 
 /**
- * Adds a layer of paths to a map
+ * Adds a layer of paths on top of a map
  * @param containerElement
  * @param geoJson
  * @param projection

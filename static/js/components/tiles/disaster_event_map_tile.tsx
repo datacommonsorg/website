@@ -347,33 +347,6 @@ export function DisasterEventMapTile(
       placeInfo.selectedPlace.dcid,
       zoomParams
     );
-    for (const eventType of props.tileSpec.pointEventTypeKey || []) {
-      const mapPointsData = getMapPointsData(
-        disasterEventData[eventType].eventPoints,
-        props.eventTypeSpec[eventType]
-      );
-      const pointsLayer = addMapPoints(
-        svgContainerRef.current,
-        mapPointsData.points,
-        mapPointsData.values,
-        projection,
-        (point: DisasterEventPoint) => {
-          return props.eventTypeSpec[point.disasterType].color;
-        },
-        undefined,
-        placeInfo.selectedPlace.dcid == EARTH_NAMED_TYPED_PLACE.dcid
-          ? MAP_POINTS_MIN_RADIUS_EARTH
-          : MAP_POINTS_MIN_RADIUS
-      );
-      pointsLayer.on("click", (point: DisasterEventPoint) =>
-        onPointClicked(
-          infoCardRef.current,
-          svgContainerRef.current,
-          point,
-          d3.event
-        )
-      );
-    }
     // map of disaster event point id to the disaster event point
     const pointsMap = {};
     Object.values(disasterEventData).forEach((data) => {
@@ -415,6 +388,33 @@ export function DisasterEventMapTile(
             pointsMap[geoFeature.properties.geoDcid],
             d3.event
           )
+      );
+    }
+    for (const eventType of props.tileSpec.pointEventTypeKey || []) {
+      const mapPointsData = getMapPointsData(
+        disasterEventData[eventType].eventPoints,
+        props.eventTypeSpec[eventType]
+      );
+      const pointsLayer = addMapPoints(
+        svgContainerRef.current,
+        mapPointsData.points,
+        mapPointsData.values,
+        projection,
+        (point: DisasterEventPoint) => {
+          return props.eventTypeSpec[point.disasterType].color;
+        },
+        undefined,
+        placeInfo.selectedPlace.dcid == EARTH_NAMED_TYPED_PLACE.dcid
+          ? MAP_POINTS_MIN_RADIUS_EARTH
+          : MAP_POINTS_MIN_RADIUS
+      );
+      pointsLayer.on("click", (point: DisasterEventPoint) =>
+        onPointClicked(
+          infoCardRef.current,
+          svgContainerRef.current,
+          point,
+          d3.event
+        )
       );
     }
   }
