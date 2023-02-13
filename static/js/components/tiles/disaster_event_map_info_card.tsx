@@ -16,7 +16,7 @@
 
 /**
  * Component for the content of the info card.
- * TODO: Use display properties from spec.
+ * TODO: Use display properties & unit from spec.
  */
 import React from "react";
 
