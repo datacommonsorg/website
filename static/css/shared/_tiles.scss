@@ -231,6 +231,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0,
     max-height: 15rem;
     overflow-y: auto;
     box-shadow: $box-shadow-8dp;
+    z-index: 100;
   }
   
   .disaster-event-map-info-card-content {
