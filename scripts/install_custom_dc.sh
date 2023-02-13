@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.4.0
+CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.5.0
 
 sudo chmod a+w /etc/hosts
 export APIS="googleapis.com www.googleapis.com storage.googleapis.com iam.googleapis.com container.googleapis.com cloudresourcemanager.googleapis.com"
@@ -114,6 +114,10 @@ if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
   DOMAIN=$CUSTOM_DC_DOMAIN
 fi
 
+terraform init \
+  -backend-config="bucket=$TF_STATE_BUCKET" \
+  -backend-config="prefix=website_v1"
+
 CLUSTER_NAME=$(terraform output -json cluster_name)
 if [[ -n "$CLUSTER_NAME" ]]; then
   gcloud container clusters get-credentials $CLUSTER_NAME \
@@ -124,10 +128,6 @@ fi
 gsutil cp \
   gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_GITHASH.pb \
   deploy/terraform-datacommons-website/modules/esp/mixer-grpc.$MIXER_GITHASH.pb
-
-terraform init \
-  -backend-config="bucket=$TF_STATE_BUCKET" \
-  -backend-config="prefix=website_v1"
 
 # <project_id>-datacommons.com is the default domain name defined in setup/main.tf
 terraform apply \

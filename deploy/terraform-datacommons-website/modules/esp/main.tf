@@ -20,7 +20,7 @@
 # mixer grpc pb can be fetched directly from gcs, as opposed first downloading it locally.
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/storage_bucket_object_content
 data "local_file" "mixer_grpc_pb" {
-  filename = ${path.module}/mixer-grpc.${var.mixer_githash}.pb
+  filename = "${path.module}/mixer-grpc.${var.mixer_githash}.pb"
 }
 
 # Note: deleted endpoints cannot be re-created.
