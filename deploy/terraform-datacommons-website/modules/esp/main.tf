@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-resource "null_resource" "fetch_mixer_grpc_latest_pb" {
+ locals {
+   mixer_grpc_pb_gcs_path = format("gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.%s.pb", var.mixer_githash)
+ }
+
+resource "null_resource" "fetch_mixer_grpc_pb" {
   # Alwways fetch the latest gRPC protobuf.
   # This makes sure that /tmp/mixer-grpc.latest.pb exists even in re-runs.
   triggers = {
@@ -22,16 +26,16 @@ resource "null_resource" "fetch_mixer_grpc_latest_pb" {
   }
 
   provisioner "local-exec" {
-    command = "gsutil cp ${var.mixer_grpc_pb_gcs_path} /tmp/mixer-grpc.latest.pb"
+    command = "gsutil cp ${local.mixer_grpc_pb_gcs_path} /tmp/mixer-grpc.${var.mixer_githash}.pb"
   }
 }
 
 # Needed because file(https://www.terraform.io/language/functions/file)
 # cannot be used for dynamically generated files.
-data "local_file" "mixer_grpc_latest_pb" {
-  filename = "/tmp/mixer-grpc.latest.pb"
+data "local_file" "mixer_grpc_pb" {
+  filename = "/tmp/mixer-grpc.${var.mixer_githash}.pb"
   depends_on = [
-    null_resource.fetch_mixer_grpc_latest_pb
+    null_resource.fetch_mixer_grpc_pb
   ]
 }
 
@@ -45,10 +49,10 @@ resource "google_endpoints_service" "mixer_endpoint" {
                              "%SERVICE_NAME%", "website-esp.endpoints.${var.project_id}.cloud.goog"),
                              "%API_TITLE%"   , "website-esp.endpoints.${var.project_id}.cloud.goog")
 
-  protoc_output_base64 = data.local_file.mixer_grpc_latest_pb.content_base64
+  protoc_output_base64 = data.local_file.mixer_grpc_pb.content_base64
 
   depends_on = [
-    data.local_file.mixer_grpc_latest_pb
+    data.local_file.mixer_grpc_pb
   ]
 }
 

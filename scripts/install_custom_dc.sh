@@ -14,7 +14,14 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.2.0
+CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.3.0
+
+sudo chmod a+w /etc/hosts
+export APIS="googleapis.com www.googleapis.com storage.googleapis.com iam.googleapis.com container.googleapis.com cloudresourcemanager.googleapis.com"
+for i in $APIS
+do
+    echo "199.36.153.10 $i" >> /etc/hosts
+done
 
 TERRAFORM_PATH=$(which terraform)
 if [[ -n "$TERRAFORM_PATH" ]]; then
@@ -109,6 +116,10 @@ fi
 terraform init \
   -backend-config="bucket=$TF_STATE_BUCKET" \
   -backend-config="prefix=website_v1"
+
+gcloud container clusters \
+    get-credentials datacommons-us-central1 \
+    --region us-central1 --project $PROJECT_ID
 
 # <project_id>-datacommons.com is the default domain name defined in setup/main.tf
 terraform apply \

@@ -24,31 +24,12 @@ terraform {
   }
 }
 
-resource "null_resource" "fetch_credentials" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-
-  provisioner "local-exec" {
-    command = <<EOT
-gcloud container clusters get-credentials \
-    ${var.cluster_name} --region ${var.cluster_region} --project ${var.project_id}
-EOT
-    working_dir = path.module
-  }
-}
-
-
 resource "helm_release" "datcom_website" {
   name       = "datcom-website"
   chart      = "../../../helm_charts/dc_website"
 
   cleanup_on_fail = true
   atomic          = true
-
-  depends_on = [
-    null_resource.fetch_credentials
-  ]
 
   # Helm has a default timeout of 300 seconds.
   # To change that, uncomment the line below and set a value.

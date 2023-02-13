@@ -66,6 +66,7 @@ module "apikeys" {
 module "esp" {
   source                   =  "../../modules/esp"
   project_id               = var.project_id
+  mixer_githash            = var.mixer_githash
 }
 
 module "cluster" {
