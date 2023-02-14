@@ -22,7 +22,7 @@ from google.protobuf import text_format
 from parameterized import parameterized
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.nl import page_config_next
+from server.lib.nl import page_config_builder
 from server.lib.nl import topic
 from server.lib.nl import utils
 from server.lib.nl import utterance
@@ -826,4 +826,4 @@ def _run(uttr_dict: Dict,
          config: SubjectPageConfig = None) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
   return text_format.MessageToString(
-      page_config_next.build_page_config(uttr, config))
+      page_config_builder.build_page_config(uttr, config))

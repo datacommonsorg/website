@@ -21,7 +21,6 @@
 import React, { useEffect, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
-import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 
@@ -121,14 +120,10 @@ export function App(): JSX.Element {
   }
 
   function getContextHistory(i: number): any {
-    if (isNLInterfaceNext()) {
-      if (i > 0 && i - 1 < contextList.length) {
-        return contextList[i - 1];
-      } else {
-        return [];
-      }
+    if (i > 0 && i - 1 < contextList.length) {
+      return contextList[i - 1];
     } else {
-      return contextList.slice(0, i);
+      return [];
     }
   }
 
