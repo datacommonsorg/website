@@ -66,6 +66,7 @@ module "apikeys" {
 module "esp" {
   source                   =  "../../modules/esp"
   project_id               = var.project_id
+  mixer_githash            = var.mixer_githash
 }
 
 module "cluster" {
@@ -93,33 +94,23 @@ resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
   }
 }
 
-data "google_container_cluster" "dc_web_cluster" {
-  name = module.cluster.name
-  location = var.region
-  project = var.project_id
-
-  depends_on = [module.cluster]
-}
-
-data "google_client_config" "default" {}
-
+# IMPORTANT NOTE: This script assumes that
+# "~/.kube/config" already exists. This is because provider cannot depend on data or resources,
+# as provider blocks need to be determined before resources/data states are fetched.
+# In install_custom_dc.sh, currentlythe kubeconfig is fetched before calling terraform apply.
+# .kube/config is the location where gcloud command for GKE stores cluster config, which
+# is required to access the cluster, including using helm.
 provider "kubernetes" {
   alias = "datcom"
-  host  = "https://${data.google_container_cluster.dc_web_cluster.endpoint}"
-  token = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(
-    data.google_container_cluster.dc_web_cluster.master_auth[0].cluster_ca_certificate
-  )
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
 }
 
 provider "helm" {
   alias = "datcom"
   kubernetes {
-    host                   = "https://${data.google_container_cluster.dc_web_cluster.endpoint}"
-    token                  = data.google_client_config.default.access_token
-    cluster_ca_certificate = base64decode(
-      data.google_container_cluster.dc_web_cluster.master_auth[0].cluster_ca_certificate
-    )
+    config_path = "~/.kube/config"
   }
 }
 
