@@ -602,6 +602,19 @@ class TestGetEntityGeoJson(unittest.TestCase):
         'type': 'FeatureCollection',
         'features': [{
             'type': 'Feature',
+            'id': 'dcid1',
+            'properties': {
+                'name': 'dcid1',
+                'geoDcid': 'dcid1'
+            },
+            'geometry': {
+                'type':
+                    'MultiPolygon',
+                'coordinates': [[[[100.0, 0.0], [100.0, 1.0], [101.0, 1.0],
+                                  [101.0, 0.0], [100.0, 0.0]]]]
+            }
+        }, {
+            'type': 'Feature',
             'id': 'dcid2',
             'properties': {
                 'name': 'dcid2',

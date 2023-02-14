@@ -171,8 +171,8 @@ def get_geojson_feature(geo_id: str, geo_name: str, json_text: List[str]):
   """
   Gets a single geojson feature from a list of json strings
   """
-  # Exclude geo if no or multiple renderings are present.
-  if len(json_text) != 1:
+  # Exclude geo if no renderings are present.
+  if len(json_text) < 1:
     return None
   geojson = json.loads(json_text[0])
   geo_feature = {
