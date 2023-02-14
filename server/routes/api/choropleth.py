@@ -200,9 +200,9 @@ def geojson():
                 "geoDcid": geo_id,
             }
         }
-        # Load, simplify, and add geoJSON coordinates.
-        # Exclude geo if no or multiple renderings are present.
-        if len(json_text) != 1:
+        # Load, simplify, and add geoJSON coordinates if there's at least one
+        # rendering present.
+        if len(json_text) < 1:
           continue
         geojson = json.loads(json_text[0])
         # The geojson data for each place varies in whether it follows the
