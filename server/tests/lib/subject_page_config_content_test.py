@@ -77,21 +77,20 @@ class TestSubjectPageConfigs(unittest.TestCase):
       for i, event_type_id in enumerate(
           tile.disaster_event_map_tile_spec.point_event_type_key):
         self.assertTrue(event_type_id in event_type_specs,
-                        f"{msg}[event={i},{event_type_id}]")
+                        f"{msg}[pointEvent={i},{event_type_id}]")
       for i, event_type_id in enumerate(
           tile.disaster_event_map_tile_spec.polygon_event_type_key):
         self.assertTrue(event_type_id in event_type_specs,
-                        f"{msg}[event={i},{event_type_id}]")
-        self.assertTrue(
-            event_type_specs[event_type_id].get("polygonGeoJsonProp", None),
-            f"{msg}[event={i},{event_type_id}]")
+                        f"{msg}[polygonEvent={i},{event_type_id}]")
+        self.assertIsNotNone(
+            event_type_specs[event_type_id].polygon_geo_json_prop,
+            f"{msg}[polygonEvent={i},{event_type_id}]")
       for i, event_type_id in enumerate(
           tile.disaster_event_map_tile_spec.path_event_type_key):
         self.assertTrue(event_type_id in event_type_specs,
-                        f"{msg}[event={i},{event_type_id}]")
-        self.assertTrue(
-            event_type_specs[event_type_id].get("pathGeoJsonProp", None),
-            f"{msg}[event={i},{event_type_id}]")
+                        f"{msg}[pathEvent={i},{event_type_id}]")
+        self.assertIsNotNone(event_type_specs[event_type_id].path_geo_json_prop,
+                             f"{msg}[pathEvent={i},{event_type_id}]")
 
     if (tile.type == TileType.HIGHLIGHT or tile.type == TileType.DESCRIPTION):
       self.assertNotEqual(tile.description, '', msg)

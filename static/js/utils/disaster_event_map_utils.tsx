@@ -105,6 +105,28 @@ export function fetchGeoJsonData(
 }
 
 /**
+ * Get promise for geojson data for a list of events and a geojson prop
+ * @param eventDcids events to get geojson for
+ * @param geoJsonProp prop to use to get the geojson
+ */
+export function fetchEventGeoJson(
+  eventDcids: string[],
+  geoJsonProp: string
+): Promise<GeoJsonData> {
+  return axios
+    .post<GeoJsonData>("/api/choropleth/entity-geojson", {
+      entities: eventDcids,
+      geoJsonProp,
+    })
+    .then((resp) => {
+      return resp.data as GeoJsonData;
+    })
+    .catch(() => {
+      return null;
+    });
+}
+
+/**
  * Get a list of dates that encompass all events for a place and a given list of event types
  * @param eventTypeDcids the list of event types to get dates for
  * @param place the dcid of the affected place to get event dates for
@@ -588,14 +610,13 @@ export function getUseCache(): boolean {
 /**
  * gets the severity value for a disaster event point
  * @param eventPoint event point to get the severity value from
- * @param eventTypeSpec event type spec used for the disaster event map
+ * @param eventTypeSpec event type spec to use to get the severity value
  */
 function getSeverityValue(
   eventPoint: DisasterEventPoint,
-  eventTypeSpec: Record<string, EventTypeSpec>
+  eventTypeSpec: EventTypeSpec
 ): number {
-  const severityFilter =
-    eventTypeSpec[eventPoint.disasterType].defaultSeverityFilter;
+  const severityFilter = eventTypeSpec.defaultSeverityFilter;
   if (!severityFilter || !(severityFilter.prop in eventPoint.severity)) {
     return null;
   }
@@ -603,27 +624,24 @@ function getSeverityValue(
 }
 
 /**
- * Gets the map points data for each disaster type for a list of disaster event
+ * Gets the map points data for a disaster type for a list of disaster event
  * points.
  * @param eventPoints event points to use for the map points data
  * @param eventTypeSpec the event type spec for the disaster event map
  */
 export function getMapPointsData(
   eventPoints: DisasterEventPoint[],
-  eventTypeSpec: Record<string, EventTypeSpec>
-): Record<string, MapPointsData> {
-  const mapPointsData = {};
+  eventTypeSpec: EventTypeSpec
+): MapPointsData {
+  const mapPointsData = {
+    points: [],
+    values: {},
+  };
   eventPoints.forEach((point) => {
-    if (!(point.disasterType in mapPointsData)) {
-      mapPointsData[point.disasterType] = {
-        points: [],
-        values: {},
-      };
-    }
-    mapPointsData[point.disasterType].points.push(point);
+    mapPointsData.points.push(point);
     const severityValue = getSeverityValue(point, eventTypeSpec);
     if (severityValue != null) {
-      mapPointsData[point.disasterType].values[point.placeDcid] = severityValue;
+      mapPointsData.values[point.placeDcid] = severityValue;
     }
   });
   return mapPointsData;

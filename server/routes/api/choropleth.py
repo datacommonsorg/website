@@ -14,6 +14,7 @@
 """This module defines the endpoints that support drawing a choropleth map.
 """
 import json
+from typing import List
 import urllib.parse
 
 from flask import Blueprint
@@ -72,6 +73,9 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "EurostatNUTS3": "geoJsonCoordinatesDP1",
     "IPCCPlace_50": "geoJsonCoordinates",
 }
+MULTILINE_GEOJSON_TYPE = "MultiLineString"
+MULTIPOLYGON_GEOJSON_TYPE = "MultiPolygon"
+POLYGON_GEOJSON_TYPE = "Polygon"
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -130,30 +134,67 @@ def get_choropleth_display_level(geoDcid):
     return geoDcid, display_level
 
 
-def reverse_geojson_righthand_rule(geoJsonCords, obj_type):
-  """Changes GeoJSON handedness to the reverse of the righthand_rule.
+def get_multipolygon_geojson_coordinates(geojson):
+  """
+  Gets geojson coordinates in the form of multipolygon geojson coordinates that
+  are in the reverse of the righthand_rule.
 
   GeoJSON is stored in DataCommons following the right hand rule as per rfc
   spec (https://www.rfc-editor.org/rfc/rfc7946). However, d3 requires geoJSON
   that violates the right hand rule (see explanation on d3 winding order here:
-  https://stackoverflow.com/a/49311635). This function fixes these lists to be
-  in the format expected by D3 and turns all polygons into multipolygons for
+  https://stackoverflow.com/a/49311635). This function returns coordinates in
+  the format expected by D3 and turns all polygons into multipolygons for
   downstream consistency.
       Args:
-          geoJsonCords: Nested list of geojson.
-          obj_type: Object feature type.
+          geojson: geojson of type MultiPolygon or Polygon
       Returns:
-          Nested list of geocoords.
+          Nested list of geo coordinates.
   """
-  if obj_type == "Polygon":
-    geoJsonCords[0].reverse()
-    return [geoJsonCords]
-  elif obj_type == "MultiPolygon":
-    for polygon in geoJsonCords:
+  # The geojson data for each place varies in whether it follows the
+  # righthand rule or not. We want to ensure geojsons for all places
+  # does follow the righthand rule.
+  right_handed_geojson = rewind(geojson)
+  geojson_type = right_handed_geojson['type']
+  geojson_coords = right_handed_geojson['coordinates']
+  if geojson_type == POLYGON_GEOJSON_TYPE:
+    geojson_coords[0].reverse()
+    return [geojson_coords]
+  elif geojson_type == MULTIPOLYGON_GEOJSON_TYPE:
+    for polygon in geojson_coords:
       polygon[0].reverse()
-    return geoJsonCords
+    return geojson_coords
   else:
-    assert False, f"Type {obj_type} unknown!"
+    assert False, f"Type {geojson_type} unknown!"
+
+
+def get_geojson_feature(geo_id: str, geo_name: str, json_text: List[str]):
+  """
+  Gets a single geojson feature from a list of json strings
+  """
+  # Exclude geo if no renderings are present.
+  if len(json_text) < 1:
+    return None
+  geojson = json.loads(json_text[0])
+  geo_feature = {
+      "type": "Feature",
+      "id": geo_id,
+      "properties": {
+          "name": geo_name,
+          "geoDcid": geo_id,
+      }
+  }
+  geojson_type = geojson.get("type", "")
+  if geojson_type == MULTILINE_GEOJSON_TYPE:
+    geo_feature['geometry'] = geojson
+  elif geojson_type == POLYGON_GEOJSON_TYPE or geojson_type == MULTIPOLYGON_GEOJSON_TYPE:
+    coordinates = get_multipolygon_geojson_coordinates(geojson)
+    geo_feature['geometry'] = {
+        "type": "MultiPolygon",
+        "coordinates": coordinates
+    }
+  else:
+    geo_feature = None
+  return geo_feature
 
 
 @bp.route('/geojson')
@@ -189,39 +230,43 @@ def geojson():
           ['geoId/46102'], 'geoJsonCoordinates').get('geoId/46102', '')
     for geo_id, json_text in geojson_by_geo.items():
       if json_text and geo_id in names_by_geo:
-        geo_feature = {
-            "type": "Feature",
-            "geometry": {
-                "type": "MultiPolygon",
-            },
-            "id": geo_id,
-            "properties": {
-                "name": names_by_geo.get(geo_id, "Unnamed Area"),
-                "geoDcid": geo_id,
-            }
-        }
-        # Load, simplify, and add geoJSON coordinates if there's at least one
-        # rendering present.
-        if len(json_text) < 1:
-          continue
-        geojson = json.loads(json_text[0])
-        # The geojson data for each place varies in whether it follows the
-        # righthand rule or not. We want to ensure geojsons for all places
-        # does follow the righthand rule.
-        geojson = rewind(geojson)
-        geo_feature['geometry']['coordinates'] = (
-            reverse_geojson_righthand_rule(geojson['coordinates'],
-                                           geojson['type']))
-        features.append(geo_feature)
-  return Response(json.dumps({
+        geo_name = names_by_geo.get(geo_id, "Unnamed Area")
+        geo_feature = get_geojson_feature(geo_id, geo_name, json_text)
+        if geo_feature:
+          features.append(geo_feature)
+  result = {
       "type": "FeatureCollection",
       "features": features,
       "properties": {
           "current_geo": place_dcid
       }
-  }),
-                  200,
-                  mimetype='application/json')
+  }
+  return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/entity-geojson', methods=['POST'])
+def entity_geojson():
+  """Gets geoJson data for a list of entities and a specified property to use to
+     get the geoJson data"""
+  entities = request.json.get("entities", [])
+  geojson_prop = request.json.get("geoJsonProp")
+  if not geojson_prop:
+    return "error: must provide a geoJsonProp field", 400
+  features = []
+  geojson_by_entity = dc.property_values(entities, geojson_prop)
+  for entity_id, json_text in geojson_by_entity.items():
+    if json_text:
+      geo_feature = get_geojson_feature(entity_id, entity_id, json_text)
+      if geo_feature:
+        features.append(geo_feature)
+  result = {
+      "type": "FeatureCollection",
+      "features": features,
+      "properties": {
+          "current_geo": ""
+      }
+  }
+  return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 def get_choropleth_configs():
