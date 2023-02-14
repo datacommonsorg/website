@@ -94,6 +94,10 @@ resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
   }
 }
 
+# IMPORTANT NOTE: This script assumes that
+# "~/.kube/config" already exists. This is because provider cannot depend on data or resources,
+# as provider blocks need to be determined before resources/data states are fetched.
+# In install_custom_dc.sh, currentlythe kubeconfig is fetched before calling terraform apply.
 provider "kubernetes" {
   alias = "datcom"
   kubernetes {

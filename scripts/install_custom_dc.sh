@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=test-custom-dc-v0.7.0
+CUSTOM_DC_RELEASE_TAG=custom-dc-v0.2.0
 
 sudo chmod a+w /etc/hosts
 export APIS="googleapis.com www.googleapis.com storage.googleapis.com iam.googleapis.com container.googleapis.com cloudresourcemanager.googleapis.com"
@@ -79,7 +79,7 @@ ROOT=$PWD
 
 # Clone DC website repo and mixer submodule.
 rm -rf website
-git clone https://github.com/Fructokinase/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
+git clone https://github.com/datacommonsorg/website --branch $CUSTOM_DC_RELEASE_TAG --single-branch
 
 cd website
 WEBSITE_GITHASH=$(git rev-parse --short=7 HEAD)
@@ -118,14 +118,9 @@ terraform init \
   -backend-config="bucket=$TF_STATE_BUCKET" \
   -backend-config="prefix=website_v1"
 
-CLUSTER_NAME=$(terraform output --raw cluster_name)
-if [[ -n "$CLUSTER_NAME" ]]; then
-  REGION=$(terraform output --raw cluster_region)
-  echo "This is a refresh-run. Fetching credentials from $CLUSTER_NAME, region: $REGION"
-  gcloud container clusters get-credentials $CLUSTER_NAME \
-    --region  $REGION \
-    --project $PROJECT_ID
-fi
+gcloud container clusters get-credentials $(terraform output --raw cluster_name) \
+  --region  $(terraform output --raw cluster_region) \
+  --project $PROJECT_ID || true
 
 gsutil cp \
   gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_GITHASH.pb \

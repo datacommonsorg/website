@@ -19,6 +19,16 @@
 # is merged, this can be replaced with google_storage_bucket_object_content so that
 # mixer grpc pb can be fetched directly from gcs, as opposed first downloading it locally.
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/storage_bucket_object_content
+#
+#
+# Currently this is copied over during terraform runtime in install_custom_dc.sh
+# This is because terraform apply expects the file to already exist at the path
+# specified below.
+# When testing locally, copy over the mixer grpc pb manually into the current
+# module folder, like below. (Script below assumes you are currently in module folder).
+# gsutil cp \
+#  gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_GITHASH.pb \
+#  mixer-grpc.$MIXER_GITHASH.pb
 data "local_file" "mixer_grpc_pb" {
   filename = "${path.module}/mixer-grpc.${var.mixer_githash}.pb"
 }
