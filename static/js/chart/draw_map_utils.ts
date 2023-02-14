@@ -254,5 +254,5 @@ export function getPlacePathId(placeDcid: string): string {
   if (_.isEmpty(placeDcid)) {
     return "";
   }
-  return placeDcid.replace("/", "-");
+  return placeDcid.replaceAll("/", "-");
 }

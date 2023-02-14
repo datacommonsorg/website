@@ -117,7 +117,7 @@ export interface GeoJsonFeatureProperties {
 }
 
 export type GeoJsonFeature = GeoJSON.Feature<
-  GeoJSON.MultiPolygon,
+  GeoJSON.MultiPolygon | GeoJSON.MultiLineString,
   GeoJsonFeatureProperties
 >;
 

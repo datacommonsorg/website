@@ -34,14 +34,14 @@ from server.lib.nl.detection import Place
 from server.lib.nl.detection import PlaceDetection
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import SVDetection
-import server.lib.nl.fulfillment_next as fulfillment
-import server.lib.nl.page_config_next as nl_page_config
+import server.lib.nl.fulfiller as fulfillment
+import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_disaster_dashboard_configs
 import server.services.datacommons as dc
 
-bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
+bp = Blueprint('nl', __name__, url_prefix='/nl')
 
 MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 
@@ -311,7 +311,7 @@ def _detection(orig_query, cleaned_query) -> Detection:
                    classifications=classifications)
 
 
-@bp.route('/', strict_slashes=True)
+@bp.route('/')
 def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
