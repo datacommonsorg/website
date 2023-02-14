@@ -47,7 +47,6 @@ import {
   MapPointsData,
 } from "../types/disaster_event_map_types";
 import {
-  EventDisplayProp,
   EventTypeSpec,
   SeverityFilter,
 } from "../types/subject_page_proto_types";

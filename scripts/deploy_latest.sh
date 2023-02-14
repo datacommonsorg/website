@@ -16,6 +16,9 @@
 
 
 # Deploy various website instances with the latest mixer and base cache
+# ENV refers to the name of the .yaml file in deploy/gke
+
+# !!! WARNING: Run this script in a clean Git checkout at the desired commit.
 
 set -e
 
