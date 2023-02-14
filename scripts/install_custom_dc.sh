@@ -16,6 +16,9 @@ set -e
 
 CUSTOM_DC_RELEASE_TAG=custom-dc-v0.2.0
 
+# In some environments (such as Cloud Shell), IPv6 is not enabled on the OS.
+# This causes problems during terraform runs. Fix is from the issue below.
+# For more context, see https://github.com/hashicorp/terraform-provider-google/issues/6782
 sudo chmod a+w /etc/hosts
 export APIS="googleapis.com www.googleapis.com storage.googleapis.com iam.googleapis.com container.googleapis.com cloudresourcemanager.googleapis.com"
 for i in $APIS

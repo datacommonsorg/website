@@ -98,6 +98,8 @@ resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
 # "~/.kube/config" already exists. This is because provider cannot depend on data or resources,
 # as provider blocks need to be determined before resources/data states are fetched.
 # In install_custom_dc.sh, currentlythe kubeconfig is fetched before calling terraform apply.
+# .kube/config is the location where gcloud command for GKE stores cluster config, which
+# is required to access the cluster, including using helm.
 provider "kubernetes" {
   alias = "datcom"
   kubernetes {
