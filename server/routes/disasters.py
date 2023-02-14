@@ -31,7 +31,6 @@ DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
 EUROPE_DCID = "europe"
 EUROPE_CONTAINED_PLACE_TYPES = {
-    "Continent": "EurostatNUTS1",
     "Country": "EurostatNUTS1",
     "EurostatNUTS1": "EurostatNUTS2",
     "EurostatNUTS2": "EurostatNUTS3",
@@ -81,7 +80,7 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
   # metadata to use a custom dict instead.
   # TODO: Find a better way to handle this
   parent_dcids = map(lambda place: place.get("dcid", ""), parent_places)
-  if place_dcid == EUROPE_DCID or EUROPE_DCID in parent_dcids:
+  if EUROPE_DCID in parent_dcids:
     dashboard_config.metadata.contained_place_types.clear()
     dashboard_config.metadata.contained_place_types.update(
         EUROPE_CONTAINED_PLACE_TYPES)
