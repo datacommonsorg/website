@@ -121,16 +121,14 @@ def register_routes_common(app):
   # apply the blueprints for main app
   from server.routes import browser
   from server.routes import factcheck
-  from server.routes import nl_interface
-  from server.routes import nl_interface_next
+  from server.routes import nl
   from server.routes import place
   from server.routes import ranking
   from server.routes import search
   from server.routes import static
   from server.routes import tools
   app.register_blueprint(browser.bp)
-  app.register_blueprint(nl_interface.bp)
-  app.register_blueprint(nl_interface_next.bp)
+  app.register_blueprint(nl.bp)
   app.register_blueprint(place.bp)
   app.register_blueprint(ranking.bp)
   app.register_blueprint(search.bp)

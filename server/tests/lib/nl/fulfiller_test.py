@@ -17,7 +17,7 @@ from typing import Dict, List
 import unittest
 from unittest.mock import patch
 
-from server.lib.nl import fulfillment_next
+from server.lib.nl import fulfiller
 from server.lib.nl import utils
 from server.lib.nl import utterance
 from server.lib.nl import variable
@@ -424,7 +424,7 @@ class TestDataSpecNext(unittest.TestCase):
     mock_sv_existence.side_effect = [['Count_Person_Male'],
                                      ['Count_Person_Female']]
 
-    got = fulfillment_next.fulfill(detection, None).counters
+    got = fulfiller.fulfill(detection, None).counters
 
     self.maxDiff = None
     _COUNTERS = {
@@ -519,5 +519,4 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
   prev_uttr = None
   if uttr_dict:
     prev_uttr = utterance.load_utterance(uttr_dict)
-  return utterance.save_utterance(fulfillment_next.fulfill(
-      detection, prev_uttr))[0]
+  return utterance.save_utterance(fulfiller.fulfill(detection, prev_uttr))[0]

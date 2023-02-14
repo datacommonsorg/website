@@ -25,7 +25,6 @@ import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
-import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
 
 const SVG_CHART_HEIGHT = 160;
@@ -66,13 +65,9 @@ export const QueryResult = memo(function QueryResult(
   function fetchData(query: string): void {
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
-    const is_nl_next = isNLInterfaceNext();
-
-    // The API endpoint is different for NL Next version.
-    const dataApi = is_nl_next ? "nlnext/data" : "nl/data";
 
     axios
-      .post(`/${dataApi}?q=${query}`, {
+      .post(`/nl/data?q=${query}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {
@@ -93,15 +88,7 @@ export const QueryResult = memo(function QueryResult(
         if (categories.length > 0) {
           let main_place = {};
           // For NL Next, context does not contain the "main place".
-          if (is_nl_next) {
-            main_place = resp.data["place"];
-          } else {
-            main_place = {
-              place_type: context["place_type"],
-              name: context["place_name"],
-              dcid: context["place_dcid"],
-            };
-          }
+          main_place = resp.data["place"];
           setChartsData({
             place: {
               dcid: main_place["dcid"],
@@ -116,7 +103,7 @@ export const QueryResult = memo(function QueryResult(
           );
         }
         // For NL Next, debug info is outside the context.
-        const debugData = is_nl_next ? resp.data["debug"] : context["debug"];
+        const debugData = resp.data["debug"];
         if (debugData !== undefined) {
           setDebugData(debugData);
         }

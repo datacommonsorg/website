@@ -20,7 +20,7 @@ from server.lib.nl import utils
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Detection
 from server.lib.nl.fulfillment import context
-import server.lib.nl.query_handlers as handlers
+import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance
 
