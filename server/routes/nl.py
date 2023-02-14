@@ -35,7 +35,7 @@ from server.lib.nl.detection import PlaceDetection
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import SVDetection
 import server.lib.nl.fulfiller as fulfillment
-import server.lib.nl.page_config_next as nl_page_config
+import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_disaster_dashboard_configs
