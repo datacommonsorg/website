@@ -51,6 +51,10 @@ TOPIC_PAGE_CONFIGS = {
     'poverty': ['USA', 'India'],
 }
 
+# Levels range from 0 (fastest, least compression), to 9 (slowest, most
+# compression).
+GZIP_COMPRESSION_LEVEL = 3
+
 
 def get_repo_root():
   '''Get the absolute path of the repo root directory
@@ -254,10 +258,11 @@ def gzip_compress_response(raw_content, is_json):
   """Returns a gzip-compressed response object"""
   if is_json:
     raw_content = json.dumps(raw_content)
-  compressed_content = gzip.compress(raw_content.encode('utf8'), 5)
+  compressed_content = gzip.compress(raw_content.encode('utf8'),
+                                     GZIP_COMPRESSION_LEVEL)
   response = make_response(compressed_content)
-  response.headers['Content-length'] = len(compressed_content)
+  response.headers['Content-Length'] = len(compressed_content)
   response.headers['Content-Encoding'] = 'gzip'
   if is_json:
-    response.headers['mimetype'] = 'application/json'
+    response.headers['Content-Type'] = 'application/json'
   return response
