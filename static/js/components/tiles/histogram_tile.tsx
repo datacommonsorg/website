@@ -58,7 +58,7 @@ function getFormattedDate(date: Date, format: string): string {
 
 /**
  * Helper function to get the last date of a YYYY-MM string.
- * For example, given "2003-02", return "2003-02-28"
+ * For example, given "2003-02", return "2003-02-28".
  * @param dateString date in YYYY-MM format to get last day for
  */
 function getLastDayOfMonth(dateString: string): string {
@@ -72,7 +72,7 @@ function getLastDayOfMonth(dateString: string): string {
 }
 
 /**
- * Get the earliest and latest date in YYYY-MM-DD to show data for
+ * Get the earliest and latest date in YYYY-MM-DD to show data for.
  * Used for getting the dates to use as labels along the x-axis.
  * @param dateSetting user selected date setting
  */
@@ -154,7 +154,7 @@ function binData(
     return [];
   }
 
-  // Track YYYY-MM / YYYY-MM-DD -> number of events
+  // Track date -> number of events
   const bins = new Map<string, number>();
 
   // Initialize all bins at zero
