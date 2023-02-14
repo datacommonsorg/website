@@ -20,18 +20,5 @@
 export function isNlInterface(): boolean {
   // Returns true if currently on the NL page.
   const path = window.location.pathname;
-  return (
-    path === "/nl" ||
-    path === "/nl/" ||
-    path === "/nlnext" ||
-    path === "/nlnext/"
-  );
-}
-
-/**
- * Identifies whether the URL represents the NL Next implementation.
- */
-export function isNLInterfaceNext(): boolean {
-  const path = window.location.pathname;
-  return path === "/nlnext" || path === "/nlnext/";
+  return path === "/nl" || path === "/nl/";
 }
