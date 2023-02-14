@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from datetime import datetime
+import gzip
 import hashlib
 import json
 import logging
@@ -20,9 +21,8 @@ import os
 import time
 from typing import List
 import urllib
-from flask import make_response
-import gzip
 
+from flask import make_response
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
@@ -251,13 +251,13 @@ def check_backend_ready(urls: List[str]):
 
 
 def gzip_compress_response(raw_content, is_json):
-    """Returns a gzip-compressed response object"""
-    if is_json:
-      raw_content = json.dumps(raw_content)
-    compressed_content = gzip.compress(raw_content.encode('utf8'), 5)
-    response = make_response(compressed_content)
-    response.headers['Content-length'] = len(compressed_content)
-    response.headers['Content-Encoding'] = 'gzip'
-    if is_json:
-      response.headers['mimetype'] = 'application/json'
-    return response
+  """Returns a gzip-compressed response object"""
+  if is_json:
+    raw_content = json.dumps(raw_content)
+  compressed_content = gzip.compress(raw_content.encode('utf8'), 5)
+  response = make_response(compressed_content)
+  response.headers['Content-length'] = len(compressed_content)
+  response.headers['Content-Encoding'] = 'gzip'
+  if is_json:
+    response.headers['mimetype'] = 'application/json'
+  return response

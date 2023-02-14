@@ -21,8 +21,8 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-import server.lib.util as lib_util
 from server.cache import cache
+import server.lib.util as lib_util
 import server.services.datacommons as dc
 
 # Define blueprint
