@@ -739,61 +739,25 @@ test("fetch data for single event with date as YYYY", () => {
 });
 
 test("getMapPointsData", () => {
-  const eventPoints = [
-    FIRE_EVENT_POINT_1,
-    FIRE_EVENT_POINT_2,
-    EARTHQUAKE_EVENT_1_PROCESSED,
-    EARTHQUAKE_EVENT_2_PROCESSED,
-    TORNADO_EVENT_1_PROCESSED,
-  ];
+  const eventPoints = [FIRE_EVENT_POINT_1, FIRE_EVENT_POINT_2];
   const eventSpec = {
-    [STORM_DISASTER_TYPE_ID]: {
-      id: STORM_DISASTER_TYPE_ID,
-      name: "",
-      eventTypeDcids: [],
-      color: "",
-      defaultSeverityFilter: null,
-      displayProp: [],
-      endDateProp: [],
+    id: FIRE_DISASTER_TYPE_ID,
+    name: "",
+    eventTypeDcids: [],
+    color: "",
+    defaultSeverityFilter: {
+      prop: "area",
+      unit: "SquareKilometer",
+      lowerLimit: 1,
+      upperLimit: 10,
     },
-    [FIRE_DISASTER_TYPE_ID]: {
-      id: FIRE_DISASTER_TYPE_ID,
-      name: "",
-      eventTypeDcids: [],
-      color: "",
-      defaultSeverityFilter: {
-        prop: "area",
-        unit: "SquareKilometer",
-        lowerLimit: 1,
-        upperLimit: 10,
-      },
-      displayProp: [],
-      endDateProp: [],
-    },
-    [EARTHQUAKE_DISASTER_TYPE_ID]: {
-      id: EARTHQUAKE_DISASTER_TYPE_ID,
-      name: "",
-      eventTypeDcids: [],
-      color: "",
-      defaultSeverityFilter: null,
-      displayProp: [],
-      endDateProp: [],
-    },
+    displayProp: [],
+    endDateProp: [],
   };
   const expectedMapPointsData = {
-    [STORM_DISASTER_TYPE_ID]: {
-      points: [TORNADO_EVENT_1_PROCESSED],
-      values: {},
-    },
-    [FIRE_DISASTER_TYPE_ID]: {
-      points: [FIRE_EVENT_POINT_1, FIRE_EVENT_POINT_2],
-      values: {
-        fire2: 2,
-      },
-    },
-    [EARTHQUAKE_DISASTER_TYPE_ID]: {
-      points: [EARTHQUAKE_EVENT_1_PROCESSED, EARTHQUAKE_EVENT_2_PROCESSED],
-      values: {},
+    points: [FIRE_EVENT_POINT_1, FIRE_EVENT_POINT_2],
+    values: {
+      fire2: 2,
     },
   };
   const result = getMapPointsData(eventPoints, eventSpec);
