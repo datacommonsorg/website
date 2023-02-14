@@ -14,7 +14,17 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=custom-dc-v0.1.0
+CUSTOM_DC_RELEASE_TAG=custom-dc-v0.2.0
+
+# In some environments (such as Cloud Shell), IPv6 is not enabled on the OS.
+# This causes problems during terraform runs. Fix is from the issue below.
+# For more context, see https://github.com/hashicorp/terraform-provider-google/issues/6782
+sudo chmod a+w /etc/hosts
+export APIS="googleapis.com www.googleapis.com storage.googleapis.com iam.googleapis.com container.googleapis.com cloudresourcemanager.googleapis.com"
+for i in $APIS
+do
+    echo "199.36.153.10 $i" >> /etc/hosts
+done
 
 TERRAFORM_PATH=$(which terraform)
 if [[ -n "$TERRAFORM_PATH" ]]; then
@@ -54,6 +64,7 @@ if [ -z "$REGISTER_DOMAIN" ] && [ -z "$CUSTOM_DC_DOMAIN" ]; then
   echo "Error: environment variable CUSTOM_DC_DOMAIN is required because default domain is not used." 1>&2
   echo "Default domain is not used because environment variable REGISTER_DOMAIN is not set."  1>&2
   echo "export CUSTOM_DC_DOMAIN=<Domain that you own> if you intend to use a domain that you own." 1>&2
+  exit 1
 fi
 
 if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
@@ -109,6 +120,14 @@ fi
 terraform init \
   -backend-config="bucket=$TF_STATE_BUCKET" \
   -backend-config="prefix=website_v1"
+
+gcloud container clusters get-credentials $(terraform output --raw cluster_name) \
+  --region  $(terraform output --raw cluster_region) \
+  --project $PROJECT_ID || true
+
+gsutil cp \
+  gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_GITHASH.pb \
+  $WEBSITE_ROOT/deploy/terraform-datacommons-website/modules/esp/mixer-grpc.$MIXER_GITHASH.pb
 
 # <project_id>-datacommons.com is the default domain name defined in setup/main.tf
 terraform apply \
