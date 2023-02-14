@@ -20,6 +20,8 @@ import os
 import time
 from typing import List
 import urllib
+from flask import make_response
+import gzip
 
 from google.protobuf import text_format
 
@@ -246,3 +248,16 @@ def check_backend_ready(urls: List[str]):
     if total_sleep_seconds > _ready_check_timeout:
       raise RuntimeError('%s not ready after %s second' % urls,
                          _ready_check_timeout)
+
+
+def gzip_compress_response(raw_content, is_json):
+    """Returns a gzip-compressed response object"""
+    if is_json:
+      raw_content = json.dumps(raw_content)
+    compressed_content = gzip.compress(raw_content.encode('utf8'), 5)
+    response = make_response(compressed_content)
+    response.headers['Content-length'] = len(compressed_content)
+    response.headers['Content-Encoding'] = 'gzip'
+    if is_json:
+      response.headers['mimetype'] = 'application/json'
+    return response

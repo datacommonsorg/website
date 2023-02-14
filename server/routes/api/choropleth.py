@@ -241,7 +241,7 @@ def geojson():
           "current_geo": place_dcid
       }
   }
-  return Response(json.dumps(result), 200, mimetype='application/json')
+  return lib_util.gzip_compress_response(result, is_json=True)
 
 
 @bp.route('/entity-geojson', methods=['POST'])

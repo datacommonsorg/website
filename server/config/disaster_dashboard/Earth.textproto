@@ -46,7 +46,7 @@ metadata {
         display_name: "Area"
         unit: "SquareKilometer"
         upper_limit: 1000
-        lower_limit: 25
+        lower_limit: 200
       }
     }
   }
