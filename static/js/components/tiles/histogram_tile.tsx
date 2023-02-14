@@ -23,6 +23,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
+import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
@@ -42,23 +43,23 @@ interface HistogramTilePropType {
   title: string;
 }
 
-/**
- * Helper function to get YYYY-MM-DD prefix of a Date object.
- */
-function getDayString(date: Date): string {
-  return date.toISOString().slice(0, "YYYY-MM-DD".length);
-}
+const DAY_FORMAT = "YYYY-MM-DD";
+const MONTH_FORMAT = "YYYY-MM";
+const YEAR_FORMAT = "YYYY";
 
 /**
- * Helper function to get YYYY-MM prefix of a Date object.
+ * Helper function to get the date portion of a Date object as a string.
+ * @param date a Date() object to format
+ * @param format ISO 8601 format to follow
  */
-function getMonthString(date: Date): string {
-  return date.toISOString().slice(0, "YYYY-MM".length);
+function getFormattedDate(date: Date, format: string): string {
+  return date.toISOString().slice(0, format.length);
 }
 
 /**
  * Helper function to get the last date of a YYYY-MM string.
  * For example, given "2003-02", return "2003-02-28"
+ * @param dateString date in YYYY-MM format to get last day for
  */
 function getLastDayOfMonth(dateString: string): string {
   const inputDate = new Date(`${dateString}Z`);
@@ -71,33 +72,48 @@ function getLastDayOfMonth(dateString: string): string {
 }
 
 /**
- * Helper function for getting all days along x-axis to display.
- * Used for initializing bins when binning daily.
+ * Get the earliest and latest date in YYYY-MM-DD to show data for
+ * Used for getting the dates to use as labels along the x-axis.
+ * @param dateSetting user selected date setting
  */
-function getDaysArray(dateSetting: string): string[] {
+function getLabelBounds(dateSetting: string): [string, string] {
   // get start and end of dates to show data for
   let [startDate, endDate] = getDateRange(dateSetting);
 
   // specify full dates if start and end dates are just YYYY or YYYY-MM
-  if (startDate.length == "YYYY".length && endDate.length == "YYYY".length) {
+  if (
+    startDate.length == YEAR_FORMAT.length &&
+    endDate.length == YEAR_FORMAT.length
+  ) {
     startDate = `${startDate}-01-01`;
     endDate = `${endDate}-12-31`;
   } else if (
-    startDate.length == "YYYY-MM".length &&
-    endDate.length == "YYYY-MM".length
+    startDate.length == MONTH_FORMAT.length &&
+    endDate.length == MONTH_FORMAT.length
   ) {
     startDate = `${startDate}-01`;
     endDate = `${getLastDayOfMonth(endDate)}`;
   }
+  return [startDate, endDate];
+}
+
+/**
+ * Helper function for getting all days along x-axis to display.
+ * Used for initializing bins when binning daily.
+ * @param dateSetting user selected date setting
+ */
+function getDaysArray(dateSetting: string): string[] {
+  const [startDate, endDate] = getLabelBounds(dateSetting);
 
   // Fill in days between start and end dates
   const days = new Array<string>();
   for (
     let date = new Date(startDate + "Z");
-    getDayString(date) <= getDayString(new Date(endDate + "Z"));
+    getFormattedDate(date, DAY_FORMAT) <=
+    getFormattedDate(new Date(endDate + "Z"), DAY_FORMAT);
     date.setUTCDate(date.getUTCDate() + 1)
   ) {
-    days.push(getDayString(new Date(date)));
+    days.push(getFormattedDate(new Date(date), DAY_FORMAT));
   }
   return days;
 }
@@ -105,65 +121,61 @@ function getDaysArray(dateSetting: string): string[] {
 /**
  * Helper function for getting all months along x-axis to display.
  * Used for initializing bins when binning monthly.
+ * @param dateSetting user selected date setting
  */
 function getMonthsArray(dateSetting: string): string[] {
-  // get start and end of dates to show data for
-  let [startDate, endDate] = getDateRange(dateSetting);
-
-  // specify full dates if start and end dates are just YYYY or YYYY-MM
-  if (startDate.length == "YYYY".length && endDate.length == "YYYY".length) {
-    startDate = `${startDate}-01-01`;
-    endDate = `${endDate}-12-31`;
-  } else if (
-    startDate.length == "YYYY-MM".length &&
-    endDate.length == "YYYY-MM".length
-  ) {
-    startDate = `${startDate}-01`;
-    endDate = `${getLastDayOfMonth(endDate)}`;
-  }
+  const [startDate, endDate] = getLabelBounds(dateSetting);
 
   // Fill in months between start and end dates
   const months = new Array<string>();
   for (
     let date = new Date(startDate + "Z");
-    getMonthString(date) <= getMonthString(new Date(endDate + "Z"));
+    getFormattedDate(date, MONTH_FORMAT) <=
+    getFormattedDate(new Date(endDate + "Z"), MONTH_FORMAT);
     date.setMonth(date.getMonth() + 1)
   ) {
-    months.push(getMonthString(new Date(date)));
+    months.push(getFormattedDate(new Date(date), MONTH_FORMAT));
   }
   return months;
 }
 
 /**
- * Helper function to bin data into daily bins
+ * Helper function for binning data.
+ * @param disasterEventPoints event data points to bin
+ * @param dateSetting user selected date setting
+ * @param format temporal granularity to use. One of "YYYY-MM" or "YYYY-MM-DD"
  */
-function binDataByDay(
+function binData(
   disasterEventPoints: DisasterEventPoint[],
-  dateSetting: string
+  dateSetting: string,
+  format: string
 ): DataPoint[] {
   if (_.isEmpty(disasterEventPoints)) {
     return [];
   }
 
-  // Track YYYY-MM-DD -> number of events
+  // Track YYYY-MM / YYYY-MM-DD -> number of events
   const bins = new Map<string, number>();
 
   // Initialize all bins at zero
-  const daysToPlot = getDaysArray(dateSetting);
-  for (const day of daysToPlot) {
-    bins.set(day, 0);
+  const datesToPlot =
+    format == DAY_FORMAT
+      ? getDaysArray(dateSetting)
+      : getMonthsArray(dateSetting);
+  for (const date of datesToPlot) {
+    bins.set(date, 0);
   }
 
   for (const event of disasterEventPoints) {
-    // Get start time in YYYY-MM-DD
-    const eventDay = event.startDate.slice(0, "YYYY-MM-DD".length);
+    // Get start time in the temporal granularity desired
+    const eventDate = event.startDate.slice(0, format.length);
 
     // Increment count in corresponding bin if event has at least
-    // daily granularity
-    if (bins.has(eventDay) && eventDay.length == "YYYY-MM-DD".length) {
-      bins.set(eventDay, bins.get(eventDay) + 1);
+    // that temporal granularity
+    if (bins.has(eventDate) && eventDate.length == format.length) {
+      bins.set(eventDate, bins.get(eventDate) + 1);
     } else {
-      console.log(`Skipped event ${event} that started on ${eventDay}`);
+      console.log(`Skipped event ${event} that started on ${eventDate}`);
     }
   }
 
@@ -172,59 +184,7 @@ function binDataByDay(
     console.log(
       "[Histogram] Skipped plotting all events. Either the events were not " +
         "within the provided time frame or the events did not have at least " +
-        "daily temporal resolution."
-    );
-    return [];
-  }
-
-  // Format binned data into DataPoint[]
-  const histogramData = new Array<DataPoint>();
-  bins.forEach((value, label) => {
-    histogramData.push({ label: label, value: value });
-  });
-
-  return histogramData;
-}
-
-/**
- * Helper function to bin data by month
- */
-function binDataByMonth(
-  disasterEventPoints: DisasterEventPoint[],
-  dateSetting: string
-): DataPoint[] {
-  if (_.isEmpty(disasterEventPoints)) {
-    return [];
-  }
-
-  // Track YYYY-MM -> number of events
-  const bins = new Map<string, number>();
-
-  // Initialize all bins at zero
-  const monthsToPlot = getMonthsArray(dateSetting);
-  for (const month of monthsToPlot) {
-    bins.set(month, 0);
-  }
-
-  for (const event of disasterEventPoints) {
-    // Get start time in YYYY-MM
-    const eventMonth = event.startDate.slice(0, "YYYY-MM".length);
-
-    // Increment count in corresponding bin if event has at least
-    // monthly granularity
-    if (bins.has(eventMonth) && eventMonth.length == "YYYY-MM".length) {
-      bins.set(eventMonth, bins.get(eventMonth) + 1);
-    } else {
-      console.log(`Skipped event ${event} that started on ${eventMonth}`);
-    }
-  }
-
-  // Return [] if we skipped every event.
-  if (Array.from(bins.values()).every((value) => value == 0)) {
-    console.log(
-      "[Histogram] Skipped plotting all events. Either the events were not " +
-        "within the provided time frame or the events did not have at least " +
-        "monthly temporal resolution."
+        `${format} temporal resolution.`
     );
     return [];
   }
@@ -250,7 +210,7 @@ function shouldShowHistogram(histogramData: DataPoint[]): boolean {
  */
 export function HistogramTile(props: HistogramTilePropType): JSX.Element {
   const svgContainer = useRef(null);
-  const [histogramData, setHistogramData] = useState<DataPoint[]>(null);
+  const [histogramData, setHistogramData] = useState<DataPoint[]>([]);
 
   // format event data if data is available
   useEffect(() => {
@@ -311,18 +271,18 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
     dateSetting: string,
     setHistogramData: (data: DataPoint[]) => void
   ): void {
-    let histogramData = [];
+    let histogramData: DataPoint[] = [];
     // Try binning by day if dateSetting is "last 30 days" or a month
     if (
-      dateSetting == "lastThirtyDays" ||
-      dateSetting.length == "YYYY-MM".length
+      dateSetting == DATE_OPTION_30D_KEY ||
+      dateSetting.length == MONTH_FORMAT.length
     ) {
-      histogramData = binDataByDay(disasterEventPoints, dateSetting);
+      histogramData = binData(disasterEventPoints, dateSetting, DAY_FORMAT);
     }
     // Bin by month for all other cases
     // Also fallback to monthly binning if daily binning returns no data
     if (_.isEmpty(histogramData)) {
-      histogramData = binDataByMonth(disasterEventPoints, dateSetting);
+      histogramData = binData(disasterEventPoints, dateSetting, MONTH_FORMAT);
     }
     setHistogramData(histogramData);
   }
@@ -335,14 +295,16 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
     histogramData: DataPoint[]
   ): void {
     const elem = document.getElementById(props.id);
-    elem.innerHTML = "";
-    drawHistogram(
-      props.id,
-      elem.clientWidth,
-      elem.clientHeight,
-      histogramData,
-      undefined,
-      props.eventTypeSpec.color
-    );
+    if (elem) {
+      elem.innerHTML = "";
+      drawHistogram(
+        props.id,
+        elem.clientWidth,
+        elem.clientHeight,
+        histogramData,
+        undefined,
+        props.eventTypeSpec.color
+      );
+    }
   }
 }
