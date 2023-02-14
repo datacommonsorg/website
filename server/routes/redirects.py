@@ -55,6 +55,11 @@ def scatter():
               code=302))
 
 
+@bp.route('/nlnext')
+def nlnext():
+  return redirect(url_for('nl.page'), code=302)
+
+
 @bp.route('/datasets')
 def datasets():
   return redirect('https://docs.datacommons.org/datasets/', code=302)
