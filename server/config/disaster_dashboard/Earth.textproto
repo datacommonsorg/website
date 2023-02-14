@@ -119,6 +119,7 @@ metadata {
         lower_limit: 10
       }
       polygon_geo_json_prop: "geoJsonCoordinatesDP1"
+      end_date_prop: "endDate"
     }
   }
   event_type_spec {
@@ -248,6 +249,7 @@ categories {
         top_event_tile_spec {
           event_type_key: "drought"
           show_start_date: true
+          show_end_date: true
         }
       }
     }
@@ -298,7 +300,6 @@ categories {
         top_event_tile_spec {
           event_type_key: "fire"
           show_start_date: true
-          show_end_date: true
         }
       }
     }
