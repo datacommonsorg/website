@@ -7,9 +7,9 @@
             "request": "launch",
             "stopOnEntry": false,
             "python": "${command:python.interpreterPath}",
-            "program": "${workspaceRoot}/server/main.py",
+            "program": "${workspaceRoot}/web_app.py",
             "env": {
-                "FLASK_APP": "${workspaceRoot}/server/main.py",
+                "FLASK_APP": "${workspaceRoot}/web_app.py",
                 "FLASK_ENV": "local",
                 "FLASK_DEBUG": "1",
                 "ENABLE_MODEL": "true"
@@ -18,7 +18,7 @@
                 "8080",
                 "--no-debugger",
             ],
-            "cwd": "${workspaceRoot}/server",
+            "cwd": "${workspaceRoot}",
             "envFile": "${workspaceFolder}/.env",
             "jinja": true,
             "console": "internalConsole",
@@ -29,9 +29,9 @@
             "request": "launch",
             "stopOnEntry": false,
             "python": "${command:python.interpreterPath}",
-            "program": "${workspaceRoot}/server/main.py",
+            "program": "${workspaceRoot}/web_app.py",
             "env": {
-                "FLASK_APP": "${workspaceRoot}/server/main.py",
+                "FLASK_APP": "${workspaceRoot}/web_app.py",
                 "FLASK_ENV": "local",
                 "FLASK_DEBUG": "1",
                 "ENABLE_MODEL": "false"
@@ -40,7 +40,7 @@
                 "8080",
                 "--no-debugger",
             ],
-            "cwd": "${workspaceRoot}/server",
+            "cwd": "${workspaceRoot}",
             "envFile": "${workspaceFolder}/.env",
             "jinja": true,
             "console": "internalConsole",

@@ -18,7 +18,7 @@
 #
 # Usage:
 #
-# ./deploy_key.sh <"dev"|...> us-central1 <git_hash>
+# ./deploy_key.sh <"dev"|yaml_env> us-central1 <short_git_hash>
 #
 # !!! WARNING: Run this script in a clean Git checkout at the desired commit.
 #
