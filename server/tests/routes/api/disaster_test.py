@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import copy
+import gzip
 import json
 import unittest
 from unittest import mock
@@ -244,7 +245,7 @@ class TestGetData(unittest.TestCase):
         .format(TEST_EVENT_TYPE, TEST_DATE_YYYY, TEST_DATE_YYYY,
                 TEST_PLACE_DCID))
     assert response.status_code == 200
-    assert json.loads(response.data) == {
+    assert json.loads(gzip.decompress(response.data)) == {
         "eventCollection": {
             "events": [EVENT_1, EVENT_2, EVENT_3],
             "provenanceInfo": EVENT_DATA["eventCollection"]["provenanceInfo"]
@@ -269,7 +270,7 @@ class TestGetData(unittest.TestCase):
         .format(TEST_EVENT_TYPE, TEST_DATE_YYYY, TEST_DATE_YYYY,
                 TEST_PLACE_DCID))
     assert response.status_code == 200
-    assert json.loads(response.data) == {}
+    assert json.loads(gzip.decompress(response.data)) == {}
 
   @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
   def test_yyyymm(self, mock_event_collection):
@@ -290,7 +291,7 @@ class TestGetData(unittest.TestCase):
         '/api/disaster-dashboard/event-data?eventType={}&minDate={}&maxDate={}&place={}'
         .format(TEST_EVENT_TYPE, TEST_DATE_1, TEST_DATE_1, TEST_PLACE_DCID))
     assert response.status_code == 200
-    assert json.loads(response.data) == EVENT_DATA
+    assert json.loads(gzip.decompress(response.data)) == EVENT_DATA
 
   @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
   def test_yyyymm_no_data(self, mock_event_collection):
@@ -309,7 +310,7 @@ class TestGetData(unittest.TestCase):
         '/api/disaster-dashboard/event-data?eventType={}&minDate={}&maxDate={}&place={}'
         .format(TEST_EVENT_TYPE, TEST_DATE_1, TEST_DATE_1, TEST_PLACE_DCID))
     assert response.status_code == 200
-    assert json.loads(response.data) == {}
+    assert json.loads(gzip.decompress(response.data)) == {}
 
   @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
   def test_date_range(self, mock_event_collection):
@@ -332,7 +333,7 @@ class TestGetData(unittest.TestCase):
         '/api/disaster-dashboard/event-data?eventType={}&minDate={}&maxDate={}&place={}'
         .format(TEST_EVENT_TYPE, TEST_DATE_1, TEST_DATE_2, TEST_PLACE_DCID))
     assert response.status_code == 200
-    assert json.loads(response.data) == {
+    assert json.loads(gzip.decompress(response.data)) == {
         "eventCollection": {
             "events": [EVENT_1, EVENT_2, EVENT_3],
             "provenanceInfo": EVENT_DATA["eventCollection"]["provenanceInfo"]
@@ -362,7 +363,7 @@ class TestGetData(unittest.TestCase):
                 TEST_FILTER_PROP, TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT,
                 TEST_FILTER_LOWER_LIMIT))
     assert response.status_code == 200
-    assert json.loads(response.data) == EVENT_DATA
+    assert json.loads(gzip.decompress(response.data)) == EVENT_DATA
 
 
 class TestGetDataJson(unittest.TestCase):
@@ -381,7 +382,7 @@ class TestGetDataJson(unittest.TestCase):
               "provenanceInfo": {}
           }
       }
-      assert json.loads(response.data) == expected
+      assert json.loads(gzip.decompress(response.data)) == expected
 
   def test_yyyy_no_data(self):
     with app.app_context():
@@ -390,7 +391,7 @@ class TestGetDataJson(unittest.TestCase):
           '/api/disaster-dashboard/json-event-data?eventType={}&minDate={}&maxDate={}&place={}'
           .format(TEST_EVENT_TYPE, "2010", "2010", TEST_PLACE_DCID))
       assert response.status_code == 200
-      assert json.loads(response.data) == {}
+      assert json.loads(gzip.decompress(response.data)) == {}
 
   def test_yyyymm(self):
     with app.app_context():
@@ -405,7 +406,7 @@ class TestGetDataJson(unittest.TestCase):
               "provenanceInfo": {}
           }
       }
-      assert json.loads(response.data) == expected
+      assert json.loads(gzip.decompress(response.data)) == expected
 
   def test_yyyymm_no_data(self):
     with app.app_context():
@@ -414,7 +415,7 @@ class TestGetDataJson(unittest.TestCase):
           '/api/disaster-dashboard/json-event-data?eventType={}&minDate={}&maxDate={}&place={}'
           .format(TEST_EVENT_TYPE, "2010-01", "2010-01", TEST_PLACE_DCID))
       assert response.status_code == 200
-      assert json.loads(response.data) == {}
+      assert json.loads(gzip.decompress(response.data)) == {}
 
   def test_date_range(self):
     with app.app_context():
@@ -429,7 +430,7 @@ class TestGetDataJson(unittest.TestCase):
               "provenanceInfo": {}
           }
       }
-      assert json.loads(response.data) == expected
+      assert json.loads(gzip.decompress(response.data)) == expected
 
   def test_with_filter(self):
     with app.app_context():
@@ -446,7 +447,7 @@ class TestGetDataJson(unittest.TestCase):
               "provenanceInfo": {}
           }
       }
-      assert json.loads(response.data) == expected
+      assert json.loads(gzip.decompress(response.data)) == expected
 
   def test_with_filter_no_upper_limit(self):
     with app.app_context():
@@ -462,4 +463,4 @@ class TestGetDataJson(unittest.TestCase):
               "provenanceInfo": {}
           }
       }
-      assert json.loads(response.data) == expected
+      assert json.loads(gzip.decompress(response.data)) == expected
