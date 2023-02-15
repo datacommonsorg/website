@@ -19,6 +19,7 @@ import flask
 from flask import request
 from flask import Response
 
+from server.cache import cache
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api.node', __name__, url_prefix='/api/node')
@@ -39,6 +40,7 @@ def triples(direction, dcid):
 
 
 @bp.route('/propvals')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_property_value():
   """Returns the property values for given node dcids and property label."""
   dcids = request.args.getlist('dcids')

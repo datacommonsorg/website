@@ -251,6 +251,8 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   // Given a list of events, update eventPlaces with a map of event id to place
   // that the event occurs within. Places will be of the same type as
   // props.enclosedPlaceType.
+  // TODO (chejennifer): Getting the places of events should be done in a single
+  //                     endpoint in Flask
   function updateEventPlaces(events: DisasterEventPoint[]): void {
     if (_.isEmpty(events)) {
       setEventPlaces({});
