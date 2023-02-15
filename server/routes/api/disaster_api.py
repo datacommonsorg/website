@@ -195,7 +195,7 @@ def json_event_data():
   result = {}
   if event_points:
     result = {"eventCollection": {"events": event_points, "provenanceInfo": {}}}
-  return Response(json.dumps(result), 200, mimetype='application/json')
+  return lib_util.gzip_compress_response(result, is_json=True)
 
 
 @bp.route('/event-data')
