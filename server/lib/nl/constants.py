@@ -157,7 +157,8 @@ STOP_WORDS: Set[str] = {
 # can always detect these.
 SPECIAL_PLACES: Set[str] = {
     'palo alto', 'mountain view', 'world', 'earth', 'african', 'asian',
-    'european', 'north american', 'south american', 'latin american', 'oceania'
+    'european', 'north american', 'south american', 'latin american', 'oceania',
+    'american'
 }
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
@@ -166,6 +167,9 @@ SPECIAL_PLACES_TO_GEOIDS: Dict[str, str] = {
     # Earth
     'earth': 'Earth',
     'world': 'Earth',
+
+    # US
+    'american': 'country/USA',
 
     # Continents
     'africa': 'africa',
