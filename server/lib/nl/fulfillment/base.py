@@ -221,8 +221,9 @@ def _add_charts(state: PopulateState, places: List[Place],
                        ', '.join(places_to_check), ', '.join(chart_vars.svs))
 
     # Handle extended/comparable SVs only for simple query since
-    # for those we would construct Bar Charts.  For other types like
-    # map/ranking/scatter, the disparate "related" charts don't look good.
+    # for those we would construct a single bar chart comparing the differe
+    # variables.  For other query-types like map/ranking/scatter, we will have
+    # indidividual "related" charts, and those don't look good.
     if state.uttr.query_type != QueryType.SIMPLE:
       continue
 
