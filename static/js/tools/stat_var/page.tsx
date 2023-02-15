@@ -200,7 +200,10 @@ class Page extends Component<unknown, PageStateType> {
             return;
           }
           axios
-            .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
+            .get("/api/node/propvals", {
+              params: { dcids: sourceDcids, prop: "name" },
+              paramsSerializer: stringifyFn,
+            })
             .then((resp) => {
               const sources = [];
               for (const dcid in resp.data) {
@@ -260,7 +263,10 @@ class Page extends Component<unknown, PageStateType> {
           dcid = dataset;
         }
         axios
-          .get(`/api/stats/propvals/name/${dcid}`)
+          .get("/api/node/propvals", {
+            params: { dcids: [dcid], prop: "name" },
+            paramsSerializer: stringifyFn,
+          })
           .then((resp) => {
             const name = resp.data[dcid][0];
             this.setState({
@@ -309,10 +315,16 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     const descriptionPromise = axios
-      .get(`/api/stats/propvals/description/${sv}`)
+      .get("/api/node/propvals", {
+        params: { dcids: [sv], prop: "description" },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
     const displayNamePromise = axios
-      .get(`/api/stats/propvals/name/${sv}`)
+      .get("/api/node/propvals", {
+        params: { dcids: [sv], prop: "name" },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
     const summaryPromise = axios
       .get("/api/variable/info", {
@@ -332,7 +344,10 @@ class Page extends Component<unknown, PageStateType> {
           return;
         }
         axios
-          .get(`/api/stats/propvals/url/${provIds.join("^")}`)
+          .get("/api/node/propvals", {
+            params: { dcids: provIds, prop: "url" },
+            paramsSerializer: stringifyFn,
+          })
           .then((resp) => {
             this.setState({
               description:

@@ -338,6 +338,7 @@ function fetchEventPoints(
           displayProps,
           endDate,
           provenanceId: eventData.provenanceId,
+          affectedPlaces: eventData.places || [],
         });
         seenEvents.add(eventData.dcid);
       });
