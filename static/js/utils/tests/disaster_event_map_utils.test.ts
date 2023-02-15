@@ -233,6 +233,7 @@ const FIRE_EVENT_POINT_1 = {
   endDate: "",
   provenanceId: "fireProv",
   displayProps: {},
+  affectedPlaces: [],
 };
 
 const FIRE_EVENT_POINT_2 = {
@@ -248,6 +249,7 @@ const FIRE_EVENT_POINT_2 = {
   endDate: "",
   provenanceId: "fireProv",
   displayProps: {},
+  affectedPlaces: [],
 };
 
 const EARTHQUAKE_PROV_INFO = {

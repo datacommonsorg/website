@@ -95,13 +95,6 @@ def stats_var_property_wrapper(dcids):
   return result
 
 
-@bp.route('/propvals/<string:prop>/<path:dcids>')
-def get_property_value(dcids, prop):
-  """Returns the property values for given node dcids and property label."""
-  response = dc.property_values(dcids.split('^'), prop)
-  return Response(json.dumps(response), 200, mimetype='application/json')
-
-
 @bp.route('/stat-var-search')
 @cache.cached(timeout=3600 * 24, query_string=True)
 def search_statvar():

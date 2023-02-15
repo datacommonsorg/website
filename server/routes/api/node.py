@@ -16,6 +16,8 @@
 import json
 
 import flask
+from flask import request
+from flask import Response
 
 import server.services.datacommons as dc
 
@@ -34,3 +36,12 @@ def triples(direction, dcid):
   if direction != "in" and direction != "out":
     return "Invalid direction provided, please use 'in' or 'out'", 400
   return dc.triples(dcid, direction).get("triples", {})
+
+
+@bp.route('/propvals')
+def get_property_value():
+  """Returns the property values for given node dcids and property label."""
+  dcids = request.args.getlist('dcids')
+  prop = request.args.get('prop')
+  response = dc.property_values(dcids, prop)
+  return Response(json.dumps(response), 200, mimetype='application/json')
