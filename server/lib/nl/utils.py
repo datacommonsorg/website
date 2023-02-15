@@ -579,6 +579,14 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         break
     # Insert places_found[i] in the candidates if it is not to be ignored
     # and if it is also found in the original query without punctuations.
+    # The extra check to find places_found[i] in `query_lower` is to avoid
+    # situations where the removal of some stop words etc makes the remaining
+    # query have some valid place name words next to each other. For example,
+    # in the query "... united in the states ...", the removal of stop words
+    # results in the remaining query being ".... united states ..." which can
+    # now find "united states" as a place. Therefore, to avoid such situations
+    # we should try to find the place string found in the original (lower case)
+    # query string.
     if not ignore and places_found[i] in query_lower:
       places_to_return.append(places_found[i])
 

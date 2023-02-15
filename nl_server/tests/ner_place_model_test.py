@@ -96,7 +96,6 @@ class TestNERPlaces(unittest.TestCase):
   def test_heuristic_detection(self, query_str, expected):
     got = nl_utils.place_detection_with_heuristics(
         self.nl_ner_model.detect_places_ner, query_str)
-    #got = _detect_places_heuristics(self.nl_ner_model, query_str)
     self.assertEqual(expected, got)
 
   @parameterized.expand(

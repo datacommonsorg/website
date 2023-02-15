@@ -58,6 +58,9 @@ def _maps_place(place_str):
   if place_str.lower() in constants.SPECIAL_PLACE_REPLACEMENTS:
     place_str = constants.SPECIAL_PLACE_REPLACEMENTS[place_str.lower()]
   api_key = current_app.config["MAPS_API_KEY"]
+  # Note on 02/15/2023: Maps textsearch API has deprecated the use of
+  # `input` as a url param and instead wants `query`.
+  # Reference: https://developers.google.com/maps/deprecations#unsupported-place-search-deprecation
   url_formatted = f"{MAPS_API}query={place_str}&key={api_key}"
   r = requests.get(url_formatted)
   resp = r.json()
