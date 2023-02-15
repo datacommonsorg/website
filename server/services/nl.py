@@ -18,32 +18,33 @@ import logging
 import re
 from typing import Dict, List, Union
 
-import lib.nl.constants as constants
-from lib.nl.detection import BinaryClassificationResultType
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import ClusteringClassificationAttributes
-from lib.nl.detection import ComparisonClassificationAttributes
-from lib.nl.detection import ContainedInClassificationAttributes
-from lib.nl.detection import ContainedInPlaceType
-from lib.nl.detection import CorrelationClassificationAttributes
-from lib.nl.detection import EventClassificationAttributes
-from lib.nl.detection import EventType
-from lib.nl.detection import NLClassifier
-from lib.nl.detection import OverviewClassificationAttributes
-from lib.nl.detection import PeriodType
-from lib.nl.detection import RankingClassificationAttributes
-from lib.nl.detection import RankingType
-from lib.nl.detection import TemporalClassificationAttributes
-from lib.nl.detection import TimeDeltaClassificationAttributes
-from lib.nl.detection import TimeDeltaType
-from lib.nl.place_detection import NLPlaceDetector
-from lib.nl.training import NLQueryClassificationData
-from lib.nl.training import NLQueryClassificationModel
-from lib.nl.training import NLQueryClusteringDetectionModel
-import lib.nl.utils as utils
 import numpy as np
 import pandas as pd
-from services import datacommons as dc
+
+import server.lib.nl.constants as constants
+from server.lib.nl.detection import BinaryClassificationResultType
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import ClusteringClassificationAttributes
+from server.lib.nl.detection import ComparisonClassificationAttributes
+from server.lib.nl.detection import ContainedInClassificationAttributes
+from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import CorrelationClassificationAttributes
+from server.lib.nl.detection import EventClassificationAttributes
+from server.lib.nl.detection import EventType
+from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import OverviewClassificationAttributes
+from server.lib.nl.detection import PeriodType
+from server.lib.nl.detection import RankingClassificationAttributes
+from server.lib.nl.detection import RankingType
+from server.lib.nl.detection import TemporalClassificationAttributes
+from server.lib.nl.detection import TimeDeltaClassificationAttributes
+from server.lib.nl.detection import TimeDeltaType
+from server.lib.nl.place_detection import NLPlaceDetector
+from server.lib.nl.training import NLQueryClassificationData
+from server.lib.nl.training import NLQueryClassificationModel
+from server.lib.nl.training import NLQueryClusteringDetectionModel
+import server.lib.nl.utils as utils
+from server.services import datacommons as dc
 
 ALL_STOP_WORDS = utils.combine_stop_words()
 
@@ -541,7 +542,7 @@ class Model:
 
     Args:
       type_string: (str) This is the sentence classification type, e.g.
-        "ranking", "temporal", "contained_in". Full list is in lib.nl_training.py
+        "ranking", "temporal", "contained_in". Full list is in server.lib.nl_training.py
       query: (str) The query string supplied.
 
     Returns:
@@ -569,6 +570,7 @@ class Model:
       prediction = pick_option(
           classification_model.classification_model, query_encoded,
           classification_model.classification_type.categories)
+      logging.info(f'Prediction is {prediction}')
       if prediction is None:
         return None
 

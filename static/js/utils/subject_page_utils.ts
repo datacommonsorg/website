@@ -41,6 +41,20 @@ export function getRelLink(title: string) {
 }
 
 /**
+ * Gets the id for a specific component on a subject page.
+ * @param parentId id of the parent component.
+ * @param componentIdPrefix prefix for this component's part of the id.
+ * @param componentIdx the index of this component within the parent component.
+ */
+export function getId(
+  parentId: string,
+  componentIdPrefix: string,
+  componentIdx: number
+): string {
+  return `${parentId}${componentIdPrefix}${componentIdx}`;
+}
+
+/**
  * Gets the minimum tile index that should be hidden.
  */
 export function getMinTileIdxToHide(): number {

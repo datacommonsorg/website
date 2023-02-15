@@ -17,7 +17,8 @@ import json
 from flask import Blueprint
 from flask import escape
 from flask import request
-import services.datacommons as dc
+
+import server.services.datacommons as dc
 
 bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 

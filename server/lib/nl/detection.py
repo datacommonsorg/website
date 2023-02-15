@@ -243,19 +243,6 @@ class ClassificationType(IntEnum):
   UNKNOWN = 11
 
 
-# The supported classifications in order. Later entry is preferred.
-RANKED_CLASSIFICATION_TYPES = [
-    ClassificationType.SIMPLE,
-    ClassificationType.COMPARISON,
-    ClassificationType.CONTAINED_IN,
-    ClassificationType.RANKING,
-    ClassificationType.CORRELATION,
-    ClassificationType.TIME_DELTA,
-    ClassificationType.EVENT,
-    ClassificationType.OVERVIEW,
-]
-
-
 @dataclass
 class NLClassifier:
   """Classifier."""
@@ -271,4 +258,3 @@ class Detection:
   places_detected: PlaceDetection
   svs_detected: SVDetection
   classifications: List[NLClassifier]
-  query_type: ClassificationType = ClassificationType.UNKNOWN

@@ -26,7 +26,7 @@ import {
   drawStackBarChart,
 } from "../chart/draw";
 import { drawD3Map, getProjection } from "../chart/draw_d3_map";
-import { getColorScale } from "../chart/draw_map_utils";
+import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
   CachedChoroplethData,
   CachedRankingChartData,
@@ -155,6 +155,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   chartElement: React.RefObject<HTMLDivElement>;
   svgContainerElement: React.RefObject<HTMLDivElement>;
   embedModalElement: React.RefObject<ChartEmbed>;
+  mapContainerElement: React.RefObject<HTMLDivElement>;
+  legendContainerElement: React.RefObject<HTMLDivElement>;
   dcid: string;
   rankingUrlByStatVar: { [key: string]: string };
   statsVars: string[];
@@ -165,6 +167,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     this.chartElement = React.createRef();
     this.svgContainerElement = React.createRef();
     this.embedModalElement = React.createRef();
+    if (props.chartType === chartTypeEnum.CHOROPLETH) {
+      this.mapContainerElement = React.createRef();
+      this.legendContainerElement = React.createRef();
+    }
 
     this.state = {
       display: true,
@@ -247,6 +253,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             ref={this.svgContainerElement}
             className="svg-container"
           >
+            {this.props.chartType === chartTypeEnum.CHOROPLETH && (
+              <div className="map-container">
+                <div className="map" ref={this.mapContainerElement}></div>
+                <div ref={this.legendContainerElement}></div>
+              </div>
+            )}
             {this.props.chartType === chartTypeEnum.RANKING &&
               this.state.rankingChartDataGroup && (
                 <div className="ranking-chart-container">
@@ -447,7 +459,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   drawChart(): void {
     const chartType = this.props.chartType;
     const elem = document.getElementById(this.props.id);
-    elem.innerHTML = "";
+    if (chartType !== chartTypeEnum.CHOROPLETH) {
+      elem.innerHTML = "";
+    }
     if (chartType === chartTypeEnum.LINE) {
       const isCompleteLine = drawLineChart(
         this.props.id,
@@ -508,27 +522,33 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         d3.mean(dataValues),
         d3.max(dataValues)
       );
+      const legendWidth = generateLegendSvg(
+        this.legendContainerElement.current,
+        CHART_HEIGHT,
+        colorScale,
+        this.props.unit,
+        0
+      );
+      const mapWidth = elem.offsetWidth - legendWidth;
       const projection = getProjection(
         this.props.isUsaPlace,
         this.props.dcid,
-        elem.offsetWidth,
-        CHART_HEIGHT
+        mapWidth,
+        CHART_HEIGHT,
+        this.state.geoJson
       );
       drawD3Map(
-        this.props.id,
+        this.mapContainerElement.current,
         this.state.geoJson,
         CHART_HEIGHT,
-        elem.offsetWidth,
+        mapWidth,
         this.state.choroplethDataGroup.data,
-        this.props.unit,
         colorScale,
         redirectAction,
         getTooltipHtml,
         () => true,
         true,
-        true,
-        projection,
-        this.props.dcid
+        projection
       );
     }
   }

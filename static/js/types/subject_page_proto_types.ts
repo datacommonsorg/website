@@ -42,6 +42,9 @@ export interface EventTypeSpec {
   color: string;
   defaultSeverityFilter: SeverityFilter;
   displayProp: EventDisplayProp[];
+  endDateProp: string[];
+  polygonGeoJsonProp?: string;
+  pathGeoJsonProp?: string;
 }
 
 export interface PageMetadataConfig {
@@ -69,7 +72,13 @@ export interface RankingTileSpec {
 }
 
 export interface DisasterEventMapTileSpec {
-  eventTypeKeys: string[];
+  pointEventTypeKey: string[];
+  polygonEventTypeKey: string[];
+  pathEventTypeKey: string[];
+}
+
+export interface HistogramTileSpec {
+  eventTypeKey: string;
 }
 
 export interface TopEventTileSpec {
@@ -97,6 +106,7 @@ export interface TileConfig {
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;
   scatterTileSpec?: ScatterTileSpec;
+  histogramTileSpec?: HistogramTileSpec;
 }
 
 export interface ColumnConfig {
@@ -106,6 +116,7 @@ export interface ColumnConfig {
 export interface BlockConfig {
   title?: string;
   description: string;
+  footnote?: string;
   columns: ColumnConfig[];
   type?: string;
 }

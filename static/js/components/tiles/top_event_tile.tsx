@@ -125,36 +125,27 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                   const placeName = eventPlaces[event.placeDcid]
                     ? eventPlaces[event.placeDcid].name
                     : "N/A";
+                  const displayDate = getDisplayDate(event);
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
                       {showNameColumn && (
                         <td>
-                          <a href={`/browser/${event.placeDcid}`}>
-                            {getEventName(event)}
-                          </a>
+                          {addEventLink(event.placeDcid, getEventName(event))}
                         </td>
                       )}
                       {showPlaceColumn && (
                         <td>
-                          {showNameColumn ? (
-                            placeName
-                          ) : (
-                            <a href={`/browser/${event.placeDcid}`}>
-                              {placeName}
-                            </a>
-                          )}
+                          {showNameColumn
+                            ? placeName
+                            : addEventLink(event.placeDcid, placeName)}
                         </td>
                       )}
-                      {(props.topEventMetadata.showStartDate ||
-                        props.topEventMetadata.showEndDate) && (
+                      {displayDate && (
                         <td>
-                          {props.topEventMetadata.showStartDate &&
-                            event.startDate}
-                          {props.topEventMetadata.showStartDate &&
-                            props.topEventMetadata.showEndDate &&
-                            "-"}
-                          {props.topEventMetadata.showEndDate && event.endDate}
+                          {!showNameColumn && !showPlaceColumn
+                            ? addEventLink(event.placeDcid, displayDate)
+                            : displayDate}
                         </td>
                       )}
                       {props.topEventMetadata.displayProp &&
@@ -309,5 +300,32 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       }
     }
     return name;
+  }
+
+  /**
+   * Given a string containing a datetime in ISO 8601 format, return only the
+   * date portion, without the time portion.
+   * @param dateString date in ISO 8601 format
+   */
+  function formatDateString(dateString: string): string {
+    return dateString.slice(0, "YYYY-MM-DD".length);
+  }
+
+  function addEventLink(eventId: string, displayStr: string): JSX.Element {
+    return <a href={`/browser/${eventId}`}>{displayStr}</a>;
+  }
+
+  function getDisplayDate(event: DisasterEventPoint): string {
+    let ret = "";
+    if (props.topEventMetadata.showStartDate && event.startDate) {
+      ret += formatDateString(event.startDate);
+      if (props.topEventMetadata.showEndDate && event.endDate) {
+        ret += " — ";
+      }
+    }
+    if (props.topEventMetadata.showEndDate && event.endDate) {
+      ret += formatDateString(event.endDate);
+    }
+    return ret;
   }
 }

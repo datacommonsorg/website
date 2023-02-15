@@ -26,6 +26,7 @@ $chart-container-top-margin: 20px;
 $highlight-font-family: base.$headings-font-family;
 $border: 1px solid rgba(0, 0, 0, 0.125);
 $border-radius: 0.5rem;
+$box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .4);
 
 .chart-container {
   margin-top: $chart-container-top-margin;
@@ -125,6 +126,24 @@ $border-radius: 0.5rem;
 }
 
 /**
+ * map tile
+ */
+
+.map-chart .svg-container {
+  display: flex;
+
+  .map {
+    flex-grow: 1;
+  }
+
+  .legend {
+    height: fit-content;
+    width: fit-content;
+    align-self: center;
+  }
+}
+
+/**
  * disaster event map tile
  */
 
@@ -208,9 +227,11 @@ $border-radius: 0.5rem;
     position: absolute;
     border: $border;
     background-color: white;
-    max-width: 15rem;
+    max-width: 18rem;
     max-height: 15rem;
     overflow-y: auto;
+    box-shadow: $box-shadow-8dp;
+    z-index: 100;
   }
   
   .disaster-event-map-info-card-content {
@@ -218,12 +239,12 @@ $border-radius: 0.5rem;
     word-break: break-word;
     font-size: 0.9rem;
   }
- 
+
   .disaster-event-map-info-card-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   
   .disaster-event-map-info-card-title {
@@ -238,6 +259,10 @@ $border-radius: 0.5rem;
   .disaster-event-map-info-card-header i {
     margin-left: 0.5rem;
     cursor: default;
+  }
+
+  .disaster-event-map-info-card-footer {
+    margin-top: .5rem;
   }
 
   svg {
@@ -266,9 +291,28 @@ $border-radius: 0.5rem;
   
   .dot {
     stroke-width: 0.3px;
+  }
+
+  .map-polygon-layer {
+    opacity: .4;
+  }
+
+  .dot,
+  .map-path-layer path {
     opacity: .7;
   }
   
+  .map-path-highlight {
+    stroke-width: 1.5px;
+    opacity: 1;
+  }
+
+  .map-polygon-highlight {
+    stroke: black;
+    stroke-width: 0.5px;
+    opacity: 1;
+  }
+
   .dot:hover,
   .dot:focus {
     stroke: black;

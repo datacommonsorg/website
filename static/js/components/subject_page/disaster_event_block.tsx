@@ -21,7 +21,11 @@
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { HIDE_TILE_CLASS } from "../../constants/subject_page_constants";
+import {
+  COLUMN_ID_PREFIX,
+  HIDE_TILE_CLASS,
+  TILE_ID_PREFIX,
+} from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
@@ -42,11 +46,13 @@ import {
 import {
   getColumnTileClassName,
   getColumnWidth,
+  getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
 import { DisasterEventMapFilters } from "../tiles/disaster_event_map_filters";
 import { DisasterEventMapSelectors } from "../tiles/disaster_event_map_selectors";
 import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
+import { HistogramTile } from "../tiles/histogram_tile";
 import { TopEventTile } from "../tiles/top_event_tile";
 import { BlockContainer } from "./block_container";
 import { Column } from "./column";
@@ -60,6 +66,7 @@ interface DisasterEventBlockPropType {
   description: string;
   columns: ColumnConfig[];
   eventTypeSpec: Record<string, EventTypeSpec>;
+  footnote?: string;
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;
@@ -115,6 +122,7 @@ export function DisasterEventBlock(
       id={props.id}
       title={props.title}
       description={props.description}
+      footnote={props.footnote}
     >
       <DisasterEventMapSelectors
         blockId={props.id}
@@ -133,7 +141,7 @@ export function DisasterEventBlock(
         <div className="block-column-container row">
           {props.columns &&
             props.columns.map((column, idx) => {
-              const id = `${props.id}col${idx}`;
+              const id = getId(props.id, COLUMN_ID_PREFIX, idx);
               const columnTileClassName = getColumnTileClassName(column);
               return (
                 <Column
@@ -144,6 +152,7 @@ export function DisasterEventBlock(
                   tiles={renderTiles(
                     column.tiles,
                     props,
+                    id,
                     minIdxToHide,
                     disasterEventData,
                     columnTileClassName
@@ -212,6 +221,39 @@ export function DisasterEventBlock(
   }
 }
 
+// Get the relevant event type specs for a tile
+function getTileEventTypeSpecs(
+  fullEventTypeSpec: Record<string, EventTypeSpec>,
+  tile: TileConfig
+): Record<string, EventTypeSpec> {
+  const relevantEventSpecs = {};
+  if (tile.disasterEventMapTileSpec) {
+    const pointEventTypeKeys =
+      tile.disasterEventMapTileSpec.pointEventTypeKey || [];
+    const polygonEventTypeKeys =
+      tile.disasterEventMapTileSpec.polygonEventTypeKey || [];
+    const pathEventTypeKeys =
+      tile.disasterEventMapTileSpec.pathEventTypeKey || [];
+    [
+      ...pointEventTypeKeys,
+      ...polygonEventTypeKeys,
+      ...pathEventTypeKeys,
+    ].forEach((specId) => {
+      relevantEventSpecs[specId] = fullEventTypeSpec[specId];
+    });
+  }
+  if (tile.topEventTileSpec) {
+    const specId = tile.topEventTileSpec.eventTypeKey;
+    relevantEventSpecs[specId] = fullEventTypeSpec[specId];
+  }
+  if (tile.histogramTileSpec) {
+    const specId = tile.histogramTileSpec.eventTypeKey;
+    relevantEventSpecs[specId] = fullEventTypeSpec[specId];
+  }
+  return relevantEventSpecs;
+}
+
+// Gets all the relevant event type specs for a list of columns
 function getBlockEventTypeSpecs(
   fullEventTypeSpec: Record<string, EventTypeSpec>,
   columns: ColumnConfig[]
@@ -219,15 +261,8 @@ function getBlockEventTypeSpecs(
   const relevantEventSpecs: Record<string, EventTypeSpec> = {};
   for (const column of columns) {
     for (const t of column.tiles) {
-      if (t.disasterEventMapTileSpec) {
-        t.disasterEventMapTileSpec.eventTypeKeys.forEach((specId) => {
-          relevantEventSpecs[specId] = fullEventTypeSpec[specId];
-        });
-      }
-      if (t.topEventTileSpec) {
-        const specId = t.topEventTileSpec.eventTypeKey;
-        relevantEventSpecs[specId] = fullEventTypeSpec[specId];
-      }
+      const tileSpecs = getTileEventTypeSpecs(fullEventTypeSpec, t);
+      Object.assign(relevantEventSpecs, tileSpecs);
     }
   }
   return relevantEventSpecs;
@@ -236,6 +271,7 @@ function getBlockEventTypeSpecs(
 function renderTiles(
   tiles: TileConfig[],
   props: DisasterEventBlockPropType,
+  columnId: string,
   minIdxToHide: number,
   disasterEventData: Record<string, DisasterEventPointData>,
   tileClassName?: string
@@ -244,7 +280,7 @@ function renderTiles(
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
-    const id = `${props.id}tile${i}`;
+    const id = getId(columnId, TILE_ID_PREFIX, i);
     const enclosedPlaceType = props.enclosedPlaceType;
     const classNameList = [];
     if (tileClassName) {
@@ -256,25 +292,11 @@ function renderTiles(
     const className = classNameList.join(" ");
     switch (tile.type) {
       case "DISASTER_EVENT_MAP": {
-        const eventTypeSpec = {};
-        const specEventData = {
-          eventPoints: [],
-          provenanceInfo: {},
-        };
-        tile.disasterEventMapTileSpec.eventTypeKeys.forEach((eventKey) => {
-          if (!(eventKey in disasterEventData)) {
-            return;
-          }
-          eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey];
-          specEventData.eventPoints.push(
-            ...disasterEventData[eventKey].eventPoints
-          );
-          Object.assign(
-            specEventData.provenanceInfo,
-            disasterEventData[eventKey].provenanceInfo
-          );
+        const eventTypeSpec = getTileEventTypeSpecs(props.eventTypeSpec, tile);
+        const specEventData = {};
+        Object.keys(eventTypeSpec).forEach((specId) => {
+          specEventData[specId] = disasterEventData[specId];
         });
-
         return (
           <DisasterEventMapTile
             key={id}
@@ -284,6 +306,27 @@ function renderTiles(
             enclosedPlaceType={enclosedPlaceType}
             eventTypeSpec={eventTypeSpec}
             disasterEventData={specEventData}
+            tileSpec={tile.disasterEventMapTileSpec}
+          />
+        );
+      }
+      case "HISTOGRAM": {
+        const eventTypeSpec =
+          props.eventTypeSpec[tile.histogramTileSpec.eventTypeKey];
+        return (
+          <HistogramTile
+            key={id}
+            id={id}
+            title={tile.title}
+            place={props.place}
+            selectedDate={getDate(props.id)}
+            eventTypeSpec={eventTypeSpec}
+            disasterEventData={
+              disasterEventData[tile.histogramTileSpec.eventTypeKey] || {
+                eventPoints: [],
+                provenanceInfo: {},
+              }
+            }
           />
         );
       }

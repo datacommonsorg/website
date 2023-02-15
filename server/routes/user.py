@@ -27,9 +27,10 @@ import google.auth.transport.requests
 from google.cloud import exceptions
 from google.cloud import storage
 from google.oauth2 import id_token
-import lib.util as libutil
 import requests
-import routes.api.user as user_api
+
+import server.lib.util as libutil
+import server.routes.api.user as user_api
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 

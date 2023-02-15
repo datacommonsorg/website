@@ -66,7 +66,7 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
       <table>
         <thead>
           <tr>
-            <th>SV</th>
+            <th>Variable</th>
             <th>Cosine Score (Best/Max) [0, 1]</th>
           </tr>
         </thead>
@@ -126,7 +126,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     <>
       {!showDebug && (
         <a className="debug-info-toggle show" onClick={toggleShowDebug}>
-          Show debug info
+          <span className="material-icons">bug_report</span>
         </a>
       )}
       {showDebug && (
@@ -145,7 +145,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <b>Original Query: </b> {debugInfo.originalQuery}
           </Row>
           <Row>
-            <b>Query used for SV detection: </b>
+            <b>Query used for variable detection: </b>
             {debugInfo.queryWithoutPlaces}
           </Row>
           <Row>
@@ -200,16 +200,14 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>All SVs Matched (with scores):</b>
+            <b>All Variables Matched (with scores):</b>
           </Row>
-          <Row>
-            Note: SVs with scores <b>less than 0.4</b> are not used.
-          </Row>
+          <Row>Note: Variables with scores less than 0.5 are not used.</Row>
           <Row>
             <Col>{matchScoresElement(debugInfo.svScores)}</Col>
           </Row>
           <Row>
-            <b>SV Sentences Matched (with scores):</b>
+            <b>Variable Sentences Matched (with scores):</b>
           </Row>
           <Row>
             <Col>

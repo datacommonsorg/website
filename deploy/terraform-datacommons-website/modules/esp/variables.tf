@@ -19,8 +19,7 @@ variable "project_id" {
   description = "GCP project id where the API keys will be created."
 }
 
-variable "mixer_grpc_pb_gcs_path" {
+variable "mixer_githash" {
   type        = string
-  description = "Full GCS path to mixer's compiled grpc protobuf definition."
-  default     = "gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.latest.pb"
+  description = "Mixer githash to be used to fetch the proto file for ESP."
 }

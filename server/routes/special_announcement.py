@@ -15,7 +15,8 @@
 
 from flask import Blueprint
 from flask import render_template
-from lib.gcs import list_blobs
+
+from server.lib.gcs import list_blobs
 
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
 _MAX_BLOBS = 1

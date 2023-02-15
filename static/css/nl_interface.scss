@@ -205,7 +205,9 @@ $answer-min-height: 100vh;
 h2,
 h3,
 .category p,
+.block .block-footer,
 .disaster-event-map-selectors-section,
+.disaster-event-map-severity-filters .disaster-type-filters,
 .nl-query-error p {
   color: white;
 }
@@ -219,13 +221,26 @@ h3,
   cursor: pointer;
 }
 
+.debug-info-toggle {
+  display: block;
+  text-align: right;
+}
+
+.nl-result .container {
+  position: relative;
+}
+
 .debug-info-toggle.show {
-  color: #ccc;
+  color: #666;
   font-size: 0.8rem;
+  padding-top: .5em;
+  margin-bottom: -1em;
+  position: absolute;
+  top: .5rem;
+  right: -2.5rem;
 }
 
 .debug-info-toggle.hide {
-  float: right;
   font-weight: bold;
 }
 
@@ -240,6 +255,10 @@ h3,
   td {
     border: 1px solid black;
   }
+}
+
+.nl-result .subtopic.notitle {
+  border-color: #999 !important;
 }
 
 // From https://codepen.io/nzbin/pen/GGrXbp
@@ -328,7 +347,7 @@ $loading-dot-color: #fff;
   display: flex;
   flex-direction: column;
 
-  svg {
+  .map svg {
     height: 100%;
     width: 100%;
     display: block;

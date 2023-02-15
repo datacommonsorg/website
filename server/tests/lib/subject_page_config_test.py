@@ -14,10 +14,11 @@
 
 import unittest
 
-from config import subject_page_pb2
 from google.protobuf import text_format
-import lib.subject_page_config as lib_subject_page_config
-import lib.util as lib_util
+
+from server.config import subject_page_pb2
+import server.lib.subject_page_config as lib_subject_page_config
+import server.lib.util as lib_util
 
 
 class TestGetAllVariables(unittest.TestCase):
@@ -37,7 +38,7 @@ class TestGetAllVariables(unittest.TestCase):
         'StandardizedPrecipitationIndex_Atmosphere_3MonthPeriod'
     ]
     config = lib_util.get_subject_page_config(
-        "tests/test_data/disaster.textproto")
+        "server/tests/test_data/disaster.textproto")
     assert sorted(lib_subject_page_config.get_all_variables(config)) == expected
 
 
@@ -45,7 +46,7 @@ class TestTrimConfig(unittest.TestCase):
 
   def test_trim_tiles(self):
     config = lib_util.get_subject_page_config(
-        "tests/test_data/disaster.textproto")
+        "server/tests/test_data/disaster.textproto")
     config = lib_subject_page_config.trim_config(
         config, "Count_fireEvent", subject_page_pb2.Tile.TileType.HISTOGRAM)
     config = lib_subject_page_config.trim_config(

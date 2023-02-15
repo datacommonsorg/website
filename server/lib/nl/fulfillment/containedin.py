@@ -15,20 +15,20 @@
 import logging
 from typing import List
 
-from lib.nl import utils
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import ContainedInClassificationAttributes
-from lib.nl.detection import ContainedInPlaceType
-from lib.nl.detection import Place
-from lib.nl.fulfillment.base import add_chart_to_utterance
-from lib.nl.fulfillment.base import ChartVars
-from lib.nl.fulfillment.base import overview_fallback
-from lib.nl.fulfillment.base import populate_charts
-from lib.nl.fulfillment.base import PopulateState
-from lib.nl.fulfillment.context import classifications_of_type_from_context
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import Utterance
+from server.lib.nl import utils
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import ContainedInClassificationAttributes
+from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import Place
+from server.lib.nl.fulfillment.base import add_chart_to_utterance
+from server.lib.nl.fulfillment.base import ChartVars
+from server.lib.nl.fulfillment.base import populate_charts
+from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.fulfillment.context import \
+    classifications_of_type_from_context
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import Utterance
 
 
 def populate(uttr: Utterance) -> bool:
@@ -41,10 +41,7 @@ def populate(uttr: Utterance) -> bool:
       continue
     place_type = classification.attributes.contained_in_place_type
     if populate_charts(
-        PopulateState(uttr=uttr,
-                      main_cb=_populate_cb,
-                      fallback_cb=overview_fallback,
-                      place_type=place_type)):
+        PopulateState(uttr=uttr, main_cb=_populate_cb, place_type=place_type)):
       return True
     else:
       utils.update_counter(uttr.counters,
@@ -53,10 +50,7 @@ def populate(uttr: Utterance) -> bool:
   # TODO: poor default; should do this based on main place
   place_type = ContainedInPlaceType.COUNTY
   result = populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    fallback_cb=overview_fallback,
-                    place_type=place_type))
+      PopulateState(uttr=uttr, main_cb=_populate_cb, place_type=place_type))
   if not result:
     utils.update_counter(uttr.counters, 'containedin_failed_populate_fallback',
                          place_type.value)

@@ -17,10 +17,11 @@ import re
 import unittest
 
 from diskcache import Cache
-from loader import nl_cache_path
-from loader import nl_ner_cache_key
-from ner_place_model import NERPlaces
 from parameterized import parameterized
+
+from nl_server.loader import nl_cache_path
+from nl_server.loader import nl_ner_cache_key
+from nl_server.ner_place_model import NERPlaces
 
 
 def _remove_punctuations(s):

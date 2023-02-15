@@ -14,7 +14,7 @@
 
 import unittest
 
-import lib.range as lib_range
+import server.lib.range as lib_range
 
 
 class TestAggregate(unittest.TestCase):

@@ -17,20 +17,20 @@ from dataclasses import field
 import logging
 from typing import Dict, List
 
-from lib.nl import constants
-from lib.nl import topic
-from lib.nl import utils
-from lib.nl import variable
-from lib.nl.detection import ContainedInPlaceType
-from lib.nl.detection import EventType
-from lib.nl.detection import Place
-from lib.nl.detection import RankingType
-from lib.nl.detection import TimeDeltaType
-from lib.nl.fulfillment import context
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartSpec
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import Utterance
+from server.lib.nl import constants
+from server.lib.nl import topic
+from server.lib.nl import utils
+from server.lib.nl import variable
+from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import EventType
+from server.lib.nl.detection import Place
+from server.lib.nl.detection import RankingType
+from server.lib.nl.detection import TimeDeltaType
+from server.lib.nl.fulfillment import context
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartSpec
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import Utterance
 
 # TODO: Factor classification processing functions into a common place.
 
@@ -42,7 +42,6 @@ _EVENT_PREFIX = 'event/'
 class PopulateState:
   uttr: Utterance
   main_cb: any
-  fallback_cb: any
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
@@ -141,7 +140,7 @@ def populate_charts_for_places(state: PopulateState,
   logging.info('Doing fallback for %s - %s',
                ', '.join(_get_place_names(places)), ', '.join(state.uttr.svs))
   utils.update_counter(state.uttr.counters, 'num_populate_fallbacks', 1)
-  return state.fallback_cb(state, places, ChartOriginType.PRIMARY_CHART)
+  return False
 
 
 # Add charts given a place and a list of stat-vars.
@@ -254,17 +253,6 @@ def _add_charts(state: PopulateState, places: List[Place],
   logging.info("Add chart %s %s returning %r" %
                (', '.join(_get_place_names(places)), svs, found))
   return found
-
-
-def overview_fallback(state: PopulateState, places: List[Place],
-                      chart_origin: ChartOriginType) -> bool:
-  # Overview chart is a safe fallback.
-  state.block_id += 1
-  chart_vars = ChartVars(svs=[],
-                         block_id=state.block_id,
-                         include_percapita=False)
-  return add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
-                                places, chart_origin)
 
 
 def _get_place_dcids(places: List[Place]) -> List[str]:

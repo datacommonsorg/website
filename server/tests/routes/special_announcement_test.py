@@ -15,12 +15,12 @@
 import unittest
 from unittest.mock import patch
 
-from main import app
+from web_app import app
 
 
 class TestSpecialAnnouncementPages(unittest.TestCase):
 
-  @patch('routes.special_announcement.list_blobs')
+  @patch('server.routes.special_announcement.list_blobs')
   def test_special_announcement(self, mock_list_blobs):
     mock_list_blobs.side_effect = (lambda bucket, max_blobs: [])
     response = app.test_client().get('/special_announcement')

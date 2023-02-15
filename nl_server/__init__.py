@@ -16,9 +16,10 @@ import logging
 import os
 
 from flask import Flask
-import loader
-import routes
 import yaml
+
+import nl_server.loader as loader
+import nl_server.routes as routes
 
 
 def create_app():
@@ -28,9 +29,10 @@ def create_app():
   flask_env = os.environ.get('FLASK_ENV')
 
   model_config_path = '/datacommons/model/model.yaml'
-  if flask_env == 'local' or flask_env == 'test':
-    model_config_path = os.path.abspath(
-        os.path.join(os.path.curdir, '..', 'deploy/base/model.yaml'))
+  if flask_env == 'local' or flask_env == 'test' or flask_env == 'integration-test':
+    model_config_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        'deploy/base/model.yaml')
   app.config['MODEL_CONFIG_PATH'] = model_config_path
 
   # Initialize the NL module.

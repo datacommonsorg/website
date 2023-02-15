@@ -14,11 +14,11 @@
 
 from typing import List
 
-from lib.nl import detection
-from lib.nl import utils
-import lib.nl.fulfillment.base as base
-import lib.nl.fulfillment.context as ctx
-import lib.nl.utterance as nl_uttr
+from server.lib.nl import detection
+from server.lib.nl import utils
+import server.lib.nl.fulfillment.base as base
+import server.lib.nl.fulfillment.context as ctx
+import server.lib.nl.utterance as nl_uttr
 
 #
 # Handler for Event queries.
@@ -46,10 +46,8 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
     ranking_types = ranking_classification[0].attributes.ranking_type
 
   return _populate_event(
-      base.PopulateState(uttr=uttr,
-                         main_cb=None,
-                         fallback_cb=None,
-                         ranking_types=ranking_types), event_types)
+      base.PopulateState(uttr=uttr, main_cb=None, ranking_types=ranking_types),
+      event_types)
 
 
 def _populate_event(state: base.PopulateState,

@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from lib.nl import utils
-from lib.nl.detection import Place
-from lib.nl.fulfillment.base import add_chart_to_utterance
-from lib.nl.fulfillment.base import ChartVars
-from lib.nl.fulfillment.base import PopulateState
-import lib.nl.fulfillment.context as ctx
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import Utterance
+from server.lib.nl import utils
+from server.lib.nl.detection import Place
+from server.lib.nl.fulfillment import context as ctx
+from server.lib.nl.fulfillment.base import add_chart_to_utterance
+from server.lib.nl.fulfillment.base import ChartVars
+from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import Utterance
 
 # A simple fulfiller to add a PLACE_OVERVIEW chart by finding places in context.
 
@@ -37,7 +37,7 @@ def populate(uttr: Utterance) -> bool:
 
 
 def _add_place_overview(place: Place, uttr: Utterance):
-  state = PopulateState(uttr=uttr, main_cb=None, fallback_cb=None)
+  state = PopulateState(uttr=uttr, main_cb=None)
   state.block_id += 1
   chart_vars = ChartVars(svs=[],
                          block_id=state.block_id,

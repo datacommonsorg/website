@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import Dict, List
 
-import services.datacommons as dc
+import server.services.datacommons as dc
 
 
 @dataclass

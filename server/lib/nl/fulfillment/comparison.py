@@ -15,25 +15,23 @@
 import logging
 from typing import List
 
-from lib.nl import utils
-from lib.nl.detection import Place
-from lib.nl.fulfillment.base import add_chart_to_utterance
-from lib.nl.fulfillment.base import ChartVars
-from lib.nl.fulfillment.base import overview_fallback
-from lib.nl.fulfillment.base import populate_charts_for_places
-from lib.nl.fulfillment.base import PopulateState
-from lib.nl.fulfillment.context import places_for_comparison_from_context
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import Utterance
+from server.lib.nl import utils
+from server.lib.nl.detection import Place
+from server.lib.nl.fulfillment.base import add_chart_to_utterance
+from server.lib.nl.fulfillment.base import ChartVars
+from server.lib.nl.fulfillment.base import populate_charts_for_places
+from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.fulfillment.context import \
+    places_for_comparison_from_context
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import Utterance
 
 
 def populate(uttr: Utterance) -> bool:
   # NOTE: The COMPARISON attribute has no additional parameters.  So start
   # by directly inferring the list of places to compare.
-  state = PopulateState(uttr=uttr,
-                        main_cb=_populate_cb,
-                        fallback_cb=overview_fallback)
+  state = PopulateState(uttr=uttr, main_cb=_populate_cb)
   place_comparison_candidates = places_for_comparison_from_context(uttr)
   for places_to_compare in place_comparison_candidates:
     dcids = [p.dcid for p in places_to_compare]

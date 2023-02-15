@@ -47,7 +47,6 @@ import {
   MapPointsData,
 } from "../types/disaster_event_map_types";
 import {
-  EventDisplayProp,
   EventTypeSpec,
   SeverityFilter,
 } from "../types/subject_page_proto_types";
@@ -102,6 +101,28 @@ export function fetchGeoJsonData(
           current_geo: enclosingPlace,
         },
       };
+    });
+}
+
+/**
+ * Get promise for geojson data for a list of events and a geojson prop
+ * @param eventDcids events to get geojson for
+ * @param geoJsonProp prop to use to get the geojson
+ */
+export function fetchEventGeoJson(
+  eventDcids: string[],
+  geoJsonProp: string
+): Promise<GeoJsonData> {
+  return axios
+    .post<GeoJsonData>("/api/choropleth/entity-geojson", {
+      entities: eventDcids,
+      geoJsonProp,
+    })
+    .then((resp) => {
+      return resp.data as GeoJsonData;
+    })
+    .catch(() => {
+      return null;
     });
 }
 
@@ -216,19 +237,17 @@ function parseEventPropVal(
  * @param eventType event type to get data for
  * @param place place to get data for
  * @param dateRange Dates to use for data retrieval (YYYY-MM), [start,end]
- * @param disasterType The disaster type that the event type belongs to
+ * @param eventTypeSpec The event type spec that this event type belongs to
  * @param severityFilter Severity props to get data about
  * @param useCache If true, uses data from the event cache (otherwise uses JSON cache).
- * @param eventDisplayProps Other event properties to extract.
  */
 function fetchEventPoints(
   eventType: string,
   place: string,
   dateRange: [string, string],
-  disasterType: string,
+  eventTypeSpec: EventTypeSpec,
   severityFilter?: SeverityFilter,
-  useCache?: boolean,
-  eventDisplayProps?: EventDisplayProp[]
+  useCache?: boolean
 ): Promise<DisasterEventPointData> {
   const reqParams = {
     eventType: eventType,
@@ -279,8 +298,8 @@ function fetchEventPoints(
           }
         }
         const displayProps = {};
-        if (eventDisplayProps) {
-          for (const dp of eventDisplayProps) {
+        if (eventTypeSpec.displayProp) {
+          for (const dp of eventTypeSpec.displayProp) {
             if (dp.prop in eventData.propVals) {
               const val = parseEventPropVal(
                 eventData.propVals[dp.prop].vals,
@@ -298,17 +317,22 @@ function fetchEventPoints(
           !_.isEmpty(eventData.propVals.name.vals)
             ? eventData.propVals.name.vals[0]
             : eventData.dcid;
-        const endDate =
-          !_.isEmpty(eventData.propVals.endDate) &&
-          !_.isEmpty(eventData.propVals.endDate.vals)
-            ? eventData.propVals.endDate.vals[0]
-            : "";
+        let endDate = "";
+        for (const prop of eventTypeSpec.endDateProp || []) {
+          if (
+            prop in eventData.propVals &&
+            !_.isEmpty(eventData.propVals[prop].vals)
+          ) {
+            endDate = eventData.propVals[prop].vals[0];
+            break;
+          }
+        }
         result.eventPoints.push({
           placeDcid: eventData.dcid,
           placeName: name,
           latitude: eventData.geoLocations[0].point.latitude,
           longitude: eventData.geoLocations[0].point.longitude,
-          disasterType,
+          disasterType: eventTypeSpec.id,
           startDate: !_.isEmpty(eventData.dates) ? eventData.dates[0] : "",
           severity,
           displayProps,
@@ -359,7 +383,7 @@ function getCustomDateRanges(): { [dateKey: string]: [string, string] } {
  * Gets the date range to use for fetching disaster event data when given a
  * selectedDate string.
  */
-function getDateRange(selectedDate: string): [string, string] {
+export function getDateRange(selectedDate: string): [string, string] {
   const customDateRanges = getCustomDateRanges();
   return selectedDate in customDateRanges
     ? customDateRanges[selectedDate]
@@ -387,10 +411,9 @@ export function fetchDisasterEventPoints(
           eventType,
           dataOptions.place,
           dateRange,
-          eventSpec.id,
+          eventSpec,
           dataOptions.severityFilters[eventSpec.id],
-          dataOptions.useCache,
-          eventSpec.displayProp
+          dataOptions.useCache
         )
       );
     }
@@ -587,14 +610,13 @@ export function getUseCache(): boolean {
 /**
  * gets the severity value for a disaster event point
  * @param eventPoint event point to get the severity value from
- * @param eventTypeSpec event type spec used for the disaster event map
+ * @param eventTypeSpec event type spec to use to get the severity value
  */
 function getSeverityValue(
   eventPoint: DisasterEventPoint,
-  eventTypeSpec: Record<string, EventTypeSpec>
+  eventTypeSpec: EventTypeSpec
 ): number {
-  const severityFilter =
-    eventTypeSpec[eventPoint.disasterType].defaultSeverityFilter;
+  const severityFilter = eventTypeSpec.defaultSeverityFilter;
   if (!severityFilter || !(severityFilter.prop in eventPoint.severity)) {
     return null;
   }
@@ -602,27 +624,24 @@ function getSeverityValue(
 }
 
 /**
- * Gets the map points data for each disaster type for a list of disaster event
+ * Gets the map points data for a disaster type for a list of disaster event
  * points.
  * @param eventPoints event points to use for the map points data
  * @param eventTypeSpec the event type spec for the disaster event map
  */
 export function getMapPointsData(
   eventPoints: DisasterEventPoint[],
-  eventTypeSpec: Record<string, EventTypeSpec>
-): Record<string, MapPointsData> {
-  const mapPointsData = {};
+  eventTypeSpec: EventTypeSpec
+): MapPointsData {
+  const mapPointsData = {
+    points: [],
+    values: {},
+  };
   eventPoints.forEach((point) => {
-    if (!(point.disasterType in mapPointsData)) {
-      mapPointsData[point.disasterType] = {
-        points: [],
-        values: {},
-      };
-    }
-    mapPointsData[point.disasterType].points.push(point);
+    mapPointsData.points.push(point);
     const severityValue = getSeverityValue(point, eventTypeSpec);
     if (severityValue != null) {
-      mapPointsData[point.disasterType].values[point.placeDcid] = severityValue;
+      mapPointsData.values[point.placeDcid] = severityValue;
     }
   });
   return mapPointsData;

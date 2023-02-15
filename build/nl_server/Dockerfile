@@ -19,6 +19,7 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
+COPY nl_app.py /workspace/nl_app.py
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
 RUN pip3 install --no-cache-dir \
@@ -27,5 +28,5 @@ RUN pip3 install --no-cache-dir \
 COPY nl_server/. /workspace/nl_server/
 
 # Run server
-WORKDIR /workspace/nl_server
-CMD exec gunicorn --timeout 60 --bind :6060 main:app
+WORKDIR /workspace
+CMD exec gunicorn --timeout 60 --bind :6060 nl_app:app

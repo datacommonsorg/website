@@ -13,12 +13,13 @@
 # limitations under the License.
 """Utterance JSONs for tests."""
 
-from lib.nl.detection import ClassificationType
-from lib.nl.detection import EventType
-from lib.nl.detection import RankingType
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import TimeDeltaType
+from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import EventType
+from server.lib.nl.detection import RankingType
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import QueryType
+from server.lib.nl.utterance import TimeDeltaType
 
 # Utterance for Place Overview.
 SIMPLE_PLACE_ONLY_UTTR = {
@@ -29,7 +30,7 @@ SIMPLE_PLACE_ONLY_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
+    'query_type': QueryType.OVERVIEW,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -65,7 +66,7 @@ OVERVIEW_PLACE_ONLY_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.OVERVIEW,
+    'query_type': QueryType.OVERVIEW,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -99,7 +100,7 @@ SIMPLE_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
+    'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -153,7 +154,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
+    'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -207,7 +208,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
+    'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -284,7 +285,7 @@ COMPARISON_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.COMPARISON,
+    'query_type': QueryType.COMPARISON,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -346,7 +347,7 @@ CONTAINED_IN_UTTR = {
     }],
     'places': [],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.CONTAINED_IN,
+    'query_type': QueryType.CONTAINED_IN,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -399,7 +400,7 @@ CORRELATION_UTTR = {
     }],
     'places': [],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.CORRELATION,
+    'query_type': QueryType.CORRELATION,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -452,11 +453,11 @@ RANKING_ACROSS_PLACES_UTTR = {
         'type': ClassificationType.RANKING
     }, {
         'contained_in_place_type': 'County',
-        'type': ClassificationType.CONTAINED_IN,
+        'type': QueryType.CONTAINED_IN,
     }],
     'places': [],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.RANKING,
+    'query_type': QueryType.RANKING_ACROSS_PLACES,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -489,7 +490,7 @@ RANKING_ACROSS_SVS_UTTR = {
     }],
     'places': [],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.RANKING,
+    'query_type': QueryType.RANKING_ACROSS_VARS,
     'ranked_charts': [{
         'attr': {
             'block_id': 2,
@@ -526,7 +527,7 @@ TIME_DELTA_UTTR = {
     }],
     'places': [],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.TIME_DELTA,
+    'query_type': QueryType.TIME_DELTA,
     'ranked_charts': [{
         'attr': {
             'block_id': 2,
@@ -600,7 +601,7 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
+    'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -659,7 +660,7 @@ EVENT_UTTR = {
         'place_type': 'State'
     }],
     'query': 'foo sv in place',
-    'query_type': ClassificationType.EVENT,
+    'query_type': QueryType.EVENT,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,

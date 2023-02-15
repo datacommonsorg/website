@@ -15,23 +15,22 @@
 import logging
 from typing import List
 
-from lib.nl import utils
-from lib.nl.detection import Place
-from lib.nl.fulfillment.base import add_chart_to_utterance
-from lib.nl.fulfillment.base import ChartVars
-from lib.nl.fulfillment.base import populate_charts
-from lib.nl.fulfillment.base import PopulateState
-from lib.nl.utterance import ChartOriginType
-from lib.nl.utterance import ChartType
-from lib.nl.utterance import Utterance
+from server.lib.nl import utils
+from server.lib.nl.detection import Place
+from server.lib.nl.fulfillment.base import add_chart_to_utterance
+from server.lib.nl.fulfillment.base import ChartVars
+from server.lib.nl.fulfillment.base import populate_charts
+from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.utterance import ChartOriginType
+from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import Utterance
 
 # Number of variables to plot in a chart (largely Timeline chart)
 _MAX_VARS_PER_CHART = 5
 
 
 def populate(uttr: Utterance) -> bool:
-  return populate_charts(
-      PopulateState(uttr=uttr, main_cb=_populate_cb, fallback_cb=_fallback_cb))
+  return populate_charts(PopulateState(uttr=uttr, main_cb=_populate_cb))
 
 
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
@@ -67,14 +66,3 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
 
   return add_chart_to_utterance(chart_type, state, chart_vars, places,
                                 chart_origin)
-
-
-def _fallback_cb(state: PopulateState, places: List[Place],
-                 chart_origin: ChartOriginType) -> bool:
-  # If NO SVs were found, then this is a OVERVIEW chart, added to a new block.
-  state.block_id += 1
-  chart_vars = ChartVars(svs=[],
-                         block_id=state.block_id,
-                         include_percapita=False)
-  return add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
-                                places, chart_origin)

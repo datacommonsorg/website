@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 import unittest
 from unittest.mock import patch
 
-from main import app
+from web_app import app
 
 
 class TestRoute(unittest.TestCase):
@@ -33,7 +32,7 @@ class TestRoute(unittest.TestCase):
     response = app.test_client().get('/factcheck/blog')
     assert response.status_code == 200
 
-  @patch('routes.factcheck.list_blobs')
+  @patch('server.routes.factcheck.list_blobs')
   def test_download(self, mock_list_blobs):
     mock_list_blobs.side_effect = (lambda bucket, max_blobs: [])
     response = app.test_client().get('/factcheck/download')

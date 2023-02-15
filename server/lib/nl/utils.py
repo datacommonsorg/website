@@ -21,12 +21,12 @@ import os
 import re
 from typing import Dict, List, Set, Union
 
-import lib.nl.constants as constants
-import lib.nl.detection as detection
-import lib.nl.fulfillment.context as ctx
-import lib.nl.utterance as nl_uttr
-import lib.util as util
-import services.datacommons as dc
+import server.lib.nl.constants as constants
+import server.lib.nl.detection as detection
+import server.lib.nl.fulfillment.context as ctx
+import server.lib.nl.utterance as nl_uttr
+import server.lib.util as util
+import server.services.datacommons as dc
 
 # TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
@@ -34,18 +34,18 @@ _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.jso
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
 _SV_DISPLAY_NAME_OVERRIDE = {
-    "ProjectedMax_Until_2030_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme max temperature increase before 2030",
-    "ProjectedMax_Until_2040_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme max temperature increase before 2040",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245":
-        "Extreme max temperature increase before 2050",
-    "ProjectedMin_Until_2030_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme min temperature decrease before 2030",
-    "ProjectedMin_Until_2040_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme min temperature decrease before 2040",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate2015_Min_Temperature_SSP245":
-        "Extreme min temperature decrease before 2050",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
+        "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (°C)",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
+        "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (°C)",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
+        "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
+        "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (°C)",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
+        "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (°C)",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
+        "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
     "Percent_Person_WithArthritis":
         "Arthritis",
     "Percent_Person_WithAsthma":
@@ -76,6 +76,21 @@ _SV_DISPLAY_NAME_OVERRIDE = {
         "Household Median Income",
     "Median_Earnings_Person":
         "Individual Median Earnings",
+}
+
+_SV_DISPLAY_FOOTNOTE_OVERRIDE = {
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
+        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
+        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
+        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
+        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
+        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
+        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
 }
 
 
@@ -469,6 +484,21 @@ def clean_sv_name(name: str) -> str:
   return name
 
 
+def get_sv_footnote(all_svs: List[str]) -> Dict:
+  sv2footnote_raw = dc.property_values(all_svs, 'footnote')
+  uncurated_footnotes = {
+      sv: footnotes[0] if footnotes else ''
+      for sv, footnotes in sv2footnote_raw.items()
+  }
+  sv_map = {}
+  for sv in all_svs:
+    if sv in _SV_DISPLAY_FOOTNOTE_OVERRIDE:
+      sv_map[sv] = _SV_DISPLAY_FOOTNOTE_OVERRIDE[sv]
+    else:
+      sv_map[sv] = uncurated_footnotes[sv]
+  return sv_map
+
+
 def get_only_svs(svs: List[str]) -> List[str]:
   ret = []
   for sv in svs:
@@ -539,3 +569,9 @@ def get_time_delta_types(
                  detection.TimeDeltaClassificationAttributes)):
     time_delta = classification[0].attributes.time_delta_types
   return time_delta
+
+
+def pluralize_place_type(place_type: str) -> str:
+  result = constants.PLACE_TYPE_TO_PLURALS.get(
+      place_type.lower(), constants.PLACE_TYPE_TO_PLURALS["place"])
+  return result.title()

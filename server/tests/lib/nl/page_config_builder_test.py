@@ -18,23 +18,24 @@ from typing import Dict
 import unittest
 from unittest.mock import patch
 
-from config.subject_page_pb2 import SubjectPageConfig
 from google.protobuf import text_format
-from lib.nl import page_config_next
-from lib.nl import topic
-from lib.nl import utils
-from lib.nl import utterance
 from parameterized import parameterized
-from tests.lib.nl.test_utterance import COMPARISON_UTTR
-from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
-from tests.lib.nl.test_utterance import CORRELATION_UTTR
-from tests.lib.nl.test_utterance import EVENT_UTTR
-from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
-from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
-from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
+
+from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.nl import page_config_builder
+from server.lib.nl import topic
+from server.lib.nl import utils
+from server.lib.nl import utterance
+from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
+from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
+from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
+from server.tests.lib.nl.test_utterance import EVENT_UTTR
+from server.tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
+from server.tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
+from server.tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 
 # TODO: Move these configs to test_data/*.textproto
 
@@ -64,12 +65,12 @@ SIMPLE_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Male-name"
+         title: "Count_Person_Male-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
        }
        tiles {
-         title: "Count_Person_Male-name - Per Capita"
+         title: "Per Capita Count_Person_Male-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
        }
@@ -78,12 +79,12 @@ SIMPLE_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Female-name"
+         title: "Count_Person_Female-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Count_Person_Female-name - Per Capita"
+         title: "Per Capita Count_Person_Female-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Female_pc"
        }
@@ -135,12 +136,12 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Male-name"
+         title: "Count_Person_Male-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
        }
        tiles {
-         title: "Count_Person_Male-name - Per Capita"
+         title: "Per Capita Count_Person_Male-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
        }
@@ -149,13 +150,13 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compare with Other Variables"
+         title: "Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Compare with Other Variables - Per Capita"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
          stat_var_key: "Count_Person_Female_pc"
@@ -208,12 +209,12 @@ SIMPLE_WITH_TOPIC_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name"
+         title: "Count_Farm-name in Foo Place"
          type: LINE
          stat_var_key: "Count_Farm"
        }
        tiles {
-         title: "Area_Farm-name"
+         title: "Area_Farm-name in Foo Place"
          type: LINE
          stat_var_key: "Area_Farm"
        }
@@ -223,13 +224,13 @@ SIMPLE_WITH_TOPIC_CONFIG = """
     description: "svpg desc"
      columns {
        tiles {
-         title: "Compare with Other Variables"
+         title: "Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice"
          stat_var_key: "FarmInventory_Barley"
        }
        tiles {
-         title: "Compare with Other Variables - Per Capita"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice_pc"
          stat_var_key: "FarmInventory_Barley_pc"
@@ -296,14 +297,14 @@ COMPARISON_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Total"
+         title: "Count_Person_Male-name"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block"
          comparison_places: "geoId/06"
          comparison_places: "geoId/32"
        }
        tiles {
-         title: "Per Capita"
+         title: "Per Capita Count_Person_Male-name"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block_pc"
          comparison_places: "geoId/06"
@@ -314,14 +315,14 @@ COMPARISON_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Total"
+         title: "Count_Person_Female-name"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block"
          comparison_places: "geoId/06"
          comparison_places: "geoId/32"
        }
        tiles {
-         title: "Per Capita"
+         title: "Per Capita Count_Person_Female-name"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block_pc"
          comparison_places: "geoId/06"
@@ -379,12 +380,12 @@ CONTAINED_IN_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name"
+         title: "Count_Farm-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Count_Farm"
        }
        tiles {
-         title: "Count_Farm-name - Per Capita"
+         title: "Per Capita Count_Farm-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Count_Farm_pc"
        }
@@ -393,12 +394,12 @@ CONTAINED_IN_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name"
+         title: "Income_Farm-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Income_Farm"
        }
        tiles {
-         title: "Income_Farm-name - Per Capita"
+         title: "Per Capita Income_Farm-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Income_Farm_pc"
        }
@@ -454,7 +455,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name vs. Mean_Precipitation-name"
+         title: "Count_Farm-name vs. Mean_Precipitation-name in Counties of Foo Place"
          type: SCATTER
          stat_var_key: "Count_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -467,7 +468,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name vs. Mean_Precipitation-name"
+         title: "Income_Farm-name vs. Mean_Precipitation-name in Counties of Foo Place"
          type: SCATTER
          stat_var_key: "Income_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -512,10 +513,10 @@ RANKING_ACROSS_PLACES_CONFIG = """
  categories {
   description: "Here are some ranking tables about Count_Agricultural_Workers-name in Foo Place."
    blocks {
-     title: "Count_Agricultural_Workers-name"      
+     title: "Count_Agricultural_Workers-name"
      columns {
        tiles {
-         title: "Count_Agricultural_Workers-name in Foo Place"
+         title: "Count_Agricultural_Workers-name in Counties of Foo Place"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers"
          ranking_tile_spec {
@@ -524,17 +525,18 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
-         title: "Count_Agricultural_Workers-name"
+         title: "Count_Agricultural_Workers-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Count_Agricultural_Workers"
        }
       }
+      footnote: "Count_Agricultural_Workers-footnote"
     }
     blocks {
-      title: "Count_Agricultural_Workers-name - Per Capita"
+      title: "Per Capita Count_Agricultural_Workers-name"
       columns {
        tiles {
-         title: "Per Capita Count_Agricultural_Workers-name in Foo Place"
+         title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers_pc"
          ranking_tile_spec {
@@ -543,7 +545,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
-         title: "Count_Agricultural_Workers-name - Per Capita"
+         title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place"
          type: MAP
          stat_var_key: "Count_Agricultural_Workers_pc"
        }
@@ -578,7 +580,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compare with Other Variables"
+         title: "Compared with Other Variables in Foo Place"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block"
@@ -586,7 +588,7 @@ RANKING_ACROSS_SVS_CONFIG = """
          comparison_places: "geoId/06"
        }
        tiles {
-         title: "Compare with Other Variables - Per Capita"
+         title: "Per Capita Compared with Other Variables in Foo Place"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block_pc"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block_pc"
@@ -668,6 +670,9 @@ EVENT_CONFIG = """
          upper_limit: 1000.0
          display_name: "Area"
        }
+       end_date_prop: "endDate"
+       end_date_prop: "containmentDate"
+       end_date_prop: "controlledDate"
      }
    }
    contained_place_types {
@@ -680,7 +685,7 @@ EVENT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Most severe fires"
+         title: "Most severe fires in Foo Place"
          type: TOP_EVENT
          top_event_tile_spec {
            event_type_key: "fire"
@@ -690,9 +695,10 @@ EVENT_CONFIG = """
      }
      columns {
        tiles {
+         title: "Fires in Foo Place"
          type: DISASTER_EVENT_MAP
          disaster_event_map_tile_spec {
-           event_type_keys: "fire"
+           point_event_type_key: "fire"
          }
        }
      }
@@ -720,6 +726,9 @@ metadata {
         upper_limit: 1000
         lower_limit: 25
       }
+     end_date_prop: "endDate"
+     end_date_prop: "containmentDate"
+     end_date_prop: "controlledDate"
     }
   }
 }
@@ -732,7 +741,7 @@ categories {
       tiles {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
-          event_type_keys: "fire"
+          point_event_type_key: "fire"
         }
       }
     }
@@ -771,25 +780,31 @@ class TestPageConfigNext(unittest.TestCase):
       ],
       ["RankingAcrossSVs", RANKING_ACROSS_SVS_UTTR, RANKING_ACROSS_SVS_CONFIG],
   ])
+  @patch.object(utils, 'get_sv_footnote')
   @patch.object(topic, 'get_topic_name')
   @patch.object(utils, 'parent_place_names')
   @patch.object(utils, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
-                mock_parent_place_names, mock_topic_name):
+                mock_parent_place_names, mock_topic_name, mock_sv_footnote):
     random.seed(1)
     mock_sv_name.side_effect = (
         lambda svs: {sv: "{}-name".format(sv) for sv in svs})
     mock_parent_place_names.side_effect = (
         lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
     mock_topic_name.side_effect = (lambda dcid: dcid.split('/')[-1])
+    mock_sv_footnote.side_effect = (
+        lambda svs: {sv: "{}-footnote".format(sv) for sv in svs})
+
     got = _run(uttr_dict)
     self.maxDiff = None
     self.assertEqual(got, _textproto(config_str), test_name + ' failed!')
 
+  @patch.object(utils, 'get_sv_footnote')
   @patch.object(utils, 'get_sv_name')
-  def test_event(self, mock_sv_name):
+  def test_event(self, mock_sv_name, mock_sv_footnote):
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs: {sv: sv for sv in svs})
+    mock_sv_footnote.side_effect = (lambda svs: {sv: '' for sv in svs})
 
     disaster_config = SubjectPageConfig()
     text_format.Parse(DISASTER_TEST_CONFIG, disaster_config)
@@ -802,6 +817,8 @@ class TestPageConfigNext(unittest.TestCase):
 def _textproto(s):
   config = SubjectPageConfig()
   text_format.Parse(s, config)
+  # Temporarily drop category descriptions
+  config.categories[0].description = ''
   return text_format.MessageToString(config)
 
 
@@ -809,4 +826,4 @@ def _run(uttr_dict: Dict,
          config: SubjectPageConfig = None) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
   return text_format.MessageToString(
-      page_config_next.build_page_config(uttr, config))
+      page_config_builder.build_page_config(uttr, config))
