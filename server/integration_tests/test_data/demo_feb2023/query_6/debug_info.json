@@ -5,7 +5,6 @@
   "correlation_classification": "<None>",
   "counters": {
     "failed_populate_callback_primary": 2,
-    "failed_populate_callback_secondary": 1,
     "filtered_svs": [
       "dc/topic/MedicalConditions",
       "Percent_Person_WithPhysicalHealthNotGood",
@@ -15,22 +14,6 @@
     "num_chart_candidates": 1,
     "processed_fulfillment_types": [
       "ranking_across_vars"
-    ],
-    "ranking-across-vars_failed_cb_notpeergroup": [
-      [
-        "Percent_Person_WithArthritis",
-        "Percent_Person_WithAsthma",
-        "Percent_Person_WithCancerExcludingSkinCancer",
-        "Percent_Person_WithChronicKidneyDisease",
-        "Percent_Person_WithChronicObstructivePulmonaryDisease",
-        "Percent_Person_WithCoronaryHeartDisease",
-        "Percent_Person_WithDiabetes",
-        "Percent_Person_WithHighBloodPressure",
-        "Percent_Person_WithHighCholesterol",
-        "Percent_Person_WithMentalHealthNotGood",
-        "Percent_Person_WithPhysicalHealthNotGood",
-        "Percent_Person_WithStroke"
-      ]
     ],
     "ranking-across-vars_failed_cb_toofewvars": [
       [
