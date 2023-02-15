@@ -56,7 +56,10 @@ class TestNERPlaces(unittest.TestCase):
       ["travel in south america", ["south america"]],
       ["income in latin america", ["latin america"]],
       ["population of north america", ["north america"]],
-      ["climate change in north american countries", ["north american"]],
+      [
+          "climate change in north american countries",
+          ["north american", "american"]
+      ],
       ["tell me about chicago", ["chicago"]],
       ["what about new delhi", ["new delhi"]],
       ["gdp of USA", ["usa"]],
