@@ -64,35 +64,6 @@
         ]
       }
     ],
-    "failed_existence_check_extended_svs": [
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_HeatEvent"
-        ]
-      }
-    ],
     "filtered_svs": [
       "dc/topic/ProjectedClimateExtremes",
       "Count_HeatEvent"

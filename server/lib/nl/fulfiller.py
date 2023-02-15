@@ -41,7 +41,7 @@ def fulfill(query_detection: Detection,
   # Construct Utterance datastructure.
   uttr = Utterance(prev_utterance=currentUtterance,
                    query=query_detection.original_query,
-                   query_type=ClassificationType.UNKNOWN,
+                   query_type=QueryType.UNKNOWN,
                    detection=query_detection,
                    places=[],
                    classifications=query_detection.classifications,

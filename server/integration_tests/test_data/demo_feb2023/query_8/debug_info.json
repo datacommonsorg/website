@@ -37,7 +37,7 @@
       "dc/g/Person_MedicalCondition-HighBloodPressure",
       "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
     ],
-    "num_chart_candidates": 2,
+    "num_chart_candidates": 1,
     "processed_fulfillment_types": [
       "ranking_across_places"
     ],
@@ -111,44 +111,6 @@
           "svs": [
             "Percent_Person_WithHighBloodPressure"
           ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "ranking table",
-            "class": 1,
-            "description": "",
-            "include_percapita": true,
-            "place_type": "County",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 2,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/USA",
-              "name": "United States of America",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "Percent_Person_WithArthritis",
-            "Percent_Person_WithAsthma",
-            "Percent_Person_WithCancerExcludingSkinCancer",
-            "Percent_Person_WithChronicKidneyDisease",
-            "Percent_Person_WithChronicObstructivePulmonaryDisease",
-            "Percent_Person_WithCoronaryHeartDisease",
-            "Percent_Person_WithDiabetes",
-            "Percent_Person_WithHighBloodPressure",
-            "Percent_Person_WithHighCholesterol",
-            "Percent_Person_WithMentalHealthNotGood",
-            "Percent_Person_WithPhysicalHealthNotGood",
-            "Percent_Person_WithStroke"
-          ]
         }
       ],
       "svs": [
@@ -205,44 +167,6 @@
           ],
           "svs": [
             "Percent_Person_WithHighBloodPressure"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "ranking table",
-            "class": 1,
-            "description": "",
-            "include_percapita": true,
-            "place_type": "County",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 2,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "Percent_Person_WithArthritis",
-            "Percent_Person_WithAsthma",
-            "Percent_Person_WithCancerExcludingSkinCancer",
-            "Percent_Person_WithChronicKidneyDisease",
-            "Percent_Person_WithChronicObstructivePulmonaryDisease",
-            "Percent_Person_WithCoronaryHeartDisease",
-            "Percent_Person_WithDiabetes",
-            "Percent_Person_WithHighBloodPressure",
-            "Percent_Person_WithHighCholesterol",
-            "Percent_Person_WithMentalHealthNotGood",
-            "Percent_Person_WithPhysicalHealthNotGood",
-            "Percent_Person_WithStroke"
           ]
         }
       ],
