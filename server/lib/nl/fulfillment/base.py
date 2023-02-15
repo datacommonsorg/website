@@ -30,6 +30,7 @@ from server.lib.nl.fulfillment import context
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartSpec
 from server.lib.nl.utterance import ChartType
+from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance
 
 # TODO: Factor classification processing functions into a common place.
@@ -218,6 +219,13 @@ def _add_charts(state: PopulateState, places: List[Place],
           })
           logging.info('Existence check failed for %s - %s',
                        ', '.join(places_to_check), ', '.join(chart_vars.svs))
+
+    # Handle extended/comparable SVs only for simple query since
+    # for those we would construct a single bar chart comparing the differe
+    # variables.  For other query-types like map/ranking/scatter, we will have
+    # indidividual "related" charts, and those don't look good.
+    if state.uttr.query_type != QueryType.SIMPLE:
+      continue
 
     # Infer comparison charts with extended SVs.
     extended_svs = sv2extensions.get(sv, [])

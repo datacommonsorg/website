@@ -55,6 +55,8 @@ def scatter():
               code=302))
 
 
+# Note: The trailing '/' helps in redirecting `/nlnext/#q=some+query+here` to `/nl/#q=some+query+here`
+@bp.route('/nlnext/')
 @bp.route('/nlnext')
 def nlnext():
   return redirect(url_for('nl.page'), code=302)
