@@ -193,6 +193,8 @@ SPECIAL_PLACES_TO_GEOIDS: Dict[str, str] = {
     'south american continent': 'southamerica',
     'latin america': 'southamerica',
     'latinamerica': 'southamerica',
+    'latin american': 'southamerica',
+    'latinamerican': 'southamerica',
     'latin american continent': 'southamerica',
     'australian continent': 'oceania',
     'australasia': 'oceania',
