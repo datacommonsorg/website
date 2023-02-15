@@ -54,8 +54,8 @@ def scatter():
               _scheme=current_app.config.get('SCHEME', 'https'),
               code=302))
 
-
-@bp.route('/nlnext')
+# Note: The trailing '/' helps in redirecting `/nlnext/#q=some+query+here` to `/nl/#q=some+query+here`
+@bp.route('/nlnext/')
 def nlnext():
   return redirect(url_for('nl.page'), code=302)
 
