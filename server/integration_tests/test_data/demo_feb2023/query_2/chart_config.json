@@ -11,7 +11,6 @@
                     "title": "Most severe fires in California",
                     "topEventTileSpec": {
                       "eventTypeKey": "fire",
-                      "showEndDate": true,
                       "showStartDate": true
                     },
                     "type": "TOP_EVENT"
@@ -46,7 +45,7 @@
           "color": "#f01212",
           "defaultSeverityFilter": {
             "displayName": "Area",
-            "lowerLimit": 25.0,
+            "lowerLimit": 100.0,
             "prop": "area",
             "unit": "SquareKilometer",
             "upperLimit": 1000.0

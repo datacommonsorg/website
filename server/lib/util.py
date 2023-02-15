@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from datetime import datetime
+import gzip
 import hashlib
 import json
 import logging
@@ -21,6 +22,7 @@ import time
 from typing import List
 import urllib
 
+from flask import make_response
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
@@ -48,6 +50,10 @@ TOPIC_PAGE_CONFIGS = {
     'equity': ['USA', 'CA'],
     'poverty': ['USA', 'India'],
 }
+
+# Levels range from 0 (fastest, least compression), to 9 (slowest, most
+# compression).
+GZIP_COMPRESSION_LEVEL = 3
 
 
 def get_repo_root():
@@ -246,3 +252,17 @@ def check_backend_ready(urls: List[str]):
     if total_sleep_seconds > _ready_check_timeout:
       raise RuntimeError('%s not ready after %s second' % urls,
                          _ready_check_timeout)
+
+
+def gzip_compress_response(raw_content, is_json):
+  """Returns a gzip-compressed response object"""
+  if is_json:
+    raw_content = json.dumps(raw_content)
+  compressed_content = gzip.compress(raw_content.encode('utf8'),
+                                     GZIP_COMPRESSION_LEVEL)
+  response = make_response(compressed_content)
+  response.headers['Content-Length'] = len(compressed_content)
+  response.headers['Content-Encoding'] = 'gzip'
+  if is_json:
+    response.headers['Content-Type'] = 'application/json'
+  return response

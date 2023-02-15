@@ -104,7 +104,7 @@ class Utterance:
   # Result of classification
   detection: Detection
   # A characterization of the query.
-  query_type: ClassificationType
+  query_type: QueryType
   # Primary places
   places: List[Place]
   # Primary variables
@@ -263,7 +263,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
     udict = uttr_dicts[len(uttr_dicts) - 1 - i]
     uttr = Utterance(prev_utterance=prev_uttr,
                      query=udict['query'],
-                     query_type=ClassificationType(udict['query_type']),
+                     query_type=QueryType(udict['query_type']),
                      svs=udict['svs'],
                      places=_dict_to_place(udict['places']),
                      classifications=_dict_to_classification(
