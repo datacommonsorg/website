@@ -18,6 +18,7 @@ from server.lib.nl.detection import ClassificationAttributes
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Place
 from server.lib.nl.utterance import CTX_LOOKBACK_LIMIT
+from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance
 
 #
@@ -101,16 +102,16 @@ def _combine_places(l1: List[Place], l2: List[Place]) -> List[Place]:
   return l1 + [p for p in l2 if p.dcid not in dcids]
 
 
-def query_type_from_context(uttr: Utterance) -> List[ClassificationType]:
+def query_type_from_context(uttr: Utterance) -> List[QueryType]:
   # this needs to be made a lot smarter ...
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
-    if (not (prev.query_type == ClassificationType.UNKNOWN)):
+    if (not (prev.query_type == QueryType.UNKNOWN)):
       return prev.query_type
     prev = prev.prev_utterance
     prev_uttr_count = prev_uttr_count + 1
-  return ClassificationType.SIMPLE
+  return QueryType.SIMPLE
 
 
 def classifications_of_type_from_context(
