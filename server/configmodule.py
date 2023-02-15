@@ -183,6 +183,7 @@ class TestConfig(Config):
   TEST = True
   API_ROOT = 'api-root'
   SCHEME = 'http'
+  USE_MEMCACHE = False
 
 
 class IntegrationTestConfig(Config):

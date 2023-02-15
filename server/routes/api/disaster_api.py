@@ -21,6 +21,8 @@ from flask import current_app
 from flask import request
 from flask import Response
 
+from server.cache import cache
+import server.lib.util as lib_util
 import server.services.datacommons as dc
 
 # Define blueprint
@@ -193,10 +195,11 @@ def json_event_data():
   result = {}
   if event_points:
     result = {"eventCollection": {"events": event_points, "provenanceInfo": {}}}
-  return Response(json.dumps(result), 200, mimetype='application/json')
+  return lib_util.gzip_compress_response(result, is_json=True)
 
 
 @bp.route('/event-data')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def event_data():
   """Gets the event data for a given eventType, date range, place, and
       filter information (filter prop, unit, lower limit, and upper limit).
@@ -264,4 +267,4 @@ def event_data():
             "provenanceInfo": provenance_info
         }
     }
-  return Response(json.dumps(result), 200, mimetype='application/json')
+  return lib_util.gzip_compress_response(result, is_json=True)
