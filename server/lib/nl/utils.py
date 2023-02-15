@@ -517,6 +517,90 @@ def parent_place_names(dcid: str) -> List[str]:
   return None
 
 
+def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
+  """Returns all strings in the `query` detectd as places.
+  
+  Uses many string transformations of `query`, e.g. Title Case, to produce
+  candidate query strings which are all used for place detection. Among the
+  detected places, any place string entirely contained inside another place
+  string is ignored, i.e. if both "New York" and "New York City" are detected
+  then only "New York City" is returned.
+  
+  `query_fn` is the function used with every query string to detect places.
+  This function should only expect one required argument: the a query string
+  and returns a list of place strings detected in the provided string.
+  """
+  # Run through all heuristics (various query string transforms).
+  query = remove_punctuations(query)
+  query_lower = query.lower()
+  query_without_stop_words = remove_stop_words(query, constants.STOP_WORDS)
+  query_title_case = query.title()
+  query_without_stop_words_title_case = query_without_stop_words.title()
+
+  # TODO: work on finding a better fix for important places which are
+  # not getting detected.
+  # First check in special places. If they are found, add those first.
+  places_found = []
+  for special_place in constants.SPECIAL_PLACES:
+    if special_place in query.lower():
+      logging.info(f"Found one of the Special Places: {special_place}")
+      places_found.append(special_place)
+
+  # Now try all versions of the query.
+  for q in [
+      query, query_lower, query_without_stop_words, query_title_case,
+      query_without_stop_words_title_case
+  ]:
+    logging.info(f"Trying place detection with: {q}")
+    try:
+      for p in query_fn(q):
+        # Add if not already done. Also check for the special places which get
+        # added with a ", usa" appended.
+        if (p.lower() not in places_found):
+          places_found.append(p.lower())
+    except Exception as e:
+      logging.info(
+          f"query_fn {query_fn} raised an exception for query: '{q}'. Exception: {e}"
+      )
+
+  places_to_return = []
+  # Check if any of the detected place strings are entirely contained inside
+  # another detected string. If so, give the longer place string preference.
+  # Example: in the query "how about new york state", if both "new york" and
+  # "new york state" are detected, then prefer "new york state". Similary for
+  # "new york city", "san mateo county", "santa clara county" etc.
+  for i in range(0, len(places_found)):
+    ignore = False
+    for j in range(0, len(places_found)):
+      # Checking if the place at index i is contained entirely inside
+      # another place at index j != i. If so, it can be ignored.
+      if i != j and places_found[i] in places_found[j]:
+        ignore = True
+        break
+    # Insert places_found[i] in the candidates if it is not to be ignored
+    # and if it is also found in the original query without punctuations.
+    # The extra check to find places_found[i] in `query_lower` is to avoid
+    # situations where the removal of some stop words etc makes the remaining
+    # query have some valid place name words next to each other. For example,
+    # in the query "... united in the states ...", the removal of stop words
+    # results in the remaining query being ".... united states ..." which can
+    # now find "united states" as a place. Therefore, to avoid such situations
+    # we should try to find the place string found in the original (lower case)
+    # query string.
+    if not ignore and places_found[i] in query_lower:
+      places_to_return.append(places_found[i])
+
+  # For all the places detected, re-sort based on the string which occurs first.
+  def fn(p):
+    ind = query_lower.find(p)
+    if ind < 0:
+      return +1000000
+    return ind
+
+  places_to_return.sort(key=fn)
+  return places_to_return
+
+
 # Convenience function to help update counters.
 #
 # For a given counter, caller should always pass the same type

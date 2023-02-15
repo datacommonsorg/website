@@ -13,6 +13,7 @@
 # limitations under the License.
 """Tests for NERPlaces (in nl_ner_place_model.py)."""
 
+import re
 import unittest
 
 from diskcache import Cache
@@ -21,6 +22,13 @@ from parameterized import parameterized
 from nl_server.loader import nl_cache_path
 from nl_server.loader import nl_ner_cache_key
 from nl_server.ner_place_model import NERPlaces
+import server.lib.nl.utils as nl_utils
+
+
+def _remove_punctuations(s):
+  s = s.replace('\'s', '')
+  s = re.sub(r'[^\w\s]', ' ', s)
+  return " ".join(s.split())
 
 
 class TestNERPlaces(unittest.TestCase):
@@ -43,20 +51,51 @@ class TestNERPlaces(unittest.TestCase):
       # All these queries should detect places.
       ["tell me about chicago", ["chicago"]],
       ["what about new delhi", ["new delhi"]],
-      ["California economy and Florida", ["california", "florida"]],
+      ["gdp of USA", ["usa"]],
+      ["america's gnp", ["america"]],
+      ["poverty in the us", ["us"]],
+      [
+          "states with the best places to live in the united states",
+          ["the united states"]
+      ],
+      # Order of detection matters.
       [
           "the place to live is Singapore or Hong Kong",
           ["singapore", "hong kong"]
       ],
+      [
+          "cambridge's economy and Berkeley's",
+          ["cambridge", "berkeley"],
+      ],
+      ["California economy and Florida", ["california", "florida"]],
       ["life expectancy in Australia and Canada", ["australia", "canada"]],
       [
           "why is it always raining in seattle and in London",
           ["seattle", "london"]
       ],
+      [
+          "life expectancy in New York city and Alabama",
+          ["new york city", "alabama"]
+      ],
+      # Check that the full place string is detected.
+      ["tell me about Placer county", ["placer county"]],
+      ["tell me about Santa Clara county", ["santa clara county"]],
+      ["median income in Santa Clara County", ["santa clara county"]],
+      ["family earnings in santa Clara county", ["santa clara county"]],
+      ["Santa Clara county's population", ["santa clara county"]],
+      [
+          "Santa Clara county's population and San Mateo county",
+          ["santa clara county", "san mateo county"]
+      ],
+      ["life expectancy in New York city", ["new york city"]],
+      [
+          "life expectancy in New York city and New York state",
+          ["new york city", "new york state"]
+      ],
   ])
   def test_heuristic_detection(self, query_str, expected):
-    # Covert all detected place string to lower case.
-    got = self.nl_ner_model.detect_places_ner(query_str)
+    got = nl_utils.place_detection_with_heuristics(
+        self.nl_ner_model.detect_places_ner, query_str)
     self.assertEqual(expected, got)
 
   @parameterized.expand(

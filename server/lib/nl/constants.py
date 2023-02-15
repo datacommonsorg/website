@@ -157,6 +157,8 @@ STOP_WORDS: Set[str] = {
 # can always detect these.
 SPECIAL_PLACES: Set[str] = {'palo alto', 'mountain view'}
 
+SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
+
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
 QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
