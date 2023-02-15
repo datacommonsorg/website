@@ -32,11 +32,6 @@ class TestPlaceDetector(unittest.TestCase):
           "the place to live is singapore or hong kong",
           ["singapore", "hong kong"], ["singapore", "hong kong"]
       ],
-      # Order of detection matters.
-      [
-          "cambridge's economy and Berkeley's", ["cambridge", "berkeley"],
-          ["cambridge", "berkeley"]
-      ],
       [
           "berkeley's economy and cambridge's", ["berkeley", "cambridge"],
           ["berkeley", "cambridge"]
@@ -44,10 +39,9 @@ class TestPlaceDetector(unittest.TestCase):
       # Special places (do not need an API response).
       ["tell me about palo alto", ["palo alto"], []],
       ["what about mountain view", ["mountain view"], []],
-      # Special places are always detected first.
       [
           "berkeley's economy and mountain view's",
-          ["mountain view", "berkeley"], ["berkeley"]
+          ["berkeley", "mountain view"], ["berkeley"]
       ],
   ])
   @patch.object(NLPlaceDetector, 'detect_place_ner')

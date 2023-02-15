@@ -27,6 +27,7 @@ from flask import request
 from google.protobuf.json_format import MessageToJson
 import requests
 
+import server.lib.nl.constants as constants
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Detection
 from server.lib.nl.detection import NLClassifier
@@ -54,8 +55,10 @@ def _get_preferred_type(types):
 
 
 def _maps_place(place_str):
+  if place_str.lower() in constants.SPECIAL_PLACE_REPLACEMENTS:
+    place_str = constants.SPECIAL_PLACE_REPLACEMENTS[place_str.lower()]
   api_key = current_app.config["MAPS_API_KEY"]
-  url_formatted = f"{MAPS_API}input={place_str}&key={api_key}"
+  url_formatted = f"{MAPS_API}query={place_str}&key={api_key}"
   r = requests.get(url_formatted)
   resp = r.json()
 
