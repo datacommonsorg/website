@@ -13,10 +13,10 @@
 # limitations under the License.
 
 import copy
+import gzip
 import json
 import unittest
 from unittest import mock
-import gzip
 
 from web_app import app
 

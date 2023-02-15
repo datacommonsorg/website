@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import gzip
 import json
 import unittest
 from unittest.mock import patch
-import gzip
 
 import server.routes.api.choropleth as choropleth_api
 import server.routes.api.shared as shared_api
