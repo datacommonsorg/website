@@ -155,9 +155,68 @@ STOP_WORDS: Set[str] = {
 
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
-SPECIAL_PLACES: Set[str] = {'palo alto', 'mountain view'}
+SPECIAL_PLACES: Set[str] = {
+    'palo alto', 'mountain view', 'world', 'earth', 'african', 'asian',
+    'european', 'north american', 'south american', 'latin american', 'oceania'
+}
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
+
+SPECIAL_PLACES_TO_GEOIDS: Dict[str, str] = {
+    # Earth
+    'earth': 'Earth',
+    'world': 'Earth',
+
+    # Continents
+    'africa': 'africa',
+    'antarctica': 'antarctica',
+    'asia': 'asia',
+    'europe': 'europe',
+    'north america': 'northamerica',
+    'northamerica': 'northamerica',
+    'south america': 'southamerica',
+    'southamerica': 'southamerica',
+    'oceania': 'oceania',
+
+    # Alternates
+    'african': 'africa',
+    'asian': 'asia',
+    'european': 'europe',
+    'north american': 'northamerica',
+    'northamerican': 'northamerica',
+    'south american': 'southamerica',
+    'southamerican': 'southamerica',
+    'african continent': 'africa',
+    'asian continent': 'asia',
+    'european continent': 'europe',
+    'north american continent': 'northamerica',
+    'south american continent': 'southamerica',
+    'latin america': 'southamerica',
+    'latinamerica': 'southamerica',
+    'latin american continent': 'southamerica',
+    'australian continent': 'oceania',
+    'australasia': 'oceania',
+}
+
+MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+
+MAPS_GEO_TYPES = {
+    # Source: https://developers.google.com/maps/documentation/places/web-service/supported_types#table2
+    'political',
+    'country',
+    'city',
+    'county',
+    'continent',
+    'administrative_area_level_1',
+    'administrative_area_level_2',
+    'administrative_area_level_3',
+    'administrative_area_level_4',
+    'administrative_area_level_5',
+    'administrative_area_level_6',
+    'administrative_area_level_7',
+    'postal_code',
+    'locality',
+}
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
