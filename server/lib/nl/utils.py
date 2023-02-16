@@ -76,6 +76,18 @@ _SV_DISPLAY_NAME_OVERRIDE = {
         "Household Median Income",
     "Median_Earnings_Person":
         "Individual Median Earnings",
+    "dc/6rltk4kf75612":
+        "Work at home",
+    "dc/vp8cbt6k79t94":
+        "Walk to work",
+    "dc/hbkh95kc7pkb6":
+        "Public Transit",
+    "dc/wc8q05drd74bd":
+        "Carpool",
+    "dc/0gettc3bc60cb":
+        "Drive alone",
+    "dc/vt2q292eme79f":
+        "Others (incl. Taxcab, Motorcyle, Bicycle)",
 }
 
 _SV_DISPLAY_FOOTNOTE_OVERRIDE = {
