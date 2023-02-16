@@ -14,7 +14,7 @@
 
 project: datcom-mixer-encode
 ip: 34.107.228.109
-domain: stanford-demo.alex-datacommons.dev
+domain: climatetrace.datacommons.org
 region:
   primary: us-central1
   others:
