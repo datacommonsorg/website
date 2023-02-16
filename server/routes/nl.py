@@ -44,8 +44,6 @@ import server.services.datacommons as dc
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
-MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-
 
 def _get_preferred_type(types):
   for t in ['Country', 'State', 'County', 'City']:
@@ -56,20 +54,29 @@ def _get_preferred_type(types):
 
 def _maps_place(place_str):
   if place_str.lower() in constants.SPECIAL_PLACE_REPLACEMENTS:
+    logging.info(f"place_str {place_str} matched a special place.")
     place_str = constants.SPECIAL_PLACE_REPLACEMENTS[place_str.lower()]
+    logging.info(f"place_str replaced with: {place_str}")
+
   api_key = current_app.config["MAPS_API_KEY"]
   # Note on 02/15/2023: Maps textsearch API has deprecated the use of
   # `input` as a url param and instead wants `query`.
   # Reference: https://developers.google.com/maps/deprecations#unsupported-place-search-deprecation
-  url_formatted = f"{MAPS_API}query={place_str}&key={api_key}"
+  url_formatted = f"{constants.MAPS_API}query={place_str}&key={api_key}"
   r = requests.get(url_formatted)
   resp = r.json()
 
   # Return the first "political" place found.
   if "results" in resp:
     for res in resp["results"]:
-      if "political" in res["types"]:
+      types_found = set(res["types"])
+
+      if constants.MAPS_GEO_TYPES.intersection(types_found):
         return res
+
+  logging.info(
+      f"Maps API did not find a result of type in: {constants.MAPS_GEO_TYPES}. Query URL: {url_formatted}. Response: {resp}"
+  )
   return {}
 
 
@@ -100,22 +107,48 @@ def _remove_places(query, places_found):
 
 
 def _infer_place_dcid(places_found):
+  # TODO: propagate several of the logging errors in this function to place detection
+  # state displayed in debugInfo.
   if not places_found:
+    logging.info("places_found is empty. Nothing to retrieve from Maps API.")
     return ""
 
   place_dcid = ""
-  place = _maps_place(places_found[0])
-  # If maps API returned a valid place, use the place_id to
-  # get the dcid.
-  if place and ("place_id" in place):
-    place_id = place["place_id"]
-    logging.info(f"MAPS API found place with place_id: {place_id}")
-    place_ids_map = _dc_recon([place_id])
+  # Iterate over all the places until a valid place DCID is found.
+  for p_str in places_found:
+    # If this is a special place, return the known DCID.
+    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API:
+      place_dcid = constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[p_str.lower()]
+      logging.info(
+          f"{p_str} was found in OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API. Returning its DICD {place_dcid} without querying Maps API."
+      )
+      break
 
-    if place_id in place_ids_map:
-      place_dcid = place_ids_map[place_id]
+    logging.info(f"Searching Maps API with: {p_str}")
+    place = _maps_place(p_str)
+    # If maps API returned a valid place, use the place_id to
+    # get the dcid.
+    if place and ("place_id" in place):
+      place_id = place["place_id"]
+      logging.info(
+          f"MAPS API found place with place_id: {place_id} for place string: {p_str}."
+      )
+      place_ids_map = _dc_recon([place_id])
 
-  logging.info(f"DC API found DCID: {place_dcid}")
+      if place_id in place_ids_map:
+        place_dcid = place_ids_map[place_id]
+        logging.info(f"DC API found DCID: {place_dcid}")
+        break
+      else:
+        logging.info(
+            f"Maps API found a place {place_id} but no DCID match found for place string: {p_str}."
+        )
+    else:
+      logging.info("Maps API did not find a place for place string: {p_str}.")
+
+  if not place_dcid:
+    logging.info(
+        f"No place DCIDs were found. Using places_found = {places_found}")
   return place_dcid
 
 
@@ -249,6 +282,8 @@ def _detection(orig_query, cleaned_query) -> Detection:
                                          place_type=main_place_type))
   else:
     query = cleaned_query
+    # TODO: even if no place_dcid was found, debugInfo should be able to display
+    # the places_found (which can be valid even if no dcid was found).
     place_detection = None
 
   # Step 3: Identify the SV matched based on the query.
