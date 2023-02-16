@@ -332,8 +332,8 @@ export function axios_mock(): void {
       },
     });
 
-  when(axios.get)
-    .calledWith("/api/place/displayname?dcid=geoId/05")
+  when(axios.post)
+    .calledWith("/api/place/displayname", { dcids: ["geoId/05"] })
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",

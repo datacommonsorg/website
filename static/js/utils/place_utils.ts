@@ -21,6 +21,7 @@ import {
   EARTH_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../shared/constants";
+import { DisplayNameApiResponse } from "../shared/stat_types";
 import {
   ChildPlacesByType,
   NamedPlace,
@@ -193,6 +194,27 @@ export function getPlaceNames(
     })
     .then((resp) => {
       return resp.data;
+    });
+}
+
+/**
+ * Given a list of place dcids, returns a promise with a map of dcids to place
+ * display names (display names are different from place names because they
+ * will have the state code at the end of the name if state code is available)
+ */
+export function getPlaceDisplayNames(
+  dcids: string[]
+): Promise<DisplayNameApiResponse> {
+  if (!dcids.length) {
+    return Promise.resolve({});
+  }
+  return axios
+    .post("/api/place/displayname", { dcids })
+    .then((resp) => {
+      return resp.data;
+    })
+    .catch(() => {
+      return {};
     });
 }
 
