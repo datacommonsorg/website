@@ -359,6 +359,7 @@ class Model:
       return None
 
     contained_in_place_type = ContainedInPlaceType.PLACE
+    # place_type_to_enum is an OrderedDict.
     place_type_to_enum = OrderedDict({
         "county": ContainedInPlaceType.COUNTY,
         "state": ContainedInPlaceType.STATE,
@@ -368,18 +369,18 @@ class Model:
         "province": ContainedInPlaceType.PROVINCE,
         "town": ContainedInPlaceType.TOWN,
         "zip": ContainedInPlaceType.ZIP,
-        # Schools (only plurals).
-        "high schools": ContainedInPlaceType.HIGHSCHOOL,
-        "middle schools": ContainedInPlaceType.MIDDLESCHOOL,
-        "elementary schools": ContainedInPlaceType.ELEMENTARYSCHOOL,
-        "primary schools": ContainedInPlaceType.PRIMARYSCHOOL,
-        "public schools": ContainedInPlaceType.PUBLICSCHOOL,
-        "private schools": ContainedInPlaceType.PRIVATESCHOOL,
-        "schools": ContainedInPlaceType.SCHOOL,
+        # Schools.
+        "high school": ContainedInPlaceType.HIGH_SCHOOL,
+        "middle school": ContainedInPlaceType.MIDDLE_SCHOOL,
+        "elementary school": ContainedInPlaceType.ELEMENTARY_SCHOOL,
+        "primary school": ContainedInPlaceType.PRIMARY_SCHOOL,
+        "public school": ContainedInPlaceType.PUBLIC_SCHOOL,
+        "private school": ContainedInPlaceType.PRIVATE_SCHOOL,
+        "school": ContainedInPlaceType.SCHOOL,
     })
 
     query = query.lower()
-    # Note that place_type_to_enum is an OrderedDict.
+    # Note again that place_type_to_enum is an OrderedDict.
     for place_type, place_enum in place_type_to_enum.items():
       if place_type in query:
         contained_in_place_type = place_enum
@@ -387,6 +388,12 @@ class Model:
 
       if place_type in constants.PLACE_TYPE_TO_PLURALS and \
         constants.PLACE_TYPE_TO_PLURALS[place_type] in query:
+        contained_in_place_type = place_enum
+        break
+
+      # Check for school type plurals.
+      if place_type in constants.SCHOOL_TYPE_TO_PLURALS and \
+        constants.SCHOOL_TYPE_TO_PLURALS[place_type] in query:
         contained_in_place_type = place_enum
         break
 

@@ -337,6 +337,16 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "administrativearea5": "administrative area 5 places",
 }
 
+SCHOOL_TYPE_TO_PLURALS: Dict[str, str] = {
+    "high school": "high schools",
+    "middle school": "middle schools",
+    "elementary school": "elementary schools",
+    "primary school": "primary schools",
+    "public school": "public schools",
+    "private school": "private schools",
+    "school": "schools",
+}
+
 # TODO: Unify the different event maps by using a struct value.
 
 # Override the names from configs.  These have plurals, etc.
