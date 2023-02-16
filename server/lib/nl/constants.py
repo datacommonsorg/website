@@ -155,8 +155,10 @@ STOP_WORDS: Set[str] = {
 
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
-OVERRIDE_FOR_NER: FrozenSet[str] = frozenset(
-    ['palo alto', 'mountain view', 'world', 'earth', 'oceania'])
+OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
+    'palo alto', 'mountain view', 'world', 'earth', 'africa', 'antarctica',
+    'asia', 'europe', 'north america', 'south america', 'oceania'
+])
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 

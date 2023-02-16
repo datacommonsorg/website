@@ -50,6 +50,7 @@ class TestNERPlaces(unittest.TestCase):
   @parameterized.expand([
       # All these queries should detect places.
       # Starting with several special cases (continents, US etc).
+      ["GDP of Africa", ["africa"]],
       ["median income in africa", ["africa"]],
       ["GDP of countries in asia", ["asia"]],
       ["economy of Asia", ["asia"]],
