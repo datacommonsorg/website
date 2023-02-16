@@ -111,10 +111,8 @@ def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
   for v_str in list_string:
     if type(v_str) != str:
       continue
-
-    for word in v_str.split():
-      # Only add words which are strings.
-      set_strings.add(word.lower())
+    # Only add sentences/words which are strings.
+    set_strings.add(v_str.lower())
 
 
 def _add_to_set_from_nested_dict(
@@ -143,15 +141,21 @@ def _add_to_set_from_nested_dict(
 
 def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   """Remove stop words from a string and return the remaining in lower case."""
-  res = input_str.lower().split()
-  output = ''
-  for w in res:
-    if (w not in stop_words):
-      output += w + " "
-  if not output:
-    return ''
-  else:
-    return output[:-1]
+
+  # Note: we are removing the full sequence of words in every entry in `stop_words`.
+  # For example, if a stop_words entry is "these words remove" then the entire
+  # sequence "these words remove" will potentially be removed and not individual
+  # occurences of "these", "words" and "remove".
+
+  # Creating a leading and trailing space so that "<space>word<space>"
+  # can be matched.
+  input_str = f" {input_str.lower()} "
+  for words in stop_words:
+    if words in input_str:
+      input_str = input_str.replace(f" {words} ", " ")
+
+  # Return after removing the beginning and trailing white spaces.
+  return input_str.strip()
 
 
 def combine_stop_words() -> Set[str]:
