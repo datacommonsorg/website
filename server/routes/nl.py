@@ -139,10 +139,10 @@ def _infer_place_dcid(places_found):
         logging.info(
             f"Maps API found a place {place_id} but no DCID match found.")
     else:
-      logging.info(f"Maps API did not find a place.")
+      logging.info("Maps API did not find a place.")
 
   if not place_dcid:
-    logging.info(f"No place DCIDs were found.")
+    logging.info("No place DCIDs were found.")
   return place_dcid
 
 
