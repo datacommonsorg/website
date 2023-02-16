@@ -25,7 +25,7 @@ import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
-import { fetchEntityGeoJson } from "../../utils/geojson_utils";
+import { fetchNodeGeoJson } from "../../utils/geojson_utils";
 import { fetchGeoJsonData, getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
@@ -88,7 +88,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         break;
       }
     }
-    const placeGeoJsonPromise = fetchEntityGeoJson(
+    const placeGeoJsonPromise = fetchNodeGeoJson(
       [props.place.dcid],
       placeGeoJsonProp
     );

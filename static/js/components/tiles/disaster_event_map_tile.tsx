@@ -55,7 +55,7 @@ import {
   getMapPointsData,
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
-import { fetchEntityGeoJson } from "../../utils/geojson_utils";
+import { fetchNodeGeoJson } from "../../utils/geojson_utils";
 import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
@@ -72,7 +72,7 @@ const REDIRECT_URL_PREFIX = "/disasters/";
 const MAP_POINTS_MIN_RADIUS = 1.5;
 const MAP_POINTS_MIN_RADIUS_EARTH = 0.8;
 // Set of dcids of places that should use the selected place as the base geojson
-const PLACE_MAP_PLACES = new Set(["country/AUS"]);
+const PLACE_MAP_PLACES = new Set(["country/AUS", "country/BRA"]);
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -286,7 +286,7 @@ export function DisasterEventMapTile(
         const eventDcids = props.disasterEventData[eventType].eventPoints.map(
           (point) => point.placeDcid
         );
-        return fetchEntityGeoJson(
+        return fetchNodeGeoJson(
           eventDcids,
           props.eventTypeSpec[eventType][geoJsonPropKey]
         );
@@ -348,11 +348,13 @@ export function DisasterEventMapTile(
       width,
       {} /* dataValues: no data values to show on the base map */,
       null /* colorScale: no color scale since no data shown on the base map */,
-      (geoDcid: GeoJsonFeatureProperties) =>
-        redirectAction(geoDcid.geoDcid) /* redirectAction */,
+      (geoFeature: GeoJsonFeatureProperties) =>
+        redirectAction(geoFeature.geoDcid) /* redirectAction */,
       (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
-      () =>
-        !isPlaceBaseMap /* canClickRegion: allow all regions to be clickable if not using place base map */,
+      (placeDcid: string) =>
+        placeDcid !==
+        placeInfo.selectedPlace
+          .dcid /* canClickRegion: don't allow clicking region that will redirect to current page */,
       true /* shouldShowBoundaryLines */,
       projection,
       isPlaceBaseMap

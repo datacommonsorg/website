@@ -24,16 +24,16 @@ import { GeoJsonData } from "../chart/types";
 
 /**
  * Get promise for geojson data for a list of events and a geojson prop
- * @param entities dcids of entities to get geojson for
+ * @param nodes dcids of nodes to get geojson for
  * @param geoJsonProp prop to use to get the geojson
  */
-export function fetchEntityGeoJson(
-  entities: string[],
+export function fetchNodeGeoJson(
+  nodes: string[],
   geoJsonProp: string
 ): Promise<GeoJsonData> {
   return axios
-    .post<GeoJsonData>("/api/choropleth/entity-geojson", {
-      entities,
+    .post<GeoJsonData>("/api/choropleth/node-geojson", {
+      nodes,
       geoJsonProp,
     })
     .then((resp) => {
