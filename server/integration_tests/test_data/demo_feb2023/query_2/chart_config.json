@@ -45,7 +45,7 @@
           "color": "#f01212",
           "defaultSeverityFilter": {
             "displayName": "Area",
-            "lowerLimit": 100.0,
+            "lowerLimit": 200.0,
             "prop": "area",
             "unit": "SquareKilometer",
             "upperLimit": 1000.0

@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for disaster dashboard"""
 
+import copy
 import json
 
 import flask
@@ -36,6 +37,8 @@ EUROPE_CONTAINED_PLACE_TYPES = {
     "EurostatNUTS2": "EurostatNUTS3",
     "EurostatNUTS3": "EurostatNUTS3",
 }
+EARTH_FIRE_SEVERITY_MIN = 500
+FIRE_EVENT_TYPE_SPEC = "fire"
 
 # Define blueprint
 bp = Blueprint("disasters", __name__, url_prefix='/disasters')
@@ -66,6 +69,15 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
   if not dashboard_config:
     # Use the default config instead
     dashboard_config = default_config
+
+  # Override the min severity for fires for Earth
+  # TODO: Do this by extending the config instead.
+  if place_dcid == DEFAULT_PLACE_DCID:
+    dashboard_config = copy.deepcopy(dashboard_config)
+    for key in dashboard_config.metadata.event_type_spec:
+      if key == FIRE_EVENT_TYPE_SPEC:
+        spec = dashboard_config.metadata.event_type_spec[key]
+        spec.default_severity_filter.lower_limit = EARTH_FIRE_SEVERITY_MIN
 
   place_types = [DEFAULT_PLACE_TYPE]
   parent_places = []
