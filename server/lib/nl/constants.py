@@ -13,7 +13,7 @@
 # limitations under the License.
 """Various constants for NL detection."""
 
-from typing import Dict, List, Set, Union
+from typing import Dict, FrozenSet, List, Set, Union
 
 from server.lib.nl.detection import EventType
 
@@ -155,59 +155,35 @@ STOP_WORDS: Set[str] = {
 
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
-SPECIAL_PLACES: Set[str] = {
-    'palo alto', 'mountain view', 'world', 'earth', 'african', 'asian',
-    'european', 'north american', 'south american', 'latin american', 'oceania',
-    'american'
-}
+OVERRIDE_FOR_NER: FrozenSet[str] = frozenset(
+    ['palo alto', 'mountain view', 'world', 'earth', 'oceania'])
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 
-SPECIAL_PLACES_TO_GEOIDS: Dict[str, str] = {
-    # Earth
-    'earth': 'Earth',
-    'world': 'Earth',
-
-    # US
-    'american': 'country/USA',
-
+SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
+    'Earth': ['earth', 'world'],
     # Continents
-    'africa': 'africa',
-    'antarctica': 'antarctica',
-    'asia': 'asia',
-    'europe': 'europe',
-    'north america': 'northamerica',
-    'northamerica': 'northamerica',
-    'south america': 'southamerica',
-    'southamerica': 'southamerica',
-    'oceania': 'oceania',
-
-    # Alternates
-    'african': 'africa',
-    'asian': 'asia',
-    'european': 'europe',
-    'north american': 'northamerica',
-    'northamerican': 'northamerica',
-    'south american': 'southamerica',
-    'southamerican': 'southamerica',
-    'african continent': 'africa',
-    'asian continent': 'asia',
-    'european continent': 'europe',
-    'north american continent': 'northamerica',
-    'south american continent': 'southamerica',
-    'latin america': 'southamerica',
-    'latinamerica': 'southamerica',
-    'latin american': 'southamerica',
-    'latinamerican': 'southamerica',
-    'latin american continent': 'southamerica',
-    'australian continent': 'oceania',
-    'australasia': 'oceania',
+    'africa': ['africa'],
+    'antarctica': ['antarctica'],
+    'asia': ['asia'],
+    'europe': ['europe'],
+    'northamerica': ['north america', 'northamerica'],
+    'southamerica': [
+        'south america', 'southamerica', 'latin america', 'latinamerica'
+    ],
+    'oceania': ['oceania', 'australasia'],
 }
+
+# Invert the above str: List[str] Dictionary to str: str.
+OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API: Dict[str, str] = {}
+for dcid, place_list in SPECIAL_DCIDS_TO_PLACES.items():
+  for place in place_list:
+    OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[place] = dcid
 
 MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 
-MAPS_GEO_TYPES = {
-    # Source: https://developers.google.com/maps/documentation/places/web-service/supported_types#table2
+# Source: https://developers.google.com/maps/documentation/places/web-service/supported_types#table2
+MAPS_GEO_TYPES = frozenset([
     'political',
     'country',
     'city',
@@ -222,7 +198,7 @@ MAPS_GEO_TYPES = {
     'administrative_area_level_7',
     'postal_code',
     'locality',
-}
+])
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)

@@ -541,7 +541,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   # not getting detected.
   # First check in special places. If they are found, add those first.
   places_found = []
-  for special_place in constants.SPECIAL_PLACES:
+  for special_place in constants.OVERRIDE_FOR_NER:
     if special_place in query.lower():
       logging.info(f"Found one of the Special Places: {special_place}")
       places_found.append(special_place)
@@ -587,16 +587,13 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
     # now find "united states" as a place. Therefore, to avoid such situations
     # we should try to find the place string found in the original (lower case)
     # query string.
-    # If places_found[i] was a special place, keep it always.
+    # If places_found[i] was a special place (constants.OVERRIDE_FOR_NER),
+    # keep it always.
     if (places_found[i]
-        in constants.SPECIAL_PLACES) or (not ignore and
-                                         places_found[i] in query_lower):
+        in constants.OVERRIDE_FOR_NER) or (not ignore and
+                                           places_found[i] in query_lower):
       places_to_return.append(places_found[i])
 
-  if 'oceania' in query_lower:
-    print(query_lower)
-    print(places_to_return)
-    print(places_found)
   # For all the places detected, re-sort based on the string which occurs first.
   def fn(p):
     ind = query_lower.find(p)

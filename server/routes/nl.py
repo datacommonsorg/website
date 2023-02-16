@@ -75,7 +75,7 @@ def _maps_place(place_str):
         return res
 
   logging.info(
-      f"Maps API did not find a result of type political. Query URL: {url_formatted}. Response: {resp}"
+      f"Maps API did not find a result of type in: {constants.MAPS_GEO_TYPES}. Query URL: {url_formatted}. Response: {resp}"
   )
   return {}
 
@@ -107,28 +107,32 @@ def _remove_places(query, places_found):
 
 
 def _infer_place_dcid(places_found):
+  # TODO: propagate several of the logging errors in this function to place detection
+  # state displayed in debugInfo.
   if not places_found:
     logging.info("places_found is empty. Nothing to retrieve from Maps API.")
     return ""
 
   place_dcid = ""
+  # Iterate over all the places until a valid place DCID is found.
   for p_str in places_found:
     # If this is a special place, return the known DCID.
-    if p_str.lower() in constants.SPECIAL_PLACES_TO_GEOIDS:
-      place_dcid = constants.SPECIAL_PLACES_TO_GEOIDS[p_str.lower()]
+    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API:
+      place_dcid = constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[p_str.lower()]
       logging.info(
-          f"{p_str} was found in SPECIAL_PLACES_TO_GEOIDS. Returning its DICD {place_dcid} without querying Maps API."
+          f"{p_str} was found in OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API. Returning its DICD {place_dcid} without querying Maps API."
       )
       break
 
-    # Iterate over all the places until a valid place DCID is found.
     logging.info(f"Searching Maps API with: {p_str}")
     place = _maps_place(p_str)
     # If maps API returned a valid place, use the place_id to
     # get the dcid.
     if place and ("place_id" in place):
       place_id = place["place_id"]
-      logging.info(f"MAPS API found place with place_id: {place_id}")
+      logging.info(
+          f"MAPS API found place with place_id: {place_id} for place string: {p_str}."
+      )
       place_ids_map = _dc_recon([place_id])
 
       if place_id in place_ids_map:
@@ -137,12 +141,14 @@ def _infer_place_dcid(places_found):
         break
       else:
         logging.info(
-            f"Maps API found a place {place_id} but no DCID match found.")
+            f"Maps API found a place {place_id} but no DCID match found for place string: {p_str}."
+        )
     else:
-      logging.info("Maps API did not find a place.")
+      logging.info("Maps API did not find a place for place string: {p_str}.")
 
   if not place_dcid:
-    logging.info("No place DCIDs were found.")
+    logging.info(
+        f"No place DCIDs were found. Using places_found = {places_found}")
   return place_dcid
 
 
@@ -276,6 +282,8 @@ def _detection(orig_query, cleaned_query) -> Detection:
                                          place_type=main_place_type))
   else:
     query = cleaned_query
+    # TODO: even if no place_dcid was found, debugInfo should be able to display
+    # the places_found (which can be valid even if no dcid was found).
     place_detection = None
 
   # Step 3: Identify the SV matched based on the query.
