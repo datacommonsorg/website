@@ -335,9 +335,7 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "administrativearea3": "administrative area 3 places",
     "administrativearea4": "administrative area 4 places",
     "administrativearea5": "administrative area 5 places",
-}
-
-SCHOOL_TYPE_TO_PLURALS: Dict[str, str] = {
+    # Schools
     "high school": "high schools",
     "middle school": "middle schools",
     "elementary school": "elementary schools",

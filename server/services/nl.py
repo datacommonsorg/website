@@ -46,6 +46,10 @@ from server.lib.nl.training import NLQueryClusteringDetectionModel
 import server.lib.nl.utils as utils
 from server.services import datacommons as dc
 
+# TODO: decouple words removal from detected attributes. Today, the removal
+# blanket removes anything that matches, including the various attribute/
+# classification triggers and contained_in place types (and their plurals).
+# This may not always be the best thing to do.
 ALL_STOP_WORDS = utils.combine_stop_words()
 
 
@@ -391,12 +395,6 @@ class Model:
         contained_in_place_type = place_enum
         break
 
-      # Check for school type plurals.
-      if place_type in constants.SCHOOL_TYPE_TO_PLURALS and \
-        constants.SCHOOL_TYPE_TO_PLURALS[place_type] in query:
-        contained_in_place_type = place_enum
-        break
-
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
       # Try to check if the special case of ACROSS can be found.
@@ -603,6 +601,10 @@ class Model:
 
   def detect_svs(self, query) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
+    # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
+    # the potential areas for improvement. For now, this removal blanket removes
+    # any words in ALL_STOP_WORDS which includes contained_in places and their
+    # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
     query = utils.remove_stop_words(query, ALL_STOP_WORDS)
     logging.info(f"SV Detection: Query used after removing stop words: {query}")
