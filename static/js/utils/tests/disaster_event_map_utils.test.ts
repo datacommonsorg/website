@@ -98,6 +98,7 @@ const EARTHQUAKE_EVENT_1_PROCESSED = {
   displayProps: { keep: 132 },
   endDate: "",
   provenanceId: "earthquakeProv",
+  affectedPlaces: ["country/USA"],
 };
 
 const EARTHQUAKE_EVENT_2_API = {
@@ -127,6 +128,7 @@ const EARTHQUAKE_EVENT_2_PROCESSED = {
   endDate: "",
   provenanceId: "earthquakeProv",
   displayProps: {},
+  affectedPlaces: [],
 };
 
 const EARTHQUAKE_EVENT_3_API = {
@@ -153,6 +155,7 @@ const EARTHQUAKE_EVENT_3_PROCESSED = {
   endDate: "",
   provenanceId: "earthquakeProv",
   displayProps: {},
+  affectedPlaces: ["country/USA"],
 };
 
 const TORNADO_EVENT_1_API = {
@@ -176,6 +179,7 @@ const TORNADO_EVENT_1_PROCESSED = {
   endDate: "",
   provenanceId: "tornadoProv",
   displayProps: {},
+  affectedPlaces: ["country/USA"],
 };
 
 const TORNADO_EVENT_2_API = {
@@ -198,6 +202,7 @@ const TORNADO_EVENT_2_PROCESSED = {
   endDate: "",
   provenanceId: "tornadoProv",
   displayProps: {},
+  affectedPlaces: [],
 };
 
 const CYCLONE_EVENT_1_API = {
@@ -220,6 +225,7 @@ const CYCLONE_EVENT_1_PROCESSED = {
   endDate: "",
   provenanceId: "cycloneProv",
   displayProps: {},
+  affectedPlaces: ["country/USA"],
 };
 
 const FIRE_EVENT_POINT_1 = {
@@ -233,6 +239,7 @@ const FIRE_EVENT_POINT_1 = {
   endDate: "",
   provenanceId: "fireProv",
   displayProps: {},
+  affectedPlaces: [],
 };
 
 const FIRE_EVENT_POINT_2 = {
@@ -248,6 +255,7 @@ const FIRE_EVENT_POINT_2 = {
   endDate: "",
   provenanceId: "fireProv",
   displayProps: {},
+  affectedPlaces: [],
 };
 
 const EARTHQUAKE_PROV_INFO = {

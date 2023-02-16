@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import gzip
 import json
 import unittest
 from unittest.mock import patch
@@ -147,7 +148,7 @@ class TestGetGeoJson(unittest.TestCase):
     response = app.test_client().get(
         f'/api/choropleth/geojson?placeDcid={parentDcid}')
     assert response.status_code == 200
-    response_data = json.loads(response.data)
+    response_data = json.loads(gzip.decompress(response.data))
     assert response_data == {
         'type': 'FeatureCollection',
         'features': [{
@@ -212,7 +213,7 @@ class TestGetGeoJson(unittest.TestCase):
     response = app.test_client().get(
         f'/api/choropleth/geojson?placeDcid={parentDcid}&placeType=State')
     assert response.status_code == 200
-    response_data = json.loads(response.data)
+    response_data = json.loads(gzip.decompress(response.data))
     assert response_data == {
         'type': 'FeatureCollection',
         'features': [{

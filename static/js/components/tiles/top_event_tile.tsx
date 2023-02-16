@@ -35,6 +35,7 @@ import {
 } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
+import { getPlaceNames } from "../../utils/place_utils";
 import { formatNumber } from "../../utils/string_utils";
 
 const RANKING_COUNT = 10;
@@ -66,7 +67,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   );
 
   useEffect(() => {
-    fetchEventPlaceData(topEvents);
+    updateEventPlaces(topEvents);
   }, [props]);
 
   const displayPropNames = {};
@@ -195,7 +196,12 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     return `${latitude}^${longitude}`;
   }
 
-  function fetchEventPlaceData(events: DisasterEventPoint[]): void {
+  // Given a list of events, returns a promise with a map of event id to a place
+  // that the event occurs within. The places will be of the same type as the
+  // props.enclosedPlaceType and will be fetched using the event coordinates.
+  function fetchPlaceFromCoords(
+    events: DisasterEventPoint[]
+  ): Promise<Record<string, NamedPlace>> {
     const latitudes = [];
     const longitudes = [];
     events.forEach((event) => {
@@ -205,7 +211,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       latitudes.push(event.latitude);
       longitudes.push(event.longitude);
     });
-    axios
+    return axios
       .get<CoordinatePlace[]>("/api/place/coords2places", {
         params: {
           latitudes,
@@ -235,10 +241,76 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
             eventPlaces[event.placeDcid] = latLngPlaces[latLngKey];
           }
         });
-        setEventPlaces(eventPlaces);
+        return eventPlaces;
       })
       .catch(() => {
-        setEventPlaces({});
+        return {};
+      });
+  }
+
+  // Given a list of events, update eventPlaces with a map of event id to place
+  // that the event occurs within. Places will be of the same type as
+  // props.enclosedPlaceType.
+  // TODO (chejennifer): Getting the places of events should be done in a single
+  //                     endpoint in Flask
+  function updateEventPlaces(events: DisasterEventPoint[]): void {
+    if (_.isEmpty(events)) {
+      setEventPlaces({});
+      return;
+    }
+    // Get the place types for all the affected places of all the events.
+    const allAffectedPlaces = new Set();
+    events
+      .flatMap((event) => event.affectedPlaces)
+      .forEach((place) => allAffectedPlaces.add(place));
+    axios
+      .get<Record<string, string[]>>("/api/node/propvals", {
+        params: { dcids: Array.from(allAffectedPlaces), prop: "typeOf" },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        // Map of event id to dcid of a place (of place type
+        // props.enclosedPlaceType) that the event occurred in
+        const eventPlaceDcids = {};
+        // Events where place could not be found from the event's affectedPlaces
+        const missingPlaceEvents = [];
+        events.forEach((event) => {
+          for (const place of event.affectedPlaces) {
+            const placeTypes = resp.data[place] || [];
+            if (placeTypes.find((type) => type === props.enclosedPlaceType)) {
+              eventPlaceDcids[event.placeDcid] = place;
+              break;
+            }
+          }
+          if (!eventPlaceDcids[event.placeDcid]) {
+            missingPlaceEvents.push(event);
+          }
+        });
+        const coordEventPlacesPromise =
+          fetchPlaceFromCoords(missingPlaceEvents);
+        const placeNamesPromise = getPlaceNames(
+          Array.from(new Set(Object.values(eventPlaceDcids)))
+        );
+        Promise.all([coordEventPlacesPromise, placeNamesPromise])
+          .then(([coordEventPlaces, placeNames]) => {
+            const eventPlaces = coordEventPlaces;
+            Object.keys(eventPlaceDcids).forEach((eventId) => {
+              const placeDcid = eventPlaceDcids[eventId];
+              eventPlaces[eventId] = {
+                dcid: placeDcid,
+                name: placeNames[placeDcid] || placeDcid,
+              };
+            });
+            setEventPlaces(eventPlaces);
+          })
+          .catch(() => {
+            setEventPlaces({});
+          });
+      })
+      .catch(() => {
+        fetchPlaceFromCoords(events).then((resp) => {
+          setEventPlaces(resp);
+        });
       });
   }
 
