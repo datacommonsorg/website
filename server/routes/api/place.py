@@ -680,10 +680,12 @@ def get_display_name(dcids, locale="en"):
   return result
 
 
-@bp.route('/displayname')
+@bp.route('/displayname', methods=['GET', 'POST'])
 def api_display_name():
   """Get display names for a list of places."""
-  dcids = request.args.getlist('dcid')
+  dcids = request.args.getlist('dcids')
+  if not dcids:
+    dcids = request.json.get('dcids', [])
   result = get_display_name('^'.join((sorted(dcids))), g.locale)
   return Response(json.dumps(result), 200, mimetype='application/json')
 

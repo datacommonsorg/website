@@ -1,0 +1,358 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "ClassificationType.COMPARISON",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "comparison_place_candidates": [
+      [
+        "geoId/0677000",
+        "geoId/0655282"
+      ]
+    ],
+    "failed_existence_check": [
+      {
+        "places": [
+          "geoId/0677000",
+          "geoId/0655282"
+        ],
+        "svs": [
+          "dc/8p97n7l96lgg8"
+        ]
+      }
+    ],
+    "filtered_svs": [],
+    "num_chart_candidates": 1,
+    "processed_fulfillment_types": [
+      "comparison"
+    ],
+    "stat_var_extensions": [
+      {
+        "dc/8p97n7l96lgg8": [
+          "Count_Worker_NAICSTotalAllIndustries",
+          "Count_Worker_NAICSAgricultureForestryFishingHunting",
+          "dc/hlxvn1t8b9bhh",
+          "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+          "Count_Worker_NAICSUtilities",
+          "Count_Worker_NAICSConstruction",
+          "dc/107jnwnsh17xb",
+          "dc/rlk1yxmkk1qqg",
+          "dc/8b3gpw1zyr7bf",
+          "dc/ndg1xk1e9frc2",
+          "dc/tqgf8zv96r5t8",
+          "dc/dy2k68mmhenfd",
+          "dc/z27q5dymqyrnf",
+          "dc/7bck6xpkc205c",
+          "dc/ws19bm1hl105b",
+          "dc/6n6l2wrzv7473",
+          "dc/vp4cplffwv86g",
+          "dc/34t2kjrwbjd31",
+          "dc/eh7s78v8s14l9",
+          "dc/qnz3rlypmfvw6",
+          "dc/90nswpkp8wlw5",
+          "Count_Worker_NAICSWholesaleTrade",
+          "dc/p69tpsldf99h7",
+          "dc/e2zdnwjjhyj36",
+          "dc/c0wxmt45gffxc",
+          "dc/4mm2p1rxr5wz4",
+          "dc/2etwgx6vecreh",
+          "dc/63gkdt13bmsv8",
+          "dc/3kwcvm428wpq4",
+          "dc/h1jy2glt2m7e6",
+          "dc/k3hehk50ch012",
+          "dc/8p97n7l96lgg8",
+          "dc/bwr1l8y9we9k7",
+          "dc/yn0h4nw4k23f1",
+          "dc/v3qgyhwx13m44",
+          "dc/bb4peddkgmqe7",
+          "dc/8j8w7pf73ekn",
+          "dc/n87t9dkckzxc8",
+          "dc/w1tfjz3h6138",
+          "Count_Worker_NAICSInformation",
+          "Count_Worker_NAICSFinanceInsurance",
+          "Count_Worker_NAICSRealEstateRentalLeasing",
+          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises",
+          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+          "Count_Worker_NAICSEducationalServices",
+          "Count_Worker_NAICSHealthCareSocialAssistance",
+          "Count_Worker_NAICSArtsEntertainmentRecreation",
+          "Count_Worker_NAICSAccommodationFoodServices",
+          "Count_Worker_NAICSOtherServices",
+          "Count_Worker_NAICSPublicAdministration",
+          "Count_Worker_NAICSNonclassifiable"
+        ]
+      }
+    ],
+    "topics_processed": [
+      {
+        "dc/topic/WorkCommute": {
+          "peer_groups": [
+            [
+              "Modes of Commute",
+              "",
+              [
+                "dc/6rltk4kf75612",
+                "dc/vp8cbt6k79t94",
+                "dc/hbkh95kc7pkb6",
+                "dc/wc8q05drd74bd",
+                "dc/0gettc3bc60cb",
+                "dc/vt2q292eme79f"
+              ]
+            ]
+          ],
+          "svs": []
+        }
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 7
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "place_type": "City"
+        }
+      ],
+      "query": "How does that compare to Palo Alto",
+      "query_type": 6,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "dc/topic/WorkCommute",
+            "title": "Modes of Commute"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            },
+            {
+              "dcid": "geoId/0655282",
+              "name": "Palo Alto",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "dc/6rltk4kf75612",
+            "dc/vp8cbt6k79t94",
+            "dc/hbkh95kc7pkb6",
+            "dc/wc8q05drd74bd",
+            "dc/0gettc3bc60cb",
+            "dc/vt2q292eme79f"
+          ]
+        }
+      ],
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "type": 11
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0677000",
+          "name": "Sunnyvale",
+          "place_type": "City"
+        }
+      ],
+      "query": "How do people commute in Sunnyvale?",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "bar chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "dc/topic/WorkCommute",
+            "title": "Modes of Commute"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "dc/6rltk4kf75612",
+            "dc/vp8cbt6k79t94",
+            "dc/hbkh95kc7pkb6",
+            "dc/wc8q05drd74bd",
+            "dc/0gettc3bc60cb",
+            "dc/vt2q292eme79f"
+          ]
+        }
+      ],
+      "svs": [
+        "dc/topic/WorkCommute",
+        "dc/g/Person_Industry-NAICS/488",
+        "dc/g/Person_Industry-NAICS/3133",
+        "dc/g/Person_Industry-NAICS/481",
+        "dc/g/Person_Industry-NAICS/4849",
+        "dc/g/Person_Industry-NAICS/485",
+        "dc/8p97n7l96lgg8",
+        "dc/g/Person_Industry-NAICS/484922"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/0655282",
+  "main_place_name": "Palo Alto",
+  "original_query": "How does that compare to Palo Alto",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "palo alto"
+  ],
+  "query_with_places_removed": "how does that compare to",
+  "ranking_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.3138737976551056,
+      0.2785080075263977,
+      0.27663561701774597,
+      0.2477339506149292,
+      0.2361648827791214,
+      0.2359907180070877,
+      0.23327934741973877,
+      0.20929011702537537,
+      0.19067034125328064,
+      0.18910424411296844,
+      0.18715006113052368,
+      0.1836508810520172
+    ],
+    "SV": [
+      "GiniIndex_EconomicActivity",
+      "dc/topic/MedicalConditions",
+      "dc/topic/Economy",
+      "AirQualityIndex_AirPollutant",
+      "dc/topic/Income",
+      "dc/topic/Jobs",
+      "Amount_FarmInventory_PeanutsForNuts",
+      "Count_Person",
+      "dc/g/Person_MedicalCondition-Wasting",
+      "Count_CriminalIncidents_IsHateCrime",
+      "dc/g/Farm_FarmInventoryType-PeanutsForNuts",
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+    ],
+    "SV_to_Sentences": {
+      "AirQualityIndex_AirPollutant": [
+        "AQI (0.2477339506149292)"
+      ],
+      "Amount_FarmInventory_PeanutsForNuts": [
+        "Peanut output (0.23327934741973877)"
+      ],
+      "Count_CriminalIncidents_IsHateCrime": [
+        "Number of hate crimes (0.18910424411296844)",
+        "Hate crime incidents (0.1843578815460205)"
+      ],
+      "Count_Person": [
+        "Population (0.20929011702537537)"
+      ],
+      "GiniIndex_EconomicActivity": [
+        "Inequality (0.3138737976551056)",
+        "Gini index (0.2066114842891693)"
+      ],
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+        "pig farm (0.1836508810520172)",
+        "Pig Farm (0.1836508810520172)"
+      ],
+      "dc/g/Farm_FarmInventoryType-PeanutsForNuts": [
+        "peanut farms (0.18715006113052368)",
+        "Peanut Farms (0.18715006113052368)"
+      ],
+      "dc/g/Person_MedicalCondition-Wasting": [
+        "people with wasting (0.19067034125328064)"
+      ],
+      "dc/topic/Economy": [
+        "Economy (0.27663561701774597)"
+      ],
+      "dc/topic/Income": [
+        "pay (0.2361648827791214)"
+      ],
+      "dc/topic/Jobs": [
+        "Jobs (0.2359907180070877)",
+        "Careers (0.20936834812164307)",
+        "Professions (0.2041512280702591)"
+      ],
+      "dc/topic/MedicalConditions": [
+        "Maladies (0.2785080075263977)",
+        "Health problems (0.2000654637813568)",
+        "health issues (0.19044229388237)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "AirQualityIndex_AirPollutant": [
+      "AQI (0.2477339506149292)"
+    ],
+    "Amount_FarmInventory_PeanutsForNuts": [
+      "Peanut output (0.23327934741973877)"
+    ],
+    "Count_CriminalIncidents_IsHateCrime": [
+      "Number of hate crimes (0.18910424411296844)",
+      "Hate crime incidents (0.1843578815460205)"
+    ],
+    "Count_Person": [
+      "Population (0.20929011702537537)"
+    ],
+    "GiniIndex_EconomicActivity": [
+      "Inequality (0.3138737976551056)",
+      "Gini index (0.2066114842891693)"
+    ],
+    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+      "pig farm (0.1836508810520172)",
+      "Pig Farm (0.1836508810520172)"
+    ],
+    "dc/g/Farm_FarmInventoryType-PeanutsForNuts": [
+      "peanut farms (0.18715006113052368)",
+      "Peanut Farms (0.18715006113052368)"
+    ],
+    "dc/g/Person_MedicalCondition-Wasting": [
+      "people with wasting (0.19067034125328064)"
+    ],
+    "dc/topic/Economy": [
+      "Economy (0.27663561701774597)"
+    ],
+    "dc/topic/Income": [
+      "pay (0.2361648827791214)"
+    ],
+    "dc/topic/Jobs": [
+      "Jobs (0.2359907180070877)",
+      "Careers (0.20936834812164307)",
+      "Professions (0.2041512280702591)"
+    ],
+    "dc/topic/MedicalConditions": [
+      "Maladies (0.2785080075263977)",
+      "Health problems (0.2000654637813568)",
+      "health issues (0.19044229388237)"
+    ]
+  },
+  "temporal_classification": "<None>",
+  "time_delta_classification": "<None>"
+}
