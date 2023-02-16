@@ -64,7 +64,7 @@ metadata {
         display_name: "Area"
         unit: "SquareKilometer"
         upper_limit: 1000
-        lower_limit: 100
+        lower_limit: 500
       }
       end_date_prop: "endDate"
       end_date_prop: "containmentDate"
@@ -110,7 +110,7 @@ metadata {
       id: "drought"
       name: "Drought"
       event_type_dcids: "DroughtEvent"
-      color: "#ff5dd6"
+      color: "#ffa000"
       default_severity_filter: {
         prop: "area",
         display_name: "Area"
