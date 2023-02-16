@@ -96,16 +96,10 @@ function drawKmlCoordinates(
   // Adjust map bounds
   const sw = new google.maps.LatLng(mapInfo.down, mapInfo.left);
   const ne = new google.maps.LatLng(mapInfo.up, mapInfo.right);
-  const bounds = new google.maps.LatLngBounds();
-  bounds.extend(sw);
-  bounds.extend(ne);
-
-  // add listener to set bounds after map finishes loading.
-  // fitting bounds needs to be called after map finishes loading
-  // otherwise, the map will zoom all the way out to earth.
-  map.addListener("idle", () => {
-    map.fitBounds(bounds, MAP_BOUNDS_PADDING);
-  });
+  let bounds = new google.maps.LatLngBounds();
+  bounds = bounds.extend(sw);
+  bounds = bounds.extend(ne);
+  map.fitBounds(bounds, MAP_BOUNDS_PADDING);
 
   // Add polygons
   if (mapInfo.coordinateSequenceSet) {
