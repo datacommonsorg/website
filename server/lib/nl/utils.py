@@ -151,8 +151,8 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   # can be matched.
   input_str = f" {input_str.lower()} "
   for words in stop_words:
-    if words in input_str:
-      input_str = input_str.replace(f" {words} ", " ")
+    # Using regex based replacements.
+    input_str = re.sub(f" {words} ", ' ', input_str)
 
   # Return after removing the beginning and trailing white spaces.
   return input_str.strip()
@@ -172,6 +172,9 @@ def combine_stop_words() -> Set[str]:
   add_to_set_from_list(stop_words,
                        list(constants.PLACE_TYPE_TO_PLURALS.values()))
 
+  # Sort stop_words by the length (longer strings should come first) so that the
+  # longer sentences can be removed first.
+  stop_words = sorted(stop_words, key=len, reverse=True)
   return stop_words
 
 
