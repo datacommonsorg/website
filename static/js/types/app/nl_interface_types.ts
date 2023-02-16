@@ -41,7 +41,12 @@ export interface DebugInfo {
   svScores: SVScores;
   svSentences: Map<string, Array<string>>;
   rankingClassification: string;
+  overviewClassification: string;
   temporalClassification: string;
+  sizeTypeClassification: string;
+  timeDeltaClassification: string;
+  comparisonClassification: string;
   containedInClassification: string;
   correlationClassification: string;
+  eventClassification: string;
 }

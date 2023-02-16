@@ -311,6 +311,10 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
                 "loss",
             ],
         },
+        "SizeType": {
+            "Big": ["big",],
+            "Small": ["small",],
+        },
         "Overview": ["tell me (more )?about",],
     }
 

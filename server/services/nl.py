@@ -36,6 +36,8 @@ from server.lib.nl.detection import OverviewClassificationAttributes
 from server.lib.nl.detection import PeriodType
 from server.lib.nl.detection import RankingClassificationAttributes
 from server.lib.nl.detection import RankingType
+from server.lib.nl.detection import SizeType
+from server.lib.nl.detection import SizeTypeClassificationAttributes
 from server.lib.nl.detection import TemporalClassificationAttributes
 from server.lib.nl.detection import TimeDeltaClassificationAttributes
 from server.lib.nl.detection import TimeDeltaType
@@ -305,6 +307,50 @@ class Model:
         time_delta_types=subtypes_matched,
         time_delta_trigger_words=trigger_words)
     return NLClassifier(type=ClassificationType.TIME_DELTA,
+                        attributes=attributes)
+
+  # TODO: This code is similar to the ranking and time_delta classifiers.
+  # Ideally, refactor.
+  def heuristic_size_type_classification(
+      self, query: str) -> Union[NLClassifier, None]:
+    """Determine if query is a 'Size-Type' type.
+
+    Uses heuristics instead of ML-based classification.
+
+    Args:
+      query (str): the user's input
+
+    Returns:
+      NLClassifier with SizeTypeClassificationAttributes
+    """
+    subtype_map = {
+        "Big": SizeType.BIG,
+        "Small": SizeType.SMALL,
+    }
+    size_type_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["SizeType"]
+    size_type_subtypes = size_type_heuristics.keys()
+    query = query.lower()
+    subtypes_matched = []
+    trigger_words = []
+    for subtype in size_type_subtypes:
+      type_trigger_words = []
+
+      for keyword in size_type_heuristics[subtype]:
+        # look for keyword surrounded by spaces or start/end delimiters
+        regex = r"(^|\W)" + keyword + r"($|\W)"
+        type_trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+      if len(type_trigger_words) > 0:
+        subtypes_matched.append(subtype_map[subtype])
+      trigger_words += type_trigger_words
+
+    # If no matches, this query is not a size-type query
+    if len(trigger_words) == 0:
+      return None
+
+    attributes = SizeTypeClassificationAttributes(
+        size_types=subtypes_matched, size_types_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.SIZE_TYPE,
                         attributes=attributes)
 
   def heuristic_comparison_classification(self,
