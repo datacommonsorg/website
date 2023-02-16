@@ -368,8 +368,18 @@ class Model:
         "province": ContainedInPlaceType.PROVINCE,
         "town": ContainedInPlaceType.TOWN,
         "zip": ContainedInPlaceType.ZIP,
+        # Schools (only plurals).
+        "high schools": ContainedInPlaceType.HIGHSCHOOL,
+        "middle schools": ContainedInPlaceType.MIDDLESCHOOL,
+        "elementary schools": ContainedInPlaceType.ELEMENTARYSCHOOL,
+        "primary schools": ContainedInPlaceType.PRIMARYSCHOOL,
+        "public schools": ContainedInPlaceType.PUBLICSCHOOL,
+        "private schools": ContainedInPlaceType.PRIVATESCHOOL,
+        "schools": ContainedInPlaceType.SCHOOL,
     })
+
     query = query.lower()
+    # Note that place_type_to_enum is an OrderedDict.
     for place_type, place_enum in place_type_to_enum.items():
       if place_type in query:
         contained_in_place_type = place_enum

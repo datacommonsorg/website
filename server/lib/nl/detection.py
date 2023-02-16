@@ -101,6 +101,14 @@ class ContainedInPlaceType(Enum):
   DISTRICT = "District"
   TOWN = "Town"
   ZIP = "CensusZipCodeTabulationArea"
+  SCHOOL = "School"
+  PUBLICSCHOOL = "PublicSchool"
+  PRIVATESCHOOL = "PrivateSchool"
+  PRIMARYSCHOOL = "PrimarySchool"
+  ELEMENTARYSCHOOL = "ElementarySchool"
+  MIDDLESCHOOL = "MiddleSchool"
+  HIGHSCHOOL = "HighSchool"
+
   # Across is a generic containedInPlaceType which determines if the
   # query is using the word "across".
   ACROSS = "Across"
