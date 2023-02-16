@@ -335,6 +335,14 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "administrativearea3": "administrative area 3 places",
     "administrativearea4": "administrative area 4 places",
     "administrativearea5": "administrative area 5 places",
+    # Schools
+    "high school": "high schools",
+    "middle school": "middle schools",
+    "elementary school": "elementary schools",
+    "primary school": "primary schools",
+    "public school": "public schools",
+    "private school": "private schools",
+    "school": "schools",
 }
 
 # TODO: Unify the different event maps by using a struct value.
