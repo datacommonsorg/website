@@ -32,6 +32,7 @@ import {
 
 function axios_mock(): void {
   axios.get = jest.fn();
+  axios.post = jest.fn();
   when(axios.get)
     .calledWith("/api/observations/series", {
       params: {
@@ -217,8 +218,8 @@ function axios_mock(): void {
       },
     });
 
-  when(axios.get)
-    .calledWith("/api/place/displayname?dcid=geoId/05&dcid=geoId/06")
+  when(axios.post)
+    .calledWith("/api/place/displayname", { dcids: ["geoId/05", "geoId/06"] })
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",
