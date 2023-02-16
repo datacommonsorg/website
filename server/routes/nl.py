@@ -305,10 +305,10 @@ def _detection(orig_query, cleaned_query) -> Detection:
   ranking_classification = model.heuristic_ranking_classification(query)
   comparison_classification = model.heuristic_comparison_classification(query)
   overview_classification = model.heuristic_overview_classification(query)
-  temporal_classification = model.query_classification("temporal", query)
+  temporal_classification = None
   time_delta_classification = model.heuristic_time_delta_classification(query)
-  contained_in_classification = model.query_classification(
-      "contained_in", query)
+  contained_in_classification = model.heuristic_containedin_classification(
+      query)
   event_classification = model.heuristic_event_classification(query)
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Comparison classification: {comparison_classification}')
