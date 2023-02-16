@@ -1,0 +1,82 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "test"
+  topic_name: "Test for tile spec"
+  place_dcid: "geoId/06"
+  contained_place_types {
+    key: "State"
+    value: "County"
+  }
+}
+
+categories {
+  title: "Test ranking tile with many stat vars"
+
+  blocks {
+    title: "Projected highest increase in min temperature in different scenarios"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "rcp_26"
+        stat_var_key: "rcp_45"
+        stat_var_key: "rcp_60"
+      }
+    }
+  }
+  blocks {
+    title: "Projected highest decrease in min temperature in different scenarios"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_lowest: true
+        }
+        stat_var_key: "rcp_26"
+        stat_var_key: "rcp_45"
+        stat_var_key: "rcp_60"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "rcp_26"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
+      unit: "°C"
+      name: "RCP 2.6"
+    }
+  }
+  stat_var_spec {
+    key: "rcp_45"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
+      unit: "°C"
+      name: "RCP 4.5"
+    }
+  }
+  stat_var_spec {
+    key: "rcp_60"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+      unit: "°C"
+      name: "RCP 6.0"
+    }
+  }
+}
