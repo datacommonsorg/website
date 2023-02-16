@@ -64,7 +64,8 @@ metadata {
         display_name: "Area"
         unit: "SquareKilometer"
         upper_limit: 1000
-        lower_limit: 500
+        # This is overriden for Earth in routes/disaster.py
+        lower_limit: 200
       }
       end_date_prop: "endDate"
       end_date_prop: "containmentDate"
