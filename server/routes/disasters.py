@@ -13,8 +13,8 @@
 # limitations under the License.
 """Endpoints for disaster dashboard"""
 
-import json
 import copy
+import json
 
 import flask
 from flask import Blueprint
