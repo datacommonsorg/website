@@ -43,6 +43,10 @@ from server.lib.nl.place_detection import NLPlaceDetector
 import server.lib.nl.utils as utils
 from server.services import datacommons as dc
 
+# TODO: decouple words removal from detected attributes. Today, the removal
+# blanket removes anything that matches, including the various attribute/
+# classification triggers and contained_in place types (and their plurals).
+# This may not always be the best thing to do.
 ALL_STOP_WORDS = utils.combine_stop_words()
 
 
@@ -277,6 +281,7 @@ class Model:
       self, query: str) -> Union[NLClassifier, None]:
 
     contained_in_place_type = ContainedInPlaceType.PLACE
+    # place_type_to_enum is an OrderedDict.
     place_type_to_enum = OrderedDict({
         "county": ContainedInPlaceType.COUNTY,
         "state": ContainedInPlaceType.STATE,
@@ -286,8 +291,18 @@ class Model:
         "province": ContainedInPlaceType.PROVINCE,
         "town": ContainedInPlaceType.TOWN,
         "zip": ContainedInPlaceType.ZIP,
+        # Schools.
+        "high school": ContainedInPlaceType.HIGH_SCHOOL,
+        "middle school": ContainedInPlaceType.MIDDLE_SCHOOL,
+        "elementary school": ContainedInPlaceType.ELEMENTARY_SCHOOL,
+        "primary school": ContainedInPlaceType.PRIMARY_SCHOOL,
+        "public school": ContainedInPlaceType.PUBLIC_SCHOOL,
+        "private school": ContainedInPlaceType.PRIVATE_SCHOOL,
+        "school": ContainedInPlaceType.SCHOOL,
     })
+
     query = query.lower()
+    # Note again that place_type_to_enum is an OrderedDict.
     for place_type, place_enum in place_type_to_enum.items():
       if place_type in query:
         contained_in_place_type = place_enum
@@ -339,6 +354,10 @@ class Model:
 
   def detect_svs(self, query) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
+    # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
+    # the potential areas for improvement. For now, this removal blanket removes
+    # any words in ALL_STOP_WORDS which includes contained_in places and their
+    # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
     query = utils.remove_stop_words(query, ALL_STOP_WORDS)
     logging.info(f"SV Detection: Query used after removing stop words: {query}")
