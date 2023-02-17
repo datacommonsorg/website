@@ -1,6 +1,4 @@
 project: datcom-magiceye-dev
 instance: dc-graph
 tables:
-  - cacheschema_2023_02_01_14_47_13
-  - cacheeie_2023_01_31_20_31_08
-  - cachesunroof_2023_02_01_22_45_52
+  - magic_eye_2023_02_16_16_23_36
