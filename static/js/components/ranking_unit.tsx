@@ -49,7 +49,11 @@ interface RankingUnitPropType {
    * If true, only the ranks and labels will be shown and not the values.
    */
   hideValue?: boolean;
-  // For multi-column, these are the display strings for the value columns, in order.
+  /**
+   * For multi-column, these are the display strings for the value columns, in order.
+   * TODO: Add better support for multi-column by adding a single list of columns:
+   *       columns: { unt: string; scaling: number; name: string }[];
+   */
   svNames?: string[];
 }
 
@@ -117,9 +121,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                       }`}
                     >
                       {formatNumber(
-                        props.scaling &&
-                          props.scaling.length &&
-                          props.scaling[0]
+                        !_.isEmpty(props.scaling) && props.scaling[0]
                           ? point.value * props.scaling[0]
                           : point.value,
                         props.unit && props.unit.length ? props.unit[0] : "",
@@ -141,9 +143,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                         }`}
                       >
                         {formatNumber(
-                          props.scaling &&
-                            props.scaling.length &&
-                            props.scaling[i]
+                          !_.isEmpty(props.scaling) && props.scaling[i]
                             ? v * props.scaling[i]
                             : v,
                           props.unit && props.unit.length ? props.unit[i] : "",

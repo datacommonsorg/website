@@ -114,7 +114,9 @@ _SV_DISPLAY_NAME_OVERRIDE = {
     "Amount_EconomicActivity_GrossDomesticProduction_RealValue":
         "GDP (Real Value)",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal":
-        "GDP (Nominal Value)"
+        "GDP (Nominal Value)",
+    "MapFacts/Count_park":
+        "Number of Parks",
 }
 
 _SV_DISPLAY_FOOTNOTE_OVERRIDE = {

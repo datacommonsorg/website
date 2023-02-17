@@ -263,14 +263,9 @@ function transformRankingDataForMultiColumn(
     p.value = undefined;
     p.values = svs.map((_, i) => svsToDict[i][p.placeDcid]);
   }
-  for (const sv of svs) {
-    if (sv != sortSv) {
-      delete rankingData[sv];
-    }
-  }
   rankingData[sortSv].unit = statVarSpecs.map((spec) => spec.unit);
   rankingData[sortSv].scaling = statVarSpecs.map((spec) => spec.scaling);
-  return rankingData;
+  return { [sortSv]: rankingData[sortSv] };
 }
 
 function pointApiToPerSvRankingData(
