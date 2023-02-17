@@ -85,22 +85,24 @@ message StatVarSpec {
   string name = 6;
 }
 
+// This ranks across child places for a single stat var.
 message RankingTileSpec {
   bool show_highest = 1;
   bool show_lowest = 2;
-  bool show_increase = 3;
-  bool show_decrease = 4;
 
   string diff_base_date = 5; // For comparisons
 
   // Titles can include the ${statVar} placeholder.
   string highest_title = 6;
   string lowest_title = 7;
-  string increase_title = 8;
-  string decrease_title = 9;
+
   // Number of items to show in the ranking tile. If not set, 5 items will be
   // shown.
   int32 ranking_count = 10;
+
+  // If true, all highest and lowest sv's will be grouped into a single, multi-column table.
+  // Ranking is done by the last specified SV for the tile.
+  bool show_multi_column = 11;
 }
 
 message DisasterEventMapTileSpec {
