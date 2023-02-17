@@ -580,7 +580,10 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
     logging.info(f"Trying place detection with: {q}")
     try:
       for p in query_fn(q):
-        # remove any stop words like "a", "the" etc from the place.
+        # remove any stop words like "a", "the" etc from the place. This helps where
+        # place detection can associate "the" with some places, e.g. "The United States"
+        # or "the SF Bay Area". Since we are sometimes doing special casing, e.g. for
+        # SF Bay Area, it is desirable to not have place names with these stop words.
         p = remove_stop_words(p, constants.STOP_WORDS)
         # Add if not already done. Also check for the special places which get
         # added with a ", usa" appended.

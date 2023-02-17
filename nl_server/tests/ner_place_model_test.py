@@ -68,7 +68,7 @@ class TestNERPlaces(unittest.TestCase):
       ["poverty in the us", ["us"]],
       [
           "states with the best places to live in the united states",
-          ["the united states"]
+          ["united states"]
       ],
       ["tell me about palo alto", ["palo alto"]],
       ["what about mountain view", ["mountain view"]],

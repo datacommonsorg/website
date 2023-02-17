@@ -174,7 +174,7 @@ OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
     'san francisco north bay',
     'san francisco south bay',
     'san francisco east bay',
-    'sf north peninsula',
+    'sf peninsula',
     'sf north bay',
     'sf south bay',
     'sf east bay',
