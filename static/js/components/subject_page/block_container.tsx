@@ -32,10 +32,13 @@ export interface BlockContainerPropType {
 export function BlockContainer(props: BlockContainerPropType): JSX.Element {
   let footnote: string;
   if (props.footnote) {
-    footnote = props.footnote.split('\n\n').map((f, i) => {
-      f = f.trim();
-      return f ?  `${i+1}. ${f}` : '';
-    }).join('\n');
+    footnote = props.footnote
+      .split("\n\n")
+      .map((f, i) => {
+        f = f.trim();
+        return f ? `${i + 1}. ${f}` : "";
+      })
+      .join("\n");
   }
   // const footnote = props.footnote.split('\n').map((f, i) => `${f}\n\n`).join();
 

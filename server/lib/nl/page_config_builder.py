@@ -157,8 +157,9 @@ def build_page_config(
 
       if cspec.attr['source_topic'] == 'dc/topic/ProjectedClimateExtremes':
         stat_var_spec_map.update(
-          _ranking_chart_block_climate_extremes(builder, pri_place, cspec.svs, sv2name, sv2footnote,
-                                    cspec.attr))
+            _ranking_chart_block_climate_extremes(builder, pri_place, cspec.svs,
+                                                  sv2name, sv2footnote,
+                                                  cspec.attr))
       else:
 
         for idx, sv in enumerate(cspec.svs):
@@ -407,8 +408,9 @@ def _does_extreme_mean_low(sv: str) -> bool:
   return False
 
 
-def _ranking_chart_block_climate_extremes(builder, pri_place: Place, pri_svs: List[str],
-                              sv2name: Dict, sv2footnote: Dict, attr: Dict):
+def _ranking_chart_block_climate_extremes(builder, pri_place: Place,
+                                          pri_svs: List[str], sv2name: Dict,
+                                          sv2footnote: Dict, attr: Dict):
   footnotes = []
   stat_var_spec_map = {}
 
@@ -418,10 +420,12 @@ def _ranking_chart_block_climate_extremes(builder, pri_place: Place, pri_svs: Li
   ranking_tile.type = Tile.TileType.RANKING
 
   for _, sv in enumerate(pri_svs):
-    _set_ranking_tile_spec(attr['ranking_types'], '', ranking_tile.ranking_tile_spec)
+    _set_ranking_tile_spec(attr['ranking_types'], '',
+                           ranking_tile.ranking_tile_spec)
     sv_key = "ranking-" + sv
     ranking_tile.stat_var_key.append(sv_key)
-    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv, name=utils.SV_DISPLAY_SHORT_NAME[sv])
+    stat_var_spec_map[sv_key] = StatVarSpec(
+        stat_var=sv, name=utils.SV_DISPLAY_SHORT_NAME[sv])
     footnotes.append(sv2footnote[sv])
 
   ranking_tile.title = ranking_block.title
@@ -434,7 +438,8 @@ def _ranking_chart_block_climate_extremes(builder, pri_place: Place, pri_svs: Li
     if len(map_column.tiles):
       map_column = map_block.columns.add()
     stat_var_spec_map.update(
-      _map_chart_block_nopc(map_column, pri_place, sv, sv2name, attr))
+        _map_chart_block_nopc(map_column, pri_place, sv, sv2name, attr))
+    map_column.tiles[0].title = sv2name[sv]  # override decorated title (too long).
 
   map_block.title = ''
   map_block.description = ''
