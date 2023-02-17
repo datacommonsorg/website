@@ -22,7 +22,11 @@
 export interface RankingPoint {
   placeDcid: string;
   placeName?: string;
-  value: number;
+  value?: number;
+  values?: number[]; /*{
+    sv: string;
+    value: number;
+  }[]; */
   /**
    * If not provided, the component will calculate the rank based on the order of the input points.
    */

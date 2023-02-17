@@ -19,6 +19,7 @@
  */
 
 import React from "react";
+import _ from "lodash";
 
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
@@ -33,8 +34,8 @@ interface RankingUnitPropType {
    * Otherwise, from lowest to highest, e.g., n,n-1,n-2,...
    */
   isHighest: boolean;
-  unit?: string;
-  scaling?: number;
+  unit?: string[];
+  scaling?: number[];
   /**
    * Total number of points. This is used for calculating ranks if isHighest is false
    * (ordering from lowest ranks to highest) and ranks are not provided, e.g., n,n-1,n-2,...
@@ -48,6 +49,8 @@ interface RankingUnitPropType {
    * If true, only the ranks and labels will be shown and not the values.
    */
   hideValue?: boolean;
+  // For multi-column, these are the display strings for the value columns, in order.
+  svNames?: string[];
 }
 
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
@@ -65,12 +68,26 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
       : index + 1;
   }
 
+  console.log(props.hideValue);
+  console.log(props.svNames);
+  console.log(props.unit);
+
   return (
     <div className="ranking-list">
       <h4>{props.title}</h4>
       <table>
+        {props.svNames && !props.hideValue && (
+          <thead>
+            <tr>
+              <td></td>
+              <td></td>
+              {props.svNames.map((name, i) => <td key={i} className="stat">{name}</td>)}
+            </tr>
+          </thead>
+        )}
         <tbody>
           {props.points.map((point, i) => {
+            console.log(point.values)
             return (
               <tr key={point.placeDcid}>
                 <td
@@ -93,7 +110,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                     text={point.placeName || point.placeDcid}
                   />
                 </td>
-                {!props.hideValue && (
+                {(!props.hideValue && _.isEmpty(point.values)) && (
                   <td className="stat">
                     <span
                       className={`num-value ${
@@ -101,15 +118,35 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                       }`}
                     >
                       {formatNumber(
-                        props.scaling
-                          ? point.value * props.scaling
+                        props.scaling && props.scaling.length && props.scaling[0]
+                          ? point.value * props.scaling[0]
                           : point.value,
-                        props.unit,
+                        props.unit && props.unit.length ? props.unit[0] : '',
                         false,
                         NUM_FRACTION_DIGITS
                       )}
                     </span>
                   </td>
+                )}
+                {(!props.hideValue && !_.isEmpty(point.values)) && (
+                  point.values.map((v, i) =>
+                  <td key={i} className="stat">
+                    <span
+                      className={`num-value ${
+                        point.placeDcid === props.highlightedDcid ? "bold" : ""
+                      }`}
+                    >
+                      {formatNumber(
+                        props.scaling && props.scaling.length && props.scaling[i]
+                          ? v * props.scaling[i]
+                          : v,
+                        props.unit && props.unit.length ? props.unit[i] : '',
+                        false,
+                        NUM_FRACTION_DIGITS
+                      )}
+                    </span>
+                    </td>
+                  )
                 )}
               </tr>
             );

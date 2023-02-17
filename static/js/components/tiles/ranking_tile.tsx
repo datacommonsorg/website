@@ -37,8 +37,10 @@ const RANKING_COUNT = 5;
 
 interface RankingGroup {
   points: RankingPoint[];
-  unit: string;
-  scaling: number;
+  // If only value is used in RankingPoint - then there will only be one unit &
+  // scaling set. Otherwise, will match the order of values[].
+  unit: string[];
+  scaling: number[];
   numDataPoints?: number;
 }
 
@@ -64,11 +66,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     fetchData(props, setRankingData);
   }, [props]);
 
-  const numRankingLists = getNumRankingLists(
-    props.rankingMetadata,
-    rankingData
-  );
+  const numRankingLists = getNumRankingLists(props.rankingMetadata, rankingData);
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
+  const isMultiColumn = props.rankingMetadata.showMultiColumn;
+  const svNames = props.statVarSpec.map(sv => sv.name);
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -78,8 +79,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           numRankingLists > 1 ? "repeat(2, 1fr)" : "repeat(1, 1fr)",
       }}
     >
-      {rankingData &&
-        Object.keys(rankingData).map((statVar) => {
+      {rankingData && Object.keys(rankingData).map((statVar) => {
           const points = rankingData[statVar].points;
           const unit = rankingData[statVar].unit;
           const scaling = rankingData[statVar].scaling;
@@ -108,6 +108,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     }
                     points={points.slice(-rankingCount).reverse()}
                     isHighest={true}
+                    svNames={isMultiColumn ? svNames : undefined}
                   />
                   <footer>
                     <a
@@ -143,6 +144,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     numDataPoints={numDataPoints}
                     points={points.slice(0, rankingCount)}
                     isHighest={false}
+                    svNames={isMultiColumn ? svNames : undefined}
                   />
                   <footer>
                     <a
@@ -158,7 +160,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               )}
             </React.Fragment>
           );
-        })}
+        })
+      }
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
@@ -200,10 +203,63 @@ function fetchData(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
+      let rankingData = pointApiToPerSvRankingData(resp.data, props.statVarSpec);
+      if (props.rankingMetadata.showMultiColumn) {
+        return transformRankingDataForMultiColumn(rankingData, props.statVarSpec);
+      }
+      return rankingData;
+    })
+    .then((rankingData) => {
+      // Fetch place names.
+      const places: Set<string> = new Set();
+      for (const statVar in rankingData) {
+        for (const point of rankingData[statVar].points) {
+          places.add(point.placeDcid);
+        }
+      }
+      getPlaceNames(Array.from(places)).then((placeNames) => {
+        for (const statVar in rankingData) {
+          for (const point of rankingData[statVar].points) {
+            point.placeName = placeNames[point.placeDcid] || point.placeDcid;
+          }
+        }
+        setRankingData(rankingData);
+      });
+    });
+}
+
+// IMPORTANT: Reduces RankingData to only the SV used for sorting. Units,
+// scaling must still be read from props.statVarSpec.
+function transformRankingDataForMultiColumn(rankingData: RankingData, statVarSpecs: StatVarSpec[]): RankingData {
+    const svs = statVarSpecs.map(spec => spec.statVar);
+    const sortSv = svs[svs.length - 1];
+    const sortedPlacePoints = rankingData[sortSv].points;
+    const svsToDict = svs.map((sv) => {
+      const placeToVal = {};
+      const points = rankingData[sv].points;
+      for (const p of points) {
+        placeToVal[p.placeDcid] = p.value;
+      }
+      return placeToVal;
+    });
+    for (const p of sortedPlacePoints) {
+      p.value = undefined;
+      p.values = svs.map((_, i) => svsToDict[i][p.placeDcid]);
+    }
+    for (const sv of svs) {
+      if (sv != sortSv) {
+        delete(rankingData[sv]);
+      }
+    }
+    rankingData[sortSv].unit = statVarSpecs.map(spec => spec.unit);
+    rankingData[sortSv].scaling = statVarSpecs.map(spec => spec.scaling);
+    return rankingData;
+}
+
+function pointApiToPerSvRankingData(statData: PointApiResponse, statVarSpecs: StatVarSpec[]): RankingData {
       const rankingData: RankingData = {};
-      const statData = resp.data;
       // Get Ranking data
-      for (const spec of props.statVarSpec) {
+      for (const spec of statVarSpecs) {
         if (!(spec.statVar in statData.data)) {
           continue;
         }
@@ -236,31 +292,14 @@ function fetchData(
         const numDataPoints = arr.length;
         rankingData[spec.statVar] = {
           points: arr,
-          unit: spec.unit,
-          scaling: spec.scaling,
+          unit: [spec.unit],
+          scaling: [spec.scaling],
           numDataPoints,
         };
       }
       return rankingData;
-    })
-    .then((rankingData) => {
-      // Fetch place names.
-      const places: Set<string> = new Set();
-      for (const statVar in rankingData) {
-        for (const point of rankingData[statVar].points) {
-          places.add(point.placeDcid);
-        }
-      }
-      getPlaceNames(Array.from(places)).then((placeNames) => {
-        for (const statVar in rankingData) {
-          for (const point of rankingData[statVar].points) {
-            point.placeName = placeNames[point.placeDcid] || point.placeDcid;
-          }
-        }
-        setRankingData(rankingData);
-      });
-    });
 }
+
 
 /**
  * Gets the number of ranking lists that will be shown
@@ -271,6 +310,12 @@ function getNumRankingLists(
   rankingTileSpec: RankingTileSpec,
   rankingData: { [sv: string]: RankingGroup }
 ): number {
+  if (rankingTileSpec.showMultiColumn) {
+  return [
+        rankingTileSpec.showHighest,
+        rankingTileSpec.showLowest,
+      ].filter(Boolean).length;
+  }
   let numListsPerSv = 0;
   if (rankingTileSpec.showHighest) {
     numListsPerSv++;

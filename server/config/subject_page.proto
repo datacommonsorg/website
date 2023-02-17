@@ -104,7 +104,7 @@ message RankingTileSpec {
   int32 ranking_count = 10;
 
   // If true, all highest and lowest sv's will be grouped into a single, multi-column table.
-  bool multi_column = 11;
+  bool show_multi_column = 11;
 }
 
 message DisasterEventMapTileSpec {
