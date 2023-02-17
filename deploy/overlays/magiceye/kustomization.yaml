@@ -26,6 +26,7 @@ configMapGenerator:
     literals:
       - flaskEnv=custom
       - secretProject=datcom-magiceye-dev
+      - enableModel=true
     name: website-configmap
   - behavior: create
     literals:
