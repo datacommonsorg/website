@@ -35,6 +35,7 @@ categories {
         title: "Increase in min temperatures across scenarios"
         ranking_tile_spec {
           show_highest: true
+          show_lowest: true
           show_multi_column: true
         }
         stat_var_key: "rcp_26"
@@ -49,6 +50,7 @@ categories {
       tiles {
         type: RANKING
         ranking_tile_spec {
+          show_highest: true
           show_lowest: true
         }
         stat_var_key: "rcp_26"
