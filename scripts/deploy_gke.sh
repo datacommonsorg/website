@@ -51,7 +51,8 @@ echo $MIXER_HASH > mixer_hash.txt
 cd $ROOT
 PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
 CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/gke/$ENV.yaml)
-if [[ $CLUSTER_PREFIX == "" ]]; then
+
+if [[ $CLUSTER_PREFIX == "null" ]]; then
   CLUSTER_PREFIX="website"
 fi
 CLUSTER_NAME=$CLUSTER_PREFIX-$REGION

@@ -104,7 +104,7 @@ def register_routes_stanford_dc(app, is_local):
     return
 
   # load disaster json data
-  if not is_local or os.environ.get('ENABLE_DISASTER_JSON') == 'true':
+  if os.environ.get('ENABLE_DISASTER_JSON') == 'true':
     disaster_dashboard_data = get_disaster_dashboard_data(
         app.config['GCS_BUCKET'])
     app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
@@ -212,9 +212,8 @@ def create_app():
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
-  if cfg.ENV_NAME == 'STANFORD' or os.environ.get('FLASK_ENV') in [
-      'autopush', 'dev'
-  ] or cfg.LOCAL and not cfg.LITE:
+  if (cfg.ENV_NAME == 'STANFORD' or os.environ.get('ENABLE_MODEL') == 'true' or
+      cfg.LOCAL and not cfg.LITE):
     register_routes_stanford_dc(app, cfg.LOCAL)
 
   if cfg.TEST or cfg.INTEGRATION:
