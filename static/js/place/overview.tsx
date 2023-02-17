@@ -53,13 +53,15 @@ class Overview extends React.Component<OverviewPropType, OverviewStateType> {
     return (
       <section className="factoid col-12">
         <div className="row">
-          {!_.isEmpty(this.state.rankingData.label) ? (
+          <div
+            className={`col-12 ${this.shouldShowRanking() ? "col-md-4" : ""}`}
+          >
+            <div className={this.shouldShowRanking() ? "map-with-margin" : ""}>
+              <GoogleMap dcid={this.props.dcid}></GoogleMap>
+            </div>
+          </div>
+          {this.shouldShowRanking() ? (
             <>
-              <div className="col-12 col-md-4">
-                <div className="map-with-margin">
-                  <GoogleMap dcid={this.props.dcid}></GoogleMap>
-                </div>
-              </div>
               <div className="col-12 col-md-8">
                 <Ranking
                   dcid={this.props.dcid}
@@ -69,9 +71,7 @@ class Overview extends React.Component<OverviewPropType, OverviewStateType> {
               </div>
             </>
           ) : (
-            <div className="col-12">
-              <GoogleMap dcid={this.props.dcid}></GoogleMap>
-            </div>
+            <></>
           )}
         </div>
       </section>
@@ -87,6 +87,10 @@ class Overview extends React.Component<OverviewPropType, OverviewStateType> {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  shouldShowRanking(): boolean {
+    return !_.isEmpty(this.state.rankingData.label);
   }
 }
 
