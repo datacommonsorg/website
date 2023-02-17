@@ -36,6 +36,8 @@ from server.lib.nl.detection import OverviewClassificationAttributes
 from server.lib.nl.detection import PeriodType
 from server.lib.nl.detection import RankingClassificationAttributes
 from server.lib.nl.detection import RankingType
+from server.lib.nl.detection import SizeType
+from server.lib.nl.detection import SizeTypeClassificationAttributes
 from server.lib.nl.detection import TemporalClassificationAttributes
 from server.lib.nl.detection import TimeDeltaClassificationAttributes
 from server.lib.nl.detection import TimeDeltaType
@@ -46,6 +48,10 @@ from server.lib.nl.training import NLQueryClusteringDetectionModel
 import server.lib.nl.utils as utils
 from server.services import datacommons as dc
 
+# TODO: decouple words removal from detected attributes. Today, the removal
+# blanket removes anything that matches, including the various attribute/
+# classification triggers and contained_in place types (and their plurals).
+# This may not always be the best thing to do.
 ALL_STOP_WORDS = utils.combine_stop_words()
 
 
@@ -303,6 +309,50 @@ class Model:
     return NLClassifier(type=ClassificationType.TIME_DELTA,
                         attributes=attributes)
 
+  # TODO: This code is similar to the ranking and time_delta classifiers.
+  # Ideally, refactor.
+  def heuristic_size_type_classification(
+      self, query: str) -> Union[NLClassifier, None]:
+    """Determine if query is a 'Size-Type' type.
+
+    Uses heuristics instead of ML-based classification.
+
+    Args:
+      query (str): the user's input
+
+    Returns:
+      NLClassifier with SizeTypeClassificationAttributes
+    """
+    subtype_map = {
+        "Big": SizeType.BIG,
+        "Small": SizeType.SMALL,
+    }
+    size_type_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["SizeType"]
+    size_type_subtypes = size_type_heuristics.keys()
+    query = query.lower()
+    subtypes_matched = []
+    trigger_words = []
+    for subtype in size_type_subtypes:
+      type_trigger_words = []
+
+      for keyword in size_type_heuristics[subtype]:
+        # look for keyword surrounded by spaces or start/end delimiters
+        regex = r"(^|\W)" + keyword + r"($|\W)"
+        type_trigger_words += [w.group() for w in re.finditer(regex, query)]
+
+      if len(type_trigger_words) > 0:
+        subtypes_matched.append(subtype_map[subtype])
+      trigger_words += type_trigger_words
+
+    # If no matches, this query is not a size-type query
+    if len(trigger_words) == 0:
+      return None
+
+    attributes = SizeTypeClassificationAttributes(
+        size_types=subtypes_matched, size_types_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.SIZE_TYPE,
+                        attributes=attributes)
+
   def heuristic_comparison_classification(self,
                                           query) -> Union[NLClassifier, None]:
     # make query lowercase for string matching
@@ -359,6 +409,7 @@ class Model:
       return None
 
     contained_in_place_type = ContainedInPlaceType.PLACE
+    # place_type_to_enum is an OrderedDict.
     place_type_to_enum = OrderedDict({
         "county": ContainedInPlaceType.COUNTY,
         "state": ContainedInPlaceType.STATE,
@@ -368,15 +419,26 @@ class Model:
         "province": ContainedInPlaceType.PROVINCE,
         "town": ContainedInPlaceType.TOWN,
         "zip": ContainedInPlaceType.ZIP,
+        # Schools.
+        "high school": ContainedInPlaceType.HIGH_SCHOOL,
+        "middle school": ContainedInPlaceType.MIDDLE_SCHOOL,
+        "elementary school": ContainedInPlaceType.ELEMENTARY_SCHOOL,
+        "primary school": ContainedInPlaceType.PRIMARY_SCHOOL,
+        "public school": ContainedInPlaceType.PUBLIC_SCHOOL,
+        "private school": ContainedInPlaceType.PRIVATE_SCHOOL,
+        "school": ContainedInPlaceType.SCHOOL,
     })
+
     query = query.lower()
+    # Note again that place_type_to_enum is an OrderedDict.
     for place_type, place_enum in place_type_to_enum.items():
       if place_type in query:
         contained_in_place_type = place_enum
         break
 
-      if place_type in constants.PLACE_TYPE_TO_PLURALS and \
-        constants.PLACE_TYPE_TO_PLURALS[place_type] in query:
+      nospace_place_type = place_type.replace(' ', '')
+      if nospace_place_type in constants.PLACE_TYPE_TO_PLURALS and \
+        constants.PLACE_TYPE_TO_PLURALS[nospace_place_type] in query:
         contained_in_place_type = place_enum
         break
 
@@ -586,6 +648,10 @@ class Model:
 
   def detect_svs(self, query) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
+    # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
+    # the potential areas for improvement. For now, this removal blanket removes
+    # any words in ALL_STOP_WORDS which includes contained_in places and their
+    # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
     query = utils.remove_stop_words(query, ALL_STOP_WORDS)
     logging.info(f"SV Detection: Query used after removing stop words: {query}")

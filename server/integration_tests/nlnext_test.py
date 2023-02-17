@@ -121,6 +121,18 @@ class IntegrationTest(LiveServerTestCase):
         'How does this correlate with income',
     ])
 
+  def test_demo_cities_feb2023(self):
+    self.run_sequence(
+        'demo2_cities_feb2023',
+        [
+            'How big are the public schools in Sunnyvale',
+            'What is the prevalence of asthma there',
+            'What is the commute pattern there',
+            'How does that compare with San Bruno',
+            # Proxy for parks in magiceye
+            'Which cities in the SF Bay Area have the highest larceny',
+        ])
+
   def test_demo_fallback(self):
     self.run_sequence(
         'demo_fallback',

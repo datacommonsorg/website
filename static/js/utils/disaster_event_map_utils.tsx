@@ -24,7 +24,6 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { GeoJsonData } from "../chart/types";
 import { DisasterEventMapInfoCard } from "../components/tiles/disaster_event_map_info_card";
 import {
   DATE_OPTION_1Y_KEY,
@@ -41,7 +40,6 @@ import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
 import {
   DisasterDataOptions,
   DisasterEventDataApiResponse,
-  DisasterEventMapPlaceInfo,
   DisasterEventPoint,
   DisasterEventPointData,
   MapPointsData,
@@ -55,76 +53,6 @@ import { isValidDate } from "./string_utils";
 const MAX_YEARS = 20;
 const INFO_CARD_OFFSET = 5;
 const DATE_SUBSTRING_IDX = 10;
-
-/**
- * Get promise for geojson data
- * @param selectedPlace the enclosing place to get geojson data for
- * @param placeType the place type to get geojson data for
- */
-export function fetchGeoJsonData(
-  placeInfo: DisasterEventMapPlaceInfo
-): Promise<GeoJsonData> {
-  let enclosingPlace = placeInfo.selectedPlace.dcid;
-  let enclosedPlaceType = placeInfo.enclosedPlaceType;
-  if (!enclosedPlaceType) {
-    if (
-      _.isEmpty(placeInfo.parentPlaces) ||
-      _.isEmpty(placeInfo.selectedPlace.types)
-    ) {
-      return Promise.resolve({
-        type: "FeatureCollection",
-        features: [],
-        properties: {
-          current_geo: enclosingPlace,
-        },
-      });
-    }
-    // set enclosing place to be the parent place and the enclosed place type to
-    // be the place type of the selected place.
-    enclosingPlace = placeInfo.parentPlaces[0].dcid;
-    enclosedPlaceType = placeInfo.selectedPlace.types[0];
-  }
-
-  return axios
-    .get<GeoJsonData>("/api/choropleth/geojson", {
-      params: {
-        placeDcid: enclosingPlace,
-        placeType: enclosedPlaceType,
-      },
-    })
-    .then((resp) => resp.data as GeoJsonData)
-    .catch(() => {
-      return {
-        type: "FeatureCollection",
-        features: [],
-        properties: {
-          current_geo: enclosingPlace,
-        },
-      };
-    });
-}
-
-/**
- * Get promise for geojson data for a list of events and a geojson prop
- * @param eventDcids events to get geojson for
- * @param geoJsonProp prop to use to get the geojson
- */
-export function fetchEventGeoJson(
-  eventDcids: string[],
-  geoJsonProp: string
-): Promise<GeoJsonData> {
-  return axios
-    .post<GeoJsonData>("/api/choropleth/entity-geojson", {
-      entities: eventDcids,
-      geoJsonProp,
-    })
-    .then((resp) => {
-      return resp.data as GeoJsonData;
-    })
-    .catch(() => {
-      return null;
-    });
-}
 
 /**
  * Get a list of dates that encompass all events for a place and a given list of event types

@@ -49,6 +49,18 @@ class TestNERPlaces(unittest.TestCase):
 
   @parameterized.expand([
       # All these queries should detect places.
+      # Starting with several special cases (continents, US etc).
+      ["GDP of Africa", ["africa"]],
+      ["median income in africa", ["africa"]],
+      ["GDP of countries in asia", ["asia"]],
+      ["economy of Asia", ["asia"]],
+      ["poverty in oceania", ["oceania"]],
+      ["travel in south america", ["south america"]],
+      ["income in latin america", ["latin america"]],
+      ["population of north america", ["north america"]],
+      ["climate change in north america cities", [
+          "north america",
+      ]],
       ["tell me about chicago", ["chicago"]],
       ["what about new delhi", ["new delhi"]],
       ["gdp of USA", ["usa"]],
@@ -56,7 +68,28 @@ class TestNERPlaces(unittest.TestCase):
       ["poverty in the us", ["us"]],
       [
           "states with the best places to live in the united states",
-          ["the united states"]
+          ["united states"]
+      ],
+      ["tell me about palo alto", ["palo alto"]],
+      ["what about mountain view", ["mountain view"]],
+      # Bay Area special cases.
+      [
+          "cities with the highest african american population in the sf bay area",
+          ["sf bay area"]
+      ],
+      [
+          "cities with asian american population in the san francisco bay area",
+          ["san francisco bay area"]
+      ],
+      ["cities with people in the SF peninsula", ["sf peninsula"]],
+      ["crime in the SF east bay", ["sf east bay"]],
+      [
+          "SF east bay's and California's population",
+          ["sf east bay", "california"]
+      ],
+      [
+          "Asian population in the SF north bay and in California and in Asia",
+          ["sf north bay", "california", "asia"]
       ],
       # Order of detection matters.
       [
@@ -77,6 +110,7 @@ class TestNERPlaces(unittest.TestCase):
           "life expectancy in New York city and Alabama",
           ["new york city", "alabama"]
       ],
+      ["berkeley's economy and mountain view's", ["berkeley", "mountain view"]],
       # Check that the full place string is detected.
       ["tell me about Placer county", ["placer county"]],
       ["tell me about Santa Clara county", ["santa clara county"]],

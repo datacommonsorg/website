@@ -101,6 +101,14 @@ class ContainedInPlaceType(Enum):
   DISTRICT = "District"
   TOWN = "Town"
   ZIP = "CensusZipCodeTabulationArea"
+  SCHOOL = "School"
+  PUBLIC_SCHOOL = "PublicSchool"
+  PRIVATE_SCHOOL = "PrivateSchool"
+  PRIMARY_SCHOOL = "PrimarySchool"
+  ELEMENTARY_SCHOOL = "ElementarySchool"
+  MIDDLE_SCHOOL = "MiddleSchool"
+  HIGH_SCHOOL = "HighSchool"
+
   # Across is a generic containedInPlaceType which determines if the
   # query is using the word "across".
   ACROSS = "Across"
@@ -130,6 +138,19 @@ class TimeDeltaType(IntEnum):
   """Indicates whether query refers to an increase or decrease in SV values."""
   INCREASE = 0
   DECREASE = 1
+
+
+class SizeType(IntEnum):
+  """SizeType indicates the type of size query specified."""
+  NONE = 0
+
+  # BIG is for queries like:
+  # "how big ..."
+  BIG = 1
+
+  # SMALL is for queries like:
+  # "how small ..."
+  SMALL = 2
 
 
 class ClassificationAttributes(ABC):
@@ -228,6 +249,16 @@ class TimeDeltaClassificationAttributes(ClassificationAttributes):
   time_delta_trigger_words: List[str]
 
 
+@dataclass
+class SizeTypeClassificationAttributes(ClassificationAttributes):
+  """Size classification attributes."""
+  size_types: List[SizeType]
+
+  # List of words which made this a size-type query:
+  # e.g. "big", "small" etc
+  size_types_trigger_words: List[str]
+
+
 class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
@@ -240,7 +271,8 @@ class ClassificationType(IntEnum):
   TIME_DELTA = 8
   EVENT = 9
   OVERVIEW = 10
-  UNKNOWN = 11
+  SIZE_TYPE = 11
+  UNKNOWN = 12
 
 
 @dataclass

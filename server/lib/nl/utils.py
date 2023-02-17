@@ -76,6 +76,30 @@ _SV_DISPLAY_NAME_OVERRIDE = {
         "Household Median Income",
     "Median_Earnings_Person":
         "Individual Median Earnings",
+    "dc/6rltk4kf75612":
+        "Work at home",
+    "dc/vp8cbt6k79t94":
+        "Walk to work",
+    "dc/hbkh95kc7pkb6":
+        "Public Transit",
+    "dc/wc8q05drd74bd":
+        "Carpool",
+    "dc/0gettc3bc60cb":
+        "Drive alone",
+    "dc/vt2q292eme79f":
+        "Others (incl. Taxcab, Motorcyle, Bicycle)",
+    "Count_Student":
+        "Number of Students",
+    "Count_Teacher":
+        "Number of Teachers",
+    "Percent_Student_AsAFractionOf_Count_Teacher":
+        "Student-Teacher Ratio",
+    "Count_Person":
+        "Population",
+    "Amount_EconomicActivity_GrossDomesticProduction_RealValue":
+        "GDP (Real Value)",
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal":
+        "GDP (Nominal Value)"
 }
 
 _SV_DISPLAY_FOOTNOTE_OVERRIDE = {
@@ -532,7 +556,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   """
   # Run through all heuristics (various query string transforms).
   query = remove_punctuations(query)
-  query_lower = query.lower()
+  query_lower_with_spaces = f" {query.lower()} "
   query_without_stop_words = remove_stop_words(query, constants.STOP_WORDS)
   query_title_case = query.title()
   query_without_stop_words_title_case = query_without_stop_words.title()
@@ -541,19 +565,29 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   # not getting detected.
   # First check in special places. If they are found, add those first.
   places_found = []
-  for special_place in constants.SPECIAL_PLACES:
-    if special_place in query.lower():
+  for special_place in constants.OVERRIDE_FOR_NER:
+    # Matching <space>special_place<space> because otherwise "asia" could
+    # also match "asian" which is undesirable.
+    if f" {special_place} " in query_lower_with_spaces:
       logging.info(f"Found one of the Special Places: {special_place}")
       places_found.append(special_place)
 
   # Now try all versions of the query.
   for q in [
-      query, query_lower, query_without_stop_words, query_title_case,
-      query_without_stop_words_title_case
+      query, query_lower_with_spaces, query_without_stop_words,
+      query_title_case, query_without_stop_words_title_case
   ]:
     logging.info(f"Trying place detection with: {q}")
     try:
       for p in query_fn(q):
+        # remove "the" from the place. This helps where place detection can associate
+        # "the" with some places, e.g. "The United States"
+        # or "the SF Bay Area". Since we are sometimes doing special casing, e.g. for
+        # SF Bay Area, it is desirable to not have place names with these stop words.
+        # It also helps de-dupe where "the US" and "US" could both be detected by the
+        # heuristics above, for example.
+        if "the " in p:
+          p = p.replace("the ", "")
         # Add if not already done. Also check for the special places which get
         # added with a ", usa" appended.
         if (p.lower() not in places_found):
@@ -579,7 +613,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         break
     # Insert places_found[i] in the candidates if it is not to be ignored
     # and if it is also found in the original query without punctuations.
-    # The extra check to find places_found[i] in `query_lower` is to avoid
+    # The extra check to find places_found[i] in `query_lower_with_spaces` is to avoid
     # situations where the removal of some stop words etc makes the remaining
     # query have some valid place name words next to each other. For example,
     # in the query "... united in the states ...", the removal of stop words
@@ -587,12 +621,15 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
     # now find "united states" as a place. Therefore, to avoid such situations
     # we should try to find the place string found in the original (lower case)
     # query string.
-    if not ignore and places_found[i] in query_lower:
+    # If places_found[i] was a special place (constants.OVERRIDE_FOR_NER),
+    # keep it always.
+    if (places_found[i] in constants.OVERRIDE_FOR_NER) or (
+        not ignore and places_found[i] in query_lower_with_spaces):
       places_to_return.append(places_found[i])
 
   # For all the places detected, re-sort based on the string which occurs first.
   def fn(p):
-    ind = query_lower.find(p)
+    ind = query_lower_with_spaces.find(f" {p} ")
     if ind < 0:
       return +1000000
     return ind
@@ -631,6 +668,18 @@ def get_contained_in_type(
   return place_type
 
 
+def get_size_types(uttr: nl_uttr.Utterance) -> List[detection.SizeType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.SIZE_TYPE)
+  size_types = []
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.SizeTypeClassificationAttributes)):
+    # Ranking among places.
+    size_types = classification[0].attributes.size_types
+  return size_types
+
+
 def get_ranking_types(uttr: nl_uttr.Utterance) -> List[detection.RankingType]:
   classification = ctx.classifications_of_type_from_utterance(
       uttr, detection.ClassificationType.RANKING)
@@ -659,3 +708,9 @@ def pluralize_place_type(place_type: str) -> str:
   result = constants.PLACE_TYPE_TO_PLURALS.get(
       place_type.lower(), constants.PLACE_TYPE_TO_PLURALS["place"])
   return result.title()
+
+
+def has_map(place_type: any) -> bool:
+  if isinstance(place_type, str):
+    place_type = detection.ContainedInPlaceType(place_type)
+  return place_type in constants.MAP_PLACE_TYPES

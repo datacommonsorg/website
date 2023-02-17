@@ -13,8 +13,9 @@
 # limitations under the License.
 """Various constants for NL detection."""
 
-from typing import Dict, List, Set, Union
+from typing import Dict, FrozenSet, List, Set, Union
 
+from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
 
 STOP_WORDS: Set[str] = {
@@ -155,9 +156,78 @@ STOP_WORDS: Set[str] = {
 
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
-SPECIAL_PLACES: Set[str] = {'palo alto', 'mountain view'}
+OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
+    'palo alto',
+    'mountain view',
+    'world',
+    'earth',
+    'africa',
+    'antarctica',
+    'asia',
+    'europe',
+    'north america',
+    'south america',
+    'oceania',
+    # San Francisco Bay Area(s)
+    'san francisco bay area',
+    'sf bay area',
+    'san francisco peninsula',
+    'san francisco north bay',
+    'san francisco south bay',
+    'san francisco east bay',
+    'sf peninsula',
+    'sf north bay',
+    'sf south bay',
+    'sf east bay',
+])
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
+
+SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
+    'Earth': ['earth', 'world'],
+    # Continents
+    'africa': ['africa'],
+    'antarctica': ['antarctica'],
+    'asia': ['asia'],
+    'europe': ['europe'],
+    'northamerica': ['north america', 'northamerica'],
+    'southamerica': [
+        'south america', 'southamerica', 'latin america', 'latinamerica'
+    ],
+    'oceania': ['oceania', 'australasia'],
+    # special places
+    'wikidataId/Q213205': ['san francisco bay area', 'sf bay area', 'bay area'],
+    'wikidataId/Q1827082': ['san francisco peninsula', 'sf peninsula'],
+    'wikidataId/Q3271856': ['san francisco south bay', 'sf south bay'],
+    'wikidataId/Q3271661': ['san francisco north bay', 'sf north bay'],
+    'wikidataId/Q2617944': ['san francisco east bay', 'sf east bay'],
+}
+
+# Invert the above str: List[str] Dictionary to str: str.
+OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API: Dict[str, str] = {}
+for dcid, place_list in SPECIAL_DCIDS_TO_PLACES.items():
+  for place in place_list:
+    OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[place] = dcid
+
+MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+
+# Source: https://developers.google.com/maps/documentation/places/web-service/supported_types#table2
+MAPS_GEO_TYPES = frozenset([
+    'political',
+    'country',
+    'city',
+    'county',
+    'continent',
+    'administrative_area_level_1',
+    'administrative_area_level_2',
+    'administrative_area_level_3',
+    'administrative_area_level_4',
+    'administrative_area_level_5',
+    'administrative_area_level_6',
+    'administrative_area_level_7',
+    'postal_code',
+    'locality',
+])
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
@@ -268,6 +338,10 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
                 "loss",
             ],
         },
+        "SizeType": {
+            "Big": ["big",],
+            "Small": ["small",],
+        },
         "Overview": ["tell me (more )?about",],
     }
 
@@ -292,6 +366,14 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "administrativearea3": "administrative area 3 places",
     "administrativearea4": "administrative area 4 places",
     "administrativearea5": "administrative area 5 places",
+    # Schools
+    "highschool": "high schools",
+    "middleschool": "middle schools",
+    "elementaryschool": "elementary schools",
+    "primaryschool": "primary schools",
+    "publicschool": "public schools",
+    "privateschool": "private schools",
+    "school": "schools",
 }
 
 # TODO: Unify the different event maps by using a struct value.
@@ -341,3 +423,8 @@ CHILD_PLACES_TYPES = {
     "State": "County",
     "County": "City",
 }
+
+MAP_PLACE_TYPES = frozenset([
+    ContainedInPlaceType.COUNTY, ContainedInPlaceType.STATE,
+    ContainedInPlaceType.COUNTRY
+])

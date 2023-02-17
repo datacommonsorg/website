@@ -23,13 +23,14 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { ChartEmbed } from "../../place/chart_embed";
+import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
-import { getPlaceNames } from "../../utils/place_utils";
+import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { formatString, getStatVarName } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 
@@ -226,7 +227,12 @@ function fetchData(
           places.add(point.placeDcid);
         }
       }
-      getPlaceNames(Array.from(places)).then((placeNames) => {
+      // We want the display name (gets name with state code if available) if
+      // parent place is USA
+      const placeNamesPromise = _.isEqual(props.place, USA_NAMED_TYPED_PLACE)
+        ? getPlaceDisplayNames(Array.from(places))
+        : getPlaceNames(Array.from(places));
+      placeNamesPromise.then((placeNames) => {
         for (const statVar in rankingData) {
           for (const point of rankingData[statVar].points) {
             point.placeName = placeNames[point.placeDcid] || point.placeDcid;
@@ -290,6 +296,7 @@ function pointApiToPerSvRankingData(
       if (spec.denom) {
         if (
           spec.denom in statData.data &&
+          place in statData.data[spec.denom] &&
           statData.data[spec.denom][place].value != 0
         ) {
           rankingPoint.value /= statData.data[spec.denom][place].value;

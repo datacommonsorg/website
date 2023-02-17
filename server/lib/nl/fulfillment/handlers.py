@@ -27,6 +27,7 @@ from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import ranking_across_places
 from server.lib.nl.fulfillment import ranking_across_vars
 from server.lib.nl.fulfillment import simple
+from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment import time_delta
 from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance
@@ -77,12 +78,16 @@ QUERY_HANDLERS = {
         QueryHandlerConfig(module=event,
                            rank=8,
                            direct_fallback=QueryType.SIMPLE),
+    QueryType.SIZE_ACROSS_ENTITIES:
+        QueryHandlerConfig(module=size_across_entities,
+                           rank=9,
+                           direct_fallback=QueryType.CONTAINED_IN),
 
     # Overview trumps everything else ("tell us about"), and
     # has no fallback.
     QueryType.OVERVIEW:
         QueryHandlerConfig(module=overview,
-                           rank=9,
+                           rank=10,
                            direct_fallback=QueryType.OVERVIEW),
 }
 
@@ -100,6 +105,8 @@ DIRECT_CLASSIFICATION_TYPE_TO_QUERY_TYPE = {
         QueryType.TIME_DELTA,
     ClassificationType.EVENT:
         QueryType.EVENT,
+    ClassificationType.SIZE_TYPE:
+        QueryType.SIZE_ACROSS_ENTITIES,
 
     # Unsupported classification-types. Map them to SIMPLE for now.
     # TODO: Handle this better.
@@ -119,7 +126,9 @@ DIRECT_CLASSIFICATION_TYPE_TO_QUERY_TYPE = {
 def first_query_type(uttr: Utterance):
   query_types = [QueryType.SIMPLE]
   for cl in uttr.classifications:
-    query_types.append(_classification_to_query_type(cl, uttr))
+    qtype = _classification_to_query_type(cl, uttr)
+    if qtype != None:
+      query_types.append(qtype)
 
   default_config = QueryHandlerConfig(module=None, rank=-1)  # Ranks the lowest
   query_types = sorted(

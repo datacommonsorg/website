@@ -29,7 +29,7 @@ from server.lib.nl.detection import RankingType
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartSpec
 from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import ClassificationType
+from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance
 
 
@@ -55,8 +55,7 @@ class PageConfigBuilder:
     self.prev_block_id = -1
 
     self.ignore_block_id_check = False
-    if (uttr.query_type == ClassificationType.RANKING and
-        utils.get_contained_in_type(uttr)):
+    if uttr.query_type == QueryType.RANKING_ACROSS_PLACES:
       self.ignore_block_id_check = True
 
   # Returns a Block and a Column
@@ -162,7 +161,7 @@ def build_page_config(
           # For a peer-group of SVs, set the title and description only once.
           builder.block.title = ''
           builder.block.description = ''
-        elif not builder.block.title:
+        elif not builder.block.title and builder.ignore_block_id_check:
           # For the first SV, if title weren't already set, set it to
           # the SV name.
           builder.block.title = sv2name[sv]
@@ -176,11 +175,12 @@ def build_page_config(
             _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
                                       cspec.attr))
         if cspec.attr['include_percapita'] and _should_add_percapita(sv):
-          main_title = builder.block.title
-          block, column = builder.new_chart(cspec.attr)
-          if main_title:
-            builder.block.title = _decorate_block_title(
-                title=main_title, chart_origin=chart_origin, do_pc=True)
+          if not 'skip_map_for_ranking' in cspec.attr:
+            main_title = builder.block.title
+            block, column = builder.new_chart(cspec.attr)
+            if main_title:
+              builder.block.title = _decorate_block_title(
+                  title=main_title, chart_origin=chart_origin, do_pc=True)
           stat_var_spec_map.update(
               _ranking_chart_block_pc(column, pri_place, sv, sv2name,
                                       cspec.attr))
@@ -414,9 +414,10 @@ def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
 
-  # Also add a map chart.
-  stat_var_spec_map.update(
-      _map_chart_block_nopc(column, pri_place, pri_sv, sv2name, attr))
+  if not 'skip_map_for_ranking' in attr:
+    # Also add a map chart.
+    stat_var_spec_map.update(
+        _map_chart_block_nopc(column, pri_place, pri_sv, sv2name, attr))
 
   return stat_var_spec_map
 
@@ -441,9 +442,10 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
                                           scaling=100,
                                           unit="%")
 
-  # Also add a map chart.
-  stat_var_spec_map.update(
-      _map_chart_block_pc(column, pri_place, pri_sv, sv2name, attr))
+  if not 'skip_map_for_ranking' in attr:
+    # Also add a map chart.
+    stat_var_spec_map.update(
+        _map_chart_block_pc(column, pri_place, pri_sv, sv2name, attr))
 
   return stat_var_spec_map
 
