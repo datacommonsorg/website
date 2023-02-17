@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import axios from "axios";
+import _ from "lodash";
 import React from "react";
 
 import { GoogleMap } from "../components/google_map";
@@ -30,23 +32,61 @@ interface OverviewPropType {
   locale: string;
 }
 
-class Overview extends React.Component<OverviewPropType> {
+/**
+ * Holds response of /api/place/ranking, used to populate a ranking table.
+ */
+interface OverviewStateType {
+  rankingData: {
+    label: string[];
+    Population: { name: Record<string, unknown>; label: string }[];
+  };
+}
+class Overview extends React.Component<OverviewPropType, OverviewStateType> {
+  constructor(props: OverviewPropType) {
+    super(props);
+    this.state = {
+      rankingData: { label: [], Population: [] },
+    };
+  }
+
   render(): JSX.Element {
     return (
       <section className="factoid col-12">
         <div className="row">
-          <div className="col-12 col-md-4">
-            <GoogleMap dcid={this.props.dcid}></GoogleMap>
-          </div>
-          <div className="col-12 col-md-8">
-            <Ranking
-              dcid={this.props.dcid}
-              locale={this.props.locale}
-            ></Ranking>
-          </div>
+          {!_.isEmpty(this.state.rankingData.label) ? (
+            <>
+              <div className="col-12 col-md-4">
+                <div className="map-with-margin">
+                  <GoogleMap dcid={this.props.dcid}></GoogleMap>
+                </div>
+              </div>
+              <div className="col-12 col-md-8">
+                <Ranking
+                  dcid={this.props.dcid}
+                  locale={this.props.locale}
+                  data={this.state.rankingData}
+                ></Ranking>
+              </div>
+            </>
+          ) : (
+            <div className="col-12">
+              <GoogleMap dcid={this.props.dcid}></GoogleMap>
+            </div>
+          )}
         </div>
       </section>
     );
+  }
+
+  componentDidMount(): void {
+    axios
+      .get(`/api/place/ranking/${this.props.dcid}?hl=${this.props.locale}`)
+      .then((resp) => {
+        this.setState({ rankingData: resp.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
 

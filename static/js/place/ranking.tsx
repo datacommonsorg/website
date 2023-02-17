@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import axios from "axios";
+import _ from "lodash";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
@@ -23,24 +23,15 @@ import { intl, LocalizedLink } from "../i18n/i18n";
 interface RankingPropsType {
   dcid: string;
   locale: string;
-}
-
-interface RankingStateType {
   data: {
     label: string[];
     Population: { name: Record<string, unknown>; label: string }[];
   };
 }
 
-class Ranking extends React.Component<RankingPropsType, RankingStateType> {
-  constructor(props: RankingPropsType) {
-    super(props);
-    this.state = {
-      data: { label: [], Population: [] },
-    };
-  }
+class Ranking extends React.Component<RankingPropsType> {
   render(): JSX.Element {
-    const data = this.state.data;
+    const data = this.props.data;
     const provenanceLinks = (
       <>
         <a href="https://www.census.gov/">census.gov</a>,{" "}
@@ -120,14 +111,6 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
         )}
       </React.Fragment>
     );
-  }
-
-  componentDidMount(): void {
-    axios
-      .get(`/api/place/ranking/${this.props.dcid}?hl=${this.props.locale}`)
-      .then((resp) => {
-        this.setState({ data: resp.data });
-      });
   }
 }
 

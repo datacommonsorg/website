@@ -64,6 +64,8 @@ interface GoogleMapStateType {
   mapInfo: MapInfoResponse;
   // Whether there is data for map to render.
   shouldShowMap: boolean;
+  // Whether component is mounted
+  isMounted: boolean;
 }
 
 /**
@@ -142,6 +144,7 @@ export class GoogleMap extends React.Component<
     super(props);
     this.div = React.createRef();
     this.state = {
+      isMounted: false,
       markerLocation: { lat: null, lng: null },
       mapInfo: {
         up: null,
@@ -165,11 +168,12 @@ export class GoogleMap extends React.Component<
   }
 
   componentDidMount(): void {
+    this.setState({ isMounted: true });
     this.fetchData();
   }
 
   componentDidUpdate(): void {
-    if (this.state.shouldShowMap) {
+    if (this.state.shouldShowMap && this.state.isMounted) {
       // initialize Map
       const map = initMap(this.div.current);
 
@@ -186,6 +190,9 @@ export class GoogleMap extends React.Component<
     }
   }
 
+  componentWillUnmount(): void {
+    this.setState({ isMounted: false });
+  }
   private fetchData(): void {
     // Get KML Coordinates for polygons
     const polygonPromise = axios
@@ -206,7 +213,7 @@ export class GoogleMap extends React.Component<
     Promise.all([polygonPromise, latitudePromise, longitudePromise])
       .then(([mapInfo, latitudes, longitudes]) => {
         // Update state with mapInfo
-        if (!_.isEmpty(mapInfo)) {
+        if (!_.isEmpty(mapInfo) && this.state.isMounted) {
           this.setState({
             mapInfo: mapInfo,
             shouldShowMap: true,
@@ -226,10 +233,12 @@ export class GoogleMap extends React.Component<
             lat: parseFloat(latitudes.values.out[0].value),
             lng: parseFloat(longitudes.values.out[0].value),
           };
-          this.setState({
-            markerLocation: coordinates,
-            shouldShowMap: true,
-          });
+          if (this.state.isMounted) {
+            this.setState({
+              markerLocation: coordinates,
+              shouldShowMap: true,
+            });
+          }
         }
       })
       .catch((error) => console.log(error));
