@@ -157,8 +157,28 @@ STOP_WORDS: Set[str] = {
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
 OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
-    'palo alto', 'mountain view', 'world', 'earth', 'africa', 'antarctica',
-    'asia', 'europe', 'north america', 'south america', 'oceania'
+    'palo alto',
+    'mountain view',
+    'world',
+    'earth',
+    'africa',
+    'antarctica',
+    'asia',
+    'europe',
+    'north america',
+    'south america',
+    'oceania',
+    # San Francisco Bay Area(s)
+    'san francisco bay area',
+    'sf bay area',
+    'san francisco peninsula',
+    'san francisco north bay',
+    'san francisco south bay',
+    'san francisco east bay',
+    'sf peninsula',
+    'sf north bay',
+    'sf south bay',
+    'sf east bay',
 ])
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
@@ -175,6 +195,12 @@ SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
         'south america', 'southamerica', 'latin america', 'latinamerica'
     ],
     'oceania': ['oceania', 'australasia'],
+    # special places
+    'wikidataId/Q213205': ['san francisco bay area', 'sf bay area', 'bay area'],
+    'wikidataId/Q1827082': ['san francisco peninsula', 'sf peninsula'],
+    'wikidataId/Q3271856': ['san francisco south bay', 'sf south bay'],
+    'wikidataId/Q3271661': ['san francisco north bay', 'sf north bay'],
+    'wikidataId/Q2617944': ['san francisco east bay', 'sf east bay'],
 }
 
 # Invert the above str: List[str] Dictionary to str: str.
