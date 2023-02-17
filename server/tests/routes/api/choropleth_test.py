@@ -556,7 +556,7 @@ class TestChoroplethData(unittest.TestCase):
     assert response_data == expected_data
 
 
-class TestGetEntityGeoJson(unittest.TestCase):
+class TestGetNodeGeoJson(unittest.TestCase):
 
   @patch('server.routes.api.choropleth.rewind')
   @patch('server.routes.api.choropleth.dc.property_values')
@@ -571,9 +571,8 @@ class TestGetEntityGeoJson(unittest.TestCase):
     test_geojson_2 = json.dumps(GEOJSON_MULTIPOLYGON_GEOMETRY)
     test_geojson_3 = json.dumps(GEOJSON_MULTILINE_GEOMETRY)
 
-    def geojson_side_effect(entities, prop):
-      if entities == [dcid1, dcid2, dcid3, dcid4, dcid5
-                     ] and prop == geojson_prop:
+    def geojson_side_effect(nodes, prop):
+      if nodes == [dcid1, dcid2, dcid3, dcid4, dcid5] and prop == geojson_prop:
         return {
             dcid1: [test_geojson_1, test_geojson_2],
             dcid2: [test_geojson_1],
@@ -592,9 +591,9 @@ class TestGetEntityGeoJson(unittest.TestCase):
     mock_geojson_rewind.side_effect = geojson_rewind_side_effect
 
     response = app.test_client().post(
-        '/api/choropleth/entity-geojson',
+        '/api/choropleth/node-geojson',
         json={
-            "entities": [dcid1, dcid2, dcid3, dcid4, dcid5],
+            "nodes": [dcid1, dcid2, dcid3, dcid4, dcid5],
             "geoJsonProp": geojson_prop
         })
     assert response.status_code == 200
