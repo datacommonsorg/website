@@ -439,7 +439,8 @@ def _ranking_chart_block_climate_extremes(builder, pri_place: Place,
       map_column = map_block.columns.add()
     stat_var_spec_map.update(
         _map_chart_block_nopc(map_column, pri_place, sv, sv2name, attr))
-    map_column.tiles[0].title = sv2name[sv]  # override decorated title (too long).
+    map_column.tiles[0].title = sv2name[
+        sv]  # override decorated title (too long).
 
   map_block.title = ''
   map_block.description = ''
