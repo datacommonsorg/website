@@ -190,7 +190,8 @@ message Tile {
 message Block {
   string title = 1;
   string description = 2;
-  // For now, a single footnote that goes across the bottom of each block.
+  // Footnote that goes across the bottom of each block. Multiple footnotes can
+  // be added, separated by "\n\n".
   string footnote = 5;
 
   message Column {

@@ -97,7 +97,7 @@
               5
             ],
             "source_topic": "dc/topic/ProjectedClimateExtremes",
-            "title": "Projected highest increase in max temperature in different scenarios"
+            "title": "Projected highest increase in max temperature under different scenarios"
           },
           "chart_type": 2,
           "event": null,
@@ -126,7 +126,7 @@
               5
             ],
             "source_topic": "dc/topic/ProjectedClimateExtremes",
-            "title": "Projected highest decrease in min temperature in different scenarios"
+            "title": "Projected highest decrease in min temperature under different scenarios"
           },
           "chart_type": 2,
           "event": null,
@@ -160,12 +160,13 @@
   ],
   "query_with_places_removed": "Where were the major fires in the last year",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6448161005973816,
-      0.4775705933570862,
-      0.37844347953796387
+      0.6448161602020264,
+      0.4775705635547638,
+      0.37844353914260864
     ],
     "SV": [
       "Count_WildfireEvent",
@@ -174,59 +175,59 @@
     ],
     "SV_to_Sentences": {
       "Annual_ExpectedLoss_NaturalHazardImpact": [
-        "Estimated annual loss from natural hazard impacts (0.37844347953796387)",
-        "The yearly financial impact of natural disasters (0.37651515007019043)",
+        "Estimated annual loss from natural hazard impacts (0.37844353914260864)",
+        "The yearly financial impact of natural disasters (0.37651509046554565)",
         "The annual price tag of natural disasters (0.3635178804397583)",
-        "Annual Expected Loss from Natural Hazard Impact (0.36098629236221313)"
+        "Annual Expected Loss from Natural Hazard Impact (0.3609863519668579)"
       ],
       "Count_CriminalActivities_Arson": [
-        "Number of arson incidents (0.4775705933570862)",
-        "Total number of arson cases (0.43985700607299805)",
-        "Number of Arson Crimes (0.42383068799972534)",
-        "Number of arson crimes (0.42383068799972534)",
-        "Number of arson charges (0.4197373688220978)",
-        "Count of Criminal Activities: Arson (0.4024435877799988)",
-        "Total number of arson offenses (0.4007202088832855)",
-        "Number of crimes counted as Arson (0.39464402198791504)"
+        "Number of arson incidents (0.4775705635547638)",
+        "Total number of arson cases (0.4398569166660309)",
+        "Number of Arson Crimes (0.42383071780204773)",
+        "Number of arson crimes (0.42383071780204773)",
+        "Number of arson charges (0.4197373390197754)",
+        "Count of Criminal Activities: Arson (0.40244364738464355)",
+        "Total number of arson offenses (0.4007200598716736)",
+        "Number of crimes counted as Arson (0.39464399218559265)"
       ],
       "Count_WildfireEvent": [
-        "Number of wild fires (0.6448161005973816)",
-        "Number of wildfires (0.6082714796066284)",
-        "Number of Wildfires (0.6082714796066284)",
+        "Number of wild fires (0.6448161602020264)",
+        "Number of wildfires (0.608271598815918)",
+        "Number of Wildfires (0.608271598815918)",
         "Number of forest fires (0.5873435735702515)",
-        "Number of vegetation fires (0.5820397138595581)",
-        "Number of bush fires (0.5716055035591125)",
-        "Number of wildfire events (0.5425778031349182)",
-        "Count of Wildfire Event (0.5045324563980103)"
+        "Number of vegetation fires (0.5820395350456238)",
+        "Number of bush fires (0.571605384349823)",
+        "Number of wildfire events (0.5425779819488525)",
+        "Count of Wildfire Event (0.5045325756072998)"
       ]
     }
   },
   "svs_to_sentences": {
     "Annual_ExpectedLoss_NaturalHazardImpact": [
-      "Estimated annual loss from natural hazard impacts (0.37844347953796387)",
-      "The yearly financial impact of natural disasters (0.37651515007019043)",
+      "Estimated annual loss from natural hazard impacts (0.37844353914260864)",
+      "The yearly financial impact of natural disasters (0.37651509046554565)",
       "The annual price tag of natural disasters (0.3635178804397583)",
-      "Annual Expected Loss from Natural Hazard Impact (0.36098629236221313)"
+      "Annual Expected Loss from Natural Hazard Impact (0.3609863519668579)"
     ],
     "Count_CriminalActivities_Arson": [
-      "Number of arson incidents (0.4775705933570862)",
-      "Total number of arson cases (0.43985700607299805)",
-      "Number of Arson Crimes (0.42383068799972534)",
-      "Number of arson crimes (0.42383068799972534)",
-      "Number of arson charges (0.4197373688220978)",
-      "Count of Criminal Activities: Arson (0.4024435877799988)",
-      "Total number of arson offenses (0.4007202088832855)",
-      "Number of crimes counted as Arson (0.39464402198791504)"
+      "Number of arson incidents (0.4775705635547638)",
+      "Total number of arson cases (0.4398569166660309)",
+      "Number of Arson Crimes (0.42383071780204773)",
+      "Number of arson crimes (0.42383071780204773)",
+      "Number of arson charges (0.4197373390197754)",
+      "Count of Criminal Activities: Arson (0.40244364738464355)",
+      "Total number of arson offenses (0.4007200598716736)",
+      "Number of crimes counted as Arson (0.39464399218559265)"
     ],
     "Count_WildfireEvent": [
-      "Number of wild fires (0.6448161005973816)",
-      "Number of wildfires (0.6082714796066284)",
-      "Number of Wildfires (0.6082714796066284)",
+      "Number of wild fires (0.6448161602020264)",
+      "Number of wildfires (0.608271598815918)",
+      "Number of Wildfires (0.608271598815918)",
       "Number of forest fires (0.5873435735702515)",
-      "Number of vegetation fires (0.5820397138595581)",
-      "Number of bush fires (0.5716055035591125)",
-      "Number of wildfire events (0.5425778031349182)",
-      "Count of Wildfire Event (0.5045324563980103)"
+      "Number of vegetation fires (0.5820395350456238)",
+      "Number of bush fires (0.571605384349823)",
+      "Number of wildfire events (0.5425779819488525)",
+      "Count of Wildfire Event (0.5045325756072998)"
     ]
   },
   "temporal_classification": "<None>",

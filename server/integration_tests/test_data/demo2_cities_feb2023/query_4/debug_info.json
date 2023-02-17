@@ -452,18 +452,18 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3138737976551056,
-      0.2785080075263977,
-      0.27663561701774597,
-      0.2477339506149292,
-      0.2361648827791214,
-      0.2359907180070877,
+      0.3138740658760071,
+      0.2785080671310425,
+      0.2766355574131012,
+      0.24773408472537994,
+      0.23616476356983185,
+      0.23599068820476532,
       0.23327934741973877,
-      0.20929011702537537,
-      0.19067034125328064,
-      0.18910424411296844,
-      0.18715006113052368,
-      0.1836508810520172
+      0.20929034054279327,
+      0.19067037105560303,
+      0.18910419940948486,
+      0.1871500462293625,
+      0.18365100026130676
     ],
     "SV": [
       "GiniIndex_EconomicActivity",
@@ -481,95 +481,95 @@
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.2477339506149292)"
+        "AQI (0.24773408472537994)"
       ],
       "Amount_FarmInventory_PeanutsForNuts": [
         "Peanut output (0.23327934741973877)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Number of hate crimes (0.18910424411296844)",
-        "Hate crime incidents (0.1843578815460205)"
+        "Number of hate crimes (0.18910419940948486)",
+        "Hate crime incidents (0.18435795605182648)"
       ],
       "Count_Person": [
-        "Population (0.20929011702537537)"
+        "Population (0.20929034054279327)"
       ],
       "GiniIndex_EconomicActivity": [
-        "Inequality (0.3138737976551056)",
-        "Gini index (0.2066114842891693)"
+        "Inequality (0.3138740658760071)",
+        "Gini index (0.2066114991903305)"
       ],
       "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.1836508810520172)",
-        "Pig Farm (0.1836508810520172)"
+        "pig farm (0.18365100026130676)",
+        "Pig Farm (0.18365097045898438)"
       ],
       "dc/g/Farm_FarmInventoryType-PeanutsForNuts": [
-        "peanut farms (0.18715006113052368)",
-        "Peanut Farms (0.18715006113052368)"
+        "peanut farms (0.1871500462293625)",
+        "Peanut Farms (0.1871500462293625)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.19067034125328064)"
+        "people with wasting (0.19067037105560303)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.27663561701774597)"
+        "Economy (0.2766355574131012)"
       ],
       "dc/topic/Income": [
-        "pay (0.2361648827791214)"
+        "pay (0.23616476356983185)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.2359907180070877)",
-        "Careers (0.20936834812164307)",
-        "Professions (0.2041512280702591)"
+        "Jobs (0.23599068820476532)",
+        "Careers (0.20936842262744904)",
+        "Professions (0.20415134727954865)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.2785080075263977)",
-        "Health problems (0.2000654637813568)",
-        "health issues (0.19044229388237)"
+        "Maladies (0.2785080671310425)",
+        "Health problems (0.20006564259529114)",
+        "health issues (0.19044236838817596)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.2477339506149292)"
+      "AQI (0.24773408472537994)"
     ],
     "Amount_FarmInventory_PeanutsForNuts": [
       "Peanut output (0.23327934741973877)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Number of hate crimes (0.18910424411296844)",
-      "Hate crime incidents (0.1843578815460205)"
+      "Number of hate crimes (0.18910419940948486)",
+      "Hate crime incidents (0.18435795605182648)"
     ],
     "Count_Person": [
-      "Population (0.20929011702537537)"
+      "Population (0.20929034054279327)"
     ],
     "GiniIndex_EconomicActivity": [
-      "Inequality (0.3138737976551056)",
-      "Gini index (0.2066114842891693)"
+      "Inequality (0.3138740658760071)",
+      "Gini index (0.2066114991903305)"
     ],
     "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.1836508810520172)",
-      "Pig Farm (0.1836508810520172)"
+      "pig farm (0.18365100026130676)",
+      "Pig Farm (0.18365097045898438)"
     ],
     "dc/g/Farm_FarmInventoryType-PeanutsForNuts": [
-      "peanut farms (0.18715006113052368)",
-      "Peanut Farms (0.18715006113052368)"
+      "peanut farms (0.1871500462293625)",
+      "Peanut Farms (0.1871500462293625)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.19067034125328064)"
+      "people with wasting (0.19067037105560303)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.27663561701774597)"
+      "Economy (0.2766355574131012)"
     ],
     "dc/topic/Income": [
-      "pay (0.2361648827791214)"
+      "pay (0.23616476356983185)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.2359907180070877)",
-      "Careers (0.20936834812164307)",
-      "Professions (0.2041512280702591)"
+      "Jobs (0.23599068820476532)",
+      "Careers (0.20936842262744904)",
+      "Professions (0.20415134727954865)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.2785080075263977)",
-      "Health problems (0.2000654637813568)",
-      "health issues (0.19044229388237)"
+      "Maladies (0.2785080671310425)",
+      "Health problems (0.20006564259529114)",
+      "health issues (0.19044236838817596)"
     ]
   },
   "temporal_classification": "<None>",
