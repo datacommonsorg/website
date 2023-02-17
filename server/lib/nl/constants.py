@@ -15,6 +15,7 @@
 
 from typing import Dict, FrozenSet, List, Set, Union
 
+from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
 
 STOP_WORDS: Set[str] = {
@@ -422,3 +423,8 @@ CHILD_PLACES_TYPES = {
     "State": "County",
     "County": "City",
 }
+
+MAP_PLACE_TYPES = frozenset([
+    ContainedInPlaceType.COUNTY, ContainedInPlaceType.STATE,
+    ContainedInPlaceType.COUNTRY
+])
