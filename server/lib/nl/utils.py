@@ -699,3 +699,9 @@ def pluralize_place_type(place_type: str) -> str:
   result = constants.PLACE_TYPE_TO_PLURALS.get(
       place_type.lower(), constants.PLACE_TYPE_TO_PLURALS["place"])
   return result.title()
+
+
+def has_map(place_type: any) -> bool:
+  if isinstance(place_type, str):
+    place_type = detection.ContainedInPlaceType(place_type)
+  return place_type in constants.MAP_PLACE_TYPES
