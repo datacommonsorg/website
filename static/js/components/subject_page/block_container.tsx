@@ -40,7 +40,6 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       })
       .join("\n");
   }
-  // const footnote = props.footnote.split('\n').map((f, i) => `${f}\n\n`).join();
 
   return (
     <section
