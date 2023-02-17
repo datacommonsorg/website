@@ -66,10 +66,13 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     fetchData(props, setRankingData);
   }, [props]);
 
-  const numRankingLists = getNumRankingLists(props.rankingMetadata, rankingData);
+  const numRankingLists = getNumRankingLists(
+    props.rankingMetadata,
+    rankingData
+  );
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   const isMultiColumn = props.rankingMetadata.showMultiColumn;
-  const svNames = props.statVarSpec.map(sv => sv.name);
+  const svNames = props.statVarSpec.map((sv) => sv.name);
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -79,7 +82,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           numRankingLists > 1 ? "repeat(2, 1fr)" : "repeat(1, 1fr)",
       }}
     >
-      {rankingData && Object.keys(rankingData).map((statVar) => {
+      {rankingData &&
+        Object.keys(rankingData).map((statVar) => {
           const points = rankingData[statVar].points;
           const unit = rankingData[statVar].unit;
           const scaling = rankingData[statVar].scaling;
@@ -160,8 +164,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               )}
             </React.Fragment>
           );
-        })
-      }
+        })}
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
@@ -203,9 +206,15 @@ function fetchData(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      let rankingData = pointApiToPerSvRankingData(resp.data, props.statVarSpec);
+      const rankingData = pointApiToPerSvRankingData(
+        resp.data,
+        props.statVarSpec
+      );
       if (props.rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, props.statVarSpec);
+        return transformRankingDataForMultiColumn(
+          rankingData,
+          props.statVarSpec
+        );
       }
       return rankingData;
     })
@@ -230,76 +239,81 @@ function fetchData(
 
 // IMPORTANT: Reduces RankingData to only the SV used for sorting. Units,
 // scaling must still be read from props.statVarSpec.
-function transformRankingDataForMultiColumn(rankingData: RankingData, statVarSpecs: StatVarSpec[]): RankingData {
-    const svs = statVarSpecs.map(spec => spec.statVar);
-    const sortSv = svs[svs.length - 1];
-    const sortedPlacePoints = rankingData[sortSv].points;
-    const svsToDict = svs.map((sv) => {
-      const placeToVal = {};
-      const points = rankingData[sv].points;
-      for (const p of points) {
-        placeToVal[p.placeDcid] = p.value;
-      }
-      return placeToVal;
-    });
-    for (const p of sortedPlacePoints) {
-      p.value = undefined;
-      p.values = svs.map((_, i) => svsToDict[i][p.placeDcid]);
+function transformRankingDataForMultiColumn(
+  rankingData: RankingData,
+  statVarSpecs: StatVarSpec[]
+): RankingData {
+  const svs = statVarSpecs.map((spec) => spec.statVar);
+  const sortSv = svs[svs.length - 1];
+  const sortedPlacePoints = rankingData[sortSv].points;
+  const svsToDict = svs.map((sv) => {
+    const placeToVal = {};
+    const points = rankingData[sv].points;
+    for (const p of points) {
+      placeToVal[p.placeDcid] = p.value;
     }
-    for (const sv of svs) {
-      if (sv != sortSv) {
-        delete(rankingData[sv]);
-      }
+    return placeToVal;
+  });
+  for (const p of sortedPlacePoints) {
+    p.value = undefined;
+    p.values = svs.map((_, i) => svsToDict[i][p.placeDcid]);
+  }
+  for (const sv of svs) {
+    if (sv != sortSv) {
+      delete rankingData[sv];
     }
-    rankingData[sortSv].unit = statVarSpecs.map(spec => spec.unit);
-    rankingData[sortSv].scaling = statVarSpecs.map(spec => spec.scaling);
-    return rankingData;
+  }
+  rankingData[sortSv].unit = statVarSpecs.map((spec) => spec.unit);
+  rankingData[sortSv].scaling = statVarSpecs.map((spec) => spec.scaling);
+  return rankingData;
 }
 
-function pointApiToPerSvRankingData(statData: PointApiResponse, statVarSpecs: StatVarSpec[]): RankingData {
-      const rankingData: RankingData = {};
-      // Get Ranking data
-      for (const spec of statVarSpecs) {
-        if (!(spec.statVar in statData.data)) {
+function pointApiToPerSvRankingData(
+  statData: PointApiResponse,
+  statVarSpecs: StatVarSpec[]
+): RankingData {
+  const rankingData: RankingData = {};
+  // Get Ranking data
+  for (const spec of statVarSpecs) {
+    if (!(spec.statVar in statData.data)) {
+      continue;
+    }
+    const arr = [];
+    for (const place in statData.data[spec.statVar]) {
+      const rankingPoint = {
+        placeDcid: place,
+        value: statData.data[spec.statVar][place].value,
+      };
+      if (_.isUndefined(rankingPoint.value)) {
+        console.log(`Skipping ${place}, missing ${spec.statVar}`);
+        continue;
+      }
+      if (spec.denom) {
+        if (
+          spec.denom in statData.data &&
+          statData.data[spec.denom][place].value != 0
+        ) {
+          rankingPoint.value /= statData.data[spec.denom][place].value;
+        } else {
+          console.log(`Skipping ${place}, missing ${spec.denom}`);
           continue;
         }
-        const arr = [];
-        for (const place in statData.data[spec.statVar]) {
-          const rankingPoint = {
-            placeDcid: place,
-            value: statData.data[spec.statVar][place].value,
-          };
-          if (_.isUndefined(rankingPoint.value)) {
-            console.log(`Skipping ${place}, missing ${spec.statVar}`);
-            continue;
-          }
-          if (spec.denom) {
-            if (
-              spec.denom in statData.data &&
-              statData.data[spec.denom][place].value != 0
-            ) {
-              rankingPoint.value /= statData.data[spec.denom][place].value;
-            } else {
-              console.log(`Skipping ${place}, missing ${spec.denom}`);
-              continue;
-            }
-          }
-          arr.push(rankingPoint);
-        }
-        arr.sort((a, b) => {
-          return a.value - b.value;
-        });
-        const numDataPoints = arr.length;
-        rankingData[spec.statVar] = {
-          points: arr,
-          unit: [spec.unit],
-          scaling: [spec.scaling],
-          numDataPoints,
-        };
       }
-      return rankingData;
+      arr.push(rankingPoint);
+    }
+    arr.sort((a, b) => {
+      return a.value - b.value;
+    });
+    const numDataPoints = arr.length;
+    rankingData[spec.statVar] = {
+      points: arr,
+      unit: [spec.unit],
+      scaling: [spec.scaling],
+      numDataPoints,
+    };
+  }
+  return rankingData;
 }
-
 
 /**
  * Gets the number of ranking lists that will be shown
@@ -311,10 +325,9 @@ function getNumRankingLists(
   rankingData: { [sv: string]: RankingGroup }
 ): number {
   if (rankingTileSpec.showMultiColumn) {
-  return [
-        rankingTileSpec.showHighest,
-        rankingTileSpec.showLowest,
-      ].filter(Boolean).length;
+    return [rankingTileSpec.showHighest, rankingTileSpec.showLowest].filter(
+      Boolean
+    ).length;
   }
   let numListsPerSv = 0;
   if (rankingTileSpec.showHighest) {

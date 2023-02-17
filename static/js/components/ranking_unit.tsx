@@ -18,8 +18,8 @@
  * Component for rendering a single ranking list.
  */
 
-import React from "react";
 import _ from "lodash";
+import React from "react";
 
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
@@ -81,13 +81,17 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
             <tr>
               <td></td>
               <td></td>
-              {props.svNames.map((name, i) => <td key={i} className="stat">{name}</td>)}
+              {props.svNames.map((name, i) => (
+                <td key={i} className="stat">
+                  {name}
+                </td>
+              ))}
             </tr>
           </thead>
         )}
         <tbody>
           {props.points.map((point, i) => {
-            console.log(point.values)
+            console.log(point.values);
             return (
               <tr key={point.placeDcid}>
                 <td
@@ -110,7 +114,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                     text={point.placeName || point.placeDcid}
                   />
                 </td>
-                {(!props.hideValue && _.isEmpty(point.values)) && (
+                {!props.hideValue && _.isEmpty(point.values) && (
                   <td className="stat">
                     <span
                       className={`num-value ${
@@ -118,36 +122,42 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                       }`}
                     >
                       {formatNumber(
-                        props.scaling && props.scaling.length && props.scaling[0]
+                        props.scaling &&
+                          props.scaling.length &&
+                          props.scaling[0]
                           ? point.value * props.scaling[0]
                           : point.value,
-                        props.unit && props.unit.length ? props.unit[0] : '',
+                        props.unit && props.unit.length ? props.unit[0] : "",
                         false,
                         NUM_FRACTION_DIGITS
                       )}
                     </span>
                   </td>
                 )}
-                {(!props.hideValue && !_.isEmpty(point.values)) && (
-                  point.values.map((v, i) =>
-                  <td key={i} className="stat">
-                    <span
-                      className={`num-value ${
-                        point.placeDcid === props.highlightedDcid ? "bold" : ""
-                      }`}
-                    >
-                      {formatNumber(
-                        props.scaling && props.scaling.length && props.scaling[i]
-                          ? v * props.scaling[i]
-                          : v,
-                        props.unit && props.unit.length ? props.unit[i] : '',
-                        false,
-                        NUM_FRACTION_DIGITS
-                      )}
-                    </span>
+                {!props.hideValue &&
+                  !_.isEmpty(point.values) &&
+                  point.values.map((v, i) => (
+                    <td key={i} className="stat">
+                      <span
+                        className={`num-value ${
+                          point.placeDcid === props.highlightedDcid
+                            ? "bold"
+                            : ""
+                        }`}
+                      >
+                        {formatNumber(
+                          props.scaling &&
+                            props.scaling.length &&
+                            props.scaling[i]
+                            ? v * props.scaling[i]
+                            : v,
+                          props.unit && props.unit.length ? props.unit[i] : "",
+                          false,
+                          NUM_FRACTION_DIGITS
+                        )}
+                      </span>
                     </td>
-                  )
-                )}
+                  ))}
               </tr>
             );
           })}
