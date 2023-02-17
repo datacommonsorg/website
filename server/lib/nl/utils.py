@@ -88,6 +88,18 @@ _SV_DISPLAY_NAME_OVERRIDE = {
         "Drive alone",
     "dc/vt2q292eme79f":
         "Others (incl. Taxcab, Motorcyle, Bicycle)",
+    "Count_Student":
+        "Number of Students",
+    "Count_Teacher":
+        "Number of Teachers",
+    "Percent_Student_AsAFractionOf_Count_Teacher":
+        "Student-Teacher Ratio",
+    "Count_Person":
+        "Population",
+    "Amount_EconomicActivity_GrossDomesticProduction_RealValue":
+        "GDP (Real Value)",
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal":
+        "GDP (Nominal Value)"
 }
 
 _SV_DISPLAY_FOOTNOTE_OVERRIDE = {
@@ -645,6 +657,18 @@ def get_contained_in_type(
     # Ranking among places.
     place_type = classification[0].attributes.contained_in_place_type
   return place_type
+
+
+def get_size_types(uttr: nl_uttr.Utterance) -> List[detection.SizeType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.SIZE_TYPE)
+  size_types = []
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.SizeTypeClassificationAttributes)):
+    # Ranking among places.
+    size_types = classification[0].attributes.size_types
+  return size_types
 
 
 def get_ranking_types(uttr: nl_uttr.Utterance) -> List[detection.RankingType]:

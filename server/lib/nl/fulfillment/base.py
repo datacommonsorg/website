@@ -66,6 +66,7 @@ class ChartVars:
   # If svs came from a topic, the topic dcid.
   source_topic: str = ""
   event: EventType = None
+  skip_map_for_ranking: bool = False
 
 
 #
@@ -89,6 +90,8 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
       "chart_type": chart_vars.response_type,
       "source_topic": chart_vars.source_topic
   }
+  if chart_vars.skip_map_for_ranking:
+    attr['skip_map_for_ranking'] = True
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  event=chart_vars.event,

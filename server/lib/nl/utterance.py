@@ -66,6 +66,7 @@ class QueryType(IntEnum):
   TIME_DELTA = 7
   EVENT = 8
   OVERVIEW = 9
+  SIZE_ACROSS_ENTITIES = 10
   UNKNOWN = 11
 
 

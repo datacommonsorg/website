@@ -1,104 +1,145 @@
 {
   "clustering_classification": "<None>",
-  "comparison_classification": "<None>",
+  "comparison_classification": "ClassificationType.COMPARISON",
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_existence_check": [
-      {
-        "places": [
-          "geoId/0677000"
-        ],
-        "svs": [
-          "Percent_Person_Children_WithAsthma"
-        ]
-      }
+    "comparison_place_candidates": [
+      [
+        "geoId/0677000",
+        "geoId/0665028"
+      ]
     ],
-    "failed_existence_check_extended_svs": [
-      {
-        "places": [
-          "geoId/0677000"
-        ],
-        "svs": [
-          "Count_Person_Upto18Years",
-          "Percent_Person_Children_WithAsthma"
-        ]
-      }
-    ],
-    "filtered_svs": [
-      "Percent_Person_WithAsthma",
-      "Percent_Person_Children_WithAsthma",
-      "dc/g/Person_MedicalCondition-Asthma",
-      "Percent_Person_Smoking",
-      "Percent_Person_WithArthritis",
-      "Percent_Person_WithChronicObstructivePulmonaryDisease"
-    ],
-    "num_chart_candidates": 6,
+    "filtered_svs": [],
+    "num_chart_candidates": 1,
     "processed_fulfillment_types": [
-      "simple"
+      "comparison"
     ],
     "stat_var_extensions": [
+      {}
+    ],
+    "topics_processed": [
       {
-        "Percent_Person_Children_WithAsthma": [
-          "Count_Person_Upto18Years",
-          "Percent_Person_Children_WithAsthma"
-        ],
-        "Percent_Person_Smoking": [
-          "Percent_Person_BingeDrinking",
-          "Percent_Person_Obesity",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
-        ],
-        "Percent_Person_WithArthritis": [
-          "Percent_Person_WithAllTeethLoss",
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
-        ],
-        "Percent_Person_WithAsthma": [
-          "Percent_Person_WithAllTeethLoss",
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
-        ],
-        "Percent_Person_WithChronicObstructivePulmonaryDisease": [
-          "Percent_Person_WithAllTeethLoss",
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
-        ]
+        "dc/topic/WorkCommute": {
+          "peer_groups": [
+            [
+              "Modes of Commute",
+              "",
+              [
+                "dc/6rltk4kf75612",
+                "dc/vp8cbt6k79t94",
+                "dc/hbkh95kc7pkb6",
+                "dc/wc8q05drd74bd",
+                "dc/0gettc3bc60cb",
+                "dc/vt2q292eme79f"
+              ]
+            ]
+          ],
+          "svs": []
+        }
       }
     ]
   },
   "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 7
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0665028",
+          "name": "San Bruno",
+          "place_type": "City"
+        }
+      ],
+      "query": "How does that compare with San Bruno",
+      "query_type": 6,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "dc/topic/WorkCommute",
+            "title": "Modes of Commute"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            },
+            {
+              "dcid": "geoId/0665028",
+              "name": "San Bruno",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "dc/6rltk4kf75612",
+            "dc/vp8cbt6k79t94",
+            "dc/hbkh95kc7pkb6",
+            "dc/wc8q05drd74bd",
+            "dc/0gettc3bc60cb",
+            "dc/vt2q292eme79f"
+          ]
+        }
+      ],
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [],
+      "query": "What is the commute pattern there",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "bar chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "dc/topic/WorkCommute",
+            "title": "Modes of Commute"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "dc/6rltk4kf75612",
+            "dc/vp8cbt6k79t94",
+            "dc/hbkh95kc7pkb6",
+            "dc/wc8q05drd74bd",
+            "dc/0gettc3bc60cb",
+            "dc/vt2q292eme79f"
+          ]
+        }
+      ],
+      "svs": [
+        "dc/topic/WorkCommute"
+      ]
+    },
     {
       "classifications": [
         {
@@ -398,125 +439,137 @@
     }
   ],
   "event_classification": "<None>",
-  "main_place_dcid": "<None>",
-  "main_place_name": "<None>",
-  "original_query": "What is the prevalence of asthma there",
+  "main_place_dcid": "geoId/0665028",
+  "main_place_name": "San Bruno",
+  "original_query": "How does that compare with San Bruno",
   "overview_classification": "<None>",
   "places_detected": [
-    "<None>"
+    "san bruno"
   ],
-  "query_with_places_removed": "What is the prevalence of asthma there",
+  "query_with_places_removed": "how does that compare with",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.9887783527374268,
-      0.8786565065383911,
-      0.8242027163505554,
-      0.5711094737052917,
-      0.5687739253044128,
-      0.5341616868972778,
-      0.4882679879665375,
-      0.48637840151786804,
-      0.4809362292289734,
-      0.4783497452735901
+      0.3138737976551056,
+      0.2785080075263977,
+      0.27663561701774597,
+      0.2477339506149292,
+      0.2361648827791214,
+      0.2359907180070877,
+      0.23327934741973877,
+      0.20929011702537537,
+      0.19067034125328064,
+      0.18910424411296844,
+      0.18715006113052368,
+      0.1836508810520172
     ],
     "SV": [
-      "Percent_Person_WithAsthma",
-      "Percent_Person_Children_WithAsthma",
-      "dc/g/Person_MedicalCondition-Asthma",
-      "Percent_Person_Smoking",
-      "Percent_Person_WithArthritis",
-      "Percent_Person_WithChronicObstructivePulmonaryDisease",
-      "Percent_Person_WithHighCholesterol",
-      "Percent_Person_18To64Years_ReceivedNoHealthInsurance",
-      "Count_Death_DiseasesOfTheRespiratorySystem",
-      "Percent_Person_WithCoronaryHeartDisease"
+      "GiniIndex_EconomicActivity",
+      "dc/topic/MedicalConditions",
+      "dc/topic/Economy",
+      "AirQualityIndex_AirPollutant",
+      "dc/topic/Income",
+      "dc/topic/Jobs",
+      "Amount_FarmInventory_PeanutsForNuts",
+      "Count_Person",
+      "dc/g/Person_MedicalCondition-Wasting",
+      "Count_CriminalIncidents_IsHateCrime",
+      "dc/g/Farm_FarmInventoryType-PeanutsForNuts",
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
     ],
     "SV_to_Sentences": {
-      "Count_Death_DiseasesOfTheRespiratorySystem": [
-        "Number of Deaths Due to Diseases of the Respiratory System (0.4809362292289734)",
-        "Number of deaths due to diseases of the respiratory system (0.4809362292289734)"
+      "AirQualityIndex_AirPollutant": [
+        "AQI (0.2477339506149292)"
       ],
-      "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-        "Prevalence: 18 - 64 Years, No Health Insurance (0.48637840151786804)"
+      "Amount_FarmInventory_PeanutsForNuts": [
+        "Peanut output (0.23327934741973877)"
       ],
-      "Percent_Person_Children_WithAsthma": [
-        "Prevalence: Asthma in Children (0.8786565065383911)",
-        "percent of children that have asthma (0.7320816516876221)",
-        "Percent of Children That Have Asthma (0.7320816516876221)"
+      "Count_CriminalIncidents_IsHateCrime": [
+        "Number of hate crimes (0.18910424411296844)",
+        "Hate crime incidents (0.1843578815460205)"
       ],
-      "Percent_Person_Smoking": [
-        "Prevalence: Smoking (0.5711094737052917)"
+      "Count_Person": [
+        "Population (0.20929011702537537)"
       ],
-      "Percent_Person_WithArthritis": [
-        "Prevalence: Arthritis (0.5687739253044128)",
-        "Percentage of Population With Arthritis (0.47449490427970886)"
+      "GiniIndex_EconomicActivity": [
+        "Inequality (0.3138737976551056)",
+        "Gini index (0.2066114842891693)"
       ],
-      "Percent_Person_WithAsthma": [
-        "Prevalence: Asthma (0.9887783527374268)",
-        "Percent of People That Have Asthma (0.8041638731956482)",
-        "percent of people that have asthma (0.8041638731956482)"
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+        "pig farm (0.1836508810520172)",
+        "Pig Farm (0.1836508810520172)"
       ],
-      "Percent_Person_WithChronicObstructivePulmonaryDisease": [
-        "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616868972778)",
-        "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.48919302225112915)",
-        "percent of people that have chronic obstructive pulmonary disease (0.48919302225112915)"
+      "dc/g/Farm_FarmInventoryType-PeanutsForNuts": [
+        "peanut farms (0.18715006113052368)",
+        "Peanut Farms (0.18715006113052368)"
       ],
-      "Percent_Person_WithCoronaryHeartDisease": [
-        "Prevalence: Coronary Heart Disease (0.4783497452735901)"
+      "dc/g/Person_MedicalCondition-Wasting": [
+        "people with wasting (0.19067034125328064)"
       ],
-      "Percent_Person_WithHighCholesterol": [
-        "Prevalence: High Cholesterol (0.4882679879665375)"
+      "dc/topic/Economy": [
+        "Economy (0.27663561701774597)"
       ],
-      "dc/g/Person_MedicalCondition-Asthma": [
-        "Number of People With Asthma (0.8242027163505554)",
-        "people with asthma (0.7225263714790344)",
-        "Person With Medical Condition = Asthma (0.6960465908050537)"
+      "dc/topic/Income": [
+        "pay (0.2361648827791214)"
+      ],
+      "dc/topic/Jobs": [
+        "Jobs (0.2359907180070877)",
+        "Careers (0.20936834812164307)",
+        "Professions (0.2041512280702591)"
+      ],
+      "dc/topic/MedicalConditions": [
+        "Maladies (0.2785080075263977)",
+        "Health problems (0.2000654637813568)",
+        "health issues (0.19044229388237)"
       ]
     }
   },
   "svs_to_sentences": {
-    "Count_Death_DiseasesOfTheRespiratorySystem": [
-      "Number of Deaths Due to Diseases of the Respiratory System (0.4809362292289734)",
-      "Number of deaths due to diseases of the respiratory system (0.4809362292289734)"
+    "AirQualityIndex_AirPollutant": [
+      "AQI (0.2477339506149292)"
     ],
-    "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-      "Prevalence: 18 - 64 Years, No Health Insurance (0.48637840151786804)"
+    "Amount_FarmInventory_PeanutsForNuts": [
+      "Peanut output (0.23327934741973877)"
     ],
-    "Percent_Person_Children_WithAsthma": [
-      "Prevalence: Asthma in Children (0.8786565065383911)",
-      "percent of children that have asthma (0.7320816516876221)",
-      "Percent of Children That Have Asthma (0.7320816516876221)"
+    "Count_CriminalIncidents_IsHateCrime": [
+      "Number of hate crimes (0.18910424411296844)",
+      "Hate crime incidents (0.1843578815460205)"
     ],
-    "Percent_Person_Smoking": [
-      "Prevalence: Smoking (0.5711094737052917)"
+    "Count_Person": [
+      "Population (0.20929011702537537)"
     ],
-    "Percent_Person_WithArthritis": [
-      "Prevalence: Arthritis (0.5687739253044128)",
-      "Percentage of Population With Arthritis (0.47449490427970886)"
+    "GiniIndex_EconomicActivity": [
+      "Inequality (0.3138737976551056)",
+      "Gini index (0.2066114842891693)"
     ],
-    "Percent_Person_WithAsthma": [
-      "Prevalence: Asthma (0.9887783527374268)",
-      "Percent of People That Have Asthma (0.8041638731956482)",
-      "percent of people that have asthma (0.8041638731956482)"
+    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+      "pig farm (0.1836508810520172)",
+      "Pig Farm (0.1836508810520172)"
     ],
-    "Percent_Person_WithChronicObstructivePulmonaryDisease": [
-      "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616868972778)",
-      "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.48919302225112915)",
-      "percent of people that have chronic obstructive pulmonary disease (0.48919302225112915)"
+    "dc/g/Farm_FarmInventoryType-PeanutsForNuts": [
+      "peanut farms (0.18715006113052368)",
+      "Peanut Farms (0.18715006113052368)"
     ],
-    "Percent_Person_WithCoronaryHeartDisease": [
-      "Prevalence: Coronary Heart Disease (0.4783497452735901)"
+    "dc/g/Person_MedicalCondition-Wasting": [
+      "people with wasting (0.19067034125328064)"
     ],
-    "Percent_Person_WithHighCholesterol": [
-      "Prevalence: High Cholesterol (0.4882679879665375)"
+    "dc/topic/Economy": [
+      "Economy (0.27663561701774597)"
     ],
-    "dc/g/Person_MedicalCondition-Asthma": [
-      "Number of People With Asthma (0.8242027163505554)",
-      "people with asthma (0.7225263714790344)",
-      "Person With Medical Condition = Asthma (0.6960465908050537)"
+    "dc/topic/Income": [
+      "pay (0.2361648827791214)"
+    ],
+    "dc/topic/Jobs": [
+      "Jobs (0.2359907180070877)",
+      "Careers (0.20936834812164307)",
+      "Professions (0.2041512280702591)"
+    ],
+    "dc/topic/MedicalConditions": [
+      "Maladies (0.2785080075263977)",
+      "Health problems (0.2000654637813568)",
+      "health issues (0.19044229388237)"
     ]
   },
   "temporal_classification": "<None>",
