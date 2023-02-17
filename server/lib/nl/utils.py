@@ -566,7 +566,9 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   # First check in special places. If they are found, add those first.
   places_found = []
   for special_place in constants.OVERRIDE_FOR_NER:
-    if special_place in query.lower():
+    # Matching <space>special_place<space> because otherwise "asia" could
+    # also match "asian" which is undesirable.
+    if f" {special_place} " in f" {query.lower()} ":
       logging.info(f"Found one of the Special Places: {special_place}")
       places_found.append(special_place)
 
@@ -578,6 +580,8 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
     logging.info(f"Trying place detection with: {q}")
     try:
       for p in query_fn(q):
+        # remove any stop words like "a", "the" etc from the place.
+        p = remove_stop_words(p, constants.STOP_WORDS)
         # Add if not already done. Also check for the special places which get
         # added with a ", usa" appended.
         if (p.lower() not in places_found):
