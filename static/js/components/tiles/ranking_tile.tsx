@@ -221,6 +221,7 @@ function fetchData(
           if (spec.denom) {
             if (
               spec.denom in statData.data &&
+              place in statData.data[spec.denom] &&
               statData.data[spec.denom][place].value != 0
             ) {
               rankingPoint.value /= statData.data[spec.denom][place].value;
