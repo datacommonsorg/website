@@ -127,6 +127,8 @@ class IntegrationTest(LiveServerTestCase):
         'What is the prevalence of asthma there',
         'What is the commute pattern there',
         'How does that compare with San Bruno',
+        # Proxy for parks in magiceye
+        'Which cities in the SF Bay Area have the highest larceny',
     ])
 
   def test_demo_fallback(self):

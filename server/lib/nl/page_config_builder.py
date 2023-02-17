@@ -175,11 +175,12 @@ def build_page_config(
             _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
                                       cspec.attr))
         if cspec.attr['include_percapita'] and _should_add_percapita(sv):
-          main_title = builder.block.title
-          block, column = builder.new_chart(cspec.attr)
-          if main_title:
-            builder.block.title = _decorate_block_title(
-                title=main_title, chart_origin=chart_origin, do_pc=True)
+          if not 'skip_map_for_ranking' in cspec.attr:
+            main_title = builder.block.title
+            block, column = builder.new_chart(cspec.attr)
+            if main_title:
+              builder.block.title = _decorate_block_title(
+                  title=main_title, chart_origin=chart_origin, do_pc=True)
           stat_var_spec_map.update(
               _ranking_chart_block_pc(column, pri_place, sv, sv2name,
                                       cspec.attr))
