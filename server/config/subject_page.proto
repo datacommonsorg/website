@@ -101,6 +101,7 @@ message RankingTileSpec {
   int32 ranking_count = 10;
 
   // If true, all highest and lowest sv's will be grouped into a single, multi-column table.
+  // Ranking is done by the last specified SV for the tile.
   bool show_multi_column = 11;
 }
 
