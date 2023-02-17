@@ -436,8 +436,9 @@ class Model:
         contained_in_place_type = place_enum
         break
 
-      if place_type in constants.PLACE_TYPE_TO_PLURALS and \
-        constants.PLACE_TYPE_TO_PLURALS[place_type] in query:
+      nospace_place_type = place_type.replace(' ', '')
+      if nospace_place_type in constants.PLACE_TYPE_TO_PLURALS and \
+        constants.PLACE_TYPE_TO_PLURALS[nospace_place_type] in query:
         contained_in_place_type = place_enum
         break
 

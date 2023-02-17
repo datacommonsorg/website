@@ -123,8 +123,10 @@ class IntegrationTest(LiveServerTestCase):
 
   def test_demo_cities_feb2023(self):
     self.run_sequence('demo2_cities_feb2023', [
-        'How do people commute in Sunnyvale?',
-        'How does that compare to Palo Alto',
+        'How big are the public schools in Sunnyvale',
+        'What is the prevalence of asthma there',
+        'What is the commute pattern there',
+        'How does that compare with San Bruno',
     ])
 
   def test_demo_fallback(self):

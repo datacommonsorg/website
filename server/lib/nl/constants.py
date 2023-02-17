@@ -340,12 +340,12 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "administrativearea4": "administrative area 4 places",
     "administrativearea5": "administrative area 5 places",
     # Schools
-    "high school": "high schools",
-    "middle school": "middle schools",
-    "elementary school": "elementary schools",
-    "primary school": "primary schools",
-    "public school": "public schools",
-    "private school": "private schools",
+    "highschool": "high schools",
+    "middleschool": "middle schools",
+    "elementaryschool": "elementary schools",
+    "primaryschool": "primary schools",
+    "publicschool": "public schools",
+    "privateschool": "private schools",
     "school": "schools",
 }
 
