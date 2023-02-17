@@ -237,8 +237,7 @@ function fetchData(
     });
 }
 
-// IMPORTANT: Reduces RankingData to only the SV used for sorting. Units,
-// scaling must still be read from props.statVarSpec.
+// Reduces RankingData to only the SV used for sorting, to be compatible for multi-column rendering in RankingUnit.
 function transformRankingDataForMultiColumn(
   rankingData: RankingData,
   statVarSpecs: StatVarSpec[]

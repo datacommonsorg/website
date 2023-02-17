@@ -42,6 +42,9 @@ def topic_page(topic_id=None, place_dcid=None):
   if len(topic_configs) < 1:
     return "Error: no config found"
 
+  if topic_id == 'dev' and os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+
   if not place_dcid:
     return flask.render_template(
         'topic_page.html',

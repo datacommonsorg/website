@@ -68,10 +68,6 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
       : index + 1;
   }
 
-  console.log(props.hideValue);
-  console.log(props.svNames);
-  console.log(props.unit);
-
   return (
     <div className="ranking-list">
       <h4>{props.title}</h4>
@@ -91,7 +87,6 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
         )}
         <tbody>
           {props.points.map((point, i) => {
-            console.log(point.values);
             return (
               <tr key={point.placeDcid}>
                 <td
