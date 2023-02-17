@@ -40,7 +40,6 @@ class Config:
   API_PROJECT = ''
   # Set this to False if the deployment has frequently updated data.
   USE_MEMCACHE = True
-  ENABLE_DISASTER_JSON = False
 
 
 class ProductionConfig(Config):

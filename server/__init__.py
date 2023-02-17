@@ -104,7 +104,7 @@ def register_routes_stanford_dc(app, is_local):
     return
 
   # load disaster json data
-  if not is_local or os.environ.get('ENABLE_DISASTER_JSON') == 'true':
+  if os.environ.get('ENABLE_DISASTER_JSON') == 'true':
     disaster_dashboard_data = get_disaster_dashboard_data(
         app.config['GCS_BUCKET'])
     app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
