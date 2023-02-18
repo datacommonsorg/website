@@ -88,7 +88,6 @@ export function Block(props: BlockPropType): JSX.Element {
       })
       .then((resp) => {
         setOverridePlaceTypes(resp.data);
-        console.log(resp.data);
       });
   }, [props]);
 

@@ -242,7 +242,7 @@ def api_i18n_name():
 
 @bp.route('/named_typed')
 def get_named_typed_place():
-  """Returns data for NamedTypedPlace."""
+  """Returns data for NamedTypedPlace, a dictionary of key -> NamedTypedPlace."""
   dcids = request.args.getlist('dcids')
   place_types = get_place_types(dcids)
   place_names = names(dcids)
