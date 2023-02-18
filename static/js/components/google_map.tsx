@@ -155,7 +155,6 @@ export class GoogleMap extends React.Component<
   }
 
   render(): JSX.Element {
-    console.log("called render from google map");
     return (
       <>
         {this.state.shouldShowMap && (
