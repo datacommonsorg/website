@@ -487,6 +487,17 @@ def get_sv_name(all_svs: List[str]) -> Dict:
   return sv_name_map
 
 
+def get_sv_unit(all_svs: List[str]) -> Dict:
+  sv_unit_map = {}
+  for sv in all_svs:
+    # If the dcid has "percent", the unit should be "%"
+    if "Percent" in sv:
+      sv_unit_map[sv] = "%"
+    else:
+      sv_unit_map[sv] = ""
+  return sv_unit_map
+
+
 # TODO: Remove this hack by fixing the name in schema and config.
 def clean_sv_name(name: str) -> str:
   _PREFIXES = [
