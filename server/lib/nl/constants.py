@@ -428,3 +428,8 @@ MAP_PLACE_TYPES = frozenset([
     ContainedInPlaceType.COUNTY, ContainedInPlaceType.STATE,
     ContainedInPlaceType.COUNTRY
 ])
+
+# Key is SV DCID and value is (denominator SV DCID, name snippet for title).
+ADDITIONAL_DENOMINATOR_VARS = {
+    "MapFacts/Count_park": ("SurfaceArea", "per Square Mile"),
+}
