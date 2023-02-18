@@ -100,6 +100,7 @@ def build_page_config(
     all_svs.update(cspec.svs)
   all_svs = list(all_svs)
   sv2name = utils.get_sv_name(all_svs)
+  # TODO: use this when setting sv spec for map and ranking charts
   sv2unit = utils.get_sv_unit(all_svs)
 
   # Get footnotes of all SVs
