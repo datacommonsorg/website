@@ -98,6 +98,7 @@ categories {
       }
       tiles {
         type: LINE
+        title: "Life expectancy in ${place}"
         stat_var_key: "life_expectancy"
         place_dcid_override: "country/CHN"
       }
@@ -111,6 +112,7 @@ categories {
       }
       tiles {
         type: LINE
+        title: "Life expectancy in ${place}"
         stat_var_key: "life_expectancy"
         place_dcid_override: "nuts/ES300"
       }
