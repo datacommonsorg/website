@@ -209,7 +209,6 @@ def build_page_config(
 
   builder.finalize()
 
-  logging.info(builder.page_config)
   return builder.page_config
 
 

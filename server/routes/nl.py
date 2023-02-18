@@ -13,10 +13,12 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
+import asyncio
 import json
 import logging
 import os
 from typing import Dict, List
+from datetime import datetime
 
 import flask
 from flask import Blueprint
@@ -40,6 +42,7 @@ import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_disaster_dashboard_configs
+import server.services.bigtable as bt
 import server.services.datacommons as dc
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
@@ -211,8 +214,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       clustering_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
       clustering_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
 
-  logging.info(uttr_history)
-  logging.info(debug_counters)
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
@@ -392,12 +393,15 @@ def data():
     logging.error('Unable to load event configs!')
 
   original_query = request.args.get('q')
+  # Fire query logging and forget as bigtable write takes O(100ms)
+  loop = asyncio.new_event_loop()
+  loop.run_until_complete(bt.write_row(original_query))
+  ##
   context_history = []
   escaped_context_history = []
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
-  logging.info(context_history)
 
   query = str(escape(utils.remove_punctuations(original_query)))
   res = {
@@ -460,3 +464,11 @@ def data():
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
                                       context_history, dbg_counters)
   return data_dict
+
+
+@bp.route('/history')
+def history():
+  if (os.environ.get('FLASK_ENV') == 'production' or
+      not current_app.config['NL_MODEL']):
+    flask.abort(404)
+  return json.dumps(bt.read_row())
