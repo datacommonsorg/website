@@ -95,6 +95,7 @@ SIMPLE_CONFIG = """
      value {
        stat_var: "Count_Person_Female"
        name: "Count_Person_Female-name"
+       unit: "Count_Person_Female-unit"
      }
    }
    stat_var_spec {
@@ -112,6 +113,7 @@ SIMPLE_CONFIG = """
      value {
        stat_var: "Count_Person_Male"
        name: "Count_Person_Male-name"
+       unit: "Count_Person_Male-unit"
      }
    }
    stat_var_spec {
@@ -168,6 +170,7 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
      value {
        stat_var: "Count_Person_Female"
        name: "Count_Person_Female-name"
+       unit: "Count_Person_Female-unit"
      }
    }
    stat_var_spec {
@@ -185,6 +188,7 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
      value {
        stat_var: "Count_Person_Male"
        name: "Count_Person_Male-name"
+       unit: "Count_Person_Male-unit"
      }
    }
    stat_var_spec {
@@ -242,6 +246,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
      value {
        stat_var: "Area_Farm"
        name: "Area_Farm-name"
+       unit: "Area_Farm-unit"
      }
    }
    stat_var_spec {
@@ -249,6 +254,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
      value {
        stat_var: "Count_Farm"
        name: "Count_Farm-name"
+       unit: "Count_Farm-unit"
      }
    }
    stat_var_spec {
@@ -256,6 +262,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
      value {
        stat_var: "FarmInventory_Barley"
        name: "FarmInventory_Barley-name"
+       unit: "FarmInventory_Barley-unit"
      }
    }
    stat_var_spec {
@@ -273,6 +280,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
      value {
        stat_var: "FarmInventory_Rice"
        name: "FarmInventory_Rice-name"
+       unit: "FarmInventory_Rice-unit"
      }
    }
    stat_var_spec {
@@ -335,6 +343,7 @@ COMPARISON_CONFIG = """
      value {
        stat_var: "Count_Person_Female"
        name: "Count_Person_Female-name"
+       unit: "Count_Person_Female-unit"
      }
    }
    stat_var_spec {
@@ -352,6 +361,7 @@ COMPARISON_CONFIG = """
      value {
        stat_var: "Count_Person_Male"
        name: "Count_Person_Male-name"
+       unit: "Count_Person_Male-unit"
      }
    }
    stat_var_spec {
@@ -602,6 +612,7 @@ RANKING_ACROSS_SVS_CONFIG = """
      value {
        stat_var: "FarmInventory_Barley"
        name: "FarmInventory_Barley-name"
+       unit: "FarmInventory_Barley-unit"
      }
    }
    stat_var_spec {
@@ -619,6 +630,7 @@ RANKING_ACROSS_SVS_CONFIG = """
      value {
        stat_var: "FarmInventory_Rice"
        name: "FarmInventory_Rice-name"
+       unit: "FarmInventory_Rice-unit"
      }
    }
    stat_var_spec {
@@ -636,6 +648,7 @@ RANKING_ACROSS_SVS_CONFIG = """
      value {
        stat_var: "FarmInventory_Wheat"
        name: "FarmInventory_Wheat-name"
+       unit: "FarmInventory_Wheat-unit"
      }
    }
    stat_var_spec {
@@ -780,12 +793,14 @@ class TestPageConfigNext(unittest.TestCase):
       ],
       ["RankingAcrossSVs", RANKING_ACROSS_SVS_UTTR, RANKING_ACROSS_SVS_CONFIG],
   ])
+  @patch.object(utils, 'get_sv_unit')
   @patch.object(utils, 'get_sv_footnote')
   @patch.object(topic, 'get_topic_name')
   @patch.object(utils, 'parent_place_names')
   @patch.object(utils, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
-                mock_parent_place_names, mock_topic_name, mock_sv_footnote):
+                mock_parent_place_names, mock_topic_name, mock_sv_footnote,
+                mock_sv_unit):
     random.seed(1)
     mock_sv_name.side_effect = (
         lambda svs: {sv: "{}-name".format(sv) for sv in svs})
@@ -794,17 +809,21 @@ class TestPageConfigNext(unittest.TestCase):
     mock_topic_name.side_effect = (lambda dcid: dcid.split('/')[-1])
     mock_sv_footnote.side_effect = (
         lambda svs: {sv: "{}-footnote".format(sv) for sv in svs})
+    mock_sv_unit.side_effect = (
+        lambda svs: {sv: "{}-unit".format(sv) for sv in svs})
 
     got = _run(uttr_dict)
     self.maxDiff = None
     self.assertEqual(got, _textproto(config_str), test_name + ' failed!')
 
+  @patch.object(utils, 'get_sv_unit')
   @patch.object(utils, 'get_sv_footnote')
   @patch.object(utils, 'get_sv_name')
-  def test_event(self, mock_sv_name, mock_sv_footnote):
+  def test_event(self, mock_sv_name, mock_sv_footnote, mock_sv_unit):
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs: {sv: sv for sv in svs})
     mock_sv_footnote.side_effect = (lambda svs: {sv: '' for sv in svs})
+    mock_sv_unit.side_effect = (lambda svs: {sv: '' for sv in svs})
 
     disaster_config = SubjectPageConfig()
     text_format.Parse(DISASTER_TEST_CONFIG, disaster_config)
