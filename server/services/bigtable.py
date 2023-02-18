@@ -24,8 +24,10 @@ _PROJECT_ID = 'datcom-store'
 _INSTANCE_ID = 'website-data'
 _TABLE_ID = 'nl-query'
 _COLUMN_FAMILY = 'all'
+# Store the project of the server for filtering purpose.
 _COL_PROJECT = 'project'
 _COL_QUERY = 'query'
+_SPAN_IN_DAYS = 1
 
 client = bigtable.Client(project=_PROJECT_ID)
 instance = client.instance(_INSTANCE_ID)
@@ -33,12 +35,13 @@ table = instance.table(_TABLE_ID)
 
 
 async def write_row(query):
+  # Explicitly set project to '' for local dev.
   project_id = ''
   if not current_app.config['LOCAL']:
     _, project_id = google.auth.default()
   ts = datetime.utcnow()
-  row_key = '{:3d}#{}#{}'.format(len(query), project_id,
-                                 ts.timestamp()).encode()
+  # use length of query as prefix to avoid Bigtable hotspot nodes.
+  row_key = '{}#{}#{}'.format(len(query), project_id, ts.timestamp()).encode()
   row = table.direct_row(row_key)
   row.set_cell(_COLUMN_FAMILY, _COL_PROJECT.encode(), project_id, timestamp=ts)
   row.set_cell(_COLUMN_FAMILY, _COL_QUERY.encode(), query, timestamp=ts)
@@ -46,7 +49,8 @@ async def write_row(query):
 
 
 def read_row():
-  start = datetime.now() - timedelta(days=1)
+  # Fetch recent queries
+  start = datetime.now() - timedelta(days=_SPAN_IN_DAYS)
   rows = table.read_rows(filter_=row_filters.TimestampRangeFilter(
       row_filters.TimestampRange(start=start)))
   result = []
