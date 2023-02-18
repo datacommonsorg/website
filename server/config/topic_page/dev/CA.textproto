@@ -84,3 +84,43 @@ categories {
     }
   }
 }
+
+categories {
+  title: "Test tile place override"
+  blocks {
+    title: "Should be China or Madrid, not California"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "is the life expectancy in ${place} (${date})"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "country/CHN"
+      }
+      tiles {
+        type: LINE
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "country/CHN"
+      }
+    }
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "is the life expectancy in ${place} (${date})"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "nuts/ES300"
+      }
+      tiles {
+        type: LINE
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "nuts/ES300"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "life_expectancy"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Average lifespan"
+    }
+  }
+}
