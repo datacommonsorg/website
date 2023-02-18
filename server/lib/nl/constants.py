@@ -431,5 +431,4 @@ MAP_PLACE_TYPES = frozenset([
 
 ADDITIONAL_DENOMINATOR_VARS = {
     "MapFacts/Count_park": ("SurfaceArea", "per Square Mile"),
-    "Count_CriminalActivities_LarcenyTheft": ("SurfaceArea", "per Square Mile"),
 }
