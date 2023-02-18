@@ -519,6 +519,25 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
                                           scaling=100,
                                           unit="%")
 
+  if pri_sv in constants.ADDITIONAL_DENOMINATOR_VARS:
+    denom_sv, name_suffix = constants.ADDITIONAL_DENOMINATOR_VARS[pri_sv]
+    tile = column.tiles.add()
+    sv_key = pri_sv + "_" + denom_sv
+    tile.stat_var_key.append(sv_key)
+    tile.type = Tile.TileType.RANKING
+    _set_ranking_tile_spec(attr['ranking_types'], pri_sv,
+                           tile.ranking_tile_spec)
+    sv_title = sv2name[pri_sv] + " " + name_suffix
+    tile.title = _decorate_chart_title(title=sv_title,
+                                       place=pri_place,
+                                       do_pc=False,
+                                       child_type=attr.get('place_type', ''))
+
+    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
+                                            denom=denom_sv,
+                                            name=sv_title)
+
+  # TODO: Maybe add ADDITIONAL_DENOMINATOR_VARS to map too
   if not 'skip_map_for_ranking' in attr:
     # Also add a map chart.
     stat_var_spec_map.update(
