@@ -409,12 +409,12 @@ def get_place_ranking(stat_vars,
 def get_places_in_raw(dcids, place_type):
   # Convert the dcids field and format the request to GetPlacesIn
   url = get_service_url('/v1/bulk/property/values/in/linked')
-  return post(url, {
-                          'nodes': dcids,
-                          'property': 'containedInPlace',
-                          'value_node_type': place_type,
-
-  })
+  return post(
+      url, {
+          'nodes': dcids,
+          'property': 'containedInPlace',
+          'value_node_type': place_type,
+      })
 
 
 def get_places_in(dcids, place_type):

@@ -67,6 +67,7 @@ class ChartVars:
   source_topic: str = ""
   event: EventType = None
   skip_map_for_ranking: bool = False
+  set_place_override_for_line: bool = False
 
 
 #
@@ -93,6 +94,8 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
   }
   if chart_vars.skip_map_for_ranking:
     attr['skip_map_for_ranking'] = True
+  if chart_vars.set_place_override_for_line:
+    attr['set_place_override_for_line'] = True
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  event=chart_vars.event,

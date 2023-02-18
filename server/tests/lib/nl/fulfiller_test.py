@@ -43,7 +43,7 @@ from server.tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
-from server.tests.lib.nl.test_utterance import TIME_DELTA_UTTR
+from server.tests.lib.nl.test_utterance import TIME_DELTA_ACROSS_VARS_UTTR
 
 
 #
@@ -394,7 +394,7 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [SIMPLE_UTTR])
 
     self.maxDiff = None
-    self.assertEqual(got, TIME_DELTA_UTTR)
+    self.assertEqual(got, TIME_DELTA_ACROSS_VARS_UTTR)
 
   @patch.object(utils, 'event_existence_for_place')
   def test_event(self, mock_event_existence):

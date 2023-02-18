@@ -135,13 +135,8 @@ def build_page_config(
         stat_var_spec_map = _single_place_multiple_var_timeline_block(
             column, cspec.places[0], cspec.svs, sv2name, sv2unit, cspec.attr)
       else:
-        if len(cspec.places) > 1:
-          stat_var_spec_map = _multiple_place_single_var_timeline_block(
-              column, cspec.places, cspec.svs[0], sv2name)
-        else:
-          stat_var_spec_map = _single_place_single_var_timeline_block(
-              column, cspec.places[0], cspec.svs[0], sv2name,
-              sv2unit, cspec.attr)
+        stat_var_spec_map = _single_place_single_var_timeline_block(
+            column, cspec.places[0], cspec.svs[0], sv2name, sv2unit, cspec.attr)
 
     elif cspec.chart_type == ChartType.BAR_CHART:
       _, column = builder.new_chart(cspec.attr)
@@ -231,6 +226,8 @@ def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                           name=sv2name[sv_dcid],
                                           unit=sv2unit[sv_dcid])
+  if 'set_place_override_for_line' in attr:
+    tile.place_dcid_override = place.dcid
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
@@ -246,21 +243,6 @@ def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
                                             scaling=100,
                                             unit="%")
     column.tiles.append(tile)
-  return stat_var_spec_map
-
-
-def _multiple_place_single_var_timeline_block(column, places, sv_dcid, sv2name):
-  stat_var_spec_map = {}
-
-  title = _decorate_chart_title(title=sv2name[sv_dcid], place=None)
-
-  # Line chart for the stat var
-  sv_key = sv_dcid
-  tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[sv_key],
-              comparison_places=[p.dcid for p in places])
-  stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
-                                          name=sv2name[sv_dcid])
-  column.tiles.append(tile)
   return stat_var_spec_map
 
 

@@ -131,6 +131,7 @@ class IntegrationTest(LiveServerTestCase):
             'How does that compare with San Bruno',
             # Proxy for parks in magiceye
             'Which cities in the SF Bay Area have the highest larceny',
+            'What countries in Africa had the greatest increase in life expectancy',
         ])
 
   def test_demo_fallback(self):

@@ -25,7 +25,8 @@ from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance
 
-_MAX_PLACES_TO_RETURN = 5
+_MAX_PLACES_TO_RETURN = 20
+
 
 #
 # Computes growth rate and ranks charts of child places in parent place.
@@ -102,7 +103,12 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   for d in ranked_child_dcids:
     ranked_child_places.append(dcid2place[d])
 
+  # No per-capita charts.
   chart_vars.include_percapita = False
-  return add_chart_to_utterance(ChartType.TIMELINE_CHART, state, chart_vars,
-                                ranked_child_places[:_MAX_PLACES_TO_RETURN],
-                                chart_origin)
+  # Override the "main-place" (i.e., parent) with the child place.
+  chart_vars.set_place_override_for_line = True
+  for p in ranked_child_places[:_MAX_PLACES_TO_RETURN]:
+    logging.info('Processing %s' % p.name)
+    found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state, chart_vars,
+                                    [p], chart_origin)
+  return found
