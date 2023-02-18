@@ -31,6 +31,7 @@ import server.services.datacommons as dc
 # TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
+# TODO: Consider tweaking/reducing this
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
 _SV_DISPLAY_NAME_OVERRIDE = {
@@ -117,6 +118,28 @@ _SV_DISPLAY_FOOTNOTE_OVERRIDE = {
         "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
     "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
         "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+}
+
+# (growth_direction, rank_order) -> reverse
+_TIME_DELTA_SORT_MAP = {
+    # Jobs that grew
+    (detection.TimeDeltaType.INCREASE, None):
+        True,
+    # Jobs that shrunk
+    (detection.TimeDeltaType.DECREASE, None):
+        False,
+    # Highest growing jobs
+    (detection.TimeDeltaType.INCREASE, detection.RankingType.HIGH):
+        True,
+    # Lowest growing jobs
+    (detection.TimeDeltaType.INCREASE, detection.RankingType.LOW):
+        False,
+    # Highest shrinking jobs
+    (detection.TimeDeltaType.DECREASE, detection.RankingType.HIGH):
+        False,
+    # Lowest shrinking jobs
+    (detection.TimeDeltaType.DECREASE, detection.RankingType.LOW):
+        True,
 }
 
 
@@ -289,6 +312,45 @@ def has_series_with_single_datapoint(place: str, svs: List[str]):
   return False
 
 
+# Given an SV and list of places, this API ranks the places
+# per the growth rate of the time-series.
+def rank_places_by_growth_rate(places: List[str], sv: str,
+                               growth_direction: detection.TimeDeltaType,
+                               rank_order: detection.RankingType) -> List[str]:
+  series_data = util.series_core(entities=places,
+                                 variables=[sv],
+                                 all_facets=False)
+
+  if 'data' not in series_data or sv not in series_data['data']:
+    return []
+
+  places_with_vals = []
+  for place, place_data in series_data['data'][sv].items():
+    series = place_data['series']
+    if len(series) < 2:
+      continue
+
+    try:
+      net_growth_rate = compute_growth_rate(series)
+    except Exception as e:
+      logging.error('Growth rate computation failed: %s', str(e))
+      continue
+
+    if net_growth_rate > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
+      continue
+    if net_growth_rate < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
+      continue
+
+    places_with_vals.append((place, net_growth_rate))
+
+  places_with_vals = sorted(places_with_vals,
+                            key=lambda pair: pair[1],
+                            reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
+                                                          rank_order)])
+  logging.info(places_with_vals)
+  return [p for p, _ in places_with_vals]
+
+
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the growth rate of the time-series.
 def rank_svs_by_growth_rate(place: str, svs: List[str],
@@ -319,31 +381,10 @@ def rank_svs_by_growth_rate(place: str, svs: List[str],
 
     svs_with_vals.append((sv, net_growth_rate))
 
-  # (growth_direction, rank_order) -> reverse
-  sort_map = {
-      # Jobs that grew
-      (detection.TimeDeltaType.INCREASE, None):
-          True,
-      # Jobs that shrunk
-      (detection.TimeDeltaType.DECREASE, None):
-          False,
-      # Highest growing jobs
-      (detection.TimeDeltaType.INCREASE, detection.RankingType.HIGH):
-          True,
-      # Lowest growing jobs
-      (detection.TimeDeltaType.INCREASE, detection.RankingType.LOW):
-          False,
-      # Highest shrinking jobs
-      (detection.TimeDeltaType.DECREASE, detection.RankingType.HIGH):
-          False,
-      # Lowest shrinking jobs
-      (detection.TimeDeltaType.DECREASE, detection.RankingType.LOW):
-          True,
-  }
-
   svs_with_vals = sorted(svs_with_vals,
                          key=lambda pair: pair[1],
-                         reverse=sort_map[(growth_direction, rank_order)])
+                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
+                                                       rank_order)])
   logging.info(svs_with_vals)
   return [sv for sv, _ in svs_with_vals]
 
@@ -414,8 +455,6 @@ def _datestr_to_date(datestr: str) -> datetime.date:
 # Given a place DCID and a child place type, returns a sample list
 # of places of that child type.
 #
-# TODO: Maybe dedupe with data_spec.py
-#
 def _get_sample_child_places(main_place_dcid: str,
                              contained_place_type: str) -> List[str]:
   """Find a sampled child place"""
@@ -459,6 +498,23 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
       'result': result
   })
   return result
+
+
+def get_all_child_places(main_place_dcid: str,
+                         contained_place_type: str) -> List[detection.Place]:
+  payload = dc.get_places_in_raw([main_place_dcid], contained_place_type)
+  results = []
+  for entry in payload.get('data', []):
+    if 'node' not in entry:
+      continue
+    for value in entry.get('values', []):
+      if 'dcid' not in value or 'name' not in value:
+        continue
+      results.append(
+          detection.Place(dcid=value['dcid'],
+                          name=value['name'],
+                          place_type=contained_place_type))
+  return results
 
 
 def get_sv_name(all_svs: List[str]) -> Dict:

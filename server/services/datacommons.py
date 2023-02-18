@@ -406,18 +406,21 @@ def get_place_ranking(stat_vars,
   return send_request(url, req_json=req_json, post=False, has_payload=False)
 
 
-def get_places_in(dcids, place_type):
+def get_places_in_raw(dcids, place_type):
   # Convert the dcids field and format the request to GetPlacesIn
-  url = get_service_url('/node/places-in')
-  payload = send_request(url,
-                         req_json={
-                             'dcids': dcids,
-                             'place_type': place_type,
-                         },
-                         post=False)
+  url = get_service_url('/v1/bulk/property/values/in/linked')
+  return post(url, {
+                          'nodes': dcids,
+                          'property': 'containedInPlace',
+                          'value_node_type': place_type,
 
+  })
+
+
+def get_places_in(dcids, place_type):
+  payload = get_places_in_raw(dcids, place_type)
   # Create the results and format it appropriately
-  result = _format_expand_payload(payload, 'place', must_exist=dcids)
+  result = _format_expand_payload(payload, must_exist=dcids)
   return result
 
 
@@ -523,14 +526,18 @@ def fetch_data(endpoint_name: str,
   return send_request(url, req_json, compress, post, has_payload)
 
 
-def _format_expand_payload(payload, new_key, must_exist=[]):
+def _format_expand_payload(payload, must_exist=[]):
   """ Formats expand payloads into dicts from dcids to lists of values."""
   # Create the results dictionary from payload
   results = collections.defaultdict(set)
-  for entry in payload:
-    if 'dcid' in entry and new_key in entry:
-      dcid = entry['dcid']
-      results[dcid].add(entry[new_key])
+  for entry in payload.get('data', []):
+    if 'node' not in entry:
+      continue
+    dcid = entry['node']
+    for value in entry.get('values', []):
+      if 'dcid' not in value:
+        continue
+      results[dcid].add(value['dcid'])
 
   # Ensure all dcids in must_exist have some entry in results.
   for dcid in must_exist:

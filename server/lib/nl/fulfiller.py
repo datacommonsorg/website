@@ -66,7 +66,6 @@ def fulfill(query_detection: Detection,
 
 
 def fulfill_query_type(uttr: Utterance, query_type: QueryType) -> bool:
-  logging.info('Handled query_type: %d', uttr.query_type.value)
   # Reset previous state
   uttr.query_type = query_type
   uttr.chartCandidates = []
