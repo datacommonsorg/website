@@ -517,7 +517,7 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
 
 def get_all_child_places(main_place_dcid: str,
                          contained_place_type: str) -> List[detection.Place]:
-  payload = dc.get_places_in_raw([main_place_dcid], contained_place_type)
+  payload = dc.get_places_in_v1([main_place_dcid], contained_place_type)
   results = []
   for entry in payload.get('data', []):
     if 'node' not in entry:
