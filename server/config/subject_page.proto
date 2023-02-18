@@ -176,6 +176,8 @@ message Tile {
   repeated string stat_var_key = 4;
   // [optional] a list of place dcids used for this tile.
   repeated string comparison_places = 7;
+  // [optional] If set, used instead of main place for the page.
+  string place_dcid_override = 11;
 
   // specs for specific tile types
   oneof tile_type_spec {
