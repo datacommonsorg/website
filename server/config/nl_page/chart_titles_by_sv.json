@@ -617,7 +617,7 @@
     "Count_Person_WithVAHealthCareOnly": "Number of People With Only VA Health Care",
     "FertilityRate_Person_Female": "Fertility Rate",
     "GrowthRate_Count_Person": "Rate of Population Growth",
-    "LifeExpectancy_Person": "Average Lifespan of a Population",
+    "LifeExpectancy_Person": "Life Expectancy",
     "LifeExpectancy_Person_Female": "Female Life Expectancy",
     "LifeExpectancy_Person_Male": "Male Life Expectancy",
     "Mean_Earnings_Person_Female": "Average Earnings for Females",

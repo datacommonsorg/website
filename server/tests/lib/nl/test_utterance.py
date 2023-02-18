@@ -520,14 +520,14 @@ RANKING_ACROSS_SVS_UTTR = {
 }
 
 # Utterance for time-delta query
-TIME_DELTA_UTTR = {
+TIME_DELTA_ACROSS_VARS_UTTR = {
     'classifications': [{
         'time_delta_type': [TimeDeltaType.INCREASE],
         'type': ClassificationType.TIME_DELTA
     }],
     'places': [],
     'query': 'foo sv in place',
-    'query_type': QueryType.TIME_DELTA,
+    'query_type': QueryType.TIME_DELTA_ACROSS_VARS,
     'ranked_charts': [{
         'attr': {
             'block_id': 2,

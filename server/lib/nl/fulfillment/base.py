@@ -67,6 +67,7 @@ class ChartVars:
   source_topic: str = ""
   event: EventType = None
   skip_map_for_ranking: bool = False
+  set_place_override_for_line: bool = False
 
 
 #
@@ -75,13 +76,14 @@ class ChartVars:
 def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
                            chart_vars: ChartVars, places: List[Place],
                            primary_vs_secondary: ChartOriginType) -> bool:
-  if state.place_type and isinstance(state.place_type, ContainedInPlaceType):
+  place_type = state.place_type
+  if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
-    state.place_type = state.place_type.value
+    place_type = place_type.value
 
   attr = {
       "class": primary_vs_secondary,
-      "place_type": state.place_type,
+      "place_type": place_type,
       "ranking_types": state.ranking_types,
       "block_id": chart_vars.block_id,
       "include_percapita": chart_vars.include_percapita,
@@ -92,6 +94,8 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
   }
   if chart_vars.skip_map_for_ranking:
     attr['skip_map_for_ranking'] = True
+  if chart_vars.set_place_override_for_line:
+    attr['set_place_override_for_line'] = True
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  event=chart_vars.event,
@@ -164,10 +168,17 @@ def _add_charts(state: PopulateState, places: List[Place],
     # Counter updated in get_sample_child_places
     return False
 
+  # Handle extended/comparable SVs only for simple query since
+  # for those we would construct a single bar chart comparing the differe
+  # variables.  For other query-types like map/ranking/scatter, we will have
+  # indidividual "related" charts, and those don't look good.
+  #
   # Map of main SV -> peer SVs
-  sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
-  utils.update_counter(state.uttr.counters, 'stat_var_extensions',
-                       sv2extensions)
+  sv2extensions = {}
+  if state.uttr.query_type == QueryType.SIMPLE:
+    sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
+    utils.update_counter(state.uttr.counters, 'stat_var_extensions',
+                         sv2extensions)
 
   # A set used to ensure that a set of SVs are constructed into charts
   # only once. For example SV1 and SV2 may both be main SVs, and part of
@@ -222,13 +233,6 @@ def _add_charts(state: PopulateState, places: List[Place],
           })
           logging.info('Existence check failed for %s - %s',
                        ', '.join(places_to_check), ', '.join(chart_vars.svs))
-
-    # Handle extended/comparable SVs only for simple query since
-    # for those we would construct a single bar chart comparing the differe
-    # variables.  For other query-types like map/ranking/scatter, we will have
-    # indidividual "related" charts, and those don't look good.
-    if state.uttr.query_type != QueryType.SIMPLE:
-      continue
 
     # Infer comparison charts with extended SVs.
     extended_svs = sv2extensions.get(sv, [])

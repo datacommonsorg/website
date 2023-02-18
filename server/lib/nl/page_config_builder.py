@@ -226,6 +226,8 @@ def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                           name=sv2name[sv_dcid],
                                           unit=sv2unit[sv_dcid])
+  if 'set_place_override_for_line' in attr:
+    tile.place_dcid_override = place.dcid
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
