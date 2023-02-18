@@ -88,10 +88,9 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         break;
       }
     }
-    const placeGeoJsonPromise = fetchNodeGeoJson(
-      [props.place.dcid],
-      placeGeoJsonProp
-    );
+    const placeGeoJsonPromise = placeGeoJsonProp
+      ? fetchNodeGeoJson([props.place.dcid], placeGeoJsonProp)
+      : Promise.resolve(null);
     Promise.all([childrenGeoJsonPromise, placeGeoJsonPromise]).then(
       ([childrenGeoJson, placeGeoJson]) => {
         setGeoJsonData({ placeGeoJson, childrenGeoJson });
