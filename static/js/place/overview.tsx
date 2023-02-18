@@ -50,18 +50,18 @@ class Overview extends React.Component<OverviewPropType, OverviewStateType> {
   }
 
   render(): JSX.Element {
-    const shouldSHowRanking = !_.isEmpty(this.state.rankingData.label);
+    const shouldShowRanking = !_.isEmpty(this.state.rankingData.label);
     return (
       <section className="factoid col-12">
         <div className="row">
           <div
             className={`col-12 ${
-              shouldSHowRanking ? "col-md-4 map-with-margin" : ""
+              shouldShowRanking ? "col-md-4 map-with-margin" : ""
             }`}
           >
             <GoogleMap dcid={this.props.dcid}></GoogleMap>
           </div>
-          {shouldSHowRanking && (
+          {shouldShowRanking && (
             <>
               <div className="col-12 col-md-8">
                 <Ranking
