@@ -38,8 +38,10 @@ const RANKING_COUNT = 5;
 
 interface RankingGroup {
   points: RankingPoint[];
-  unit: string;
-  scaling: number;
+  // If only value is used in RankingPoint - then there will only be one unit &
+  // scaling set. Otherwise, will match the order of values[].
+  unit: string[];
+  scaling: number[];
   numDataPoints?: number;
 }
 
@@ -70,6 +72,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     rankingData
   );
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
+  const isMultiColumn = props.rankingMetadata.showMultiColumn;
+  const svNames = props.statVarSpec.map((sv) => sv.name);
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -109,6 +113,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     }
                     points={points.slice(-rankingCount).reverse()}
                     isHighest={true}
+                    svNames={isMultiColumn ? svNames : undefined}
                   />
                   <footer>
                     <a
@@ -144,6 +149,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     numDataPoints={numDataPoints}
                     points={points.slice(0, rankingCount)}
                     isHighest={false}
+                    svNames={isMultiColumn ? svNames : undefined}
                   />
                   <footer>
                     <a
@@ -201,47 +207,15 @@ function fetchData(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      const rankingData: RankingData = {};
-      const statData = resp.data;
-      // Get Ranking data
-      for (const spec of props.statVarSpec) {
-        if (!(spec.statVar in statData.data)) {
-          continue;
-        }
-        const arr = [];
-        for (const place in statData.data[spec.statVar]) {
-          const rankingPoint = {
-            placeDcid: place,
-            value: statData.data[spec.statVar][place].value,
-          };
-          if (_.isUndefined(rankingPoint.value)) {
-            console.log(`Skipping ${place}, missing ${spec.statVar}`);
-            continue;
-          }
-          if (spec.denom) {
-            if (
-              spec.denom in statData.data &&
-              place in statData.data[spec.denom] &&
-              statData.data[spec.denom][place].value != 0
-            ) {
-              rankingPoint.value /= statData.data[spec.denom][place].value;
-            } else {
-              console.log(`Skipping ${place}, missing ${spec.denom}`);
-              continue;
-            }
-          }
-          arr.push(rankingPoint);
-        }
-        arr.sort((a, b) => {
-          return a.value - b.value;
-        });
-        const numDataPoints = arr.length;
-        rankingData[spec.statVar] = {
-          points: arr,
-          unit: spec.unit,
-          scaling: spec.scaling,
-          numDataPoints,
-        };
+      const rankingData = pointApiToPerSvRankingData(
+        resp.data,
+        props.statVarSpec
+      );
+      if (props.rankingMetadata.showMultiColumn) {
+        return transformRankingDataForMultiColumn(
+          rankingData,
+          props.statVarSpec
+        );
       }
       return rankingData;
     })
@@ -269,6 +243,79 @@ function fetchData(
     });
 }
 
+// Reduces RankingData to only the SV used for sorting, to be compatible for multi-column rendering in RankingUnit.
+function transformRankingDataForMultiColumn(
+  rankingData: RankingData,
+  statVarSpecs: StatVarSpec[]
+): RankingData {
+  const svs = statVarSpecs.map((spec) => spec.statVar);
+  const sortSv = svs[svs.length - 1];
+  const sortedPlacePoints = rankingData[sortSv].points;
+  const svsToDict = svs.map((sv) => {
+    const placeToVal = {};
+    const points = rankingData[sv].points;
+    for (const p of points) {
+      placeToVal[p.placeDcid] = p.value;
+    }
+    return placeToVal;
+  });
+  for (const p of sortedPlacePoints) {
+    p.value = undefined;
+    p.values = svs.map((_, i) => svsToDict[i][p.placeDcid]);
+  }
+  rankingData[sortSv].unit = statVarSpecs.map((spec) => spec.unit);
+  rankingData[sortSv].scaling = statVarSpecs.map((spec) => spec.scaling);
+  return { [sortSv]: rankingData[sortSv] };
+}
+
+function pointApiToPerSvRankingData(
+  statData: PointApiResponse,
+  statVarSpecs: StatVarSpec[]
+): RankingData {
+  const rankingData: RankingData = {};
+  // Get Ranking data
+  for (const spec of statVarSpecs) {
+    if (!(spec.statVar in statData.data)) {
+      continue;
+    }
+    const arr = [];
+    for (const place in statData.data[spec.statVar]) {
+      const rankingPoint = {
+        placeDcid: place,
+        value: statData.data[spec.statVar][place].value,
+      };
+      if (_.isUndefined(rankingPoint.value)) {
+        console.log(`Skipping ${place}, missing ${spec.statVar}`);
+        continue;
+      }
+      if (spec.denom) {
+        if (
+          spec.denom in statData.data &&
+          place in statData.data[spec.denom] &&
+          statData.data[spec.denom][place].value != 0
+        ) {
+          rankingPoint.value /= statData.data[spec.denom][place].value;
+        } else {
+          console.log(`Skipping ${place}, missing ${spec.denom}`);
+          continue;
+        }
+      }
+      arr.push(rankingPoint);
+    }
+    arr.sort((a, b) => {
+      return a.value - b.value;
+    });
+    const numDataPoints = arr.length;
+    rankingData[spec.statVar] = {
+      points: arr,
+      unit: [spec.unit],
+      scaling: [spec.scaling],
+      numDataPoints,
+    };
+  }
+  return rankingData;
+}
+
 /**
  * Gets the number of ranking lists that will be shown
  * @param rankingTileSpec ranking tile specifications
@@ -278,6 +325,11 @@ function getNumRankingLists(
   rankingTileSpec: RankingTileSpec,
   rankingData: { [sv: string]: RankingGroup }
 ): number {
+  if (rankingTileSpec.showMultiColumn) {
+    return [rankingTileSpec.showHighest, rankingTileSpec.showLowest].filter(
+      Boolean
+    ).length;
+  }
   let numListsPerSv = 0;
   if (rankingTileSpec.showHighest) {
     numListsPerSv++;

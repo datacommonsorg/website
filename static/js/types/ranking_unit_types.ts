@@ -22,7 +22,9 @@
 export interface RankingPoint {
   placeDcid: string;
   placeName?: string;
-  value: number;
+  // Only one of value or values should be set. If values are set, then multi-col is rendered.
+  value?: number;
+  values?: number[];
   /**
    * If not provided, the component will calculate the rank based on the order of the input points.
    */

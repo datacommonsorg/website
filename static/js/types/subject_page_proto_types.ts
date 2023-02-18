@@ -59,16 +59,14 @@ export interface PageMetadataConfig {
 export interface RankingTileSpec {
   showHighest: boolean;
   showLowest: boolean;
-  showIncrease: boolean;
-  showDecrease: boolean;
 
   diffBaseDate: string;
 
   highestTitle?: string;
   lowestTitle?: string;
-  increaseTitle?: string;
-  decreaseTitle?: string;
   rankingCount?: number;
+
+  showMultiColumn: boolean;
 }
 
 export interface DisasterEventMapTileSpec {

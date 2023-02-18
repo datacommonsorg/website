@@ -224,6 +224,7 @@ function formatNumber(
       unitKey = "liter";
       break;
     case "celsius":
+    case "Celsius":
       shouldAddUnit = true;
       unitKey = "celsius";
       break;

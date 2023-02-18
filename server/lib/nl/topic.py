@@ -200,9 +200,9 @@ _SVPG_NAMES_OVERRIDE = {
     "dc/svpg/SolarPanelPotential":
         "Solar Panel Potential",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "Projected highest increase in max temperature in different scenarios",
+        "Projected highest increase in max temperature under different scenarios",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "Projected highest decrease in min temperature in different scenarios",
+        "Projected highest decrease in min temperature under different scenarios",
     "dc/svpg/ClimateChange_FEMARisk":
         "Risk due to various Natural Hazards",
     "dc/svpg/IndividualIncome":

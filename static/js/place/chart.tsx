@@ -270,7 +270,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                         this.state.rankingChartDataGroup.rankingData.highest
                       }
                       isHighest={true}
-                      unit={this.props.unit}
+                      unit={[this.props.unit]}
                       highlightedDcid={this.props.dcid}
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
@@ -282,7 +282,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                         this.state.rankingChartDataGroup.rankingData.lowest
                       }
                       isHighest={false}
-                      unit={this.props.unit}
+                      unit={[this.props.unit]}
                       numDataPoints={
                         this.state.rankingChartDataGroup.numDataPoints
                       }
