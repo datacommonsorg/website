@@ -56,7 +56,7 @@ class Overview extends React.Component<OverviewPropType, OverviewStateType> {
         <div className="row">
           <div
             className={`col-12 ${
-              shouldShowRanking ? "col-md-4 map-with-margin" : ""
+              shouldShowRanking ? "col-md-4 map-with-padding" : ""
             }`}
           >
             <GoogleMap dcid={this.props.dcid}></GoogleMap>
