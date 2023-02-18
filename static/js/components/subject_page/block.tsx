@@ -79,6 +79,7 @@ export function Block(props: BlockPropType): JSX.Element {
       setOverridePlaceTypes({});
       return;
     }
+    // TODO: Use getNamedTypedPlace and add support for multiple places there.
     axios
       .get("/api/place/named_typed", {
         params: {
