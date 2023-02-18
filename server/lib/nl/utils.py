@@ -33,6 +33,21 @@ _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.jso
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
+SV_DISPLAY_SHORT_NAME = {
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
+        "RCP 2.6 (optimistic), °C",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
+        "RCP 4.5 (intermediate), °C",
+    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
+        "RCP 6.0 (slightly pessimistic), °C",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
+        "RCP 2.6 (optimistic), °C",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
+        "RCP 4.5 (intermediate), °C",
+    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
+        "RCP 6.0 (slightly pessimistic), °C",
+}
+
 _SV_DISPLAY_NAME_OVERRIDE = {
     "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
         "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (°C)",

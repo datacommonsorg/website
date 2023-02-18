@@ -178,17 +178,17 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3702762722969055,
-      0.3159871995449066,
-      0.2831984758377075,
-      0.27669644355773926,
-      0.2557689845561981,
+      0.3702761232852936,
+      0.315987229347229,
+      0.28319820761680603,
+      0.27669650316238403,
+      0.2557690441608429,
       0.237177774310112,
-      0.22020845115184784,
-      0.21446263790130615,
-      0.2134648710489273,
-      0.20017607510089874,
-      0.1957034021615982
+      0.22020843625068665,
+      0.2144625186920166,
+      0.2134648561477661,
+      0.20017597079277039,
+      0.19570352137088776
     ],
     "SV": [
       "dc/topic/Income",
@@ -205,91 +205,91 @@
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.22020845115184784)"
+        "AQI (0.22020843625068665)"
       ],
       "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017607510089874)",
-        "forage farms (0.20017607510089874)"
+        "Forage Farms (0.20017597079277039)",
+        "forage farms (0.20017597079277039)"
       ],
       "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.1957034021615982)",
-        "Pig Farm (0.1957034021615982)"
+        "Pig Farm (0.19570352137088776)",
+        "pig farm (0.1957034468650818)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
         "people with wasting (0.237177774310112)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "cattle ranchers (0.2557689845561981)",
-        "farmers (0.22553962469100952)"
+        "cattle ranchers (0.2557690441608429)",
+        "farmers (0.2255396842956543)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.2134648710489273)"
+        "Agriculture (0.2134648561477661)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.3159871995449066)"
+        "Economy (0.315987229347229)"
       ],
       "dc/topic/Income": [
-        "pay (0.3702762722969055)",
-        "compensation (0.22850871086120605)",
-        "Earnings (0.2226836234331131)",
-        "Income (0.20594438910484314)"
+        "pay (0.3702761232852936)",
+        "compensation (0.22850851714611053)",
+        "Earnings (0.22268356382846832)",
+        "Income (0.2059445083141327)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.2831984758377075)",
-        "Careers (0.24140897393226624)",
+        "Jobs (0.28319820761680603)",
+        "Careers (0.2414090484380722)",
         "Professions (0.20911738276481628)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.27669644355773926)",
-        "Medical infirmities (0.2347508668899536)"
+        "Maladies (0.27669650316238403)",
+        "Medical infirmities (0.2347509264945984)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.21446263790130615)"
+        "journey to work (0.2144625186920166)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.22020845115184784)"
+      "AQI (0.22020843625068665)"
     ],
     "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017607510089874)",
-      "forage farms (0.20017607510089874)"
+      "Forage Farms (0.20017597079277039)",
+      "forage farms (0.20017597079277039)"
     ],
     "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.1957034021615982)",
-      "Pig Farm (0.1957034021615982)"
+      "Pig Farm (0.19570352137088776)",
+      "pig farm (0.1957034468650818)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
       "people with wasting (0.237177774310112)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "cattle ranchers (0.2557689845561981)",
-      "farmers (0.22553962469100952)"
+      "cattle ranchers (0.2557690441608429)",
+      "farmers (0.2255396842956543)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.2134648710489273)"
+      "Agriculture (0.2134648561477661)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.3159871995449066)"
+      "Economy (0.315987229347229)"
     ],
     "dc/topic/Income": [
-      "pay (0.3702762722969055)",
-      "compensation (0.22850871086120605)",
-      "Earnings (0.2226836234331131)",
-      "Income (0.20594438910484314)"
+      "pay (0.3702761232852936)",
+      "compensation (0.22850851714611053)",
+      "Earnings (0.22268356382846832)",
+      "Income (0.2059445083141327)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.2831984758377075)",
-      "Careers (0.24140897393226624)",
+      "Jobs (0.28319820761680603)",
+      "Careers (0.2414090484380722)",
       "Professions (0.20911738276481628)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.27669644355773926)",
-      "Medical infirmities (0.2347508668899536)"
+      "Maladies (0.27669650316238403)",
+      "Medical infirmities (0.2347509264945984)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.21446263790130615)"
+      "journey to work (0.2144625186920166)"
     ]
   },
   "temporal_classification": "<None>",

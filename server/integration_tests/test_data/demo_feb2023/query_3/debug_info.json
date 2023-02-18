@@ -137,7 +137,7 @@
               5
             ],
             "source_topic": "dc/topic/ProjectedClimateExtremes",
-            "title": "Projected highest increase in max temperature in different scenarios"
+            "title": "Projected highest increase in max temperature under different scenarios"
           },
           "chart_type": 2,
           "event": null,
@@ -166,7 +166,7 @@
               5
             ],
             "source_topic": "dc/topic/ProjectedClimateExtremes",
-            "title": "Projected highest decrease in min temperature in different scenarios"
+            "title": "Projected highest decrease in min temperature under different scenarios"
           },
           "chart_type": 2,
           "event": null,
@@ -200,20 +200,21 @@
   ],
   "query_with_places_removed": "tell me about",
   "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.37027618288993835,
-      0.3159872591495514,
-      0.28319841623306274,
+      0.3702761232852936,
+      0.315987229347229,
+      0.28319820761680603,
       0.27669650316238403,
-      0.2557690143585205,
-      0.23717783391475677,
-      0.22020840644836426,
-      0.2134648859500885,
-      0.20017601549625397,
-      0.195703387260437,
-      0.19379392266273499
+      0.2557690441608429,
+      0.237177774310112,
+      0.22020843625068665,
+      0.2144625186920166,
+      0.2134648561477661,
+      0.20017597079277039,
+      0.19570352137088776
     ],
     "SV": [
       "dc/topic/Income",
@@ -223,98 +224,98 @@
       "dc/hlxvn1t8b9bhh",
       "dc/g/Person_MedicalCondition-Wasting",
       "AirQualityIndex_AirPollutant",
+      "dc/topic/WorkCommute",
       "dc/topic/Agriculture",
       "dc/g/Farm_FarmInventoryType-Forage",
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs",
-      "dc/g/Person_MedicalCondition-SevereWasting"
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.22020840644836426)"
+        "AQI (0.22020843625068665)"
       ],
       "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017601549625397)",
-        "forage farms (0.20017601549625397)"
+        "Forage Farms (0.20017597079277039)",
+        "forage farms (0.20017597079277039)"
       ],
       "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.195703387260437)",
-        "Pig Farm (0.195703387260437)"
-      ],
-      "dc/g/Person_MedicalCondition-SevereWasting": [
-        "people with severe wasting (0.19379392266273499)"
+        "Pig Farm (0.19570352137088776)",
+        "pig farm (0.1957034468650818)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.23717783391475677)"
+        "people with wasting (0.237177774310112)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "cattle ranchers (0.2557690143585205)",
-        "farmers (0.2255396544933319)"
+        "cattle ranchers (0.2557690441608429)",
+        "farmers (0.2255396842956543)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.2134648859500885)"
+        "Agriculture (0.2134648561477661)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.3159872591495514)"
+        "Economy (0.315987229347229)"
       ],
       "dc/topic/Income": [
-        "pay (0.37027618288993835)",
-        "compensation (0.22850877046585083)",
-        "Earnings (0.22268365323543549)",
-        "Income (0.20594441890716553)"
+        "pay (0.3702761232852936)",
+        "compensation (0.22850851714611053)",
+        "Earnings (0.22268356382846832)",
+        "Income (0.2059445083141327)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.28319841623306274)",
-        "Careers (0.24140898883342743)",
-        "Professions (0.2091173529624939)"
+        "Jobs (0.28319820761680603)",
+        "Careers (0.2414090484380722)",
+        "Professions (0.20911738276481628)"
       ],
       "dc/topic/MedicalConditions": [
         "Maladies (0.27669650316238403)",
-        "Medical infirmities (0.23475083708763123)"
+        "Medical infirmities (0.2347509264945984)"
+      ],
+      "dc/topic/WorkCommute": [
+        "journey to work (0.2144625186920166)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.22020840644836426)"
+      "AQI (0.22020843625068665)"
     ],
     "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017601549625397)",
-      "forage farms (0.20017601549625397)"
+      "Forage Farms (0.20017597079277039)",
+      "forage farms (0.20017597079277039)"
     ],
     "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.195703387260437)",
-      "Pig Farm (0.195703387260437)"
-    ],
-    "dc/g/Person_MedicalCondition-SevereWasting": [
-      "people with severe wasting (0.19379392266273499)"
+      "Pig Farm (0.19570352137088776)",
+      "pig farm (0.1957034468650818)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.23717783391475677)"
+      "people with wasting (0.237177774310112)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "cattle ranchers (0.2557690143585205)",
-      "farmers (0.2255396544933319)"
+      "cattle ranchers (0.2557690441608429)",
+      "farmers (0.2255396842956543)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.2134648859500885)"
+      "Agriculture (0.2134648561477661)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.3159872591495514)"
+      "Economy (0.315987229347229)"
     ],
     "dc/topic/Income": [
-      "pay (0.37027618288993835)",
-      "compensation (0.22850877046585083)",
-      "Earnings (0.22268365323543549)",
-      "Income (0.20594441890716553)"
+      "pay (0.3702761232852936)",
+      "compensation (0.22850851714611053)",
+      "Earnings (0.22268356382846832)",
+      "Income (0.2059445083141327)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.28319841623306274)",
-      "Careers (0.24140898883342743)",
-      "Professions (0.2091173529624939)"
+      "Jobs (0.28319820761680603)",
+      "Careers (0.2414090484380722)",
+      "Professions (0.20911738276481628)"
     ],
     "dc/topic/MedicalConditions": [
       "Maladies (0.27669650316238403)",
-      "Medical infirmities (0.23475083708763123)"
+      "Medical infirmities (0.2347509264945984)"
+    ],
+    "dc/topic/WorkCommute": [
+      "journey to work (0.2144625186920166)"
     ]
   },
   "temporal_classification": "<None>",

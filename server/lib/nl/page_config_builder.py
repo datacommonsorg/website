@@ -155,36 +155,45 @@ def build_page_config(
       if not _is_map_or_ranking_compatible(cspec):
         continue
       pri_place = cspec.places[0]
-      for idx, sv in enumerate(cspec.svs):
-        block, column = builder.new_chart(cspec.attr)
-        block.footnote = sv2footnote[sv]
-        if idx > 0 and cspec.attr['source_topic']:
-          # For a peer-group of SVs, set the title and description only once.
-          builder.block.title = ''
-          builder.block.description = ''
-        elif not builder.block.title and builder.ignore_block_id_check:
-          # For the first SV, if title weren't already set, set it to
-          # the SV name.
-          builder.block.title = sv2name[sv]
-          # TODO: Maybe insert sv description here.
 
-        main_title = builder.block.title
-        chart_origin = cspec.attr.get('class', None)
-        builder.block.title = _decorate_block_title(title=main_title,
-                                                    chart_origin=chart_origin)
+      if cspec.attr['source_topic'] == 'dc/topic/ProjectedClimateExtremes':
         stat_var_spec_map.update(
-            _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
-                                      cspec.attr))
-        if cspec.attr['include_percapita'] and _should_add_percapita(sv):
-          if not 'skip_map_for_ranking' in cspec.attr:
-            main_title = builder.block.title
-            block, column = builder.new_chart(cspec.attr)
-            if main_title:
-              builder.block.title = _decorate_block_title(
-                  title=main_title, chart_origin=chart_origin, do_pc=True)
+            _ranking_chart_block_climate_extremes(builder, pri_place, cspec.svs,
+                                                  sv2name, sv2footnote,
+                                                  cspec.attr))
+      else:
+
+        for idx, sv in enumerate(cspec.svs):
+          block, column = builder.new_chart(cspec.attr)
+          block.footnote = sv2footnote[sv]
+
+          if idx > 0 and cspec.attr['source_topic']:
+            # For a peer-group of SVs, set the title and description only once.
+            builder.block.title = ''
+            builder.block.description = ''
+          elif not builder.block.title and builder.ignore_block_id_check:
+            # For the first SV, if title weren't already set, set it to
+            # the SV name.
+            builder.block.title = sv2name[sv]
+            # TODO: Maybe insert sv description here.
+
+          main_title = builder.block.title
+          chart_origin = cspec.attr.get('class', None)
+          builder.block.title = _decorate_block_title(title=main_title,
+                                                      chart_origin=chart_origin)
           stat_var_spec_map.update(
-              _ranking_chart_block_pc(column, pri_place, sv, sv2name,
-                                      cspec.attr))
+              _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
+                                        cspec.attr))
+          if cspec.attr['include_percapita'] and _should_add_percapita(sv):
+            if not 'skip_map_for_ranking' in cspec.attr:
+              main_title = builder.block.title
+              block, column = builder.new_chart(cspec.attr)
+              if main_title:
+                builder.block.title = _decorate_block_title(
+                    title=main_title, chart_origin=chart_origin, do_pc=True)
+            stat_var_spec_map.update(
+                _ranking_chart_block_pc(column, pri_place, sv, sv2name,
+                                        cspec.attr))
     elif cspec.chart_type == ChartType.SCATTER_CHART:
       _, column = builder.new_chart(cspec.attr)
       stat_var_spec_map = _scatter_chart_block(column, cspec.places[0],
@@ -405,13 +414,54 @@ def _does_extreme_mean_low(sv: str) -> bool:
   return False
 
 
+def _ranking_chart_block_climate_extremes(builder, pri_place: Place,
+                                          pri_svs: List[str], sv2name: Dict,
+                                          sv2footnote: Dict, attr: Dict):
+  footnotes = []
+  stat_var_spec_map = {}
+
+  # Add the main ranking tile
+  ranking_block, ranking_column = builder.new_chart(attr)
+  ranking_tile = ranking_column.tiles.add()
+  ranking_tile.type = Tile.TileType.RANKING
+
+  for _, sv in enumerate(pri_svs):
+    _set_ranking_tile_spec(attr['ranking_types'], '',
+                           ranking_tile.ranking_tile_spec)
+    sv_key = "ranking-" + sv
+    ranking_tile.stat_var_key.append(sv_key)
+    stat_var_spec_map[sv_key] = StatVarSpec(
+        stat_var=sv, name=utils.SV_DISPLAY_SHORT_NAME[sv])
+    footnotes.append(sv2footnote[sv])
+
+  ranking_tile.title = ranking_block.title
+  ranking_tile.ranking_tile_spec.show_multi_column = True
+
+  # Add the map block
+  map_block, map_column = builder.new_chart(attr)
+
+  for _, sv in enumerate(pri_svs):
+    if len(map_column.tiles):
+      map_column = map_block.columns.add()
+    stat_var_spec_map.update(
+        _map_chart_block_nopc(map_column, pri_place, sv, sv2name, attr))
+    map_column.tiles[0].title = sv2name[
+        sv]  # override decorated title (too long).
+
+  map_block.title = ''
+  map_block.description = ''
+  map_block.footnote = '\n\n'.join(footnotes)
+
+  return stat_var_spec_map
+
+
 def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
                               sv2name: Dict, attr: Dict):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
   tile.type = Tile.TileType.RANKING
-  _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
+  _set_ranking_tile_spec(attr['ranking_types'], '', tile.ranking_tile_spec)
   tile.title = _decorate_chart_title(title=sv2name[pri_sv],
                                      place=pri_place,
                                      do_pc=False,

@@ -395,13 +395,13 @@
   "sv_matching": {
     "CosineScore": [
       0.672934353351593,
-      0.21922606229782104,
-      0.21280181407928467,
-      0.21179991960525513,
-      0.2049480527639389,
-      0.19941174983978271,
-      0.1981937438249588,
-      0.184875026345253
+      0.21922609210014343,
+      0.21280182898044586,
+      0.21179990470409393,
+      0.20494790375232697,
+      0.19941186904907227,
+      0.19819366931915283,
+      0.18487513065338135
     ],
     "SV": [
       "dc/topic/WorkCommute",
@@ -415,79 +415,79 @@
     ],
     "SV_to_Sentences": {
       "Count_CriminalActivities_MotorVehicleTheft": [
-        "Number of vehicles stolen (0.2049480527639389)",
-        "Count of Criminal Activities: Motor Vehicle Theft (0.20094163715839386)",
-        "Number of motor vehicles taken (0.19183626770973206)",
-        "Number of thefts of motor vehicles (0.18853498995304108)",
-        "Total number of vehicles stolen (0.18824565410614014)",
-        "Number of motor vehicle heists (0.18401506543159485)",
-        "Total number of motor vehicle theft cases (0.18093903362751007)"
+        "Number of vehicles stolen (0.20494790375232697)",
+        "Count of Criminal Activities: Motor Vehicle Theft (0.20094162225723267)",
+        "Number of motor vehicles taken (0.1918361335992813)",
+        "Number of thefts of motor vehicles (0.18853488564491272)",
+        "Total number of vehicles stolen (0.18824543058872223)",
+        "Number of motor vehicle heists (0.18401500582695007)",
+        "Total number of motor vehicle theft cases (0.1809389740228653)"
       ],
       "Count_CriminalActivities_PropertyCrime": [
-        "Number of property cases (0.19941174983978271)"
+        "Number of property cases (0.19941186904907227)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Number of discriminatory crimes (0.1981937438249588)"
+        "Number of discriminatory crimes (0.19819366931915283)"
       ],
       "dc/g/Person_Industry-NAICS/492": [
-        "People Working as Couriers and Messengers (0.21280181407928467)",
-        "People working as couriers and messengers (0.21280181407928467)",
-        "Person With Industry = Couriers And Messengers (NAICS/492) (0.1928308606147766)"
+        "People Working as Couriers and Messengers (0.21280182898044586)",
+        "People working as couriers and messengers (0.21280182898044586)",
+        "Person With Industry = Couriers And Messengers (NAICS/492) (0.19283099472522736)"
       ],
       "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease": [
-        "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179991960525513)"
+        "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179990470409393)"
       ],
       "dc/n87t9dkckzxc8": [
-        "number of couriers and messengers workers (0.184875026345253)",
-        "Population of Person: Couriers And Messengers (NAICS/492) (0.18129093945026398)"
+        "number of couriers and messengers workers (0.18487513065338135)",
+        "Population of Person: Couriers And Messengers (NAICS/492) (0.1812908798456192)"
       ],
       "dc/topic/Jobs": [
-        "Work Occupations (0.21922606229782104)"
+        "Work Occupations (0.21922609210014343)"
       ],
       "dc/topic/WorkCommute": [
         "commute mode (0.672934353351593)",
-        "Work Commute (0.5764998197555542)",
-        "Work commute (0.5764998197555542)",
-        "travel to work (0.1901087909936905)"
+        "Work Commute (0.5764999389648438)",
+        "Work commute (0.5764999389648438)",
+        "travel to work (0.19010885059833527)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_CriminalActivities_MotorVehicleTheft": [
-      "Number of vehicles stolen (0.2049480527639389)",
-      "Count of Criminal Activities: Motor Vehicle Theft (0.20094163715839386)",
-      "Number of motor vehicles taken (0.19183626770973206)",
-      "Number of thefts of motor vehicles (0.18853498995304108)",
-      "Total number of vehicles stolen (0.18824565410614014)",
-      "Number of motor vehicle heists (0.18401506543159485)",
-      "Total number of motor vehicle theft cases (0.18093903362751007)"
+      "Number of vehicles stolen (0.20494790375232697)",
+      "Count of Criminal Activities: Motor Vehicle Theft (0.20094162225723267)",
+      "Number of motor vehicles taken (0.1918361335992813)",
+      "Number of thefts of motor vehicles (0.18853488564491272)",
+      "Total number of vehicles stolen (0.18824543058872223)",
+      "Number of motor vehicle heists (0.18401500582695007)",
+      "Total number of motor vehicle theft cases (0.1809389740228653)"
     ],
     "Count_CriminalActivities_PropertyCrime": [
-      "Number of property cases (0.19941174983978271)"
+      "Number of property cases (0.19941186904907227)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Number of discriminatory crimes (0.1981937438249588)"
+      "Number of discriminatory crimes (0.19819366931915283)"
     ],
     "dc/g/Person_Industry-NAICS/492": [
-      "People Working as Couriers and Messengers (0.21280181407928467)",
-      "People working as couriers and messengers (0.21280181407928467)",
-      "Person With Industry = Couriers And Messengers (NAICS/492) (0.1928308606147766)"
+      "People Working as Couriers and Messengers (0.21280182898044586)",
+      "People working as couriers and messengers (0.21280182898044586)",
+      "Person With Industry = Couriers And Messengers (NAICS/492) (0.19283099472522736)"
     ],
     "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease": [
-      "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179991960525513)"
+      "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179990470409393)"
     ],
     "dc/n87t9dkckzxc8": [
-      "number of couriers and messengers workers (0.184875026345253)",
-      "Population of Person: Couriers And Messengers (NAICS/492) (0.18129093945026398)"
+      "number of couriers and messengers workers (0.18487513065338135)",
+      "Population of Person: Couriers And Messengers (NAICS/492) (0.1812908798456192)"
     ],
     "dc/topic/Jobs": [
-      "Work Occupations (0.21922606229782104)"
+      "Work Occupations (0.21922609210014343)"
     ],
     "dc/topic/WorkCommute": [
       "commute mode (0.672934353351593)",
-      "Work Commute (0.5764998197555542)",
-      "Work commute (0.5764998197555542)",
-      "travel to work (0.1901087909936905)"
+      "Work Commute (0.5764999389648438)",
+      "Work commute (0.5764999389648438)",
+      "travel to work (0.19010885059833527)"
     ]
   },
   "temporal_classification": "<None>",
