@@ -30,6 +30,12 @@ _MAX_VARS_PER_CHART = 5
 
 
 def populate(uttr: Utterance) -> bool:
+  if not uttr.svs and not uttr.places:
+    # If both the SVs and places are empty, then do not attempt to fulfill.
+    # This avoids using incorrect context for unrelated queries like
+    # [meaning of life]
+    utils.update_counter(uttr.counters, 'simple_failed_noplaceandsv', 1)
+    return False
   return populate_charts(PopulateState(uttr=uttr, main_cb=_populate_cb))
 
 
