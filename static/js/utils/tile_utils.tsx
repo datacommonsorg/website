@@ -18,8 +18,11 @@
  * Util functions used by tile components.
  */
 
+import React from "react";
+
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
+import { urlToDomain } from "../shared/util";
 
 export interface ReplacementStrings {
   place: string;
@@ -65,4 +68,31 @@ export function getStatVarName(
     return `${label} Per Capita`;
   }
   return label;
+}
+
+/**
+ * Gets the JSX element for displaying a list of sources.
+ * @param sources sources to include in the element
+ */
+export function getSourcesJsx(sources: Set<string>): JSX.Element[] {
+  if (!sources) {
+    return null;
+  }
+
+  const sourceList: string[] = Array.from(sources);
+  const seenSourceDomains = new Set();
+  const sourcesJsx = sourceList.map((source, index) => {
+    const domain = urlToDomain(source);
+    if (seenSourceDomains.has(domain)) {
+      return null;
+    }
+    seenSourceDomains.add(domain);
+    return (
+      <span key={source}>
+        {index > 0 ? ", " : ""}
+        <a href={source}>{domain}</a>
+      </span>
+    );
+  });
+  return sourcesJsx;
 }
