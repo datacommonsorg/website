@@ -194,9 +194,12 @@ $answer-min-height: 100vh;
       padding: 0.25rem;
     }
 
+    .map-with-padding {
+      padding-right: 15px !important;
+    }
+
     .map-container {
       height: 100%;
-      margin-right: 15px;
     }
   }
 }

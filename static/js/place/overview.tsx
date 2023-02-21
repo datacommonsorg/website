@@ -32,18 +32,27 @@ interface OverviewPropType {
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
+    // only show ranking for places in the US.
+    const shouldShowRanking =
+      this.props.dcid.startsWith("geoId/") || this.props.dcid == "country/USA";
     return (
       <section className="factoid col-12">
         <div className="row">
-          <div className="col-12 col-md-4">
+          <div
+            className={`col-12 ${
+              shouldShowRanking && "col-md-4 map-with-padding"
+            }`}
+          >
             <GoogleMap dcid={this.props.dcid}></GoogleMap>
           </div>
-          <div className="col-12 col-md-8">
-            <Ranking
-              dcid={this.props.dcid}
-              locale={this.props.locale}
-            ></Ranking>
-          </div>
+          {shouldShowRanking && (
+            <div className="col-12 col-md-8">
+              <Ranking
+                dcid={this.props.dcid}
+                locale={this.props.locale}
+              ></Ranking>
+            </div>
+          )}
         </div>
       </section>
     );
