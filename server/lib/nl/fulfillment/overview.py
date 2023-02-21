@@ -26,11 +26,8 @@ from server.lib.nl.utterance import Utterance
 
 
 def populate(uttr: Utterance) -> bool:
-  places = uttr.places
-  if not places:
-    places = ctx.places_from_context(uttr)
-  if places:
-    _add_place_overview(places[0], uttr)
+  if uttr.places:
+    _add_place_overview(uttr.places[0], uttr)
     return True
   utils.update_counter(uttr.counters, 'overview_failed_noplaces', 1)
   return False

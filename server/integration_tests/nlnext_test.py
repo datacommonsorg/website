@@ -119,6 +119,7 @@ class IntegrationTest(LiveServerTestCase):
         'Which counties in california have the highest levels of blood pressure',
         'Which counties in the USA have the highest levels of blood pressure',
         'How does this correlate with income',
+        'What is the meaning of life',
     ])
 
   def test_demo_cities_feb2023(self):
