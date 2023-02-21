@@ -706,10 +706,15 @@ _SV_PARTIAL_DCID_NO_PC = [
     "AsFractionOf", "AsAFractionOfCount"
 ]
 
+_SV_FULL_DCID_NO_PC = ["Count_Person"]
+
 
 def _should_add_percapita(sv_dcid: str) -> bool:
   for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
     if skip_phrase in sv_dcid:
+      return False
+  for skip_sv in _SV_FULL_DCID_NO_PC:
+    if skip_sv == sv_dcid:
       return False
   return True
 
