@@ -32,9 +32,8 @@ interface OverviewPropType {
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
-    // only show ranking for places in the US.
-    const shouldShowRanking =
-      this.props.dcid.startsWith("geoId/") || this.props.dcid == "country/USA";
+    // only show ranking for places in the US, but not the US itself.
+    const shouldShowRanking = this.props.dcid.startsWith("geoId/");
     return (
       <section className="factoid col-12">
         <div className="row">
