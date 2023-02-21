@@ -13,6 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+terraform {
+  backend "gcs" {}
+}
+
 locals {
   resource_suffix    = var.use_resource_suffix ? format("-%s", var.resource_suffix) : ""
   web_robot_sa_email = (
@@ -54,6 +58,7 @@ module "apikeys" {
   source                   =  "../../modules/apikeys"
   project_id               = var.project_id
   dc_website_domain        = var.dc_website_domain
+  location                 = var.region
 
   resource_suffix          = local.resource_suffix
 }
@@ -61,6 +66,7 @@ module "apikeys" {
 module "esp" {
   source                   =  "../../modules/esp"
   project_id               = var.project_id
+  mixer_githash            = var.mixer_githash
 }
 
 module "cluster" {
@@ -88,33 +94,23 @@ resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
   }
 }
 
-data "google_container_cluster" "dc_web_cluster" {
-  name = module.cluster.name
-  location = var.region
-  project = var.project_id
-
-  depends_on = [module.cluster]
-}
-
-data "google_client_config" "default" {}
-
+# IMPORTANT NOTE: This script assumes that
+# "~/.kube/config" already exists. This is because provider cannot depend on data or resources,
+# as provider blocks need to be determined before resources/data states are fetched.
+# In install_custom_dc.sh, currentlythe kubeconfig is fetched before calling terraform apply.
+# .kube/config is the location where gcloud command for GKE stores cluster config, which
+# is required to access the cluster, including using helm.
 provider "kubernetes" {
   alias = "datcom"
-  host  = "https://${data.google_container_cluster.dc_web_cluster.endpoint}"
-  token = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(
-    data.google_container_cluster.dc_web_cluster.master_auth[0].cluster_ca_certificate
-  )
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
 }
 
 provider "helm" {
   alias = "datcom"
   kubernetes {
-    host                   = "https://${data.google_container_cluster.dc_web_cluster.endpoint}"
-    token                  = data.google_client_config.default.access_token
-    cluster_ca_certificate = base64decode(
-      data.google_container_cluster.dc_web_cluster.master_auth[0].cluster_ca_certificate
-    )
+    config_path = "~/.kube/config"
   }
 }
 
@@ -123,6 +119,9 @@ module "k8s_resources" {
     kubernetes = kubernetes.datcom
     helm       = helm.datcom
   }
+
+  website_githash          =   var.website_githash
+  mixer_githash            =   var.mixer_githash
 
   source                   =  "../../modules/helm"
   project_id               = var.project_id

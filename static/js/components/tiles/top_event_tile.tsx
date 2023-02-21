@@ -18,31 +18,28 @@
  * Component for rendering a tile which ranks events by severity.
  */
 
+import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { ChartEmbed } from "../../place/chart_embed";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
+import { CoordinatePlace } from "../../types/place_types";
 import {
   EventTypeSpec,
   TopEventTileSpec,
 } from "../../types/subject_page_proto_types";
+import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
-import {
-  fetchDisasterEventPoints,
-  getDate,
-  getDateRanges,
-  getSeverityFilters,
-  getUseCache,
-} from "../../utils/disaster_event_map_utils";
+import { getPlaceNames } from "../../utils/place_utils";
 import { formatNumber } from "../../utils/string_utils";
 
 const RANKING_COUNT = 10;
-const NUM_FRACTION_DIGITS = 0;
+const MIN_PERCENT_PLACE_NAMES = 0.4;
 
 interface TopEventTilePropType {
   id: string;
@@ -50,28 +47,51 @@ interface TopEventTilePropType {
   place: NamedTypedPlace;
   topEventMetadata: TopEventTileSpec;
   eventTypeSpec: EventTypeSpec;
-  blockId: string;
+  disasterEventData: DisasterEventPointData;
+  // Place type to show the event map for
+  enclosedPlaceType: string;
   className?: string;
 }
 
 export function TopEventTile(props: TopEventTilePropType): JSX.Element {
-  const [topEvents, setTopEvents] = useState<
-    DisasterEventPoint[] | undefined
-  >();
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
-  const eventTypeSpecs = {
-    [props.eventTypeSpec.id]: props.eventTypeSpec,
-  };
-  const severityProp = props.eventTypeSpec.defaultSeverityFilter.prop;
+  const [eventPlaces, setEventPlaces] =
+    useState<Record<string, NamedPlace>>(null);
+  const severityFilter = props.eventTypeSpec.defaultSeverityFilter;
+  const severityProp = severityFilter.prop;
+  const severityDisplay = severityFilter.displayName || severityFilter.prop;
+  const topEvents = rankEventData(
+    props.disasterEventData,
+    props.topEventMetadata.reverseSort
+  );
 
   useEffect(() => {
-    fetchData();
+    updateEventPlaces(topEvents);
   }, [props]);
 
-  if (topEvents === undefined) {
+  const displayPropNames = {};
+  const displayPropUnits = {};
+  if (props.topEventMetadata.displayProp) {
+    for (const dp of props.topEventMetadata.displayProp) {
+      for (const edp of props.eventTypeSpec.displayProp) {
+        if (edp.prop == dp) {
+          displayPropNames[dp] = edp.displayName;
+          displayPropUnits[dp] = edp.unit;
+          break;
+        }
+      }
+    }
+  }
+
+  if (topEvents === undefined || eventPlaces == null) {
     return <></>;
   }
+  const showPlaceColumn =
+    Object.keys(eventPlaces).length / topEvents.length >
+    MIN_PERCENT_PLACE_NAMES;
+  const showNameColumn =
+    topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
 
   return (
     <div
@@ -85,24 +105,68 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
           <div className="ranking-list">
             <h4>{props.title}</h4>
             <table>
+              <thead>
+                <tr>
+                  <td></td>
+                  {showNameColumn && <td>Name</td>}
+                  {showPlaceColumn && <td>{props.enclosedPlaceType}</td>}
+                  {(props.topEventMetadata.showStartDate ||
+                    props.topEventMetadata.showEndDate) && <td>Date</td>}
+                  {props.topEventMetadata.displayProp &&
+                    props.topEventMetadata.displayProp.map((dp, i) => (
+                      <td key={i} className="stat">
+                        {displayPropNames[dp]}
+                      </td>
+                    ))}
+                  <td className="stat">{severityDisplay}</td>
+                </tr>
+              </thead>
               <tbody>
                 {topEvents.map((event, i) => {
-                  console.log(event);
+                  const placeName = eventPlaces[event.placeDcid]
+                    ? eventPlaces[event.placeDcid].name
+                    : "N/A";
+                  const displayDate = getDisplayDate(event);
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
-                      <td className="place-name">
-                        <a href={`/browser/${event.placeDcid}`}>
-                          {event.placeName}
-                        </a>
-                      </td>
+                      {showNameColumn && (
+                        <td>
+                          {addEventLink(event.placeDcid, getEventName(event))}
+                        </td>
+                      )}
+                      {showPlaceColumn && (
+                        <td>
+                          {showNameColumn
+                            ? placeName
+                            : addEventLink(event.placeDcid, placeName)}
+                        </td>
+                      )}
+                      {displayDate && (
+                        <td>
+                          {!showNameColumn && !showPlaceColumn
+                            ? addEventLink(event.placeDcid, displayDate)
+                            : displayDate}
+                        </td>
+                      )}
+                      {props.topEventMetadata.displayProp &&
+                        props.topEventMetadata.displayProp.map((dp, i) => {
+                          return (
+                            <td key={i} className="stat">
+                              {formatNumber(
+                                event.displayProps[dp],
+                                displayPropUnits[dp],
+                                false
+                              )}
+                            </td>
+                          );
+                        })}
                       <td className="stat">
                         <span className="num-value">
                           {formatNumber(
                             event.severity[severityProp],
                             props.eventTypeSpec.defaultSeverityFilter.unit,
-                            false,
-                            NUM_FRACTION_DIGITS
+                            false
                           )}
                         </span>
                       </td>
@@ -128,42 +192,143 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     </div>
   );
 
-  function fetchData() {
-    const selectedDate = getDate(props.blockId);
-    const customDateRanges = getDateRanges();
-    const dateRange: [string, string] =
-      selectedDate in customDateRanges
-        ? customDateRanges[selectedDate]
-        : [selectedDate, selectedDate];
+  function getKeyFromLatLng(latitude: number, longitude: number): string {
+    return `${latitude}^${longitude}`;
+  }
 
-    fetchDisasterEventPoints(
-      [props.eventTypeSpec],
-      props.place.dcid,
-      dateRange,
-      getSeverityFilters(eventTypeSpecs, props.blockId),
-      getUseCache()
-    )
-      .then((disasterEventData) => {
-        const sources = new Set<string>();
-        Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
-          sources.add(provInfo.provenanceUrl);
+  // Given a list of events, returns a promise with a map of event id to a place
+  // that the event occurs within. The places will be of the same type as the
+  // props.enclosedPlaceType and will be fetched using the event coordinates.
+  function fetchPlaceFromCoords(
+    events: DisasterEventPoint[]
+  ): Promise<Record<string, NamedPlace>> {
+    const latitudes = [];
+    const longitudes = [];
+    events.forEach((event) => {
+      if (!event.latitude || !event.longitude) {
+        return;
+      }
+      latitudes.push(event.latitude);
+      longitudes.push(event.longitude);
+    });
+    return axios
+      .get<CoordinatePlace[]>("/api/place/coords2places", {
+        params: {
+          latitudes,
+          longitudes,
+          placeType: props.enclosedPlaceType,
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        const latLngPlaces: Record<string, NamedPlace> = {};
+        if (resp.data) {
+          resp.data.forEach((coordPlace) => {
+            const key = getKeyFromLatLng(
+              coordPlace.latitude,
+              coordPlace.longitude
+            );
+            latLngPlaces[key] = {
+              dcid: coordPlace.placeDcid,
+              name: coordPlace.placeName,
+            };
+          });
+        }
+        const eventPlaces = {};
+        events.forEach((event) => {
+          const latLngKey = getKeyFromLatLng(event.latitude, event.longitude);
+          if (latLngKey in latLngPlaces) {
+            eventPlaces[event.placeDcid] = latLngPlaces[latLngKey];
+          }
         });
-        rankEventData(disasterEventData);
+        return eventPlaces;
       })
       .catch(() => {
-        setTopEvents(undefined);
+        return {};
       });
   }
 
-  function rankEventData(disasterEventData: DisasterEventPointData) {
+  // Given a list of events, update eventPlaces with a map of event id to place
+  // that the event occurs within. Places will be of the same type as
+  // props.enclosedPlaceType.
+  // TODO (chejennifer): Getting the places of events should be done in a single
+  //                     endpoint in Flask
+  function updateEventPlaces(events: DisasterEventPoint[]): void {
+    if (_.isEmpty(events)) {
+      setEventPlaces({});
+      return;
+    }
+    // Get the place types for all the affected places of all the events.
+    const allAffectedPlaces = new Set();
+    events
+      .flatMap((event) => event.affectedPlaces)
+      .forEach((place) => allAffectedPlaces.add(place));
+    axios
+      .get<Record<string, string[]>>("/api/node/propvals", {
+        params: { dcids: Array.from(allAffectedPlaces), prop: "typeOf" },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        // Map of event id to dcid of a place (of place type
+        // props.enclosedPlaceType) that the event occurred in
+        const eventPlaceDcids = {};
+        // Events where place could not be found from the event's affectedPlaces
+        const missingPlaceEvents = [];
+        events.forEach((event) => {
+          for (const place of event.affectedPlaces) {
+            const placeTypes = resp.data[place] || [];
+            if (placeTypes.find((type) => type === props.enclosedPlaceType)) {
+              eventPlaceDcids[event.placeDcid] = place;
+              break;
+            }
+          }
+          if (!eventPlaceDcids[event.placeDcid]) {
+            missingPlaceEvents.push(event);
+          }
+        });
+        const coordEventPlacesPromise =
+          fetchPlaceFromCoords(missingPlaceEvents);
+        const placeNamesPromise = getPlaceNames(
+          Array.from(new Set(Object.values(eventPlaceDcids)))
+        );
+        Promise.all([coordEventPlacesPromise, placeNamesPromise])
+          .then(([coordEventPlaces, placeNames]) => {
+            const eventPlaces = coordEventPlaces;
+            Object.keys(eventPlaceDcids).forEach((eventId) => {
+              const placeDcid = eventPlaceDcids[eventId];
+              eventPlaces[eventId] = {
+                dcid: placeDcid,
+                name: placeNames[placeDcid] || placeDcid,
+              };
+            });
+            setEventPlaces(eventPlaces);
+          })
+          .catch(() => {
+            setEventPlaces({});
+          });
+      })
+      .catch(() => {
+        fetchPlaceFromCoords(events).then((resp) => {
+          setEventPlaces(resp);
+        });
+      });
+  }
+
+  function rankEventData(
+    disasterEventData: DisasterEventPointData,
+    isReverse: boolean
+  ): DisasterEventPoint[] {
     const filteredPoints = disasterEventData.eventPoints.filter(
       (a) => !_.isEmpty(a.severity)
     );
-    filteredPoints.sort(
-      (a, b) => b.severity[severityProp] - a.severity[severityProp]
-    );
-    const topEvents = filteredPoints.slice(0, RANKING_COUNT);
-    setTopEvents(topEvents);
+    filteredPoints.sort((a, b) => {
+      if (isReverse) {
+        return a.severity[severityProp] - b.severity[severityProp];
+      } else {
+        return b.severity[severityProp] - a.severity[severityProp];
+      }
+    });
+    return filteredPoints.slice(0, RANKING_COUNT);
   }
 
   function handleEmbed(
@@ -187,5 +352,52 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       "",
       []
     );
+  }
+
+  function isUnnamedEvent(name: string) {
+    return (
+      name.indexOf("started on") > 0 ||
+      (name.indexOf("Event at") > 0 && name.indexOf(" on ") > 0)
+    );
+  }
+
+  function getEventName(event: DisasterEventPoint) {
+    let name = event.placeName;
+    if (isUnnamedEvent(name)) {
+      const eventTypeName = props.eventTypeSpec.name;
+      if (eventPlaces[event.placeDcid]) {
+        name = `${eventTypeName} in ${eventPlaces[event.placeDcid].name}`;
+      } else {
+        name = `${eventTypeName} at lat/long: ${event.latitude},${event.longitude}`;
+      }
+    }
+    return name;
+  }
+
+  /**
+   * Given a string containing a datetime in ISO 8601 format, return only the
+   * date portion, without the time portion.
+   * @param dateString date in ISO 8601 format
+   */
+  function formatDateString(dateString: string): string {
+    return dateString.slice(0, "YYYY-MM-DD".length);
+  }
+
+  function addEventLink(eventId: string, displayStr: string): JSX.Element {
+    return <a href={`/browser/${eventId}`}>{displayStr}</a>;
+  }
+
+  function getDisplayDate(event: DisasterEventPoint): string {
+    let ret = "";
+    if (props.topEventMetadata.showStartDate && event.startDate) {
+      ret += formatDateString(event.startDate);
+      if (props.topEventMetadata.showEndDate && event.endDate) {
+        ret += " — ";
+      }
+    }
+    if (props.topEventMetadata.showEndDate && event.endDate) {
+      ret += formatDateString(event.endDate);
+    }
+    return ret;
   }
 }

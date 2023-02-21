@@ -13,12 +13,14 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from routes.api.import_detection.detection_types import DCType, DCProperty, TypeProperty
 from typing import Dict, List
-
-import routes.api.import_detection.place_detection as pd
-import routes.api.import_detection.utils as utils
 import unittest
+
+from server.routes.api.import_detection.detection_types import DCProperty
+from server.routes.api.import_detection.detection_types import DCType
+from server.routes.api.import_detection.detection_types import TypeProperty
+import server.routes.api.import_detection.place_detection as pd
+import server.routes.api.import_detection.utils as utils
 
 
 class TestPlaceDetection(unittest.TestCase):

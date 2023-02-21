@@ -26,6 +26,8 @@ package datacommons;
 
 message SeverityFilter {
   string prop = 1;
+  // Display string to use for the prop.
+  string display_name = 5;
   string unit = 2;
   double lower_limit = 3;
   double upper_limit = 4;
@@ -42,6 +44,19 @@ message EventTypeSpec {
   string color = 4;
   // Default severity filter to use for this event type.
   SeverityFilter default_severity_filter = 5;
+  // Properties to display from the propVals object of an event (in tooltips, ranking, etc).
+  message DisplayProp {
+    string prop = 1;
+    string display_name = 2;
+    string unit = 3;
+  }
+  repeated DisplayProp display_prop = 6;
+  // List of props that could be used to hold the end date for this event type
+  repeated string end_date_prop = 7;
+  // The prop to use to get the polygon geojson for this event type
+  string polygon_geo_json_prop = 8;
+  // The prop to use to get the path geojson for this event type
+  string path_geo_json_prop = 9;
 }
 
 message PageMetadata {
@@ -70,54 +85,87 @@ message StatVarSpec {
   string name = 6;
 }
 
+// This ranks across child places for a single stat var.
 message RankingTileSpec {
   bool show_highest = 1;
   bool show_lowest = 2;
-  bool show_increase = 3;
-  bool show_decrease = 4;
 
   string diff_base_date = 5; // For comparisons
 
   // Titles can include the ${statVar} placeholder.
   string highest_title = 6;
   string lowest_title = 7;
-  string increase_title = 8;
-  string decrease_title = 9;
+
   // Number of items to show in the ranking tile. If not set, 5 items will be
   // shown.
   int32 ranking_count = 10;
+
+  // If true, all highest and lowest sv's will be grouped into a single, multi-column table.
+  // Ranking is done by the last specified SV for the tile.
+  bool show_multi_column = 11;
 }
 
 message DisasterEventMapTileSpec {
-  // Keys for event type specs defined in the PageMetadata that should be displayed
-  // TODO: Rename this to be singular.
-  repeated string event_type_keys = 1;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as points on the map
+  repeated string point_event_type_key = 1;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as polygons on the map
+  repeated string polygon_event_type_key = 2;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as paths on the map
+  repeated string path_event_type_key = 3;
+}
+
+message HistogramTileSpec {
+  string event_type_key = 1;
 }
 
 message TopEventTileSpec {
   // Key for event type specs defined in the PageMetadata that should be displayed
   // Ranked by severity prop.
   string event_type_key = 1;
+  // Event properties to display. Uses the display string from EventTypeSpec.
   repeated string display_prop = 2;
+  bool show_start_date = 3;
+  bool show_end_date = 4;
+  bool reverse_sort = 5;
+}
+
+message ScatterTileSpec {
+  bool highlight_top_right = 1;
+  bool highlight_top_left = 2;
+  bool highlight_bottom_right = 3;
+  bool highlight_bottom_left = 4;
 }
 
 message Tile {
   // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
-  // with any required fields for your new TileType.
+  // with any required fields for your new TileType. Also, specify what block types can render
+  // the tiles.
   enum TileType {
     TYPE_NONE = 0;
+    // allowed in BlockTypes: TYPE_NONE
     LINE = 1;
+    // allowed in BlockTypes: TYPE_NONE
     BAR = 2;
+    // allowed in BlockTypes: TYPE_NONE
     MAP = 3;
+    // allowed in BlockTypes: TYPE_NONE
     SCATTER = 4;
+    // allowed in BlockTypes: TYPE_NONE
     BIVARIATE = 5;
+    // allowed in BlockTypes: TYPE_NONE
     RANKING = 6;
+    // allowed in BlockTypes: TYPE_NONE
     HIGHLIGHT = 7;
+    // allowed in BlockTypes: TYPE_NONE
     DESCRIPTION = 8;
-    DISASTER_EVENT_MAP = 9;
+    // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
+    // allowed in BlockTypes: DISASTER_EVENT
     PLACE_OVERVIEW = 11;
+    // allowed in BlockTypes: DISASTER_EVENT
     TOP_EVENT = 12;
+    // allowed in BlockTypes: DISASTER_EVENT
+    DISASTER_EVENT_MAP = 9;
   }
   // Must be specified for all visual tiles
   string title = 1;
@@ -128,23 +176,39 @@ message Tile {
   repeated string stat_var_key = 4;
   // [optional] a list of place dcids used for this tile.
   repeated string comparison_places = 7;
+  // [optional] If set, used instead of main place for the page.
+  string place_dcid_override = 11;
 
   // specs for specific tile types
   oneof tile_type_spec {
     RankingTileSpec ranking_tile_spec = 5;
     DisasterEventMapTileSpec disaster_event_map_tile_spec = 6;
     TopEventTileSpec top_event_tile_spec = 8;
+    ScatterTileSpec scatter_tile_spec = 9;
+    HistogramTileSpec histogram_tile_spec = 10;
   }
 }
 
 message Block {
   string title = 1;
   string description = 2;
+  // Footnote that goes across the bottom of each block. Multiple footnotes can
+  // be added, separated by "\n\n".
+  string footnote = 5;
 
   message Column {
     repeated Tile tiles = 1;
   }
   repeated Column columns = 3;
+
+  // When adding a new BlockType, make sure to update BLOCK_TYPE_ALLOWED_TILES
+  // in subject_page_config_content_test.py with allowed TileTypes for the new
+  // BlockType.
+  enum BlockType {
+    TYPE_NONE = 0;
+    DISASTER_EVENT = 1;
+  }
+  BlockType type = 4;
 }
 
 message Category {

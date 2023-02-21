@@ -20,12 +20,14 @@
 
 import React from "react";
 
-import { ChildPlaces } from "../../components/disaster_dashboard/child_places";
-import { ParentBreadcrumbs } from "../../components/disaster_dashboard/parent_breadcrumbs";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { ChildPlaces } from "./child_places";
+import { ParentBreadcrumbs } from "./parent_breadcrumbs";
+
+const PAGE_ID = "disaster";
 
 interface AppPropType {
   /**
@@ -36,6 +38,10 @@ interface AppPropType {
    * Config of the page
    */
   dashboardConfig: SubjectPageConfig;
+  /**
+   * parent places of the place we are showing the dashboard for.
+   */
+  parentPlaces: NamedTypedPlace[];
 }
 
 export function App(props: AppPropType): JSX.Element {
@@ -43,15 +49,23 @@ export function App(props: AppPropType): JSX.Element {
     <>
       <div className="row">
         <div className="col-md-3x col-lg-2 order-last order-lg-0">
-          <SubjectPageSidebar categories={props.dashboardConfig.categories} />
+          <SubjectPageSidebar
+            id={PAGE_ID}
+            categories={props.dashboardConfig.categories}
+          />
           <ChildPlaces parentPlace={props.place}></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
           <h1 id="place-name">{props.place.name}</h1>
-          <ParentBreadcrumbs place={props.place}></ParentBreadcrumbs>
+          <ParentBreadcrumbs
+            place={props.place}
+            parentPlaces={props.parentPlaces}
+          ></ParentBreadcrumbs>
           <SubjectPageMainPane
+            id={PAGE_ID}
             place={props.place}
             pageConfig={props.dashboardConfig}
+            parentPlaces={props.parentPlaces}
           />
         </div>
       </div>

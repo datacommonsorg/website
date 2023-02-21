@@ -13,11 +13,16 @@
 # limitations under the License.
 """Endpoints for event pages"""
 
-import os
 import logging
-from flask import Blueprint, escape, abort, render_template
-import routes.api.shared as shared_api
-import routes.api.node as node_api
+import os
+
+from flask import abort
+from flask import Blueprint
+from flask import escape
+from flask import render_template
+
+import server.routes.api.node as node_api
+import server.routes.api.shared as shared_api
 
 DEFAULT_EVENT_DCID = ""
 
@@ -27,15 +32,15 @@ bp = Blueprint("event", __name__, url_prefix='/event')
 
 def get_properties(dcid):
   """Get and parse response from triples API.
-  
+
   Args:
     dcid: DCID of the node to get properties for
-  
+
   Returns:
     A list of properties and their values in the form of:
       {dcid: property_dcid, value: <nodes>}
     where <nodes> map to the "nodes" key in the triples API response.
-  
+
   The returned list is used to render property values in the event pages.
   """
   response = node_api.triples('out', dcid)

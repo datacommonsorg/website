@@ -97,10 +97,6 @@ const config = {
       __dirname + "/css/import_wizard2.scss",
     ],
     user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
-    disaster_dashboard_v0: [
-      __dirname + "/js/disaster_dashboard_v0/disaster_dashboard.ts",
-      __dirname + "/css/disaster_dashboard_v0.scss",
-    ],
     event: [
       __dirname + "/js/apps/event/main.ts",
       __dirname + "/css/event.scss",

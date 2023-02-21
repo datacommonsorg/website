@@ -14,11 +14,13 @@
 
 import urllib
 import urllib.request
-from webdriver_tests.base_test import WebdriverBaseTest
-from selenium.webdriver.support.ui import WebDriverWait
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-import webdriver_tests.shared as shared
+from selenium.webdriver.support.ui import WebDriverWait
+
+from server.webdriver_tests.base_test import WebdriverBaseTest
+import server.webdriver_tests.shared as shared
 
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'

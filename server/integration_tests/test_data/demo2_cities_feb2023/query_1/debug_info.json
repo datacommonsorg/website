@@ -1,0 +1,297 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.PUBLIC_SCHOOL",
+  "correlation_classification": "<None>",
+  "counters": {
+    "child_places_result": [
+      {
+        "place": "geoId/0677000",
+        "result": [
+          "nces/060134312546",
+          "nces/060216913485",
+          "nces/061029001127",
+          "nces/061029001146",
+          "nces/061029001153",
+          "nces/061029001154",
+          "nces/061443001696",
+          "nces/061443008353",
+          "nces/063543001588",
+          "nces/063543006049",
+          "nces/063543007867",
+          "nces/063846002796",
+          "nces/063846004088",
+          "nces/063846006456",
+          "nces/063846006458",
+          "nces/063846006459",
+          "nces/063846006460",
+          "nces/063846006463",
+          "nces/063846006464",
+          "nces/063846006465"
+        ],
+        "type": "PublicSchool"
+      }
+    ],
+    "filtered_svs": [],
+    "num_chart_candidates": 3,
+    "processed_fulfillment_types": [
+      "size_across_entities"
+    ],
+    "stat_var_extensions": [
+      {
+        "Count_Student": [
+          "Count_Student"
+        ],
+        "Count_Teacher": [
+          "Count_Teacher"
+        ],
+        "Percent_Student_AsAFractionOf_Count_Teacher": [
+          "Percent_Student_AsAFractionOf_Count_Teacher"
+        ]
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "PublicSchool",
+          "type": 4
+        },
+        {
+          "type": 11
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0677000",
+          "name": "Sunnyvale",
+          "place_type": "City"
+        }
+      ],
+      "query": "How big are the public schools in Sunnyvale",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Student"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Teacher"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Student_AsAFractionOf_Count_Teacher"
+          ]
+        }
+      ],
+      "svs": [
+        "Count_Student",
+        "Count_Teacher",
+        "Percent_Student_AsAFractionOf_Count_Teacher"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/0677000",
+  "main_place_name": "Sunnyvale",
+  "original_query": "How big are the public schools in Sunnyvale",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "sunnyvale"
+  ],
+  "query_with_places_removed": "how big are the public schools",
+  "ranking_classification": "<None>",
+  "size_type_classification": "[<SizeType.BIG: 1>]",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.3702761232852936,
+      0.315987229347229,
+      0.28319820761680603,
+      0.27669650316238403,
+      0.2557690441608429,
+      0.237177774310112,
+      0.22020843625068665,
+      0.2144625186920166,
+      0.2134648561477661,
+      0.20017597079277039,
+      0.19570352137088776
+    ],
+    "SV": [
+      "dc/topic/Income",
+      "dc/topic/Economy",
+      "dc/topic/Jobs",
+      "dc/topic/MedicalConditions",
+      "dc/hlxvn1t8b9bhh",
+      "dc/g/Person_MedicalCondition-Wasting",
+      "AirQualityIndex_AirPollutant",
+      "dc/topic/WorkCommute",
+      "dc/topic/Agriculture",
+      "dc/g/Farm_FarmInventoryType-Forage",
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+    ],
+    "SV_to_Sentences": {
+      "AirQualityIndex_AirPollutant": [
+        "AQI (0.22020843625068665)"
+      ],
+      "dc/g/Farm_FarmInventoryType-Forage": [
+        "Forage Farms (0.20017597079277039)",
+        "forage farms (0.20017597079277039)"
+      ],
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+        "Pig Farm (0.19570352137088776)",
+        "pig farm (0.1957034468650818)"
+      ],
+      "dc/g/Person_MedicalCondition-Wasting": [
+        "people with wasting (0.237177774310112)"
+      ],
+      "dc/hlxvn1t8b9bhh": [
+        "cattle ranchers (0.2557690441608429)",
+        "farmers (0.2255396842956543)"
+      ],
+      "dc/topic/Agriculture": [
+        "Agriculture (0.2134648561477661)"
+      ],
+      "dc/topic/Economy": [
+        "Economy (0.315987229347229)"
+      ],
+      "dc/topic/Income": [
+        "pay (0.3702761232852936)",
+        "compensation (0.22850851714611053)",
+        "Earnings (0.22268356382846832)",
+        "Income (0.2059445083141327)"
+      ],
+      "dc/topic/Jobs": [
+        "Jobs (0.28319820761680603)",
+        "Careers (0.2414090484380722)",
+        "Professions (0.20911738276481628)"
+      ],
+      "dc/topic/MedicalConditions": [
+        "Maladies (0.27669650316238403)",
+        "Medical infirmities (0.2347509264945984)"
+      ],
+      "dc/topic/WorkCommute": [
+        "journey to work (0.2144625186920166)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "AirQualityIndex_AirPollutant": [
+      "AQI (0.22020843625068665)"
+    ],
+    "dc/g/Farm_FarmInventoryType-Forage": [
+      "Forage Farms (0.20017597079277039)",
+      "forage farms (0.20017597079277039)"
+    ],
+    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+      "Pig Farm (0.19570352137088776)",
+      "pig farm (0.1957034468650818)"
+    ],
+    "dc/g/Person_MedicalCondition-Wasting": [
+      "people with wasting (0.237177774310112)"
+    ],
+    "dc/hlxvn1t8b9bhh": [
+      "cattle ranchers (0.2557690441608429)",
+      "farmers (0.2255396842956543)"
+    ],
+    "dc/topic/Agriculture": [
+      "Agriculture (0.2134648561477661)"
+    ],
+    "dc/topic/Economy": [
+      "Economy (0.315987229347229)"
+    ],
+    "dc/topic/Income": [
+      "pay (0.3702761232852936)",
+      "compensation (0.22850851714611053)",
+      "Earnings (0.22268356382846832)",
+      "Income (0.2059445083141327)"
+    ],
+    "dc/topic/Jobs": [
+      "Jobs (0.28319820761680603)",
+      "Careers (0.2414090484380722)",
+      "Professions (0.20911738276481628)"
+    ],
+    "dc/topic/MedicalConditions": [
+      "Maladies (0.27669650316238403)",
+      "Medical infirmities (0.2347509264945984)"
+    ],
+    "dc/topic/WorkCommute": [
+      "journey to work (0.2144625186920166)"
+    ]
+  },
+  "temporal_classification": "<None>",
+  "time_delta_classification": "<None>"
+}

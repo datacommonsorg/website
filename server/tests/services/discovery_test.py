@@ -14,10 +14,10 @@
 
 import unittest
 
-from services.discovery import configure_endpoints_from_ingress
-from services.discovery import DEFAULT_INGRESS_RULES
-from services.discovery import get_all_endpoint_paths
-from services.discovery import get_service_url
+from server.services.discovery import configure_endpoints_from_ingress
+from server.services.discovery import DEFAULT_INGRESS_RULES
+from server.services.discovery import get_all_endpoint_paths
+from server.services.discovery import get_service_url
 
 
 class TestServiceDiscovery(unittest.TestCase):
@@ -31,7 +31,8 @@ class TestServiceDiscovery(unittest.TestCase):
 
   def test_configure_endpoints_from_ingress_1(self):
     """Tests simple ingress configuration."""
-    configure_endpoints_from_ingress('tests/test_data/ingress/test1.yaml')
+    configure_endpoints_from_ingress(
+        'server/tests/test_data/ingress/test1.yaml')
 
     assert get_service_url('/query') == 'http://query-host:8080/query'
     assert get_service_url(
@@ -50,7 +51,8 @@ class TestServiceDiscovery(unittest.TestCase):
 
   def test_configure_endpoints_from_ingress_2(self):
     """Tests ingress configuration."""
-    configure_endpoints_from_ingress('tests/test_data/ingress/test2.yaml')
+    configure_endpoints_from_ingress(
+        'server/tests/test_data/ingress/test2.yaml')
 
     assert get_service_url(
         '/v1/bulk/observation-dates/linked'

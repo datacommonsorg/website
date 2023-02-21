@@ -1,0 +1,58 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Bood Pressure in Counties of United States of America",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Bood Pressure in Counties of United States of America",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "High Bood Pressure"
+          }
+        ],
+        "statVarSpec": {
+          "Percent_Person_WithHighBloodPressure": {
+            "name": "High Bood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "County"
+      },
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
+  }
+}

@@ -14,14 +14,15 @@
 
 import unittest
 from unittest.mock import patch
+
 from flask import request
 
-from main import app
+from web_app import app
 
 
 class TestPlaceLandingPage(unittest.TestCase):
 
-  @patch('routes.api.place.get_display_name')
+  @patch('server.routes.api.place.get_display_name')
   def test_place_landing(self, mock_get_display_name):
     mock_get_display_name.return_value = {
         'geoId/1714000': 'Chicago, IL',
@@ -60,8 +61,8 @@ class TestPlaceLandingPage(unittest.TestCase):
 
 class TestPlacePage(unittest.TestCase):
 
-  @patch('routes.api.place.get_i18n_name')
-  @patch('routes.api.place.get_place_type')
+  @patch('server.routes.api.place.get_i18n_name')
+  @patch('server.routes.api.place.get_place_type')
   def test_place(self, mock_get_place_type, mock_get_i18n_name):
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
     mock_get_place_type.return_value = 'State'

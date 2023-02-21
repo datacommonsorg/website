@@ -12,37 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from parameterized import parameterized
 import os
 import unittest
 from unittest.mock import patch
-import lib.config as libconfig
+
+from parameterized import parameterized
 from werkzeug.utils import import_string
+
+import server.lib.config as libconfig
 
 
 class TestConfigModule(unittest.TestCase):
 
   @parameterized.expand([
-      ("production", "configmodule.ProductionConfig"),
-      ('staging', "configmodule.StagingConfig"),
-      ('autopush', "configmodule.AutopushConfig"),
-      ('dev', "configmodule.DevConfig"),
-      ('feedingamerica', "configmodule.FeedingamericaConfig"),
-      ('custom', "configmodule.CustomConfig"),
-      ('stanford', "configmodule.StanfordConfig"),
-      ('stanford-staging', "configmodule.StanfordStagingConfig"),
-      ('tidal', "configmodule.TidalConfig"),
-      ('iitm', "configmodule.IitmConfig"),
-      ('dev', "configmodule.DevConfig"),
-      ('test', "configmodule.TestConfig"),
-      ('webdriver', "configmodule.WebdriverConfig"),
-      ('minikube', "configmodule.MinikubeConfig"),
-      ('local', "configmodule.LocalConfig"),
-      ('local-lite', "configmodule.LocalLiteConfig"),
-      ('local-feedingamerica', "configmodule.LocalFeedingamericaConfig"),
-      ('local-stanford', "configmodule.LocalStanfordConfig"),
-      ('local-custom', "configmodule.LocalCustomConfig"),
-      ('local-iitm', "configmodule.LocalIitmConfig"),
+      ("production", "server.configmodule.ProductionConfig"),
+      ('staging', "server.configmodule.StagingConfig"),
+      ('autopush', "server.configmodule.AutopushConfig"),
+      ('dev', "server.configmodule.DevConfig"),
+      ('feedingamerica', "server.configmodule.FeedingamericaConfig"),
+      ('custom', "server.configmodule.CustomConfig"),
+      ('stanford', "server.configmodule.StanfordConfig"),
+      ('stanford-staging', "server.configmodule.StanfordStagingConfig"),
+      ('tidal', "server.configmodule.TidalConfig"),
+      ('iitm', "server.configmodule.IitmConfig"),
+      ('dev', "server.configmodule.DevConfig"),
+      ('test', "server.configmodule.TestConfig"),
+      ('webdriver', "server.configmodule.WebdriverConfig"),
+      ('minikube', "server.configmodule.MinikubeConfig"),
+      ('local', "server.configmodule.LocalConfig"),
+      ('local-lite', "server.configmodule.LocalLiteConfig"),
+      ('local-feedingamerica', "server.configmodule.LocalFeedingamericaConfig"),
+      ('local-stanford', "server.configmodule.LocalStanfordConfig"),
+      ('local-custom', "server.configmodule.LocalCustomConfig"),
+      ('local-iitm', "server.configmodule.LocalIitmConfig"),
   ])
   def test_config_string(self, env, expected):
     with patch.dict(os.environ, {

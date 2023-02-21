@@ -12,103 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Blueprint, request
-from cache import cache
-import services.datacommons as dc
-import logging
+from flask import Blueprint
+from flask import request
+
+from server.cache import cache
+from server.lib import util
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
-
-
-def compact_series(series_resp, all_facets):
-  result = {
-      'facets': series_resp.get('facets', {}),
-  }
-  data = {}
-  for obs_by_variable in series_resp.get('observationsByVariable', []):
-    var = obs_by_variable['variable']
-    data[var] = {}
-    for obs_by_entity in obs_by_variable['observationsByEntity']:
-      entity = obs_by_entity['entity']
-      data[var][entity] = None
-      if 'seriesByFacet' in obs_by_entity:
-        if all_facets:
-          data[var][entity] = obs_by_entity['seriesByFacet']
-        else:
-          # There should be only one series
-          data[var][entity] = obs_by_entity['seriesByFacet'][0]
-      else:
-        if all_facets:
-          data[var][entity] = []
-        else:
-          data[var][entity] = {
-              'series': [],
-          }
-  result['data'] = data
-  return result
-
-
-def series_core(entities, variables, all_facets):
-  resp = dc.obs_series(entities, variables, all_facets)
-  return compact_series(resp, all_facets)
-
-
-def series_within_core(parent_entity, child_type, variables, all_facets):
-  resp = dc.obs_series_within(parent_entity, child_type, variables, all_facets)
-  return compact_series(resp, all_facets)
-
-
-# TODO(juliawu): Handle case where dates are not "YYYY-MM"
-# TODO(juliawu): We should adjust how we bin based on the data,
-#                instead of cutting it off.
-def get_binned_series(entities, variables, year):
-  """Get observation series for entities and variables, for a given year.
-  
-  Bins observations from a series for plotting in the histogram tile.
-  Currently, binning is done by only returning observations for a given year.
-  This is done by assuming the dates of the series are in 'YYYY-MM' format,
-  filtering for observations from the given year, and then imputing 0 for
-  any months missing, up to the end of the series. 
-
-  Note: This assumes the dates of the series are in 'YYYY-MM' format.
-
-  Args:
-    entities (list): DCIDs of entities to query
-    variables (list): DCIDs of variables to query
-    year (str): year in "YYYY" format to get observations for
-  
-  Returns:
-    JSON response from server, with series containing only observations from 
-    the specified year.
-  """
-  # Get raw series from mixer
-  data = series_core(entities, variables, False)
-
-  for stat_var in variables:
-    for location in data['data'][stat_var].keys():
-
-      # filter series to just observations from the selected year
-      series = data['data'][stat_var][location]['series']
-      pruned_series = []
-      dates_with_data = []
-      for obs in series:
-        if obs['date'][:4] == year:
-          pruned_series.append(obs)
-          dates_with_data.append(obs['date'])
-
-      if len(pruned_series) > 0:
-        # fill in missing periods with 0s, from January to end of series
-        last_month = int(dates_with_data[-1][-2:])
-        months_to_fill = [str(mm).zfill(2) for mm in range(1, last_month + 1)]
-        for month in months_to_fill:
-          date = f"{year}-{month}"
-          if date not in dates_with_data:
-            pruned_series.append({'date': date, 'value': 0})
-        pruned_series.sort(key=lambda x: x['date'])
-
-      data['data'][stat_var][location]['series'] = pruned_series
-  return data
 
 
 @bp.route('', strict_slashes=False)
@@ -121,7 +32,7 @@ def series():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return series_core(entities, variables, False)
+  return util.series_core(entities, variables, False)
 
 
 @bp.route('/all')
@@ -134,7 +45,7 @@ def series_all():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return series_core(entities, variables, True)
+  return util.series_core(entities, variables, True)
 
 
 @bp.route('/within')
@@ -142,7 +53,6 @@ def series_all():
 def series_within():
   """Gets the observation for child entities of a certain place
   type contained in a parent entity at a given date.
-
   Note: the perferred facet is returned.
   """
   parent_entity = request.args.get('parent_entity')
@@ -154,7 +64,7 @@ def series_within():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return series_within_core(parent_entity, child_type, variables, False)
+  return util.series_within_core(parent_entity, child_type, variables, False)
 
 
 @bp.route('/within/all')
@@ -162,7 +72,6 @@ def series_within():
 def series_within_all():
   """Gets the observation for child entities of a certain place
   type contained in a parent entity at a given date.
-
   Note: all the facets are returned.
   """
   parent_entity = request.args.get('parent_entity')
@@ -174,28 +83,4 @@ def series_within_all():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return series_within_core(parent_entity, child_type, variables, True)
-
-
-@bp.route('/binned')
-@bp.route('/binned/<path:year>')
-def series_binned(year='2022'):
-  """Get observations binned by time-period.
-  
-  Used for pre-binning data for the histogram tile. Currently only "bins" data
-  by returning only observations from a specific year.
-
-  Args:
-    year: the year to get observations for
-  
-  Returns:
-    JSON response from server, with series containing only observations from 
-    the specified year.
-  """
-  entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
-  if not entities:
-    return 'error: must provide a `entities` field', 400
-  if not variables:
-    return 'error: must provide a `variables` field', 400
-  return get_binned_series(entities, variables, year)
+  return util.series_within_core(parent_entity, child_type, variables, True)

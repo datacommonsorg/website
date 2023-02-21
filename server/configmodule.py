@@ -8,12 +8,14 @@ import os
 
 class Config:
   TEST = False
+  INTEGRATION = False
   WEBDRIVER = False
   LOCAL = False
   LITE = False
   VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
+  NL_ROOT = 'http://127.0.0.1:6060'  # Port for Kubernetes ESP.
   AI_CONFIG_PATH = '/datacommons/ai/ai.yaml'
   SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
   MAPS_API_KEY = os.environ.get('MAPS_API_KEY') or ''
@@ -53,7 +55,6 @@ class StagingConfig(Config):
 
 class AutopushConfig(Config):
   GA_ACCOUNT = 'G-Y6ZXZ9JK3H'
-  ADMIN = True
   GCS_BUCKET = 'datcom-website-autopush-resources'
   pass
 
@@ -129,7 +130,6 @@ class LocalBaseConfig(Config):
 
 class LocalConfig(LocalBaseConfig):
   SECRET_PROJECT = 'datcom-website-dev'
-  ADMIN = True
 
 
 class LocalLiteConfig(LocalBaseConfig):
@@ -183,3 +183,12 @@ class TestConfig(Config):
   TEST = True
   API_ROOT = 'api-root'
   SCHEME = 'http'
+  USE_MEMCACHE = False
+
+
+class IntegrationTestConfig(Config):
+  INTEGRATION = True
+  API_ROOT = 'https://autopush.api.datacommons.org'
+  API_PROJECT = 'datcom-mixer-autopush'
+  SCHEME = 'http'
+  SECRET_PROJECT = 'datcom-website-dev'

@@ -16,10 +16,12 @@
 
 /**
  * Component for the content of the info card.
+ * TODO: Use display properties & unit from spec.
  */
 import React from "react";
 
 import { DisasterEventPoint } from "../../types/disaster_event_map_types";
+import { formatNumber } from "../../utils/string_utils";
 
 interface DisasterEventMapInfoCardPropType {
   // The event data to show info about
@@ -46,17 +48,25 @@ export function DisasterEventMapInfoCard(
         {props.eventData.endDate && (
           <span>End Date: {props.eventData.endDate}</span>
         )}
+        {props.eventData.displayProps &&
+          Object.keys(props.eventData.displayProps).map((prop) => {
+            return (
+              <span key={prop}>
+                {prop}: {formatNumber(props.eventData.displayProps[prop])}
+              </span>
+            );
+          })}
         {props.eventData.severity &&
           Object.keys(props.eventData.severity).map((prop) => {
             return (
               <span key={prop}>
-                {prop}: {props.eventData.severity[prop]}
+                {prop}: {formatNumber(props.eventData.severity[prop])}
               </span>
             );
           })}
-        <span>
-          <a href={`/browser/${props.eventData.placeDcid}`}>More info</a>
-        </span>
+      </div>
+      <div className="disaster-event-map-info-card-footer">
+        <a href={`/browser/${props.eventData.placeDcid}`}>More info</a>
       </div>
     </div>
   );

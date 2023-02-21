@@ -1,0 +1,4 @@
+project: datcom-magiceye-dev
+instance: dc-graph
+tables:
+  - magic_eye_2023_02_16_16_23_36

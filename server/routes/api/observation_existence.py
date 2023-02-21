@@ -14,8 +14,10 @@
 
 import json
 
-from flask import Blueprint, request
-import services.datacommons as dc
+from flask import Blueprint
+from flask import request
+
+import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("observation_existence", __name__)

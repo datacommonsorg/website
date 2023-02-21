@@ -14,8 +14,10 @@
 """Place Explorer related handlers."""
 
 import flask
-from flask import current_app, g
-import routes.api.place as place_api
+from flask import current_app
+from flask import g
+
+import server.routes.api.place as place_api
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 

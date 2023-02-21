@@ -13,14 +13,15 @@
 # limitations under the License.
 """User related handlers."""
 
-import flask
-import time
-
-from google.cloud import firestore
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
+from dataclasses import dataclass
 from enum import Enum
-from flask import current_app
+import time
 from typing import Dict, List
+
+import flask
+from flask import current_app
+from google.cloud import firestore
 
 bp = flask.Blueprint('api.user', __name__, url_prefix='/api/user')
 

@@ -13,11 +13,11 @@ website:
   image:
     repository: gcr.io/datcom-ci/datacommons-website
     pullPolicy: Always
-    tag: "custom-api-root"
+    tag:
 
   flaskEnv:
   secretGCPProjectID:
-  enableModel: "false"
+  enableModel: false
 
   # IAP(Identity Aware Proxy) config.
   # iap can be enabled independently of ingress.
@@ -55,7 +55,7 @@ mixer:
   image:
     repository: gcr.io/datcom-ci/datacommons-mixer
     pullPolicy: Always
-    tag: "latest"
+    tag:
 
     useTMCFCSVData: false
     tmcfCSVBucket: ""

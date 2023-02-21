@@ -1,0 +1,495 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "filtered_svs": [
+      "dc/topic/WorkCommute"
+    ],
+    "num_chart_candidates": 1,
+    "processed_fulfillment_types": [
+      "simple"
+    ],
+    "stat_var_extensions": [
+      {}
+    ],
+    "topics_processed": [
+      {
+        "dc/topic/WorkCommute": {
+          "peer_groups": [
+            [
+              "Modes of Commute",
+              "",
+              [
+                "dc/6rltk4kf75612",
+                "dc/vp8cbt6k79t94",
+                "dc/hbkh95kc7pkb6",
+                "dc/wc8q05drd74bd",
+                "dc/0gettc3bc60cb",
+                "dc/vt2q292eme79f"
+              ]
+            ]
+          ],
+          "svs": []
+        }
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [],
+      "query": "What is the commute pattern there",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "bar chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "dc/topic/WorkCommute",
+            "title": "Modes of Commute"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "dc/6rltk4kf75612",
+            "dc/vp8cbt6k79t94",
+            "dc/hbkh95kc7pkb6",
+            "dc/wc8q05drd74bd",
+            "dc/0gettc3bc60cb",
+            "dc/vt2q292eme79f"
+          ]
+        }
+      ],
+      "svs": [
+        "dc/topic/WorkCommute"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [],
+      "query": "What is the prevalence of asthma there",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithAsthma"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithAllTeethLoss",
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithChronicKidneyDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithStroke"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_Smoking"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithArthritis"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithChronicObstructivePulmonaryDisease"
+          ]
+        }
+      ],
+      "svs": [
+        "Percent_Person_WithAsthma",
+        "Percent_Person_Children_WithAsthma",
+        "dc/g/Person_MedicalCondition-Asthma",
+        "Percent_Person_Smoking",
+        "Percent_Person_WithArthritis",
+        "Percent_Person_WithChronicObstructivePulmonaryDisease"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "PublicSchool",
+          "type": 4
+        },
+        {
+          "type": 11
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0677000",
+          "name": "Sunnyvale",
+          "place_type": "City"
+        }
+      ],
+      "query": "How big are the public schools in Sunnyvale",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Student"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Teacher"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Student_AsAFractionOf_Count_Teacher"
+          ]
+        }
+      ],
+      "svs": [
+        "Count_Student",
+        "Count_Teacher",
+        "Percent_Student_AsAFractionOf_Count_Teacher"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "original_query": "What is the commute pattern there",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "<None>"
+  ],
+  "query_with_places_removed": "What is the commute pattern there",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.672934353351593,
+      0.21922609210014343,
+      0.21280182898044586,
+      0.21179990470409393,
+      0.20494790375232697,
+      0.19941186904907227,
+      0.19819366931915283,
+      0.18487513065338135
+    ],
+    "SV": [
+      "dc/topic/WorkCommute",
+      "dc/topic/Jobs",
+      "dc/g/Person_Industry-NAICS/492",
+      "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease",
+      "Count_CriminalActivities_MotorVehicleTheft",
+      "Count_CriminalActivities_PropertyCrime",
+      "Count_CriminalIncidents_IsHateCrime",
+      "dc/n87t9dkckzxc8"
+    ],
+    "SV_to_Sentences": {
+      "Count_CriminalActivities_MotorVehicleTheft": [
+        "Number of vehicles stolen (0.20494790375232697)",
+        "Count of Criminal Activities: Motor Vehicle Theft (0.20094162225723267)",
+        "Number of motor vehicles taken (0.1918361335992813)",
+        "Number of thefts of motor vehicles (0.18853488564491272)",
+        "Total number of vehicles stolen (0.18824543058872223)",
+        "Number of motor vehicle heists (0.18401500582695007)",
+        "Total number of motor vehicle theft cases (0.1809389740228653)"
+      ],
+      "Count_CriminalActivities_PropertyCrime": [
+        "Number of property cases (0.19941186904907227)"
+      ],
+      "Count_CriminalIncidents_IsHateCrime": [
+        "Number of discriminatory crimes (0.19819366931915283)"
+      ],
+      "dc/g/Person_Industry-NAICS/492": [
+        "People Working as Couriers and Messengers (0.21280182898044586)",
+        "People working as couriers and messengers (0.21280182898044586)",
+        "Person With Industry = Couriers And Messengers (NAICS/492) (0.19283099472522736)"
+      ],
+      "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease": [
+        "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179990470409393)"
+      ],
+      "dc/n87t9dkckzxc8": [
+        "number of couriers and messengers workers (0.18487513065338135)",
+        "Population of Person: Couriers And Messengers (NAICS/492) (0.1812908798456192)"
+      ],
+      "dc/topic/Jobs": [
+        "Work Occupations (0.21922609210014343)"
+      ],
+      "dc/topic/WorkCommute": [
+        "commute mode (0.672934353351593)",
+        "Work Commute (0.5764999389648438)",
+        "Work commute (0.5764999389648438)",
+        "travel to work (0.19010885059833527)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_CriminalActivities_MotorVehicleTheft": [
+      "Number of vehicles stolen (0.20494790375232697)",
+      "Count of Criminal Activities: Motor Vehicle Theft (0.20094162225723267)",
+      "Number of motor vehicles taken (0.1918361335992813)",
+      "Number of thefts of motor vehicles (0.18853488564491272)",
+      "Total number of vehicles stolen (0.18824543058872223)",
+      "Number of motor vehicle heists (0.18401500582695007)",
+      "Total number of motor vehicle theft cases (0.1809389740228653)"
+    ],
+    "Count_CriminalActivities_PropertyCrime": [
+      "Number of property cases (0.19941186904907227)"
+    ],
+    "Count_CriminalIncidents_IsHateCrime": [
+      "Number of discriminatory crimes (0.19819366931915283)"
+    ],
+    "dc/g/Person_Industry-NAICS/492": [
+      "People Working as Couriers and Messengers (0.21280182898044586)",
+      "People working as couriers and messengers (0.21280182898044586)",
+      "Person With Industry = Couriers And Messengers (NAICS/492) (0.19283099472522736)"
+    ],
+    "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease": [
+      "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179990470409393)"
+    ],
+    "dc/n87t9dkckzxc8": [
+      "number of couriers and messengers workers (0.18487513065338135)",
+      "Population of Person: Couriers And Messengers (NAICS/492) (0.1812908798456192)"
+    ],
+    "dc/topic/Jobs": [
+      "Work Occupations (0.21922609210014343)"
+    ],
+    "dc/topic/WorkCommute": [
+      "commute mode (0.672934353351593)",
+      "Work Commute (0.5764999389648438)",
+      "Work commute (0.5764999389648438)",
+      "travel to work (0.19010885059833527)"
+    ]
+  },
+  "temporal_classification": "<None>",
+  "time_delta_classification": "<None>"
+}

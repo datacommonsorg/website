@@ -17,16 +17,17 @@ import base64
 import collections
 import json
 import logging
+from typing import Dict, List
 import urllib.parse
 import zlib
-from cache import cache
-from flask import current_app
-from typing import Dict, List
 
-import lib.config as libconfig
-from services.discovery import get_service_url
-from services.discovery import get_health_check_urls
+from flask import current_app
 import requests
+
+from server.cache import cache
+import server.lib.config as libconfig
+from server.services.discovery import get_health_check_urls
+from server.services.discovery import get_service_url
 
 cfg = libconfig.get_config()
 
@@ -74,9 +75,9 @@ def post_wrapper(url, req_str: str):
   # Send the request and verify the request succeeded
   response = requests.post(url, json=req, headers=headers)
   if response.status_code != 200:
-    raise ValueError('An HTTP {} code ({}) was returned by the mixer:{}'.format(
-        response.status_code, response.reason,
-        response.json()['message']))
+    raise ValueError(
+        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
+            response.status_code, response.reason, response.content))
   return response.json()
 
 
@@ -287,6 +288,18 @@ def resolve_id(in_ids, in_prop, out_prop):
   })
 
 
+def resolve_coordinates(coordinates):
+  """Resolves a list of coordinates.
+
+  Args:
+      coordinates: a list of { longitude: number, latitude: number }.
+  """
+  url = get_service_url('/v1/recon/resolve/coordinate')
+  return post(url, {
+      'coordinates': coordinates,
+  })
+
+
 def get_event_collection(event_type,
                          affected_place,
                          date,
@@ -325,6 +338,30 @@ def get_event_collection_date(event_type, affected_place):
       'event_type': event_type,
       'affected_place_dcid': affected_place,
   })
+
+
+def nl_embeddings_vector_at_index(index: int):
+  """Embedding vector at index from the NL server."""
+  url = f'{cfg.NL_ROOT}/api/embedding?i={index}'
+  return get(url).get('embeddings_vector', [])
+
+
+def nl_embeddings_vector(query):
+  """Embedding vector from the NL server."""
+  url = f'{cfg.NL_ROOT}/api/embedding?q={query}'
+  return get(url).get('embeddings_vector', [])
+
+
+def nl_search_sv(query):
+  """Search sv from NL server."""
+  url = f'{cfg.NL_ROOT}/api/search_sv?q={query}'
+  return get(url)
+
+
+def nl_detect_place_ner(query):
+  """Detect places from NL server."""
+  url = f'{cfg.NL_ROOT}/api/search_places?q={query}'
+  return get(url).get('places', [])
 
 
 # =======================   V0 V0 V0 ================================
@@ -367,6 +404,17 @@ def get_place_ranking(stat_vars,
       'is_per_capita': is_per_capita,
   }
   return send_request(url, req_json=req_json, post=False, has_payload=False)
+
+
+def get_places_in_v1(dcids, place_type):
+  # Convert the dcids field and format the request to GetPlacesIn
+  url = get_service_url('/v1/bulk/property/values/in/linked')
+  return post(
+      url, {
+          'nodes': dcids,
+          'property': 'containedInPlace',
+          'value_node_type': place_type,
+      })
 
 
 def get_places_in(dcids, place_type):

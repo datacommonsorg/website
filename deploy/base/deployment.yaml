@@ -48,6 +48,9 @@ spec:
         - name: ai-config
           configMap:
             name: ai-config
+        - name: model-config
+          configMap:
+            name: model-config
         - name: memdb-config
           configMap:
             name: memdb-config
@@ -63,13 +66,14 @@ spec:
               path: /healthz
               port: 8080
             failureThreshold: 30
-            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /healthz
               port: 8080
-            failureThreshold: 1
-            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
           resources:
             limits:
               memory: "3G"
@@ -161,16 +165,44 @@ spec:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
             failureThreshold: 30
-            periodSeconds: 10
+
           readinessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
-            periodSeconds: 10
           livenessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
-            periodSeconds: 10
-            initialDelaySeconds: 10
+        - name: nl
+          image: gcr.io/datcom-ci/datacommons-nl:abcxyz
+          resources:
+            limits:
+              memory: "2G"
+            requests:
+              memory: "2G"
+          env:
+            - name: FLASK_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: website-configmap
+                  key: flaskEnv
+          volumeMounts:
+            - name: model-config
+              mountPath: /datacommons/model
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+          ports:
+            - containerPort: 6060
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args:
@@ -188,9 +220,9 @@ spec:
                   key: serviceName
           resources:
             limits:
-              memory: "2G"
+              memory: "1G"
             requests:
-              memory: "2G"
+              memory: "1G"
           readinessProbe:
             httpGet:
               path: /healthz

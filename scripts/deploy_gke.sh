@@ -18,7 +18,7 @@
 #
 # Usage:
 #
-# ./deploy_key.sh <"dev"|...> us-central1 <git_hash>
+# ./deploy_key.sh <"dev"|yaml_env> us-central1 <short_git_hash>
 #
 # !!! WARNING: Run this script in a clean Git checkout at the desired commit.
 #
@@ -50,12 +50,18 @@ echo $MIXER_HASH > mixer_hash.txt
 
 cd $ROOT
 PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
-CLUSTER_NAME=website-$REGION
+CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/gke/$ENV.yaml)
+
+if [[ $CLUSTER_PREFIX == "null" ]]; then
+  CLUSTER_PREFIX="website"
+fi
+CLUSTER_NAME=$CLUSTER_PREFIX-$REGION
 
 cd $ROOT/deploy/overlays/$ENV
 
 # Deploy to GKE
 kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/datcom-ci/datacommons-website:$WEBSITE_HASH
+kustomize edit set image gcr.io/datcom-ci/datacommons-nl=gcr.io/datcom-ci/datacommons-nl:$WEBSITE_HASH
 kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/datacommons-mixer:$MIXER_HASH
 kustomize build > kustomize-build.yaml
 cp kustomization.yaml kustomize-deployed.yaml

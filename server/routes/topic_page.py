@@ -13,13 +13,15 @@
 # limitations under the License.
 """Topic page related handlers."""
 
-from flask import current_app
-import flask
-import os
 import json
-import routes.api.place as place_api
+import os
+
+import flask
+from flask import current_app
 from google.protobuf.json_format import MessageToJson
-import lib.util as libutil
+
+import server.lib.util as libutil
+import server.routes.api.place as place_api
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
@@ -39,6 +41,9 @@ def topic_page(topic_id=None, place_dcid=None):
   topic_configs = all_configs.get(topic_id, [])
   if len(topic_configs) < 1:
     return "Error: no config found"
+
+  if topic_id == 'dev' and os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
 
   if not place_dcid:
     return flask.render_template(

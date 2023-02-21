@@ -14,12 +14,14 @@
 """Place Detection."""
 
 from typing import Dict, List, Optional, Tuple
-from routes.api.import_detection.detection_types import TypeProperty
-from routes.api.import_detection.country_state_detector import CountryStateDetector
-from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
-from routes.api.import_detection.utils import Consts as c
 
-import routes.api.import_detection.utils as utils
+from server.routes.api.import_detection.country_state_detector import \
+    CountryStateDetector
+from server.routes.api.import_detection.detection_types import TypeProperty
+from server.routes.api.import_detection.place_detector_abstract import \
+    PlaceDetectorInterface
+from server.routes.api.import_detection.utils import Consts as c
+import server.routes.api.import_detection.utils as utils
 
 _MIN_HIGH_CONF_DETECT: float = 0.4
 

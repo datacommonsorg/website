@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import copy
+from dataclasses import dataclass
 import json
+from typing import Any, List
 import unittest
 
-from dataclasses import dataclass
-from main import app
-from typing import Any, List
+from web_app import app
 
 
 class TestDetection(unittest.TestCase):

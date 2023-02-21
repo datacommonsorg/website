@@ -15,8 +15,8 @@
 
 import flask
 
-from cache import cache
-import services.datacommons as dc_service
+from server.cache import cache
+import server.services.datacommons as dc_service
 
 bp = flask.Blueprint('api.disease', __name__, url_prefix='/api/disease')
 

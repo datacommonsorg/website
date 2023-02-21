@@ -28,9 +28,10 @@ Default behaviour:
 
 import itertools
 from typing import Dict, List, Union
+
 import yaml
 
-import lib.config as libconfig
+import server.lib.config as libconfig
 
 cfg = libconfig.get_config()
 
@@ -146,6 +147,7 @@ endpoints = Endpoints([
     '/node/triples',
     '/v1/properties',
     '/v1/bulk/property/values',
+    '/v1/bulk/property/values/in/linked',
     '/node/property-values',
     '/node/places-in',
     '/node/ranking-locations',
@@ -158,6 +160,7 @@ endpoints = Endpoints([
     '/v1/info/variable-group',
     # Recon APIs
     '/v1/recon/resolve/id',
+    '/v1/recon/resolve/coordinate',
     # Bio APIs
     '/internal/bio',
     # Misc

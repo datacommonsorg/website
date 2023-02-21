@@ -14,11 +14,29 @@
 
 import unittest
 
-from config import subject_page_pb2
-
-import lib.util as libutil
+from server.config import subject_page_pb2
+import server.lib.util as libutil
 
 TileType = subject_page_pb2.Tile.TileType
+BlockType = subject_page_pb2.Block.BlockType
+BLOCK_TYPE_ALLOWED_TILES = {
+    BlockType.TYPE_NONE: {
+        TileType.LINE: "",
+        TileType.BAR: "",
+        TileType.MAP: "",
+        TileType.SCATTER: "",
+        TileType.BIVARIATE: "",
+        TileType.RANKING: "",
+        TileType.HIGHLIGHT: "",
+        TileType.DESCRIPTION: "",
+        TileType.PLACE_OVERVIEW: "",
+    },
+    BlockType.DISASTER_EVENT: {
+        TileType.DISASTER_EVENT_MAP: "",
+        TileType.TOP_EVENT: "",
+        TileType.HISTOGRAM: "",
+    }
+}
 
 
 class TestSubjectPageConfigs(unittest.TestCase):
@@ -57,9 +75,22 @@ class TestSubjectPageConfigs(unittest.TestCase):
     if tile.type == TileType.DISASTER_EVENT_MAP:
       self.assertIsNotNone(tile.disaster_event_map_tile_spec, msg)
       for i, event_type_id in enumerate(
-          tile.disaster_event_map_tile_spec.event_type_keys):
+          tile.disaster_event_map_tile_spec.point_event_type_key):
         self.assertTrue(event_type_id in event_type_specs,
-                        f"{msg}[event={i},{event_type_id}]")
+                        f"{msg}[pointEvent={i},{event_type_id}]")
+      for i, event_type_id in enumerate(
+          tile.disaster_event_map_tile_spec.polygon_event_type_key):
+        self.assertTrue(event_type_id in event_type_specs,
+                        f"{msg}[polygonEvent={i},{event_type_id}]")
+        self.assertIsNotNone(
+            event_type_specs[event_type_id].polygon_geo_json_prop,
+            f"{msg}[polygonEvent={i},{event_type_id}]")
+      for i, event_type_id in enumerate(
+          tile.disaster_event_map_tile_spec.path_event_type_key):
+        self.assertTrue(event_type_id in event_type_specs,
+                        f"{msg}[pathEvent={i},{event_type_id}]")
+        self.assertIsNotNone(event_type_specs[event_type_id].path_geo_json_prop,
+                             f"{msg}[pathEvent={i},{event_type_id}]")
 
     if (tile.type == TileType.HIGHLIGHT or tile.type == TileType.DESCRIPTION):
       self.assertNotEqual(tile.description, '', msg)
@@ -95,4 +126,6 @@ class TestSubjectPageConfigs(unittest.TestCase):
             for col_i, col in enumerate(block.columns):
               for t_i, tile in enumerate(col.tiles):
                 tile_msg = f"{block_msg}[col={col_i};tile={t_i}]"
+                self.assertTrue(
+                    tile.type in BLOCK_TYPE_ALLOWED_TILES[block.type], tile_msg)
                 self.verify_tile(tile, stat_vars, tile_msg, event_type_specs)

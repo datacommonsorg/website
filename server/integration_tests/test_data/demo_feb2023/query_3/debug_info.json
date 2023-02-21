@@ -1,0 +1,323 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "filtered_svs": [],
+    "num_chart_candidates": 1,
+    "processed_fulfillment_types": [
+      "overview"
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 10
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer County",
+          "place_type": "County"
+        }
+      ],
+      "query": "Tell me about Placer County",
+      "query_type": 9,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "event_type": [
+            4
+          ],
+          "type": 9
+        }
+      ],
+      "places": [],
+      "query": "Where were the major fires in the last year",
+      "query_type": 8,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 6,
+          "event": 4,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "svs": [
+        "Count_WildfireEvent"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            5
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "Across",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "What are the projected temperature extremes across California",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest increase in max temperature under different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest decrease in min temperature under different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+          ]
+        }
+      ],
+      "svs": [
+        "dc/topic/ProjectedClimateExtremes",
+        "Count_HeatEvent"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/06061",
+  "main_place_name": "Placer County",
+  "original_query": "Tell me about Placer County",
+  "overview_classification": "ClassificationType.OVERVIEW",
+  "places_detected": [
+    "placer county"
+  ],
+  "query_with_places_removed": "tell me about",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.3702761232852936,
+      0.315987229347229,
+      0.28319820761680603,
+      0.27669650316238403,
+      0.2557690441608429,
+      0.237177774310112,
+      0.22020843625068665,
+      0.2144625186920166,
+      0.2134648561477661,
+      0.20017597079277039,
+      0.19570352137088776
+    ],
+    "SV": [
+      "dc/topic/Income",
+      "dc/topic/Economy",
+      "dc/topic/Jobs",
+      "dc/topic/MedicalConditions",
+      "dc/hlxvn1t8b9bhh",
+      "dc/g/Person_MedicalCondition-Wasting",
+      "AirQualityIndex_AirPollutant",
+      "dc/topic/WorkCommute",
+      "dc/topic/Agriculture",
+      "dc/g/Farm_FarmInventoryType-Forage",
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+    ],
+    "SV_to_Sentences": {
+      "AirQualityIndex_AirPollutant": [
+        "AQI (0.22020843625068665)"
+      ],
+      "dc/g/Farm_FarmInventoryType-Forage": [
+        "Forage Farms (0.20017597079277039)",
+        "forage farms (0.20017597079277039)"
+      ],
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+        "Pig Farm (0.19570352137088776)",
+        "pig farm (0.1957034468650818)"
+      ],
+      "dc/g/Person_MedicalCondition-Wasting": [
+        "people with wasting (0.237177774310112)"
+      ],
+      "dc/hlxvn1t8b9bhh": [
+        "cattle ranchers (0.2557690441608429)",
+        "farmers (0.2255396842956543)"
+      ],
+      "dc/topic/Agriculture": [
+        "Agriculture (0.2134648561477661)"
+      ],
+      "dc/topic/Economy": [
+        "Economy (0.315987229347229)"
+      ],
+      "dc/topic/Income": [
+        "pay (0.3702761232852936)",
+        "compensation (0.22850851714611053)",
+        "Earnings (0.22268356382846832)",
+        "Income (0.2059445083141327)"
+      ],
+      "dc/topic/Jobs": [
+        "Jobs (0.28319820761680603)",
+        "Careers (0.2414090484380722)",
+        "Professions (0.20911738276481628)"
+      ],
+      "dc/topic/MedicalConditions": [
+        "Maladies (0.27669650316238403)",
+        "Medical infirmities (0.2347509264945984)"
+      ],
+      "dc/topic/WorkCommute": [
+        "journey to work (0.2144625186920166)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "AirQualityIndex_AirPollutant": [
+      "AQI (0.22020843625068665)"
+    ],
+    "dc/g/Farm_FarmInventoryType-Forage": [
+      "Forage Farms (0.20017597079277039)",
+      "forage farms (0.20017597079277039)"
+    ],
+    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+      "Pig Farm (0.19570352137088776)",
+      "pig farm (0.1957034468650818)"
+    ],
+    "dc/g/Person_MedicalCondition-Wasting": [
+      "people with wasting (0.237177774310112)"
+    ],
+    "dc/hlxvn1t8b9bhh": [
+      "cattle ranchers (0.2557690441608429)",
+      "farmers (0.2255396842956543)"
+    ],
+    "dc/topic/Agriculture": [
+      "Agriculture (0.2134648561477661)"
+    ],
+    "dc/topic/Economy": [
+      "Economy (0.315987229347229)"
+    ],
+    "dc/topic/Income": [
+      "pay (0.3702761232852936)",
+      "compensation (0.22850851714611053)",
+      "Earnings (0.22268356382846832)",
+      "Income (0.2059445083141327)"
+    ],
+    "dc/topic/Jobs": [
+      "Jobs (0.28319820761680603)",
+      "Careers (0.2414090484380722)",
+      "Professions (0.20911738276481628)"
+    ],
+    "dc/topic/MedicalConditions": [
+      "Maladies (0.27669650316238403)",
+      "Medical infirmities (0.2347509264945984)"
+    ],
+    "dc/topic/WorkCommute": [
+      "journey to work (0.2144625186920166)"
+    ]
+  },
+  "temporal_classification": "<None>",
+  "time_delta_classification": "<None>"
+}

@@ -15,7 +15,11 @@
 browser.datacommons.org with datacommons.org
 """
 
-from flask import Blueprint, current_app, redirect, request, url_for
+from flask import Blueprint
+from flask import current_app
+from flask import redirect
+from flask import request
+from flask import url_for
 
 bp = Blueprint(
     "redirects",
@@ -49,6 +53,13 @@ def scatter():
               _external=True,
               _scheme=current_app.config.get('SCHEME', 'https'),
               code=302))
+
+
+# Note: The trailing '/' helps in redirecting `/nlnext/#q=some+query+here` to `/nl/#q=some+query+here`
+@bp.route('/nlnext/')
+@bp.route('/nlnext')
+def nlnext():
+  return redirect(url_for('nl.page'), code=302)
 
 
 @bp.route('/datasets')

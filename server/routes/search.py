@@ -13,12 +13,13 @@
 # limitations under the License.
 """Data Commons search related routes."""
 
-import os
-from flask import Blueprint, current_app, request
 import flask
-import os
-import services.datacommons as dc
-import services.ai as ai
+from flask import Blueprint
+from flask import current_app
+from flask import request
+
+import server.services.ai as ai
+import server.services.datacommons as dc
 
 bp = Blueprint('search', __name__)
 

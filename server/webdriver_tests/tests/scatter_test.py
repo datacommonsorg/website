@@ -12,15 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
 import urllib
 import urllib.request
-from webdriver_tests.base_test import WebdriverBaseTest
-from selenium.webdriver.support.ui import WebDriverWait
+
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
-import time
-import webdriver_tests.shared as shared
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+
+from server.webdriver_tests.base_test import WebdriverBaseTest
+import server.webdriver_tests.shared as shared
 
 SCATTER_URL = '/tools/scatter'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\

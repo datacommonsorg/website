@@ -18,33 +18,191 @@
  * Component for rendering a histogram type tile.
  */
 
-import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
-import { SeriesApiResponse } from "../../shared/stat_types";
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { computeRatio } from "../../tools/shared_util";
-import { stringifyFn } from "../../utils/axios";
-import { dataPointsToCsv } from "../../utils/chart_csv_utils";
+import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
+import { NamedTypedPlace } from "../../shared/types";
+import {
+  DisasterEventPoint,
+  DisasterEventPointData,
+} from "../../types/disaster_event_map_types";
+import { EventTypeSpec } from "../../types/subject_page_proto_types";
+import { getDateRange } from "../../utils/disaster_event_map_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface HistogramTilePropType {
+  disasterEventData: DisasterEventPointData;
+  eventTypeSpec: EventTypeSpec;
   id: string;
-  title: string;
   place: NamedTypedPlace;
-  statVarSpec: StatVarSpec[];
-  // Height, in px, for the SVG chart.
-  svgChartHeight: number;
-  // Extra classes to add to the container.
-  className?: string;
+  selectedDate: string;
+  title: string;
 }
 
-interface HistogramData {
-  dataPoints: DataPoint[];
-  sources: Set<string>;
+const DAY_FORMAT = "YYYY-MM-DD";
+const MONTH_FORMAT = "YYYY-MM";
+const YEAR_FORMAT = "YYYY";
+
+/**
+ * Helper function to get the date portion of a Date object as a string.
+ * @param date a Date() object to format
+ * @param format ISO 8601 format to follow
+ */
+function getFormattedDate(date: Date, format: string): string {
+  return date.toISOString().slice(0, format.length);
+}
+
+/**
+ * Helper function to get the last date of a YYYY-MM string.
+ * For example, given "2003-02", return "2003-02-28".
+ * @param dateString date in YYYY-MM format to get last day for
+ */
+function getLastDayOfMonth(dateString: string): string {
+  const inputDate = new Date(`${dateString}Z`);
+  const lastDay = new Date(
+    inputDate.getUTCFullYear(),
+    inputDate.getUTCMonth() + 1,
+    0
+  );
+  return lastDay.toISOString().slice(0, "YYYY-MM-DD".length);
+}
+
+/**
+ * Get the earliest and latest date in YYYY-MM-DD to show data for.
+ * Used for getting the dates to use as labels along the x-axis.
+ * @param dateSetting user selected date setting
+ */
+function getLabelBounds(dateSetting: string): [string, string] {
+  // get start and end of dates to show data for
+  let [startDate, endDate] = getDateRange(dateSetting);
+
+  // specify full dates if start and end dates are just YYYY or YYYY-MM
+  if (
+    startDate.length == YEAR_FORMAT.length &&
+    endDate.length == YEAR_FORMAT.length
+  ) {
+    startDate = `${startDate}-01-01`;
+    endDate = `${endDate}-12-31`;
+  } else if (
+    startDate.length == MONTH_FORMAT.length &&
+    endDate.length == MONTH_FORMAT.length
+  ) {
+    startDate = `${startDate}-01`;
+    endDate = `${getLastDayOfMonth(endDate)}`;
+  }
+  return [startDate, endDate];
+}
+
+/**
+ * Helper function for getting all days along x-axis to display.
+ * Used for initializing bins when binning daily.
+ * @param dateSetting user selected date setting
+ */
+function getDaysArray(dateSetting: string): string[] {
+  const [startDate, endDate] = getLabelBounds(dateSetting);
+
+  // Fill in days between start and end dates
+  const days = new Array<string>();
+  for (
+    let date = new Date(startDate + "Z");
+    getFormattedDate(date, DAY_FORMAT) <=
+    getFormattedDate(new Date(endDate + "Z"), DAY_FORMAT);
+    date.setUTCDate(date.getUTCDate() + 1)
+  ) {
+    days.push(getFormattedDate(new Date(date), DAY_FORMAT));
+  }
+  return days;
+}
+
+/**
+ * Helper function for getting all months along x-axis to display.
+ * Used for initializing bins when binning monthly.
+ * @param dateSetting user selected date setting
+ */
+function getMonthsArray(dateSetting: string): string[] {
+  const [startDate, endDate] = getLabelBounds(dateSetting);
+
+  // Fill in months between start and end dates
+  const months = new Array<string>();
+  for (
+    let date = new Date(startDate + "Z");
+    getFormattedDate(date, MONTH_FORMAT) <=
+    getFormattedDate(new Date(endDate + "Z"), MONTH_FORMAT);
+    date.setMonth(date.getMonth() + 1)
+  ) {
+    months.push(getFormattedDate(new Date(date), MONTH_FORMAT));
+  }
+  return months;
+}
+
+/**
+ * Helper function for binning data.
+ * @param disasterEventPoints event data points to bin
+ * @param dateSetting user selected date setting
+ * @param format temporal granularity to use. One of "YYYY-MM" or "YYYY-MM-DD"
+ */
+function binData(
+  disasterEventPoints: DisasterEventPoint[],
+  dateSetting: string,
+  format: string
+): DataPoint[] {
+  if (_.isEmpty(disasterEventPoints)) {
+    return [];
+  }
+
+  // Track date -> number of events
+  const bins = new Map<string, number>();
+
+  // Initialize all bins at zero
+  const datesToPlot =
+    format == DAY_FORMAT
+      ? getDaysArray(dateSetting)
+      : getMonthsArray(dateSetting);
+  for (const date of datesToPlot) {
+    bins.set(date, 0);
+  }
+
+  for (const event of disasterEventPoints) {
+    // Get start time in the temporal granularity desired
+    const eventDate = event.startDate.slice(0, format.length);
+
+    // Increment count in corresponding bin if event has at least
+    // that temporal granularity
+    if (bins.has(eventDate) && eventDate.length == format.length) {
+      bins.set(eventDate, bins.get(eventDate) + 1);
+    } else {
+      console.log(`Skipped event ${event} that started on ${eventDate}`);
+    }
+  }
+
+  // Return [] if we skipped every event.
+  if (Array.from(bins.values()).every((value) => value == 0)) {
+    console.log(
+      "[Histogram] Skipped plotting all events. Either the events were not " +
+        "within the provided time frame or the events did not have at least " +
+        `${format} temporal resolution.`
+    );
+    return [];
+  }
+
+  // Format binned data into DataPoint[]
+  const histogramData = new Array<DataPoint>();
+  bins.forEach((value, label) => {
+    histogramData.push({ label: label, value: value });
+  });
+
+  return histogramData;
+}
+
+/**
+ * Helper function to determine if data exists to display.
+ */
+function shouldShowHistogram(histogramData: DataPoint[]): boolean {
+  return !_.isEmpty(histogramData);
 }
 
 /**
@@ -52,143 +210,101 @@ interface HistogramData {
  */
 export function HistogramTile(props: HistogramTilePropType): JSX.Element {
   const svgContainer = useRef(null);
-  const [rawData, setRawData] = useState<SeriesApiResponse | undefined>(null);
-  const [histogramData, setHistogramData] = useState<HistogramData | undefined>(
-    null
-  );
+  const [histogramData, setHistogramData] = useState<DataPoint[]>([]);
 
+  // format event data if data is available
   useEffect(() => {
-    fetchData(props, setRawData);
+    if (props.disasterEventData && props.disasterEventData.eventPoints) {
+      processData(
+        props.disasterEventData.eventPoints,
+        props.selectedDate,
+        setHistogramData
+      );
+    }
   }, [props]);
 
   useEffect(() => {
-    if (rawData) {
-      processData(props, rawData, setHistogramData);
-    }
-  }, [props, rawData]);
-
-  useEffect(() => {
-    if (histogramData) {
-      draw(props, histogramData.dataPoints);
+    if (shouldShowHistogram(histogramData)) {
+      renderHistogram(props, histogramData);
     }
   }, [props, histogramData]);
 
-  if (!histogramData) {
-    return null;
-  }
+  // for title formatting
   const rs: ReplacementStrings = {
     place: props.place.name,
     date: "",
   };
-  return (
-    <ChartTileContainer
-      title={props.title}
-      sources={histogramData.sources}
-      replacementStrings={rs}
-      className={`${props.className} histogram-chart`}
-      allowEmbed={true}
-      getDataCsv={() => dataPointsToCsv(histogramData.dataPoints)}
-    >
-      <div id={props.id} className="svg-container" ref={svgContainer}></div>
-    </ChartTileContainer>
-  );
-}
 
-/**
- * Gets the series of observations to plot
- */
-function fetchData(
-  props: HistogramTilePropType,
-  setRawData: (data: SeriesApiResponse) => void
-): void {
-  const statVars = [];
-  for (const spec of props.statVarSpec) {
-    statVars.push(spec.statVar);
-    if (spec.denom) {
-      statVars.push(spec.denom);
-    }
-  }
-  axios
-    .get("/api/observations/series/binned", {
-      // Fetch both numerator stat vars and denominator stat vars
-      params: {
-        variables: statVars,
-        entities: [props.place.dcid],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      setRawData(resp.data);
-    })
-    .catch((error) => {
-      console.log(error);
-      setRawData(null);
-    });
-}
-
-/**
- * Process and set histogram data
- */
-function processData(
-  props: HistogramTilePropType,
-  rawData: SeriesApiResponse,
-  setHistogramData: (data: HistogramData) => void
-): void {
-  const histogramData = rawToChart(rawData, props);
-  setHistogramData(histogramData);
-}
-
-/**
- * Renders the histogram
- */
-function draw(props: HistogramTilePropType, histogramData: DataPoint[]): void {
-  const elem = document.getElementById(props.id);
-  // TODO: Remove all cases of setting innerHTML directly.
-  elem.innerHTML = "";
-  drawHistogram(
-    props.id,
-    elem.offsetWidth,
-    props.svgChartHeight,
-    histogramData,
-    props.statVarSpec[0].unit
-  );
-}
-
-/**
- * Performs conversion of raw series data to HistogramData object
- */
-function rawToChart(
-  rawData: SeriesApiResponse,
-  props: HistogramTilePropType
-): HistogramData {
-  // TODO: We assume the index of numerator and denominator matches.
-  // This is brittle and should be updated in the protobuf that binds both
-  // together.
-  const dataPoints: DataPoint[] = [];
+  // organize provenance info to pass to ChartTileContainer
   const sources = new Set<string>();
-  for (const spec of props.statVarSpec) {
-    // Do not modify the React state. Create a clone.
-    if (spec.statVar in rawData.data) {
-      const obsSeries = rawData.data[spec.statVar][props.place.dcid];
-      let obsList = obsSeries.series;
-      if (spec.denom in rawData.data) {
-        const denomSeries = rawData.data[spec.denom][props.place.dcid];
-        obsList = computeRatio(obsList, denomSeries.series);
+  if (props.disasterEventData && props.disasterEventData.provenanceInfo) {
+    Object.values(props.disasterEventData.provenanceInfo).forEach(
+      (provInfo) => {
+        sources.add(provInfo.provenanceUrl);
       }
-      if (obsList.length > 0) {
-        for (const obs of obsList) {
-          dataPoints.push({
-            label: obs.date,
-            time: new Date(obs.date).getTime(),
-            value: spec.scaling ? obs.value * spec.scaling : obs.value,
-          });
-        }
-        sources.add(rawData.facets[obsSeries.facet].provenanceUrl);
-      }
+    );
+  }
+
+  // TODO (juliawu): add "sorry, we don't have data" message if data is
+  //                 present at 6 months but not 30 days
+  return (
+    <>
+      {shouldShowHistogram(histogramData) && (
+        <ChartTileContainer
+          title={props.title}
+          sources={sources}
+          replacementStrings={rs}
+          className={"histogram-chart"}
+          allowEmbed={false}
+        >
+          <div id={props.id} className="svg-container" ref={svgContainer}></div>
+        </ChartTileContainer>
+      )}
+    </>
+  );
+
+  /**
+   * Bin dates and values to plot based on given disasterEventPoints.
+   */
+  function processData(
+    disasterEventPoints: DisasterEventPoint[],
+    dateSetting: string,
+    setHistogramData: (data: DataPoint[]) => void
+  ): void {
+    let histogramData: DataPoint[] = [];
+    // Try binning by day if dateSetting is "last 30 days" or a month
+    if (
+      dateSetting == DATE_OPTION_30D_KEY ||
+      dateSetting.length == MONTH_FORMAT.length
+    ) {
+      histogramData = binData(disasterEventPoints, dateSetting, DAY_FORMAT);
+    }
+    // Bin by month for all other cases
+    // Also fallback to monthly binning if daily binning returns no data
+    if (_.isEmpty(histogramData)) {
+      histogramData = binData(disasterEventPoints, dateSetting, MONTH_FORMAT);
+    }
+    setHistogramData(histogramData);
+  }
+
+  /**
+   * Plot the histogram in the DOM element.
+   */
+  function renderHistogram(
+    props: HistogramTilePropType,
+    histogramData: DataPoint[]
+  ): void {
+    const elem = document.getElementById(props.id);
+    if (elem) {
+      elem.innerHTML = "";
+      drawHistogram(
+        props.id,
+        elem.clientWidth,
+        elem.clientHeight,
+        histogramData,
+        undefined,
+        props.eventTypeSpec.color
+      );
     }
   }
-  return {
-    dataPoints: dataPoints,
-    sources: sources,
-  };
 }

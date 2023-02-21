@@ -13,8 +13,10 @@
 # limitations under the License.
 
 import os
+
 import flask
-from lib.gcs import list_png
+
+from server.lib.gcs import list_png
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 

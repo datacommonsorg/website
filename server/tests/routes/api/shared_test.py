@@ -13,14 +13,14 @@
 # limitations under the License.
 
 import unittest
-import routes.api.shared as shared
-
 from unittest.mock import patch
+
+import server.routes.api.shared as shared
 
 
 class TestNames(unittest.TestCase):
 
-  @patch('routes.api.shared.dc.property_values')
+  @patch('server.routes.api.shared.dc.property_values')
   def test_names(self, mock_property_values_func):
     dcid1 = 'geoId/06'
     dcid2 = 'geoId/07'

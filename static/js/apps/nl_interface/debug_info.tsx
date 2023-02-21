@@ -24,21 +24,6 @@ import { Col, Row } from "reactstrap";
 
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
-export const BUILD_OPTIONS = [
-  { value: "us_filtered", text: "Filtered US SVs" },
-  {
-    value: "curatedJan2022",
-    text: "Curated 3.5k+ SVs PaLM(Jan2022) - Default",
-  },
-  { value: "demographics300", text: "Demographics only (300 SVs)" },
-  {
-    value: "demographics300-withpalmalternatives",
-    text: "Demographics only (300 SVs) with PaLM Alternatives",
-  },
-  // { value: "uncurated3000", text: "Uncurated 3000 SVs" },
-  // { value: "combined_all", text: "Combined All of the Above" },
-];
-
 const svToSentences = (
   svScores: SVScores,
   svSentences: Map<string, Array<string>>
@@ -81,7 +66,7 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
       <table>
         <thead>
           <tr>
-            <th>SV</th>
+            <th>Variable</th>
             <th>Cosine Score (Best/Max) [0, 1]</th>
           </tr>
         </thead>
@@ -103,8 +88,6 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
 
 export interface DebugInfoProps {
   debugData: any; // from the server response
-  selectedBuild: string;
-  setSelectedBuild: (string) => void;
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
@@ -123,19 +106,17 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
     svScores: props.debugData["sv_matching"],
     svSentences: props.debugData["svs_to_sentences"],
-    embeddingsBuild: props.debugData["embeddings_build"],
     rankingClassification: props.debugData["ranking_classification"],
+    overviewClassification: props.debugData["overview_classification"],
     temporalClassification: props.debugData["temporal_classification"],
+    sizeTypeClassification: props.debugData["size_type_classification"],
+    timeDeltaClassification: props.debugData["time_delta_classification"],
+    comparisonClassification: props.debugData["comparison_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
+    eventClassification: props.debugData["event_classification"],
+    counters: props.debugData["counters"],
     dataSpec: props.debugData["data_spec"],
-  };
-
-  const handleEmbeddingsBuildChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const build = event.target.value;
-    props.setSelectedBuild(build);
   };
 
   const toggleShowDebug = () => {
@@ -146,7 +127,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     <>
       {!showDebug && (
         <a className="debug-info-toggle show" onClick={toggleShowDebug}>
-          Show debug info
+          <span className="material-icons">bug_report</span>
         </a>
       )}
       {showDebug && (
@@ -159,31 +140,13 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <br></br>
           </Row>
           <Row>
-            <label>Embeddings build:</label>
-          </Row>
-          <div className="embeddings-build-options">
-            <select
-              value={props.selectedBuild}
-              onChange={handleEmbeddingsBuildChange}
-            >
-              {BUILD_OPTIONS.map((option, idx) => (
-                <option key={idx} value={option.value}>
-                  {option.text}
-                </option>
-              ))}
-            </select>
-          </div>
-          <Row>
             <b>Execution Status: </b> {debugInfo.status}
-          </Row>
-          <Row>
-            <b>Embeddings Build: </b> {debugInfo.embeddingsBuild}
           </Row>
           <Row>
             <b>Original Query: </b> {debugInfo.originalQuery}
           </Row>
           <Row>
-            <b>Query used for SV detection: </b>
+            <b>Query used for variable detection: </b>
             {debugInfo.queryWithoutPlaces}
           </Row>
           <Row>
@@ -206,7 +169,23 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>
+              Size Type (generic) classification:{" "}
+              {debugInfo.sizeTypeClassification}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
               Temporal classification: {debugInfo.temporalClassification}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              TimeDelta classification: {debugInfo.timeDeltaClassification}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              Comparison classification: {debugInfo.comparisonClassification}
             </Col>
           </Row>
           <Row>
@@ -220,16 +199,22 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>All SVs Matched (with scores):</b>
+            <Col>Event classification: {debugInfo.eventClassification}</Col>
           </Row>
           <Row>
-            Note: SVs with scores <b>less than 0.4</b> are not used.
+            <Col>
+              Overview classification: {debugInfo.overviewClassification}
+            </Col>
           </Row>
+          <Row>
+            <b>All Variables Matched (with scores):</b>
+          </Row>
+          <Row>Note: Variables with scores less than 0.5 are not used.</Row>
           <Row>
             <Col>{matchScoresElement(debugInfo.svScores)}</Col>
           </Row>
           <Row>
-            <b>SV Sentences Matched (with scores):</b>
+            <b>Variable Sentences Matched (with scores):</b>
           </Row>
           <Row>
             <Col>
@@ -237,7 +222,15 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Data Spec</b>
+            <b>Debug Counters</b>
+          </Row>
+          <Row>
+            <Col>
+              <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
+            </Col>
+          </Row>
+          <Row>
+            <b>Utterances</b>
           </Row>
           <Row>
             <Col>

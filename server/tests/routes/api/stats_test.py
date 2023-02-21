@@ -16,12 +16,12 @@ import json
 import unittest
 from unittest import mock
 
-from main import app
+from web_app import app
 
 
 class TestApiStatsProperty(unittest.TestCase):
 
-  @mock.patch('services.datacommons.send_request')
+  @mock.patch('server.services.datacommons.send_request')
   def test_api_get_stats_property(self, send_request):
 
     def side_effect(req_url,
@@ -204,7 +204,7 @@ class TestApiStatsProperty(unittest.TestCase):
 
 class TestSearchStatVar(unittest.TestCase):
 
-  @mock.patch('routes.api.stats.dc.search_statvar')
+  @mock.patch('server.routes.api.stats.dc.search_statvar')
   def test_search_statvar_single_token(self, mock_search_result):
     expected_query = 'person'
     expected_places = ["geoId/06"]

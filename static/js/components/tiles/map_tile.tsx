@@ -24,7 +24,7 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
-import { getColorScale } from "../../chart/draw_map_utils";
+import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
@@ -84,7 +84,9 @@ interface MapChartData {
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
-  const svgContainer = useRef(null);
+  const svgContainer = useRef<HTMLDivElement>(null);
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const legendContainer = useRef<HTMLDivElement>(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
@@ -115,7 +117,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
 
   useEffect(() => {
     if (mapChartData) {
-      draw(mapChartData, props, svgContainer);
+      draw(mapChartData, props, svgContainer, legendContainer, mapContainer);
     }
   }, [mapChartData, props]);
 
@@ -137,7 +139,10 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)
       }
     >
-      <div id={props.id} className="svg-container" ref={svgContainer}></div>
+      <div className="svg-container" ref={svgContainer}>
+        <div className="map" ref={mapContainer}></div>
+        <div className="legend" ref={legendContainer}></div>
+      </div>
     </ChartTileContainer>
   );
 }
@@ -276,10 +281,15 @@ function processData(
 function draw(
   chartData: MapChartData,
   props: MapTilePropType,
-  svgContainer: React.RefObject<HTMLElement>
+  svgContainer: React.RefObject<HTMLDivElement>,
+  legendContainer: React.RefObject<HTMLDivElement>,
+  mapContainer: React.RefObject<HTMLDivElement>
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
-  const width = svgContainer.current.offsetWidth;
+  const height = Math.max(
+    svgContainer.current.offsetHeight,
+    props.svgChartHeight
+  );
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,
@@ -311,26 +321,32 @@ function draw(
     }
     return place.name + ": " + value;
   };
+  const legendWidth = generateLegendSvg(
+    legendContainer.current,
+    height,
+    colorScale,
+    props.statVarSpec.unit,
+    0
+  );
+  const chartWidth = svgContainer.current.offsetWidth - legendWidth;
   const projection = getProjection(
     chartData.isUsaPlace,
     props.place.dcid,
-    width,
-    props.svgChartHeight
+    chartWidth,
+    height,
+    chartData.geoJson
   );
   drawD3Map(
-    props.id,
+    mapContainer.current,
     chartData.geoJson,
-    props.svgChartHeight,
-    width,
+    height,
+    chartWidth,
     chartData.dataValues,
-    props.statVarSpec.unit,
     colorScale,
     _.noop,
     getTooltipHtml,
     () => false,
-    true,
     chartData.showMapBoundaries,
-    projection,
-    props.place.dcid
+    projection
   );
 }

@@ -25,7 +25,7 @@ import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
-import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
+import { DebugInfo } from "./debug_info";
 
 const SVG_CHART_HEIGHT = 160;
 
@@ -40,7 +40,6 @@ export const QueryResult = memo(function QueryResult(
   props: QueryResultProps
 ): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [selectedBuild, setSelectedBuild] = useState(BUILD_OPTIONS[0].value);
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
   const scrollRef = createRef<HTMLDivElement>();
@@ -60,14 +59,15 @@ export const QueryResult = memo(function QueryResult(
   }, [isLoading]);
 
   useEffect(() => {
-    fetchData(props.query, selectedBuild);
-  }, [props.query, selectedBuild]);
+    fetchData(props.query);
+  }, [props.query]);
 
-  function fetchData(query: string, build: string): void {
+  function fetchData(query: string): void {
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
+
     axios
-      .post(`/nl/data?q=${query}&build=${build}`, {
+      .post(`/nl/data?q=${query}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {
@@ -86,11 +86,14 @@ export const QueryResult = memo(function QueryResult(
         const categories = _.get(resp, ["data", "config", "categories"], []);
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
+          let main_place = {};
+          // For NL Next, context does not contain the "main place".
+          main_place = resp.data["place"];
           setChartsData({
             place: {
-              types: [context["place_type"]],
-              name: context["place_name"],
-              dcid: context["place_dcid"],
+              dcid: main_place["dcid"],
+              name: main_place["name"],
+              types: [main_place["place_type"]],
             },
             config: resp.data["config"],
           });
@@ -99,8 +102,10 @@ export const QueryResult = memo(function QueryResult(
             "Sorry, we couldn't answer your question. Could you try again?"
           );
         }
-        if (context["debug"] !== undefined) {
-          setDebugData(context["debug"]);
+        // For NL Next, debug info is outside the context.
+        const debugData = resp.data["debug"];
+        if (debugData !== undefined) {
+          setDebugData(debugData);
         }
         setIsLoading(false);
       })
@@ -122,15 +127,10 @@ export const QueryResult = memo(function QueryResult(
       </div>
       <div className="nl-result">
         <Container>
-          {debugData && (
-            <DebugInfo
-              debugData={debugData}
-              selectedBuild={selectedBuild}
-              setSelectedBuild={setSelectedBuild}
-            ></DebugInfo>
-          )}
+          {debugData && <DebugInfo debugData={debugData}></DebugInfo>}
           {chartsData && chartsData.config && (
             <SubjectPageMainPane
+              id={`pg${props.queryIdx}`}
               place={chartsData.place}
               pageConfig={chartsData.config}
               svgChartHeight={SVG_CHART_HEIGHT}

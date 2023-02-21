@@ -23,9 +23,16 @@ import { StatVarSpec } from "../shared/types";
 
 export interface SeverityFilter {
   prop: string;
+  displayName?: string;
   unit: string;
   upperLimit: number;
   lowerLimit: number;
+}
+
+export interface EventDisplayProp {
+  prop: string;
+  displayName: string;
+  unit?: string;
 }
 
 export interface EventTypeSpec {
@@ -34,6 +41,10 @@ export interface EventTypeSpec {
   eventTypeDcids: string[];
   color: string;
   defaultSeverityFilter: SeverityFilter;
+  displayProp: EventDisplayProp[];
+  endDateProp: string[];
+  polygonGeoJsonProp?: string;
+  pathGeoJsonProp?: string;
 }
 
 export interface PageMetadataConfig {
@@ -48,25 +59,39 @@ export interface PageMetadataConfig {
 export interface RankingTileSpec {
   showHighest: boolean;
   showLowest: boolean;
-  showIncrease: boolean;
-  showDecrease: boolean;
 
   diffBaseDate: string;
 
   highestTitle?: string;
   lowestTitle?: string;
-  increaseTitle?: string;
-  decreaseTitle?: string;
   rankingCount?: number;
+
+  showMultiColumn: boolean;
 }
 
 export interface DisasterEventMapTileSpec {
-  eventTypeKeys: string[];
+  pointEventTypeKey: string[];
+  polygonEventTypeKey: string[];
+  pathEventTypeKey: string[];
+}
+
+export interface HistogramTileSpec {
+  eventTypeKey: string;
 }
 
 export interface TopEventTileSpec {
   eventTypeKey: string;
   displayProp: string[];
+  showStartDate: boolean;
+  showEndDate: boolean;
+  reverseSort: boolean;
+}
+
+export interface ScatterTileSpec {
+  highlightTopRight?: boolean;
+  highlightTopLeft?: boolean;
+  highlightBottomRight?: boolean;
+  highlightBottomLeft?: boolean;
 }
 
 export interface TileConfig {
@@ -75,9 +100,12 @@ export interface TileConfig {
   type: string;
   statVarKey: string[];
   comparisonPlaces?: string[];
+  placeDcidOverride?: string;
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;
+  scatterTileSpec?: ScatterTileSpec;
+  histogramTileSpec?: HistogramTileSpec;
 }
 
 export interface ColumnConfig {
@@ -87,7 +115,9 @@ export interface ColumnConfig {
 export interface BlockConfig {
   title?: string;
   description: string;
+  footnote?: string;
   columns: ColumnConfig[];
+  type?: string;
 }
 
 export type StatVarSpecMap = Record<string, StatVarSpec>;

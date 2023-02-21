@@ -21,6 +21,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { getFilteredParentPlaces } from "../../utils/app/disaster_dashboard_utils";
 import { App } from "./app";
 
 window.onload = () => {
@@ -36,11 +37,15 @@ function renderPage(): void {
     document.getElementById("dashboard-config").dataset.config
   );
   const place = { dcid: placeDcid, name: placeName, types: placeTypes };
+  const parentPlaces = JSON.parse(
+    document.getElementById("place").dataset.parents
+  );
 
   ReactDOM.render(
     React.createElement(App, {
       place,
       dashboardConfig,
+      parentPlaces: getFilteredParentPlaces(parentPlaces, place),
     }),
     document.getElementById("body")
   );

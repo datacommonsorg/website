@@ -28,10 +28,12 @@ function help {
   echo "-e       Run with a specified environment. Options are: lite custom or any configured env. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
   echo "-m       Enable language models"
+  echo "-d       [Local dev] Enable disaster JSON cache"
+  echo "-l       [Local dev] Use local mixer"
   exit 1
 }
 
-while getopts ":e:p:m" OPTION; do
+while getopts ":e:p?m?d?l" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
@@ -41,6 +43,12 @@ while getopts ":e:p:m" OPTION; do
       ;;
     m)
       export ENABLE_MODEL=true
+      ;;
+    d)
+      export ENABLE_DISASTER_JSON=true
+      ;;
+    l)
+      export USE_LOCAL_MIXER=true
       ;;
     *)
       help
@@ -73,7 +81,5 @@ echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 python3 -m pip install --upgrade pip
 pip3 install -r server/requirements.txt -q
-cd server
-protoc -I=./config/ --python_out=./config ./config/subject_page.proto
-python3 main.py $PORT
-cd ..
+protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto
+python3 web_app.py $PORT

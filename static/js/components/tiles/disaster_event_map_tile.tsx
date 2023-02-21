@@ -19,66 +19,60 @@
  */
 
 import * as d3 from "d3";
+import { geoJson } from "leaflet";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import {
   addMapPoints,
+  addPathLayer,
+  addPolygonLayer,
   drawD3Map,
   getProjection,
 } from "../../chart/draw_d3_map";
-import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import {
-  DATE_OPTION_1Y_KEY,
-  DATE_OPTION_6M_KEY,
-  DATE_OPTION_30D_KEY,
-  URL_HASH_PARAM_KEYS,
-} from "../../constants/disaster_event_map_constants";
+  GeoJsonData,
+  GeoJsonFeature,
+  GeoJsonFeatureProperties,
+} from "../../chart/types";
 import {
   EARTH_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
-import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
-  MapPointsData,
+  DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
 import {
+  DisasterEventMapTileSpec,
   EventTypeSpec,
-  SeverityFilter,
 } from "../../types/subject_page_proto_types";
 import {
-  fetchDateList,
-  fetchDisasterEventPoints,
-  fetchGeoJsonData,
-  getDate,
-  getDateRanges,
   getMapPointsData,
-  getSeverityFilters,
-  getUseCache,
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
+import { fetchNodeGeoJson } from "../../utils/geojson_utils";
 import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
+import { DataContext } from "../subject_page/data_context";
 import { ChartTileContainer } from "./chart_tile";
-import { DisasterEventMapFilters } from "./disaster_event_map_filters";
-import { DisasterEventMapSelectors } from "./disaster_event_map_selectors";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
-const CONTENT_SPINNER_ID = "content-spinner-screen";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
 // TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
 const MAP_POINTS_MIN_RADIUS = 1.5;
 const MAP_POINTS_MIN_RADIUS_EARTH = 0.8;
+// Set of dcids of places that should use the selected place as the base geojson
+const PLACE_MAP_PLACES = new Set(["country/AUS", "country/BRA"]);
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -91,23 +85,10 @@ interface DisasterEventMapTilePropType {
   enclosedPlaceType: string;
   // Map of eventType id to EventTypeSpec
   eventTypeSpec: Record<string, EventTypeSpec>;
-  // The id of the block the tile is within
-  // HACK: assuming that there is only one disaster event map tile per block
-  blockId: string;
-}
-
-interface MapChartData {
-  geoJson: GeoJsonData;
-  sources: Set<string>;
-  // key is disaster type and value is the map points data for that disaster
-  // type
-  mapPointsData: Record<string, MapPointsData>;
-  // date used for this map chart data
-  selectedDate: string;
-  // severity filters used for this map chart data
-  severityFilters: Record<string, SeverityFilter>;
-  // whether this map chart data was from the cache
-  useCache: boolean;
+  // DisasterEventPointData to use for this tile
+  disasterEventData: Record<string, DisasterEventPointData>;
+  // Tile spec with information about what to show on this map
+  tileSpec: DisasterEventMapTileSpec;
 }
 
 export function DisasterEventMapTile(
@@ -116,49 +97,42 @@ export function DisasterEventMapTile(
   const svgContainerRef = useRef(null);
   const infoCardRef = useRef(null);
   const europeanPlaces = useRef([]);
-  const dateRanges = useRef(getDateRanges());
-  const [dateList, setDateList] = useState([]);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
-  const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
-    null
-  );
-  const [svgContainerHeight, setSvgContainerHeight] = useState(null);
-  const [showFilters, setShowFilters] = useState(false);
-  const spinnerId = `${props.id}-${CONTENT_SPINNER_ID}`;
-
-  function handleResize(): void {
-    // Update svgContainerHeight if svgContainerRef height has changed so that
-    // severity filters section is the same height as the map.
-    if (svgContainerRef.current) {
-      const height = svgContainerRef.current.offsetHeight;
-      if (height !== svgContainerHeight) {
-        setSvgContainerHeight(height);
-      }
-    }
+  const { geoJsonData } = useContext(DataContext);
+  const [polygonGeoJson, setPolygonGeoJson] = useState(null);
+  const [pathGeoJson, setPathGeoJson] = useState(null);
+  let baseMapGeoJson = null;
+  if (geoJsonData) {
+    baseMapGeoJson = shouldUsePlaceGeoJson()
+      ? geoJsonData.placeGeoJson
+      : geoJsonData.childrenGeoJson;
   }
+  const shouldShowMap =
+    placeInfo &&
+    !_.isEmpty(baseMapGeoJson) &&
+    !_.isEmpty(baseMapGeoJson.features) &&
+    !_.isNull(polygonGeoJson) &&
+    !_.isNull(pathGeoJson);
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    // watch for hash change and re-fetch data whenever hash changes.
-    if (!placeInfo) {
-      return;
-    }
-
-    function handleHashChange(): void {
-      fetchMapChartData(placeInfo, props.eventTypeSpec);
-    }
-
-    window.addEventListener("hashchange", handleHashChange);
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, [placeInfo, props.eventTypeSpec, mapChartData]);
+    // re-fetch event geojson data for paths and polygons when disaster event
+    // data changes or tile spec changes
+    fetchEventGeoJsonData(
+      props.tileSpec.pathEventTypeKey,
+      "pathGeoJsonProp",
+      setPathGeoJson
+    );
+    fetchEventGeoJsonData(
+      props.tileSpec.polygonEventTypeKey,
+      "polygonGeoJsonProp",
+      setPolygonGeoJson
+    );
+  }, [
+    props.disasterEventData,
+    props.tileSpec,
+    setPathGeoJson,
+    setPolygonGeoJson,
+  ]);
 
   useEffect(() => {
     // On initial loading of the component, get list of all European countries
@@ -171,30 +145,29 @@ export function DisasterEventMapTile(
   }, []);
 
   useEffect(() => {
-    // When props change, update date and place info
-    updateDateList(props.eventTypeSpec, props.place.dcid);
+    // When props change, update place info
     updatePlaceInfo(props.place, props.enclosedPlaceType);
   }, [props]);
 
   useEffect(() => {
-    // When selectedDate, placeInfo, or severity filters change, re-fetch the map chart data.
-    if (!placeInfo) {
-      return;
+    if (shouldShowMap) {
+      draw(
+        placeInfo,
+        baseMapGeoJson,
+        props.disasterEventData,
+        polygonGeoJson,
+        pathGeoJson
+      );
     }
-    fetchMapChartData(placeInfo, props.eventTypeSpec);
-  }, [placeInfo, props.eventTypeSpec]);
+  }, [
+    placeInfo,
+    baseMapGeoJson,
+    props.disasterEventData,
+    polygonGeoJson,
+    pathGeoJson,
+  ]);
 
-  useEffect(() => {
-    // When mapChartData has changed and geoJson is not empty, re-draw the map.
-    if (mapChartData && !_.isEmpty(mapChartData.geoJson)) {
-      const chartHeight = (svgContainerRef.current.offsetWidth * 2) / 5;
-      setSvgContainerHeight(chartHeight);
-      draw(mapChartData, placeInfo, chartHeight);
-    }
-    removeSpinner(spinnerId);
-  }, [mapChartData]);
-
-  if (!mapChartData) {
+  if (geoJsonData == null || !placeInfo) {
     return null;
   }
 
@@ -203,16 +176,23 @@ export function DisasterEventMapTile(
     date: "",
   };
 
+  const sources = new Set<string>();
+  Object.values(props.disasterEventData).forEach((eventData) => {
+    Object.values(eventData.provenanceInfo).forEach((provInfo) => {
+      sources.add(provInfo.provenanceUrl);
+    });
+  });
+
   return (
     <ChartTileContainer
       title={props.title}
-      sources={mapChartData.sources}
+      sources={sources}
       replacementStrings={rs}
       className={`${CSS_SELECTOR_PREFIX}-tile`}
       allowEmbed={false}
     >
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
-        {_.isEmpty(mapChartData.geoJson) ? (
+        {!shouldShowMap ? (
           <div className={`${CSS_SELECTOR_PREFIX}-error-message`}>
             Sorry, we do not have maps for this place.
           </div>
@@ -257,41 +237,9 @@ export function DisasterEventMapTile(
                     );
                   })}
                 </div>
-                <DisasterEventMapSelectors
-                  dateOptions={[
-                    DATE_OPTION_30D_KEY,
-                    DATE_OPTION_6M_KEY,
-                    DATE_OPTION_1Y_KEY,
-                    ...dateList,
-                  ]}
-                  onPlaceSelected={(place: NamedPlace) =>
-                    redirectAction(place.dcid)
-                  }
-                  blockId={props.blockId}
-                >
-                  <div
-                    className="filter-toggle"
-                    onClick={() => setShowFilters(!showFilters)}
-                    title="Toggle filters"
-                  >
-                    <i className="material-icons">tune</i>
-                  </div>
-                </DisasterEventMapSelectors>
               </div>
               <div id={`${CSS_SELECTOR_PREFIX}-info-card`} ref={infoCardRef} />
-              <div id={spinnerId}>
-                <div className="screen">
-                  <div id="spinner"></div>
-                </div>
-              </div>
             </div>
-            {showFilters && (
-              <DisasterEventMapFilters
-                eventTypeSpec={props.eventTypeSpec}
-                height={svgContainerHeight}
-                blockId={props.blockId}
-              />
-            )}
           </>
         )}
       </div>
@@ -318,88 +266,45 @@ export function DisasterEventMapTile(
   }
 
   /**
-   * Updates date info given an event type spec
+   * Fetches and sets the geojson for a list of event types and the key to use
+   * for getting the geojson prop.
    */
-  function updateDateList(
-    eventTypeSpec: Record<string, EventTypeSpec>,
-    selectedPlace: string
+  function fetchEventGeoJsonData(
+    eventTypeKeys: string[],
+    geoJsonPropKey: string,
+    setEventTypeGeoJson: (eventTypeGeoJson: Record<string, GeoJsonData>) => void
   ): void {
-    const eventTypeDcids = Object.values(eventTypeSpec).flatMap(
-      (spec) => spec.eventTypeDcids
-    );
-    fetchDateList(eventTypeDcids, selectedPlace)
-      .then((dateList) => {
-        setDateList(dateList);
-      })
-      .catch(() => {
-        setDateList([]);
-      });
-  }
-
-  /**
-   * Fetches the chart data needed for drawing the map
-   */
-  function fetchMapChartData(
-    placeInfo: DisasterEventMapPlaceInfo,
-    eventTypeSpec: Record<string, EventTypeSpec>
-  ): void {
-    // Only re-fetch geojson data if place selection has changed
-    const selectedDate = getDate(props.blockId);
-    const severityFilters = getSeverityFilters(eventTypeSpec, props.blockId);
-    const useCache = getUseCache();
-    const shouldFetchGeoJson =
-      !mapChartData ||
-      _.isEmpty(mapChartData.geoJson) ||
-      mapChartData.geoJson.properties.current_geo !==
-        placeInfo.selectedPlace.dcid;
-    const shouldFetchDisasterPoints =
-      !mapChartData ||
-      selectedDate !== mapChartData.selectedDate ||
-      useCache !== mapChartData.useCache ||
-      !_.isEqual(severityFilters, mapChartData.severityFilters);
-    if (!shouldFetchGeoJson && !shouldFetchDisasterPoints) {
+    if (_.isEmpty(eventTypeKeys)) {
+      setEventTypeGeoJson({});
       return;
     }
-    loadSpinner(spinnerId);
-    const geoJsonPromise = shouldFetchGeoJson
-      ? fetchGeoJsonData(
-          placeInfo.selectedPlace.dcid,
-          placeInfo.enclosedPlaceType
-        )
-      : Promise.resolve(mapChartData.geoJson);
-    const dateRange: [string, string] =
-      selectedDate in dateRanges.current
-        ? dateRanges.current[selectedDate]
-        : [selectedDate, selectedDate];
-    const disasterEventDataPromise = fetchDisasterEventPoints(
-      Object.values(eventTypeSpec),
-      placeInfo.selectedPlace.dcid,
-      dateRange,
-      severityFilters,
-      useCache
-    );
-    Promise.all([geoJsonPromise, disasterEventDataPromise])
-      .then(([geoJson, disasterEventData]) => {
-        const sources = new Set<string>();
-        Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
-          sources.add(provInfo.provenanceUrl);
-        });
-        const mapPointsData = getMapPointsData(
-          disasterEventData.eventPoints,
-          props.eventTypeSpec
+    const geoJsonPromises = eventTypeKeys.map((eventType) => {
+      if (
+        props.disasterEventData[eventType] &&
+        geoJsonPropKey in props.eventTypeSpec[eventType]
+      ) {
+        const eventDcids = props.disasterEventData[eventType].eventPoints.map(
+          (point) => point.placeDcid
         );
-        setMapChartData({
-          geoJson,
-          sources,
-          mapPointsData,
-          selectedDate,
-          useCache,
-          severityFilters,
+        return fetchNodeGeoJson(
+          eventDcids,
+          props.eventTypeSpec[eventType][geoJsonPropKey]
+        );
+      }
+    });
+    Promise.all(geoJsonPromises)
+      .then((geoJsons) => {
+        const eventTypeGeoJsonData = {};
+        eventTypeKeys.forEach((type, i) => {
+          if (!geoJsons[i]) {
+            return;
+          }
+          eventTypeGeoJsonData[type] = geoJsons[i];
         });
+        setEventTypeGeoJson(eventTypeGeoJsonData);
       })
       .catch(() => {
-        // TODO: add error message
-        setMapChartData(null);
+        setEventTypeGeoJson({});
       });
   }
 
@@ -407,49 +312,107 @@ export function DisasterEventMapTile(
    * Draws the disaster event map
    */
   function draw(
-    mapChartData: MapChartData,
     placeInfo: DisasterEventMapPlaceInfo,
-    height: number
+    geoJsonData: GeoJsonData,
+    disasterEventData: Record<string, DisasterEventPointData>,
+    polygonGeoJson: GeoJsonData,
+    pathGeoJson: GeoJsonData
   ): void {
     const width = svgContainerRef.current.offsetWidth;
+    const height = Math.max(
+      svgContainerRef.current.offsetHeight,
+      (width * 2) / 5
+    );
     const zoomParams = {
       zoomInButtonId: ZOOM_IN_BUTTON_ID,
       zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
     };
-    document.getElementById(props.id).innerHTML = "";
     const isUsaPlace = isChildPlaceOf(
       placeInfo.selectedPlace.dcid,
       USA_PLACE_DCID,
       placeInfo.parentPlaces
     );
+    const isPlaceBaseMap = shouldUsePlaceGeoJson();
     const projection = getProjection(
       isUsaPlace,
       placeInfo.selectedPlace.dcid,
       width,
-      height
+      height,
+      geoJsonData,
+      placeInfo.selectedPlace.dcid
     );
     drawD3Map(
-      props.id,
-      mapChartData.geoJson,
+      svgContainerRef.current,
+      geoJsonData,
       height,
       width,
       {} /* dataValues: no data values to show on the base map */,
-      "" /* units: no units to show */,
       null /* colorScale: no color scale since no data shown on the base map */,
-      (geoDcid: GeoJsonFeatureProperties) =>
-        redirectAction(geoDcid.geoDcid) /* redirectAction */,
+      (geoFeature: GeoJsonFeatureProperties) =>
+        redirectAction(geoFeature.geoDcid) /* redirectAction */,
       (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
-      () => true /* canClickRegion: allow all regions to be clickable */,
-      false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
+      (placeDcid: string) =>
+        placeDcid !==
+        placeInfo.selectedPlace
+          .dcid /* canClickRegion: don't allow clicking region that will redirect to current page */,
       true /* shouldShowBoundaryLines */,
       projection,
-      placeInfo.selectedPlace.dcid,
-      "" /* zoomDcid: no dcid to zoom in on */,
+      isPlaceBaseMap
+        ? ""
+        : placeInfo.selectedPlace
+            .dcid /** zoomDcid: don't want special zoom handling of the selected place if usiing place base map */,
       zoomParams
     );
-    for (const mapPointsData of Object.values(mapChartData.mapPointsData)) {
+    // map of disaster event point id to the disaster event point
+    const pointsMap = {};
+    Object.values(disasterEventData).forEach((data) => {
+      data.eventPoints.forEach((point) => {
+        pointsMap[point.placeDcid] = point;
+      });
+    });
+    for (const eventType of props.tileSpec.polygonEventTypeKey || []) {
+      if (!(eventType in polygonGeoJson)) {
+        continue;
+      }
+      addPolygonLayer(
+        svgContainerRef.current,
+        polygonGeoJson[eventType],
+        projection,
+        () => props.eventTypeSpec[eventType].color,
+        (geoFeature: GeoJsonFeature) =>
+          onPointClicked(
+            infoCardRef.current,
+            svgContainerRef.current,
+            pointsMap[geoFeature.properties.geoDcid],
+            d3.event
+          )
+      );
+    }
+    for (const eventType of props.tileSpec.pathEventTypeKey || []) {
+      if (!(eventType in pathGeoJson)) {
+        continue;
+      }
+      addPathLayer(
+        svgContainerRef.current,
+        pathGeoJson[eventType],
+        projection,
+        () => props.eventTypeSpec[eventType].color,
+        (geoFeature: GeoJsonFeature) =>
+          onPointClicked(
+            infoCardRef.current,
+            svgContainerRef.current,
+            pointsMap[geoFeature.properties.geoDcid],
+            d3.event
+          )
+      );
+    }
+    for (const eventType of props.tileSpec.pointEventTypeKey || []) {
+      const mapPointsData = getMapPointsData(
+        disasterEventData[eventType].eventPoints,
+        props.eventTypeSpec[eventType]
+      );
       const pointsLayer = addMapPoints(
-        props.id,
+        svgContainerRef.current,
         mapPointsData.points,
         mapPointsData.values,
         projection,
@@ -477,5 +440,23 @@ export function DisasterEventMapTile(
    */
   function redirectAction(placeDcid: string): void {
     window.open(`${REDIRECT_URL_PREFIX}${placeDcid}`, "_self");
+  }
+
+  // Gets whether the geojson for the selected place should be used for the base
+  // map.
+  function shouldUsePlaceGeoJson(): boolean {
+    if (!geoJsonData) {
+      // When geojson data hasn't been fetched yet, default to not using place
+      // geojson.
+      return false;
+    }
+    if (PLACE_MAP_PLACES.has(props.place.dcid)) {
+      return true;
+    }
+    // Should use place geojson if children geojson are not available.
+    return (
+      _.isEmpty(geoJsonData.childrenGeoJson) ||
+      _.isEmpty(geoJsonData.childrenGeoJson.features)
+    );
   }
 }

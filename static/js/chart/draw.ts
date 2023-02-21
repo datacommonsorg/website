@@ -69,7 +69,8 @@ const AXIS_GRID_FILL = "#999";
 
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
-
+// Max width in pixels for a bar in a histogram
+const MAX_HISTOGRAM_BAR_WIDTH = 75;
 const MIN_POINTS_FOR_DOTS_ON_LINE_CHART = 12;
 const TOOLTIP_ID = "draw-tooltip";
 // min distance between bottom of the tooltip and a datapoint
@@ -589,7 +590,8 @@ function drawHistogram(
   chartWidth: number,
   chartHeight: number,
   dataPoints: DataPoint[],
-  unit?: string
+  unit?: string,
+  fillColor?: string
 ): void {
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
@@ -620,7 +622,7 @@ function drawHistogram(
     .domain(textList)
     .rangeRound([leftWidth, chartWidth - MARGIN.right])
     .paddingInner(0.1)
-    .paddingOuter(0.1);
+    .paddingOuter(0.5);
 
   const bottomHeight = addXAxis(xAxis, chartHeight, x, true);
 
@@ -630,16 +632,22 @@ function drawHistogram(
   addYAxis(yAxis, chartWidth, y, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const color = getColorFn(["A"])("A"); // we only need one color
+  const color = fillColor ? fillColor : getColorFn(["A"])("A"); // we only need one color
 
   chart
     .append("g")
     .selectAll("rect")
     .data(dataPoints)
     .join("rect")
-    .attr("x", (d) => x(d.label))
+    .attr("x", (d) => {
+      return (
+        x(d.label) +
+        // shift label if max bar width is used instead of original bandwidth
+        (x.bandwidth() - Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH)) / 2
+      );
+    })
     .attr("y", (d) => y(Math.max(0, d.value)))
-    .attr("width", x.bandwidth())
+    .attr("width", Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH))
     .attr("height", (d) => Math.abs(y(0) - y(d.value)))
     .attr("fill", color);
 }
@@ -908,7 +916,12 @@ function drawLineChart(
 
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => d.time))
+    .domain(
+      d3.extent(
+        dataGroups.flatMap((dg) => dg.value),
+        (d) => d.time
+      )
+    )
     .range([leftWidth, width - MARGIN.right]);
 
   let singlePointLabel = null;
