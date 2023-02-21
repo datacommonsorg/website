@@ -71,6 +71,7 @@ export interface PageStateType {
   chemicalCompoundDiseaseContraindication: CompoundDiseaseContraindicationData[];
   diseaseCommonName: string;
   diseasePrevalenceIDexists: boolean;
+  dataFetched: boolean;
 }
 
 export class Page extends React.Component<PagePropType, PageStateType> {
@@ -83,6 +84,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       chemicalCompoundDiseaseContraindication: null,
       diseaseCommonName: null,
       diseasePrevalenceIDexists: null,
+      dataFetched: null,
     };
   }
 
@@ -113,6 +115,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       log: false,
       name: "diseaseData",
     };
+    // if no data is fetched, return a null
+    if (!this.state.dataFetched) {
+      return null;
+    }
     return (
       <>
         <h2>{diseaseName}</h2>
@@ -216,6 +222,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           getCompoundDiseaseContraindication(resp.data),
         diseaseCommonName: getDiseaseCommonName(resp.data),
         diseasePrevalenceIDexists: doesDiseasePrevalenceIDexist(resp.data),
+        dataFetched: true,
       });
     });
   }
