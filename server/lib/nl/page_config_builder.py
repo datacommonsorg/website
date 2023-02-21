@@ -703,7 +703,7 @@ _SV_PARTIAL_DCID_NO_PC = [
     'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
     "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
     "ConsecutiveDryDays", "Percent", "Area_", "Median_", "LifeExpectancy_",
-    "AsFractionOf", "AsAFractionOfCount", "Count_Person"
+    "AsFractionOf", "AsAFractionOfCount"
 ]
 
 
