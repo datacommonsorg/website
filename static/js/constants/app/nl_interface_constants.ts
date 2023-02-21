@@ -23,3 +23,9 @@ export const NL_MED_TILE_CLASS = "tile-md";
 export const NL_LARGE_TILE_CLASS = "tile-lg";
 // Number of tiles to show.
 export const NL_NUM_TILES_SHOWN = 6;
+export const NL_SOURCE_REPLACEMENTS = {
+  "https://www.datacommons.org/": "https://www.google.com",
+  "https://datacommons.org/": "https://www.google.com",
+  "https://www.datacommons.org": "https://www.google.com",
+  "https://datacommons.org": "https://www.google.com",
+};
