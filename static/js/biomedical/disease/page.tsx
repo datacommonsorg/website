@@ -84,7 +84,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       chemicalCompoundDiseaseContraindication: null,
       diseaseCommonName: null,
       diseasePrevalenceIDexists: null,
-      dataFetched: null,
+      dataFetched: false,
     };
   }
 
