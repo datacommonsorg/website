@@ -35,13 +35,13 @@ class Overview extends React.Component<OverviewPropType> {
     // only show ranking for places in the US, but not the US itself.
     const shouldShowRanking = this.props.dcid.startsWith("geoId/");
     return (
-      <section className="factoid col-12">
+      <section
+        className={`factoid col-12 ${
+          shouldShowRanking && "overview-with-ranking"
+        }`}
+      >
         <div className="row">
-          <div
-            className={`col-12 ${
-              shouldShowRanking && "col-md-4 map-with-padding"
-            }`}
-          >
+          <div className={`col-12 ${shouldShowRanking && "col-md-4"}`}>
             <GoogleMap dcid={this.props.dcid}></GoogleMap>
           </div>
           {shouldShowRanking && (
