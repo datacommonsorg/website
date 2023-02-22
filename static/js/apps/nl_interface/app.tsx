@@ -22,6 +22,7 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
+import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 
@@ -179,10 +180,12 @@ export function App(): JSX.Element {
     ></QueryResult>
   ));
 
+  const showHistory = queries.length === 0;
+
   return (
     <div id="dc-nl-interface">
       <div id="results-thread-container">{queryResults}</div>
-
+      {showHistory && <QueryHistory />}
       <QuerySearch
         queries={queries}
         onQuerySearched={(q) => {

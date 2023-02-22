@@ -120,6 +120,11 @@ $answer-min-height: 100vh;
   padding: $query-vertical-margin 0;
 }
 
+.nl-history {
+  color: #aaa;
+  font-size: 16px;
+}
+
 .nl-result {
   background: $answer-background-color;
   min-height: $answer-min-height;
@@ -173,7 +178,7 @@ $answer-min-height: 100vh;
 
   .place-overview-tile {
     .col-12 {
-      padding: .5em 0 !important;
+      padding: 0.5em 0 !important;
     }
     .source {
       color: var(--dc-gray);
@@ -234,10 +239,10 @@ h3,
 .debug-info-toggle.show {
   color: #666;
   font-size: 0.8rem;
-  padding-top: .5em;
+  padding-top: 0.5em;
   margin-bottom: -1em;
   position: absolute;
-  top: .5rem;
+  top: 0.5rem;
   right: -2.5rem;
 }
 
@@ -324,24 +329,24 @@ $loading-dot-color: #fff;
 }
 
 .disaster-event-map-tile {
-    display: flex;
-    flex-direction: column;
-.disaster-event-map-container {
-  height: 100%;
-  .disaster-event-map-chart-section {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  .disaster-event-map-container {
+    height: 100%;
+    .disaster-event-map-chart-section {
+      display: flex;
+      flex-direction: column;
 
-    .svg-container {
-      min-height: 400px;
-      svg {
-        height: 100%;
-        width: 100%;
-        display: block;
+      .svg-container {
+        min-height: 400px;
+        svg {
+          height: 100%;
+          width: 100%;
+          display: block;
+        }
       }
     }
   }
-}
 }
 
 .chart-container.map-chart {

@@ -34,11 +34,16 @@ instance = client.instance(_INSTANCE_ID)
 table = instance.table(_TABLE_ID)
 
 
-async def write_row(query):
+def get_project_id():
   # Explicitly set project to '' for local dev.
-  project_id = ''
-  if not current_app.config['LOCAL']:
-    _, project_id = google.auth.default()
+  if current_app.config['LOCAL']:
+    return ''
+  _, project_id = google.auth.default()
+  return project_id
+
+
+async def write_row(query):
+  project_id = get_project_id()
   ts = datetime.utcnow()
   # use length of query as prefix to avoid Bigtable hotspot nodes.
   row_key = '{}#{}#{}'.format(len(query), project_id, ts.timestamp()).encode()
@@ -49,6 +54,7 @@ async def write_row(query):
 
 
 def read_row():
+  project_id = get_project_id()
   # Fetch recent queries
   start = datetime.now() - timedelta(days=_SPAN_IN_DAYS)
   rows = table.read_rows(filter_=row_filters.TimestampRangeFilter(
@@ -65,6 +71,8 @@ def read_row():
         elif col.decode('utf-8') == _COL_QUERY:
           query = cells[0].value.decode('utf-8')
           timestamp = cells[0].timestamp.timestamp()
+    if project != project_id:
+      continue
     result.append({
         'project': project,
         'query': query,
