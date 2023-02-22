@@ -90,6 +90,9 @@ export function App(): JSX.Element {
   useEffect(() => {
     // If there are prompts in the url, automatically input the first prompt
     // into the search box.
+    // If autoRun is enabled, runs every prompt (';' separated) from the url.
+    // TODO: Do this by going through state/props instead of directly
+    // manipulating the DOM.
     if (urlPrompts.current.length) {
       inputNextPrompt(false);
     }
