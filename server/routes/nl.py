@@ -392,7 +392,7 @@ def data():
     logging.error('Unable to load event configs!')
 
   original_query = request.args.get('q')
-  if not current_app.config['TEST']:
+  if not current_app.config['INTEGRATION']:
     # Fire query logging and forget as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     loop.run_until_complete(bt.write_row(original_query))
