@@ -18,7 +18,6 @@
  * Debug info for a single query for the NL interface
  */
 
-import { debug } from "console";
 import _ from "lodash";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
@@ -109,13 +108,11 @@ function getFeedbackLink(query: string, queryChain: string[]): string {
   let link = FEEDBACK_LINK;
   Object.keys(paramMap).forEach((prefix) => {
     const value = paramMap[prefix];
-    if (!value) {
-      return;
+    if (value) {
+      link += `${prefix}${value}`;
     }
-    // when prefilling google forms, need to replace space with "+"
-    link += `${prefix}${value.replaceAll(" ", "+")}`;
   });
-  return link;
+  return encodeURI(link);
 }
 
 export interface DebugInfoProps {
