@@ -42,6 +42,9 @@ export function QueryHistory(): JSX.Element {
     axios.get(`/nl/history`).then((resp) => {
       const result = [];
       for (const item of resp.data) {
+        if (result.includes(item["query"])) {
+          continue;
+        }
         result.push(item["query"]);
         if (result.length == 20) {
           result.push("......");
