@@ -113,8 +113,8 @@ export function fetchDateList(
     // When creating the Date object, need to specify that this date is in UTC
     // (by adding "Z") because toISOString() gets the iso string of the date in
     // UTC.
-    const currDate = new Date(minDate + "Z");
-    const endDate = new Date(maxDate + "Z");
+    const currDate = new Date(Date.parse(minDate));
+    const endDate = new Date(Date.parse(maxDate));
     // Need to generate the list of dates from min -> max because otherwise,
     // dates may get skipped or duplicated.
     while (currDate <= endDate) {
