@@ -27,6 +27,8 @@ import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
 const FEEDBACK_LINK =
   "https://docs.google.com/forms/d/e/1FAIpQLSfqndIayVhN1bN5oeZT0Te-MhhBMBR1hn97Lgr77QTOpga8Iw/viewform?usp=pp_url";
+// Param prefixes found when following the instructions here to get a prefilled
+// link: https://support.google.com/docs/answer/2839588?hl=en&ref_topic=6063592#zippy=%2Csend-a-form-with-pre-filled-answers
 const QUERY_PARAM_PREFIX = "&entry.1322830239=";
 const SOURCE_PARAM_PREFIX = "&entry.1070482700=";
 const VERSION_PARAM_PREFIX = "&entry.1420739572=";
