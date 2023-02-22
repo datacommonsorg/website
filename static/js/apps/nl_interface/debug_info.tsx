@@ -18,6 +18,7 @@
  * Debug info for a single query for the NL interface
  */
 
+import { debug } from "console";
 import _ from "lodash";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
@@ -25,7 +26,11 @@ import { Col, Row } from "reactstrap";
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
 const FEEDBACK_LINK =
-  "https://docs.google.com/forms/d/e/1FAIpQLSe9SG0hOfrK7UBiOkQbK0ieC0yP5v-8gnQKU3mSIyzqdv6WaQ/viewform?usp=pp_url&entry.2003307180=";
+  "https://docs.google.com/forms/d/e/1FAIpQLSfqndIayVhN1bN5oeZT0Te-MhhBMBR1hn97Lgr77QTOpga8Iw/viewform?usp=pp_url";
+const QUERY_PARAM_PREFIX = "&entry.1322830239=";
+const SOURCE_PARAM_PREFIX = "&entry.1070482700=";
+const VERSION_PARAM_PREFIX = "&entry.1420739572=";
+const QUERY_CHAIN_PARAM_PREFIX = "&entry.1836374054=";
 
 const svToSentences = (
   svScores: SVScores,
@@ -48,9 +53,11 @@ const svToSentences = (
                 <tr key={sv}>
                   <td>{sv}</td>
                   <td>
-                    {svSentences[sv].map((sentence) => {
-                      return <tr key={sentence}>{sentence}</tr>;
-                    })}
+                    <ul>
+                      {svSentences[sv].map((sentence) => {
+                        return <li key={sentence}>{sentence}</li>;
+                      })}
+                    </ul>
                   </td>
                 </tr>
               );
@@ -89,6 +96,26 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
   );
 };
 
+function getFeedbackLink(query: string, queryChain: string[]): string {
+  const paramMap = {
+    [QUERY_PARAM_PREFIX]: query,
+    [SOURCE_PARAM_PREFIX]: window.location.toString(),
+    [VERSION_PARAM_PREFIX]:
+      document.getElementById("metadata").dataset.websiteHash || "",
+    [QUERY_CHAIN_PARAM_PREFIX]: JSON.stringify(queryChain),
+  };
+  let link = FEEDBACK_LINK;
+  Object.keys(paramMap).forEach((prefix) => {
+    const value = paramMap[prefix];
+    if (!value) {
+      return;
+    }
+    // when prefilling google forms, need to replace space with "+"
+    link += `${prefix}${value.replaceAll(" ", "+")}`;
+  });
+  return link;
+}
+
 export interface DebugInfoProps {
   debugData: any; // from the server response
 }
@@ -125,9 +152,14 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
   const toggleShowDebug = () => {
     setShowDebug(!showDebug);
   };
-  // Google forms prefilled link uses + for spaces.
-  const feedbackLinkQuery = debugInfo.originalQuery.replaceAll(" ", "+");
 
+  const queryChain = Array.isArray(debugInfo.dataSpec)
+    ? debugInfo.dataSpec.map((utterance) => utterance["query"] || "")
+    : [];
+  const feedbackLink = getFeedbackLink(
+    debugInfo.originalQuery,
+    queryChain.reverse()
+  );
   return (
     <>
       {!showDebug && (
@@ -141,7 +173,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             X
           </a>
           <Row className="feedback-link">
-            <a href={`${FEEDBACK_LINK}${feedbackLinkQuery}`} target="_blank">
+            <a href={feedbackLink} target="_blank" rel="noreferrer">
               Share Feedback
             </a>
           </Row>
