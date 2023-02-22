@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 
 from flask import current_app
-
 import google.auth
 from google.cloud import bigtable
 from google.cloud.bigtable import row_filters

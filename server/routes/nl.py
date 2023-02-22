@@ -18,7 +18,6 @@ import json
 import logging
 import os
 from typing import Dict, List
-from datetime import datetime
 
 import flask
 from flask import Blueprint
