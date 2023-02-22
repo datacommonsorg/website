@@ -187,7 +187,7 @@ export function App(): JSX.Element {
         queries={queries}
         onQuerySearched={(q) => {
           setQueries([...queries, q]);
-          if (!autoRun) {
+          if (!autoRun.current) {
             inputNextPrompt(true);
           }
         }}
