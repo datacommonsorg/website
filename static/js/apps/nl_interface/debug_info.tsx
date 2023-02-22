@@ -24,6 +24,9 @@ import { Col, Row } from "reactstrap";
 
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
+const FEEDBACK_LINK =
+  "https://docs.google.com/forms/d/e/1FAIpQLSe9SG0hOfrK7UBiOkQbK0ieC0yP5v-8gnQKU3mSIyzqdv6WaQ/viewform?usp=pp_url&entry.2003307180=";
+
 const svToSentences = (
   svScores: SVScores,
   svSentences: Map<string, Array<string>>
@@ -122,6 +125,8 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
   const toggleShowDebug = () => {
     setShowDebug(!showDebug);
   };
+  // Google forms prefilled link uses + for spaces.
+  const feedbackLinkQuery = debugInfo.originalQuery.replaceAll(" ", "+");
 
   return (
     <>
@@ -135,6 +140,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <a className="debug-info-toggle hide" onClick={toggleShowDebug}>
             X
           </a>
+          <Row className="feedback-link">
+            <a href={`${FEEDBACK_LINK}${feedbackLinkQuery}`} target="_blank">
+              Share Feedback
+            </a>
+          </Row>
           <Row>
             <b>DEBUGGING OPTIONS/INFO: </b>
             <br></br>
