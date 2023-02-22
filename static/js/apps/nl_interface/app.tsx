@@ -18,7 +18,8 @@
  * Main component for NL interface.
  */
 
-import React, { useEffect, useState } from "react";
+import _ from "lodash";
+import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
 import { QueryResult } from "./query_result";
@@ -31,6 +32,8 @@ const NEXT_PROMPT_DELAY = 5000;
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
+  const urlPrompts = useRef(getUrlPrompts());
+  const autoRun = useRef(getUrlToken("a"));
 
   // Updates the query search input box value.
   function updateSearchInput(input: string) {
@@ -45,15 +48,54 @@ export function App(): JSX.Element {
     ).click();
   }
 
+  function getUrlPrompts(): string[] {
+    const urlPromptsVal = getUrlToken("q");
+    if (urlPromptsVal) {
+      return urlPromptsVal.split(";");
+    }
+    return [];
+  }
+
+  function inputNextPrompt(delayStart: boolean): void {
+    const prompt = urlPrompts.current.shift();
+    if (!prompt) {
+      return;
+    }
+    let pause = delayStart;
+    let inputLength = 1;
+    setTimeout(() => {
+      pause = false;
+    }, NEXT_PROMPT_DELAY);
+    const inputTimer = setInterval(() => {
+      if (pause) {
+        return;
+      }
+      if (inputLength <= prompt.length) {
+        updateSearchInput(prompt.substring(0, inputLength));
+      }
+      if (inputLength === prompt.length) {
+        clearInterval(inputTimer);
+        return;
+      }
+      inputLength++;
+    }, CHARACTER_INPUT_INTERVAL);
+  }
+
+  useEffect(() => {
+    if (!autoRun.current) {
+      // TODO (chejennifer): See if there's a way to clean up the query input
+      // functions & share the code for autorun vs. not
+      inputNextPrompt(false);
+    }
+  }, []);
+
   useEffect(() => {
     // Runs each prompt (';' separated) 10s apart.
     // TODO: Do this by going through state/props instead of directly
     // manipulating the DOM.
-    const urlPrompts = getUrlToken("q");
-    if (urlPrompts) {
-      const prompts = urlPrompts.split(";");
-      if (prompts.length) {
-        let prompt = prompts.shift();
+    if (autoRun.current) {
+      if (urlPrompts.current.length) {
+        let prompt = urlPrompts.current.shift();
         let inputLength = 1;
         let pauseQueryInput = false;
         const inputTimer = setInterval(() => {
@@ -76,7 +118,7 @@ export function App(): JSX.Element {
                 // Start typing the input for the next prompt after
                 // NEXT_PROMPT_DELAY ms.
                 pauseQueryInput = false;
-                prompt = prompts.shift();
+                prompt = urlPrompts.current.shift();
                 inputLength = 1;
               }, NEXT_PROMPT_DELAY);
             }, PROMPT_SEARCH_DELAY);
@@ -145,6 +187,9 @@ export function App(): JSX.Element {
         queries={queries}
         onQuerySearched={(q) => {
           setQueries([...queries, q]);
+          if (!autoRun.current) {
+            inputNextPrompt(true);
+          }
         }}
       />
     </div>
