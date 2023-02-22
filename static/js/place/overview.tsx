@@ -28,23 +28,25 @@ interface OverviewPropType {
    * The locale of the page.
    */
   locale: string;
+  /**
+   * Whether to show ranking.
+   */
+  showRanking: boolean;
 }
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
-    // only show ranking for places in the US, but not the US itself.
-    const shouldShowRanking = this.props.dcid.startsWith("geoId/");
     return (
       <section
         className={`factoid col-12 ${
-          shouldShowRanking && "overview-with-ranking"
+          this.props.showRanking && "overview-with-ranking"
         }`}
       >
         <div className="row">
-          <div className={`col-12 ${shouldShowRanking && "col-md-4"}`}>
+          <div className={`col-12 ${this.props.showRanking && "col-md-4"}`}>
             <GoogleMap dcid={this.props.dcid}></GoogleMap>
           </div>
-          {shouldShowRanking && (
+          {this.props.showRanking && (
             <div className="col-12 col-md-8">
               <Ranking
                 dcid={this.props.dcid}
