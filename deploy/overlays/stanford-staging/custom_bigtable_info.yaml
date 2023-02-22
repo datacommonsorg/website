@@ -1,4 +1,4 @@
-project: datcom-stanford
+project: datcom-stanford-staging
 instance: dc-graph
 tables:
   - stanford-dc_2023_02_22_11_28_18
