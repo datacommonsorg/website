@@ -41,7 +41,7 @@ class Config:
   # Set this to False if the deployment has frequently updated data.
   USE_MEMCACHE = True
   # Whether to log the query (and make them avaiable in query history interface)
-  # Eanble this to "True" requires adding "bigtable/user" acccess for the
+  # Eanbling this to "True" requires adding "bigtable/user" acccess for the
   # service account in datcom-store IAM settings
   LOG_QUERY = False
 
