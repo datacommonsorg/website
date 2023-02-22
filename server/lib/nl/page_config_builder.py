@@ -208,7 +208,6 @@ def build_page_config(
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-
   logging.info(builder.page_config)
   return builder.page_config
 
