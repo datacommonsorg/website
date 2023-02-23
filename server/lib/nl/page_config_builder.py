@@ -208,7 +208,6 @@ def build_page_config(
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-
   logging.info(builder.page_config)
   return builder.page_config
 
@@ -702,13 +701,19 @@ def _decorate_chart_title(title: str,
 _SV_PARTIAL_DCID_NO_PC = [
     'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
     "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
-    "ConsecutiveDryDays", "Percent", 'Area_'
+    "ConsecutiveDryDays", "Percent", "Area_", "Median_", "LifeExpectancy_",
+    "AsFractionOf", "AsAFractionOfCount"
 ]
+
+_SV_FULL_DCID_NO_PC = ["Count_Person"]
 
 
 def _should_add_percapita(sv_dcid: str) -> bool:
   for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
     if skip_phrase in sv_dcid:
+      return False
+  for skip_sv in _SV_FULL_DCID_NO_PC:
+    if skip_sv == sv_dcid:
       return False
   return True
 

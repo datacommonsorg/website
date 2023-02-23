@@ -160,6 +160,11 @@ export function ChartLoader(): JSX.Element {
       placeInfo.value.enclosedPlaceType
     ) {
       loadSpinner(CHART_LOADER_SCREEN);
+    } else {
+      // If there is a spinner on the screen, but one of stat var, enclosing
+      // place or enclosed place type becomes empty, we should remove that
+      // spinner.
+      removeSpinner(CHART_LOADER_SCREEN);
     }
   }, [
     statVar.value.dcid,
