@@ -451,6 +451,10 @@ def data():
   status_str = "Successful"
   if utterance.rankedCharts:
     status_str = ""
+    if current_app.config['LOG_QUERY']:
+      # Asynchronously log as bigtable write takes O(100ms)
+      loop = asyncio.new_event_loop()
+      loop.run_until_complete(bt.write_row(original_query))
   else:
     if not utterance.places:
       status_str += '**No Place Found**.'
@@ -460,10 +464,6 @@ def data():
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
                                       context_history, dbg_counters)
 
-  if current_app.config['LOG_QUERY'] and status_str == "Successful":
-    # Asynchronously log as bigtable write takes O(100ms)
-    loop = asyncio.new_event_loop()
-    loop.run_until_complete(bt.write_row(original_query))
   return data_dict
 
 
