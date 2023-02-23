@@ -14,6 +14,7 @@
 
 from datetime import datetime
 from datetime import timedelta
+import json
 
 from flask import current_app
 import google.auth
@@ -28,8 +29,7 @@ _TABLE_ID = 'nl-query'
 _COLUMN_FAMILY = 'all'
 
 _COL_PROJECT = 'project'
-_COL_QUERY = 'query'
-_COL_STATUS = 'status'
+_COL_SESSION = 'session_info'
 
 _SPAN_IN_DAYS = 3
 
@@ -46,15 +46,16 @@ def get_project_id():
   return project_id
 
 
-async def write_row(query, status):
+async def write_row(session_info):
+  if not session_info.get('id', None):
+    return
   project_id = get_project_id()
-  ts = datetime.utcnow()
-  # use length of query as prefix to avoid Bigtable hotspot nodes.
-  row_key = '{}#{}#{}'.format(len(query), project_id, ts.timestamp()).encode()
+  # The session_id starts with a rand to avoid hotspots.
+  row_key = '{}#{}'.format(session_info['id'], project_id).encode()
   row = table.direct_row(row_key)
-  row.set_cell(_COLUMN_FAMILY, _COL_PROJECT.encode(), project_id, timestamp=ts)
-  row.set_cell(_COLUMN_FAMILY, _COL_QUERY.encode(), query, timestamp=ts)
-  row.set_cell(_COLUMN_FAMILY, _COL_STATUS.encode(), status, timestamp=ts)
+  # Rely on timestamp in BT server
+  row.set_cell(_COLUMN_FAMILY, _COL_PROJECT.encode(), project_id)
+  row.set_cell(_COLUMN_FAMILY, _COL_SESSION.encode(), json.dumps(session_info))
   table.mutate_rows([row])
 
 
@@ -67,25 +68,25 @@ def read_success_rows():
   result = []
   for row in rows:
     project = ''
-    query = ''
-    status = ''
+    session_info = {}
     timestamp = 0
     for _, cols in row.cells.items():
       for col, cells in cols.items():
         if col.decode('utf-8') == _COL_PROJECT:
           project = cells[0].value.decode('utf-8')
-        if col.decode('utf-8') == _COL_STATUS:
-          status = cells[0].value.decode('utf-8')
-        elif col.decode('utf-8') == _COL_QUERY:
-          query = cells[0].value.decode('utf-8')
+        if col.decode('utf-8') == _COL_SESSION:
+          session_info = json.loads(cells[0].value.decode('utf-8'))
           timestamp = cells[0].timestamp.timestamp()
     if project != project_id:
       continue
-    if status == nl_constants.QUERY_FAILED:
+    if not session_info or not session_info.get('items', []):
       continue
+    if session_info['items'][0]['status'] == nl_constants.QUERY_FAILED:
+      continue
+    query_list = [it['query'] for it in session_info['items'] if 'query' in it]
     result.append({
         'project': project,
-        'query': query,
+        'query_list': query_list,
         'timestamp': timestamp,
     })
   result.sort(key=lambda x: x['timestamp'], reverse=True)

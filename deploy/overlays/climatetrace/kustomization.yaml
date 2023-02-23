@@ -24,8 +24,9 @@ resources:
 configMapGenerator:
   - behavior: merge
     literals:
-      - flaskEnv=custom
+      - flaskEnv=climate_trace
       - secretProject=datcom-mixer-encode
+      - enableModel=true
     name: website-configmap
   - behavior: create
     literals:

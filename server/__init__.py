@@ -213,7 +213,7 @@ def create_app():
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
-  if (cfg.ENV_NAME == 'STANFORD' or os.environ.get('ENABLE_MODEL') == 'true' or
+  if (cfg.ENV == 'stanford' or os.environ.get('ENABLE_MODEL') == 'true' or
       cfg.LOCAL and not cfg.LITE):
     register_routes_stanford_dc(app, cfg.LOCAL)
 
@@ -319,7 +319,7 @@ def create_app():
     g.locale_choices = i18n.locale_choices(requested_locale)
     g.locale = g.locale_choices[0]
     # Add commonly used config flags.
-    g.env_name = app.config.get('ENV_NAME', None)
+    g.env = app.config.get('ENV', None)
 
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):

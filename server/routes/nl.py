@@ -37,6 +37,7 @@ from server.lib.nl.detection import PlaceDetection
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import SVDetection
 import server.lib.nl.fulfiller as fulfillment
+import server.lib.nl.fulfillment.context as context
 import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
@@ -421,7 +422,15 @@ def data():
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
-  utterance = fulfillment.fulfill(query_detection, prev_utterance)
+  if prev_utterance:
+    session_id = prev_utterance.session_id
+  else:
+    if current_app.config['LOG_QUERY']:
+      session_id = utils.new_session_id()
+    else:
+      session_id = constants.TEST_SESSION_ID
+
+  utterance = fulfillment.fulfill(query_detection, prev_utterance, session_id)
 
   if utterance.rankedCharts:
     page_config_pb = nl_page_config.build_page_config(utterance,
@@ -451,9 +460,7 @@ def data():
   status_str = "Successful"
   if utterance.rankedCharts:
     status_str = ""
-    status = constants.QUERY_OK
   else:
-    status = constants.QUERY_FAILED
     if not utterance.places:
       status_str += '**No Place Found**.'
     if not utterance.svs:
@@ -462,7 +469,8 @@ def data():
   if current_app.config['LOG_QUERY']:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
-    loop.run_until_complete(bt.write_row(original_query, status))
+    session_info = context.get_session_info(context_history)
+    loop.run_until_complete(bt.write_row(session_info))
 
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
                                       context_history, dbg_counters)
