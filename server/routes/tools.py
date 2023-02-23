@@ -55,7 +55,7 @@ _DOWNLOAD_INFO_DCIDS_IITM = [
 @bp.route('/timeline')
 def timeline():
   info_json = "custom_dc/default/timeline_examples.json"
-  if g.env_name == 'IITM':
+  if g.env == 'iitm':
     info_json = "custom_dc/iitm/timeline_examples.json"
   return flask.render_template('tools/timeline.html',
                                info_json=info_json,
@@ -73,7 +73,7 @@ def map():
   allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
 
   info_json = "custom_dc/default/map_examples.json"
-  if g.env_name == 'IITM':
+  if g.env == 'iitm':
     info_json = "custom_dc/iitm/map_examples.json"
 
   return flask.render_template('tools/map.html',
@@ -85,7 +85,7 @@ def map():
 @bp.route('/scatter')
 def scatter():
   info_json = "custom_dc/default/scatter_examples.json"
-  if g.env_name == 'IITM':
+  if g.env == 'iitm':
     info_json = "custom_dc/iitm/scatter_examples.json"
 
   return flask.render_template('tools/scatter.html',
@@ -101,7 +101,7 @@ def stat_var():
 @bp.route('/download')
 def download():
   info_places = _DOWNLOAD_INFO_DCIDS
-  if g.env_name == 'IITM':
+  if g.env == 'iitm':
     info_places = _DOWNLOAD_INFO_DCIDS_IITM
   return flask.render_template('tools/download.html',
                                info_places=json.dumps(info_places),

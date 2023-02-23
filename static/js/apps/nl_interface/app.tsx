@@ -18,7 +18,6 @@
  * Main component for NL interface.
  */
 
-import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
@@ -180,21 +179,25 @@ export function App(): JSX.Element {
     ></QueryResult>
   ));
 
-  const showHistory = queries.length === 0;
+  const isStartState = queries.length === 0;
 
   return (
     <>
       <div id="results-thread-container">{queryResults}</div>
-      {showHistory && <QueryHistory />}
-      <QuerySearch
-        queries={queries}
-        onQuerySearched={(q) => {
-          setQueries([...queries, q]);
-          if (!autoRun.current) {
-            inputNextPrompt(true);
-          }
-        }}
-      />
+      <div
+        id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
+      >
+        <QuerySearch
+          queries={queries}
+          onQuerySearched={(q) => {
+            setQueries([...queries, q]);
+            if (!autoRun.current) {
+              inputNextPrompt(true);
+            }
+          }}
+        />
+        {isStartState && <QueryHistory />}
+      </div>
     </>
   );
 }

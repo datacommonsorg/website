@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,12 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-project: datcom-mixer-encode
-ip: 34.107.228.109
-domain: climatetrace.datacommons.org
-region:
-  primary: us-central1
-  others:
-    -
-nodes: 1
-storage_project: datcom-store
+from server.app_env import local
+
+
+class LocalConfig(local.Config):
+  SECRET_PROJECT = ''
+  LITE = True
