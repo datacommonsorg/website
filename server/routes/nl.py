@@ -13,6 +13,7 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
+import asyncio
 import json
 import logging
 import os
@@ -36,10 +37,12 @@ from server.lib.nl.detection import PlaceDetection
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import SVDetection
 import server.lib.nl.fulfiller as fulfillment
+import server.lib.nl.fulfillment.context as context
 import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_disaster_dashboard_configs
+import server.services.bigtable as bt
 import server.services.datacommons as dc
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
@@ -211,8 +214,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       clustering_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
       clustering_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
 
-  logging.info(uttr_history)
-  logging.info(debug_counters)
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
@@ -366,7 +367,8 @@ def page():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
   return render_template('/nl_interface.html',
-                         maps_api_key=current_app.config['MAPS_API_KEY'])
+                         maps_api_key=current_app.config['MAPS_API_KEY'],
+                         website_hash=os.environ.get("WEBSITE_HASH"))
 
 
 #
@@ -397,7 +399,6 @@ def data():
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
-  logging.info(context_history)
 
   query = str(escape(utils.remove_punctuations(original_query)))
   res = {
@@ -421,7 +422,15 @@ def data():
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
-  utterance = fulfillment.fulfill(query_detection, prev_utterance)
+  if prev_utterance:
+    session_id = prev_utterance.session_id
+  else:
+    if current_app.config['LOG_QUERY']:
+      session_id = utils.new_session_id()
+    else:
+      session_id = constants.TEST_SESSION_ID
+
+  utterance = fulfillment.fulfill(query_detection, prev_utterance, session_id)
 
   if utterance.rankedCharts:
     page_config_pb = nl_page_config.build_page_config(utterance,
@@ -457,6 +466,21 @@ def data():
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
+  if current_app.config['LOG_QUERY']:
+    # Asynchronously log as bigtable write takes O(100ms)
+    loop = asyncio.new_event_loop()
+    session_info = context.get_session_info(context_history)
+    loop.run_until_complete(bt.write_row(session_info))
+
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
                                       context_history, dbg_counters)
+
   return data_dict
+
+
+@bp.route('/history')
+def history():
+  if (os.environ.get('FLASK_ENV') == 'production' or
+      not current_app.config['NL_MODEL']):
+    flask.abort(404)
+  return json.dumps(bt.read_success_rows())

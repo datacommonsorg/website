@@ -9,6 +9,8 @@ firebase-admin==5.3.0
 frozendict==2.3.4
 google-auth==1.35.0
 google-auth-oauthlib==0.5.2
+google-cloud-bigtable==2.15.0
+google-cloud-core==2.3.2
 google-cloud-language==2.5.1
 google-cloud-profiler==4.0.0
 google-cloud-secret-manager==2.6.0

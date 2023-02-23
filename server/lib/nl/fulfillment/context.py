@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
+from typing import Dict, List
 
+from server.lib.nl import constants
 from server.lib.nl.detection import ClassificationAttributes
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Place
@@ -132,3 +133,23 @@ def classifications_of_type_from_utterance(
     uttr: Utterance,
     ctype: ClassificationType) -> List[ClassificationAttributes]:
   return [cl for cl in uttr.classifications if cl.type == ctype]
+
+
+# `context_history` contains utterances in a given session.
+def get_session_info(context_history: List[Dict]) -> Dict:
+  session_info = {'items': []}
+  # The first entry in context_history is the most recent.
+  # Reverse the order for session_info.
+  for i in range(len(context_history)):
+    u = context_history[len(context_history) - 1 - i]
+    if 'id' not in session_info:
+      session_info['id'] = u['session_id']
+    if u['ranked_charts']:
+      s = constants.QUERY_OK
+    else:
+      s = constants.QUERY_FAILED
+    session_info['items'].append({
+        'query': u['query'],
+        'status': s,
+    })
+  return session_info

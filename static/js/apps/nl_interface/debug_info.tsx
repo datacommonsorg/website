@@ -24,6 +24,15 @@ import { Col, Row } from "reactstrap";
 
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
+const FEEDBACK_LINK =
+  "https://docs.google.com/forms/d/e/1FAIpQLSfqndIayVhN1bN5oeZT0Te-MhhBMBR1hn97Lgr77QTOpga8Iw/viewform?usp=pp_url";
+// Param prefixes found when following the instructions here to get a prefilled
+// link: https://support.google.com/docs/answer/2839588?hl=en&ref_topic=6063592#zippy=%2Csend-a-form-with-pre-filled-answers
+const QUERY_PARAM_PREFIX = "&entry.1322830239=";
+const SOURCE_PARAM_PREFIX = "&entry.1070482700=";
+const VERSION_PARAM_PREFIX = "&entry.1420739572=";
+const QUERY_CHAIN_PARAM_PREFIX = "&entry.1836374054=";
+
 const svToSentences = (
   svScores: SVScores,
   svSentences: Map<string, Array<string>>
@@ -45,9 +54,11 @@ const svToSentences = (
                 <tr key={sv}>
                   <td>{sv}</td>
                   <td>
-                    {svSentences[sv].map((sentence) => {
-                      return <tr key={sentence}>{sentence}</tr>;
-                    })}
+                    <ul>
+                      {svSentences[sv].map((sentence) => {
+                        return <li key={sentence}>{sentence}</li>;
+                      })}
+                    </ul>
                   </td>
                 </tr>
               );
@@ -86,6 +97,24 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
   );
 };
 
+function getFeedbackLink(query: string, queryChain: string[]): string {
+  const paramMap = {
+    [QUERY_PARAM_PREFIX]: query,
+    [SOURCE_PARAM_PREFIX]: window.location.toString(),
+    [VERSION_PARAM_PREFIX]:
+      document.getElementById("metadata").dataset.websiteHash || "",
+    [QUERY_CHAIN_PARAM_PREFIX]: JSON.stringify(queryChain),
+  };
+  let link = FEEDBACK_LINK;
+  Object.keys(paramMap).forEach((prefix) => {
+    const value = paramMap[prefix];
+    if (value) {
+      link += `${prefix}${value}`;
+    }
+  });
+  return encodeURI(link);
+}
+
 export interface DebugInfoProps {
   debugData: any; // from the server response
 }
@@ -123,6 +152,13 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     setShowDebug(!showDebug);
   };
 
+  const queryChain = Array.isArray(debugInfo.dataSpec)
+    ? debugInfo.dataSpec.map((utterance) => utterance["query"] || "")
+    : [];
+  const feedbackLink = getFeedbackLink(
+    debugInfo.originalQuery,
+    queryChain.reverse()
+  );
   return (
     <>
       {!showDebug && (
@@ -135,6 +171,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <a className="debug-info-toggle hide" onClick={toggleShowDebug}>
             X
           </a>
+          <Row className="feedback-link">
+            <a href={feedbackLink} target="_blank" rel="noreferrer">
+              Share Feedback
+            </a>
+          </Row>
           <Row>
             <b>DEBUGGING OPTIONS/INFO: </b>
             <br></br>
