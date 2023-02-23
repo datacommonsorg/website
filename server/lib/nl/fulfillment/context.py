@@ -135,6 +135,7 @@ def classifications_of_type_from_utterance(
   return [cl for cl in uttr.classifications if cl.type == ctype]
 
 
+# `context_history` contains utterances in a given session.
 def get_session_info(context_history: List[Dict]) -> Dict:
   session_info = {'items': []}
   # The first entry in context_history is the most recent.

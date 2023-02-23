@@ -267,17 +267,17 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
   prev_uttr = None
   for i in range(len(uttr_dicts)):
     udict = uttr_dicts[len(uttr_dicts) - 1 - i]
-    uttr = Utterance(
-        prev_utterance=prev_uttr,
-        query=udict['query'],
-        query_type=QueryType(udict['query_type']),
-        svs=udict['svs'],
-        places=_dict_to_place(udict['places']),
-        classifications=_dict_to_classification(udict['classifications']),
-        rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
-        detection=None,
-        chartCandidates=None,
-        answerPlaces=None,
-        session_id=udict.get('session_id', constants.TEST_SESSION_ID))
+    uttr = Utterance(prev_utterance=prev_uttr,
+                     query=udict['query'],
+                     query_type=QueryType(udict['query_type']),
+                     svs=udict['svs'],
+                     places=_dict_to_place(udict['places']),
+                     classifications=_dict_to_classification(
+                         udict['classifications']),
+                     rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
+                     detection=None,
+                     chartCandidates=None,
+                     answerPlaces=None,
+                     session_id=udict['session_id'])
     prev_uttr = uttr
   return uttr
