@@ -18,6 +18,7 @@ import datetime
 import json
 import logging
 import os
+import random
 import re
 from typing import Dict, List, Set, Union
 
@@ -798,3 +799,12 @@ def has_map(place_type: any) -> bool:
   if isinstance(place_type, str):
     place_type = detection.ContainedInPlaceType(place_type)
   return place_type in constants.MAP_PLACE_TYPES
+
+
+def new_session_id() -> str:
+  # Convert seconds to microseconds
+  micros = int(datetime.datetime.now().timestamp() * 1000000)
+  # Add some randomness to avoid clashes
+  rand = random.randrange(1000)
+  # Prefix randomness since session_id gets used as BT key
+  return str(rand) + '_' + str(micros)
