@@ -25,7 +25,6 @@ def get_config():
   try:
     cfg = import_string(config_class)()
     cfg.ENV = env
-    logging.info(cfg)
     return cfg
   except:
     raise ValueError("No valid config class is specified: %s" % config_class)

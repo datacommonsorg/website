@@ -45,16 +45,16 @@ class TestConfig(unittest.TestCase):
                              'MAPS_API_KEY': '',
                              'SCHEME': 'http',
                          }),
-                         ('lite', {
+                         ('production', {
                              'TEST': False,
                              'WEBDRIVER': False,
-                             'LOCAL': True,
-                             'LITE': True,
-                             'API_ROOT': 'https://autopush.api.datacommons.org',
+                             'LOCAL': False,
+                             'LITE': False,
+                             'API_ROOT': 'http://127.0.0.1:8081',
                              'SECRET_PROJECT': '',
-                             'GA_ACCOUNT': '',
+                             'GA_ACCOUNT': 'UA-117119267-1',
                              'MAPS_API_KEY': '',
-                             'SCHEME': 'http',
+                             'SCHEME': 'https',
                          }),
                          ('webdriver', {
                              'TEST': False,
