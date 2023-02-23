@@ -52,16 +52,26 @@ export function PlaceOverviewTile(
     return null;
   }
 
+  // Overview should only show ranking if the place is inside the USA
+  // Also use 'Learn _more_ about' if place is inside the USA
+  const isUsaPlace = props.place.dcid.startsWith("geoId/");
+
   return (
     <>
       <div className="chart-container place-overview-tile">
         <RawIntlProvider value={intl}>
-          <Overview dcid={props.place.dcid} locale="en" />
+          <Overview
+            dcid={props.place.dcid}
+            showRanking={isUsaPlace}
+            locale="en"
+          />
         </RawIntlProvider>
       </div>
       {!_.isEmpty(subtopics) && (
         <div className="subtopics-section">
-          <h3>Learn more about {props.place.name}:</h3>
+          <h3>
+            Learn {isUsaPlace && "more "}about {props.place.name}:
+          </h3>
           <div className="subtopic-links-container">
             {subtopics.map((subTopic, i) => {
               return (
