@@ -36,6 +36,7 @@ from server.lib.nl.detection import Place
 from server.lib.nl.detection import PlaceDetection
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import SVDetection
+import server.lib.nl.constants as nl_constants
 import server.lib.nl.fulfiller as fulfillment
 import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
@@ -451,15 +452,18 @@ def data():
   status_str = "Successful"
   if utterance.rankedCharts:
     status_str = ""
-    if current_app.config['LOG_QUERY']:
-      # Asynchronously log as bigtable write takes O(100ms)
-      loop = asyncio.new_event_loop()
-      loop.run_until_complete(bt.write_row(original_query))
+    status = nl_constants.QUERY_OK
   else:
+    status = nl_constants.QUERY_FAILED
     if not utterance.places:
       status_str += '**No Place Found**.'
     if not utterance.svs:
       status_str += '**No SVs Found**.'
+
+  if current_app.config['LOG_QUERY']:
+    # Asynchronously log as bigtable write takes O(100ms)
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(bt.write_row(original_query, status))
 
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
                                       context_history, dbg_counters)

@@ -433,3 +433,6 @@ MAP_PLACE_TYPES = frozenset([
 ADDITIONAL_DENOMINATOR_VARS = {
     "MapFacts/Count_park": ("SurfaceArea", "per Square Mile"),
 }
+
+QUERY_OK = 'ok'
+QUERY_FAILED = 'failed'
