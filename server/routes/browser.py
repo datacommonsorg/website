@@ -28,7 +28,7 @@ bp = Blueprint('browser', __name__, url_prefix='/browser')
 
 @bp.route('/')
 def browser_main():
-  if g.env_name == 'IITM':
+  if g.env == 'iitm':
     return render_template('custom_dc/iitm/browser_landing.html')
   return render_template('/browser/landing.html')
 
