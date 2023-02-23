@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import os
 
 import flask
 from flask import current_app
@@ -52,14 +53,25 @@ _DOWNLOAD_INFO_DCIDS_IITM = [
 ]
 
 
+def get_example_file(tool):
+  example_file = os.path.join(current_app.root_path, 'templates/custom_dc',
+                              g.env, '{}_examples.json'.format(tool))
+  if os.path.exists(example_file):
+    return example_file
+
+  return os.path.join(
+      current_app.root_path,
+      'templates/custom_dc/default/{}_examples.json'.format(tool))
+
+
 @bp.route('/timeline')
 def timeline():
-  info_json = "custom_dc/default/timeline_examples.json"
-  if g.env == 'iitm':
-    info_json = "custom_dc/iitm/timeline_examples.json"
-  return flask.render_template('tools/timeline.html',
-                               info_json=info_json,
-                               maps_api_key=current_app.config['MAPS_API_KEY'])
+  with open(get_example_file('timeline')) as f:
+    info_json = json.load(f)
+    return flask.render_template(
+        'tools/timeline.html',
+        info_json=info_json,
+        maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 # This tool is used by the Harvard Data Science course
@@ -71,26 +83,23 @@ def timeline_bulk_download():
 @bp.route('/map')
 def map():
   allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
-
-  info_json = "custom_dc/default/map_examples.json"
-  if g.env == 'iitm':
-    info_json = "custom_dc/iitm/map_examples.json"
-
-  return flask.render_template('tools/map.html',
-                               maps_api_key=current_app.config['MAPS_API_KEY'],
-                               info_json=info_json,
-                               allow_leaflet=allow_leaflet)
+  with open(get_example_file('map')) as f:
+    info_json = json.load(f)
+    return flask.render_template(
+        'tools/map.html',
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        info_json=info_json,
+        allow_leaflet=allow_leaflet)
 
 
 @bp.route('/scatter')
 def scatter():
-  info_json = "custom_dc/default/scatter_examples.json"
-  if g.env == 'iitm':
-    info_json = "custom_dc/iitm/scatter_examples.json"
-
-  return flask.render_template('tools/scatter.html',
-                               info_json=info_json,
-                               maps_api_key=current_app.config['MAPS_API_KEY'])
+  with open(get_example_file('scatter')) as f:
+    info_json = json.load(f)
+    return flask.render_template(
+        'tools/scatter.html',
+        info_json=info_json,
+        maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/statvar')
