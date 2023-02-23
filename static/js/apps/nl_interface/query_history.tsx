@@ -32,7 +32,7 @@ export function QueryHistory(): JSX.Element {
 
   return (
     <>
-      {history && (
+      {history && history.length > 0 && (
         <div className="container nl-history">
           <h1>Recent queries</h1>
           {history.map((query, i) => {
