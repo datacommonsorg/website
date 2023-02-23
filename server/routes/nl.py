@@ -366,7 +366,8 @@ def page():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
   return render_template('/nl_interface.html',
-                         maps_api_key=current_app.config['MAPS_API_KEY'])
+                         maps_api_key=current_app.config['MAPS_API_KEY'],
+                         website_hash=os.environ.get("WEBSITE_HASH"))
 
 
 #
@@ -392,11 +393,10 @@ def data():
     logging.error('Unable to load event configs!')
 
   original_query = request.args.get('q')
-  if not current_app.config['INTEGRATION']:
+  if current_app.config['LOG_QUERY']:
     # Fire query logging and forget as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     loop.run_until_complete(bt.write_row(original_query))
-    ##
   context_history = []
   escaped_context_history = []
   if request.get_json():

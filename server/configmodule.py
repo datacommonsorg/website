@@ -40,6 +40,10 @@ class Config:
   API_PROJECT = ''
   # Set this to False if the deployment has frequently updated data.
   USE_MEMCACHE = True
+  # Whether to log the query (and make them avaiable in query history interface)
+  # Eanbling this to "True" requires adding "bigtable/user" acccess for the
+  # service account in datcom-store IAM settings
+  LOG_QUERY = False
 
 
 class ProductionConfig(Config):
@@ -50,18 +54,17 @@ class ProductionConfig(Config):
 class StagingConfig(Config):
   GA_ACCOUNT = 'UA-117119267-2'
   ENABLE_BLOCKLIST = True
-  pass
 
 
 class AutopushConfig(Config):
   GA_ACCOUNT = 'G-Y6ZXZ9JK3H'
   GCS_BUCKET = 'datcom-website-autopush-resources'
-  pass
+  LOG_QUERY = True
 
 
 class DevConfig(Config):
   GCS_BUCKET = 'datcom-website-autopush-resources'
-  pass
+  LOG_QUERY = True
 
 
 class CustomConfig(Config):
@@ -126,6 +129,7 @@ class LocalBaseConfig(Config):
       os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
   SCHEME = 'http'
   GCS_BUCKET = 'datcom-website-autopush-resources'
+  LOG_QUERY = True
 
 
 class LocalConfig(LocalBaseConfig):
