@@ -229,11 +229,6 @@ $text-color: inherit;
   color: $question-text-color;
 }
 
-.form-control:focus {
-  // Override the red border which looks like an error.
-  border-color: var(--dark) !important;
-}
-
 .expando,
 .expando:hover,
 h2,
