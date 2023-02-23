@@ -34,7 +34,7 @@ export function QueryHistory(): JSX.Element {
     <>
       {history && (
         <div className="container nl-history">
-          <h1>Query History</h1>
+          <h1>Recent queries</h1>
           {history.map((query, i) => {
             return <div key={i}>{query}</div>;
           })}
@@ -47,12 +47,11 @@ export function QueryHistory(): JSX.Element {
     axios.get(`/nl/history`).then((resp) => {
       const result = [];
       for (const item of resp.data) {
-        if (result.includes(item["query"])) {
+        if (result.includes(item["query_list"])) {
           continue;
         }
-        result.push(item["query"]);
+        result.push(item["query_list"][0]);
         if (result.length == MAX_QUERY_COUNT) {
-          result.push("......");
           break;
         }
       }
