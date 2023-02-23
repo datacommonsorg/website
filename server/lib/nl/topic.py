@@ -272,7 +272,7 @@ _SVPG_NAMES_OVERRIDE = {
     "dc/svpg/FossilFuelOperationsEmissions":
         "Fossil Fuel Operations Emissions",
     "dc/svpg/TransportationEmissions":
-        "Transportation Emisisons"
+        "Transportation Emissions"
 }
 
 _SVPG_DESC_OVERRIDE = {
