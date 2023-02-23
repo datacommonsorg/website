@@ -13,11 +13,12 @@
 # limitations under the License.
 
 from server.app_env import _base
+from server.app_env import local
 
 
 class Config(_base.Config):
   CUSTOM = True
 
 
-class LocalConfig(Config):
+class LocalConfig(Config, local.Config):
   LITE = True

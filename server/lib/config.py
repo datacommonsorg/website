@@ -21,7 +21,13 @@ from werkzeug.utils import import_string
 def get_config():
   env = os.environ.get('FLASK_ENV')
   prefix = os.environ.get('ENV_PREFIX', '')
-  config_class = 'server.app_env.{}.{}Config'.format(env, prefix)
+  if env == 'custom':
+    # This is for customer hosted custom DC. All files, including the config
+    # module is in <repo_root>/custom_dc/ folder
+    config_class = 'custom_dc.custom.{}Config'.format(prefix)
+  else:
+    config_class = 'server.app_env.{}.{}Config'.format(env, prefix)
+
   try:
     cfg = import_string(config_class)()
     cfg.ENV = env
