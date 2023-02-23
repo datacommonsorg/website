@@ -132,7 +132,11 @@ class MainPane extends React.Component<MainPanePropType> {
     return (
       <RawIntlProvider value={intl}>
         {this.showOverview() && (
-          <Overview dcid={this.props.dcid} locale={this.props.locale} />
+          <Overview
+            dcid={this.props.dcid}
+            showRanking={true}
+            locale={this.props.locale}
+          />
         )}
         {topics.map((topic: string, index: number) => {
           if (isOverview) {

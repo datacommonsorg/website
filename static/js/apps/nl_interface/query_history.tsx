@@ -47,10 +47,15 @@ export function QueryHistory(): JSX.Element {
     axios.get(`/nl/history`).then((resp) => {
       const result = [];
       for (const item of resp.data) {
-        if (result.includes(item["query_list"])) {
+        const queryList = item["query_list"];
+        if (
+          queryList === undefined ||
+          queryList.length === 0 ||
+          result.includes(queryList[0])
+        ) {
           continue;
         }
-        result.push(item["query_list"][0]);
+        result.push(queryList[0]);
         if (result.length == MAX_QUERY_COUNT) {
           break;
         }
