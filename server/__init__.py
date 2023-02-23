@@ -36,9 +36,9 @@ import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 import server.lib.util as libutil
+import server.services.ai as ai
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
-import server.services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
