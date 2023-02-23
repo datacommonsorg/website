@@ -237,10 +237,6 @@ $search-section-bottom-height: 7rem;
       height: 100%;
     }
   }
-
-  .subtopics-section a {
-    color: $text-color;
-  }
 }
 
 .nl-query h2 {
@@ -255,7 +251,8 @@ h3,
 .block .block-footer,
 .disaster-event-map-selectors-section,
 .disaster-event-map-severity-filters .disaster-type-filters,
-.nl-query-error p {
+.nl-query-error p,
+.subtopics-section a {
   color: $text-color;
 }
 
