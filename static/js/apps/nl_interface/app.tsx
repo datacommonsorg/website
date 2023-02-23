@@ -18,7 +18,6 @@
  * Main component for NL interface.
  */
 
-import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
