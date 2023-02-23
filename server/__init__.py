@@ -36,6 +36,7 @@ import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 import server.lib.util as libutil
+import server.services.ai as ai
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 
@@ -288,7 +289,11 @@ def create_app():
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  # Initialize the AI module.
+  # Enable the AI module.
+  if cfg.ENABLE_AI:
+    app.config['AI_CONTEXT'] = ai.Context()
+
+  #   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
