@@ -350,7 +350,7 @@ ul.footer_nav_redesign {
   text-align: left;
 }
 .social_icons li a {
-  background-image: url(/images/fa/sprites.png);
+  background-image: url(../images/sprites.png);
 }
 .social_icons li.fbk a,
 .social_icons li.fbk a:focus,
