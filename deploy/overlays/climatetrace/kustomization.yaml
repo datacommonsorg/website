@@ -26,6 +26,7 @@ configMapGenerator:
     literals:
       - flaskEnv=custom
       - secretProject=datcom-mixer-encode
+      - enableModel=true
     name: website-configmap
   - behavior: create
     literals:
