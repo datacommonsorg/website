@@ -53,6 +53,7 @@ SIMPLE_PLACE_ONLY_UTTR = {
         'svs': []
     }],
     'svs': [],
+    'session_id': '007_999999999',
 }
 
 # Utterance for Place Overview.
@@ -89,6 +90,7 @@ OVERVIEW_PLACE_ONLY_UTTR = {
         'svs': []
     }],
     'svs': [],
+    'session_id': '007_999999999',
 }
 
 # Utterance for a couple of simple SVs for a place.
@@ -142,7 +144,8 @@ SIMPLE_UTTR = {
         'event': None,
         'svs': ['Count_Person_Female']
     }],
-    'svs': ['Count_Person_Male', 'Count_Person_Female']
+    'svs': ['Count_Person_Male', 'Count_Person_Female'],
+    'session_id': '007_999999999',
 }
 
 # Utterance for a simple SV with peer SV extensions.
@@ -196,7 +199,8 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         'event': None,
         'svs': ['Count_Person_Male', 'Count_Person_Female']
     }],
-    'svs': ['Count_Person_Male']
+    'svs': ['Count_Person_Male'],
+    'session_id': '007_999999999',
 }
 
 # Utterance for a simple topic expansion.
@@ -270,7 +274,8 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'event': None,
         'svs': ['FarmInventory_Rice', 'FarmInventory_Barley']
     }],
-    'svs': ['dc/topic/Agriculture']
+    'svs': ['dc/topic/Agriculture'],
+    'session_id': '007_999999999',
 }
 
 # Utterance for comparison across places.
@@ -335,7 +340,8 @@ COMPARISON_UTTR = {
         'event': None,
         'svs': ['Count_Person_Female']
     }],
-    'svs': []
+    'svs': [],
+    'session_id': '007_999999999',
 }
 
 # Utterance for county contained-in place.
@@ -389,7 +395,8 @@ CONTAINED_IN_UTTR = {
         'event': None,
         'svs': ['Income_Farm']
     }],
-    'svs': ['Count_Farm', 'Income_Farm']
+    'svs': ['Count_Farm', 'Income_Farm'],
+    'session_id': '007_999999999',
 }
 
 # Utterance for correlation wrt previous SV.
@@ -442,7 +449,8 @@ CORRELATION_UTTR = {
         'event': None,
         'svs': ['Income_Farm', 'Mean_Precipitation']
     }],
-    'svs': ['Mean_Precipitation']
+    'svs': ['Mean_Precipitation'],
+    'session_id': '007_999999999',
 }
 
 # Utterance for highest for an SV among places.
@@ -479,7 +487,8 @@ RANKING_ACROSS_PLACES_UTTR = {
         'event': None,
         'svs': ['Count_Agricultural_Workers']
     }],
-    'svs': ['Count_Agricultural_Workers']
+    'svs': ['Count_Agricultural_Workers'],
+    'session_id': '007_999999999',
 }
 
 # Utterance for ranking among SVs.
@@ -516,7 +525,8 @@ RANKING_ACROSS_SVS_UTTR = {
             'FarmInventory_Barley', 'FarmInventory_Rice', 'FarmInventory_Wheat'
         ]
     }],
-    'svs': ['dc/topic/Agriculture']
+    'svs': ['dc/topic/Agriculture'],
+    'session_id': '007_999999999',
 }
 
 # Utterance for time-delta query
@@ -589,7 +599,8 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'event': None,
         'svs': ['FarmInventory_Wheat']
     }],
-    'svs': ['dc/topic/AgricultureProduction']
+    'svs': ['dc/topic/AgricultureProduction'],
+    'session_id': '007_999999999',
 }
 
 # Sample as SIMPLE_UTTR, but TIMELINE_CHARTs turned into BAR_CHARTs.
@@ -643,7 +654,8 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'event': None,
         'svs': ['Count_Person_Female']
     }],
-    'svs': ['Count_Person_Male', 'Count_Person_Female']
+    'svs': ['Count_Person_Male', 'Count_Person_Female'],
+    'session_id': '007_999999999',
 }
 
 EVENT_UTTR = {
@@ -682,5 +694,6 @@ EVENT_UTTR = {
         'event': EventType.FIRE,
         'svs': []
     }],
-    'svs': []
+    'svs': [],
+    'session_id': '007_999999999',
 }
