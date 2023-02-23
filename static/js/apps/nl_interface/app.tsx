@@ -180,7 +180,7 @@ export function App(): JSX.Element {
   ));
 
   return (
-    <div id="dc-nl-interface">
+    <>
       <div id="results-thread-container">{queryResults}</div>
 
       <QuerySearch
@@ -192,6 +192,6 @@ export function App(): JSX.Element {
           }
         }}
       />
-    </div>
+    </>
   );
 }
