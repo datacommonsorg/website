@@ -259,3 +259,9 @@ $theme-colors: (
   display: flex;
   align-items: center;
 }
+
+// Bootstrap adds a red focus state which looks like an error.
+.form-control:focus {
+  border-color: var(--dark) !important;
+  box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 15%) !important;
+}

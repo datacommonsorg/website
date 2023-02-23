@@ -18,7 +18,6 @@
  * Main component for NL interface.
  */
 
-import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
@@ -34,7 +33,15 @@ export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const urlPrompts = useRef(getUrlPrompts());
-  const autoRun = useRef(getUrlToken("a"));
+  // Timer used to input characters from a single prompt with
+  // CHARACTER_INPUT_INTERVAL ms between each character.
+  const inputIntervalTimer = useRef(null);
+  // Timer used to wait NEXT_PROMPT_DELAY ms before inputting a new prompt.
+  const nextPromptDelayTimer = useRef(null);
+  // Timer used to wait PROMPT_SEARCH_DELAY ms before searching for an inputted
+  // prompt.
+  const searchDelayTimer = useRef(null);
+  const autoRun = getUrlToken("a");
 
   // Updates the query search input box value.
   function updateSearchInput(input: string) {
@@ -62,73 +69,44 @@ export function App(): JSX.Element {
     if (!prompt) {
       return;
     }
-    let pause = delayStart;
-    let inputLength = 1;
-    setTimeout(() => {
-      pause = false;
-    }, NEXT_PROMPT_DELAY);
-    const inputTimer = setInterval(() => {
-      if (pause) {
-        return;
-      }
-      if (inputLength <= prompt.length) {
-        updateSearchInput(prompt.substring(0, inputLength));
-      }
-      if (inputLength === prompt.length) {
-        clearInterval(inputTimer);
-        return;
-      }
-      inputLength++;
-    }, CHARACTER_INPUT_INTERVAL);
+    const nextPromptDelay = delayStart ? NEXT_PROMPT_DELAY : 0;
+    nextPromptDelayTimer.current = setTimeout(() => {
+      let inputLength = 1;
+      inputIntervalTimer.current = setInterval(() => {
+        if (inputLength <= prompt.length) {
+          updateSearchInput(prompt.substring(0, inputLength));
+        }
+        if (inputLength === prompt.length) {
+          clearInterval(inputIntervalTimer.current);
+          // If on autorun, search for the current input after
+          // PROMPT_SEARCH_DELAY ms.
+          if (autoRun) {
+            searchDelayTimer.current = setTimeout(() => {
+              executeSearch();
+            }, PROMPT_SEARCH_DELAY);
+          }
+          return;
+        }
+        inputLength++;
+      }, CHARACTER_INPUT_INTERVAL);
+    }, nextPromptDelay);
   }
 
   useEffect(() => {
-    if (!autoRun.current) {
-      // TODO (chejennifer): See if there's a way to clean up the query input
-      // functions & share the code for autorun vs. not
-      inputNextPrompt(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Runs each prompt (';' separated) 10s apart.
+    // If there are prompts in the url, automatically input the first prompt
+    // into the search box.
+    // If autoRun is enabled, runs every prompt (';' separated) from the url.
     // TODO: Do this by going through state/props instead of directly
     // manipulating the DOM.
-    if (autoRun.current) {
-      if (urlPrompts.current.length) {
-        let prompt = urlPrompts.current.shift();
-        let inputLength = 1;
-        let pauseQueryInput = false;
-        const inputTimer = setInterval(() => {
-          if (!prompt) {
-            clearInterval(inputTimer);
-            return;
-          }
-          if (pauseQueryInput) {
-            return;
-          }
-          if (inputLength <= prompt.length) {
-            updateSearchInput(prompt.substring(0, inputLength));
-          }
-          if (inputLength === prompt.length) {
-            pauseQueryInput = true;
-            setTimeout(() => {
-              // Search for the current input after PROMPT_SEARCH_DELAY ms.
-              executeSearch();
-              setTimeout(() => {
-                // Start typing the input for the next prompt after
-                // NEXT_PROMPT_DELAY ms.
-                pauseQueryInput = false;
-                prompt = urlPrompts.current.shift();
-                inputLength = 1;
-              }, NEXT_PROMPT_DELAY);
-            }, PROMPT_SEARCH_DELAY);
-          }
-          inputLength++;
-        }, CHARACTER_INPUT_INTERVAL);
-        return () => clearInterval(inputTimer);
-      }
+    if (urlPrompts.current.length) {
+      inputNextPrompt(false);
     }
+    return () => {
+      // When component unmounts, clear all timers
+      clearInterval(inputIntervalTimer.current);
+      clearTimeout(searchDelayTimer.current);
+      clearTimeout(nextPromptDelayTimer.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -192,7 +170,8 @@ export function App(): JSX.Element {
           queries={queries}
           onQuerySearched={(q) => {
             setQueries([...queries, q]);
-            if (!autoRun.current) {
+            // If there are prompts from the url, input the next one
+            if (urlPrompts.current.length) {
               inputNextPrompt(true);
             }
           }}
