@@ -18,7 +18,6 @@ import logging
 
 from flask import Blueprint
 from flask import current_app
-from flask import g
 from flask import render_template
 
 import server.routes.api.shared as shared_api
@@ -28,7 +27,7 @@ bp = Blueprint('browser', __name__, url_prefix='/browser')
 
 @bp.route('/')
 def browser_main():
-  if g.env_name == 'IITM':
+  if current_app.config['ENV'].startswith('iitm'):
     return render_template('custom_dc/iitm/browser_landing.html')
   return render_template('/browser/landing.html')
 

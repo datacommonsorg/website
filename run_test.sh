@@ -149,7 +149,7 @@ function run_webdriver_test {
 function run_integration_test {
   setup_python
   export ENABLE_MODEL=true
-  export FLASK_ENV=integration-test
+  export FLASK_ENV=nl_integration
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
   python3 -m pytest -vv server/integration_tests/
@@ -205,7 +205,7 @@ while getopts tpwigotblcsaf OPTION; do
         ;;
     g)
         echo -e "### Updating integration test goldens"
-        update_integration_test_golden 
+        update_integration_test_golden
         ;;
     o)
         echo -e "### Production flag enabled"

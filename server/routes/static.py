@@ -18,6 +18,7 @@ import os
 
 import babel.dates as babel_dates
 from flask import Blueprint
+from flask import current_app
 from flask import g
 from flask import render_template
 
@@ -28,15 +29,16 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-  if g.env_name == 'FEEDINGAMERICA':
+  env = current_app.config['ENV']
+  if env == 'feeding_america':
     return render_template('custom_dc/feedingamerica/homepage.html')
-  if g.env_name == 'IITM':
+  if env == 'iitm':
     return render_template('custom_dc/iitm/homepage.html')
-  if g.env_name == 'STANFORD':
+  if env == 'stanford':
     return render_template('custom_dc/stanford/homepage.html')
-  if g.env_name == 'STANFORD-STAGING':
+  if env == 'stanford_staging':
     return render_template('custom_dc/stanford/homepage.html')
-  if g.env_name == 'CUSTOM':
+  if env == 'custom':
     return render_template('custom_dc/default/homepage.html')
   blog_date = babel_dates.format_date(date(2021, 7, 26),
                                       format='long',
@@ -46,9 +48,10 @@ def homepage():
 
 @bp.route('/about')
 def about():
-  if g.env_name == 'FEEDINGAMERICA':
+  env = current_app.config['ENV']
+  if env == 'feeding_america':
     return render_template('custom_dc/feedingamerica/about.html')
-  if g.env_name == 'IITM':
+  if env == 'iitm':
     return render_template('custom_dc/iitm/about.html')
   return render_template('static/about.html')
 
@@ -57,7 +60,7 @@ def about():
 def faq():
   current_date = date.today().strftime('%-d %b %Y')
   current_year = date.today().strftime('%Y')
-  if g.env_name == 'IITM':
+  if current_app.config['ENV'] == 'iitm':
     return render_template('custom_dc/iitm/faq.html',
                            current_date=current_date,
                            current_year=current_year)
@@ -73,7 +76,7 @@ def disclaimers():
 
 @bp.route('/feedback')
 def feedback():
-  if g.env_name == 'IITM':
+  if current_app.config['ENV'] == 'iitm':
     return render_template('custom_dc/iitm/feedback.html')
   return render_template('static/feedback.html')
 

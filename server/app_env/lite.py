@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
-import os
-
-from werkzeug.utils import import_string
+from server.app_env import local
 
 
-def get_config():
-  env = os.environ.get('FLASK_ENV')
-  prefix = os.environ.get('ENV_PREFIX', '')
-  config_class = 'server.app_env.{}.{}Config'.format(env, prefix)
-  try:
-    cfg = import_string(config_class)()
-    cfg.ENV = env
-    logging.info(cfg)
-    return cfg
-  except:
-    raise ValueError("No valid config class is specified: %s" % config_class)
+class LocalConfig(local.Config):
+  SECRET_PROJECT = ''
+  LITE = True
