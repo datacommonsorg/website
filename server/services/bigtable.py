@@ -19,6 +19,7 @@ from flask import current_app
 import google.auth
 from google.cloud import bigtable
 from google.cloud.bigtable import row_filters
+
 import server.lib.nl.constants as nl_constants
 
 _PROJECT_ID = 'datcom-store'
@@ -57,7 +58,7 @@ async def write_row(query, status):
   table.mutate_rows([row])
 
 
-def read_row():
+def read_success_rows():
   project_id = get_project_id()
   # Fetch recent queries
   start = datetime.now() - timedelta(days=_SPAN_IN_DAYS)

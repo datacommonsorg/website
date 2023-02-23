@@ -36,7 +36,6 @@ from server.lib.nl.detection import Place
 from server.lib.nl.detection import PlaceDetection
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import SVDetection
-import server.lib.nl.constants as nl_constants
 import server.lib.nl.fulfiller as fulfillment
 import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
@@ -452,9 +451,9 @@ def data():
   status_str = "Successful"
   if utterance.rankedCharts:
     status_str = ""
-    status = nl_constants.QUERY_OK
+    status = constants.QUERY_OK
   else:
-    status = nl_constants.QUERY_FAILED
+    status = constants.QUERY_FAILED
     if not utterance.places:
       status_str += '**No Place Found**.'
     if not utterance.svs:
@@ -476,4 +475,4 @@ def history():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
-  return json.dumps(bt.read_row())
+  return json.dumps(bt.read_success_rows())
