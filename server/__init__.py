@@ -38,6 +38,7 @@ import server.lib.i18n as i18n
 import server.lib.util as libutil
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
+import server.services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -288,7 +289,11 @@ def create_app():
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  # Initialize the AI module.
+  # Enable the AI module.
+  if cfg.ENABLE_AI:
+    app.config['AI_CONTEXT'] = ai.Context()
+
+  #   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
