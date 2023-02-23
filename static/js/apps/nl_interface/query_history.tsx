@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 const MAX_QUERY_COUNT = 20;
@@ -32,7 +33,7 @@ export function QueryHistory(): JSX.Element {
 
   return (
     <>
-      {history && history.length > 0 && (
+      {!_.isEmpty(history) && (
         <div className="container nl-history">
           <h1>Recent queries</h1>
           {history.map((query, i) => {
