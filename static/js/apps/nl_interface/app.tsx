@@ -33,10 +33,15 @@ export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const urlPrompts = useRef(getUrlPrompts());
-  const autoRun = useRef(getUrlToken("a"));
+  // Timer used to input characters from a single prompt with
+  // CHARACTER_INPUT_INTERVAL ms between each character.
   const inputIntervalTimer = useRef(null);
+  // Timer used to wait NEXT_PROMPT_DELAY ms before inputting a new prompt.
   const nextPromptDelayTimer = useRef(null);
+  // Timer used to wait PROMPT_SEARCH_DELAY ms before searching for an inputted
+  // prompt.
   const searchDelayTimer = useRef(null);
+  const autoRun = getUrlToken("a");
 
   // Updates the query search input box value.
   function updateSearchInput(input: string) {
@@ -75,7 +80,7 @@ export function App(): JSX.Element {
           clearInterval(inputIntervalTimer.current);
           // If on autorun, search for the current input after
           // PROMPT_SEARCH_DELAY ms.
-          if (autoRun.current) {
+          if (autoRun) {
             searchDelayTimer.current = setTimeout(() => {
               executeSearch();
             }, PROMPT_SEARCH_DELAY);
