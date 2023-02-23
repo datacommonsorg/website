@@ -120,7 +120,7 @@ def place_landing():
   """Returns filled template for the place landing page."""
   landing_dcids = _PLACE_LANDING_DCIDS
   template = 'place_landing.html'
-  if current_app.config['ENV'].startswith('IITM'):
+  if current_app.config['ENV'] == 'IITM':
     landing_dcids = _PLACE_LANDING_DCIDS_IITM
     template = 'custom_dc/iitm/place_landing.html'
   # Use display names (including state, if applicable) for the static page
