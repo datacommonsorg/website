@@ -134,7 +134,7 @@ class MainPane extends React.Component<MainPanePropType> {
         {this.showOverview() && (
           <Overview
             dcid={this.props.dcid}
-            showRanking={this.props.dcid.startsWith("geoId/")}
+            showRanking={true}
             locale={this.props.locale}
           />
         )}
