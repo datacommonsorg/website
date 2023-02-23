@@ -199,9 +199,12 @@ $answer-min-height: 100vh;
       padding: 0.25rem;
     }
 
+    .overview-with-ranking .map-container {
+      margin-right: 15px;
+    }
+
     .map-container {
       height: 100%;
-      margin-right: 15px;
     }
   }
 }
