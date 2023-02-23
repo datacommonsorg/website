@@ -237,6 +237,10 @@ $search-section-bottom-height: 7rem;
       height: 100%;
     }
   }
+
+  .subtopics-section a {
+    color: $text-color;
+  }
 }
 
 .nl-query h2 {
