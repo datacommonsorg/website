@@ -12,54 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 
 from werkzeug.utils import import_string
 
-ENV = {
-    # Production
-    'production',
-    # Staging
-    'staging',
-    # Autopush
-    'autopush',
-    # Custom
-    'custom',
-    'feedingamerica',
-    'stanford',
-    'stanford-staging',
-    'tidal',
-    'iitm',
-    # Dev
-    'dev',
-    # Test
-    'test',
-    'integration-test',
-    # Webdriver
-    'webdriver',
-    # Minikube
-    'minikube',
-    # Local
-    'local',
-    'local-lite',
-    'local-custom',
-    'local-iitm',
-    'local-feedingamerica',
-    'local-stanford',
-}
-
-
-def map_config_string(env):
-  index = env.find('-')
-  env_list = list(env)
-  env_list[index + 1] = env[index + 1].upper()
-  env_list[0] = env[0].upper()
-  env_updated = "".join(env_list).replace('-', '')
-  return 'server.configmodule.{}Config'.format(env_updated)
-
 
 def get_config():
   env = os.environ.get('FLASK_ENV')
-  if env in ENV:
-    return import_string(map_config_string(env))()
-  raise ValueError("No valid FLASK_ENV is specified: %s" % env)
+  prefix = os.environ.get('ENV_PREFIX', '')
+  if env == 'custom':
+    # This is for customer hosted custom DC. All files, including the config
+    # module is in <repo_root>/custom_dc/ folder
+    config_class = 'custom_dc.env.{}Config'.format(prefix)
+  else:
+    config_class = 'server.app_env.{}.{}Config'.format(env, prefix)
+
+  try:
+    cfg = import_string(config_class)()
+    cfg.ENV = env
+    return cfg
+  except:
+    raise ValueError("No valid config class is specified: %s" % config_class)

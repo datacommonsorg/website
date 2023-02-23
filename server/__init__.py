@@ -36,6 +36,7 @@ import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 import server.lib.util as libutil
+import server.services.ai as ai
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 
@@ -212,7 +213,7 @@ def create_app():
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
-  if (cfg.ENV_NAME == 'STANFORD' or os.environ.get('ENABLE_MODEL') == 'true' or
+  if (cfg.ENV == 'stanford' or os.environ.get('ENABLE_MODEL') == 'true' or
       cfg.LOCAL and not cfg.LITE):
     register_routes_stanford_dc(app, cfg.LOCAL)
 
@@ -288,7 +289,11 @@ def create_app():
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  # Initialize the AI module.
+  # Enable the AI module.
+  if cfg.ENABLE_AI:
+    app.config['AI_CONTEXT'] = ai.Context()
+
+  #   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
@@ -314,7 +319,7 @@ def create_app():
     g.locale_choices = i18n.locale_choices(requested_locale)
     g.locale = g.locale_choices[0]
     # Add commonly used config flags.
-    g.env_name = app.config.get('ENV_NAME', None)
+    g.env = app.config.get('ENV', None)
 
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
