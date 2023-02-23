@@ -393,10 +393,6 @@ def data():
     logging.error('Unable to load event configs!')
 
   original_query = request.args.get('q')
-  if current_app.config['LOG_QUERY']:
-    # Fire query logging and forget as bigtable write takes O(100ms)
-    loop = asyncio.new_event_loop()
-    loop.run_until_complete(bt.write_row(original_query))
   context_history = []
   escaped_context_history = []
   if request.get_json():
@@ -455,14 +451,22 @@ def data():
   status_str = "Successful"
   if utterance.rankedCharts:
     status_str = ""
+    status = constants.QUERY_OK
   else:
+    status = constants.QUERY_FAILED
     if not utterance.places:
       status_str += '**No Place Found**.'
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
+  if current_app.config['LOG_QUERY']:
+    # Asynchronously log as bigtable write takes O(100ms)
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(bt.write_row(original_query, status))
+
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
                                       context_history, dbg_counters)
+
   return data_dict
 
 
@@ -471,4 +475,4 @@ def history():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
-  return json.dumps(bt.read_row())
+  return json.dumps(bt.read_success_rows())
