@@ -55,6 +55,9 @@ content - main page content
     rel="stylesheet">
   {% block head %}
   {% endblock %}
+  {% if OVERRIDE_CSS_PATH %}
+  <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
+  {% endif %}
 </head>
 
 <body>
@@ -63,6 +66,13 @@ content - main page content
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
         <div class="container-fluid">
           <div class="navbar-brand">
+            {% if LOGO_PATH %}
+            <div id="main-header-logo">
+                <a href="{{ url_for('static.homepage') }}">
+                  <img src="{{ LOGO_PATH }}" />
+                </a>
+            </div>
+            {% endif %}
             <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
             {% if subpage_title %}
             <span>

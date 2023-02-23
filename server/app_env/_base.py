@@ -45,6 +45,11 @@ class Config:
   # Name of the site. The name is changed for custom instance.
   NAME = 'Data Commons'
   BASE_HTML_PATH = 'base.html'
+  # If set, will be used in the header. Must be the full serving path from /static folder.
+  LOGO_PATH = ''
+  # If set, will be included on all pages, after base DC css as verbatim
+  # overrides. Will not be compiled. Must be the full serving path from /static folder.
+  OVERRIDE_CSS_PATH = ''
   # Whether to have account management page
   ADMIN = False
   # The GCP project of the mixer which Flask talks to. This only needs to
