@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
+/**
+ * Componenet for the query history
+ */
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+
+const MAX_QUERY_COUNT = 20;
 
 export function QueryHistory(): JSX.Element {
   const [history, setHistory] = useState<string[] | null>();
@@ -29,7 +35,6 @@ export function QueryHistory(): JSX.Element {
       {history && (
         <div className="container nl-history">
           <h1>Query History</h1>
-          <div></div>
           {history.map((query, i) => {
             return <div key={i}>{query}</div>;
           })}
@@ -46,7 +51,7 @@ export function QueryHistory(): JSX.Element {
           continue;
         }
         result.push(item["query"]);
-        if (result.length == 20) {
+        if (result.length == MAX_QUERY_COUNT) {
           result.push("......");
           break;
         }
