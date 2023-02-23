@@ -38,7 +38,7 @@ from server.lib.nl.detection import TimeDeltaClassificationAttributes
 from server.lib.nl.detection import TimeDeltaType
 
 # How far back does the context go back.
-CTX_LOOKBACK_LIMIT = 8
+CTX_LOOKBACK_LIMIT = 15
 
 
 # Forward declaration since Utterance contains a pointer to itself.
