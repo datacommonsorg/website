@@ -45,10 +45,12 @@ class Config:
   # Name of the site. The name is changed for custom instance.
   NAME = 'Data Commons'
   BASE_HTML_PATH = 'base.html'
-  # If set, will be used in the main header of the default base template. Must be the full serving path from /static folder.
+  # If set, will be used in the main header of the default base template. Must
+  # be the full serving path from /static folder.
   LOGO_PATH = ''
   # If set, will be included on all pages, after base DC css as verbatim
-  # overrides in the default base template. Will not be compiled. Must be the full serving path from /static folder.
+  # overrides in the default base template. Will not be compiled. Must be the
+  # full serving path from /static folder.
   OVERRIDE_CSS_PATH = ''
   # Whether to have account management page
   ADMIN = False
