@@ -22,6 +22,7 @@ from enum import IntEnum
 import logging
 from typing import Dict, List
 
+from server.lib.nl import constants
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import ContainedInClassificationAttributes
 from server.lib.nl.detection import ContainedInPlaceType
@@ -123,6 +124,8 @@ class Utterance:
   answerPlaces: List[str]
   # Linked list of past utterances
   prev_utterance: Utterance
+  # A unique ID to identify sessions
+  session_id: str
   # Debug counters that are cleared out before serializing.
   # Some of these might be promoted to the main Debug Info display,
   # but everything else will appear in the raw output.
@@ -246,6 +249,7 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['places'] = _place_to_dict(u.places)
     udict['classifications'] = _classification_to_dict(u.classifications)
     udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
+    udict['session_id'] = u.session_id
     uttr_dicts.append(udict)
     u = u.prev_utterance
     cnt += 1
@@ -263,16 +267,17 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
   prev_uttr = None
   for i in range(len(uttr_dicts)):
     udict = uttr_dicts[len(uttr_dicts) - 1 - i]
-    uttr = Utterance(prev_utterance=prev_uttr,
-                     query=udict['query'],
-                     query_type=QueryType(udict['query_type']),
-                     svs=udict['svs'],
-                     places=_dict_to_place(udict['places']),
-                     classifications=_dict_to_classification(
-                         udict['classifications']),
-                     rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
-                     detection=None,
-                     chartCandidates=None,
-                     answerPlaces=None)
+    uttr = Utterance(
+        prev_utterance=prev_uttr,
+        query=udict['query'],
+        query_type=QueryType(udict['query_type']),
+        svs=udict['svs'],
+        places=_dict_to_place(udict['places']),
+        classifications=_dict_to_classification(udict['classifications']),
+        rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
+        detection=None,
+        chartCandidates=None,
+        answerPlaces=None,
+        session_id=udict.get('session_id', constants.TEST_SESSION_ID))
     prev_uttr = uttr
   return uttr
