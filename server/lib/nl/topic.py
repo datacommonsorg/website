@@ -62,6 +62,13 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "Count_SolarPanel",
     ],
     "dc/topic/WorkCommute": ["dc/svpg/WorkCommutePeerGroup"],
+    "dc/topic/GreenhouseGasEmissions": ["dc/svpg/GreenhouseGasEmissions"],
+    "dc/topic/CarbonDioxideEmissions": ["dc/svpg/CarbonDioxideEmissions"],
+    "dc/topic/AgricultureEmissions": ["dc/svpg/AgricultureEmissions"],
+    "dc/topic/FossilFuelOperationsEmissions": [
+        "dc/svpg/FossilFuelOperationsEmissions"
+    ],
+    "dc/topic/TransportationEmissions": ["dc/svpg/TransportationEmissions"],
 }
 
 _PEER_GROUP_TO_OVERRIDE = {
@@ -188,6 +195,51 @@ _PEER_GROUP_TO_OVERRIDE = {
         "dc/0gettc3bc60cb",  # Drove alone in car/truck/van
         "dc/vt2q292eme79f",  # Taxicab/Motorcycle/Bicycle/etc
     ],
+    "dc/svpg/GreenhouseGasEmissions": [
+        "Annual_Emissions_GreenhouseGas_Agriculture",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+        "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
+        "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
+        "Annual_Emissions_GreenhouseGas_Manufacturing",
+        "Annual_Emissions_GreenhouseGas_MaritimeTransport",
+        "Annual_Emissions_GreenhouseGas_MineralExtraction",
+        "Annual_Emissions_GreenhouseGas_OilAndGas",
+        "Annual_Emissions_GreenhouseGas_Transportation",
+        "Annual_Emissions_GreenhouseGas_WasteManagement",
+    ],
+    "dc/svpg/CarbonDioxideEmissions": [
+        "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
+        "Annual_Emissions_CarbonDioxide_Power",
+        "Annual_Emissions_CarbonDioxide_WasteManagement",
+        "Annual_Emissions_CarbonDioxide_Agriculture",
+        "Annual_Emissions_CarbonDioxide_MineralExtraction",
+        "Annual_Emissions_CarbonDioxide_FluorinatedGases",
+        "Annual_Emissions_CarbonDioxide_ForestryAndLandUse",
+        "Annual_Emissions_CarbonDioxide_Manufacturing",
+        "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings",
+        "Annual_Emissions_CarbonDioxide_Transportation",
+    ],
+    "dc/svpg/AgricultureEmissions": [
+        "Annual_Emissions_CarbonDioxide_Agriculture",
+        "Annual_Emissions_Methane_Agriculture",
+        "Annual_Emissions_NitrousOxide_Agriculture",
+        "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Agriculture",
+        "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Agriculture"
+    ],
+    "dc/svpg/FossilFuelOperationsEmissions": [
+        "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
+        "Annual_Emissions_Methane_FossilFuelOperations",
+        "Annual_Emissions_NitrousOxide_FossilFuelOperations",
+        "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_FossilFuelOperations",
+        "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_FossilFuelOperations"
+    ],
+    "dc/svpg/TransportationEmissions": [
+        "Annual_Emissions_CarbonDioxide_Transportation",
+        "Annual_Emissions_Methane_Transportation",
+        "Annual_Emissions_NitrousOxide_Transportation",
+        "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Transportation",
+        "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Transportation"
+    ],
 }
 
 _SVPG_NAMES_OVERRIDE = {
@@ -211,6 +263,16 @@ _SVPG_NAMES_OVERRIDE = {
         "Houshold Income",
     "dc/svpg/WorkCommutePeerGroup":
         "Modes of Commute",
+    "dc/svpg/GreenhouseGasEmissions":
+        "Greenhouse Gas Emissions",
+    "dc/svpg/CarbonDioxideEmissions":
+        "Carbon Dioxide Emissions",
+    "dc/svpg/AgricultureEmissions":
+        "Agriculture Emissions",
+    "dc/svpg/FossilFuelOperationsEmissions":
+        "Fossil Fuel Operations Emissions",
+    "dc/svpg/TransportationEmissions":
+        "Transportation Emisisons"
 }
 
 _SVPG_DESC_OVERRIDE = {
