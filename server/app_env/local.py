@@ -27,7 +27,3 @@ class Config(_base.Config):
   GCS_BUCKET = 'datcom-website-autopush-resources'
   LOG_QUERY = True
   SECRET_PROJECT = 'datcom-website-dev'
-
-
-class LiteConfig(Config):
-  LITE = True
