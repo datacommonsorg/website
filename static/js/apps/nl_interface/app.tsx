@@ -183,7 +183,7 @@ export function App(): JSX.Element {
   const showHistory = queries.length === 0;
 
   return (
-    <div id="dc-nl-interface">
+    <>
       <div id="results-thread-container">{queryResults}</div>
       {showHistory && <QueryHistory />}
       <QuerySearch
@@ -195,6 +195,6 @@ export function App(): JSX.Element {
           }
         }}
       />
-    </div>
+    </>
   );
 }
