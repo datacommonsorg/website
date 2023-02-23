@@ -260,7 +260,7 @@ _SVPG_NAMES_OVERRIDE = {
     "dc/svpg/IndividualIncome":
         "Individual Income",
     "dc/svpg/HouseholdIncome":
-        "Houshold Income",g
+        "Houshold Income",
     "dc/svpg/WorkCommutePeerGroup":
         "Modes of Commute",
     "dc/svpg/GreenhouseGasEmissions":
