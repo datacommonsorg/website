@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Module to hold Flask environment configuration base class.
+# All the flags used in the environmnet should be defined here with default
+# value.
+
 import os
 
 

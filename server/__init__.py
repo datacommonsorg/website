@@ -313,6 +313,9 @@ def create_app():
     requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
     g.locale_choices = i18n.locale_choices(requested_locale)
     g.locale = g.locale_choices[0]
+    # Add commonly used config flags.
+    g.env = app.config.get('ENV', None)
+
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
       url = request.url.replace('http://', 'https://', 1)

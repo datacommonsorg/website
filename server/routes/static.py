@@ -29,16 +29,15 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-  env = current_app.config['ENV']
-  if env == 'feeding_america':
+  if g.env == 'feeding_america':
     return render_template('custom_dc/feedingamerica/homepage.html')
-  if env == 'iitm':
+  if g.env == 'iitm':
     return render_template('custom_dc/iitm/homepage.html')
-  if env == 'stanford':
+  if g.env == 'stanford':
     return render_template('custom_dc/stanford/homepage.html')
-  if env == 'stanford_staging':
+  if g.env == 'stanford_staging':
     return render_template('custom_dc/stanford/homepage.html')
-  if env == 'custom':
+  if current_app.config['CUSTOM']:
     return render_template('custom_dc/default/homepage.html')
   blog_date = babel_dates.format_date(date(2021, 7, 26),
                                       format='long',
@@ -48,10 +47,9 @@ def homepage():
 
 @bp.route('/about')
 def about():
-  env = current_app.config['ENV']
-  if env == 'feeding_america':
+  if g.env == 'feeding_america':
     return render_template('custom_dc/feedingamerica/about.html')
-  if env == 'iitm':
+  if g.env == 'iitm':
     return render_template('custom_dc/iitm/about.html')
   return render_template('static/about.html')
 
@@ -60,7 +58,7 @@ def about():
 def faq():
   current_date = date.today().strftime('%-d %b %Y')
   current_year = date.today().strftime('%Y')
-  if current_app.config['ENV'] == 'iitm':
+  if g.env == 'iitm':
     return render_template('custom_dc/iitm/faq.html',
                            current_date=current_date,
                            current_year=current_year)
@@ -76,7 +74,7 @@ def disclaimers():
 
 @bp.route('/feedback')
 def feedback():
-  if current_app.config['ENV'] == 'iitm':
+  if g.env == 'iitm':
     return render_template('custom_dc/iitm/feedback.html')
   return render_template('static/feedback.html')
 

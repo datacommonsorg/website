@@ -24,7 +24,7 @@ def get_config():
   if env == 'custom':
     # This is for customer hosted custom DC. All files, including the config
     # module is in <repo_root>/custom_dc/ folder
-    config_class = 'custom_dc.custom.{}Config'.format(prefix)
+    config_class = 'custom_dc.env.{}Config'.format(prefix)
   else:
     config_class = 'server.app_env.{}.{}Config'.format(env, prefix)
 
