@@ -51,17 +51,27 @@ $answer-min-height: 100vh;
   margin-bottom: 7rem; // approx height of #search-container
 }
 
-#search-container {
-  font-size: 0.9rem;
+#search-section-container-center {
+  position: fixed;
+  bottom: 50%;
+  transform: translate(0, 50%);
+}
+
+#search-section-container-bottom {
   position: fixed;
   bottom: 0;
-  width: 100vw;
-  padding-top: $page-vertical-margin;
+  transition: bottom 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
   background-image: linear-gradient(
     180deg,
     #ffffff00,
     $page-background-color 65%
   );
+}
+
+#search-container {
+  font-size: 0.9rem;
+  width: 100vw;
+  padding-top: $page-vertical-margin;
 
   .search-section {
     align-items: flex-end;

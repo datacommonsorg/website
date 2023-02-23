@@ -180,21 +180,25 @@ export function App(): JSX.Element {
     ></QueryResult>
   ));
 
-  const showHistory = queries.length === 0;
+  const isStartState = queries.length === 0;
 
   return (
     <>
       <div id="results-thread-container">{queryResults}</div>
-      {showHistory && <QueryHistory />}
-      <QuerySearch
-        queries={queries}
-        onQuerySearched={(q) => {
-          setQueries([...queries, q]);
-          if (!autoRun.current) {
-            inputNextPrompt(true);
-          }
-        }}
-      />
+      <div
+        id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
+      >
+        <QuerySearch
+          queries={queries}
+          onQuerySearched={(q) => {
+            setQueries([...queries, q]);
+            if (!autoRun.current) {
+              inputNextPrompt(true);
+            }
+          }}
+        />
+        {isStartState && <QueryHistory />}
+      </div>
     </>
   );
 }
