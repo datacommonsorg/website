@@ -393,10 +393,6 @@ def data():
     logging.error('Unable to load event configs!')
 
   original_query = request.args.get('q')
-  if current_app.config['LOG_QUERY']:
-    # Fire query logging and forget as bigtable write takes O(100ms)
-    loop = asyncio.new_event_loop()
-    loop.run_until_complete(bt.write_row(original_query))
   context_history = []
   escaped_context_history = []
   if request.get_json():
@@ -463,6 +459,11 @@ def data():
 
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
                                       context_history, dbg_counters)
+
+  if current_app.config['LOG_QUERY'] and status_str == "Successful":
+    # Asynchronously log as bigtable write takes O(100ms)
+    loop = asyncio.new_event_loop()
+    loop.run_until_complete(bt.write_row(original_query))
   return data_dict
 
 
