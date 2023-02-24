@@ -37,6 +37,11 @@ from server.lib.nl.utterance import Utterance
 
 _EVENT_PREFIX = 'event/'
 
+DEFAULT_PARENT_PLACES = {
+    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
+}
+
 
 # Data structure to store state for a single "populate" call.
 @dataclass
@@ -125,6 +130,13 @@ def populate_charts(state: PopulateState) -> bool:
     else:
       utils.update_counter(state.uttr.counters, 'failed_populate_context_place',
                            pl.dcid)
+
+  # If this query did not have a place, but had a contained-in attribute, we
+  # might try specific default places.
+  default_place = get_default_contained_in_place(state)
+  if default_place:
+    return populate_charts_for_places(state, [default_place])
+
   return False
 
 
@@ -409,3 +421,12 @@ def maybe_handle_contained_in_fallback(state: PopulateState,
         constants.CHILD_PLACES_TYPES.get(ptype, 'County'))
     utils.update_counter(state.uttr.counters, 'contained_in_across_fallback',
                          state.place_type.value)
+
+
+def get_default_contained_in_place(state: PopulateState) -> Place:
+  if state.uttr.places or not state.place_type:
+    return None
+  ptype = state.place_type
+  if isinstance(ptype, str):
+    ptype = ContainedInPlaceType(ptype)
+  return DEFAULT_PARENT_PLACES.get(ptype, None)
