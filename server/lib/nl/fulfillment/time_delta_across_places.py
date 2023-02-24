@@ -82,7 +82,6 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
 
   # Get place DCIDs.
   parent_place = places[0].dcid
-  logging.info(type(state.place_type))
   child_places = utils.get_all_child_places([parent_place],
                                             state.place_type.value)
 

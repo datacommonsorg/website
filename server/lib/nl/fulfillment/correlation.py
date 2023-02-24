@@ -20,6 +20,7 @@ from server.lib.nl.detection import ContainedInClassificationAttributes
 from server.lib.nl.detection import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import ChartVars
+from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.base import maybe_handle_contained_in_fallback
 from server.lib.nl.fulfillment.base import open_top_topics_ordered
 from server.lib.nl.fulfillment.base import PopulateState
@@ -73,6 +74,11 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
     else:
       utils.update_counter(state.uttr.counters,
                            'correlation_failed_populate_context_place', pl.dcid)
+
+  default_place = get_default_contained_in_place(state)
+  if default_place:
+    return _populate_correlation_for_place(state, pl)
+
   return False
 
 
