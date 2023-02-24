@@ -63,7 +63,7 @@ $search-section-bottom-height: 7rem;
 
 #search-section-container-bottom {
   position: fixed;
-  top: calc(100% - 7em);
+  top: calc(100% - #{$search-section-bottom-height});
   height: $search-section-bottom-height;
   transition: top 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
   background-image: linear-gradient(

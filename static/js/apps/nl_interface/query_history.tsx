@@ -42,7 +42,15 @@ export function QueryHistory(props: QueryHistoryProps): JSX.Element {
         <div className="container nl-history">
           <h3>or try one of these recent queries:</h3>
           {history.map((query, i) => {
-            return <div className="history-item" key={i} onClick={() => props.onItemClick(query)}>{query}</div>;
+            return (
+              <div
+                className="history-item"
+                key={i}
+                onClick={() => props.onItemClick(query)}
+              >
+                {query}
+              </div>
+            );
           })}
         </div>
       )}
