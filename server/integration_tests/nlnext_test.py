@@ -145,3 +145,7 @@ class IntegrationTest(LiveServerTestCase):
             # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
             'counties in California with highest crime',
         ])
+
+  def test_demo_climatetrace(self):
+    self.run_sequence('demo_climatetrace',
+                      ['Which countries emit the most greenhouse gases?'])

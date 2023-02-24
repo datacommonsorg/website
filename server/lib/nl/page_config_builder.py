@@ -428,7 +428,7 @@ def _ranking_chart_block_climate_extremes(builder, pri_place: Place,
   ranking_tile.type = Tile.TileType.RANKING
 
   for _, sv in enumerate(pri_svs):
-    _set_ranking_tile_spec(attr['ranking_types'], '',
+    _set_ranking_tile_spec(attr['ranking_types'], sv,
                            ranking_tile.ranking_tile_spec)
     sv_key = "ranking-" + sv
     ranking_tile.stat_var_key.append(sv_key)
@@ -463,7 +463,7 @@ def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
   tile.type = Tile.TileType.RANKING
-  _set_ranking_tile_spec(attr['ranking_types'], '', tile.ranking_tile_spec)
+  _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
   tile.title = _decorate_chart_title(title=sv2name[pri_sv],
                                      place=pri_place,
                                      do_pc=False,
