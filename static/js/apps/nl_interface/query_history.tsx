@@ -47,9 +47,10 @@ export function QueryHistory(props: QueryHistoryProps): JSX.Element {
                 className="history-item"
                 key={i}
                 onClick={() => props.onItemClick(history[i])}
-                title={queries.join(', ')}
+                title={queries.join(", ")}
               >
-                {queries[0]}{queries.length > 1 ? ', ...' : ''}
+                {queries[0]}
+                {queries.length > 1 ? ", ..." : ""}
               </div>
             );
           })}
