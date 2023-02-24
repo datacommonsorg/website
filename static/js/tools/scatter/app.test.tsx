@@ -313,9 +313,7 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&numEntitiesExistence=10"
-    )
+    .calledWith("/api/variable-group/info?dcid=dc/g/Root")
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
@@ -465,7 +463,7 @@ test("all functionalities", async () => {
   const app = mount(<TestApp />);
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&numEntitiesExistence=10"
+      "/api/variable-group/info?dcid=dc/g/Root"
     );
   });
   return Promise.resolve(app)
