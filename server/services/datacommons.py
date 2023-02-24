@@ -223,10 +223,16 @@ def property_values(nodes, prop, out=True):
   return result
 
 
-def get_variable_group_info(nodes: List[str], entities: List[str]) -> Dict:
+def get_variable_group_info(nodes: List[str],
+                            entities: List[str],
+                            numEntitiesExistence=1) -> Dict:
   """Gets the stat var group node information."""
   url = get_service_url('/v1/bulk/info/variable-group')
-  req_dict = {"constrained_entities": entities, "nodes": nodes}
+  req_dict = {
+      "constrained_entities": entities,
+      "nodes": nodes,
+      "num_entities_existence": numEntitiesExistence
+  }
   return post(url, req_dict)
 
 

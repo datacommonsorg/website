@@ -19,14 +19,12 @@ from server.app_env import local
 class Config(_base.Config):
   CUSTOM = True
   NAME = "Feeding America"
-  BASE_HTML_PATH = 'custom_dc/feedingamerica/base.html'
   GA_ACCOUNT = 'G-444S6716SQ'
 
 
 class LocalConfig(local.Config):
   CUSTOM = True
   NAME = "Feeding America"
-  BASE_HTML_PATH = 'custom_dc/feedingamerica/base.html'
   # This needs to talk to local mixer that is setup as a custom mixer, which
   # loads csv + tmcf files from GCS
   API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
