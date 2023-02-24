@@ -352,6 +352,8 @@ def create_app():
   app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
   app.jinja_env.globals['NAME'] = app.config['NAME']
   app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
+  app.jinja_env.globals['LOGO_PATH'] = app.config['LOGO_PATH']
+  app.jinja_env.globals['OVERRIDE_CSS_PATH'] = app.config['OVERRIDE_CSS_PATH']
   app.secret_key = os.urandom(24)
 
   return app
