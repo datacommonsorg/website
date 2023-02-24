@@ -171,7 +171,6 @@ export function App(): JSX.Element {
       <div
         id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
       >
-        {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
         <QuerySearch
           queries={queries}
           onQuerySearched={(q) => {
@@ -182,6 +181,7 @@ export function App(): JSX.Element {
             }
           }}
         />
+        {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
       </div>
     </>
   );
