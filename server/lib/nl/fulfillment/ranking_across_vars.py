@@ -25,7 +25,7 @@ from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance
 
-_MAX_VARS_IN_A_CHART = 15
+_MAX_VARS_IN_A_CHART = 20
 
 
 #
