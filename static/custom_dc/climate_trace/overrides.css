@@ -23,6 +23,7 @@
 #main-header {
   background: white;
   box-shadow: 0 5px 5px 0 rgba(6, 6, 6, 0.18);
+  z-index: 10;
 }
 
 #main-nav a {
@@ -39,4 +40,8 @@
 
 #main-pane #plot-container {
   background: none;
+}
+
+#main-footer {
+  border-top: 1px solid #efefef;
 }
