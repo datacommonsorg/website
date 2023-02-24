@@ -100,7 +100,6 @@ def build_page_config(
     all_svs.update(cspec.svs)
   all_svs = list(all_svs)
   sv2name = utils.get_sv_name(all_svs)
-  # TODO: use this when setting sv spec for map and ranking charts
   sv2unit = utils.get_sv_unit(all_svs)
 
   # Get footnotes of all SVs
@@ -150,7 +149,8 @@ def build_page_config(
       for sv in cspec.svs:
         _, column = builder.new_chart(cspec.attr)
         stat_var_spec_map.update(
-            _map_chart_block(column, cspec.places[0], sv, sv2name, cspec.attr))
+            _map_chart_block(column, cspec.places[0], sv, sv2name, sv2unit,
+                             cspec.attr))
 
     elif cspec.chart_type == ChartType.RANKING_CHART:
       if not _is_map_or_ranking_compatible(cspec):
@@ -183,7 +183,7 @@ def build_page_config(
           builder.block.title = _decorate_block_title(title=main_title,
                                                       chart_origin=chart_origin)
           stat_var_spec_map.update(
-              _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
+              _ranking_chart_block_nopc(column, pri_place, sv, sv2name, sv2unit,
                                         cspec.attr))
           if cspec.attr['include_percapita'] and _should_add_percapita(sv):
             if not 'skip_map_for_ranking' in cspec.attr:
@@ -198,7 +198,8 @@ def build_page_config(
     elif cspec.chart_type == ChartType.SCATTER_CHART:
       _, column = builder.new_chart(cspec.attr)
       stat_var_spec_map = _scatter_chart_block(column, cspec.places[0],
-                                               cspec.svs, sv2name, cspec.attr)
+                                               cspec.svs, sv2name, sv2unit,
+                                               cspec.attr)
 
     elif cspec.chart_type == ChartType.EVENT_CHART and event_config:
       block, column = builder.new_chart(cspec.attr)
@@ -337,15 +338,15 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
   return stat_var_spec_map
 
 
-def _map_chart_block(column, place: Place, pri_sv: str, sv2name, attr):
-  svs_map = _map_chart_block_nopc(column, place, pri_sv, sv2name, attr)
+def _map_chart_block(column, place: Place, pri_sv: str, sv2name, sv2unit, attr):
+  svs_map = _map_chart_block_nopc(column, place, pri_sv, sv2name, sv2unit, attr)
   if attr['include_percapita'] and _should_add_percapita(pri_sv):
     svs_map.update(_map_chart_block_pc(column, place, pri_sv, sv2name, attr))
   return svs_map
 
 
 def _map_chart_block_nopc(column, place: Place, pri_sv: str, sv2name: Dict,
-                          attr: Dict):
+                          sv2unit: Dict, attr: Dict):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
@@ -356,7 +357,9 @@ def _map_chart_block_nopc(column, place: Place, pri_sv: str, sv2name: Dict,
                                      child_type=attr.get('place_type', ''))
 
   stat_var_spec_map = {}
-  stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
+  stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv,
+                                          name=sv2name[pri_sv],
+                                          unit=sv2unit[pri_sv])
   return stat_var_spec_map
 
 
@@ -418,7 +421,8 @@ def _does_extreme_mean_low(sv: str) -> bool:
 
 def _ranking_chart_block_climate_extremes(builder, pri_place: Place,
                                           pri_svs: List[str], sv2name: Dict,
-                                          sv2footnote: Dict, attr: Dict):
+                                          sv2unit: Dict, sv2footnote: Dict,
+                                          attr: Dict):
   footnotes = []
   stat_var_spec_map = {}
 
@@ -446,7 +450,8 @@ def _ranking_chart_block_climate_extremes(builder, pri_place: Place,
     if len(map_column.tiles):
       map_column = map_block.columns.add()
     stat_var_spec_map.update(
-        _map_chart_block_nopc(map_column, pri_place, sv, sv2name, attr))
+        _map_chart_block_nopc(map_column, pri_place, sv, sv2name, sv2unit,
+                              attr))
     map_column.tiles[0].title = sv2name[
         sv]  # override decorated title (too long).
 
@@ -458,7 +463,7 @@ def _ranking_chart_block_climate_extremes(builder, pri_place: Place,
 
 
 def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
-                              sv2name: Dict, attr: Dict):
+                              sv2name: Dict, sv2unit: Dict, attr: Dict):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
@@ -470,12 +475,15 @@ def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
                                      child_type=attr.get('place_type', ''))
 
   stat_var_spec_map = {}
-  stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
+  stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv,
+                                          name=sv2name[pri_sv],
+                                          unit=sv2unit[pri_sv])
 
   if not 'skip_map_for_ranking' in attr:
     # Also add a map chart.
     stat_var_spec_map.update(
-        _map_chart_block_nopc(column, pri_place, pri_sv, sv2name, attr))
+        _map_chart_block_nopc(column, pri_place, pri_sv, sv2name, sv2unit,
+                              attr))
 
   return stat_var_spec_map
 
@@ -528,10 +536,11 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
 
 
 def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
-                         attr: Dict):
+                         sv2unit, attr: Dict):
   assert len(sv_pair) == 2
 
   sv_names = [sv2name[sv_pair[0]], sv2name[sv_pair[1]]]
+  sv_units = [sv2unit[sv_pair[0]], sv2unit[sv_pair[1]]]
   sv_key_pair = [sv_pair[0] + '_scatter', sv_pair[1] + '_scatter']
 
   change_to_pc = [False, False]
@@ -554,7 +563,8 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
                                                       scaling=100)
     else:
       stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(stat_var=sv_pair[i],
-                                                      name=sv_names[i])
+                                                      name=sv_names[i],
+                                                      unit=sv_units[i])
 
   # add a scatter config
   tile = column.tiles.add()

@@ -32,6 +32,7 @@ import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
+import { getUnit } from "../../tools/shared_util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
@@ -64,6 +65,8 @@ interface ScatterChartData {
   yStatVar: StatVarSpec;
   points: { [placeDcid: string]: Point };
   sources: Set<string>;
+  xUnit: string;
+  yUnit: string;
 }
 
 export function ScatterTile(props: ScatterTilePropType): JSX.Element {
@@ -257,7 +260,28 @@ function processData(
   if (_.isEmpty(points)) {
     setErrorMsg("Sorry, we don't have data for those variables");
   }
-  setChartdata({ xStatVar, yStatVar, points, sources });
+  let xUnit = xStatVar.unit;
+  if (!xUnit) {
+    xUnit = getUnit(Object.values(xPlacePointStat), rawData.placeStats.facets);
+    if (xUnit && xStatVar.denom) {
+      xUnit += "per person";
+    }
+  }
+  let yUnit = yStatVar.unit;
+  if (!yUnit) {
+    yUnit = getUnit(Object.values(yPlacePointStat), rawData.placeStats.facets);
+    if (yUnit && yStatVar.denom) {
+      yUnit += "per person";
+    }
+  }
+  setChartdata({
+    xStatVar,
+    yStatVar,
+    points,
+    sources,
+    xUnit,
+    yUnit,
+  });
 }
 
 function getTooltipElement(

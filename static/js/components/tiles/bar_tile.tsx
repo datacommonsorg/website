@@ -55,6 +55,7 @@ interface BarTilePropType {
 interface BarChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
+  unit: string;
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
@@ -167,6 +168,7 @@ function processData(
   // Fetch the place names
   getPlaceNames(Array.from(popPoints).map((x) => x.placeDcid)).then(
     (placeNames) => {
+      let unit = "";
       for (const point of popPoints) {
         const placeDcid = point.placeDcid;
         const dataPoints: DataPoint[] = [];
@@ -183,6 +185,11 @@ function processData(
           };
           if (raw.facets[stat.facet]) {
             sources.add(raw.facets[stat.facet].provenanceUrl);
+            let svUnit = raw.facets[stat.facet].unit;
+            if (svUnit && spec.denom) {
+              svUnit += "per person";
+            }
+            unit = unit || svUnit;
           }
           if (spec.denom && spec.denom in raw.data) {
             const denomStat = raw.data[spec.denom][placeDcid];
@@ -198,9 +205,13 @@ function processData(
           new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints)
         );
       }
+      if (!_.isEmpty(props.statVarSpec)) {
+        unit = props.statVarSpec[0].unit || unit;
+      }
       setBarChartData({
         dataGroup: dataGroups,
         sources: sources,
+        unit,
       });
     }
   );
@@ -215,6 +226,6 @@ function draw(props: BarTilePropType, chartData: BarChartData): void {
     elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
-    props.statVarSpec[0].unit
+    chartData.unit
   );
 }

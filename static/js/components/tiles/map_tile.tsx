@@ -47,6 +47,7 @@ import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
+import { getUnit } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
@@ -81,6 +82,7 @@ interface MapChartData {
   dateRange: string;
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
+  unit: string;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -106,7 +108,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     if (rawData) {
       processData(
         rawData,
-        !_.isEmpty(props.statVarSpec.denom),
+        props.statVarSpec,
         props.place,
         props.statVarSpec.scaling,
         props.enclosedPlaceType,
@@ -221,7 +223,7 @@ function fetchData(
 
 function processData(
   rawData: RawData,
-  isPerCapita: boolean,
+  statVarSpec: StatVarSpec,
   place: NamedTypedPlace,
   scaling: number,
   enclosedPlaceType: string,
@@ -234,6 +236,7 @@ function processData(
   if (_.isEmpty(rawData.geoJson)) {
     return;
   }
+  const isPerCapita = !_.isEmpty(statVarSpec.denom);
   for (const geoFeature of rawData.geoJson.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
@@ -263,6 +266,10 @@ function processData(
   if (_.isEmpty(dataValues)) {
     return;
   }
+  let unit = getUnit(Object.values(rawData.placeStat), rawData.metadataMap);
+  if (unit && isPerCapita) {
+    unit += "per person";
+  }
   setChartData({
     dataValues,
     metadata,
@@ -275,6 +282,7 @@ function processData(
       rawData.parentPlaces
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
+    unit: statVarSpec.unit || unit,
   });
 }
 
@@ -308,14 +316,14 @@ function draw(
         const chartDatavalue = chartData.dataValues[place.dcid];
         value = formatNumber(
           Number(chartDatavalue.toPrecision(2)),
-          props.statVarSpec.unit
+          chartData.unit
         );
       } else {
         value = formatNumber(
           Math.round(
             (chartData.dataValues[place.dcid] + Number.EPSILON) * 100
           ) / 100,
-          props.statVarSpec.unit
+          chartData.unit
         );
       }
     }
@@ -325,7 +333,7 @@ function draw(
     legendContainer.current,
     height,
     colorScale,
-    props.statVarSpec.unit,
+    chartData.unit,
     0
   );
   const chartWidth = svgContainer.current.offsetWidth - legendWidth;
