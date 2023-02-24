@@ -223,8 +223,9 @@ def property_values(nodes, prop, out=True):
   return result
 
 
-def get_variable_group_info(nodes: List[str], entities: List[str],
-                            numEntitiesExistence: int) -> Dict:
+def get_variable_group_info(nodes: List[str],
+                            entities: List[str],
+                            numEntitiesExistence=1) -> Dict:
   """Gets the stat var group node information."""
   url = get_service_url('/v1/bulk/info/variable-group')
   req_dict = {
