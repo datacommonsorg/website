@@ -2,3 +2,4 @@ project: datcom-stanford
 instance: dc-graph
 tables:
   - deepsolar_2023_02_24_11_06_31
+  - aqicn_2023_02_24_11_39_31
