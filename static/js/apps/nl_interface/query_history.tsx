@@ -40,7 +40,7 @@ export function QueryHistory(props: QueryHistoryProps): JSX.Element {
     <>
       {!_.isEmpty(history) && (
         <div className="container nl-history">
-          <h3>or try one of these recent queries:</h3>
+          <h3>Or try one of these recent queries:</h3>
           {history.map((query, i) => {
             return (
               <div
