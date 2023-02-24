@@ -31,7 +31,7 @@ interface QuerySearchPropType {
 
 export function QuerySearch(props: QuerySearchPropType): JSX.Element {
   const [showHistory, setShowHistory] = useState(false);
-  const placeholderQuery = document.getElementById("metadata").dataset.placeholderQuery || "family earnings in california",
+  const placeholderQuery = document.getElementById("metadata").dataset.placeholderQuery || "family earnings in california";
 
   const queryHistory = getQueryHistory(props.queries);
   return (
