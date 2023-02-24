@@ -15,7 +15,7 @@
  */
 
 @use "./shared/subject_page";
-@import "./base";
+@import "./tools/base_tools";
 @import "./draw";
 @import "./draw_choropleth";
 @import "./draw_scatter";
@@ -35,21 +35,20 @@ $answer-min-height: 100vh;
 $text-color: inherit;
 $search-section-bottom-height: 7rem;
 
-#main-header,
-#main-footer {
-  display: none;
-}
-
 #nl-interface {
-  height: 100vh;
   margin: 0;
   padding: 0;
   background: $page-background-color;
 }
 
 #dc-nl-interface {
-  height: 100%;
   overflow-y: scroll;
+  overflow-x: hidden;;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 #results-thread-container {
@@ -143,6 +142,7 @@ $search-section-bottom-height: 7rem;
   font-size: 1rem;
 }
 
+.nl-history.container,
 .nl-query .container,
 .nl-result .container,
 #search-container .container {
@@ -304,6 +304,16 @@ h3,
 
 .nl-result .subtopic.notitle {
   border-color: #999 !important;
+}
+
+.history-item {
+  padding: 0.25rem 0.5rem;
+  background: var(--dc-red-fade);
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 // From https://codepen.io/nzbin/pen/GGrXbp

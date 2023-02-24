@@ -22,9 +22,14 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-const MAX_QUERY_COUNT = 20;
+const MAX_QUERY_COUNT = 10;
 
-export function QueryHistory(): JSX.Element {
+interface QueryHistoryProps {
+  // Callback function for history item clicks.
+  onItemClick: (query: string) => void;
+}
+
+export function QueryHistory(props: QueryHistoryProps): JSX.Element {
   const [history, setHistory] = useState<string[] | null>();
 
   useEffect(() => {
@@ -35,9 +40,17 @@ export function QueryHistory(): JSX.Element {
     <>
       {!_.isEmpty(history) && (
         <div className="container nl-history">
-          <h1>Recent queries</h1>
+          <h3>Or try one of these recent queries:</h3>
           {history.map((query, i) => {
-            return <div key={i}>{query}</div>;
+            return (
+              <div
+                className="history-item"
+                key={i}
+                onClick={() => props.onItemClick(query)}
+              >
+                {query}
+              </div>
+            );
           })}
         </div>
       )}

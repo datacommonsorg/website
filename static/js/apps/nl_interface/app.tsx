@@ -64,7 +64,7 @@ export function App(): JSX.Element {
     return [];
   }
 
-  function inputNextPrompt(delayStart: boolean): void {
+  function inputNextPrompt(delayStart: boolean, forceEnter?: boolean): void {
     const prompt = urlPrompts.current.shift();
     if (!prompt) {
       return;
@@ -80,7 +80,7 @@ export function App(): JSX.Element {
           clearInterval(inputIntervalTimer.current);
           // If on autorun, search for the current input after
           // PROMPT_SEARCH_DELAY ms.
-          if (autoRun) {
+          if (autoRun || forceEnter) {
             searchDelayTimer.current = setTimeout(() => {
               executeSearch();
             }, PROMPT_SEARCH_DELAY);
@@ -148,6 +148,11 @@ export function App(): JSX.Element {
     }
   }
 
+  function onHistoryItemClick(query: string) {
+    urlPrompts.current.unshift(query);
+    inputNextPrompt(false /* delayStart */, true /* forceEnter */);
+  }
+
   const queryResults = queries.map((q, i) => (
     <QueryResult
       key={i}
@@ -176,7 +181,7 @@ export function App(): JSX.Element {
             }
           }}
         />
-        {isStartState && <QueryHistory />}
+        {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
       </div>
     </>
   );
