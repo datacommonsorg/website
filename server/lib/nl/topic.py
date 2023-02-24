@@ -62,13 +62,23 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "Count_SolarPanel",
     ],
     "dc/topic/WorkCommute": ["dc/svpg/WorkCommutePeerGroup"],
-    "dc/topic/GreenhouseGasEmissions": ["dc/svpg/GreenhouseGasEmissions"],
-    "dc/topic/CarbonDioxideEmissions": ["dc/svpg/CarbonDioxideEmissions"],
-    "dc/topic/AgricultureEmissions": ["dc/svpg/AgricultureEmissions"],
-    "dc/topic/FossilFuelOperationsEmissions": [
-        "dc/svpg/FossilFuelOperationsEmissions"
+    "dc/topic/GreenhouseGasEmissionsBySource": [
+        "dc/svpg/GreenhouseGasEmissionsBySource"
     ],
-    "dc/topic/TransportationEmissions": ["dc/svpg/TransportationEmissions"],
+    "dc/topic/CarbonDioxideEmissionsBySource": [
+        "dc/svpg/CarbonDioxideEmissionsBySource"
+    ],
+    "dc/topic/AgricultureEmissionsByGas": ["dc/svpg/AgricultureEmissionsByGas"],
+    "dc/topic/FossilFuelOperationsEmissionsByGas": [
+        "dc/svpg/FossilFuelOperationsEmissionsByGas"
+    ],
+    "dc/topic/ManufacturingEmissionsByGas": [
+        "dc/svpg/ManufacturingEmissionsByGas"
+    ],
+    "dc/topic/PowerEmissionsByGas": ["dc/svpg/PowerEmissionsByGas"],
+    "dc/topic/TransportationEmissionsByGas": [
+        "dc/svpg/TransportationEmissionsByGas"
+    ],
 }
 
 _PEER_GROUP_TO_OVERRIDE = {
@@ -195,39 +205,56 @@ _PEER_GROUP_TO_OVERRIDE = {
         "dc/0gettc3bc60cb",  # Drove alone in car/truck/van
         "dc/vt2q292eme79f",  # Taxicab/Motorcycle/Bicycle/etc
     ],
-    "dc/svpg/GreenhouseGasEmissions": [
+    "dc/svpg/GreenhouseGasEmissionsBySource": [
         "Annual_Emissions_GreenhouseGas_Agriculture",
         "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
         "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
         "Annual_Emissions_GreenhouseGas_Manufacturing",
         "Annual_Emissions_GreenhouseGas_MineralExtraction",
+        "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
         "Annual_Emissions_GreenhouseGas_Transportation",
         "Annual_Emissions_GreenhouseGas_WasteManagement",
     ],
-    "dc/svpg/CarbonDioxideEmissions": [
-        "Annual_Emissions_CarbonDioxide_WasteManagement",
+    "dc/svpg/CarbonDioxideEmissionsBySource": [
         "Annual_Emissions_CarbonDioxide_Agriculture",
-        "Annual_Emissions_CarbonDioxide_MineralExtraction",
+        "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings",
+        "Annual_Emissions_CarbonDioxide_FlourinatedGases",
+        "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
         "Annual_Emissions_CarbonDioxide_ForestryAndLandUse",
         "Annual_Emissions_CarbonDioxide_Manufacturing",
-        "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings",
+        "Annual_Emissions_CarbonDioxide_MineralExtraction",
+        "Annual_Emissions_CarbonDioxide_Power",
         "Annual_Emissions_CarbonDioxide_Transportation",
+        "Annual_Emissions_CarbonDioxide_WasteManagement",
     ],
-    "dc/svpg/AgricultureEmissions": [
+    "dc/svpg/AgricultureEmissionsByGas": [
         "Annual_Emissions_CarbonDioxide_Agriculture",
         "Annual_Emissions_Methane_Agriculture",
         "Annual_Emissions_NitrousOxide_Agriculture",
         "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Agriculture",
         "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Agriculture"
     ],
-    "dc/svpg/FossilFuelOperationsEmissions": [
+    "dc/svpg/PowerEmissionsByGas": [
+        "Annual_Emissions_CarbonDioxide_Power",
+        "Annual_Emissions_Methane_Power", "Annual_Emissions_NitrousOxide_Power",
+        "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Power",
+        "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Power"
+    ],
+    "dc/svpg/ManufacturingEmissionsByGas": [
+        "Annual_Emissions_CarbonDioxide_Manufacturing",
+        "Annual_Emissions_Methane_Manufacturing",
+        "Annual_Emissions_NitrousOxide_Manufacturing",
+        "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Manufacturing",
+        "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Manufacturing"
+    ],
+    "dc/svpg/FossilFuelOperationsEmissionsByGas": [
         "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
         "Annual_Emissions_Methane_FossilFuelOperations",
         "Annual_Emissions_NitrousOxide_FossilFuelOperations",
         "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_FossilFuelOperations",
         "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_FossilFuelOperations"
     ],
-    "dc/svpg/TransportationEmissions": [
+    "dc/svpg/TransportationEmissionsByGas": [
         "Annual_Emissions_CarbonDioxide_Transportation",
         "Annual_Emissions_Methane_Transportation",
         "Annual_Emissions_NitrousOxide_Transportation",
@@ -257,16 +284,20 @@ _SVPG_NAMES_OVERRIDE = {
         "Houshold Income",
     "dc/svpg/WorkCommutePeerGroup":
         "Modes of Commute",
-    "dc/svpg/GreenhouseGasEmissions":
+    "dc/svpg/GreenhouseGasEmissionsBySource":
         "Greenhouse Gas Emissions by Source",
-    "dc/svpg/CarbonDioxideEmissions":
+    "dc/svpg/CarbonDioxideEmissionsBySource":
         "Carbon Dioxide Emissions by Source",
-    "dc/svpg/AgricultureEmissions":
-        "Agriculture Emissions",
-    "dc/svpg/FossilFuelOperationsEmissions":
-        "Fossil Fuel Operations Emissions",
-    "dc/svpg/TransportationEmissions":
-        "Transportation Emissions"
+    "dc/svpg/AgricultureEmissionsByGas":
+        "Emissions from Agriculture Sector",
+    "dc/svpg/FossilFuelOperationsEmissionsByGas":
+        "Emissions from Fossil Fuel Operations",
+    "dc/svpg/ManufacturingEmissionsByGas":
+        "Emissions from Manufacturing Sector",
+    "dc/svpg/PowerEmissionsByGas":
+        "Emissions from Power Sector",
+    "dc/svpg/TransportationEmissionsByGas":
+        "Emissions from Transportation Sector",
 }
 
 _SVPG_DESC_OVERRIDE = {
