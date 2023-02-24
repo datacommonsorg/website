@@ -33,9 +33,8 @@ def get_example_file(tool):
   if os.path.exists(example_file):
     return example_file
 
-  return os.path.join(
-      current_app.root_path,
-      'templates/custom_dc/default/{}_examples.json'.format(tool))
+  return os.path.join(current_app.root_path,
+                      'templates/tools/{}_examples.json'.format(tool))
 
 
 @bp.route('/timeline')
