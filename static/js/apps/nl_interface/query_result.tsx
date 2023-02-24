@@ -98,9 +98,7 @@ export const QueryResult = memo(function QueryResult(
             config: resp.data["config"],
           });
         } else {
-          setErrorMsg(
-            "Sorry, we couldn't answer your question. Could you try again?"
-          );
+          setErrorMsg("Sorry, we couldn't answer your question.");
         }
         // For NL Next, debug info is outside the context.
         const debugData = resp.data["debug"];
@@ -113,9 +111,7 @@ export const QueryResult = memo(function QueryResult(
         props.addContextCallback(undefined, props.queryIdx);
         console.error("Error fetching data for", props.query, error);
         setIsLoading(false);
-        setErrorMsg(
-          "Sorry, we didn’t understand your question. Could you try again?"
-        );
+        setErrorMsg("Sorry, we didn’t understand your question.");
       });
   }
   return (
@@ -138,7 +134,13 @@ export const QueryResult = memo(function QueryResult(
           )}
           {errorMsg && (
             <div className="nl-query-error">
-              <p>{errorMsg}</p>
+              <p>
+                {errorMsg} Would you like to try{" "}
+                <a href={`https://google.com/?q=${props.query}`}>
+                  searching on Google
+                </a>
+                ?
+              </p>
             </div>
           )}
           {isLoading && (

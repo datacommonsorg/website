@@ -318,73 +318,73 @@ function mockAxios(): void {
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10001&entities=geoId/10003&entities=geoId/10005"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10001&entities=geoId/10003&entities=geoId/10005&numEntitiesExistence=10"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10001&entities=geoId/10005&entities=geoId/10003"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10001&entities=geoId/10005&entities=geoId/10003&numEntitiesExistence=10"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10003&entities=geoId/10001&entities=geoId/10005"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10003&entities=geoId/10001&entities=geoId/10005&numEntitiesExistence=10"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10003&entities=geoId/10005&entities=geoId/10001"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10003&entities=geoId/10005&entities=geoId/10001&numEntitiesExistence=10"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10005&entities=geoId/10003&entities=geoId/10001"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10005&entities=geoId/10003&entities=geoId/10001&numEntitiesExistence=10"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10005&entities=geoId/10001&entities=geoId/10003"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10005&entities=geoId/10001&entities=geoId/10003&numEntitiesExistence=10"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10001&entities=geoId/10003&entities=geoId/10005"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10001&entities=geoId/10003&entities=geoId/10005&numEntitiesExistence=10"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10001&entities=geoId/10005&entities=geoId/10003"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10001&entities=geoId/10005&entities=geoId/10003&numEntitiesExistence=10"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10003&entities=geoId/10001&entities=geoId/10005"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10003&entities=geoId/10001&entities=geoId/10005&numEntitiesExistence=10"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10003&entities=geoId/10005&entities=geoId/10001"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10003&entities=geoId/10005&entities=geoId/10001&numEntitiesExistence=10"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10005&entities=geoId/10003&entities=geoId/10001"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10005&entities=geoId/10003&entities=geoId/10001&numEntitiesExistence=10"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10005&entities=geoId/10001&entities=geoId/10003"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10005&entities=geoId/10001&entities=geoId/10003&numEntitiesExistence=10"
     )
     .mockResolvedValue(demographicsGroupsData);
 
