@@ -72,7 +72,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true,
+                      "showLowest": true,
                       "showMultiColumn": true
                     },
                     "statVarKey": [
