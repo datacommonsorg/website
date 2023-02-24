@@ -29,14 +29,10 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-  if g.env == 'feeding_america':
-    return render_template('custom_dc/feedingamerica/homepage.html')
-  if g.env == 'iitm':
-    return render_template('custom_dc/iitm/homepage.html')
-  if g.env == 'stanford':
-    return render_template('custom_dc/stanford/homepage.html')
-  if g.env == 'stanford_staging':
-    return render_template('custom_dc/stanford/homepage.html')
+  template_file = os.path.join('custom_dc', g.env, 'homepage.html')
+  if os.path.exists(
+      os.path.join(current_app.root_path, 'templates', template_file)):
+    return render_template(template_file)
   if current_app.config['CUSTOM']:
     return render_template('custom_dc/default/homepage.html')
   blog_date = babel_dates.format_date(date(2021, 7, 26),
@@ -47,10 +43,10 @@ def homepage():
 
 @bp.route('/about')
 def about():
-  if g.env == 'feeding_america':
-    return render_template('custom_dc/feedingamerica/about.html')
-  if g.env == 'iitm':
-    return render_template('custom_dc/iitm/about.html')
+  template_file = os.path.join('custom_dc', g.env, 'about.html')
+  if os.path.exists(
+      os.path.join(current_app.root_path, 'templates', template_file)):
+    return render_template(template_file)
   return render_template('static/about.html')
 
 
@@ -58,8 +54,10 @@ def about():
 def faq():
   current_date = date.today().strftime('%-d %b %Y')
   current_year = date.today().strftime('%Y')
-  if g.env == 'iitm':
-    return render_template('custom_dc/iitm/faq.html',
+  template_file = os.path.join('custom_dc', g.env, 'faq.html')
+  if os.path.exists(
+      os.path.join(current_app.root_path, 'templates', template_file)):
+    return render_template(template_file,
                            current_date=current_date,
                            current_year=current_year)
   return render_template('static/faq.html',
@@ -74,8 +72,10 @@ def disclaimers():
 
 @bp.route('/feedback')
 def feedback():
-  if g.env == 'iitm':
-    return render_template('custom_dc/iitm/feedback.html')
+  template_file = os.path.join('custom_dc', g.env, 'feedback.html')
+  if os.path.exists(
+      os.path.join(current_app.root_path, 'templates', template_file)):
+    return render_template(template_file)
   return render_template('static/feedback.html')
 
 

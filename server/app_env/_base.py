@@ -20,17 +20,32 @@ import os
 
 
 class Config:
-  ENV = ''
   TEST = False
   INTEGRATION = False
   WEBDRIVER = False
   LOCAL = False
   LITE = False
+  ENABLE_AI = False
+  ENABLE_BLOCKLIST = False
+  # If the deployment is a custom instance.
+  CUSTOM = False
+  # Whether to have account management page
+  ADMIN = False
+  # Set this to False if the deployment has frequently updated data.
+  USE_MEMCACHE = True
+  # Whether to log the query (and make them avaiable in query history interface)
+  # Eanbling this to "True" requires adding "bigtable/user" acccess for the
+  # service account in datcom-store IAM settings
+  LOG_QUERY = False
+
+  # Environment name of the config.
+  ENV = ''
+  # Name of the site. The name is changed for custom instance.
+  NAME = 'Data Commons'
   VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   NL_ROOT = 'http://127.0.0.1:6060'  # Port for Kubernetes ESP.
-  ENABLE_AI = False
   AI_CONFIG_PATH = '/datacommons/ai/ai.yaml'
   SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
   MAPS_API_KEY = os.environ.get('MAPS_API_KEY') or ''
@@ -39,12 +54,6 @@ class Config:
   # Additional stat vars that need to be fetched for place page data.
   # This is only needed for local development when cache is not up to date.
   NEW_STAT_VARS = []
-  ENABLE_BLOCKLIST = False
-  # If the deployment is a custom instance.
-  CUSTOM = False
-  # Name of the site. The name is changed for custom instance.
-  NAME = 'Data Commons'
-  BASE_HTML_PATH = 'base.html'
   # If set, will be used in the main header of the default base template. Must
   # be the full serving path from /static folder.
   LOGO_PATH = ''
@@ -52,15 +61,7 @@ class Config:
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
   OVERRIDE_CSS_PATH = ''
-  # Whether to have account management page
-  ADMIN = False
   # The GCP project of the mixer which Flask talks to. This only needs to
   # be set for local development. Website deployed to GKE bundles the mixer
   # as a custom service accessible via localhost.
   API_PROJECT = ''
-  # Set this to False if the deployment has frequently updated data.
-  USE_MEMCACHE = True
-  # Whether to log the query (and make them avaiable in query history interface)
-  # Eanbling this to "True" requires adding "bigtable/user" acccess for the
-  # service account in datcom-store IAM settings
-  LOG_QUERY = False
