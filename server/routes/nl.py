@@ -25,6 +25,7 @@ from flask import current_app
 from flask import escape
 from flask import render_template
 from flask import request
+from flask import g
 from google.protobuf.json_format import MessageToJson
 import requests
 
@@ -46,7 +47,6 @@ import server.services.bigtable as bt
 import server.services.datacommons as dc
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
-
 
 def _get_preferred_type(types):
   for t in ['Country', 'State', 'County', 'City']:
@@ -366,8 +366,13 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  placeholder_query = ''
+  # TODO: Make this more customizable for all custom DC's
+  if g.env == 'climate_trace':
+    placeholder_query = 'Greenhouse gas emissions in USA'
   return render_template('/nl_interface.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'],
+                         placeholder_query=placeholder_query,
                          website_hash=os.environ.get("WEBSITE_HASH"))
 
 
