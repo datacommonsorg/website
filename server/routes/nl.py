@@ -23,9 +23,9 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import escape
+from flask import g
 from flask import render_template
 from flask import request
-from flask import g
 from google.protobuf.json_format import MessageToJson
 import requests
 
@@ -47,6 +47,7 @@ import server.services.bigtable as bt
 import server.services.datacommons as dc
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
+
 
 def _get_preferred_type(types):
   for t in ['Country', 'State', 'County', 'City']:
