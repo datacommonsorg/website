@@ -3,3 +3,4 @@ instance: dc-graph
 tables:
   - deepsolar_2023_02_24_11_06_31
   - aqicn_2023_02_24_11_39_31
+  - seda_2023_02_24_11_16_48
