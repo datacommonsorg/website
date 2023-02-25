@@ -547,7 +547,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
             'growth_direction': TimeDeltaType.INCREASE,
             'include_percapita': False,
             'place_type': None,
-            'is_growth_ranking_absolute': True,
+            'growth_ranking_type': 'abs',
             'ranking_types': [],
             'source_topic': 'dc/topic/Agriculture',
             'title': ''
@@ -573,7 +573,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
             'growth_direction': TimeDeltaType.INCREASE,
             'include_percapita': False,
             'place_type': None,
-            'is_growth_ranking_absolute': False,
+            'growth_ranking_type': 'pct',
             'ranking_types': [],
             'source_topic': 'dc/topic/Agriculture',
             'title': '',

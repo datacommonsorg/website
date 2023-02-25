@@ -102,16 +102,16 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
           'ranked_abs': ranked_children.abs,
           'ranked_pct': ranked_children.pct,
       })
-  i = 0
-  for ranked_dcids in [ranked_children.abs, ranked_children.pct]:
+
+  for field, ranked_dcids in ranked_children._asdict().items():
     ranked_places = []
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])
     chart_vars.growth_direction = direction
-    chart_vars.is_growth_ranking_absolute = True if i == 0 else False
+    chart_vars.growth_ranking_type = field
     ranked_places = ranked_places[:_MAX_PLACES_TO_RETURN]
 
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
                                     chart_vars, ranked_places, chart_origin)
-    i += 1
+
   return found
