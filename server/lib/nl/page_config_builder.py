@@ -735,7 +735,7 @@ def _decorate_chart_title(title: str,
     return ''
 
   # Apply in order: place or place+containment, per-capita, related prefix
-  if place and place.name:
+  if place and place.name and place.dcid != 'Earth':
     if child_type:
       title = title + ' in ' + utils.pluralize_place_type(
           child_type) + ' of ' + place.name

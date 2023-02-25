@@ -111,9 +111,6 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element[] {
  * @param denomDcid the dcid of the denominator
  */
 export function getUnitString(statUnit: string, denomDcid?: string): string {
-  let unit = statUnit;
-  if (unit && denomDcid && denomDcid.includes("_Person")) {
-    unit += " per person";
-  }
-  return unit;
+  // TODO: Improve this to be denomDcid based.
+  return statUnit;
 }
