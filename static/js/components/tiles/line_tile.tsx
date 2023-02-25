@@ -29,7 +29,11 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  getStatVarName,
+  getUnitString,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface LineTilePropType {
@@ -46,6 +50,7 @@ interface LineTilePropType {
 interface LineChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
+  unit: string;
 }
 
 export function LineTile(props: LineTilePropType): JSX.Element {
@@ -67,7 +72,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   useEffect(() => {
     if (lineChartData) {
-      draw(props, lineChartData.dataGroup, svgContainer);
+      draw(props, lineChartData, svgContainer);
     }
   }, [props, lineChartData]);
 
@@ -132,7 +137,7 @@ function processData(
 
 function draw(
   props: LineTilePropType,
-  chartData: DataGroup[],
+  chartData: LineChartData,
   svgContainer: React.RefObject<HTMLElement>
 ): void {
   const elem = document.getElementById(props.id);
@@ -142,10 +147,10 @@ function draw(
     props.id,
     elem.offsetWidth,
     props.svgChartHeight,
-    chartData,
+    chartData.dataGroup,
     false,
     false,
-    props.statVarSpec[0].unit
+    chartData.unit
   );
   if (!isCompleteLine) {
     svgContainer.current.querySelectorAll(".dotted-warning")[0].className +=
@@ -164,6 +169,7 @@ function rawToChart(
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
   const allDates = new Set<string>();
+  let unit = "";
   for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
     const series = raw.data[spec.statVar][props.place.dcid];
@@ -188,14 +194,20 @@ function rawToChart(
           dataPoints
         )
       );
+      const svUnit = getUnitString(raw.facets[series.facet].unit, spec.denom);
+      unit = unit || svUnit;
       sources.add(raw.facets[series.facet].provenanceUrl);
     }
   }
   for (let i = 0; i < dataGroups.length; i++) {
     dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
   }
+  if (!_.isEmpty(props.statVarSpec)) {
+    unit = props.statVarSpec[0].unit || unit;
+  }
   return {
     dataGroup: dataGroups,
     sources: sources,
+    unit,
   };
 }

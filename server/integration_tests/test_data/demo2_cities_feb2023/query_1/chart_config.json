@@ -56,7 +56,8 @@
           },
           "Percent_Student_AsAFractionOf_Count_Teacher": {
             "name": "Student-Teacher Ratio",
-            "statVar": "Percent_Student_AsAFractionOf_Count_Teacher"
+            "statVar": "Percent_Student_AsAFractionOf_Count_Teacher",
+            "unit": "%"
           }
         }
       }
