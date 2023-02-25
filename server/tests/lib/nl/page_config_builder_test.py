@@ -103,8 +103,6 @@ SIMPLE_CONFIG = """
      value {
        stat_var: "Count_Person_Female"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Count_Person_Female-name"
      }
    }
@@ -121,8 +119,6 @@ SIMPLE_CONFIG = """
      value {
        stat_var: "Count_Person_Male"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Count_Person_Male-name"
      }
    }
@@ -178,8 +174,6 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
      value {
        stat_var: "Count_Person_Female"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Count_Person_Female-name"
      }
    }
@@ -196,8 +190,6 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
      value {
        stat_var: "Count_Person_Male"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Count_Person_Male-name"
      }
    }
@@ -270,8 +262,6 @@ SIMPLE_WITH_TOPIC_CONFIG = """
      value {
        stat_var: "FarmInventory_Barley"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "FarmInventory_Barley-name"
      }
    }
@@ -288,8 +278,6 @@ SIMPLE_WITH_TOPIC_CONFIG = """
      value {
        stat_var: "FarmInventory_Rice"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "FarmInventory_Rice-name"
      }
    }
@@ -351,8 +339,6 @@ COMPARISON_CONFIG = """
      value {
        stat_var: "Count_Person_Female"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Count_Person_Female-name"
      }
    }
@@ -369,8 +355,6 @@ COMPARISON_CONFIG = """
      value {
        stat_var: "Count_Person_Male"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Count_Person_Male-name"
      }
    }
@@ -428,8 +412,6 @@ CONTAINED_IN_CONFIG = """
      value {
        stat_var: "Count_Farm"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Count_Farm-name"
      }
    }
@@ -446,8 +428,6 @@ CONTAINED_IN_CONFIG = """
      value {
        stat_var: "Income_Farm"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Income_Farm-name"
      }
    }
@@ -578,8 +558,6 @@ RANKING_ACROSS_PLACES_CONFIG = """
      value {
        stat_var: "Count_Agricultural_Workers"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "Count_Agricultural_Workers-name"
      }
    }
@@ -625,8 +603,6 @@ RANKING_ACROSS_SVS_CONFIG = """
      value {
        stat_var: "FarmInventory_Barley"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "FarmInventory_Barley-name"
      }
    }
@@ -643,8 +619,6 @@ RANKING_ACROSS_SVS_CONFIG = """
      value {
        stat_var: "FarmInventory_Rice"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "FarmInventory_Rice-name"
      }
    }
@@ -661,8 +635,6 @@ RANKING_ACROSS_SVS_CONFIG = """
      value {
        stat_var: "FarmInventory_Wheat"
        denom: "Count_Person"
-       unit: "%"
-       scaling: 100.0
        name: "FarmInventory_Wheat-name"
      }
    }

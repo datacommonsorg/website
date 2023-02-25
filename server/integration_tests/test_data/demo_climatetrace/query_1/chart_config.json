@@ -15,14 +15,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas"
                     ],
-                    "title": "Greenhouse Gas Emissions in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas"
                     ],
-                    "title": "Greenhouse Gas Emissions in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions",
                     "type": "MAP"
                   }
                 ]
@@ -42,14 +42,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions",
                     "type": "MAP"
                   }
                 ]
@@ -68,14 +68,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture"
                     ],
-                    "title": "Greenhouse Gas Emissions from Agriculture in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Agriculture",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture"
                     ],
-                    "title": "Greenhouse Gas Emissions from Agriculture in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Agriculture",
                     "type": "MAP"
                   }
                 ]
@@ -95,14 +95,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Agriculture in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Agriculture",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Agriculture in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Agriculture",
                     "type": "MAP"
                   }
                 ]
@@ -121,14 +121,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
                     "type": "MAP"
                   }
                 ]
@@ -148,14 +148,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings",
                     "type": "MAP"
                   }
                 ]
@@ -174,14 +174,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Forestry and Land Use in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Forestry and Land Use",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Forestry and Land Use in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Forestry and Land Use",
                     "type": "MAP"
                   }
                 ]
@@ -201,14 +201,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use",
                     "type": "MAP"
                   }
                 ]
@@ -227,14 +227,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing"
                     ],
-                    "title": "Greenhouse Gas Emissions from Manufacturing in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Manufacturing",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing"
                     ],
-                    "title": "Greenhouse Gas Emissions from Manufacturing in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Manufacturing",
                     "type": "MAP"
                   }
                 ]
@@ -254,14 +254,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Manufacturing in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Manufacturing",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Manufacturing in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Manufacturing",
                     "type": "MAP"
                   }
                 ]
@@ -280,14 +280,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction"
                     ],
-                    "title": "Greenhouse Gas Emissions from Mineral Extraction in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Mineral Extraction",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction"
                     ],
-                    "title": "Greenhouse Gas Emissions from Mineral Extraction in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Mineral Extraction",
                     "type": "MAP"
                   }
                 ]
@@ -307,14 +307,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Mineral Extraction in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Mineral Extraction",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Mineral Extraction in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Mineral Extraction",
                     "type": "MAP"
                   }
                 ]
@@ -333,14 +333,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
                     ],
-                    "title": "Greenhouse Gas Emissions from Electricity Generation in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Electricity Generation",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
                     ],
-                    "title": "Greenhouse Gas Emissions from Electricity Generation in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Electricity Generation",
                     "type": "MAP"
                   }
                 ]
@@ -360,14 +360,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation",
                     "type": "MAP"
                   }
                 ]
@@ -386,14 +386,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation"
                     ],
-                    "title": "Greenhouse Gas Emissions from Transportation in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Transportation",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation"
                     ],
-                    "title": "Greenhouse Gas Emissions from Transportation in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Transportation",
                     "type": "MAP"
                   }
                 ]
@@ -413,14 +413,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Transportation in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Transportation",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Transportation in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Transportation",
                     "type": "MAP"
                   }
                 ]
@@ -439,14 +439,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement"
                     ],
-                    "title": "Greenhouse Gas Emissions from Waste Management in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Waste Management",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement"
                     ],
-                    "title": "Greenhouse Gas Emissions from Waste Management in Countries of Earth",
+                    "title": "Greenhouse Gas Emissions from Waste Management",
                     "type": "MAP"
                   }
                 ]
@@ -466,14 +466,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Waste Management in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Waste Management",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Waste Management in Countries of Earth",
+                    "title": "Per Capita Greenhouse Gas Emissions from Waste Management",
                     "type": "MAP"
                   }
                 ]
@@ -493,9 +493,7 @@
           "Annual_Emissions_GreenhouseGas_Agriculture_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Agriculture",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas_Agriculture",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas_Agriculture"
           },
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration": {
             "name": "Greenhouse Gas Emissions from Electricity Generation",
@@ -504,9 +502,7 @@
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Electricity Generation",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
           },
           "Annual_Emissions_GreenhouseGas_ForestryAndLandUse": {
             "name": "Greenhouse Gas Emissions from Forestry and Land Use",
@@ -515,9 +511,7 @@
           "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Forestry and Land Use",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings": {
             "name": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
@@ -526,9 +520,7 @@
           "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
           },
           "Annual_Emissions_GreenhouseGas_Manufacturing": {
             "name": "Greenhouse Gas Emissions from Manufacturing",
@@ -537,9 +529,7 @@
           "Annual_Emissions_GreenhouseGas_Manufacturing_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Manufacturing",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas_Manufacturing",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas_Manufacturing"
           },
           "Annual_Emissions_GreenhouseGas_MineralExtraction": {
             "name": "Greenhouse Gas Emissions from Mineral Extraction",
@@ -548,9 +538,7 @@
           "Annual_Emissions_GreenhouseGas_MineralExtraction_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Mineral Extraction",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
           },
           "Annual_Emissions_GreenhouseGas_Transportation": {
             "name": "Greenhouse Gas Emissions from Transportation",
@@ -559,9 +547,7 @@
           "Annual_Emissions_GreenhouseGas_Transportation_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Transportation",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas_Transportation",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas_Transportation"
           },
           "Annual_Emissions_GreenhouseGas_WasteManagement": {
             "name": "Greenhouse Gas Emissions from Waste Management",
@@ -570,16 +556,12 @@
           "Annual_Emissions_GreenhouseGas_WasteManagement_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Waste Management",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas_WasteManagement",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas_WasteManagement"
           },
           "Annual_Emissions_GreenhouseGas_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions",
-            "scaling": 100.0,
-            "statVar": "Annual_Emissions_GreenhouseGas",
-            "unit": "%"
+            "statVar": "Annual_Emissions_GreenhouseGas"
           }
         }
       }

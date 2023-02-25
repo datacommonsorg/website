@@ -115,7 +115,6 @@ export function formatNumber(
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
     maximumSignificantDigits: 3,
-    minimumSignificantDigits: 3,
     notation: "compact",
     style: "decimal",
   };
