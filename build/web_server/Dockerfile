@@ -35,6 +35,7 @@ COPY server/. /workspace/server/
 COPY custom_dc/*.html /workspace/server/templates/custom_dc/custom/
 
 # NPM
+COPY custom_dc/. /workspace/custom_dc/
 COPY static/. /workspace/static/
 RUN npm run-script build
 
