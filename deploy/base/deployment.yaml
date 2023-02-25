@@ -25,11 +25,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      # maximum number of Pods that can be created over the desired number of Pods
-      maxSurge: 4
-      # Maximum number of pods that can be unavailable during the update process
-      # Environment have different number of pods, this is roughly 8% in prod.
-      maxUnavailable: 5
+      maxSurge: 50%
+      maxUnavailable: 50%
   selector:
     matchLabels:
       app: website-app

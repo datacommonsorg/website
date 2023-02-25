@@ -15,6 +15,7 @@
 """
 
 import logging
+import os
 
 from flask import Blueprint
 from flask import current_app
@@ -28,8 +29,10 @@ bp = Blueprint('browser', __name__, url_prefix='/browser')
 
 @bp.route('/')
 def browser_main():
-  if g.env == 'iitm':
-    return render_template('custom_dc/iitm/browser_landing.html')
+  template_file = os.path.join('custom_dc', g.env, 'browser_landing.html')
+  if os.path.exists(
+      os.path.join(current_app.root_path, 'templates', template_file)):
+    return render_template(template_file)
   return render_template('/browser/landing.html')
 
 
