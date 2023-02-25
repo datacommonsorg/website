@@ -51,9 +51,7 @@
           "dc/0gettc3bc60cb_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Drive alone",
-            "scaling": 100.0,
-            "statVar": "dc/0gettc3bc60cb",
-            "unit": "%"
+            "statVar": "dc/0gettc3bc60cb"
           },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
@@ -62,9 +60,7 @@
           "dc/6rltk4kf75612_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Work at home",
-            "scaling": 100.0,
-            "statVar": "dc/6rltk4kf75612",
-            "unit": "%"
+            "statVar": "dc/6rltk4kf75612"
           },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
             "name": "Public Transit",
@@ -73,9 +69,7 @@
           "dc/hbkh95kc7pkb6_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Public Transit",
-            "scaling": 100.0,
-            "statVar": "dc/hbkh95kc7pkb6",
-            "unit": "%"
+            "statVar": "dc/hbkh95kc7pkb6"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
             "name": "Walk to work",
@@ -84,9 +78,7 @@
           "dc/vp8cbt6k79t94_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Walk to work",
-            "scaling": 100.0,
-            "statVar": "dc/vp8cbt6k79t94",
-            "unit": "%"
+            "statVar": "dc/vp8cbt6k79t94"
           },
           "dc/vt2q292eme79f_multiple_place_bar_block": {
             "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
@@ -95,9 +87,7 @@
           "dc/vt2q292eme79f_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
-            "scaling": 100.0,
-            "statVar": "dc/vt2q292eme79f",
-            "unit": "%"
+            "statVar": "dc/vt2q292eme79f"
           },
           "dc/wc8q05drd74bd_multiple_place_bar_block": {
             "name": "Carpool",
@@ -106,9 +96,7 @@
           "dc/wc8q05drd74bd_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Carpool",
-            "scaling": 100.0,
-            "statVar": "dc/wc8q05drd74bd",
-            "unit": "%"
+            "statVar": "dc/wc8q05drd74bd"
           }
         }
       }

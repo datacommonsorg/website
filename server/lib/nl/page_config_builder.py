@@ -275,9 +275,7 @@ def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
     tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[sv_key])
     stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                             name=sv2name[sv_dcid],
-                                            denom="Count_Person",
-                                            scaling=100,
-                                            unit="%")
+                                            denom="Count_Person")
     column.tiles.append(tile)
   return stat_var_spec_map
 
@@ -311,9 +309,7 @@ def _single_place_multiple_var_timeline_block(column, place, svs, sv2name,
       tile.stat_var_key.append(sv_key)
       stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
                                               name=sv2name[sv],
-                                              denom="Count_Person",
-                                              scaling=100,
-                                              unit="%")
+                                              denom="Count_Person")
     column.tiles.append(tile)
 
   return stat_var_spec_map
@@ -366,9 +362,7 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
       tile.stat_var_key.append(sv_key)
       stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
                                               denom="Count_Person",
-                                              name=sv2name[sv],
-                                              scaling=100,
-                                              unit="%")
+                                              name=sv2name[sv])
 
     column.tiles.append(tile)
   return stat_var_spec_map
@@ -413,9 +407,7 @@ def _map_chart_block_pc(column, place: Place, pri_sv: str, sv2name: Dict,
   stat_var_spec_map = {}
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
                                           denom="Count_Person",
-                                          name=sv2name[pri_sv],
-                                          scaling=100,
-                                          unit="%")
+                                          name=sv2name[pri_sv])
   return stat_var_spec_map
 
 
@@ -540,9 +532,7 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
   stat_var_spec_map = {}
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
                                           denom="Count_Person",
-                                          name=sv2name[pri_sv],
-                                          scaling=100,
-                                          unit="%")
+                                          name=sv2name[pri_sv])
 
   if pri_sv in constants.ADDITIONAL_DENOMINATOR_VARS:
     denom_sv, name_suffix = constants.ADDITIONAL_DENOMINATOR_VARS[pri_sv]
@@ -595,8 +585,7 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
       stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(stat_var=sv_pair[i],
                                                       name=sv_names[i],
                                                       denom='Count_Person',
-                                                      unit='%',
-                                                      scaling=100)
+                                                      unit='%')
     else:
       stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(stat_var=sv_pair[i],
                                                       name=sv_names[i],

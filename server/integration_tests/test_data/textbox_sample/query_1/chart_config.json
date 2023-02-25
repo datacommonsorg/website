@@ -134,9 +134,7 @@
           "Mean_Income_Household_FamilyHousehold_pc": {
             "denom": "Count_Person",
             "name": "Average Income for Family Households",
-            "scaling": 100.0,
-            "statVar": "Mean_Income_Household_FamilyHousehold",
-            "unit": "%"
+            "statVar": "Mean_Income_Household_FamilyHousehold"
           },
           "Mean_Income_Household_MarriedCoupleFamilyHousehold": {
             "name": "Average Income for Married Couple Family Households",
@@ -145,9 +143,7 @@
           "Mean_Income_Household_MarriedCoupleFamilyHousehold_pc": {
             "denom": "Count_Person",
             "name": "Average Income for Married Couple Family Households",
-            "scaling": 100.0,
-            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold",
-            "unit": "%"
+            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold"
           },
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
