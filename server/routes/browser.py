@@ -22,6 +22,7 @@ from flask import current_app
 from flask import g
 from flask import render_template
 
+import server.lib.render as lib_render
 import server.routes.api.shared as shared_api
 
 bp = Blueprint('browser', __name__, url_prefix='/browser')
@@ -29,11 +30,7 @@ bp = Blueprint('browser', __name__, url_prefix='/browser')
 
 @bp.route('/')
 def browser_main():
-  template_file = os.path.join('custom_dc', g.env, 'browser_landing.html')
-  if os.path.exists(
-      os.path.join(current_app.root_path, 'templates', template_file)):
-    return render_template(template_file)
-  return render_template('/browser/landing.html')
+  return lib_render.render_page("browser/landing.html", "browser_landing.html")
 
 
 @bp.route('/<path:dcid>')

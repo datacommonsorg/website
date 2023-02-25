@@ -62,6 +62,7 @@ fi
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 
+# Set flask env
 if [[ $FLASK_ENV == "" ]]; then
   export FLASK_ENV="local"
 fi
@@ -69,6 +70,10 @@ if [[ $FLASK_ENV != "local" ]]; then
   export ENV_PREFIX="Local"
 fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
+
+# Copy over custom DC files
+find ./server/templates/custom_dc/custom ! -name '.empty' -type f -exec rm -f {} +
+cp -rf custom_dc/*.html server/templates/custom_dc/custom/
 
 python3 -m pip install --upgrade pip
 pip3 install -r server/requirements.txt -q
