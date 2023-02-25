@@ -133,7 +133,9 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     # (20 - 10) / (2 years * 10)
-    self.assertEqual(0.0013698630136986301, utils.compute_growth_rate(s))
+    gr = utils.compute_series_growth(s)
+    self.assertEqual(0.0013698630136986301, gr.pct)
+    self.assertEqual(0.0136986301369863, gr.abs)
 
   def test_month_unadjusted(self):
     s = [
@@ -151,7 +153,9 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     # (10 - 20) / (24 months * 20)
-    self.assertEqual(-0.0006849315068493151, utils.compute_growth_rate(s))
+    gr = utils.compute_series_growth(s)
+    self.assertEqual(-0.0006849315068493151, gr.pct)
+    self.assertEqual(-0.0136986301369863, gr.abs)
 
   # Here we will pick 2017-06 instead of 2017-01 to match the latest month (2017-06),
   # and thus same result as before.
@@ -183,7 +187,9 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     # (10 - 20) / (24 months * 20)
-    self.assertEqual(-0.0006849315068493151, utils.compute_growth_rate(s))
+    gr = utils.compute_series_growth(s)
+    self.assertEqual(-0.0006849315068493151, gr.pct)
+    self.assertEqual(-0.0136986301369863, gr.abs)
 
   def test_day(self):
     s = [
@@ -201,7 +207,9 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     # (20 - 10) / (2 years * 10)
-    self.assertEqual(0.0013698630136986301, utils.compute_growth_rate(s))
+    gr = utils.compute_series_growth(s)
+    self.assertEqual(0.0013698630136986301, gr.pct)
+    self.assertEqual(0.0136986301369863, gr.abs)
 
   def test_error(self):
     s = [
@@ -219,6 +227,6 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     with self.assertRaises(ValueError) as context:
-      utils.compute_growth_rate(s)
+      utils.compute_series_growth(s)
     self.assertTrue(
         'Dates have different granularity' in str(context.exception))
