@@ -17,6 +17,7 @@ from typing import List
 
 from server.lib.nl import utils
 from server.lib.nl.detection import Place
+from server.lib.nl.detection import TimeDeltaType
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import ChartVars
 from server.lib.nl.fulfillment.base import populate_charts
@@ -88,26 +89,36 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   dcid2place = {c.dcid: c for c in child_places}
   dcids = list(dcid2place.keys())
 
-  ranked_child_dcids = utils.rank_places_by_growth_rate(
+  direction = state.time_delta_types[0]
+  ranked_children = utils.rank_places_by_series_growth(
       places=dcids,
       sv=chart_vars.svs[0],
-      growth_direction=state.time_delta_types[0],
+      growth_direction=direction,
       rank_order=rank_order)
 
-  utils.update_counter(state.uttr.counters, 'time-delta_reranked_places', {
-      'orig': dcids,
-      'ranked': ranked_child_dcids,
-  })
-  ranked_child_places = []
-  for d in ranked_child_dcids:
-    ranked_child_places.append(dcid2place[d])
+  utils.update_counter(
+      state.uttr.counters, 'time-delta_reranked_places', {
+          'orig': dcids,
+          'ranked_abs': ranked_children.abs,
+          'ranked_pct': ranked_children.pct,
+      })
+  block_id = chart_vars.block_id + 10
+  i = 0
+  for ranked_dcids in [ranked_children.abs, ranked_children.pct]:
+    ranked_places = []
+    for d in ranked_dcids:
+      ranked_places.append(dcid2place[d])
 
-  # No per-capita charts.
-  chart_vars.include_percapita = False
-  # Override the "main-place" (i.e., parent) with the child place.
-  chart_vars.set_place_override_for_line = True
-  for p in ranked_child_places[:_MAX_PLACES_TO_RETURN]:
-    logging.info('Processing %s' % p.name)
-    found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state, chart_vars,
-                                    [p], chart_origin)
+    # No per-capita charts.
+    chart_vars.include_percapita = False
+    chart_vars.block_id = block_id
+    # Override the "main-place" (i.e., parent) with the child place.
+    chart_vars.set_place_override_for_line = True
+    chart_vars.title = utils.get_time_delta_title(
+        direction=direction, is_absolute=True if i == 0 else False)
+    for p in ranked_places[:_MAX_PLACES_TO_RETURN]:
+      found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state,
+                                      chart_vars, [p], chart_origin)
+    block_id += 10
+    i += 1
   return found

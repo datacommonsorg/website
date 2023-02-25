@@ -359,7 +359,7 @@ class TestDataSpecNext(unittest.TestCase):
   # This follows up on test_simple().  It relies on topic as well.
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'rank_svs_by_growth_rate')
+  @patch.object(utils, 'rank_svs_by_series_growth')
   @patch.object(base, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
@@ -385,11 +385,17 @@ class TestDataSpecNext(unittest.TestCase):
         'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
     ]]
     # Differently order result
-    mock_rank_svs.return_value = [
-        'FarmInventory_Barley',
-        'FarmInventory_Rice',
-        'FarmInventory_Wheat',
-    ]
+    mock_rank_svs.return_value = utils.GrowthRankedLists(
+        pct=[
+            'FarmInventory_Barley',
+            'FarmInventory_Rice',
+            'FarmInventory_Wheat',
+        ],
+        abs=[
+            'FarmInventory_Rice',
+            'FarmInventory_Barley',
+            'FarmInventory_Wheat',
+        ])
 
     # Pass in just simple utterance
     got = _run(detection, [SIMPLE_UTTR])

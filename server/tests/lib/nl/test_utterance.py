@@ -540,63 +540,126 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
     'query_type': QueryType.TIME_DELTA_ACROSS_VARS,
     'ranked_charts': [{
         'attr': {
-            'block_id': 2,
-            'chart_type': 'growth chart',
+            'block_id': 12,
+            'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
             'source_topic': 'dc/topic/Agriculture',
-            'title': ''
+            'title': 'Increase over time (by absolute '
+                     'change)'
         },
         'chart_type': ChartType.TIMELINE_CHART,
+        'event': None,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
             'place_type': 'State'
         }],
-        'event': None,
-        'svs': ['FarmInventory_Barley']
-    }, {
-        'attr': {
-            'block_id': 2,
-            'chart_type': 'growth chart',
-            'class': ChartOriginType.PRIMARY_CHART,
-            'description': '',
-            'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
-            'source_topic': 'dc/topic/Agriculture',
-            'title': ''
-        },
-        'chart_type': ChartType.TIMELINE_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'event': None,
         'svs': ['FarmInventory_Rice']
     }, {
         'attr': {
-            'block_id': 2,
-            'chart_type': 'growth chart',
+            'block_id': 12,
+            'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
             'include_percapita': False,
             'place_type': None,
             'ranking_types': [],
             'source_topic': 'dc/topic/Agriculture',
-            'title': ''
+            'title': 'Increase over time (by absolute '
+                     'change)'
         },
         'chart_type': ChartType.TIMELINE_CHART,
+        'event': None,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
             'place_type': 'State'
         }],
+        'svs': ['FarmInventory_Barley']
+    }, {
+        'attr': {
+            'block_id': 12,
+            'chart_type': '',
+            'class': ChartOriginType.PRIMARY_CHART,
+            'description': '',
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
+            'title': 'Increase over time (by absolute '
+                     'change)'
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
         'event': None,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Wheat']
+    }, {
+        'attr': {
+            'block_id': 22,
+            'chart_type': '',
+            'class': ChartOriginType.PRIMARY_CHART,
+            'description': '',
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
+            'title': 'Increase over time (by percent change)'
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'event': None,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Barley']
+    }, {
+        'attr': {
+            'block_id': 22,
+            'chart_type': '',
+            'class': ChartOriginType.PRIMARY_CHART,
+            'description': '',
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
+            'title': 'Increase over time (by percent change)'
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'event': None,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Rice']
+    }, {
+        'attr': {
+            'block_id': 22,
+            'chart_type': '',
+            'class': ChartOriginType.PRIMARY_CHART,
+            'description': '',
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
+            'title': 'Increase over time (by percent change)'
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'event': None,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
         'svs': ['FarmInventory_Wheat']
     }],
     'svs': ['dc/topic/AgricultureProduction'],

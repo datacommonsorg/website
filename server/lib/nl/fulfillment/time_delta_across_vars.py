@@ -72,21 +72,32 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   # Compute time-delta ranks.
   rank_order = state.ranking_types[0] if state.ranking_types else None
   logging.info('Attempting to compute growth rate stats')
-  ranked_svs = utils.rank_svs_by_growth_rate(
-      place=places[0].dcid,
-      svs=chart_vars.svs,
-      growth_direction=state.time_delta_types[0],
-      rank_order=rank_order)
-  utils.update_counter(state.uttr.counters,
-                       'time-delta-across-vars_reranked_svs', {
-                           'orig': chart_vars.svs,
-                           'ranked': ranked_svs,
-                       })
-  for sv in ranked_svs:
-    cv = chart_vars
-    cv.svs = [sv]
-    cv.response_type = "growth chart"
-    # TODO: desc string should take into account rank order
-    found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state, cv, places,
-                                    chart_origin)
+
+  direction = state.time_delta_types[0]
+  ranked_lists = utils.rank_svs_by_series_growth(place=places[0].dcid,
+                                                 svs=chart_vars.svs,
+                                                 growth_direction=direction,
+                                                 rank_order=rank_order)
+
+  utils.update_counter(
+      state.uttr.counters, 'time-delta-across-vars_reranked_svs', {
+          'orig': chart_vars.svs,
+          'ranked_abs': ranked_lists.abs,
+          'ranked_pct': ranked_lists.pct,
+      })
+
+  block_id = chart_vars.block_id + 10
+  i = 0
+  for ranked_svs in [ranked_lists.abs, ranked_lists.pct]:
+    for sv in ranked_svs:
+      cv = chart_vars
+      cv.svs = [sv]
+      cv.block_id = block_id
+      cv.title = utils.get_time_delta_title(
+          direction=direction, is_absolute=True if i == 0 else False)
+      found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state, cv,
+                                      places, chart_origin)
+    block_id += 10
+    i += 1
+
   return found
