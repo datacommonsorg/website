@@ -20,7 +20,7 @@ import logging
 import os
 import random
 import re
-from typing import Dict, List, Set, Union
+from typing import Dict, List, NamedTuple, Set, Union
 
 import server.lib.nl.constants as constants
 import server.lib.nl.detection as detection
@@ -328,11 +328,23 @@ def has_series_with_single_datapoint(place: str, svs: List[str]):
   return False
 
 
+# List of vars or places ranked by abs and pct growth.
+class GrowthRankedLists(NamedTuple):
+  abs: List[str]
+  pct: List[str]
+
+
+# Raw abs and pct growth
+class GrowthRanks(NamedTuple):
+  abs: float
+  pct: float
+
+
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
-def rank_places_by_growth_rate(places: List[str], sv: str,
-                               growth_direction: detection.TimeDeltaType,
-                               rank_order: detection.RankingType) -> List[str]:
+def rank_places_by_series_growth(
+    places: List[str], sv: str, growth_direction: detection.TimeDeltaType,
+    rank_order: detection.RankingType) -> GrowthRankedLists:
   series_data = util.series_core(entities=places,
                                  variables=[sv],
                                  all_facets=False)
@@ -347,31 +359,37 @@ def rank_places_by_growth_rate(places: List[str], sv: str,
       continue
 
     try:
-      net_growth_rate = compute_growth_rate(series)
+      net_growth = compute_series_growth(series)
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
 
-    if net_growth_rate > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
+    if net_growth.abs > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
       continue
-    if net_growth_rate < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
+    if net_growth.abs < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
       continue
 
-    places_with_vals.append((place, net_growth_rate))
+    places_with_vals.append((place, net_growth))
 
-  places_with_vals = sorted(places_with_vals,
-                            key=lambda pair: pair[1],
-                            reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
-                                                          rank_order)])
-  logging.info(places_with_vals)
-  return [p for p, _ in places_with_vals]
+  places_with_vals_by_abs = sorted(
+      places_with_vals,
+      key=lambda pair: pair[1].abs,
+      reverse=_TIME_DELTA_SORT_MAP[(growth_direction, rank_order)])
+  places_with_vals_by_pct = sorted(
+      places_with_vals,
+      key=lambda pair: pair[1].pct,
+      reverse=_TIME_DELTA_SORT_MAP[(growth_direction, rank_order)])
+  return GrowthRankedLists(
+      abs=[sv for sv, _ in places_with_vals_by_abs],
+      pct=[sv for sv, _ in places_with_vals_by_pct],
+  )
 
 
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the growth rate of the time-series.
-def rank_svs_by_growth_rate(place: str, svs: List[str],
-                            growth_direction: detection.TimeDeltaType,
-                            rank_order: detection.RankingType) -> List[str]:
+def rank_svs_by_series_growth(
+    place: str, svs: List[str], growth_direction: detection.TimeDeltaType,
+    rank_order: detection.RankingType) -> GrowthRankedLists:
   series_data = util.series_core(entities=[place],
                                  variables=svs,
                                  all_facets=False)
@@ -385,28 +403,35 @@ def rank_svs_by_growth_rate(place: str, svs: List[str],
       continue
 
     try:
-      net_growth_rate = compute_growth_rate(series)
+      net_growth = compute_series_growth(series)
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
 
-    if net_growth_rate > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
+    if net_growth.abs > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
       continue
-    if net_growth_rate < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
+    if net_growth.abs < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
       continue
 
-    svs_with_vals.append((sv, net_growth_rate))
+    svs_with_vals.append((sv, net_growth))
 
-  svs_with_vals = sorted(svs_with_vals,
-                         key=lambda pair: pair[1],
-                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
-                                                       rank_order)])
-  logging.info(svs_with_vals)
-  return [sv for sv, _ in svs_with_vals]
+  svs_with_vals_by_abs = sorted(svs_with_vals,
+                                key=lambda pair: pair[1].abs,
+                                reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
+                                                              rank_order)])
+  svs_with_vals_by_pct = sorted(svs_with_vals,
+                                key=lambda pair: pair[1].pct,
+                                reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
+                                                              rank_order)])
+  return GrowthRankedLists(
+      abs=[sv for sv, _ in svs_with_vals_by_abs],
+      pct=[sv for sv, _ in svs_with_vals_by_pct],
+  )
 
 
 # Computes net growth-rate for a time-series including only recent (since 2012) observations.
-def compute_growth_rate(series: List[Dict]) -> float:
+# Returns a pair of
+def compute_series_growth(series: List[Dict]) -> GrowthRanks:
   latest = None
   earliest = None
   # TODO: Apparently series is ordered, so simplify.
@@ -427,7 +452,7 @@ def compute_growth_rate(series: List[Dict]) -> float:
 
 
 def _compute_growth(earliest: Dict, latest: Dict,
-                    series: List[Dict]) -> datetime.date:
+                    series: List[Dict]) -> GrowthRanks:
   eparts = earliest['date'].split('-')
   lparts = latest['date'].split('-')
 
@@ -453,7 +478,9 @@ def _compute_growth(earliest: Dict, latest: Dict,
       earliest['date'])
   # Compute % growth per day
   start = 0.000001 if earliest['value'] == 0 else earliest['value']
-  return float(val_delta) / (float(date_delta.days) * start)
+  pct = float(val_delta) / (float(date_delta.days) * start)
+  abs = float(val_delta) / float(date_delta.days)
+  return GrowthRanks(abs=abs, pct=pct)
 
 
 def _datestr_to_date(datestr: str) -> datetime.date:
@@ -808,3 +835,12 @@ def new_session_id() -> str:
   rand = random.randrange(1000)
   # Prefix randomness since session_id gets used as BT key
   return str(rand) + '_' + str(micros)
+
+
+def get_time_delta_title(direction: detection.TimeDeltaType,
+                         is_absolute: bool) -> str:
+  return ' '.join([
+      'Increase' if direction == detection.TimeDeltaType.INCREASE else
+      'Decrease', 'over time',
+      '(by absolute change)' if is_absolute else '(by percent change)'
+  ])

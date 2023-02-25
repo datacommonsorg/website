@@ -8,6 +8,175 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/DZA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Algeria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBY",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Libya",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Morocco",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/TUN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Tunisia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ERI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Eritrea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Mali",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MWI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Malawi",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Senegal",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GMB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Gambia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SSD",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in South Sudan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CMR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Cameroon",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SLE",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Sierra Leone",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/EGY",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Egypt",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CPV",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Cape Verde",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Niger",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Ethiopia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/STP",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/COM",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Comoros",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/AGO",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Angola",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BFA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Burkina Faso",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Increase over time (by absolute change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "LifeExpectancy_Person"
@@ -169,7 +338,177 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Increase over time (by percent change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/TUN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Tunisia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBY",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Libya",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/DZA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Algeria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Senegal",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Mali",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MWI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Malawi",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GMB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Gambia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Ethiopia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ERI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Eritrea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Liberia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Morocco",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Niger",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MDG",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Madagascar",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GAB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Gabon",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Rwanda",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CPV",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Cape Verde",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BFA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Burkina Faso",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SSD",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in South Sudan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Guinea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Benin",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Increase over time (by absolute change)"
           },
           {
             "columns": [
@@ -337,7 +676,177 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Increase over time (by percent change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/TUN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Tunisia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Mali",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Liberia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/DZA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Algeria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GMB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Gambia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBY",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Libya",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Morocco",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Senegal",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Ethiopia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BFA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Burkina Faso",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ERI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Eritrea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Guinea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Niger",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MDG",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Madagascar",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GAB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Gabon",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SSD",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in South Sudan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Rwanda",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MWI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Malawi",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Benin",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SLE",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Sierra Leone",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Increase over time (by absolute change)"
           },
           {
             "columns": [
@@ -505,7 +1014,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Increase over time (by percent change)"
           },
           {
             "columns": [
@@ -521,7 +1031,25 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Increase over time (by absolute change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SYC",
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Seychelles",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Increase over time (by percent change)"
           }
         ],
         "statVarSpec": {
@@ -546,15 +1074,15 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/MLI"
+        "country/DZA"
       ]
     }
   },
   "context": {},
   "debug": {},
   "place": {
-    "dcid": "country/MLI",
-    "name": "Mali",
+    "dcid": "country/DZA",
+    "name": "Algeria",
     "place_type": "Country"
   }
 }
