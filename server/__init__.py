@@ -351,9 +351,14 @@ def create_app():
   # Jinja env
   app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
   app.jinja_env.globals['NAME'] = app.config['NAME']
-  app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
   app.jinja_env.globals['LOGO_PATH'] = app.config['LOGO_PATH']
   app.jinja_env.globals['OVERRIDE_CSS_PATH'] = app.config['OVERRIDE_CSS_PATH']
   app.secret_key = os.urandom(24)
+
+  custom_path = os.path.join('custom_dc', cfg.ENV, 'base.html')
+  if os.path.exists(os.path.join(app.root_path, 'templates', custom_path)):
+    app.jinja_env.globals['BASE_HTML'] = custom_path
+  else:
+    app.jinja_env.globals['BASE_HTML'] = 'base.html'
 
   return app

@@ -19,11 +19,9 @@ from server.app_env import local
 class Config(_base.Config):
   CUSTOM = True
   NAME = "IITM"
-  BASE_HTML_PATH = 'custom_dc/iitm/base.html'
   GA_ACCOUNT = 'G-32HPL4K4Y1'
 
 
 class LocalConfig(local.Config):
   CUSTOM = True
   NAME = "IITM"
-  BASE_HTML_PATH = 'custom_dc/iitm/base.html'
