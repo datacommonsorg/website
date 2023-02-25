@@ -133,7 +133,8 @@ export function D3Map(props: D3MapProps): JSX.Element {
       legendHeight,
       colorScale,
       "",
-      LEGEND_MARGIN_LEFT
+      LEGEND_MARGIN_LEFT,
+      formatNumber
     );
     const zoomParams = {
       zoomInButtonId: ZOOM_IN_BUTTON_ID,

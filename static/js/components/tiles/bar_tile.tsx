@@ -30,6 +30,7 @@ import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
+import { formatNumber } from "../../utils/string_utils";
 import {
   getStatVarName,
   getUnitString,
@@ -230,6 +231,7 @@ function draw(props: BarTilePropType, chartData: BarChartData): void {
     elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
+    formatNumber,
     chartData.unit
   );
 }

@@ -31,6 +31,7 @@ import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
+import { formatNumber } from "../../utils/string_utils";
 import {
   formatString,
   getSourcesJsx,
@@ -122,6 +123,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     points={points.slice(-rankingCount).reverse()}
                     isHighest={true}
                     svNames={isMultiColumn ? svNames : undefined}
+                    formatNumberFn={formatNumber}
                   />
                   <footer>
                     {!_.isEmpty(sources) && (
@@ -163,6 +165,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     points={points.slice(0, rankingCount)}
                     isHighest={false}
                     svNames={isMultiColumn ? svNames : undefined}
+                    formatNumberFn={formatNumber}
                   />
                   <footer>
                     {!_.isEmpty(sources) && (
