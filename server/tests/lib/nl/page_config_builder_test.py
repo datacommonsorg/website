@@ -548,7 +548,6 @@ RANKING_ACROSS_PLACES_CONFIG = """
       footnote: "Count_Agricultural_Workers-footnote"
     }
     blocks {
-      title: "Per Capita Count_Agricultural_Workers-name"
       columns {
        tiles {
          title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place"

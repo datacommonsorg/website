@@ -86,20 +86,13 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
           'ranked_pct': ranked_lists.pct,
       })
 
-  block_id = chart_vars.block_id
   i = 0
   for ranked_svs in [ranked_lists.abs, ranked_lists.pct]:
-    for sv in ranked_svs:
-      cv = chart_vars
-      cv.svs = [sv]
-      cv.block_id = block_id
-      cv.title = utils.get_time_delta_title(
-          direction=direction, is_absolute=True if i == 0 else False)
-      found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state, cv,
-                                      places, chart_origin)
-    # Avoid having the second set of charts use the same block_id than
-    # others.
-    block_id += 10
+    chart_vars.svs = ranked_svs
+    chart_vars.growth_direction = direction
+    chart_vars.is_growth_ranking_absolute = True if i == 0 else False
+    found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
+                                    chart_vars, places, chart_origin)
     i += 1
 
   return found

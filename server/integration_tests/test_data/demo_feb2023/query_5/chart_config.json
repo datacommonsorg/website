@@ -115,7 +115,7 @@
                 ]
               }
             ],
-            "title": "Increase over time (by absolute change)"
+            "title": "Increase in Categories of Jobs over time (absolute change)"
           },
           {
             "columns": [
@@ -229,7 +229,7 @@
                 ]
               }
             ],
-            "title": "Increase over time (by percent change)"
+            "title": "Increase in Categories of Jobs over time (relative change)"
           }
         ],
         "statVarSpec": {
