@@ -12,16 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
-from server.app_env import local
+import os
+
+from flask import current_app
+from flask import g
+from flask import render_template
 
 
-class Config(_base.Config):
-  CUSTOM = True
-  NAME = "Custom Data Commons"
-  OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
-  LOGO_PATH = "/custom_dc/custom/logo.png"
+def render_page(default_html, custom_dc_html, **context):
+  """Render static page from default template or custom DC template.
 
-
-class LocalConfig(Config, local.Config):
-  LITE = True
+  Custom DC templates reside under 'server/templates/custom_dc/<env>/'
+  """
+  template_file = os.path.join('custom_dc', g.env, custom_dc_html)
+  if os.path.exists(
+      os.path.join(current_app.root_path, 'templates', template_file)):
+    return render_template(template_file, **context)
+  return render_template(default_html, **context)
