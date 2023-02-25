@@ -35,6 +35,7 @@ import {
   formatString,
   getSourcesJsx,
   getStatVarName,
+  getUnitString,
 } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 
@@ -297,6 +298,7 @@ function pointApiToPerSvRankingData(
     }
     const arr = [];
     const sources = new Set<string>();
+    let svUnit = "";
     for (const place in statData.data[spec.statVar]) {
       const statPoint = statData.data[spec.statVar][place];
       const rankingPoint = {
@@ -329,8 +331,10 @@ function pointApiToPerSvRankingData(
       arr.push(rankingPoint);
       if (statPoint.facet && statData.facets[statPoint.facet]) {
         const statPointSource = statData.facets[statPoint.facet].provenanceUrl;
+        const statPointUnit = statData.facets[statPoint.facet].unit;
         if (statPointSource) {
           sources.add(statPointSource);
+          svUnit = svUnit || statPointUnit;
         }
       }
     }
@@ -338,9 +342,10 @@ function pointApiToPerSvRankingData(
       return a.value - b.value;
     });
     const numDataPoints = arr.length;
+    svUnit = getUnitString(svUnit, spec.denom);
     rankingData[spec.statVar] = {
       points: arr,
-      unit: [spec.unit],
+      unit: [spec.unit || svUnit],
       scaling: [spec.scaling],
       numDataPoints,
       sources,

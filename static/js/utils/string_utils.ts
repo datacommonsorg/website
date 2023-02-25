@@ -141,6 +141,12 @@ export function formatNumber(
     case "Percent":
       displayUnit = "%";
       break;
+    case "MetricTonCO2e":
+      displayUnit = "MTCO2e";
+      break;
+    case "MetricTon":
+      displayUnit = "t";
+      break;
   }
   if (displayUnit) {
     returnText = `${returnText} ${displayUnit}`;

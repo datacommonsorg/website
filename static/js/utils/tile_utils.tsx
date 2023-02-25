@@ -103,3 +103,17 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element[] {
   });
   return sourcesJsx;
 }
+
+/**
+ * Gets the unit given the unit for the stat var and the dcid of the denominator
+ * TODO(chejennifer): clean up all the getUnit functions in this repo
+ * @param statUnit the unit for the stat var
+ * @param denomDcid the dcid of the denominator
+ */
+export function getUnitString(statUnit: string, denomDcid?: string): string {
+  let unit = statUnit;
+  if (unit && denomDcid && denomDcid.includes("_Person")) {
+    unit += "per person";
+  }
+  return unit;
+}
