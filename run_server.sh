@@ -71,10 +71,6 @@ if [[ $FLASK_ENV != "local" ]]; then
 fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
-# Copy over custom DC files
-find ./server/templates/custom_dc/custom ! -name '.empty' -type f -exec rm -f {} +
-cp -rf custom_dc/*.html server/templates/custom_dc/custom/
-
 python3 -m pip install --upgrade pip
 pip3 install -r server/requirements.txt -q
 protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto
