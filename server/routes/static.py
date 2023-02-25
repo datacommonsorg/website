@@ -19,8 +19,8 @@ import os
 from flask import Blueprint
 from flask import render_template
 
-from server.services import datacommons as dc
 import server.lib.render as lib_render
+from server.services import datacommons as dc
 
 bp = Blueprint('static', __name__)
 
