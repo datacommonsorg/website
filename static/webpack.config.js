@@ -159,6 +159,7 @@ const config = {
         { from: "custom_dc/**/*" },
         { from: "*favicon.ico" },
         { from: "robots.txt" },
+        { from: "../custom_dc/overrides.css", to: "custom_dc/custom/" },
       ],
     }),
     new FixStyleOnlyEntriesPlugin({
