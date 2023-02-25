@@ -30,7 +30,11 @@ import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  getStatVarName,
+  getUnitString,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 const NUM_PLACES = 6;
@@ -185,10 +189,10 @@ function processData(
           };
           if (raw.facets[stat.facet]) {
             sources.add(raw.facets[stat.facet].provenanceUrl);
-            let svUnit = raw.facets[stat.facet].unit;
-            if (svUnit && spec.denom) {
-              svUnit += "per person";
-            }
+            const svUnit = getUnitString(
+              raw.facets[stat.facet].unit,
+              spec.denom
+            );
             unit = unit || svUnit;
           }
           if (spec.denom && spec.denom in raw.data) {

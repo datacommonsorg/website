@@ -35,6 +35,7 @@ import {
   formatString,
   getSourcesJsx,
   getStatVarName,
+  getUnitString,
 } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 
@@ -341,9 +342,7 @@ function pointApiToPerSvRankingData(
       return a.value - b.value;
     });
     const numDataPoints = arr.length;
-    if (svUnit && spec.denom) {
-      svUnit += " per person";
-    }
+    svUnit = getUnitString(svUnit, spec.denom);
     rankingData[spec.statVar] = {
       points: arr,
       unit: [spec.unit || svUnit],

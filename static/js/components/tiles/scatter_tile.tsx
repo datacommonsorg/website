@@ -38,7 +38,11 @@ import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  getStatVarName,
+  getUnitString,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface ScatterTilePropType {
@@ -262,17 +266,19 @@ function processData(
   }
   let xUnit = xStatVar.unit;
   if (!xUnit) {
-    xUnit = getUnit(Object.values(xPlacePointStat), rawData.placeStats.facets);
-    if (xUnit && xStatVar.denom) {
-      xUnit += "per person";
-    }
+    const xStatUnit = getUnit(
+      Object.values(xPlacePointStat),
+      rawData.placeStats.facets
+    );
+    xUnit = getUnitString(xStatUnit, xStatVar.denom);
   }
   let yUnit = yStatVar.unit;
   if (!yUnit) {
-    yUnit = getUnit(Object.values(yPlacePointStat), rawData.placeStats.facets);
-    if (yUnit && yStatVar.denom) {
-      yUnit += "per person";
-    }
+    const yStatUnit = getUnit(
+      Object.values(yPlacePointStat),
+      rawData.placeStats.facets
+    );
+    yUnit = getUnitString(yStatUnit, yStatVar.denom);
   }
   setChartdata({
     xStatVar,

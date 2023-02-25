@@ -51,7 +51,7 @@ import { getUnit } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { ReplacementStrings } from "../../utils/tile_utils";
+import { getUnitString, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface MapTilePropType {
@@ -266,10 +266,11 @@ function processData(
   if (_.isEmpty(dataValues)) {
     return;
   }
-  let unit = getUnit(Object.values(rawData.placeStat), rawData.metadataMap);
-  if (unit && isPerCapita) {
-    unit += "per person";
-  }
+  const statUnit = getUnit(
+    Object.values(rawData.placeStat),
+    rawData.metadataMap
+  );
+  const unit = getUnitString(statUnit, statVarSpec.denom);
   setChartData({
     dataValues,
     metadata,
