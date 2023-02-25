@@ -420,6 +420,7 @@ CONTAINED_IN_CONFIG = """
      value {
        stat_var: "Count_Farm"
        name: "Count_Farm-name"
+       unit: "Count_Farm-unit"
      }
    }
    stat_var_spec {
@@ -437,6 +438,7 @@ CONTAINED_IN_CONFIG = """
      value {
        stat_var: "Income_Farm"
        name: "Income_Farm-name"
+       unit: "Income_Farm-unit"
      }
    }
    stat_var_spec {
@@ -493,6 +495,7 @@ CORRELATION_CONFIG = """
      value {
        stat_var: "Count_Farm"
        name: "Count_Farm-name"
+       unit: "Count_Farm-unit"
      }
    }
    stat_var_spec {
@@ -500,6 +503,7 @@ CORRELATION_CONFIG = """
      value {
        stat_var: "Mean_Precipitation"
        name: "Mean_Precipitation-name"
+       unit: "Mean_Precipitation-unit"
      }
    }
    stat_var_spec {
@@ -507,6 +511,7 @@ CORRELATION_CONFIG = """
      value {
        stat_var: "Income_Farm"
        name: "Income_Farm-name"
+       unit: "Income_Farm-unit"
      }
    }
 }
@@ -565,6 +570,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
      value {
        stat_var: "Count_Agricultural_Workers"
        name: "Count_Agricultural_Workers-name"
+       unit: "Count_Agricultural_Workers-unit"
      }
    }
    stat_var_spec {

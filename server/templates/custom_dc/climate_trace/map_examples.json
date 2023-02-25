@@ -1,0 +1,42 @@
+[
+  {
+    "header": "CO2 emissions from forest fires",
+    "preposition": "across",
+    "examples": [
+      {
+        "text": "countries in Earth",
+        "url": "#%26sv%3DAnnual_Emissions_GreenhouseGas_ForestFire%26pc%3D0%26denom%3DCount_Person%26pd%3DEarth%26ept%3DCountry%26ppt%3DEpaReportingFacility"
+      }
+    ]
+  },
+  {
+    "header": "CO2 emissions from agriculture",
+    "preposition": "across",
+    "examples": [
+      {
+        "text": "countries in Earth",
+        "url": "#%26sv%3DAnnual_Emissions_CarbonDioxide_Agriculture%26pc%3D0%26denom%3DCount_Person%26pd%3DEarth%26ept%3DCountry%26ppt%3DEpaReportingFacility"
+      }
+    ]
+  },
+  {
+    "header": "CO2 emissions from electricity generation",
+    "preposition": "across",
+    "examples": [
+      {
+        "text": "countries in Earth",
+        "url": "#%26sv%3DAnnual_Emissions_CarbonDioxide_ElectricityGeneration%26pc%3D0%26denom%3DCount_Person%26pd%3DEarth%26ept%3DCountry%26ppt%3DEpaReportingFacility"
+      }
+    ]
+  },
+  {
+    "header": "CO2 emissions from manufacturing",
+    "preposition": "across",
+    "examples": [
+      {
+        "text": "countries in Earth",
+        "url": "#%26sv%3DAnnual_Emissions_CarbonDioxide_Manufacturing%26pc%3D0%26denom%3DCount_Person%26pd%3DEarth%26ept%3DCountry%26ppt%3DEpaReportingFacility"
+      }
+    ]
+  }
+]

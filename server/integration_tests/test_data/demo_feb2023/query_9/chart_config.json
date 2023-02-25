@@ -118,7 +118,8 @@
           },
           "Percent_Person_WithHighBloodPressure_scatter": {
             "name": "High Bood Pressure",
-            "statVar": "Percent_Person_WithHighBloodPressure"
+            "statVar": "Percent_Person_WithHighBloodPressure",
+            "unit": "%"
           },
           "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices_scatter": {
             "name": "Total Wages Paid to Professional, Scientific, and Technical Services",
