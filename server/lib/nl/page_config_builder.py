@@ -22,7 +22,6 @@ from server.config.subject_page_pb2 import SubjectPageConfig
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl import utils
 import server.lib.nl.constants as constants
-import server.lib.nl.descriptions as lib_desc
 from server.lib.nl.detection import EventType
 from server.lib.nl.detection import Place
 from server.lib.nl.detection import RankingType
@@ -30,6 +29,7 @@ from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartSpec
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import QueryType
+from server.lib.nl.utterance import TimeDeltaType
 from server.lib.nl.utterance import Utterance
 
 
@@ -55,7 +55,9 @@ class PageConfigBuilder:
     self.prev_block_id = -1
 
     self.ignore_block_id_check = False
-    if uttr.query_type == QueryType.RANKING_ACROSS_PLACES:
+    if (uttr.query_type == QueryType.RANKING_ACROSS_PLACES or
+        uttr.query_type == QueryType.TIME_DELTA_ACROSS_PLACES or
+        uttr.query_type == QueryType.TIME_DELTA_ACROSS_VARS):
       self.ignore_block_id_check = True
 
   # Returns a Block and a Column
@@ -163,35 +165,25 @@ def build_page_config(
                                                   sv2name, sv2footnote,
                                                   cspec.attr))
       else:
-
-        for idx, sv in enumerate(cspec.svs):
+        # Do not let the builder decide the title (which will be the topic title)
+        cspec.attr['title'] = ''
+        for sv in cspec.svs:
           block, column = builder.new_chart(cspec.attr)
           block.footnote = sv2footnote[sv]
 
-          if idx > 0 and cspec.attr['source_topic']:
-            # For a peer-group of SVs, set the title and description only once.
-            builder.block.title = ''
-            builder.block.description = ''
-          elif not builder.block.title and builder.ignore_block_id_check:
-            # For the first SV, if title weren't already set, set it to
-            # the SV name.
+          if not builder.block.title and builder.ignore_block_id_check:
             builder.block.title = sv2name[sv]
             # TODO: Maybe insert sv description here.
 
-          main_title = builder.block.title
           chart_origin = cspec.attr.get('class', None)
-          builder.block.title = _decorate_block_title(title=main_title,
+          builder.block.title = _decorate_block_title(title=builder.block.title,
                                                       chart_origin=chart_origin)
           stat_var_spec_map.update(
               _ranking_chart_block_nopc(column, pri_place, sv, sv2name,
                                         cspec.attr))
           if cspec.attr['include_percapita'] and _should_add_percapita(sv):
             if not 'skip_map_for_ranking' in cspec.attr:
-              main_title = builder.block.title
               block, column = builder.new_chart(cspec.attr)
-              if main_title:
-                builder.block.title = _decorate_block_title(
-                    title=main_title, chart_origin=chart_origin, do_pc=True)
             stat_var_spec_map.update(
                 _ranking_chart_block_pc(column, pri_place, sv, sv2name,
                                         cspec.attr))
@@ -205,11 +197,56 @@ def build_page_config(
       _event_chart_block(builder.page_config.metadata, block, column,
                          cspec.places[0], cspec.event, cspec.attr, event_config)
 
+    elif cspec.chart_type == ChartType.RANKED_TIMELINE_COLLECTION:
+      stat_var_spec_map = _ranked_timeline_collection_block(
+          builder, cspec, sv2name, sv2unit)
+
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
   logging.info(builder.page_config)
   return builder.page_config
+
+
+def _ranked_timeline_collection_block(builder, cspec, sv2name, sv2unit):
+  stat_var_spec_map = {}
+  attr = cspec.attr
+
+  if len(cspec.places) > 1:
+    is_ranking_across_places = True
+    block_title = sv2name[cspec.svs[0]]
+  else:
+    is_ranking_across_places = False
+    block_title = attr.get('title', '')
+
+  _, column = builder.new_chart(cspec.attr)
+  builder.block.title = _decorate_block_title(
+      title=block_title,
+      do_pc=False,
+      chart_origin=attr['class'],
+      growth_direction=attr['growth_direction'],
+      is_growth_ranking_absolute=attr['is_growth_ranking_absolute'])
+
+  for sv_dcid in cspec.svs:
+    for place in cspec.places:
+      if is_ranking_across_places:
+        chart_title = place.name
+      else:
+        chart_title = _decorate_chart_title(title=sv2name[sv_dcid], place=place)
+
+      sv_key = sv_dcid
+      tile = Tile(type=Tile.TileType.LINE,
+                  title=chart_title,
+                  stat_var_key=[sv_key])
+      stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
+                                              name=sv2name[sv_dcid],
+                                              unit=sv2unit[sv_dcid])
+
+      if is_ranking_across_places:
+        tile.place_dcid_override = place.dcid
+      column.tiles.append(tile)
+
+  return stat_var_spec_map
 
 
 def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
@@ -225,8 +262,6 @@ def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
                                           name=sv2name[sv_dcid],
                                           unit=sv2unit[sv_dcid])
-  if 'set_place_override_for_line' in attr:
-    tile.place_dcid_override = place.dcid
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
@@ -660,7 +695,24 @@ def _is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
 
 def _decorate_block_title(title: str,
                           do_pc: bool = False,
-                          chart_origin: ChartOriginType = None) -> str:
+                          chart_origin: ChartOriginType = None,
+                          growth_direction: TimeDeltaType = None,
+                          is_growth_ranking_absolute: bool = False) -> str:
+  if growth_direction != None:
+    if growth_direction == TimeDeltaType.INCREASE:
+      prefix = 'Increase'
+    else:
+      prefix = 'Decrease'
+    suffix = 'over time '
+    if is_growth_ranking_absolute:
+      suffix += '(absolute change)'
+    else:
+      suffix += '(relative change)'
+    if title:
+      title = ' '.join([prefix, 'in', title, suffix])
+    else:
+      title = prefix + ' ' + suffix
+
   if not title:
     return ''
 

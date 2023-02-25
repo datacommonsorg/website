@@ -119,6 +119,44 @@ _SV_DISPLAY_NAME_OVERRIDE = {
         "GDP (Nominal Value)",
     "MapFacts/Count_park":
         "Number of Parks",
+    "Annual_Emissions_GreenhouseGas":
+        "Greenhouse Gas Emissions",
+    "Annual_Emissions_GreenhouseGas_Agriculture":
+        "Greenhouse Gas Emissions from Agriculture",
+    "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings":
+        "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
+    "Annual_Emissions_GreenhouseGas_ForestryAndLandUse":
+        "Greenhouse Gas Emissions from Forestry and Land Use",
+    "Annual_Emissions_GreenhouseGas_Manufacturing":
+        "Greenhouse Gas Emissions from Manufacturing",
+    "Annual_Emissions_GreenhouseGas_MineralExtraction":
+        "Greenhouse Gas Emissions from Mineral Extraction",
+    "Annual_Emissions_GreenhouseGas_ElectricityGeneration":
+        "Greenhouse Gas Emissions from Electricity Generation",
+    "Annual_Emissions_GreenhouseGas_Transportation":
+        "Greenhouse Gas Emissions from Transportation",
+    "Annual_Emissions_GreenhouseGas_WasteManagement":
+        "Greenhouse Gas Emissions from Waste Management",
+    "Annual_Emissions_CarbonDioxide_Agriculture":
+        "CO2 Emissions from Agriculture",
+    "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings":
+        "CO2 Emissions from Fuel Combustion in Buildings",
+    "Annual_Emissions_CarbonDioxide_FlourinatedGases":
+        "CO2 Emissions from Flourinated Gases",
+    "Annual_Emissions_CarbonDioxide_FossilFuelOperations":
+        "CO2 Emissions from Fossil Fuel Operations",
+    "Annual_Emissions_CarbonDioxide_ForestryAndLandUse":
+        "CO2 Emissions from Forestry and Land Use",
+    "Annual_Emissions_CarbonDioxide_Manufacturing":
+        "CO2 Emissions from Manufacturing",
+    "Annual_Emissions_CarbonDioxide_MineralExtraction":
+        "CO2 Emissions from Mineral Extraction",
+    "Annual_Emissions_CarbonDioxide_Power":
+        "CO2 Emissions from Power Sector",
+    "Annual_Emissions_CarbonDioxide_Transportation":
+        "CO2 Emissions from Transportation",
+    "Annual_Emissions_CarbonDioxide_WasteManagement":
+        "CO2 Emissions from Waste Management",
 }
 
 _SV_DISPLAY_FOOTNOTE_OVERRIDE = {
