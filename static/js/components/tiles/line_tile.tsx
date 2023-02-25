@@ -29,6 +29,7 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { formatNumber } from "../../utils/string_utils";
 import {
   getStatVarName,
   getUnitString,
@@ -150,6 +151,7 @@ function draw(
     chartData.dataGroup,
     false,
     false,
+    formatNumber,
     chartData.unit
   );
   if (!isCompleteLine) {
