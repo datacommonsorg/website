@@ -181,8 +181,8 @@ def build_page_config(
           stat_var_spec_map.update(
               _ranking_chart_block_nopc(column, pri_place, sv, sv2name, sv2unit,
                                         cspec.attr))
-          if cspec.attr[
-              'include_percapita'] and constants.is_percapita_relevant(sv):
+          if cspec.attr['include_percapita'] and utils.is_percapita_relevant(
+              sv):
             if not 'skip_map_for_ranking' in cspec.attr:
               block, column = builder.new_chart(cspec.attr)
             stat_var_spec_map.update(
@@ -267,7 +267,7 @@ def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
-  if attr['include_percapita'] and constants.is_percapita_relevant(sv_dcid):
+  if attr['include_percapita'] and utils.is_percapita_relevant(sv_dcid):
     title = _decorate_chart_title(title=sv2name[sv_dcid],
                                   place=place,
                                   do_pc=True)
@@ -302,7 +302,7 @@ def _single_place_multiple_var_timeline_block(column, place, svs, sv2name,
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
-  svs_pc = list(filter(lambda x: constants.is_percapita_relevant(x), svs))
+  svs_pc = list(filter(lambda x: utils.is_percapita_relevant(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
     title = _decorate_chart_title(title=orig_title, place=place, do_pc=True)
     tile = Tile(type=Tile.TileType.LINE, title=title)
@@ -356,7 +356,7 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
 
   column.tiles.append(tile)
   # Per Capita
-  svs_pc = list(filter(lambda x: constants.is_percapita_relevant(x), svs))
+  svs_pc = list(filter(lambda x: utils.is_percapita_relevant(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
     tile = Tile(type=Tile.TileType.BAR,
                 title=pc_title,
@@ -376,7 +376,7 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
 
 def _map_chart_block(column, place: Place, pri_sv: str, sv2name, sv2unit, attr):
   svs_map = _map_chart_block_nopc(column, place, pri_sv, sv2name, sv2unit, attr)
-  if attr['include_percapita'] and constants.is_percapita_relevant(pri_sv):
+  if attr['include_percapita'] and utils.is_percapita_relevant(pri_sv):
     svs_map.update(_map_chart_block_pc(column, place, pri_sv, sv2name, attr))
   return svs_map
 

@@ -103,6 +103,8 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
           'ranked_pct': ranked_children.pct,
       })
   for field, ranked_dcids in ranked_children._asdict().items():
+    if not ranked_dcids:
+      continue
     ranked_places = []
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])

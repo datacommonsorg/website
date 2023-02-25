@@ -87,6 +87,8 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
       })
 
   for field, ranked_svs in ranked_lists._asdict().items():
+    if not ranked_svs:
+      continue
     chart_vars.svs = ranked_svs
     chart_vars.growth_direction = direction
     chart_vars.growth_ranking_type = field

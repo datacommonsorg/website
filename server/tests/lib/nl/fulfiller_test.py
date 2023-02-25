@@ -395,6 +395,10 @@ class TestDataSpecNext(unittest.TestCase):
             'FarmInventory_Rice',
             'FarmInventory_Barley',
             'FarmInventory_Wheat',
+        ],
+        pc=[
+            'FarmInventory_Barley',
+            'FarmInventory_Wheat',
         ])
 
     # Pass in just simple utterance

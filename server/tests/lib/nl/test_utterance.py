@@ -590,6 +590,28 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'svs': [
             'FarmInventory_Barley', 'FarmInventory_Rice', 'FarmInventory_Wheat'
         ],
+    }, {
+        'attr': {
+            'block_id': 2,
+            'chart_type': '',
+            'class': ChartOriginType.PRIMARY_CHART,
+            'description': '',
+            'growth_direction': TimeDeltaType.INCREASE,
+            'growth_ranking_type': 'pc',
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'source_topic': 'dc/topic/Agriculture',
+            'title': ''
+        },
+        'chart_type': ChartType.RANKED_TIMELINE_COLLECTION,
+        'event': None,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Barley', 'FarmInventory_Wheat']
     }],
     'svs': ['dc/topic/AgricultureProduction'],
     'session_id': '007_999999999',
