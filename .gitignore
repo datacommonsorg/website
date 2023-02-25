@@ -53,6 +53,3 @@ pytest_log.txt
 # Custom DC
 server/templates/custom_dc/custom/**
 !server/templates/custom_dc/custom/.empty
-
-static/custom_dc/custom/**
-!static/custom_dc/custom/.empty
