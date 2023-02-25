@@ -35,145 +35,6 @@ _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.jso
 # TODO: Consider tweaking/reducing this
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
-SV_DISPLAY_SHORT_NAME = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "RCP 2.6 (optimistic), °C",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "RCP 4.5 (intermediate), °C",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "RCP 6.0 (slightly pessimistic), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "RCP 2.6 (optimistic), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "RCP 4.5 (intermediate), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "RCP 6.0 (slightly pessimistic), °C",
-}
-
-_SV_DISPLAY_NAME_OVERRIDE = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (°C)",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (°C)",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
-    "Percent_Person_WithArthritis":
-        "Arthritis",
-    "Percent_Person_WithAsthma":
-        "Asthma",
-    "Percent_Person_WithCancerExcludingSkinCancer":
-        "Cancer (excluding skin cancer)",
-    "Percent_Person_WithChronicKidneyDisease":
-        "Chronic Kidney Disease",
-    "Percent_Person_WithChronicObstructivePulmonaryDisease":
-        "Chronic Obstructive Pulmonary Disease",
-    "Percent_Person_WithCoronaryHeartDisease":
-        "Coronary Heart Disease",
-    "Percent_Person_WithDiabetes":
-        "Diabetes",
-    "Percent_Person_WithHighBloodPressure":
-        "High Bood Pressure",
-    "Percent_Person_WithHighCholesterol":
-        "High Cholesterol",
-    "Percent_Person_WithMentalHealthNotGood":
-        "Mental Health Issues",
-    "Percent_Person_WithPhysicalHealthNotGood":
-        "Physical Health Issues",
-    "Percent_Person_WithStroke":
-        "Stroke",
-    "Median_Income_Person":
-        "Individual Median Income",
-    "Median_Income_Household":
-        "Household Median Income",
-    "Median_Earnings_Person":
-        "Individual Median Earnings",
-    "dc/6rltk4kf75612":
-        "Work at home",
-    "dc/vp8cbt6k79t94":
-        "Walk to work",
-    "dc/hbkh95kc7pkb6":
-        "Public Transit",
-    "dc/wc8q05drd74bd":
-        "Carpool",
-    "dc/0gettc3bc60cb":
-        "Drive alone",
-    "dc/vt2q292eme79f":
-        "Others (incl. Taxcab, Motorcyle, Bicycle)",
-    "Count_Student":
-        "Number of Students",
-    "Count_Teacher":
-        "Number of Teachers",
-    "Percent_Student_AsAFractionOf_Count_Teacher":
-        "Student-Teacher Ratio",
-    "Count_Person":
-        "Population",
-    "Amount_EconomicActivity_GrossDomesticProduction_RealValue":
-        "GDP (Real Value)",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal":
-        "GDP (Nominal Value)",
-    "MapFacts/Count_park":
-        "Number of Parks",
-    "Annual_Emissions_GreenhouseGas":
-        "Greenhouse Gas Emissions",
-    "Annual_Emissions_GreenhouseGas_Agriculture":
-        "Greenhouse Gas Emissions from Agriculture",
-    "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings":
-        "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
-    "Annual_Emissions_GreenhouseGas_ForestryAndLandUse":
-        "Greenhouse Gas Emissions from Forestry and Land Use",
-    "Annual_Emissions_GreenhouseGas_Manufacturing":
-        "Greenhouse Gas Emissions from Manufacturing",
-    "Annual_Emissions_GreenhouseGas_MineralExtraction":
-        "Greenhouse Gas Emissions from Mineral Extraction",
-    "Annual_Emissions_GreenhouseGas_ElectricityGeneration":
-        "Greenhouse Gas Emissions from Electricity Generation",
-    "Annual_Emissions_GreenhouseGas_Transportation":
-        "Greenhouse Gas Emissions from Transportation",
-    "Annual_Emissions_GreenhouseGas_WasteManagement":
-        "Greenhouse Gas Emissions from Waste Management",
-    "Annual_Emissions_CarbonDioxide_Agriculture":
-        "CO2 Emissions from Agriculture",
-    "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings":
-        "CO2 Emissions from Fuel Combustion in Buildings",
-    "Annual_Emissions_CarbonDioxide_FlourinatedGases":
-        "CO2 Emissions from Flourinated Gases",
-    "Annual_Emissions_CarbonDioxide_FossilFuelOperations":
-        "CO2 Emissions from Fossil Fuel Operations",
-    "Annual_Emissions_CarbonDioxide_ForestryAndLandUse":
-        "CO2 Emissions from Forestry and Land Use",
-    "Annual_Emissions_CarbonDioxide_Manufacturing":
-        "CO2 Emissions from Manufacturing",
-    "Annual_Emissions_CarbonDioxide_MineralExtraction":
-        "CO2 Emissions from Mineral Extraction",
-    "Annual_Emissions_CarbonDioxide_Power":
-        "CO2 Emissions from Power Sector",
-    "Annual_Emissions_CarbonDioxide_Transportation":
-        "CO2 Emissions from Transportation",
-    "Annual_Emissions_CarbonDioxide_WasteManagement":
-        "CO2 Emissions from Waste Management",
-}
-
-_SV_DISPLAY_FOOTNOTE_OVERRIDE = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
-}
-
 # (growth_direction, rank_order) -> reverse
 _TIME_DELTA_SORT_MAP = {
     # Jobs that grew
@@ -648,8 +509,8 @@ def get_sv_name(all_svs: List[str]) -> Dict:
   # If a curated name is found return that,
   # Else return the name property for SV.
   for sv in all_svs:
-    if sv in _SV_DISPLAY_NAME_OVERRIDE:
-      sv_name_map[sv] = _SV_DISPLAY_NAME_OVERRIDE[sv]
+    if sv in constants.SV_DISPLAY_NAME_OVERRIDE:
+      sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
     elif sv in title_by_sv_dcid:
       sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
     else:
@@ -667,6 +528,13 @@ def get_sv_unit(all_svs: List[str]) -> Dict:
     else:
       sv_unit_map[sv] = ""
   return sv_unit_map
+
+
+def get_sv_description(all_svs: List[str]) -> Dict:
+  sv_desc_map = {}
+  for sv in all_svs:
+    sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
+  return sv_desc_map
 
 
 # TODO: Remove this hack by fixing the name in schema and config.
@@ -700,8 +568,8 @@ def get_sv_footnote(all_svs: List[str]) -> Dict:
   }
   sv_map = {}
   for sv in all_svs:
-    if sv in _SV_DISPLAY_FOOTNOTE_OVERRIDE:
-      sv_map[sv] = _SV_DISPLAY_FOOTNOTE_OVERRIDE[sv]
+    if sv in constants.SV_DISPLAY_FOOTNOTE_OVERRIDE:
+      sv_map[sv] = constants.SV_DISPLAY_FOOTNOTE_OVERRIDE[sv]
     else:
       sv_map[sv] = uncurated_footnotes[sv]
   return sv_map

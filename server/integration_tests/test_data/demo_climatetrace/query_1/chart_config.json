@@ -28,6 +28,7 @@
                 ]
               }
             ],
+            "description": "Annual emissions from all greenhouse gases measured in tonnes of CO\u2082 equivalents.",
             "title": "Greenhouse Gas Emissions"
           },
           {
@@ -81,6 +82,7 @@
                 ]
               }
             ],
+            "description": "Greenhouse gas emissions from the growing of crops and livestock for food and raw materials for non-food consumption (measured in tonnes of CO\u2082 equivalents).",
             "title": "Greenhouse Gas Emissions from Agriculture"
           },
           {
@@ -134,6 +136,7 @@
                 ]
               }
             ],
+            "description": "Greenhouse gas emissions from onsite fuel combustion in residential, commercial and institutional buildings (measured in tonnes of CO\u2082 equivalents).",
             "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings"
           },
           {
@@ -187,6 +190,7 @@
                 ]
               }
             ],
+            "description": "Greenhouse gas emissions from change in living biomass due to clearing, degradation and fires in forests, grasslands and wetlands (measured in tonnes of CO\u2082 equivalents).",
             "title": "Greenhouse Gas Emissions from Forestry and Land Use"
           },
           {
@@ -240,6 +244,7 @@
                 ]
               }
             ],
+            "description": "Greenhouse gas emissions from cement, aluminum, steel, and other manufacturing processes (measured in tonnes of CO\u2082 equivalents).",
             "title": "Greenhouse Gas Emissions from Manufacturing"
           },
           {
@@ -293,6 +298,7 @@
                 ]
               }
             ],
+            "description": "Greenhouse gas emissions from mining and quarrying of minerals and ores (measured in tonnes of CO\u2082 equivalents).",
             "title": "Greenhouse Gas Emissions from Mineral Extraction"
           },
           {
@@ -346,6 +352,7 @@
                 ]
               }
             ],
+            "description": "Greenhouse gas emissions from electricity generation (measured in tonnes of CO\u2082 equivalents).",
             "title": "Greenhouse Gas Emissions from Electricity Generation"
           },
           {
@@ -399,6 +406,7 @@
                 ]
               }
             ],
+            "description": "Greenhouse gas emissions from on-road vehicles, aviation, shipping, railways and other modes of transportation (measured in tonnes of CO\u2082 equivalents).",
             "title": "Greenhouse Gas Emissions from Transportation"
           },
           {
@@ -452,6 +460,7 @@
                 ]
               }
             ],
+            "description": "Greenhouse gas emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes of CO\u2082 equivalents).",
             "title": "Greenhouse Gas Emissions from Waste Management"
           },
           {
