@@ -102,7 +102,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
           'ranked_abs': ranked_children.abs,
           'ranked_pct': ranked_children.pct,
       })
-  block_id = chart_vars.block_id + 10
+  block_id = chart_vars.block_id
   i = 0
   for ranked_dcids in [ranked_children.abs, ranked_children.pct]:
     ranked_places = []
@@ -119,6 +119,8 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     for p in ranked_places[:_MAX_PLACES_TO_RETURN]:
       found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state,
                                       chart_vars, [p], chart_origin)
+    # Avoid having the second set of charts use the same block_id than
+    # others.
     block_id += 10
     i += 1
   return found

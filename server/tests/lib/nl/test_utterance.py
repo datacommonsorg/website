@@ -540,7 +540,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
     'query_type': QueryType.TIME_DELTA_ACROSS_VARS,
     'ranked_charts': [{
         'attr': {
-            'block_id': 12,
+            'block_id': 2,
             'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
@@ -561,7 +561,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'svs': ['FarmInventory_Rice']
     }, {
         'attr': {
-            'block_id': 12,
+            'block_id': 2,
             'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
@@ -582,7 +582,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'svs': ['FarmInventory_Barley']
     }, {
         'attr': {
-            'block_id': 12,
+            'block_id': 2,
             'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
@@ -603,7 +603,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'svs': ['FarmInventory_Wheat']
     }, {
         'attr': {
-            'block_id': 22,
+            'block_id': 12,
             'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
@@ -623,7 +623,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'svs': ['FarmInventory_Barley']
     }, {
         'attr': {
-            'block_id': 22,
+            'block_id': 12,
             'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
@@ -643,7 +643,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'svs': ['FarmInventory_Rice']
     }, {
         'attr': {
-            'block_id': 22,
+            'block_id': 12,
             'chart_type': '',
             'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
