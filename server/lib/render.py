@@ -20,12 +20,10 @@ from flask import render_template
 
 
 def render_page(default_html, custom_dc_html, **context):
-  """Render static page from default template or custom DC template
+  """Render static page from default template or custom DC template.
 
   Custom DC templates reside under 'server/templates/custom_dc/<env>/'
-
   """
-  # Try in internal custom DC
   template_file = os.path.join('custom_dc', g.env, custom_dc_html)
   if os.path.exists(
       os.path.join(current_app.root_path, 'templates', template_file)):
