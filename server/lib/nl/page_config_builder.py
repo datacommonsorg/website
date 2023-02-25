@@ -160,7 +160,7 @@ def build_page_config(
       if cspec.attr['source_topic'] == 'dc/topic/ProjectedClimateExtremes':
         stat_var_spec_map.update(
             _ranking_chart_block_climate_extremes(builder, pri_place, cspec.svs,
-                                                  sv2name, sv2footnote,
+                                                  sv2name, sv2unit, sv2footnote,
                                                   cspec.attr))
       else:
 
