@@ -1,6 +1,6 @@
 [
   {
-    "header": "CO2 in Manufacturing",
+    "header": "CO2 emissions in Manufacturing",
     "preposition": "for",
     "examples": [
       {
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "header": "CO2 in Steel Manufacturing",
+    "header": "CO2 emissions in Steel Manufacturing",
     "preposition": "for",
     "examples": [
       {
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "header": "CO2 (per capita) for Road Transportation",
+    "header": "CO2 emissions for Road Transportation (per capita)",
     "preposition": "for",
     "examples": [
       {
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "header": "CO2 (per capita) in Power Generation",
+    "header": "CO2 emissions in Power Generation (per capita)",
     "preposition": "for",
     "examples": [
       {

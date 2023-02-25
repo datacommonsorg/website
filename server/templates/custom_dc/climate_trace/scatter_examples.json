@@ -1,6 +1,6 @@
 [
   {
-    "header": "Life expectancy vs Oil and Gas emissions per capita",
+    "header": "Life expectancy vs. Oil and Gas emissions per capita",
     "preposition": "for countries in",
     "examples": [
       {
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "header": "Percentage of population that is college educated vs CO2 emissions in Domestic Aviation (per capita)",
+    "header": "Percentage of population that is college educated vs. CO2 emissions in Domestic Aviation (per capita)",
     "preposition": "for countries in",
     "examples": [
       {
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "header": "Fertility rate vs CO2 emissions for Power (per capita)",
+    "header": "Fertility rate vs. CO2 emissions from Power Sector (per capita)",
     "preposition": "for countries in",
     "examples": [
       {
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "header": "Mobile subscriptions (per capita) vs Greenhouse gas emissions for Electricity Generation (per capita)",
+    "header": "Mobile subscriptions (per capita) vs. Greenhouse gas emissions for Electricity Generation (per capita)",
     "preposition": "for countries in",
     "examples": [
       {
