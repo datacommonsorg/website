@@ -49,7 +49,3 @@ build/helm/**/*.tgz
 pylist.json
 
 pytest_log.txt
-
-# Custom DC
-server/templates/custom_dc/custom/**
-!server/templates/custom_dc/custom/.empty
