@@ -181,7 +181,8 @@ def build_page_config(
           stat_var_spec_map.update(
               _ranking_chart_block_nopc(column, pri_place, sv, sv2name, sv2unit,
                                         cspec.attr))
-          if cspec.attr['include_percapita'] and _should_add_percapita(sv):
+          if cspec.attr['include_percapita'] and utils.is_percapita_relevant(
+              sv):
             if not 'skip_map_for_ranking' in cspec.attr:
               block, column = builder.new_chart(cspec.attr)
             stat_var_spec_map.update(
@@ -226,7 +227,7 @@ def _ranked_timeline_collection_block(builder, cspec, sv2name, sv2unit):
       do_pc=False,
       chart_origin=attr['class'],
       growth_direction=attr['growth_direction'],
-      is_growth_ranking_absolute=attr['is_growth_ranking_absolute'])
+      growth_ranking_type=attr['growth_ranking_type'])
 
   for sv_dcid in cspec.svs:
     for place in cspec.places:
@@ -266,7 +267,7 @@ def _single_place_single_var_timeline_block(column, place, sv_dcid, sv2name,
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
-  if attr['include_percapita'] and _should_add_percapita(sv_dcid):
+  if attr['include_percapita'] and utils.is_percapita_relevant(sv_dcid):
     title = _decorate_chart_title(title=sv2name[sv_dcid],
                                   place=place,
                                   do_pc=True)
@@ -301,7 +302,7 @@ def _single_place_multiple_var_timeline_block(column, place, svs, sv2name,
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
-  svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
+  svs_pc = list(filter(lambda x: utils.is_percapita_relevant(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
     title = _decorate_chart_title(title=orig_title, place=place, do_pc=True)
     tile = Tile(type=Tile.TileType.LINE, title=title)
@@ -355,7 +356,7 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
 
   column.tiles.append(tile)
   # Per Capita
-  svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
+  svs_pc = list(filter(lambda x: utils.is_percapita_relevant(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
     tile = Tile(type=Tile.TileType.BAR,
                 title=pc_title,
@@ -375,7 +376,7 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
 
 def _map_chart_block(column, place: Place, pri_sv: str, sv2name, sv2unit, attr):
   svs_map = _map_chart_block_nopc(column, place, pri_sv, sv2name, sv2unit, attr)
-  if attr['include_percapita'] and _should_add_percapita(pri_sv):
+  if attr['include_percapita'] and utils.is_percapita_relevant(pri_sv):
     svs_map.update(_map_chart_block_pc(column, place, pri_sv, sv2name, attr))
   return svs_map
 
@@ -707,17 +708,19 @@ def _decorate_block_title(title: str,
                           do_pc: bool = False,
                           chart_origin: ChartOriginType = None,
                           growth_direction: TimeDeltaType = None,
-                          is_growth_ranking_absolute: bool = False) -> str:
+                          growth_ranking_type: str = '') -> str:
   if growth_direction != None:
     if growth_direction == TimeDeltaType.INCREASE:
       prefix = 'Increase'
     else:
       prefix = 'Decrease'
     suffix = 'over time '
-    if is_growth_ranking_absolute:
-      suffix += '(absolute change)'
-    else:
-      suffix += '(relative change)'
+    if growth_ranking_type == 'abs':
+      suffix += '(Absolute change)'
+    elif growth_ranking_type == 'pct':
+      suffix += '(Percent change)'
+    elif growth_ranking_type == 'pc':
+      suffix += '(Per Capita change)'
     if title:
       title = ' '.join([prefix, 'in', title, suffix])
     else:
@@ -754,30 +757,6 @@ def _decorate_chart_title(title: str,
     title = 'Per Capita ' + title
 
   return title
-
-
-#
-# Per-capita handling
-#
-
-_SV_PARTIAL_DCID_NO_PC = [
-    'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
-    "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
-    "ConsecutiveDryDays", "Percent", "Area_", "Median_", "LifeExpectancy_",
-    "AsFractionOf", "AsAFractionOfCount"
-]
-
-_SV_FULL_DCID_NO_PC = ["Count_Person"]
-
-
-def _should_add_percapita(sv_dcid: str) -> bool:
-  for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
-    if skip_phrase in sv_dcid:
-      return False
-  for skip_sv in _SV_FULL_DCID_NO_PC:
-    if skip_sv == sv_dcid:
-      return False
-  return True
 
 
 def _is_sv_percapita(sv_name: str) -> bool:

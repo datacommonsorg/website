@@ -170,7 +170,7 @@
                 ]
               }
             ],
-            "title": "Increase in Life Expectancy over time (absolute change)"
+            "title": "Increase in Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -339,7 +339,7 @@
                 ]
               }
             ],
-            "title": "Increase in Life Expectancy over time (relative change)"
+            "title": "Increase in Life Expectancy over time (Percent change)"
           },
           {
             "columns": [
@@ -508,7 +508,7 @@
                 ]
               }
             ],
-            "title": "Increase in Female Life Expectancy over time (absolute change)"
+            "title": "Increase in Female Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -677,7 +677,7 @@
                 ]
               }
             ],
-            "title": "Increase in Female Life Expectancy over time (relative change)"
+            "title": "Increase in Female Life Expectancy over time (Percent change)"
           },
           {
             "columns": [
@@ -846,7 +846,7 @@
                 ]
               }
             ],
-            "title": "Increase in Male Life Expectancy over time (absolute change)"
+            "title": "Increase in Male Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -1015,7 +1015,7 @@
                 ]
               }
             ],
-            "title": "Increase in Male Life Expectancy over time (relative change)"
+            "title": "Increase in Male Life Expectancy over time (Percent change)"
           },
           {
             "columns": [
@@ -1031,7 +1031,7 @@
                 ]
               }
             ],
-            "title": "Increase over time (absolute change)"
+            "title": "Increase over time (Absolute change)"
           },
           {
             "columns": [
@@ -1047,7 +1047,7 @@
                 ]
               }
             ],
-            "title": "Increase over time (relative change)"
+            "title": "Increase over time (Percent change)"
           }
         ],
         "statVarSpec": {

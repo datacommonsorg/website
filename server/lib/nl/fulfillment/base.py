@@ -75,7 +75,7 @@ class ChartVars:
 
   # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
   growth_direction: TimeDeltaType = None
-  is_growth_ranking_absolute: bool = None
+  growth_ranking_type: str = None
 
 
 #
@@ -105,8 +105,8 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
     attr['skip_map_for_ranking'] = True
   if chart_vars.growth_direction != None:
     attr['growth_direction'] = chart_vars.growth_direction
-  if chart_vars.is_growth_ranking_absolute != None:
-    attr['is_growth_ranking_absolute'] = chart_vars.is_growth_ranking_absolute
+  if chart_vars.growth_ranking_type != None:
+    attr['growth_ranking_type'] = chart_vars.growth_ranking_type
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  event=chart_vars.event,

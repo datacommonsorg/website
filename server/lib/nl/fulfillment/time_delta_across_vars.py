@@ -86,13 +86,13 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
           'ranked_pct': ranked_lists.pct,
       })
 
-  i = 0
-  for ranked_svs in [ranked_lists.abs, ranked_lists.pct]:
+  for field, ranked_svs in ranked_lists._asdict().items():
+    if not ranked_svs:
+      continue
     chart_vars.svs = ranked_svs
     chart_vars.growth_direction = direction
-    chart_vars.is_growth_ranking_absolute = True if i == 0 else False
+    chart_vars.growth_ranking_type = field
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
                                     chart_vars, places, chart_origin)
-    i += 1
 
   return found
