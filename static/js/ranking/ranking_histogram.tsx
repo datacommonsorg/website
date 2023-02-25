@@ -18,6 +18,7 @@ import React from "react";
 
 import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw";
+import { formatNumber } from "../i18n/i18n";
 import { RankInfo, Ranking } from "./ranking_types";
 
 interface RankingHistogramPropType {
@@ -79,6 +80,7 @@ class RankingHistogram extends React.Component<
       this.chartElementRef.current.offsetWidth,
       this.chartElementRef.current.offsetHeight,
       dataPoints,
+      formatNumber,
       this.props.unit
     );
   }
