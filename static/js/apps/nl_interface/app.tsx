@@ -32,6 +32,7 @@ const NEXT_PROMPT_DELAY = 5000;
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
+  const autoRun = useRef(!!getUrlToken("a"));
   const urlPrompts = useRef(getUrlPrompts());
   // Timer used to input characters from a single prompt with
   // CHARACTER_INPUT_INTERVAL ms between each character.
@@ -41,7 +42,6 @@ export function App(): JSX.Element {
   // Timer used to wait PROMPT_SEARCH_DELAY ms before searching for an inputted
   // prompt.
   const searchDelayTimer = useRef(null);
-  const autoRun = getUrlToken("a");
 
   // Updates the query search input box value.
   function updateSearchInput(input: string) {
@@ -64,7 +64,7 @@ export function App(): JSX.Element {
     return [];
   }
 
-  function inputNextPrompt(delayStart: boolean, forceEnter?: boolean): void {
+  function inputNextPrompt(delayStart: boolean): void {
     const prompt = urlPrompts.current.shift();
     if (!prompt) {
       return;
@@ -80,7 +80,7 @@ export function App(): JSX.Element {
           clearInterval(inputIntervalTimer.current);
           // If on autorun, search for the current input after
           // PROMPT_SEARCH_DELAY ms.
-          if (autoRun || forceEnter) {
+          if (autoRun.current) {
             searchDelayTimer.current = setTimeout(() => {
               executeSearch();
             }, PROMPT_SEARCH_DELAY);
@@ -148,9 +148,10 @@ export function App(): JSX.Element {
     }
   }
 
-  function onHistoryItemClick(query: string) {
-    urlPrompts.current.unshift(query);
-    inputNextPrompt(false /* delayStart */, true /* forceEnter */);
+  function onHistoryItemClick(queries: string[]) {
+    urlPrompts.current.unshift(...queries);
+    autoRun.current = true;
+    inputNextPrompt(false /* delayStart */);
   }
 
   const queryResults = queries.map((q, i) => (

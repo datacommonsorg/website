@@ -26,11 +26,11 @@ const MAX_QUERY_COUNT = 10;
 
 interface QueryHistoryProps {
   // Callback function for history item clicks.
-  onItemClick: (query: string) => void;
+  onItemClick: (queries: string[]) => void;
 }
 
 export function QueryHistory(props: QueryHistoryProps): JSX.Element {
-  const [history, setHistory] = useState<string[] | null>();
+  const [history, setHistory] = useState<string[][] | null>();
 
   useEffect(() => {
     fetchData();
@@ -41,14 +41,16 @@ export function QueryHistory(props: QueryHistoryProps): JSX.Element {
       {!_.isEmpty(history) && (
         <div className="container nl-history">
           <h3>Or try one of these recent queries:</h3>
-          {history.map((query, i) => {
+          {history.map((queries, i) => {
             return (
               <div
                 className="history-item"
                 key={i}
-                onClick={() => props.onItemClick(query)}
+                onClick={() => props.onItemClick(history[i])}
+                title={queries.join(", ")}
               >
-                {query}
+                {queries[0]}
+                {queries.length > 1 ? ", ..." : ""}
               </div>
             );
           })}
@@ -60,16 +62,18 @@ export function QueryHistory(props: QueryHistoryProps): JSX.Element {
   function fetchData(): void {
     axios.get(`/nl/history`).then((resp) => {
       const result = [];
+      const seen = new Set();
       for (const item of resp.data) {
         const queryList = item["query_list"];
         if (
           queryList === undefined ||
           queryList.length === 0 ||
-          result.includes(queryList[0])
+          seen.has(queryList[0])
         ) {
           continue;
         }
-        result.push(queryList[0]);
+        seen.add(queryList[0]);
+        result.push(queryList);
         if (result.length == MAX_QUERY_COUNT) {
           break;
         }
