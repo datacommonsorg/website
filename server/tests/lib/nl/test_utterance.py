@@ -550,8 +550,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
             'is_growth_ranking_absolute': True,
             'ranking_types': [],
             'source_topic': 'dc/topic/Agriculture',
-            'title': 'Increase over time (by absolute '
-                     'change)'
+            'title': ''
         },
         'chart_type':
             ChartType.RANKED_TIMELINE_COLLECTION,
