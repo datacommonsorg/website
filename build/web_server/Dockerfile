@@ -32,6 +32,7 @@ RUN npm install
 
 # Flask
 COPY server/. /workspace/server/
+COPY custom_dc/*.html /workspace/server/templates/custom_dc/custom/
 
 # NPM
 COPY static/. /workspace/static/
