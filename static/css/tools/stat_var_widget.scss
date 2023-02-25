@@ -60,7 +60,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 #explore-menu-toggle {
-  background: $menu-background;
+  background: inherit;
   border: none;
   border-radius: 0 5px 5px 0;
   left: $widget-min-width - 27;
