@@ -102,25 +102,17 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
           'ranked_abs': ranked_children.abs,
           'ranked_pct': ranked_children.pct,
       })
-  block_id = chart_vars.block_id
-  i = 0
-  for ranked_dcids in [ranked_children.abs, ranked_children.pct]:
+  for field, ranked_dcids in ranked_children._asdict().items():
+    if not ranked_dcids:
+      continue
     ranked_places = []
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])
+    chart_vars.growth_direction = direction
+    chart_vars.growth_ranking_type = field
+    ranked_places = ranked_places[:_MAX_PLACES_TO_RETURN]
 
-    # No per-capita charts.
-    chart_vars.include_percapita = False
-    chart_vars.block_id = block_id
-    # Override the "main-place" (i.e., parent) with the child place.
-    chart_vars.set_place_override_for_line = True
-    chart_vars.title = utils.get_time_delta_title(
-        direction=direction, is_absolute=True if i == 0 else False)
-    for p in ranked_places[:_MAX_PLACES_TO_RETURN]:
-      found |= add_chart_to_utterance(ChartType.TIMELINE_CHART, state,
-                                      chart_vars, [p], chart_origin)
-    # Avoid having the second set of charts use the same block_id than
-    # others.
-    block_id += 10
-    i += 1
+    found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
+                                    chart_vars, ranked_places, chart_origin)
+
   return found

@@ -43,9 +43,7 @@
           "Count_CriminalActivities_LarcenyTheft_pc": {
             "denom": "Count_Person",
             "name": "Larceny Theft Cases",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_LarcenyTheft",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
           }
         }
       }

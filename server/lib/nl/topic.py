@@ -309,6 +309,10 @@ _SVPG_DESC_OVERRIDE = {
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
         "Lowest temperature likely to be reached by 2050 compared to average observed "
         "min temperature of 30 years. Reported values are differences in temperature.",
+    "dc/svpg/GreenhouseGasEmissionsBySource":
+        "Breakdown of annual emissions of all greenhouse gases by emission sources (measured in tonnes of CO₂ equivalents).",
+    "dc/svpg/CarbonDioxideEmissionsBySource":
+        "Breakdown of annual CO₂ emissions by emission sources (measured in tonnes).",
 }
 
 _TOPIC_NAMES_OVERRIDE = {

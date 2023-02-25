@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Algeria",
+                    "title": "Algeria",
                     "type": "LINE"
                   },
                   {
@@ -20,7 +20,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Libya",
+                    "title": "Libya",
                     "type": "LINE"
                   },
                   {
@@ -28,7 +28,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Morocco",
+                    "title": "Morocco",
                     "type": "LINE"
                   },
                   {
@@ -36,7 +36,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Tunisia",
+                    "title": "Tunisia",
                     "type": "LINE"
                   },
                   {
@@ -44,7 +44,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Eritrea",
+                    "title": "Eritrea",
                     "type": "LINE"
                   },
                   {
@@ -52,7 +52,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Mali",
+                    "title": "Mali",
                     "type": "LINE"
                   },
                   {
@@ -60,7 +60,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Malawi",
+                    "title": "Malawi",
                     "type": "LINE"
                   },
                   {
@@ -68,7 +68,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Senegal",
+                    "title": "Senegal",
                     "type": "LINE"
                   },
                   {
@@ -76,7 +76,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Gambia",
+                    "title": "Gambia",
                     "type": "LINE"
                   },
                   {
@@ -84,7 +84,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in South Sudan",
+                    "title": "South Sudan",
                     "type": "LINE"
                   },
                   {
@@ -92,7 +92,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Cameroon",
+                    "title": "Cameroon",
                     "type": "LINE"
                   },
                   {
@@ -100,7 +100,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Sierra Leone",
+                    "title": "Sierra Leone",
                     "type": "LINE"
                   },
                   {
@@ -108,7 +108,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Egypt",
+                    "title": "Egypt",
                     "type": "LINE"
                   },
                   {
@@ -116,7 +116,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Cape Verde",
+                    "title": "Cape Verde",
                     "type": "LINE"
                   },
                   {
@@ -124,7 +124,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Niger",
+                    "title": "Niger",
                     "type": "LINE"
                   },
                   {
@@ -132,7 +132,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Ethiopia",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   },
                   {
@@ -140,7 +140,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+                    "title": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
                     "type": "LINE"
                   },
                   {
@@ -148,7 +148,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Comoros",
+                    "title": "Comoros",
                     "type": "LINE"
                   },
                   {
@@ -156,7 +156,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Angola",
+                    "title": "Angola",
                     "type": "LINE"
                   },
                   {
@@ -164,13 +164,13 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Burkina Faso",
+                    "title": "Burkina Faso",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Increase over time (by absolute change)"
+            "title": "Increase in Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -181,7 +181,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Mali",
+                    "title": "Mali",
                     "type": "LINE"
                   },
                   {
@@ -189,7 +189,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in South Sudan",
+                    "title": "South Sudan",
                     "type": "LINE"
                   },
                   {
@@ -197,7 +197,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Algeria",
+                    "title": "Algeria",
                     "type": "LINE"
                   },
                   {
@@ -205,7 +205,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Malawi",
+                    "title": "Malawi",
                     "type": "LINE"
                   },
                   {
@@ -213,7 +213,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Libya",
+                    "title": "Libya",
                     "type": "LINE"
                   },
                   {
@@ -221,7 +221,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Eritrea",
+                    "title": "Eritrea",
                     "type": "LINE"
                   },
                   {
@@ -229,7 +229,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Gambia",
+                    "title": "Gambia",
                     "type": "LINE"
                   },
                   {
@@ -237,7 +237,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Sierra Leone",
+                    "title": "Sierra Leone",
                     "type": "LINE"
                   },
                   {
@@ -245,7 +245,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Morocco",
+                    "title": "Morocco",
                     "type": "LINE"
                   },
                   {
@@ -253,7 +253,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Cameroon",
+                    "title": "Cameroon",
                     "type": "LINE"
                   },
                   {
@@ -261,7 +261,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Tunisia",
+                    "title": "Tunisia",
                     "type": "LINE"
                   },
                   {
@@ -269,7 +269,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Senegal",
+                    "title": "Senegal",
                     "type": "LINE"
                   },
                   {
@@ -277,7 +277,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Niger",
+                    "title": "Niger",
                     "type": "LINE"
                   },
                   {
@@ -285,7 +285,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Burkina Faso",
+                    "title": "Burkina Faso",
                     "type": "LINE"
                   },
                   {
@@ -293,7 +293,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Angola",
+                    "title": "Angola",
                     "type": "LINE"
                   },
                   {
@@ -301,7 +301,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Guinea",
+                    "title": "Guinea",
                     "type": "LINE"
                   },
                   {
@@ -309,7 +309,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Ethiopia",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   },
                   {
@@ -317,7 +317,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Comoros",
+                    "title": "Comoros",
                     "type": "LINE"
                   },
                   {
@@ -325,7 +325,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Guinea-Bissau",
+                    "title": "Guinea-Bissau",
                     "type": "LINE"
                   },
                   {
@@ -333,13 +333,13 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in Liberia",
+                    "title": "Liberia",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Increase over time (by percent change)"
+            "title": "Increase in Life Expectancy over time (Percent change)"
           },
           {
             "columns": [
@@ -350,7 +350,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Tunisia",
+                    "title": "Tunisia",
                     "type": "LINE"
                   },
                   {
@@ -358,7 +358,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Libya",
+                    "title": "Libya",
                     "type": "LINE"
                   },
                   {
@@ -366,7 +366,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Algeria",
+                    "title": "Algeria",
                     "type": "LINE"
                   },
                   {
@@ -374,7 +374,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Senegal",
+                    "title": "Senegal",
                     "type": "LINE"
                   },
                   {
@@ -382,7 +382,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Mali",
+                    "title": "Mali",
                     "type": "LINE"
                   },
                   {
@@ -390,7 +390,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Malawi",
+                    "title": "Malawi",
                     "type": "LINE"
                   },
                   {
@@ -398,7 +398,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Gambia",
+                    "title": "Gambia",
                     "type": "LINE"
                   },
                   {
@@ -406,7 +406,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Ethiopia",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   },
                   {
@@ -414,7 +414,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Eritrea",
+                    "title": "Eritrea",
                     "type": "LINE"
                   },
                   {
@@ -422,7 +422,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Liberia",
+                    "title": "Liberia",
                     "type": "LINE"
                   },
                   {
@@ -430,7 +430,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Morocco",
+                    "title": "Morocco",
                     "type": "LINE"
                   },
                   {
@@ -438,7 +438,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Niger",
+                    "title": "Niger",
                     "type": "LINE"
                   },
                   {
@@ -446,7 +446,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Madagascar",
+                    "title": "Madagascar",
                     "type": "LINE"
                   },
                   {
@@ -454,7 +454,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Gabon",
+                    "title": "Gabon",
                     "type": "LINE"
                   },
                   {
@@ -462,7 +462,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Rwanda",
+                    "title": "Rwanda",
                     "type": "LINE"
                   },
                   {
@@ -470,7 +470,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Cape Verde",
+                    "title": "Cape Verde",
                     "type": "LINE"
                   },
                   {
@@ -478,7 +478,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Burkina Faso",
+                    "title": "Burkina Faso",
                     "type": "LINE"
                   },
                   {
@@ -486,7 +486,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in South Sudan",
+                    "title": "South Sudan",
                     "type": "LINE"
                   },
                   {
@@ -494,7 +494,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Guinea",
+                    "title": "Guinea",
                     "type": "LINE"
                   },
                   {
@@ -502,13 +502,13 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Benin",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Increase over time (by absolute change)"
+            "title": "Increase in Female Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -519,7 +519,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Mali",
+                    "title": "Mali",
                     "type": "LINE"
                   },
                   {
@@ -527,7 +527,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Gambia",
+                    "title": "Gambia",
                     "type": "LINE"
                   },
                   {
@@ -535,7 +535,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Tunisia",
+                    "title": "Tunisia",
                     "type": "LINE"
                   },
                   {
@@ -543,7 +543,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Malawi",
+                    "title": "Malawi",
                     "type": "LINE"
                   },
                   {
@@ -551,7 +551,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Senegal",
+                    "title": "Senegal",
                     "type": "LINE"
                   },
                   {
@@ -559,7 +559,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in South Sudan",
+                    "title": "South Sudan",
                     "type": "LINE"
                   },
                   {
@@ -567,7 +567,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Niger",
+                    "title": "Niger",
                     "type": "LINE"
                   },
                   {
@@ -575,7 +575,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Liberia",
+                    "title": "Liberia",
                     "type": "LINE"
                   },
                   {
@@ -583,7 +583,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Burkina Faso",
+                    "title": "Burkina Faso",
                     "type": "LINE"
                   },
                   {
@@ -591,7 +591,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Libya",
+                    "title": "Libya",
                     "type": "LINE"
                   },
                   {
@@ -599,7 +599,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Guinea",
+                    "title": "Guinea",
                     "type": "LINE"
                   },
                   {
@@ -607,7 +607,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Eritrea",
+                    "title": "Eritrea",
                     "type": "LINE"
                   },
                   {
@@ -615,7 +615,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Ethiopia",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   },
                   {
@@ -623,7 +623,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Sierra Leone",
+                    "title": "Sierra Leone",
                     "type": "LINE"
                   },
                   {
@@ -631,7 +631,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Benin",
+                    "title": "Benin",
                     "type": "LINE"
                   },
                   {
@@ -639,7 +639,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Madagascar",
+                    "title": "Madagascar",
                     "type": "LINE"
                   },
                   {
@@ -647,7 +647,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Algeria",
+                    "title": "Algeria",
                     "type": "LINE"
                   },
                   {
@@ -655,7 +655,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Gabon",
+                    "title": "Gabon",
                     "type": "LINE"
                   },
                   {
@@ -663,7 +663,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Angola",
+                    "title": "Angola",
                     "type": "LINE"
                   },
                   {
@@ -671,13 +671,13 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in Rwanda",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Increase over time (by percent change)"
+            "title": "Increase in Female Life Expectancy over time (Percent change)"
           },
           {
             "columns": [
@@ -688,7 +688,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Tunisia",
+                    "title": "Tunisia",
                     "type": "LINE"
                   },
                   {
@@ -696,7 +696,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Mali",
+                    "title": "Mali",
                     "type": "LINE"
                   },
                   {
@@ -704,7 +704,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Liberia",
+                    "title": "Liberia",
                     "type": "LINE"
                   },
                   {
@@ -712,7 +712,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Algeria",
+                    "title": "Algeria",
                     "type": "LINE"
                   },
                   {
@@ -720,7 +720,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Gambia",
+                    "title": "Gambia",
                     "type": "LINE"
                   },
                   {
@@ -728,7 +728,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Libya",
+                    "title": "Libya",
                     "type": "LINE"
                   },
                   {
@@ -736,7 +736,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Morocco",
+                    "title": "Morocco",
                     "type": "LINE"
                   },
                   {
@@ -744,7 +744,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Senegal",
+                    "title": "Senegal",
                     "type": "LINE"
                   },
                   {
@@ -752,7 +752,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Ethiopia",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   },
                   {
@@ -760,7 +760,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Burkina Faso",
+                    "title": "Burkina Faso",
                     "type": "LINE"
                   },
                   {
@@ -768,7 +768,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Eritrea",
+                    "title": "Eritrea",
                     "type": "LINE"
                   },
                   {
@@ -776,7 +776,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Guinea",
+                    "title": "Guinea",
                     "type": "LINE"
                   },
                   {
@@ -784,7 +784,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Niger",
+                    "title": "Niger",
                     "type": "LINE"
                   },
                   {
@@ -792,7 +792,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Madagascar",
+                    "title": "Madagascar",
                     "type": "LINE"
                   },
                   {
@@ -800,7 +800,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Gabon",
+                    "title": "Gabon",
                     "type": "LINE"
                   },
                   {
@@ -808,7 +808,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in South Sudan",
+                    "title": "South Sudan",
                     "type": "LINE"
                   },
                   {
@@ -816,7 +816,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Rwanda",
+                    "title": "Rwanda",
                     "type": "LINE"
                   },
                   {
@@ -824,7 +824,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Malawi",
+                    "title": "Malawi",
                     "type": "LINE"
                   },
                   {
@@ -832,7 +832,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Benin",
+                    "title": "Benin",
                     "type": "LINE"
                   },
                   {
@@ -840,13 +840,13 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Sierra Leone",
+                    "title": "Sierra Leone",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Increase over time (by absolute change)"
+            "title": "Increase in Male Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -857,7 +857,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Mali",
+                    "title": "Mali",
                     "type": "LINE"
                   },
                   {
@@ -865,7 +865,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Liberia",
+                    "title": "Liberia",
                     "type": "LINE"
                   },
                   {
@@ -873,7 +873,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Gambia",
+                    "title": "Gambia",
                     "type": "LINE"
                   },
                   {
@@ -881,7 +881,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in South Sudan",
+                    "title": "South Sudan",
                     "type": "LINE"
                   },
                   {
@@ -889,7 +889,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Tunisia",
+                    "title": "Tunisia",
                     "type": "LINE"
                   },
                   {
@@ -897,7 +897,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Burkina Faso",
+                    "title": "Burkina Faso",
                     "type": "LINE"
                   },
                   {
@@ -905,7 +905,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Guinea",
+                    "title": "Guinea",
                     "type": "LINE"
                   },
                   {
@@ -913,7 +913,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Niger",
+                    "title": "Niger",
                     "type": "LINE"
                   },
                   {
@@ -921,7 +921,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Sierra Leone",
+                    "title": "Sierra Leone",
                     "type": "LINE"
                   },
                   {
@@ -929,7 +929,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Senegal",
+                    "title": "Senegal",
                     "type": "LINE"
                   },
                   {
@@ -937,7 +937,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Ethiopia",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   },
                   {
@@ -945,7 +945,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Eritrea",
+                    "title": "Eritrea",
                     "type": "LINE"
                   },
                   {
@@ -953,7 +953,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Libya",
+                    "title": "Libya",
                     "type": "LINE"
                   },
                   {
@@ -961,7 +961,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Gabon",
+                    "title": "Gabon",
                     "type": "LINE"
                   },
                   {
@@ -969,7 +969,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Madagascar",
+                    "title": "Madagascar",
                     "type": "LINE"
                   },
                   {
@@ -977,7 +977,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Algeria",
+                    "title": "Algeria",
                     "type": "LINE"
                   },
                   {
@@ -985,7 +985,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Malawi",
+                    "title": "Malawi",
                     "type": "LINE"
                   },
                   {
@@ -993,7 +993,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Equatorial Guinea",
+                    "title": "Equatorial Guinea",
                     "type": "LINE"
                   },
                   {
@@ -1001,7 +1001,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Benin",
+                    "title": "Benin",
                     "type": "LINE"
                   },
                   {
@@ -1009,20 +1009,19 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in Rwanda",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Increase over time (by percent change)"
+            "title": "Increase in Male Life Expectancy over time (Percent change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SYC",
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
@@ -1032,14 +1031,13 @@
                 ]
               }
             ],
-            "title": "Increase over time (by absolute change)"
+            "title": "Increase over time (Absolute change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SYC",
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
@@ -1049,7 +1047,7 @@
                 ]
               }
             ],
-            "title": "Increase over time (by percent change)"
+            "title": "Increase over time (Percent change)"
           }
         ],
         "statVarSpec": {

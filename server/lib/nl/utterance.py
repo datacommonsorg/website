@@ -81,6 +81,7 @@ class ChartType(IntEnum):
   PLACE_OVERVIEW = 4
   SCATTER_CHART = 5
   EVENT_CHART = 6
+  RANKED_TIMELINE_COLLECTION = 7
 
 
 # Enough of a spec per chart to create the chart config proto.

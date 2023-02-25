@@ -72,11 +72,15 @@ class ChartVars:
   source_topic: str = ""
   event: EventType = None
   skip_map_for_ranking: bool = False
-  set_place_override_for_line: bool = False
+
+  # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
+  growth_direction: TimeDeltaType = None
+  growth_ranking_type: str = None
 
 
 #
 # Base helper to add a chart spec to an utterance.
+# TODO: Deprecate `attrs` by just using ChartVars.  Maybe rename it to ChartAttrs.
 #
 def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
                            chart_vars: ChartVars, places: List[Place],
@@ -99,8 +103,10 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
   }
   if chart_vars.skip_map_for_ranking:
     attr['skip_map_for_ranking'] = True
-  if chart_vars.set_place_override_for_line:
-    attr['set_place_override_for_line'] = True
+  if chart_vars.growth_direction != None:
+    attr['growth_direction'] = chart_vars.growth_direction
+  if chart_vars.growth_ranking_type != None:
+    attr['growth_ranking_type'] = chart_vars.growth_ranking_type
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  event=chart_vars.event,
