@@ -17,12 +17,14 @@
 
 set -e
 
+PROJECT_ID=$1
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
 cd $ROOT
 gcloud builds submit . \
   --async \
-  --project=datcom-ci \
+  --project=$PROJECT_ID \
   --config=build/ci/cloudbuild.push_image.yaml \
-  --substitutions=_TAG=$(git rev-parse --short=7 HEAD)
+  --substitutions=_TAG=$(git rev-parse --short=7 HEAD),_PROJECT_ID=$PROJECT_ID

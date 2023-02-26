@@ -20,8 +20,8 @@ steps:
       - -c
       - |
         set -e
-        DOCKER_BUILDKIT=1 docker build -f build/web_server/Dockerfile --tag ${_WEB_IMAGE}:${_TAG} .
-        docker push ${_WEB_IMAGE}:${_TAG}
+        DOCKER_BUILDKIT=1 docker build -f build/web_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-website:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-website:${_TAG}
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -29,13 +29,9 @@ steps:
       - -c
       - |
         set -e
-        DOCKER_BUILDKIT=1 docker build -f build/nl_server/Dockerfile --tag ${_NL_IMAGE}:${_TAG} .
-        docker push ${_NL_IMAGE}:${_TAG}
+        DOCKER_BUILDKIT=1 docker build -f build/nl_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG}
     waitFor: ["-"]
-
-substitutions:
-  _WEB_IMAGE: gcr.io/datcom-ci/datacommons-website
-  _NL_IMAGE: gcr.io/datcom-ci/datacommons-nl
 
 timeout: 3600s
 options:

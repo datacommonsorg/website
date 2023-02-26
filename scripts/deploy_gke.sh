@@ -18,50 +18,88 @@
 #
 # Usage:
 #
-# ./deploy_key.sh <"dev"|yaml_env> us-central1 <short_git_hash>
+# ./deploy_key.sh <"dev"|yaml_env> us-central1 <short_git_hash> <custom_project_id>
 #
 # !!! WARNING: Run this script in a clean Git checkout at the desired commit.
 #
 
 set -e
 
-ENV=$1
-REGION=$2
+function help {
+  echo "Usage: $0 -erph"
+  echo "-e       Instance environment as defined under /deploy/gke"
+  echo "-r       GCP region Default: us-central1"
+  echo "-p       GCP project to deploy the project to, when specified, docker image is also read from this project"
+  echo "-h       Website hash used for deployment"
+  exit 1
+}
+
+while getopts ":e:r:p:h" OPTION; do
+  case $OPTION in
+    e)
+      ENV=$OPTARG
+      ;;
+    r)
+      REGION=$OPTARG
+      ;;
+    p)
+      PROJECT_ID=$OPTARG
+      ;;
+    h)
+      WEBSITE_HASH=$OPTARG
+      ;;
+    *)
+      help
+      ;;
+  esac
+done
+
+if [[ $ENV == "" && $PROJECT_ID == "" ]];then
+  echo "Set environment by -e, or set project id by -p"
+  exit 1
+fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
-
-cd $ROOT
-WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
-
-if [[ $3 != "" ]]; then
-  WEBSITE_HASH=$3
+if [[ $REGION == "" ]]; then
+  $REGION=us-central1
 fi
 
+cd $ROOT
+if [[ $WEBSITE_HASH == "" ]]; then
+  WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
+fi
 
 cd $ROOT/mixer
 MIXER_HASH=$(git rev-parse --short=7 HEAD)
 
 cd $ROOT/deploy/git
-
 echo $WEBSITE_HASH > website_hash.txt
 echo $MIXER_HASH > mixer_hash.txt
 
 cd $ROOT
-PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
-CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/gke/$ENV.yaml)
-
-if [[ $CLUSTER_PREFIX == "null" ]]; then
-  CLUSTER_PREFIX="website"
+if [[ $PROJECT_ID != "" ]]; then
+  # This is a pure custom project hosted and deployed by third party
+  CLUSTER_PREFIX=datacommons
+  IMAGE_PROJECT=$PROJECT_ID
+  cd $ROOT/deploy/overlays
+  cp custom_kustomization.yaml.tpl kustomization.yaml
+  sed -i '' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+else
+  PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
+  CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/gke/$ENV.yaml)
+  if [[ $CLUSTER_PREFIX == "null" ]]; then
+    CLUSTER_PREFIX="website"
+  fi
+  IMAGE_PROJECT=datcom-ci
+  cd $ROOT/deploy/overlays/$ENV
 fi
 CLUSTER_NAME=$CLUSTER_PREFIX-$REGION
 
-cd $ROOT/deploy/overlays/$ENV
-
 # Deploy to GKE
-kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/datcom-ci/datacommons-website:$WEBSITE_HASH
-kustomize edit set image gcr.io/datcom-ci/datacommons-nl=gcr.io/datcom-ci/datacommons-nl:$WEBSITE_HASH
+kustomize edit set image gcr.io/$IMAGE_PROJECT/datacommons-website=gcr.io/$IMAGE_PROJECT/datacommons-website:$WEBSITE_HASH
+kustomize edit set image gcr.io/$IMAGE_PROJECT/datacommons-nl=gcr.io/$IMAGE_PROJECT/datacommons-nl:$WEBSITE_HASH
 kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/datacommons-mixer:$MIXER_HASH
 kustomize build > kustomize-build.yaml
 cp kustomization.yaml kustomize-deployed.yaml
