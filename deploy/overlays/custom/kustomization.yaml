@@ -15,7 +15,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-nameSuffix: -karnataka
+nameSuffix: -custom
 namespace: website
 
 resources:
@@ -40,12 +40,14 @@ patchesStrategicMerge:
     metadata:
       name: website-app
     spec:
-      replicas: 6
+      replicas: 3
 
 patchesJson6902:
-  - path: patch.yaml
-    target:
+  - target:
       group: apps
+      version: v1
       kind: Deployment
       name: website-app
-      version: v1
+    patch: |-
+      - op: remove
+        path: /spec/template/spec/containers/2

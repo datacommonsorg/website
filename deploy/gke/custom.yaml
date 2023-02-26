@@ -13,7 +13,7 @@
 # limitations under the License.
 
 project: datcom-karnataka
-domain: karnataka.datacommons.org
+domain: custom.datacommons.org
 ip: 35.227.235.65
 region:
   primary: us-central1
@@ -21,5 +21,3 @@ region:
     -
 nodes: 1
 storage_project: datcom-store
-tmcf_csv_bucket: karnataka-datasets
-tmcf_csv_folder: datasets
