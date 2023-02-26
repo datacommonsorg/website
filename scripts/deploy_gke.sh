@@ -18,9 +18,7 @@
 #
 # Usage:
 #
-# ./deploy_key.sh <"dev"|yaml_env> us-central1 <short_git_hash> <custom_project_id>
-#
-# !!! WARNING: Run this script in a clean Git checkout at the desired commit.
+# !!! WARNING: Run this script in a clean HEAD on master.
 #
 
 set -e
