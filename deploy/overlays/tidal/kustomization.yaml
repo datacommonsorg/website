@@ -52,3 +52,6 @@ patchesJson6902:
       kind: Deployment
       name: website-app
       version: v1
+
+generatorOptions:
+ disableNameSuffixHash: true
