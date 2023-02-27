@@ -46,3 +46,6 @@ patchesStrategicMerge:
       name: website-app
     spec:
       replicas: 18
+
+generatorOptions:
+ disableNameSuffixHash: true
