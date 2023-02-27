@@ -131,10 +131,12 @@ export function ChartLoader(): JSX.Element {
   const bqLink = useRef(setUpBqButton(getSqlQuery));
   useEffect(() => {
     const dom = bqLink.current;
-    dom.style.display = "none"; // Enable BQlink with "inline-block";
-    return () => {
-      dom.style.display = "none";
-    };
+    if (dom) {
+      dom.style.display = "none"; // Enable BQlink with "inline-block";
+      return () => {
+        dom.style.display = "none";
+      };
+    }
   }, []);
 
   // Set map type to leaflet if georaster data is available before data needed
