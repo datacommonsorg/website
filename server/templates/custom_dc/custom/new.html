@@ -16,11 +16,22 @@
 
 {%- extends BASE_HTML -%}
 
-{% set main_id = 'homepage' %}
-{% set page_id = 'page-homepage' %}
+{% set main_id = 'update main id here' %}
+{% set page_id = 'update page id here' %}
+{% set title = 'update title here' %}
+
+
+{% block head %}
+  <link rel="stylesheet" href="custom_dc/custom/new_css.css" >
+{% endblock %}
 
 {% block content %}
   <section class="container">
-    Home Page
+    Add more content here
   </section>
+{% endblock %}
+
+
+{% block footer %}
+  <script src="/custom_dc/custom/new_js.js"></script>
 {% endblock %}
