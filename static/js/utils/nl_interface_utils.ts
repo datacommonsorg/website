@@ -33,6 +33,12 @@ export function isNlInterface(): boolean {
   return path === "/nl" || path === "/nl/";
 }
 
+/**
+ * Get the link to the feedback form for the nl interface
+ * @param query the query the user is submitting feedback for
+ * @param queryChain the list of queries from the start of the session until
+ *                   the current query
+ */
 export function getFeedbackLink(query: string, queryChain: string[]): string {
   const paramMap = {
     [QUERY_PARAM_PREFIX]: query,
