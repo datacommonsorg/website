@@ -21,6 +21,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
+import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
@@ -154,15 +155,19 @@ export function App(): JSX.Element {
     inputNextPrompt(false /* delayStart */);
   }
 
-  const queryResults = queries.map((q, i) => (
-    <QueryResult
-      key={i}
-      queryIdx={i}
-      query={q}
-      contextHistory={getContextHistory(i)}
-      addContextCallback={addContext}
-    ></QueryResult>
-  ));
+  const queryResults = queries.map((q, i) => {
+    const feedbackLink = getFeedbackLink(q, queries.slice(0, i + 1));
+    return (
+      <QueryResult
+        key={i}
+        queryIdx={i}
+        query={q}
+        contextHistory={getContextHistory(i)}
+        addContextCallback={addContext}
+        feedbackLink={feedbackLink}
+      ></QueryResult>
+    );
+  });
 
   const isStartState = queries.length === 0;
 

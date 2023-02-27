@@ -17,8 +17,36 @@
 /**
  * Utils used for the nl interface
  */
+
+const FEEDBACK_LINK =
+  "https://docs.google.com/forms/d/e/1FAIpQLSfqndIayVhN1bN5oeZT0Te-MhhBMBR1hn97Lgr77QTOpga8Iw/viewform?usp=pp_url";
+// Param prefixes found when following the instructions here to get a prefilled
+// link: https://support.google.com/docs/answer/2839588?hl=en&ref_topic=6063592#zippy=%2Csend-a-form-with-pre-filled-answers
+const QUERY_PARAM_PREFIX = "&entry.1322830239=";
+const SOURCE_PARAM_PREFIX = "&entry.1070482700=";
+const VERSION_PARAM_PREFIX = "&entry.1420739572=";
+const QUERY_CHAIN_PARAM_PREFIX = "&entry.1836374054=";
+
 export function isNlInterface(): boolean {
   // Returns true if currently on the NL page.
   const path = window.location.pathname;
   return path === "/nl" || path === "/nl/";
+}
+
+export function getFeedbackLink(query: string, queryChain: string[]): string {
+  const paramMap = {
+    [QUERY_PARAM_PREFIX]: query,
+    [SOURCE_PARAM_PREFIX]: window.location.toString(),
+    [VERSION_PARAM_PREFIX]:
+      document.getElementById("metadata").dataset.websiteHash || "",
+    [QUERY_CHAIN_PARAM_PREFIX]: JSON.stringify(queryChain),
+  };
+  let link = FEEDBACK_LINK;
+  Object.keys(paramMap).forEach((prefix) => {
+    const value = paramMap[prefix];
+    if (value) {
+      link += `${prefix}${value}`;
+    }
+  });
+  return encodeURI(link);
 }
