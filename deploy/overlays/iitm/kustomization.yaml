@@ -51,3 +51,6 @@ patchesJson6902:
     patch: |-
       - op: remove
         path: /spec/template/spec/containers/2
+
+generatorOptions:
+ disableNameSuffixHash: true
