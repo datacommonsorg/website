@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,41 +12,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization for prod website running on GCP `datcom-website-prod` project.
-# - Adds "prod" suffix to all the resources.
-# - Set environmnet variables.
-# - Update replicas.
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-nameSuffix: -prod
+nameSuffix: -custom
 namespace: website
 
 resources:
-  - ../../base
+  - ../base
+
+generatorOptions:
+  disableNameSuffixHash: true
 
 configMapGenerator:
   - name: website-configmap
     behavior: merge
     literals:
-      - flaskEnv=production
-      - secretProject=datcom-website-prod
+      - flaskEnv=custom
+      - secretProject=<PROJECT_ID>
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=datcom-website-prod
-      - serviceName=website-esp.endpoints.datcom-website-prod.cloud.goog
-  - name: redis-config
-    files:
-      - redis.json
-  - name: ai-config
-    behavior: replace
-    files:
-      - ai.yaml
+      - mixerProject=<PROJECT_ID>
+      - serviceName=website-esp.endpoints.<PROJECT_ID>.cloud.goog
 
 patchesStrategicMerge:
-  - patch_deployment.yaml
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: website-app
+    spec:
+      replicas: 1
 
-generatorOptions:
- disableNameSuffixHash: true
+patchesJson6902:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: website-app
+    patch: |-
+      - op: remove
+        path: /spec/template/spec/containers/2
