@@ -480,7 +480,7 @@ function addXAxis(
   }
 
   let axisHeight = axis.node().getBBox().height;
-  if (heightFromBottom > MARGIN.bottom) {
+  if (axisHeight > MARGIN.bottom) {
     axis.attr("transform", `translate(0, ${chartHeight - axisHeight})`);
   } else {
     axisHeight = MARGIN.bottom;
