@@ -34,6 +34,7 @@ export interface QueryResultProps {
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
+  feedbackLink: string;
 }
 
 export const QueryResult = memo(function QueryResult(
@@ -122,6 +123,11 @@ export const QueryResult = memo(function QueryResult(
         </Container>
       </div>
       <div className="nl-result">
+        <Container className="feedback-link">
+          <a href={props.feedbackLink} target="_blank" rel="noreferrer">
+            Feedback
+          </a>
+        </Container>
         <Container>
           {debugData && <DebugInfo debugData={debugData}></DebugInfo>}
           {chartsData && chartsData.config && (
