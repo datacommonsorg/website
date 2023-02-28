@@ -15,7 +15,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "dc-website.fullname" . }}-githash
+  name: githash-configmap{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
   website_hash.txt: {{ required "website githash is required" .Values.website.githash | quote }}
@@ -26,7 +26,7 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "dc-website.fullname" . }}-store-config
+  name: store-config{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
   bigquery.version: {{ required "bigqueryVersion is required." .Values.kgStoreConfig.bigqueryVersion }}
@@ -38,7 +38,7 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "dc-website.fullname" . }}-ai-config
+  name: ai-config{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
   ai.yaml: |
@@ -52,7 +52,7 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "dc-website.fullname" . }}-website-config
+  name: website-configmap{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
   flaskEnv: {{ required "Flask env is required." .Values.website.flaskEnv }}
@@ -66,7 +66,7 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "dc-website.fullname" . }}-memdb-config
+  name: memdb-config{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
   memdb.json: {{ .Values.memdbJSON | quote }}
@@ -77,7 +77,7 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "dc-website.fullname" . }}-mixer-config
+  name: mixer-configmap{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
   mixerProject: {{ required "Mixer GCP project is required." .Values.mixer.gcpProjectID }}
@@ -88,7 +88,7 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "dc-website.fullname" . }}-schema-mapping
+  name: schema-mapping{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
   {{- range $key, $val := .Values.mixer.schemaConfigs }}
