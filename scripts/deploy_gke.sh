@@ -32,6 +32,9 @@ function help {
   exit 1
 }
 
+PROJECT_ID=""
+ENV=""
+
 while getopts ":e:r:p:h" OPTION; do
   case $OPTION in
     e)
