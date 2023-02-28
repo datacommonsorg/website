@@ -301,13 +301,18 @@ function translateUnit(unit: string): string {
     case "L":
       messageId = "liter-display";
       break;
+    case "celsius":
+    case "Celsius":
+      messageId = "celsius-display";
+      break;
     default:
       return unit;
   }
   let displayUnit = intl.formatMessage({
     id: messageId,
-    defaultMessage: unit,
+    defaultMessage: "foobar",
   });
+  console.log(displayUnit);
   // A hack to use since there is no standardized equivalent:
   // https://github.com/tc39/ecma402/issues/294
   displayUnit =

@@ -23,6 +23,8 @@ import ReactDOM from "react-dom";
 
 import { getFilteredParentPlaces } from "../../utils/app/disaster_dashboard_utils";
 import { App } from "./app";
+import "../../i18n/compiled-lang/en/units.json";
+import { loadLocaleData } from "../../i18n/i18n";
 
 window.onload = () => {
   renderPage();
@@ -40,6 +42,11 @@ function renderPage(): void {
   const parentPlaces = JSON.parse(
     document.getElementById("place").dataset.parents
   );
+
+  Promise.resolve(
+    loadLocaleData("en", [
+      import(`../../i18n/compiled-lang/en/units.json`),
+    ]));
 
   ReactDOM.render(
     React.createElement(App, {
