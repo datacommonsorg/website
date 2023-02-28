@@ -109,7 +109,6 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     svSentences: props.debugData["svs_to_sentences"],
     rankingClassification: props.debugData["ranking_classification"],
     overviewClassification: props.debugData["overview_classification"],
-    temporalClassification: props.debugData["temporal_classification"],
     sizeTypeClassification: props.debugData["size_type_classification"],
     timeDeltaClassification: props.debugData["time_delta_classification"],
     comparisonClassification: props.debugData["comparison_classification"],
@@ -172,11 +171,6 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <Col>
               Size Type (generic) classification:{" "}
               {debugInfo.sizeTypeClassification}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              Temporal classification: {debugInfo.temporalClassification}
             </Col>
           </Row>
           <Row>

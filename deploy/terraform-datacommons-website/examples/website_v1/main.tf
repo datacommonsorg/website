@@ -126,8 +126,9 @@ module "k8s_resources" {
     helm       = helm.datcom
   }
 
-  website_githash          =   var.website_githash
-  mixer_githash            =   var.mixer_githash
+  resource_suffix          =  local.resource_suffix
+  website_githash          =  var.website_githash
+  mixer_githash            =  var.mixer_githash
 
   source                   =  "../../modules/helm"
   project_id               = var.project_id
