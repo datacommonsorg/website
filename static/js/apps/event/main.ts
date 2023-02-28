@@ -21,16 +21,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import "../../i18n/compiled-lang/en/units.json";
+import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
 window.onload = () => {
+Promise.resolve(
+  loadLocaleData("en", [
+    import("../../i18n/compiled-lang/en/units.json"),
+  ])).then(() => {
+
   renderPage();
+  }
+  );
 };
 
 function renderPage(): void {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   const properties = JSON.parse(document.getElementById("node").dataset.pv);
+  console.log(properties);
   ReactDOM.render(
     React.createElement(App, {
       dcid: dcid,

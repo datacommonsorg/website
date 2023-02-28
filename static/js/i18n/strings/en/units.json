@@ -76,5 +76,14 @@
   },
   "million-gallon-per-day-display": {
     "defaultMessage": "MGD"
+  },
+  "Knot": {
+    "defaultMessage": "{0} kn"
+  },
+  "Millibar": {
+    "defaultMessage": "{0} mbar"
+  },
+  "SquareKilometer": {
+    "defaultMessage": "{0} km2"
   }
 }

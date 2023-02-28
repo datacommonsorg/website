@@ -1,4 +1,34 @@
 {
+  "Knot": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " kn"
+    }
+  ],
+  "Millibar": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " mbar"
+    }
+  ],
+  "SquareKilometer": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " km2"
+    }
+  ],
   "celsius": [
     {
       "type": 1,

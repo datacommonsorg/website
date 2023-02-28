@@ -21,7 +21,9 @@
 import _ from "lodash";
 import React from "react";
 import { Container } from "reactstrap";
+import { RawIntlProvider } from "react-intl";
 
+import { formatNumber, intl } from "../../i18n/i18n";
 import { ArcTableRow } from "../../browser/arc_table_row";
 import { Property } from "../../types/event_types";
 
@@ -67,7 +69,24 @@ function getValue(property: Property): string {
   if (!property || !property.values.length) {
     return "";
   }
-  return property.values[0].value || property.values[0].dcid;
+  return property.values[0].dcid || property.values[0].value;
+}
+
+function formatValue(property: Property): string {
+  const val = getValue(property);
+  if (!val) {
+    return '';
+  }
+    let numIndex = val.search(/[0-9]/);
+    if (numIndex < 0) {
+      return val;
+    }
+    let unit = val.substring(0, numIndex);
+    if (unit) {
+      unit = unit.trim();
+    }
+    const num = Number.parseFloat(val.substring(numIndex));
+    return formatNumber(num, unit);
 }
 
 function getDateDisplay(properties: Array<Property>): string {
@@ -112,6 +131,7 @@ export function App(props: AppPropsType): JSX.Element {
   const dateDisplay = getDateDisplay(props.properties);
 
   return (
+    <RawIntlProvider value={intl}>
     <Container>
       <div className="head-section">
         <h1>{props.name}</h1>
@@ -145,9 +165,7 @@ export function App(props: AppPropsType): JSX.Element {
                   <ArcTableRow
                     key={property.dcid + index}
                     propertyLabel={_.startCase(property.dcid)}
-                    values={property.values.map((v) => {
-                      return { text: v.value || v.dcid };
-                    })}
+                    values={ [{ text: formatValue(property) }]}
                     noPropLink={true}
                   />
                 );
@@ -157,5 +175,6 @@ export function App(props: AppPropsType): JSX.Element {
         </div>
       </section>
     </Container>
+    </RawIntlProvider>
   );
 }

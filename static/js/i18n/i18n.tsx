@@ -172,6 +172,7 @@ function formatNumber(
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
     maximumSignificantDigits: 3,
+    minimumSignificantDigits: 3,
     notation: "compact",
     style: "decimal",
   };
@@ -191,11 +192,13 @@ function formatNumber(
       formatOptions.currencyDisplay = "code";
       break;
     case "$":
+    case "USDollar":
       formatOptions.style = "currency";
       formatOptions.currency = "USD";
       formatOptions.currencyDisplay = "code";
       break;
     case "%":
+    case "Percent":
       formatOptions.style = "percent";
       value = value / 100; // Values are scaled by formatter for percent display
       break;
@@ -253,6 +256,11 @@ function formatNumber(
     case "mgd":
       shouldAddUnit = true;
       unitKey = "million-gallon-per-day";
+    case "Knot":
+    case "Millibar":
+    case "SquareKilometer":
+      shouldAddUnit = true;
+      unitKey = unit;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
   if (shouldAddUnit) {
@@ -310,7 +318,7 @@ function translateUnit(unit: string): string {
   }
   let displayUnit = intl.formatMessage({
     id: messageId,
-    defaultMessage: "foobar",
+    defaultMessage: unit,
   });
   console.log(displayUnit);
   // A hack to use since there is no standardized equivalent:
