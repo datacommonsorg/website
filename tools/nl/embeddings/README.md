@@ -16,13 +16,15 @@ It includes ~1.3K curated variables.
 
 2. Run the command below which will both generate a new embeddings csv in
    `gs://datcom-nl-models`, as well as update the corresponding csv under
-   [sheets/](sheets/).
+   [sheets/](sheets/).  Note down the embeddings file version printed at
+   the end of the run.
 
     ```bash
     ./run_.sh
     ```
+3. Validate the CSV diffs, update [`model.yaml`](../../../deploy/base/model.yaml) with the generated embeddings version and test out locally.
 
-3. Test the change locally, validate the csv diffs and send out a PR.
+4. If everything looks good, send out a PR with the `model.yaml` and CSV changes.
 
 ## One time setup
 
