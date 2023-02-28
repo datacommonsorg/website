@@ -38,7 +38,6 @@ from server.lib.nl.detection import RankingClassificationAttributes
 from server.lib.nl.detection import RankingType
 from server.lib.nl.detection import SizeType
 from server.lib.nl.detection import SizeTypeClassificationAttributes
-from server.lib.nl.detection import TemporalClassificationAttributes
 from server.lib.nl.detection import TimeDeltaClassificationAttributes
 from server.lib.nl.detection import TimeDeltaType
 from server.lib.nl.place_detection import NLPlaceDetector
