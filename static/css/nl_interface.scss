@@ -35,10 +35,19 @@ $answer-min-height: 100vh;
 $text-color: inherit;
 $search-section-bottom-height: 7rem;
 
+#main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: stretch;
+}
+
 #nl-interface {
   margin: 0;
   padding: 0;
   background: $page-background-color;
+  flex: 1 1 auto;
+  position: relative;
 }
 
 #dc-nl-interface {
