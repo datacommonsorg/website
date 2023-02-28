@@ -151,8 +151,10 @@ def build(ctx):
     embeddings.to_csv(csv_out_path, index=False)
 
     # Also upload to the NL embeddings server's GCS bucket
-    print("Attempting to write to GCS bucket:")
-    print(f"\t file: gs://{FLAGS.bucket_name}/{csv_out_name_date}")
+    print("Attempting to write to GCS")
+    print(f"\t GCS Path: gs://{FLAGS.bucket_name}/{csv_out_name_date}")
+    print(f"\t Embeddings Filename: {csv_out_name_date}")
+    print("\nNOTE: Please update model.yaml with the Embeddings Filename")
     blob = ctx.bucket.blob(csv_out_name_date)
     blob.upload_from_filename(csv_out_path)
     print()
