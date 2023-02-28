@@ -14,7 +14,7 @@ It includes ~1.3K curated variables.
 
 1. Make edits to the latest sheet above.
 
-2. Run the command below which will both generate a new embeddings in
+2. Run the command below which will both generate a new embeddings csv in
    `gs://datcom-nl-models`, as well as update the corresponding csv under
    [sheets/](sheets/).
 
@@ -24,4 +24,8 @@ It includes ~1.3K curated variables.
 
 3. Test the change locally, validate the csv diffs and send out a PR.
 
+## One time setup
 
+To allow the `gspread` library access to the google sheets above, you will need [credentials downloaded to your computer](https://docs.gspread.org/en/latest/oauth2.html#for-end-users-using-oauth-client-id).
+
+As of Feb 2023, you can download the gspread-python-app credentials [found here](https://pantheon.corp.google.com/apis/credentials/oauthclient/878764285063-2tqmvvstv8k8cdl7ougccd7ptpnat8d5.apps.googleusercontent.com?project=datcom-204919) to `~/.config/gspread/credentials.json`.

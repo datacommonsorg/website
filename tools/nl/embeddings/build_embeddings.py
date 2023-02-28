@@ -152,7 +152,6 @@ def build(ctx):
 
     # Also upload to the NL embeddings server's GCS bucket
     print("Attempting to write to GCS bucket:")
-    print("\t project: datcom-204919")
     print(f"\t file: gs://{FLAGS.bucket_name}/{csv_out_name_date}")
     blob = ctx.bucket.blob(csv_out_name_date)
     blob.upload_from_filename(csv_out_path)
