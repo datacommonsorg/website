@@ -34,11 +34,21 @@ $chart-svg-height: 200px;
 $answer-min-height: 100vh;
 $text-color: inherit;
 $search-section-bottom-height: 7rem;
+$feedback-link-font-color: #70757a;
+
+#main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: stretch;
+}
 
 #nl-interface {
   margin: 0;
   padding: 0;
   background: $page-background-color;
+  flex: 1 1 auto;
+  position: relative;
 }
 
 #dc-nl-interface {
@@ -132,8 +142,11 @@ $search-section-bottom-height: 7rem;
   }
 }
 
-.nl-query-error,
 .nl-query {
+ padding-top: 2rem; 
+}
+
+.nl-query-error {
   padding: $query-vertical-padding;
 }
 
@@ -157,6 +170,21 @@ $search-section-bottom-height: 7rem;
     position: relative;
     background: $answer-background-color;
     border-radius: $answer-border-radius;
+  }
+
+  .container.feedback-link {
+    background-color: transparent;
+    display: flex;
+    justify-content: flex-end;
+    min-height: 1rem;
+
+    a {
+      color: $feedback-link-font-color;
+      font-style: italic;
+      text-align: right;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
   }
 
   .block-column {

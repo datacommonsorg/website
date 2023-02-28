@@ -29,8 +29,6 @@ kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.namespace.name }}
-  labels:
-    {{- include "dc-website.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -45,5 +43,5 @@ spec:
             service:
               name: {{ include "dc-website.fullname" . }}
               port:
-                number: 80
+                number: 8080
 {{- end }}
