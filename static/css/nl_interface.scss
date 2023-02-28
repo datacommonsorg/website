@@ -34,6 +34,7 @@ $chart-svg-height: 200px;
 $answer-min-height: 100vh;
 $text-color: inherit;
 $search-section-bottom-height: 7rem;
+$feedback-link-font-color: #70757a;
 
 #main {
   display: flex;
@@ -178,7 +179,7 @@ $search-section-bottom-height: 7rem;
     min-height: 1rem;
 
     a {
-      color: #70757a;
+      color: $feedback-link-font-color;
       font-style: italic;
       text-align: right;
       text-decoration: none;
