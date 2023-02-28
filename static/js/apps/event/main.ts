@@ -18,22 +18,20 @@
  * Disaster events
  */
 
+import "../../i18n/compiled-lang/en/units.json";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
-import "../../i18n/compiled-lang/en/units.json";
 import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
 window.onload = () => {
-Promise.resolve(
-  loadLocaleData("en", [
-    import("../../i18n/compiled-lang/en/units.json"),
-  ])).then(() => {
-
-  renderPage();
-  }
-  );
+  Promise.resolve(
+    loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")])
+  ).then(() => {
+    renderPage();
+  });
 };
 
 function renderPage(): void {

@@ -20,11 +20,11 @@
 
 import _ from "lodash";
 import React from "react";
-import { Container } from "reactstrap";
 import { RawIntlProvider } from "react-intl";
+import { Container } from "reactstrap";
 
-import { formatNumber, intl } from "../../i18n/i18n";
 import { ArcTableRow } from "../../browser/arc_table_row";
+import { formatNumber, intl } from "../../i18n/i18n";
 import { Property } from "../../types/event_types";
 
 const _IGNORED_PROPERTIES = new Set([
@@ -54,10 +54,16 @@ interface AppPropsType {
   properties: Array<Property>;
 }
 
+/**
+ * Returns the first property in the list with the dcid.
+ */
 function findProperty(dcid: string, properties: Array<Property>): Property {
   return properties.find((p) => p.dcid == dcid);
 }
 
+/**
+ * Returns the first property in the list with any of the given dcids.
+ */
 function findProperties(
   dcids: string[],
   properties: Array<Property>
@@ -65,6 +71,9 @@ function findProperties(
   return properties.find((p) => dcids.indexOf(p.dcid) >= 0);
 }
 
+/**
+ * Returns the first display value of the property.
+ */
 function getValue(property: Property): string {
   if (!property || !property.values.length) {
     return "";
@@ -72,23 +81,29 @@ function getValue(property: Property): string {
   return property.values[0].dcid || property.values[0].value;
 }
 
-function formatValue(property: Property): string {
+/**
+ * Formats the first display value of the property as a number with unit.
+ */
+function formatNumericValue(property: Property): string {
   const val = getValue(property);
   if (!val) {
-    return '';
+    return "";
   }
-    let numIndex = val.search(/[0-9]/);
-    if (numIndex < 0) {
-      return val;
-    }
-    let unit = val.substring(0, numIndex);
-    if (unit) {
-      unit = unit.trim();
-    }
-    const num = Number.parseFloat(val.substring(numIndex));
-    return formatNumber(num, unit);
+  const numIndex = val.search(/[0-9]/);
+  if (numIndex < 0) {
+    return val;
+  }
+  let unit = val.substring(0, numIndex);
+  if (unit) {
+    unit = unit.trim();
+  }
+  const num = Number.parseFloat(val.substring(numIndex));
+  return formatNumber(num, unit);
 }
 
+/**
+ * Formats the date range for the event.
+ */
 function getDateDisplay(properties: Array<Property>): string {
   const startDate = getValue(
     findProperties(["startDate", "discoveryDate"], properties)
@@ -119,6 +134,7 @@ export function App(props: AppPropsType): JSX.Element {
   const provenance = findProperty("provenance", props.properties);
   const typeOf = findProperty("typeOf", props.properties);
 
+  // Filter then alpha sort properties.
   const tableProperties = props.properties.filter(
     (p) => !_IGNORED_PROPERTIES.has(p.dcid)
   );
@@ -132,49 +148,49 @@ export function App(props: AppPropsType): JSX.Element {
 
   return (
     <RawIntlProvider value={intl}>
-    <Container>
-      <div className="head-section">
-        <h1>{props.name}</h1>
-        <h3>type: {typeOf.values[0].name}</h3>
-        <h3>
-          dcid: <a href={`/browser/${props.dcid}`}>{props.dcid}</a>
-        </h3>
-        <h3>
-          source:{" "}
-          <a href={`/browser/${provenance.values[0].dcid}`}>
-            {provenance.values[0].name}
-          </a>
-        </h3>
-      </div>
-      <section className="table-page-section">
-        <div className="card p-0">
-          <table className="node-table">
-            <tbody>
-              <tr key="header">
-                <th className="property-column">Property</th>
-                <th>Value</th>
-              </tr>
-              <ArcTableRow
-                key="date"
-                propertyLabel="Date"
-                values={[{ text: dateDisplay }]}
-                noPropLink={true}
-              />
-              {tableProperties.map((property, index) => {
-                return (
-                  <ArcTableRow
-                    key={property.dcid + index}
-                    propertyLabel={_.startCase(property.dcid)}
-                    values={ [{ text: formatValue(property) }]}
-                    noPropLink={true}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
+      <Container>
+        <div className="head-section">
+          <h1>{props.name}</h1>
+          <h3>type: {typeOf.values[0].name}</h3>
+          <h3>
+            dcid: <a href={`/browser/${props.dcid}`}>{props.dcid}</a>
+          </h3>
+          <h3>
+            source:{" "}
+            <a href={`/browser/${provenance.values[0].dcid}`}>
+              {provenance.values[0].name}
+            </a>
+          </h3>
         </div>
-      </section>
-    </Container>
+        <section className="table-page-section">
+          <div className="card p-0">
+            <table className="node-table">
+              <tbody>
+                <tr key="header">
+                  <th className="property-column">Property</th>
+                  <th>Value</th>
+                </tr>
+                <ArcTableRow
+                  key="date"
+                  propertyLabel="Date"
+                  values={[{ text: dateDisplay }]}
+                  noPropLink={true}
+                />
+                {tableProperties.map((property, index) => {
+                  return (
+                    <ArcTableRow
+                      key={property.dcid + index}
+                      propertyLabel={_.startCase(property.dcid)}
+                      values={[{ text: formatNumericValue(property) }]}
+                      noPropLink={true}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </Container>
     </RawIntlProvider>
   );
 }

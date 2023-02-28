@@ -18,13 +18,14 @@
  * Entrypoint file for disaster dashboard.
  */
 
+import "../../i18n/compiled-lang/en/units.json";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../../i18n/i18n";
 import { getFilteredParentPlaces } from "../../utils/app/disaster_dashboard_utils";
 import { App } from "./app";
-import "../../i18n/compiled-lang/en/units.json";
-import { loadLocaleData } from "../../i18n/i18n";
 
 window.onload = () => {
   renderPage();
@@ -44,9 +45,8 @@ function renderPage(): void {
   );
 
   Promise.resolve(
-    loadLocaleData("en", [
-      import(`../../i18n/compiled-lang/en/units.json`),
-    ]));
+    loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)])
+  );
 
   ReactDOM.render(
     React.createElement(App, {
