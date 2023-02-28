@@ -99,12 +99,15 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   # sequence "these words remove" will potentially be removed and not individual
   # occurences of "these", "words" and "remove".
 
-  # Creating a leading and trailing space so that "<space>word<space>"
-  # can be matched.
-  input_str = f" {input_str.lower()} "
+  # Using \b<word>\b to match the word and not the string within another word.
+  # Example: if looking for "cat" in sentence "cat is a catty animal. i love a cat  but not cats"
+  # the words "citty" and "cats" will not be matched.
+  input_str = input_str.lower()
   for words in stop_words:
     # Using regex based replacements.
-    input_str = re.sub(f" {words} ", ' ', input_str)
+    input_str = re.sub(rf"\b{words}\b", "", input_str)
+    # Also replace multiple spaces with a single space.
+    input_str = re.sub(r" +", " ", input_str)
 
   # Return after removing the beginning and trailing white spaces.
   return input_str.strip()
@@ -615,7 +618,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   """
   # Run through all heuristics (various query string transforms).
   query = remove_punctuations(query)
-  query_lower_with_spaces = f" {query.lower()} "
+  query_lower = query.lower()
   query_without_stop_words = remove_stop_words(query, constants.STOP_WORDS)
   query_title_case = query.title()
   query_without_stop_words_title_case = query_without_stop_words.title()
@@ -625,16 +628,16 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   # First check in special places. If they are found, add those first.
   places_found = []
   for special_place in constants.OVERRIDE_FOR_NER:
-    # Matching <space>special_place<space> because otherwise "asia" could
+    # Matching <special_place> as a word because otherwise "asia" could
     # also match "asian" which is undesirable.
-    if f" {special_place} " in query_lower_with_spaces:
+    if re.search(rf"\b{special_place}\b", query_lower):
       logging.info(f"Found one of the Special Places: {special_place}")
       places_found.append(special_place)
 
   # Now try all versions of the query.
   for q in [
-      query, query_lower_with_spaces, query_without_stop_words,
-      query_title_case, query_without_stop_words_title_case
+      query, query_lower, query_without_stop_words, query_title_case,
+      query_without_stop_words_title_case
   ]:
     logging.info(f"Trying place detection with: {q}")
     try:
@@ -672,7 +675,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         break
     # Insert places_found[i] in the candidates if it is not to be ignored
     # and if it is also found in the original query without punctuations.
-    # The extra check to find places_found[i] in `query_lower_with_spaces` is to avoid
+    # The extra check to find places_found[i] in `query_lower` is to avoid
     # situations where the removal of some stop words etc makes the remaining
     # query have some valid place name words next to each other. For example,
     # in the query "... united in the states ...", the removal of stop words
@@ -682,16 +685,18 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
     # query string.
     # If places_found[i] was a special place (constants.OVERRIDE_FOR_NER),
     # keep it always.
-    if (places_found[i] in constants.OVERRIDE_FOR_NER) or (
-        not ignore and places_found[i] in query_lower_with_spaces):
+    if (places_found[i]
+        in constants.OVERRIDE_FOR_NER) or (not ignore and
+                                           places_found[i] in query_lower):
       places_to_return.append(places_found[i])
 
   # For all the places detected, re-sort based on the string which occurs first.
   def fn(p):
-    ind = query_lower_with_spaces.find(f" {p} ")
-    if ind < 0:
+    res = re.search(rf"\b{p}\b", query_lower)
+    if res is None:
       return +1000000
-    return ind
+    else:
+      return res.start()
 
   places_to_return.sort(key=fn)
   return places_to_return

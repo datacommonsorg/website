@@ -83,7 +83,7 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ["tell me about the climate extremes in palo alto", "climate palo alto"],
       [
           "How big are the public elementary schools in Sunnyvale",
-          "big public sunnyvale"
+          "public sunnyvale"
       ],
       [
           "what is relationship between the sickest and healthiest people in the world",
