@@ -25,6 +25,8 @@ from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance
 
+_MAX_VARS_IN_A_CHART = 20
+
 
 #
 # For ranking across vars, we should have detected a ranking, but not contained-in
@@ -93,7 +95,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                            'orig': chart_vars.svs,
                            'ranked': ranked_svs,
                        })
-  chart_vars.svs = ranked_svs
+  chart_vars.svs = ranked_svs[:_MAX_VARS_IN_A_CHART]
   # Show per-capita too.
   chart_vars.include_percapita = True
   chart_vars.response_type = "ranked bar chart"

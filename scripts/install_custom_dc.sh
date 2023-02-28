@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=custom-dc-v0.2.0
+CUSTOM_DC_RELEASE_TAG=custom-dc-v0.3.0
 
 # In some environments (such as Cloud Shell), IPv6 is not enabled on the OS.
 # This causes problems during terraform runs. Fix is from the issue below.
@@ -149,7 +149,12 @@ WEBSITE_ROBOT="website-robot@$PROJECT_ID.iam.gserviceaccount.com"
 RESOURCE_BUCKET="$PROJECT_ID-resources"
 
 cd tools/bigtable_automation/terraform
-terraform init && terraform apply \
+
+terraform init \
+  -backend-config="bucket=$TF_STATE_BUCKET" \
+  -backend-config="prefix=bt_automation"
+
+terraform apply \
   -var="project_id=$PROJECT_ID" \
   -var="service_account_email=$WEBSITE_ROBOT" \
   -var="dc_resource_bucket=$RESOURCE_BUCKET" \

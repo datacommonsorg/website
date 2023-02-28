@@ -84,7 +84,7 @@
         "dc/topic/ProjectedClimateExtremes": {
           "peer_groups": [
             [
-              "Projected highest increase in max temperature in different scenarios",
+              "Projected highest increase in max temperature under different scenarios",
               "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
               [
                 "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
@@ -93,7 +93,7 @@
               ]
             ],
             [
-              "Projected highest decrease in min temperature in different scenarios",
+              "Projected highest decrease in min temperature under different scenarios",
               "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
               [
                 "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
@@ -143,7 +143,7 @@
               5
             ],
             "source_topic": "dc/topic/ProjectedClimateExtremes",
-            "title": "Projected highest increase in max temperature in different scenarios"
+            "title": "Projected highest increase in max temperature under different scenarios"
           },
           "chart_type": 2,
           "event": null,
@@ -172,7 +172,7 @@
               5
             ],
             "source_topic": "dc/topic/ProjectedClimateExtremes",
-            "title": "Projected highest decrease in min temperature in different scenarios"
+            "title": "Projected highest decrease in min temperature under different scenarios"
           },
           "chart_type": 2,
           "event": null,
@@ -206,16 +206,17 @@
   ],
   "query_with_places_removed": "what are the projected temperature extremes across",
   "ranking_classification": "[<RankingType.EXTREME: 5>]",
+  "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.8475220203399658,
-      0.6445891261100769,
-      0.4812241494655609,
-      0.4394493103027344,
-      0.43455877900123596,
-      0.42783379554748535,
-      0.36367619037628174
+      0.8475217223167419,
+      0.6445890665054321,
+      0.4812241792678833,
+      0.43944957852363586,
+      0.4345589578151703,
+      0.4278337359428406,
+      0.36367616057395935
     ],
     "SV": [
       "dc/topic/ProjectedClimateExtremes",
@@ -228,74 +229,74 @@
     ],
     "SV_to_Sentences": {
       "Annual_ExpectedLoss_NaturalHazardImpact": [
-        "The annual price tag of natural disasters (0.36367619037628174)"
+        "The annual price tag of natural disasters (0.36367616057395935)"
       ],
       "Count_HeatEvent": [
-        "Number of extreme heat events (0.6445891261100769)",
-        "Number of heat crises (0.5062564015388489)",
-        "Number of heat emergencies (0.4892020523548126)",
-        "Number of heat events (0.44764310121536255)",
-        "Number of heat surges (0.40518808364868164)",
-        "Number of heat waves (0.3551793694496155)",
-        "Number of Heat Waves (0.3551793098449707)"
+        "Number of extreme heat events (0.6445890665054321)",
+        "Number of heat crises (0.5062562227249146)",
+        "Number of heat emergencies (0.4892018735408783)",
+        "Number of heat events (0.44764330983161926)",
+        "Number of heat surges (0.4051879644393921)",
+        "Number of heat waves (0.3551793396472931)",
+        "Number of Heat Waves (0.3551792800426483)"
       ],
       "Count_HeavyRainEvent": [
-        "Number of extreme rainfall events (0.4812241494655609)",
+        "Number of extreme rainfall events (0.4812241792678833)",
         "Number of heavy precipitation events (0.38069891929626465)"
       ],
       "Count_HeavySnowEvent": [
-        "Number of extreme snow events (0.42783379554748535)"
+        "Number of extreme snow events (0.4278337359428406)"
       ],
       "dc/topic/ClimateChange": [
-        "Global warming (0.4394493103027344)",
+        "Global warming (0.43944957852363586)",
         "Climate Change (0.4118015170097351)",
-        "Impact of Climate Change (0.37322860956192017)"
+        "Impact of Climate Change (0.3732288181781769)"
       ],
       "dc/topic/HeatIllnesses": [
-        "Heat related health conditions (0.43455877900123596)",
-        "Heat Illnesses (0.3921865224838257)",
-        "Heat related maladies (0.37920740246772766)",
-        "Heat-related health problems (0.3705202043056488)"
+        "Heat related health conditions (0.4345589578151703)",
+        "Heat Illnesses (0.39218670129776)",
+        "Heat related maladies (0.3792073726654053)",
+        "Heat-related health problems (0.3705201745033264)"
       ],
       "dc/topic/ProjectedClimateExtremes": [
-        "Projected Climate Extremes (0.8475220203399658)",
+        "Projected Climate Extremes (0.8475217223167419)",
         "Climate Extremes (0.7422311902046204)"
       ]
     }
   },
   "svs_to_sentences": {
     "Annual_ExpectedLoss_NaturalHazardImpact": [
-      "The annual price tag of natural disasters (0.36367619037628174)"
+      "The annual price tag of natural disasters (0.36367616057395935)"
     ],
     "Count_HeatEvent": [
-      "Number of extreme heat events (0.6445891261100769)",
-      "Number of heat crises (0.5062564015388489)",
-      "Number of heat emergencies (0.4892020523548126)",
-      "Number of heat events (0.44764310121536255)",
-      "Number of heat surges (0.40518808364868164)",
-      "Number of heat waves (0.3551793694496155)",
-      "Number of Heat Waves (0.3551793098449707)"
+      "Number of extreme heat events (0.6445890665054321)",
+      "Number of heat crises (0.5062562227249146)",
+      "Number of heat emergencies (0.4892018735408783)",
+      "Number of heat events (0.44764330983161926)",
+      "Number of heat surges (0.4051879644393921)",
+      "Number of heat waves (0.3551793396472931)",
+      "Number of Heat Waves (0.3551792800426483)"
     ],
     "Count_HeavyRainEvent": [
-      "Number of extreme rainfall events (0.4812241494655609)",
+      "Number of extreme rainfall events (0.4812241792678833)",
       "Number of heavy precipitation events (0.38069891929626465)"
     ],
     "Count_HeavySnowEvent": [
-      "Number of extreme snow events (0.42783379554748535)"
+      "Number of extreme snow events (0.4278337359428406)"
     ],
     "dc/topic/ClimateChange": [
-      "Global warming (0.4394493103027344)",
+      "Global warming (0.43944957852363586)",
       "Climate Change (0.4118015170097351)",
-      "Impact of Climate Change (0.37322860956192017)"
+      "Impact of Climate Change (0.3732288181781769)"
     ],
     "dc/topic/HeatIllnesses": [
-      "Heat related health conditions (0.43455877900123596)",
-      "Heat Illnesses (0.3921865224838257)",
-      "Heat related maladies (0.37920740246772766)",
-      "Heat-related health problems (0.3705202043056488)"
+      "Heat related health conditions (0.4345589578151703)",
+      "Heat Illnesses (0.39218670129776)",
+      "Heat related maladies (0.3792073726654053)",
+      "Heat-related health problems (0.3705201745033264)"
     ],
     "dc/topic/ProjectedClimateExtremes": [
-      "Projected Climate Extremes (0.8475220203399658)",
+      "Projected Climate Extremes (0.8475217223167419)",
       "Climate Extremes (0.7422311902046204)"
     ]
   },

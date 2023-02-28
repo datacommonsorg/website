@@ -19,7 +19,7 @@
     {
       "classifications": [
         {
-          "type": 11
+          "type": 12
         }
       ],
       "places": [
@@ -69,18 +69,19 @@
   ],
   "query_with_places_removed": "number of shakespeare fans",
   "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3691325783729553,
-      0.29036542773246765,
-      0.2894546687602997,
-      0.2783313989639282,
-      0.272920161485672,
-      0.2691501975059509,
-      0.2653329074382782,
-      0.26523518562316895,
-      0.2610829472541809,
+      0.36913248896598816,
+      0.2903653085231781,
+      0.28945454955101013,
+      0.27833130955696106,
+      0.27292025089263916,
+      0.26915016770362854,
+      0.2653330862522125,
+      0.26523521542549133,
+      0.26108318567276,
       0.2539288103580475
     ],
     "SV": [
@@ -97,21 +98,21 @@
     ],
     "SV_to_Sentences": {
       "Count_CriminalActivities_Robbery": [
-        "Number of heists (0.2691501975059509)"
+        "Number of heists (0.26915016770362854)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Number of hate crimes (0.2894546687602997)",
-        "Number of Hate Crime Incidents (0.25507885217666626)",
-        "Number of hate crime incidents (0.25507885217666626)"
+        "Number of hate crimes (0.28945454955101013)",
+        "Number of hate crime incidents (0.25507885217666626)",
+        "Number of Hate Crime Incidents (0.2550787925720215)"
       ],
       "Count_DroughtEvent": [
-        "Number of Droughts (0.2610829472541809)",
-        "Number of droughts (0.2610829174518585)"
+        "Number of droughts (0.26108318567276)",
+        "Number of Droughts (0.26108312606811523)"
       ],
       "Count_EarthquakeEvent": [
-        "Number of tremors (0.2783313989639282)",
-        "Number of temblors (0.27476659417152405)",
-        "Number of quakes (0.27175652980804443)",
+        "Number of tremors (0.27833130955696106)",
+        "Number of temblors (0.2747666835784912)",
+        "Number of quakes (0.2717563807964325)",
         "Number of Earthquakes (0.25374898314476013)"
       ],
       "Count_FloodEvent": [
@@ -119,42 +120,42 @@
         "Number of floods (0.2539288103580475)"
       ],
       "Count_HeavyRainEvent": [
-        "Number of heavy rains (0.2653329074382782)",
-        "Number of Heavy Rains (0.2653329074382782)"
+        "Number of heavy rains (0.2653330862522125)",
+        "Number of Heavy Rains (0.26533302664756775)"
       ],
       "Count_HeavySnowEvent": [
-        "Number of blizzards (0.3691325783729553)"
+        "Number of blizzards (0.36913248896598816)"
       ],
       "Count_Person_5To9Years": [
-        "Number of 5 to 9 year old people (0.272920161485672)"
+        "Number of 5 to 9 year old people (0.27292025089263916)"
       ],
       "Count_Person_Male": [
-        "Number of Males (0.29036542773246765)"
+        "Number of Males (0.2903653085231781)"
       ],
       "Count_Worker_NAICSArtsEntertainmentRecreation": [
-        "Employment numbers in entertainment and recreation (0.26523518562316895)",
-        "number of arts, entertainment, and recreation workers (0.25554004311561584)",
-        "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.25426241755485535)"
+        "Employment numbers in entertainment and recreation (0.26523521542549133)",
+        "number of arts, entertainment, and recreation workers (0.2555399537086487)",
+        "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.2542623281478882)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_CriminalActivities_Robbery": [
-      "Number of heists (0.2691501975059509)"
+      "Number of heists (0.26915016770362854)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Number of hate crimes (0.2894546687602997)",
-      "Number of Hate Crime Incidents (0.25507885217666626)",
-      "Number of hate crime incidents (0.25507885217666626)"
+      "Number of hate crimes (0.28945454955101013)",
+      "Number of hate crime incidents (0.25507885217666626)",
+      "Number of Hate Crime Incidents (0.2550787925720215)"
     ],
     "Count_DroughtEvent": [
-      "Number of Droughts (0.2610829472541809)",
-      "Number of droughts (0.2610829174518585)"
+      "Number of droughts (0.26108318567276)",
+      "Number of Droughts (0.26108312606811523)"
     ],
     "Count_EarthquakeEvent": [
-      "Number of tremors (0.2783313989639282)",
-      "Number of temblors (0.27476659417152405)",
-      "Number of quakes (0.27175652980804443)",
+      "Number of tremors (0.27833130955696106)",
+      "Number of temblors (0.2747666835784912)",
+      "Number of quakes (0.2717563807964325)",
       "Number of Earthquakes (0.25374898314476013)"
     ],
     "Count_FloodEvent": [
@@ -162,22 +163,22 @@
       "Number of floods (0.2539288103580475)"
     ],
     "Count_HeavyRainEvent": [
-      "Number of heavy rains (0.2653329074382782)",
-      "Number of Heavy Rains (0.2653329074382782)"
+      "Number of heavy rains (0.2653330862522125)",
+      "Number of Heavy Rains (0.26533302664756775)"
     ],
     "Count_HeavySnowEvent": [
-      "Number of blizzards (0.3691325783729553)"
+      "Number of blizzards (0.36913248896598816)"
     ],
     "Count_Person_5To9Years": [
-      "Number of 5 to 9 year old people (0.272920161485672)"
+      "Number of 5 to 9 year old people (0.27292025089263916)"
     ],
     "Count_Person_Male": [
-      "Number of Males (0.29036542773246765)"
+      "Number of Males (0.2903653085231781)"
     ],
     "Count_Worker_NAICSArtsEntertainmentRecreation": [
-      "Employment numbers in entertainment and recreation (0.26523518562316895)",
-      "number of arts, entertainment, and recreation workers (0.25554004311561584)",
-      "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.25426241755485535)"
+      "Employment numbers in entertainment and recreation (0.26523521542549133)",
+      "number of arts, entertainment, and recreation workers (0.2555399537086487)",
+      "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.2542623281478882)"
     ]
   },
   "temporal_classification": "<None>",

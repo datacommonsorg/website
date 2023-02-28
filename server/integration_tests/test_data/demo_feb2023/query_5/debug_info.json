@@ -716,7 +716,7 @@
               5
             ],
             "source_topic": "dc/topic/ProjectedClimateExtremes",
-            "title": "Projected highest increase in max temperature in different scenarios"
+            "title": "Projected highest increase in max temperature under different scenarios"
           },
           "chart_type": 2,
           "event": null,
@@ -745,7 +745,7 @@
               5
             ],
             "source_topic": "dc/topic/ProjectedClimateExtremes",
-            "title": "Projected highest decrease in min temperature in different scenarios"
+            "title": "Projected highest decrease in min temperature under different scenarios"
           },
           "chart_type": 2,
           "event": null,
@@ -779,23 +779,24 @@
   ],
   "query_with_places_removed": "Which jobs have grown the most",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6188302040100098,
-      0.49103933572769165,
-      0.4876808822154999,
-      0.4832382798194885,
-      0.4818311333656311,
-      0.4818311333656311,
-      0.4818311333656311,
-      0.48132240772247314,
-      0.4787801504135132,
-      0.4775923192501068,
-      0.4775923192501068,
-      0.47642314434051514,
-      0.47545942664146423,
-      0.4719375669956207
+      0.618830144405365,
+      0.4910394847393036,
+      0.48768100142478943,
+      0.48323848843574524,
+      0.4818313419818878,
+      0.4818313419818878,
+      0.4818313419818878,
+      0.4813225567340851,
+      0.4787803590297699,
+      0.47759246826171875,
+      0.47759246826171875,
+      0.4764231741428375,
+      0.47545936703681946,
+      0.47193774580955505
     ],
     "SV": [
       "dc/topic/Jobs",
@@ -815,109 +816,109 @@
     ],
     "SV_to_Sentences": {
       "Count_Person_Employed": [
-        "Population with current employment (0.4775923192501068)",
-        "Population With Current Employment (0.4775923192501068)"
+        "Population with current employment (0.47759246826171875)",
+        "Population With Current Employment (0.47759246826171875)"
       ],
       "Count_Person_InLaborForce": [
-        "Population with current employment (0.4775923192501068)"
+        "Population with current employment (0.47759246826171875)"
       ],
       "Count_Worker_NAICSAgricultureForestryFishingHunting": [
-        "Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.47545942664146423)"
+        "Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.47545936703681946)"
       ],
       "dc/g/Person_Industry-NAICS/10": [
-        "workers in total, all industries industry (0.4876808822154999)"
+        "workers in total, all industries industry (0.48768100142478943)"
       ],
       "dc/g/Person_Industry-NAICS/11": [
-        "People working in the agriculture, forestry, fishing, and hunting industry (0.4787801504135132)",
-        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.4787801504135132)",
-        "workers in agriculture, forestry, fishing and hunting industry (0.4772951602935791)"
+        "People working in the agriculture, forestry, fishing, and hunting industry (0.4787803590297699)",
+        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.4787803590297699)",
+        "workers in agriculture, forestry, fishing and hunting industry (0.4772953391075134)"
       ],
       "dc/g/Person_Industry-NAICS/3133": [
-        "workers in manufacturing industry (0.4818311333656311)"
+        "workers in manufacturing industry (0.4818313419818878)"
       ],
       "dc/g/Person_Industry-NAICS/33": [
-        "workers in manufacturing industry (0.4818311333656311)"
+        "workers in manufacturing industry (0.4818313419818878)"
       ],
       "dc/g/Person_Industry-NAICS/451": [
-        "workers in sports, hobby, music instrument, book stores industry (0.48132240772247314)"
+        "workers in sports, hobby, music instrument, book stores industry (0.4813225567340851)"
       ],
       "dc/g/Person_Industry-NAICS/51": [
-        "workers in information industry (0.47642314434051514)"
+        "workers in information industry (0.4764231741428375)"
       ],
       "dc/g/Person_Industry-NAICS/54": [
-        "workers in professional, scientific, and technical services industry (0.49103933572769165)"
+        "workers in professional, scientific, and technical services industry (0.4910394847393036)"
       ],
       "dc/g/Person_Industry-NAICS/71": [
-        "workers in arts, entertainment, and recreation industry (0.4719375669956207)"
+        "workers in arts, entertainment, and recreation industry (0.47193774580955505)"
       ],
       "dc/g/Person_Industry-NAICS/JOLTS300000": [
-        "workers in manufacturing industry (0.4818311333656311)"
+        "workers in manufacturing industry (0.4818313419818878)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "agriculture workers (0.4832382798194885)",
-        "workers in agriculture (0.4748057723045349)"
+        "agriculture workers (0.48323848843574524)",
+        "workers in agriculture (0.47480592131614685)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.6188302040100098)",
-        "Employment Positions (0.5317986607551575)",
-        "Careers (0.5294848084449768)",
-        "Work Occupations (0.5167797803878784)",
-        "Professions (0.5073134899139404)",
-        "Occupational professions (0.4855183959007263)"
+        "Jobs (0.618830144405365)",
+        "Employment Positions (0.5317984819412231)",
+        "Careers (0.5294849872589111)",
+        "Work Occupations (0.516779899597168)",
+        "Professions (0.5073134303092957)",
+        "Occupational professions (0.4855184555053711)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Person_Employed": [
-      "Population with current employment (0.4775923192501068)",
-      "Population With Current Employment (0.4775923192501068)"
+      "Population with current employment (0.47759246826171875)",
+      "Population With Current Employment (0.47759246826171875)"
     ],
     "Count_Person_InLaborForce": [
-      "Population with current employment (0.4775923192501068)"
+      "Population with current employment (0.47759246826171875)"
     ],
     "Count_Worker_NAICSAgricultureForestryFishingHunting": [
-      "Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.47545942664146423)"
+      "Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.47545936703681946)"
     ],
     "dc/g/Person_Industry-NAICS/10": [
-      "workers in total, all industries industry (0.4876808822154999)"
+      "workers in total, all industries industry (0.48768100142478943)"
     ],
     "dc/g/Person_Industry-NAICS/11": [
-      "People working in the agriculture, forestry, fishing, and hunting industry (0.4787801504135132)",
-      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.4787801504135132)",
-      "workers in agriculture, forestry, fishing and hunting industry (0.4772951602935791)"
+      "People working in the agriculture, forestry, fishing, and hunting industry (0.4787803590297699)",
+      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.4787803590297699)",
+      "workers in agriculture, forestry, fishing and hunting industry (0.4772953391075134)"
     ],
     "dc/g/Person_Industry-NAICS/3133": [
-      "workers in manufacturing industry (0.4818311333656311)"
+      "workers in manufacturing industry (0.4818313419818878)"
     ],
     "dc/g/Person_Industry-NAICS/33": [
-      "workers in manufacturing industry (0.4818311333656311)"
+      "workers in manufacturing industry (0.4818313419818878)"
     ],
     "dc/g/Person_Industry-NAICS/451": [
-      "workers in sports, hobby, music instrument, book stores industry (0.48132240772247314)"
+      "workers in sports, hobby, music instrument, book stores industry (0.4813225567340851)"
     ],
     "dc/g/Person_Industry-NAICS/51": [
-      "workers in information industry (0.47642314434051514)"
+      "workers in information industry (0.4764231741428375)"
     ],
     "dc/g/Person_Industry-NAICS/54": [
-      "workers in professional, scientific, and technical services industry (0.49103933572769165)"
+      "workers in professional, scientific, and technical services industry (0.4910394847393036)"
     ],
     "dc/g/Person_Industry-NAICS/71": [
-      "workers in arts, entertainment, and recreation industry (0.4719375669956207)"
+      "workers in arts, entertainment, and recreation industry (0.47193774580955505)"
     ],
     "dc/g/Person_Industry-NAICS/JOLTS300000": [
-      "workers in manufacturing industry (0.4818311333656311)"
+      "workers in manufacturing industry (0.4818313419818878)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "agriculture workers (0.4832382798194885)",
-      "workers in agriculture (0.4748057723045349)"
+      "agriculture workers (0.48323848843574524)",
+      "workers in agriculture (0.47480592131614685)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.6188302040100098)",
-      "Employment Positions (0.5317986607551575)",
-      "Careers (0.5294848084449768)",
-      "Work Occupations (0.5167797803878784)",
-      "Professions (0.5073134899139404)",
-      "Occupational professions (0.4855183959007263)"
+      "Jobs (0.618830144405365)",
+      "Employment Positions (0.5317984819412231)",
+      "Careers (0.5294849872589111)",
+      "Work Occupations (0.516779899597168)",
+      "Professions (0.5073134303092957)",
+      "Occupational professions (0.4855184555053711)"
     ]
   },
   "temporal_classification": "<None>",

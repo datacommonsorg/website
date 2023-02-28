@@ -22,6 +22,7 @@ from enum import IntEnum
 import logging
 from typing import Dict, List
 
+from server.lib.nl import constants
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import ContainedInClassificationAttributes
 from server.lib.nl.detection import ContainedInPlaceType
@@ -37,7 +38,7 @@ from server.lib.nl.detection import TimeDeltaClassificationAttributes
 from server.lib.nl.detection import TimeDeltaType
 
 # How far back does the context go back.
-CTX_LOOKBACK_LIMIT = 8
+CTX_LOOKBACK_LIMIT = 15
 
 
 # Forward declaration since Utterance contains a pointer to itself.
@@ -63,10 +64,12 @@ class QueryType(IntEnum):
   CONTAINED_IN = 4
   CORRELATION = 5
   COMPARISON = 6
-  TIME_DELTA = 7
-  EVENT = 8
-  OVERVIEW = 9
-  UNKNOWN = 11
+  TIME_DELTA_ACROSS_VARS = 7
+  TIME_DELTA_ACROSS_PLACES = 8
+  EVENT = 9
+  OVERVIEW = 10
+  SIZE_ACROSS_ENTITIES = 11
+  UNKNOWN = 12
 
 
 # Type of chart.
@@ -78,6 +81,7 @@ class ChartType(IntEnum):
   PLACE_OVERVIEW = 4
   SCATTER_CHART = 5
   EVENT_CHART = 6
+  RANKED_TIMELINE_COLLECTION = 7
 
 
 # Enough of a spec per chart to create the chart config proto.
@@ -121,6 +125,8 @@ class Utterance:
   answerPlaces: List[str]
   # Linked list of past utterances
   prev_utterance: Utterance
+  # A unique ID to identify sessions
+  session_id: str
   # Debug counters that are cleared out before serializing.
   # Some of these might be promoted to the main Debug Info display,
   # but everything else will appear in the raw output.
@@ -244,6 +250,7 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['places'] = _place_to_dict(u.places)
     udict['classifications'] = _classification_to_dict(u.classifications)
     udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
+    udict['session_id'] = u.session_id
     uttr_dicts.append(udict)
     u = u.prev_utterance
     cnt += 1
@@ -271,6 +278,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
                      rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
                      detection=None,
                      chartCandidates=None,
-                     answerPlaces=None)
+                     answerPlaces=None,
+                     session_id=udict['session_id'])
     prev_uttr = uttr
   return uttr

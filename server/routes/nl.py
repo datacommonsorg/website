@@ -13,6 +13,7 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
+import asyncio
 import json
 import logging
 import os
@@ -22,6 +23,7 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import escape
+from flask import g
 from flask import render_template
 from flask import request
 from google.protobuf.json_format import MessageToJson
@@ -36,10 +38,12 @@ from server.lib.nl.detection import PlaceDetection
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import SVDetection
 import server.lib.nl.fulfiller as fulfillment
+import server.lib.nl.fulfillment.context as context
 import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_disaster_dashboard_configs
+import server.services.bigtable as bt
 import server.services.datacommons as dc
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
@@ -174,6 +178,7 @@ def _result_with_debug_info(data_dict: Dict, status: str,
   ranking_classification = "<None>"
   overview_classification = "<None>"
   temporal_classification = "<None>"
+  size_type_classification = "<None>"
   time_delta_classification = "<None>"
   comparison_classification = "<None>"
   contained_in_classification = "<None>"
@@ -188,6 +193,8 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       overview_classification = str(classification.type)
     elif classification.type == ClassificationType.TEMPORAL:
       temporal_classification = str(classification.type)
+    elif classification.type == ClassificationType.SIZE_TYPE:
+      size_type_classification = str(classification.attributes.size_types)
     elif classification.type == ClassificationType.TIME_DELTA:
       time_delta_classification = str(
           classification.attributes.time_delta_types)
@@ -208,8 +215,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       clustering_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
       clustering_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
 
-  logging.info(uttr_history)
-  logging.info(debug_counters)
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
@@ -218,6 +223,7 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       'ranking_classification': ranking_classification,
       'overview_classification': overview_classification,
       'temporal_classification': temporal_classification,
+      'size_type_classification': size_type_classification,
       'time_delta_classification': time_delta_classification,
       'contained_in_classification': contained_in_classification,
       'clustering_classification': clustering_classification,
@@ -306,6 +312,7 @@ def _detection(orig_query, cleaned_query) -> Detection:
   comparison_classification = model.heuristic_comparison_classification(query)
   overview_classification = model.heuristic_overview_classification(query)
   temporal_classification = None
+  size_type_classification = model.heuristic_size_type_classification(query)
   time_delta_classification = model.heuristic_time_delta_classification(query)
   contained_in_classification = model.heuristic_containedin_classification(
       query)
@@ -313,6 +320,7 @@ def _detection(orig_query, cleaned_query) -> Detection:
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Comparison classification: {comparison_classification}')
   logging.info(f'Temporal classification: {temporal_classification}')
+  logging.info(f'SizeType classification: {size_type_classification}')
   logging.info(f'TimeDelta classification: {time_delta_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
   logging.info(f'Event Classification: {event_classification}')
@@ -326,6 +334,8 @@ def _detection(orig_query, cleaned_query) -> Detection:
     classifications.append(comparison_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
+  if size_type_classification is not None:
+    classifications.append(size_type_classification)
   if time_delta_classification is not None:
     classifications.append(time_delta_classification)
   if event_classification is not None:
@@ -357,8 +367,14 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  placeholder_query = ''
+  # TODO: Make this more customizable for all custom DC's
+  if g.env == 'climate_trace':
+    placeholder_query = 'Greenhouse gas emissions in USA'
   return render_template('/nl_interface.html',
-                         maps_api_key=current_app.config['MAPS_API_KEY'])
+                         maps_api_key=current_app.config['MAPS_API_KEY'],
+                         placeholder_query=placeholder_query,
+                         website_hash=os.environ.get("WEBSITE_HASH"))
 
 
 #
@@ -389,7 +405,6 @@ def data():
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
-  logging.info(context_history)
 
   query = str(escape(utils.remove_punctuations(original_query)))
   res = {
@@ -413,7 +428,15 @@ def data():
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
-  utterance = fulfillment.fulfill(query_detection, prev_utterance)
+  if prev_utterance:
+    session_id = prev_utterance.session_id
+  else:
+    if current_app.config['LOG_QUERY']:
+      session_id = utils.new_session_id()
+    else:
+      session_id = constants.TEST_SESSION_ID
+
+  utterance = fulfillment.fulfill(query_detection, prev_utterance, session_id)
 
   if utterance.rankedCharts:
     page_config_pb = nl_page_config.build_page_config(utterance,
@@ -449,6 +472,21 @@ def data():
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
+  if current_app.config['LOG_QUERY']:
+    # Asynchronously log as bigtable write takes O(100ms)
+    loop = asyncio.new_event_loop()
+    session_info = context.get_session_info(context_history)
+    loop.run_until_complete(bt.write_row(session_info))
+
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
                                       context_history, dbg_counters)
+
   return data_dict
+
+
+@bp.route('/history')
+def history():
+  if (os.environ.get('FLASK_ENV') == 'production' or
+      not current_app.config['NL_MODEL']):
+    flask.abort(404)
+  return json.dumps(bt.read_success_rows())

@@ -199,6 +199,7 @@ function formatNumber(
       formatOptions.style = "percent";
       value = value / 100; // Values are scaled by formatter for percent display
       break;
+    case "MetricTon":
     case "t":
       shouldAddUnit = true;
       unitKey = "metric-ton";
@@ -224,6 +225,7 @@ function formatNumber(
       unitKey = "liter";
       break;
     case "celsius":
+    case "Celsius":
       shouldAddUnit = true;
       unitKey = "celsius";
       break;
@@ -231,6 +233,7 @@ function formatNumber(
       shouldAddUnit = true;
       unitKey = "micro-gram-per-cubic-meter";
       break;
+    case "MetricTonCO2e":
     case "MTCO2e":
       shouldAddUnit = true;
       unitKey = "metric-tons-of-co2";

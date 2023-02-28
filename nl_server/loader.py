@@ -28,7 +28,7 @@ def load_model(app, embeddings_file):
   flask_env = os.environ.get('FLASK_ENV')
   # In local dev, cache the model in disk so each hot reload won't download
   # the model again.
-  if flask_env == 'local' or flask_env == 'integration-test':
+  if flask_env == 'local' or flask_env == 'integration_test':
     from diskcache import Cache
     cache = Cache(nl_cache_path)
     cache.expire()
@@ -46,7 +46,7 @@ def load_model(app, embeddings_file):
   nl_ner_places = NERPlaces()
   app.config["NL_NER_PLACES"] = nl_ner_places
 
-  if flask_env == 'local' or flask_env == 'integration-test':
+  if flask_env == 'local' or flask_env == 'integration_test':
     with Cache(cache.directory) as reference:
       reference.set(nl_embeddings_cache_key,
                     nl_embeddings,

@@ -49,6 +49,7 @@ PLACE_EXPLORER_CATEGORIES = [
 TOPIC_PAGE_CONFIGS = {
     'equity': ['USA', 'CA'],
     'poverty': ['USA', 'India'],
+    'dev': ['CA'],
 }
 
 # Levels range from 0 (fastest, least compression), to 9 (slowest, most

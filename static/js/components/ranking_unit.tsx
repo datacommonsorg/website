@@ -18,9 +18,10 @@
  * Component for rendering a single ranking list.
  */
 
+import _ from "lodash";
 import React from "react";
 
-import { formatNumber, LocalizedLink } from "../i18n/i18n";
+import { LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
 
 const NUM_FRACTION_DIGITS = 2;
@@ -33,8 +34,15 @@ interface RankingUnitPropType {
    * Otherwise, from lowest to highest, e.g., n,n-1,n-2,...
    */
   isHighest: boolean;
-  unit?: string;
-  scaling?: number;
+  // Function to use for formatting numbers
+  formatNumberFn: (
+    value: number,
+    unit?: string,
+    useDefaultFormat?: boolean,
+    numFractionDigits?: number
+  ) => string;
+  unit?: string[];
+  scaling?: number[];
   /**
    * Total number of points. This is used for calculating ranks if isHighest is false
    * (ordering from lowest ranks to highest) and ranks are not provided, e.g., n,n-1,n-2,...
@@ -48,6 +56,12 @@ interface RankingUnitPropType {
    * If true, only the ranks and labels will be shown and not the values.
    */
   hideValue?: boolean;
+  /**
+   * For multi-column, these are the display strings for the value columns, in order.
+   * TODO: Add better support for multi-column by adding a single list of columns:
+   *       columns: { unt: string; scaling: number; name: string }[];
+   */
+  svNames?: string[];
 }
 
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
@@ -69,6 +83,19 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
     <div className="ranking-list">
       <h4>{props.title}</h4>
       <table>
+        {props.svNames && !props.hideValue && (
+          <thead>
+            <tr>
+              <td></td>
+              <td></td>
+              {props.svNames.map((name, i) => (
+                <td key={i} className="stat">
+                  {name}
+                </td>
+              ))}
+            </tr>
+          </thead>
+        )}
         <tbody>
           {props.points.map((point, i) => {
             return (
@@ -93,24 +120,46 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                     text={point.placeName || point.placeDcid}
                   />
                 </td>
-                {!props.hideValue && (
+                {!props.hideValue && _.isEmpty(point.values) && (
                   <td className="stat">
                     <span
                       className={`num-value ${
                         point.placeDcid === props.highlightedDcid ? "bold" : ""
                       }`}
                     >
-                      {formatNumber(
-                        props.scaling
-                          ? point.value * props.scaling
+                      {props.formatNumberFn(
+                        !_.isEmpty(props.scaling) && props.scaling[0]
+                          ? point.value * props.scaling[0]
                           : point.value,
-                        props.unit,
+                        props.unit && props.unit.length ? props.unit[0] : "",
                         false,
                         NUM_FRACTION_DIGITS
                       )}
                     </span>
                   </td>
                 )}
+                {!props.hideValue &&
+                  !_.isEmpty(point.values) &&
+                  point.values.map((v, i) => (
+                    <td key={i} className="stat">
+                      <span
+                        className={`num-value ${
+                          point.placeDcid === props.highlightedDcid
+                            ? "bold"
+                            : ""
+                        }`}
+                      >
+                        {props.formatNumberFn(
+                          !_.isEmpty(props.scaling) && props.scaling[i]
+                            ? v * props.scaling[i]
+                            : v,
+                          props.unit && props.unit.length ? props.unit[i] : "",
+                          false,
+                          NUM_FRACTION_DIGITS
+                        )}
+                      </span>
+                    </td>
+                  ))}
               </tr>
             );
           })}

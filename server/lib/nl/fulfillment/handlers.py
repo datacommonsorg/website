@@ -27,7 +27,9 @@ from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import ranking_across_places
 from server.lib.nl.fulfillment import ranking_across_vars
 from server.lib.nl.fulfillment import simple
-from server.lib.nl.fulfillment import time_delta
+from server.lib.nl.fulfillment import size_across_entities
+from server.lib.nl.fulfillment import time_delta_across_places
+from server.lib.nl.fulfillment import time_delta_across_vars
 from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance
 
@@ -69,20 +71,28 @@ QUERY_HANDLERS = {
     # Correlation has a more complex fallback logic captured in next_query_type().
     QueryType.CORRELATION:
         QueryHandlerConfig(module=correlation, rank=6),
-    QueryType.TIME_DELTA:
-        QueryHandlerConfig(module=time_delta,
+    QueryType.TIME_DELTA_ACROSS_VARS:
+        QueryHandlerConfig(module=time_delta_across_vars,
                            rank=7,
+                           direct_fallback=QueryType.SIMPLE),
+    QueryType.TIME_DELTA_ACROSS_PLACES:
+        QueryHandlerConfig(module=time_delta_across_places,
+                           rank=8,
                            direct_fallback=QueryType.CONTAINED_IN),
     QueryType.EVENT:
         QueryHandlerConfig(module=event,
-                           rank=8,
+                           rank=9,
                            direct_fallback=QueryType.SIMPLE),
+    QueryType.SIZE_ACROSS_ENTITIES:
+        QueryHandlerConfig(module=size_across_entities,
+                           rank=10,
+                           direct_fallback=QueryType.CONTAINED_IN),
 
     # Overview trumps everything else ("tell us about"), and
     # has no fallback.
     QueryType.OVERVIEW:
         QueryHandlerConfig(module=overview,
-                           rank=9,
+                           rank=11,
                            direct_fallback=QueryType.OVERVIEW),
 }
 
@@ -96,10 +106,10 @@ DIRECT_CLASSIFICATION_TYPE_TO_QUERY_TYPE = {
         QueryType.CORRELATION,
     ClassificationType.COMPARISON:
         QueryType.COMPARISON,
-    ClassificationType.TIME_DELTA:
-        QueryType.TIME_DELTA,
     ClassificationType.EVENT:
         QueryType.EVENT,
+    ClassificationType.SIZE_TYPE:
+        QueryType.SIZE_ACROSS_ENTITIES,
 
     # Unsupported classification-types. Map them to SIMPLE for now.
     # TODO: Handle this better.
@@ -119,7 +129,9 @@ DIRECT_CLASSIFICATION_TYPE_TO_QUERY_TYPE = {
 def first_query_type(uttr: Utterance):
   query_types = [QueryType.SIMPLE]
   for cl in uttr.classifications:
-    query_types.append(_classification_to_query_type(cl, uttr))
+    qtype = _classification_to_query_type(cl, uttr)
+    if qtype != None:
+      query_types.append(qtype)
 
   default_config = QueryHandlerConfig(module=None, rank=-1)  # Ranks the lowest
   query_types = sorted(
@@ -141,12 +153,19 @@ def _classification_to_query_type(cl: NLClassifier,
     else:
       query_type = QueryType.SIMPLE
   elif cl.type == ClassificationType.RANKING:
-    current_contained_classification = context.classifications_of_type_from_utterance(
+    classification = context.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
-    if current_contained_classification:
+    if classification:
       query_type = QueryType.RANKING_ACROSS_PLACES
     else:
       query_type = QueryType.RANKING_ACROSS_VARS
+  elif cl.type == ClassificationType.TIME_DELTA:
+    classification = context.classifications_of_type_from_utterance(
+        uttr, ClassificationType.CONTAINED_IN)
+    if classification:
+      query_type = QueryType.TIME_DELTA_ACROSS_PLACES
+    else:
+      query_type = QueryType.TIME_DELTA_ACROSS_VARS
   else:
     query_type = None
 

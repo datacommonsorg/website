@@ -17,6 +17,12 @@ terraform {
   backend "gcs" {}
 }
 
+provider "google" {
+  project               = var.project_id
+  billing_project       = var.project_id
+  user_project_override = true
+}
+
 locals {
   resource_suffix    = var.use_resource_suffix ? format("-%s", var.resource_suffix) : ""
   web_robot_sa_email = (

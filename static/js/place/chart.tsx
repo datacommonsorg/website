@@ -270,11 +270,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                         this.state.rankingChartDataGroup.rankingData.highest
                       }
                       isHighest={true}
-                      unit={this.props.unit}
+                      unit={[this.props.unit]}
                       highlightedDcid={this.props.dcid}
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
                       }
+                      formatNumberFn={formatNumber}
                     />
                     <RankingUnit
                       title="Lowest"
@@ -282,7 +283,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                         this.state.rankingChartDataGroup.rankingData.lowest
                       }
                       isHighest={false}
-                      unit={this.props.unit}
+                      unit={[this.props.unit]}
                       numDataPoints={
                         this.state.rankingChartDataGroup.numDataPoints
                       }
@@ -290,6 +291,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
                       }
+                      formatNumberFn={formatNumber}
                     />
                   </div>
                 </div>
@@ -470,6 +472,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.state.dataGroups,
         false,
         false,
+        formatNumber,
         this.props.unit
       );
       if (!isCompleteLine) {
@@ -483,6 +486,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
+        formatNumber,
         this.props.unit
       );
     } else if (chartType === chartTypeEnum.GROUP_BAR) {
@@ -491,6 +495,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
+        formatNumber,
         this.props.unit
       );
     } else if (
@@ -527,7 +532,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         colorScale,
         this.props.unit,
-        0
+        0,
+        formatNumber
       );
       const mapWidth = elem.offsetWidth - legendWidth;
       const projection = getProjection(

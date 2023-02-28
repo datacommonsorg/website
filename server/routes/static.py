@@ -16,11 +16,10 @@
 from datetime import date
 import os
 
-import babel.dates as babel_dates
 from flask import Blueprint
-from flask import g
 from flask import render_template
 
+import server.lib.render as lib_render
 from server.services import datacommons as dc
 
 bp = Blueprint('static', __name__)
@@ -28,54 +27,32 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-  if g.env_name == 'FEEDINGAMERICA':
-    return render_template('custom_dc/feedingamerica/homepage.html')
-  if g.env_name == 'IITM':
-    return render_template('custom_dc/iitm/homepage.html')
-  if g.env_name == 'STANFORD':
-    return render_template('custom_dc/stanford/homepage.html')
-  if g.env_name == 'STANFORD-STAGING':
-    return render_template('custom_dc/stanford/homepage.html')
-  if g.env_name == 'CUSTOM':
-    return render_template('custom_dc/default/homepage.html')
-  blog_date = babel_dates.format_date(date(2021, 7, 26),
-                                      format='long',
-                                      locale=g.locale)
-  return render_template('static/homepage.html', blog_date=blog_date)
+  return lib_render.render_page("static/homepage.html", "homepage.html")
 
 
 @bp.route('/about')
 def about():
-  if g.env_name == 'FEEDINGAMERICA':
-    return render_template('custom_dc/feedingamerica/about.html')
-  if g.env_name == 'IITM':
-    return render_template('custom_dc/iitm/about.html')
-  return render_template('static/about.html')
+  return lib_render.render_page("static/about.html", "about.html")
 
 
 @bp.route('/faq')
 def faq():
   current_date = date.today().strftime('%-d %b %Y')
   current_year = date.today().strftime('%Y')
-  if g.env_name == 'IITM':
-    return render_template('custom_dc/iitm/faq.html',
-                           current_date=current_date,
-                           current_year=current_year)
-  return render_template('static/faq.html',
-                         current_date=current_date,
-                         current_year=current_year)
+  return lib_render.render_page("static/faq.html",
+                                "faq.html",
+                                current_date=current_date,
+                                current_year=current_year)
 
 
 @bp.route('/disclaimers')
 def disclaimers():
-  return render_template('static/disclaimers.html')
+  return lib_render.render_page("static/disclaimers.html", "disclaimers.html")
 
 
 @bp.route('/feedback')
 def feedback():
-  if g.env_name == 'IITM':
-    return render_template('custom_dc/iitm/feedback.html')
-  return render_template('static/feedback.html')
+  return lib_render.render_page("static/feedback.html", "feedback.html")
 
 
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.

@@ -61,6 +61,8 @@ export interface StatVarHierarchyPropType {
   deselectSV?: (sv: string) => void;
   // Optional label to add above the search box
   searchLabel?: string;
+  // Number of entities that should have data for each stat var (group) shown
+  numEntitiesExistence?: number;
 }
 
 interface StatVarHierarchyStateType {
@@ -208,6 +210,7 @@ export class StatVarHierarchy extends React.Component<
                           }
                           showAllSV={this.state.showAllSV}
                           expandedPath={this.state.expandedPath.slice(1)}
+                          numEntitiesExistence={this.props.numEntitiesExistence}
                         />
                       </Context.Provider>
                     );
@@ -234,6 +237,9 @@ export class StatVarHierarchy extends React.Component<
     let url = `/api/variable-group/info?dcid=${ROOT_SVG}`;
     for (const entity of this.props.entities) {
       url += `&entities=${entity.dcid}`;
+    }
+    if (this.props.numEntitiesExistence) {
+      url += `&numEntitiesExistence=${this.props.numEntitiesExistence}`;
     }
     const allPromises: Promise<string[] | StatVarGroupInfo[]>[] = [];
     allPromises.push(

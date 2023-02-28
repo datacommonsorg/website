@@ -19,7 +19,6 @@ python3 -m venv .env
 source .env/bin/activate
 
 PORT=8080
-ENV=local
 ENABLE_MODEL=false
 PROTOC_VERSION=3.21.9
 
@@ -36,10 +35,10 @@ function help {
 while getopts ":e:p?m?d?l" OPTION; do
   case $OPTION in
     e)
-      ENV=$OPTARG
+      export FLASK_ENV=$OPTARG
       ;;
     p)
-      PORT=$OPTARG
+      export PORT=$OPTARG
       ;;
     m)
       export ENABLE_MODEL=true
@@ -62,20 +61,13 @@ if [[ "$(protoc --version)" != "libprotoc ${PROTOC_VERSION}" ]]; then
 fi
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-if [[ $ENV == "lite" ]]; then
-  export FLASK_ENV=local-lite
-elif [[ $ENV == "custom" ]]; then
-  export FLASK_ENV=local-custom
-elif [[ $ENV == "iitm" ]]; then
-  export FLASK_ENV=local-iitm
-elif [[ $ENV == "feedingamerica" ]]; then
-  export FLASK_ENV=local-feedingamerica
-elif [[ $ENV == "stanford" ]]; then
-  export FLASK_ENV=local-stanford
-elif [[ ! -z ${ENV+x} ]]; then  # Use any specified env.
-  export FLASK_ENV=$ENV
-else
-  export FLASK_ENV=local
+
+# Set flask env
+if [[ $FLASK_ENV == "" ]]; then
+  export FLASK_ENV="local"
+fi
+if [[ $FLASK_ENV != "local" ]]; then
+  export ENV_PREFIX="Local"
 fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 

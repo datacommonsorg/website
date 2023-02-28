@@ -17,6 +17,7 @@ from typing import Dict, List
 import unittest
 from unittest.mock import patch
 
+from server.lib.nl import constants
 from server.lib.nl import fulfiller
 from server.lib.nl import utils
 from server.lib.nl import utterance
@@ -43,7 +44,7 @@ from server.tests.lib.nl.test_utterance import SIMPLE_PLACE_ONLY_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
-from server.tests.lib.nl.test_utterance import TIME_DELTA_UTTR
+from server.tests.lib.nl.test_utterance import TIME_DELTA_ACROSS_VARS_UTTR
 
 
 #
@@ -358,7 +359,7 @@ class TestDataSpecNext(unittest.TestCase):
   # This follows up on test_simple().  It relies on topic as well.
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'rank_svs_by_growth_rate')
+  @patch.object(utils, 'rank_svs_by_series_growth')
   @patch.object(base, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
@@ -384,17 +385,27 @@ class TestDataSpecNext(unittest.TestCase):
         'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
     ]]
     # Differently order result
-    mock_rank_svs.return_value = [
-        'FarmInventory_Barley',
-        'FarmInventory_Rice',
-        'FarmInventory_Wheat',
-    ]
+    mock_rank_svs.return_value = utils.GrowthRankedLists(
+        pct=[
+            'FarmInventory_Barley',
+            'FarmInventory_Rice',
+            'FarmInventory_Wheat',
+        ],
+        abs=[
+            'FarmInventory_Rice',
+            'FarmInventory_Barley',
+            'FarmInventory_Wheat',
+        ],
+        pc=[
+            'FarmInventory_Barley',
+            'FarmInventory_Wheat',
+        ])
 
     # Pass in just simple utterance
     got = _run(detection, [SIMPLE_UTTR])
 
     self.maxDiff = None
-    self.assertEqual(got, TIME_DELTA_UTTR)
+    self.assertEqual(got, TIME_DELTA_ACROSS_VARS_UTTR)
 
   @patch.object(utils, 'event_existence_for_place')
   def test_event(self, mock_event_existence):
@@ -424,7 +435,7 @@ class TestDataSpecNext(unittest.TestCase):
     mock_sv_existence.side_effect = [['Count_Person_Male'],
                                      ['Count_Person_Female']]
 
-    got = fulfiller.fulfill(detection, None).counters
+    got = fulfiller.fulfill(detection, None, constants.TEST_SESSION_ID).counters
 
     self.maxDiff = None
     _COUNTERS = {
@@ -519,4 +530,5 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
   prev_uttr = None
   if uttr_dict:
     prev_uttr = utterance.load_utterance(uttr_dict)
-  return utterance.save_utterance(fulfiller.fulfill(detection, prev_uttr))[0]
+  return utterance.save_utterance(
+      fulfiller.fulfill(detection, prev_uttr, constants.TEST_SESSION_ID))[0]

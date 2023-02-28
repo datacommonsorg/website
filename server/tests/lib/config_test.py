@@ -17,43 +17,8 @@ import unittest
 from unittest.mock import patch
 
 from parameterized import parameterized
-from werkzeug.utils import import_string
 
 import server.lib.config as libconfig
-
-
-class TestConfigModule(unittest.TestCase):
-
-  @parameterized.expand([
-      ("production", "server.configmodule.ProductionConfig"),
-      ('staging', "server.configmodule.StagingConfig"),
-      ('autopush', "server.configmodule.AutopushConfig"),
-      ('dev', "server.configmodule.DevConfig"),
-      ('feedingamerica', "server.configmodule.FeedingamericaConfig"),
-      ('custom', "server.configmodule.CustomConfig"),
-      ('stanford', "server.configmodule.StanfordConfig"),
-      ('stanford-staging', "server.configmodule.StanfordStagingConfig"),
-      ('tidal', "server.configmodule.TidalConfig"),
-      ('iitm', "server.configmodule.IitmConfig"),
-      ('dev', "server.configmodule.DevConfig"),
-      ('test', "server.configmodule.TestConfig"),
-      ('webdriver', "server.configmodule.WebdriverConfig"),
-      ('minikube', "server.configmodule.MinikubeConfig"),
-      ('local', "server.configmodule.LocalConfig"),
-      ('local-lite', "server.configmodule.LocalLiteConfig"),
-      ('local-feedingamerica', "server.configmodule.LocalFeedingamericaConfig"),
-      ('local-stanford', "server.configmodule.LocalStanfordConfig"),
-      ('local-custom', "server.configmodule.LocalCustomConfig"),
-      ('local-iitm', "server.configmodule.LocalIitmConfig"),
-  ])
-  def test_config_string(self, env, expected):
-    with patch.dict(os.environ, {
-        "FLASK_ENV": env,
-    }):
-      self.assertTrue(env in libconfig.ENV)
-      module_string = libconfig.map_config_string(env)
-      self.assertEqual(module_string, expected)
-      import_string(module_string)
 
 
 class TestConfig(unittest.TestCase):
@@ -80,16 +45,16 @@ class TestConfig(unittest.TestCase):
                              'MAPS_API_KEY': '',
                              'SCHEME': 'http',
                          }),
-                         ('local-lite', {
+                         ('production', {
                              'TEST': False,
                              'WEBDRIVER': False,
-                             'LOCAL': True,
-                             'LITE': True,
-                             'API_ROOT': 'https://autopush.api.datacommons.org',
+                             'LOCAL': False,
+                             'LITE': False,
+                             'API_ROOT': 'http://127.0.0.1:8081',
                              'SECRET_PROJECT': '',
-                             'GA_ACCOUNT': '',
+                             'GA_ACCOUNT': 'UA-117119267-1',
                              'MAPS_API_KEY': '',
-                             'SCHEME': 'http',
+                             'SCHEME': 'https',
                          }),
                          ('webdriver', {
                              'TEST': False,

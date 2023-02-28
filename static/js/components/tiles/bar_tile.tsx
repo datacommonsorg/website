@@ -30,7 +30,12 @@ import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { formatNumber } from "../../utils/string_utils";
+import {
+  getStatVarName,
+  getUnitString,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 const NUM_PLACES = 6;
@@ -55,6 +60,7 @@ interface BarTilePropType {
 interface BarChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
+  unit: string;
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
@@ -167,6 +173,7 @@ function processData(
   // Fetch the place names
   getPlaceNames(Array.from(popPoints).map((x) => x.placeDcid)).then(
     (placeNames) => {
+      let unit = "";
       for (const point of popPoints) {
         const placeDcid = point.placeDcid;
         const dataPoints: DataPoint[] = [];
@@ -183,6 +190,11 @@ function processData(
           };
           if (raw.facets[stat.facet]) {
             sources.add(raw.facets[stat.facet].provenanceUrl);
+            const svUnit = getUnitString(
+              raw.facets[stat.facet].unit,
+              spec.denom
+            );
+            unit = unit || svUnit;
           }
           if (spec.denom && spec.denom in raw.data) {
             const denomStat = raw.data[spec.denom][placeDcid];
@@ -198,9 +210,13 @@ function processData(
           new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints)
         );
       }
+      if (!_.isEmpty(props.statVarSpec)) {
+        unit = props.statVarSpec[0].unit || unit;
+      }
       setBarChartData({
         dataGroup: dataGroups,
         sources: sources,
+        unit,
       });
     }
   );
@@ -215,6 +231,7 @@ function draw(props: BarTilePropType, chartData: BarChartData): void {
     elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
-    props.statVarSpec[0].unit
+    formatNumber,
+    chartData.unit
   );
 }

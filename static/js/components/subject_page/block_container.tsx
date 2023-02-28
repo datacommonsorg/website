@@ -19,6 +19,7 @@
  */
 
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 export interface BlockContainerPropType {
   id: string;
@@ -29,6 +30,17 @@ export interface BlockContainerPropType {
 }
 
 export function BlockContainer(props: BlockContainerPropType): JSX.Element {
+  let footnote: string;
+  if (props.footnote) {
+    footnote = props.footnote
+      .split("\n\n")
+      .map((f, i) => {
+        f = f.trim();
+        return f ? `${i + 1}. ${f}` : "";
+      })
+      .join("\n");
+  }
+
   return (
     <section
       className={`block subtopic ${props.title ? "" : "notitle"}`}
@@ -37,8 +49,10 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       {props.title && <h3>{props.title}</h3>}
       {props.description && <p className="block-desc">{props.description}</p>}
       {props.children}
-      {props.footnote && (
-        <footer className="block-footer">* {props.footnote}</footer>
+      {footnote && (
+        <footer className="block-footer">
+          <ReactMarkdown>{footnote}</ReactMarkdown>
+        </footer>
       )}
     </section>
   );

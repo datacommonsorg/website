@@ -119,13 +119,21 @@ class IntegrationTest(LiveServerTestCase):
         'Which counties in california have the highest levels of blood pressure',
         'Which counties in the USA have the highest levels of blood pressure',
         'How does this correlate with income',
+        'What is the meaning of life',
     ])
 
   def test_demo_cities_feb2023(self):
-    self.run_sequence('demo2_cities_feb2023', [
-        'How do people commute in Sunnyvale?',
-        'How does that compare to Palo Alto',
-    ])
+    self.run_sequence(
+        'demo2_cities_feb2023',
+        [
+            'How big are the public schools in Sunnyvale',
+            'What is the prevalence of asthma there',
+            'What is the commute pattern there',
+            'How does that compare with San Bruno',
+            # Proxy for parks in magiceye
+            'Which cities in the SF Bay Area have the highest larceny',
+            'What countries in Africa had the greatest increase in life expectancy',
+        ])
 
   def test_demo_fallback(self):
     self.run_sequence(
@@ -137,3 +145,7 @@ class IntegrationTest(LiveServerTestCase):
             # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
             'counties in California with highest crime',
         ])
+
+  def test_demo_climatetrace(self):
+    self.run_sequence('demo_climatetrace',
+                      ['Which countries emit the most greenhouse gases?'])

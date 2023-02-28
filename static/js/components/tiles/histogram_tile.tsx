@@ -24,6 +24,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
 import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
+import { formatNumber } from "../../i18n/i18n";
 import { NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
@@ -62,7 +63,7 @@ function getFormattedDate(date: Date, format: string): string {
  * @param dateString date in YYYY-MM format to get last day for
  */
 function getLastDayOfMonth(dateString: string): string {
-  const inputDate = new Date(`${dateString}Z`);
+  const inputDate = new Date(Date.parse(dateString));
   const lastDay = new Date(
     inputDate.getUTCFullYear(),
     inputDate.getUTCMonth() + 1,
@@ -108,9 +109,9 @@ function getDaysArray(dateSetting: string): string[] {
   // Fill in days between start and end dates
   const days = new Array<string>();
   for (
-    let date = new Date(startDate + "Z");
+    let date = new Date(Date.parse(startDate));
     getFormattedDate(date, DAY_FORMAT) <=
-    getFormattedDate(new Date(endDate + "Z"), DAY_FORMAT);
+    getFormattedDate(new Date(Date.parse(endDate)), DAY_FORMAT);
     date.setUTCDate(date.getUTCDate() + 1)
   ) {
     days.push(getFormattedDate(new Date(date), DAY_FORMAT));
@@ -125,13 +126,12 @@ function getDaysArray(dateSetting: string): string[] {
  */
 function getMonthsArray(dateSetting: string): string[] {
   const [startDate, endDate] = getLabelBounds(dateSetting);
-
   // Fill in months between start and end dates
   const months = new Array<string>();
   for (
-    let date = new Date(startDate + "Z");
+    let date = new Date(Date.parse(startDate));
     getFormattedDate(date, MONTH_FORMAT) <=
-    getFormattedDate(new Date(endDate + "Z"), MONTH_FORMAT);
+    getFormattedDate(new Date(Date.parse(endDate)), MONTH_FORMAT);
     date.setMonth(date.getMonth() + 1)
   ) {
     months.push(getFormattedDate(new Date(date), MONTH_FORMAT));
@@ -302,6 +302,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
         elem.clientWidth,
         elem.clientHeight,
         histogramData,
+        formatNumber,
         undefined,
         props.eventTypeSpec.color
       );
