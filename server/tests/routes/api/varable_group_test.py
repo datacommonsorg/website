@@ -37,8 +37,9 @@ class TestGetVariableGroupInfo(unittest.TestCase):
         }]
     }
 
-    def side_effect(dcids, entities):
-      if dcids == ["dc/g/Root"] and entities == ["geoId/06"]:
+    def side_effect(dcids, entities, numEntitiesExistence):
+      if dcids == ["dc/g/Root"] and entities == ["geoId/06"
+                                                ] and numEntitiesExistence == 1:
         return {"data": [{"node": "dc/g/Root", "info": expected_result}]}
       else:
         return {}

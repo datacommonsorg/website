@@ -25,7 +25,12 @@ import { GeoJsonData } from "../../chart/types";
 
 export interface DataContextType {
   // TODO (chejennifer): use this in map tile
-  geoJsonData: GeoJsonData;
+  geoJsonData: {
+    // geojson data for children places
+    childrenGeoJson: GeoJsonData;
+    // geojson data for the selected place
+    placeGeoJson: GeoJsonData;
+  };
 }
 
 export const DataContext = createContext({} as DataContextType);

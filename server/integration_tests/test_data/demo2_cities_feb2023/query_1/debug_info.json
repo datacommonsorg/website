@@ -1,177 +1,63 @@
 {
   "clustering_classification": "<None>",
   "comparison_classification": "<None>",
-  "contained_in_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.PUBLIC_SCHOOL",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_existence_check": [
+    "child_places_result": [
       {
-        "places": [
-          "geoId/0677000"
+        "place": "geoId/0677000",
+        "result": [
+          "nces/060134312546",
+          "nces/060216913485",
+          "nces/061029001127",
+          "nces/061029001146",
+          "nces/061029001153",
+          "nces/061029001154",
+          "nces/061443001696",
+          "nces/061443008353",
+          "nces/063543001588",
+          "nces/063543006049",
+          "nces/063543007867",
+          "nces/063846002796",
+          "nces/063846004088",
+          "nces/063846006456",
+          "nces/063846006458",
+          "nces/063846006459",
+          "nces/063846006460",
+          "nces/063846006463",
+          "nces/063846006464",
+          "nces/063846006465"
         ],
-        "svs": [
-          "dc/8p97n7l96lgg8"
-        ]
+        "type": "PublicSchool"
       }
     ],
-    "failed_existence_check_extended_svs": [
-      {
-        "places": [
-          "geoId/0677000"
-        ],
-        "svs": [
-          "dc/tqgf8zv96r5t8",
-          "dc/8j8w7pf73ekn",
-          "dc/dy2k68mmhenfd",
-          "Count_Worker_NAICSManagementOfCompaniesEnterprises",
-          "Count_Worker_NAICSTotalAllIndustries",
-          "dc/yn0h4nw4k23f1",
-          "dc/w1tfjz3h6138",
-          "Count_Worker_NAICSPublicAdministration",
-          "dc/eh7s78v8s14l9",
-          "dc/bb4peddkgmqe7",
-          "Count_Worker_NAICSEducationalServices",
-          "Count_Worker_NAICSAccommodationFoodServices",
-          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-          "dc/ndg1xk1e9frc2",
-          "dc/34t2kjrwbjd31",
-          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-          "dc/qnz3rlypmfvw6",
-          "dc/n87t9dkckzxc8",
-          "Count_Worker_NAICSNonclassifiable",
-          "dc/k3hehk50ch012",
-          "dc/8b3gpw1zyr7bf",
-          "Count_Worker_NAICSAgricultureForestryFishingHunting",
-          "dc/6n6l2wrzv7473",
-          "dc/c0wxmt45gffxc",
-          "Count_Worker_NAICSHealthCareSocialAssistance",
-          "dc/e2zdnwjjhyj36",
-          "dc/8p97n7l96lgg8",
-          "Count_Worker_NAICSInformation",
-          "Count_Worker_NAICSUtilities",
-          "Count_Worker_NAICSConstruction",
-          "dc/3kwcvm428wpq4",
-          "Count_Worker_NAICSArtsEntertainmentRecreation",
-          "dc/4mm2p1rxr5wz4",
-          "dc/vp4cplffwv86g",
-          "dc/63gkdt13bmsv8",
-          "dc/bwr1l8y9we9k7",
-          "dc/7bck6xpkc205c",
-          "dc/z27q5dymqyrnf",
-          "dc/rlk1yxmkk1qqg",
-          "dc/ws19bm1hl105b",
-          "Count_Worker_NAICSWholesaleTrade",
-          "dc/107jnwnsh17xb",
-          "Count_Worker_NAICSFinanceInsurance",
-          "dc/h1jy2glt2m7e6",
-          "dc/90nswpkp8wlw5",
-          "Count_Worker_NAICSOtherServices",
-          "dc/v3qgyhwx13m44",
-          "dc/p69tpsldf99h7",
-          "Count_Worker_NAICSRealEstateRentalLeasing",
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-          "dc/hlxvn1t8b9bhh",
-          "dc/2etwgx6vecreh"
-        ]
-      }
-    ],
-    "filtered_svs": [
-      "dc/topic/WorkCommute",
-      "dc/g/Person_Industry-NAICS/488",
-      "dc/g/Person_Industry-NAICS/3133",
-      "dc/g/Person_Industry-NAICS/481",
-      "dc/g/Person_Industry-NAICS/4849",
-      "dc/g/Person_Industry-NAICS/485",
-      "dc/8p97n7l96lgg8",
-      "dc/g/Person_Industry-NAICS/484922"
-    ],
-    "num_chart_candidates": 1,
+    "filtered_svs": [],
+    "num_chart_candidates": 3,
     "processed_fulfillment_types": [
-      "simple"
+      "size_across_entities"
     ],
     "stat_var_extensions": [
       {
-        "dc/8p97n7l96lgg8": [
-          "Count_Worker_NAICSTotalAllIndustries",
-          "Count_Worker_NAICSAgricultureForestryFishingHunting",
-          "dc/hlxvn1t8b9bhh",
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-          "Count_Worker_NAICSUtilities",
-          "Count_Worker_NAICSConstruction",
-          "dc/107jnwnsh17xb",
-          "dc/rlk1yxmkk1qqg",
-          "dc/8b3gpw1zyr7bf",
-          "dc/ndg1xk1e9frc2",
-          "dc/tqgf8zv96r5t8",
-          "dc/dy2k68mmhenfd",
-          "dc/z27q5dymqyrnf",
-          "dc/7bck6xpkc205c",
-          "dc/ws19bm1hl105b",
-          "dc/6n6l2wrzv7473",
-          "dc/vp4cplffwv86g",
-          "dc/34t2kjrwbjd31",
-          "dc/eh7s78v8s14l9",
-          "dc/qnz3rlypmfvw6",
-          "dc/90nswpkp8wlw5",
-          "Count_Worker_NAICSWholesaleTrade",
-          "dc/p69tpsldf99h7",
-          "dc/e2zdnwjjhyj36",
-          "dc/c0wxmt45gffxc",
-          "dc/4mm2p1rxr5wz4",
-          "dc/2etwgx6vecreh",
-          "dc/63gkdt13bmsv8",
-          "dc/3kwcvm428wpq4",
-          "dc/h1jy2glt2m7e6",
-          "dc/k3hehk50ch012",
-          "dc/8p97n7l96lgg8",
-          "dc/bwr1l8y9we9k7",
-          "dc/yn0h4nw4k23f1",
-          "dc/v3qgyhwx13m44",
-          "dc/bb4peddkgmqe7",
-          "dc/8j8w7pf73ekn",
-          "dc/n87t9dkckzxc8",
-          "dc/w1tfjz3h6138",
-          "Count_Worker_NAICSInformation",
-          "Count_Worker_NAICSFinanceInsurance",
-          "Count_Worker_NAICSRealEstateRentalLeasing",
-          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-          "Count_Worker_NAICSManagementOfCompaniesEnterprises",
-          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-          "Count_Worker_NAICSEducationalServices",
-          "Count_Worker_NAICSHealthCareSocialAssistance",
-          "Count_Worker_NAICSArtsEntertainmentRecreation",
-          "Count_Worker_NAICSAccommodationFoodServices",
-          "Count_Worker_NAICSOtherServices",
-          "Count_Worker_NAICSPublicAdministration",
-          "Count_Worker_NAICSNonclassifiable"
+        "Count_Student": [
+          "Count_Student"
+        ],
+        "Count_Teacher": [
+          "Count_Teacher"
+        ],
+        "Percent_Student_AsAFractionOf_Count_Teacher": [
+          "Percent_Student_AsAFractionOf_Count_Teacher"
         ]
-      }
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/WorkCommute": {
-          "peer_groups": [
-            [
-              "Modes of Commute",
-              "",
-              [
-                "dc/6rltk4kf75612",
-                "dc/vp8cbt6k79t94",
-                "dc/hbkh95kc7pkb6",
-                "dc/wc8q05drd74bd",
-                "dc/0gettc3bc60cb",
-                "dc/vt2q292eme79f"
-              ]
-            ]
-          ],
-          "svs": []
-        }
       }
     ]
   },
   "data_spec": [
     {
       "classifications": [
+        {
+          "contained_in_place_type": "PublicSchool",
+          "type": 4
+        },
         {
           "type": 11
         }
@@ -183,22 +69,25 @@
           "place_type": "City"
         }
       ],
-      "query": "How do people commute in Sunnyvale?",
-      "query_type": 1,
+      "query": "How big are the public schools in Sunnyvale",
+      "query_type": 10,
       "ranked_charts": [
         {
           "attr": {
-            "block_id": 2,
-            "chart_type": "bar chart",
+            "block_id": 1,
+            "chart_type": "ranking table",
             "class": 0,
             "description": "",
-            "include_percapita": true,
-            "place_type": null,
-            "ranking_types": [],
-            "source_topic": "dc/topic/WorkCommute",
-            "title": "Modes of Commute"
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
           },
-          "chart_type": 3,
+          "chart_type": 2,
           "event": null,
           "places": [
             {
@@ -208,176 +97,199 @@
             }
           ],
           "svs": [
-            "dc/6rltk4kf75612",
-            "dc/vp8cbt6k79t94",
-            "dc/hbkh95kc7pkb6",
-            "dc/wc8q05drd74bd",
-            "dc/0gettc3bc60cb",
-            "dc/vt2q292eme79f"
+            "Count_Student"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Teacher"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Student_AsAFractionOf_Count_Teacher"
           ]
         }
       ],
       "svs": [
-        "dc/topic/WorkCommute",
-        "dc/g/Person_Industry-NAICS/488",
-        "dc/g/Person_Industry-NAICS/3133",
-        "dc/g/Person_Industry-NAICS/481",
-        "dc/g/Person_Industry-NAICS/4849",
-        "dc/g/Person_Industry-NAICS/485",
-        "dc/8p97n7l96lgg8",
-        "dc/g/Person_Industry-NAICS/484922"
+        "Count_Student",
+        "Count_Teacher",
+        "Percent_Student_AsAFractionOf_Count_Teacher"
       ]
     }
   ],
   "event_classification": "<None>",
   "main_place_dcid": "geoId/0677000",
   "main_place_name": "Sunnyvale",
-  "original_query": "How do people commute in Sunnyvale?",
+  "original_query": "How big are the public schools in Sunnyvale",
   "overview_classification": "<None>",
   "places_detected": [
     "sunnyvale"
   ],
-  "query_with_places_removed": "how do people commute",
+  "query_with_places_removed": "how big are the public schools",
   "ranking_classification": "<None>",
+  "size_type_classification": "[<SizeType.BIG: 1>]",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7448244094848633,
-      0.5310036540031433,
-      0.5310036540031433,
-      0.5215447545051575,
-      0.5151081085205078,
-      0.5151081085205078,
-      0.5098081827163696,
-      0.500896692276001,
-      0.4969985783100128,
-      0.4969985783100128,
-      0.4889006018638611,
-      0.4889006018638611,
-      0.4867348372936249,
-      0.4867348372936249,
-      0.48278555274009705
+      0.3702761232852936,
+      0.315987229347229,
+      0.28319820761680603,
+      0.27669650316238403,
+      0.2557690441608429,
+      0.237177774310112,
+      0.22020843625068665,
+      0.2144625186920166,
+      0.2134648561477661,
+      0.20017597079277039,
+      0.19570352137088776
     ],
     "SV": [
+      "dc/topic/Income",
+      "dc/topic/Economy",
+      "dc/topic/Jobs",
+      "dc/topic/MedicalConditions",
+      "dc/hlxvn1t8b9bhh",
+      "dc/g/Person_MedicalCondition-Wasting",
+      "AirQualityIndex_AirPollutant",
       "dc/topic/WorkCommute",
-      "dc/g/Person_Industry-NAICS/488",
-      "dc/g/Person_Industry-NAICS/3133",
-      "dc/g/Person_Industry-NAICS/481",
-      "dc/g/Person_Industry-NAICS/4849",
-      "dc/g/Person_Industry-NAICS/485",
-      "dc/8p97n7l96lgg8",
-      "dc/g/Person_Industry-NAICS/484922",
-      "dc/g/Person_Industry-NAICS/99",
-      "dc/g/Person_Industry-NAICS/484",
-      "dc/g/Person_Industry-NAICS/483",
-      "dc/g/Person_Industry-NAICS/42",
-      "dc/g/Person_Industry-NAICS/487",
-      "dc/g/Person_Industry-NAICS/451",
-      "dc/g/Person_Industry-NAICS/JOLTS480099"
+      "dc/topic/Agriculture",
+      "dc/g/Farm_FarmInventoryType-Forage",
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
     ],
     "SV_to_Sentences": {
-      "dc/8p97n7l96lgg8": [
-        "People working in the transportation and warehousing field (0.5098081827163696)"
+      "AirQualityIndex_AirPollutant": [
+        "AQI (0.22020843625068665)"
       ],
-      "dc/g/Person_Industry-NAICS/3133": [
-        "Number of people working in support activities for transportation (0.5310036540031433)"
+      "dc/g/Farm_FarmInventoryType-Forage": [
+        "Forage Farms (0.20017597079277039)",
+        "forage farms (0.20017597079277039)"
       ],
-      "dc/g/Person_Industry-NAICS/42": [
-        "Number of people working in water transportation (0.4889006018638611)"
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+        "Pig Farm (0.19570352137088776)",
+        "pig farm (0.1957034468650818)"
       ],
-      "dc/g/Person_Industry-NAICS/451": [
-        "Number of people working in scenic and sightseeing transportation (0.4867348372936249)"
+      "dc/g/Person_MedicalCondition-Wasting": [
+        "people with wasting (0.237177774310112)"
       ],
-      "dc/g/Person_Industry-NAICS/481": [
-        "People Working in the Air Transportation Industry (0.5215447545051575)",
-        "People working in the air transportation industry (0.5215447545051575)"
+      "dc/hlxvn1t8b9bhh": [
+        "cattle ranchers (0.2557690441608429)",
+        "farmers (0.2255396842956543)"
       ],
-      "dc/g/Person_Industry-NAICS/483": [
-        "Number of People Working in Water Transportation (0.4889006018638611)"
+      "dc/topic/Agriculture": [
+        "Agriculture (0.2134648561477661)"
       ],
-      "dc/g/Person_Industry-NAICS/484": [
-        "Number of People Working in Truck Transportation (0.4969985783100128)"
+      "dc/topic/Economy": [
+        "Economy (0.315987229347229)"
       ],
-      "dc/g/Person_Industry-NAICS/4849": [
-        "Number of people working in transit and ground passenger transportation (0.5151081085205078)",
-        "Number of People Working in Transportation and Warehousing (0.500896692276001)"
+      "dc/topic/Income": [
+        "pay (0.3702761232852936)",
+        "compensation (0.22850851714611053)",
+        "Earnings (0.22268356382846832)",
+        "Income (0.2059445083141327)"
       ],
-      "dc/g/Person_Industry-NAICS/484922": [
-        "Number of people working in transportation and warehousing (0.500896692276001)",
-        "Number of People Working in Transportation and Warehousing, and Utilities (0.48278555274009705)"
+      "dc/topic/Jobs": [
+        "Jobs (0.28319820761680603)",
+        "Careers (0.2414090484380722)",
+        "Professions (0.20911738276481628)"
       ],
-      "dc/g/Person_Industry-NAICS/485": [
-        "Number of People Working in Transit and Ground Passenger Transportation (0.5151081085205078)"
-      ],
-      "dc/g/Person_Industry-NAICS/487": [
-        "Number of People Working in Scenic and Sightseeing Transportation (0.4867348372936249)"
-      ],
-      "dc/g/Person_Industry-NAICS/488": [
-        "Number of People Working in Support Activities for Transportation (0.5310036540031433)"
-      ],
-      "dc/g/Person_Industry-NAICS/99": [
-        "Number of people working in truck transportation (0.4969985783100128)"
-      ],
-      "dc/g/Person_Industry-NAICS/JOLTS480099": [
-        "Number of people working in transportation and warehousing, and utilities (0.48278555274009705)"
+      "dc/topic/MedicalConditions": [
+        "Maladies (0.27669650316238403)",
+        "Medical infirmities (0.2347509264945984)"
       ],
       "dc/topic/WorkCommute": [
-        "Work commute (0.7448244094848633)",
-        "Work Commute (0.7448244094848633)",
-        "commute mode (0.5773593187332153)"
+        "journey to work (0.2144625186920166)"
       ]
     }
   },
   "svs_to_sentences": {
-    "dc/8p97n7l96lgg8": [
-      "People working in the transportation and warehousing field (0.5098081827163696)"
+    "AirQualityIndex_AirPollutant": [
+      "AQI (0.22020843625068665)"
     ],
-    "dc/g/Person_Industry-NAICS/3133": [
-      "Number of people working in support activities for transportation (0.5310036540031433)"
+    "dc/g/Farm_FarmInventoryType-Forage": [
+      "Forage Farms (0.20017597079277039)",
+      "forage farms (0.20017597079277039)"
     ],
-    "dc/g/Person_Industry-NAICS/42": [
-      "Number of people working in water transportation (0.4889006018638611)"
+    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+      "Pig Farm (0.19570352137088776)",
+      "pig farm (0.1957034468650818)"
     ],
-    "dc/g/Person_Industry-NAICS/451": [
-      "Number of people working in scenic and sightseeing transportation (0.4867348372936249)"
+    "dc/g/Person_MedicalCondition-Wasting": [
+      "people with wasting (0.237177774310112)"
     ],
-    "dc/g/Person_Industry-NAICS/481": [
-      "People Working in the Air Transportation Industry (0.5215447545051575)",
-      "People working in the air transportation industry (0.5215447545051575)"
+    "dc/hlxvn1t8b9bhh": [
+      "cattle ranchers (0.2557690441608429)",
+      "farmers (0.2255396842956543)"
     ],
-    "dc/g/Person_Industry-NAICS/483": [
-      "Number of People Working in Water Transportation (0.4889006018638611)"
+    "dc/topic/Agriculture": [
+      "Agriculture (0.2134648561477661)"
     ],
-    "dc/g/Person_Industry-NAICS/484": [
-      "Number of People Working in Truck Transportation (0.4969985783100128)"
+    "dc/topic/Economy": [
+      "Economy (0.315987229347229)"
     ],
-    "dc/g/Person_Industry-NAICS/4849": [
-      "Number of people working in transit and ground passenger transportation (0.5151081085205078)",
-      "Number of People Working in Transportation and Warehousing (0.500896692276001)"
+    "dc/topic/Income": [
+      "pay (0.3702761232852936)",
+      "compensation (0.22850851714611053)",
+      "Earnings (0.22268356382846832)",
+      "Income (0.2059445083141327)"
     ],
-    "dc/g/Person_Industry-NAICS/484922": [
-      "Number of people working in transportation and warehousing (0.500896692276001)",
-      "Number of People Working in Transportation and Warehousing, and Utilities (0.48278555274009705)"
+    "dc/topic/Jobs": [
+      "Jobs (0.28319820761680603)",
+      "Careers (0.2414090484380722)",
+      "Professions (0.20911738276481628)"
     ],
-    "dc/g/Person_Industry-NAICS/485": [
-      "Number of People Working in Transit and Ground Passenger Transportation (0.5151081085205078)"
-    ],
-    "dc/g/Person_Industry-NAICS/487": [
-      "Number of People Working in Scenic and Sightseeing Transportation (0.4867348372936249)"
-    ],
-    "dc/g/Person_Industry-NAICS/488": [
-      "Number of People Working in Support Activities for Transportation (0.5310036540031433)"
-    ],
-    "dc/g/Person_Industry-NAICS/99": [
-      "Number of people working in truck transportation (0.4969985783100128)"
-    ],
-    "dc/g/Person_Industry-NAICS/JOLTS480099": [
-      "Number of people working in transportation and warehousing, and utilities (0.48278555274009705)"
+    "dc/topic/MedicalConditions": [
+      "Maladies (0.27669650316238403)",
+      "Medical infirmities (0.2347509264945984)"
     ],
     "dc/topic/WorkCommute": [
-      "Work commute (0.7448244094848633)",
-      "Work Commute (0.7448244094848633)",
-      "commute mode (0.5773593187332153)"
+      "journey to work (0.2144625186920166)"
     ]
   },
   "temporal_classification": "<None>",

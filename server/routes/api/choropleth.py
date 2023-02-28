@@ -244,19 +244,19 @@ def geojson():
   return lib_util.gzip_compress_response(result, is_json=True)
 
 
-@bp.route('/entity-geojson', methods=['POST'])
-def entity_geojson():
-  """Gets geoJson data for a list of entities and a specified property to use to
+@bp.route('/node-geojson', methods=['POST'])
+def node_geojson():
+  """Gets geoJson data for a list of nodes and a specified property to use to
      get the geoJson data"""
-  entities = request.json.get("entities", [])
+  nodes = request.json.get("nodes", [])
   geojson_prop = request.json.get("geoJsonProp")
   if not geojson_prop:
     return "error: must provide a geoJsonProp field", 400
   features = []
-  geojson_by_entity = dc.property_values(entities, geojson_prop)
-  for entity_id, json_text in geojson_by_entity.items():
+  geojson_by_node = dc.property_values(nodes, geojson_prop)
+  for node_id, json_text in geojson_by_node.items():
     if json_text:
-      geo_feature = get_geojson_feature(entity_id, entity_id, json_text)
+      geo_feature = get_geojson_feature(node_id, node_id, json_text)
       if geo_feature:
         features.append(geo_feature)
   result = {

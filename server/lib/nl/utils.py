@@ -18,8 +18,9 @@ import datetime
 import json
 import logging
 import os
+import random
 import re
-from typing import Dict, List, Set, Union
+from typing import Dict, List, NamedTuple, Set, Tuple, Union
 
 import server.lib.nl.constants as constants
 import server.lib.nl.detection as detection
@@ -31,78 +32,29 @@ import server.services.datacommons as dc
 # TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
+# TODO: Consider tweaking/reducing this
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
-_SV_DISPLAY_NAME_OVERRIDE = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (°C)",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (°C)",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
-    "Percent_Person_WithArthritis":
-        "Arthritis",
-    "Percent_Person_WithAsthma":
-        "Asthma",
-    "Percent_Person_WithCancerExcludingSkinCancer":
-        "Cancer (excluding skin cancer)",
-    "Percent_Person_WithChronicKidneyDisease":
-        "Chronic Kidney Disease",
-    "Percent_Person_WithChronicObstructivePulmonaryDisease":
-        "Chronic Obstructive Pulmonary Disease",
-    "Percent_Person_WithCoronaryHeartDisease":
-        "Coronary Heart Disease",
-    "Percent_Person_WithDiabetes":
-        "Diabetes",
-    "Percent_Person_WithHighBloodPressure":
-        "High Bood Pressure",
-    "Percent_Person_WithHighCholesterol":
-        "High Cholesterol",
-    "Percent_Person_WithMentalHealthNotGood":
-        "Mental Health Issues",
-    "Percent_Person_WithPhysicalHealthNotGood":
-        "Physical Health Issues",
-    "Percent_Person_WithStroke":
-        "Stroke",
-    "Median_Income_Person":
-        "Individual Median Income",
-    "Median_Income_Household":
-        "Household Median Income",
-    "Median_Earnings_Person":
-        "Individual Median Earnings",
-    "dc/6rltk4kf75612":
-        "Work at home",
-    "dc/vp8cbt6k79t94":
-        "Walk to work",
-    "dc/hbkh95kc7pkb6":
-        "Public Transit",
-    "dc/wc8q05drd74bd":
-        "Carpool",
-    "dc/0gettc3bc60cb":
-        "Drive alone",
-    "dc/vt2q292eme79f":
-        "Others (incl. Taxcab, Motorcyle, Bicycle)",
-}
-
-_SV_DISPLAY_FOOTNOTE_OVERRIDE = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+# (growth_direction, rank_order) -> reverse
+_TIME_DELTA_SORT_MAP = {
+    # Jobs that grew
+    (detection.TimeDeltaType.INCREASE, None):
+        True,
+    # Jobs that shrunk
+    (detection.TimeDeltaType.DECREASE, None):
+        False,
+    # Highest growing jobs
+    (detection.TimeDeltaType.INCREASE, detection.RankingType.HIGH):
+        True,
+    # Lowest growing jobs
+    (detection.TimeDeltaType.INCREASE, detection.RankingType.LOW):
+        False,
+    # Highest shrinking jobs
+    (detection.TimeDeltaType.DECREASE, detection.RankingType.HIGH):
+        False,
+    # Lowest shrinking jobs
+    (detection.TimeDeltaType.DECREASE, detection.RankingType.LOW):
+        True,
 }
 
 
@@ -246,6 +198,7 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
 
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the ranking order.
+# TODO: The per-capita for this should be computed here.
 def rank_svs_by_latest_value(place: str, svs: List[str],
                              order: detection.RankingType) -> List[str]:
   points_data = util.point_core(entities=[place],
@@ -282,14 +235,66 @@ def has_series_with_single_datapoint(place: str, svs: List[str]):
   return False
 
 
+# List of vars or places ranked by abs and pct growth.
+class GrowthRankedLists(NamedTuple):
+  abs: List[str]
+  pct: List[str]
+  pc: List[str]
+
+
+# Raw abs and pct growth
+class GrowthRanks(NamedTuple):
+  abs: float
+  pct: float
+  pc: float
+
+
+# Given an SV and list of places, this API ranks the places
+# per the growth rate of the time-series.
+# TODO: Compute per-date Count_Person
+def rank_places_by_series_growth(
+    places: List[str], sv: str, growth_direction: detection.TimeDeltaType,
+    rank_order: detection.RankingType) -> GrowthRankedLists:
+  series_data = util.series_core(entities=places,
+                                 variables=[sv],
+                                 all_facets=False)
+  place2denom = _compute_place_to_denom(sv, places)
+
+  if 'data' not in series_data or sv not in series_data['data']:
+    return []
+
+  places_with_vals = []
+  for place, place_data in series_data['data'][sv].items():
+    series = place_data['series']
+    if len(series) < 2:
+      continue
+
+    try:
+      net_growth = compute_series_growth(series, place2denom.get(place, 0))
+    except Exception as e:
+      logging.error('Growth rate computation failed: %s', str(e))
+      continue
+
+    if net_growth.abs > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
+      continue
+    if net_growth.abs < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
+      continue
+
+    places_with_vals.append((place, net_growth))
+
+  return _compute_growth_ranked_lists(places_with_vals, growth_direction,
+                                      rank_order)
+
+
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the growth rate of the time-series.
-def rank_svs_by_growth_rate(place: str, svs: List[str],
-                            growth_direction: detection.TimeDeltaType,
-                            rank_order: detection.RankingType) -> List[str]:
+def rank_svs_by_series_growth(
+    place: str, svs: List[str], growth_direction: detection.TimeDeltaType,
+    rank_order: detection.RankingType) -> GrowthRankedLists:
   series_data = util.series_core(entities=[place],
                                  variables=svs,
                                  all_facets=False)
+  place2denom = _compute_place_to_denom(svs[0], [place])
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
@@ -300,49 +305,25 @@ def rank_svs_by_growth_rate(place: str, svs: List[str],
       continue
 
     try:
-      net_growth_rate = compute_growth_rate(series)
+      net_growth = compute_series_growth(series, place2denom.get(place, 0))
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
 
-    if net_growth_rate > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
+    if net_growth.abs > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
       continue
-    if net_growth_rate < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
+    if net_growth.abs < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
       continue
 
-    svs_with_vals.append((sv, net_growth_rate))
+    svs_with_vals.append((sv, net_growth))
 
-  # (growth_direction, rank_order) -> reverse
-  sort_map = {
-      # Jobs that grew
-      (detection.TimeDeltaType.INCREASE, None):
-          True,
-      # Jobs that shrunk
-      (detection.TimeDeltaType.DECREASE, None):
-          False,
-      # Highest growing jobs
-      (detection.TimeDeltaType.INCREASE, detection.RankingType.HIGH):
-          True,
-      # Lowest growing jobs
-      (detection.TimeDeltaType.INCREASE, detection.RankingType.LOW):
-          False,
-      # Highest shrinking jobs
-      (detection.TimeDeltaType.DECREASE, detection.RankingType.HIGH):
-          False,
-      # Lowest shrinking jobs
-      (detection.TimeDeltaType.DECREASE, detection.RankingType.LOW):
-          True,
-  }
-
-  svs_with_vals = sorted(svs_with_vals,
-                         key=lambda pair: pair[1],
-                         reverse=sort_map[(growth_direction, rank_order)])
-  logging.info(svs_with_vals)
-  return [sv for sv, _ in svs_with_vals]
+  return _compute_growth_ranked_lists(svs_with_vals, growth_direction,
+                                      rank_order)
 
 
 # Computes net growth-rate for a time-series including only recent (since 2012) observations.
-def compute_growth_rate(series: List[Dict]) -> float:
+# Returns a pair of
+def compute_series_growth(series: List[Dict], denom_val: float) -> GrowthRanks:
   latest = None
   earliest = None
   # TODO: Apparently series is ordered, so simplify.
@@ -359,11 +340,11 @@ def compute_growth_rate(series: List[Dict]) -> float:
   if len(latest['date']) != len(earliest['date']):
     raise ValueError('Dates have different granularity')
 
-  return _compute_growth(earliest, latest, series)
+  return _compute_growth(earliest, latest, series, denom_val)
 
 
-def _compute_growth(earliest: Dict, latest: Dict,
-                    series: List[Dict]) -> datetime.date:
+def _compute_growth(earliest: Dict, latest: Dict, series: List[Dict],
+                    denom_val: float) -> GrowthRanks:
   eparts = earliest['date'].split('-')
   lparts = latest['date'].split('-')
 
@@ -389,7 +370,12 @@ def _compute_growth(earliest: Dict, latest: Dict,
       earliest['date'])
   # Compute % growth per day
   start = 0.000001 if earliest['value'] == 0 else earliest['value']
-  return float(val_delta) / (float(date_delta.days) * start)
+  pct = float(val_delta) / (float(date_delta.days) * start)
+  abs = float(val_delta) / float(date_delta.days)
+  pc = None
+  if denom_val > 0:
+    pc = (float(val_delta) / denom_val) / float(date_delta.days)
+  return GrowthRanks(abs=abs, pct=pct, pc=pc)
 
 
 def _datestr_to_date(datestr: str) -> datetime.date:
@@ -403,11 +389,54 @@ def _datestr_to_date(datestr: str) -> datetime.date:
   raise ValueError(f'Unable to parse date {datestr}')
 
 
+def _compute_place_to_denom(sv: str, places: List[str]):
+  place2denom = {}
+  if sv != constants.DEFAULT_DENOMINATOR and is_percapita_relevant(sv):
+    denom_data = util.point_core(entities=places,
+                                 variables=[constants.DEFAULT_DENOMINATOR],
+                                 date='',
+                                 all_facets=False)
+    for _, sv_data in denom_data['data'].items():
+      for place, point in sv_data.items():
+        if 'value' in point:
+          place2denom[place] = point['value']
+  logging.info(place2denom)
+  return place2denom
+
+
+def _compute_growth_ranked_lists(
+    things_with_vals: List[Tuple], growth_direction: detection.TimeDeltaType,
+    rank_order: detection.RankingType) -> GrowthRankedLists:
+  # Rank by abs
+  things_by_abs = sorted(things_with_vals,
+                         key=lambda pair: pair[1].abs,
+                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
+                                                       rank_order)])
+
+  # Rank by pct
+  things_by_pct = sorted(things_with_vals,
+                         key=lambda pair: pair[1].pct,
+                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
+                                                       rank_order)])
+
+  # Filter first, and then rank by pc
+  things_by_pc = []
+  for place, growth in things_by_abs:
+    if growth.pc != None:
+      things_by_pc.append((place, growth))
+  things_by_pc = sorted(things_by_pc,
+                        key=lambda pair: pair[1].pc,
+                        reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
+                                                      rank_order)])
+
+  return GrowthRankedLists(abs=[sv for sv, _ in things_by_abs],
+                           pct=[sv for sv, _ in things_by_pct],
+                           pc=[sv for sv, _ in things_by_pc])
+
+
 #
 # Given a place DCID and a child place type, returns a sample list
 # of places of that child type.
-#
-# TODO: Maybe dedupe with data_spec.py
 #
 def _get_sample_child_places(main_place_dcid: str,
                              contained_place_type: str) -> List[str]:
@@ -454,6 +483,23 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
   return result
 
 
+def get_all_child_places(main_place_dcid: str,
+                         contained_place_type: str) -> List[detection.Place]:
+  payload = dc.get_places_in_v1([main_place_dcid], contained_place_type)
+  results = []
+  for entry in payload.get('data', []):
+    if 'node' not in entry:
+      continue
+    for value in entry.get('values', []):
+      if 'dcid' not in value or 'name' not in value:
+        continue
+      results.append(
+          detection.Place(dcid=value['dcid'],
+                          name=value['name'],
+                          place_type=contained_place_type))
+  return results
+
+
 def get_sv_name(all_svs: List[str]) -> Dict:
   sv2name_raw = dc.property_values(all_svs, 'name')
   uncurated_names = {
@@ -470,14 +516,32 @@ def get_sv_name(all_svs: List[str]) -> Dict:
   # If a curated name is found return that,
   # Else return the name property for SV.
   for sv in all_svs:
-    if sv in _SV_DISPLAY_NAME_OVERRIDE:
-      sv_name_map[sv] = _SV_DISPLAY_NAME_OVERRIDE[sv]
+    if sv in constants.SV_DISPLAY_NAME_OVERRIDE:
+      sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
     elif sv in title_by_sv_dcid:
       sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
     else:
       sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 
   return sv_name_map
+
+
+def get_sv_unit(all_svs: List[str]) -> Dict:
+  sv_unit_map = {}
+  for sv in all_svs:
+    # If the dcid has "percent", the unit should be "%"
+    if "Percent" in sv:
+      sv_unit_map[sv] = "%"
+    else:
+      sv_unit_map[sv] = ""
+  return sv_unit_map
+
+
+def get_sv_description(all_svs: List[str]) -> Dict:
+  sv_desc_map = {}
+  for sv in all_svs:
+    sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
+  return sv_desc_map
 
 
 # TODO: Remove this hack by fixing the name in schema and config.
@@ -511,8 +575,8 @@ def get_sv_footnote(all_svs: List[str]) -> Dict:
   }
   sv_map = {}
   for sv in all_svs:
-    if sv in _SV_DISPLAY_FOOTNOTE_OVERRIDE:
-      sv_map[sv] = _SV_DISPLAY_FOOTNOTE_OVERRIDE[sv]
+    if sv in constants.SV_DISPLAY_FOOTNOTE_OVERRIDE:
+      sv_map[sv] = constants.SV_DISPLAY_FOOTNOTE_OVERRIDE[sv]
     else:
       sv_map[sv] = uncurated_footnotes[sv]
   return sv_map
@@ -551,7 +615,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   """
   # Run through all heuristics (various query string transforms).
   query = remove_punctuations(query)
-  query_lower = query.lower()
+  query_lower_with_spaces = f" {query.lower()} "
   query_without_stop_words = remove_stop_words(query, constants.STOP_WORDS)
   query_title_case = query.title()
   query_without_stop_words_title_case = query_without_stop_words.title()
@@ -561,18 +625,28 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   # First check in special places. If they are found, add those first.
   places_found = []
   for special_place in constants.OVERRIDE_FOR_NER:
-    if special_place in query.lower():
+    # Matching <space>special_place<space> because otherwise "asia" could
+    # also match "asian" which is undesirable.
+    if f" {special_place} " in query_lower_with_spaces:
       logging.info(f"Found one of the Special Places: {special_place}")
       places_found.append(special_place)
 
   # Now try all versions of the query.
   for q in [
-      query, query_lower, query_without_stop_words, query_title_case,
-      query_without_stop_words_title_case
+      query, query_lower_with_spaces, query_without_stop_words,
+      query_title_case, query_without_stop_words_title_case
   ]:
     logging.info(f"Trying place detection with: {q}")
     try:
       for p in query_fn(q):
+        # remove "the" from the place. This helps where place detection can associate
+        # "the" with some places, e.g. "The United States"
+        # or "the SF Bay Area". Since we are sometimes doing special casing, e.g. for
+        # SF Bay Area, it is desirable to not have place names with these stop words.
+        # It also helps de-dupe where "the US" and "US" could both be detected by the
+        # heuristics above, for example.
+        if "the " in p:
+          p = p.replace("the ", "")
         # Add if not already done. Also check for the special places which get
         # added with a ", usa" appended.
         if (p.lower() not in places_found):
@@ -598,7 +672,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         break
     # Insert places_found[i] in the candidates if it is not to be ignored
     # and if it is also found in the original query without punctuations.
-    # The extra check to find places_found[i] in `query_lower` is to avoid
+    # The extra check to find places_found[i] in `query_lower_with_spaces` is to avoid
     # situations where the removal of some stop words etc makes the remaining
     # query have some valid place name words next to each other. For example,
     # in the query "... united in the states ...", the removal of stop words
@@ -608,14 +682,13 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
     # query string.
     # If places_found[i] was a special place (constants.OVERRIDE_FOR_NER),
     # keep it always.
-    if (places_found[i]
-        in constants.OVERRIDE_FOR_NER) or (not ignore and
-                                           places_found[i] in query_lower):
+    if (places_found[i] in constants.OVERRIDE_FOR_NER) or (
+        not ignore and places_found[i] in query_lower_with_spaces):
       places_to_return.append(places_found[i])
 
   # For all the places detected, re-sort based on the string which occurs first.
   def fn(p):
-    ind = query_lower.find(p)
+    ind = query_lower_with_spaces.find(f" {p} ")
     if ind < 0:
       return +1000000
     return ind
@@ -654,6 +727,18 @@ def get_contained_in_type(
   return place_type
 
 
+def get_size_types(uttr: nl_uttr.Utterance) -> List[detection.SizeType]:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.SIZE_TYPE)
+  size_types = []
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.SizeTypeClassificationAttributes)):
+    # Ranking among places.
+    size_types = classification[0].attributes.size_types
+  return size_types
+
+
 def get_ranking_types(uttr: nl_uttr.Utterance) -> List[detection.RankingType]:
   classification = ctx.classifications_of_type_from_utterance(
       uttr, detection.ClassificationType.RANKING)
@@ -682,3 +767,51 @@ def pluralize_place_type(place_type: str) -> str:
   result = constants.PLACE_TYPE_TO_PLURALS.get(
       place_type.lower(), constants.PLACE_TYPE_TO_PLURALS["place"])
   return result.title()
+
+
+def has_map(place_type: any) -> bool:
+  if isinstance(place_type, str):
+    place_type = detection.ContainedInPlaceType(place_type)
+  return place_type in constants.MAP_PLACE_TYPES
+
+
+def new_session_id() -> str:
+  # Convert seconds to microseconds
+  micros = int(datetime.datetime.now().timestamp() * 1000000)
+  # Add some randomness to avoid clashes
+  rand = random.randrange(1000)
+  # Prefix randomness since session_id gets used as BT key
+  return str(rand) + '_' + str(micros)
+
+
+def get_time_delta_title(direction: detection.TimeDeltaType,
+                         is_absolute: bool) -> str:
+  return ' '.join([
+      'Increase' if direction == detection.TimeDeltaType.INCREASE else
+      'Decrease', 'over time',
+      '(by absolute change)' if is_absolute else '(by percent change)'
+  ])
+
+
+#
+# Per-capita handling
+#
+
+_SV_PARTIAL_DCID_NO_PC = [
+    'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
+    "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
+    "ConsecutiveDryDays", "Percent", "Area_", "Median_", "LifeExpectancy_",
+    "AsFractionOf", "AsAFractionOfCount"
+]
+
+_SV_FULL_DCID_NO_PC = ["Count_Person"]
+
+
+def is_percapita_relevant(sv_dcid: str) -> bool:
+  for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
+    if skip_phrase in sv_dcid:
+      return False
+  for skip_sv in _SV_FULL_DCID_NO_PC:
+    if skip_sv == sv_dcid:
+      return False
+  return True

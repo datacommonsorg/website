@@ -36,14 +36,6 @@
                     ],
                     "title": "Individual Income in California",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_pc",
-                      "Median_Earnings_Person_pc"
-                    ],
-                    "title": "Per Capita Individual Income in California",
-                    "type": "LINE"
                   }
                 ]
               }
@@ -60,13 +52,6 @@
                     ],
                     "title": "Household Median Income in California",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_pc"
-                    ],
-                    "title": "Per Capita Household Median Income in California",
-                    "type": "LINE"
                   }
                 ]
               }
@@ -82,13 +67,6 @@
                       "Median_Income_Household_FamilyHousehold"
                     ],
                     "title": "Median Income for Family Households in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold_pc"
-                    ],
-                    "title": "Per Capita Median Income for Family Households in California",
                     "type": "LINE"
                   }
                 ]
@@ -127,13 +105,6 @@
                     ],
                     "title": "Median Income for Married Couple Family Households in California",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold_pc"
-                    ],
-                    "title": "Per Capita Median Income for Married Couple Family Households in California",
-                    "type": "LINE"
                   }
                 ]
               }
@@ -149,13 +120,6 @@
                     ],
                     "title": "Household Median Income in California",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_pc"
-                    ],
-                    "title": "Per Capita Household Median Income in California",
-                    "type": "LINE"
                   }
                 ]
               }
@@ -170,9 +134,7 @@
           "Mean_Income_Household_FamilyHousehold_pc": {
             "denom": "Count_Person",
             "name": "Average Income for Family Households",
-            "scaling": 100.0,
-            "statVar": "Mean_Income_Household_FamilyHousehold",
-            "unit": "%"
+            "statVar": "Mean_Income_Household_FamilyHousehold"
           },
           "Mean_Income_Household_MarriedCoupleFamilyHousehold": {
             "name": "Average Income for Married Couple Family Households",
@@ -181,20 +143,11 @@
           "Mean_Income_Household_MarriedCoupleFamilyHousehold_pc": {
             "denom": "Count_Person",
             "name": "Average Income for Married Couple Family Households",
-            "scaling": 100.0,
-            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold",
-            "unit": "%"
+            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold"
           },
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person"
-          },
-          "Median_Earnings_Person_pc": {
-            "denom": "Count_Person",
-            "name": "Individual Median Earnings",
-            "scaling": 100.0,
-            "statVar": "Median_Earnings_Person",
-            "unit": "%"
           },
           "Median_Income_Household": {
             "name": "Household Median Income",
@@ -204,41 +157,13 @@
             "name": "Median Income for Family Households",
             "statVar": "Median_Income_Household_FamilyHousehold"
           },
-          "Median_Income_Household_FamilyHousehold_pc": {
-            "denom": "Count_Person",
-            "name": "Median Income for Family Households",
-            "scaling": 100.0,
-            "statVar": "Median_Income_Household_FamilyHousehold",
-            "unit": "%"
-          },
           "Median_Income_Household_MarriedCoupleFamilyHousehold": {
             "name": "Median Income for Married Couple Family Households",
             "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
           },
-          "Median_Income_Household_MarriedCoupleFamilyHousehold_pc": {
-            "denom": "Count_Person",
-            "name": "Median Income for Married Couple Family Households",
-            "scaling": 100.0,
-            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold",
-            "unit": "%"
-          },
-          "Median_Income_Household_pc": {
-            "denom": "Count_Person",
-            "name": "Household Median Income",
-            "scaling": 100.0,
-            "statVar": "Median_Income_Household",
-            "unit": "%"
-          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
-          },
-          "Median_Income_Person_pc": {
-            "denom": "Count_Person",
-            "name": "Individual Median Income",
-            "scaling": 100.0,
-            "statVar": "Median_Income_Person",
-            "unit": "%"
           }
         }
       }

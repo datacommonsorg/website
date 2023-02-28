@@ -22,8 +22,11 @@ import _ from "lodash";
 import React, { useRef } from "react";
 
 import { ChartEmbed } from "../../place/chart_embed";
-import { urlToDomain } from "../../shared/util";
-import { formatString, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  formatString,
+  getSourcesJsx,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 
 interface ChartTileContainerProp {
   title: string;
@@ -102,27 +105,4 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       Array.from(props.sources)
     );
   }
-}
-
-function getSourcesJsx(sources: Set<string>): JSX.Element[] {
-  if (!sources) {
-    return null;
-  }
-
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    const domain = urlToDomain(source);
-    if (seenSourceDomains.has(domain)) {
-      return null;
-    }
-    seenSourceDomains.add(domain);
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={source}>{domain}</a>
-      </span>
-    );
-  });
-  return sourcesJsx;
 }

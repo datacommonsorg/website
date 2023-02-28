@@ -223,10 +223,16 @@ def property_values(nodes, prop, out=True):
   return result
 
 
-def get_variable_group_info(nodes: List[str], entities: List[str]) -> Dict:
+def get_variable_group_info(nodes: List[str],
+                            entities: List[str],
+                            numEntitiesExistence=1) -> Dict:
   """Gets the stat var group node information."""
   url = get_service_url('/v1/bulk/info/variable-group')
-  req_dict = {"constrained_entities": entities, "nodes": nodes}
+  req_dict = {
+      "constrained_entities": entities,
+      "nodes": nodes,
+      "num_entities_existence": numEntitiesExistence
+  }
   return post(url, req_dict)
 
 
@@ -404,6 +410,17 @@ def get_place_ranking(stat_vars,
       'is_per_capita': is_per_capita,
   }
   return send_request(url, req_json=req_json, post=False, has_payload=False)
+
+
+def get_places_in_v1(dcids, place_type):
+  # Convert the dcids field and format the request to GetPlacesIn
+  url = get_service_url('/v1/bulk/property/values/in/linked')
+  return post(
+      url, {
+          'nodes': dcids,
+          'property': 'containedInPlace',
+          'value_node_type': place_type,
+      })
 
 
 def get_places_in(dcids, place_type):

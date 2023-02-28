@@ -252,9 +252,7 @@
           "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Aggravated Assault Cases",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_AggravatedAssault",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_AggravatedAssault"
           },
           "Count_CriminalActivities_Burglary": {
             "name": "Burglaries",
@@ -267,16 +265,12 @@
           "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Burglaries",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_Burglary",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_Burglary_pc": {
             "denom": "Count_Person",
             "name": "Burglaries",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_Burglary",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_CombinedCrime": {
             "name": "Criminal Activities",
@@ -285,9 +279,7 @@
           "Count_CriminalActivities_CombinedCrime_pc": {
             "denom": "Count_Person",
             "name": "Criminal Activities",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_CombinedCrime",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_CombinedCrime"
           },
           "Count_CriminalActivities_ForcibleRape": {
             "name": "Forcible Rapes",
@@ -300,16 +292,12 @@
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Forcible Rapes",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_ForcibleRape",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_ForcibleRape_pc": {
             "denom": "Count_Person",
             "name": "Forcible Rapes",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_ForcibleRape",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_LarcenyTheft": {
             "name": "Larceny Theft Cases",
@@ -322,16 +310,12 @@
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Larceny Theft Cases",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_LarcenyTheft",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_LarcenyTheft_pc": {
             "denom": "Count_Person",
             "name": "Larceny Theft Cases",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_LarcenyTheft",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft": {
             "name": "Motor Vehicle Thefts",
@@ -344,16 +328,12 @@
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Motor Vehicle Thefts",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_MotorVehicleTheft",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft_pc": {
             "denom": "Count_Person",
             "name": "Motor Vehicle Thefts",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_MotorVehicleTheft",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_PropertyCrime": {
             "name": "Property Related Crimes",
@@ -366,16 +346,12 @@
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Property Related Crimes",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_PropertyCrime",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_PropertyCrime"
           },
           "Count_CriminalActivities_PropertyCrime_pc": {
             "denom": "Count_Person",
             "name": "Property Related Crimes",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_PropertyCrime",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_PropertyCrime"
           },
           "Count_CriminalActivities_Robbery": {
             "name": "Robberies",
@@ -388,16 +364,12 @@
           "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Robberies",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_Robbery",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_Robbery_pc": {
             "denom": "Count_Person",
             "name": "Robberies",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_Robbery",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_ViolentCrime": {
             "name": "Violent Crimes",
@@ -410,16 +382,12 @@
           "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Violent Crimes",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_ViolentCrime",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalActivities_ViolentCrime_pc": {
             "denom": "Count_Person",
             "name": "Violent Crimes",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalActivities_ViolentCrime",
-            "unit": "%"
+            "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalIncidents_IsHateCrime": {
             "name": "Hate Crime Incidents",
@@ -428,9 +396,7 @@
           "Count_CriminalIncidents_IsHateCrime_pc": {
             "denom": "Count_Person",
             "name": "Hate Crime Incidents",
-            "scaling": 100.0,
-            "statVar": "Count_CriminalIncidents_IsHateCrime",
-            "unit": "%"
+            "statVar": "Count_CriminalIncidents_IsHateCrime"
           }
         }
       }

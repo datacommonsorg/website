@@ -18,9 +18,11 @@
  * Main component for NL interface.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
+import { getFeedbackLink } from "../../utils/nl_interface_utils";
+import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 
@@ -31,6 +33,16 @@ const NEXT_PROMPT_DELAY = 5000;
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
+  const autoRun = useRef(!!getUrlToken("a"));
+  const urlPrompts = useRef(getUrlPrompts());
+  // Timer used to input characters from a single prompt with
+  // CHARACTER_INPUT_INTERVAL ms between each character.
+  const inputIntervalTimer = useRef(null);
+  // Timer used to wait NEXT_PROMPT_DELAY ms before inputting a new prompt.
+  const nextPromptDelayTimer = useRef(null);
+  // Timer used to wait PROMPT_SEARCH_DELAY ms before searching for an inputted
+  // prompt.
+  const searchDelayTimer = useRef(null);
 
   // Updates the query search input box value.
   function updateSearchInput(input: string) {
@@ -45,47 +57,57 @@ export function App(): JSX.Element {
     ).click();
   }
 
-  useEffect(() => {
-    // Runs each prompt (';' separated) 10s apart.
-    // TODO: Do this by going through state/props instead of directly
-    // manipulating the DOM.
-    const urlPrompts = getUrlToken("q");
-    if (urlPrompts) {
-      const prompts = urlPrompts.split(";");
-      if (prompts.length) {
-        let prompt = prompts.shift();
-        let inputLength = 1;
-        let pauseQueryInput = false;
-        const inputTimer = setInterval(() => {
-          if (!prompt) {
-            clearInterval(inputTimer);
-            return;
-          }
-          if (pauseQueryInput) {
-            return;
-          }
-          if (inputLength <= prompt.length) {
-            updateSearchInput(prompt.substring(0, inputLength));
-          }
-          if (inputLength === prompt.length) {
-            pauseQueryInput = true;
-            setTimeout(() => {
-              // Search for the current input after PROMPT_SEARCH_DELAY ms.
+  function getUrlPrompts(): string[] {
+    const urlPromptsVal = getUrlToken("q");
+    if (urlPromptsVal) {
+      return urlPromptsVal.split(";");
+    }
+    return [];
+  }
+
+  function inputNextPrompt(delayStart: boolean): void {
+    const prompt = urlPrompts.current.shift();
+    if (!prompt) {
+      return;
+    }
+    const nextPromptDelay = delayStart ? NEXT_PROMPT_DELAY : 0;
+    nextPromptDelayTimer.current = setTimeout(() => {
+      let inputLength = 1;
+      inputIntervalTimer.current = setInterval(() => {
+        if (inputLength <= prompt.length) {
+          updateSearchInput(prompt.substring(0, inputLength));
+        }
+        if (inputLength === prompt.length) {
+          clearInterval(inputIntervalTimer.current);
+          // If on autorun, search for the current input after
+          // PROMPT_SEARCH_DELAY ms.
+          if (autoRun.current) {
+            searchDelayTimer.current = setTimeout(() => {
               executeSearch();
-              setTimeout(() => {
-                // Start typing the input for the next prompt after
-                // NEXT_PROMPT_DELAY ms.
-                pauseQueryInput = false;
-                prompt = prompts.shift();
-                inputLength = 1;
-              }, NEXT_PROMPT_DELAY);
             }, PROMPT_SEARCH_DELAY);
           }
-          inputLength++;
-        }, CHARACTER_INPUT_INTERVAL);
-        return () => clearInterval(inputTimer);
-      }
+          return;
+        }
+        inputLength++;
+      }, CHARACTER_INPUT_INTERVAL);
+    }, nextPromptDelay);
+  }
+
+  useEffect(() => {
+    // If there are prompts in the url, automatically input the first prompt
+    // into the search box.
+    // If autoRun is enabled, runs every prompt (';' separated) from the url.
+    // TODO: Do this by going through state/props instead of directly
+    // manipulating the DOM.
+    if (urlPrompts.current.length) {
+      inputNextPrompt(false);
     }
+    return () => {
+      // When component unmounts, clear all timers
+      clearInterval(inputIntervalTimer.current);
+      clearTimeout(searchDelayTimer.current);
+      clearTimeout(nextPromptDelayTimer.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -127,26 +149,46 @@ export function App(): JSX.Element {
     }
   }
 
-  const queryResults = queries.map((q, i) => (
-    <QueryResult
-      key={i}
-      queryIdx={i}
-      query={q}
-      contextHistory={getContextHistory(i)}
-      addContextCallback={addContext}
-    ></QueryResult>
-  ));
+  function onHistoryItemClick(queries: string[]) {
+    urlPrompts.current.unshift(...queries);
+    autoRun.current = true;
+    inputNextPrompt(false /* delayStart */);
+  }
+
+  const queryResults = queries.map((q, i) => {
+    const feedbackLink = getFeedbackLink(q, queries.slice(0, i + 1));
+    return (
+      <QueryResult
+        key={i}
+        queryIdx={i}
+        query={q}
+        contextHistory={getContextHistory(i)}
+        addContextCallback={addContext}
+        feedbackLink={feedbackLink}
+      ></QueryResult>
+    );
+  });
+
+  const isStartState = queries.length === 0;
 
   return (
-    <div id="dc-nl-interface">
+    <>
       <div id="results-thread-container">{queryResults}</div>
-
-      <QuerySearch
-        queries={queries}
-        onQuerySearched={(q) => {
-          setQueries([...queries, q]);
-        }}
-      />
-    </div>
+      <div
+        id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
+      >
+        <QuerySearch
+          queries={queries}
+          onQuerySearched={(q) => {
+            setQueries([...queries, q]);
+            // If there are prompts from the url, input the next one
+            if (urlPrompts.current.length) {
+              inputNextPrompt(true);
+            }
+          }}
+        />
+        {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
+      </div>
+    </>
   );
 }

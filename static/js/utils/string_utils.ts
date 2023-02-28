@@ -115,7 +115,6 @@ export function formatNumber(
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
     maximumSignificantDigits: 3,
-    minimumSignificantDigits: 3,
     notation: "compact",
     style: "decimal",
   };
@@ -140,6 +139,12 @@ export function formatNumber(
       break;
     case "Percent":
       displayUnit = "%";
+      break;
+    case "MetricTonCO2e":
+      displayUnit = "MTCO2e";
+      break;
+    case "MetricTon":
+      displayUnit = "t";
       break;
   }
   if (displayUnit) {

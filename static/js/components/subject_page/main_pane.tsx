@@ -25,6 +25,7 @@ import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { fetchNodeGeoJson } from "../../utils/geojson_utils";
 import { fetchGeoJsonData, getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
@@ -42,6 +43,18 @@ interface SubjectPageMainPanePropType {
   // parent places of the place to show the page for.
   parentPlaces?: NamedPlace[];
 }
+
+const PLACE_TYPE_GEOJSON_PROP = {
+  Country: "geoJsonCoordinatesDP3",
+  State: "geoJsonCoordinatesDP3",
+  AdministrativeArea1: "geoJsonCoordinatesDP3",
+  County: "geoJsonCoordinatesDP1",
+  AdministrativeArea2: "geoJsonCoordinatesDP1",
+  AdministrativeArea3: "geoJsonCoordinatesDP1",
+  EurostatNUTS1: "geoJsonCoordinatesDP2",
+  EurostatNUTS2: "geoJsonCoordinatesDP2",
+  EurostatNUTS3: "geoJsonCoordinatesDP1",
+};
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   props: SubjectPageMainPanePropType
@@ -63,9 +76,24 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
 
   useEffect(() => {
     // re-fetch geojson data if props change
-    fetchGeoJsonData(props.place, enclosedPlaceType, props.parentPlaces).then(
-      (geoJsonData) => {
-        setGeoJsonData(geoJsonData);
+    const childrenGeoJsonPromise = fetchGeoJsonData(
+      props.place,
+      enclosedPlaceType,
+      props.parentPlaces
+    );
+    let placeGeoJsonProp = "";
+    for (const type of props.place.types) {
+      if (type in PLACE_TYPE_GEOJSON_PROP) {
+        placeGeoJsonProp = PLACE_TYPE_GEOJSON_PROP[type];
+        break;
+      }
+    }
+    const placeGeoJsonPromise = placeGeoJsonProp
+      ? fetchNodeGeoJson([props.place.dcid], placeGeoJsonProp)
+      : Promise.resolve(null);
+    Promise.all([childrenGeoJsonPromise, placeGeoJsonPromise]).then(
+      ([childrenGeoJson, placeGeoJson]) => {
+        setGeoJsonData({ placeGeoJson, childrenGeoJson });
       }
     );
   }, [props]);

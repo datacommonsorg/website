@@ -62,6 +62,8 @@ interface StatVarGroupNodePropType {
   showAllSV: boolean;
   // path of svgs that should be expanded.
   expandedPath: string[];
+  // Number of entities that should have data for each stat var (group) shown
+  numEntitiesExistence?: number;
 }
 
 interface StatVarGroupNodeStateType {
@@ -229,6 +231,7 @@ export class StatVarGroupNode extends React.Component<
                 entities={this.props.entities}
                 showAllSV={this.props.showAllSV}
                 expandedPath={this.props.expandedPath}
+                numEntitiesExistence={this.props.numEntitiesExistence}
               />
             )}
           </>
@@ -246,6 +249,9 @@ export class StatVarGroupNode extends React.Component<
     const entityList = this.props.entities;
     for (const entity of entityList) {
       url += `&entities=${entity.dcid}`;
+    }
+    if (this.props.numEntitiesExistence) {
+      url += `&numEntitiesExistence=${this.props.numEntitiesExistence}`;
     }
     this.dataFetchingEntities = entityList;
     axios

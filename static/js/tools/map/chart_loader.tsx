@@ -131,10 +131,12 @@ export function ChartLoader(): JSX.Element {
   const bqLink = useRef(setUpBqButton(getSqlQuery));
   useEffect(() => {
     const dom = bqLink.current;
-    dom.style.display = "none"; // Enable BQlink with "inline-block";
-    return () => {
-      dom.style.display = "none";
-    };
+    if (dom) {
+      dom.style.display = "none"; // Enable BQlink with "inline-block";
+      return () => {
+        dom.style.display = "none";
+      };
+    }
   }, []);
 
   // Set map type to leaflet if georaster data is available before data needed
@@ -160,6 +162,11 @@ export function ChartLoader(): JSX.Element {
       placeInfo.value.enclosedPlaceType
     ) {
       loadSpinner(CHART_LOADER_SCREEN);
+    } else {
+      // If there is a spinner on the screen, but one of stat var, enclosing
+      // place or enclosed place type becomes empty, we should remove that
+      // spinner.
+      removeSpinner(CHART_LOADER_SCREEN);
     }
   }, [
     statVar.value.dcid,

@@ -18,7 +18,8 @@
  * Component for rendering a default block (block with no type).
  */
 
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 import {
   COLUMN_ID_PREFIX,
@@ -27,6 +28,7 @@ import {
 } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
+import { stringifyFn } from "../../utils/axios";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 import {
   getColumnTileClassName,
@@ -63,6 +65,33 @@ export interface BlockPropType {
 export function Block(props: BlockPropType): JSX.Element {
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
+  const [overridePlaceTypes, setOverridePlaceTypes] =
+    useState<Record<string, NamedTypedPlace>>();
+
+  useEffect(() => {
+    const overridePlaces = props.columns
+      .map((c) => {
+        return c.tiles.map((t) => t.placeDcidOverride);
+      })
+      .flat();
+
+    if (!overridePlaces.length) {
+      setOverridePlaceTypes({});
+      return;
+    }
+    // TODO: Use getNamedTypedPlace and add support for multiple places there.
+    axios
+      .get("/api/place/named_typed", {
+        params: {
+          dcids: overridePlaces,
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        setOverridePlaceTypes(resp.data);
+      });
+  }, [props]);
+
   return (
     <BlockContainer
       id={props.id}
@@ -86,6 +115,7 @@ export function Block(props: BlockPropType): JSX.Element {
                   props,
                   id,
                   minIdxToHide,
+                  overridePlaceTypes,
                   columnTileClassName
                 )}
               />
@@ -101,9 +131,10 @@ function renderTiles(
   props: BlockPropType,
   columnId: string,
   minIdxToHide: number,
+  overridePlaces: Record<string, NamedTypedPlace>,
   tileClassName?: string
 ): JSX.Element {
-  if (!tiles) {
+  if (!tiles || !overridePlaces) {
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
@@ -116,6 +147,9 @@ function renderTiles(
     if (i >= minIdxToHide) {
       classNameList.push(HIDE_TILE_CLASS);
     }
+    const place = tile.placeDcidOverride
+      ? overridePlaces[tile.placeDcidOverride]
+      : props.place;
     const className = classNameList.join(" ");
     switch (tile.type) {
       case "HIGHLIGHT":
@@ -123,7 +157,7 @@ function renderTiles(
           <HighlightTile
             key={id}
             description={tile.description}
-            place={props.place}
+            place={place}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
           />
         );
@@ -133,7 +167,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
-            place={props.place}
+            place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
             svgChartHeight={props.svgChartHeight}
@@ -146,7 +180,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
-            place={props.place}
+            place={place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
@@ -158,7 +192,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
-            place={props.place}
+            place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             rankingMetadata={tile.rankingTileSpec}
@@ -171,7 +205,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
-            place={props.place}
+            place={place}
             comparisonPlaces={tile.comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
@@ -185,7 +219,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
-            place={props.place}
+            place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={
@@ -201,7 +235,7 @@ function renderTiles(
             key={id}
             id={id}
             title={tile.title}
-            place={props.place}
+            place={place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
@@ -215,7 +249,7 @@ function renderTiles(
           </p>
         );
       case "PLACE_OVERVIEW":
-        return <PlaceOverviewTile key={id} place={props.place} />;
+        return <PlaceOverviewTile key={id} place={place} />;
       default:
         console.log("Tile type not supported:" + tile.type);
     }

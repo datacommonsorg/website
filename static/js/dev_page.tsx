@@ -34,6 +34,7 @@ import { StatVarInfo } from "./shared/stat_var";
 import { StatVarHierarchyType } from "./shared/types";
 import { randDomId } from "./shared/util";
 import { StatVarHierarchy } from "./stat_var_hierarchy/stat_var_hierarchy";
+import { formatNumber } from "./utils/string_utils";
 
 interface DevChartPropType {
   id: string;
@@ -79,6 +80,7 @@ class DevChart extends React.Component<DevChartPropType> {
         this.props.dataGroups,
         false,
         true,
+        formatNumber,
         this.props.unit
       );
     } else if (this.props.type == chartTypeEnum.GROUP_BAR) {
@@ -87,6 +89,7 @@ class DevChart extends React.Component<DevChartPropType> {
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataGroups,
+        formatNumber,
         this.props.unit
       );
     } else if (this.props.type == chartTypeEnum.STACK_BAR) {
@@ -95,6 +98,7 @@ class DevChart extends React.Component<DevChartPropType> {
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataGroups,
+        formatNumber,
         this.props.unit
       );
     } else if (this.props.type == chartTypeEnum.GROUP_LINE) {
@@ -104,7 +108,8 @@ class DevChart extends React.Component<DevChartPropType> {
         this.props.height,
         this.props.statVarInfo,
         this.props.dataGroupsDict,
-        this.props.plotParams
+        this.props.plotParams,
+        formatNumber
       );
     } else if (this.props.type == chartTypeEnum.HISTOGRAM) {
       drawHistogram(
@@ -112,6 +117,7 @@ class DevChart extends React.Component<DevChartPropType> {
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataPoints,
+        formatNumber,
         this.props.unit
       );
     }

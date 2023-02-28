@@ -32,8 +32,8 @@ _SV_THRESHOLD = 0.5
 # Compute a new Utterance given the classifications for a user query
 # and past utterances.
 #
-def fulfill(query_detection: Detection,
-            currentUtterance: Utterance) -> Utterance:
+def fulfill(query_detection: Detection, currentUtterance: Utterance,
+            session_id: str) -> Utterance:
 
   filtered_svs = filter_svs(query_detection.svs_detected.sv_dcids,
                             query_detection.svs_detected.sv_scores)
@@ -48,7 +48,8 @@ def fulfill(query_detection: Detection,
                    svs=filtered_svs,
                    chartCandidates=[],
                    rankedCharts=[],
-                   answerPlaces=[])
+                   answerPlaces=[],
+                   session_id=session_id)
   uttr.counters['filtered_svs'] = filtered_svs
 
   # Add detected places.
@@ -66,7 +67,6 @@ def fulfill(query_detection: Detection,
 
 
 def fulfill_query_type(uttr: Utterance, query_type: QueryType) -> bool:
-  logging.info('Handled query_type: %d', uttr.query_type.value)
   # Reset previous state
   uttr.query_type = query_type
   uttr.chartCandidates = []

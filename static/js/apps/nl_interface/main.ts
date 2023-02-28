@@ -30,6 +30,6 @@ window.onload = () => {
 function renderPage(): void {
   ReactDOM.render(
     React.createElement(App),
-    document.getElementById("nl-interface")
+    document.getElementById("dc-nl-interface")
   );
 }

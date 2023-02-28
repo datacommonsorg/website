@@ -37,6 +37,11 @@ from server.lib.nl.utterance import Utterance
 
 _EVENT_PREFIX = 'event/'
 
+DEFAULT_PARENT_PLACES = {
+    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
+}
+
 
 # Data structure to store state for a single "populate" call.
 @dataclass
@@ -66,21 +71,28 @@ class ChartVars:
   # If svs came from a topic, the topic dcid.
   source_topic: str = ""
   event: EventType = None
+  skip_map_for_ranking: bool = False
+
+  # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
+  growth_direction: TimeDeltaType = None
+  growth_ranking_type: str = None
 
 
 #
 # Base helper to add a chart spec to an utterance.
+# TODO: Deprecate `attrs` by just using ChartVars.  Maybe rename it to ChartAttrs.
 #
 def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
                            chart_vars: ChartVars, places: List[Place],
                            primary_vs_secondary: ChartOriginType) -> bool:
-  if state.place_type and isinstance(state.place_type, ContainedInPlaceType):
+  place_type = state.place_type
+  if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
-    state.place_type = state.place_type.value
+    place_type = place_type.value
 
   attr = {
       "class": primary_vs_secondary,
-      "place_type": state.place_type,
+      "place_type": place_type,
       "ranking_types": state.ranking_types,
       "block_id": chart_vars.block_id,
       "include_percapita": chart_vars.include_percapita,
@@ -89,6 +101,12 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
       "chart_type": chart_vars.response_type,
       "source_topic": chart_vars.source_topic
   }
+  if chart_vars.skip_map_for_ranking:
+    attr['skip_map_for_ranking'] = True
+  if chart_vars.growth_direction != None:
+    attr['growth_direction'] = chart_vars.growth_direction
+  if chart_vars.growth_ranking_type != None:
+    attr['growth_ranking_type'] = chart_vars.growth_ranking_type
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  event=chart_vars.event,
@@ -118,6 +136,13 @@ def populate_charts(state: PopulateState) -> bool:
     else:
       utils.update_counter(state.uttr.counters, 'failed_populate_context_place',
                            pl.dcid)
+
+  # If this query did not have a place, but had a contained-in attribute, we
+  # might try specific default places.
+  default_place = get_default_contained_in_place(state)
+  if default_place:
+    return populate_charts_for_places(state, [default_place])
+
   return False
 
 
@@ -161,10 +186,17 @@ def _add_charts(state: PopulateState, places: List[Place],
     # Counter updated in get_sample_child_places
     return False
 
+  # Handle extended/comparable SVs only for simple query since
+  # for those we would construct a single bar chart comparing the differe
+  # variables.  For other query-types like map/ranking/scatter, we will have
+  # indidividual "related" charts, and those don't look good.
+  #
   # Map of main SV -> peer SVs
-  sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
-  utils.update_counter(state.uttr.counters, 'stat_var_extensions',
-                       sv2extensions)
+  sv2extensions = {}
+  if state.uttr.query_type == QueryType.SIMPLE:
+    sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
+    utils.update_counter(state.uttr.counters, 'stat_var_extensions',
+                         sv2extensions)
 
   # A set used to ensure that a set of SVs are constructed into charts
   # only once. For example SV1 and SV2 may both be main SVs, and part of
@@ -219,13 +251,6 @@ def _add_charts(state: PopulateState, places: List[Place],
           })
           logging.info('Existence check failed for %s - %s',
                        ', '.join(places_to_check), ', '.join(chart_vars.svs))
-
-    # Handle extended/comparable SVs only for simple query since
-    # for those we would construct a single bar chart comparing the differe
-    # variables.  For other query-types like map/ranking/scatter, we will have
-    # indidividual "related" charts, and those don't look good.
-    if state.uttr.query_type != QueryType.SIMPLE:
-      continue
 
     # Infer comparison charts with extended SVs.
     extended_svs = sv2extensions.get(sv, [])
@@ -402,3 +427,12 @@ def maybe_handle_contained_in_fallback(state: PopulateState,
         constants.CHILD_PLACES_TYPES.get(ptype, 'County'))
     utils.update_counter(state.uttr.counters, 'contained_in_across_fallback',
                          state.place_type.value)
+
+
+def get_default_contained_in_place(state: PopulateState) -> Place:
+  if state.uttr.places or not state.place_type:
+    return None
+  ptype = state.place_type
+  if isinstance(ptype, str):
+    ptype = ContainedInPlaceType(ptype)
+  return DEFAULT_PARENT_PLACES.get(ptype, None)

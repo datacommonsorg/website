@@ -19,6 +19,7 @@ import urllib.parse
 
 from flask import Blueprint
 from flask import current_app
+from flask import escape
 from flask import g
 from flask import request
 from flask import Response
@@ -119,18 +120,25 @@ POPULATION_DCID = "Count_Person"
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
 
 
+def get_place_types(place_dcids):
+  place_types = dc.property_values(place_dcids, 'typeOf')
+  ret = {}
+  for dcid in place_dcids:
+    # We prefer to use specific type like "State", "County" over
+    # "AdministrativeArea"
+    chosen_type = ''
+    for place_type in place_types[dcid]:
+      if not chosen_type or chosen_type.startswith('AdministrativeArea') \
+              or chosen_type == 'Place':
+        chosen_type = place_type
+    ret[escape(dcid)] = chosen_type
+  return ret
+
+
 @bp.route('/type/<path:place_dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_place_type(place_dcid):
-  place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
-  # We prefer to use specific type like "State", "County" over
-  # "AdministrativeArea"
-  chosen_type = ''
-  for place_type in place_types:
-    if not chosen_type or chosen_type.startswith('AdministrativeArea') \
-            or chosen_type == 'Place':
-      chosen_type = place_type
-  return chosen_type
+  return get_place_types([place_dcid])[place_dcid]
 
 
 @bp.route('/name', methods=['GET', 'POST'])
@@ -230,6 +238,23 @@ def api_i18n_name():
   dcids = request.args.getlist('dcid')
   result = get_i18n_name(dcids)
   return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/named_typed')
+def get_named_typed_place():
+  """Returns data for NamedTypedPlace, a dictionary of key -> NamedTypedPlace."""
+  dcids = request.args.getlist('dcids')
+  place_types = get_place_types(dcids)
+  place_names = names(dcids)
+  ret = {}
+  for dcid in dcids:
+    dcid = escape(dcid)
+    ret[dcid] = {
+        'dcid': escape(dcid),
+        'name': place_names[dcid],
+        'types': place_types[dcid]
+    }
+  return Response(json.dumps(ret), 200, mimetype='application/json')
 
 
 @bp.route('/statsvars/<path:dcid>')

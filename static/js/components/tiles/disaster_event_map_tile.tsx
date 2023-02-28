@@ -19,6 +19,7 @@
  */
 
 import * as d3 from "d3";
+import { geoJson } from "leaflet";
 import _ from "lodash";
 import React, { useContext, useEffect, useRef, useState } from "react";
 
@@ -51,10 +52,10 @@ import {
   EventTypeSpec,
 } from "../../types/subject_page_proto_types";
 import {
-  fetchEventGeoJson,
   getMapPointsData,
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
+import { fetchNodeGeoJson } from "../../utils/geojson_utils";
 import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
@@ -70,6 +71,8 @@ const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const REDIRECT_URL_PREFIX = "/disasters/";
 const MAP_POINTS_MIN_RADIUS = 1.5;
 const MAP_POINTS_MIN_RADIUS_EARTH = 0.8;
+// Set of dcids of places that should use the selected place as the base geojson
+const PLACE_MAP_PLACES = new Set(["country/AUS", "country/BRA"]);
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -98,10 +101,16 @@ export function DisasterEventMapTile(
   const { geoJsonData } = useContext(DataContext);
   const [polygonGeoJson, setPolygonGeoJson] = useState(null);
   const [pathGeoJson, setPathGeoJson] = useState(null);
+  let baseMapGeoJson = null;
+  if (geoJsonData) {
+    baseMapGeoJson = shouldUsePlaceGeoJson()
+      ? geoJsonData.placeGeoJson
+      : geoJsonData.childrenGeoJson;
+  }
   const shouldShowMap =
     placeInfo &&
-    !_.isEmpty(geoJsonData) &&
-    !_.isEmpty(geoJsonData.features) &&
+    !_.isEmpty(baseMapGeoJson) &&
+    !_.isEmpty(baseMapGeoJson.features) &&
     !_.isNull(polygonGeoJson) &&
     !_.isNull(pathGeoJson);
 
@@ -144,7 +153,7 @@ export function DisasterEventMapTile(
     if (shouldShowMap) {
       draw(
         placeInfo,
-        geoJsonData,
+        baseMapGeoJson,
         props.disasterEventData,
         polygonGeoJson,
         pathGeoJson
@@ -152,7 +161,7 @@ export function DisasterEventMapTile(
     }
   }, [
     placeInfo,
-    geoJsonData,
+    baseMapGeoJson,
     props.disasterEventData,
     polygonGeoJson,
     pathGeoJson,
@@ -277,7 +286,7 @@ export function DisasterEventMapTile(
         const eventDcids = props.disasterEventData[eventType].eventPoints.map(
           (point) => point.placeDcid
         );
-        return fetchEventGeoJson(
+        return fetchNodeGeoJson(
           eventDcids,
           props.eventTypeSpec[eventType][geoJsonPropKey]
         );
@@ -323,6 +332,7 @@ export function DisasterEventMapTile(
       USA_PLACE_DCID,
       placeInfo.parentPlaces
     );
+    const isPlaceBaseMap = shouldUsePlaceGeoJson();
     const projection = getProjection(
       isUsaPlace,
       placeInfo.selectedPlace.dcid,
@@ -338,13 +348,19 @@ export function DisasterEventMapTile(
       width,
       {} /* dataValues: no data values to show on the base map */,
       null /* colorScale: no color scale since no data shown on the base map */,
-      (geoDcid: GeoJsonFeatureProperties) =>
-        redirectAction(geoDcid.geoDcid) /* redirectAction */,
+      (geoFeature: GeoJsonFeatureProperties) =>
+        redirectAction(geoFeature.geoDcid) /* redirectAction */,
       (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
-      () => true /* canClickRegion: allow all regions to be clickable */,
+      (placeDcid: string) =>
+        placeDcid !==
+        placeInfo.selectedPlace
+          .dcid /* canClickRegion: don't allow clicking region that will redirect to current page */,
       true /* shouldShowBoundaryLines */,
       projection,
-      placeInfo.selectedPlace.dcid,
+      isPlaceBaseMap
+        ? ""
+        : placeInfo.selectedPlace
+            .dcid /** zoomDcid: don't want special zoom handling of the selected place if usiing place base map */,
       zoomParams
     );
     // map of disaster event point id to the disaster event point
@@ -424,5 +440,23 @@ export function DisasterEventMapTile(
    */
   function redirectAction(placeDcid: string): void {
     window.open(`${REDIRECT_URL_PREFIX}${placeDcid}`, "_self");
+  }
+
+  // Gets whether the geojson for the selected place should be used for the base
+  // map.
+  function shouldUsePlaceGeoJson(): boolean {
+    if (!geoJsonData) {
+      // When geojson data hasn't been fetched yet, default to not using place
+      // geojson.
+      return false;
+    }
+    if (PLACE_MAP_PLACES.has(props.place.dcid)) {
+      return true;
+    }
+    // Should use place geojson if children geojson are not available.
+    return (
+      _.isEmpty(geoJsonData.childrenGeoJson) ||
+      _.isEmpty(geoJsonData.childrenGeoJson.features)
+    );
   }
 }

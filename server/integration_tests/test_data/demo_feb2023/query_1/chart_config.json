@@ -10,54 +10,60 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showHighest": true,
+                      "showMultiColumn": true
                     },
                     "statVarKey": [
-                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
+                      "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+                      "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+                      "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in Counties of California",
+                    "title": "Projected highest increase in max temperature under different scenarios",
                     "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
-                    ],
-                    "title": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in Counties of California",
-                    "type": "MAP"
                   }
                 ]
               }
             ],
             "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
-            "footnote": "RCP 2.6 is likely to keep global temperature rise below 2 \u00b0C by 2100.",
-            "title": "Projected highest increase in max temperature in different scenarios"
+            "title": "Projected highest increase in max temperature under different scenarios"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
+                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in Counties of California",
-                    "type": "RANKING"
-                  },
+                    "title": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in Counties of California",
+                    "title": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C)",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+                    ],
+                    "title": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "footnote": "RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100."
+            "footnote": "RCP 2.6 is likely to keep global temperature rise below 2 \u00b0C by 2100.\n\nRCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.\n\nRCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 \u00b0C and 4 \u00b0C by 2100."
           },
           {
             "columns": [
@@ -66,108 +72,60 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true,
+                      "showMultiColumn": true
                     },
                     "statVarKey": [
-                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+                      "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+                      "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+                      "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in Counties of California",
+                    "title": "Projected highest decrease in min temperature under different scenarios",
                     "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
-                    ],
-                    "title": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in Counties of California",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "footnote": "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 \u00b0C and 4 \u00b0C by 2100."
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
-                    ],
-                    "title": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in Counties of California",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
-                    ],
-                    "title": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C) in Counties of California",
-                    "type": "MAP"
                   }
                 ]
               }
             ],
             "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
-            "footnote": "RCP 2.6 is likely to keep global temperature rise below 2 \u00b0C by 2100.",
-            "title": "Projected highest decrease in min temperature in different scenarios"
+            "title": "Projected highest decrease in min temperature under different scenarios"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
                     "statVarKey": [
-                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
+                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in Counties of California",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
-                    ],
-                    "title": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C) in Counties of California",
+                    "title": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
                     "type": "MAP"
                   }
                 ]
-              }
-            ],
-            "footnote": "RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100."
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
                     "statVarKey": [
-                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in Counties of California",
-                    "type": "RANKING"
-                  },
+                    "title": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C)",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C) in Counties of California",
+                    "title": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "footnote": "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 \u00b0C and 4 \u00b0C by 2100."
+            "footnote": "RCP 2.6 is likely to keep global temperature rise below 2 \u00b0C by 2100.\n\nRCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.\n\nRCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 \u00b0C and 4 \u00b0C by 2100."
           }
         ],
         "statVarSpec": {
@@ -193,6 +151,30 @@
           },
           "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60": {
             "name": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
+            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+          },
+          "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26": {
+            "name": "RCP 2.6 (optimistic), \u00b0C",
+            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
+          },
+          "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45": {
+            "name": "RCP 4.5 (intermediate), \u00b0C",
+            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
+          },
+          "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60": {
+            "name": "RCP 6.0 (slightly pessimistic), \u00b0C",
+            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+          },
+          "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26": {
+            "name": "RCP 2.6 (optimistic), \u00b0C",
+            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
+          },
+          "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45": {
+            "name": "RCP 4.5 (intermediate), \u00b0C",
+            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
+          },
+          "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60": {
+            "name": "RCP 6.0 (slightly pessimistic), \u00b0C",
             "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
           }
         }

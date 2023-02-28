@@ -68,10 +68,29 @@ class TestNERPlaces(unittest.TestCase):
       ["poverty in the us", ["us"]],
       [
           "states with the best places to live in the united states",
-          ["the united states"]
+          ["united states"]
       ],
       ["tell me about palo alto", ["palo alto"]],
       ["what about mountain view", ["mountain view"]],
+      # Bay Area special cases.
+      [
+          "cities with the highest african american population in the sf bay area",
+          ["sf bay area"]
+      ],
+      [
+          "cities with asian american population in the san francisco bay area",
+          ["san francisco bay area"]
+      ],
+      ["cities with people in the SF peninsula", ["sf peninsula"]],
+      ["crime in the SF east bay", ["sf east bay"]],
+      [
+          "SF east bay's and California's population",
+          ["sf east bay", "california"]
+      ],
+      [
+          "Asian population in the SF north bay and in California and in Asia",
+          ["sf north bay", "california", "asia"]
+      ],
       # Order of detection matters.
       [
           "the place to live is Singapore or Hong Kong",
