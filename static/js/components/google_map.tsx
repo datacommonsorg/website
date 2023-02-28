@@ -158,9 +158,7 @@ export class GoogleMap extends React.Component<
     if (!this.state.shouldShowMap) {
       return null;
     }
-    return (
-      <div className="map-container" ref={this.div}></div>
-    );
+    return <div className="map-container" ref={this.div}></div>;
   }
 
   componentDidMount(): void {

@@ -13,9 +13,9 @@
 # limitations under the License.
 """Endpoints for event pages"""
 
+import json
 import logging
 import os
-import json
 
 from flask import abort
 from flask import Blueprint

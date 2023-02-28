@@ -34,6 +34,8 @@ interface ArcTableRowPropType {
   // If provenanceId and src are skipped, ensure that table only has 2-columns.
   provenanceId?: string;
   src?: URL;
+  // If set to true, will not add a link to the property node.
+  noPropLink?: boolean;
 }
 
 interface ArcTableRowStateType {
@@ -99,9 +101,13 @@ export class ArcTableRow extends React.Component<
     return (
       <tr>
         <td className="property-column">
-          <a href={HREF_PREFIX + this.props.propertyLabel}>
-            {this.props.propertyLabel}
-          </a>
+          {this.props.noPropLink ? (
+            this.props.propertyLabel
+          ) : (
+            <a href={HREF_PREFIX + this.props.propertyLabel}>
+              {this.props.propertyLabel}
+            </a>
+          )}
         </td>
         <td>
           <div className="values-row">
@@ -117,12 +123,14 @@ export class ArcTableRow extends React.Component<
               })}
           </div>
         </td>
-        { this.props.provenanceId && this.props.src && (
-        <td className="provenance-column">
-          {this.props.provenanceId && (
-            <a href={HREF_PREFIX + this.props.provenanceId}>{this.props.src}</a>
-          )}
-        </td>
+        {this.props.provenanceId && this.props.src && (
+          <td className="provenance-column">
+            {this.props.provenanceId && (
+              <a href={HREF_PREFIX + this.props.provenanceId}>
+                {this.props.src}
+              </a>
+            )}
+          </td>
         )}
       </tr>
     );
