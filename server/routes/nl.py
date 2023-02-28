@@ -187,7 +187,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
 
   ranking_classification = "<None>"
   overview_classification = "<None>"
-  temporal_classification = "<None>"
   size_type_classification = "<None>"
   time_delta_classification = "<None>"
   comparison_classification = "<None>"
@@ -201,8 +200,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       ranking_classification = str(classification.attributes.ranking_type)
     elif classification.type == ClassificationType.OVERVIEW:
       overview_classification = str(classification.type)
-    elif classification.type == ClassificationType.TEMPORAL:
-      temporal_classification = str(classification.type)
     elif classification.type == ClassificationType.SIZE_TYPE:
       size_type_classification = str(classification.attributes.size_types)
     elif classification.type == ClassificationType.TIME_DELTA:
@@ -232,7 +229,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,
       'overview_classification': overview_classification,
-      'temporal_classification': temporal_classification,
       'size_type_classification': size_type_classification,
       'time_delta_classification': time_delta_classification,
       'contained_in_classification': contained_in_classification,
@@ -322,15 +318,13 @@ def _detection(orig_query, cleaned_query) -> Detection:
   ranking_classification = model.heuristic_ranking_classification(query)
   comparison_classification = model.heuristic_comparison_classification(query)
   overview_classification = model.heuristic_overview_classification(query)
-  temporal_classification = model.query_classification("temporal", query)
   size_type_classification = model.heuristic_size_type_classification(query)
   time_delta_classification = model.heuristic_time_delta_classification(query)
-  contained_in_classification = model.query_classification(
-      "contained_in", query)
+  contained_in_classification = model.heuristic_containedin_classification(
+      query)
   event_classification = model.heuristic_event_classification(query)
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Comparison classification: {comparison_classification}')
-  logging.info(f'Temporal classification: {temporal_classification}')
   logging.info(f'SizeType classification: {size_type_classification}')
   logging.info(f'TimeDelta classification: {time_delta_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')

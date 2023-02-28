@@ -185,13 +185,6 @@ class ComparisonClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
-class TemporalClassificationAttributes(ClassificationAttributes):
-  """Temporal classification attributes."""
-  date_str: str
-  date_type: PeriodType
-
-
-@dataclass
 class ContainedInClassificationAttributes(ClassificationAttributes):
   """ContainedIn classification attributes."""
   contained_in_place_type: ContainedInPlaceType
