@@ -36,6 +36,11 @@ resource "helm_release" "datcom_website" {
   # timeout    = 300
 
   set {
+    name  = "resourceSuffix"
+    value = var.resource_suffix
+  }
+
+  set {
     name  = "website.image.tag"
     value = var.website_githash
   }

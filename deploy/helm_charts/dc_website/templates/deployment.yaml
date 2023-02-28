@@ -19,11 +19,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "dc-website.fullname" . }}
+  name: website-app{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
-  labels:
-    webInstance: {{ include "dc-website.fullname" . }}
-    {{- include "dc-website.selectorLabels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas.default }}
   strategy:
@@ -37,31 +34,29 @@ spec:
       maxUnavailable: {{ div .Values.replicas.default 4 | add 1 }}
   selector:
     matchLabels:
-      webInstance: {{ include "dc-website.fullname" . }}
-      {{- include "dc-website.selectorLabels" . | nindent 6 }}
+      app: website-app
   template:
     metadata:
       labels:
-        webInstance: {{ include "dc-website.fullname" . }}
-        {{- include "dc-website.selectorLabels" . | nindent 8 }}
+        app: website-app
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
         - name: ai-config
           configMap:
-            name: {{ include "dc-website.fullname" . }}-ai-config
+            name: ai-config{{ .Values.resourceSuffix }}
         # - name: ingress-config
         #   configMap:
         #     name: website-dev-mixer-ingress-config-for-website
         - name: memdb-config
           configMap:
-            name: {{ include "dc-website.fullname" . }}-memdb-config
+            name: memdb-config{{ .Values.resourceSuffix }}
         - name: schema-mapping
           configMap:
-            name: {{ include "dc-website.fullname" . }}-schema-mapping
+            name: schema-mapping{{ .Values.resourceSuffix }}
       containers:
         - name: website
-          image:  "{{ .Values.website.image.repository }}:{{ .Values.website.image.tag | default .Chart.AppVersion }}"
+          image:  "{{ .Values.website.image.repository }}:{{ .Values.website.image.tag }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:
@@ -92,28 +87,28 @@ spec:
             - name: FLASK_ENV
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-website-config
+                  name: website-configmap{{ .Values.resourceSuffix }}
                   key: flaskEnv
             # This is the GCP project that holds the secrets: api key, etc...
             - name: SECRET_PROJECT
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-website-config
+                  name: website-configmap{{ .Values.resourceSuffix }}
                   key: secretProject
             - name: WEBSITE_HASH
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-githash
+                  name: githash-configmap{{ .Values.resourceSuffix }}
                   key: website_hash.txt
             - name: BIG_QUERY
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-store-config
+                  name: store-config{{ .Values.resourceSuffix }}
                   key: bigquery.version
             - name: ENABLE_MODEL
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-website-config
+                  name: website-configmap{{ .Values.resourceSuffix }}
                   key: enableModel
             # - name: INGRESS_CONFIG_PATH
             #   value: /datacommons/ingress/rules
@@ -150,27 +145,27 @@ spec:
             - name: BASE_BIGTABLE_INFO
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-store-config
+                  name: store-config{{ .Values.resourceSuffix }}
                   key: base_bigtable_info.yaml
             - name: CUSTOM_BIGTABLE_INFO
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" $ }}-store-config
+                  name: store-config{{ .Values.resourceSuffix }}
                   key: custom_bigtable_info.yaml
             - name: MIXER_PROJECT
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-mixer-config
+                  name: mixer-configmap{{ .Values.resourceSuffix }}
                   key: mixerProject
             - name: BIG_QUERY
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-store-config
+                  name: store-config{{ .Values.resourceSuffix }}
                   key: bigquery.version
             - name: MIXER_HASH
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-githash
+                  name: githash-configmap{{ .Values.resourceSuffix }}
                   key: mixer_hash.txt
           ports:
             - containerPort: 12345
@@ -189,7 +184,7 @@ spec:
             periodSeconds: 10
             initialDelaySeconds: 10
         - name: esp
-          image:  "{{ .Values.esp.image.repository }}:{{ .Values.esp.image.tag | default .Chart.AppVersion }}"
+          image:  "{{ .Values.esp.image.repository }}:{{ .Values.esp.image.tag }}"
           imagePullPolicy: {{ .Values.esp.image.pullPolicy }}
           args:
             - --service=$(SERVICE_NAME)
@@ -202,7 +197,7 @@ spec:
             - name: SERVICE_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-mixer-config
+                  name: mixer-configmap{{ .Values.resourceSuffix }}
                   key: serviceName
           resources:
             limits:
