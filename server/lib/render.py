@@ -23,6 +23,8 @@ def render_page(default_html, custom_dc_html, **context):
   """Render static page from default template or custom DC template.
 
   Custom DC templates reside under 'server/templates/custom_dc/<env>/'
+
+  **context: Additional data to pass into the template.
   """
   template_file = os.path.join('custom_dc', g.env, custom_dc_html)
   if os.path.exists(
