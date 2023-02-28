@@ -242,7 +242,7 @@ def _result_with_debug_info(data_dict: Dict, status: str,
 
   places_found_formatted = ""
   for place in query_detection.places_detected.places_found:
-    places_found_formatted += f"place_name: {place.name}, place_dcid: {place.dcid}, "
+    places_found_formatted += f" (name: {place.name}, dcid: {place.dcid}); "
 
   debug_info.update({
       'places_detected':
@@ -278,19 +278,27 @@ def _detection(orig_query, cleaned_query) -> Detection:
 
   logging.info("Found places in query: {}".format(places_str_found))
 
-  if not place_dcid and places_str_found:
-    place_dcids = _infer_place_dcids(places_str_found)
-
   query = cleaned_query
+  place_dcids = []
   main_place = None
   resolved_places = []
+
+  # Look to find place DCIDs.
+  if places_str_found:
+    place_dcids = _infer_place_dcids(places_str_found)
+    logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
+
   for place_dcid in place_dcids:
+    # Set the Place objects (dcid, name, type).
     resolved_places.append(_get_place_from_dcid(place_dcid))
+    logging.info(
+        f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
   if resolved_places:
     # Step 2: replace the places in the query sentence with "".
     query = _remove_places(cleaned_query.lower(), places_str_found)
     main_place = resolved_places[0]
+    logging.info(f"Using main_place as: {main_place}")
 
   # Set PlaceDetection.
   place_detection = PlaceDetection(query_original=orig_query,
