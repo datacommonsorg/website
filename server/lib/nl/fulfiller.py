@@ -53,7 +53,8 @@ def fulfill(query_detection: Detection, currentUtterance: Utterance,
   uttr.counters['filtered_svs'] = filtered_svs
 
   # Add detected places.
-  if (query_detection.places_detected):
+  if (query_detection.places_detected) and (
+      query_detection.places_detected.main_place):
     uttr.places.append(query_detection.places_detected.main_place)
 
   query_types = [handlers.first_query_type(uttr)]

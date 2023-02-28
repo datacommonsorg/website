@@ -233,23 +233,25 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       'counters': debug_counters,
       'data_spec': uttr_history,
   }
-  if query_detection.places_detected:
-    debug_info.update({
+
+  debug_info.update({
         'places_detected':
-            query_detection.places_detected.places_found,
+            query_detection.places_detected.query_places_mentioned,
+        'query_with_places_removed':
+            query_detection.places_detected.query_without_place_substr,
+  })
+  
+  if query_detection.places_detected.main_place:
+    debug_info.update({
         'main_place_dcid':
             query_detection.places_detected.main_place.dcid,
         'main_place_name':
             query_detection.places_detected.main_place.name,
-        'query_with_places_removed':
-            query_detection.places_detected.query_without_place_substr,
     })
   else:
     debug_info.update({
-        'places_detected': ["<None>"],
         'main_place_dcid': "<None>",
         'main_place_name': "<None>",
-        'query_with_places_removed': query_detection.original_query,
     })
   data_dict['debug'] = debug_info
   return data_dict
@@ -270,6 +272,8 @@ def _detection(orig_query, cleaned_query) -> Detection:
   if not place_dcid and places_found:
     place_dcid = _infer_place_dcid(places_found)
 
+  query = cleaned_query
+  main_place = None
   if place_dcid:
     place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
     main_place_type = _get_preferred_type(place_types)
@@ -278,19 +282,16 @@ def _detection(orig_query, cleaned_query) -> Detection:
     # Step 2: replace the places in the query sentence with "".
     query = _remove_places(cleaned_query.lower(), places_found)
 
-    # Set PlaceDetection.
-    place_detection = PlaceDetection(query_original=orig_query,
-                                     query_without_place_substr=query,
-                                     places_found=places_found,
-                                     main_place=Place(
-                                         dcid=place_dcid,
-                                         name=main_place_name,
-                                         place_type=main_place_type))
-  else:
-    query = cleaned_query
-    # TODO: even if no place_dcid was found, debugInfo should be able to display
-    # the places_found (which can be valid even if no dcid was found).
-    place_detection = None
+    main_place = Place(dcid=place_dcid,
+                       name=main_place_name,
+                       place_type=main_place_type)
+
+  # Set PlaceDetection.
+  place_detection = PlaceDetection(query_original=orig_query,
+                                   query_without_place_substr=query,
+                                   query_places_mentioned=places_found,
+                                   places_found=[],
+                                   main_place=main_place)
 
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()

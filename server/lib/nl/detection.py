@@ -33,7 +33,8 @@ class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
   query_without_place_substr: str
-  places_found: List[str]
+  query_places_mentioned: List[str]
+  places_found: List[Place]
   main_place: Place
   using_default_place: bool = False
   using_from_context: bool = False
