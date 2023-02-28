@@ -53,7 +53,7 @@ function loadLocaleData(
       intl = createIntl({ locale, messages: allMessages }, intlCache);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       intl = createIntl({ locale, messages: {} }, intlCache);
     });
 }
@@ -313,6 +313,10 @@ function translateUnit(unit: string): string {
     case "Celsius":
       messageId = "celsius-display";
       break;
+    case "Knot":
+    case "Millibar":
+    case "SquareKilometer":
+      messageId = `${unit}-display`;
     default:
       return unit;
   }
@@ -320,7 +324,6 @@ function translateUnit(unit: string): string {
     id: messageId,
     defaultMessage: unit,
   });
-  console.log(displayUnit);
   // A hack to use since there is no standardized equivalent:
   // https://github.com/tc39/ecma402/issues/294
   displayUnit =

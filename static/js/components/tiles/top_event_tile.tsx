@@ -36,8 +36,7 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-// import { formatNumber } from "../../utils/string_utils";
-import { formatNumber, translateUnit } from "../../i18n/i18n";
+import { formatNumber } from "../../utils/string_utils";
 
 const RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
@@ -94,8 +93,6 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const showNameColumn =
     topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
 
-    console.log(translateUnit("Celsius"));
-    console.log(translateUnit("Celsius"));
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}

@@ -80,10 +80,19 @@
   "Knot": {
     "defaultMessage": "{0} kn"
   },
+  "Knot-display": {
+    "defaultMessage": "kn"
+  },
   "Millibar": {
     "defaultMessage": "{0} mbar"
   },
+  "Millibar-display": {
+    "defaultMessage": "mbar"
+  },
   "SquareKilometer": {
     "defaultMessage": "{0} km²"
+  },
+  "SquareKilometer-display": {
+    "defaultMessage": "km²"
   }
 }
