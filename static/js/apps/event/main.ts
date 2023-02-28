@@ -37,6 +37,6 @@ function renderPage(): void {
       name: nodeName,
       properties: properties,
     }),
-    document.getElementById("node")
+    document.getElementById("main-pane")
   );
 }

@@ -19,8 +19,22 @@
  */
 
 import React from "react";
+import { Container } from "reactstrap";
+import { ArcTableRow } from "../../browser/arc_table_row";
 
 import { Property } from "../../types/event_types";
+
+const _IGNORED_PROPERTIES = new Set([
+  'geoJsonCoordinates',
+  'geoJsonCoordinatesDP1',
+  'geoJsonCoordinatesDP2',
+  'geoJsonCoordinatesDP3',
+  'name',
+  'typeOf',
+  'provenance',
+  'observationPeriod',
+  'startLocation',
+]);
 
 interface AppPropsType {
   // Stores information about the particular event node
@@ -35,30 +49,50 @@ interface AppPropsType {
  * Displays the properties and property values of the event described.
  */
 export function App(props: AppPropsType): JSX.Element {
+  const provenance = props.properties.find(p => p.dcid == 'provenance');
+  const typeOf = props.properties.find(p => p.dcid == 'typeOf');
+
+  const tableProperties = props.properties.filter(p => !_IGNORED_PROPERTIES.has(p.dcid));
+  tableProperties.sort((a, b) => {
+    if (a.dcid < b.dcid) return -1;
+    if (a.dcid > b.dcid) return 1;
+    return 0;
+  });
+
   return (
-    <div>
-      <h1>{props.name}</h1>
-      <h3>dcid: {props.dcid}</h3>
-      <br />
-      <h3>Properties:</h3>
-      {props.properties.map((property) => {
-        return (
-          <div key={property.dcid}>
-            <b>{property.dcid}:</b>
-            <ul>
-              {property.values.map((value) => {
+    <Container>
+      <div className="head-section">
+        <h1>{props.name}</h1>
+        <h3>
+          type: <a href={`/browser/${typeOf.values[0].dcid}`}>{typeOf.values[0].name}</a>
+        </h3>
+        <h3>
+          source: <a href={`/browser/${provenance.values[0].dcid}`}>{provenance.values[0].name}</a>
+        </h3>
+      </div>
+      <section className="table-page-section">
+        <div className="card p-0">
+          <table className="node-table">
+            <tbody>
+              <tr key="header">
+                <th className="property-column">Property</th>
+                <th>Value</th>
+              </tr>
+              {tableProperties.map((property, index) => {
                 return (
-                  <li key={`${property.dcid}-${value.dcid}`}>
-                    {Object.prototype.hasOwnProperty.call(value, "value")
-                      ? value.value
-                      : value.dcid}
-                  </li>
+                  <ArcTableRow
+                    key={property.dcid + index}
+                    propertyLabel={property.dcid}
+                    values={property.values.map((v) => {
+                      return { text: v.value || v.dcid };
+                    })}
+                  />
                 );
               })}
-            </ul>
-          </div>
-        );
-      })}
-    </div>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </Container>
   );
 }

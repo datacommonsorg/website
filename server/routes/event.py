@@ -15,6 +15,7 @@
 
 import logging
 import os
+import json
 
 from flask import abort
 from flask import Blueprint
@@ -47,8 +48,6 @@ def get_properties(dcid):
   parsed = []
   for key, value in response.items():
     parsed.append({"dcid": key, "values": value["nodes"]})
-  parsed = str(parsed).replace(
-      "'", '"')  # JSON.parse on client side requires double quotes
   return parsed
 
 
@@ -72,4 +71,4 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   return render_template('custom_dc/stanford/event.html',
                          dcid=escape(dcid),
                          node_name=node_name,
-                         properties=properties)
+                         properties=json.dumps(properties))
