@@ -64,3 +64,8 @@ variable "mixer_githash" {
   type        = string
   description = "Mixer githash"
 }
+
+variable "resource_suffix" {
+  type        = string
+  description = "Resource suffix to pass in to the Helm chart"
+}
