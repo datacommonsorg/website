@@ -114,13 +114,13 @@ function getDateDisplay(properties: Array<Property>): string {
 
   let ret = "";
   if (startDate) {
-    ret += new Date(startDate).toLocaleString();
+    ret += startDate;
     if (endDate) {
       ret += " — ";
     }
   }
   if (endDate) {
-    ret += new Date(endDate).toLocaleString();
+    ret += endDate;
   }
   return ret;
 }
