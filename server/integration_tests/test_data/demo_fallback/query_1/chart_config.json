@@ -13,22 +13,22 @@
                 ]
               }
             ],
-            "title": "Palo Alto"
+            "title": "San Francisco"
           }
         ]
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/0655282"
+        "geoId/0667000"
       ]
     }
   },
   "context": {},
   "debug": {},
   "place": {
-    "dcid": "geoId/0655282",
-    "name": "Palo Alto",
+    "dcid": "geoId/0667000",
+    "name": "San Francisco",
     "place_type": "City"
   }
 }
