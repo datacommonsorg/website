@@ -22,11 +22,8 @@ import _ from "lodash";
 import React, { useRef } from "react";
 
 import { ChartEmbed } from "../../place/chart_embed";
-import {
-  formatString,
-  getSourcesJsx,
-  ReplacementStrings,
-} from "../../utils/tile_utils";
+import { formatString, ReplacementStrings } from "../../utils/tile_utils";
+import { ChartFooter } from "./chart_footer";
 
 interface ChartTileContainerProp {
   title: string;
@@ -55,26 +52,10 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     >
       {title && <h4>{title}</h4>}
       {props.children}
-      <footer id="chart-container-footer">
-        {!_.isEmpty(props.sources) && (
-          <div className="sources">
-            Data from {getSourcesJsx(props.sources)}
-          </div>
-        )}
-        <div className="outlinks">
-          {props.allowEmbed && (
-            <a
-              href="#"
-              onClick={(event) => {
-                event.preventDefault();
-                handleEmbed();
-              }}
-            >
-              Export
-            </a>
-          )}
-        </div>
-      </footer>
+      <ChartFooter
+        sources={props.sources}
+        handleEmbed={props.allowEmbed ? handleEmbed : null}
+      />
       {props.allowEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>
   );
@@ -98,7 +79,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     embedModalElement.current.show(
       svgXml,
       props.getDataCsv ? props.getDataCsv() : "",
-      svgWidth,
+      svgWidth || containerRef.current.offsetWidth,
       svgHeight,
       chartTitle,
       "",
