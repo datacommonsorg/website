@@ -20,10 +20,13 @@
  * Used for plotting a place or location on a map via Google Maps, given that
  * place, location, or event's DCID. This component can plot either KML
  * coordinates from the /api/places/mapinfo api as polygons, or a lat/long
- * marker pin using the node's latitude and longitude properties.
+ * marker pin using the node's latitude and longitude properties, or a geoJson.
  *
- * Note: If a node has both KML coordinates and lat/long properties, the KML
- * coordinates are preferred.
+ * Only one is drawn, in this order:
+ * 1. props.geoJson
+ * 2. props.latLong
+ * 3. KML polygon of the node from /api/places/mapinfo
+ * 4. lat/long of the node.
  */
 
 import axios from "axios";
@@ -55,7 +58,12 @@ interface GoogleMapCoordinates {
 interface GoogleMapPropType {
   // DCID of the place/event to show a map for.
   dcid: string;
+  // If set, a geometry GeoJson object (what is stored in the KG under
+  // geoJsonCoordinates etc).  Takes precedence over other supported location
+  // info available for the dcid.
   geoJsonGeometry?: string;
+  // If set, a <lat,long> pair.  Takes precedence over other supported location
+  // info available for the dcid, except for supplied geoJsonFromGeometry.
   latLong?: [number, number];
 }
 
