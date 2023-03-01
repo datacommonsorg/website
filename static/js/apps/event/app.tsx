@@ -24,6 +24,7 @@ import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
 
 import { ArcTableRow } from "../../browser/arc_table_row";
+import { GoogleMap } from "../../components/google_map";
 import { formatNumber, intl } from "../../i18n/i18n";
 import { Property } from "../../types/event_types";
 
@@ -133,6 +134,13 @@ export function App(props: AppPropsType): JSX.Element {
   // TODO: Use original data source, not import name.
   const provenance = findProperty("provenance", props.properties);
   const typeOf = findProperty("typeOf", props.properties);
+  const geoJson = getValue(findProperties([
+  "firePerimeter",
+  "geoJsonCoordinates",
+  "geoJsonCoordinatesDP1",
+  "geoJsonCoordinatesDP2",
+  "geoJsonCoordinatesDP3",
+  ], props.properties));
 
   // Filter then alpha sort properties.
   const tableProperties = props.properties.filter(
@@ -162,6 +170,7 @@ export function App(props: AppPropsType): JSX.Element {
             </a>
           </h3>
         </div>
+        <GoogleMap dcid={props.dcid} geoJsonGeometry={geoJson} />
         <section className="table-page-section">
           <div className="card p-0">
             <table className="node-table">

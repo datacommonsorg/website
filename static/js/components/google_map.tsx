@@ -27,6 +27,7 @@
  */
 
 import axios from "axios";
+import { GeoJsonObject } from "geojson";
 import _ from "lodash";
 import React from "react";
 
@@ -55,6 +56,7 @@ interface GoogleMapCoordinates {
 interface GoogleMapPropType {
   // DCID of the place/event to show a map for.
   dcid: string;
+  geoJsonGeometry?: string;
 }
 
 interface GoogleMapStateType {
@@ -64,6 +66,7 @@ interface GoogleMapStateType {
   mapInfo: MapInfoResponse;
   // Whether there is data for map to render.
   shouldShowMap: boolean;
+  geoJson: object;
 }
 
 /**
@@ -132,6 +135,36 @@ function drawMarker(
   marker.setMap(map);
 }
 
+/**
+ * Draw a geojson polygon.
+ * @param geoJson A complete geoJson feature collection.
+ * @param map map to draw in
+ */
+function drawGeoJson(geoJson: any, map: google.maps.Map) {
+  map.data.addGeoJson(geoJson);
+  var bounds = new google.maps.LatLngBounds();
+  map.data.forEach(function (feature) {
+    feature.getGeometry().forEachLatLng(function (latlng) {
+      bounds.extend(latlng);
+    });
+  });
+
+  map.fitBounds(bounds);
+}
+
+function geoJsonFromGeometry(geoJsonGeometry: string): GeoJSON.FeatureCollection {
+      return {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: JSON.parse(geoJsonGeometry),
+            properties: {},  // TODO: Fill in with a name or dcid.
+          },
+        ],
+      };
+}
+
 export class GoogleMap extends React.Component<
   GoogleMapPropType,
   GoogleMapStateType
@@ -151,6 +184,7 @@ export class GoogleMap extends React.Component<
         coordinateSequenceSet: [],
       },
       shouldShowMap: false,
+      geoJson: null,
     };
   }
 
@@ -162,7 +196,16 @@ export class GoogleMap extends React.Component<
   }
 
   componentDidMount(): void {
-    this.fetchData();
+    if (this.props.geoJsonGeometry) {
+      const geoJson = geoJsonFromGeometry(this.props.geoJsonGeometry);
+      console.log(geoJson);
+      this.setState({
+        shouldShowMap: true,
+        geoJson: geoJson,
+      });
+    } else {
+      this.fetchData();
+    }
   }
 
   componentDidUpdate(): void {
@@ -170,7 +213,11 @@ export class GoogleMap extends React.Component<
       // initialize Map
       const map = initMap(this.div.current);
 
-      if (Object.values(this.state.mapInfo).every((val) => val !== null)) {
+      if (this.state.geoJson) {
+        drawGeoJson(this.state.geoJson, map);
+      } else if (
+        Object.values(this.state.mapInfo).every((val) => val !== null)
+      ) {
         // default to drawing polygons via KML coordinates if available
         drawKmlCoordinates(this.state.mapInfo, map);
       } else if (
