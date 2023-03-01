@@ -34,11 +34,11 @@ import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { formatNumber } from "../../utils/string_utils";
 import {
   formatString,
-  getSourcesJsx,
   getStatVarName,
   getUnitString,
 } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
+import { ChartFooter } from "./chart_footer";
 
 const RANKING_COUNT = 5;
 
@@ -81,7 +81,6 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   const isMultiColumn = props.rankingMetadata.showMultiColumn;
   const svNames = props.statVarSpec.map((sv) => sv.name);
-  // TODO: Make use of ChartTileContainer for the footer section.
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -125,21 +124,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     svNames={isMultiColumn ? svNames : undefined}
                     formatNumberFn={formatNumber}
                   />
-                  <footer>
-                    {!_.isEmpty(sources) && (
-                      <div className="sources">
-                        Data from {getSourcesJsx(sources)}
-                      </div>
-                    )}
-                    <a
-                      href="#"
-                      onClick={(event) => {
-                        handleEmbed(event, points);
-                      }}
-                    >
-                      Export
-                    </a>
-                  </footer>
+                  <ChartFooter
+                    sources={sources}
+                    handleEmbed={() => handleEmbed(points.reverse())}
+                  />
                 </div>
               )}
               {props.rankingMetadata.showLowest && (
@@ -167,21 +155,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     svNames={isMultiColumn ? svNames : undefined}
                     formatNumberFn={formatNumber}
                   />
-                  <footer>
-                    {!_.isEmpty(sources) && (
-                      <div className="sources">
-                        Data from {getSourcesJsx(sources)}
-                      </div>
-                    )}
-                    <a
-                      href="#"
-                      onClick={(event) => {
-                        handleEmbed(event, points);
-                      }}
-                    >
-                      Export
-                    </a>
-                  </footer>
+                  <ChartFooter
+                    sources={sources}
+                    handleEmbed={() => handleEmbed(points)}
+                  />
                 </div>
               )}
             </React.Fragment>
@@ -191,11 +168,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     </div>
   );
 
-  function handleEmbed(
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    rankingPoints: RankingPoint[]
-  ): void {
-    e.preventDefault();
+  function handleEmbed(rankingPoints: RankingPoint[]): void {
     embedModalElement.current.show(
       "",
       rankingPointsToCsv(rankingPoints),
