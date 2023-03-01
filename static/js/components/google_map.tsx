@@ -208,7 +208,6 @@ export class GoogleMap extends React.Component<
   componentDidMount(): void {
     if (this.props.geoJsonGeometry) {
       const geoJson = geoJsonFromGeometry(this.props.geoJsonGeometry);
-      console.log(geoJson);
       this.setState({
         shouldShowMap: true,
         geoJson: geoJson,
