@@ -209,7 +209,14 @@ for dcid, place_list in SPECIAL_DCIDS_TO_PLACES.items():
   for place in place_list:
     OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[place] = dcid
 
-MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+# Using the AutoComplete Maps API. The textsearch API is more flaky and returns
+# may unnecessary results, e.g. businesses, which are easier to ignore in the
+# autocomplete API.
+MAPS_API = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
+
+# Source: https://developers.google.com/maps/documentation/places/web-service/autocomplete#types
+# Only one can be selected from Table 3 which is most useful for us: https://developers.google.com/maps/documentation/places/web-service/supported_types#table3
+AUTOCOMPLETE_MAPS_API_TYPES_FILTER = "(regions)"
 
 # Source: https://developers.google.com/maps/documentation/places/web-service/supported_types#table2
 MAPS_GEO_TYPES = frozenset([
