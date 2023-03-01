@@ -13,9 +13,7 @@ website:
   githash:
 
   image:
-    registry: "gcr.io"
     project: "datcom-ci"
-    repository: "datacommons-website"
     pullPolicy: Always
     tag:
 
@@ -56,10 +54,7 @@ mixer:
   githash:
 
   image:
-    registry: "gcr.io"
     project: "datcom-ci"
-    repository: "datacommons-mixer"
-
     pullPolicy: Always
     tag:
 
