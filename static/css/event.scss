@@ -14,4 +14,28 @@
  * limitations under the License.
  */
 
- @import "base";
+@use "base";
+@use "table";
+
+.head-section {
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  h3 {
+    color: var(--secondary);
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1rem;
+  }
+}
+
+.table-page-section .node-table {
+  th:first-of-type {
+    width: 33%;
+  }
+  th:last-of-type {
+    width: 66%;
+  }
+}

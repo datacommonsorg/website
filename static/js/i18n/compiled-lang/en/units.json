@@ -1,4 +1,52 @@
 {
+  "Knot": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " kn"
+    }
+  ],
+  "Knot-display": [
+    {
+      "type": 0,
+      "value": "kn"
+    }
+  ],
+  "Millibar": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " mbar"
+    }
+  ],
+  "Millibar-display": [
+    {
+      "type": 0,
+      "value": "mbar"
+    }
+  ],
+  "SquareKilometer": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " km²"
+    }
+  ],
+  "SquareKilometer-display": [
+    {
+      "type": 0,
+      "value": "km²"
+    }
+  ],
   "celsius": [
     {
       "type": 1,
