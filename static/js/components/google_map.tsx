@@ -20,10 +20,13 @@
  * Used for plotting a place or location on a map via Google Maps, given that
  * place, location, or event's DCID. This component can plot either KML
  * coordinates from the /api/places/mapinfo api as polygons, or a lat/long
- * marker pin using the node's latitude and longitude properties.
+ * marker pin using the node's latitude and longitude properties, or a geoJson.
  *
- * Note: If a node has both KML coordinates and lat/long properties, the KML
- * coordinates are preferred.
+ * Only one is drawn, in this order:
+ * 1. props.geoJson
+ * 2. props.latLong
+ * 3. KML polygon of the node from /api/places/mapinfo
+ * 4. lat/long of the node.
  */
 
 import axios from "axios";
@@ -55,6 +58,13 @@ interface GoogleMapCoordinates {
 interface GoogleMapPropType {
   // DCID of the place/event to show a map for.
   dcid: string;
+  // If set, a geometry GeoJson object (what is stored in the KG under
+  // geoJsonCoordinates etc).  Takes precedence over other supported location
+  // info available for the dcid.
+  geoJsonGeometry?: string;
+  // If set, a <lat,long> pair.  Takes precedence over other supported location
+  // info available for the dcid, except for supplied geoJsonFromGeometry.
+  latLong?: [number, number];
 }
 
 interface GoogleMapStateType {
@@ -64,6 +74,7 @@ interface GoogleMapStateType {
   mapInfo: MapInfoResponse;
   // Whether there is data for map to render.
   shouldShowMap: boolean;
+  geoJson: object;
 }
 
 /**
@@ -132,6 +143,38 @@ function drawMarker(
   marker.setMap(map);
 }
 
+/**
+ * Draw a geojson polygon.
+ * @param geoJson A complete geoJson feature collection.
+ * @param map map to draw in
+ */
+function drawGeoJson(geoJson: any, map: google.maps.Map) {
+  map.data.addGeoJson(geoJson);
+  const bounds = new google.maps.LatLngBounds();
+  map.data.forEach(function (feature) {
+    feature.getGeometry().forEachLatLng(function (latlng) {
+      bounds.extend(latlng);
+    });
+  });
+
+  map.fitBounds(bounds);
+}
+
+function geoJsonFromGeometry(
+  geoJsonGeometry: string
+): GeoJSON.FeatureCollection {
+  return {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: JSON.parse(geoJsonGeometry),
+        properties: {}, // TODO: Fill in with a name or dcid.
+      },
+    ],
+  };
+}
+
 export class GoogleMap extends React.Component<
   GoogleMapPropType,
   GoogleMapStateType
@@ -151,6 +194,7 @@ export class GoogleMap extends React.Component<
         coordinateSequenceSet: [],
       },
       shouldShowMap: false,
+      geoJson: null,
     };
   }
 
@@ -162,7 +206,24 @@ export class GoogleMap extends React.Component<
   }
 
   componentDidMount(): void {
-    this.fetchData();
+    if (this.props.geoJsonGeometry) {
+      const geoJson = geoJsonFromGeometry(this.props.geoJsonGeometry);
+      this.setState({
+        shouldShowMap: true,
+        geoJson: geoJson,
+      });
+    } else if (this.props.latLong) {
+      const coordinates = {
+        lat: this.props.latLong[0],
+        lng: this.props.latLong[1],
+      };
+      this.setState({
+        markerLocation: coordinates,
+        shouldShowMap: true,
+      });
+    } else {
+      this.fetchData();
+    }
   }
 
   componentDidUpdate(): void {
@@ -170,7 +231,11 @@ export class GoogleMap extends React.Component<
       // initialize Map
       const map = initMap(this.div.current);
 
-      if (Object.values(this.state.mapInfo).every((val) => val !== null)) {
+      if (this.state.geoJson) {
+        drawGeoJson(this.state.geoJson, map);
+      } else if (
+        Object.values(this.state.mapInfo).every((val) => val !== null)
+      ) {
         // default to drawing polygons via KML coordinates if available
         drawKmlCoordinates(this.state.mapInfo, map);
       } else if (
