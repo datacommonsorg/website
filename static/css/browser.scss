@@ -40,25 +40,6 @@
   vertical-align: top;
 }
 
-.expando {
-  cursor: pointer;
-  float: right;
-}
-
-.expando:hover {
-  text-decoration: underline;
-}
-
-.expando .material-icons {
-  font-size: 1rem;
-  vertical-align: middle;
-}
-
-.expando span {
-  line-height: 1;
-  vertical-align: middle;
-}
-
 .browser-in-arc-section .card {
   margin: $vertical-spacing 0 2 * $vertical-spacing;
 }

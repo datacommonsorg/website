@@ -53,7 +53,7 @@ function loadLocaleData(
       intl = createIntl({ locale, messages: allMessages }, intlCache);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       intl = createIntl({ locale, messages: {} }, intlCache);
     });
 }
@@ -191,11 +191,13 @@ function formatNumber(
       formatOptions.currencyDisplay = "code";
       break;
     case "$":
+    case "USDollar":
       formatOptions.style = "currency";
       formatOptions.currency = "USD";
       formatOptions.currencyDisplay = "code";
       break;
     case "%":
+    case "Percent":
       formatOptions.style = "percent";
       value = value / 100; // Values are scaled by formatter for percent display
       break;
@@ -253,6 +255,11 @@ function formatNumber(
     case "mgd":
       shouldAddUnit = true;
       unitKey = "million-gallon-per-day";
+    case "Knot":
+    case "Millibar":
+    case "SquareKilometer":
+      shouldAddUnit = true;
+      unitKey = unit;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
   if (shouldAddUnit) {
@@ -301,6 +308,14 @@ function translateUnit(unit: string): string {
     case "L":
       messageId = "liter-display";
       break;
+    case "celsius":
+    case "Celsius":
+      messageId = "celsius-display";
+      break;
+    case "Knot":
+    case "Millibar":
+    case "SquareKilometer":
+      messageId = `${unit}-display`;
     default:
       return unit;
   }

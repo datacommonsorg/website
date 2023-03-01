@@ -69,3 +69,22 @@ td a {
   margin: 10px (-$horizontal-spacing);
   padding: 6px $horizontal-spacing;
 }
+
+.expando {
+  cursor: pointer;
+  float: right;
+}
+
+.expando:hover {
+  text-decoration: underline;
+}
+
+.expando .material-icons {
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.expando span {
+  line-height: 1;
+  vertical-align: middle;
+}
