@@ -101,7 +101,7 @@ export function App(props: AppPropsType): JSX.Element {
             </a>
           </h3>
         </div>
-        {(geoJson || location) && (
+        {(geoJson || latLong) && (
           <GoogleMap
             dcid={props.dcid}
             geoJsonGeometry={geoJson}
