@@ -98,8 +98,8 @@ def register_routes_stanford_dc(app, is_local):
     return
 
   # load disaster dashboard configs
-  disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
-  app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
+  disaster_dashboard_config = libutil.get_disaster_dashboard_config()
+  app.config['DISASTER_DASHBOARD_CONFIG'] = disaster_dashboard_config
 
   if app.config['INTEGRATION']:
     return

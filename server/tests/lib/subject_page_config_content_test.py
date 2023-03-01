@@ -103,7 +103,7 @@ class TestSubjectPageConfigs(unittest.TestCase):
     all_configs = {}
     all_configs.update(libutil.get_topic_page_config())
     all_configs.update(
-        {"disaster_dashboard": libutil.get_disaster_dashboard_configs()})
+        {"disaster_dashboard": libutil.get_disaster_dashboard_config()})
     for id, configs in all_configs.items():
       for page_i, page in enumerate(configs):
         page_msg = f"{id}[config={page_i}]"

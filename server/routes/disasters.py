@@ -20,6 +20,8 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import escape
+from flask import url_for
+from flask import redirect
 from google.protobuf.json_format import MessageToJson
 
 from server.config import subject_page_pb2
@@ -46,12 +48,15 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
-def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
-  all_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
+def disaster_dashboard(place_dcid):
+  if not place_dcid:
+    return redirect(url_for('disasters.disaster_dashboard', DEFAULT_PLACE_DCID), code=302)
+
+  all_configs = current_app.config['DISASTER_DASHBOARD_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    all_configs = server.lib.util.get_disaster_dashboard_configs()
+    all_configs = server.lib.util.get_disaster_dashboard_config()
 
   if len(all_configs) < 1:
     return "Error: no config installed"
