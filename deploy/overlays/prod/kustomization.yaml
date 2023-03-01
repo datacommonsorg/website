@@ -47,6 +47,3 @@ configMapGenerator:
 
 patchesStrategicMerge:
   - patch_deployment.yaml
-
-generatorOptions:
- disableNameSuffixHash: true

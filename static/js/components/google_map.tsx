@@ -155,13 +155,10 @@ export class GoogleMap extends React.Component<
   }
 
   render(): JSX.Element {
-    return (
-      <>
-        {this.state.shouldShowMap && (
-          <div className="map-container" ref={this.div}></div>
-        )}
-      </>
-    );
+    if (!this.state.shouldShowMap) {
+      return null;
+    }
+    return <div className="map-container" ref={this.div}></div>;
   }
 
   componentDidMount(): void {
