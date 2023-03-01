@@ -22,9 +22,6 @@ namespace: website
 resources:
   - ../../base
 
-generatorOptions:
- disableNameSuffixHash: true
-
 configMapGenerator:
   - name: website-configmap
     behavior: merge
