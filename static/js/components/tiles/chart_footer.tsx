@@ -26,6 +26,7 @@ import { urlToDomain } from "../../shared/util";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 
 interface ChartFooterPropType {
+  // set of full urls of sources of the data in the chart
   sources: Set<string>;
   handleEmbed?: () => void;
 }
