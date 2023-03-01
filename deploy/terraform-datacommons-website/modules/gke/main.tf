@@ -17,20 +17,6 @@ locals {
     cluster_name = format("%s-%s%s",var.cluster_name_prefix,var.location, var.resource_suffix)
 }
 
-# resource "null_resource" "gke_cluster" {
-#   provisioner "local-exec" {
-#     command = "sh create_cluster.sh"
-#     working_dir = path.module
-
-#     environment = {
-#       PROJECT_ID   = var.project_id
-#       CLUSTER_NAME = local.cluster_name
-#       NODES        = var.num_nodes
-#       REGION       = var.region
-#     }
-#   }
-# }
-
 resource "google_container_cluster" "primary" {
   name     = local.cluster_name
   location = var.location
@@ -59,10 +45,7 @@ resource "google_container_node_pool" "gke_node_pools" {
 
   node_config {
     machine_type = "e2-highmem-4"
-
-    # # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    # service_account = google_service_account.default.email
-    oauth_scopes    = [
+    oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
