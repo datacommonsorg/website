@@ -28,6 +28,8 @@ import { GoogleMap } from "../../components/google_map";
 import { formatNumber, intl } from "../../i18n/i18n";
 import { Property } from "../../types/event_types";
 
+const _START_DATE_PROPERTIES = ["startDate", "discoveryDate"];
+const _END_DATE_PROPERTIES = ["endDate", "containmentDate", "controlledDate"];
 const _IGNORED_PROPERTIES = new Set([
   "location",
   "startLocation",
@@ -40,11 +42,10 @@ const _IGNORED_PROPERTIES = new Set([
   "typeOf",
   "provenance",
   "observationPeriod",
-  "containmentDate",
-  "controlledDate",
-  "discoveryDate",
-  "endDate",
-  "startDate",
+  "irwinID",
+  "wfigsFireID",
+  ..._START_DATE_PROPERTIES,
+  ..._END_DATE_PROPERTIES,
 ]);
 
 interface AppPropsType {
@@ -56,19 +57,9 @@ interface AppPropsType {
 }
 
 /**
- * Returns the first property in the list with the dcid.
- */
-function findProperty(dcid: string, properties: Array<Property>): Property {
-  return properties.find((p) => p.dcid == dcid);
-}
-
-/**
  * Returns the first property in the list with any of the given dcids.
  */
-function findProperties(
-  dcids: string[],
-  properties: Array<Property>
-): Property {
+function findProperty(dcids: string[], properties: Array<Property>): Property {
   return properties.find((p) => dcids.indexOf(p.dcid) >= 0);
 }
 
@@ -106,12 +97,8 @@ function formatNumericValue(property: Property): string {
  * Formats the date range for the event.
  */
 function getDateDisplay(properties: Array<Property>): string {
-  const startDate = getValue(
-    findProperties(["startDate", "discoveryDate"], properties)
-  );
-  const endDate = getValue(
-    findProperties(["endDate", "containmentDate", "controlledDate"], properties)
-  );
+  const startDate = getValue(findProperty(_START_DATE_PROPERTIES, properties));
+  const endDate = getValue(findProperty(_END_DATE_PROPERTIES, properties));
 
   let ret = "";
   if (startDate) {
@@ -132,9 +119,9 @@ function getDateDisplay(properties: Array<Property>): string {
  */
 export function App(props: AppPropsType): JSX.Element {
   // TODO: Use original data source, not import name.
-  const provenance = findProperty("provenance", props.properties);
-  const typeOf = findProperty("typeOf", props.properties);
-  const geoJson = getValue(findProperties([
+  const provenance = findProperty(["provenance"], props.properties);
+  const typeOf = findProperty(["typeOf"], props.properties);
+  const geoJson = getValue(findProperty([
   "firePerimeter",
   "geoJsonCoordinates",
   "geoJsonCoordinatesDP1",
