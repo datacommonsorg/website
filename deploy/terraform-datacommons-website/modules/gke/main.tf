@@ -13,24 +13,64 @@
 # limitations under the License.
 
 locals {
-    # Example cluster name: datacommons-us-central1
-    cluster_name = format("%s-%s%s",var.cluster_name_prefix,var.region, var.resource_suffix)
+    # Example cluster name: datacommons-us-central1 or datacommons-us-central1-a
+    cluster_name = format("%s-%s%s",var.cluster_name_prefix,var.location, var.resource_suffix)
 }
 
-resource "null_resource" "gke_cluster" {
-  provisioner "local-exec" {
-    command = "sh create_cluster.sh"
-    working_dir = path.module
+# resource "null_resource" "gke_cluster" {
+#   provisioner "local-exec" {
+#     command = "sh create_cluster.sh"
+#     working_dir = path.module
 
-    environment = {
-      PROJECT_ID   = var.project_id
-      CLUSTER_NAME = local.cluster_name
-      NODES        = var.num_nodes
-      REGION       = var.region
-    }
+#     environment = {
+#       PROJECT_ID   = var.project_id
+#       CLUSTER_NAME = local.cluster_name
+#       NODES        = var.num_nodes
+#       REGION       = var.region
+#     }
+#   }
+# }
+
+resource "google_container_cluster" "primary" {
+  name     = local.cluster_name
+  location = var.location
+
+  # We can't create a cluster with no node pool defined, but we want to only use
+  # separately managed node pools. So we create the smallest possible default
+  # node pool and immediately delete it.
+  remove_default_node_pool = true
+  initial_node_count       = 1
+  networking_mode          = "VPC_NATIVE"
+
+  workload_identity_config {
+    workload_pool = "${var.project_id}.svc.id.goog"
+  }
+
+  ip_allocation_policy {
+    cluster_ipv4_cidr_block = "/14"
   }
 }
 
+resource "google_container_node_pool" "gke_node_pools" {
+  name       = local.cluster_name
+  location   = var.location
+  cluster    = google_container_cluster.primary.name
+  node_count = var.num_nodes
+
+  node_config {
+    machine_type = "e2-highmem-4"
+
+    # # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    # service_account = google_service_account.default.email
+    oauth_scopes    = [
+      "https://www.googleapis.com/auth/cloud-platform"
+    ]
+  }
+
+  depends_on = [
+    google_container_cluster.primary
+  ]
+}
 
 resource "null_resource" "gke_cluster_configuration" {
   provisioner "local-exec" {
@@ -40,12 +80,13 @@ resource "null_resource" "gke_cluster_configuration" {
     environment = {
       PROJECT_ID         = var.project_id
       CLUSTER_NAME       = local.cluster_name
-      REGION             = var.region
+      LOCATION           = var.location
       WEB_ROBOT_SA_EMAIL = var.web_robot_sa_email
     }
   }
 
   depends_on = [
-    null_resource.gke_cluster
+    google_container_cluster.primary,
+    google_container_node_pool.gke_node_pools
   ]
 }

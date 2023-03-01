@@ -56,7 +56,7 @@ spec:
             name: schema-mapping{{ .Values.resourceSuffix }}
       containers:
         - name: website
-          image:  "{{ .Values.website.image.repository }}:{{ .Values.website.image.tag }}"
+          image:  "{{ .Values.website.image.registry }}/{{ .Values.website.image.project }}/{{ .Values.website.image.repository }}:{{ .Values.website.image.tag }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:
@@ -117,7 +117,7 @@ spec:
             - name: BOUNCE
               value: "dummy"
         - name: mixer
-          image:  "{{ .Values.mixer.image.repository }}:{{ .Values.mixer.image.tag | default .Chart.AppVersion }}"
+          image:  "{{ .Values.mixer.image.registry }}/{{ .Values.mixer.image.project }}/{{ .Values.mixer.image.repository }}:{{ .Values.mixer.image.tag }}"
           imagePullPolicy: {{ .Values.mixer.image.pullPolicy }}
           resources:
             limits:

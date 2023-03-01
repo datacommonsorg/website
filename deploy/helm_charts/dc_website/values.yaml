@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-resourceSuffix:
+resourceSuffix: ""
 
 # Website service config.
 website:
@@ -13,11 +13,13 @@ website:
   githash:
 
   image:
-    repository: gcr.io/datcom-ci/datacommons-website
+    registry: "gcr.io"
+    project: "datcom-ci"
+    repository: "datacommons-website"
     pullPolicy: Always
     tag:
 
-  flaskEnv:
+  flaskEnv: "custom"
   secretGCPProjectID:
   enableModel: false
 
@@ -45,7 +47,6 @@ serviceAccount:
 ingress:
   name: website-ingress
   enabled:
-  annotations: { kubernetes.io/ingress.global-static-ip-name: mixer-ip }
 
 ###############################################################################
 # Config for Mixer helm chart
@@ -55,7 +56,10 @@ mixer:
   githash:
 
   image:
-    repository: gcr.io/datcom-ci/datacommons-mixer
+    registry: "gcr.io"
+    project: "datcom-ci"
+    repository: "datacommons-mixer"
+
     pullPolicy: Always
     tag:
 
