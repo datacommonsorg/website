@@ -27,7 +27,6 @@
  */
 
 import axios from "axios";
-import { GeoJsonObject } from "geojson";
 import _ from "lodash";
 import React from "react";
 
@@ -57,6 +56,7 @@ interface GoogleMapPropType {
   // DCID of the place/event to show a map for.
   dcid: string;
   geoJsonGeometry?: string;
+  latLong?: [number, number];
 }
 
 interface GoogleMapStateType {
@@ -142,7 +142,7 @@ function drawMarker(
  */
 function drawGeoJson(geoJson: any, map: google.maps.Map) {
   map.data.addGeoJson(geoJson);
-  var bounds = new google.maps.LatLngBounds();
+  const bounds = new google.maps.LatLngBounds();
   map.data.forEach(function (feature) {
     feature.getGeometry().forEachLatLng(function (latlng) {
       bounds.extend(latlng);
@@ -152,17 +152,19 @@ function drawGeoJson(geoJson: any, map: google.maps.Map) {
   map.fitBounds(bounds);
 }
 
-function geoJsonFromGeometry(geoJsonGeometry: string): GeoJSON.FeatureCollection {
-      return {
-        type: "FeatureCollection",
-        features: [
-          {
-            type: "Feature",
-            geometry: JSON.parse(geoJsonGeometry),
-            properties: {},  // TODO: Fill in with a name or dcid.
-          },
-        ],
-      };
+function geoJsonFromGeometry(
+  geoJsonGeometry: string
+): GeoJSON.FeatureCollection {
+  return {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: JSON.parse(geoJsonGeometry),
+        properties: {}, // TODO: Fill in with a name or dcid.
+      },
+    ],
+  };
 }
 
 export class GoogleMap extends React.Component<
@@ -202,6 +204,15 @@ export class GoogleMap extends React.Component<
       this.setState({
         shouldShowMap: true,
         geoJson: geoJson,
+      });
+    } else if (this.props.latLong) {
+      const coordinates = {
+        lat: this.props.latLong[0],
+        lng: this.props.latLong[1],
+      };
+      this.setState({
+        markerLocation: coordinates,
+        shouldShowMap: true,
       });
     } else {
       this.fetchData();
