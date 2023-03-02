@@ -259,7 +259,7 @@ categories {
       }
       tiles {
         type: HISTOGRAM
-        title: "Number of droughts"
+        title: "Total area affected by droughts"
         histogram_tile_spec {
           event_type_key: "drought"
           prop: "area"
@@ -313,7 +313,7 @@ categories {
       }
       tiles {
         type: HISTOGRAM
-        title: "Total area affected by fires last year"
+        title: "Total area affected by fires"
         histogram_tile_spec {
           event_type_key: "fire"
           prop: "area"
@@ -372,7 +372,7 @@ categories {
       }
       tiles {
         type: HISTOGRAM
-        title: "Total area affected by floods last year"
+        title: "Total area affected by floods"
         histogram_tile_spec {
           event_type_key: "flood"
           prop: "area"
