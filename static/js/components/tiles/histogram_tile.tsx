@@ -321,6 +321,15 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
     props: HistogramTilePropType,
     histogramData: DataPoint[]
   ): void {
+    // Get unit to display on y-axis, if available
+    let unit = undefined;
+    if (props.property) {
+      const eventDisplayProp = props.eventTypeSpec.displayProp.find(
+        (elem) => elem.prop == props.property
+      );
+      unit = eventDisplayProp.unit;
+    }
+
     const elem = document.getElementById(props.id);
     if (elem) {
       elem.innerHTML = "";
@@ -330,7 +339,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
         elem.clientHeight,
         histogramData,
         formatNumber,
-        undefined,
+        unit,
         props.eventTypeSpec.color
       );
     }
