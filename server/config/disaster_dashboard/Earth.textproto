@@ -288,11 +288,14 @@ categories {
           event_type_key: "fire"
         }
       }
-      # tiles {
-      #   type: HISTOGRAM
-      #   title: "Total area affected by fires last year"
-      #   stat_var_key: "fire_area"
-      # }
+      tiles {
+        type: HISTOGRAM
+        title: "Total area affected by fires last year"
+        histogram_tile_spec {
+          event_type_key: "fire"
+          prop: "area"
+        }
+      }
     }
     columns {
       tiles {

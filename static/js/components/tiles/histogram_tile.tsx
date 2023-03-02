@@ -40,6 +40,7 @@ interface HistogramTilePropType {
   eventTypeSpec: EventTypeSpec;
   id: string;
   place: NamedTypedPlace;
+  property: string;
   selectedDate: string;
   title: string;
 }
@@ -247,6 +248,8 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
 
   // TODO (juliawu): add "sorry, we don't have data" message if data is
   //                 present at 6 months but not 30 days
+  console.log("property is:");
+  console.log(props.property);
   return (
     <>
       {shouldShowHistogram(histogramData) && (
