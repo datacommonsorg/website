@@ -13,11 +13,13 @@
 # limitations under the License.
 """Endpoints for event pages"""
 
+import json
 import logging
 import os
 
 from flask import abort
 from flask import Blueprint
+from flask import current_app
 from flask import escape
 from flask import render_template
 
@@ -47,8 +49,6 @@ def get_properties(dcid):
   parsed = []
   for key, value in response.items():
     parsed.append({"dcid": key, "values": value["nodes"]})
-  parsed = str(parsed).replace(
-      "'", '"')  # JSON.parse on client side requires double quotes
   return parsed
 
 
@@ -71,5 +71,6 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
     logging.info(e)
   return render_template('custom_dc/stanford/event.html',
                          dcid=escape(dcid),
+                         maps_api_key=current_app.config['MAPS_API_KEY'],
                          node_name=node_name,
-                         properties=properties)
+                         properties=json.dumps(properties))

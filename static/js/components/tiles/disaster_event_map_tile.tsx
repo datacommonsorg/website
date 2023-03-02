@@ -19,7 +19,6 @@
  */
 
 import * as d3 from "d3";
-import { geoJson } from "leaflet";
 import _ from "lodash";
 import React, { useContext, useEffect, useRef, useState } from "react";
 

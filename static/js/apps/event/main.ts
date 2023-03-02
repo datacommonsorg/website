@@ -18,25 +18,33 @@
  * Disaster events
  */
 
+import "../../i18n/compiled-lang/en/units.json";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
 window.onload = () => {
-  renderPage();
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
 };
 
 function renderPage(): void {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   const properties = JSON.parse(document.getElementById("node").dataset.pv);
+  console.log(properties);
   ReactDOM.render(
     React.createElement(App, {
       dcid: dcid,
       name: nodeName,
       properties: properties,
     }),
-    document.getElementById("node")
+    document.getElementById("main-pane")
   );
 }

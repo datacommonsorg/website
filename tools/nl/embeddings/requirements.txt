@@ -1,0 +1,5 @@
+absl-py
+datasets
+google-cloud-storage
+gspread
+sentence-transformers

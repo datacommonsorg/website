@@ -139,8 +139,8 @@ class IntegrationTest(LiveServerTestCase):
     self.run_sequence(
         'demo_fallback',
         [
-            # We have no stats on this, so we should return Palo Alto overview.
-            'Number of Shakespeare fans in Palo Alto',
+            # We have no stats on this, so we should return SF overview.
+            'Number of Shakespeare fans in San Francisco',
             # We have no crime at county-level in CA, so we should fall back as:
             # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
             'counties in California with highest crime',

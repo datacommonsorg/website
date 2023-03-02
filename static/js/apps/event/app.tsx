@@ -18,13 +18,43 @@
  * Main component for event pages.
  */
 
+import _ from "lodash";
 import React from "react";
+import { RawIntlProvider } from "react-intl";
+import { Container } from "reactstrap";
 
+import { ArcTableRow } from "../../browser/arc_table_row";
+import { GoogleMap } from "../../components/google_map";
+import { formatNumber, intl } from "../../i18n/i18n";
 import { Property } from "../../types/event_types";
 
+const _START_DATE_PROPERTIES = ["startDate", "discoveryDate"];
+const _END_DATE_PROPERTIES = ["endDate", "containmentDate", "controlledDate"];
+const _LOCATION_PROPERTIES = ["location", "startLocation"];
+const _GEOJSON_PROPERTIES = [
+  "firePerimeter",
+  "geoJsonCoordinates",
+  "geoJsonCoordinatesDP1",
+  "geoJsonCoordinatesDP2",
+  "geoJsonCoordinatesDP3",
+];
+const _IGNORED_PROPERTIES = new Set([
+  "name",
+  "typeOf",
+  "provenance",
+  "observationPeriod",
+  "irwinID",
+  "wfigsFireID",
+  ..._LOCATION_PROPERTIES,
+  ..._GEOJSON_PROPERTIES,
+  ..._START_DATE_PROPERTIES,
+  ..._END_DATE_PROPERTIES,
+]);
+
+/**
+ * Stores information about the particular event node the event page should render.
+ */
 interface AppPropsType {
-  // Stores information about the particular event node
-  // the event page should render.
   dcid: string;
   name: string;
   properties: Array<Property>;
@@ -35,30 +65,149 @@ interface AppPropsType {
  * Displays the properties and property values of the event described.
  */
 export function App(props: AppPropsType): JSX.Element {
-  return (
-    <div>
-      <h1>{props.name}</h1>
-      <h3>dcid: {props.dcid}</h3>
-      <br />
-      <h3>Properties:</h3>
-      {props.properties.map((property) => {
-        return (
-          <div key={property.dcid}>
-            <b>{property.dcid}:</b>
-            <ul>
-              {property.values.map((value) => {
-                return (
-                  <li key={`${property.dcid}-${value.dcid}`}>
-                    {Object.prototype.hasOwnProperty.call(value, "value")
-                      ? value.value
-                      : value.dcid}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        );
-      })}
-    </div>
+  // TODO: Use original data source, not import name.
+  const provenance = findProperty(["provenance"], props.properties);
+  const typeOf = findProperty(["typeOf"], props.properties);
+  const geoJson = getValue(findProperty(_GEOJSON_PROPERTIES, props.properties));
+  const latLong = parseLatLong(
+    findProperty(_LOCATION_PROPERTIES, props.properties)
   );
+
+  // Filter then alpha sort properties.
+  const tableProperties = props.properties.filter(
+    (p) => !_IGNORED_PROPERTIES.has(p.dcid)
+  );
+  tableProperties.sort((a, b) => {
+    if (a.dcid < b.dcid) return -1;
+    if (a.dcid > b.dcid) return 1;
+    return 0;
+  });
+
+  const dateDisplay = getDateDisplay(props.properties);
+
+  return (
+    <RawIntlProvider value={intl}>
+      <Container>
+        <div className="head-section">
+          <h1>{props.name}</h1>
+          <h3>type: {typeOf.values[0].name}</h3>
+          <h3>
+            dcid: <a href={`/browser/${props.dcid}`}>{props.dcid}</a>
+          </h3>
+          <h3>
+            source:{" "}
+            <a href={`/browser/${provenance.values[0].dcid}`}>
+              {provenance.values[0].name}
+            </a>
+          </h3>
+        </div>
+        {(geoJson || latLong) && (
+          <GoogleMap
+            dcid={props.dcid}
+            geoJsonGeometry={geoJson}
+            latLong={latLong}
+          />
+        )}
+        <section className="table-page-section">
+          <div className="card p-0">
+            <table className="node-table">
+              <tbody>
+                <tr key="header">
+                  <th className="property-column">Property</th>
+                  <th>Value</th>
+                </tr>
+                <ArcTableRow
+                  key="date"
+                  propertyLabel="Date"
+                  values={[{ text: dateDisplay }]}
+                  noPropLink={true}
+                />
+                {tableProperties.map((property, index) => {
+                  return (
+                    <ArcTableRow
+                      key={property.dcid + index}
+                      propertyLabel={_.startCase(property.dcid)}
+                      values={[{ text: formatNumericValue(property) }]}
+                      noPropLink={true}
+                    />
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </Container>
+    </RawIntlProvider>
+  );
+}
+
+/**
+ * Returns the first property in the list with any of the given dcids.
+ */
+function findProperty(dcids: string[], properties: Array<Property>): Property {
+  return properties.find((p) => dcids.indexOf(p.dcid) >= 0);
+}
+
+/**
+ * Returns the first display value of the property.
+ */
+function getValue(property: Property): string {
+  if (!property || !property.values.length) {
+    return "";
+  }
+  return property.values[0].dcid || property.values[0].value;
+}
+
+/**
+ * Formats the first display value of the property as a number with unit.
+ */
+function formatNumericValue(property: Property): string {
+  const val = getValue(property);
+  if (!val) {
+    return "";
+  }
+  const numIndex = val.search(/[0-9]/);
+  if (numIndex < 0) {
+    return val;
+  }
+  let unit = val.substring(0, numIndex);
+  if (unit) {
+    unit = unit.trim();
+  }
+  const num = Number.parseFloat(val.substring(numIndex));
+  return formatNumber(num, unit);
+}
+
+/**
+ * Formats the date range for the event.
+ */
+function getDateDisplay(properties: Array<Property>): string {
+  const startDate = getValue(findProperty(_START_DATE_PROPERTIES, properties));
+  const endDate = getValue(findProperty(_END_DATE_PROPERTIES, properties));
+
+  let ret = "";
+  if (startDate) {
+    ret += startDate;
+    if (endDate) {
+      ret += " — ";
+    }
+  }
+  if (endDate) {
+    ret += endDate;
+  }
+  return ret;
+}
+
+/**
+ * Parses a lat,long pair from the first value of the property.
+ */
+function parseLatLong(property: Property): [number, number] {
+  if (!property || !property.values) return null;
+  const val = property.values[0];
+  if (val.name) {
+    const latLong = val.name.split(",").map((f) => parseFloat(f));
+    console.assert(latLong.length == 2);
+    return [latLong[0], latLong[1]];
+  }
+  return null;
 }

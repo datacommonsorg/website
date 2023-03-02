@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,21 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 
-from werkzeug.utils import import_string
-
-
-def get_config():
-  env = os.environ.get('FLASK_ENV')
-  prefix = os.environ.get('ENV_PREFIX', '')
-  config_class = 'server.app_env.{}.{}Config'.format(env, prefix)
-  try:
-    cfg = import_string(config_class)()
-    cfg.ENV = env
-    # USE_LOCAL_MIXER
-    if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
-      cfg.API_ROOT = 'http://127.0.0.1:8081'
-    return cfg
-  except:
-    raise ValueError("No valid config class is specified: %s" % config_class)
+python3 -m venv .env
+source .env/bin/activate
+pip3 install -r requirements.txt
+python3 build_embeddings.py

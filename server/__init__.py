@@ -191,10 +191,6 @@ def create_app():
   cfg = libconfig.get_config()
   app.config.from_object(cfg)
 
-  # USE_LOCAL_MIXER
-  if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
-    app.config['API_ROOT'] = 'http://127.0.0.1:8081'
-
   # Init extentions
   from server.cache import cache
 
@@ -297,14 +293,9 @@ def create_app():
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
-    import server.lib.nl.training as libnl
     import server.services.nl as nl
 
-    # For the classification types available, check lib.training (libnl).
-    classification_types = [
-        'ranking', 'temporal', 'contained_in', 'correlation'
-    ]
-    nl_model = nl.Model(app, libnl.CLASSIFICATION_INFO, classification_types)
+    nl_model = nl.Model()
     app.config['NL_MODEL'] = nl_model
 
   if not cfg.TEST:
