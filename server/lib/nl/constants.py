@@ -179,6 +179,8 @@ OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
     'sf north bay',
     'sf south bay',
     'sf east bay',
+    # US
+    'united states', # need this because the word "states" gets replaced.
 ])
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
