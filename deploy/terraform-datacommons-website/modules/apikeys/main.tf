@@ -45,7 +45,8 @@ resource "google_secret_manager_secret" "maps_api_key_secret" {
   replication {
     user_managed {
       replicas {
-        location = var.location
+        # location needs to be a region here, so if var.location is a zone, make it a region.
+        location = length(split(var.location, "-")) == 2 ? var.location : join("-", slice(split( "-", var.location), 0, 2))
       }
     }
   }

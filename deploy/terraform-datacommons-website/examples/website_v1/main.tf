@@ -64,7 +64,7 @@ module "apikeys" {
   source                   =  "../../modules/apikeys"
   project_id               = var.project_id
   dc_website_domain        = var.dc_website_domain
-  location                 = var.region
+  location                 = var.location
 
   resource_suffix          = local.resource_suffix
 }
@@ -78,7 +78,7 @@ module "esp" {
 module "cluster" {
   source                   =  "../../modules/gke"
   project_id               = var.project_id
-  region                   = var.region
+  location                 = var.location
   cluster_name_prefix      = var.cluster_name_prefix
   web_robot_sa_email       = local.web_robot_sa_email
 
@@ -98,49 +98,4 @@ resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
   managed {
     domains = [format("%s.", var.dc_website_domain)]
   }
-}
-
-# IMPORTANT NOTE: This script assumes that
-# "~/.kube/config" already exists. This is because provider cannot depend on data or resources,
-# as provider blocks need to be determined before resources/data states are fetched.
-# In install_custom_dc.sh, currentlythe kubeconfig is fetched before calling terraform apply.
-# .kube/config is the location where gcloud command for GKE stores cluster config, which
-# is required to access the cluster, including using helm.
-provider "kubernetes" {
-  alias = "datcom"
-  kubernetes {
-    config_path = "~/.kube/config"
-  }
-}
-
-provider "helm" {
-  alias = "datcom"
-  kubernetes {
-    config_path = "~/.kube/config"
-  }
-}
-
-module "k8s_resources" {
-  providers = {
-    kubernetes = kubernetes.datcom
-    helm       = helm.datcom
-  }
-
-  resource_suffix          =  local.resource_suffix
-  website_githash          =  var.website_githash
-  mixer_githash            =  var.mixer_githash
-
-  source                   =  "../../modules/helm"
-  project_id               = var.project_id
-
-  cluster_name             = module.cluster.name
-  cluster_region           = var.region
-  dc_website_domain        = var.dc_website_domain
-  global_static_ip_name    = format("dc-website-ip%s", local.resource_suffix)
-  managed_cert_name        = google_compute_managed_ssl_certificate.dc_website_cert.name
-
-  depends_on = [
-    google_compute_managed_ssl_certificate.dc_website_cert,
-    module.cluster
-  ]
 }

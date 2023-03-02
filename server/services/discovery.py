@@ -162,7 +162,7 @@ endpoints = Endpoints([
     '/v1/recon/resolve/id',
     '/v1/recon/resolve/coordinate',
     # Bio APIs
-    '/internal/bio',
+    '/v1/internal/page/bio',
     # Misc
     '/v1/internal/page/place',
     '/v1/events',
