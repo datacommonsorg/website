@@ -173,16 +173,18 @@ function binData(
   for (const event of disasterEventPoints) {
     // Get start time in the temporal granularity desired
     const eventDate = event.startDate.slice(0, format.length);
-    const eventValue = property ? event.displayProps[property] : 1;
 
-    if (property == "area") {
-      console.log("new event");
-      console.log(property);
-      console.log(event.displayProps);
-      console.log(eventValue);
+    // Get value of property to aggregate
+    let eventValue = 0;
+    if (property) {
+      // default to 0 if property can't be found in display props
+      eventValue = event.displayProps[property] ?? 0;
+    } else {
+      // default to 1 if aggregating counts
+      eventValue = 1;
     }
 
-    // Increment count in corresponding bin if event has at least
+    // Increment value in corresponding bin if event has at least
     // that temporal granularity
     if (bins.has(eventDate) && eventDate.length == format.length) {
       bins.set(eventDate, bins.get(eventDate) + eventValue);
@@ -195,8 +197,9 @@ function binData(
   if (Array.from(bins.values()).every((value) => value == 0)) {
     console.log(
       "[Histogram] Skipped plotting all events. Either the events were not " +
-        "within the provided time frame or the events did not have at least " +
-        `${format} temporal resolution.`
+        "within the provided time frame, the events did not have at least " +
+        `${format} temporal resolution, or the event_type_spec is missing a ` +
+        `display_prop entry for ${property}.`
     );
     return [];
   }
