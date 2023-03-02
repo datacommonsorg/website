@@ -66,9 +66,6 @@ export class OutArcSection extends React.Component<
   OutArcSectionPropType,
   OutArcSectionStateType
 > {
-  // Whether to show all properties
-  showAll: boolean;
-
   constructor(props: OutArcSectionPropType) {
     super(props);
     this.state = {
