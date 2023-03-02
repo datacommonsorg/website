@@ -191,10 +191,6 @@ def create_app():
   cfg = libconfig.get_config()
   app.config.from_object(cfg)
 
-  # USE_LOCAL_MIXER
-  if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
-    app.config['API_ROOT'] = 'http://127.0.0.1:8081'
-
   # Init extentions
   from server.cache import cache
 

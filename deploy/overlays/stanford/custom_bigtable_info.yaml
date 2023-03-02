@@ -1,4 +1,7 @@
 project: datcom-stanford
 instance: dc-graph
 tables:
-  - private_2022_11_09_19_28_52
+  - smokepm_2023_03_01_15_05_49
+  - aqicn_2023_02_24_11_39_31
+  - deepsolar_2023_03_01_14_11_18
+  - seda_2023_03_01_14_22_24
