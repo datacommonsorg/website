@@ -57,18 +57,46 @@
           "country/GAB"
         ],
         "svs": [
-          "Count_Person_80OrMoreYears"
+          "Median_Age_Person"
+        ]
+      },
+      {
+        "places": [
+          "country/AGO",
+          "country/ATF",
+          "country/BDI",
+          "country/BEN",
+          "country/BFA",
+          "country/BWA",
+          "country/CAF",
+          "country/CIV",
+          "country/CMR",
+          "country/COD",
+          "country/COG",
+          "country/COM",
+          "country/CPV",
+          "country/DJI",
+          "country/DZA",
+          "country/EGY",
+          "country/ERI",
+          "country/ESH",
+          "country/ETH",
+          "country/GAB"
+        ],
+        "svs": [
+          "Count_Death"
         ]
       }
     ],
     "filtered_svs": [
       "LifeExpectancy_Person",
-      "LifeExpectancy_Person_Female",
       "LifeExpectancy_Person_Male",
+      "LifeExpectancy_Person_Female",
       "Count_Death_AsAFractionOfCount_Person",
-      "Count_Person_80OrMoreYears"
+      "Median_Age_Person",
+      "Count_Death"
     ],
-    "num_chart_candidates": 61,
+    "num_chart_candidates": 8,
     "processed_fulfillment_types": [
       "time_delta_across_places"
     ],
@@ -135,7 +163,63 @@
           "country/ZMB",
           "country/ZWE"
         ],
-        "ranked": [
+        "ranked_abs": [
+          "country/DZA",
+          "country/LBY",
+          "country/MAR",
+          "country/TUN",
+          "country/ERI",
+          "country/MLI",
+          "country/MWI",
+          "country/SEN",
+          "country/GMB",
+          "country/SSD",
+          "country/CMR",
+          "country/SLE",
+          "country/EGY",
+          "country/CPV",
+          "country/NER",
+          "country/ETH",
+          "country/STP",
+          "country/COM",
+          "country/AGO",
+          "country/BFA",
+          "country/TZA",
+          "country/GIN",
+          "country/LBR",
+          "country/GNB",
+          "country/MDG",
+          "country/BEN",
+          "country/CIV",
+          "country/GAB",
+          "country/MOZ",
+          "country/MRT",
+          "country/RWA",
+          "country/DJI",
+          "country/SDN",
+          "country/GNQ",
+          "country/COD",
+          "country/MUS",
+          "country/BDI",
+          "country/TGO",
+          "country/UGA",
+          "country/GHA",
+          "country/COG",
+          "country/NGA",
+          "country/CAF",
+          "country/BWA",
+          "country/NAM",
+          "country/TCD",
+          "country/KEN",
+          "country/SWZ",
+          "country/ZMB",
+          "country/ZAF",
+          "country/SOM",
+          "country/SYC",
+          "country/ZWE",
+          "country/LSO"
+        ],
+        "ranked_pct": [
           "country/MLI",
           "country/SSD",
           "country/DZA",
@@ -254,126 +338,63 @@
           "country/ZMB",
           "country/ZWE"
         ],
-        "ranked": [
-          "country/MLI",
-          "country/GMB",
+        "ranked_abs": [
           "country/TUN",
-          "country/MWI",
-          "country/SEN",
-          "country/SSD",
-          "country/NER",
+          "country/MLI",
           "country/LBR",
-          "country/BFA",
-          "country/LBY",
-          "country/GIN",
-          "country/ERI",
-          "country/ETH",
-          "country/SLE",
-          "country/BEN",
-          "country/MDG",
           "country/DZA",
-          "country/GAB",
-          "country/AGO",
-          "country/RWA",
-          "country/CIV",
-          "country/GNQ",
+          "country/GMB",
+          "country/LBY",
           "country/MAR",
-          "country/MOZ",
-          "country/COM",
-          "country/CPV",
-          "country/SOM",
-          "country/GNB",
-          "country/DJI",
+          "country/SEN",
+          "country/ETH",
+          "country/BFA",
+          "country/ERI",
+          "country/GIN",
+          "country/NER",
+          "country/MDG",
+          "country/GAB",
+          "country/SSD",
+          "country/RWA",
+          "country/MWI",
+          "country/BEN",
+          "country/SLE",
           "country/EGY",
-          "country/TGO",
+          "country/COM",
+          "country/GNQ",
+          "country/CPV",
+          "country/DJI",
+          "country/AGO",
           "country/TZA",
+          "country/CIV",
+          "country/TGO",
+          "country/GNB",
+          "country/SOM",
+          "country/BWA",
           "country/BDI",
+          "country/COG",
           "country/MRT",
           "country/COD",
-          "country/CAF",
+          "country/KEN",
+          "country/MOZ",
+          "country/STP",
           "country/NGA",
           "country/UGA",
-          "country/KEN",
           "country/GHA",
-          "country/SWZ",
           "country/CMR",
-          "country/STP",
-          "country/BWA",
-          "country/ZMB",
           "country/TCD",
-          "country/COG",
-          "country/NAM",
           "country/SDN",
+          "country/NAM",
+          "country/CAF",
+          "country/ZMB",
           "country/ZAF",
           "country/MUS",
+          "country/SWZ",
           "country/ZWE",
           "country/LSO",
           "country/SYC"
-        ]
-      },
-      {
-        "orig": [
-          "country/AGO",
-          "country/ATF",
-          "country/BDI",
-          "country/BEN",
-          "country/BFA",
-          "country/BWA",
-          "country/CAF",
-          "country/CIV",
-          "country/CMR",
-          "country/COD",
-          "country/COG",
-          "country/COM",
-          "country/CPV",
-          "country/DJI",
-          "country/DZA",
-          "country/EGY",
-          "country/ERI",
-          "country/ESH",
-          "country/ETH",
-          "country/GAB",
-          "country/GHA",
-          "country/GIN",
-          "country/GMB",
-          "country/GNB",
-          "country/GNQ",
-          "country/KEN",
-          "country/LBR",
-          "country/LBY",
-          "country/LSO",
-          "country/MAR",
-          "country/MDG",
-          "country/MLI",
-          "country/MOZ",
-          "country/MRT",
-          "country/MUS",
-          "country/MWI",
-          "country/MYT",
-          "country/NAM",
-          "country/NER",
-          "country/NGA",
-          "country/REU",
-          "country/RWA",
-          "country/SDN",
-          "country/SEN",
-          "country/SHN",
-          "country/SLE",
-          "country/SOM",
-          "country/SSD",
-          "country/STP",
-          "country/SWZ",
-          "country/SYC",
-          "country/TCD",
-          "country/TGO",
-          "country/TUN",
-          "country/TZA",
-          "country/UGA",
-          "country/ZAF",
-          "country/ZMB",
-          "country/ZWE"
         ],
-        "ranked": [
+        "ranked_pct": [
           "country/MLI",
           "country/LBR",
           "country/GMB",
@@ -492,7 +513,185 @@
           "country/ZMB",
           "country/ZWE"
         ],
-        "ranked": [
+        "ranked_abs": [
+          "country/TUN",
+          "country/LBY",
+          "country/DZA",
+          "country/SEN",
+          "country/MLI",
+          "country/MWI",
+          "country/GMB",
+          "country/ETH",
+          "country/ERI",
+          "country/LBR",
+          "country/MAR",
+          "country/NER",
+          "country/MDG",
+          "country/GAB",
+          "country/RWA",
+          "country/CPV",
+          "country/BFA",
+          "country/SSD",
+          "country/GIN",
+          "country/BEN",
+          "country/AGO",
+          "country/EGY",
+          "country/DJI",
+          "country/COM",
+          "country/SLE",
+          "country/MOZ",
+          "country/CIV",
+          "country/TZA",
+          "country/GNQ",
+          "country/MRT",
+          "country/GNB",
+          "country/STP",
+          "country/TGO",
+          "country/SOM",
+          "country/BDI",
+          "country/KEN",
+          "country/BWA",
+          "country/COD",
+          "country/UGA",
+          "country/GHA",
+          "country/ZMB",
+          "country/SWZ",
+          "country/NAM",
+          "country/COG",
+          "country/SDN",
+          "country/CAF",
+          "country/CMR",
+          "country/MUS",
+          "country/NGA",
+          "country/ZAF",
+          "country/TCD",
+          "country/ZWE",
+          "country/SYC",
+          "country/LSO"
+        ],
+        "ranked_pct": [
+          "country/MLI",
+          "country/GMB",
+          "country/TUN",
+          "country/MWI",
+          "country/SEN",
+          "country/SSD",
+          "country/NER",
+          "country/LBR",
+          "country/BFA",
+          "country/LBY",
+          "country/GIN",
+          "country/ERI",
+          "country/ETH",
+          "country/SLE",
+          "country/BEN",
+          "country/MDG",
+          "country/DZA",
+          "country/GAB",
+          "country/AGO",
+          "country/RWA",
+          "country/CIV",
+          "country/GNQ",
+          "country/MAR",
+          "country/MOZ",
+          "country/COM",
+          "country/CPV",
+          "country/SOM",
+          "country/GNB",
+          "country/DJI",
+          "country/EGY",
+          "country/TGO",
+          "country/TZA",
+          "country/BDI",
+          "country/MRT",
+          "country/COD",
+          "country/CAF",
+          "country/NGA",
+          "country/UGA",
+          "country/KEN",
+          "country/GHA",
+          "country/SWZ",
+          "country/CMR",
+          "country/STP",
+          "country/BWA",
+          "country/ZMB",
+          "country/TCD",
+          "country/COG",
+          "country/NAM",
+          "country/SDN",
+          "country/ZAF",
+          "country/MUS",
+          "country/ZWE",
+          "country/LSO",
+          "country/SYC"
+        ]
+      },
+      {
+        "orig": [
+          "country/AGO",
+          "country/ATF",
+          "country/BDI",
+          "country/BEN",
+          "country/BFA",
+          "country/BWA",
+          "country/CAF",
+          "country/CIV",
+          "country/CMR",
+          "country/COD",
+          "country/COG",
+          "country/COM",
+          "country/CPV",
+          "country/DJI",
+          "country/DZA",
+          "country/EGY",
+          "country/ERI",
+          "country/ESH",
+          "country/ETH",
+          "country/GAB",
+          "country/GHA",
+          "country/GIN",
+          "country/GMB",
+          "country/GNB",
+          "country/GNQ",
+          "country/KEN",
+          "country/LBR",
+          "country/LBY",
+          "country/LSO",
+          "country/MAR",
+          "country/MDG",
+          "country/MLI",
+          "country/MOZ",
+          "country/MRT",
+          "country/MUS",
+          "country/MWI",
+          "country/MYT",
+          "country/NAM",
+          "country/NER",
+          "country/NGA",
+          "country/REU",
+          "country/RWA",
+          "country/SDN",
+          "country/SEN",
+          "country/SHN",
+          "country/SLE",
+          "country/SOM",
+          "country/SSD",
+          "country/STP",
+          "country/SWZ",
+          "country/SYC",
+          "country/TCD",
+          "country/TGO",
+          "country/TUN",
+          "country/TZA",
+          "country/UGA",
+          "country/ZAF",
+          "country/ZMB",
+          "country/ZWE"
+        ],
+        "ranked_abs": [
+          "country/SYC"
+        ],
+        "ranked_pct": [
           "country/SYC"
         ]
       }
@@ -534,1090 +733,246 @@
             "chart_type": "",
             "class": 0,
             "description": "",
-            "include_percapita": false,
+            "growth_direction": 0,
+            "growth_ranking_type": "abs",
+            "include_percapita": true,
             "place_type": "Country",
             "ranking_types": [
               1
             ],
-            "set_place_override_for_line": true,
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/MLI",
-              "name": "Mali",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/SSD",
-              "name": "South Sudan",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
+          "chart_type": 7,
           "event": null,
           "places": [
             {
               "dcid": "country/DZA",
               "name": "Algeria",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/MWI",
-              "name": "Malawi",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/LBY",
               "name": "Libya",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/ERI",
-              "name": "Eritrea",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/GMB",
-              "name": "Gambia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/SLE",
-              "name": "Sierra Leone",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/MAR",
               "name": "Morocco",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
+            {
+              "dcid": "country/TUN",
+              "name": "Tunisia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/ERI",
+              "name": "Eritrea",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MLI",
+              "name": "Mali",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MWI",
+              "name": "Malawi",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SEN",
+              "name": "Senegal",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            },
             {
               "dcid": "country/CMR",
               "name": "Cameroon",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
-              "dcid": "country/TUN",
-              "name": "Tunisia",
+              "dcid": "country/SLE",
+              "name": "Sierra Leone",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
-              "dcid": "country/SEN",
-              "name": "Senegal",
+              "dcid": "country/EGY",
+              "name": "Egypt",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
+            {
+              "dcid": "country/CPV",
+              "name": "Cape Verde",
+              "place_type": "Country"
+            },
             {
               "dcid": "country/NER",
               "name": "Niger",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/BFA",
-              "name": "Burkina Faso",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/AGO",
-              "name": "Angola",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/GIN",
-              "name": "Guinea",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/ETH",
               "name": "Ethiopia",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
+            {
+              "dcid": "country/STP",
+              "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+              "place_type": "Country"
+            },
             {
               "dcid": "country/COM",
               "name": "Comoros",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/GNB",
-              "name": "Guinea-Bissau",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/LBR",
-              "name": "Liberia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/MLI",
-              "name": "Mali",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/GMB",
-              "name": "Gambia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/TUN",
-              "name": "Tunisia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/MWI",
-              "name": "Malawi",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/SEN",
-              "name": "Senegal",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/SSD",
-              "name": "South Sudan",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/NER",
-              "name": "Niger",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/LBR",
-              "name": "Liberia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/BFA",
-              "name": "Burkina Faso",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/LBY",
-              "name": "Libya",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/GIN",
-              "name": "Guinea",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/ERI",
-              "name": "Eritrea",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/ETH",
-              "name": "Ethiopia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/SLE",
-              "name": "Sierra Leone",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/BEN",
-              "name": "Benin",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/MDG",
-              "name": "Madagascar",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/DZA",
-              "name": "Algeria",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/GAB",
-              "name": "Gabon",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/AGO",
               "name": "Angola",
               "place_type": "Country"
+            },
+            {
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
             }
           ],
           "svs": [
-            "LifeExpectancy_Person_Female"
+            "LifeExpectancy_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "pct",
+            "include_percapita": true,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/MLI",
+              "name": "Mali",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/DZA",
+              "name": "Algeria",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MWI",
+              "name": "Malawi",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBY",
+              "name": "Libya",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/ERI",
+              "name": "Eritrea",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SLE",
+              "name": "Sierra Leone",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MAR",
+              "name": "Morocco",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/CMR",
+              "name": "Cameroon",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/TUN",
+              "name": "Tunisia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SEN",
+              "name": "Senegal",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/NER",
+              "name": "Niger",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/AGO",
+              "name": "Angola",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GIN",
+              "name": "Guinea",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/ETH",
+              "name": "Ethiopia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/COM",
+              "name": "Comoros",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GNB",
+              "name": "Guinea-Bissau",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBR",
+              "name": "Liberia",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person"
           ]
         },
         {
@@ -1626,270 +981,114 @@
             "chart_type": "",
             "class": 0,
             "description": "",
-            "include_percapita": false,
+            "growth_direction": 0,
+            "growth_ranking_type": "abs",
+            "include_percapita": true,
             "place_type": "Country",
             "ranking_types": [
               1
             ],
-            "set_place_override_for_line": true,
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/RWA",
-              "name": "Rwanda",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Female"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/MLI",
-              "name": "Mali",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/LBR",
-              "name": "Liberia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/GMB",
-              "name": "Gambia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "country/SSD",
-              "name": "South Sudan",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
+          "chart_type": 7,
           "event": null,
           "places": [
             {
               "dcid": "country/TUN",
               "name": "Tunisia",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
+            {
+              "dcid": "country/MLI",
+              "name": "Mali",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBR",
+              "name": "Liberia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/DZA",
+              "name": "Algeria",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBY",
+              "name": "Libya",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MAR",
+              "name": "Morocco",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SEN",
+              "name": "Senegal",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/ETH",
+              "name": "Ethiopia",
+              "place_type": "Country"
+            },
             {
               "dcid": "country/BFA",
               "name": "Burkina Faso",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
+            {
+              "dcid": "country/ERI",
+              "name": "Eritrea",
+              "place_type": "Country"
+            },
             {
               "dcid": "country/GIN",
               "name": "Guinea",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/NER",
               "name": "Niger",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
+            {
+              "dcid": "country/MDG",
+              "name": "Madagascar",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GAB",
+              "name": "Gabon",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/RWA",
+              "name": "Rwanda",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MWI",
+              "name": "Malawi",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/BEN",
+              "name": "Benin",
+              "place_type": "Country"
+            },
             {
               "dcid": "country/SLE",
               "name": "Sierra Leone",
@@ -1902,302 +1101,118 @@
         },
         {
           "attr": {
-            "block_id": 3,
+            "block_id": 2,
             "chart_type": "",
             "class": 0,
             "description": "",
-            "include_percapita": false,
+            "growth_direction": 0,
+            "growth_ranking_type": "pct",
+            "include_percapita": true,
             "place_type": "Country",
             "ranking_types": [
               1
             ],
-            "set_place_override_for_line": true,
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 0,
+          "chart_type": 7,
           "event": null,
           "places": [
+            {
+              "dcid": "country/MLI",
+              "name": "Mali",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBR",
+              "name": "Liberia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/TUN",
+              "name": "Tunisia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GIN",
+              "name": "Guinea",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/NER",
+              "name": "Niger",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SLE",
+              "name": "Sierra Leone",
+              "place_type": "Country"
+            },
             {
               "dcid": "country/SEN",
               "name": "Senegal",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/ETH",
               "name": "Ethiopia",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/ERI",
               "name": "Eritrea",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/LBY",
               "name": "Libya",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/GAB",
               "name": "Gabon",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/MDG",
               "name": "Madagascar",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/DZA",
               "name": "Algeria",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/MWI",
               "name": "Malawi",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/GNQ",
               "name": "Equatorial Guinea",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/BEN",
               "name": "Benin",
               "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "LifeExpectancy_Person_Male"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 3,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "set_place_override_for_line": true,
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
+            },
             {
               "dcid": "country/RWA",
               "name": "Rwanda",
@@ -2206,6 +1221,254 @@
           ],
           "svs": [
             "LifeExpectancy_Person_Male"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "abs",
+            "include_percapita": true,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/TUN",
+              "name": "Tunisia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBY",
+              "name": "Libya",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/DZA",
+              "name": "Algeria",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SEN",
+              "name": "Senegal",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MLI",
+              "name": "Mali",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MWI",
+              "name": "Malawi",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/ETH",
+              "name": "Ethiopia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/ERI",
+              "name": "Eritrea",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBR",
+              "name": "Liberia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MAR",
+              "name": "Morocco",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/NER",
+              "name": "Niger",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MDG",
+              "name": "Madagascar",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GAB",
+              "name": "Gabon",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/RWA",
+              "name": "Rwanda",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/CPV",
+              "name": "Cape Verde",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GIN",
+              "name": "Guinea",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/BEN",
+              "name": "Benin",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person_Female"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "pct",
+            "include_percapita": true,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/MLI",
+              "name": "Mali",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/TUN",
+              "name": "Tunisia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MWI",
+              "name": "Malawi",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SEN",
+              "name": "Senegal",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/NER",
+              "name": "Niger",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBR",
+              "name": "Liberia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/LBY",
+              "name": "Libya",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GIN",
+              "name": "Guinea",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/ERI",
+              "name": "Eritrea",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/ETH",
+              "name": "Ethiopia",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/SLE",
+              "name": "Sierra Leone",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/BEN",
+              "name": "Benin",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/MDG",
+              "name": "Madagascar",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/DZA",
+              "name": "Algeria",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/GAB",
+              "name": "Gabon",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/AGO",
+              "name": "Angola",
+              "place_type": "Country"
+            },
+            {
+              "dcid": "country/RWA",
+              "name": "Rwanda",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person_Female"
           ]
         },
         {
@@ -2214,16 +1477,46 @@
             "chart_type": "",
             "class": 0,
             "description": "",
-            "include_percapita": false,
+            "growth_direction": 0,
+            "growth_ranking_type": "abs",
+            "include_percapita": true,
             "place_type": "Country",
             "ranking_types": [
               1
             ],
-            "set_place_override_for_line": true,
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 0,
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/SYC",
+              "name": "Seychelles",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Death_AsAFractionOfCount_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "pct",
+            "include_percapita": true,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 7,
           "event": null,
           "places": [
             {
@@ -2237,12 +1530,14 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "LifeExpectancy_Person",
-        "LifeExpectancy_Person_Female",
         "LifeExpectancy_Person_Male",
+        "LifeExpectancy_Person_Female",
         "Count_Death_AsAFractionOfCount_Person",
-        "Count_Person_80OrMoreYears"
+        "Median_Age_Person",
+        "Count_Death"
       ]
     },
     {
@@ -2297,6 +1592,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Count_CriminalActivities_LarcenyTheft"
       ]
@@ -2353,6 +1649,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": []
     },
     {
@@ -2396,6 +1693,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "dc/topic/WorkCommute"
       ]
@@ -2577,6 +1875,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Percent_Person_WithAsthma",
         "Percent_Person_Children_WithAsthma",
@@ -2691,6 +1990,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Count_Student",
         "Count_Teacher",
@@ -2706,96 +2006,96 @@
   "places_detected": [
     "africa"
   ],
+  "places_resolved": "(name: Africa, dcid: africa); ",
   "query_with_places_removed": "what countries had the greatest increase in life expectancy",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.857268214225769,
-      0.7228897213935852,
-      0.7205426096916199,
-      0.6031816005706787,
-      0.5101684331893921,
-      0.49368366599082947
+      1.0000001192092896,
+      0.8181013464927673,
+      0.8119912147521973,
+      0.5961613059043884,
+      0.5053414106369019,
+      0.505317211151123
     ],
     "SV": [
       "LifeExpectancy_Person",
-      "LifeExpectancy_Person_Female",
       "LifeExpectancy_Person_Male",
+      "LifeExpectancy_Person_Female",
       "Count_Death_AsAFractionOfCount_Person",
-      "Count_Person_80OrMoreYears",
-      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+      "Median_Age_Person",
+      "Count_Death"
     ],
     "SV_to_Sentences": {
-      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
-        "Infant Mortality Rate (0.49368366599082947)"
+      "Count_Death": [
+        "Count of Mortality Event (0.505317211151123)"
       ],
       "Count_Death_AsAFractionOfCount_Person": [
-        "Mortality rate (0.6031816005706787)",
-        "Death rate (0.5205166339874268)"
-      ],
-      "Count_Person_80OrMoreYears": [
-        "Number of people aged 80 or more years (0.5101684331893921)"
+        "Mortality rate (0.5961613059043884)",
+        "Death rate (0.5275478959083557)"
       ],
       "LifeExpectancy_Person": [
-        "Life Expectancy (0.857268214225769)",
-        "Average life expectancy of the population (0.75165194272995)",
-        "Mean lifespan of the population (0.6796324849128723)",
-        "Typical lifespan of the population (0.6585522890090942)",
-        "Average lifespan of the population (0.6420118808746338)",
-        "Average lifespan of a population (0.6229072213172913)",
-        "Average Lifespan of a Population (0.6229072213172913)",
-        "Median lifespan of the population (0.5805346965789795)"
+        "Life Expectancy (1.0000001192092896)",
+        "Average life expectancy of the population (0.8563631772994995)",
+        "Typical lifespan of the population (0.7687246203422546)",
+        "Mean lifespan of the population (0.766823947429657)",
+        "Average lifespan of the population (0.73939448595047)",
+        "Average Lifespan of a Population (0.7195130586624146)",
+        "Average lifespan of a population (0.7195130586624146)",
+        "Median lifespan of the population (0.6611573696136475)"
       ],
       "LifeExpectancy_Person_Female": [
-        "Female life expectancy (0.7228897213935852)",
-        "Female Life Expectancy (0.7228897213935852)",
-        "Life expectancy at birth, female (years) (0.7027673721313477)",
-        "Life expectancy of females at birth (0.6134667992591858)"
+        "Life expectancy at birth, female (years) (0.8119912147521973)",
+        "Female life expectancy (0.8110575079917908)",
+        "Female Life Expectancy (0.8110575079917908)",
+        "Life expectancy of females at birth (0.6985268592834473)"
       ],
       "LifeExpectancy_Person_Male": [
-        "Life Expectancy: Male (0.7205426096916199)",
-        "Male life expectancy (0.6935480833053589)",
-        "Male Life Expectancy (0.6935480833053589)",
-        "Life Expectancy of Males at birth (0.6002121567726135)"
+        "Life Expectancy: Male (0.8181013464927673)",
+        "Male life expectancy (0.7905128598213196)",
+        "Male Life Expectancy (0.7905128598213196)",
+        "Life Expectancy of Males at birth (0.6862163543701172)"
+      ],
+      "Median_Age_Person": [
+        "Mean age of the population (0.5053414106369019)"
       ]
     }
   },
   "svs_to_sentences": {
-    "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
-      "Infant Mortality Rate (0.49368366599082947)"
+    "Count_Death": [
+      "Count of Mortality Event (0.505317211151123)"
     ],
     "Count_Death_AsAFractionOfCount_Person": [
-      "Mortality rate (0.6031816005706787)",
-      "Death rate (0.5205166339874268)"
-    ],
-    "Count_Person_80OrMoreYears": [
-      "Number of people aged 80 or more years (0.5101684331893921)"
+      "Mortality rate (0.5961613059043884)",
+      "Death rate (0.5275478959083557)"
     ],
     "LifeExpectancy_Person": [
-      "Life Expectancy (0.857268214225769)",
-      "Average life expectancy of the population (0.75165194272995)",
-      "Mean lifespan of the population (0.6796324849128723)",
-      "Typical lifespan of the population (0.6585522890090942)",
-      "Average lifespan of the population (0.6420118808746338)",
-      "Average lifespan of a population (0.6229072213172913)",
-      "Average Lifespan of a Population (0.6229072213172913)",
-      "Median lifespan of the population (0.5805346965789795)"
+      "Life Expectancy (1.0000001192092896)",
+      "Average life expectancy of the population (0.8563631772994995)",
+      "Typical lifespan of the population (0.7687246203422546)",
+      "Mean lifespan of the population (0.766823947429657)",
+      "Average lifespan of the population (0.73939448595047)",
+      "Average Lifespan of a Population (0.7195130586624146)",
+      "Average lifespan of a population (0.7195130586624146)",
+      "Median lifespan of the population (0.6611573696136475)"
     ],
     "LifeExpectancy_Person_Female": [
-      "Female life expectancy (0.7228897213935852)",
-      "Female Life Expectancy (0.7228897213935852)",
-      "Life expectancy at birth, female (years) (0.7027673721313477)",
-      "Life expectancy of females at birth (0.6134667992591858)"
+      "Life expectancy at birth, female (years) (0.8119912147521973)",
+      "Female life expectancy (0.8110575079917908)",
+      "Female Life Expectancy (0.8110575079917908)",
+      "Life expectancy of females at birth (0.6985268592834473)"
     ],
     "LifeExpectancy_Person_Male": [
-      "Life Expectancy: Male (0.7205426096916199)",
-      "Male life expectancy (0.6935480833053589)",
-      "Male Life Expectancy (0.6935480833053589)",
-      "Life Expectancy of Males at birth (0.6002121567726135)"
+      "Life Expectancy: Male (0.8181013464927673)",
+      "Male life expectancy (0.7905128598213196)",
+      "Male Life Expectancy (0.7905128598213196)",
+      "Life Expectancy of Males at birth (0.6862163543701172)"
+    ],
+    "Median_Age_Person": [
+      "Mean age of the population (0.5053414106369019)"
     ]
   },
-  "temporal_classification": "<None>",
   "time_delta_classification": "[<TimeDeltaType.INCREASE: 0>]"
 }

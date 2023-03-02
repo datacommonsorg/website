@@ -161,7 +161,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>
-              Main Place Inferred: {debugInfo.mainPlaceName} (dcid:{" "}
+              Main Place: {debugInfo.mainPlaceName} (dcid:{" "}
               {debugInfo.mainPlaceDCID})
             </Col>
           </Row>

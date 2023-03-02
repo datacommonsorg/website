@@ -110,12 +110,27 @@ def _remove_places(query, places_str_found: List[str]):
   return ' '.join(query.split())
 
 
-def _get_place_from_dcid(place_dcid: str) -> Place:
-  place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
-  place_type = _get_preferred_type(place_types)
-  place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
+def _get_place_from_dcids(place_dcids: List[str]) -> List[Place]:
+  places = []
+  place_types_dict = dc.property_values(place_dcids, 'typeOf')
+  place_names_dict = dc.property_values(place_dcids, 'name')
 
-  return Place(dcid=place_dcid, name=place_name, place_type=place_type)
+  for p_dcid, p_types in place_types_dict.items():
+    p_types = place_types_dict[p_dcid]
+    p_type = _get_preferred_type(p_types)
+    p_name = ""
+    if p_dcid in place_names_dict:
+      p_name = place_names_dict[p_dcid][0]
+
+    if not p_name:
+      # This should not really be happening. But don't want to stop execution, so logging it.
+      logging.info(
+          f"Place DCID ({p_dcid}) did not correspond to a place name (using empty name)."
+      )
+
+    places.append(Place(dcid=p_dcid, name=p_name, place_type=p_type))
+
+  return places
 
 
 def _infer_place_dcids(places_str_found: List[str]) -> List[str]:
@@ -130,10 +145,10 @@ def _infer_place_dcids(places_str_found: List[str]) -> List[str]:
   for p_str in places_str_found:
     place_dcid = ""
     # If this is a special place, return the known DCID.
-    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API:
-      place_dcid = constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[p_str.lower()]
+    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API:
+      place_dcid = constants.OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API[p_str.lower()]
       logging.info(
-          f"{p_str} was found in OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API. Recording its DICD {place_dcid} without querying Maps API."
+          f"{p_str} was found in OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API. Recording its DCID {place_dcid} without querying Maps API."
       )
       place_dcids.append(place_dcid)
       continue
@@ -242,7 +257,7 @@ def _result_with_debug_info(data_dict: Dict, status: str,
 
   places_found_formatted = ""
   for place in query_detection.places_detected.places_found:
-    places_found_formatted += f" (name: {place.name}, dcid: {place.dcid}); "
+    places_found_formatted += f"(name: {place.name}, dcid: {place.dcid}); "
 
   debug_info.update({
       'places_detected':
@@ -288,9 +303,8 @@ def _detection(orig_query, cleaned_query) -> Detection:
     place_dcids = _infer_place_dcids(places_str_found)
     logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
-  for place_dcid in place_dcids:
-    # Set the Place objects (dcid, name, type).
-    resolved_places.append(_get_place_from_dcid(place_dcid))
+  if place_dcids:
+    resolved_places = _get_place_from_dcids(place_dcids)
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 

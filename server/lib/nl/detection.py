@@ -33,6 +33,8 @@ class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
   query_without_place_substr: str
+  # `query_places_mentioned` is a list of words in the query
+  # identified as possible places.
   query_places_mentioned: List[str]
   places_found: List[Place]
   main_place: Place

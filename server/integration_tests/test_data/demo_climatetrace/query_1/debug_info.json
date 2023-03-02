@@ -1,0 +1,391 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.COUNTRY",
+  "correlation_classification": "<None>",
+  "counters": {
+    "child_places_result": [
+      {
+        "place": "Earth",
+        "result": [
+          "country/ABW",
+          "country/AFG",
+          "country/AGO",
+          "country/AIA",
+          "country/ALB",
+          "country/AND",
+          "country/ANT",
+          "country/ARE",
+          "country/ARG",
+          "country/ARM",
+          "country/ASM",
+          "country/ATA",
+          "country/ATB",
+          "country/ATF",
+          "country/ATG",
+          "country/ATN",
+          "country/AUS",
+          "country/AUT",
+          "country/AZE",
+          "country/BDI"
+        ],
+        "type": "Country"
+      }
+    ],
+    "failed_existence_check": [
+      {
+        "places": [
+          "country/ABW",
+          "country/AFG",
+          "country/AGO",
+          "country/AIA",
+          "country/ALB",
+          "country/AND",
+          "country/ANT",
+          "country/ARE",
+          "country/ARG",
+          "country/ARM",
+          "country/ASM",
+          "country/ATA",
+          "country/ATB",
+          "country/ATF",
+          "country/ATG",
+          "country/ATN",
+          "country/AUS",
+          "country/AUT",
+          "country/AZE",
+          "country/BDI"
+        ],
+        "svs": [
+          "Annual_Emissions_GreenhouseGas_NonBiogenic"
+        ]
+      },
+      {
+        "places": [
+          "country/ABW",
+          "country/AFG",
+          "country/AGO",
+          "country/AIA",
+          "country/ALB",
+          "country/AND",
+          "country/ANT",
+          "country/ARE",
+          "country/ARG",
+          "country/ARM",
+          "country/ASM",
+          "country/ATA",
+          "country/ATB",
+          "country/ATF",
+          "country/ATG",
+          "country/ATN",
+          "country/AUS",
+          "country/AUT",
+          "country/AZE",
+          "country/BDI"
+        ],
+        "svs": [
+          "Annual_Emissions_CarbonDioxide_NonBiogenic"
+        ]
+      },
+      {
+        "places": [
+          "country/ABW",
+          "country/AFG",
+          "country/AGO",
+          "country/AIA",
+          "country/ALB",
+          "country/AND",
+          "country/ANT",
+          "country/ARE",
+          "country/ARG",
+          "country/ARM",
+          "country/ASM",
+          "country/ATA",
+          "country/ATB",
+          "country/ATF",
+          "country/ATG",
+          "country/ATN",
+          "country/AUS",
+          "country/AUT",
+          "country/AZE",
+          "country/BDI"
+        ],
+        "svs": [
+          "Annual_Emissions_Methane_NonBiogenic"
+        ]
+      }
+    ],
+    "filtered_svs": [
+      "Annual_Emissions_GreenhouseGas",
+      "dc/topic/GreenhouseGasEmissionsBySource",
+      "Annual_Emissions_GreenhouseGas_NonBiogenic",
+      "dc/topic/CarbonDioxideEmissionsBySource",
+      "dc/topic/PowerEmissionsByGas",
+      "dc/topic/AgricultureEmissionsByGas",
+      "Annual_Emissions_CarbonDioxide_NonBiogenic",
+      "dc/topic/ManufacturingEmissionsByGas",
+      "Annual_Emissions_Methane_NonBiogenic"
+    ],
+    "num_chart_candidates": 2,
+    "processed_fulfillment_types": [
+      "ranking_across_places"
+    ],
+    "topics_processed": [
+      {
+        "dc/topic/GreenhouseGasEmissionsBySource": {
+          "peer_groups": [
+            [
+              "Greenhouse Gas Emissions by Source",
+              "Breakdown of annual emissions of all greenhouse gases by emission sources (measured in tonnes of CO\u2082 equivalents).",
+              [
+                "Annual_Emissions_GreenhouseGas_Agriculture",
+                "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+                "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
+                "Annual_Emissions_GreenhouseGas_Manufacturing",
+                "Annual_Emissions_GreenhouseGas_MineralExtraction",
+                "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
+                "Annual_Emissions_GreenhouseGas_Transportation",
+                "Annual_Emissions_GreenhouseGas_WasteManagement"
+              ]
+            ]
+          ],
+          "svs": []
+        }
+      },
+      {
+        "dc/topic/CarbonDioxideEmissionsBySource": {
+          "peer_groups": [],
+          "svs": []
+        }
+      },
+      {
+        "dc/topic/PowerEmissionsByGas": {
+          "peer_groups": [],
+          "svs": []
+        }
+      },
+      {
+        "dc/topic/AgricultureEmissionsByGas": {
+          "peer_groups": [],
+          "svs": []
+        }
+      },
+      {
+        "dc/topic/ManufacturingEmissionsByGas": {
+          "peer_groups": [],
+          "svs": []
+        }
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "Country",
+          "type": 4
+        }
+      ],
+      "places": [],
+      "query": "Which countries emit the most greenhouse gases?",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "Earth",
+              "name": "Earth",
+              "place_type": "Place"
+            }
+          ],
+          "svs": [
+            "Annual_Emissions_GreenhouseGas"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/GreenhouseGasEmissionsBySource",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "Earth",
+              "name": "Earth",
+              "place_type": "Place"
+            }
+          ],
+          "svs": [
+            "Annual_Emissions_GreenhouseGas_Agriculture",
+            "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+            "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
+            "Annual_Emissions_GreenhouseGas_Manufacturing",
+            "Annual_Emissions_GreenhouseGas_MineralExtraction",
+            "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
+            "Annual_Emissions_GreenhouseGas_Transportation",
+            "Annual_Emissions_GreenhouseGas_WasteManagement"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Annual_Emissions_GreenhouseGas",
+        "dc/topic/GreenhouseGasEmissionsBySource",
+        "Annual_Emissions_GreenhouseGas_NonBiogenic",
+        "dc/topic/CarbonDioxideEmissionsBySource",
+        "dc/topic/PowerEmissionsByGas",
+        "dc/topic/AgricultureEmissionsByGas",
+        "Annual_Emissions_CarbonDioxide_NonBiogenic",
+        "dc/topic/ManufacturingEmissionsByGas",
+        "Annual_Emissions_Methane_NonBiogenic"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "original_query": "Which countries emit the most greenhouse gases?",
+  "overview_classification": "<None>",
+  "places_detected": [],
+  "places_resolved": "",
+  "query_with_places_removed": "Which countries emit the most greenhouse gases",
+  "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.8358153700828552,
+      0.7782641649246216,
+      0.6273308396339417,
+      0.6002589464187622,
+      0.5912923216819763,
+      0.535800039768219,
+      0.5346863269805908,
+      0.5228844285011292,
+      0.5113644599914551
+    ],
+    "SV": [
+      "Annual_Emissions_GreenhouseGas",
+      "dc/topic/GreenhouseGasEmissionsBySource",
+      "Annual_Emissions_GreenhouseGas_NonBiogenic",
+      "dc/topic/CarbonDioxideEmissionsBySource",
+      "dc/topic/PowerEmissionsByGas",
+      "dc/topic/AgricultureEmissionsByGas",
+      "Annual_Emissions_CarbonDioxide_NonBiogenic",
+      "dc/topic/ManufacturingEmissionsByGas",
+      "Annual_Emissions_Methane_NonBiogenic"
+    ],
+    "SV_to_Sentences": {
+      "Annual_Emissions_CarbonDioxide_NonBiogenic": [
+        "Annual Emissions of Non-Biogenic Carbon Dioxide (0.5346863269805908)",
+        "Annual emissions of non-biogenic carbon dioxide (0.5346863269805908)"
+      ],
+      "Annual_Emissions_GreenhouseGas": [
+        "emissions from greenhouse gases (0.8358153700828552)",
+        "Greenhouse Gas Emissions (0.8137984871864319)",
+        "ghg emissions (0.5999012589454651)"
+      ],
+      "Annual_Emissions_GreenhouseGas_NonBiogenic": [
+        "Annual emissions of non-biogenic greenhouse gases (0.6273308396339417)",
+        "Annual Emissions of Non-Biogenic Greenhouse Gases (0.6273308396339417)"
+      ],
+      "Annual_Emissions_Methane_NonBiogenic": [
+        "Annual emissions of non-biogenic methane (0.5113644599914551)"
+      ],
+      "dc/topic/AgricultureEmissionsByGas": [
+        "Amount of gases emitted by agricultural sector (0.535800039768219)",
+        "Emissions from agriculture (0.5344696044921875)"
+      ],
+      "dc/topic/CarbonDioxideEmissionsBySource": [
+        "Carbon dioxide emissions by source (0.6002589464187622)",
+        "source of co2 emissions (0.5928410887718201)",
+        "sources of carbon dioxide emissions (0.5649524927139282)",
+        "Breakdown of co2 emissions by source (0.5461017489433289)"
+      ],
+      "dc/topic/GreenhouseGasEmissionsBySource": [
+        "sources of greenhouse gases (0.7782641649246216)",
+        "Greenhouse gas emissions by source (0.7719554305076599)",
+        "Breakdown of greenhouse gas emissions by source (0.7027941942214966)"
+      ],
+      "dc/topic/ManufacturingEmissionsByGas": [
+        "Emissions from manufacturing (0.5228844285011292)"
+      ],
+      "dc/topic/PowerEmissionsByGas": [
+        "Emissions from power (0.5912923216819763)",
+        "Amount of gases emitted by the power sector (0.5221654176712036)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Annual_Emissions_CarbonDioxide_NonBiogenic": [
+      "Annual Emissions of Non-Biogenic Carbon Dioxide (0.5346863269805908)",
+      "Annual emissions of non-biogenic carbon dioxide (0.5346863269805908)"
+    ],
+    "Annual_Emissions_GreenhouseGas": [
+      "emissions from greenhouse gases (0.8358153700828552)",
+      "Greenhouse Gas Emissions (0.8137984871864319)",
+      "ghg emissions (0.5999012589454651)"
+    ],
+    "Annual_Emissions_GreenhouseGas_NonBiogenic": [
+      "Annual emissions of non-biogenic greenhouse gases (0.6273308396339417)",
+      "Annual Emissions of Non-Biogenic Greenhouse Gases (0.6273308396339417)"
+    ],
+    "Annual_Emissions_Methane_NonBiogenic": [
+      "Annual emissions of non-biogenic methane (0.5113644599914551)"
+    ],
+    "dc/topic/AgricultureEmissionsByGas": [
+      "Amount of gases emitted by agricultural sector (0.535800039768219)",
+      "Emissions from agriculture (0.5344696044921875)"
+    ],
+    "dc/topic/CarbonDioxideEmissionsBySource": [
+      "Carbon dioxide emissions by source (0.6002589464187622)",
+      "source of co2 emissions (0.5928410887718201)",
+      "sources of carbon dioxide emissions (0.5649524927139282)",
+      "Breakdown of co2 emissions by source (0.5461017489433289)"
+    ],
+    "dc/topic/GreenhouseGasEmissionsBySource": [
+      "sources of greenhouse gases (0.7782641649246216)",
+      "Greenhouse gas emissions by source (0.7719554305076599)",
+      "Breakdown of greenhouse gas emissions by source (0.7027941942214966)"
+    ],
+    "dc/topic/ManufacturingEmissionsByGas": [
+      "Emissions from manufacturing (0.5228844285011292)"
+    ],
+    "dc/topic/PowerEmissionsByGas": [
+      "Emissions from power (0.5912923216819763)",
+      "Amount of gases emitted by the power sector (0.5221654176712036)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}
