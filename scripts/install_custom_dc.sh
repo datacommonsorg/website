@@ -121,10 +121,6 @@ terraform init \
   -backend-config="bucket=$TF_STATE_BUCKET" \
   -backend-config="prefix=website_v1"
 
-gcloud container clusters get-credentials $(terraform output --raw cluster_name) \
-  --region  $(terraform output --raw cluster_region) \
-  --project $PROJECT_ID || true
-
 gsutil cp \
   gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_GITHASH.pb \
   $WEBSITE_ROOT/deploy/terraform-datacommons-website/modules/esp/mixer-grpc.$MIXER_GITHASH.pb
@@ -136,6 +132,52 @@ terraform apply \
   -var="website_githash=$WEBSITE_GITHASH" \
   -var="mixer_githash=$MIXER_GITHASH" \
   -auto-approve
+
+# Install k8s resources using helm.
+CLUSTER_LOCATION=$(terraform output --raw cluster_location)
+if [[ $CLUSTER_LOCATION =~ ^[a-z]+-[a-z0-9]+$ ]]; then
+  REGION=$CLUSTER_LOCATION
+else
+  ZONE=$CLUSTER_LOCATION
+fi
+gcloud container clusters get-credentials $(terraform output --raw cluster_name) \
+  ${REGION:+--region $REGION} ${ZONE:+--zone $ZONE}  \
+  --project $PROJECT_ID || true
+
+cd $WEBSITE_ROOT
+
+if [[ -n "$WEBSITE_IMAGE_PROJECT_ID" ]]; then
+  echo "WEBSITE_IMAGE_PROJECT_ID is not set, using default: datcom-ci"
+  WEBSITE_IMAGE_PROJECT_ID="datcom-ci"
+fi
+
+if [[ -z "$MIXER_IMAGE_PROJECT_ID" ]]; then
+  echo "MIXER_IMAGE_PROJECT_ID is not set, using default: datcom-ci"
+  MIXER_IMAGE_PROJECT_ID="datcom-ci"
+fi
+
+helm upgrade --install \
+  dc-website deploy/helm_charts/dc_website \
+  --atomic \
+  --debug \
+  --timeout 10m \
+  --set resource_suffix=${RESOURCE_SUFFIX:-""} \
+  --set website.image.project="$WEBSITE_IMAGE_PROJECT_ID" \
+  --set website.image.tag="$WEBSITE_GITHASH" \
+  --set website.githash="$WEBSITE_GITHASH" \
+  --set mixer.image.project="$MIXER_IMAGE_PROJECT_ID" \
+  --set mixer.image.tag="$MIXER_GITHASH" \
+  --set mixer.githash="$MIXER_GITHASH" \
+  --set website.gcpProjectID="$PROJECT_ID" \
+  --set website.domain="$DOMAIN" \
+  --set website.secretGCPProjectID="$PROJECT_ID" \
+  --set mixer.gcpProjectID="$PROJECT_ID" \
+  --set mixer.serviceName="website-esp.endpoints.$PROJECT_ID.cloud.goog" \
+  --set ingress.enabled=true \
+  --set-file mixer.schemaConfigs."base\.mcf"=mixer/deploy/mapping/base.mcf \
+  --set-file mixer.schemaConfigs."encode\.mcf"=mixer/deploy/mapping/encode.mcf \
+  --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
+  --set-file kgStoreConfig.baseBigtableInfo=mixer/deploy/storage/base_bigtable_info.yaml
 
 # Run the BT automation Terraform script to set up BT loader.
 cd $ROOT

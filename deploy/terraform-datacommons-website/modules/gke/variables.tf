@@ -17,12 +17,10 @@ variable "project_id" {
   description = "GCP project id."
 }
 
-variable "region" {
+variable "location" {
   type        = string
-  description = "Region to create the GKE cluster in. Ex: us-central1"
-  default     = "us-central1"
+  description = "If location is a region like 'us-west1', then create a regional cluster. Otherwise create a zonal cluster."
 }
-
 
 variable "cluster_name_prefix" {
   type        = string
