@@ -42,7 +42,7 @@ import server.lib.nl.fulfillment.context as context
 import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
-from server.lib.util import get_disaster_dashboard_config
+from server.lib.util import get_nl_disaster_config
 import server.services.bigtable as bt
 import server.services.datacommons as dc
 
@@ -383,13 +383,10 @@ def data():
 
   # TODO: Switch to NL-specific event configs instead of relying
   # on disaster dashboard's.
-  disaster_configs = current_app.config['DISASTER_DASHBOARD_CONFIG']
+  disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
-    disaster_configs = get_disaster_dashboard_config()
-  disaster_config = None
-  if disaster_configs:
-    disaster_config = disaster_configs[0]
+    disaster_config = get_nl_disaster_config()
   else:
     logging.error('Unable to load event configs!')
 

@@ -96,10 +96,17 @@ def get_topic_page_config():
   return topic_configs
 
 
-# Returns list of disaster dashboard configs loaded as SubjectPageConfig protos
+# Returns disaster dashboard config loaded as SubjectPageConfig protos
 def get_disaster_dashboard_config():
-  filepath = os.path.join(get_repo_root(), "config",
-                          "disaster_dashboard", "dashboard.textproto")
+  filepath = os.path.join(get_repo_root(), "config", "disaster_dashboard",
+                          "dashboard.textproto")
+  return get_subject_page_config(filepath)
+
+
+# Returns disaster dashboard config for NL
+def get_nl_disaster_config():
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "disasters.textproto")
   return get_subject_page_config(filepath)
 
 

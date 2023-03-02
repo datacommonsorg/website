@@ -35,6 +35,21 @@ metadata {
     value: "AdministrativeArea2"
   }
   event_type_spec {
+    key: "earthquake"
+    value {
+      id: "earthquake"
+      name: "Earthquake"
+      event_type_dcids: "EarthquakeEvent"
+      color: "#930000"
+      default_severity_filter: {
+        prop: 'magnitude'
+        display_name: 'Magnitude'
+        upper_limit: 10
+        lower_limit: 6
+      }
+    }
+  }
+  event_type_spec {
     key: "flood"
     value {
       id: "flood"

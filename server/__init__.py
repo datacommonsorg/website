@@ -85,7 +85,7 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_stanford_dc(app, is_local):
+def register_routes_disasters(app):
   # Install blueprints specific to Stanford DC
   from server.routes import disasters
   from server.routes import event
@@ -215,12 +215,12 @@ def create_app():
     register_routes_custom_dc(app)
   if (cfg.ENV == 'stanford' or os.environ.get('ENABLE_MODEL') == 'true' or
       cfg.LOCAL and not cfg.LITE):
-    register_routes_stanford_dc(app, cfg.LOCAL)
+    register_routes_disasters(app)
 
   if cfg.TEST or cfg.INTEGRATION:
     # disaster dashboard tests require stanford's routes to be registered.
     register_routes_base_dc(app)
-    register_routes_stanford_dc(app, cfg.LOCAL)
+    register_routes_disasters(app)
   else:
     register_routes_base_dc(app)
 
@@ -301,6 +301,8 @@ def create_app():
 
     nl_model = nl.Model()
     app.config['NL_MODEL'] = nl_model
+    # This also requires disaster and event routes.
+    app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
 
   if not cfg.TEST:
     urls = get_health_check_urls()
