@@ -18,7 +18,7 @@
  * Component for rendering a histogram type tile.
  */
 
-import _ from "lodash";
+import _, { property } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { DataPoint } from "../../chart/base";
@@ -145,11 +145,14 @@ function getMonthsArray(dateSetting: string): string[] {
  * @param disasterEventPoints event data points to bin
  * @param dateSetting user selected date setting
  * @param format temporal granularity to use. One of "YYYY-MM" or "YYYY-MM-DD"
+ * @param property the property to bin values for. Defaults to aggregating
+ *                 counts if property is undefined.
  */
 function binData(
   disasterEventPoints: DisasterEventPoint[],
   dateSetting: string,
-  format: string
+  format: string,
+  property?: string
 ): DataPoint[] {
   if (_.isEmpty(disasterEventPoints)) {
     return [];
@@ -170,11 +173,19 @@ function binData(
   for (const event of disasterEventPoints) {
     // Get start time in the temporal granularity desired
     const eventDate = event.startDate.slice(0, format.length);
+    const eventValue = property ? event.displayProps[property] : 1;
+
+    if (property == "area") {
+      console.log("new event");
+      console.log(property);
+      console.log(event.displayProps);
+      console.log(eventValue);
+    }
 
     // Increment count in corresponding bin if event has at least
     // that temporal granularity
     if (bins.has(eventDate) && eventDate.length == format.length) {
-      bins.set(eventDate, bins.get(eventDate) + 1);
+      bins.set(eventDate, bins.get(eventDate) + eventValue);
     } else {
       console.log(`Skipped event ${event} that started on ${eventDate}`);
     }
@@ -219,7 +230,8 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
       processData(
         props.disasterEventData.eventPoints,
         props.selectedDate,
-        setHistogramData
+        setHistogramData,
+        props.property
       );
     }
   }, [props]);
@@ -248,8 +260,6 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
 
   // TODO (juliawu): add "sorry, we don't have data" message if data is
   //                 present at 6 months but not 30 days
-  console.log("property is:");
-  console.log(props.property);
   return (
     <>
       {shouldShowHistogram(histogramData) && (
@@ -272,7 +282,8 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
   function processData(
     disasterEventPoints: DisasterEventPoint[],
     dateSetting: string,
-    setHistogramData: (data: DataPoint[]) => void
+    setHistogramData: (data: DataPoint[]) => void,
+    property?: string
   ): void {
     let histogramData: DataPoint[] = [];
     // Try binning by day if dateSetting is "last 30 days" or a month
@@ -280,12 +291,22 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
       dateSetting == DATE_OPTION_30D_KEY ||
       dateSetting.length == MONTH_FORMAT.length
     ) {
-      histogramData = binData(disasterEventPoints, dateSetting, DAY_FORMAT);
+      histogramData = binData(
+        disasterEventPoints,
+        dateSetting,
+        DAY_FORMAT,
+        property
+      );
     }
     // Bin by month for all other cases
     // Also fallback to monthly binning if daily binning returns no data
     if (_.isEmpty(histogramData)) {
-      histogramData = binData(disasterEventPoints, dateSetting, MONTH_FORMAT);
+      histogramData = binData(
+        disasterEventPoints,
+        dateSetting,
+        MONTH_FORMAT,
+        property
+      );
     }
     setHistogramData(histogramData);
   }

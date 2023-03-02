@@ -70,6 +70,11 @@ metadata {
       end_date_prop: "endDate"
       end_date_prop: "containmentDate"
       end_date_prop: "controlledDate"
+      display_prop: {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
     }
   }
   event_type_spec {
