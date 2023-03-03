@@ -68,7 +68,9 @@ export function getFeedbackLink(query: string, debugData: any): string {
       correlationClassification: debugData["correlation_classification"],
       eventClassification: debugData["event_classification"],
       svScores,
-      processedFulfillmentTypes: debugData["counters"] ? debugData["counters"]["processed_fulfillment_types"] : []
+      processedFulfillmentTypes: debugData["counters"]
+        ? debugData["counters"]["processed_fulfillment_types"]
+        : [],
     };
     if (Array.isArray(debugData["data_spec"])) {
       queryChain = debugData["data_spec"].map(
@@ -96,7 +98,9 @@ export function getFeedbackLink(query: string, debugData: any): string {
       // Values need to be encoded here to differentiate between a url value and
       // part of the prefill link URL. e.g., non encoded "&" is processed by
       // forms as joining two separate prefill values
-      link += `${prefix}${encodeURI(value).replaceAll("&", "%26").replaceAll("#", "%23")}`;
+      link += `${prefix}${encodeURI(value)
+        .replaceAll("&", "%26")
+        .replaceAll("#", "%23")}`;
     }
   });
   return link;
