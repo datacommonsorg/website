@@ -144,6 +144,10 @@ class IntegrationTest(LiveServerTestCase):
             # We have no crime at county-level in CA, so we should fall back as:
             # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
             'counties in California with highest crime',
+            # We have no obesity data at State-level.  And since an SV was
+            # provided, we would not fallback to previous query (past version
+            # of code would have again returned crime in california).
+            'obesity in California',
         ])
 
   def test_demo_climatetrace(self):
