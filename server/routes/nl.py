@@ -63,16 +63,14 @@ def _maps_place(place_str):
     logging.info(f"place_str replaced with: {place_str}")
 
   api_key = current_app.config["MAPS_API_KEY"]
-  # Note on 02/15/2023: Maps textsearch API has deprecated the use of
-  # `input` as a url param and instead wants `query`.
-  # Reference: https://developers.google.com/maps/deprecations#unsupported-place-search-deprecation
-  url_formatted = f"{constants.MAPS_API}query={place_str}&key={api_key}"
+  # Note on 03/01/2023: switching to use the Maps Autocomplete API.
+  url_formatted = f"{constants.MAPS_API}input={place_str}&key={api_key}&types={constants.AUTOCOMPLETE_MAPS_API_TYPES_FILTER}"
   r = requests.get(url_formatted)
   resp = r.json()
 
-  # Return the first "political" place found.
-  if "results" in resp:
-    for res in resp["results"]:
+  # Return the first place found which has a type matching MAPS_GEO_TYPES.
+  if "predictions" in resp:
+    for res in resp["predictions"]:
       types_found = set(res["types"])
 
       if constants.MAPS_GEO_TYPES.intersection(types_found):

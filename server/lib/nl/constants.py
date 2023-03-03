@@ -179,6 +179,8 @@ OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
     'sf north bay',
     'sf south bay',
     'sf east bay',
+    # US
+    'united states',  # need this because the word "states" gets replaced.
 ])
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
@@ -209,7 +211,15 @@ for dcid, place_list in SPECIAL_DCIDS_TO_PLACES.items():
   for place in place_list:
     OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API[place] = dcid
 
-MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+# Using the AutoComplete Maps API. The textsearch API is more flaky and returns
+# may unnecessary results, e.g. businesses, which are easier to ignore in the
+# autocomplete API.
+MAPS_API = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
+
+# Source: https://developers.google.com/maps/documentation/places/web-service/autocomplete#types
+# Only one can be selected from Table 3 which is most useful for us: https://developers.google.com/maps/documentation/places/web-service/supported_types#table3
+# TODO: consider having some fallbacks like (cities) if nothing found in (regions).
+AUTOCOMPLETE_MAPS_API_TYPES_FILTER = "(regions)"
 
 # Source: https://developers.google.com/maps/documentation/places/web-service/supported_types#table2
 MAPS_GEO_TYPES = frozenset([
