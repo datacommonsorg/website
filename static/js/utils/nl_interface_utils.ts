@@ -26,6 +26,7 @@ const QUERY_PARAM_PREFIX = "&entry.1322830239=";
 const SOURCE_PARAM_PREFIX = "&entry.1070482700=";
 const VERSION_PARAM_PREFIX = "&entry.1420739572=";
 const QUERY_CHAIN_PARAM_PREFIX = "&entry.1836374054=";
+const DEBUG_INFO_PARAM_PREFIX = "&entry.1280679042=";
 
 export function isNlInterface(): boolean {
   // Returns true if currently on the NL page.
@@ -36,16 +37,56 @@ export function isNlInterface(): boolean {
 /**
  * Get the link to the feedback form for the nl interface
  * @param query the query the user is submitting feedback for
- * @param queryChain the list of queries from the start of the session until
- *                   the current query
+ * @param debugData the debug data from server response
  */
-export function getFeedbackLink(query: string, queryChain: string[]): string {
+export function getFeedbackLink(query: string, debugData: any): string {
+  let debugInfo = {};
+  let queryChain = [];
+  if (debugData) {
+    const svScores = [];
+    if (debugData["sv_matching"]) {
+      const svs = Object.values(debugData["sv_matching"]["SV"]);
+      const scores = Object.values(debugData["sv_matching"]["CosineScore"]);
+      if (svs.length === scores.length) {
+        svs.forEach((sv, i) => {
+          svScores.push({ sv, score: scores[i] });
+        });
+      }
+    }
+    debugInfo = {
+      executionStatus: debugData["status"],
+      placesDetected: debugData["places_detected"],
+      mainPlaceDCID: debugData["main_place_dcid"],
+      mainPlaceName: debugData["main_place_name"],
+      queryForVariableDetection: debugData["query_with_places_removed"],
+      rankingClassification: debugData["ranking_classification"],
+      overviewClassification: debugData["overview_classification"],
+      sizeTypeClassification: debugData["size_type_classification"],
+      timeDeltaClassification: debugData["time_delta_classification"],
+      comparisonClassification: debugData["comparison_classification"],
+      containedInClassification: debugData["contained_in_classification"],
+      correlationClassification: debugData["correlation_classification"],
+      eventClassification: debugData["event_classification"],
+      svScores,
+    };
+    if (Array.isArray(debugData["data_spec"])) {
+      queryChain = debugData["data_spec"].map(
+        (utterance) => utterance["query"] || ""
+      );
+    }
+    queryChain = queryChain.reverse();
+  }
+  const sourceUrl = window.location.toString().split("#")[0];
+  const queryChainUrl = queryChain.length
+    ? `(${sourceUrl}#q=${queryChain.join(";")})`
+    : "";
   const paramMap = {
     [QUERY_PARAM_PREFIX]: query,
-    [SOURCE_PARAM_PREFIX]: window.location.toString(),
+    [SOURCE_PARAM_PREFIX]: sourceUrl,
     [VERSION_PARAM_PREFIX]:
       document.getElementById("metadata").dataset.websiteHash || "",
-    [QUERY_CHAIN_PARAM_PREFIX]: JSON.stringify(queryChain),
+    [QUERY_CHAIN_PARAM_PREFIX]: JSON.stringify(queryChain) + queryChainUrl,
+    [DEBUG_INFO_PARAM_PREFIX]: JSON.stringify(debugInfo),
   };
   let link = FEEDBACK_LINK;
   Object.keys(paramMap).forEach((prefix) => {
@@ -54,5 +95,6 @@ export function getFeedbackLink(query: string, queryChain: string[]): string {
       link += `${prefix}${value}`;
     }
   });
-  return encodeURI(link);
+  // encodeURI does not encode #
+  return encodeURI(link).replaceAll("#", "%23");
 }
