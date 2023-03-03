@@ -18,7 +18,7 @@
  * Component for rendering a histogram type tile.
  */
 
-import _, { property } from "lodash";
+import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { DataPoint } from "../../chart/base";
@@ -178,7 +178,7 @@ function binData(
     let eventValue = 0;
     if (property) {
       // default to 0 if property can't be found in display props
-      eventValue = event.displayProps[property] ?? 0;
+      eventValue = event.displayProps[property] || 0;
     } else {
       // default to 1 if aggregating counts
       eventValue = 1;

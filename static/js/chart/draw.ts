@@ -526,6 +526,7 @@ function updateXAxis(
  * @param chartWidth: The width of the SVG chart
  * @param yScale: d3-scale for the y-ayis
  * @param formatNumberFn function to use to format numbers
+ * @param textFontFamily name of font-family to set axes-labels to
  * @param unit: optional unit for the tick values
  *
  * @return the width of the y-axis bounding-box. The x-coordinate of the grid starts at this value.

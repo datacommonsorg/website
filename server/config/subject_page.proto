@@ -115,7 +115,7 @@ message DisasterEventMapTileSpec {
 }
 
 message HistogramTileSpec {
-  // Key for event type specs defined in the PageMetadata that sohuld be displayed
+  // Key for event type specs defined in the PageMetadata that should be displayed
   string event_type_key = 1;
   // Property of the events to aggregate. If blank, defaults to count.
   string prop = 2;
