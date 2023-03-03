@@ -40,25 +40,6 @@
     "num_chart_candidates": 1,
     "processed_fulfillment_types": [
       "ranking_across_places"
-    ],
-    "stat_var_extensions": [
-      {
-        "Percent_Person_WithHighBloodPressure": [
-          "Percent_Person_WithAllTeethLoss",
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
-        ]
-      }
     ]
   },
   "data_spec": [
@@ -113,6 +94,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Percent_Person_WithHighBloodPressure",
         "dc/g/Person_MedicalCondition-HighBloodPressure",
@@ -170,6 +152,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Percent_Person_WithHighBloodPressure",
         "dc/g/Person_MedicalCondition-HighBloodPressure",
@@ -228,6 +211,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "dc/topic/MedicalConditions",
         "Percent_Person_WithPhysicalHealthNotGood",
@@ -257,9 +241,11 @@
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "growth chart",
+            "chart_type": "",
             "class": 0,
             "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "abs",
             "include_percapita": false,
             "place_type": null,
             "ranking_types": [
@@ -268,7 +254,7 @@
             "source_topic": "dc/topic/Jobs",
             "title": "Categories of Jobs"
           },
-          "chart_type": 0,
+          "chart_type": 7,
           "event": null,
           "places": [
             {
@@ -278,15 +264,31 @@
             }
           ],
           "svs": [
-            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSOtherServices",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "growth chart",
+            "chart_type": "",
             "class": 0,
             "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "pct",
             "include_percapita": false,
             "place_type": null,
             "ranking_types": [
@@ -295,7 +297,7 @@
             "source_topic": "dc/topic/Jobs",
             "title": "Categories of Jobs"
           },
-          "chart_type": 0,
+          "chart_type": 7,
           "event": null,
           "places": [
             {
@@ -305,15 +307,31 @@
             }
           ],
           "svs": [
-            "Count_Worker_NAICSProfessionalScientificTechnicalServices"
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "Count_Worker_NAICSConstruction",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSOtherServices",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "growth chart",
+            "chart_type": "",
             "class": 0,
             "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "pc",
             "include_percapita": false,
             "place_type": null,
             "ranking_types": [
@@ -322,7 +340,7 @@
             "source_topic": "dc/topic/Jobs",
             "title": "Categories of Jobs"
           },
-          "chart_type": 0,
+          "chart_type": 7,
           "event": null,
           "places": [
             {
@@ -332,336 +350,39 @@
             }
           ],
           "svs": [
-            "Count_Worker_NAICSHealthCareSocialAssistance"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSWholesaleTrade"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSFinanceInsurance"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSRealEstateRentalLeasing"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSArtsEntertainmentRecreation"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSConstruction"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "dc/p69tpsldf99h7"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSAccommodationFoodServices"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSOtherServices"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSEducationalServices"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSPublicAdministration"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
-            "Count_Worker_NAICSInformation"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 2,
-            "chart_type": "growth chart",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": null,
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/Jobs",
-            "title": "Categories of Jobs"
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/06061",
-              "name": "Placer County",
-              "place_type": "County"
-            }
-          ],
-          "svs": [
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSOtherServices",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSInformation",
             "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
-        "dc/topic/Jobs"
+        "dc/topic/Jobs",
+        "dc/g/Person_Industry-NAICS/451",
+        "dc/g/Person_Industry-NAICS/54",
+        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+        "dc/g/Person_Industry-NAICS/11",
+        "dc/g/Person_Industry-NAICS/61",
+        "dc/g/Person_Industry-NAICS/7172",
+        "Count_Worker_NAICSTotalAllIndustries",
+        "dc/topic/Economy",
+        "dc/g/Person_Industry-NAICS/33",
+        "dc/g/Person_Industry-NAICS/JOLTS300000",
+        "dc/g/Person_Industry-NAICS/3133",
+        "dc/topic/WorkCommute"
       ]
     },
     {
@@ -723,6 +444,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
         "Count_Worker_NAICSTotalAllIndustries",
@@ -745,7 +467,7 @@
         }
       ],
       "query": "Tell me about Placer County",
-      "query_type": 9,
+      "query_type": 10,
       "ranked_charts": [
         {
           "attr": {
@@ -771,6 +493,7 @@
           "svs": []
         }
       ],
+      "session_id": "007_999999999",
       "svs": []
     },
     {
@@ -790,7 +513,7 @@
       ],
       "places": [],
       "query": "Where were the major fires in the last year",
-      "query_type": 8,
+      "query_type": 9,
       "ranked_charts": [
         {
           "attr": {
@@ -818,9 +541,8 @@
           "svs": []
         }
       ],
-      "svs": [
-        "Count_WildfireEvent"
-      ]
+      "session_id": "007_999999999",
+      "svs": []
     },
     {
       "classifications": [
@@ -851,7 +573,7 @@
             "chart_type": "ranking table",
             "class": 0,
             "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
-            "include_percapita": false,
+            "include_percapita": true,
             "place_type": "County",
             "ranking_types": [
               5
@@ -880,7 +602,7 @@
             "chart_type": "ranking table",
             "class": 0,
             "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
-            "include_percapita": false,
+            "include_percapita": true,
             "place_type": "County",
             "ranking_types": [
               5
@@ -904,9 +626,9 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
-        "dc/topic/ProjectedClimateExtremes",
-        "Count_HeatEvent"
+        "dc/topic/ProjectedClimateExtremes"
       ]
     }
   ],
@@ -918,17 +640,18 @@
   "places_detected": [
     "usa"
   ],
+  "places_resolved": "(name: United States of America, dcid: country/USA); ",
   "query_with_places_removed": "which counties in the have the highest levels of blood pressure",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6393458247184753,
-      0.5648801922798157,
+      0.6393457055091858,
+      0.5648800730705261,
       0.5272606015205383,
-      0.4934018552303314,
-      0.4847709834575653
+      0.49340182542800903,
+      0.484770804643631
     ],
     "SV": [
       "Percent_Person_WithHighBloodPressure",
@@ -939,69 +662,68 @@
     ],
     "SV_to_Sentences": {
       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-        "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.4847709834575653)"
+        "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.484770804643631)"
       ],
       "Percent_Person_WithHighBloodPressure": [
-        "Prevalence: High Blood Pressure (0.6393458247184753)",
-        "Proportion of people with high blood pressure (0.578281044960022)",
-        "Percentage of individuals with high blood pressure (0.5560433268547058)",
-        "Percentage of the population that has high blood pressure (0.5391581058502197)",
-        "Percentage of people who have high blood pressure (0.535609781742096)",
-        "Percent of people with high blood pressure (0.5325264930725098)",
-        "Percentage of people with high blood pressure (0.5309882164001465)",
-        "percent of people that have high blood pressure (0.5249311923980713)",
-        "Percentage of the population with high blood pressure (0.5236258506774902)",
-        "Percentage of population with high blood pressure (0.505821704864502)",
+        "Prevalence: High Blood Pressure (0.6393457055091858)",
+        "Proportion of people with high blood pressure (0.5782808661460876)",
+        "Percentage of individuals with high blood pressure (0.5560431480407715)",
+        "Percentage of the population that has high blood pressure (0.5391579270362854)",
+        "Percentage of people who have high blood pressure (0.535609245300293)",
+        "Percent of people with high blood pressure (0.5325263738632202)",
+        "Percentage of people with high blood pressure (0.5309882760047913)",
+        "percent of people that have high blood pressure (0.524931013584137)",
+        "Percentage of the population with high blood pressure (0.5236255526542664)",
         "Percentage of Population With High Blood Pressure (0.505821704864502)",
-        "Percentage of people with uncontrolled hypertension (0.5010706782341003)"
+        "Percentage of population with high blood pressure (0.505821704864502)",
+        "Percentage of people with uncontrolled hypertension (0.5010706186294556)"
       ],
       "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-        "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.4934018552303314)",
-        "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.4841212332248688)"
+        "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340182542800903)",
+        "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.48412129282951355)"
       ],
       "dc/g/Person_MedicalCondition-HighBloodPressure": [
-        "Person With Medical Condition = High Blood Pressure (0.5648801922798157)",
-        "Number of People With High Blood Pressure (0.5599531531333923)",
-        "people with high blood pressure (0.5592368841171265)"
+        "Person With Medical Condition = High Blood Pressure (0.5648800730705261)",
+        "Number of People With High Blood Pressure (0.5599529147148132)",
+        "people with high blood pressure (0.5592367649078369)"
       ],
       "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
         "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.5272606015205383)",
-        "high blood pressure patients who are taking blood pressure medication (0.5227408409118652)"
+        "high blood pressure patients who are taking blood pressure medication (0.52274090051651)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-      "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.4847709834575653)"
+      "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.484770804643631)"
     ],
     "Percent_Person_WithHighBloodPressure": [
-      "Prevalence: High Blood Pressure (0.6393458247184753)",
-      "Proportion of people with high blood pressure (0.578281044960022)",
-      "Percentage of individuals with high blood pressure (0.5560433268547058)",
-      "Percentage of the population that has high blood pressure (0.5391581058502197)",
-      "Percentage of people who have high blood pressure (0.535609781742096)",
-      "Percent of people with high blood pressure (0.5325264930725098)",
-      "Percentage of people with high blood pressure (0.5309882164001465)",
-      "percent of people that have high blood pressure (0.5249311923980713)",
-      "Percentage of the population with high blood pressure (0.5236258506774902)",
-      "Percentage of population with high blood pressure (0.505821704864502)",
+      "Prevalence: High Blood Pressure (0.6393457055091858)",
+      "Proportion of people with high blood pressure (0.5782808661460876)",
+      "Percentage of individuals with high blood pressure (0.5560431480407715)",
+      "Percentage of the population that has high blood pressure (0.5391579270362854)",
+      "Percentage of people who have high blood pressure (0.535609245300293)",
+      "Percent of people with high blood pressure (0.5325263738632202)",
+      "Percentage of people with high blood pressure (0.5309882760047913)",
+      "percent of people that have high blood pressure (0.524931013584137)",
+      "Percentage of the population with high blood pressure (0.5236255526542664)",
       "Percentage of Population With High Blood Pressure (0.505821704864502)",
-      "Percentage of people with uncontrolled hypertension (0.5010706782341003)"
+      "Percentage of population with high blood pressure (0.505821704864502)",
+      "Percentage of people with uncontrolled hypertension (0.5010706186294556)"
     ],
     "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-      "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.4934018552303314)",
-      "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.4841212332248688)"
+      "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340182542800903)",
+      "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.48412129282951355)"
     ],
     "dc/g/Person_MedicalCondition-HighBloodPressure": [
-      "Person With Medical Condition = High Blood Pressure (0.5648801922798157)",
-      "Number of People With High Blood Pressure (0.5599531531333923)",
-      "people with high blood pressure (0.5592368841171265)"
+      "Person With Medical Condition = High Blood Pressure (0.5648800730705261)",
+      "Number of People With High Blood Pressure (0.5599529147148132)",
+      "people with high blood pressure (0.5592367649078369)"
     ],
     "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
       "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.5272606015205383)",
-      "high blood pressure patients who are taking blood pressure medication (0.5227408409118652)"
+      "high blood pressure patients who are taking blood pressure medication (0.52274090051651)"
     ]
   },
-  "temporal_classification": "<None>",
   "time_delta_classification": "<None>"
 }

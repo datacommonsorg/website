@@ -254,6 +254,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Mean_Income_Household_FamilyHousehold",
         "dc/topic/Income",
@@ -272,18 +273,19 @@
   "places_detected": [
     "california"
   ],
+  "places_resolved": "(name: California, dcid: geoId/06); ",
   "query_with_places_removed": "family earnings",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6994977593421936,
-      0.6870846748352051,
-      0.652523934841156,
-      0.6368764638900757,
-      0.6139131784439087,
-      0.6136520504951477
+      0.6994978189468384,
+      0.6870844960212708,
+      0.6525241136550903,
+      0.6368765830993652,
+      0.6139130592346191,
+      0.6136518120765686
     ],
     "SV": [
       "Mean_Income_Household_FamilyHousehold",
@@ -295,73 +297,72 @@
     ],
     "SV_to_Sentences": {
       "Mean_Income_Household_FamilyHousehold": [
-        "Average Income for Family Households (0.6994977593421936)",
-        "Average income for family households (0.6994977593421936)",
-        "Mean Income of Household: Family Household, With Income (0.6543492674827576)",
-        "Mean Income of Household: in a family household with Income (0.6418176889419556)"
+        "Average income for family households (0.6994978189468384)",
+        "Average Income for Family Households (0.6994978189468384)",
+        "Mean Income of Household: Family Household, With Income (0.654349148273468)",
+        "Mean Income of Household: in a family household with Income (0.6418182253837585)"
       ],
       "Mean_Income_Household_MarriedCoupleFamilyHousehold": [
-        "Mean Income of Household: a Married Couple in a family household with Income (0.6368764638900757)",
+        "Mean Income of Household: a Married Couple in a family household with Income (0.6368765830993652)",
         "Mean Income of Household: Married Couple Family Household, With Income (0.6318108439445496)",
-        "Average income for married couple family households (0.6152960658073425)",
-        "Average Income for Married Couple Family Households (0.6152960658073425)"
+        "Average Income for Married Couple Family Households (0.6152963638305664)",
+        "Average income for married couple family households (0.6152963638305664)"
       ],
       "Median_Income_Household": [
-        "Typical household income (0.6136520504951477)",
-        "Middle household income (0.5836641192436218)"
+        "Typical household income (0.6136518120765686)",
+        "Middle household income (0.5836639404296875)"
       ],
       "Median_Income_Household_FamilyHousehold": [
-        "Median Income for Family Households (0.652523934841156)",
-        "Median income for family households (0.652523934841156)",
-        "Median Income of Household: in a family household with Income (0.6219028234481812)",
-        "Median Income of Household: Family Household, With Income (0.6150481700897217)"
+        "Median Income for Family Households (0.6525241136550903)",
+        "Median income for family households (0.6525241136550903)",
+        "Median Income of Household: in a family household with Income (0.6219028830528259)",
+        "Median Income of Household: Family Household, With Income (0.6150481104850769)"
       ],
       "Median_Income_Household_MarriedCoupleFamilyHousehold": [
-        "Median Income of Household: a Married Couple in a family household with Income (0.6139131784439087)",
-        "Median income for married couple family households (0.607136070728302)",
-        "Median Income for Married Couple Family Households (0.607136070728302)",
-        "Median Income of Household: Married Couple Family Household, With Income (0.5924121141433716)"
+        "Median Income of Household: a Married Couple in a family household with Income (0.6139130592346191)",
+        "Median Income for Married Couple Family Households (0.6071360111236572)",
+        "Median income for married couple family households (0.6071360111236572)",
+        "Median Income of Household: Married Couple Family Household, With Income (0.5924118161201477)"
       ],
       "dc/topic/Income": [
-        "Earnings (0.6870846748352051)",
-        "Income (0.613845705986023)"
+        "Earnings (0.6870844960212708)",
+        "Income (0.6138463616371155)"
       ]
     }
   },
   "svs_to_sentences": {
     "Mean_Income_Household_FamilyHousehold": [
-      "Average Income for Family Households (0.6994977593421936)",
-      "Average income for family households (0.6994977593421936)",
-      "Mean Income of Household: Family Household, With Income (0.6543492674827576)",
-      "Mean Income of Household: in a family household with Income (0.6418176889419556)"
+      "Average income for family households (0.6994978189468384)",
+      "Average Income for Family Households (0.6994978189468384)",
+      "Mean Income of Household: Family Household, With Income (0.654349148273468)",
+      "Mean Income of Household: in a family household with Income (0.6418182253837585)"
     ],
     "Mean_Income_Household_MarriedCoupleFamilyHousehold": [
-      "Mean Income of Household: a Married Couple in a family household with Income (0.6368764638900757)",
+      "Mean Income of Household: a Married Couple in a family household with Income (0.6368765830993652)",
       "Mean Income of Household: Married Couple Family Household, With Income (0.6318108439445496)",
-      "Average income for married couple family households (0.6152960658073425)",
-      "Average Income for Married Couple Family Households (0.6152960658073425)"
+      "Average Income for Married Couple Family Households (0.6152963638305664)",
+      "Average income for married couple family households (0.6152963638305664)"
     ],
     "Median_Income_Household": [
-      "Typical household income (0.6136520504951477)",
-      "Middle household income (0.5836641192436218)"
+      "Typical household income (0.6136518120765686)",
+      "Middle household income (0.5836639404296875)"
     ],
     "Median_Income_Household_FamilyHousehold": [
-      "Median Income for Family Households (0.652523934841156)",
-      "Median income for family households (0.652523934841156)",
-      "Median Income of Household: in a family household with Income (0.6219028234481812)",
-      "Median Income of Household: Family Household, With Income (0.6150481700897217)"
+      "Median Income for Family Households (0.6525241136550903)",
+      "Median income for family households (0.6525241136550903)",
+      "Median Income of Household: in a family household with Income (0.6219028830528259)",
+      "Median Income of Household: Family Household, With Income (0.6150481104850769)"
     ],
     "Median_Income_Household_MarriedCoupleFamilyHousehold": [
-      "Median Income of Household: a Married Couple in a family household with Income (0.6139131784439087)",
-      "Median income for married couple family households (0.607136070728302)",
-      "Median Income for Married Couple Family Households (0.607136070728302)",
-      "Median Income of Household: Married Couple Family Household, With Income (0.5924121141433716)"
+      "Median Income of Household: a Married Couple in a family household with Income (0.6139130592346191)",
+      "Median Income for Married Couple Family Households (0.6071360111236572)",
+      "Median income for married couple family households (0.6071360111236572)",
+      "Median Income of Household: Married Couple Family Household, With Income (0.5924118161201477)"
     ],
     "dc/topic/Income": [
-      "Earnings (0.6870846748352051)",
-      "Income (0.613845705986023)"
+      "Earnings (0.6870844960212708)",
+      "Income (0.6138463616371155)"
     ]
   },
-  "temporal_classification": "<None>",
   "time_delta_classification": "<None>"
 }
