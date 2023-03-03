@@ -72,10 +72,8 @@ class IntegrationTest(LiveServerTestCase):
                    queries,
                    check_chart_config=True,
                    check_debug_info=True):
-    import time
     ctx = {}
     for i, q in enumerate(queries):
-      time.sleep(5)
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(self.get_server_url() + f'/nl/data?q={q}',
                            json={
