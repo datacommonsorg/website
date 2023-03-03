@@ -115,21 +115,19 @@ def _get_place_from_dcids(place_dcids: List[str]) -> List[Place]:
   place_types_dict = dc.property_values(place_dcids, 'typeOf')
   place_names_dict = dc.property_values(place_dcids, 'name')
 
-  for p_dcid, p_types in place_types_dict.items():
-    p_types = place_types_dict[p_dcid]
-    p_type = _get_preferred_type(p_types)
-    p_name = ""
-    if p_dcid in place_names_dict:
+  # Iterate in the same order as place_dcids.
+  for p_dcid in place_dcids:
+
+    if (p_dcid in place_types_dict) and (p_dcid in place_names_dict):
+      p_types = place_types_dict[p_dcid]
+      p_type = _get_preferred_type(p_types)
       p_name = place_names_dict[p_dcid][0]
 
-    if not p_name:
-      # This should not really be happening. But don't want to stop execution, so logging it.
+      places.append(Place(dcid=p_dcid, name=p_name, place_type=p_type))
+    else:
       logging.info(
-          f"Place DCID ({p_dcid}) did not correspond to a place name (using empty name)."
+          f"Place DCID ({p_dcid}) did not correspond to a place_type and/or place name."
       )
-
-    places.append(Place(dcid=p_dcid, name=p_name, place_type=p_type))
-
   return places
 
 
@@ -303,14 +301,15 @@ def _detection(orig_query, cleaned_query) -> Detection:
     place_dcids = _infer_place_dcids(places_str_found)
     logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
+    # Step 2: replace the places in the query sentence with "".
+    query = _remove_places(cleaned_query.lower(), places_str_found)
+
   if place_dcids:
     resolved_places = _get_place_from_dcids(place_dcids)
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
   if resolved_places:
-    # Step 2: replace the places in the query sentence with "".
-    query = _remove_places(cleaned_query.lower(), places_str_found)
     main_place = resolved_places[0]
     logging.info(f"Using main_place as: {main_place}")
 
