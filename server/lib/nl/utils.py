@@ -650,6 +650,18 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         # heuristics above, for example.
         if "the " in p:
           p = p.replace("the ", "")
+
+        # If the detected place string needs to be replaced with shorter text,
+        # then do that here.
+        if p.lower() in constants.SHORTEN_PLACE_DETECTION_STRING:
+          p = constants.SHORTEN_PLACE_DETECTION_STRING[p.lower()]
+
+        # Also remove place text detected which is lexactly equal to some place types
+        # e.g. "states" etc. This is a shortcoming of place entity recognitiion libraries.
+        if (p.lower() in constants.PLACE_TYPE_TO_PLURALS.keys() or
+            p.lower() in constants.PLACE_TYPE_TO_PLURALS.values()):
+          continue
+
         # Add if not already done. Also check for the special places which get
         # added with a ", usa" appended.
         if (p.lower() not in places_found):

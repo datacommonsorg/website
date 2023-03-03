@@ -154,11 +154,6 @@ STOP_WORDS: Set[str] = {
     'across',
 }
 
-# Replace the text in the query with this alternate text.
-QUERY_TEXT_REPLACEMENT_FOR_DETECTION: Dict[str, str] = {
-    'us states': 'states in the United States'
-}
-
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
 OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
@@ -186,7 +181,18 @@ OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
     'sf east bay',
     # US
     'united states',  # need this because the word "states" gets replaced.
+    'usa',
 ])
+
+# Replace the detected place text with this alternate (shorter) place text.
+# The replacement text (value) should be contained within the detected text (key).
+# This ensures that the place string removal from queries will still remove valid place strings.
+SHORTEN_PLACE_DETECTION_STRING: Dict[str, str] = {
+    'us states': 'us',
+    'states us': 'us',
+    'usa states': 'usa',
+    'states usa': 'usa',
+}
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 

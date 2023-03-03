@@ -124,7 +124,7 @@ class IntegrationTest(LiveServerTestCase):
             self.assertEqual(dbg["main_place_name"],
                              expected["main_place_name"])
 
-  def test_textbox_sample(self):
+  # def test_textbox_sample(self):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
 

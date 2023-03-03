@@ -321,10 +321,10 @@
   "original_query": "US states which have that highest median income",
   "overview_classification": "<None>",
   "places_detected": [
-    "united states"
+    "us"
   ],
   "places_resolved": "(name: United States of America, dcid: country/USA); ",
-  "query_with_places_removed": "states in the which have that highest median income",
+  "query_with_places_removed": "states which have that highest median income",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",
   "status": "",

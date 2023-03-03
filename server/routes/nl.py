@@ -281,19 +281,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
 def _detection(orig_query, cleaned_query) -> Detection:
   model = current_app.config['NL_MODEL']
 
-  # Check if the cleaned_query has text which needs replacement.
-  for text, replacement in constants.QUERY_TEXT_REPLACEMENT_FOR_DETECTION.items(
-  ):
-    index = cleaned_query.lower().find(text)
-    n = len(text)
-    while index >= 0:
-      cleaned_query = cleaned_query[0:index] + replacement + cleaned_query[
-          index + n:]
-      index = cleaned_query.lower().find(text)
-
-  logging.info(f"original query for detection: {orig_query}")
-  logging.info(f"query after text replacement for detection: {cleaned_query}")
-
   # Step 1: find all relevant places and the name/type of the main place found.
   places_str_found = model.detect_place(cleaned_query)
 
