@@ -218,6 +218,7 @@ MAPS_API = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 
 # Source: https://developers.google.com/maps/documentation/places/web-service/autocomplete#types
 # Only one can be selected from Table 3 which is most useful for us: https://developers.google.com/maps/documentation/places/web-service/supported_types#table3
+# TODO: consider having some fallbacks like (cities) if nothing found in (regions).
 AUTOCOMPLETE_MAPS_API_TYPES_FILTER = "(regions)"
 
 # Source: https://developers.google.com/maps/documentation/places/web-service/supported_types#table2
