@@ -206,10 +206,10 @@ SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
 }
 
 # Invert the above str: List[str] Dictionary to str: str.
-OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API: Dict[str, str] = {}
+OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API: Dict[str, str] = {}
 for dcid, place_list in SPECIAL_DCIDS_TO_PLACES.items():
   for place in place_list:
-    OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[place] = dcid
+    OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API[place] = dcid
 
 # Using the AutoComplete Maps API. The textsearch API is more flaky and returns
 # may unnecessary results, e.g. businesses, which are easier to ignore in the

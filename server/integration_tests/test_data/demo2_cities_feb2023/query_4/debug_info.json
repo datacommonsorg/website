@@ -15,9 +15,6 @@
     "processed_fulfillment_types": [
       "comparison"
     ],
-    "stat_var_extensions": [
-      {}
-    ],
     "topics_processed": [
       {
         "dc/topic/WorkCommute": {
@@ -93,6 +90,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": []
     },
     {
@@ -136,6 +134,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "dc/topic/WorkCommute"
       ]
@@ -317,6 +316,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Percent_Person_WithAsthma",
         "Percent_Person_Children_WithAsthma",
@@ -344,7 +344,7 @@
         }
       ],
       "query": "How big are the public schools in Sunnyvale",
-      "query_type": 10,
+      "query_type": 11,
       "ranked_charts": [
         {
           "attr": {
@@ -431,6 +431,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Count_Student",
         "Count_Teacher",
@@ -446,132 +447,126 @@
   "places_detected": [
     "san bruno"
   ],
+  "places_resolved": "(name: San Bruno, dcid: geoId/0665028); ",
   "query_with_places_removed": "how does that compare with",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3138740658760071,
-      0.2785080671310425,
-      0.2766355574131012,
-      0.24773408472537994,
-      0.23616476356983185,
-      0.23599068820476532,
-      0.23327934741973877,
-      0.20929034054279327,
-      0.19067037105560303,
-      0.18910419940948486,
-      0.1871500462293625,
-      0.18365100026130676
+      0.3702760934829712,
+      0.31598708033561707,
+      0.2831982672214508,
+      0.2766963839530945,
+      0.2557690739631653,
+      0.2371778041124344,
+      0.22020837664604187,
+      0.2144625186920166,
+      0.21346472203731537,
+      0.20017611980438232,
+      0.19570356607437134
     ],
     "SV": [
-      "GiniIndex_EconomicActivity",
-      "dc/topic/MedicalConditions",
-      "dc/topic/Economy",
-      "AirQualityIndex_AirPollutant",
       "dc/topic/Income",
+      "dc/topic/Economy",
       "dc/topic/Jobs",
-      "Amount_FarmInventory_PeanutsForNuts",
-      "Count_Person",
+      "dc/topic/MedicalConditions",
+      "dc/hlxvn1t8b9bhh",
       "dc/g/Person_MedicalCondition-Wasting",
-      "Count_CriminalIncidents_IsHateCrime",
-      "dc/g/Farm_FarmInventoryType-PeanutsForNuts",
+      "AirQualityIndex_AirPollutant",
+      "dc/topic/WorkCommute",
+      "dc/topic/Agriculture",
+      "dc/g/Farm_FarmInventoryType-Forage",
       "dc/g/Farm_FarmInventoryType-HogsAndPigs"
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.24773408472537994)"
+        "AQI (0.22020837664604187)"
       ],
-      "Amount_FarmInventory_PeanutsForNuts": [
-        "Peanut output (0.23327934741973877)"
-      ],
-      "Count_CriminalIncidents_IsHateCrime": [
-        "Number of hate crimes (0.18910419940948486)",
-        "Hate crime incidents (0.18435795605182648)"
-      ],
-      "Count_Person": [
-        "Population (0.20929034054279327)"
-      ],
-      "GiniIndex_EconomicActivity": [
-        "Inequality (0.3138740658760071)",
-        "Gini index (0.2066114991903305)"
+      "dc/g/Farm_FarmInventoryType-Forage": [
+        "Forage Farms (0.20017611980438232)",
+        "forage farms (0.20017610490322113)"
       ],
       "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.18365100026130676)",
-        "Pig Farm (0.18365097045898438)"
-      ],
-      "dc/g/Farm_FarmInventoryType-PeanutsForNuts": [
-        "peanut farms (0.1871500462293625)",
-        "Peanut Farms (0.1871500462293625)"
+        "pig farm (0.19570356607437134)",
+        "Pig Farm (0.19570356607437134)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.19067037105560303)"
+        "people with wasting (0.2371778041124344)"
+      ],
+      "dc/hlxvn1t8b9bhh": [
+        "cattle ranchers (0.2557690739631653)",
+        "farmers (0.2255394458770752)"
+      ],
+      "dc/topic/Agriculture": [
+        "Agriculture (0.21346472203731537)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.2766355574131012)"
+        "Economy (0.31598708033561707)"
       ],
       "dc/topic/Income": [
-        "pay (0.23616476356983185)"
+        "pay (0.3702760934829712)",
+        "compensation (0.2285085767507553)",
+        "Earnings (0.22268347442150116)",
+        "Income (0.20594434440135956)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.23599068820476532)",
-        "Careers (0.20936842262744904)",
-        "Professions (0.20415134727954865)"
+        "Jobs (0.2831982672214508)",
+        "Careers (0.241409033536911)",
+        "Professions (0.20911745727062225)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.2785080671310425)",
-        "Health problems (0.20006564259529114)",
-        "health issues (0.19044236838817596)"
+        "Maladies (0.2766963839530945)",
+        "Medical infirmities (0.23475098609924316)"
+      ],
+      "dc/topic/WorkCommute": [
+        "journey to work (0.2144625186920166)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.24773408472537994)"
+      "AQI (0.22020837664604187)"
     ],
-    "Amount_FarmInventory_PeanutsForNuts": [
-      "Peanut output (0.23327934741973877)"
-    ],
-    "Count_CriminalIncidents_IsHateCrime": [
-      "Number of hate crimes (0.18910419940948486)",
-      "Hate crime incidents (0.18435795605182648)"
-    ],
-    "Count_Person": [
-      "Population (0.20929034054279327)"
-    ],
-    "GiniIndex_EconomicActivity": [
-      "Inequality (0.3138740658760071)",
-      "Gini index (0.2066114991903305)"
+    "dc/g/Farm_FarmInventoryType-Forage": [
+      "Forage Farms (0.20017611980438232)",
+      "forage farms (0.20017610490322113)"
     ],
     "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.18365100026130676)",
-      "Pig Farm (0.18365097045898438)"
-    ],
-    "dc/g/Farm_FarmInventoryType-PeanutsForNuts": [
-      "peanut farms (0.1871500462293625)",
-      "Peanut Farms (0.1871500462293625)"
+      "pig farm (0.19570356607437134)",
+      "Pig Farm (0.19570356607437134)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.19067037105560303)"
+      "people with wasting (0.2371778041124344)"
+    ],
+    "dc/hlxvn1t8b9bhh": [
+      "cattle ranchers (0.2557690739631653)",
+      "farmers (0.2255394458770752)"
+    ],
+    "dc/topic/Agriculture": [
+      "Agriculture (0.21346472203731537)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.2766355574131012)"
+      "Economy (0.31598708033561707)"
     ],
     "dc/topic/Income": [
-      "pay (0.23616476356983185)"
+      "pay (0.3702760934829712)",
+      "compensation (0.2285085767507553)",
+      "Earnings (0.22268347442150116)",
+      "Income (0.20594434440135956)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.23599068820476532)",
-      "Careers (0.20936842262744904)",
-      "Professions (0.20415134727954865)"
+      "Jobs (0.2831982672214508)",
+      "Careers (0.241409033536911)",
+      "Professions (0.20911745727062225)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.2785080671310425)",
-      "Health problems (0.20006564259529114)",
-      "health issues (0.19044236838817596)"
+      "Maladies (0.2766963839530945)",
+      "Medical infirmities (0.23475098609924316)"
+    ],
+    "dc/topic/WorkCommute": [
+      "journey to work (0.2144625186920166)"
     ]
   },
-  "temporal_classification": "<None>",
   "time_delta_classification": "<None>"
 }

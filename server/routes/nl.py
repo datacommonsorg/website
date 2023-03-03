@@ -96,8 +96,8 @@ def _dc_recon(place_ids):
   return d_return
 
 
-def _remove_places(query, places_found):
-  for p_str in places_found:
+def _remove_places(query, places_str_found: List[str]):
+  for p_str in places_str_found:
     # See if the word "in" precedes the place. If so, best to remove it too.
     needle = "in " + p_str
     if needle not in query:
@@ -108,23 +108,46 @@ def _remove_places(query, places_found):
   return ' '.join(query.split())
 
 
-def _infer_place_dcid(places_found):
+def _get_place_from_dcids(place_dcids: List[str]) -> List[Place]:
+  places = []
+  place_types_dict = dc.property_values(place_dcids, 'typeOf')
+  place_names_dict = dc.property_values(place_dcids, 'name')
+
+  # Iterate in the same order as place_dcids.
+  for p_dcid in place_dcids:
+
+    if (p_dcid in place_types_dict) and (p_dcid in place_names_dict):
+      p_types = place_types_dict[p_dcid]
+      p_type = _get_preferred_type(p_types)
+      p_name = place_names_dict[p_dcid][0]
+
+      places.append(Place(dcid=p_dcid, name=p_name, place_type=p_type))
+    else:
+      logging.info(
+          f"Place DCID ({p_dcid}) did not correspond to a place_type and/or place name."
+      )
+  return places
+
+
+def _infer_place_dcids(places_str_found: List[str]) -> List[str]:
   # TODO: propagate several of the logging errors in this function to place detection
   # state displayed in debugInfo.
-  if not places_found:
+  if not places_str_found:
     logging.info("places_found is empty. Nothing to retrieve from Maps API.")
-    return ""
+    return []
 
-  place_dcid = ""
+  place_dcids = []
   # Iterate over all the places until a valid place DCID is found.
-  for p_str in places_found:
+  for p_str in places_str_found:
+    place_dcid = ""
     # If this is a special place, return the known DCID.
-    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API:
-      place_dcid = constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[p_str.lower()]
+    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API:
+      place_dcid = constants.OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API[p_str.lower()]
       logging.info(
-          f"{p_str} was found in OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API. Returning its DICD {place_dcid} without querying Maps API."
+          f"{p_str} was found in OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API. Recording its DCID {place_dcid} without querying Maps API."
       )
-      break
+      place_dcids.append(place_dcid)
+      continue
 
     logging.info(f"Searching Maps API with: {p_str}")
     place = _maps_place(p_str)
@@ -140,7 +163,7 @@ def _infer_place_dcid(places_found):
       if place_id in place_ids_map:
         place_dcid = place_ids_map[place_id]
         logging.info(f"DC API found DCID: {place_dcid}")
-        break
+        place_dcids.append(place_dcid)
       else:
         logging.info(
             f"Maps API found a place {place_id} but no DCID match found for place string: {p_str}."
@@ -148,10 +171,10 @@ def _infer_place_dcid(places_found):
     else:
       logging.info("Maps API did not find a place for place string: {p_str}.")
 
-  if not place_dcid:
+  if not place_dcids:
     logging.info(
-        f"No place DCIDs were found. Using places_found = {places_found}")
-  return place_dcid
+        f"No place DCIDs were found. Using places_found = {places_str_found}")
+  return place_dcids
 
 
 def _empty_svs_score_dict():
@@ -227,23 +250,29 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       'counters': debug_counters,
       'data_spec': uttr_history,
   }
-  if query_detection.places_detected:
+
+  places_found_formatted = ""
+  for place in query_detection.places_detected.places_found:
+    places_found_formatted += f"(name: {place.name}, dcid: {place.dcid}); "
+
+  debug_info.update({
+      'places_detected':
+          query_detection.places_detected.query_places_mentioned,
+      'places_resolved':
+          places_found_formatted,
+      'query_with_places_removed':
+          query_detection.places_detected.query_without_place_substr,
+  })
+
+  if query_detection.places_detected.main_place:
     debug_info.update({
-        'places_detected':
-            query_detection.places_detected.places_found,
-        'main_place_dcid':
-            query_detection.places_detected.main_place.dcid,
-        'main_place_name':
-            query_detection.places_detected.main_place.name,
-        'query_with_places_removed':
-            query_detection.places_detected.query_without_place_substr,
+        'main_place_dcid': query_detection.places_detected.main_place.dcid,
+        'main_place_name': query_detection.places_detected.main_place.name,
     })
   else:
     debug_info.update({
-        'places_detected': ["<None>"],
         'main_place_dcid': "<None>",
         'main_place_name': "<None>",
-        'query_with_places_removed': query_detection.original_query,
     })
   data_dict['debug'] = debug_info
   return data_dict
@@ -253,38 +282,41 @@ def _detection(orig_query, cleaned_query) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
-  places_found = model.detect_place(cleaned_query)
+  places_str_found = model.detect_place(cleaned_query)
 
-  if not places_found:
+  if not places_str_found:
     logging.info("Place detection failed.")
 
-  logging.info("Found places: {}".format(places_found))
-  # If place_dcid was already set by the url, skip inferring it.
-  place_dcid = request.args.get('place_dcid', '')
-  if not place_dcid and places_found:
-    place_dcid = _infer_place_dcid(places_found)
+  logging.info("Found places in query: {}".format(places_str_found))
 
-  if place_dcid:
-    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
-    main_place_type = _get_preferred_type(place_types)
-    main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
+  query = cleaned_query
+  place_dcids = []
+  main_place = None
+  resolved_places = []
+
+  # Look to find place DCIDs.
+  if places_str_found:
+    place_dcids = _infer_place_dcids(places_str_found)
+    logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
     # Step 2: replace the places in the query sentence with "".
-    query = _remove_places(cleaned_query.lower(), places_found)
+    query = _remove_places(cleaned_query.lower(), places_str_found)
 
-    # Set PlaceDetection.
-    place_detection = PlaceDetection(query_original=orig_query,
-                                     query_without_place_substr=query,
-                                     places_found=places_found,
-                                     main_place=Place(
-                                         dcid=place_dcid,
-                                         name=main_place_name,
-                                         place_type=main_place_type))
-  else:
-    query = cleaned_query
-    # TODO: even if no place_dcid was found, debugInfo should be able to display
-    # the places_found (which can be valid even if no dcid was found).
-    place_detection = None
+  if place_dcids:
+    resolved_places = _get_place_from_dcids(place_dcids)
+    logging.info(
+        f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
+
+  if resolved_places:
+    main_place = resolved_places[0]
+    logging.info(f"Using main_place as: {main_place}")
+
+  # Set PlaceDetection.
+  place_detection = PlaceDetection(query_original=orig_query,
+                                   query_without_place_substr=query,
+                                   query_places_mentioned=places_str_found,
+                                   places_found=resolved_places,
+                                   main_place=main_place)
 
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()
