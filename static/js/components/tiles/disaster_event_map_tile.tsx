@@ -100,6 +100,9 @@ export function DisasterEventMapTile(
   const { geoJsonData } = useContext(DataContext);
   const [polygonGeoJson, setPolygonGeoJson] = useState(null);
   const [pathGeoJson, setPathGeoJson] = useState(null);
+  const [selectedEventTypes, setSelectedEventTypes] = useState(
+    new Set(Object.keys(props.eventTypeSpec))
+  );
   let baseMapGeoJson = null;
   if (geoJsonData) {
     baseMapGeoJson = shouldUsePlaceGeoJson()
@@ -164,6 +167,7 @@ export function DisasterEventMapTile(
     props.disasterEventData,
     polygonGeoJson,
     pathGeoJson,
+    selectedEventTypes,
   ]);
 
   if (geoJsonData == null || !placeInfo) {
@@ -224,11 +228,15 @@ export function DisasterEventMapTile(
                       <div
                         className={`${CSS_SELECTOR_PREFIX}-legend-entry`}
                         key={`${props.id}-legend-${spec.id}`}
+                        onClick={() => toggleEventTypeSelection(spec.id)}
                       >
                         <div
                           className={`${CSS_SELECTOR_PREFIX}-legend-color`}
                           style={{
-                            backgroundColor: spec.color,
+                            backgroundColor: selectedEventTypes.has(spec.id)
+                              ? spec.color
+                              : "transparent",
+                            borderColor: spec.color,
                           }}
                         ></div>
                         <span>{spec.name}</span>
@@ -244,6 +252,19 @@ export function DisasterEventMapTile(
       </div>
     </ChartTileContainer>
   );
+
+  /**
+   * Updates selectedEventTypes state for when an eventType is toggled
+   */
+  function toggleEventTypeSelection(eventType: string): void {
+    const newSelectedEventTypes = _.cloneDeep(selectedEventTypes);
+    if (selectedEventTypes.has(eventType)) {
+      newSelectedEventTypes.delete(eventType);
+    } else {
+      newSelectedEventTypes.add(eventType);
+    }
+    setSelectedEventTypes(newSelectedEventTypes);
+  }
 
   /**
    * Updates place info given a selectedPlace and enclosedPlaceType
@@ -370,7 +391,10 @@ export function DisasterEventMapTile(
       });
     });
     for (const eventType of props.tileSpec.polygonEventTypeKey || []) {
-      if (!(eventType in polygonGeoJson)) {
+      if (
+        !(eventType in polygonGeoJson) ||
+        !selectedEventTypes.has(eventType)
+      ) {
         continue;
       }
       addPolygonLayer(
@@ -388,7 +412,7 @@ export function DisasterEventMapTile(
       );
     }
     for (const eventType of props.tileSpec.pathEventTypeKey || []) {
-      if (!(eventType in pathGeoJson)) {
+      if (!(eventType in pathGeoJson) || !selectedEventTypes.has(eventType)) {
         continue;
       }
       addPathLayer(
@@ -406,6 +430,9 @@ export function DisasterEventMapTile(
       );
     }
     for (const eventType of props.tileSpec.pointEventTypeKey || []) {
+      if (!selectedEventTypes.has(eventType)) {
+        continue;
+      }
       const mapPointsData = getMapPointsData(
         disasterEventData[eventType].eventPoints,
         props.eventTypeSpec[eventType]
