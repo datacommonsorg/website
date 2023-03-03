@@ -512,58 +512,58 @@ categories {
   }
 }
 
-# categories {
-#   title: "Extreme Heat"
-#   description: "Heat events for a place are defined by a large ( > 18 degree Celsius) difference between maximum temperatures and the average of monthly maximum temperatures over 1980-2010."
-#   blocks {
-#     type: DISASTER_EVENT
-#     columns {
-#       tiles {
-#         type: DISASTER_EVENT_MAP
-#         disaster_event_map_tile_spec {
-#           point_event_type_key: "heat"
-#         }
-#       }
-#       tiles {
-#         type: HISTOGRAM
-#         title: "Number of extreme heat events"
-#         histogram_tile_spec {
-#           event_type_key: "heat"
-#         }
-#       }
-#       # tiles {
-#       #   type: HISTOGRAM
-#       #   title: "Total area affected by extreme heat events last year"
-#       #   stat_var_key: "heat_area"
-#       # }
-#     }
-#     columns {
-#       tiles {
-#         type: TOP_EVENT
-#         title: "Most severe heat events"
-#         top_event_tile_spec {
-#           event_type_key: "heat"
-#           display_prop: "referenceTemperature"
-#           show_start_date: true
-#         }
-#       }
-#     }
-#   }
-#   stat_var_spec {
-#     key: "heat_count"
-#     value {
-#       stat_var: "Count_HeatTemperatureEvent"
-#       name: "Count of extreme heat events"
-#     }
-#   }
-#   stat_var_spec {
-#     key: "heat_area"
-#     value {
-#       stat_var: "Area_HeatTemperatureEvent"
-#       name: "Area affected by extreme heat events"
-#     }
-#   }
-# }
+categories {
+  title: "Extreme Heat"
+  description: "Heat events for a place are defined by a large ( > 18 degree Celsius) difference between maximum temperatures and the average of monthly maximum temperatures over 1980-2010."
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec {
+          point_event_type_key: "heat"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of extreme heat events"
+        histogram_tile_spec {
+          event_type_key: "heat"
+        }
+      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by extreme heat events last year"
+      #   stat_var_key: "heat_area"
+      # }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe heat events"
+        top_event_tile_spec {
+          event_type_key: "heat"
+          display_prop: "referenceTemperature"
+          show_start_date: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: "heat_count"
+    value {
+      stat_var: "Count_HeatTemperatureEvent"
+      name: "Count of extreme heat events"
+    }
+  }
+  stat_var_spec {
+    key: "heat_area"
+    value {
+      stat_var: "Area_HeatTemperatureEvent"
+      name: "Area affected by extreme heat events"
+    }
+  }
+}
 
 # categories {
 #   title: "Extreme Cold"
