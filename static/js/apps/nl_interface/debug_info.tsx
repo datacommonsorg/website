@@ -102,6 +102,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     status: props.debugData["status"],
     originalQuery: props.debugData["original_query"],
     placesDetected: props.debugData["places_detected"],
+    placesResolved: props.debugData["places_resolved"],
     mainPlaceDCID: props.debugData["main_place_dcid"],
     mainPlaceName: props.debugData["main_place_name"],
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
@@ -156,8 +157,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <Col>Places Detected: {debugInfo.placesDetected.join(", ")}</Col>
           </Row>
           <Row>
+            <Col>Places Resolved: {debugInfo.placesResolved}</Col>
+          </Row>
+          <Row>
             <Col>
-              Main Place Inferred: {debugInfo.mainPlaceName} (dcid:{" "}
+              Main Place: {debugInfo.mainPlaceName} (dcid:{" "}
               {debugInfo.mainPlaceDCID})
             </Col>
           </Row>
