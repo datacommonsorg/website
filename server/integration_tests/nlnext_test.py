@@ -125,7 +125,7 @@ class IntegrationTest(LiveServerTestCase):
                              expected["main_place_name"])
 
   # def test_textbox_sample(self):
-    # This is the sample advertised in our textbox
+  # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
 
   def test_demo_feb2023(self):
