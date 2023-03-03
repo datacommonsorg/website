@@ -154,6 +154,11 @@ STOP_WORDS: Set[str] = {
     'across',
 }
 
+# Replace the text in the query with this alternate text.
+QUERY_TEXT_REPLACEMENT_FOR_DETECTION: Dict[str, str] = {
+    'us states': 'states in the United States'
+}
+
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
 OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
