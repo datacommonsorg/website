@@ -68,6 +68,7 @@ export function getFeedbackLink(query: string, debugData: any): string {
       correlationClassification: debugData["correlation_classification"],
       eventClassification: debugData["event_classification"],
       svScores,
+      processedFulfillmentTypes: debugData["counters"] ? debugData["counters"]["processed_fulfillment_types"] : []
     };
     if (Array.isArray(debugData["data_spec"])) {
       queryChain = debugData["data_spec"].map(
@@ -78,7 +79,7 @@ export function getFeedbackLink(query: string, debugData: any): string {
   }
   const sourceUrl = window.location.toString().split("#")[0];
   const queryChainUrl = queryChain.length
-    ? `(${sourceUrl}#q=${queryChain.join(";")})`
+    ? `(${sourceUrl}#q=${queryChain.join(";")}&a=true)`
     : "";
   const paramMap = {
     [QUERY_PARAM_PREFIX]: query,
@@ -92,9 +93,11 @@ export function getFeedbackLink(query: string, debugData: any): string {
   Object.keys(paramMap).forEach((prefix) => {
     const value = paramMap[prefix];
     if (value) {
-      link += `${prefix}${value}`;
+      // Values need to be encoded here to differentiate between a url value and
+      // part of the prefill link URL. e.g., non encoded "&" is processed by
+      // forms as joining two separate prefill values
+      link += `${prefix}${encodeURI(value).replaceAll("&", "%26").replaceAll("#", "%23")}`;
     }
   });
-  // encodeURI does not encode #
-  return encodeURI(link).replaceAll("#", "%23");
+  return link;
 }
