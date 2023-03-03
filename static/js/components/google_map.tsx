@@ -32,6 +32,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
+import { fetchGeoJsonData } from "../utils/subject_page_utils";
 
 const DEFAULT_MAP_ZOOM = 4;
 const MAP_BOUNDS_PADDING = 0;
@@ -77,6 +78,19 @@ interface GoogleMapStateType {
   geoJson: object;
 }
 
+const MALFORMED_GEOJSON = {
+  "type": "FeatureCollection",
+  "features": []
+};
+const GENERATED_GEOJSON = {
+  "type": "FeatureCollection",
+  "features": []
+};
+
+const SELF_INTERSECTION_POINT = null;
+const PLACE_DCID = "";
+const PLACE_TYPE = "";
+
 /**
  * Initialize a google map widget.
  * @param container the element to render the map in
@@ -91,6 +105,7 @@ function initMap(container: HTMLDivElement): google.maps.Map {
     streetViewControl: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoom: DEFAULT_MAP_ZOOM,
+    center: new google.maps.LatLng(0, 0)
   };
   return new google.maps.Map(container, mapOptions);
 }
@@ -199,31 +214,38 @@ export class GoogleMap extends React.Component<
   }
 
   render(): JSX.Element {
-    if (!this.state.shouldShowMap) {
-      return null;
-    }
     return <div className="map-container" ref={this.div}></div>;
   }
 
   componentDidMount(): void {
-    if (this.props.geoJsonGeometry) {
-      const geoJson = geoJsonFromGeometry(this.props.geoJsonGeometry);
-      this.setState({
-        shouldShowMap: true,
-        geoJson: geoJson,
-      });
-    } else if (this.props.latLong) {
-      const coordinates = {
-        lat: this.props.latLong[0],
-        lng: this.props.latLong[1],
-      };
-      this.setState({
-        markerLocation: coordinates,
-        shouldShowMap: true,
-      });
-    } else {
-      this.fetchData();
-    }
+    const map = initMap(this.div.current);
+    const geojsonPromise = PLACE_DCID && PLACE_TYPE ? fetchGeoJsonData({ dcid: PLACE_DCID, name: PLACE_DCID, types: [] }, PLACE_TYPE) : Promise.resolve({});
+    geojsonPromise.then(((geojson) => {
+      if (geojson) {
+        const dcLayer = new google.maps.Data();
+        dcLayer.addGeoJson(geojson)
+        dcLayer.setStyle({ fillColor: "green", strokeWeight: 0, fillOpacity: 1 });
+        dcLayer.setMap(map);
+      }
+      const generatedLayer = new google.maps.Data()
+      generatedLayer.addGeoJson(GENERATED_GEOJSON);
+      generatedLayer.addListener('click', function(event) {
+        console.log(event.feature.getProperty("wikiId"));
+      })
+      generatedLayer.setStyle({ fillColor: "blue" })
+      generatedLayer.setMap(map);
+      const malformedLayer = new google.maps.Data()
+      malformedLayer.addGeoJson(MALFORMED_GEOJSON);
+      malformedLayer.setStyle({fillColor: "red"});
+      malformedLayer.setMap(map);
+      malformedLayer.addListener('click', function(event) {
+        console.log(event.feature.getProperty("id"));
+      })
+
+      if (!_.isEmpty(SELF_INTERSECTION_POINT)) {
+        drawMarker(SELF_INTERSECTION_POINT, map)
+      }
+    }))
   }
 
   componentDidUpdate(): void {
