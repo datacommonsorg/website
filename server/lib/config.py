@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 import os
 
 from werkzeug.utils import import_string
@@ -25,6 +24,9 @@ def get_config():
   try:
     cfg = import_string(config_class)()
     cfg.ENV = env
+    # USE_LOCAL_MIXER
+    if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
+      cfg.API_ROOT = 'http://127.0.0.1:8081'
     return cfg
   except:
     raise ValueError("No valid config class is specified: %s" % config_class)
