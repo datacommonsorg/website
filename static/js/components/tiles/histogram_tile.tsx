@@ -175,13 +175,10 @@ function binData(
     const eventDate = event.startDate.slice(0, format.length);
 
     // Get value of property to aggregate
-    let eventValue = 0;
+    let eventValue = 1;
     if (property) {
       // default to 0 if property can't be found in display props
       eventValue = event.displayProps[property] || 0;
-    } else {
-      // default to 1 if aggregating counts
-      eventValue = 1;
     }
 
     // Increment value in corresponding bin if event has at least
@@ -281,6 +278,11 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
 
   /**
    * Bin dates and values to plot based on given disasterEventPoints.
+   * @param disasterEventPoints event data to process
+   * @param dateSetting the date option selected by the user
+   * @param setHistogramData function for setting HistogramData in state
+   * @param property the property to bin values for. Defaults to aggregating
+   *                 counts if property is undefined.
    */
   function processData(
     disasterEventPoints: DisasterEventPoint[],
