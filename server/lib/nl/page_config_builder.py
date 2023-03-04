@@ -430,7 +430,7 @@ def _set_ranking_tile_spec(ranking_types: List[RankingType], pri_sv: str,
                            ranking_tile_spec: RankingTileSpec):
   ranking_tile_spec.ranking_count = 10
   # TODO: Add more robust checks.
-  if "CriminalActivities" in pri_sv:
+  if "CriminalActivities" in pri_sv or 'UnemploymentRate' in pri_sv:
     # first check if "best" or "worst"
     if RankingType.BEST in ranking_types:
       ranking_tile_spec.show_lowest = True

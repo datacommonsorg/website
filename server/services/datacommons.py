@@ -31,13 +31,6 @@ from server.services.discovery import get_service_url
 
 cfg = libconfig.get_config()
 
-# --------------------------------- CONSTANTS ---------------------------------
-
-# The default value to limit to
-_MAX_LIMIT = 100
-
-# ----------------------------- WRAPPER FUNCTIONS -----------------------------
-
 
 # Cache for one day.
 @cache.memoize(timeout=3600 * 24)
@@ -276,6 +269,12 @@ def observation_existence(variables, entities):
       'entities': entities,
       'variables': variables,
   })
+
+
+def bio(entity):
+  """Fetch biology subgraph linking to the given entity"""
+  url = get_service_url('/v1/internal/page/bio')
+  return get(url + "/" + entity)
 
 
 def resolve_id(in_ids, in_prop, out_prop):

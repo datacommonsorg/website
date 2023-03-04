@@ -37,6 +37,7 @@ import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatNumber } from "../../utils/string_utils";
+import { ChartFooter } from "./chart_footer";
 
 const RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
@@ -95,6 +96,10 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     MIN_PERCENT_PLACE_NAMES;
   const showNameColumn =
     topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
+  const sources = new Set<string>();
+  Object.values(props.disasterEventData.provenanceInfo).forEach((provInfo) => {
+    sources.add(provInfo.provenanceUrl);
+  });
 
   return (
     <div
@@ -178,16 +183,10 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                 })}
               </tbody>
             </table>
-            <footer>
-              <a
-                href="#"
-                onClick={(event) => {
-                  handleEmbed(event, topEvents);
-                }}
-              >
-                Export
-              </a>
-            </footer>
+            <ChartFooter
+              sources={sources}
+              handleEmbed={() => handleEmbed(topEvents)}
+            />
           </div>
         </div>
       )}
@@ -334,11 +333,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     return filteredPoints.slice(0, RANKING_COUNT);
   }
 
-  function handleEmbed(
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    topEvents: DisasterEventPoint[]
-  ): void {
-    e.preventDefault();
+  function handleEmbed(topEvents: DisasterEventPoint[]): void {
     const rankingPoints = topEvents.map((point) => {
       return {
         placeDcid: point.placeDcid,

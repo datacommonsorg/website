@@ -35,6 +35,7 @@ export interface DebugInfo {
   status: string;
   originalQuery: string;
   placesDetected: Array<string>;
+  placesResolved: string;
   mainPlaceDCID: string;
   mainPlaceName: string;
   queryWithoutPlaces: string;

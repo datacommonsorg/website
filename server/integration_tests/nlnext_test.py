@@ -104,6 +104,16 @@ class IntegrationTest(LiveServerTestCase):
           self.maxDiff = None
           self.assertEqual(a, b)
 
+        # Look in the debugInfo file to match places detected.
+        dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
+                                'debug_info.json')
+        with open(dbg_file, 'r') as infile:
+          expected = json.load(infile)
+          self.assertEqual(dbg["places_detected"], expected["places_detected"])
+          self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
+          self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
+          self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
@@ -140,10 +150,17 @@ class IntegrationTest(LiveServerTestCase):
         'demo_fallback',
         [
             # We have no stats on this, so we should return SF overview.
-            'Number of Shakespeare fans in San Francisco',
+            # Two places should be detected but San Francisco is the main place.
+            'Number of Shakespeare fans in San Francisco and Chicago.',
+            # Note that this has multiple places but only California matters for now.
+            'counties in California and Florida with highest crime',
             # We have no crime at county-level in CA, so we should fall back as:
             # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
             'counties in California with highest crime',
+            # We have no obesity data at State-level.  And since an SV was
+            # provided, we would not fallback to previous query (past version
+            # of code would have again returned crime in california).
+            'obesity in California',
         ])
 
   def test_demo_climatetrace(self):

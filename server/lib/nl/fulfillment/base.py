@@ -40,6 +40,8 @@ _EVENT_PREFIX = 'event/'
 DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
     ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
 }
 
 
@@ -130,12 +132,15 @@ def populate_charts(state: PopulateState) -> bool:
     else:
       utils.update_counter(state.uttr.counters, 'failed_populate_main_place',
                            pl.dcid)
-  for pl in context.places_from_context(state.uttr):
-    if (populate_charts_for_places(state, [pl])):
-      return True
-    else:
-      utils.update_counter(state.uttr.counters, 'failed_populate_context_place',
-                           pl.dcid)
+  if not state.uttr.places:
+    # If user has not provided a place, seek a place from the context.
+    # Otherwise the result seems unexpected to them.
+    for pl in context.places_from_context(state.uttr):
+      if (populate_charts_for_places(state, [pl])):
+        return True
+      else:
+        utils.update_counter(state.uttr.counters,
+                             'failed_populate_context_place', pl.dcid)
 
   # If this query did not have a place, but had a contained-in attribute, we
   # might try specific default places.
@@ -157,12 +162,15 @@ def populate_charts_for_places(state: PopulateState,
     else:
       utils.update_counter(state.uttr.counters, 'failed_populate_main_svs',
                            state.uttr.svs)
-  for svs in context.svs_from_context(state.uttr):
-    if _add_charts(state, places, svs):
-      return True
-    else:
-      utils.update_counter(state.uttr.counters, 'failed_populate_context_svs',
-                           svs)
+  else:
+    # If we have not found an SV, only then seek an SV from the context.
+    # Otherwise the result seems unexpected to them.
+    for svs in context.svs_from_context(state.uttr):
+      if _add_charts(state, places, svs):
+        return True
+      else:
+        utils.update_counter(state.uttr.counters, 'failed_populate_context_svs',
+                             svs)
   logging.info('Doing fallback for %s - %s',
                ', '.join(_get_place_names(places)), ', '.join(state.uttr.svs))
   utils.update_counter(state.uttr.counters, 'num_populate_fallbacks', 1)

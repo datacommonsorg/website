@@ -88,6 +88,7 @@ export class BrowserPage extends React.Component<
     if (selectedSvString) {
       selectedSVs = selectedSvString.split(SELECTED_SV_SEP);
     }
+    const showAllProperties = !!urlParams.get("all");
     return (
       <>
         {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
@@ -125,6 +126,7 @@ export class BrowserPage extends React.Component<
               labels={this.state.outLabels}
               provDomain={this.state.provDomain}
               nodeTypes={this.props.nodeTypes}
+              showAllProperties={showAllProperties}
             />
           </div>
           {this.props.shouldShowStatVarHierarchy && (

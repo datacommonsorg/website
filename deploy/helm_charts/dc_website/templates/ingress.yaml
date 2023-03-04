@@ -29,10 +29,9 @@ kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.namespace.name }}
-  {{- with .Values.ingress.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    kubernetes.io/ingress.global-static-ip-name: dc-website-ip
+    ingress.gcp.kubernetes.io/pre-shared-cert: dc-website-cert{{ .Values.resourceSuffix }}
 spec:
   rules:
     - http:
