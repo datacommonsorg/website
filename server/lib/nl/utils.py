@@ -803,10 +803,23 @@ def get_time_delta_title(direction: detection.TimeDeltaType,
 #
 
 _SV_PARTIAL_DCID_NO_PC = [
-    'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
-    "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
-    "ConsecutiveDryDays", "Percent", "Area_", "Median_", "LifeExpectancy_",
-    "AsFractionOf", "AsAFractionOfCount"
+    'Temperature',
+    'Precipitation',
+    "BarometricPressure",
+    "CloudCover",
+    "PrecipitableWater",
+    "Rainfall",
+    "Snowfall",
+    "Visibility",
+    "WindSpeed",
+    "ConsecutiveDryDays",
+    "Percent",
+    "Area_",
+    "Median_",
+    "LifeExpectancy_",
+    "AsFractionOf",
+    "AsAFractionOfCount",
+    "UnemploymentRate_",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]
