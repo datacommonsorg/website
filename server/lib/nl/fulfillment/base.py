@@ -126,13 +126,13 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
 
 # Populate chart specs in state.uttr and return True if something was added.
 def populate_charts(state: PopulateState) -> bool:
-  for pl in state.uttr.places:
-    if (populate_charts_for_places(state, [pl])):
+  if state.uttr.places:
+    if (populate_charts_for_places(state, state.uttr.places)):
       return True
     else:
-      utils.update_counter(state.uttr.counters, 'failed_populate_main_place',
-                           pl.dcid)
-  if not state.uttr.places:
+      utils.update_counter(state.uttr.counters, 'failed_populate_main_places',
+                           state.uttr.places)
+  else:
     # If user has not provided a place, seek a place from the context.
     # Otherwise the result seems unexpected to them.
     for pl in context.places_from_context(state.uttr):
