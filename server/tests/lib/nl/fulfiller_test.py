@@ -454,6 +454,7 @@ def _detection(place: str,
                query_type: ClassificationType = ClassificationType.SIMPLE):
   if place:
     places_detected = PlaceDetection(query_original='foo sv in place',
+                                     query_places_mentioned=[],
                                      places_found=[],
                                      query_without_place_substr='foo sv',
                                      main_place=Place(dcid=place,

@@ -650,6 +650,20 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         # heuristics above, for example.
         if "the " in p:
           p = p.replace("the ", "")
+
+        # If the detected place string needs to be replaced with shorter text,
+        # then do that here.
+        if p.lower() in constants.SHORTEN_PLACE_DETECTION_STRING:
+          p = constants.SHORTEN_PLACE_DETECTION_STRING[p.lower()]
+
+        # Also remove place text detected which is exactly equal to some place types
+        # e.g. "states" etc. This is a shortcoming of place entity recognitiion libraries.
+        # As a specific example, some entity annotation libraries classify "states" as a
+        # place. This is incorrect behavior because "states" on its own is not a place.
+        if (p.lower() in constants.PLACE_TYPE_TO_PLURALS.keys() or
+            p.lower() in constants.PLACE_TYPE_TO_PLURALS.values()):
+          continue
+
         # Add if not already done. Also check for the special places which get
         # added with a ", usa" appended.
         if (p.lower() not in places_found):
@@ -803,10 +817,23 @@ def get_time_delta_title(direction: detection.TimeDeltaType,
 #
 
 _SV_PARTIAL_DCID_NO_PC = [
-    'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
-    "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
-    "ConsecutiveDryDays", "Percent", "Area_", "Median_", "LifeExpectancy_",
-    "AsFractionOf", "AsAFractionOfCount"
+    'Temperature',
+    'Precipitation',
+    "BarometricPressure",
+    "CloudCover",
+    "PrecipitableWater",
+    "Rainfall",
+    "Snowfall",
+    "Visibility",
+    "WindSpeed",
+    "ConsecutiveDryDays",
+    "Percent",
+    "Area_",
+    "Median_",
+    "LifeExpectancy_",
+    "AsFractionOf",
+    "AsAFractionOfCount",
+    "UnemploymentRate_",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]

@@ -20,6 +20,8 @@ import server.lib.nl.fulfillment.base as base
 import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.utterance as nl_uttr
 
+_DEFAULT_EVENT_PLACE = detection.Place("country/USA", "USA", "Country")
+
 #
 # Handler for Event queries.
 #
@@ -58,13 +60,16 @@ def _populate_event(state: base.PopulateState,
     else:
       utils.update_counter(state.uttr.counters,
                            'event_failed_populate_main_place', pl.dcid)
-  for pl in ctx.places_from_context(state.uttr):
-    if (_populate_event_for_place(state, event_types, pl)):
-      return True
-    else:
-      utils.update_counter(state.uttr.counters,
-                           'event_failed_populate_context_place', pl.dcid)
-  return False
+  if not state.uttr.places:
+    for pl in ctx.places_from_context(state.uttr):
+      if (_populate_event_for_place(state, event_types, pl)):
+        return True
+      else:
+        utils.update_counter(state.uttr.counters,
+                             'event_failed_populate_context_place', pl.dcid)
+
+  # Use a default of USA.
+  return _populate_event_for_place(state, event_types, _DEFAULT_EVENT_PLACE)
 
 
 def _populate_event_for_place(state: base.PopulateState,

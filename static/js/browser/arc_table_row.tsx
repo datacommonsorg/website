@@ -123,7 +123,7 @@ export class ArcTableRow extends React.Component<
               })}
           </div>
         </td>
-        {this.props.provenanceId && this.props.src && (
+        {this.props.provenanceId && this.props.src ? (
           <td className="provenance-column">
             {this.props.provenanceId && (
               <a href={HREF_PREFIX + this.props.provenanceId}>
@@ -131,6 +131,8 @@ export class ArcTableRow extends React.Component<
               </a>
             )}
           </td>
+        ) : (
+          <td></td>
         )}
       </tr>
     );

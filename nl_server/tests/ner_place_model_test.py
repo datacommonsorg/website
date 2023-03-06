@@ -72,7 +72,18 @@ class TestNERPlaces(unittest.TestCase):
       ],
       ["tell me about palo alto", ["palo alto"]],
       ["what about mountain view", ["mountain view"]],
-      # Bay Area special cases.
+      ["population of states in the US", ["us"]],
+      ["population of US states", ["us"]],
+      ["population of the US", ["us"]],
+      ["United States population", ["united states"]],
+      ["US median income", ["us"]],
+      ["US states with high median income", ["us"]],
+      ["states US with high median income", ["us"]],
+      ["USA states with high median income", ["usa"]],
+      ["states USA with high median income", ["usa"]],
+      ["population of mexico city", ["mexico city"]],
+      ["crime in new york state", ["new york state"]],
+      # Bay Area special cases
       [
           "cities with the highest african american population in the sf bay area",
           ["sf bay area"]

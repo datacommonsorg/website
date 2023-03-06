@@ -1,0 +1,852 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "failed_existence_check": [
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Percent_Person_Obesity"
+        ]
+      }
+    ],
+    "failed_existence_check_extended_svs": [
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Percent_Person_PhysicalInactivity",
+          "Percent_Person_BingeDrinking",
+          "Percent_Person_Smoking",
+          "Percent_Person_Obesity",
+          "Percent_Person_SleepLessThan7Hours"
+        ]
+      }
+    ],
+    "failed_populate_main_place": [
+      "geoId/06"
+    ],
+    "failed_populate_main_svs": [
+      [
+        "Percent_Person_Obesity"
+      ]
+    ],
+    "filtered_svs": [
+      "Percent_Person_Obesity"
+    ],
+    "num_chart_candidates": 1,
+    "num_populate_fallbacks": 1,
+    "processed_fulfillment_types": [
+      "simple",
+      "overview"
+    ],
+    "stat_var_extensions": [
+      {
+        "Percent_Person_Obesity": [
+          "Percent_Person_BingeDrinking",
+          "Percent_Person_Obesity",
+          "Percent_Person_PhysicalInactivity",
+          "Percent_Person_SleepLessThan7Hours",
+          "Percent_Person_Smoking"
+        ]
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "obesity in California",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Percent_Person_Obesity"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "County",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "counties in California with highest crime",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_CombinedCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_LarcenyTheft"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_AggravatedAssault",
+            "Count_CriminalActivities_Burglary",
+            "Count_CriminalActivities_ForcibleRape",
+            "Count_CriminalActivities_LarcenyTheft",
+            "Count_CriminalActivities_MotorVehicleTheft",
+            "Count_CriminalActivities_PropertyCrime",
+            "Count_CriminalActivities_Robbery",
+            "Count_CriminalActivities_ViolentCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_MotorVehicleTheft"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalIncidents_IsHateCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_Robbery"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_ViolentCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_ForcibleRape"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_PropertyCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 10,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_Burglary"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_CriminalActivities_CombinedCrime",
+        "Count_CriminalActivities_LarcenyTheft",
+        "Count_CriminalActivities_MotorVehicleTheft",
+        "Count_CriminalIncidents_IsHateCrime",
+        "Count_CriminalActivities_Robbery",
+        "Count_CriminalActivities_ViolentCrime",
+        "Count_CriminalActivities_ForcibleRape",
+        "Count_CriminalActivities_PropertyCrime",
+        "Count_CriminalActivities_Burglary",
+        "Count_CriminalActivities_Arson"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "County",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "counties in California and Florida with highest crime",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_CombinedCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_LarcenyTheft"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_AggravatedAssault",
+            "Count_CriminalActivities_Burglary",
+            "Count_CriminalActivities_ForcibleRape",
+            "Count_CriminalActivities_LarcenyTheft",
+            "Count_CriminalActivities_MotorVehicleTheft",
+            "Count_CriminalActivities_PropertyCrime",
+            "Count_CriminalActivities_Robbery",
+            "Count_CriminalActivities_ViolentCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_MotorVehicleTheft"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalIncidents_IsHateCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_Robbery"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_ViolentCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_ForcibleRape"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_PropertyCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 10,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_Burglary"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_CriminalActivities_CombinedCrime",
+        "Count_CriminalActivities_LarcenyTheft",
+        "Count_CriminalActivities_MotorVehicleTheft",
+        "Count_CriminalIncidents_IsHateCrime",
+        "Count_CriminalActivities_Robbery",
+        "Count_CriminalActivities_ViolentCrime",
+        "Count_CriminalActivities_ForcibleRape",
+        "Count_CriminalActivities_PropertyCrime",
+        "Count_CriminalActivities_Burglary",
+        "Count_CriminalActivities_Arson"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0667000",
+          "name": "San Francisco",
+          "place_type": "City"
+        }
+      ],
+      "query": "Number of Shakespeare fans in San Francisco and Chicago.",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0667000",
+              "name": "San Francisco",
+              "place_type": "City"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/06",
+  "main_place_name": "California",
+  "original_query": "obesity in California",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "california"
+  ],
+  "places_resolved": "(name: California, dcid: geoId/06); ",
+  "query_with_places_removed": "obesity",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.7435534596443176,
+      0.4429702162742615,
+      0.4272722005844116,
+      0.42358657717704773,
+      0.41437727212905884,
+      0.4143412113189697,
+      0.39572328329086304,
+      0.38837528228759766
+    ],
+    "SV": [
+      "Percent_Person_Obesity",
+      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
+      "dc/topic/MedicalConditions",
+      "dc/g/Person_MedicalCondition-Diabetes",
+      "Percent_Person_WithPhysicalHealthNotGood",
+      "dc/g/Person_MedicalCondition-SevereWasting",
+      "dc/g/Person_MedicalCondition-Wasting",
+      "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting"
+    ],
+    "SV_to_Sentences": {
+      "Percent_Person_Obesity": [
+        "Prevalence: Obesity (0.7435534596443176)",
+        "Percentage of the population that is obese (0.6531267762184143)",
+        "Percentage of people who are classified as obese (0.6383179426193237)",
+        "Percentage of Population That Is Obese (0.6360384225845337)",
+        "Percentage of population that is obese (0.6360384225845337)",
+        "Percentage of overweight people (0.569083034992218)",
+        "Percent of fat people (0.5576061010360718)",
+        "Percentage of people who are overweight (0.547760009765625)",
+        "Percentage of people who have a BMI over 30 (0.38389888405799866)"
+      ],
+      "Percent_Person_WithPhysicalHealthNotGood": [
+        "Prevalence: Physical Health Not Good (0.41437727212905884)",
+        "Percentage of the population with poor physical health (0.38355106115341187)",
+        "Percentage of Population With Poor Physical Health (0.3760834336280823)"
+      ],
+      "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting": [
+        "People who are 4 years or younger and have severe wasting (0.38837528228759766)"
+      ],
+      "dc/g/Person_MedicalCondition-Diabetes": [
+        "people with diabetes (0.42358657717704773)"
+      ],
+      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
+        "people with physical health not good (0.4429702162742615)",
+        "Number of People With Poor Physical Health (0.41208407282829285)"
+      ],
+      "dc/g/Person_MedicalCondition-SevereWasting": [
+        "people with severe wasting (0.4143412113189697)"
+      ],
+      "dc/g/Person_MedicalCondition-Wasting": [
+        "people with wasting (0.39572328329086304)"
+      ],
+      "dc/topic/MedicalConditions": [
+        "Health problems (0.4272722005844116)",
+        "health issues (0.41941484808921814)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Percent_Person_Obesity": [
+      "Prevalence: Obesity (0.7435534596443176)",
+      "Percentage of the population that is obese (0.6531267762184143)",
+      "Percentage of people who are classified as obese (0.6383179426193237)",
+      "Percentage of Population That Is Obese (0.6360384225845337)",
+      "Percentage of population that is obese (0.6360384225845337)",
+      "Percentage of overweight people (0.569083034992218)",
+      "Percent of fat people (0.5576061010360718)",
+      "Percentage of people who are overweight (0.547760009765625)",
+      "Percentage of people who have a BMI over 30 (0.38389888405799866)"
+    ],
+    "Percent_Person_WithPhysicalHealthNotGood": [
+      "Prevalence: Physical Health Not Good (0.41437727212905884)",
+      "Percentage of the population with poor physical health (0.38355106115341187)",
+      "Percentage of Population With Poor Physical Health (0.3760834336280823)"
+    ],
+    "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting": [
+      "People who are 4 years or younger and have severe wasting (0.38837528228759766)"
+    ],
+    "dc/g/Person_MedicalCondition-Diabetes": [
+      "people with diabetes (0.42358657717704773)"
+    ],
+    "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
+      "people with physical health not good (0.4429702162742615)",
+      "Number of People With Poor Physical Health (0.41208407282829285)"
+    ],
+    "dc/g/Person_MedicalCondition-SevereWasting": [
+      "people with severe wasting (0.4143412113189697)"
+    ],
+    "dc/g/Person_MedicalCondition-Wasting": [
+      "people with wasting (0.39572328329086304)"
+    ],
+    "dc/topic/MedicalConditions": [
+      "Health problems (0.4272722005844116)",
+      "health issues (0.41941484808921814)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}
