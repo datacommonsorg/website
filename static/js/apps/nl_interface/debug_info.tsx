@@ -106,6 +106,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     mainPlaceDCID: props.debugData["main_place_dcid"],
     mainPlaceName: props.debugData["main_place_name"],
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
+    queryDetectionDebugLogs: props.debugData["query_detection_debug_logs"],
     svScores: props.debugData["sv_matching"],
     svSentences: props.debugData["svs_to_sentences"],
     rankingClassification: props.debugData["ranking_classification"],
@@ -203,6 +204,16 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <Col>
               Overview classification: {debugInfo.overviewClassification}
+            </Col>
+          </Row>
+          <Row>
+            <b>Query Detection Debug Logs:</b>
+          </Row>
+          <Row>
+            <Col>
+              <pre>
+                {JSON.stringify(debugInfo.queryDetectionDebugLogs, null, 2)}
+              </pre>
             </Col>
           </Row>
           <Row>

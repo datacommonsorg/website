@@ -16,7 +16,6 @@ import logging
 import multiprocessing
 import os
 import sys
-import time
 
 from flask_testing import LiveServerTestCase
 import requests
@@ -74,7 +73,6 @@ class IntegrationTest(LiveServerTestCase):
                    check_debug_info=True):
     ctx = {}
     for i, q in enumerate(queries):
-      time.sleep(5)
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(self.get_server_url() + f'/nl/data?q={q}',
                            json={

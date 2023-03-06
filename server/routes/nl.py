@@ -17,7 +17,7 @@ import asyncio
 import json
 import logging
 import os
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import flask
 from flask import Blueprint
@@ -108,11 +108,13 @@ def _remove_places(query, places_str_found: List[str]):
   return ' '.join(query.split())
 
 
-def _get_place_from_dcids(place_dcids: List[str]) -> List[Place]:
+def _get_place_from_dcids(place_dcids: List[str]) -> Tuple[List[Place], Dict]:
   places = []
   place_types_dict = dc.property_values(place_dcids, 'typeOf')
   place_names_dict = dc.property_values(place_dcids, 'name')
 
+  debug_logs = {}
+  dc_resolve_failures = []
   # Iterate in the same order as place_dcids.
   for p_dcid in place_dcids:
 
@@ -126,16 +128,24 @@ def _get_place_from_dcids(place_dcids: List[str]) -> List[Place]:
       logging.info(
           f"Place DCID ({p_dcid}) did not correspond to a place_type and/or place name."
       )
-  return places
+      dc_resolve_failures.append(p_dcid)
+
+  debug_logs["dc_resolution_failure"] = dc_resolve_failures
+  debug_logs["dc_resolved_places"] = places
+  return (places, debug_logs)
 
 
-def _infer_place_dcids(places_str_found: List[str]) -> List[str]:
+def _infer_place_dcids(places_str_found: List[str]) -> Tuple[List[str], Dict]:
+  debug_logs = {}
   # TODO: propagate several of the logging errors in this function to place detection
   # state displayed in debugInfo.
   if not places_str_found:
     logging.info("places_found is empty. Nothing to retrieve from Maps API.")
-    return []
+    return ([], debug_logs)
 
+  override_places = []
+  maps_api_failures = []
+  no_dcids_found = []
   place_dcids = []
   # Iterate over all the places until a valid place DCID is found.
   for p_str in places_str_found:
@@ -147,6 +157,7 @@ def _infer_place_dcids(places_str_found: List[str]) -> List[str]:
           f"{p_str} was found in OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API. Recording its DCID {place_dcid} without querying Maps API."
       )
       place_dcids.append(place_dcid)
+      override_places.append((p_str.lower(), place_dcid))
       continue
 
     logging.info(f"Searching Maps API with: {p_str}")
@@ -168,13 +179,20 @@ def _infer_place_dcids(places_str_found: List[str]) -> List[str]:
         logging.info(
             f"Maps API found a place {place_id} but no DCID match found for place string: {p_str}."
         )
+        no_dcids_found.append(place_id)
     else:
-      logging.info("Maps API did not find a place for place string: {p_str}.")
+      logging.info(f"Maps API did not find a place for place string: {p_str}.")
+      maps_api_failures.append(p_str)
 
   if not place_dcids:
     logging.info(
-        f"No place DCIDs were found. Using places_found = {places_str_found}")
-  return place_dcids
+        f"No place DCIDs were found. Using places_found = {places_str_found}.")
+
+  debug_logs["dcids_resolved"] = place_dcids
+  debug_logs["dcid_overrides_found"] = override_places
+  debug_logs["maps_api_failures"] = maps_api_failures
+  debug_logs["dcid_not_found_for_place_ids"] = no_dcids_found
+  return (place_dcids, debug_logs)
 
 
 def _empty_svs_score_dict():
@@ -183,8 +201,8 @@ def _empty_svs_score_dict():
 
 def _result_with_debug_info(data_dict: Dict, status: str,
                             query_detection: Detection,
-                            uttr_history: List[Dict],
-                            debug_counters: Dict) -> Dict:
+                            uttr_history: List[Dict], debug_counters: Dict,
+                            query_detection_debug_logs: str) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -262,6 +280,8 @@ def _result_with_debug_info(data_dict: Dict, status: str,
           places_found_formatted,
       'query_with_places_removed':
           query_detection.places_detected.query_without_place_substr,
+      'query_detection_debug_logs':
+          query_detection_debug_logs,
   })
 
   if query_detection.places_detected.main_place:
@@ -278,7 +298,7 @@ def _result_with_debug_info(data_dict: Dict, status: str,
   return data_dict
 
 
-def _detection(orig_query, cleaned_query) -> Detection:
+def _detection(orig_query, cleaned_query) -> Tuple[Detection, Dict]:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
@@ -294,16 +314,18 @@ def _detection(orig_query, cleaned_query) -> Detection:
   main_place = None
   resolved_places = []
 
+  infer_dcids_debug = "No place inference (no places found)"
+  place_dcid_debug = "No place resolution (no place dcids found)"
   # Look to find place DCIDs.
   if places_str_found:
-    place_dcids = _infer_place_dcids(places_str_found)
+    (place_dcids, infer_dcids_debug) = _infer_place_dcids(places_str_found)
     logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
     # Step 2: replace the places in the query sentence with "".
     query = _remove_places(cleaned_query.lower(), places_str_found)
 
   if place_dcids:
-    resolved_places = _get_place_from_dcids(place_dcids)
+    (resolved_places, place_dcid_debug) = _get_place_from_dcids(place_dcids)
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
@@ -319,12 +341,25 @@ def _detection(orig_query, cleaned_query) -> Detection:
                                    main_place=main_place)
 
   # Step 3: Identify the SV matched based on the query.
+  sv_debug_logs = {}
   svs_scores_dict = _empty_svs_score_dict()
   try:
-    svs_scores_dict = model.detect_svs(query)
+    (svs_scores_dict, sv_debug_logs) = model.detect_svs(query)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
+
+  # Update the various place detection and query transformation debug logs dict.
+  query_detection_debug_logs = {}
+  query_detection_debug_logs["place_dcid_inference"] = infer_dcids_debug
+  query_detection_debug_logs["place_resolution"] = place_dcid_debug
+  query_detection_debug_logs["places_found_str"] = places_str_found
+  query_detection_debug_logs["main_place_inferred"] = main_place
+  query_detection_debug_logs["query_transformations"] = {
+      "place_detection_input": cleaned_query.lower(),
+      "place_detection_with_places_removed": query,
+  }
+  query_detection_debug_logs["query_transformations"].update(sv_debug_logs)
 
   # Set the SVDetection.
   sv_detection = SVDetection(
@@ -379,11 +414,12 @@ def _detection(orig_query, cleaned_query) -> Detection:
         NLClassifier(type=ClassificationType.UNKNOWN,
                      attributes=SimpleClassificationAttributes()))
 
-  return Detection(original_query=orig_query,
-                   cleaned_query=cleaned_query,
-                   places_detected=place_detection,
-                   svs_detected=sv_detection,
-                   classifications=classifications)
+  return (Detection(original_query=orig_query,
+                    cleaned_query=cleaned_query,
+                    places_detected=place_detection,
+                    svs_detected=sv_detection,
+                    classifications=classifications),
+          query_detection_debug_logs)
 
 
 @bp.route('/')
@@ -448,7 +484,8 @@ def data():
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
-  query_detection = _detection(str(escape(original_query)), query)
+  (query_detection,
+   query_detection_debug_logs) = _detection(str(escape(original_query)), query)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
@@ -503,7 +540,8 @@ def data():
     loop.run_until_complete(bt.write_row(session_info))
 
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
-                                      context_history, dbg_counters)
+                                      context_history, dbg_counters,
+                                      query_detection_debug_logs)
 
   return data_dict
 

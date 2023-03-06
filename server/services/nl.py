@@ -16,7 +16,7 @@
 from collections import OrderedDict
 import logging
 import re
-from typing import Dict, List, Union
+from typing import Dict, List, Tuple, Union
 
 import numpy as np
 import pandas as pd
@@ -398,18 +398,21 @@ class Model:
     return NLClassifier(type=ClassificationType.CORRELATION,
                         attributes=attributes)
 
-  def detect_svs(self, query) -> Dict[str, Union[Dict, List]]:
+  def detect_svs(self, query) -> Tuple[Dict[str, Union[Dict, List]], Dict]:
+    debug_logs = {}
     # Remove stop words.
     # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
     # the potential areas for improvement. For now, this removal blanket removes
     # any words in ALL_STOP_WORDS which includes contained_in places and their
     # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
+    debug_logs["sv_detection_query_input"] = query
     query = utils.remove_stop_words(query, ALL_STOP_WORDS)
+    debug_logs["sv_detection_query_stop_words_removal"] = query
     logging.info(f"SV Detection: Query used after removing stop words: {query}")
 
     # Make API call to the NL models/embeddings server.
-    return dc.nl_search_sv(query)
+    return (dc.nl_search_sv(query), debug_logs)
 
   def detect_place(self, query):
     return self.place_detector.detect_places_heuristics(query)
