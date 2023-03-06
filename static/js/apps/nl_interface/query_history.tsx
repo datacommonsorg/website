@@ -64,16 +64,17 @@ export function QueryHistory(props: QueryHistoryProps): JSX.Element {
       const result = [];
       const seen = new Set();
       for (const item of resp.data) {
-        const queryList = item["query_list"];
+        const queryList = item["query_list"] || [];
+        const processedQueryList = queryList.map((query) => _.unescape(query));
         if (
-          queryList === undefined ||
-          queryList.length === 0 ||
-          seen.has(queryList[0])
+          processedQueryList === undefined ||
+          processedQueryList.length === 0 ||
+          seen.has(processedQueryList[0])
         ) {
           continue;
         }
-        seen.add(queryList[0]);
-        result.push(queryList);
+        seen.add(processedQueryList[0]);
+        result.push(processedQueryList);
         if (result.length == MAX_QUERY_COUNT) {
           break;
         }
