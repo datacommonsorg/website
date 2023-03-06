@@ -77,6 +77,7 @@ export interface DisasterEventMapTileSpec {
 
 export interface HistogramTileSpec {
   eventTypeKey: string;
+  prop: string;
 }
 
 export interface TopEventTileSpec {
