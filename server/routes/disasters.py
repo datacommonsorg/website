@@ -50,7 +50,8 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=None):
   if not place_dcid:
-    return redirect(url_for('disasters.disaster_dashboard', place_dcid=DEFAULT_PLACE_DCID),
+    return redirect(url_for('disasters.disaster_dashboard',
+                            place_dcid=DEFAULT_PLACE_DCID),
                     code=302)
 
   dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
