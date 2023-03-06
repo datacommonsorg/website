@@ -75,6 +75,9 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const displayPropUnits = {};
   if (props.topEventMetadata.displayProp) {
     for (const dp of props.topEventMetadata.displayProp) {
+      if (_.isEmpty(props.eventTypeSpec.displayProp)) {
+        continue;
+      }
       for (const edp of props.eventTypeSpec.displayProp) {
         if (edp.prop == dp) {
           displayPropNames[dp] = edp.displayName;
