@@ -1,0 +1,661 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "filtered_svs": [],
+    "num_chart_candidates": 8,
+    "processed_fulfillment_types": [
+      "simple"
+    ],
+    "stat_var_extensions": [
+      {
+        "Mean_Income_Household": [
+          "Mean_Income_Household"
+        ],
+        "Median_Earnings_Person": [
+          "Median_Earnings_Person"
+        ],
+        "Median_Income_Household": [
+          "Median_Income_Household"
+        ],
+        "Median_Income_Household_FamilyHousehold": [
+          "Median_Income_Household_FamilyHousehold"
+        ],
+        "Median_Income_Household_NonfamilyHousehold": [
+          "Median_Income_Household_NonfamilyHousehold"
+        ],
+        "Median_Income_Person": [
+          "Median_Income_Person"
+        ],
+        "dc/x3gghqtglpr59": [
+          "dc/x3gghqtglpr59",
+          "Count_Worker_NAICSFinanceInsurance",
+          "WagesTotal_Worker_NAICSFinanceInsurance"
+        ]
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "place_type": "State"
+        }
+      ],
+      "query": "what about in florida",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59",
+            "Count_Worker_NAICSFinanceInsurance",
+            "WagesTotal_Worker_NAICSFinanceInsurance"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "State",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ],
+      "query": "US states which have that highest median income",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Median_Income_Person",
+        "Median_Income_Household",
+        "Median_Earnings_Person",
+        "Median_Income_Household_FamilyHousehold",
+        "Mean_Income_Household",
+        "dc/x3gghqtglpr59",
+        "Median_Income_Household_NonfamilyHousehold"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 10
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "place_type": "City"
+        }
+      ],
+      "query": "tell me about palo alto",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0655282",
+              "name": "Palo Alto",
+              "place_type": "City"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/12",
+  "main_place_name": "Florida",
+  "original_query": "what about in florida",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "florida"
+  ],
+  "places_resolved": "(name: Florida, dcid: geoId/12); ",
+  "query_with_places_removed": "what about",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.3702760934829712,
+      0.31598708033561707,
+      0.2831982672214508,
+      0.2766963839530945,
+      0.2557690739631653,
+      0.2371778041124344,
+      0.22020837664604187,
+      0.2144625186920166,
+      0.21346472203731537,
+      0.20017611980438232,
+      0.19570356607437134
+    ],
+    "SV": [
+      "dc/topic/Income",
+      "dc/topic/Economy",
+      "dc/topic/Jobs",
+      "dc/topic/MedicalConditions",
+      "dc/hlxvn1t8b9bhh",
+      "dc/g/Person_MedicalCondition-Wasting",
+      "AirQualityIndex_AirPollutant",
+      "dc/topic/WorkCommute",
+      "dc/topic/Agriculture",
+      "dc/g/Farm_FarmInventoryType-Forage",
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+    ],
+    "SV_to_Sentences": {
+      "AirQualityIndex_AirPollutant": [
+        "AQI (0.22020837664604187)"
+      ],
+      "dc/g/Farm_FarmInventoryType-Forage": [
+        "Forage Farms (0.20017611980438232)",
+        "forage farms (0.20017610490322113)"
+      ],
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+        "pig farm (0.19570356607437134)",
+        "Pig Farm (0.19570356607437134)"
+      ],
+      "dc/g/Person_MedicalCondition-Wasting": [
+        "people with wasting (0.2371778041124344)"
+      ],
+      "dc/hlxvn1t8b9bhh": [
+        "cattle ranchers (0.2557690739631653)",
+        "farmers (0.2255394458770752)"
+      ],
+      "dc/topic/Agriculture": [
+        "Agriculture (0.21346472203731537)"
+      ],
+      "dc/topic/Economy": [
+        "Economy (0.31598708033561707)"
+      ],
+      "dc/topic/Income": [
+        "pay (0.3702760934829712)",
+        "compensation (0.2285085767507553)",
+        "Earnings (0.22268347442150116)",
+        "Income (0.20594434440135956)"
+      ],
+      "dc/topic/Jobs": [
+        "Jobs (0.2831982672214508)",
+        "Careers (0.241409033536911)",
+        "Professions (0.20911745727062225)"
+      ],
+      "dc/topic/MedicalConditions": [
+        "Maladies (0.2766963839530945)",
+        "Medical infirmities (0.23475098609924316)"
+      ],
+      "dc/topic/WorkCommute": [
+        "journey to work (0.2144625186920166)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "AirQualityIndex_AirPollutant": [
+      "AQI (0.22020837664604187)"
+    ],
+    "dc/g/Farm_FarmInventoryType-Forage": [
+      "Forage Farms (0.20017611980438232)",
+      "forage farms (0.20017610490322113)"
+    ],
+    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+      "pig farm (0.19570356607437134)",
+      "Pig Farm (0.19570356607437134)"
+    ],
+    "dc/g/Person_MedicalCondition-Wasting": [
+      "people with wasting (0.2371778041124344)"
+    ],
+    "dc/hlxvn1t8b9bhh": [
+      "cattle ranchers (0.2557690739631653)",
+      "farmers (0.2255394458770752)"
+    ],
+    "dc/topic/Agriculture": [
+      "Agriculture (0.21346472203731537)"
+    ],
+    "dc/topic/Economy": [
+      "Economy (0.31598708033561707)"
+    ],
+    "dc/topic/Income": [
+      "pay (0.3702760934829712)",
+      "compensation (0.2285085767507553)",
+      "Earnings (0.22268347442150116)",
+      "Income (0.20594434440135956)"
+    ],
+    "dc/topic/Jobs": [
+      "Jobs (0.2831982672214508)",
+      "Careers (0.241409033536911)",
+      "Professions (0.20911745727062225)"
+    ],
+    "dc/topic/MedicalConditions": [
+      "Maladies (0.2766963839530945)",
+      "Medical infirmities (0.23475098609924316)"
+    ],
+    "dc/topic/WorkCommute": [
+      "journey to work (0.2144625186920166)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

@@ -321,6 +321,7 @@ function renderTiles(
             place={props.place}
             selectedDate={getDate(props.id)}
             eventTypeSpec={eventTypeSpec}
+            property={tile.histogramTileSpec.prop}
             disasterEventData={
               disasterEventData[tile.histogramTileSpec.eventTypeKey] || {
                 eventPoints: [],
