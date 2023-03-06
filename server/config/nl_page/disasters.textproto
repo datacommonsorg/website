@@ -85,6 +85,11 @@ metadata {
       end_date_prop: "endDate"
       end_date_prop: "containmentDate"
       end_date_prop: "controlledDate"
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
     }
   }
   event_type_spec {
@@ -133,6 +138,11 @@ metadata {
         unit: "SquareKilometer"
         upper_limit: 100000,
         lower_limit: 10
+      }
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
       }
       polygon_geo_json_prop: "geoJsonCoordinatesDP1"
       end_date_prop: "endDate"
