@@ -1,0 +1,1237 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "failed_existence_check": [
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_PerArea"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "GrowthRate_Count_Person"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_OneRace"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_TwoOrMoreRaces"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_Female"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_Producer_TwoOrMoreRaces"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_Male"
+        ]
+      }
+    ],
+    "failed_existence_check_extended_svs": [
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_PerArea"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "GrowthRate_Count_Person"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_AsianOrPacificIslander",
+          "Count_Person_WhiteAlone",
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino",
+          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AsianAlone",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_WhiteAlone",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AsianAlone",
+          "Count_Person_SomeOtherRaceAlone",
+          "Count_Person_TwoOrMoreRaces",
+          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NonWhite",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_OneRace"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_AsianOrPacificIslander",
+          "Count_Person_WhiteAlone",
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino",
+          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AsianAlone",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_WhiteAlone",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AsianAlone",
+          "Count_Person_SomeOtherRaceAlone",
+          "Count_Person_TwoOrMoreRaces",
+          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NonWhite",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_OneRace"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_Male",
+          "Count_Person_Female"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_Producer_TwoOrMoreRaces",
+          "Count_Person_Producer_HispanicOrLatino",
+          "Count_Person_Producer_WhiteAlone",
+          "Count_Person_Producer_BlackOrAfricanAmericanAlone",
+          "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_Producer_AsianAlone"
+        ]
+      },
+      {
+        "places": [
+          "wikidataId/Q1489"
+        ],
+        "svs": [
+          "Count_Person_Male",
+          "Count_Person_Female"
+        ]
+      }
+    ],
+    "filtered_svs": [
+      "Count_Person",
+      "Count_Person_PerArea",
+      "GrowthRate_Count_Person",
+      "Count_Person_OneRace",
+      "Count_Person_TwoOrMoreRaces",
+      "Count_Person_Female",
+      "Count_Person_Producer_TwoOrMoreRaces",
+      "Count_Person_Male"
+    ],
+    "num_chart_candidates": 1,
+    "processed_fulfillment_types": [
+      "simple"
+    ],
+    "stat_var_extensions": [
+      {
+        "Count_Person": [
+          "Count_Person"
+        ],
+        "Count_Person_Female": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ],
+        "Count_Person_Male": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ],
+        "Count_Person_OneRace": [
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_AsianAlone",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AsianOrPacificIslander",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_AsianAlone",
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_HispanicOrLatino_WhiteAlone",
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_NonWhite",
+          "Count_Person_NotHispanicOrLatino",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_OneRace",
+          "Count_Person_SomeOtherRaceAlone",
+          "Count_Person_TwoOrMoreRaces",
+          "Count_Person_WhiteAlone",
+          "Count_Person_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+        ],
+        "Count_Person_PerArea": [
+          "Count_Person_PerArea"
+        ],
+        "Count_Person_Producer_TwoOrMoreRaces": [
+          "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_Producer_AsianAlone",
+          "Count_Person_Producer_BlackOrAfricanAmericanAlone",
+          "Count_Person_Producer_HispanicOrLatino",
+          "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_Producer_TwoOrMoreRaces",
+          "Count_Person_Producer_WhiteAlone"
+        ],
+        "Count_Person_TwoOrMoreRaces": [
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_AsianAlone",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AsianOrPacificIslander",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_AsianAlone",
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_HispanicOrLatino_WhiteAlone",
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_NonWhite",
+          "Count_Person_NotHispanicOrLatino",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_OneRace",
+          "Count_Person_SomeOtherRaceAlone",
+          "Count_Person_TwoOrMoreRaces",
+          "Count_Person_WhiteAlone",
+          "Count_Person_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+        ],
+        "GrowthRate_Count_Person": [
+          "GrowthRate_Count_Person"
+        ]
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "wikidataId/Q1489",
+          "name": "Mexico City",
+          "place_type": "City"
+        }
+      ],
+      "query": "show me the population of mexico city",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "wikidataId/Q1489",
+              "name": "Mexico City",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Person"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person",
+        "Count_Person_PerArea",
+        "GrowthRate_Count_Person",
+        "Count_Person_OneRace",
+        "Count_Person_TwoOrMoreRaces",
+        "Count_Person_Female",
+        "Count_Person_Producer_TwoOrMoreRaces",
+        "Count_Person_Male"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 7
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "compare with california and new york state and washington state",
+      "query_type": 6,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "place_type": "State"
+        }
+      ],
+      "query": "what about in florida",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59",
+            "Count_Worker_NAICSFinanceInsurance",
+            "WagesTotal_Worker_NAICSFinanceInsurance"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "State",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ],
+      "query": "US states which have that highest median income",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Median_Income_Person",
+        "Median_Income_Household",
+        "Median_Earnings_Person",
+        "Median_Income_Household_FamilyHousehold",
+        "Mean_Income_Household",
+        "dc/x3gghqtglpr59",
+        "Median_Income_Household_NonfamilyHousehold"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 10
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "place_type": "City"
+        }
+      ],
+      "query": "tell me about palo alto",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0655282",
+              "name": "Palo Alto",
+              "place_type": "City"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "wikidataId/Q1489",
+  "main_place_name": "Mexico City",
+  "original_query": "show me the population of mexico city",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "mexico city"
+  ],
+  "places_resolved": "(name: Mexico City, dcid: wikidataId/Q1489); ",
+  "query_with_places_removed": "show me the population of",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.7989298105239868,
+      0.6706734895706177,
+      0.6289513111114502,
+      0.6197830438613892,
+      0.6192011833190918,
+      0.610393762588501,
+      0.5928089618682861,
+      0.591192364692688
+    ],
+    "SV": [
+      "Count_Person",
+      "Count_Person_PerArea",
+      "GrowthRate_Count_Person",
+      "Count_Person_OneRace",
+      "Count_Person_TwoOrMoreRaces",
+      "Count_Person_Female",
+      "Count_Person_Producer_TwoOrMoreRaces",
+      "Count_Person_Male"
+    ],
+    "SV_to_Sentences": {
+      "Count_Person": [
+        "Population (0.7989298105239868)",
+        "Population count (0.733523964881897)",
+        "Size of the population (0.7168887257575989)",
+        "Total number of people in the population (0.7077704071998596)",
+        "Total Number of People in a Population (0.7049037218093872)",
+        "Total number of people in a population (0.7049037218093872)",
+        "Number of inhabitants (0.6202281713485718)"
+      ],
+      "Count_Person_Female": [
+        "Population: Female (0.610393762588501)"
+      ],
+      "Count_Person_Male": [
+        "Population: Male (0.591192364692688)"
+      ],
+      "Count_Person_OneRace": [
+        "Population: One Race (0.6197830438613892)"
+      ],
+      "Count_Person_PerArea": [
+        "Population Density (0.6706734895706177)",
+        "number of people per area (0.5703409910202026)"
+      ],
+      "Count_Person_Producer_TwoOrMoreRaces": [
+        "Population: Producer, Two or More Races (0.5928089618682861)"
+      ],
+      "Count_Person_TwoOrMoreRaces": [
+        "Population: Two or More Races (0.6192011833190918)"
+      ],
+      "GrowthRate_Count_Person": [
+        "Increase in population (0.6289513111114502)",
+        "Population Growth Rate (0.6123272180557251)",
+        "Population growth rate (0.6123272180557251)",
+        "Rate of population growth (0.6034150719642639)",
+        "Rate of Population Growth (0.6034150719642639)",
+        "Population increase rate (0.5746013522148132)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_Person": [
+      "Population (0.7989298105239868)",
+      "Population count (0.733523964881897)",
+      "Size of the population (0.7168887257575989)",
+      "Total number of people in the population (0.7077704071998596)",
+      "Total Number of People in a Population (0.7049037218093872)",
+      "Total number of people in a population (0.7049037218093872)",
+      "Number of inhabitants (0.6202281713485718)"
+    ],
+    "Count_Person_Female": [
+      "Population: Female (0.610393762588501)"
+    ],
+    "Count_Person_Male": [
+      "Population: Male (0.591192364692688)"
+    ],
+    "Count_Person_OneRace": [
+      "Population: One Race (0.6197830438613892)"
+    ],
+    "Count_Person_PerArea": [
+      "Population Density (0.6706734895706177)",
+      "number of people per area (0.5703409910202026)"
+    ],
+    "Count_Person_Producer_TwoOrMoreRaces": [
+      "Population: Producer, Two or More Races (0.5928089618682861)"
+    ],
+    "Count_Person_TwoOrMoreRaces": [
+      "Population: Two or More Races (0.6192011833190918)"
+    ],
+    "GrowthRate_Count_Person": [
+      "Increase in population (0.6289513111114502)",
+      "Population Growth Rate (0.6123272180557251)",
+      "Population growth rate (0.6123272180557251)",
+      "Rate of population growth (0.6034150719642639)",
+      "Rate of Population Growth (0.6034150719642639)",
+      "Population increase rate (0.5746013522148132)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

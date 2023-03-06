@@ -1,0 +1,34 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "type": "PLACE_OVERVIEW"
+                  }
+                ]
+              }
+            ],
+            "title": "Palo Alto"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0655282"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/0655282",
+    "name": "Palo Alto",
+    "place_type": "City"
+  }
+}
