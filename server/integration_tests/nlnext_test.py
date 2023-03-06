@@ -11,12 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 import json
 import logging
 import multiprocessing
 import os
 import sys
+import time
 
 from flask_testing import LiveServerTestCase
 import requests
@@ -67,9 +67,14 @@ class IntegrationTest(LiveServerTestCase):
     return create_web_app()
 
   # TODO: Validate contexts as well eventually.
-  def run_sequence(self, test_dir, queries):
+  def run_sequence(self,
+                   test_dir,
+                   queries,
+                   check_chart_config=True,
+                   check_debug_info=True):
     ctx = {}
     for i, q in enumerate(queries):
+      time.sleep(5)
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(self.get_server_url() + f'/nl/data?q={q}',
                            json={
@@ -93,26 +98,32 @@ class IntegrationTest(LiveServerTestCase):
         with open(dbg_file, 'w') as infile:
           infile.write(json.dumps(dbg, indent=2))
       else:
-        with open(json_file, 'r') as infile:
-          expected = json.load(infile)
-          expected['debug'] = {}
-          expected['context'] = {}
-          a, b = (
-              json.dumps(resp, sort_keys=True, indent=2),
-              json.dumps(expected, sort_keys=True, indent=2),
-          )
-          self.maxDiff = None
-          self.assertEqual(a, b)
+        if check_chart_config:
+          with open(json_file, 'r') as infile:
+            expected = json.load(infile)
+            expected['debug'] = {}
+            expected['context'] = {}
+            a, b = (
+                json.dumps(resp, sort_keys=True, indent=2),
+                json.dumps(expected, sort_keys=True, indent=2),
+            )
+            self.maxDiff = None
+            self.assertEqual(a, b)
 
-        # Look in the debugInfo file to match places detected.
-        dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
-                                'debug_info.json')
-        with open(dbg_file, 'r') as infile:
-          expected = json.load(infile)
-          self.assertEqual(dbg["places_detected"], expected["places_detected"])
-          self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
-          self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
-          self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+        if check_debug_info:
+          # Look in the debugInfo file to match places detected.
+          dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
+                                  'debug_info.json')
+          with open(dbg_file, 'r') as infile:
+            expected = json.load(infile)
+            self.assertEqual(dbg["places_detected"],
+                             expected["places_detected"])
+            self.assertEqual(dbg["places_resolved"],
+                             expected["places_resolved"])
+            self.assertEqual(dbg["main_place_dcid"],
+                             expected["main_place_dcid"])
+            self.assertEqual(dbg["main_place_name"],
+                             expected["main_place_name"])
 
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
@@ -166,3 +177,14 @@ class IntegrationTest(LiveServerTestCase):
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',
                       ['Which countries emit the most greenhouse gases?'])
+
+  def test_place_detection_e2e(self):
+    self.run_sequence('place_detection_e2e', [
+        'tell me about palo alto',
+        'US states which have that highest median income',
+        'what about in florida',
+        'compare with california and new york state and washington state',
+        'show me the population of mexico city',
+        'counties in the US with the most poverty',
+    ],
+                      check_chart_config=False)

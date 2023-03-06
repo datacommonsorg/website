@@ -1,0 +1,1471 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.COUNTY",
+  "correlation_classification": "<None>",
+  "counters": {
+    "child_places_result": [
+      {
+        "place": "country/USA",
+        "result": [
+          "geoId/01001",
+          "geoId/01003",
+          "geoId/01005",
+          "geoId/01007",
+          "geoId/01009",
+          "geoId/01011",
+          "geoId/01013",
+          "geoId/01015",
+          "geoId/01017",
+          "geoId/01019",
+          "geoId/01021",
+          "geoId/01023",
+          "geoId/01025",
+          "geoId/01027",
+          "geoId/01029",
+          "geoId/01031",
+          "geoId/01033",
+          "geoId/01035",
+          "geoId/01037",
+          "geoId/01039"
+        ],
+        "type": "County"
+      }
+    ],
+    "failed_existence_check": [
+      {
+        "places": [
+          "geoId/01001",
+          "geoId/01003",
+          "geoId/01005",
+          "geoId/01007",
+          "geoId/01009",
+          "geoId/01011",
+          "geoId/01013",
+          "geoId/01015",
+          "geoId/01017",
+          "geoId/01019",
+          "geoId/01021",
+          "geoId/01023",
+          "geoId/01025",
+          "geoId/01027",
+          "geoId/01029",
+          "geoId/01031",
+          "geoId/01033",
+          "geoId/01035",
+          "geoId/01037",
+          "geoId/01039"
+        ],
+        "svs": [
+          "Count_Person_PovertyStatusDetermined"
+        ]
+      },
+      {
+        "places": [
+          "geoId/01001",
+          "geoId/01003",
+          "geoId/01005",
+          "geoId/01007",
+          "geoId/01009",
+          "geoId/01011",
+          "geoId/01013",
+          "geoId/01015",
+          "geoId/01017",
+          "geoId/01019",
+          "geoId/01021",
+          "geoId/01023",
+          "geoId/01025",
+          "geoId/01027",
+          "geoId/01029",
+          "geoId/01031",
+          "geoId/01033",
+          "geoId/01035",
+          "geoId/01037",
+          "geoId/01039"
+        ],
+        "svs": [
+          "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
+        ]
+      },
+      {
+        "places": [
+          "geoId/01001",
+          "geoId/01003",
+          "geoId/01005",
+          "geoId/01007",
+          "geoId/01009",
+          "geoId/01011",
+          "geoId/01013",
+          "geoId/01015",
+          "geoId/01017",
+          "geoId/01019",
+          "geoId/01021",
+          "geoId/01023",
+          "geoId/01025",
+          "geoId/01027",
+          "geoId/01029",
+          "geoId/01031",
+          "geoId/01033",
+          "geoId/01035",
+          "geoId/01037",
+          "geoId/01039"
+        ],
+        "svs": [
+          "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined"
+        ]
+      },
+      {
+        "places": [
+          "geoId/01001",
+          "geoId/01003",
+          "geoId/01005",
+          "geoId/01007",
+          "geoId/01009",
+          "geoId/01011",
+          "geoId/01013",
+          "geoId/01015",
+          "geoId/01017",
+          "geoId/01019",
+          "geoId/01021",
+          "geoId/01023",
+          "geoId/01025",
+          "geoId/01027",
+          "geoId/01029",
+          "geoId/01031",
+          "geoId/01033",
+          "geoId/01035",
+          "geoId/01037",
+          "geoId/01039"
+        ],
+        "svs": [
+          "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
+        ]
+      }
+    ],
+    "filtered_svs": [
+      "Count_Person_BelowPovertyLevelInThePast12Months",
+      "Count_Person_PovertyStatusDetermined",
+      "Count_Person_AbovePovertyLevelInThePast12Months",
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined",
+      "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined",
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+      "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+    ],
+    "num_chart_candidates": 12,
+    "processed_fulfillment_types": [
+      "ranking_across_places"
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "County",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ],
+      "query": "counties in the US with the most poverty",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_AbovePovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 10,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 11,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 12,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 13,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 14,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 16,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person_BelowPovertyLevelInThePast12Months",
+        "Count_Person_PovertyStatusDetermined",
+        "Count_Person_AbovePovertyLevelInThePast12Months",
+        "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+        "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined",
+        "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined",
+        "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+        "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+        "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+        "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+        "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
+        "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "wikidataId/Q1489",
+          "name": "Mexico City",
+          "place_type": "City"
+        }
+      ],
+      "query": "show me the population of mexico city",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "wikidataId/Q1489",
+              "name": "Mexico City",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Person"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person",
+        "Count_Person_PerArea",
+        "GrowthRate_Count_Person",
+        "Count_Person_OneRace",
+        "Count_Person_TwoOrMoreRaces",
+        "Count_Person_Female",
+        "Count_Person_Producer_TwoOrMoreRaces",
+        "Count_Person_Male"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 7
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "compare with california and new york state and washington state",
+      "query_type": 6,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "place_type": "State"
+        }
+      ],
+      "query": "what about in florida",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59",
+            "Count_Worker_NAICSFinanceInsurance",
+            "WagesTotal_Worker_NAICSFinanceInsurance"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "State",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ],
+      "query": "US states which have that highest median income",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Median_Income_Person",
+        "Median_Income_Household",
+        "Median_Earnings_Person",
+        "Median_Income_Household_FamilyHousehold",
+        "Mean_Income_Household",
+        "dc/x3gghqtglpr59",
+        "Median_Income_Household_NonfamilyHousehold"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 10
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "place_type": "City"
+        }
+      ],
+      "query": "tell me about palo alto",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0655282",
+              "name": "Palo Alto",
+              "place_type": "City"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "country/USA",
+  "main_place_name": "United States of America",
+  "original_query": "counties in the US with the most poverty",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "us"
+  ],
+  "places_resolved": "(name: United States of America, dcid: country/USA); ",
+  "query_with_places_removed": "counties in the with the most poverty",
+  "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.7128117084503174,
+      0.7121000289916992,
+      0.6903674006462097,
+      0.6868858337402344,
+      0.6809424161911011,
+      0.6731065511703491,
+      0.6727954149246216,
+      0.6680917739868164,
+      0.6667652726173401,
+      0.6660559177398682,
+      0.6626518964767456,
+      0.6542603969573975,
+      0.6455994248390198,
+      0.6453518867492676,
+      0.6444409489631653,
+      0.6390771269798279
+    ],
+    "SV": [
+      "Count_Person_BelowPovertyLevelInThePast12Months",
+      "Count_Person_PovertyStatusDetermined",
+      "Count_Person_AbovePovertyLevelInThePast12Months",
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined",
+      "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined",
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+      "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+    ],
+    "SV_to_Sentences": {
+      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
+        "Number of families in poverty in the past year (0.6731065511703491)",
+        "Number of households below poverty line in the past year (0.6552075147628784)"
+      ],
+      "Count_Person_AbovePovertyLevelInThePast12Months": [
+        "Population: Above Poverty Level in The Past 12 Months (0.6903674006462097)",
+        "Quantity of individuals who were not living in poverty (0.684653639793396)",
+        "Number of people who haven't been living in poverty in the past year (0.6585137844085693)"
+      ],
+      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455994248390198)"
+      ],
+      "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
+        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660559177398682)"
+      ],
+      "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
+        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542603969573975)"
+      ],
+      "Count_Person_BelowPovertyLevelInThePast12Months": [
+        "Population: Below Poverty Level in The Past 12 Months (0.7128117084503174)"
+      ],
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+        "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667652726173401)"
+      ],
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
+        "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868858337402344)"
+      ],
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
+        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809424161911011)"
+      ],
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
+        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626518964767456)"
+      ],
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
+        "Population: Female, Below Poverty Level in The Past 12 Months (0.6390771269798279)"
+      ],
+      "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
+        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680917739868164)"
+      ],
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
+        "Population: Male, Below Poverty Level in The Past 12 Months (0.6453518867492676)"
+      ],
+      "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
+        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727954149246216)"
+      ],
+      "Count_Person_PovertyStatusDetermined": [
+        "Number of People Living in Poverty (0.7121000289916992)",
+        "Population: Poverty Status Determined (0.7043505311012268)"
+      ],
+      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters": [
+        "Population: Poverty Status Determined, Group Quarters (0.6444409489631653)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
+      "Number of families in poverty in the past year (0.6731065511703491)",
+      "Number of households below poverty line in the past year (0.6552075147628784)"
+    ],
+    "Count_Person_AbovePovertyLevelInThePast12Months": [
+      "Population: Above Poverty Level in The Past 12 Months (0.6903674006462097)",
+      "Quantity of individuals who were not living in poverty (0.684653639793396)",
+      "Number of people who haven't been living in poverty in the past year (0.6585137844085693)"
+    ],
+    "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455994248390198)"
+    ],
+    "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
+      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660559177398682)"
+    ],
+    "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
+      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542603969573975)"
+    ],
+    "Count_Person_BelowPovertyLevelInThePast12Months": [
+      "Population: Below Poverty Level in The Past 12 Months (0.7128117084503174)"
+    ],
+    "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
+      "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667652726173401)"
+    ],
+    "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
+      "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868858337402344)"
+    ],
+    "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
+      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809424161911011)"
+    ],
+    "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
+      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626518964767456)"
+    ],
+    "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
+      "Population: Female, Below Poverty Level in The Past 12 Months (0.6390771269798279)"
+    ],
+    "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
+      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680917739868164)"
+    ],
+    "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
+      "Population: Male, Below Poverty Level in The Past 12 Months (0.6453518867492676)"
+    ],
+    "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
+      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727954149246216)"
+    ],
+    "Count_Person_PovertyStatusDetermined": [
+      "Number of People Living in Poverty (0.7121000289916992)",
+      "Population: Poverty Status Determined (0.7043505311012268)"
+    ],
+    "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters": [
+      "Population: Poverty Status Determined, Group Quarters (0.6444409489631653)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}
