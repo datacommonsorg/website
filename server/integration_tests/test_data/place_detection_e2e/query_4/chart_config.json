@@ -9,8 +9,9 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Median_Income_Person_multiple_place_bar_block"
@@ -28,8 +29,9 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Median_Income_Household_multiple_place_bar_block"
@@ -47,8 +49,9 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Median_Earnings_Person_multiple_place_bar_block"
@@ -66,8 +69,9 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold_multiple_place_bar_block"
@@ -85,8 +89,9 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Mean_Income_Household_multiple_place_bar_block"
@@ -96,8 +101,9 @@
                   },
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Mean_Income_Household_multiple_place_bar_block_pc"
@@ -115,8 +121,9 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "dc/x3gghqtglpr59_multiple_place_bar_block"
@@ -126,8 +133,9 @@
                   },
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "dc/x3gghqtglpr59_multiple_place_bar_block_pc"
@@ -145,8 +153,9 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/12",
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold_multiple_place_bar_block"
@@ -203,15 +212,15 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/12"
+        "geoId/06"
       ]
     }
   },
   "context": {},
   "debug": {},
   "place": {
-    "dcid": "geoId/12",
-    "name": "Florida",
+    "dcid": "geoId/06",
+    "name": "California",
     "place_type": "State"
   }
 }

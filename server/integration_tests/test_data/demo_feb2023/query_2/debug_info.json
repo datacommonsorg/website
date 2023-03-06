@@ -161,12 +161,12 @@
   "sv_matching": {
     "CosineScore": [
       0.29845675826072693,
-      0.29795411229133606,
-      0.29298681020736694,
-      0.28863880038261414,
-      0.27653783559799194,
-      0.27302029728889465,
-      0.26648253202438354
+      0.29795393347740173,
+      0.2929868698120117,
+      0.28863877058029175,
+      0.2765377461910248,
+      0.2730202376842499,
+      0.26648256182670593
     ],
     "SV": [
       "Annual_Count_ElectricityConsumer",
@@ -179,75 +179,75 @@
     ],
     "SV_to_Sentences": {
       "Annual_Consumption_Electricity": [
-        "The total amount of electricity used in a year (0.29795411229133606)",
-        "The yearly energy usage (0.2840510606765747)",
-        "The amount of electricity used each year (0.2826368808746338)",
-        "Amount of electricity consumed in a year (0.2728409469127655)",
-        "amount of electricity consumed in a year (0.2728409469127655)"
+        "The total amount of electricity used in a year (0.29795393347740173)",
+        "The yearly energy usage (0.2840510308742523)",
+        "The amount of electricity used each year (0.2826367914676666)",
+        "amount of electricity consumed in a year (0.2728409469127655)",
+        "Amount of electricity consumed in a year (0.2728409469127655)"
       ],
       "Annual_Count_ElectricityConsumer": [
         "The amount of electricity used in a year (0.29845675826072693)",
-        "Total Electricity Consumers in a Year (0.2700478434562683)",
-        "Total electricity consumers in a year (0.2700478434562683)"
+        "Total Electricity Consumers in a Year (0.2700478732585907)",
+        "Total electricity consumers in a year (0.2700478732585907)"
       ],
       "Annual_Generation_Electricity": [
-        "The yearly energy output (0.29298681020736694)",
-        "The annual electricity production (0.2753799557685852)",
-        "Amount of electricity generated in a year (0.2752251923084259)"
+        "The yearly energy output (0.2929868698120117)",
+        "The annual electricity production (0.2753796875476837)",
+        "Amount of electricity generated in a year (0.2752251625061035)"
       ],
       "Annual_Generation_Energy_Coal": [
-        "The yearly coal power production (0.26648253202438354)"
+        "The yearly coal power production (0.26648256182670593)"
       ],
       "Annual_Generation_Fuel_CrudeOil": [
-        "Amount of crude oil generated in a year (0.28863880038261414)",
-        "The annual crude oil supply (0.28760069608688354)",
-        "The yearly total of crude oil production (0.26816031336784363)",
-        "The amount of crude oil produced each year (0.26088884472846985)"
+        "Amount of crude oil generated in a year (0.28863877058029175)",
+        "The annual crude oil supply (0.2876005172729492)",
+        "The yearly total of crude oil production (0.2681601643562317)",
+        "The amount of crude oil produced each year (0.26088881492614746)"
       ],
       "Annual_Generation_Fuel_DieselOil": [
-        "The annual diesel fuel supply (0.27653783559799194)",
-        "Amount of diesel oil generated in a year (0.26213064789772034)",
-        "amount of diesel oil generated in a year (0.26213061809539795)"
+        "The annual diesel fuel supply (0.2765377461910248)",
+        "amount of diesel oil generated in a year (0.262130469083786)",
+        "Amount of diesel oil generated in a year (0.2621304392814636)"
       ],
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-        "Number of households with low income in the past year (0.27302029728889465)"
+        "Number of households with low income in the past year (0.2730202376842499)"
       ]
     }
   },
   "svs_to_sentences": {
     "Annual_Consumption_Electricity": [
-      "The total amount of electricity used in a year (0.29795411229133606)",
-      "The yearly energy usage (0.2840510606765747)",
-      "The amount of electricity used each year (0.2826368808746338)",
-      "Amount of electricity consumed in a year (0.2728409469127655)",
-      "amount of electricity consumed in a year (0.2728409469127655)"
+      "The total amount of electricity used in a year (0.29795393347740173)",
+      "The yearly energy usage (0.2840510308742523)",
+      "The amount of electricity used each year (0.2826367914676666)",
+      "amount of electricity consumed in a year (0.2728409469127655)",
+      "Amount of electricity consumed in a year (0.2728409469127655)"
     ],
     "Annual_Count_ElectricityConsumer": [
       "The amount of electricity used in a year (0.29845675826072693)",
-      "Total Electricity Consumers in a Year (0.2700478434562683)",
-      "Total electricity consumers in a year (0.2700478434562683)"
+      "Total Electricity Consumers in a Year (0.2700478732585907)",
+      "Total electricity consumers in a year (0.2700478732585907)"
     ],
     "Annual_Generation_Electricity": [
-      "The yearly energy output (0.29298681020736694)",
-      "The annual electricity production (0.2753799557685852)",
-      "Amount of electricity generated in a year (0.2752251923084259)"
+      "The yearly energy output (0.2929868698120117)",
+      "The annual electricity production (0.2753796875476837)",
+      "Amount of electricity generated in a year (0.2752251625061035)"
     ],
     "Annual_Generation_Energy_Coal": [
-      "The yearly coal power production (0.26648253202438354)"
+      "The yearly coal power production (0.26648256182670593)"
     ],
     "Annual_Generation_Fuel_CrudeOil": [
-      "Amount of crude oil generated in a year (0.28863880038261414)",
-      "The annual crude oil supply (0.28760069608688354)",
-      "The yearly total of crude oil production (0.26816031336784363)",
-      "The amount of crude oil produced each year (0.26088884472846985)"
+      "Amount of crude oil generated in a year (0.28863877058029175)",
+      "The annual crude oil supply (0.2876005172729492)",
+      "The yearly total of crude oil production (0.2681601643562317)",
+      "The amount of crude oil produced each year (0.26088881492614746)"
     ],
     "Annual_Generation_Fuel_DieselOil": [
-      "The annual diesel fuel supply (0.27653783559799194)",
-      "Amount of diesel oil generated in a year (0.26213064789772034)",
-      "amount of diesel oil generated in a year (0.26213061809539795)"
+      "The annual diesel fuel supply (0.2765377461910248)",
+      "amount of diesel oil generated in a year (0.262130469083786)",
+      "Amount of diesel oil generated in a year (0.2621304392814636)"
     ],
     "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-      "Number of households with low income in the past year (0.27302029728889465)"
+      "Number of households with low income in the past year (0.2730202376842499)"
     ]
   },
   "time_delta_classification": "<None>"

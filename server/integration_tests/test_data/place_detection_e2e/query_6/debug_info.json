@@ -599,6 +599,16 @@
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "place_type": "State"
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "place_type": "State"
         }
       ],
       "query": "compare with california and new york state and washington state",
@@ -620,13 +630,18 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/12",
-              "name": "Florida",
+              "dcid": "geoId/06",
+              "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/06",
-              "name": "California",
+              "dcid": "geoId/36",
+              "name": "New York",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/53",
+              "name": "Washington",
               "place_type": "State"
             }
           ],
@@ -650,13 +665,18 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/12",
-              "name": "Florida",
+              "dcid": "geoId/06",
+              "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/06",
-              "name": "California",
+              "dcid": "geoId/36",
+              "name": "New York",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/53",
+              "name": "Washington",
               "place_type": "State"
             }
           ],
@@ -680,13 +700,18 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/12",
-              "name": "Florida",
+              "dcid": "geoId/06",
+              "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/06",
-              "name": "California",
+              "dcid": "geoId/36",
+              "name": "New York",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/53",
+              "name": "Washington",
               "place_type": "State"
             }
           ],
@@ -710,13 +735,18 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/12",
-              "name": "Florida",
+              "dcid": "geoId/06",
+              "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/06",
-              "name": "California",
+              "dcid": "geoId/36",
+              "name": "New York",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/53",
+              "name": "Washington",
               "place_type": "State"
             }
           ],
@@ -740,13 +770,18 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/12",
-              "name": "Florida",
+              "dcid": "geoId/06",
+              "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/06",
-              "name": "California",
+              "dcid": "geoId/36",
+              "name": "New York",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/53",
+              "name": "Washington",
               "place_type": "State"
             }
           ],
@@ -770,13 +805,18 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/12",
-              "name": "Florida",
+              "dcid": "geoId/06",
+              "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/06",
-              "name": "California",
+              "dcid": "geoId/36",
+              "name": "New York",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/53",
+              "name": "Washington",
               "place_type": "State"
             }
           ],
@@ -800,13 +840,18 @@
           "event": null,
           "places": [
             {
-              "dcid": "geoId/12",
-              "name": "Florida",
+              "dcid": "geoId/06",
+              "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/06",
-              "name": "California",
+              "dcid": "geoId/36",
+              "name": "New York",
+              "place_type": "State"
+            },
+            {
+              "dcid": "geoId/53",
+              "name": "Washington",
               "place_type": "State"
             }
           ],
@@ -1323,22 +1368,22 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7128117084503174,
-      0.7121000289916992,
-      0.6903674006462097,
+      0.7128115892410278,
+      0.7120996713638306,
+      0.6903678774833679,
       0.6868858337402344,
-      0.6809424161911011,
-      0.6731065511703491,
-      0.6727954149246216,
-      0.6680917739868164,
-      0.6667652726173401,
-      0.6660559177398682,
-      0.6626518964767456,
-      0.6542603969573975,
-      0.6455994248390198,
-      0.6453518867492676,
-      0.6444409489631653,
-      0.6390771269798279
+      0.6809427738189697,
+      0.6731067299842834,
+      0.6727956533432007,
+      0.6680921316146851,
+      0.666765570640564,
+      0.6660558581352234,
+      0.6626518368721008,
+      0.6542606353759766,
+      0.645599365234375,
+      0.6453516483306885,
+      0.6444410085678101,
+      0.6390772461891174
     ],
     "SV": [
       "Count_Person_BelowPovertyLevelInThePast12Months",
@@ -1360,111 +1405,111 @@
     ],
     "SV_to_Sentences": {
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-        "Number of families in poverty in the past year (0.6731065511703491)",
-        "Number of households below poverty line in the past year (0.6552075147628784)"
+        "Number of families in poverty in the past year (0.6731067299842834)",
+        "Number of households below poverty line in the past year (0.655207633972168)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months": [
-        "Population: Above Poverty Level in The Past 12 Months (0.6903674006462097)",
-        "Quantity of individuals who were not living in poverty (0.684653639793396)",
-        "Number of people who haven't been living in poverty in the past year (0.6585137844085693)"
+        "Population: Above Poverty Level in The Past 12 Months (0.6903678774833679)",
+        "Quantity of individuals who were not living in poverty (0.684654176235199)",
+        "Number of people who haven't been living in poverty in the past year (0.6585140824317932)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455994248390198)"
+        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.645599365234375)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660559177398682)"
+        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660558581352234)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
-        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542603969573975)"
+        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542606353759766)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months": [
-        "Population: Below Poverty Level in The Past 12 Months (0.7128117084503174)"
+        "Population: Below Poverty Level in The Past 12 Months (0.7128115892410278)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667652726173401)"
+        "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.666765570640564)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
         "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868858337402344)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
-        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809424161911011)"
+        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809427738189697)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626518964767456)"
+        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626518368721008)"
       ],
       "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
-        "Population: Female, Below Poverty Level in The Past 12 Months (0.6390771269798279)"
+        "Population: Female, Below Poverty Level in The Past 12 Months (0.6390772461891174)"
       ],
       "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
-        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680917739868164)"
+        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680921316146851)"
       ],
       "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
-        "Population: Male, Below Poverty Level in The Past 12 Months (0.6453518867492676)"
+        "Population: Male, Below Poverty Level in The Past 12 Months (0.6453516483306885)"
       ],
       "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
-        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727954149246216)"
+        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727956533432007)"
       ],
       "Count_Person_PovertyStatusDetermined": [
-        "Number of People Living in Poverty (0.7121000289916992)",
-        "Population: Poverty Status Determined (0.7043505311012268)"
+        "Number of People Living in Poverty (0.7120996713638306)",
+        "Population: Poverty Status Determined (0.7043509483337402)"
       ],
       "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters": [
-        "Population: Poverty Status Determined, Group Quarters (0.6444409489631653)"
+        "Population: Poverty Status Determined, Group Quarters (0.6444410085678101)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-      "Number of families in poverty in the past year (0.6731065511703491)",
-      "Number of households below poverty line in the past year (0.6552075147628784)"
+      "Number of families in poverty in the past year (0.6731067299842834)",
+      "Number of households below poverty line in the past year (0.655207633972168)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months": [
-      "Population: Above Poverty Level in The Past 12 Months (0.6903674006462097)",
-      "Quantity of individuals who were not living in poverty (0.684653639793396)",
-      "Number of people who haven't been living in poverty in the past year (0.6585137844085693)"
+      "Population: Above Poverty Level in The Past 12 Months (0.6903678774833679)",
+      "Quantity of individuals who were not living in poverty (0.684654176235199)",
+      "Number of people who haven't been living in poverty in the past year (0.6585140824317932)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455994248390198)"
+      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.645599365234375)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660559177398682)"
+      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660558581352234)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
-      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542603969573975)"
+      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542606353759766)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months": [
-      "Population: Below Poverty Level in The Past 12 Months (0.7128117084503174)"
+      "Population: Below Poverty Level in The Past 12 Months (0.7128115892410278)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667652726173401)"
+      "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.666765570640564)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
       "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868858337402344)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
-      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809424161911011)"
+      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809427738189697)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626518964767456)"
+      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626518368721008)"
     ],
     "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
-      "Population: Female, Below Poverty Level in The Past 12 Months (0.6390771269798279)"
+      "Population: Female, Below Poverty Level in The Past 12 Months (0.6390772461891174)"
     ],
     "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
-      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680917739868164)"
+      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680921316146851)"
     ],
     "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
-      "Population: Male, Below Poverty Level in The Past 12 Months (0.6453518867492676)"
+      "Population: Male, Below Poverty Level in The Past 12 Months (0.6453516483306885)"
     ],
     "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
-      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727954149246216)"
+      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727956533432007)"
     ],
     "Count_Person_PovertyStatusDetermined": [
-      "Number of People Living in Poverty (0.7121000289916992)",
-      "Population: Poverty Status Determined (0.7043505311012268)"
+      "Number of People Living in Poverty (0.7120996713638306)",
+      "Population: Poverty Status Determined (0.7043509483337402)"
     ],
     "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters": [
-      "Population: Poverty Status Determined, Group Quarters (0.6444409489631653)"
+      "Population: Poverty Status Determined, Group Quarters (0.6444410085678101)"
     ]
   },
   "time_delta_classification": "<None>"
