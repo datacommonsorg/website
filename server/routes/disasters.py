@@ -20,6 +20,8 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import escape
+from flask import redirect
+from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
 from server.config import subject_page_pb2
@@ -46,29 +48,20 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
-def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
-  all_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
+def disaster_dashboard(place_dcid=None):
+  if not place_dcid:
+    return redirect(url_for('disasters.disaster_dashboard',
+                            place_dcid=DEFAULT_PLACE_DCID),
+                    code=302)
+
+  dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    all_configs = server.lib.util.get_disaster_dashboard_configs()
+    dashboard_config = server.lib.util.get_disaster_dashboard_config()
 
-  if len(all_configs) < 1:
-    return "Error: no config installed"
-
-  # Find the config for the topic & place.
-  dashboard_config = None
-  default_config = None
-  for config in all_configs:
-    if place_dcid in config.metadata.place_dcid:
-      dashboard_config = config
-      break
-    if DEFAULT_PLACE_DCID in config.metadata.place_dcid:
-      # TODO: Add a better way to find the default config.
-      default_config = config
   if not dashboard_config:
-    # Use the default config instead
-    dashboard_config = default_config
+    return "Error: no config installed"
 
   # Override the min severity for fires for Earth
   # TODO: Do this by extending the config instead.

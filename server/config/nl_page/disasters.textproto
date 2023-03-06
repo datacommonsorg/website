@@ -1,0 +1,588 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies disaster charts config for the NL interface.
+
+metadata {
+  topic_id: "disaster_dashboard"
+  topic_name: "Disaster Dashboard"
+  place_dcid: "Earth"
+  contained_place_types {
+    key: "Planet"
+    value: "Country"
+  }
+  contained_place_types {
+    key: "Continent"
+    value: "Country"
+  }
+  contained_place_types {
+    key: "Country"
+    value: "AdministrativeArea1"
+  }
+  contained_place_types {
+    key: "AdministrativeArea1"
+    value: "AdministrativeArea2"
+  }
+  event_type_spec {
+    key: "earthquake"
+    value {
+      id: "earthquake"
+      name: "Earthquake"
+      event_type_dcids: "EarthquakeEvent"
+      color: "#930000"
+      default_severity_filter: {
+        prop: 'magnitude'
+        display_name: 'Magnitude'
+        upper_limit: 10
+        lower_limit: 6
+      }
+    }
+  }
+  event_type_spec {
+    key: "flood"
+    value {
+      id: "flood"
+      name: "Flood"
+      event_type_dcids: "FloodEvent"
+      color: "#3cbad1"
+      default_severity_filter: {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
+        lower_limit: 100
+      }
+    }
+  }
+  event_type_spec {
+    key: "fire"
+    value {
+      id: "fire"
+      name: "Fire"
+      event_type_dcids: "WildlandFireEvent"
+      event_type_dcids: "WildfireEvent"
+      event_type_dcids: "FireEvent"
+      color: "#f01212"
+      default_severity_filter: {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
+        # This is overriden for Earth in routes/disaster.py
+        lower_limit: 200
+      }
+      end_date_prop: "endDate"
+      end_date_prop: "containmentDate"
+      end_date_prop: "controlledDate"
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
+    }
+  }
+  event_type_spec {
+    key: "storm"
+    value {
+      id: "storm"
+      name: "Storm"
+      color: "#2e7d32"
+      event_type_dcids: "CycloneEvent"
+      default_severity_filter: {
+        prop: "maxWindSpeed"
+        display_name: "Max Wind Speed"
+        unit: "Knot"
+        upper_limit: 100000
+        lower_limit: 64
+      }
+      path_geo_json_prop: "geoJsonCoordinates"
+    }
+  }
+  event_type_spec {
+    # We should drop this eventually, but leaving this here if we want to plot some storms.
+    key: "tornado"
+    value {
+      id: "tornado"
+      name: "Tornado"
+      event_type_dcids: "TornadoEvent"
+      color: "#004d40"
+      default_severity_filter: {
+        prop: "maxClassification"
+        unit: "TornadoIntensityEF"
+        upper_limit: 5
+        lower_limit: 3
+      }
+    }
+  }
+  event_type_spec {
+    key: "drought"
+    value {
+      id: "drought"
+      name: "Drought"
+      event_type_dcids: "DroughtEvent"
+      color: "#ffa000"
+      default_severity_filter: {
+        prop: "area",
+        display_name: "Area"
+        unit: "SquareKilometer"
+        upper_limit: 100000,
+        lower_limit: 10
+      }
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
+      polygon_geo_json_prop: "geoJsonCoordinatesDP1"
+      end_date_prop: "endDate"
+    }
+  }
+  event_type_spec {
+    key: "wetbulb"
+    value {
+      id: "wetbulb"
+      name: "Wet Bulb"
+      event_type_dcids: "WetBulbTemperatureEvent"
+      color: "#7700e6"
+      default_severity_filter: {
+        prop: "wetBulbTemperature"
+        display_name: "Wet Bulb"
+        unit: "Celsius",
+        upper_limit: 37,
+        lower_limit: 31
+      }
+      display_prop {
+        prop: "humidity"
+        display_name: "Humidity"
+        unit: "Percent"
+      }
+      display_prop {
+        prop: "temperature"
+        display_name: "Temp"
+        unit: "Celsius"
+      }
+    }
+  }
+  event_type_spec {
+    key: "heat"
+    value {
+      id: "heat"
+      name: "Extreme Heat"
+      event_type_dcids: "HeatTemperatureEvent"
+      color: "#ffa000"
+      default_severity_filter: {
+        prop: "differenceTemperature"
+        display_name: "Difference"
+        unit: "Celsius"
+        upper_limit: 35
+        lower_limit: 18
+      }
+      display_prop {
+        prop: "referenceTemperature"
+        display_name: "Reference"
+        unit: "Celsius"
+      }
+    }
+  }
+  event_type_spec {
+    key: "cold"
+    value {
+      id: "cold"
+      name: "Extreme Cold"
+      event_type_dcids: "ColdTemperatureEvent"
+      color: "#304ffe"
+      default_severity_filter: {
+        prop: "differenceTemperature"
+        display_name: "Difference"
+        unit: "Celsius"
+        upper_limit: -18
+        lower_limit: -35
+      }
+      display_prop {
+        prop: "referenceTemperature"
+        display_name: "Reference"
+        unit: "Celsius"
+      }
+    }
+  }
+}
+
+categories {
+  title: "Severe Weather and Natural Disasters"
+
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          polygon_event_type_key: "drought"
+          point_event_type_key: "earthquake"
+          point_event_type_key: "fire"
+          point_event_type_key: "flood"
+          # point_event_type_key: "tornado"
+          path_event_type_key: "storm"
+          point_event_type_key: "wetbulb"
+          # point_event_type_key: "heat"
+          # point_event_type_key: "cold"
+        }
+      }
+    }
+  }
+}
+
+categories {
+  title: "Drought"
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          polygon_event_type_key: "drought"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of droughts"
+        histogram_tile_spec {
+          event_type_key: "drought"
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe drought events"
+        top_event_tile_spec {
+          event_type_key: "drought"
+          show_start_date: true
+          show_end_date: true
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "spi_9"
+    value {
+      stat_var: "StandardizedPrecipitationIndex_Atmosphere_9MonthPeriod"
+      name: "SPI 9 month"
+    }
+  }
+}
+
+categories {
+  title: "Fires"
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          point_event_type_key: "fire"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of fires"
+        histogram_tile_spec {
+          event_type_key: "fire"
+        }
+      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by fires last year"
+      #   stat_var_key: "fire_area"
+      # }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe fires"
+        top_event_tile_spec {
+          event_type_key: "fire"
+          show_start_date: true
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "fire_count"
+    value {
+      stat_var: "Count_FireEvent"
+      name: "Count of fires (${date})"
+    }
+  }
+  stat_var_spec {
+    key: "fire_area"
+    value {
+      stat_var: "Area_FireEvent"
+      name: "Area affected by fires (${date})"
+    }
+  }
+}
+
+categories {
+  title: "Floods"
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          point_event_type_key: "flood"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of floods"
+        histogram_tile_spec {
+          event_type_key: "flood"
+        }
+      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by floods last year"
+      #   stat_var_key: "flood_area"
+      # }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe floods"
+        top_event_tile_spec {
+          event_type_key: "flood"
+          show_start_date: true
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "flood_count"
+    value {
+      stat_var: "Count_FloodEvent"
+      name: "Count of floods"
+    }
+  }
+  stat_var_spec {
+    key: "flood_area"
+    value {
+      stat_var: "Area_FloodEvent"
+      name: "Area affected by floods"
+    }
+  }
+}
+
+categories {
+  title: "Storms"
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          path_event_type_key: "storm"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of cyclones"
+        histogram_tile_spec {
+          event_type_key: "storm"
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe cyclones"
+        top_event_tile_spec {
+          event_type_key: "storm"
+          show_start_date: true
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "cyclone_all"
+    value {
+      stat_var: "Count_CycloneEvent"
+      name: "All cyclones"
+    }
+  }
+}
+
+categories {
+  title: "Wet bulb"
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          point_event_type_key: "wetbulb"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of wet bulb temperature events"
+        histogram_tile_spec {
+          event_type_key: "wetbulb"
+        }
+      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by wet bulb events last year"
+      #   stat_var_key: "wetbulb_area"
+      # }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe wet bulb events"
+        top_event_tile_spec {
+          event_type_key: "wetbulb"
+          show_start_date: true
+          display_prop: "humidity"
+          display_prop: "temperature"
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "wetbulb_count"
+    value {
+      stat_var: "Count_WetBulbTemperatureEvent"
+      name: "Count of wet bulb temperature events"
+    }
+  }
+  stat_var_spec {
+    key: "wetbulb_area"
+    value {
+      stat_var: "Area_WetBulbTemperatureEvent"
+      name: "Area affected by wet bulb temperature events"
+    }
+  }
+}
+
+# categories {
+#   title: "Extreme Heat"
+#   blocks {
+#     type: DISASTER_EVENT
+#     columns {
+#       tiles {
+#         type: DISASTER_EVENT_MAP
+#         disaster_event_map_tile_spec {
+#           point_event_type_key: "heat"
+#         }
+#       }
+#       tiles {
+#         type: HISTOGRAM
+#         title: "Number of extreme heat events"
+#         histogram_tile_spec {
+#           event_type_key: "heat"
+#         }
+#       }
+#       # tiles {
+#       #   type: HISTOGRAM
+#       #   title: "Total area affected by extreme heat events last year"
+#       #   stat_var_key: "heat_area"
+#       # }
+#     }
+#     columns {
+#       tiles {
+#         type: TOP_EVENT
+#         title: "Most severe heat events"
+#         top_event_tile_spec {
+#           event_type_key: "heat"
+#           display_prop: "referenceTemperature"
+#           show_start_date: true
+#         }
+#       }
+#     }
+#   }
+#   stat_var_spec {
+#     key: "heat_count"
+#     value {
+#       stat_var: "Count_HeatTemperatureEvent"
+#       name: "Count of extreme heat events"
+#     }
+#   }
+#   stat_var_spec {
+#     key: "heat_area"
+#     value {
+#       stat_var: "Area_HeatTemperatureEvent"
+#       name: "Area affected by extreme heat events"
+#     }
+#   }
+# }
+
+# categories {
+#   title: "Extreme Cold"
+#   blocks {
+#     type: DISASTER_EVENT
+#     columns {
+#       tiles {
+#         type: DISASTER_EVENT_MAP
+#         disaster_event_map_tile_spec: {
+#           point_event_type_key: "cold"
+#         }
+#       }
+#       tiles {
+#         type: HISTOGRAM
+#         title: "Number of extreme cold events"
+#         histogram_tile_spec {
+#           event_type_key: "cold"
+#         }
+#       }
+#       # tiles {
+#       #   type: HISTOGRAM
+#       #   title: "Total area affected by extreme cold events last year"
+#       #   stat_var_key: "cold_area"
+#       # }
+#     }
+#     columns {
+#       tiles {
+#         type: TOP_EVENT
+#         title: "Most severe cold events"
+#         top_event_tile_spec {
+#           event_type_key: "cold"
+#           display_prop: "referenceTemperature"
+#           show_start_date: true
+#           reverse_sort: true
+#         }
+#       }
+#     }
+#   }
+
+#   stat_var_spec {
+#     key: "cold_count"
+#     value {
+#       stat_var: "Count_ColdTemperatureEvent"
+#       name: "Count of extreme cold events"
+#     }
+#   }
+#   stat_var_spec {
+#     key: "cold_area"
+#     value {
+#       stat_var: "Area_ColdTemperatureEvent"
+#       name: "Area affected by extreme cold events"
+#     }
+#   }
+# }
