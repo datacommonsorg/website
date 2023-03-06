@@ -192,9 +192,14 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0,
   .disaster-event-map-legend-entry {
     display: flex;
     align-items: center;
-    padding: 0 1rem 0 0;
+    padding: 0.1rem 0.5rem 0.1rem 0.5rem;
     font-size: .9rem;
-    cursor: default;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+  .disaster-event-map-legend-entry:hover {
+    background-color: rgba(0, 0, 0, 0.05);
   }
  
   .disaster-event-map-legend-color {
