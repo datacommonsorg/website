@@ -453,13 +453,12 @@ def _detection(place: str,
                scores: List[float],
                query_type: ClassificationType = ClassificationType.SIMPLE):
   if place:
-    places_detected = PlaceDetection(query_original='foo sv in place',
-                                     query_places_mentioned=[],
-                                     places_found=[],
-                                     query_without_place_substr='foo sv',
-                                     main_place=Place(dcid=place,
-                                                      name='Foo Place',
-                                                      place_type='State'))
+    places_detected = PlaceDetection(
+        query_original='foo sv in place',
+        query_places_mentioned=[],
+        query_without_place_substr='foo sv',
+        places_found=[Place(dcid=place, name='Foo Place', place_type='State')],
+        main_place=Place(dcid=place, name='Foo Place', place_type='State'))
   else:
     places_detected = None
   detection = Detection(original_query='foo sv in place',

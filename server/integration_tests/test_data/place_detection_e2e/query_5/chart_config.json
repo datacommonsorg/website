@@ -1,0 +1,43 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Mexico City",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person": {
+            "name": "Population",
+            "statVar": "Count_Person"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "wikidataId/Q1489"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "wikidataId/Q1489",
+    "name": "Mexico City",
+    "place_type": "City"
+  }
+}
