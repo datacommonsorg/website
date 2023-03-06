@@ -11,12 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 import json
 import logging
 import multiprocessing
 import os
 import sys
+import time
 
 from flask_testing import LiveServerTestCase
 import requests
@@ -74,6 +74,7 @@ class IntegrationTest(LiveServerTestCase):
                    check_debug_info=True):
     ctx = {}
     for i, q in enumerate(queries):
+      time.sleep(5)
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(self.get_server_url() + f'/nl/data?q={q}',
                            json={
@@ -124,8 +125,8 @@ class IntegrationTest(LiveServerTestCase):
             self.assertEqual(dbg["main_place_name"],
                              expected["main_place_name"])
 
-  # def test_textbox_sample(self):
-  # This is the sample advertised in our textbox
+  def test_textbox_sample(self):
+    # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
 
   def test_demo_feb2023(self):

@@ -56,78 +56,6 @@
           "geoId/06039"
         ],
         "type": "County"
-      },
-      {
-        "place": "geoId/0667000",
-        "result": [],
-        "type": "County"
-      },
-      {
-        "place": "geoId/0667000",
-        "result": [],
-        "type": "County"
-      },
-      {
-        "place": "geoId/06",
-        "result": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "type": "County"
-      },
-      {
-        "place": "geoId/06",
-        "result": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "type": "County"
-      },
-      {
-        "place": "geoId/0667000",
-        "result": [],
-        "type": "County"
-      },
-      {
-        "place": "geoId/0667000",
-        "result": [],
-        "type": "County"
       }
     ],
     "containedin_failed_populate_placetype": [
@@ -683,45 +611,11 @@
         ]
       }
     ],
-    "failed_populate_context_place": [
-      "geoId/0667000",
-      "geoId/0667000"
-    ],
-    "failed_populate_context_svs": [
-      [],
-      [],
-      [],
-      []
-    ],
     "failed_populate_main_place": [
       "geoId/06",
       "geoId/06"
     ],
     "failed_populate_main_svs": [
-      [
-        "Count_CriminalActivities_CombinedCrime",
-        "Count_CriminalActivities_LarcenyTheft",
-        "Count_CriminalActivities_MotorVehicleTheft",
-        "Count_CriminalIncidents_IsHateCrime",
-        "Count_CriminalActivities_Robbery",
-        "Count_CriminalActivities_ViolentCrime",
-        "Count_CriminalActivities_ForcibleRape",
-        "Count_CriminalActivities_PropertyCrime",
-        "Count_CriminalActivities_Burglary",
-        "Count_CriminalActivities_Arson"
-      ],
-      [
-        "Count_CriminalActivities_CombinedCrime",
-        "Count_CriminalActivities_LarcenyTheft",
-        "Count_CriminalActivities_MotorVehicleTheft",
-        "Count_CriminalIncidents_IsHateCrime",
-        "Count_CriminalActivities_Robbery",
-        "Count_CriminalActivities_ViolentCrime",
-        "Count_CriminalActivities_ForcibleRape",
-        "Count_CriminalActivities_PropertyCrime",
-        "Count_CriminalActivities_Burglary",
-        "Count_CriminalActivities_Arson"
-      ],
       [
         "Count_CriminalActivities_CombinedCrime",
         "Count_CriminalActivities_LarcenyTheft",
@@ -760,7 +654,7 @@
       "Count_CriminalActivities_Arson"
     ],
     "num_chart_candidates": 10,
-    "num_populate_fallbacks": 4,
+    "num_populate_fallbacks": 2,
     "processed_fulfillment_types": [
       "ranking_across_places",
       "containedin",

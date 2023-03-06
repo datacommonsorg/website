@@ -186,7 +186,13 @@ OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
 
 # Replace the detected place text with this alternate (shorter) place text.
 # The replacement text (value) should be contained within the detected text (key).
-# This ensures that the place string removal from queries will still remove valid place strings.
+# This is to ensure that the original query string does not need to be modified.
+# For example, if the query string contains "us states" and that is detected as a plce
+# string, we replce it with "us" only. This means that when detected place words/strings
+# are removed from the original query, "us" will be replaced and "states" will still
+# remain in the query. If the replacement string (value) is not contained within the
+# detected place (key), then the detected place and query may have nothing in common
+# which can lead to adverse downstream impact.
 SHORTEN_PLACE_DETECTION_STRING: Dict[str, str] = {
     'us states': 'us',
     'states us': 'us',

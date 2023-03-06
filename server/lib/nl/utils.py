@@ -656,8 +656,10 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         if p.lower() in constants.SHORTEN_PLACE_DETECTION_STRING:
           p = constants.SHORTEN_PLACE_DETECTION_STRING[p.lower()]
 
-        # Also remove place text detected which is lexactly equal to some place types
+        # Also remove place text detected which is exactly equal to some place types
         # e.g. "states" etc. This is a shortcoming of place entity recognitiion libraries.
+        # As a specific example, some entity annotation libraries classify "states" as a
+        # place. This is incorrect behavior because "states" on its own is not a place.
         if (p.lower() in constants.PLACE_TYPE_TO_PLURALS.keys() or
             p.lower() in constants.PLACE_TYPE_TO_PLURALS.values()):
           continue
