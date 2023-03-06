@@ -50,6 +50,13 @@
             "unit": "SquareKilometer",
             "upperLimit": 1000.0
           },
+          "displayProp": [
+            {
+              "displayName": "Area",
+              "prop": "area",
+              "unit": "SquareKilometer"
+            }
+          ],
           "endDateProp": [
             "endDate",
             "containmentDate",

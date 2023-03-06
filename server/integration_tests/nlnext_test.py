@@ -163,8 +163,8 @@ class IntegrationTest(LiveServerTestCase):
             # We have no stats on this, so we should return SF overview.
             # Two places should be detected but San Francisco is the main place.
             'Number of Shakespeare fans in San Francisco and Chicago.',
-            # Note that this has multiple places but only California matters for now.
-            'counties in California and Florida with highest crime',
+            # We should support comparison across multiple places in a single query.
+            'Compare crime in California and Florida',
             # We have no crime at county-level in CA, so we should fall back as:
             # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
             'counties in California with highest crime',
