@@ -6,11 +6,12 @@ If you would like to use [Cloud Memorystore](https://cloud.google.com/memorystor
 
 ```bash
 cd gke
-./create_redis.sh <REGION>
+./create_redis.sh <ENV> <REGION>
 ```
 
-Need to run this for all the regions that the app is hosted. The regions can be
-found in config.yaml.
+`<ENV>` is the name of an instance and `<REGION>` is a region that the app is hosted in.
+This needs to be run for all the regions that the app is hosted and the regions
+can be found in deploy/gke/`<ENV>`.yaml.
 
 Record the **host** and **port** as deployment config file
 ([example](../deploy/overlays/prod/redis.json)) and make a patch to the
