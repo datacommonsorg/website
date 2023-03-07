@@ -6,11 +6,11 @@ If you would like to use [Cloud Memorystore](https://cloud.google.com/memorystor
 
 ```bash
 cd gke
-./create_redis.sh <REGION>
+./create_redis.sh <INSTANCE> <REGION>
 ```
 
 Need to run this for all the regions that the app is hosted. The regions can be
-found in config.yaml.
+found in <instance>.yaml.
 
 Record the **host** and **port** as deployment config file
 ([example](../deploy/overlays/prod/redis.json)) and make a patch to the
