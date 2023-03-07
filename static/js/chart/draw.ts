@@ -526,6 +526,7 @@ function updateXAxis(
  * @param chartWidth: The width of the SVG chart
  * @param yScale: d3-scale for the y-ayis
  * @param formatNumberFn function to use to format numbers
+ * @param textFontFamily name of font-family to set axes-labels to
  * @param unit: optional unit for the tick values
  *
  * @return the width of the y-axis bounding-box. The x-coordinate of the grid starts at this value.
@@ -535,6 +536,7 @@ function addYAxis(
   chartWidth: number,
   yScale: d3.ScaleLinear<any, any>,
   formatNumberFn: (value: number, unit?: string) => string,
+  textFontFamily?: string,
   unit?: string
 ) {
   const tickLength = chartWidth - MARGIN.right - MARGIN.left;
@@ -565,10 +567,12 @@ function addYAxis(
         .attr("x", -tickLength)
         .attr("dy", -4)
         .style("fill", AXIS_TEXT_FILL)
-        .style("font-family", TEXT_FONT_FAMILY)
         .style("shape-rendering", "crispEdges")
     );
 
+  if (textFontFamily) {
+    axis.call((g) => g.selectAll("text").style("font-family", textFontFamily));
+  }
   let maxLabelWidth = 0;
   axis.selectAll("text").each(function () {
     maxLabelWidth = Math.max(
@@ -623,7 +627,17 @@ function drawHistogram(
     .domain([Math.min(0, yExtent[0]), yExtent[1]])
     .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
 
-  const leftWidth = addYAxis(tempYAxis, chartWidth, y, formatNumberFn, unit);
+  // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
+  // of axis labels that results in the labels being cut-off.
+  // TODO (juliawu): identify why this is and fix root cause.
+  const leftWidth = addYAxis(
+    tempYAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    undefined,
+    unit
+  );
 
   const x = d3
     .scaleBand()
@@ -637,7 +651,10 @@ function drawHistogram(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, formatNumberFn, unit);
+  // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
+  // of axis labels that results in the labels being cut-off.
+  // TODO (juliawu): identify why this is and fix root cause.
+  addYAxis(yAxis, chartWidth, y, formatNumberFn, undefined, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = fillColor ? fillColor : getColorFn(["A"])("A"); // we only need one color
@@ -719,7 +736,14 @@ function drawStackBarChart(
     .nice()
     .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
 
-  const leftWidth = addYAxis(tempYAxis, chartWidth, y, formatNumberFn, unit);
+  const leftWidth = addYAxis(
+    tempYAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
 
   const x = d3
     .scaleBand()
@@ -733,7 +757,7 @@ function drawStackBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, formatNumberFn, unit);
+  addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = getColorFn(keys);
@@ -817,7 +841,14 @@ function drawGroupBarChart(
     .domain([minV, maxV])
     .nice()
     .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
-  const leftWidth = addYAxis(tempYAxis, chartWidth, y, formatNumberFn, unit);
+  const leftWidth = addYAxis(
+    tempYAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
 
   const x0 = d3
     .scaleBand()
@@ -836,7 +867,7 @@ function drawGroupBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, formatNumberFn, unit);
+  addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const colorFn = getColorFn(keys);
@@ -926,7 +957,14 @@ function drawLineChart(
     .domain([minV, maxV])
     .range([height - MARGIN.bottom, MARGIN.top])
     .nice(NUM_Y_TICKS);
-  const leftWidth = addYAxis(yAxis, width, yScale, formatNumberFn, unit);
+  const leftWidth = addYAxis(
+    yAxis,
+    width,
+    yScale,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
 
   const xScale = d3
     .scaleTime()
@@ -1176,6 +1214,7 @@ function drawGroupLineChart(
     width - legendWidth,
     yScale,
     formatNumberFn,
+    TEXT_FONT_FAMILY,
     unit
   );
 
@@ -1208,7 +1247,14 @@ function drawGroupLineChart(
   const yPosTop = MARGIN.top + YLABEL.height;
   yScale.rangeRound([yPosBottom, yPosTop]);
   tempYAxis.remove();
-  addYAxis(yAxis, width - legendWidth, yScale, formatNumberFn, unit);
+  addYAxis(
+    yAxis,
+    width - legendWidth,
+    yScale,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
   // add ylabel
