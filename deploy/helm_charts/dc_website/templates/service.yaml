@@ -52,7 +52,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "dc-website.fullname" . }}
+  name: website-service{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
   annotations:
     cloud.google.com/backend-config: '{"ports": {"8081":"backendconfig"}}'
@@ -64,4 +64,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: website-app
+    app: website-app{{ .Values.resourceSuffix }}

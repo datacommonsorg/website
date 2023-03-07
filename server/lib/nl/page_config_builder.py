@@ -627,18 +627,7 @@ def _event_chart_block(metadata, block, column, place: Place,
   # Map EventType to config key.
   event_id = constants.EVENT_TYPE_TO_CONFIG_KEY[event_type]
 
-  if event_id == 'earthquake':
-    eq_val = metadata.event_type_spec[event_id]
-    eq_val.id = event_id
-    eq_val.name = 'Earthquake'
-    eq_val.event_type_dcids.append('EarthquakeEvent')
-    eq_val.color = '#930000'
-    sev_filter = eq_val.default_severity_filter
-    sev_filter.prop = 'magnitude'
-    sev_filter.display_name = 'Magnitude'
-    sev_filter.upper_limit = 10
-    sev_filter.lower_limit = 6
-  elif event_id in event_config.metadata.event_type_spec:
+  if event_id in event_config.metadata.event_type_spec:
     metadata.event_type_spec[event_id].CopyFrom(
         event_config.metadata.event_type_spec[event_id])
   else:
