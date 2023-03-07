@@ -17,7 +17,7 @@ import asyncio
 import json
 import logging
 import os
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 import flask
 from flask import Blueprint
@@ -333,12 +333,23 @@ def _detection(orig_query: str, cleaned_query: str,
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
+    # Step 2: replace the place strings with "" if place_dcids were found.
+    # Typically, this could also be done under the check for resolved_places
+    # but we don't expected the resolution from place dcids to fail (typically).
+    # Also, even if the resolution fails, if there is a place dcid found, it should
+    # be considered good enough to remove the place strings.
+    # TODO: investigate whether it is better to only remove place strings for which
+    # a DCID is found and leave the others in the query string. This is now relevant
+    # because we support multiple place detection+resolution. Previously, even if
+    # just one place was used (resolved), it made sense to remove all place strings.
+    # But now that multiple place strings are being resolved, if there is a failure
+    # in resolving a place, perhaps it should not be removed? This would be a change
+    # and would need to be validated first.
+    query = _remove_places(cleaned_query.lower(), places_str_found)
+
   if resolved_places:
     main_place = resolved_places[0]
     logging.info(f"Using main_place as: {main_place}")
-
-    # Step 2: replace the resolved places in the query sentence with "".
-    query = _remove_places(cleaned_query.lower(), places_str_found)
 
   # Set PlaceDetection.
   place_detection = PlaceDetection(query_original=orig_query,

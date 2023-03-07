@@ -16,7 +16,7 @@
 from collections import OrderedDict
 import logging
 import re
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Union
 
 import numpy as np
 import pandas as pd
