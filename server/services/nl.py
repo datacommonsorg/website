@@ -398,14 +398,17 @@ class Model:
     return NLClassifier(type=ClassificationType.CORRELATION,
                         attributes=attributes)
 
-  def detect_svs(self, query) -> Dict[str, Union[Dict, List]]:
+  def detect_svs(self, query: str,
+                 debug_logs: Dict) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
     # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
     # the potential areas for improvement. For now, this removal blanket removes
     # any words in ALL_STOP_WORDS which includes contained_in places and their
     # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
+    debug_logs["sv_detection_query_input"] = query
     query = utils.remove_stop_words(query, ALL_STOP_WORDS)
+    debug_logs["sv_detection_query_stop_words_removal"] = query
     logging.info(f"SV Detection: Query used after removing stop words: {query}")
 
     # Make API call to the NL models/embeddings server.
