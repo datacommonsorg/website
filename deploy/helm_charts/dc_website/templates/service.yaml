@@ -64,4 +64,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: website-app
+    app: website-app{{ .Values.resourceSuffix }}
