@@ -34,11 +34,11 @@ spec:
       maxUnavailable: {{ div .Values.replicas.default 4 | add 1 }}
   selector:
     matchLabels:
-      app: website-app
+      app: website-app{{ .Values.resourceSuffix }}
   template:
     metadata:
       labels:
-        app: website-app
+        app: website-app{{ .Values.resourceSuffix }}
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
