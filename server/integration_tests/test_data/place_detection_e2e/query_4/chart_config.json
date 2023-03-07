@@ -1,0 +1,226 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Person_multiple_place_bar_block"
+                    ],
+                    "title": "Individual Median Income",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_multiple_place_bar_block"
+                    ],
+                    "title": "Household Median Income",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Earnings_Person_multiple_place_bar_block"
+                    ],
+                    "title": "Individual Median Earnings",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold_multiple_place_bar_block"
+                    ],
+                    "title": "Median Income for Family Households",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Mean_Income_Household_multiple_place_bar_block"
+                    ],
+                    "title": "Average Income for Households",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Mean_Income_Household_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Average Income for Households",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59_multiple_place_bar_block"
+                    ],
+                    "title": "Median Income for People Working in the Finance and Insurance Industry",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold_multiple_place_bar_block"
+                    ],
+                    "title": "Median Income for Nonfamily Households",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Mean_Income_Household_multiple_place_bar_block": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Mean_Income_Household_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Median_Earnings_Person_multiple_place_bar_block": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
+          },
+          "Median_Income_Household_FamilyHousehold_multiple_place_bar_block": {
+            "name": "Median Income for Family Households",
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold_multiple_place_bar_block": {
+            "name": "Median Income for Nonfamily Households",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Household_multiple_place_bar_block": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Person_multiple_place_bar_block": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "dc/x3gghqtglpr59_multiple_place_bar_block": {
+            "name": "Median Income for People Working in the Finance and Insurance Industry",
+            "statVar": "dc/x3gghqtglpr59"
+          },
+          "dc/x3gghqtglpr59_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Median Income for People Working in the Finance and Insurance Industry",
+            "statVar": "dc/x3gghqtglpr59"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/06"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
+  }
+}

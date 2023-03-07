@@ -25,7 +25,7 @@
         }
       ],
       "query": "Tell me about Placer County",
-      "query_type": 9,
+      "query_type": 10,
       "ranked_charts": [
         {
           "attr": {
@@ -51,6 +51,7 @@
           "svs": []
         }
       ],
+      "session_id": "007_999999999",
       "svs": []
     },
     {
@@ -70,7 +71,7 @@
       ],
       "places": [],
       "query": "Where were the major fires in the last year",
-      "query_type": 8,
+      "query_type": 9,
       "ranked_charts": [
         {
           "attr": {
@@ -98,9 +99,8 @@
           "svs": []
         }
       ],
-      "svs": [
-        "Count_WildfireEvent"
-      ]
+      "session_id": "007_999999999",
+      "svs": []
     },
     {
       "classifications": [
@@ -131,7 +131,7 @@
             "chart_type": "ranking table",
             "class": 0,
             "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
-            "include_percapita": false,
+            "include_percapita": true,
             "place_type": "County",
             "ranking_types": [
               5
@@ -160,7 +160,7 @@
             "chart_type": "ranking table",
             "class": 0,
             "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
-            "include_percapita": false,
+            "include_percapita": true,
             "place_type": "County",
             "ranking_types": [
               5
@@ -184,9 +184,9 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
-        "dc/topic/ProjectedClimateExtremes",
-        "Count_HeatEvent"
+        "dc/topic/ProjectedClimateExtremes"
       ]
     }
   ],
@@ -198,23 +198,24 @@
   "places_detected": [
     "placer county"
   ],
+  "places_resolved": "(name: Placer County, dcid: geoId/06061); ",
   "query_with_places_removed": "tell me about",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3702761232852936,
-      0.315987229347229,
-      0.28319820761680603,
-      0.27669650316238403,
-      0.2557690441608429,
-      0.237177774310112,
-      0.22020843625068665,
+      0.3702760934829712,
+      0.31598708033561707,
+      0.2831982672214508,
+      0.2766963839530945,
+      0.2557690739631653,
+      0.2371778041124344,
+      0.22020837664604187,
       0.2144625186920166,
-      0.2134648561477661,
-      0.20017597079277039,
-      0.19570352137088776
+      0.21346472203731537,
+      0.20017611980438232,
+      0.19570356607437134
     ],
     "SV": [
       "dc/topic/Income",
@@ -231,43 +232,43 @@
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.22020843625068665)"
+        "AQI (0.22020837664604187)"
       ],
       "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017597079277039)",
-        "forage farms (0.20017597079277039)"
+        "Forage Farms (0.20017611980438232)",
+        "forage farms (0.20017610490322113)"
       ],
       "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "Pig Farm (0.19570352137088776)",
-        "pig farm (0.1957034468650818)"
+        "pig farm (0.19570356607437134)",
+        "Pig Farm (0.19570356607437134)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.237177774310112)"
+        "people with wasting (0.2371778041124344)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "cattle ranchers (0.2557690441608429)",
-        "farmers (0.2255396842956543)"
+        "cattle ranchers (0.2557690739631653)",
+        "farmers (0.2255394458770752)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.2134648561477661)"
+        "Agriculture (0.21346472203731537)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.315987229347229)"
+        "Economy (0.31598708033561707)"
       ],
       "dc/topic/Income": [
-        "pay (0.3702761232852936)",
-        "compensation (0.22850851714611053)",
-        "Earnings (0.22268356382846832)",
-        "Income (0.2059445083141327)"
+        "pay (0.3702760934829712)",
+        "compensation (0.2285085767507553)",
+        "Earnings (0.22268347442150116)",
+        "Income (0.20594434440135956)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.28319820761680603)",
-        "Careers (0.2414090484380722)",
-        "Professions (0.20911738276481628)"
+        "Jobs (0.2831982672214508)",
+        "Careers (0.241409033536911)",
+        "Professions (0.20911745727062225)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.27669650316238403)",
-        "Medical infirmities (0.2347509264945984)"
+        "Maladies (0.2766963839530945)",
+        "Medical infirmities (0.23475098609924316)"
       ],
       "dc/topic/WorkCommute": [
         "journey to work (0.2144625186920166)"
@@ -276,48 +277,47 @@
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.22020843625068665)"
+      "AQI (0.22020837664604187)"
     ],
     "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017597079277039)",
-      "forage farms (0.20017597079277039)"
+      "Forage Farms (0.20017611980438232)",
+      "forage farms (0.20017610490322113)"
     ],
     "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "Pig Farm (0.19570352137088776)",
-      "pig farm (0.1957034468650818)"
+      "pig farm (0.19570356607437134)",
+      "Pig Farm (0.19570356607437134)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.237177774310112)"
+      "people with wasting (0.2371778041124344)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "cattle ranchers (0.2557690441608429)",
-      "farmers (0.2255396842956543)"
+      "cattle ranchers (0.2557690739631653)",
+      "farmers (0.2255394458770752)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.2134648561477661)"
+      "Agriculture (0.21346472203731537)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.315987229347229)"
+      "Economy (0.31598708033561707)"
     ],
     "dc/topic/Income": [
-      "pay (0.3702761232852936)",
-      "compensation (0.22850851714611053)",
-      "Earnings (0.22268356382846832)",
-      "Income (0.2059445083141327)"
+      "pay (0.3702760934829712)",
+      "compensation (0.2285085767507553)",
+      "Earnings (0.22268347442150116)",
+      "Income (0.20594434440135956)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.28319820761680603)",
-      "Careers (0.2414090484380722)",
-      "Professions (0.20911738276481628)"
+      "Jobs (0.2831982672214508)",
+      "Careers (0.241409033536911)",
+      "Professions (0.20911745727062225)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.27669650316238403)",
-      "Medical infirmities (0.2347509264945984)"
+      "Maladies (0.2766963839530945)",
+      "Medical infirmities (0.23475098609924316)"
     ],
     "dc/topic/WorkCommute": [
       "journey to work (0.2144625186920166)"
     ]
   },
-  "temporal_classification": "<None>",
   "time_delta_classification": "<None>"
 }

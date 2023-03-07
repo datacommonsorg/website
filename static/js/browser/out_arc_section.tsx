@@ -45,6 +45,7 @@ const IGNORED_OUT_ARC_PROPERTIES = new Set([
   "geoJsonCoordinatesDP1",
   "geoJsonCoordinatesDP2",
   "geoJsonCoordinatesDP3",
+  "firePerimeter",
 ]);
 
 interface OutArcSectionPropType {
@@ -52,6 +53,7 @@ interface OutArcSectionPropType {
   labels: string[];
   provDomain: { [key: string]: URL };
   nodeTypes: string[];
+  showAllProperties: boolean;
 }
 
 interface OutArcSectionStateType {
@@ -155,7 +157,10 @@ export class OutArcSection extends React.Component<
       return;
     }
     const propValuesPromises = this.props.labels.map((label) => {
-      if (!IGNORED_OUT_ARC_PROPERTIES.has(label)) {
+      if (
+        this.props.showAllProperties ||
+        !IGNORED_OUT_ARC_PROPERTIES.has(label)
+      ) {
         return axios
           .get(`/api/browser/propvals/${label}/${this.props.dcid}`)
           .then((resp) => resp.data);
