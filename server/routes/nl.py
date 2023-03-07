@@ -108,12 +108,12 @@ def _remove_places(query, places_str_found: List[str]):
   return ' '.join(query.split())
 
 
-def _get_place_from_dcids(place_dcids: List[str]) -> Tuple[List[Place], Dict]:
+def _get_place_from_dcids(place_dcids: List[str],
+                          debug_logs: Dict) -> List[Place]:
   places = []
   place_types_dict = dc.property_values(place_dcids, 'typeOf')
   place_names_dict = dc.property_values(place_dcids, 'name')
 
-  debug_logs = {}
   dc_resolve_failures = []
   # Iterate in the same order as place_dcids.
   for p_dcid in place_dcids:
@@ -130,18 +130,17 @@ def _get_place_from_dcids(place_dcids: List[str]) -> Tuple[List[Place], Dict]:
       )
       dc_resolve_failures.append(p_dcid)
 
-  debug_logs["dc_resolution_failure"] = dc_resolve_failures
-  debug_logs["dc_resolved_places"] = places
-  return (places, debug_logs)
+  debug_logs.update({
+      "dc_resolution_failure": dc_resolve_failures,
+      "dc_resolved_places": places,
+  })
+  return places
 
 
-def _infer_place_dcids(places_str_found: List[str]) -> Tuple[List[str], Dict]:
-  debug_logs = {}
-  # TODO: propagate several of the logging errors in this function to place detection
-  # state displayed in debugInfo.
+def _infer_place_dcids(places_str_found: List[str],
+                       debug_logs: Dict) -> List[str]:
   if not places_str_found:
     logging.info("places_found is empty. Nothing to retrieve from Maps API.")
-    return ([], debug_logs)
 
   override_places = []
   maps_api_failures = []
@@ -188,11 +187,14 @@ def _infer_place_dcids(places_str_found: List[str]) -> Tuple[List[str], Dict]:
     logging.info(
         f"No place DCIDs were found. Using places_found = {places_str_found}.")
 
-  debug_logs["dcids_resolved"] = place_dcids
-  debug_logs["dcid_overrides_found"] = override_places
-  debug_logs["maps_api_failures"] = maps_api_failures
-  debug_logs["dcid_not_found_for_place_ids"] = no_dcids_found
-  return (place_dcids, debug_logs)
+  # Update the debug_logs dict.
+  debug_logs.update({
+      "dcids_resolved": place_dcids,
+      "dcid_overrides_found": override_places,
+      "maps_api_failures": maps_api_failures,
+      "dcid_not_found_for_place_ids": no_dcids_found
+  })
+  return place_dcids
 
 
 def _empty_svs_score_dict():
@@ -298,7 +300,8 @@ def _result_with_debug_info(data_dict: Dict, status: str,
   return data_dict
 
 
-def _detection(orig_query, cleaned_query) -> Tuple[Detection, Dict]:
+def _detection(orig_query: str, cleaned_query: str,
+               query_detection_debug_logs: Dict) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
@@ -314,24 +317,28 @@ def _detection(orig_query, cleaned_query) -> Tuple[Detection, Dict]:
   main_place = None
   resolved_places = []
 
-  infer_dcids_debug = "No place inference (no places found)"
-  place_dcid_debug = "No place resolution (no place dcids found)"
+  # Start updating the query_detection_debug_logs. Create space for place dcid inference
+  # and place resolution. If they remain empty, the function belows were never triggered.
+  query_detection_debug_logs["place_dcid_inference"] = {}
+  query_detection_debug_logs["place_resolution"] = {}
   # Look to find place DCIDs.
   if places_str_found:
-    (place_dcids, infer_dcids_debug) = _infer_place_dcids(places_str_found)
+    place_dcids = _infer_place_dcids(
+        places_str_found, query_detection_debug_logs["place_dcid_inference"])
     logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
-    # Step 2: replace the places in the query sentence with "".
-    query = _remove_places(cleaned_query.lower(), places_str_found)
-
   if place_dcids:
-    (resolved_places, place_dcid_debug) = _get_place_from_dcids(place_dcids)
+    resolved_places = _get_place_from_dcids(
+        place_dcids, query_detection_debug_logs["place_resolution"])
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
   if resolved_places:
     main_place = resolved_places[0]
     logging.info(f"Using main_place as: {main_place}")
+
+    # Step 2: replace the resolved places in the query sentence with "".
+    query = _remove_places(cleaned_query.lower(), places_str_found)
 
   # Set PlaceDetection.
   place_detection = PlaceDetection(query_original=orig_query,
@@ -340,26 +347,29 @@ def _detection(orig_query, cleaned_query) -> Tuple[Detection, Dict]:
                                    places_found=resolved_places,
                                    main_place=main_place)
 
-  # Step 3: Identify the SV matched based on the query.
-  sv_debug_logs = {}
-  svs_scores_dict = _empty_svs_score_dict()
-  try:
-    (svs_scores_dict, sv_debug_logs) = model.detect_svs(query)
-  except ValueError as e:
-    logging.info(e)
-    logging.info("Using an empty svs_scores_dict")
-
   # Update the various place detection and query transformation debug logs dict.
-  query_detection_debug_logs = {}
-  query_detection_debug_logs["place_dcid_inference"] = infer_dcids_debug
-  query_detection_debug_logs["place_resolution"] = place_dcid_debug
   query_detection_debug_logs["places_found_str"] = places_str_found
   query_detection_debug_logs["main_place_inferred"] = main_place
   query_detection_debug_logs["query_transformations"] = {
       "place_detection_input": cleaned_query.lower(),
       "place_detection_with_places_removed": query,
   }
-  query_detection_debug_logs["query_transformations"].update(sv_debug_logs)
+  if not query_detection_debug_logs["place_dcid_inference"]:
+    query_detection_debug_logs[
+        "place_dcid_inference"] = "Place DCID Inference did not trigger (no place strings found)."
+  if not query_detection_debug_logs["place_resolution"]:
+    query_detection_debug_logs[
+        "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
+
+  # Step 3: Identify the SV matched based on the query.
+  sv_debug_logs = {}
+  svs_scores_dict = _empty_svs_score_dict()
+  try:
+    svs_scores_dict = model.detect_svs(
+        query, query_detection_debug_logs["query_transformations"])
+  except ValueError as e:
+    logging.info(e)
+    logging.info("Using an empty svs_scores_dict")
 
   # Set the SVDetection.
   sv_detection = SVDetection(
@@ -414,12 +424,11 @@ def _detection(orig_query, cleaned_query) -> Tuple[Detection, Dict]:
         NLClassifier(type=ClassificationType.UNKNOWN,
                      attributes=SimpleClassificationAttributes()))
 
-  return (Detection(original_query=orig_query,
-                    cleaned_query=cleaned_query,
-                    places_detected=place_detection,
-                    svs_detected=sv_detection,
-                    classifications=classifications),
-          query_detection_debug_logs)
+  return Detection(original_query=orig_query,
+                   cleaned_query=cleaned_query,
+                   places_detected=place_detection,
+                   svs_detected=sv_detection,
+                   classifications=classifications)
 
 
 @bp.route('/')
@@ -482,10 +491,12 @@ def data():
                                    _detection("", ""), escaped_context_history,
                                    {})
 
+  query_detection_debug_logs = {}
+  query_detection_debug_logs["original_query"] = query
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
-  (query_detection,
-   query_detection_debug_logs) = _detection(str(escape(original_query)), query)
+  query_detection = _detection(str(escape(original_query)), query,
+                               query_detection_debug_logs)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)

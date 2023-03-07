@@ -207,16 +207,6 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Query Detection Debug Logs:</b>
-          </Row>
-          <Row>
-            <Col>
-              <pre>
-                {JSON.stringify(debugInfo.queryDetectionDebugLogs, null, 2)}
-              </pre>
-            </Col>
-          </Row>
-          <Row>
             <b>All Variables Matched (with scores):</b>
           </Row>
           <Row>Note: Variables with scores less than 0.5 are not used.</Row>
@@ -229,6 +219,16 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <Col>
               {svToSentences(debugInfo.svScores, debugInfo.svSentences)}
+            </Col>
+          </Row>
+          <Row>
+            <b>Query Detection Debug Logs:</b>
+          </Row>
+          <Row>
+            <Col>
+              <pre>
+                {JSON.stringify(debugInfo.queryDetectionDebugLogs, null, 2)}
+              </pre>
             </Col>
           </Row>
           <Row>

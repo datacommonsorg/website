@@ -398,8 +398,8 @@ class Model:
     return NLClassifier(type=ClassificationType.CORRELATION,
                         attributes=attributes)
 
-  def detect_svs(self, query) -> Tuple[Dict[str, Union[Dict, List]], Dict]:
-    debug_logs = {}
+  def detect_svs(self, query: str,
+                 debug_logs: Dict) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
     # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
     # the potential areas for improvement. For now, this removal blanket removes
@@ -412,7 +412,7 @@ class Model:
     logging.info(f"SV Detection: Query used after removing stop words: {query}")
 
     # Make API call to the NL models/embeddings server.
-    return (dc.nl_search_sv(query), debug_logs)
+    return dc.nl_search_sv(query)
 
   def detect_place(self, query):
     return self.place_detector.detect_places_heuristics(query)
