@@ -20,6 +20,13 @@ import server.services.datacommons as dc
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
+EUROPE_DCID = "europe"
+EUROPE_CONTAINED_PLACE_TYPES = {
+    "Country": "EurostatNUTS1",
+    "EurostatNUTS1": "EurostatNUTS2",
+    "EurostatNUTS2": "EurostatNUTS3",
+    "EurostatNUTS3": "EurostatNUTS3",
+}
 
 @dataclass
 class PlaceMetadata:
@@ -27,6 +34,8 @@ class PlaceMetadata:
   place_name: str
   place_types: str
   parent_places: List[str]
+  # If set, use this to override the contained_place_types map in config metadata.
+  contained_place_types_override: Dict[str, str]
 
 
 def get_all_variables(page_config):
@@ -91,6 +100,16 @@ def place_metadata(place_dcid)->PlaceMetadata:
     parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
   place_name = place_api.get_i18n_name([place_dcid
                                        ]).get(place_dcid, escape(place_dcid))
-  return PlaceMetadata(place_name=place_name,
-                       place_types=place_types,
-                       parent_places=parent_places)
+
+  # If this is a European place, update the contained_place_types in the page
+  # metadata to use a custom dict instead.
+  # TODO: Find a better way to handle this
+  parent_dcids = map(lambda place: place.get("dcid", ""), parent_places)
+  contained_place_types_override = None
+  if EUROPE_DCID in parent_dcids:
+    contained_place_types_override = EUROPE_CONTAINED_PLACE_TYPES
+
+  return PlaceMetadata(place_name,
+                       place_types,
+                       parent_places,
+                       contained_place_types_override)

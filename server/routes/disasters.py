@@ -28,13 +28,6 @@ import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
 import server.services.datacommons as dc
 
-EUROPE_DCID = "europe"
-EUROPE_CONTAINED_PLACE_TYPES = {
-    "Country": "EurostatNUTS1",
-    "EurostatNUTS1": "EurostatNUTS2",
-    "EurostatNUTS2": "EurostatNUTS3",
-    "EurostatNUTS3": "EurostatNUTS3",
-}
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
 
@@ -68,14 +61,10 @@ def disaster_dashboard(place_dcid=None):
         spec.default_severity_filter.lower_limit = EARTH_FIRE_SEVERITY_MIN
 
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
-  # If this is a European place, update the contained_place_types in the page
-  # metadata to use a custom dict instead.
-  # TODO: Find a better way to handle this
-  parent_dcids = map(lambda place: place.get("dcid", ""), place_metadata.parent_places)
-  if EUROPE_DCID in parent_dcids:
+  if place_metadata.contained_place_types_override:
     dashboard_config.metadata.contained_place_types.clear()
     dashboard_config.metadata.contained_place_types.update(
-        EUROPE_CONTAINED_PLACE_TYPES)
+        place_metadata.contained_place_types_override)
 
   all_stat_vars = lib_subject_page_config.get_all_variables(dashboard_config)
   if all_stat_vars:

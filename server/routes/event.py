@@ -57,10 +57,16 @@ def get_properties(dcid):
   The returned list is used to render property values in the event pages.
   """
   response = node_api.triples('out', dcid)
-  parsed = []
+  parsed = {}
   for key, value in response.items():
-    parsed.append({"dcid": key, "values": value["nodes"]})
+    parsed[key] = value["nodes"]
   return parsed
+
+
+def get_place(properties):
+  for pv in properties.items():
+    if pv['dcid'] in ['location', 'startLocation']:
+      pass
 
 
 @bp.route('/')
@@ -72,7 +78,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   ]:
     abort(404)
   node_name = escape(dcid)
-  properties = "{}"
+  properties = {}
   try:
     name_results = shared_api.names([dcid])
     if dcid in name_results.keys():
