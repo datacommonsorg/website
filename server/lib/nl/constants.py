@@ -446,11 +446,13 @@ EVENT_TYPE_TO_DC_TYPES = {
     EventType.WETBULB: ["WetBulbTemperatureEvent"],
 }
 
-CHILD_PLACES_TYPES = {
-    "Country": "State",
-    "State": "County",
-    "County": "City",
+CHILD_PLACE_TYPES = {
+    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.STATE,
+    ContainedInPlaceType.STATE: ContainedInPlaceType.COUNTY,
+    ContainedInPlaceType.COUNTY: ContainedInPlaceType.CITY,
 }
+
+PARENT_PLACE_TYPES = {v: k for k, v in CHILD_PLACE_TYPES.items()}
 
 DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),

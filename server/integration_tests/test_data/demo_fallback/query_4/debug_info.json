@@ -10,48 +10,38 @@
           "geoId/06"
         ],
         "svs": [
-          "Percent_Person_Obesity"
-        ]
-      }
-    ],
-    "failed_existence_check_extended_svs": [
-      {
-        "places": [
-          "geoId/06"
-        ],
-        "svs": [
           "Percent_Person_Obesity",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_BingeDrinking",
           "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
+          "Percent_Person_BingeDrinking",
+          "Percent_Person_Smoking",
+          "Percent_Person_PhysicalInactivity"
         ]
       }
-    ],
-    "failed_populate_main_places": [
-      [
-        {
-          "dcid": "geoId/06",
-          "name": "California",
-          "place_type": "State"
-        }
-      ]
-    ],
-    "failed_populate_main_svs": [
-      [
-        "Percent_Person_Obesity"
-      ]
     ],
     "filtered_svs": [
       "Percent_Person_Obesity"
     ],
-    "num_chart_candidates": 1,
-    "num_populate_fallbacks": 1,
-    "processed_fulfillment_types": [
-      "simple",
-      "overview"
+    "num_chart_candidates": 2,
+    "parent_place_fallback": [
+      {
+        "child": "geoId/06",
+        "parent": "country/USA"
+      }
     ],
+    "processed_fulfillment_types": [
+      "simple"
+    ],
+    "simple_timeline_to_bar_demotions": 2,
     "stat_var_extensions": [
+      {
+        "Percent_Person_Obesity": [
+          "Percent_Person_BingeDrinking",
+          "Percent_Person_Obesity",
+          "Percent_Person_PhysicalInactivity",
+          "Percent_Person_SleepLessThan7Hours",
+          "Percent_Person_Smoking"
+        ]
+      },
       {
         "Percent_Person_Obesity": [
           "Percent_Person_BingeDrinking",
@@ -78,30 +68,61 @@
         }
       ],
       "query": "obesity in California",
-      "query_type": 10,
+      "query_type": 1,
       "ranked_charts": [
         {
           "attr": {
-            "block_id": 1,
-            "chart_type": "",
+            "block_id": 2,
+            "chart_type": "bar chart",
             "class": 0,
             "description": "",
-            "include_percapita": false,
+            "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 4,
+          "chart_type": 3,
           "event": null,
           "places": [
             {
-              "dcid": "geoId/06",
-              "name": "California",
-              "place_type": "State"
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
             }
           ],
-          "svs": []
+          "svs": [
+            "Percent_Person_Obesity"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ]
         }
       ],
       "session_id": "007_999999999",
@@ -184,7 +205,7 @@
         },
         {
           "attr": {
-            "block_id": 3,
+            "block_id": 11,
             "chart_type": "bar chart",
             "class": 1,
             "description": "",
@@ -216,7 +237,7 @@
         },
         {
           "attr": {
-            "block_id": 4,
+            "block_id": 3,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -241,7 +262,7 @@
         },
         {
           "attr": {
-            "block_id": 5,
+            "block_id": 4,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -266,7 +287,7 @@
         },
         {
           "attr": {
-            "block_id": 6,
+            "block_id": 5,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -291,7 +312,7 @@
         },
         {
           "attr": {
-            "block_id": 7,
+            "block_id": 6,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -316,7 +337,7 @@
         },
         {
           "attr": {
-            "block_id": 8,
+            "block_id": 7,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -341,7 +362,7 @@
         },
         {
           "attr": {
-            "block_id": 9,
+            "block_id": 8,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -366,7 +387,7 @@
         },
         {
           "attr": {
-            "block_id": 10,
+            "block_id": 9,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -768,6 +789,41 @@
     "california"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "original_query": "obesity in California",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/06"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ]
+    },
+    "places_found_str": [
+      "california"
+    ],
+    "query_transformations": {
+      "place_detection_input": "obesity in california",
+      "place_detection_with_places_removed": "obesity",
+      "sv_detection_query_input": "obesity",
+      "sv_detection_query_stop_words_removal": "obesity"
+    }
+  },
   "query_with_places_removed": "obesity",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
