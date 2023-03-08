@@ -34,8 +34,14 @@ configMapGenerator:
     name: mixer-configmap
   - behavior: merge
     files:
+      - base_bigtable_info.yaml
       - custom_bigtable_info.yaml
     name: store-configmap
+  - name: githash-configmap
+    behavior: merge
+    literals:
+      - mixer_hash.txt=1aa6137
+      - website_hash.txt=61c29b2
 
 patchesStrategicMerge:
   - |-
