@@ -36,7 +36,6 @@ import {
 } from "../../chart/types";
 import {
   EARTH_NAMED_TYPED_PLACE,
-  EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -56,7 +55,6 @@ import {
 } from "../../utils/disaster_event_map_utils";
 import { fetchNodeGeoJson } from "../../utils/geojson_utils";
 import {
-  getEnclosedPlacesPromise,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
@@ -95,7 +93,6 @@ export function DisasterEventMapTile(
 ): JSX.Element {
   const svgContainerRef = useRef(null);
   const infoCardRef = useRef(null);
-  const europeanPlaces = useRef([]);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
   const { geoJsonData } = useContext(DataContext);
   const [polygonGeoJson, setPolygonGeoJson] = useState(null);
@@ -135,16 +132,6 @@ export function DisasterEventMapTile(
     setPathGeoJson,
     setPolygonGeoJson,
   ]);
-
-  useEffect(() => {
-    // On initial loading of the component, get list of all European countries
-    // and save it in a ref to be used for map drawing.
-    getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country").then(
-      (resp: Array<NamedPlace>) => {
-        europeanPlaces.current = resp;
-      }
-    );
-  }, []);
 
   useEffect(() => {
     // When props change, update place info
