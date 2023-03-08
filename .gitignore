@@ -50,3 +50,6 @@ build/helm/**/*.tgz
 pylist.json
 
 pytest_log.txt
+
+# Argo
+deploy/argo/install/install.yaml
