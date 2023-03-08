@@ -54,9 +54,7 @@ import {
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
 import { fetchNodeGeoJson } from "../../utils/geojson_utils";
-import {
-  getParentPlacesPromise,
-} from "../../utils/place_utils";
+import { getParentPlacesPromise } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { DataContext } from "../subject_page/data_context";
 import { ChartTileContainer } from "./chart_tile";
@@ -118,11 +116,13 @@ export function DisasterEventMapTile(
     // data changes or tile spec changes
     fetchEventGeoJsonData(
       props.tileSpec.pathEventTypeKey,
+      "pathGeoJson",
       "pathGeoJsonProp",
       setPathGeoJson
     );
     fetchEventGeoJsonData(
       props.tileSpec.polygonEventTypeKey,
+      "polygonGeoJson",
       "polygonGeoJsonProp",
       setPolygonGeoJson
     );
@@ -273,11 +273,13 @@ export function DisasterEventMapTile(
   }
 
   /**
-   * Fetches and sets the geojson for a list of event types and the key to use
-   * for getting the geojson prop.
+   * Fetches and sets the geojson for a list of event types when given the key
+   * to get the geojson prop from the event type spec and the key to get the
+   * geojson feature from the event point
    */
   function fetchEventGeoJsonData(
     eventTypeKeys: string[],
+    eventPointGeoJsonKey: string,
     geoJsonPropKey: string,
     setEventTypeGeoJson: (eventTypeGeoJson: Record<string, GeoJsonData>) => void
   ): void {
@@ -285,20 +287,31 @@ export function DisasterEventMapTile(
       setEventTypeGeoJson({});
       return;
     }
-    const geoJsonPromises = eventTypeKeys.map((eventType) => {
-      if (
-        props.disasterEventData[eventType] &&
-        geoJsonPropKey in props.eventTypeSpec[eventType]
-      ) {
-        const eventDcids = props.disasterEventData[eventType].eventPoints.map(
-          (point) => point.placeDcid
-        );
-        return fetchNodeGeoJson(
+    const geoJsonPromises = [];
+    // map of event type to list of geojson features read from event points
+    const eventTypeFeatures = {};
+    for (const eventType of eventTypeKeys) {
+      if (!props.eventTypeSpec[eventType][geoJsonPropKey]) {
+        geoJsonPromises.push(Promise.resolve(null));
+        continue;
+      }
+      eventTypeFeatures[eventType] = [];
+      // list of dcids to fetch geojson for
+      const eventDcids = [];
+      for (const eventPoint of props.disasterEventData[eventType].eventPoints) {
+        if (eventPoint[eventPointGeoJsonKey]) {
+          eventTypeFeatures[eventType].push(eventPoint[eventPointGeoJsonKey]);
+        } else {
+          eventDcids.push(eventPoint.placeDcid);
+        }
+      }
+      geoJsonPromises.push(
+        fetchNodeGeoJson(
           eventDcids,
           props.eventTypeSpec[eventType][geoJsonPropKey]
-        );
-      }
-    });
+        )
+      );
+    }
     Promise.all(geoJsonPromises)
       .then((geoJsons) => {
         const eventTypeGeoJsonData = {};
@@ -306,7 +319,9 @@ export function DisasterEventMapTile(
           if (!geoJsons[i]) {
             return;
           }
-          eventTypeGeoJsonData[type] = geoJsons[i];
+          const geoJsonData = geoJsons[i];
+          geoJsonData.features.push(...eventTypeFeatures[type]);
+          eventTypeGeoJsonData[type] = geoJsonData;
         });
         setEventTypeGeoJson(eventTypeGeoJsonData);
       })
