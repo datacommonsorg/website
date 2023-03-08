@@ -18,17 +18,23 @@
 set -e
 
 PROJECT_ID=$1
-
 if [[ $PROJECT_ID == "" ]]; then
   PROJECT_ID=datcom-ci
+fi
+
+TAG_NAME=$2
+if [[ $TAG_NAME == "" ]]; then
+  TAG_NAME=$(git rev-parse --short=7 HEAD)
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
 cd $ROOT
+# Both the cloud build project and the image project
+# will be $PROJECT_ID
 gcloud builds submit . \
   --async \
   --project=$PROJECT_ID \
   --config=build/ci/cloudbuild.push_image.yaml \
-  --substitutions=_TAG=$(git rev-parse --short=7 HEAD),_PROJECT_ID=$PROJECT_ID
+  --substitutions=TAG_NAME=$TAG_NAME

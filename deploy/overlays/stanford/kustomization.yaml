@@ -38,10 +38,4 @@ configMapGenerator:
       - custom_bigtable_info.yaml
 
 patchesStrategicMerge:
-  - |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: website-app
-    spec:
-      replicas: 6
+  - patch_deployment.yaml
