@@ -636,7 +636,7 @@ def _event_chart_block(metadata, block, column, place: Place,
 
   if not place.place_type in metadata.contained_place_types:
     metadata.contained_place_types[place.place_type] = \
-      utils.get_default_child_place_type(place)
+      utils.get_default_child_place_type(place).value
 
   event_name = metadata.event_type_spec[event_id].name
   if event_type in constants.EVENT_TYPE_TO_DISPLAY_NAME:

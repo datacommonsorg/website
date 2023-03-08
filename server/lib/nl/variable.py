@@ -118,6 +118,8 @@ def extend_svs(svs: Dict[str, List[str]]):
   sv2svgs = dc.property_values(svs, "memberOf", True)
   sv2svg = {sv: svg[0] for sv, svg in sv2svgs.items() if svg}
   svg2childsvs = {}
+  if not sv2svg:
+    return {}
   svginfo = dc.get_variable_group_info(list(sv2svg.values()), [])
   if 'data' not in svginfo:
     return {}

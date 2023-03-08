@@ -144,13 +144,13 @@ def populate_charts(state: PopulateState) -> bool:
   return False
 
 
-# Populate charts given a place.
+# Populate charts for given places.
 def populate_charts_for_places(state: PopulateState,
                                places: List[Place]) -> bool:
-  maybe_handle_contained_in_fallback(state, places)
+  handle_contained_in_across(state, places)
 
   if (len(state.uttr.svs) > 0):
-    if _add_charts(state, places, state.uttr.svs):
+    if _add_charts_with_place_fallback(state, places, state.uttr.svs):
       return True
     else:
       utils.update_counter(state.uttr.counters, 'failed_populate_main_svs',
@@ -159,7 +159,7 @@ def populate_charts_for_places(state: PopulateState,
     # If we have not found an SV, only then seek an SV from the context.
     # Otherwise the result seems unexpected to them.
     for svs in context.svs_from_context(state.uttr):
-      if _add_charts(state, places, svs):
+      if _add_charts_with_place_fallback(state, places, svs):
         return True
       else:
         utils.update_counter(state.uttr.counters, 'failed_populate_context_svs',
@@ -170,8 +170,175 @@ def populate_charts_for_places(state: PopulateState,
   return False
 
 
+#
+# Populate charts for given places and SVs. If there's a failure, attempt fallback
+# to parent places, or parent place-types (for contained-in query-types).
+#
+# REQUIRES: places and svs are non-empty.
+def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
+                                    svs: List[str]) -> bool:
+  # Add charts for the given places.
+  if _add_charts(state, places, svs):
+    return True
+  # That failed, we'll attempt fallback.
+
+  # Only comparison queries have multiple places.
+  # TODO: Support fallback for comparison query-type.
+  if len(places) > 1:
+    return False
+
+  # Get the place-type.  Either of child-place (contained-in query-type),
+  # or of the place itself.
+  pt = state.place_type if state.place_type else places[0].place_type
+  if isinstance(pt, str):
+    pt = ContainedInPlaceType(pt)
+
+  place = places[0]  # Caller populate_charts_for_places ensures this exists
+
+  # Walk up the parent type hierarchy trying to add charts.
+  parent_type = constants.PARENT_PLACE_TYPES.get(pt, None)
+  while parent_type:
+    if state.place_type:
+      # Pick next parent type.
+      utils.update_counter(state.uttr.counters, 'parent_place_type_fallback',
+                           parent_type)
+      state.place_type = parent_type
+    else:
+      # Pick parent place.
+      parents = utils.get_immediate_parent_places(place.dcid, parent_type)
+      if not parents:
+        utils.update_counter(state.uttr.counters, 'failed_get_parent_places', {
+            'dcid': place.dcid,
+            'type': parent_type
+        })
+        return False
+
+      # There's typically a single parent, pick the first.
+      utils.update_counter(state.uttr.counters, 'parent_place_fallback', {
+          'child': place.dcid,
+          'parent': parents[0].dcid
+      })
+      place = parents[0]
+
+    if _add_charts(state, [place], svs):
+      return True
+    # Else, try next parent type.
+    parent_type = constants.PARENT_PLACE_TYPES.get(parent_type, None)
+
+  return False
+
+
+#
+# These are data classes to track state needed for batched existence-checks.
+#
+@dataclass
+class ChartVarsExistenceCheckState:
+  chart_vars: ChartVars
+  # Existing svs from among chart_vars.svs
+  exist_svs: List[str]
+  # Set only if chart_vars.event is set
+  exist_event: bool = False
+
+
+@dataclass
+class SVExistenceCheckState:
+  sv: str
+  chart_vars_list: List[ChartVarsExistenceCheckState]
+
+  extended_svs: List[str]
+  # Existence check result for extended SVs.
+  extended_exist_svs: List[str]
+
+
+#
+# This class helps batch existence checks.
+#
+class ExistenceCheckStateTracker:
+
+  def __init__(self, state: PopulateState, places: List[str], svs: List[str],
+               sv2extensions: Dict):
+    self.state = state
+    self.places = places
+    self.all_svs = set()
+    self.exist_sv_states: List[SVExistenceCheckState] = []
+
+    # Loop over all SVs, and construct existence check state.
+    for rank, sv in enumerate(svs):
+      exist_state = SVExistenceCheckState(sv=sv,
+                                          chart_vars_list=[],
+                                          extended_svs=[],
+                                          extended_exist_svs=[])
+
+      chart_vars_list = _build_chart_vars(state, sv, rank)
+      for chart_vars in chart_vars_list:
+        exist_cv = ChartVarsExistenceCheckState(chart_vars=chart_vars,
+                                                exist_svs=[])
+        if chart_vars.event:
+          exist_cv.exist_event = utils.event_existence_for_place(
+              places[0].dcid, chart_vars.event)
+          if not exist_cv.exist_event:
+            utils.update_counter(state.uttr.counters,
+                                 'failed_event_existence_check', {
+                                     'places': places,
+                                     'event': chart_vars.event
+                                 })
+        else:
+          self.all_svs.update(chart_vars.svs)
+        exist_state.chart_vars_list.append(exist_cv)
+
+      # Infer comparison charts with extended SVs.
+      extended_svs = sv2extensions.get(sv, [])
+      if extended_svs:
+        exist_state.extended_svs = extended_svs
+        self.all_svs.update(extended_svs)
+
+      self.exist_sv_states.append(exist_state)
+
+  def perform_existence_check(self):
+    # Perform batch existence check.
+    exist_svs = utils.sv_existence_for_places(self.places, list(self.all_svs))
+    exist_svs = set(exist_svs)
+    if exist_svs:
+      logging.info('Existence check succeeded for %s - %s',
+                   ', '.join(self.places), ', '.join(exist_svs))
+    else:
+      logging.info('Existence check failed for %s - %s', ', '.join(self.places),
+                   ', '.join(self.all_svs))
+      utils.update_counter(self.state.uttr.counters, 'failed_existence_check', {
+          'places': self.places,
+          'svs': list(self.all_svs),
+      })
+      return
+
+    # Set "exist_svs" and "extended_exist_svs" in the same order it was originally found.
+    for es in self.exist_sv_states:
+
+      for ecv in es.chart_vars_list:
+        for sv in ecv.chart_vars.svs:
+          if sv in exist_svs:
+            ecv.exist_svs.append(sv)
+        if len(ecv.exist_svs) < len(ecv.chart_vars.svs):
+          utils.update_counter(
+              self.state.uttr.counters, 'failed_partial_existence_check', {
+                  'places': self.places,
+                  'svs': list(set(ecv.chart_vars.svs) - set(exist_svs)),
+              })
+
+      for esv in es.extended_svs:
+        if esv in exist_svs:
+          es.extended_exist_svs.append(esv)
+
+      if len(es.extended_exist_svs) < len(es.extended_svs):
+        utils.update_counter(
+            self.state.uttr.counters, 'failed_existence_check_extended_svs', {
+                'places': self.places,
+                'svs': list(set(es.extended_svs) - set(es.extended_exist_svs))
+            })
+        logging.info('Existence check failed for %s - %s',
+                     ', '.join(self.places), ', '.join(es.extended_svs))
+
+
 # Add charts given a place and a list of stat-vars.
-# TODO: Batch existence check calls
 def _add_charts(state: PopulateState, places: List[Place],
                 svs: List[str]) -> bool:
   logging.info("Add chart %s %s" % (', '.join(_get_place_names(places)), svs))
@@ -199,44 +366,33 @@ def _add_charts(state: PopulateState, places: List[Place],
     utils.update_counter(state.uttr.counters, 'stat_var_extensions',
                          sv2extensions)
 
+  tracker = ExistenceCheckStateTracker(state, places_to_check, svs,
+                                       sv2extensions)
+  tracker.perform_existence_check()
+
   # A set used to ensure that a set of SVs are constructed into charts
   # only once. For example SV1 and SV2 may both be main SVs, and part of
   # the peer-group.  In that case, the peer-group is processed only once.
   printed_sv_extensions = set()
 
   found = False
-  for rank, sv in enumerate(svs):
+  for exist_state in tracker.exist_sv_states:
 
     # Infer charts for the main SV/Topic.
-    chart_vars_list = _build_chart_vars(state, sv, rank)
-    for chart_vars in chart_vars_list:
+    for exist_cv in exist_state.chart_vars_list:
+      chart_vars = exist_cv.chart_vars
       if chart_vars.event:
-        event = chart_vars.event
         # For this check the parent place.
-        if utils.event_existence_for_place(places[0].dcid, event):
+        if exist_cv.exist_event:
           if state.main_cb(state, chart_vars, places,
                            ChartOriginType.PRIMARY_CHART):
             found = True
           else:
             utils.update_counter(state.uttr.counters,
                                  'failed_populate_callback_primary_event', 1)
-        else:
-          utils.update_counter(state.uttr.counters, 'failed_existence_check', {
-              'places': places,
-              'event': event
-          })
       else:
-        exist_svs = utils.sv_existence_for_places(places_to_check,
-                                                  chart_vars.svs)
+        exist_svs = exist_cv.exist_svs
         if exist_svs:
-          if len(exist_svs) < len(chart_vars.svs):
-            utils.update_counter(
-                state.uttr.counters, 'failed_partial_existence_check', {
-                    'places': places_to_check,
-                    'svs': list(set(chart_vars.svs) - set(exist_svs)),
-                })
-          logging.info('Existence check succeeded for %s - %s',
-                       ', '.join(places_to_check), ', '.join(exist_svs))
           chart_vars.svs = exist_svs
           # Now that we've found existing vars, call the per-chart-type callback.
           if state.main_cb(state, chart_vars, places,
@@ -245,19 +401,12 @@ def _add_charts(state: PopulateState, places: List[Place],
           else:
             utils.update_counter(state.uttr.counters,
                                  'failed_populate_callback_primary', 1)
-        else:
-          utils.update_counter(state.uttr.counters, 'failed_existence_check', {
-              'places': places_to_check,
-              'svs': chart_vars.svs
-          })
-          logging.info('Existence check failed for %s - %s',
-                       ', '.join(places_to_check), ', '.join(chart_vars.svs))
 
     # Infer comparison charts with extended SVs.
-    extended_svs = sv2extensions.get(sv, [])
+    extended_svs = sv2extensions.get(exist_state.sv, [])
     if not extended_svs:
       continue
-    exist_svs = utils.sv_existence_for_places(places_to_check, extended_svs)
+    exist_svs = exist_state.extended_exist_svs
     if len(exist_svs) > 1:
       exist_svs_key = ''.join(sorted(exist_svs))
       if exist_svs_key in printed_sv_extensions:
@@ -275,14 +424,6 @@ def _add_charts(state: PopulateState, places: List[Place],
       else:
         utils.update_counter(state.uttr.counters,
                              'failed_populate_callback_secondary', 1)
-    elif len(exist_svs) < len(extended_svs):
-      utils.update_counter(
-          state.uttr.counters, 'failed_existence_check_extended_svs', {
-              'places': places_to_check,
-              'svs': list(set(extended_svs) - set(exist_svs))
-          })
-      logging.info('Existence check failed for %s - %s',
-                   ', '.join(places_to_check), ', '.join(extended_svs))
 
   logging.info("Add chart %s %s returning %r" %
                (', '.join(_get_place_names(places)), svs, found))
@@ -419,12 +560,10 @@ def _open_topic_in_var(sv: str, rank: int, counters: Dict) -> List[str]:
   return []
 
 
-def maybe_handle_contained_in_fallback(state: PopulateState,
-                                       places: List[Place]):
+def handle_contained_in_across(state: PopulateState, places: List[Place]):
   if utils.get_contained_in_type(
       state.uttr) == ContainedInPlaceType.ACROSS and len(places) == 1:
-    state.place_type = ContainedInPlaceType(
-        utils.get_default_child_place_type(places[0]))
+    state.place_type = utils.get_default_child_place_type(places[0])
     utils.update_counter(state.uttr.counters, 'contained_in_across_fallback',
                          state.place_type.value)
 
