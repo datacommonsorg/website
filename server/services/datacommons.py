@@ -190,6 +190,16 @@ def properties(node, direction):
   return get(f'{url}/{direction}/{node}').get('properties', [])
 
 
+def property_values_v1(nodes, prop, out=True):
+  """Retrieves the property values with V1 response."""
+  direction = 'out' if out else 'in'
+  url = get_service_url('/v1/bulk/property/values')
+  return post(f'{url}/{direction}', {
+      'nodes': sorted(set(nodes)),
+      'property': prop,
+  })
+
+
 def property_values(nodes, prop, out=True):
   """Retrieves the property values for a list of nodes.
 
@@ -198,12 +208,7 @@ def property_values(nodes, prop, out=True):
       prop: The property label to query for.
       out: Whether the property direction is 'out'.
   """
-  direction = 'out' if out else 'in'
-  url = get_service_url('/v1/bulk/property/values')
-  resp = post(f'{url}/{direction}', {
-      'nodes': sorted(set(nodes)),
-      'property': prop,
-  })
+  resp = property_values_v1(nodes, prop, out)
   result = {}
   for item in resp.get('data', []):
     node, values = item['node'], item.get('values', [])
