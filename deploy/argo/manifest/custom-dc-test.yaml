@@ -19,6 +19,14 @@ metadata:
 spec:
   project: default
 
+  syncPolicy:
+    automated:
+      # Delete resources that are no longer in the helm chart
+      prune: true
+      # When cluster is different from git, apply Git change to the cluster.
+      selfHeal: true
+
+
   source:
     repoURL: https://github.com/Fructokinase/website
     targetRevision: argocd

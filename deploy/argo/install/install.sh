@@ -14,19 +14,15 @@
 # limitations under the License.
 set -e
 
-USER=$1
-PASSWORD=$2
-if [[ $USER == "" ]] || [[ $PASSWORD == "" ]]; then
-  echo "Usage: ./install.sh <USER> <PASSWORD>"
-  echo "<USER> is a username to be created to log in to Argo UI"
-  echo "<PASSWORD> is the associated password to be created"
-  exit 1
-fi
-
 NAMESPACE="${NAMESPACE:-website}"
 
-# Install argo into the cluster
+# Install argo into the cluster.
 kustomize build > install.yaml
+# Fix Cluster role/bindings resource to custom namespace
+# Solution below seems complicated.
+# https://github.com/kubernetes-sigs/kustomize/pull/4704
+sed -i  "s/namespace: argocd/namespace: $NAMESPACE/" install.yaml
+
 kubectl apply -f install.yaml
 
 # echo "Waiting for the Argo API server to be ready"
@@ -54,29 +50,3 @@ argocd login \
   --password $INITIAL_PASSWORD \
   --grpc-web --grpc-web-root-path deploy \
   --plaintext 127.0.0.1:8095
-
-###############################################################################
-# Create a default user
-###############################################################################
-
-# Create a new user
-kubectl -n $NAMESPACE patch configmap \
-  argocd-cm -p '{"data":{"accounts.alex":"login"}}'
-
-# Change password
-argocd account update-password \
-  --account $USER \
-  --new-password $PASSWORD \
-  --current-password $INITIAL_PASSWORD \
-  --port-forward \
-  --port-forward-namespace $NAMESPACE
-echo "Password for user<$USER> was changed."
-
-# Create an app admin role for this new user
-kubectl -n $NAMESPACE patch configmap \
-  argocd-rbac-cm -p '{"data":{"policy.csv":"p, role:app-admin, applications, *, */*, allow\ng, alex, role:app-admin"}}'
-
-# Disable admin user
-kubectl -n $NAMESPACE patch configmap \
-  argocd-cm -p '{"data":{"admin.enabled":"false"}}'
-
