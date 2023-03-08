@@ -36,6 +36,9 @@ configMapGenerator:
     name: store-configmap
     files:
       - custom_bigtable_info.yaml
+  - name: redis-config
+    files:
+      - redis.json
 
 patchesStrategicMerge:
   - patch_deployment.yaml
