@@ -73,13 +73,6 @@
                     ],
                     "title": "Average Income for Households in Florida",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_pc"
-                    ],
-                    "title": "Per Capita Average Income for Households in Florida",
-                    "type": "LINE"
                   }
                 ]
               }
@@ -160,11 +153,6 @@
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Mean_Income_Household": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
-          },
-          "Mean_Income_Household_pc": {
-            "denom": "Count_Person",
             "name": "Average Income for Households",
             "statVar": "Mean_Income_Household"
           },

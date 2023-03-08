@@ -17,6 +17,7 @@ from typing import Dict, FrozenSet, List, Set, Union
 
 from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
+from server.lib.nl.detection import Place
 
 STOP_WORDS: Set[str] = {
     'ourselves',
@@ -451,6 +452,13 @@ CHILD_PLACES_TYPES = {
     "County": "City",
 }
 
+DEFAULT_PARENT_PLACES = {
+    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
+}
+
 MAP_PLACE_TYPES = frozenset([
     ContainedInPlaceType.COUNTY, ContainedInPlaceType.STATE,
     ContainedInPlaceType.COUNTRY
@@ -466,6 +474,7 @@ QUERY_FAILED = 'failed'
 
 TEST_SESSION_ID = '007_999999999'
 
+EARTH_DCID = 'Earth'
 DEFAULT_DENOMINATOR = 'Count_Person'
 
 SV_DISPLAY_SHORT_NAME = {
