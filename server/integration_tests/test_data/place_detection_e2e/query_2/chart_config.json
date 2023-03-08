@@ -148,32 +148,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_pc"
-                    ],
-                    "title": "Per Capita Average Income for Households in States of United States of America",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_pc"
-                    ],
-                    "title": "Per Capita Average Income for Households in States of United States of America",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "dc/x3gghqtglpr59"
                     ],
                     "title": "Median Income for People Working in the Finance and Insurance Industry in States of United States of America",
@@ -247,11 +221,6 @@
         ],
         "statVarSpec": {
           "Mean_Income_Household": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
-          },
-          "Mean_Income_Household_pc": {
-            "denom": "Count_Person",
             "name": "Average Income for Households",
             "statVar": "Mean_Income_Household"
           },

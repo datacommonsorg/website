@@ -14,8 +14,9 @@ This needs to be run for all the regions that the app is hosted and the regions
 can be found in deploy/gke/`<ENV>`.yaml.
 
 Record the **host** and **port** as deployment config file
-([example](../deploy/overlays/prod/redis.json)) and make a patch to the
-deployment ([example](../deploy/overlays/prod/patch_deployment.yaml)).
+([example](../deploy/overlays/prod/redis.json)), make a patch to the
+deployment ([example](../deploy/overlays/prod/patch_deployment.yaml)), and add
+to the configMapGenerator ([example](.../deploy/overlays/prod/kustomization.yaml#L40-L42)).
 
 ## Clear the cache
 

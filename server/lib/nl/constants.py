@@ -17,6 +17,7 @@ from typing import Dict, FrozenSet, List, Set, Union
 
 from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
+from server.lib.nl.detection import Place
 
 STOP_WORDS: Set[str] = {
     'ourselves',
@@ -445,10 +446,19 @@ EVENT_TYPE_TO_DC_TYPES = {
     EventType.WETBULB: ["WetBulbTemperatureEvent"],
 }
 
-CHILD_PLACES_TYPES = {
-    "Country": "State",
-    "State": "County",
-    "County": "City",
+CHILD_PLACE_TYPES = {
+    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.STATE,
+    ContainedInPlaceType.STATE: ContainedInPlaceType.COUNTY,
+    ContainedInPlaceType.COUNTY: ContainedInPlaceType.CITY,
+}
+
+PARENT_PLACE_TYPES = {v: k for k, v in CHILD_PLACE_TYPES.items()}
+
+DEFAULT_PARENT_PLACES = {
+    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
 }
 
 MAP_PLACE_TYPES = frozenset([
@@ -466,6 +476,7 @@ QUERY_FAILED = 'failed'
 
 TEST_SESSION_ID = '007_999999999'
 
+EARTH_DCID = 'Earth'
 DEFAULT_DENOMINATOR = 'Count_Person'
 
 SV_DISPLAY_SHORT_NAME = {

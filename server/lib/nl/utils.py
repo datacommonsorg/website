@@ -33,7 +33,7 @@ import server.services.datacommons as dc
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 # TODO: Consider tweaking/reducing this
-_NUM_CHILD_PLACES_FOR_EXISTENCE = 20
+_NUM_CHILD_PLACES_FOR_EXISTENCE = 15
 
 # (growth_direction, rank_order) -> reverse
 _TIME_DELTA_SORT_MAP = {
@@ -448,8 +448,6 @@ def _get_sample_child_places(main_place_dcid: str,
                contained_place_type)
   if not contained_place_type:
     return []
-  if contained_place_type == "City":
-    return ["geoId/0667000"]
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
     logging.info(
@@ -500,6 +498,27 @@ def get_all_child_places(main_place_dcid: str,
           detection.Place(dcid=value['dcid'],
                           name=value['name'],
                           place_type=contained_place_type))
+  return results
+
+
+def get_immediate_parent_places(
+    main_place_dcid: str, parent_place_type: str) -> List[detection.Place]:
+  resp = dc.property_values_v1([main_place_dcid], 'containedInPlace')
+  results = []
+  for item in resp.get('data', []):
+    if item.get('node', '') != main_place_dcid:
+      continue
+    for value in item.get('values', []):
+      if 'dcid' not in value or 'name' not in value or 'types' not in value:
+        continue
+      if parent_place_type not in value['types']:
+        continue
+      results.append(
+          detection.Place(dcid=value['dcid'],
+                          name=value['name'],
+                          place_type=parent_place_type))
+  # Sort results for determinism.
+  results.sort(key=lambda p: p.dcid)
   return results
 
 
@@ -834,6 +853,8 @@ _SV_PARTIAL_DCID_NO_PC = [
     "AsFractionOf",
     "AsAFractionOfCount",
     "UnemploymentRate_",
+    "Mean_Income_",
+    "GenderIncomeInequality_",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]
@@ -847,3 +868,13 @@ def is_percapita_relevant(sv_dcid: str) -> bool:
     if skip_sv == sv_dcid:
       return False
   return True
+
+
+def get_default_child_place_type(
+    place: detection.Place) -> detection.ContainedInPlaceType:
+  if place.dcid == constants.EARTH_DCID:
+    return detection.ContainedInPlaceType.COUNTRY
+  # TODO: Since most queries/data tends to be US specific and we have
+  # maps for it, we pick County as default, but reconsider in future.
+  return constants.CHILD_PLACE_TYPES.get(place.place_type,
+                                         detection.ContainedInPlaceType.COUNTY)
