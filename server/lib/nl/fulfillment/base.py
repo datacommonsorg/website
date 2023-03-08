@@ -215,6 +215,9 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
   return False
 
 
+#
+# These are data classes to track state needed for batched existence-checks.
+#
 @dataclass
 class ChartVarsExistenceCheckState:
   chart_vars: ChartVars
@@ -234,6 +237,9 @@ class SVExistenceCheckState:
   extended_exist_svs: List[str]
 
 
+#
+# This class helps batch existence checks.
+#
 class ExistenceCheckStateTracker:
 
   def __init__(self, state: PopulateState, places: List[str], svs: List[str],
