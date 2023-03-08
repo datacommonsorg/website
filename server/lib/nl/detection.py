@@ -92,7 +92,9 @@ class BinaryClassificationResultType(IntEnum):
   SUCCESS = 1
 
 
-class ContainedInPlaceType(Enum):
+# Note: Inherit from `str` so that if the enum gets logged as json the serializer
+# will not complain.
+class ContainedInPlaceType(str, Enum):
   """ContainedInPlaceType indicates the type of places."""
   # PLACE is the most generic type.
   PLACE = "Place"

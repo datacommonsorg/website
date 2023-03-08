@@ -501,8 +501,8 @@ def get_all_child_places(main_place_dcid: str,
   return results
 
 
-def get_parent_places(main_place_dcid: str,
-                      parent_place_type: str) -> List[detection.Place]:
+def get_immediate_parent_places(
+    main_place_dcid: str, parent_place_type: str) -> List[detection.Place]:
   resp = dc.property_values_v1([main_place_dcid], 'containedInPlace')
   results = []
   for item in resp.get('data', []):
@@ -517,6 +517,8 @@ def get_parent_places(main_place_dcid: str,
           detection.Place(dcid=value['dcid'],
                           name=value['name'],
                           place_type=parent_place_type))
+  # Sort results for determinism.
+  results.sort(key=lambda p: p.dcid)
   return results
 
 
@@ -868,9 +870,11 @@ def is_percapita_relevant(sv_dcid: str) -> bool:
   return True
 
 
-def get_default_child_place_type(place: detection.Place) -> str:
+def get_default_child_place_type(
+    place: detection.Place) -> detection.ContainedInPlaceType:
   if place.dcid == constants.EARTH_DCID:
-    return 'Country'
+    return detection.ContainedInPlaceType.COUNTRY
   # TODO: Since most queries/data tends to be US specific and we have
   # maps for it, we pick County as default, but reconsider in future.
-  return constants.CHILD_PLACES_TYPES.get(place.place_type, 'County')
+  return constants.CHILD_PLACE_TYPES.get(place.place_type,
+                                         detection.ContainedInPlaceType.COUNTY)

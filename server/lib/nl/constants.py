@@ -446,18 +446,13 @@ EVENT_TYPE_TO_DC_TYPES = {
     EventType.WETBULB: ["WetBulbTemperatureEvent"],
 }
 
-# Given the original place type, this is the order of related place types.
-FALLBACK_CONTAINED_PLACE_TYPES = {
-    "City": ["County", "State", "Country"],
-    "County": ["State", "Country"],
-    "State": ["Country"],
+CHILD_PLACE_TYPES = {
+    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.STATE,
+    ContainedInPlaceType.STATE: ContainedInPlaceType.COUNTY,
+    ContainedInPlaceType.COUNTY: ContainedInPlaceType.CITY,
 }
 
-CHILD_PLACES_TYPES = {
-    "Country": "State",
-    "State": "County",
-    "County": "City",
-}
+PARENT_PLACE_TYPES = {v: k for k, v in CHILD_PLACE_TYPES.items()}
 
 DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),

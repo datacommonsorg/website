@@ -144,7 +144,7 @@ def populate_charts(state: PopulateState) -> bool:
   return False
 
 
-# Populate charts given a place.
+# Populate charts for given places.
 def populate_charts_for_places(state: PopulateState,
                                places: List[Place]) -> bool:
   handle_contained_in_across(state, places)
@@ -170,40 +170,60 @@ def populate_charts_for_places(state: PopulateState,
   return False
 
 
+#
+# Populate charts for given places and SVs. If there's a failure, attempt fallback
+# to parent places, or parent place-types (for contained-in query-types).
+#
+# REQUIRES: places and svs are non-empty.
 def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
                                     svs: List[str]) -> bool:
+  # Add charts for the given places.
   if _add_charts(state, places, svs):
     return True
+  # That failed, we'll attempt fallback.
+
+  # Only comparison queries have multiple places.
+  # TODO: Support fallback for comparison query-type.
   if len(places) > 1:
     return False
 
+  # Get the place-type.  Either of child-place (contained-in query-type),
+  # or of the place itself.
   pt = state.place_type if state.place_type else places[0].place_type
-  if isinstance(pt, ContainedInPlaceType):
-    pt = pt.value
+  if isinstance(pt, str):
+    pt = ContainedInPlaceType(pt)
 
-  place = places[0]
-  # Perform fallback
-  for parent_type in constants.FALLBACK_CONTAINED_PLACE_TYPES.get(pt, []):
+  place = places[0]  # Caller populate_charts_for_places ensures this exists
+
+  # Walk up the parent type hierarchy trying to add charts.
+  parent_type = constants.PARENT_PLACE_TYPES.get(pt, None)
+  while parent_type:
     if state.place_type:
+      # Pick next parent type.
       utils.update_counter(state.uttr.counters, 'parent_place_type_fallback',
                            parent_type)
-      state.place_type = ContainedInPlaceType(parent_type)
+      state.place_type = parent_type
     else:
-      # Pick next place.
-      parents = utils.get_parent_places(place.dcid, parent_type)
+      # Pick parent place.
+      parents = utils.get_immediate_parent_places(place.dcid, parent_type)
       if not parents:
         utils.update_counter(state.uttr.counters, 'failed_get_parent_places', {
             'dcid': place.dcid,
             'type': parent_type
         })
         return False
+
+      # There's typically a single parent, pick the first.
       utils.update_counter(state.uttr.counters, 'parent_place_fallback', {
           'child': place.dcid,
           'parent': parents[0].dcid
       })
       place = parents[0]
+
     if _add_charts(state, [place], svs):
       return True
+    # Else, try next parent type.
+    parent_type = constants.PARENT_PLACE_TYPES.get(parent_type, None)
 
   return False
 
@@ -543,8 +563,7 @@ def _open_topic_in_var(sv: str, rank: int, counters: Dict) -> List[str]:
 def handle_contained_in_across(state: PopulateState, places: List[Place]):
   if utils.get_contained_in_type(
       state.uttr) == ContainedInPlaceType.ACROSS and len(places) == 1:
-    state.place_type = ContainedInPlaceType(
-        utils.get_default_child_place_type(places[0]))
+    state.place_type = utils.get_default_child_place_type(places[0])
     utils.update_counter(state.uttr.counters, 'contained_in_across_fallback',
                          state.place_type.value)
 
