@@ -851,6 +851,8 @@ _SV_PARTIAL_DCID_NO_PC = [
     "AsFractionOf",
     "AsAFractionOfCount",
     "UnemploymentRate_",
+    "Mean_Income_",
+    "GenderIncomeInequality_",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]
@@ -864,3 +866,11 @@ def is_percapita_relevant(sv_dcid: str) -> bool:
     if skip_sv == sv_dcid:
       return False
   return True
+
+
+def get_default_child_place_type(place: detection.Place) -> str:
+  if place.dcid == constants.EARTH_DCID:
+    return 'Country'
+  # TODO: Since most queries/data tends to be US specific and we have
+  # maps for it, we pick County as default, but reconsider in future.
+  return constants.CHILD_PLACES_TYPES.get(place.place_type, 'County')

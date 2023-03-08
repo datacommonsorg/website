@@ -37,13 +37,6 @@ from server.lib.nl.utterance import Utterance
 
 _EVENT_PREFIX = 'event/'
 
-DEFAULT_PARENT_PLACES = {
-    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
-    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
-    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
-    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
-}
-
 
 # Data structure to store state for a single "populate" call.
 @dataclass
@@ -550,9 +543,8 @@ def _open_topic_in_var(sv: str, rank: int, counters: Dict) -> List[str]:
 def handle_contained_in_across(state: PopulateState, places: List[Place]):
   if utils.get_contained_in_type(
       state.uttr) == ContainedInPlaceType.ACROSS and len(places) == 1:
-    ptype = places[0].place_type
     state.place_type = ContainedInPlaceType(
-        constants.CHILD_PLACES_TYPES.get(ptype, 'County'))
+        utils.get_default_child_place_type(places[0]))
     utils.update_counter(state.uttr.counters, 'contained_in_across_fallback',
                          state.place_type.value)
 
@@ -563,4 +555,4 @@ def get_default_contained_in_place(state: PopulateState) -> Place:
   ptype = state.place_type
   if isinstance(ptype, str):
     ptype = ContainedInPlaceType(ptype)
-  return DEFAULT_PARENT_PLACES.get(ptype, None)
+  return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
