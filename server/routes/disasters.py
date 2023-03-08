@@ -19,7 +19,6 @@ import json
 import flask
 from flask import Blueprint
 from flask import current_app
-from flask import escape
 from flask import redirect
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
@@ -27,11 +26,8 @@ from google.protobuf.json_format import MessageToJson
 from server.config import subject_page_pb2
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
-import server.routes.api.place as place_api
 import server.services.datacommons as dc
 
-DEFAULT_PLACE_DCID = "Earth"
-DEFAULT_PLACE_TYPE = "Planet"
 EUROPE_DCID = "europe"
 EUROPE_CONTAINED_PLACE_TYPES = {
     "Country": "EurostatNUTS1",
@@ -50,7 +46,7 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=None):
   if not place_dcid:
-    return redirect(url_for('disasters.disaster_dashboard', place_dcid=DEFAULT_PLACE_DCID),
+    return redirect(url_for('disasters.disaster_dashboard', place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
   dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
@@ -64,26 +60,18 @@ def disaster_dashboard(place_dcid=None):
 
   # Override the min severity for fires for Earth
   # TODO: Do this by extending the config instead.
-  if place_dcid == DEFAULT_PLACE_DCID:
+  if place_dcid == lib_subject_page_config.DEFAULT_PLACE_DCID:
     dashboard_config = copy.deepcopy(dashboard_config)
     for key in dashboard_config.metadata.event_type_spec:
       if key == FIRE_EVENT_TYPE_SPEC:
         spec = dashboard_config.metadata.event_type_spec[key]
         spec.default_severity_filter.lower_limit = EARTH_FIRE_SEVERITY_MIN
 
-  place_types = [DEFAULT_PLACE_TYPE]
-  parent_places = []
-  if place_dcid != DEFAULT_PLACE_DCID:
-    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
-    if not place_types:
-      place_types = ["Place"]
-    parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
-  place_name = place_api.get_i18n_name([place_dcid
-                                       ]).get(place_dcid, escape(place_dcid))
+  place_metadata = lib_subject_page_config.place_metadata(place_dcid)
   # If this is a European place, update the contained_place_types in the page
   # metadata to use a custom dict instead.
   # TODO: Find a better way to handle this
-  parent_dcids = map(lambda place: place.get("dcid", ""), parent_places)
+  parent_dcids = map(lambda place: place.get("dcid", ""), place_metadata.parent_places)
   if EUROPE_DCID in parent_dcids:
     dashboard_config.metadata.contained_place_types.clear()
     dashboard_config.metadata.contained_place_types.update(
@@ -105,8 +93,8 @@ def disaster_dashboard(place_dcid=None):
               dashboard_config, stat_var, tile_type)
 
   return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
-                               place_type=json.dumps(place_types),
-                               place_name=place_name,
+                               place_type=json.dumps(place_metadata.place_types),
+                               place_name=place_metadata.place_name,
                                place_dcid=place_dcid,
                                config=MessageToJson(dashboard_config),
-                               parent_places=json.dumps(parent_places))
+                               parent_places=json.dumps(place_metadata.parent_places))

@@ -12,6 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
+from typing import Dict, List
+import server.routes.api.place as place_api
+from flask import escape
+import server.services.datacommons as dc
+
+DEFAULT_PLACE_DCID = "Earth"
+DEFAULT_PLACE_TYPE = "Planet"
+
+@dataclass
+class PlaceMetadata:
+  """Place metadata for subject pages."""
+  place_name: str
+  place_types: str
+  parent_places: List[str]
+
 
 def get_all_variables(page_config):
   """Get all the variables from a page config"""
@@ -63,3 +79,18 @@ def trim_config(page_config, variable, chart_type):
   del page_config.categories[:]
   page_config.categories.extend(categories)
   return page_config
+
+
+def place_metadata(place_dcid)->PlaceMetadata:
+  place_types = [DEFAULT_PLACE_TYPE]
+  parent_places = []
+  if place_dcid != DEFAULT_PLACE_DCID:
+    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
+    if not place_types:
+      place_types = ["Place"]
+    parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
+  place_name = place_api.get_i18n_name([place_dcid
+                                       ]).get(place_dcid, escape(place_dcid))
+  return PlaceMetadata(place_name=place_name,
+                       place_types=place_types,
+                       parent_places=parent_places)

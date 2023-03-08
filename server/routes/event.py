@@ -22,11 +22,22 @@ from flask import Blueprint
 from flask import current_app
 from flask import escape
 from flask import render_template
+from google.protobuf.json_format import MessageToJson
 
+import server.lib.util as lib_util
 import server.routes.api.node as node_api
 import server.routes.api.shared as shared_api
+import server.services.datacommons as dc
+import server.lib.subject_page_config as lib_subject_page_config
 
 DEFAULT_EVENT_DCID = ""
+EUROPE_DCID = "europe"
+EUROPE_CONTAINED_PLACE_TYPES = {
+    "Country": "EurostatNUTS1",
+    "EurostatNUTS1": "EurostatNUTS2",
+    "EurostatNUTS2": "EurostatNUTS3",
+    "EurostatNUTS3": "EurostatNUTS3",
+}
 
 # Define blueprint
 bp = Blueprint("event", __name__, url_prefix='/event')
@@ -69,8 +80,31 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
     properties = get_properties(dcid)
   except Exception as e:
     logging.info(e)
+
+  subject_config = current_app.config['DISASTER_EVENT_CONFIG']
+  if current_app.config['LOCAL']:
+    # Reload configs for faster local iteration.
+    # TODO: Delete this when we are close to launch
+    subject_config = lib_util.get_disaster_event_config()
+
+  place_dcid = "Earth"
+  place_metadata = lib_subject_page_config.place_metadata(place_dcid)
+  # If this is a European place, update the contained_place_types in the page
+  # metadata to use a custom dict instead.
+  # TODO: Find a better way to handle this
+  parent_dcids = map(lambda place: place.get("dcid", ""), place_metadata.parent_places)
+  if EUROPE_DCID in parent_dcids:
+    subject_config.metadata.contained_place_types.clear()
+    subject_config.metadata.contained_place_types.update(
+        EUROPE_CONTAINED_PLACE_TYPES)
+
   return render_template('custom_dc/stanford/event.html',
                          dcid=escape(dcid),
                          maps_api_key=current_app.config['MAPS_API_KEY'],
                          node_name=node_name,
-                         properties=json.dumps(properties))
+                         properties=json.dumps(properties),
+                         place_type=json.dumps(place_metadata.place_types),
+                         place_name=place_metadata.place_name,
+                         place_dcid=place_dcid,
+                         parent_places=json.dumps(place_metadata.parent_places),
+                         config=MessageToJson(subject_config))

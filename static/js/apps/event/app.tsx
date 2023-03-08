@@ -27,6 +27,9 @@ import { ArcTableRow } from "../../browser/arc_table_row";
 import { GoogleMap } from "../../components/google_map";
 import { formatNumber, intl } from "../../i18n/i18n";
 import { Property } from "../../types/event_types";
+import { NamedTypedPlace } from "../../shared/types";
+import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 
 const _START_DATE_PROPERTIES = ["startDate", "discoveryDate"];
 const _END_DATE_PROPERTIES = ["endDate", "containmentDate", "controlledDate"];
@@ -58,7 +61,13 @@ interface AppPropsType {
   dcid: string;
   name: string;
   properties: Array<Property>;
+  // For subject page
+  place: NamedTypedPlace;
+  subjectConfig: SubjectPageConfig;
+  parentPlaces: NamedTypedPlace[];
 }
+
+const PAGE_ID = "event";
 
 /**
  * Main component for rendering an event page.
@@ -136,6 +145,14 @@ export function App(props: AppPropsType): JSX.Element {
             </table>
           </div>
         </section>
+      </Container>
+      <Container>
+          <SubjectPageMainPane
+            id={PAGE_ID}
+            place={props.place}
+            pageConfig={props.subjectConfig}
+            parentPlaces={props.parentPlaces}
+          />
       </Container>
     </RawIntlProvider>
   );
