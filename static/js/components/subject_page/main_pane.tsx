@@ -26,10 +26,11 @@ import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { fetchNodeGeoJson } from "../../utils/geojson_utils";
+import { getParentPlacesPromise } from "../../utils/place_utils";
 import { fetchGeoJsonData, getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
-import { DataContext } from "./data_context";
+import { DataContext, DataContextType } from "./data_context";
 
 interface SubjectPageMainPanePropType {
   // Id for this subject page.
@@ -72,7 +73,10 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         props.pageConfig.metadata.containedPlaceTypes[placeType];
     }
   }
-  const [geoJsonData, setGeoJsonData] = useState(null);
+  const [contextData, setContextData] = useState<DataContextType>({
+    geoJsonData: null,
+    parentPlaces: null,
+  });
 
   useEffect(() => {
     // re-fetch geojson data if props change
@@ -91,11 +95,19 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
     const placeGeoJsonPromise = placeGeoJsonProp
       ? fetchNodeGeoJson([props.place.dcid], placeGeoJsonProp)
       : Promise.resolve(null);
-    Promise.all([childrenGeoJsonPromise, placeGeoJsonPromise]).then(
-      ([childrenGeoJson, placeGeoJson]) => {
-        setGeoJsonData({ placeGeoJson, childrenGeoJson });
-      }
-    );
+    const parentPlacesPromise = !_.isUndefined(props.parentPlaces)
+      ? Promise.resolve(props.parentPlaces)
+      : getParentPlacesPromise(props.place.dcid);
+    Promise.all([
+      childrenGeoJsonPromise,
+      placeGeoJsonPromise,
+      parentPlacesPromise,
+    ]).then(([childrenGeoJson, placeGeoJson, parentPlaces]) => {
+      setContextData({
+        geoJsonData: { placeGeoJson, childrenGeoJson },
+        parentPlaces,
+      });
+    });
   }, [props]);
 
   return (
@@ -104,7 +116,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         props.pageConfig.categories.map((category, idx) => {
           const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
           return (
-            <DataContext.Provider key={id} value={{ geoJsonData }}>
+            <DataContext.Provider key={id} value={contextData}>
               <ErrorBoundary>
                 <Category
                   id={id}

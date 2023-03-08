@@ -41,7 +41,6 @@ import {
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
-  DisasterEventMapPlaceInfo,
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
@@ -54,7 +53,6 @@ import {
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
 import { fetchNodeGeoJson } from "../../utils/geojson_utils";
-import { getParentPlacesPromise } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { DataContext } from "../subject_page/data_context";
 import { ChartTileContainer } from "./chart_tile";
@@ -91,8 +89,7 @@ export function DisasterEventMapTile(
 ): JSX.Element {
   const svgContainerRef = useRef(null);
   const infoCardRef = useRef(null);
-  const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
-  const { geoJsonData } = useContext(DataContext);
+  const { geoJsonData, parentPlaces } = useContext(DataContext);
   const [polygonGeoJson, setPolygonGeoJson] = useState(null);
   const [pathGeoJson, setPathGeoJson] = useState(null);
   const [selectedEventTypes, setSelectedEventTypes] = useState(
@@ -105,7 +102,7 @@ export function DisasterEventMapTile(
       : geoJsonData.childrenGeoJson;
   }
   const shouldShowMap =
-    placeInfo &&
+    !_.isNull(parentPlaces) &&
     !_.isEmpty(baseMapGeoJson) &&
     !_.isEmpty(baseMapGeoJson.features) &&
     !_.isNull(polygonGeoJson) &&
@@ -134,14 +131,9 @@ export function DisasterEventMapTile(
   ]);
 
   useEffect(() => {
-    // When props change, update place info
-    updatePlaceInfo(props.place, props.enclosedPlaceType);
-  }, [props]);
-
-  useEffect(() => {
     if (shouldShowMap) {
       draw(
-        placeInfo,
+        parentPlaces,
         baseMapGeoJson,
         props.disasterEventData,
         polygonGeoJson,
@@ -149,7 +141,7 @@ export function DisasterEventMapTile(
       );
     }
   }, [
-    placeInfo,
+    parentPlaces,
     baseMapGeoJson,
     props.disasterEventData,
     polygonGeoJson,
@@ -157,7 +149,7 @@ export function DisasterEventMapTile(
     selectedEventTypes,
   ]);
 
-  if (geoJsonData == null || !placeInfo) {
+  if (geoJsonData == null || parentPlaces == null) {
     return null;
   }
 
@@ -254,25 +246,6 @@ export function DisasterEventMapTile(
   }
 
   /**
-   * Updates place info given a selectedPlace and enclosedPlaceType
-   */
-  function updatePlaceInfo(
-    selectedPlace: NamedTypedPlace,
-    enclosedPlaceType: string
-  ): void {
-    if (placeInfo && selectedPlace.dcid === placeInfo.selectedPlace.dcid) {
-      return;
-    }
-    getParentPlacesPromise(selectedPlace.dcid).then((parentPlaces) => {
-      setPlaceInfo({
-        selectedPlace,
-        enclosedPlaceType,
-        parentPlaces,
-      });
-    });
-  }
-
-  /**
    * Fetches and sets the geojson for a list of event types when given the key
    * to get the geojson prop from the event type spec and the key to get the
    * geojson feature from the event point
@@ -334,7 +307,7 @@ export function DisasterEventMapTile(
    * Draws the disaster event map
    */
   function draw(
-    placeInfo: DisasterEventMapPlaceInfo,
+    parentPlaces: NamedPlace[],
     geoJsonData: GeoJsonData,
     disasterEventData: Record<string, DisasterEventPointData>,
     polygonGeoJson: GeoJsonData,
@@ -350,18 +323,18 @@ export function DisasterEventMapTile(
       zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
     };
     const isUsaPlace = isChildPlaceOf(
-      placeInfo.selectedPlace.dcid,
+      props.place.dcid,
       USA_PLACE_DCID,
-      placeInfo.parentPlaces
+      parentPlaces
     );
     const isPlaceBaseMap = shouldUsePlaceGeoJson();
     const projection = getProjection(
       isUsaPlace,
-      placeInfo.selectedPlace.dcid,
+      props.place.dcid,
       width,
       height,
       geoJsonData,
-      placeInfo.selectedPlace.dcid
+      props.place.dcid
     );
     drawD3Map(
       svgContainerRef.current,
@@ -375,13 +348,13 @@ export function DisasterEventMapTile(
       (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
       (placeDcid: string) =>
         placeDcid !==
-        placeInfo.selectedPlace
+        props.place
           .dcid /* canClickRegion: don't allow clicking region that will redirect to current page */,
       true /* shouldShowBoundaryLines */,
       projection,
       isPlaceBaseMap
         ? ""
-        : placeInfo.selectedPlace
+        : props.place
             .dcid /** zoomDcid: don't want special zoom handling of the selected place if usiing place base map */,
       zoomParams
     );
@@ -448,7 +421,7 @@ export function DisasterEventMapTile(
           return props.eventTypeSpec[point.disasterType].color;
         },
         undefined,
-        placeInfo.selectedPlace.dcid == EARTH_NAMED_TYPED_PLACE.dcid
+        props.place.dcid == EARTH_NAMED_TYPED_PLACE.dcid
           ? MAP_POINTS_MIN_RADIUS_EARTH
           : MAP_POINTS_MIN_RADIUS
       );
