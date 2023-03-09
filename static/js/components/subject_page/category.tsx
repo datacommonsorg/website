@@ -59,7 +59,7 @@ export const Category = memo(function Category(
   const title = props.config.title ? formatString(props.config.title, rs) : "";
   return (
     <article className="category col-12" id={props.id}>
-      {props.config.title && <h2 className="block-title">{title}</h2>}
+      {title && <h2 className="block-title">{title}</h2>}
       {props.config.description && (
         <ReactMarkdown>{props.config.description}</ReactMarkdown>
       )}

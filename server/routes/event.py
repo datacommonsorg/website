@@ -46,6 +46,8 @@ EMPTY_SUBJECT_PAGE_ARGS = {
     "config": "{}",
 }
 
+LOCATION_PROPERTIES = ['location', 'startLocation']
+
 # Define blueprint
 bp = Blueprint("event", __name__, url_prefix='/event')
 
@@ -78,13 +80,29 @@ def get_property_value(dcid: str, prop: str) -> str:
 
 
 def get_places(properties) -> Dict[str, List[str]]:
-  """Returns { place_dcid: [place_types] } based on lat/long of event. """
+  """
+  Returns place hierarchy and types based on lat/long of event.
+
+  Args:
+    properties: All properties of the event.
+
+  Returns:
+    A dictionary of { place_dcid: [place_types] }, for all places in the
+    hierarchy containing the lat/long of the event.
+
+  """
   for prop, values in properties.items():
-    if prop in ['location', 'startLocation'] and len(values):
-      dcid = values[0]['dcid']
+    if prop in LOCATION_PROPERTIES and len(values):
+      dcid = values[0].get('dcid', None)
+      if not dcid:
+        continue
+      latitude = get_property_value(dcid, 'latitude')
+      longitude = get_property_value(dcid, 'longitude')
+      if not latitude or not longitude:
+        continue
       coordinates = [{
-          'latitude': get_property_value(dcid, 'latitude'),
-          'longitude': get_property_value(dcid, 'longitude'),
+          'latitude': latitude,
+          'longitude': longitude,
       }]
       place_coordinates = dc.resolve_coordinates(coordinates).get(
           "placeCoordinates", coordinates)

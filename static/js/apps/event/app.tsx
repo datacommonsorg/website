@@ -54,8 +54,8 @@ const _IGNORED_PROPERTIES = new Set([
   ..._END_DATE_PROPERTIES,
 ]);
 
-type Property = Array<PropertyValue>;
-type PropertyDict = Record<string, Property>;
+type PropVals = Array<PropertyValue>;
+type PropertyDict = Record<string, PropVals>;
 const PAGE_ID = "event";
 
 /**
@@ -64,7 +64,7 @@ const PAGE_ID = "event";
 interface AppPropsType {
   dcid: string;
   name: string;
-  properties: Record<string, Property>;
+  properties: PropertyDict;
   // For subject page
   place: NamedTypedPlace;
   subjectConfig: SubjectPageConfig;
@@ -161,10 +161,7 @@ export function App(props: AppPropsType): JSX.Element {
 /**
  * Returns the first property in the list with any of the given dcids.
  */
-function findProperty(
-  dcids: string[],
-  properties: Record<string, Array<PropertyValue>>
-): Array<PropertyValue> {
+function findProperty(dcids: string[], properties: PropertyDict): PropVals {
   for (const k of dcids) {
     if (k in properties) {
       return properties[k];
@@ -176,7 +173,7 @@ function findProperty(
 /**
  * Returns the first display value of the property.
  */
-function getValue(property: Property): string {
+function getValue(property: PropVals): string {
   if (!property || !property.length) {
     return "";
   }
@@ -186,7 +183,7 @@ function getValue(property: Property): string {
 /**
  * Formats the first display value of the property as a number with unit.
  */
-function formatNumericValue(property: Property): string {
+function formatNumericValue(property: PropVals): string {
   const val = getValue(property);
   if (!val) {
     return "";
@@ -226,7 +223,7 @@ function getDateDisplay(properties: PropertyDict): string {
 /**
  * Parses a lat,long pair from the first value of the property.
  */
-function parseLatLong(property: Property): [number, number] {
+function parseLatLong(property: PropVals): [number, number] {
   if (!property || !property.length) return null;
   const val = property[0];
   if (val.name) {
