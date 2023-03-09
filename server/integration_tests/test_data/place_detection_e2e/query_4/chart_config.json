@@ -116,7 +116,7 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59_multiple_place_bar_block"
                     ],
-                    "title": "Median Income for People Working in the Finance and Insurance Industry",
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry",
                     "type": "BAR"
                   },
                   {
@@ -128,7 +128,7 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry",
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry",
                     "type": "BAR"
                   }
                 ]
@@ -182,12 +182,12 @@
             "statVar": "Median_Income_Person"
           },
           "dc/x3gghqtglpr59_multiple_place_bar_block": {
-            "name": "Median Income for People Working in the Finance and Insurance Industry",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
             "statVar": "dc/x3gghqtglpr59"
           },
           "dc/x3gghqtglpr59_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Median Income for People Working in the Finance and Insurance Industry",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
             "statVar": "dc/x3gghqtglpr59"
           }
         }
