@@ -11,16 +11,6 @@
         "geoId/53"
       ]
     ],
-    "failed_existence_check": [
-      {
-        "places": [
-          "geoId/06",
-          "geoId/36",
-          "geoId/53"
-        ],
-        "svs": []
-      }
-    ],
     "failed_populate_context_svs": [
       []
     ],
@@ -474,7 +464,7 @@
         },
         {
           "attr": {
-            "block_id": 8,
+            "block_id": 7,
             "chart_type": "timeline",
             "class": 1,
             "description": "",
@@ -501,7 +491,7 @@
         },
         {
           "attr": {
-            "block_id": 7,
+            "block_id": 8,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -807,72 +797,23 @@
     "washington state"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); (name: New York, dcid: geoId/36); (name: Washington, dcid: geoId/53); ",
-  "query_detection_debug_logs": {
-    "main_place_inferred": {
-      "dcid": "geoId/06",
-      "name": "California",
-      "place_type": "State"
-    },
-    "original_query": "compare with california and new york state and washington state",
-    "place_dcid_inference": {
-      "dcid_not_found_for_place_ids": [],
-      "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/06",
-        "geoId/36",
-        "geoId/53"
-      ],
-      "maps_api_failures": []
-    },
-    "place_resolution": {
-      "dc_resolution_failure": [],
-      "dc_resolved_places": [
-        {
-          "dcid": "geoId/06",
-          "name": "California",
-          "place_type": "State"
-        },
-        {
-          "dcid": "geoId/36",
-          "name": "New York",
-          "place_type": "State"
-        },
-        {
-          "dcid": "geoId/53",
-          "name": "Washington",
-          "place_type": "State"
-        }
-      ]
-    },
-    "places_found_str": [
-      "california",
-      "new york state",
-      "washington state"
-    ],
-    "query_transformations": {
-      "place_detection_input": "compare with california and new york state and washington state",
-      "place_detection_with_places_removed": "compare with and and",
-      "sv_detection_query_input": "compare with and and",
-      "sv_detection_query_stop_words_removal": ""
-    }
-  },
   "query_with_places_removed": "compare with and and",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3702760636806488,
-      0.3159870207309723,
-      0.28319838643074036,
-      0.27669650316238403,
-      0.2557690143585205,
-      0.23717772960662842,
-      0.22020845115184784,
-      0.2144625186920166,
-      0.2134648859500885,
-      0.20017607510089874,
-      0.19570349156856537
+      0.37027618288993835,
+      0.3159871995449066,
+      0.2831985354423523,
+      0.27669647336006165,
+      0.2557689845561981,
+      0.2371777594089508,
+      0.22020851075649261,
+      0.21446257829666138,
+      0.2134648710489273,
+      0.20017606019973755,
+      0.1957034170627594
     ],
     "SV": [
       "dc/topic/Income",
@@ -889,91 +830,91 @@
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.22020845115184784)"
+        "AQI (0.22020851075649261)"
       ],
       "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017607510089874)",
-        "forage farms (0.20017601549625397)"
+        "Forage Farms (0.20017606019973755)",
+        "forage farms (0.20017603039741516)"
       ],
       "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.19570349156856537)",
-        "Pig Farm (0.19570349156856537)"
+        "pig farm (0.1957034170627594)",
+        "Pig Farm (0.1957034170627594)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.23717772960662842)"
+        "people with wasting (0.2371777594089508)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "cattle ranchers (0.2557690143585205)",
-        "farmers (0.22553957998752594)"
+        "cattle ranchers (0.2557689845561981)",
+        "farmers (0.22553959488868713)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.2134648859500885)"
+        "Agriculture (0.2134648710489273)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.3159870207309723)"
+        "Economy (0.3159871995449066)"
       ],
       "dc/topic/Income": [
-        "pay (0.3702760636806488)",
-        "compensation (0.2285086214542389)",
-        "Earnings (0.22268353402614594)",
-        "Income (0.2059444785118103)"
+        "pay (0.37027618288993835)",
+        "compensation (0.22850872576236725)",
+        "Earnings (0.2226836383342743)",
+        "Income (0.20594437420368195)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.28319838643074036)",
-        "Careers (0.241409033536911)",
-        "Professions (0.2091175615787506)"
+        "Jobs (0.2831985354423523)",
+        "Careers (0.24140897393226624)",
+        "Professions (0.20911745727062225)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.27669650316238403)",
-        "Medical infirmities (0.23475101590156555)"
+        "Maladies (0.27669647336006165)",
+        "Medical infirmities (0.2347509115934372)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.2144625186920166)"
+        "journey to work (0.21446257829666138)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.22020845115184784)"
+      "AQI (0.22020851075649261)"
     ],
     "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017607510089874)",
-      "forage farms (0.20017601549625397)"
+      "Forage Farms (0.20017606019973755)",
+      "forage farms (0.20017603039741516)"
     ],
     "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.19570349156856537)",
-      "Pig Farm (0.19570349156856537)"
+      "pig farm (0.1957034170627594)",
+      "Pig Farm (0.1957034170627594)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.23717772960662842)"
+      "people with wasting (0.2371777594089508)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "cattle ranchers (0.2557690143585205)",
-      "farmers (0.22553957998752594)"
+      "cattle ranchers (0.2557689845561981)",
+      "farmers (0.22553959488868713)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.2134648859500885)"
+      "Agriculture (0.2134648710489273)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.3159870207309723)"
+      "Economy (0.3159871995449066)"
     ],
     "dc/topic/Income": [
-      "pay (0.3702760636806488)",
-      "compensation (0.2285086214542389)",
-      "Earnings (0.22268353402614594)",
-      "Income (0.2059444785118103)"
+      "pay (0.37027618288993835)",
+      "compensation (0.22850872576236725)",
+      "Earnings (0.2226836383342743)",
+      "Income (0.20594437420368195)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.28319838643074036)",
-      "Careers (0.241409033536911)",
-      "Professions (0.2091175615787506)"
+      "Jobs (0.2831985354423523)",
+      "Careers (0.24140897393226624)",
+      "Professions (0.20911745727062225)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.27669650316238403)",
-      "Medical infirmities (0.23475101590156555)"
+      "Maladies (0.27669647336006165)",
+      "Medical infirmities (0.2347509115934372)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.2144625186920166)"
+      "journey to work (0.21446257829666138)"
     ]
   },
   "time_delta_classification": "<None>"
