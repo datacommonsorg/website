@@ -48,8 +48,8 @@ def topic_page(topic_id=None, place_dcid=None):
     if g.env in ['local', 'autopush', 'dev']:
       if topic_id == _NL_DISASTER_TOPIC:
         topic_configs = [libutil.get_nl_disaster_config()]
-  else:
-    flask.abort(404)
+    else:
+      flask.abort(404)
 
   if len(topic_configs) < 1:
     return "Error: no config found"

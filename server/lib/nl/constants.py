@@ -17,6 +17,7 @@ from typing import Dict, FrozenSet, List, Set, Union
 
 from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
+from server.lib.nl.detection import Place
 
 STOP_WORDS: Set[str] = {
     'ourselves',
@@ -181,7 +182,24 @@ OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
     'sf east bay',
     # US
     'united states',  # need this because the word "states" gets replaced.
+    'usa',
 ])
+
+# Replace the detected place text with this alternate (shorter) place text.
+# The replacement text (value) should be contained within the detected text (key).
+# This is to ensure that the original query string does not need to be modified.
+# For example, if the query string contains "us states" and that is detected as a plce
+# string, we replce it with "us" only. This means that when detected place words/strings
+# are removed from the original query, "us" will be replaced and "states" will still
+# remain in the query. If the replacement string (value) is not contained within the
+# detected place (key), then the detected place and query may have nothing in common
+# which can lead to adverse downstream impact.
+SHORTEN_PLACE_DETECTION_STRING: Dict[str, str] = {
+    'us states': 'us',
+    'states us': 'us',
+    'usa states': 'usa',
+    'states usa': 'usa',
+}
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 
@@ -428,10 +446,19 @@ EVENT_TYPE_TO_DC_TYPES = {
     EventType.WETBULB: ["WetBulbTemperatureEvent"],
 }
 
-CHILD_PLACES_TYPES = {
-    "Country": "State",
-    "State": "County",
-    "County": "City",
+CHILD_PLACE_TYPES = {
+    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.STATE,
+    ContainedInPlaceType.STATE: ContainedInPlaceType.COUNTY,
+    ContainedInPlaceType.COUNTY: ContainedInPlaceType.CITY,
+}
+
+PARENT_PLACE_TYPES = {v: k for k, v in CHILD_PLACE_TYPES.items()}
+
+DEFAULT_PARENT_PLACES = {
+    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
 }
 
 MAP_PLACE_TYPES = frozenset([
@@ -449,6 +476,7 @@ QUERY_FAILED = 'failed'
 
 TEST_SESSION_ID = '007_999999999'
 
+EARTH_DCID = 'Earth'
 DEFAULT_DENOMINATOR = 'Count_Person'
 
 SV_DISPLAY_SHORT_NAME = {

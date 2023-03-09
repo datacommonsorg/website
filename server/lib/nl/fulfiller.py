@@ -54,8 +54,8 @@ def fulfill(query_detection: Detection, currentUtterance: Utterance,
 
   # Add detected places.
   if (query_detection.places_detected) and (
-      query_detection.places_detected.main_place):
-    uttr.places.append(query_detection.places_detected.main_place)
+      query_detection.places_detected.places_found):
+    uttr.places.extend(query_detection.places_detected.places_found)
 
   query_types = [handlers.first_query_type(uttr)]
   while query_types[-1] != None:

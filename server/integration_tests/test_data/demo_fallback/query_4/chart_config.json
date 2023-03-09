@@ -1,0 +1,89 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_Obesity_multiple_place_bar_block"
+                    ],
+                    "title": "Percentage of Population That Is Obese in United States",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_BingeDrinking_multiple_place_bar_block",
+                      "Percent_Person_Obesity_multiple_place_bar_block",
+                      "Percent_Person_PhysicalInactivity_multiple_place_bar_block",
+                      "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block",
+                      "Percent_Person_Smoking_multiple_place_bar_block"
+                    ],
+                    "title": "Compared with Other Variables in United States",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Percent_Person_BingeDrinking_multiple_place_bar_block": {
+            "name": "Percentage of Population Who Engage in Binge Drinking",
+            "statVar": "Percent_Person_BingeDrinking",
+            "unit": "%"
+          },
+          "Percent_Person_Obesity_multiple_place_bar_block": {
+            "name": "Percentage of Population That Is Obese",
+            "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          },
+          "Percent_Person_PhysicalInactivity_multiple_place_bar_block": {
+            "name": "Percentage of Population Who Are Physically Inactive",
+            "statVar": "Percent_Person_PhysicalInactivity",
+            "unit": "%"
+          },
+          "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block": {
+            "name": "Percentage of Population That Sleeps Less Than 7 Hours Per Night",
+            "statVar": "Percent_Person_SleepLessThan7Hours",
+            "unit": "%"
+          },
+          "Percent_Person_Smoking_multiple_place_bar_block": {
+            "name": "Percentage of Population That Smokes",
+            "statVar": "Percent_Person_Smoking",
+            "unit": "%"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
+  }
+}

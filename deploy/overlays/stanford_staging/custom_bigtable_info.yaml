@@ -1,0 +1,7 @@
+project: datcom-stanford
+instance: dc-graph
+tables:
+  - smokepm_2023_03_01_15_05_49
+  - aqicn_2023_03_01_19_03_31
+  - deepsolar_2023_03_01_14_11_18
+  - seda_2023_03_01_14_22_24

@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## This file specifies the disaster dashboard config for Earth.
+## This file specifies disaster charts config for the NL interface.
 
 metadata {
   topic_id: "disaster_dashboard"
@@ -85,6 +85,11 @@ metadata {
       end_date_prop: "endDate"
       end_date_prop: "containmentDate"
       end_date_prop: "controlledDate"
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
     }
   }
   event_type_spec {
@@ -133,6 +138,11 @@ metadata {
         unit: "SquareKilometer"
         upper_limit: 100000,
         lower_limit: 10
+      }
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
       }
       polygon_geo_json_prop: "geoJsonCoordinatesDP1"
       end_date_prop: "endDate"

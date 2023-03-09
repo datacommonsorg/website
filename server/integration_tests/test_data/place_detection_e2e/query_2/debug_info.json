@@ -1,0 +1,424 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.STATE",
+  "correlation_classification": "<None>",
+  "counters": {
+    "child_places_result": [
+      {
+        "place": "country/USA",
+        "result": [
+          "geoId/01",
+          "geoId/02",
+          "geoId/04",
+          "geoId/05",
+          "geoId/06",
+          "geoId/08",
+          "geoId/09",
+          "geoId/10",
+          "geoId/11",
+          "geoId/12",
+          "geoId/13",
+          "geoId/15",
+          "geoId/16",
+          "geoId/17",
+          "geoId/18",
+          "geoId/19",
+          "geoId/20",
+          "geoId/21",
+          "geoId/22",
+          "geoId/23"
+        ],
+        "type": "State"
+      }
+    ],
+    "filtered_svs": [
+      "Median_Income_Person",
+      "Median_Income_Household",
+      "Median_Earnings_Person",
+      "Median_Income_Household_FamilyHousehold",
+      "Mean_Income_Household",
+      "dc/x3gghqtglpr59",
+      "Median_Income_Household_NonfamilyHousehold"
+    ],
+    "num_chart_candidates": 7,
+    "processed_fulfillment_types": [
+      "ranking_across_places"
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "State",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ],
+      "query": "US states which have that highest median income",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "dc/x3gghqtglpr59"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Median_Income_Person",
+        "Median_Income_Household",
+        "Median_Earnings_Person",
+        "Median_Income_Household_FamilyHousehold",
+        "Mean_Income_Household",
+        "dc/x3gghqtglpr59",
+        "Median_Income_Household_NonfamilyHousehold"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 10
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "place_type": "City"
+        }
+      ],
+      "query": "tell me about palo alto",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0655282",
+              "name": "Palo Alto",
+              "place_type": "City"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "country/USA",
+  "main_place_name": "United States of America",
+  "original_query": "US states which have that highest median income",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "us"
+  ],
+  "places_resolved": "(name: United States of America, dcid: country/USA); ",
+  "query_with_places_removed": "states which have that highest median income",
+  "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      1.0000001192092896,
+      0.9218266606330872,
+      0.8443344831466675,
+      0.8192885518074036,
+      0.8156335949897766,
+      0.8111510872840881,
+      0.8066859245300293
+    ],
+    "SV": [
+      "Median_Income_Person",
+      "Median_Income_Household",
+      "Median_Earnings_Person",
+      "Median_Income_Household_FamilyHousehold",
+      "Mean_Income_Household",
+      "dc/x3gghqtglpr59",
+      "Median_Income_Household_NonfamilyHousehold"
+    ],
+    "SV_to_Sentences": {
+      "Mean_Income_Household": [
+        "Median income of households in the region (0.8156335949897766)"
+      ],
+      "Median_Earnings_Person": [
+        "Median income for population identifying as With Earnings (0.8443344831466675)",
+        "Median earnings for all people (0.8229597806930542)",
+        "Median Earnings for All People (0.8229597806930542)"
+      ],
+      "Median_Income_Household": [
+        "Median household income (0.9218266606330872)",
+        "Median Income of Household (0.9102111458778381)",
+        "Median income for all households (0.8729931116104126)",
+        "Median Income for All Households (0.8729931116104126)"
+      ],
+      "Median_Income_Household_FamilyHousehold": [
+        "Median income for family households (0.8192885518074036)",
+        "Median Income for Family Households (0.8192885518074036)",
+        "Median Income of Household: in a family household with Income (0.8157026767730713)",
+        "Median Income of Household: Family Household, With Income (0.8133259415626526)"
+      ],
+      "Median_Income_Household_NonfamilyHousehold": [
+        "Median Income of Household: Nonfamily Household, With Income (0.8066859245300293)"
+      ],
+      "Median_Income_Person": [
+        "Median Income (1.0000001192092896)",
+        "Median income (1.0000001192092896)",
+        "Median income of the population (0.9306240677833557)",
+        "Median Income of a Population (0.928594708442688)",
+        "Median pay (0.8329887986183167)"
+      ],
+      "dc/x3gghqtglpr59": [
+        "Median Income for People Working in the Finance and Insurance Industry (0.8111510872840881)",
+        "Median income for people working in the finance and insurance industry (0.8111510872840881)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Mean_Income_Household": [
+      "Median income of households in the region (0.8156335949897766)"
+    ],
+    "Median_Earnings_Person": [
+      "Median income for population identifying as With Earnings (0.8443344831466675)",
+      "Median earnings for all people (0.8229597806930542)",
+      "Median Earnings for All People (0.8229597806930542)"
+    ],
+    "Median_Income_Household": [
+      "Median household income (0.9218266606330872)",
+      "Median Income of Household (0.9102111458778381)",
+      "Median income for all households (0.8729931116104126)",
+      "Median Income for All Households (0.8729931116104126)"
+    ],
+    "Median_Income_Household_FamilyHousehold": [
+      "Median income for family households (0.8192885518074036)",
+      "Median Income for Family Households (0.8192885518074036)",
+      "Median Income of Household: in a family household with Income (0.8157026767730713)",
+      "Median Income of Household: Family Household, With Income (0.8133259415626526)"
+    ],
+    "Median_Income_Household_NonfamilyHousehold": [
+      "Median Income of Household: Nonfamily Household, With Income (0.8066859245300293)"
+    ],
+    "Median_Income_Person": [
+      "Median Income (1.0000001192092896)",
+      "Median income (1.0000001192092896)",
+      "Median income of the population (0.9306240677833557)",
+      "Median Income of a Population (0.928594708442688)",
+      "Median pay (0.8329887986183167)"
+    ],
+    "dc/x3gghqtglpr59": [
+      "Median Income for People Working in the Finance and Insurance Industry (0.8111510872840881)",
+      "Median income for people working in the finance and insurance industry (0.8111510872840881)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

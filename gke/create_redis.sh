@@ -15,12 +15,18 @@
 
 set -e
 
-REGION=$1
+ENV=$1
+REGION=$2
+
+if [[ $ENV == "" || $REGION == "" ]]; then
+  echo "Missing arg 1 (env) and/or arg 2 (region)"
+  exit 1
+fi
+
+PROJECT_ID=$(yq eval '.project' ../deploy/gke/$ENV.yaml)
 if [[ $REGION == "" ]]; then
   REGION=$(yq eval '.region.primary' config.yaml)
 fi
-
-PROJECT_ID=$(yq eval '.project' config.yaml)
 
 gcloud config set project $PROJECT_ID
 
