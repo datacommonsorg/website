@@ -24,6 +24,8 @@
 @use "./shared/story_chart";
 
 .head-section {
+  margin-bottom: 1rem;
+
   h1 {
     font-size: 1.6rem;
     font-weight: 700;
@@ -33,7 +35,19 @@
     color: var(--secondary);
     font-size: 1rem;
     font-weight: normal;
-    line-height: 1rem;
+    font-weight: 600;
+
+    a {
+      color: var(--secondary);
+      text-decoration: underline;
+    }
+  }
+
+  h4 {
+    color: var(--secondary);
+    font-size: .9rem;
+    font-weight: 300;
+    line-height: 1.4rem;
   }
 }
 

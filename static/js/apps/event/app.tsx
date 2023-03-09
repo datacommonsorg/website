@@ -91,20 +91,35 @@ export function App(props: AppPropsType): JSX.Element {
   tableProperties.sort();
 
   const dateDisplay = getDateDisplay(props.properties);
+  const allPlaces = [props.place, ...props.parentPlaces];
+  const placeBreadcrumbsJsx = allPlaces.map((place, i) => (
+    <>
+      <a className="place-links" href={`/disasters/${place.dcid}`}>
+        {place.name}
+      </a>
+      {i < allPlaces.length - 1 ? ", " : ""}
+    </>
+  ));
 
   return (
     <RawIntlProvider value={intl}>
       <Container>
         <div className="head-section">
           <h1>{props.name}</h1>
-          <h3>type: {typeOf[0].name}</h3>
           <h3>
-            dcid: <a href={`/browser/${props.dcid}`}>{props.dcid}</a>
+            <span>{_.startCase(typeOf[0].name)}</span> in {placeBreadcrumbsJsx}
           </h3>
-          <h3>
-            source:{" "}
-            <a href={`/browser/${provenance[0].dcid}`}>{provenance[0].name}</a>
-          </h3>
+          <h4 className="clearfix">
+            <span>
+              Data source:{" "}
+              <a href={`/browser/${provenance[0].dcid}`}>
+                {provenance[0].name}
+              </a>
+            </span>
+            <a className="float-right" href={`/browser/${props.dcid}`}>
+              Graph Browser ›
+            </a>
+          </h4>
         </div>
         {(geoJson || latLong) && (
           <GoogleMap
