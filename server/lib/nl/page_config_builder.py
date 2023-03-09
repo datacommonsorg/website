@@ -398,6 +398,7 @@ def _map_chart_block_nopc(column, place: Place, pri_sv: str, sv2thing: Dict,
   tile.type = Tile.TileType.MAP
   tile.title = _decorate_chart_title(title=sv2thing.name[pri_sv],
                                      place=place,
+                                     add_date=True,
                                      do_pc=False,
                                      child_type=attr.get('place_type', ''))
 
@@ -417,6 +418,7 @@ def _map_chart_block_pc(column, place: Place, pri_sv: str, sv2thing: Dict,
   tile.title = _decorate_chart_title(title=sv2thing.name[pri_sv],
                                      place=place,
                                      do_pc=True,
+                                     add_date=True,
                                      child_type=attr.get('place_type', ''))
 
   stat_var_spec_map = {}
@@ -730,6 +732,7 @@ def _decorate_block_title(title: str,
 
 def _decorate_chart_title(title: str,
                           place: Place,
+                          add_date: bool = False,
                           do_pc: bool = False,
                           child_type: str = '') -> str:
   if not title:
@@ -745,6 +748,9 @@ def _decorate_chart_title(title: str,
 
   if do_pc:
     title = 'Per Capita ' + title
+
+  if add_date:
+    title = title + ' (${date})'
 
   return title
 
