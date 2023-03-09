@@ -147,7 +147,7 @@ categories {
     columns {
       tiles {
         type: SCATTER
-        title: "Poverty rate (${date}) vs. Uninsurance rate (${date})"
+        title: "Poverty rate (${xDate}) vs. Uninsurance rate (${yDate})"
         stat_var_key: 'poverty_rate'
         stat_var_key: 'uninsurance_rate'
       }
