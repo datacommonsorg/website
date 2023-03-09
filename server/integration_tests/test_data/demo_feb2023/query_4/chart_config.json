@@ -71,21 +71,21 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Accommodation and Food Services Industry",
+            "name": "Accommodation and Food Services Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Accommodation and Food Services Industry",
+            "name": "Accommodation and Food Services Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Administrative and Support and Waste Management Services Industry",
+            "name": "Administrative and Support and Waste Management Services Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Administrative and Support and Waste Management Services Industry",
+            "name": "Administrative and Support and Waste Management Services Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block": {
@@ -98,75 +98,75 @@
             "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Arts, Entertainment, and Recreation Industry",
+            "name": "Arts, Entertainment, and Recreation Industry",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Arts, Entertainment, and Recreation Industry",
+            "name": "Arts, Entertainment, and Recreation Industry",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSConstruction_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Construction Industry",
+            "name": "Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSConstruction_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Construction Industry",
+            "name": "Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSEducationalServices_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Educational Services Industry",
+            "name": "Educational Services Industry",
             "statVar": "Count_Worker_NAICSEducationalServices"
           },
           "Count_Worker_NAICSEducationalServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Educational Services Industry",
+            "name": "Educational Services Industry",
             "statVar": "Count_Worker_NAICSEducationalServices"
           },
           "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Finance and Insurance Industry",
+            "name": "Finance and Insurance Industry",
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Finance and Insurance Industry",
+            "name": "Finance and Insurance Industry",
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Health Care and Social Assistance Industry",
+            "name": "Health Care and Social Assistance Industry",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
           },
           "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Health Care and Social Assistance Industry",
+            "name": "Health Care and Social Assistance Industry",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
           },
           "Count_Worker_NAICSInformation_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Information Industry",
+            "name": "Information Industry",
             "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSInformation_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Information Industry",
+            "name": "Information Industry",
             "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block": {
-            "name": "Population of Population Working in the Mining, Quarrying, and Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, and Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in the Mining, Quarrying, and Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, and Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSOtherServices_multiple_place_bar_block": {
-            "name": "Population of Population Working in Other Services, Except Public Administration",
+            "name": "Other Services, Except Public Administration",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSOtherServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population of Population Working in Other Services, Except Public Administration",
+            "name": "Other Services, Except Public Administration",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block": {

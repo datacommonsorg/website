@@ -115,7 +115,7 @@
         ],
         "statVarSpec": {
           "Percent_Person_BingeDrinking": {
-            "name": "Percentage of Population Who Binge Drink",
+            "name": "Percentage of Population Who Engage in Binge Drinking",
             "statVar": "Percent_Person_BingeDrinking",
             "unit": "%"
           },
