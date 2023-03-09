@@ -14,7 +14,7 @@
                     "statVarKey": [
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Percentage of Population That Is Obese in United States",
+                    "title": "Percentage of Population That Is Obese in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -36,7 +36,7 @@
                       "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block",
                       "Percent_Person_Smoking_multiple_place_bar_block"
                     ],
-                    "title": "Compared with Other Variables in United States",
+                    "title": "Compared with Other Variables in United States (${date})",
                     "type": "BAR"
                   }
                 ]

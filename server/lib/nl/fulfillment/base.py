@@ -275,7 +275,7 @@ class ExistenceCheckStateTracker:
                                                 exist_svs=[])
         if chart_vars.event:
           exist_cv.exist_event = utils.event_existence_for_place(
-              places[0].dcid, chart_vars.event)
+              places[0], chart_vars.event)
           if not exist_cv.exist_event:
             utils.update_counter(state.uttr.counters,
                                  'failed_event_existence_check', {

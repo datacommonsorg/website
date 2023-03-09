@@ -25,7 +25,7 @@
                       "Percent_Person_WithStroke_multiple_place_bar_block",
                       "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block"
                     ],
-                    "title": "Medical Conditions in Placer County",
+                    "title": "Medical Conditions in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]

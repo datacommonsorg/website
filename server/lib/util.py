@@ -174,9 +174,13 @@ def _compact_point(point_resp, all_facets):
   }
   data = {}
   for obs_by_variable in point_resp.get('observationsByVariable', []):
+    if 'variable' not in obs_by_variable:
+      continue
     var = obs_by_variable['variable']
     data[var] = {}
-    for obs_by_entity in obs_by_variable['observationsByEntity']:
+    for obs_by_entity in obs_by_variable.get('observationsByEntity', []):
+      if 'entity' not in obs_by_entity:
+        continue
       entity = obs_by_entity['entity']
       data[var][entity] = None
       if 'pointsByFacet' in obs_by_entity:
@@ -210,9 +214,13 @@ def _compact_series(series_resp, all_facets):
   }
   data = {}
   for obs_by_variable in series_resp.get('observationsByVariable', []):
+    if 'variable' not in obs_by_variable:
+      continue
     var = obs_by_variable['variable']
     data[var] = {}
-    for obs_by_entity in obs_by_variable['observationsByEntity']:
+    for obs_by_entity in obs_by_variable.get('observationsByEntity', []):
+      if 'entity' not in obs_by_entity:
+        continue
       entity = obs_by_entity['entity']
       data[var][entity] = None
       if 'seriesByFacet' in obs_by_entity:
@@ -261,8 +269,8 @@ def check_backend_ready(urls: List[str]):
     time.sleep(_ready_check_sleep_seconds)
     total_sleep_seconds += _ready_check_sleep_seconds
     if total_sleep_seconds > _ready_check_timeout:
-      raise RuntimeError('%s not ready after %s second' % urls,
-                         _ready_check_timeout)
+      raise RuntimeError('%s not ready after %s second' %
+                         (urls, _ready_check_timeout))
 
 
 def gzip_compress_response(raw_content, is_json):

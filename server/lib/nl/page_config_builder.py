@@ -346,13 +346,19 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
     orig_title = sv2thing.name[svs[0]]
 
   if len(places) == 1:
-    title = _decorate_chart_title(title=orig_title, place=places[0])
+    title = _decorate_chart_title(title=orig_title,
+                                  place=places[0],
+                                  add_date=True)
     pc_title = _decorate_chart_title(title=orig_title,
                                      place=places[0],
+                                     add_date=True,
                                      do_pc=True)
   else:
-    title = orig_title
-    pc_title = _decorate_chart_title(title=orig_title, place=None, do_pc=True)
+    title = _decorate_chart_title(title=orig_title, add_date=True, place=None)
+    pc_title = _decorate_chart_title(title=orig_title,
+                                     add_date=True,
+                                     place=None,
+                                     do_pc=True)
 
   # Total
   tile = Tile(type=Tile.TileType.BAR,
@@ -398,6 +404,7 @@ def _map_chart_block_nopc(column, place: Place, pri_sv: str, sv2thing: Dict,
   tile.type = Tile.TileType.MAP
   tile.title = _decorate_chart_title(title=sv2thing.name[pri_sv],
                                      place=place,
+                                     add_date=True,
                                      do_pc=False,
                                      child_type=attr.get('place_type', ''))
 
@@ -417,6 +424,7 @@ def _map_chart_block_pc(column, place: Place, pri_sv: str, sv2thing: Dict,
   tile.title = _decorate_chart_title(title=sv2thing.name[pri_sv],
                                      place=place,
                                      do_pc=True,
+                                     add_date=True,
                                      child_type=attr.get('place_type', ''))
 
   stat_var_spec_map = {}
@@ -512,6 +520,7 @@ def _ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
   _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
   tile.title = _decorate_chart_title(title=sv2thing.name[pri_sv],
                                      place=pri_place,
+                                     add_date=True,
                                      do_pc=False,
                                      child_type=attr.get('place_type', ''))
 
@@ -538,6 +547,7 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
   _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
   tile.title = _decorate_chart_title(title=sv2thing.name[pri_sv],
                                      place=pri_place,
+                                     add_date=True,
                                      do_pc=True,
                                      child_type=attr.get('place_type', ''))
 
@@ -557,6 +567,7 @@ def _ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
     sv_title = sv2thing.name[pri_sv] + " " + name_suffix
     tile.title = _decorate_chart_title(title=sv_title,
                                        place=pri_place,
+                                       add_date=True,
                                        do_pc=False,
                                        child_type=attr.get('place_type', ''))
 
@@ -607,10 +618,11 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
   tile = column.tiles.add()
   tile.stat_var_key.extend(sv_key_pair)
   tile.type = Tile.TileType.SCATTER
-  tile.title = _decorate_chart_title(title=f"{sv_names[0]} vs. {sv_names[1]}",
-                                     place=pri_place,
-                                     do_pc=False,
-                                     child_type=attr.get('place_type', ''))
+  tile.title = _decorate_chart_title(
+      title=f"{sv_names[0]} (${{xDate}}) vs. {sv_names[1]} (${{yDate}})",
+      place=pri_place,
+      do_pc=False,
+      child_type=attr.get('place_type', ''))
   tile.scatter_tile_spec.highlight_top_right = True
 
   return stat_var_spec_map
@@ -730,6 +742,7 @@ def _decorate_block_title(title: str,
 
 def _decorate_chart_title(title: str,
                           place: Place,
+                          add_date: bool = False,
                           do_pc: bool = False,
                           child_type: str = '') -> str:
   if not title:
@@ -745,6 +758,9 @@ def _decorate_chart_title(title: str,
 
   if do_pc:
     title = 'Per Capita ' + title
+
+  if add_date:
+    title = title + ' (${date})'
 
   return title
 

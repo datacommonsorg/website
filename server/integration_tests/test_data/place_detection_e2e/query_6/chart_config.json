@@ -15,14 +15,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -42,14 +42,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -68,14 +68,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States of America",
+                    "title": "People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States of America",
+                    "title": "People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -95,14 +95,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States of America",
+                    "title": "Per Capita People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States of America",
+                    "title": "Per Capita People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -121,14 +121,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Some Other Race Alone in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Some Other Race Alone in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Some Other Race Alone in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Some Other Race Alone in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -148,14 +148,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Some Other Race Alone in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Some Other Race Alone in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Some Other Race Alone in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Some Other Race Alone in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -174,14 +174,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Two or More Races in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Two or More Races in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Two or More Races in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Two or More Races in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -201,14 +201,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Two or More Races in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Two or More Races in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Two or More Races in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Two or More Races in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -227,14 +227,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past 12 Months in Counties of United States of America",
+                    "title": "Family Households Below the Poverty Level in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past 12 Months in Counties of United States of America",
+                    "title": "Family Households Below the Poverty Level in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -254,14 +254,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past 12 Months in Counties of United States of America",
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past 12 Months in Counties of United States of America",
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past 12 Months in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -280,14 +280,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Black or African American Alone in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Black or African American Alone in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Black or African American Alone in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Black or African American Alone in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -307,14 +307,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Black or African American Alone in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Black or African American Alone in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Black or African American Alone in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are Black or African American Alone in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -333,14 +333,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone"
                     ],
-                    "title": "People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone"
                     ],
-                    "title": "People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -360,14 +360,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone_pc"
                     ],
-                    "title": "Per Capita People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "Per Capita People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone_pc"
                     ],
-                    "title": "Per Capita People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "Per Capita People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -386,14 +386,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are White Alone in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are White Alone in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are White Alone in Counties of United States of America",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months and Who Are White Alone in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -413,14 +413,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are White Alone in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are White Alone in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are White Alone in Counties of United States of America",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months and Who Are White Alone in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -439,14 +439,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces"
                     ],
-                    "title": "Multi Racial People Who Are Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "Multi Racial People Who Are Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces"
                     ],
-                    "title": "Multi Racial People Who Are Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "Multi Racial People Who Are Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -466,14 +466,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces_pc"
                     ],
-                    "title": "Per Capita Multi Racial People Who Are Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "Per Capita Multi Racial People Who Are Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces_pc"
                     ],
-                    "title": "Per Capita Multi Racial People Who Are Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "Per Capita Multi Racial People Who Are Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -492,14 +492,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "African Americans Who Are Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "African Americans Who Are Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "African Americans Who Are Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "African Americans Who Are Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -519,14 +519,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc"
                     ],
-                    "title": "Per Capita African Americans Who Are Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "Per Capita African Americans Who Are Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc"
                     ],
-                    "title": "Per Capita African Americans Who Are Above Poverty Level Status in the Past Year in Counties of United States of America",
+                    "title": "Per Capita African Americans Who Are Above Poverty Level Status in the Past Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -545,14 +545,14 @@
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Males Who Are Below Poverty Status in the Last Year in Counties of United States of America",
+                    "title": "Males Who Are Below Poverty Status in the Last Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Males Who Are Below Poverty Status in the Last Year in Counties of United States of America",
+                    "title": "Males Who Are Below Poverty Status in the Last Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -572,14 +572,14 @@
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Males Who Are Below Poverty Status in the Last Year in Counties of United States of America",
+                    "title": "Per Capita Males Who Are Below Poverty Status in the Last Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Males Who Are Below Poverty Status in the Last Year in Counties of United States of America",
+                    "title": "Per Capita Males Who Are Below Poverty Status in the Last Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -598,14 +598,14 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Females Who Are Below Poverty Level in the Last Year in Counties of United States of America",
+                    "title": "Females Who Are Below Poverty Level in the Last Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Females Who Are Below Poverty Level in the Last Year in Counties of United States of America",
+                    "title": "Females Who Are Below Poverty Level in the Last Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -625,14 +625,14 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Females Who Are Below Poverty Level in the Last Year in Counties of United States of America",
+                    "title": "Per Capita Females Who Are Below Poverty Level in the Last Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Females Who Are Below Poverty Level in the Last Year in Counties of United States of America",
+                    "title": "Per Capita Females Who Are Below Poverty Level in the Last Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
