@@ -266,9 +266,9 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       .flatMap((event) => event.affectedPlaces)
       .forEach((place) => allAffectedPlaces.add(place));
     axios
-      .get<Record<string, string[]>>("/api/node/propvals", {
-        params: { dcids: Array.from(allAffectedPlaces), prop: "typeOf" },
-        paramsSerializer: stringifyFn,
+      .post<Record<string, string[]>>("/api/node/propvals", {
+        dcids: Array.from(allAffectedPlaces),
+        prop: "typeOf",
       })
       .then((resp) => {
         // Map of event id to dcid of a place (of place type

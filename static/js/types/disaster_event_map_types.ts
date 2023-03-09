@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { MapPoint } from "../chart/types";
+import { GeoJsonFeature, MapPoint } from "../chart/types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { EventTypeSpec, SeverityFilter } from "./subject_page_proto_types";
 
@@ -71,6 +71,8 @@ export interface DisasterEventPoint extends MapPoint {
   displayProps?: { [prop: string]: number };
   affectedPlaces: string[];
   provenanceId: string;
+  polygonGeoJson?: GeoJsonFeature;
+  pathGeoJson?: GeoJsonFeature;
   endDate?: string;
 }
 
