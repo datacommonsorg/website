@@ -25,6 +25,8 @@ export interface ReplacementStrings {
   place: string;
   date: string;
   statVar?: string;
+  xDate?: string;
+  yDate?: string;
 }
 
 /**
