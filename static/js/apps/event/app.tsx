@@ -47,6 +47,7 @@ const _IGNORED_PROPERTIES = new Set([
   "observationPeriod",
   "irwinID",
   "wfigsFireID",
+  "affectedPlace",
   ..._LOCATION_PROPERTIES,
   ..._GEOJSON_PROPERTIES,
   ..._START_DATE_PROPERTIES,

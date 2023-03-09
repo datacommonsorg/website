@@ -36,6 +36,7 @@ DEFAULT_CONTAINED_PLACE_TYPES = {
     "Continent": "Country",
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "AdministrativeArea3",
 }
 EMPTY_SUBJECT_PAGE_ARGS = {
     "place_type": "{}",
