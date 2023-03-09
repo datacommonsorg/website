@@ -22,6 +22,7 @@ import _ from "lodash";
 import React from "react";
 import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
+import { JsxElement } from "typescript";
 
 import { ArcTableRow } from "../../browser/arc_table_row";
 import { GoogleMap } from "../../components/google_map";
@@ -54,6 +55,11 @@ const _IGNORED_PROPERTIES = new Set([
   ..._END_DATE_PROPERTIES,
 ]);
 
+interface Provenance {
+  url: string;
+  sourceName: string;
+}
+
 type PropVals = Array<PropertyValue>;
 type PropertyDict = Record<string, PropVals>;
 const PAGE_ID = "event";
@@ -65,6 +71,7 @@ interface AppPropsType {
   dcid: string;
   name: string;
   properties: PropertyDict;
+  provenance: Array<Provenance>;
   // For subject page
   place: NamedTypedPlace;
   subjectConfig: SubjectPageConfig;
@@ -76,8 +83,6 @@ interface AppPropsType {
  * Displays the properties and property values of the event described.
  */
 export function App(props: AppPropsType): JSX.Element {
-  // TODO: Use original data source, not import name.
-  const provenance = findProperty(["provenance"], props.properties);
   const typeOf = findProperty(["typeOf"], props.properties);
   const geoJson = getValue(findProperty(_GEOJSON_PROPERTIES, props.properties));
   const latLong = parseLatLong(
@@ -91,13 +96,23 @@ export function App(props: AppPropsType): JSX.Element {
   tableProperties.sort();
 
   const dateDisplay = getDateDisplay(props.properties);
-  const allPlaces = [props.place, ...props.parentPlaces];
-  const placeBreadcrumbsJsx = allPlaces.map((place, i) => (
+  let placeBreadcrumbsJsx: JSX.Element[];
+  if (props.place.dcid) {
+    const allPlaces = [props.place, ...props.parentPlaces];
+    placeBreadcrumbsJsx = allPlaces.map((place, i) => (
+      <>
+        <a className="place-links" href={`/disasters/${place.dcid}`}>
+          {place.name}
+        </a>
+        {i < allPlaces.length - 1 ? ", " : ""}
+      </>
+    ));
+  }
+
+  const provenanceJsx = props.provenance.map((p, i) => (
     <>
-      <a className="place-links" href={`/disasters/${place.dcid}`}>
-        {place.name}
-      </a>
-      {i < allPlaces.length - 1 ? ", " : ""}
+      <a href={p.url}>{p.sourceName}</a>
+      {i < props.provenance.length - 1 ? ", " : ""}
     </>
   ));
 
@@ -107,15 +122,11 @@ export function App(props: AppPropsType): JSX.Element {
         <div className="head-section">
           <h1>{props.name}</h1>
           <h3>
-            <span>{_.startCase(typeOf[0].name)}</span> in {placeBreadcrumbsJsx}
+            <span>{_.startCase(typeOf[0].name)}</span>
+            {placeBreadcrumbsJsx && <> in {placeBreadcrumbsJsx}</>}
           </h3>
           <h4 className="clearfix">
-            <span>
-              Data source:{" "}
-              <a href={`/browser/${provenance[0].dcid}`}>
-                {provenance[0].name}
-              </a>
-            </span>
+            <span>Data source: {provenanceJsx}</span>
             <a className="float-right" href={`/browser/${props.dcid}`}>
               Graph Browser ›
             </a>

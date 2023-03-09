@@ -30,7 +30,7 @@
 {% block content %}
   <div id="main-pane"></div>
   <div id="metadata" class="d-none">
-    <div id="node" data-dcid="{{dcid}}" data-nn="{{node_name}}" data-pv="{{properties}}"></div>
+    <div id="node" data-dcid="{{dcid}}" data-nn="{{node_name}}" data-pv="{{properties}}" data-provenance="{{ provenance }}"></div>
     <div id="place" data-dcid="{{ place_dcid }}" data-name="{{ place_name }}" data-type="{{ place_type }}" data-parents="{{ parent_places }}"></div>
     <div id="subject-config" data-config="{{ config }}"></div>
   </div>

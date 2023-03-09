@@ -36,11 +36,6 @@
     font-size: 1rem;
     font-weight: normal;
     font-weight: 600;
-
-    a {
-      color: var(--secondary);
-      text-decoration: underline;
-    }
   }
 
   h4 {
@@ -48,6 +43,11 @@
     font-size: .9rem;
     font-weight: 300;
     line-height: 1.4rem;
+  }
+
+  a {
+    color: var(--secondary);
+    text-decoration: underline;
   }
 }
 
