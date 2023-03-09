@@ -351,6 +351,7 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
                                   add_date=True)
     pc_title = _decorate_chart_title(title=orig_title,
                                      place=places[0],
+                                     add_date=True,
                                      do_pc=True)
   else:
     title = orig_title

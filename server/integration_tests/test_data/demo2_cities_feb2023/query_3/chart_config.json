@@ -34,7 +34,7 @@
                       "dc/0gettc3bc60cb_multiple_place_bar_block_pc",
                       "dc/vt2q292eme79f_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Modes of Commute in Sunnyvale",
+                    "title": "Per Capita Modes of Commute in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]

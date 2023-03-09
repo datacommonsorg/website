@@ -60,7 +60,7 @@
                       "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block_pc",
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Categories of Jobs in Placer County",
+                    "title": "Per Capita Categories of Jobs in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
