@@ -374,12 +374,12 @@ CONTAINED_IN_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name in Counties of Foo Place"
+         title: "Count_Farm-name in Counties of Foo Place (${date})"
          type: MAP
          stat_var_key: "Count_Farm"
        }
        tiles {
-         title: "Per Capita Count_Farm-name in Counties of Foo Place"
+         title: "Per Capita Count_Farm-name in Counties of Foo Place (${date})"
          type: MAP
          stat_var_key: "Count_Farm_pc"
        }
@@ -388,12 +388,12 @@ CONTAINED_IN_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name in Counties of Foo Place"
+         title: "Income_Farm-name in Counties of Foo Place (${date})"
          type: MAP
          stat_var_key: "Income_Farm"
        }
        tiles {
-         title: "Per Capita Income_Farm-name in Counties of Foo Place"
+         title: "Per Capita Income_Farm-name in Counties of Foo Place (${date})"
          type: MAP
          stat_var_key: "Income_Farm_pc"
        }
@@ -520,7 +520,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
-         title: "Count_Agricultural_Workers-name in Counties of Foo Place"
+         title: "Count_Agricultural_Workers-name in Counties of Foo Place (${date})"
          type: MAP
          stat_var_key: "Count_Agricultural_Workers"
        }
@@ -539,7 +539,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
          }
        }
        tiles {
-         title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place"
+         title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place (${date})"
          type: MAP
          stat_var_key: "Count_Agricultural_Workers_pc"
        }

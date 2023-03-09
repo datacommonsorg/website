@@ -77,7 +77,7 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
   default_place = get_default_contained_in_place(state)
   if default_place:
-    return _populate_correlation_for_place(state, pl)
+    return _populate_correlation_for_place(state, default_place)
 
   return False
 
