@@ -66,6 +66,44 @@ categories {
       }
     }
   }
+  blocks {
+    title: "Other disasters"
+    columns {
+      tiles {
+        type: LINE
+        title: "Number of droughts in ${place}"
+        stat_var_key: "count_drought"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Number of earthquakes in ${place}"
+        stat_var_key: "count_earthquake"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Number of fires in ${place}"
+        stat_var_key: "count_fire"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Number of floods in ${place}"
+        stat_var_key: "count_flood"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Number of wet bulb temperature events in ${place}"
+        stat_var_key: "count_wetbulbtemperature"
+      }
+    }
+  }
 
   stat_var_spec {
     key: "population"
@@ -111,6 +149,41 @@ categories {
       stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
       name: "GDP per capita"
       unit: "USD"
+    }
+  }
+  stat_var_spec {
+    key: "count_drought"
+    value {
+      stat_var: "Count_DroughtEvent"
+      name: "Droughts"
+    }
+  }
+  stat_var_spec {
+    key: "count_earthquake"
+    value {
+      stat_var: "Count_EarthquakeEvent"
+      name: "Earthquakes"
+    }
+  }
+  stat_var_spec {
+    key: "count_fire"
+    value {
+      stat_var: "Count_FireEvent"
+      name: "Fires"
+    }
+  }
+  stat_var_spec {
+    key: "count_flood"
+    value {
+      stat_var: "Count_FloodEvent"
+      name: "Floods"
+    }
+  }
+  stat_var_spec {
+    key: "count_wetbulbtemperature"
+    value {
+      stat_var: "Count_WetBulbTemperatureEvent"
+      name: "Wet bulb temperature events"
     }
   }
 }

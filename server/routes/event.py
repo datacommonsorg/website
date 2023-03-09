@@ -79,8 +79,6 @@ def get_property_value(dcid: str, prop: str) -> str:
 def get_places(properties) -> Dict[str, List[str]]:
   """Returns { place_dcid: [place_types] } based on lat/long of event. """
   for prop, values in properties.items():
-    # if dcid == 'affectedPlace':
-    #   print(values)
     if prop in ['location', 'startLocation'] and len(values):
       dcid = values[0]['dcid']
       coordinates = [{
@@ -93,7 +91,6 @@ def get_places(properties) -> Dict[str, List[str]]:
       for place_coord in place_coordinates:
         dcids_to_get_type.update(place_coord.get('placeDcids', []))
       place_types = dc.property_values(list(dcids_to_get_type), 'typeOf')
-      print(place_types)
       return place_types
 
 
