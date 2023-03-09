@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in States of United States of America",
+                    "title": "Individual Median Income in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -42,7 +42,7 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in States of United States of America",
+                    "title": "Household Median Income in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -69,7 +69,7 @@
                     "statVarKey": [
                       "Median_Earnings_Person"
                     ],
-                    "title": "Individual Median Earnings in States of United States of America",
+                    "title": "Individual Median Earnings in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -96,7 +96,7 @@
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Income for Family Households in States of United States of America",
+                    "title": "Median Income for Family Households in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -123,7 +123,7 @@
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in States of United States of America",
+                    "title": "Average Income for Households in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -150,7 +150,7 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59"
                     ],
-                    "title": "Median Income for People Working in the Finance and Insurance Industry in States of United States of America",
+                    "title": "Median Income for People Working in the Finance and Insurance Industry in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -177,7 +177,7 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59_pc"
                     ],
-                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry in States of United States of America",
+                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -203,7 +203,7 @@
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Income for Nonfamily Households in States of United States of America",
+                    "title": "Median Income for Nonfamily Households in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
