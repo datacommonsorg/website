@@ -20,6 +20,7 @@
 
 import axios from "axios";
 import * as d3 from "d3";
+import rewind from "geojson-rewind";
 import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -160,6 +161,30 @@ function parseEventPropVal(
 }
 
 /**
+ * Gets the geojson feature from a record of propvals
+ * @param eventDcid the dcid of the event to get the geojson feature for
+ * @param geoJsonProp the prop to get the geojson feature from
+ * @param propVals a record of props to vals for the eventDcid event
+ */
+function getGeoJsonFeature(
+  eventDcid: string,
+  geoJsonProp: string,
+  propVals: { [prop: string]: { vals: string[] } }
+) {
+  let geoJson = null;
+  if (propVals[geoJsonProp] && !_.isEmpty(propVals[geoJsonProp].vals)) {
+    const geoJsonGeo = JSON.parse(propVals[geoJsonProp].vals[0]);
+    geoJson = {
+      type: "Feature",
+      id: eventDcid,
+      properties: { name: eventDcid, geoDcid: eventDcid },
+      geometry: rewind(geoJsonGeo, true),
+    };
+  }
+  return geoJson;
+}
+
+/**
  * Get event points for a specific event type, place, and date. Events are
  * processed to only include required data based on the config.
  * @param eventType event type to get data for
@@ -255,6 +280,16 @@ function fetchEventPoints(
             break;
           }
         }
+        const polygonGeoJson = getGeoJsonFeature(
+          eventData.dcid,
+          eventTypeSpec.polygonGeoJsonProp || "",
+          eventData.propVals
+        );
+        const pathGeoJson = getGeoJsonFeature(
+          eventData.dcid,
+          eventTypeSpec.pathGeoJsonProp || "",
+          eventData.propVals
+        );
         result.eventPoints.push({
           placeDcid: eventData.dcid,
           placeName: name,
@@ -267,6 +302,8 @@ function fetchEventPoints(
           endDate,
           provenanceId: eventData.provenanceId,
           affectedPlaces: eventData.places || [],
+          polygonGeoJson,
+          pathGeoJson,
         });
         seenEvents.add(eventData.dcid);
       });

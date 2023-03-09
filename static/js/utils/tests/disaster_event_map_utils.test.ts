@@ -99,6 +99,8 @@ const EARTHQUAKE_EVENT_1_PROCESSED = {
   endDate: "",
   provenanceId: "earthquakeProv",
   affectedPlaces: ["country/USA"],
+  polygonGeoJson: null,
+  pathGeoJson: null,
 };
 
 const EARTHQUAKE_EVENT_2_API = {
@@ -129,6 +131,8 @@ const EARTHQUAKE_EVENT_2_PROCESSED = {
   provenanceId: "earthquakeProv",
   displayProps: {},
   affectedPlaces: [],
+  polygonGeoJson: null,
+  pathGeoJson: null,
 };
 
 const EARTHQUAKE_EVENT_3_API = {
@@ -156,6 +160,8 @@ const EARTHQUAKE_EVENT_3_PROCESSED = {
   provenanceId: "earthquakeProv",
   displayProps: {},
   affectedPlaces: ["country/USA"],
+  polygonGeoJson: null,
+  pathGeoJson: null,
 };
 
 const TORNADO_EVENT_1_API = {
@@ -180,6 +186,8 @@ const TORNADO_EVENT_1_PROCESSED = {
   provenanceId: "tornadoProv",
   displayProps: {},
   affectedPlaces: ["country/USA"],
+  polygonGeoJson: null,
+  pathGeoJson: null,
 };
 
 const TORNADO_EVENT_2_API = {
@@ -203,6 +211,8 @@ const TORNADO_EVENT_2_PROCESSED = {
   provenanceId: "tornadoProv",
   displayProps: {},
   affectedPlaces: [],
+  polygonGeoJson: null,
+  pathGeoJson: null,
 };
 
 const CYCLONE_EVENT_1_API = {
@@ -226,6 +236,8 @@ const CYCLONE_EVENT_1_PROCESSED = {
   provenanceId: "cycloneProv",
   displayProps: {},
   affectedPlaces: ["country/USA"],
+  polygonGeoJson: null,
+  pathGeoJson: null,
 };
 
 const FIRE_EVENT_POINT_1 = {
@@ -240,6 +252,8 @@ const FIRE_EVENT_POINT_1 = {
   provenanceId: "fireProv",
   displayProps: {},
   affectedPlaces: [],
+  polygonGeoJson: null,
+  pathGeoJson: null,
 };
 
 const FIRE_EVENT_POINT_2 = {
@@ -256,6 +270,8 @@ const FIRE_EVENT_POINT_2 = {
   provenanceId: "fireProv",
   displayProps: {},
   affectedPlaces: [],
+  polygonGeoJson: null,
+  pathGeoJson: null,
 };
 
 const EARTHQUAKE_PROV_INFO = {
