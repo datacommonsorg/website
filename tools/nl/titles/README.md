@@ -1,8 +1,7 @@
-Directory for storing and processing curated titles.
+This directory is for storing and processing curated stat-var title spreadsheets.
 
-1. The spreadsheet with a column for SV DCID and concise titles
-   ([example](https://docs.google.com/spreadsheets/d/1lmNAnqECpcvkuOlIkdo50Ve1KAalOoyP_lUlOuLmIAU/edit#gid=817471184))
-   is checked in here.
+1. The spreadsheet with 1.2K SVs is ([HERE](https://docs.google.com/spreadsheets/d/1lmNAnqECpcvkuOlIkdo50Ve1KAalOoyP_lUlOuLmIAU/edit#gid=817471184)),
+   and checked in as [`demo_svs_1.3k_names.csv`](demo_svs_1.3k_names.csv)
 
 2. To generate [`chart_titles_by_sv.json`](../../../server/config/nl_page/chart_titles_by_sv.json), run:
 
