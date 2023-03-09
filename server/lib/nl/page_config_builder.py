@@ -346,7 +346,9 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
     orig_title = sv2thing.name[svs[0]]
 
   if len(places) == 1:
-    title = _decorate_chart_title(title=orig_title, place=places[0], add_date=True)
+    title = _decorate_chart_title(title=orig_title,
+                                  place=places[0],
+                                  add_date=True)
     pc_title = _decorate_chart_title(title=orig_title,
                                      place=places[0],
                                      do_pc=True)
@@ -612,10 +614,11 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
   tile = column.tiles.add()
   tile.stat_var_key.extend(sv_key_pair)
   tile.type = Tile.TileType.SCATTER
-  tile.title = _decorate_chart_title(title=f"{sv_names[0]} (${{xDate}}) vs. {sv_names[1]} (${{yDate}})",
-                                     place=pri_place,
-                                     do_pc=False,
-                                     child_type=attr.get('place_type', ''))
+  tile.title = _decorate_chart_title(
+      title=f"{sv_names[0]} (${{xDate}}) vs. {sv_names[1]} (${{yDate}})",
+      place=pri_place,
+      do_pc=False,
+      child_type=attr.get('place_type', ''))
   tile.scatter_tile_spec.highlight_top_right = True
 
   return stat_var_spec_map

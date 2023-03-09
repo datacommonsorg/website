@@ -298,7 +298,7 @@ function processData(
     xUnit,
     yUnit,
     xDate: getDateRange(Array.from(xDates)),
-    yDate: getDateRange(Array.from(yDates))
+    yDate: getDateRange(Array.from(yDates)),
   });
 }
 

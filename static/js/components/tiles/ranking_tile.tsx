@@ -108,19 +108,17 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     key={`${statVar}-highest`}
                     unit={unit}
                     scaling={scaling}
-                    title={
-                      formatString(
-                      props.title || (
-                        props.rankingMetadata.highestTitle
+                    title={formatString(
+                      props.title ||
+                        (props.rankingMetadata.highestTitle
                           ? props.rankingMetadata.highestTitle
                           : "Highest ${statVar}"),
-                        {
-                          date: dateRange,
-                          place: "",
-                          statVar: svName,
-                        }
-                      )
-                    }
+                      {
+                        date: dateRange,
+                        place: "",
+                        statVar: svName,
+                      }
+                    )}
                     points={points.slice(-rankingCount).reverse()}
                     isHighest={true}
                     svNames={isMultiColumn ? svNames : undefined}
@@ -138,19 +136,17 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     key={`${statVar}-lowest`}
                     unit={unit}
                     scaling={scaling}
-                    title={
-                      formatString(
+                    title={formatString(
                       props.title ||
                         (props.rankingMetadata.lowestTitle
                           ? props.rankingMetadata.lowestTitle
                           : "Lowest ${statVar}"),
-                        {
-                          date: dateRange,
-                          place: "",
-                          statVar: svName,
-                        }
-                      )
-                    }
+                      {
+                        date: dateRange,
+                        place: "",
+                        statVar: svName,
+                      }
+                    )}
                     numDataPoints={numDataPoints}
                     points={points.slice(0, rankingCount)}
                     isHighest={false}
@@ -331,7 +327,7 @@ function pointApiToPerSvRankingData(
       scaling: [spec.scaling],
       numDataPoints,
       sources,
-      dateRange: getDateRange(Array.from(dates))
+      dateRange: getDateRange(Array.from(dates)),
     };
   }
   return rankingData;
