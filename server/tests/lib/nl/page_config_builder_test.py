@@ -293,14 +293,14 @@ COMPARISON_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Male-name"
+         title: "Count_Person_Male-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block"
          comparison_places: "geoId/06"
          comparison_places: "geoId/32"
        }
        tiles {
-         title: "Per Capita Count_Person_Male-name"
+         title: "Per Capita Count_Person_Male-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block_pc"
          comparison_places: "geoId/06"
@@ -311,14 +311,14 @@ COMPARISON_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Female-name"
+         title: "Count_Person_Female-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block"
          comparison_places: "geoId/06"
          comparison_places: "geoId/32"
        }
        tiles {
-         title: "Per Capita Count_Person_Female-name"
+         title: "Per Capita Count_Person_Female-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block_pc"
          comparison_places: "geoId/06"
@@ -447,7 +447,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name vs. Mean_Precipitation-name in Counties of Foo Place"
+         title: "Count_Farm-name (${xDate}) vs. Mean_Precipitation-name (${yDate}) in Counties of Foo Place"
          type: SCATTER
          stat_var_key: "Count_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -460,7 +460,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name vs. Mean_Precipitation-name in Counties of Foo Place"
+         title: "Income_Farm-name (${xDate}) vs. Mean_Precipitation-name (${yDate}) in Counties of Foo Place"
          type: SCATTER
          stat_var_key: "Income_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -511,7 +511,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
      title: "Count_Agricultural_Workers-name"
      columns {
        tiles {
-         title: "Count_Agricultural_Workers-name in Counties of Foo Place"
+         title: "Count_Agricultural_Workers-name in Counties of Foo Place (${date})"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers"
          ranking_tile_spec {
@@ -530,7 +530,7 @@ RANKING_ACROSS_PLACES_CONFIG = """
     blocks {
       columns {
        tiles {
-         title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place"
+         title: "Per Capita Count_Agricultural_Workers-name in Counties of Foo Place (${date})"
          type: RANKING
          stat_var_key: "Count_Agricultural_Workers_pc"
          ranking_tile_spec {
@@ -573,7 +573,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compared with Other Variables in Foo Place"
+         title: "Compared with Other Variables in Foo Place (${date})"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block"
@@ -581,7 +581,7 @@ RANKING_ACROSS_SVS_CONFIG = """
          comparison_places: "geoId/06"
        }
        tiles {
-         title: "Per Capita Compared with Other Variables in Foo Place"
+         title: "Per Capita Compared with Other Variables in Foo Place (${date})"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block_pc"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block_pc"

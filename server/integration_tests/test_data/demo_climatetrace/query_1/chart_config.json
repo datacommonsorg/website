@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas"
                     ],
-                    "title": "Greenhouse Gas Emissions",
+                    "title": "Greenhouse Gas Emissions (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -43,7 +43,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions",
+                    "title": "Per Capita Greenhouse Gas Emissions (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -69,7 +69,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture"
                     ],
-                    "title": "Greenhouse Gas Emissions from Agriculture",
+                    "title": "Greenhouse Gas Emissions from Agriculture (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -97,7 +97,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Agriculture",
+                    "title": "Per Capita Greenhouse Gas Emissions from Agriculture (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -123,7 +123,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
+                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -151,7 +151,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings",
+                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -177,7 +177,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Forestry and Land Use",
+                    "title": "Greenhouse Gas Emissions from Forestry and Land Use (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -205,7 +205,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use",
+                    "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -231,7 +231,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing"
                     ],
-                    "title": "Greenhouse Gas Emissions from Manufacturing",
+                    "title": "Greenhouse Gas Emissions from Manufacturing (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -259,7 +259,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Manufacturing",
+                    "title": "Per Capita Greenhouse Gas Emissions from Manufacturing (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -285,7 +285,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction"
                     ],
-                    "title": "Greenhouse Gas Emissions from Mineral Extraction",
+                    "title": "Greenhouse Gas Emissions from Mineral Extraction (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -313,7 +313,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Mineral Extraction",
+                    "title": "Per Capita Greenhouse Gas Emissions from Mineral Extraction (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -339,7 +339,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
                     ],
-                    "title": "Greenhouse Gas Emissions from Electricity Generation",
+                    "title": "Greenhouse Gas Emissions from Electricity Generation (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -367,7 +367,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation",
+                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -393,7 +393,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation"
                     ],
-                    "title": "Greenhouse Gas Emissions from Transportation",
+                    "title": "Greenhouse Gas Emissions from Transportation (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -421,7 +421,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Transportation",
+                    "title": "Per Capita Greenhouse Gas Emissions from Transportation (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -447,7 +447,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement"
                     ],
-                    "title": "Greenhouse Gas Emissions from Waste Management",
+                    "title": "Greenhouse Gas Emissions from Waste Management (${date})",
                     "type": "RANKING"
                   },
                   {
@@ -475,7 +475,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Waste Management",
+                    "title": "Per Capita Greenhouse Gas Emissions from Waste Management (${date})",
                     "type": "RANKING"
                   },
                   {
