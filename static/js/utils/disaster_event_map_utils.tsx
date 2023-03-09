@@ -54,6 +54,7 @@ import { isValidDate } from "./string_utils";
 const MAX_YEARS = 20;
 const INFO_CARD_OFFSET = 5;
 const DATE_SUBSTRING_IDX = 10;
+const REWIND_GEOJSON_TYPES = new Set(["Polygon", "MultiPolygon"]);
 
 /**
  * Get a list of dates that encompass all events for a place and a given list of event types
@@ -173,12 +174,19 @@ function getGeoJsonFeature(
 ) {
   let geoJson = null;
   if (propVals[geoJsonProp] && !_.isEmpty(propVals[geoJsonProp].vals)) {
-    const geoJsonGeo = JSON.parse(propVals[geoJsonProp].vals[0]);
+    // Remove any extra backslashes that that are in the prop val string.
+    // e.g., cyclone geojsons vals look like "{\\\"type\\\": ...}" which causes
+    //       JSON.parse to throw an error. We just  want "{\"type\": ...}"
+    const geoJsonString = propVals[geoJsonProp].vals[0].replace(/(\\)+"/g, '"');
+    let geoJsonGeo = JSON.parse(geoJsonString);
+    if (REWIND_GEOJSON_TYPES.has(geoJsonGeo.type)) {
+      geoJsonGeo = rewind(geoJsonGeo, true);
+    }
     geoJson = {
       type: "Feature",
       id: eventDcid,
       properties: { name: eventDcid, geoDcid: eventDcid },
-      geometry: rewind(geoJsonGeo, true),
+      geometry: geoJsonGeo,
     };
   }
   return geoJson;
