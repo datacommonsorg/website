@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block"
                     ],
-                    "title": "Criminal Activities",
+                    "title": "Criminal Activities (${date})",
                     "type": "BAR"
                   },
                   {
@@ -26,7 +26,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Criminal Activities",
+                    "title": "Per Capita Criminal Activities (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -45,7 +45,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block"
                     ],
-                    "title": "Larceny Theft Cases",
+                    "title": "Larceny Theft Cases (${date})",
                     "type": "BAR"
                   },
                   {
@@ -56,7 +56,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Larceny Theft Cases",
+                    "title": "Per Capita Larceny Theft Cases (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -75,7 +75,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block"
                     ],
-                    "title": "Motor Vehicle Thefts",
+                    "title": "Motor Vehicle Thefts (${date})",
                     "type": "BAR"
                   },
                   {
@@ -86,7 +86,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Motor Vehicle Thefts",
+                    "title": "Per Capita Motor Vehicle Thefts (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -105,7 +105,7 @@
                     "statVarKey": [
                       "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block"
                     ],
-                    "title": "Hate Crime Incidents",
+                    "title": "Hate Crime Incidents (${date})",
                     "type": "BAR"
                   },
                   {
@@ -116,7 +116,7 @@
                     "statVarKey": [
                       "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Hate Crime Incidents",
+                    "title": "Per Capita Hate Crime Incidents (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -135,7 +135,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block"
                     ],
-                    "title": "Robberies",
+                    "title": "Robberies (${date})",
                     "type": "BAR"
                   },
                   {
@@ -146,7 +146,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Robberies",
+                    "title": "Per Capita Robberies (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -165,7 +165,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Violent Crimes",
+                    "title": "Violent Crimes (${date})",
                     "type": "BAR"
                   },
                   {
@@ -176,7 +176,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Violent Crimes",
+                    "title": "Per Capita Violent Crimes (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -195,7 +195,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block"
                     ],
-                    "title": "Forcible Rapes",
+                    "title": "Forcible Rapes (${date})",
                     "type": "BAR"
                   },
                   {
@@ -206,7 +206,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Forcible Rapes",
+                    "title": "Per Capita Forcible Rapes (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -225,7 +225,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block"
                     ],
-                    "title": "Property Related Crimes",
+                    "title": "Property Related Crimes (${date})",
                     "type": "BAR"
                   },
                   {
@@ -236,7 +236,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Property Related Crimes",
+                    "title": "Per Capita Property Related Crimes (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -255,7 +255,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Burglary_multiple_place_bar_block"
                     ],
-                    "title": "Burglaries",
+                    "title": "Burglaries (${date})",
                     "type": "BAR"
                   },
                   {
@@ -266,7 +266,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Burglaries",
+                    "title": "Per Capita Burglaries (${date})",
                     "type": "BAR"
                   }
                 ]

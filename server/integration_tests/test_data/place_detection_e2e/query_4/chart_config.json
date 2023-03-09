@@ -16,7 +16,7 @@
                     "statVarKey": [
                       "Median_Income_Person_multiple_place_bar_block"
                     ],
-                    "title": "Individual Median Income",
+                    "title": "Individual Median Income (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -36,7 +36,7 @@
                     "statVarKey": [
                       "Median_Income_Household_multiple_place_bar_block"
                     ],
-                    "title": "Household Median Income",
+                    "title": "Household Median Income (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -56,7 +56,7 @@
                     "statVarKey": [
                       "Median_Earnings_Person_multiple_place_bar_block"
                     ],
-                    "title": "Individual Median Earnings",
+                    "title": "Individual Median Earnings (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -76,7 +76,7 @@
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold_multiple_place_bar_block"
                     ],
-                    "title": "Median Income for Family Households",
+                    "title": "Median Income for Family Households (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -96,7 +96,7 @@
                     "statVarKey": [
                       "Mean_Income_Household_multiple_place_bar_block"
                     ],
-                    "title": "Average Income for Households",
+                    "title": "Average Income for Households (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -116,7 +116,7 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59_multiple_place_bar_block"
                     ],
-                    "title": "Median Income for People Working in the Finance and Insurance Industry",
+                    "title": "Median Income for People Working in the Finance and Insurance Industry (${date})",
                     "type": "BAR"
                   },
                   {
@@ -128,7 +128,7 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry",
+                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -148,7 +148,7 @@
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold_multiple_place_bar_block"
                     ],
-                    "title": "Median Income for Nonfamily Households",
+                    "title": "Median Income for Nonfamily Households (${date})",
                     "type": "BAR"
                   }
                 ]
