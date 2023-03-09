@@ -39,11 +39,15 @@ def triples(direction, dcid):
   return dc.triples(dcid, direction).get("triples", {})
 
 
-@bp.route('/propvals')
+@bp.route('/propvals', methods=['GET', 'POST'])
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_property_value():
   """Returns the property values for given node dcids and property label."""
   dcids = request.args.getlist('dcids')
+  if not dcids:
+    dcids = request.json['dcids']
   prop = request.args.get('prop')
+  if not prop:
+    prop = request.json['prop']
   response = dc.property_values(dcids, prop)
   return Response(json.dumps(response), 200, mimetype='application/json')

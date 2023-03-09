@@ -31,6 +31,13 @@ export function fetchNodeGeoJson(
   nodes: string[],
   geoJsonProp: string
 ): Promise<GeoJsonData> {
+  if (!nodes.length) {
+    return Promise.resolve({
+      type: "FeatureCollection",
+      features: [],
+      properties: { current_geo: "" },
+    });
+  }
   return axios
     .post<GeoJsonData>("/api/choropleth/node-geojson", {
       nodes,
