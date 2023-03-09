@@ -174,7 +174,9 @@ function getGeoJsonFeature(
 ) {
   let geoJson = null;
   if (propVals[geoJsonProp] && !_.isEmpty(propVals[geoJsonProp].vals)) {
-    // remove any extra backslashes
+    // Remove any extra backslashes that that are in the prop val string.
+    // e.g., cyclone geojsons vals look like "{\\\"type\\\": ...}" which causes
+    //       JSON.parse to throw an error. We just  want "{\"type\": ...}"
     const geoJsonString = propVals[geoJsonProp].vals[0].replace(/(\\)+"/g, '"');
     let geoJsonGeo = JSON.parse(geoJsonString);
     if (REWIND_GEOJSON_TYPES.has(geoJsonGeo.type)) {
