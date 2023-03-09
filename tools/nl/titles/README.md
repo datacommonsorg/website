@@ -5,7 +5,7 @@ This directory is for storing and processing curated stat-var title spreadsheets
 
 2. To generate [`chart_titles_by_sv.json`](../../../server/config/nl_page/chart_titles_by_sv.json), run:
 
-   bash```
+   ```
    python3 gen_chart_titles_by_sv.json
    ```
 
