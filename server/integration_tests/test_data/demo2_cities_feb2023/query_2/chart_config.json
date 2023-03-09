@@ -41,7 +41,7 @@
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Compared with Other Variables in Sunnyvale",
+                    "title": "Compared with Other Variables in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]

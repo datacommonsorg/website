@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Bood Pressure in Counties of California",
+                    "title": "High Bood Pressure in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {

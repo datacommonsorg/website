@@ -65,7 +65,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Compared with Other Variables in California",
+                    "title": "Compared with Other Variables in California (${date})",
                     "type": "BAR"
                   },
                   {
@@ -82,7 +82,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Compared with Other Variables in California",
+                    "title": "Per Capita Compared with Other Variables in California (${date})",
                     "type": "BAR"
                   }
                 ]
