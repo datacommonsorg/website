@@ -354,8 +354,11 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
                                      add_date=True,
                                      do_pc=True)
   else:
-    title = orig_title
-    pc_title = _decorate_chart_title(title=orig_title, place=None, do_pc=True)
+    title = _decorate_chart_title(title=orig_title, add_date=True, place=None)
+    pc_title = _decorate_chart_title(title=orig_title,
+                                     add_date=True,
+                                     place=None,
+                                     do_pc=True)
 
   # Total
   tile = Tile(type=Tile.TileType.BAR,

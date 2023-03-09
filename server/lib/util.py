@@ -257,8 +257,8 @@ def check_backend_ready(urls: List[str]):
       up_status[url] = is_up(url)
     if all(up_status.values()):
       break
-    logging.info('%s not ready, waiting for %s seconds',
-                 (urls, _ready_check_sleep_seconds))
+    logging.info('%s not ready, waiting for %s seconds', urls,
+                 _ready_check_sleep_seconds)
     time.sleep(_ready_check_sleep_seconds)
     total_sleep_seconds += _ready_check_sleep_seconds
     if total_sleep_seconds > _ready_check_timeout:
