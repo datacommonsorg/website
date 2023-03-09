@@ -20,7 +20,7 @@
                       "dc/0gettc3bc60cb_multiple_place_bar_block",
                       "dc/vt2q292eme79f_multiple_place_bar_block"
                     ],
-                    "title": "Modes of Commute",
+                    "title": "Modes of Commute (${date})",
                     "type": "BAR"
                   },
                   {
@@ -36,7 +36,7 @@
                       "dc/0gettc3bc60cb_multiple_place_bar_block_pc",
                       "dc/vt2q292eme79f_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Modes of Commute",
+                    "title": "Per Capita Modes of Commute (${date})",
                     "type": "BAR"
                   }
                 ]

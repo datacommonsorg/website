@@ -126,3 +126,98 @@ categories {
     }
   }
 }
+
+categories {
+  title: "Test date replacement in title"
+  blocks {
+    columns {
+      tiles {
+        type: MAP
+        title: "Total number of earthquakes - ${date}"
+        stat_var_key: "earthquake_all"
+      }
+      tiles {
+        type: BAR
+        title: "Frequency of earthquakes by magnitude - ${date}"
+        stat_var_key: "earthquake_mag_3"
+        stat_var_key: "earthquake_mag_4"
+        stat_var_key: "earthquake_mag_5"
+      }
+    }
+    columns {
+      tiles {
+        type: SCATTER
+        title: "Poverty rate (${xDate}) vs. Uninsurance rate (${yDate})"
+        stat_var_key: 'poverty_rate'
+        stat_var_key: 'uninsurance_rate'
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_rate'
+        title: "Poverty rate - ${date}"
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest by poverty rate - ${date}"
+          show_lowest: true
+          lowest_title: "Lowest by poverty rate - ${date}"
+        }
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_rate'
+        title: "Poverty rate - ${date}"
+        ranking_tile_spec {
+          show_highest: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_all"
+    value {
+      stat_var: "Count_EarthquakeEvent"
+      name: "All magnitudes"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_3"
+    value {
+      stat_var: "Count_EarthquakeEvent_M3To4"
+      name: "magnitude 3 to 4"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_4"
+    value {
+      stat_var: "Count_EarthquakeEvent_M4To5"
+      name: "magnitude 4 to 5"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_5"
+    value {
+      stat_var: "Count_EarthquakeEvent_M5To6"
+      name: "magnitude 5 to 6"
+    }
+  }
+  stat_var_spec {
+    key: 'poverty_rate'
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Poverty rate"
+    }
+  }
+  stat_var_spec {
+    key: 'uninsurance_rate'
+    value {
+      stat_var: "Count_Person_NoHealthInsurance"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Uninsurance rate"
+    }
+  }
+}

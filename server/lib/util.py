@@ -280,8 +280,8 @@ def check_backend_ready(urls: List[str]):
     time.sleep(_ready_check_sleep_seconds)
     total_sleep_seconds += _ready_check_sleep_seconds
     if total_sleep_seconds > _ready_check_timeout:
-      raise RuntimeError('%s not ready after %s second' % urls,
-                         _ready_check_timeout)
+      raise RuntimeError('%s not ready after %s second' %
+                         (urls, _ready_check_timeout))
 
 
 def gzip_compress_response(raw_content, is_json):
