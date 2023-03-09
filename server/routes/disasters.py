@@ -23,10 +23,8 @@ from flask import redirect
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
-from server.config import subject_page_pb2
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
-import server.services.datacommons as dc
 
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
@@ -39,7 +37,9 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=None):
   if not place_dcid:
-    return redirect(url_for('disasters.disaster_dashboard', place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
+    return redirect(url_for(
+        'disasters.disaster_dashboard',
+        place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
   dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
@@ -66,24 +66,13 @@ def disaster_dashboard(place_dcid=None):
     dashboard_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
 
-  all_stat_vars = lib_subject_page_config.get_all_variables(dashboard_config)
-  if all_stat_vars:
-    stat_vars_existence = dc.observation_existence(all_stat_vars, [place_dcid])
+  dashboard_config = lib_subject_page_config.remove_empty_charts(
+      dashboard_config, place_dcid)
 
-    for stat_var in stat_vars_existence['variable']:
-      if not stat_vars_existence['variable'][stat_var]['entity'][place_dcid]:
-        # This is for the main place, only remove the tile type for single place.
-        for tile_type in [
-            subject_page_pb2.Tile.TileType.HISTOGRAM,
-            subject_page_pb2.Tile.TileType.LINE,
-            subject_page_pb2.Tile.TileType.BAR,
-        ]:
-          dashboard_config = lib_subject_page_config.trim_config(
-              dashboard_config, stat_var, tile_type)
-
-  return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
-                               place_type=json.dumps(place_metadata.place_types),
-                               place_name=place_metadata.place_name,
-                               place_dcid=place_dcid,
-                               config=MessageToJson(dashboard_config),
-                               parent_places=json.dumps(place_metadata.parent_places))
+  return flask.render_template(
+      'custom_dc/stanford/disaster_dashboard.html',
+      place_type=json.dumps(place_metadata.place_types),
+      place_name=place_metadata.place_name,
+      place_dcid=place_dcid,
+      config=MessageToJson(dashboard_config),
+      parent_places=json.dumps(place_metadata.parent_places))

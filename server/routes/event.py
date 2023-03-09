@@ -16,6 +16,7 @@
 import json
 import logging
 import os
+from typing import Dict, List
 
 from flask import abort
 from flask import Blueprint
@@ -24,19 +25,24 @@ from flask import escape
 from flask import render_template
 from google.protobuf.json_format import MessageToJson
 
+import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
 import server.routes.api.node as node_api
 import server.routes.api.shared as shared_api
 import server.services.datacommons as dc
-import server.lib.subject_page_config as lib_subject_page_config
 
 DEFAULT_EVENT_DCID = ""
-EUROPE_DCID = "europe"
-EUROPE_CONTAINED_PLACE_TYPES = {
-    "Country": "EurostatNUTS1",
-    "EurostatNUTS1": "EurostatNUTS2",
-    "EurostatNUTS2": "EurostatNUTS3",
-    "EurostatNUTS3": "EurostatNUTS3",
+DEFAULT_CONTAINED_PLACE_TYPES = {
+    "Continent": "Country",
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+}
+EMPTY_SUBJECT_PAGE_ARGS = {
+    "place_type": "{}",
+    "place_name": "",
+    "place_dcid": "",
+    "parent_places": "[]",
+    "config": "{}",
 }
 
 # Define blueprint
@@ -63,10 +69,44 @@ def get_properties(dcid):
   return parsed
 
 
-def get_place(properties):
-  for pv in properties.items():
-    if pv['dcid'] in ['location', 'startLocation']:
-      pass
+def get_property_value(dcid: str, prop: str) -> str:
+  result = dc.property_values([dcid], prop)
+  if result[dcid]:
+    return result[dcid][0]
+  return None
+
+
+def get_places(properties) -> Dict[str, List[str]]:
+  """Returns { place_dcid: [place_types] } based on lat/long of event. """
+  for prop, values in properties.items():
+    # if dcid == 'affectedPlace':
+    #   print(values)
+    if prop in ['location', 'startLocation'] and len(values):
+      dcid = values[0]['dcid']
+      coordinates = [{
+          'latitude': get_property_value(dcid, 'latitude'),
+          'longitude': get_property_value(dcid, 'longitude'),
+      }]
+      place_coordinates = dc.resolve_coordinates(coordinates).get(
+          "placeCoordinates", coordinates)
+      dcids_to_get_type = set()
+      for place_coord in place_coordinates:
+        dcids_to_get_type.update(place_coord.get('placeDcids', []))
+      place_types = dc.property_values(list(dcids_to_get_type), 'typeOf')
+      print(place_types)
+      return place_types
+
+
+def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
+  """
+    Returns a single place dcid to use for the subject page config (preferring
+    the lowest granularity for topic).
+    """
+  for container in reversed(DEFAULT_CONTAINED_PLACE_TYPES.keys()):
+    for place_dcid, type_list in reversed(places.items()):
+      if container in type_list:
+        return place_dcid
+  return None
 
 
 @bp.route('/')
@@ -77,6 +117,8 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
       'stanford-staging'
   ]:
     abort(404)
+
+  # Get node properties
   node_name = escape(dcid)
   properties = {}
   try:
@@ -87,30 +129,43 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   except Exception as e:
     logging.info(e)
 
+  # Get subject page config for event.
   subject_config = current_app.config['DISASTER_EVENT_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
-    # TODO: Delete this when we are close to launch
     subject_config = lib_util.get_disaster_event_config()
 
-  place_dcid = "Earth"
-  place_metadata = lib_subject_page_config.place_metadata(place_dcid)
-  # If this is a European place, update the contained_place_types in the page
-  # metadata to use a custom dict instead.
-  # TODO: Find a better way to handle this
-  parent_dcids = map(lambda place: place.get("dcid", ""), place_metadata.parent_places)
-  if EUROPE_DCID in parent_dcids:
-    subject_config.metadata.contained_place_types.clear()
-    subject_config.metadata.contained_place_types.update(
-        EUROPE_CONTAINED_PLACE_TYPES)
+  places = get_places(properties)
+  place_dcid = find_best_place_for_config(places)
 
-  return render_template('custom_dc/stanford/event.html',
-                         dcid=escape(dcid),
-                         maps_api_key=current_app.config['MAPS_API_KEY'],
-                         node_name=node_name,
-                         properties=json.dumps(properties),
-                         place_type=json.dumps(place_metadata.place_types),
-                         place_name=place_metadata.place_name,
-                         place_dcid=place_dcid,
-                         parent_places=json.dumps(place_metadata.parent_places),
-                         config=MessageToJson(subject_config))
+  subject_page_args = EMPTY_SUBJECT_PAGE_ARGS
+  if place_dcid:
+    place_metadata = lib_subject_page_config.place_metadata(place_dcid)
+    subject_config.metadata.contained_place_types.clear()
+    if place_metadata.contained_place_types_override:
+      subject_config.metadata.contained_place_types.update(
+          place_metadata.contained_place_types_override)
+    else:
+      subject_config.metadata.contained_place_types.update(
+          DEFAULT_CONTAINED_PLACE_TYPES)
+
+    subject_config = lib_subject_page_config.remove_empty_charts(
+        subject_config, place_dcid)
+
+    # TODO: If not enough charts from the current place, add from the next place up and so on.
+    subject_page_args = {
+        "place_type": json.dumps(place_metadata.place_types),
+        "place_name": place_metadata.place_name,
+        "place_dcid": place_dcid,
+        "parent_places": json.dumps(place_metadata.parent_places),
+        "config": MessageToJson(subject_config)
+    }
+
+  template_args = {
+      "dcid": escape(dcid),
+      "maps_api_key": current_app.config['MAPS_API_KEY'],
+      "node_name": node_name,
+      "properties": json.dumps(properties),
+  }
+  template_args.update(subject_page_args)
+  return render_template('custom_dc/stanford/event.html', **template_args)

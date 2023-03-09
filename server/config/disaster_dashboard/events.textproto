@@ -15,23 +15,8 @@
 ## This file specifies the config for charts on event pages.
 
 metadata {
-  topic_id: 'event'
-  contained_place_types {
-    key: "Planet"
-    value: "Country"
-  }
-  contained_place_types {
-    key: "Continent"
-    value: "Country"
-  }
-  contained_place_types {
-    key: "Country"
-    value: "AdministrativeArea1"
-  }
-  contained_place_types {
-    key: "AdministrativeArea1"
-    value: "AdministrativeArea2"
-  }
+  topic_id: "event"
+  # Contained_place_types set in routes/event.py.
 }
 
 categories {
@@ -39,51 +24,93 @@ categories {
 
   blocks {
     columns {
-      tiles: {
-        type: HIGHLIGHT
-        description: "of Americans lived under the poverty line (${date})"
-        stat_var_key: 'poverty_rate'
+      tiles {
+        type: LINE
+        title: "Population of ${place}"
+        stat_var_key: "population"
       }
     }
     columns {
-      tiles: {
+      tiles {
         type: LINE
-        title: "Poverty rate in ${place}"
-        stat_var_key: 'poverty_rate'
+        title: "Median individual income in ${place}"
+        stat_var_key: "median_income"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Gini index in ${place}"
+        stat_var_key: "gini_index"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "GDP per capita in ${place}"
+        stat_var_key: "gdp_percapita"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Poverty rate of ${place}"
+        stat_var_key: "poverty_rate"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Infant mortality of ${place}"
+        stat_var_key: "infant_mortality"
       }
     }
   }
 
-  blocks {
-    title: "Poverty across states"
-    columns {
-      tiles {
-        type: MAP
-        title: "Poverty rate across states (${date})"
-        stat_var_key: 'poverty_rate'
-      }
-    }
-    columns {
-      tiles {
-        type: RANKING
-        stat_var_key: 'poverty_rate'
-        ranking_tile_spec {
-          show_highest: true
-          highest_title: "Highest by poverty rate"
-          show_lowest: true
-          lowest_title: "Lowest by poverty rate"
-        }
-      }
+  stat_var_spec {
+    key: "population"
+    value {
+      stat_var: "Count_Person"
+      name: "Population"
     }
   }
   stat_var_spec {
-    key: 'poverty_rate'
+    key: "median_income"
     value {
-      stat_var: "Count_Person"
+      stat_var: "Median_Income_Person"
+      name: "Median individual income"
+    }
+  }
+  stat_var_spec {
+    key: "poverty_rate"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
       denom: "Count_Person"
-      unit: "%"
-      scaling: 100
       name: "Poverty rate"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "gini_index"
+    value {
+      stat_var: "GiniIndex_EconomicActivity"
+      name: "Gini index"
+    }
+  }
+  stat_var_spec {
+    key: "infant_mortality"
+    value {
+      stat_var: "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+      name: "Infant mortality"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "gdp_percapita"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+      name: "GDP per capita"
+      unit: "USD"
     }
   }
 }

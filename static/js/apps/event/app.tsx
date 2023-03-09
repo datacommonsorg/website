@@ -25,10 +25,10 @@ import { Container } from "reactstrap";
 
 import { ArcTableRow } from "../../browser/arc_table_row";
 import { GoogleMap } from "../../components/google_map";
+import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { formatNumber, intl } from "../../i18n/i18n";
 import { NamedTypedPlace, PropertyValue } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
-import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 
 const _START_DATE_PROPERTIES = ["startDate", "discoveryDate"];
 const _END_DATE_PROPERTIES = ["endDate", "containmentDate", "controlledDate"];
@@ -102,9 +102,7 @@ export function App(props: AppPropsType): JSX.Element {
           </h3>
           <h3>
             source:{" "}
-            <a href={`/browser/${provenance[0].dcid}`}>
-              {provenance[0].name}
-            </a>
+            <a href={`/browser/${provenance[0].dcid}`}>{provenance[0].name}</a>
           </h3>
         </div>
         {(geoJson || latLong) && (
@@ -133,7 +131,11 @@ export function App(props: AppPropsType): JSX.Element {
                     <ArcTableRow
                       key={property + index}
                       propertyLabel={_.startCase(property)}
-                      values={[{ text: formatNumericValue(props.properties[property]) }]}
+                      values={[
+                        {
+                          text: formatNumericValue(props.properties[property]),
+                        },
+                      ]}
                       noPropLink={true}
                     />
                   );
@@ -144,12 +146,12 @@ export function App(props: AppPropsType): JSX.Element {
         </section>
       </Container>
       <Container>
-          <SubjectPageMainPane
-            id={PAGE_ID}
-            place={props.place}
-            pageConfig={props.subjectConfig}
-            parentPlaces={props.parentPlaces}
-          />
+        <SubjectPageMainPane
+          id={PAGE_ID}
+          place={props.place}
+          pageConfig={props.subjectConfig}
+          parentPlaces={props.parentPlaces}
+        />
       </Container>
     </RawIntlProvider>
   );
@@ -158,7 +160,10 @@ export function App(props: AppPropsType): JSX.Element {
 /**
  * Returns the first property in the list with any of the given dcids.
  */
-function findProperty(dcids: string[], properties: Record<string, Array<PropertyValue>>): Array<PropertyValue> {
+function findProperty(
+  dcids: string[],
+  properties: Record<string, Array<PropertyValue>>
+): Array<PropertyValue> {
   for (const k of dcids) {
     if (k in properties) {
       return properties[k];

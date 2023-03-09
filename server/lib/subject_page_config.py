@@ -14,8 +14,11 @@
 
 from dataclasses import dataclass
 from typing import Dict, List
-import server.routes.api.place as place_api
+
 from flask import escape
+
+from server.config import subject_page_pb2
+import server.routes.api.place as place_api
 import server.services.datacommons as dc
 
 DEFAULT_PLACE_DCID = "Earth"
@@ -27,6 +30,7 @@ EUROPE_CONTAINED_PLACE_TYPES = {
     "EurostatNUTS2": "EurostatNUTS3",
     "EurostatNUTS3": "EurostatNUTS3",
 }
+
 
 @dataclass
 class PlaceMetadata:
@@ -90,7 +94,31 @@ def trim_config(page_config, variable, chart_type):
   return page_config
 
 
-def place_metadata(place_dcid)->PlaceMetadata:
+def remove_empty_charts(page_config, place_dcid):
+  """
+  Returns the page config stripped of charts with no data.
+  TODO: Add checks for child places, given the tile type.
+  """
+  all_stat_vars = get_all_variables(page_config)
+  if all_stat_vars:
+    stat_vars_existence = dc.observation_existence(all_stat_vars, [place_dcid])
+
+    for stat_var in stat_vars_existence['variable']:
+      if not stat_vars_existence['variable'][stat_var]['entity'][place_dcid]:
+        # This is for the main place, only remove the tile type for single place.
+        for tile_type in [
+            subject_page_pb2.Tile.TileType.HISTOGRAM,
+            subject_page_pb2.Tile.TileType.LINE,
+            subject_page_pb2.Tile.TileType.BAR,
+        ]:
+          page_config = trim_config(page_config, stat_var, tile_type)
+  return page_config
+
+
+def place_metadata(place_dcid) -> PlaceMetadata:
+  """
+  Returns place metadata needed to render a subject page config for a given dcid.
+  """
   place_types = [DEFAULT_PLACE_TYPE]
   parent_places = []
   if place_dcid != DEFAULT_PLACE_DCID:
@@ -109,7 +137,5 @@ def place_metadata(place_dcid)->PlaceMetadata:
   if EUROPE_DCID in parent_dcids:
     contained_place_types_override = EUROPE_CONTAINED_PLACE_TYPES
 
-  return PlaceMetadata(place_name,
-                       place_types,
-                       parent_places,
+  return PlaceMetadata(place_name, place_types, parent_places,
                        contained_place_types_override)
