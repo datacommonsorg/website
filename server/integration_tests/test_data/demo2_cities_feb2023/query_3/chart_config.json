@@ -19,7 +19,7 @@
                       "dc/0gettc3bc60cb_multiple_place_bar_block",
                       "dc/vt2q292eme79f_multiple_place_bar_block"
                     ],
-                    "title": "Modes of Commute in Sunnyvale",
+                    "title": "Modes of Commute in Sunnyvale (${date})",
                     "type": "BAR"
                   },
                   {
