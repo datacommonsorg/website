@@ -17,6 +17,7 @@
 import { createContext } from "react";
 
 import { GeoJsonData } from "../../chart/types";
+import { NamedPlace } from "../../shared/types";
 
 /**
  * Data context to hold data that is used across multiple components for the
@@ -31,6 +32,8 @@ export interface DataContextType {
     // geojson data for the selected place
     placeGeoJson: GeoJsonData;
   };
+  // Parent places for the selected place
+  parentPlaces: NamedPlace[];
 }
 
 export const DataContext = createContext({} as DataContextType);
