@@ -29,7 +29,7 @@ def populate(uttr: Utterance) -> bool:
   if uttr.places:
     _add_place_overview(uttr.places[0], uttr)
     return True
-  utils.update_counter(uttr.counters, 'overview_failed_noplaces', 1)
+  uttr.counters.warn('overview_failed_noplaces', 1)
   return False
 
 

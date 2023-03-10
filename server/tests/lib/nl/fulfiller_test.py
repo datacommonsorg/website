@@ -18,6 +18,7 @@ import unittest
 from unittest.mock import patch
 
 from server.lib.nl import constants
+from server.lib.nl import counters as ctr
 from server.lib.nl import fulfiller
 from server.lib.nl import utils
 from server.lib.nl import utterance
@@ -436,16 +437,20 @@ class TestDataSpecNext(unittest.TestCase):
         'Count_Person_Male', 'Count_Person_Female'
     ]]
 
-    got = fulfiller.fulfill(detection, None, constants.TEST_SESSION_ID).counters
+    counters = ctr.Counters()
+    fulfiller.fulfill(detection, None, counters, constants.TEST_SESSION_ID)
+    got = counters.get()
 
     self.maxDiff = None
     _COUNTERS = {
-        'filtered_svs': ['Count_Person_Male', 'Count_Person_Female'],
+        'filtered_svs': [['Count_Person_Male', 'Count_Person_Female']],
         'processed_fulfillment_types': ['simple'],
         'num_chart_candidates': 2,
         'stat_var_extensions': [{}]
     }
-    self.assertEqual(got, _COUNTERS)
+    # We don't want to compare TIMING
+    self.assertEqual(got['INFO'], _COUNTERS)
+    self.assertEqual(got['ERROR'], {})
 
 
 # Helper to construct Detection() class.
@@ -531,5 +536,7 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
   prev_uttr = None
   if uttr_dict:
     prev_uttr = utterance.load_utterance(uttr_dict)
+  counters = ctr.Counters()
   return utterance.save_utterance(
-      fulfiller.fulfill(detection, prev_uttr, constants.TEST_SESSION_ID))[0]
+      fulfiller.fulfill(detection, prev_uttr, counters,
+                        constants.TEST_SESSION_ID))[0]

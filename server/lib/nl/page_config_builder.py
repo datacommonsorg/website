@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 import logging
+import time
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import Block
@@ -111,12 +112,14 @@ def build_page_config(
   for cspec in uttr.rankedCharts:
     all_svs.update(cspec.svs)
   all_svs = list(all_svs)
+  start = time.time()
   sv2thing = SV2Thing(
       name=utils.get_sv_name(all_svs),
       unit=utils.get_sv_unit(all_svs),
       description=utils.get_sv_description(all_svs),
       footnote=utils.get_sv_footnote(all_svs),
   )
+  uttr.counters.timeit('get_sv_details', start)
 
   # Add a human answer to the query
   # try:
@@ -216,7 +219,6 @@ def build_page_config(
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-  logging.info(builder.page_config)
   return builder.page_config
 
 
