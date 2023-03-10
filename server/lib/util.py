@@ -107,6 +107,13 @@ def get_disaster_dashboard_config():
   return get_subject_page_config(filepath)
 
 
+# Returns disaster event config loaded as SubjectPageConfig protos
+def get_disaster_event_config():
+  filepath = os.path.join(get_repo_root(), "config", "disaster_dashboard",
+                          "events.textproto")
+  return get_subject_page_config(filepath)
+
+
 # Returns disaster dashboard config for NL
 def get_nl_disaster_config():
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
