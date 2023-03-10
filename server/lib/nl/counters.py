@@ -58,9 +58,6 @@ class Counters:
   def get(self) -> Dict:
     return {'ERROR': self._warn, 'INFO': self._info, 'TIMING': self._timing}
 
-  # For a given counter, caller should always pass the same type
-  # for value.  If value is numeric, then its a single added
-  # counter, otherwise, counter is a list of values.
   def _update(self, counters: Dict, counter: str, value: any):
     should_add = counter not in counters
     if isinstance(value, int) or isinstance(value, float):
