@@ -8,7 +8,21 @@
       {
         "place": "wikidataId/Q213205",
         "result": [
-          "geoId/0667000"
+          "geoId/0600135",
+          "geoId/0600562",
+          "geoId/0600618",
+          "geoId/0600674",
+          "geoId/0600898",
+          "geoId/0600996",
+          "geoId/0601416",
+          "geoId/0601458",
+          "geoId/0601486",
+          "geoId/0601640",
+          "geoId/0602168",
+          "geoId/0602252",
+          "geoId/0602980",
+          "geoId/0603036",
+          "geoId/0603092"
         ],
         "type": "City"
       }
@@ -217,7 +231,7 @@
         },
         {
           "attr": {
-            "block_id": 2,
+            "block_id": 6,
             "chart_type": "bar chart",
             "class": 1,
             "description": "",
@@ -254,7 +268,7 @@
         },
         {
           "attr": {
-            "block_id": 4,
+            "block_id": 3,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -279,7 +293,7 @@
         },
         {
           "attr": {
-            "block_id": 5,
+            "block_id": 7,
             "chart_type": "timeline",
             "class": 1,
             "description": "",
@@ -308,7 +322,7 @@
         },
         {
           "attr": {
-            "block_id": 6,
+            "block_id": 4,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -333,7 +347,7 @@
         },
         {
           "attr": {
-            "block_id": 7,
+            "block_id": 5,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -489,23 +503,63 @@
     "sf bay area"
   ],
   "places_resolved": "(name: San Francisco Bay Area, dcid: wikidataId/Q213205); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "wikidataId/Q213205",
+      "name": "San Francisco Bay Area",
+      "place_type": "AdministrativeArea"
+    },
+    "original_query": "Which cities in the SF Bay Area have the highest larceny",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [
+        [
+          "sf bay area",
+          "wikidataId/Q213205"
+        ]
+      ],
+      "dcids_resolved": [
+        "wikidataId/Q213205"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "wikidataId/Q213205",
+          "name": "San Francisco Bay Area",
+          "place_type": "AdministrativeArea"
+        }
+      ]
+    },
+    "places_found_str": [
+      "sf bay area"
+    ],
+    "query_transformations": {
+      "place_detection_input": "which cities in the sf bay area have the highest larceny",
+      "place_detection_with_places_removed": "which cities in the have the highest larceny",
+      "sv_detection_query_input": "which cities in the have the highest larceny",
+      "sv_detection_query_stop_words_removal": "larceny"
+    }
+  },
   "query_with_places_removed": "which cities in the have the highest larceny",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6994097828865051,
-      0.4177570343017578,
-      0.3595605194568634,
-      0.34636539220809937,
-      0.34487465023994446,
-      0.3411339223384857,
-      0.3387205898761749,
-      0.33264830708503723,
-      0.3317139744758606,
-      0.3312966525554657,
-      0.32215186953544617
+      0.6994096040725708,
+      0.41775715351104736,
+      0.35956040024757385,
+      0.346365362405777,
+      0.344874769449234,
+      0.34113389253616333,
+      0.3387206792831421,
+      0.3326481878757477,
+      0.33171388506889343,
+      0.33129677176475525,
+      0.3221517503261566
     ],
     "SV": [
       "Count_CriminalActivities_LarcenyTheft",
@@ -522,91 +576,91 @@
     ],
     "SV_to_Sentences": {
       "Count_CriminalActivities_Arson": [
-        "Count of Criminal Activities: Arson (0.3387205898761749)"
+        "Count of Criminal Activities: Arson (0.3387206792831421)"
       ],
       "Count_CriminalActivities_Burglary": [
-        "Count of Criminal Activities: Burglary (0.3312966525554657)"
+        "Count of Criminal Activities: Burglary (0.33129677176475525)"
       ],
       "Count_CriminalActivities_CombinedCrime": [
-        "Crime statistics (0.34487465023994446)"
+        "Crime statistics (0.344874769449234)"
       ],
       "Count_CriminalActivities_ForcibleRape": [
-        "Count of Criminal Activities: Forcible Rape (0.4177570343017578)",
-        "Number of forcible rape crimes (0.3473600447177887)",
-        "Number of crimes counted as Forcible Rape (0.3206371068954468)"
+        "Count of Criminal Activities: Forcible Rape (0.41775715351104736)",
+        "Number of forcible rape crimes (0.34736013412475586)",
+        "Number of crimes counted as Forcible Rape (0.32063716650009155)"
       ],
       "Count_CriminalActivities_LarcenyTheft": [
-        "Count of Criminal Activities: Larceny Theft (0.6994097828865051)",
+        "Count of Criminal Activities: Larceny Theft (0.6994096040725708)",
         "Number of crimes counted as Larceny Theft (0.645634114742279)",
-        "Number of larceny theft crimes (0.6368502378463745)",
-        "Number of larceny theft incidents (0.6242313981056213)",
-        "Number of Larceny Theft Cases (0.6214361190795898)",
-        "Total number of larceny theft cases (0.5930148959159851)",
-        "Number of larceny theft charges (0.5891730785369873)",
-        "Total number of larceny theft offenses (0.5783951282501221)"
+        "Number of larceny theft crimes (0.6368502974510193)",
+        "Number of larceny theft incidents (0.6242318153381348)",
+        "Number of Larceny Theft Cases (0.6214359998703003)",
+        "Total number of larceny theft cases (0.5930147767066956)",
+        "Number of larceny theft charges (0.5891731977462769)",
+        "Total number of larceny theft offenses (0.5783950686454773)"
       ],
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.33264830708503723)"
+        "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326481878757477)"
       ],
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.3411339223384857)"
+        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.34113389253616333)"
       ],
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.32215186953544617)"
+        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.3221517503261566)"
       ],
       "Count_CriminalActivities_Robbery": [
-        "Count of Criminal Activities: Robbery (0.3595605194568634)"
+        "Count of Criminal Activities: Robbery (0.35956040024757385)"
       ],
       "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
-        "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.3317139744758606)"
+        "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.33171388506889343)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Hate crime incidents (0.34636539220809937)"
+        "Hate crime incidents (0.346365362405777)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_CriminalActivities_Arson": [
-      "Count of Criminal Activities: Arson (0.3387205898761749)"
+      "Count of Criminal Activities: Arson (0.3387206792831421)"
     ],
     "Count_CriminalActivities_Burglary": [
-      "Count of Criminal Activities: Burglary (0.3312966525554657)"
+      "Count of Criminal Activities: Burglary (0.33129677176475525)"
     ],
     "Count_CriminalActivities_CombinedCrime": [
-      "Crime statistics (0.34487465023994446)"
+      "Crime statistics (0.344874769449234)"
     ],
     "Count_CriminalActivities_ForcibleRape": [
-      "Count of Criminal Activities: Forcible Rape (0.4177570343017578)",
-      "Number of forcible rape crimes (0.3473600447177887)",
-      "Number of crimes counted as Forcible Rape (0.3206371068954468)"
+      "Count of Criminal Activities: Forcible Rape (0.41775715351104736)",
+      "Number of forcible rape crimes (0.34736013412475586)",
+      "Number of crimes counted as Forcible Rape (0.32063716650009155)"
     ],
     "Count_CriminalActivities_LarcenyTheft": [
-      "Count of Criminal Activities: Larceny Theft (0.6994097828865051)",
+      "Count of Criminal Activities: Larceny Theft (0.6994096040725708)",
       "Number of crimes counted as Larceny Theft (0.645634114742279)",
-      "Number of larceny theft crimes (0.6368502378463745)",
-      "Number of larceny theft incidents (0.6242313981056213)",
-      "Number of Larceny Theft Cases (0.6214361190795898)",
-      "Total number of larceny theft cases (0.5930148959159851)",
-      "Number of larceny theft charges (0.5891730785369873)",
-      "Total number of larceny theft offenses (0.5783951282501221)"
+      "Number of larceny theft crimes (0.6368502974510193)",
+      "Number of larceny theft incidents (0.6242318153381348)",
+      "Number of Larceny Theft Cases (0.6214359998703003)",
+      "Total number of larceny theft cases (0.5930147767066956)",
+      "Number of larceny theft charges (0.5891731977462769)",
+      "Total number of larceny theft offenses (0.5783950686454773)"
     ],
     "Count_CriminalActivities_MurderAndNonNegligentManslaughter": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.33264830708503723)"
+      "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326481878757477)"
     ],
     "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.3411339223384857)"
+      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.34113389253616333)"
     ],
     "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.32215186953544617)"
+      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.3221517503261566)"
     ],
     "Count_CriminalActivities_Robbery": [
-      "Count of Criminal Activities: Robbery (0.3595605194568634)"
+      "Count of Criminal Activities: Robbery (0.35956040024757385)"
     ],
     "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
-      "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.3317139744758606)"
+      "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.33171388506889343)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Hate crime incidents (0.34636539220809937)"
+      "Hate crime incidents (0.346365362405777)"
     ]
   },
   "time_delta_classification": "<None>"

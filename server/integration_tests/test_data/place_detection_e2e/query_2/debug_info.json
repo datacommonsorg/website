@@ -22,12 +22,7 @@
           "geoId/15",
           "geoId/16",
           "geoId/17",
-          "geoId/18",
-          "geoId/19",
-          "geoId/20",
-          "geoId/21",
-          "geoId/22",
-          "geoId/23"
+          "geoId/18"
         ],
         "type": "State"
       }
@@ -324,6 +319,41 @@
     "us"
   ],
   "places_resolved": "(name: United States of America, dcid: country/USA); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
+    },
+    "original_query": "US states which have that highest median income",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "country/USA"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ]
+    },
+    "places_found_str": [
+      "us"
+    ],
+    "query_transformations": {
+      "place_detection_input": "us states which have that highest median income",
+      "place_detection_with_places_removed": "states which have that highest median income",
+      "sv_detection_query_input": "states which have that highest median income",
+      "sv_detection_query_stop_words_removal": "median income"
+    }
+  },
   "query_with_places_removed": "states which have that highest median income",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",
@@ -331,12 +361,12 @@
   "sv_matching": {
     "CosineScore": [
       1.0000001192092896,
-      0.9218266606330872,
-      0.8443344831466675,
-      0.8192885518074036,
-      0.8156335949897766,
-      0.8111510872840881,
-      0.8066859245300293
+      0.9218265414237976,
+      0.8443343043327332,
+      0.819288432598114,
+      0.8156335353851318,
+      0.8111509680747986,
+      0.8066862225532532
     ],
     "SV": [
       "Median_Income_Person",
@@ -349,75 +379,75 @@
     ],
     "SV_to_Sentences": {
       "Mean_Income_Household": [
-        "Median income of households in the region (0.8156335949897766)"
+        "Median income of households in the region (0.8156335353851318)"
       ],
       "Median_Earnings_Person": [
-        "Median income for population identifying as With Earnings (0.8443344831466675)",
-        "Median earnings for all people (0.8229597806930542)",
-        "Median Earnings for All People (0.8229597806930542)"
+        "Median income for population identifying as With Earnings (0.8443343043327332)",
+        "Median Earnings for All People (0.8229596614837646)",
+        "Median earnings for all people (0.8229596614837646)"
       ],
       "Median_Income_Household": [
-        "Median household income (0.9218266606330872)",
-        "Median Income of Household (0.9102111458778381)",
-        "Median income for all households (0.8729931116104126)",
-        "Median Income for All Households (0.8729931116104126)"
+        "Median household income (0.9218265414237976)",
+        "Median Income of Household (0.9102110266685486)",
+        "Median Income for All Households (0.8729929327964783)",
+        "Median income for all households (0.8729929327964783)"
       ],
       "Median_Income_Household_FamilyHousehold": [
-        "Median income for family households (0.8192885518074036)",
-        "Median Income for Family Households (0.8192885518074036)",
-        "Median Income of Household: in a family household with Income (0.8157026767730713)",
-        "Median Income of Household: Family Household, With Income (0.8133259415626526)"
+        "Median Income for Family Households (0.819288432598114)",
+        "Median income for family households (0.819288432598114)",
+        "Median Income of Household: in a family household with Income (0.8157023787498474)",
+        "Median Income of Household: Family Household, With Income (0.8133261799812317)"
       ],
       "Median_Income_Household_NonfamilyHousehold": [
-        "Median Income of Household: Nonfamily Household, With Income (0.8066859245300293)"
+        "Median Income of Household: Nonfamily Household, With Income (0.8066862225532532)"
       ],
       "Median_Income_Person": [
         "Median Income (1.0000001192092896)",
         "Median income (1.0000001192092896)",
-        "Median income of the population (0.9306240677833557)",
-        "Median Income of a Population (0.928594708442688)",
-        "Median pay (0.8329887986183167)"
+        "Median income of the population (0.9306238889694214)",
+        "Median Income of a Population (0.9285945296287537)",
+        "Median pay (0.832988440990448)"
       ],
       "dc/x3gghqtglpr59": [
-        "Median Income for People Working in the Finance and Insurance Industry (0.8111510872840881)",
-        "Median income for people working in the finance and insurance industry (0.8111510872840881)"
+        "Median income for people working in the finance and insurance industry (0.8111509680747986)",
+        "Median Income for People Working in the Finance and Insurance Industry (0.8111509680747986)"
       ]
     }
   },
   "svs_to_sentences": {
     "Mean_Income_Household": [
-      "Median income of households in the region (0.8156335949897766)"
+      "Median income of households in the region (0.8156335353851318)"
     ],
     "Median_Earnings_Person": [
-      "Median income for population identifying as With Earnings (0.8443344831466675)",
-      "Median earnings for all people (0.8229597806930542)",
-      "Median Earnings for All People (0.8229597806930542)"
+      "Median income for population identifying as With Earnings (0.8443343043327332)",
+      "Median Earnings for All People (0.8229596614837646)",
+      "Median earnings for all people (0.8229596614837646)"
     ],
     "Median_Income_Household": [
-      "Median household income (0.9218266606330872)",
-      "Median Income of Household (0.9102111458778381)",
-      "Median income for all households (0.8729931116104126)",
-      "Median Income for All Households (0.8729931116104126)"
+      "Median household income (0.9218265414237976)",
+      "Median Income of Household (0.9102110266685486)",
+      "Median Income for All Households (0.8729929327964783)",
+      "Median income for all households (0.8729929327964783)"
     ],
     "Median_Income_Household_FamilyHousehold": [
-      "Median income for family households (0.8192885518074036)",
-      "Median Income for Family Households (0.8192885518074036)",
-      "Median Income of Household: in a family household with Income (0.8157026767730713)",
-      "Median Income of Household: Family Household, With Income (0.8133259415626526)"
+      "Median Income for Family Households (0.819288432598114)",
+      "Median income for family households (0.819288432598114)",
+      "Median Income of Household: in a family household with Income (0.8157023787498474)",
+      "Median Income of Household: Family Household, With Income (0.8133261799812317)"
     ],
     "Median_Income_Household_NonfamilyHousehold": [
-      "Median Income of Household: Nonfamily Household, With Income (0.8066859245300293)"
+      "Median Income of Household: Nonfamily Household, With Income (0.8066862225532532)"
     ],
     "Median_Income_Person": [
       "Median Income (1.0000001192092896)",
       "Median income (1.0000001192092896)",
-      "Median income of the population (0.9306240677833557)",
-      "Median Income of a Population (0.928594708442688)",
-      "Median pay (0.8329887986183167)"
+      "Median income of the population (0.9306238889694214)",
+      "Median Income of a Population (0.9285945296287537)",
+      "Median pay (0.832988440990448)"
     ],
     "dc/x3gghqtglpr59": [
-      "Median Income for People Working in the Finance and Insurance Industry (0.8111510872840881)",
-      "Median income for people working in the finance and insurance industry (0.8111510872840881)"
+      "Median income for people working in the finance and insurance industry (0.8111509680747986)",
+      "Median Income for People Working in the Finance and Insurance Industry (0.8111509680747986)"
     ]
   },
   "time_delta_classification": "<None>"

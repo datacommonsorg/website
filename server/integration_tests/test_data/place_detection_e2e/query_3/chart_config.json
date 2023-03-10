@@ -86,14 +86,14 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59"
                     ],
-                    "title": "Median Income for People Working in the Finance and Insurance Industry in Florida",
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in Florida",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "dc/x3gghqtglpr59_pc"
                     ],
-                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry in Florida",
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in Florida",
                     "type": "LINE"
                   }
                 ]
@@ -177,21 +177,21 @@
             "statVar": "Median_Income_Person"
           },
           "WagesTotal_Worker_NAICSFinanceInsurance": {
-            "name": "Total Wages for People Working in the Finance and Insurance Industry",
+            "name": "Total Wages for Population Working in the Finance and Insurance Industry",
             "statVar": "WagesTotal_Worker_NAICSFinanceInsurance"
           },
           "WagesTotal_Worker_NAICSFinanceInsurance_pc": {
             "denom": "Count_Person",
-            "name": "Total Wages for People Working in the Finance and Insurance Industry",
+            "name": "Total Wages for Population Working in the Finance and Insurance Industry",
             "statVar": "WagesTotal_Worker_NAICSFinanceInsurance"
           },
           "dc/x3gghqtglpr59": {
-            "name": "Median Income for People Working in the Finance and Insurance Industry",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
             "statVar": "dc/x3gghqtglpr59"
           },
           "dc/x3gghqtglpr59_pc": {
             "denom": "Count_Person",
-            "name": "Median Income for People Working in the Finance and Insurance Industry",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
             "statVar": "dc/x3gghqtglpr59"
           }
         }
