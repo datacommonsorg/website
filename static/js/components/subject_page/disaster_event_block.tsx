@@ -123,6 +123,7 @@ export function DisasterEventBlock(
       title={props.title}
       description={props.description}
       footnote={props.footnote}
+      place={props.place}
     >
       <DisasterEventMapSelectors
         blockId={props.id}

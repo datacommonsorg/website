@@ -195,6 +195,7 @@ message Tile {
 }
 
 message Block {
+  // Title can include ${place} placeholder string.
   string title = 1;
   string description = 2;
   // Footnote that goes across the bottom of each block. Multiple footnotes can

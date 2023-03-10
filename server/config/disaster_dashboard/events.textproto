@@ -67,7 +67,7 @@ categories {
     }
   }
   blocks {
-    title: "Other disasters"
+    title: "Other disasters in ${place}"
     columns {
       tiles {
         type: LINE
