@@ -26,16 +26,35 @@ class Counters:
     self._info: Dict = {}
     self._timing: Dict = {}
 
+  #
+  # Adds/updates an info counter.
+  #
+  # For a given counter, caller should always pass the same type
+  # for value.  If value is numeric, then its a single added
+  # counter, otherwise, counter is a list of values.
+  #
   def info(self, counter: str, value: any):
     self._update(self._info, counter, value)
 
+  #
+  # Adds/updates a warning counter.
+  #
+  # Same behavior as info()
+  #
   def warn(self, counter: str, value: any):
     self._update(self._warn, counter, value)
 
-  def timeit(self, key, start):
+  #
+  # Given start-time, computes the elapsed time and
+  # accounts it to the given counter.
+  #
+  def timeit(self, counter: str, start: float):
     duration = round(time.time() - start, 2)
-    self._timing[key] = self._timing.get(key, 0) + duration
+    self._timing[counter] = self._timing.get(counter, 0) + duration
 
+  #
+  # Returns a dict with all counters.
+  #
   def get(self) -> Dict:
     return {'ERROR': self._warn, 'INFO': self._info, 'TIMING': self._timing}
 
