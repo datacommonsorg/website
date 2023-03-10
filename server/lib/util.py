@@ -121,7 +121,9 @@ def get_nl_disaster_config():
   return get_subject_page_config(filepath)
 
 
-# Returns dict of place dcid to place type to geojson object
+# Returns dict of place dcid to place type to geojson object. Geojson object is
+# a feature collection where the geometry of the features do not follow the
+# right hand rule.
 def get_cached_geojsons():
   geojsons = {}
   for place in CACHED_GEOJSON_FILES:
