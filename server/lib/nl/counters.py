@@ -30,7 +30,7 @@ class Counters:
   # Adds/updates an info counter.
   #
   # For a given counter, caller should always pass the same type
-  # for value.  If value is numeric, then its a single added
+  # for value.  If value is numeric, then its a single updated
   # counter, otherwise, counter is a list of values.
   #
   def info(self, counter: str, value: any):
