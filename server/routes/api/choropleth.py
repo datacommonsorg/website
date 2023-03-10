@@ -209,6 +209,10 @@ def geojson():
   place_type = request.args.get("placeType")
   if not place_type:
     place_dcid, place_type = get_choropleth_display_level(place_dcid)
+  cached_geojson = current_app.config['CACHED_GEOJSONS'].get(
+      place_dcid, {}).get(place_type, None)
+  if cached_geojson:
+    return lib_util.gzip_compress_response(cached_geojson, is_json=True)
   geos = []
   if place_dcid and place_type:
     geos = dc.get_places_in([place_dcid], place_type).get(place_dcid, [])

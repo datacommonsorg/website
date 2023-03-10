@@ -20,9 +20,11 @@ import logging
 import os
 import random
 import re
+import time
 from typing import Dict, List, NamedTuple, Set, Tuple, Union
 
 import server.lib.nl.constants as constants
+import server.lib.nl.counters as ctr
 import server.lib.nl.detection as detection
 import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.utterance as nl_uttr
@@ -156,13 +158,15 @@ def is_sv(sv):
 
 
 # Checks if there is an event in the last 1 year.
-def event_existence_for_place(place: str, event: detection.EventType) -> bool:
+def event_existence_for_place(place: str, event: detection.EventType,
+                              counters: ctr.Counters) -> bool:
   for event_type in constants.EVENT_TYPE_TO_DC_TYPES[event]:
+    start = time.time()
     date_list = dc.get_event_collection_date(event_type,
                                              place).get('eventCollectionDate',
                                                         {}).get('dates', [])
+    counters.timeit('event_existence_for_place', start)
     cur_year = datetime.datetime.now().year
-    logging.info(cur_year)
     prev_year = str(cur_year - 1)
     cur_year = str(cur_year)
     # A crude recency check
@@ -176,11 +180,14 @@ def event_existence_for_place(place: str, event: detection.EventType) -> bool:
 # Returns a list of existing SVs (as a union across places).
 # The order of the returned SVs matches the input order.
 #
-def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
+def sv_existence_for_places(places: List[str], svs: List[str],
+                            counters: ctr.Counters) -> List[str]:
   if not svs:
     return []
 
+  start = time.time()
   sv_existence = dc.observation_existence(svs, places)
+  counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
     logging.error("Existence checks for SVs failed.")
     return []
@@ -203,11 +210,14 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
 # per the ranking order.
 # TODO: The per-capita for this should be computed here.
 def rank_svs_by_latest_value(place: str, svs: List[str],
-                             order: detection.RankingType) -> List[str]:
+                             order: detection.RankingType,
+                             counters: ctr.Counters) -> List[str]:
+  start = time.time()
   points_data = util.point_core(entities=[place],
                                 variables=svs,
                                 date='',
                                 all_facets=False)
+  counters.timeit('rank_svs_by_latest_value', start)
 
   svs_with_vals = []
   for sv, place_data in points_data['data'].items():
@@ -223,10 +233,13 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
   return [sv for sv, _ in svs_with_vals]
 
 
-def has_series_with_single_datapoint(place: str, svs: List[str]):
+def has_series_with_single_datapoint(place: str, svs: List[str],
+                                     counters: ctr.Counters):
+  start = time.time()
   series_data = util.series_core(entities=[place],
                                  variables=svs,
                                  all_facets=False)
+  counters.timeit('has_series_with_single_datapoint', start)
   for _, place_data in series_data['data'].items():
     if place not in place_data:
       continue
@@ -255,13 +268,17 @@ class GrowthRanks(NamedTuple):
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
 # TODO: Compute per-date Count_Person
-def rank_places_by_series_growth(
-    places: List[str], sv: str, growth_direction: detection.TimeDeltaType,
-    rank_order: detection.RankingType) -> GrowthRankedLists:
+def rank_places_by_series_growth(places: List[str], sv: str,
+                                 growth_direction: detection.TimeDeltaType,
+                                 rank_order: detection.RankingType,
+                                 counters: ctr.Counters) -> GrowthRankedLists:
+  start = time.time()
   series_data = util.series_core(entities=places,
                                  variables=[sv],
                                  all_facets=False)
   place2denom = _compute_place_to_denom(sv, places)
+  # Count the RPC section (since we have multiple exit points)
+  counters.timeit('rank_places_by_series_growth', start)
 
   if 'data' not in series_data or sv not in series_data['data']:
     return []
@@ -273,7 +290,7 @@ def rank_places_by_series_growth(
       continue
 
     try:
-      net_growth = compute_series_growth(series, place2denom.get(place, 0))
+      net_growth = _compute_series_growth(series, place2denom.get(place, 0))
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
@@ -291,13 +308,16 @@ def rank_places_by_series_growth(
 
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the growth rate of the time-series.
-def rank_svs_by_series_growth(
-    place: str, svs: List[str], growth_direction: detection.TimeDeltaType,
-    rank_order: detection.RankingType) -> GrowthRankedLists:
+def rank_svs_by_series_growth(place: str, svs: List[str],
+                              growth_direction: detection.TimeDeltaType,
+                              rank_order: detection.RankingType,
+                              counters: ctr.Counters) -> GrowthRankedLists:
+  start = time.time()
   series_data = util.series_core(entities=[place],
                                  variables=svs,
                                  all_facets=False)
   place2denom = _compute_place_to_denom(svs[0], [place])
+  counters.timeit('rank_svs_by_series_growth', start)
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
@@ -308,7 +328,7 @@ def rank_svs_by_series_growth(
       continue
 
     try:
-      net_growth = compute_series_growth(series, place2denom.get(place, 0))
+      net_growth = _compute_series_growth(series, place2denom.get(place, 0))
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
@@ -326,7 +346,7 @@ def rank_svs_by_series_growth(
 
 # Computes net growth-rate for a time-series including only recent (since 2012) observations.
 # Returns a pair of
-def compute_series_growth(series: List[Dict], denom_val: float) -> GrowthRanks:
+def _compute_series_growth(series: List[Dict], denom_val: float) -> GrowthRanks:
   latest = None
   earliest = None
   # TODO: Apparently series is ordered, so simplify.
@@ -474,9 +494,11 @@ def _get_sample_child_places(main_place_dcid: str,
 
 
 def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
-                            counters: Dict) -> List[str]:
+                            counters: ctr.Counters) -> List[str]:
+  start = time.time()
   result = _get_sample_child_places(main_place_dcid, contained_place_type)
-  update_counter(counters, 'child_places_result', {
+  counters.timeit('get_sample_child_places', start)
+  counters.info('child_places_result', {
       'place': main_place_dcid,
       'type': contained_place_type,
       'result': result
@@ -484,9 +506,12 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
   return result
 
 
-def get_all_child_places(main_place_dcid: str,
-                         contained_place_type: str) -> List[detection.Place]:
+def get_all_child_places(main_place_dcid: str, contained_place_type: str,
+                         counters: ctr.Counters) -> List[detection.Place]:
+  start = time.time()
   payload = dc.get_places_in_v1([main_place_dcid], contained_place_type)
+  counters.timeit('get_all_child_places', start)
+
   results = []
   for entry in payload.get('data', []):
     if 'node' not in entry:
@@ -502,8 +527,11 @@ def get_all_child_places(main_place_dcid: str,
 
 
 def get_immediate_parent_places(
-    main_place_dcid: str, parent_place_type: str) -> List[detection.Place]:
+    main_place_dcid: str, parent_place_type: str,
+    counters: ctr.Counters) -> List[detection.Place]:
+  start = time.time()
   resp = dc.property_values_v1([main_place_dcid], 'containedInPlace')
+  counters.timeit('get_immediate_parent_places', start)
   results = []
   for item in resp.get('data', []):
     if item.get('node', '') != main_place_dcid:
@@ -733,23 +761,6 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
 
   places_to_return.sort(key=fn)
   return places_to_return
-
-
-# Convenience function to help update counters.
-#
-# For a given counter, caller should always pass the same type
-# for value.  If value is numeric, then its a single added
-# counter, otherwise, counter is a list of values.
-def update_counter(dbg_counters: Dict, counter: str, value: any):
-  should_add = counter not in dbg_counters
-  if isinstance(value, int) or isinstance(value, float):
-    if should_add:
-      dbg_counters[counter] = 0
-    dbg_counters[counter] += value
-  else:
-    if should_add:
-      dbg_counters[counter] = []
-    dbg_counters[counter].append(value)
 
 
 def get_contained_in_type(

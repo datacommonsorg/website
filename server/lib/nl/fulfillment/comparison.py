@@ -15,7 +15,6 @@
 import logging
 from typing import List
 
-from server.lib.nl import utils
 from server.lib.nl.detection import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import ChartVars
@@ -35,15 +34,13 @@ def populate(uttr: Utterance) -> bool:
   place_comparison_candidates = places_for_comparison_from_context(uttr)
   for places_to_compare in place_comparison_candidates:
     dcids = [p.dcid for p in places_to_compare]
-    utils.update_counter(uttr.counters, 'comparison_place_candidates', dcids)
+    uttr.counters.info('comparison_place_candidates', dcids)
     if populate_charts_for_places(state, places_to_compare):
       return True
     else:
-      utils.update_counter(uttr.counters, 'comparison_failed_populate_places',
-                           dcids)
+      uttr.counters.warn('comparison_failed_populate_places', dcids)
   if not place_comparison_candidates:
-    utils.update_counter(uttr.counters,
-                         'comparison_failed_to_find_multiple_places', 1)
+    uttr.counters.warn('comparison_failed_to_find_multiple_places', 1)
   return False
 
 
@@ -51,11 +48,10 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for comparison')
   if len(places) < 2:
-    utils.update_counter(state.uttr.counters,
-                         'comparison_failed_cb_toofewplaces', 1)
+    state.uttr.counters.warn('comparison_failed_cb_toofewplaces', 1)
     return False
   if chart_vars.event:
-    utils.update_counter(state.uttr.counters, 'comparison_failed_cb_events', 1)
+    state.uttr.counters.warn('comparison_failed_cb_events', 1)
     return False
   chart_vars.response_type = "comparison chart"
   chart_vars.include_percapita = True

@@ -44,9 +44,8 @@ def populate(uttr: Utterance):
                       ranking_types=ranking_types)):
       return True
     else:
-      utils.update_counter(uttr.counters,
-                           'ranking-across-places_failed_populate_placetype',
-                           place_type.value)
+      uttr.counters.warn('ranking-across-places_failed_populate_placetype',
+                         place_type.value)
 
   return False
 
@@ -55,24 +54,21 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for ranking_across_places')
   if not state.ranking_types:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_cb_norankingtypes', 1)
+    state.uttr.counters.warn('ranking-across-places_failed_cb_norankingtypes',
+                             1)
     return False
   if len(places) > 1:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_cb_toomanyplaces',
-                         [p.dcid for p in places])
+    state.uttr.counters.warn('ranking-across-places_failed_cb_toomanyplaces',
+                             [p.dcid for p in places])
     return False
   if not state.place_type:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_cb_noplacetype', 1)
+    state.uttr.counters.warn('ranking-across-places_failed_cb_noplacetype', 1)
     return False
   if not chart_vars.svs and not chart_vars.event:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-places_failed_cb_emptyvars', {
-                             'svs': chart_vars.svs,
-                             'event': chart_vars.event,
-                         })
+    state.uttr.counters.warn('ranking-across-places_failed_cb_emptyvars', {
+        'svs': chart_vars.svs,
+        'event': chart_vars.event,
+    })
     return False
 
   if chart_vars.event:
