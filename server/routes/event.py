@@ -104,7 +104,7 @@ def get_provenance(properties):
     if source:
       source_name = get_property_value(source, 'name')
     if url and source_name:
-      ret.append({ "url": url, "sourceName": source_name })
+      ret.append({"url": url, "sourceName": source_name})
 
   return ret
 

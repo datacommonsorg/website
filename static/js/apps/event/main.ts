@@ -40,7 +40,9 @@ function renderPage(): void {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   const properties = JSON.parse(document.getElementById("node").dataset.pv);
-  const provenance = JSON.parse(document.getElementById("node").dataset.provenance);
+  const provenance = JSON.parse(
+    document.getElementById("node").dataset.provenance
+  );
 
   // Event place
   const placeDcid = document.getElementById("place").dataset.dcid;
