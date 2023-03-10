@@ -19,26 +19,13 @@ import json
 import flask
 from flask import Blueprint
 from flask import current_app
-from flask import escape
 from flask import redirect
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
-from server.config import subject_page_pb2
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
-import server.routes.api.place as place_api
-import server.services.datacommons as dc
 
-DEFAULT_PLACE_DCID = "Earth"
-DEFAULT_PLACE_TYPE = "Planet"
-EUROPE_DCID = "europe"
-EUROPE_CONTAINED_PLACE_TYPES = {
-    "Country": "EurostatNUTS1",
-    "EurostatNUTS1": "EurostatNUTS2",
-    "EurostatNUTS2": "EurostatNUTS3",
-    "EurostatNUTS3": "EurostatNUTS3",
-}
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
 
@@ -50,8 +37,9 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=None):
   if not place_dcid:
-    return redirect(url_for('disasters.disaster_dashboard',
-                            place_dcid=DEFAULT_PLACE_DCID),
+    return redirect(url_for(
+        'disasters.disaster_dashboard',
+        place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
   dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
@@ -65,49 +53,26 @@ def disaster_dashboard(place_dcid=None):
 
   # Override the min severity for fires for Earth
   # TODO: Do this by extending the config instead.
-  if place_dcid == DEFAULT_PLACE_DCID:
+  if place_dcid == lib_subject_page_config.DEFAULT_PLACE_DCID:
     dashboard_config = copy.deepcopy(dashboard_config)
     for key in dashboard_config.metadata.event_type_spec:
       if key == FIRE_EVENT_TYPE_SPEC:
         spec = dashboard_config.metadata.event_type_spec[key]
         spec.default_severity_filter.lower_limit = EARTH_FIRE_SEVERITY_MIN
 
-  place_types = [DEFAULT_PLACE_TYPE]
-  parent_places = []
-  if place_dcid != DEFAULT_PLACE_DCID:
-    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
-    if not place_types:
-      place_types = ["Place"]
-    parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
-  place_name = place_api.get_i18n_name([place_dcid
-                                       ]).get(place_dcid, escape(place_dcid))
-  # If this is a European place, update the contained_place_types in the page
-  # metadata to use a custom dict instead.
-  # TODO: Find a better way to handle this
-  parent_dcids = map(lambda place: place.get("dcid", ""), parent_places)
-  if EUROPE_DCID in parent_dcids:
+  place_metadata = lib_subject_page_config.place_metadata(place_dcid)
+  if place_metadata.contained_place_types_override:
     dashboard_config.metadata.contained_place_types.clear()
     dashboard_config.metadata.contained_place_types.update(
-        EUROPE_CONTAINED_PLACE_TYPES)
+        place_metadata.contained_place_types_override)
 
-  all_stat_vars = lib_subject_page_config.get_all_variables(dashboard_config)
-  if all_stat_vars:
-    stat_vars_existence = dc.observation_existence(all_stat_vars, [place_dcid])
+  dashboard_config = lib_subject_page_config.remove_empty_charts(
+      dashboard_config, place_dcid)
 
-    for stat_var in stat_vars_existence['variable']:
-      if not stat_vars_existence['variable'][stat_var]['entity'][place_dcid]:
-        # This is for the main place, only remove the tile type for single place.
-        for tile_type in [
-            subject_page_pb2.Tile.TileType.HISTOGRAM,
-            subject_page_pb2.Tile.TileType.LINE,
-            subject_page_pb2.Tile.TileType.BAR,
-        ]:
-          dashboard_config = lib_subject_page_config.trim_config(
-              dashboard_config, stat_var, tile_type)
-
-  return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
-                               place_type=json.dumps(place_types),
-                               place_name=place_name,
-                               place_dcid=place_dcid,
-                               config=MessageToJson(dashboard_config),
-                               parent_places=json.dumps(parent_places))
+  return flask.render_template(
+      'custom_dc/stanford/disaster_dashboard.html',
+      place_type=json.dumps(place_metadata.place_types),
+      place_name=place_metadata.place_name,
+      place_dcid=place_dcid,
+      config=MessageToJson(dashboard_config),
+      parent_places=json.dumps(place_metadata.parent_places))

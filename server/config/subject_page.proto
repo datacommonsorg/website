@@ -217,6 +217,7 @@ message Block {
 }
 
 message Category {
+  // Title can include ${place} placeholder string.
   string title = 1;
   string description = 2;
   map<string, StatVarSpec> stat_var_spec = 4;
