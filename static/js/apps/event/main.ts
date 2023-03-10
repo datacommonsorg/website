@@ -40,7 +40,9 @@ function renderPage(): void {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   const properties = JSON.parse(document.getElementById("node").dataset.pv);
-  console.log(properties);
+  const provenance = JSON.parse(
+    document.getElementById("node").dataset.provenance
+  );
 
   // Event place
   const placeDcid = document.getElementById("place").dataset.dcid;
@@ -60,6 +62,7 @@ function renderPage(): void {
       dcid: dcid,
       name: nodeName,
       properties: properties,
+      provenance: provenance,
       place: place,
       subjectConfig,
       parentPlaces: getFilteredParentPlaces(parentPlaces, place),
