@@ -79,6 +79,36 @@ def get_property_value(dcid: str, prop: str) -> str:
   return None
 
 
+def get_provenance(properties):
+  """
+  Returns full provenance display info for event.
+
+  Args:
+    properties: All properties of the event.
+
+  Returns:
+    A list of { url, sourceName } objects to display provenances.
+  """
+  ret = []
+
+  provenance = properties.get('provenance', None)
+  if not provenance:
+    return ret
+
+  for p in provenance:
+    dcid = p.get('dcid', None)
+    if not dcid:
+      continue
+    url = get_property_value(dcid, 'url')
+    source = get_property_value(dcid, 'source')
+    if source:
+      source_name = get_property_value(source, 'name')
+    if url and source_name:
+      ret.append({"url": url, "sourceName": source_name})
+
+  return ret
+
+
 def get_places(properties) -> Dict[str, List[str]]:
   """
   Returns place hierarchy and types based on lat/long of event.
@@ -89,7 +119,6 @@ def get_places(properties) -> Dict[str, List[str]]:
   Returns:
     A dictionary of { place_dcid: [place_types] }, for all places in the
     hierarchy containing the lat/long of the event.
-
   """
   for prop, values in properties.items():
     if prop in LOCATION_PROPERTIES and len(values):
@@ -145,6 +174,8 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   except Exception as e:
     logging.info(e)
 
+  provenance = get_provenance(properties)
+
   # Get subject page config for event.
   subject_config = current_app.config['DISASTER_EVENT_CONFIG']
   if current_app.config['LOCAL']:
@@ -182,6 +213,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
       "maps_api_key": current_app.config['MAPS_API_KEY'],
       "node_name": node_name,
       "properties": json.dumps(properties),
+      "provenance": json.dumps(provenance),
   }
   template_args.update(subject_page_args)
   return render_template('custom_dc/stanford/event.html', **template_args)
