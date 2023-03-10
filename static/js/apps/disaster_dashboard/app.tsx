@@ -24,7 +24,7 @@ import { RawIntlProvider } from "react-intl";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { intl } from "../../i18n/i18n";
-import { NamedTypedPlace } from "../../shared/types";
+import { ChildPlacesByType, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { ChildPlaces } from "./child_places";
 import { ParentBreadcrumbs } from "./parent_breadcrumbs";
@@ -44,6 +44,10 @@ interface AppPropType {
    * parent places of the place we are showing the dashboard for.
    */
   parentPlaces: NamedTypedPlace[];
+  /**
+   * child places of the place we are showing the dashboard for.
+   */
+  childPlaces: ChildPlacesByType;
 }
 
 export function App(props: AppPropType): JSX.Element {
@@ -55,7 +59,10 @@ export function App(props: AppPropType): JSX.Element {
             id={PAGE_ID}
             categories={props.dashboardConfig.categories}
           />
-          <ChildPlaces parentPlace={props.place}></ChildPlaces>
+          <ChildPlaces
+            childPlaces={props.childPlaces}
+            parentPlace={props.place}
+          ></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
           <h1 id="place-name">{props.place.name}</h1>

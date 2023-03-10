@@ -25,6 +25,7 @@ from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
+import server.routes.api.place as place_api
 
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
@@ -66,6 +67,12 @@ def disaster_dashboard(place_dcid=None):
     dashboard_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
 
+  child_places = place_api.child_fetch(place_dcid)
+  for place_type in child_places:
+    child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
+    child_places[place_type] = child_places[place_type][:place_api.
+                                                        CHILD_PLACE_LIMIT]
+
   dashboard_config = lib_subject_page_config.remove_empty_charts(
       dashboard_config, place_dcid)
 
@@ -75,4 +82,5 @@ def disaster_dashboard(place_dcid=None):
       place_name=place_metadata.place_name,
       place_dcid=place_dcid,
       config=MessageToJson(dashboard_config),
-      parent_places=json.dumps(place_metadata.parent_places))
+      parent_places=json.dumps(place_metadata.parent_places),
+      child_places=json.dumps(child_places))
