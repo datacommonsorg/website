@@ -222,7 +222,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Query Detection Debug Logs:</b>
+            <b>Query Detection:</b>
           </Row>
           <Row>
             <Col>
@@ -232,7 +232,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Debug Counters</b>
+            <b>Query Fulfillment:</b>
           </Row>
           <Row>
             <Col>
@@ -240,7 +240,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Page Config</b>
+            <b>Page Config:</b>
           </Row>
           <Row>
             <Col>
