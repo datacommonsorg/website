@@ -22,6 +22,7 @@ from google.protobuf import text_format
 from parameterized import parameterized
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.nl import counters as ctr
 from server.lib.nl import page_config_builder
 from server.lib.nl import topic
 from server.lib.nl import utils
@@ -821,5 +822,6 @@ def _textproto(s):
 def _run(uttr_dict: Dict,
          config: SubjectPageConfig = None) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
+  uttr.counters = ctr.Counters()
   return text_format.MessageToString(
       page_config_builder.build_page_config(uttr, config))

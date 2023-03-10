@@ -34,7 +34,7 @@ def populate(uttr: Utterance) -> bool:
     # If both the SVs and places are empty, then do not attempt to fulfill.
     # This avoids using incorrect context for unrelated queries like
     # [meaning of life]
-    utils.update_counter(uttr.counters, 'simple_failed_noplaceandsv', 1)
+    uttr.counters.warn('simple_failed_noplaceandsv', 1)
     return False
   return populate_charts(PopulateState(uttr=uttr, main_cb=_populate_cb))
 
@@ -59,13 +59,13 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     chart_type = ChartType.BAR_CHART
     chart_vars.response_type = "bar chart"
   if chart_type == ChartType.TIMELINE_CHART:
-    if utils.has_series_with_single_datapoint(places[0].dcid, chart_vars.svs):
+    if utils.has_series_with_single_datapoint(places[0].dcid, chart_vars.svs,
+                                              state.uttr.counters):
       # Demote to bar chart if single point.
       # TODO: eventually for single SV case, make it a highlight chart
       chart_type = ChartType.BAR_CHART
       chart_vars.response_type = "bar chart"
-      utils.update_counter(state.uttr.counters,
-                           'simple_timeline_to_bar_demotions', 1)
+      state.uttr.counters.info('simple_timeline_to_bar_demotions', 1)
 
   if chart_vars.is_topic_peer_group:
     chart_vars.include_percapita = True
