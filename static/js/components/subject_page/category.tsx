@@ -29,6 +29,7 @@ import {
   EventTypeSpec,
 } from "../../types/subject_page_proto_types";
 import { getId, getRelLink } from "../../utils/subject_page_utils";
+import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
 import { DisasterEventBlock } from "./disaster_event_block";
@@ -51,11 +52,14 @@ export const Category = memo(function Category(
   props: CategoryPropType
 ): JSX.Element {
   const svProvider = new StatVarProvider(props.config.statVarSpec);
+  const rs: ReplacementStrings = {
+    place: props.place.name,
+    date: "",
+  };
+  const title = props.config.title ? formatString(props.config.title, rs) : "";
   return (
     <article className="category col-12" id={props.id}>
-      {props.config.title && (
-        <h2 className="block-title">{props.config.title}</h2>
-      )}
+      {title && <h2 className="block-title">{title}</h2>}
       {props.config.description && (
         <ReactMarkdown>{props.config.description}</ReactMarkdown>
       )}

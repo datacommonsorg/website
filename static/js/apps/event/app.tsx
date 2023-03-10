@@ -25,8 +25,10 @@ import { Container } from "reactstrap";
 
 import { ArcTableRow } from "../../browser/arc_table_row";
 import { GoogleMap } from "../../components/google_map";
+import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { formatNumber, intl } from "../../i18n/i18n";
-import { Property } from "../../types/event_types";
+import { NamedTypedPlace, PropertyValue } from "../../shared/types";
+import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
 const _START_DATE_PROPERTIES = ["startDate", "discoveryDate"];
 const _END_DATE_PROPERTIES = ["endDate", "containmentDate", "controlledDate"];
@@ -45,11 +47,16 @@ const _IGNORED_PROPERTIES = new Set([
   "observationPeriod",
   "irwinID",
   "wfigsFireID",
+  "affectedPlace",
   ..._LOCATION_PROPERTIES,
   ..._GEOJSON_PROPERTIES,
   ..._START_DATE_PROPERTIES,
   ..._END_DATE_PROPERTIES,
 ]);
+
+type PropVals = Array<PropertyValue>;
+type PropertyDict = Record<string, PropVals>;
+const PAGE_ID = "event";
 
 /**
  * Stores information about the particular event node the event page should render.
@@ -57,7 +64,11 @@ const _IGNORED_PROPERTIES = new Set([
 interface AppPropsType {
   dcid: string;
   name: string;
-  properties: Array<Property>;
+  properties: PropertyDict;
+  // For subject page
+  place: NamedTypedPlace;
+  subjectConfig: SubjectPageConfig;
+  parentPlaces: NamedTypedPlace[];
 }
 
 /**
@@ -74,14 +85,10 @@ export function App(props: AppPropsType): JSX.Element {
   );
 
   // Filter then alpha sort properties.
-  const tableProperties = props.properties.filter(
-    (p) => !_IGNORED_PROPERTIES.has(p.dcid)
+  const tableProperties = Object.keys(props.properties).filter(
+    (p) => !_IGNORED_PROPERTIES.has(p)
   );
-  tableProperties.sort((a, b) => {
-    if (a.dcid < b.dcid) return -1;
-    if (a.dcid > b.dcid) return 1;
-    return 0;
-  });
+  tableProperties.sort();
 
   const dateDisplay = getDateDisplay(props.properties);
 
@@ -90,15 +97,13 @@ export function App(props: AppPropsType): JSX.Element {
       <Container>
         <div className="head-section">
           <h1>{props.name}</h1>
-          <h3>type: {typeOf.values[0].name}</h3>
+          <h3>type: {typeOf[0].name}</h3>
           <h3>
             dcid: <a href={`/browser/${props.dcid}`}>{props.dcid}</a>
           </h3>
           <h3>
             source:{" "}
-            <a href={`/browser/${provenance.values[0].dcid}`}>
-              {provenance.values[0].name}
-            </a>
+            <a href={`/browser/${provenance[0].dcid}`}>{provenance[0].name}</a>
           </h3>
         </div>
         {(geoJson || latLong) && (
@@ -125,9 +130,13 @@ export function App(props: AppPropsType): JSX.Element {
                 {tableProperties.map((property, index) => {
                   return (
                     <ArcTableRow
-                      key={property.dcid + index}
-                      propertyLabel={_.startCase(property.dcid)}
-                      values={[{ text: formatNumericValue(property) }]}
+                      key={property + index}
+                      propertyLabel={_.startCase(property)}
+                      values={[
+                        {
+                          text: formatNumericValue(props.properties[property]),
+                        },
+                      ]}
                       noPropLink={true}
                     />
                   );
@@ -137,6 +146,14 @@ export function App(props: AppPropsType): JSX.Element {
           </div>
         </section>
       </Container>
+      <Container>
+        <SubjectPageMainPane
+          id={PAGE_ID}
+          place={props.place}
+          pageConfig={props.subjectConfig}
+          parentPlaces={props.parentPlaces}
+        />
+      </Container>
     </RawIntlProvider>
   );
 }
@@ -144,24 +161,29 @@ export function App(props: AppPropsType): JSX.Element {
 /**
  * Returns the first property in the list with any of the given dcids.
  */
-function findProperty(dcids: string[], properties: Array<Property>): Property {
-  return properties.find((p) => dcids.indexOf(p.dcid) >= 0);
+function findProperty(dcids: string[], properties: PropertyDict): PropVals {
+  for (const k of dcids) {
+    if (k in properties) {
+      return properties[k];
+    }
+  }
+  return undefined;
 }
 
 /**
  * Returns the first display value of the property.
  */
-function getValue(property: Property): string {
-  if (!property || !property.values.length) {
+function getValue(property: PropVals): string {
+  if (!property || !property.length) {
     return "";
   }
-  return property.values[0].dcid || property.values[0].value;
+  return property[0].dcid || property[0].value;
 }
 
 /**
  * Formats the first display value of the property as a number with unit.
  */
-function formatNumericValue(property: Property): string {
+function formatNumericValue(property: PropVals): string {
   const val = getValue(property);
   if (!val) {
     return "";
@@ -181,7 +203,7 @@ function formatNumericValue(property: Property): string {
 /**
  * Formats the date range for the event.
  */
-function getDateDisplay(properties: Array<Property>): string {
+function getDateDisplay(properties: PropertyDict): string {
   const startDate = getValue(findProperty(_START_DATE_PROPERTIES, properties));
   const endDate = getValue(findProperty(_END_DATE_PROPERTIES, properties));
 
@@ -201,9 +223,9 @@ function getDateDisplay(properties: Array<Property>): string {
 /**
  * Parses a lat,long pair from the first value of the property.
  */
-function parseLatLong(property: Property): [number, number] {
-  if (!property || !property.values) return null;
-  const val = property.values[0];
+function parseLatLong(property: PropVals): [number, number] {
+  if (!property || !property.length) return null;
+  const val = property[0];
   if (val.name) {
     const latLong = val.name.split(",").map((f) => parseFloat(f));
     console.assert(latLong.length == 2);

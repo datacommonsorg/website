@@ -16,6 +16,12 @@
 
 @use "base";
 @use "table";
+@use "./shared/subject_page";
+@use "./draw";
+@use "./draw_choropleth";
+@use "./draw_scatter";
+@use "./shared/story_block";
+@use "./shared/story_chart";
 
 .head-section {
   h1 {

@@ -98,8 +98,9 @@ def register_routes_disasters(app):
     return
 
   # load disaster dashboard configs
-  disaster_dashboard_config = libutil.get_disaster_dashboard_config()
-  app.config['DISASTER_DASHBOARD_CONFIG'] = disaster_dashboard_config
+  app.config[
+      'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
+  app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
 
   if app.config['INTEGRATION']:
     return
@@ -242,6 +243,7 @@ def create_app():
     if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
       ranked_statvars.add(chart['relatedChart']['denominator'])
   app.config['RANKED_STAT_VARS'] = ranked_statvars
+  app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
 
   if not cfg.TEST and not cfg.LITE:
     secret_client = secretmanager.SecretManagerServiceClient()
