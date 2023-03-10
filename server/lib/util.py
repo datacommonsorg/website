@@ -56,6 +56,10 @@ TOPIC_PAGE_CONFIGS = {
 # compression).
 GZIP_COMPRESSION_LEVEL = 3
 
+# Dict of place dcid to place type to filename of the geojson to cache for that
+# place + place type combination
+CACHED_GEOJSON_FILES = {"Earth": {"Country": "earth_country_dp13"}}
+
 
 def get_repo_root():
   '''Get the absolute path of the repo root directory
@@ -115,6 +119,22 @@ def get_nl_disaster_config():
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "disasters.textproto")
   return get_subject_page_config(filepath)
+
+
+# Returns dict of place dcid to place type to geojson object. Geojson object is
+# a feature collection where the geometry of the features do not follow the
+# right hand rule.
+def get_cached_geojsons():
+  geojsons = {}
+  for place in CACHED_GEOJSON_FILES:
+    geojsons[place] = {}
+    for place_type in CACHED_GEOJSON_FILES[place]:
+      filename = CACHED_GEOJSON_FILES[place][place_type]
+      filepath = os.path.join(get_repo_root(), 'config', 'geojson',
+                              filename + '.json')
+      with open(filepath, 'r') as f:
+        geojsons[place][place_type] = json.load(f)
+  return geojsons
 
 
 # Returns a summary of the available topic page summaries as an object:

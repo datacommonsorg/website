@@ -243,6 +243,7 @@ def create_app():
     if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
       ranked_statvars.add(chart['relatedChart']['denominator'])
   app.config['RANKED_STAT_VARS'] = ranked_statvars
+  app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
 
   if not cfg.TEST and not cfg.LITE:
     secret_client = secretmanager.SecretManagerServiceClient()
