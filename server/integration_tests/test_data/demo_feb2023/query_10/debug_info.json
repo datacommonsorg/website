@@ -783,20 +783,33 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "query_detection_debug_logs": {
+    "main_place_inferred": null,
+    "original_query": "What is the meaning of life",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "what is the meaning of life",
+      "place_detection_with_places_removed": "What is the meaning of life",
+      "sv_detection_query_input": "What is the meaning of life",
+      "sv_detection_query_stop_words_removal": "meaning life"
+    }
+  },
   "query_with_places_removed": "What is the meaning of life",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "Successful**No Place Found**.**No SVs Found**.",
   "sv_matching": {
     "CosineScore": [
-      0.4503856599330902,
-      0.37950411438941956,
-      0.3255198895931244,
-      0.2942037880420685,
-      0.2639301121234894,
-      0.2527966797351837,
-      0.2489321529865265,
-      0.22625185549259186
+      0.4503854513168335,
+      0.37950390577316284,
+      0.3255196809768677,
+      0.29420363903045654,
+      0.26393017172813416,
+      0.25279664993286133,
+      0.24893216788768768,
+      0.22625187039375305
     ],
     "SV": [
       "LifeExpectancy_Person",
@@ -810,79 +823,79 @@
     ],
     "SV_to_Sentences": {
       "Count_HousingUnit": [
-        "Total number of living spaces in the area (0.22625185549259186)"
+        "Total number of living spaces in the area (0.22625187039375305)"
       ],
       "Count_HousingUnit_VacantHousingUnit": [
-        "Number of unused living spaces (0.2489321529865265)"
+        "Number of unused living spaces (0.24893216788768768)"
       ],
       "Count_Person_IndependentLivingDifficulty": [
-        "Population: Independent Living Difficulty (0.2639301121234894)",
-        "Number of People With an Independent Living Difficulty (0.24873420596122742)",
-        "Number of people who are experiencing Independent Living Difficulty (0.22672687470912933)"
+        "Population: Independent Living Difficulty (0.26393017172813416)",
+        "Number of People With an Independent Living Difficulty (0.24873416125774384)",
+        "Number of people who are experiencing Independent Living Difficulty (0.2267269790172577)"
       ],
       "LifeExpectancy_Person": [
-        "Life Expectancy (0.4503856599330902)",
-        "Mean lifespan of the population (0.2960842549800873)",
-        "Average life expectancy of the population (0.2871566116809845)",
-        "Typical lifespan of the population (0.25235530734062195)",
-        "Average lifespan of the population (0.22540779411792755)"
+        "Life Expectancy (0.4503854513168335)",
+        "Mean lifespan of the population (0.2960842251777649)",
+        "Average life expectancy of the population (0.2871565520763397)",
+        "Typical lifespan of the population (0.2523551285266876)",
+        "Average lifespan of the population (0.22540773451328278)"
       ],
       "LifeExpectancy_Person_Female": [
-        "Life expectancy at birth, female (years) (0.37950411438941956)",
-        "Life expectancy of females at birth (0.3344573676586151)",
-        "Female Life Expectancy (0.3250548541545868)",
-        "Female life expectancy (0.3250548541545868)"
+        "Life expectancy at birth, female (years) (0.37950390577316284)",
+        "Life expectancy of females at birth (0.33445730805397034)",
+        "Female Life Expectancy (0.32505470514297485)",
+        "Female life expectancy (0.32505470514297485)"
       ],
       "LifeExpectancy_Person_Male": [
-        "Life Expectancy: Male (0.3255198895931244)",
-        "Male Life Expectancy (0.29512834548950195)",
-        "Male life expectancy (0.29512834548950195)",
+        "Life Expectancy: Male (0.3255196809768677)",
+        "Male life expectancy (0.2951281666755676)",
+        "Male Life Expectancy (0.2951281666755676)",
         "Life Expectancy of Males at birth (0.291323721408844)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.2527966797351837)"
+        "Economy (0.25279664993286133)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.2942037880420685)"
+        "journey to work (0.29420363903045654)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_HousingUnit": [
-      "Total number of living spaces in the area (0.22625185549259186)"
+      "Total number of living spaces in the area (0.22625187039375305)"
     ],
     "Count_HousingUnit_VacantHousingUnit": [
-      "Number of unused living spaces (0.2489321529865265)"
+      "Number of unused living spaces (0.24893216788768768)"
     ],
     "Count_Person_IndependentLivingDifficulty": [
-      "Population: Independent Living Difficulty (0.2639301121234894)",
-      "Number of People With an Independent Living Difficulty (0.24873420596122742)",
-      "Number of people who are experiencing Independent Living Difficulty (0.22672687470912933)"
+      "Population: Independent Living Difficulty (0.26393017172813416)",
+      "Number of People With an Independent Living Difficulty (0.24873416125774384)",
+      "Number of people who are experiencing Independent Living Difficulty (0.2267269790172577)"
     ],
     "LifeExpectancy_Person": [
-      "Life Expectancy (0.4503856599330902)",
-      "Mean lifespan of the population (0.2960842549800873)",
-      "Average life expectancy of the population (0.2871566116809845)",
-      "Typical lifespan of the population (0.25235530734062195)",
-      "Average lifespan of the population (0.22540779411792755)"
+      "Life Expectancy (0.4503854513168335)",
+      "Mean lifespan of the population (0.2960842251777649)",
+      "Average life expectancy of the population (0.2871565520763397)",
+      "Typical lifespan of the population (0.2523551285266876)",
+      "Average lifespan of the population (0.22540773451328278)"
     ],
     "LifeExpectancy_Person_Female": [
-      "Life expectancy at birth, female (years) (0.37950411438941956)",
-      "Life expectancy of females at birth (0.3344573676586151)",
-      "Female Life Expectancy (0.3250548541545868)",
-      "Female life expectancy (0.3250548541545868)"
+      "Life expectancy at birth, female (years) (0.37950390577316284)",
+      "Life expectancy of females at birth (0.33445730805397034)",
+      "Female Life Expectancy (0.32505470514297485)",
+      "Female life expectancy (0.32505470514297485)"
     ],
     "LifeExpectancy_Person_Male": [
-      "Life Expectancy: Male (0.3255198895931244)",
-      "Male Life Expectancy (0.29512834548950195)",
-      "Male life expectancy (0.29512834548950195)",
+      "Life Expectancy: Male (0.3255196809768677)",
+      "Male life expectancy (0.2951281666755676)",
+      "Male Life Expectancy (0.2951281666755676)",
       "Life Expectancy of Males at birth (0.291323721408844)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.2527966797351837)"
+      "Economy (0.25279664993286133)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.2942037880420685)"
+      "journey to work (0.29420363903045654)"
     ]
   },
   "time_delta_classification": "<None>"

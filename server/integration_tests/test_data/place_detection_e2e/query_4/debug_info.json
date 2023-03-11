@@ -11,6 +11,16 @@
         "geoId/53"
       ]
     ],
+    "failed_existence_check": [
+      {
+        "places": [
+          "geoId/06",
+          "geoId/36",
+          "geoId/53"
+        ],
+        "svs": []
+      }
+    ],
     "failed_populate_context_svs": [
       []
     ],
@@ -464,7 +474,7 @@
         },
         {
           "attr": {
-            "block_id": 7,
+            "block_id": 8,
             "chart_type": "timeline",
             "class": 1,
             "description": "",
@@ -491,7 +501,7 @@
         },
         {
           "attr": {
-            "block_id": 8,
+            "block_id": 7,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -797,6 +807,55 @@
     "washington state"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); (name: New York, dcid: geoId/36); (name: Washington, dcid: geoId/53); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "original_query": "compare with california and new york state and washington state",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/06",
+        "geoId/36",
+        "geoId/53"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "place_type": "State"
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "place_type": "State"
+        }
+      ]
+    },
+    "places_found_str": [
+      "california",
+      "new york state",
+      "washington state"
+    ],
+    "query_transformations": {
+      "place_detection_input": "compare with california and new york state and washington state",
+      "place_detection_with_places_removed": "compare with and and",
+      "sv_detection_query_input": "compare with and and",
+      "sv_detection_query_stop_words_removal": ""
+    }
+  },
   "query_with_places_removed": "compare with and and",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
