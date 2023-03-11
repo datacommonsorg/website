@@ -15,12 +15,14 @@
 from dataclasses import dataclass
 from dataclasses import field
 import logging
+import time
 from typing import Dict, List
 
 from server.lib.nl import constants
 from server.lib.nl import topic
 from server.lib.nl import utils
 from server.lib.nl import variable
+import server.lib.nl.counters as ctr
 from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
 from server.lib.nl.detection import Place
@@ -109,7 +111,7 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
                  utterance=state.uttr,
                  attr=attr)
   state.uttr.chartCandidates.append(ch)
-  utils.update_counter(state.uttr.counters, 'num_chart_candidates', 1)
+  state.uttr.counters.info('num_chart_candidates', 1)
   return True
 
 
@@ -123,8 +125,7 @@ def populate_charts(state: PopulateState) -> bool:
     if (populate_charts_for_places(state, state.uttr.places)):
       return True
     else:
-      utils.update_counter(state.uttr.counters, 'failed_populate_main_places',
-                           state.uttr.places)
+      state.uttr.counters.warn('failed_populate_main_places', state.uttr.places)
   else:
     # If user has not provided a place, seek a place from the context.
     # Otherwise the result seems unexpected to them.
@@ -132,8 +133,7 @@ def populate_charts(state: PopulateState) -> bool:
       if (populate_charts_for_places(state, [pl])):
         return True
       else:
-        utils.update_counter(state.uttr.counters,
-                             'failed_populate_context_place', pl.dcid)
+        state.uttr.counters.warn('failed_populate_context_place', pl.dcid)
 
   # If this query did not have a place, but had a contained-in attribute, we
   # might try specific default places.
@@ -153,8 +153,7 @@ def populate_charts_for_places(state: PopulateState,
     if _add_charts_with_place_fallback(state, places, state.uttr.svs):
       return True
     else:
-      utils.update_counter(state.uttr.counters, 'failed_populate_main_svs',
-                           state.uttr.svs)
+      state.uttr.counters.warn('failed_populate_main_svs', state.uttr.svs)
   else:
     # If we have not found an SV, only then seek an SV from the context.
     # Otherwise the result seems unexpected to them.
@@ -162,11 +161,10 @@ def populate_charts_for_places(state: PopulateState,
       if _add_charts_with_place_fallback(state, places, svs):
         return True
       else:
-        utils.update_counter(state.uttr.counters, 'failed_populate_context_svs',
-                             svs)
+        state.uttr.counters.warn('failed_populate_context_svs', svs)
   logging.info('Doing fallback for %s - %s',
                ', '.join(_get_place_names(places)), ', '.join(state.uttr.svs))
-  utils.update_counter(state.uttr.counters, 'num_populate_fallbacks', 1)
+  state.uttr.counters.warn('num_populate_fallbacks', 1)
   return False
 
 
@@ -200,21 +198,21 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
   while parent_type:
     if state.place_type:
       # Pick next parent type.
-      utils.update_counter(state.uttr.counters, 'parent_place_type_fallback',
-                           parent_type)
+      state.uttr.counters.warn('parent_place_type_fallback', parent_type)
       state.place_type = parent_type
     else:
       # Pick parent place.
-      parents = utils.get_immediate_parent_places(place.dcid, parent_type)
+      parents = utils.get_immediate_parent_places(place.dcid, parent_type,
+                                                  state.uttr.counters)
       if not parents:
-        utils.update_counter(state.uttr.counters, 'failed_get_parent_places', {
+        state.uttr.counters.warn('failed_get_parent_places', {
             'dcid': place.dcid,
             'type': parent_type
         })
         return False
 
       # There's typically a single parent, pick the first.
-      utils.update_counter(state.uttr.counters, 'parent_place_fallback', {
+      state.uttr.counters.warn('parent_place_fallback', {
           'child': place.dcid,
           'parent': parents[0].dcid
       })
@@ -275,13 +273,12 @@ class ExistenceCheckStateTracker:
                                                 exist_svs=[])
         if chart_vars.event:
           exist_cv.exist_event = utils.event_existence_for_place(
-              places[0], chart_vars.event)
+              places[0], chart_vars.event, self.state.uttr.counters)
           if not exist_cv.exist_event:
-            utils.update_counter(state.uttr.counters,
-                                 'failed_event_existence_check', {
-                                     'places': places,
-                                     'event': chart_vars.event
-                                 })
+            state.uttr.counters.warn('failed_event_existence_check', {
+                'places': places,
+                'event': chart_vars.event
+            })
         else:
           self.all_svs.update(chart_vars.svs)
         exist_state.chart_vars_list.append(exist_cv)
@@ -296,7 +293,8 @@ class ExistenceCheckStateTracker:
 
   def perform_existence_check(self):
     # Perform batch existence check.
-    exist_svs = utils.sv_existence_for_places(self.places, list(self.all_svs))
+    exist_svs = utils.sv_existence_for_places(self.places, list(self.all_svs),
+                                              self.state.uttr.counters)
     exist_svs = set(exist_svs)
     if exist_svs:
       logging.info('Existence check succeeded for %s - %s',
@@ -304,7 +302,7 @@ class ExistenceCheckStateTracker:
     else:
       logging.info('Existence check failed for %s - %s', ', '.join(self.places),
                    ', '.join(self.all_svs))
-      utils.update_counter(self.state.uttr.counters, 'failed_existence_check', {
+      self.state.uttr.counters.warn('failed_existence_check', {
           'places': self.places,
           'svs': list(self.all_svs),
       })
@@ -318,8 +316,8 @@ class ExistenceCheckStateTracker:
           if sv in exist_svs:
             ecv.exist_svs.append(sv)
         if len(ecv.exist_svs) < len(ecv.chart_vars.svs):
-          utils.update_counter(
-              self.state.uttr.counters, 'failed_partial_existence_check', {
+          self.state.uttr.counters.warn(
+              'failed_partial_existence_check', {
                   'places': self.places,
                   'svs': list(set(ecv.chart_vars.svs) - set(exist_svs)),
               })
@@ -329,8 +327,8 @@ class ExistenceCheckStateTracker:
           es.extended_exist_svs.append(esv)
 
       if len(es.extended_exist_svs) < len(es.extended_svs):
-        utils.update_counter(
-            self.state.uttr.counters, 'failed_existence_check_extended_svs', {
+        self.state.uttr.counters.warn(
+            'failed_existence_check_extended_svs', {
                 'places': self.places,
                 'svs': list(set(es.extended_svs) - set(es.extended_exist_svs))
             })
@@ -362,9 +360,10 @@ def _add_charts(state: PopulateState, places: List[Place],
   # Map of main SV -> peer SVs
   sv2extensions = {}
   if state.uttr.query_type == QueryType.SIMPLE:
+    start = time.time()
     sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
-    utils.update_counter(state.uttr.counters, 'stat_var_extensions',
-                         sv2extensions)
+    state.uttr.counters.timeit('extend_svs', start)
+    state.uttr.counters.info('stat_var_extensions', sv2extensions)
 
   tracker = ExistenceCheckStateTracker(state, places_to_check, svs,
                                        sv2extensions)
@@ -388,8 +387,8 @@ def _add_charts(state: PopulateState, places: List[Place],
                            ChartOriginType.PRIMARY_CHART):
             found = True
           else:
-            utils.update_counter(state.uttr.counters,
-                                 'failed_populate_callback_primary_event', 1)
+            state.uttr.counters.warn('failed_populate_callback_primary_event',
+                                     1)
       else:
         exist_svs = exist_cv.exist_svs
         if exist_svs:
@@ -399,8 +398,7 @@ def _add_charts(state: PopulateState, places: List[Place],
                            ChartOriginType.PRIMARY_CHART):
             found = True
           else:
-            utils.update_counter(state.uttr.counters,
-                                 'failed_populate_callback_primary', 1)
+            state.uttr.counters.warn('failed_populate_callback_primary', 1)
 
     # Infer comparison charts with extended SVs.
     extended_svs = sv2extensions.get(exist_state.sv, [])
@@ -422,8 +420,7 @@ def _add_charts(state: PopulateState, places: List[Place],
                        ChartOriginType.SECONDARY_CHART):
         found = True
       else:
-        utils.update_counter(state.uttr.counters,
-                             'failed_populate_callback_secondary', 1)
+        state.uttr.counters.warn('failed_populate_callback_secondary', 1)
 
   logging.info("Add chart %s %s returning %r" %
                (', '.join(_get_place_names(places)), svs, found))
@@ -454,6 +451,7 @@ def _build_chart_vars(state: PopulateState, sv: str,
     state.block_id += 1
     return [ChartVars(svs=[sv], block_id=state.block_id)]
   if utils.is_topic(sv):
+    start = time.time()
     topic_vars = topic.get_topic_vars(sv, rank)
     peer_groups = topic.get_topic_peers(topic_vars)
 
@@ -467,6 +465,7 @@ def _build_chart_vars(state: PopulateState, sv: str,
         svpgs.append((title, description, peer_groups[v]))
       else:
         just_svs.append(v)
+    state.uttr.counters.timeit('topic_calls', start)
 
     # Group into blocks carefully:
 
@@ -504,11 +503,11 @@ def _build_chart_vars(state: PopulateState, sv: str,
                     is_topic_peer_group=True,
                     source_topic=sv))
 
-    utils.update_counter(state.uttr.counters, 'topics_processed',
-                         {sv: {
-                             'svs': just_svs,
-                             'peer_groups': svpgs,
-                         }})
+    state.uttr.counters.info('topics_processed',
+                             {sv: {
+                                 'svs': just_svs,
+                                 'peer_groups': svpgs,
+                             }})
     return charts
 
   return []
@@ -517,18 +516,21 @@ def _build_chart_vars(state: PopulateState, sv: str,
 # Takes a list of ordered vars which may contain SV and topic,
 # opens up "highly ranked" topics into SVs and returns it
 # ordered.
-def open_top_topics_ordered(svs: List[str], counters: Dict) -> List[str]:
+def open_top_topics_ordered(svs: List[str],
+                            counters: ctr.Counters) -> List[str]:
   opened_svs = []
   sv_set = set()
+  start = time.time()
   for rank, var in enumerate(svs):
     for sv in _open_topic_in_var(var, rank, counters):
       if sv not in sv_set:
         opened_svs.append(sv)
         sv_set.add(sv)
+  counters.timeit('open_top_topics_ordered', start)
   return opened_svs
 
 
-def _open_topic_in_var(sv: str, rank: int, counters: Dict) -> List[str]:
+def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   if utils.is_sv(sv):
     return [sv]
   if utils.is_topic(sv):
@@ -549,11 +551,11 @@ def _open_topic_in_var(sv: str, rank: int, counters: Dict) -> List[str]:
     for (title, svpg) in svpgs:
       svs.extend(svpg)
 
-    utils.update_counter(counters, 'topics_processed',
-                         {sv: {
-                             'svs': just_svs,
-                             'peer_groups': svpgs,
-                         }})
+    counters.info('topics_processed',
+                  {sv: {
+                      'svs': just_svs,
+                      'peer_groups': svpgs,
+                  }})
 
     return svs
 
@@ -564,8 +566,8 @@ def handle_contained_in_across(state: PopulateState, places: List[Place]):
   if utils.get_contained_in_type(
       state.uttr) == ContainedInPlaceType.ACROSS and len(places) == 1:
     state.place_type = utils.get_default_child_place_type(places[0])
-    utils.update_counter(state.uttr.counters, 'contained_in_across_fallback',
-                         state.place_type.value)
+    state.uttr.counters.info('contained_in_across_fallback',
+                             state.place_type.value)
 
 
 def get_default_contained_in_place(state: PopulateState) -> Place:

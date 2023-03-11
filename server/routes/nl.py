@@ -17,6 +17,7 @@ import asyncio
 import json
 import logging
 import os
+import time
 from typing import Dict, List
 
 import flask
@@ -30,6 +31,7 @@ from google.protobuf.json_format import MessageToJson
 import requests
 
 import server.lib.nl.constants as constants
+import server.lib.nl.counters as ctr
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Detection
 from server.lib.nl.detection import NLClassifier
@@ -467,14 +469,12 @@ def data():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
 
-  # TODO: Switch to NL-specific event configs instead of relying
-  # on disaster dashboard's.
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     disaster_config = get_nl_disaster_config()
   else:
-    logging.error('Unable to load event configs!')
+    logging.info('Unable to load event configs!')
 
   original_query = request.args.get('q')
   context_history = []
@@ -499,12 +499,16 @@ def data():
                                    _detection("", ""), escaped_context_history,
                                    {})
 
+  counters = ctr.Counters()
+
   query_detection_debug_logs = {}
   query_detection_debug_logs["original_query"] = query
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
+  start = time.time()
   query_detection = _detection(str(escape(original_query)), query,
                                query_detection_debug_logs)
+  counters.timeit('query_detection', start)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
@@ -516,12 +520,18 @@ def data():
     else:
       session_id = constants.TEST_SESSION_ID
 
-  utterance = fulfillment.fulfill(query_detection, prev_utterance, session_id)
+  start = time.time()
+  utterance = fulfillment.fulfill(query_detection, prev_utterance, counters,
+                                  session_id)
+  counters.timeit('fulfillment', start)
 
   if utterance.rankedCharts:
+    start = time.time()
     page_config_pb = nl_page_config.build_page_config(utterance,
                                                       disaster_config)
     page_config = json.loads(MessageToJson(page_config_pb))
+    counters.timeit('build_page_config', start)
+
     # Use the first chart's place as main place.
     main_place = utterance.rankedCharts[0].places[0]
   else:
@@ -530,7 +540,7 @@ def data():
     logging.info('Found empty place for query "%s"',
                  query_detection.original_query)
 
-  dbg_counters = utterance.counters
+  dbg_counters = utterance.counters.get()
   utterance.counters = None
   context_history = nl_utterance.save_utterance(utterance)
 

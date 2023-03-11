@@ -75,7 +75,7 @@ export function DisasterEventMapInfoCard(
           })}
       </div>
       <div className="disaster-event-map-info-card-footer">
-        <a href={`/browser/${props.eventData.placeDcid}`}>More info</a>
+        <a href={`/event/${props.eventData.placeDcid}`}>More info</a>
       </div>
     </div>
   );

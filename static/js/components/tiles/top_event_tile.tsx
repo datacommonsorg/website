@@ -382,7 +382,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   }
 
   function addEventLink(eventId: string, displayStr: string): JSX.Element {
-    return <a href={`/browser/${eventId}`}>{displayStr}</a>;
+    return <a href={`/event/${eventId}`}>{displayStr}</a>;
   }
 
   function getDisplayDate(event: DisasterEventPoint): string {

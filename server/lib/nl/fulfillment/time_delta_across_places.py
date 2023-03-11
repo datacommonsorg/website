@@ -51,28 +51,23 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for time_delta_across_places')
   if chart_vars.event:
-    utils.update_counter(state.uttr.counters,
-                         'time-delta-across-places_failed_cb_events', 1)
+    state.uttr.counters.warn('time-delta-across-places_failed_cb_events', 1)
     return False
   if not state.time_delta_types:
-    utils.update_counter(state.uttr.counters,
-                         'time-delta-across-places_failed_cb_notimedeltatypes',
-                         1)
+    state.uttr.counters.warn(
+        'time-delta-across-places_failed_cb_notimedeltatypes', 1)
     return False
   if len(places) > 1:
-    utils.update_counter(state.uttr.counters,
-                         'time-delta-across-places_failed_cb_toomanyplaces',
-                         [p.dcid for p in places])
+    state.uttr.counters.warn('time-delta-across-places_failed_cb_toomanyplaces',
+                             [p.dcid for p in places])
     return False
   if len(chart_vars.svs) > 1:
-    utils.update_counter(state.uttr.counters,
-                         'time-delta-across-places_failed_cb_toomanysvs',
-                         chart_vars.svs)
+    state.uttr.counters.warn('time-delta-across-places_failed_cb_toomanysvs',
+                             chart_vars.svs)
     return False
   if not state.place_type:
-    utils.update_counter(state.uttr.counters,
-                         'time-delta-across-places_failed_cb_missingchildtype',
-                         chart_vars.svs)
+    state.uttr.counters.warn(
+        'time-delta-across-places_failed_cb_missingchildtype', chart_vars.svs)
     return False
 
   found = False
@@ -84,7 +79,8 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   # Get place DCIDs.
   parent_place = places[0].dcid
   child_places = utils.get_all_child_places([parent_place],
-                                            state.place_type.value)
+                                            state.place_type.value,
+                                            state.uttr.counters)
 
   dcid2place = {c.dcid: c for c in child_places}
   dcids = list(dcid2place.keys())
@@ -94,10 +90,11 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
       places=dcids,
       sv=chart_vars.svs[0],
       growth_direction=direction,
-      rank_order=rank_order)
+      rank_order=rank_order,
+      counters=state.uttr.counters)
 
-  utils.update_counter(
-      state.uttr.counters, 'time-delta_reranked_places', {
+  state.uttr.counters.info(
+      'time-delta_reranked_places', {
           'orig': dcids,
           'ranked_abs': ranked_children.abs,
           'ranked_pct': ranked_children.pct,

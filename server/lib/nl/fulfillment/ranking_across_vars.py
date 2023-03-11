@@ -49,8 +49,7 @@ def populate(uttr: Utterance):
                       ranking_types=ranking_types)):
       return True
     else:
-      utils.update_counter(uttr.counters, 'ranking-across-vars_failed_populate',
-                           1)
+      uttr.counters.warn('ranking-across-vars_failed_populate', 1)
 
   return False
 
@@ -59,42 +58,36 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for ranking_across_vars')
   if chart_vars.event:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-vars_failed_cb_events', 1)
+    state.uttr.counters.warn('ranking-across-vars_failed_cb_events', 1)
     return False
   if not state.ranking_types:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-vars_failed_cb_norankingtypes', 1)
+    state.uttr.counters.warn('ranking-across-vars_failed_cb_norankingtypes', 1)
     return False
   if len(places) > 1:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-vars_failed_cb_toomanyplaces',
-                         [p.dcid for p in places])
+    state.uttr.counters.warn('ranking-across-vars_failed_cb_toomanyplaces',
+                             [p.dcid for p in places])
     return False
   if state.place_type:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-vars_failed_cb_hasplacetype',
-                         state.place_type.value)
+    state.uttr.counters.warn('ranking-across-vars_failed_cb_hasplacetype',
+                             state.place_type.value)
     return False
   if len(chart_vars.svs) < 2:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-vars_failed_cb_toofewvars',
-                         chart_vars.svs)
+    state.uttr.counters.warn('ranking-across-vars_failed_cb_toofewvars',
+                             chart_vars.svs)
     return False
   if not chart_vars.is_topic_peer_group:
-    utils.update_counter(state.uttr.counters,
-                         'ranking-across-vars_failed_cb_notpeergroup',
-                         chart_vars.svs)
+    state.uttr.counters.warn('ranking-across-vars_failed_cb_notpeergroup',
+                             chart_vars.svs)
     return False
 
   # Ranking among peer group of SVs.
   ranked_svs = utils.rank_svs_by_latest_value(places[0].dcid, chart_vars.svs,
-                                              state.ranking_types[0])
-  utils.update_counter(state.uttr.counters, 'ranking-across-vars_reranked_svs',
-                       {
-                           'orig': chart_vars.svs,
-                           'ranked': ranked_svs,
-                       })
+                                              state.ranking_types[0],
+                                              state.uttr.counters)
+  state.uttr.counters.info('ranking-across-vars_reranked_svs', {
+      'orig': chart_vars.svs,
+      'ranked': ranked_svs,
+  })
   chart_vars.svs = ranked_svs[:_MAX_VARS_IN_A_CHART]
   # Show per-capita too.
   chart_vars.include_percapita = True

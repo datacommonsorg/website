@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## This file specifies the disaster dashboard config for Earth.
+## This file specifies the disaster dashboard config for all places.
 
 metadata {
   topic_id: "disaster_dashboard"

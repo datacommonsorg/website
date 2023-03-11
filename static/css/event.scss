@@ -16,8 +16,16 @@
 
 @use "base";
 @use "table";
+@use "./shared/subject_page";
+@use "./draw";
+@use "./draw_choropleth";
+@use "./draw_scatter";
+@use "./shared/story_block";
+@use "./shared/story_chart";
 
 .head-section {
+  margin-bottom: 1rem;
+
   h1 {
     font-size: 1.6rem;
     font-weight: 700;
@@ -27,7 +35,19 @@
     color: var(--secondary);
     font-size: 1rem;
     font-weight: normal;
-    line-height: 1rem;
+    font-weight: 600;
+  }
+
+  h4 {
+    color: var(--secondary);
+    font-size: .9rem;
+    font-weight: 300;
+    line-height: 1.4rem;
+  }
+
+  a {
+    color: var(--secondary);
+    text-decoration: underline;
   }
 }
 
