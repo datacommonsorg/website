@@ -188,8 +188,9 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
   place = places[0]  # Caller populate_charts_for_places ensures this exists
 
   if place.place_type == 'Continent':
-    # Earth is special we can only fallback up to Earth (which is typeOf "Place"),
-    # so PARENT_PLACE_TYPES are not useful.
+    # Continent is special in that it has a single parent entity
+    # 'Earth' which is of a general type 'Place'. So handle it here
+    # (instead of relying on PARENT_PLACE_TYPES).
     earth = Place(
         dcid='Earth',
         name='Earth',
