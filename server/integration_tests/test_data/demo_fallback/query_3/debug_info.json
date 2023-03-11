@@ -91,16 +91,16 @@
           "geoId/06029"
         ],
         "svs": [
-          "Count_CriminalActivities_Arson",
-          "Count_CriminalIncidents_IsHateCrime",
-          "Count_CriminalActivities_LarcenyTheft",
           "Count_CriminalActivities_ForcibleRape",
-          "Count_CriminalActivities_MotorVehicleTheft",
-          "Count_CriminalActivities_PropertyCrime",
-          "Count_CriminalActivities_CombinedCrime",
+          "Count_CriminalActivities_Arson",
           "Count_CriminalActivities_Burglary",
-          "Count_CriminalActivities_ViolentCrime",
-          "Count_CriminalActivities_Robbery"
+          "Count_CriminalActivities_PropertyCrime",
+          "Count_CriminalIncidents_IsHateCrime",
+          "Count_CriminalActivities_MotorVehicleTheft",
+          "Count_CriminalActivities_CombinedCrime",
+          "Count_CriminalActivities_Robbery",
+          "Count_CriminalActivities_LarcenyTheft",
+          "Count_CriminalActivities_ViolentCrime"
         ]
       },
       {
@@ -122,16 +122,16 @@
           "geoId/06029"
         ],
         "svs": [
-          "Count_CriminalActivities_Arson",
-          "Count_CriminalIncidents_IsHateCrime",
-          "Count_CriminalActivities_LarcenyTheft",
           "Count_CriminalActivities_ForcibleRape",
-          "Count_CriminalActivities_MotorVehicleTheft",
-          "Count_CriminalActivities_PropertyCrime",
-          "Count_CriminalActivities_CombinedCrime",
+          "Count_CriminalActivities_Arson",
           "Count_CriminalActivities_Burglary",
-          "Count_CriminalActivities_ViolentCrime",
-          "Count_CriminalActivities_Robbery"
+          "Count_CriminalActivities_PropertyCrime",
+          "Count_CriminalIncidents_IsHateCrime",
+          "Count_CriminalActivities_MotorVehicleTheft",
+          "Count_CriminalActivities_CombinedCrime",
+          "Count_CriminalActivities_Robbery",
+          "Count_CriminalActivities_LarcenyTheft",
+          "Count_CriminalActivities_ViolentCrime"
         ]
       }
     ],

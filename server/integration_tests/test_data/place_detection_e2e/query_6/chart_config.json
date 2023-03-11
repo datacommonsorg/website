@@ -598,20 +598,20 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Females Below Poverty Level in the Last Year in Counties of United States of America (${date})",
+                    "title": "Female Population Below Poverty Level in the Last Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Females Below Poverty Level in the Last Year in Counties of United States of America (${date})",
+                    "title": "Female Population Below Poverty Level in the Last Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Females Below Poverty Level in the Last Year"
+            "title": "Female Population Below Poverty Level in the Last Year"
           },
           {
             "columns": [
@@ -625,14 +625,14 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Females Below Poverty Level in the Last Year in Counties of United States of America (${date})",
+                    "title": "Per Capita Female Population Below Poverty Level in the Last Year in Counties of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Females Below Poverty Level in the Last Year in Counties of United States of America (${date})",
+                    "title": "Per Capita Female Population Below Poverty Level in the Last Year in Counties of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -732,12 +732,12 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-            "name": "Females Below Poverty Level in the Last Year",
+            "name": "Female Population Below Poverty Level in the Last Year",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Females Below Poverty Level in the Last Year",
+            "name": "Female Population Below Poverty Level in the Last Year",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
