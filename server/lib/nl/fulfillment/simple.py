@@ -34,7 +34,7 @@ def populate(uttr: Utterance) -> bool:
     # If both the SVs and places are empty, then do not attempt to fulfill.
     # This avoids using incorrect context for unrelated queries like
     # [meaning of life]
-    uttr.counters.warn('simple_failed_noplaceandsv', 1)
+    uttr.counters.err('simple_failed_noplaceandsv', 1)
     return False
   return populate_charts(PopulateState(uttr=uttr, main_cb=_populate_cb))
 

@@ -130,10 +130,10 @@ export const QueryResult = memo(function QueryResult(
           </a>
         </Container>
         <Container>
-          {debugData && chartsData && (
+          {debugData && (
             <DebugInfo
               debugData={debugData}
-              pageConfig={chartsData.config}
+              pageConfig={chartsData ? chartsData.config : null}
             ></DebugInfo>
           )}
           {chartsData && chartsData.config && (

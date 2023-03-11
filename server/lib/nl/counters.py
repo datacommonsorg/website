@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
+import logging
 import time
 from typing import Dict
 
@@ -22,7 +24,7 @@ from typing import Dict
 class Counters:
 
   def __init__(self):
-    self._warn: Dict = {}
+    self._err: Dict = {}
     self._info: Dict = {}
     self._timing: Dict = {}
 
@@ -33,6 +35,8 @@ class Counters:
   # for value.  If value is numeric, then its a single updated
   # counter, otherwise, counter is a list of values.
   #
+  # REQUIRES: `value` should be a JSON serializable type
+  #
   def info(self, counter: str, value: any):
     self._update(self._info, counter, value)
 
@@ -41,8 +45,10 @@ class Counters:
   #
   # Same behavior as info()
   #
-  def warn(self, counter: str, value: any):
-    self._update(self._warn, counter, value)
+  # REQUIRES: `value` should be a JSON serializable type
+  #
+  def err(self, counter: str, value: any):
+    self._update(self._err, counter, value)
 
   #
   # Given start-time, computes the elapsed time and
@@ -53,10 +59,16 @@ class Counters:
     self._timing[counter] = self._timing.get(counter, 0) + duration
 
   #
-  # Returns a dict with all counters.
+  # Returns a JSON serializable dict with all counters.
   #
   def get(self) -> Dict:
-    return {'ERROR': self._warn, 'INFO': self._info, 'TIMING': self._timing}
+    result = {'ERROR': self._err, 'INFO': self._info, 'TIMING': self._timing}
+    try:
+      json.dumps(result)
+      return result
+    except TypeError as e:
+      logging.exception(e)
+      return {'ERROR': 'FATAL: Found unserializable counter value!'}
 
   def _update(self, counters: Dict, counter: str, value: any):
     should_add = counter not in counters
@@ -65,6 +77,8 @@ class Counters:
         counters[counter] = 0
       counters[counter] += value
     else:
+      if isinstance(value, set):
+        value = list(value)
       if should_add:
         counters[counter] = []
       counters[counter].append(value)

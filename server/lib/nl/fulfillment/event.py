@@ -34,7 +34,7 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
       not isinstance(event_classification[0].attributes,
                      detection.EventClassificationAttributes) or
       not event_classification[0].attributes.event_types):
-    uttr.counters.warn('event_failed_no_event_types', 1)
+    uttr.counters.err('event_failed_no_event_types', 1)
     return False
   event_types = event_classification[0].attributes.event_types
 
@@ -58,13 +58,13 @@ def _populate_event(state: base.PopulateState,
     if (_populate_event_for_place(state, event_types, pl)):
       return True
     else:
-      state.uttr.counters.warn('event_failed_populate_main_place', pl.dcid)
+      state.uttr.counters.err('event_failed_populate_main_place', pl.dcid)
   if not state.uttr.places:
     for pl in ctx.places_from_context(state.uttr):
       if (_populate_event_for_place(state, event_types, pl)):
         return True
       else:
-        state.uttr.counters.warn('event_failed_populate_context_place', pl.dcid)
+        state.uttr.counters.err('event_failed_populate_context_place', pl.dcid)
 
   # Use a default of USA.
   return _populate_event_for_place(state, event_types, _DEFAULT_EVENT_PLACE)
@@ -76,7 +76,7 @@ def _populate_event_for_place(state: base.PopulateState,
   event_type = event_types[0]
   if not utils.event_existence_for_place(place.dcid, event_type,
                                          state.uttr.counters):
-    state.uttr.counters.warn('event_failed_existence_check', {
+    state.uttr.counters.err('event_failed_existence_check', {
         'place': place.dcid,
         'event': event_type
     })
