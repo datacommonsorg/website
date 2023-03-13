@@ -95,6 +95,11 @@ resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
   name    = format("dc-website-cert%s", local.resource_suffix)
   project = var.project_id
 
+  # https://github.com/hashicorp/terraform-provider-google/issues/5356
+  lifecycle {
+    create_before_destroy = true
+  }
+
   managed {
     domains = [format("%s.", var.dc_website_domain)]
   }
