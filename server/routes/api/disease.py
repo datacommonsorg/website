@@ -13,6 +13,7 @@
 # limitations under the License.
 """Disease browser related handlers."""
 
+from dataclasses import dataclass
 import json
 from json import JSONEncoder
 
@@ -24,12 +25,29 @@ import server.services.datacommons as dc_service
 
 bp = flask.Blueprint('api.disease', __name__, url_prefix='/api/disease')
 
+# disease of final parent
+FINAL_PARENT_DISEASE_DCID = "bio/DOID_4"
+
+
+# class which defines an object storing parent dcid and name
+@dataclass
+class DiseaseParent:
+  dcid: str
+  name: str
+
+
+# subclass JSONEncoder
+class DiseaseParentEncoder(JSONEncoder):
+
+  def default(self, o):
+    return o.__dict__
+
 
 # Cache for one day.
 @cache.memoize(timeout=3600 * 24)
 @bp.route('/<path:dcid>')
 def get_node(dcid):
-  """Returns data given a disease node."""
+  """Returns data for given a disease node."""
   response = dc_service.fetch_data('/internal/bio', {
       'dcid': dcid,
   },
@@ -44,11 +62,9 @@ def get_disease_parent(dcid):
   """Returns parent node for given a disease node."""
   # list to store parent node
   list_parent = []
-  # disease of final parent
-  DISEASE_DCID = "bio/DOID_4"
   curr_dcid = dcid
   # dcid of the biggest parent node where iteration stops
-  while (curr_dcid != DISEASE_DCID):
+  while (curr_dcid != FINAL_PARENT_DISEASE_DCID):
     node_dcids = dc_service.property_values([curr_dcid],
                                             "specializationOf").get(
                                                 curr_dcid, [])
@@ -66,18 +82,3 @@ def get_disease_parent(dcid):
   return Response(json.dumps(list_parent, cls=DiseaseParentEncoder),
                   200,
                   mimetype='application/json')
-
-
-# class which defines an object storing parent dcid and name
-class DiseaseParent:
-
-  def __init__(self, dcid, name):
-    self.dcid = dcid
-    self.name = name
-
-
-# subclass JSONEncoder
-class DiseaseParentEncoder(JSONEncoder):
-
-  def default(self, o):
-    return o.__dict__
