@@ -51,22 +51,22 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for time_delta_across_places')
   if chart_vars.event:
-    state.uttr.counters.warn('time-delta-across-places_failed_cb_events', 1)
+    state.uttr.counters.err('time-delta-across-places_failed_cb_events', 1)
     return False
   if not state.time_delta_types:
-    state.uttr.counters.warn(
+    state.uttr.counters.err(
         'time-delta-across-places_failed_cb_notimedeltatypes', 1)
     return False
   if len(places) > 1:
-    state.uttr.counters.warn('time-delta-across-places_failed_cb_toomanyplaces',
-                             [p.dcid for p in places])
+    state.uttr.counters.err('time-delta-across-places_failed_cb_toomanyplaces',
+                            [p.dcid for p in places])
     return False
   if len(chart_vars.svs) > 1:
-    state.uttr.counters.warn('time-delta-across-places_failed_cb_toomanysvs',
-                             chart_vars.svs)
+    state.uttr.counters.err('time-delta-across-places_failed_cb_toomanysvs',
+                            chart_vars.svs)
     return False
   if not state.place_type:
-    state.uttr.counters.warn(
+    state.uttr.counters.err(
         'time-delta-across-places_failed_cb_missingchildtype', chart_vars.svs)
     return False
 

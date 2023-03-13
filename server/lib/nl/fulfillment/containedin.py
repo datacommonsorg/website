@@ -43,8 +43,8 @@ def populate(uttr: Utterance) -> bool:
         PopulateState(uttr=uttr, main_cb=_populate_cb, place_type=place_type)):
       return True
     else:
-      uttr.counters.warn('containedin_failed_populate_placetype',
-                         place_type.value)
+      uttr.counters.err('containedin_failed_populate_placetype',
+                        place_type.value)
   return False
 
 
@@ -54,24 +54,24 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('populate_cb for contained-in')
 
   if chart_vars.event:
-    state.uttr.counters.warn('containedin_failed_cb_events', 1)
+    state.uttr.counters.err('containedin_failed_cb_events', 1)
     return False
   if not state.place_type:
-    state.uttr.counters.warn('containedin_failed_cb_missing_type', 1)
+    state.uttr.counters.err('containedin_failed_cb_missing_type', 1)
     return False
   if not utils.has_map(state.place_type):
-    state.uttr.counters.warn('containedin_failed_cb_nonmap_type',
-                             state.place_type)
+    state.uttr.counters.err('containedin_failed_cb_nonmap_type',
+                            state.place_type)
     return False
   if not chart_vars:
-    state.uttr.counters.warn('containedin_failed_cb_missing_chat_vars', 1)
+    state.uttr.counters.err('containedin_failed_cb_missing_chat_vars', 1)
     return False
   if not chart_vars.svs:
-    state.uttr.counters.warn('containedin_failed_cb_missing_svs', 1)
+    state.uttr.counters.err('containedin_failed_cb_missing_svs', 1)
     return False
   if len(contained_places) > 1:
-    state.uttr.counters.warn('containedin_failed_cb_toomanyplaces',
-                             contained_places)
+    state.uttr.counters.err('containedin_failed_cb_toomanyplaces',
+                            contained_places)
     return False
 
   chart_vars.response_type = "comparison map"
