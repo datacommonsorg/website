@@ -68,64 +68,6 @@
         ]
       }
     ],
-    "stat_var_extensions": [
-      {
-        "Count_Worker_NAICSTotalAllIndustries": [
-          "Count_Worker_NAICSTotalAllIndustries",
-          "Count_Worker_NAICSAgricultureForestryFishingHunting",
-          "dc/hlxvn1t8b9bhh",
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-          "Count_Worker_NAICSUtilities",
-          "Count_Worker_NAICSConstruction",
-          "dc/107jnwnsh17xb",
-          "dc/rlk1yxmkk1qqg",
-          "dc/8b3gpw1zyr7bf",
-          "dc/ndg1xk1e9frc2",
-          "dc/tqgf8zv96r5t8",
-          "dc/dy2k68mmhenfd",
-          "dc/z27q5dymqyrnf",
-          "dc/7bck6xpkc205c",
-          "dc/ws19bm1hl105b",
-          "dc/6n6l2wrzv7473",
-          "dc/vp4cplffwv86g",
-          "dc/34t2kjrwbjd31",
-          "dc/eh7s78v8s14l9",
-          "dc/qnz3rlypmfvw6",
-          "dc/90nswpkp8wlw5",
-          "Count_Worker_NAICSWholesaleTrade",
-          "dc/p69tpsldf99h7",
-          "dc/e2zdnwjjhyj36",
-          "dc/c0wxmt45gffxc",
-          "dc/4mm2p1rxr5wz4",
-          "dc/2etwgx6vecreh",
-          "dc/63gkdt13bmsv8",
-          "dc/3kwcvm428wpq4",
-          "dc/h1jy2glt2m7e6",
-          "dc/k3hehk50ch012",
-          "dc/8p97n7l96lgg8",
-          "dc/bwr1l8y9we9k7",
-          "dc/yn0h4nw4k23f1",
-          "dc/v3qgyhwx13m44",
-          "dc/bb4peddkgmqe7",
-          "dc/8j8w7pf73ekn",
-          "dc/n87t9dkckzxc8",
-          "dc/w1tfjz3h6138",
-          "Count_Worker_NAICSInformation",
-          "Count_Worker_NAICSFinanceInsurance",
-          "Count_Worker_NAICSRealEstateRentalLeasing",
-          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-          "Count_Worker_NAICSManagementOfCompaniesEnterprises",
-          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-          "Count_Worker_NAICSEducationalServices",
-          "Count_Worker_NAICSHealthCareSocialAssistance",
-          "Count_Worker_NAICSArtsEntertainmentRecreation",
-          "Count_Worker_NAICSAccommodationFoodServices",
-          "Count_Worker_NAICSOtherServices",
-          "Count_Worker_NAICSPublicAdministration",
-          "Count_Worker_NAICSNonclassifiable"
-        ]
-      }
-    ],
     "topics_processed": [
       {
         "dc/topic/Jobs": {
@@ -222,6 +164,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
         "Count_Worker_NAICSTotalAllIndustries",
@@ -244,7 +187,7 @@
         }
       ],
       "query": "Tell me about Placer County",
-      "query_type": 9,
+      "query_type": 10,
       "ranked_charts": [
         {
           "attr": {
@@ -270,6 +213,7 @@
           "svs": []
         }
       ],
+      "session_id": "007_999999999",
       "svs": []
     },
     {
@@ -289,7 +233,7 @@
       ],
       "places": [],
       "query": "Where were the major fires in the last year",
-      "query_type": 8,
+      "query_type": 9,
       "ranked_charts": [
         {
           "attr": {
@@ -317,9 +261,8 @@
           "svs": []
         }
       ],
-      "svs": [
-        "Count_WildfireEvent"
-      ]
+      "session_id": "007_999999999",
+      "svs": []
     },
     {
       "classifications": [
@@ -350,7 +293,7 @@
             "chart_type": "ranking table",
             "class": 0,
             "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
-            "include_percapita": false,
+            "include_percapita": true,
             "place_type": "County",
             "ranking_types": [
               5
@@ -379,7 +322,7 @@
             "chart_type": "ranking table",
             "class": 0,
             "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
-            "include_percapita": false,
+            "include_percapita": true,
             "place_type": "County",
             "ranking_types": [
               5
@@ -403,9 +346,9 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
-        "dc/topic/ProjectedClimateExtremes",
-        "Count_HeatEvent"
+        "dc/topic/ProjectedClimateExtremes"
       ]
     }
   ],
@@ -414,25 +357,37 @@
   "main_place_name": "<None>",
   "original_query": "What were the most common jobs there",
   "overview_classification": "<None>",
-  "places_detected": [
-    "<None>"
-  ],
+  "places_detected": [],
+  "places_resolved": "",
+  "query_detection_debug_logs": {
+    "main_place_inferred": null,
+    "original_query": "What were the most common jobs there",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "what were the most common jobs there",
+      "place_detection_with_places_removed": "What were the most common jobs there",
+      "sv_detection_query_input": "What were the most common jobs there",
+      "sv_detection_query_stop_words_removal": "common jobs"
+    }
+  },
   "query_with_places_removed": "What were the most common jobs there",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6630918979644775,
-      0.5311393141746521,
-      0.5156575441360474,
-      0.5041818022727966,
+      0.6630917191505432,
+      0.5311393737792969,
+      0.5156572461128235,
+      0.504181981086731,
       0.5037508010864258,
-      0.4981713891029358,
-      0.4957800805568695,
-      0.48678529262542725,
-      0.4793615937232971,
-      0.47694045305252075
+      0.4981713593006134,
+      0.49578019976615906,
+      0.4867854118347168,
+      0.47936156392097473,
+      0.4769403636455536
     ],
     "SV": [
       "dc/topic/Jobs",
@@ -448,89 +403,88 @@
     ],
     "SV_to_Sentences": {
       "Count_Worker_NAICSAgricultureForestryFishingHunting": [
-        "People working in agriculture, forestry, fishing, and hunting field. (0.48678529262542725)"
+        "People working in agriculture, forestry, fishing, and hunting field. (0.4867854118347168)"
       ],
       "Count_Worker_NAICSTotalAllIndustries": [
-        "People working in all fields (0.5311393141746521)"
+        "People working in all fields (0.5311393737792969)"
       ],
       "dc/g/Person_Industry-NAICS/10": [
-        "workers in total, all industries industry (0.5156575441360474)"
+        "workers in total, all industries industry (0.5156572461128235)"
       ],
       "dc/g/Person_Industry-NAICS/11": [
-        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5041818022727966)",
-        "People working in the agriculture, forestry, fishing, and hunting industry (0.5041818022727966)",
+        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.504181981086731)",
+        "People working in the agriculture, forestry, fishing, and hunting industry (0.504181981086731)",
         "workers in agriculture, forestry, fishing and hunting industry (0.48914894461631775)"
       ],
       "dc/g/Person_Industry-NAICS/1121": [
-        "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.4981713891029358)",
-        "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.4981713891029358)",
-        "workers in agriculture, forestry, fishing and hunting, and mining industry (0.4851556122303009)"
+        "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.4981713593006134)",
+        "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.4981713593006134)",
+        "workers in agriculture, forestry, fishing and hunting, and mining industry (0.48515573143959045)"
       ],
       "dc/g/Person_Industry-NAICS/44": [
-        "workers in retail trade industry (0.47694045305252075)"
+        "workers in retail trade industry (0.4769403636455536)"
       ],
       "dc/g/Person_Industry-NAICS/451": [
         "workers in sports, hobby, music instrument, book stores industry (0.5037508010864258)"
       ],
       "dc/g/Person_Industry-NAICS/54": [
-        "workers in professional, scientific, and technical services industry (0.4957800805568695)"
+        "workers in professional, scientific, and technical services industry (0.49578019976615906)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "agriculture workers (0.4793615937232971)"
+        "agriculture workers (0.47936156392097473)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.6630918979644775)",
-        "Careers (0.5856791138648987)",
-        "Work Occupations (0.5732885599136353)",
-        "Occupational professions (0.5660202503204346)",
-        "Professions (0.5471444129943848)",
-        "Employment Positions (0.5181437730789185)",
-        "Job Roles (0.5173628926277161)"
+        "Jobs (0.6630917191505432)",
+        "Careers (0.5856789946556091)",
+        "Work Occupations (0.5732883810997009)",
+        "Occupational professions (0.5660203695297241)",
+        "Professions (0.5471441745758057)",
+        "Employment Positions (0.5181440114974976)",
+        "Job Roles (0.5173631906509399)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Worker_NAICSAgricultureForestryFishingHunting": [
-      "People working in agriculture, forestry, fishing, and hunting field. (0.48678529262542725)"
+      "People working in agriculture, forestry, fishing, and hunting field. (0.4867854118347168)"
     ],
     "Count_Worker_NAICSTotalAllIndustries": [
-      "People working in all fields (0.5311393141746521)"
+      "People working in all fields (0.5311393737792969)"
     ],
     "dc/g/Person_Industry-NAICS/10": [
-      "workers in total, all industries industry (0.5156575441360474)"
+      "workers in total, all industries industry (0.5156572461128235)"
     ],
     "dc/g/Person_Industry-NAICS/11": [
-      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5041818022727966)",
-      "People working in the agriculture, forestry, fishing, and hunting industry (0.5041818022727966)",
+      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.504181981086731)",
+      "People working in the agriculture, forestry, fishing, and hunting industry (0.504181981086731)",
       "workers in agriculture, forestry, fishing and hunting industry (0.48914894461631775)"
     ],
     "dc/g/Person_Industry-NAICS/1121": [
-      "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.4981713891029358)",
-      "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.4981713891029358)",
-      "workers in agriculture, forestry, fishing and hunting, and mining industry (0.4851556122303009)"
+      "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.4981713593006134)",
+      "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.4981713593006134)",
+      "workers in agriculture, forestry, fishing and hunting, and mining industry (0.48515573143959045)"
     ],
     "dc/g/Person_Industry-NAICS/44": [
-      "workers in retail trade industry (0.47694045305252075)"
+      "workers in retail trade industry (0.4769403636455536)"
     ],
     "dc/g/Person_Industry-NAICS/451": [
       "workers in sports, hobby, music instrument, book stores industry (0.5037508010864258)"
     ],
     "dc/g/Person_Industry-NAICS/54": [
-      "workers in professional, scientific, and technical services industry (0.4957800805568695)"
+      "workers in professional, scientific, and technical services industry (0.49578019976615906)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "agriculture workers (0.4793615937232971)"
+      "agriculture workers (0.47936156392097473)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.6630918979644775)",
-      "Careers (0.5856791138648987)",
-      "Work Occupations (0.5732885599136353)",
-      "Occupational professions (0.5660202503204346)",
-      "Professions (0.5471444129943848)",
-      "Employment Positions (0.5181437730789185)",
-      "Job Roles (0.5173628926277161)"
+      "Jobs (0.6630917191505432)",
+      "Careers (0.5856789946556091)",
+      "Work Occupations (0.5732883810997009)",
+      "Occupational professions (0.5660203695297241)",
+      "Professions (0.5471441745758057)",
+      "Employment Positions (0.5181440114974976)",
+      "Job Roles (0.5173631906509399)"
     ]
   },
-  "temporal_classification": "<None>",
   "time_delta_classification": "<None>"
 }

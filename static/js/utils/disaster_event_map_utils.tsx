@@ -20,6 +20,7 @@
 
 import axios from "axios";
 import * as d3 from "d3";
+import rewind from "geojson-rewind";
 import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -53,6 +54,7 @@ import { isValidDate } from "./string_utils";
 const MAX_YEARS = 20;
 const INFO_CARD_OFFSET = 5;
 const DATE_SUBSTRING_IDX = 10;
+const REWIND_GEOJSON_TYPES = new Set(["Polygon", "MultiPolygon"]);
 
 /**
  * Get a list of dates that encompass all events for a place and a given list of event types
@@ -160,6 +162,37 @@ function parseEventPropVal(
 }
 
 /**
+ * Gets the geojson feature from a record of propvals
+ * @param eventDcid the dcid of the event to get the geojson feature for
+ * @param geoJsonProp the prop to get the geojson feature from
+ * @param propVals a record of props to vals for the eventDcid event
+ */
+function getGeoJsonFeature(
+  eventDcid: string,
+  geoJsonProp: string,
+  propVals: { [prop: string]: { vals: string[] } }
+) {
+  let geoJson = null;
+  if (propVals[geoJsonProp] && !_.isEmpty(propVals[geoJsonProp].vals)) {
+    // Remove any extra backslashes that that are in the prop val string.
+    // e.g., cyclone geojsons vals look like "{\\\"type\\\": ...}" which causes
+    //       JSON.parse to throw an error. We just  want "{\"type\": ...}"
+    const geoJsonString = propVals[geoJsonProp].vals[0].replace(/(\\)+"/g, '"');
+    let geoJsonGeo = JSON.parse(geoJsonString);
+    if (REWIND_GEOJSON_TYPES.has(geoJsonGeo.type)) {
+      geoJsonGeo = rewind(geoJsonGeo, true);
+    }
+    geoJson = {
+      type: "Feature",
+      id: eventDcid,
+      properties: { name: eventDcid, geoDcid: eventDcid },
+      geometry: geoJsonGeo,
+    };
+  }
+  return geoJson;
+}
+
+/**
  * Get event points for a specific event type, place, and date. Events are
  * processed to only include required data based on the config.
  * @param eventType event type to get data for
@@ -255,6 +288,16 @@ function fetchEventPoints(
             break;
           }
         }
+        const polygonGeoJson = getGeoJsonFeature(
+          eventData.dcid,
+          eventTypeSpec.polygonGeoJsonProp || "",
+          eventData.propVals
+        );
+        const pathGeoJson = getGeoJsonFeature(
+          eventData.dcid,
+          eventTypeSpec.pathGeoJsonProp || "",
+          eventData.propVals
+        );
         result.eventPoints.push({
           placeDcid: eventData.dcid,
           placeName: name,
@@ -267,6 +310,8 @@ function fetchEventPoints(
           endDate,
           provenanceId: eventData.provenanceId,
           affectedPlaces: eventData.places || [],
+          polygonGeoJson,
+          pathGeoJson,
         });
         seenEvents.add(eventData.dcid);
       });

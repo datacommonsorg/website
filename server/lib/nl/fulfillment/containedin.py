@@ -39,15 +39,12 @@ def populate(uttr: Utterance) -> bool:
         classification.attributes, ContainedInClassificationAttributes)):
       continue
     place_type = classification.attributes.contained_in_place_type
-    if not utils.has_map(place_type):
-      continue
     if populate_charts(
         PopulateState(uttr=uttr, main_cb=_populate_cb, place_type=place_type)):
       return True
     else:
-      utils.update_counter(uttr.counters,
-                           'containedin_failed_populate_placetype',
-                           place_type.value)
+      uttr.counters.warn('containedin_failed_populate_placetype',
+                         place_type.value)
   return False
 
 
@@ -57,24 +54,24 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('populate_cb for contained-in')
 
   if chart_vars.event:
-    utils.update_counter(state.uttr.counters, 'containedin_failed_cb_events', 1)
+    state.uttr.counters.warn('containedin_failed_cb_events', 1)
     return False
   if not state.place_type:
-    utils.update_counter(state.uttr.counters,
-                         'containedin_failed_cb_missing_type', 1)
+    state.uttr.counters.warn('containedin_failed_cb_missing_type', 1)
+    return False
+  if not utils.has_map(state.place_type):
+    state.uttr.counters.warn('containedin_failed_cb_nonmap_type',
+                             state.place_type)
     return False
   if not chart_vars:
-    utils.update_counter(state.uttr.counters,
-                         'containedin_failed_cb_missing_chat_vars', 1)
+    state.uttr.counters.warn('containedin_failed_cb_missing_chat_vars', 1)
     return False
   if not chart_vars.svs:
-    utils.update_counter(state.uttr.counters,
-                         'containedin_failed_cb_missing_svs', 1)
+    state.uttr.counters.warn('containedin_failed_cb_missing_svs', 1)
     return False
   if len(contained_places) > 1:
-    utils.update_counter(state.uttr.counters,
-                         'containedin_failed_cb_toomanyplaces',
-                         contained_places)
+    state.uttr.counters.warn('containedin_failed_cb_toomanyplaces',
+                             contained_places)
     return False
 
   chart_vars.response_type = "comparison map"

@@ -15,10 +15,16 @@
 
 set -e
 
-REGION=$1
+ENV=$1
+REGION=$2
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-NODES=$(yq eval '.nodes' config.yaml)
+if [[ $ENV == "" || $REGION == "" ]]; then
+  echo "Missing arg 1 (env) and/or arg 2 (region)"
+  exit 1
+fi
+
+PROJECT_ID=$(yq eval '.project' ../deploy/gke/$ENV.yaml)
+NODES=$(yq eval '.nodes' ../deploy/gke/$ENV.yaml)
 
 CLUSTER_NAME="website-$REGION"
 

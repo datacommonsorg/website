@@ -56,6 +56,10 @@ TOPIC_PAGE_CONFIGS = {
 # compression).
 GZIP_COMPRESSION_LEVEL = 3
 
+# Dict of place dcid to place type to filename of the geojson to cache for that
+# place + place type combination
+CACHED_GEOJSON_FILES = {"Earth": {"Country": "earth_country_dp13"}}
+
 
 def get_repo_root():
   '''Get the absolute path of the repo root directory
@@ -96,15 +100,41 @@ def get_topic_page_config():
   return topic_configs
 
 
-# Returns list of disaster dashboard configs loaded as SubjectPageConfig protos
-def get_disaster_dashboard_configs():
-  dashboard_configs = []
-  dashboard_configs_dir = os.path.join(get_repo_root(), "config",
-                                       "disaster_dashboard")
-  for filename in os.listdir(dashboard_configs_dir):
-    filepath = os.path.join(dashboard_configs_dir, filename)
-    dashboard_configs.append(get_subject_page_config(filepath))
-  return dashboard_configs
+# Returns disaster dashboard config loaded as SubjectPageConfig protos
+def get_disaster_dashboard_config():
+  filepath = os.path.join(get_repo_root(), "config", "disaster_dashboard",
+                          "dashboard.textproto")
+  return get_subject_page_config(filepath)
+
+
+# Returns disaster event config loaded as SubjectPageConfig protos
+def get_disaster_event_config():
+  filepath = os.path.join(get_repo_root(), "config", "disaster_dashboard",
+                          "events.textproto")
+  return get_subject_page_config(filepath)
+
+
+# Returns disaster dashboard config for NL
+def get_nl_disaster_config():
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "disasters.textproto")
+  return get_subject_page_config(filepath)
+
+
+# Returns dict of place dcid to place type to geojson object. Geojson object is
+# a feature collection where the geometry of the features do not follow the
+# right hand rule.
+def get_cached_geojsons():
+  geojsons = {}
+  for place in CACHED_GEOJSON_FILES:
+    geojsons[place] = {}
+    for place_type in CACHED_GEOJSON_FILES[place]:
+      filename = CACHED_GEOJSON_FILES[place][place_type]
+      filepath = os.path.join(get_repo_root(), 'config', 'geojson',
+                              filename + '.json')
+      with open(filepath, 'r') as f:
+        geojsons[place][place_type] = json.load(f)
+  return geojsons
 
 
 # Returns a summary of the available topic page summaries as an object:
@@ -164,9 +194,13 @@ def _compact_point(point_resp, all_facets):
   }
   data = {}
   for obs_by_variable in point_resp.get('observationsByVariable', []):
+    if 'variable' not in obs_by_variable:
+      continue
     var = obs_by_variable['variable']
     data[var] = {}
-    for obs_by_entity in obs_by_variable['observationsByEntity']:
+    for obs_by_entity in obs_by_variable.get('observationsByEntity', []):
+      if 'entity' not in obs_by_entity:
+        continue
       entity = obs_by_entity['entity']
       data[var][entity] = None
       if 'pointsByFacet' in obs_by_entity:
@@ -200,9 +234,13 @@ def _compact_series(series_resp, all_facets):
   }
   data = {}
   for obs_by_variable in series_resp.get('observationsByVariable', []):
+    if 'variable' not in obs_by_variable:
+      continue
     var = obs_by_variable['variable']
     data[var] = {}
-    for obs_by_entity in obs_by_variable['observationsByEntity']:
+    for obs_by_entity in obs_by_variable.get('observationsByEntity', []):
+      if 'entity' not in obs_by_entity:
+        continue
       entity = obs_by_entity['entity']
       data[var][entity] = None
       if 'seriesByFacet' in obs_by_entity:
@@ -251,8 +289,8 @@ def check_backend_ready(urls: List[str]):
     time.sleep(_ready_check_sleep_seconds)
     total_sleep_seconds += _ready_check_sleep_seconds
     if total_sleep_seconds > _ready_check_timeout:
-      raise RuntimeError('%s not ready after %s second' % urls,
-                         _ready_check_timeout)
+      raise RuntimeError('%s not ready after %s second' %
+                         (urls, _ready_check_timeout))
 
 
 def gzip_compress_response(raw_content, is_json):

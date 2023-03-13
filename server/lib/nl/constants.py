@@ -17,6 +17,7 @@ from typing import Dict, FrozenSet, List, Set, Union
 
 from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
+from server.lib.nl.detection import Place
 
 STOP_WORDS: Set[str] = {
     'ourselves',
@@ -179,7 +180,26 @@ OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
     'sf north bay',
     'sf south bay',
     'sf east bay',
+    # US
+    'united states',  # need this because the word "states" gets replaced.
+    'usa',
 ])
+
+# Replace the detected place text with this alternate (shorter) place text.
+# The replacement text (value) should be contained within the detected text (key).
+# This is to ensure that the original query string does not need to be modified.
+# For example, if the query string contains "us states" and that is detected as a plce
+# string, we replce it with "us" only. This means that when detected place words/strings
+# are removed from the original query, "us" will be replaced and "states" will still
+# remain in the query. If the replacement string (value) is not contained within the
+# detected place (key), then the detected place and query may have nothing in common
+# which can lead to adverse downstream impact.
+SHORTEN_PLACE_DETECTION_STRING: Dict[str, str] = {
+    'us states': 'us',
+    'states us': 'us',
+    'usa states': 'usa',
+    'states usa': 'usa',
+}
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 
@@ -204,12 +224,20 @@ SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
 }
 
 # Invert the above str: List[str] Dictionary to str: str.
-OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API: Dict[str, str] = {}
+OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API: Dict[str, str] = {}
 for dcid, place_list in SPECIAL_DCIDS_TO_PLACES.items():
   for place in place_list:
-    OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[place] = dcid
+    OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API[place] = dcid
 
-MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+# Using the AutoComplete Maps API. The textsearch API is more flaky and returns
+# may unnecessary results, e.g. businesses, which are easier to ignore in the
+# autocomplete API.
+MAPS_API = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
+
+# Source: https://developers.google.com/maps/documentation/places/web-service/autocomplete#types
+# Only one can be selected from Table 3 which is most useful for us: https://developers.google.com/maps/documentation/places/web-service/supported_types#table3
+# TODO: consider having some fallbacks like (cities) if nothing found in (regions).
+AUTOCOMPLETE_MAPS_API_TYPES_FILTER = "(regions)"
 
 # Source: https://developers.google.com/maps/documentation/places/web-service/supported_types#table2
 MAPS_GEO_TYPES = frozenset([
@@ -314,28 +342,28 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         },
         "TimeDelta": {
             "Increase": [
-                "grow(n|th)?",
+                "grow(n|th|s)?",
                 "grew",
-                "gain",
-                "increased?",
+                "gain(s)?",
+                "increase(d|s)?",
                 "increasing",
-                "surge(d)?",
+                "surge(d|s)?",
                 "surging",
-                "rise(d|n)?",
+                "rise(d|n|s)?",
                 "rising",
             ],
             "Decrease": [
-                "decreased?",
+                "decrease(d|s)?",
                 "decreasing",
                 "shr(ank|ink|unk)(ing)?",
-                "reduced?",
+                "reduce(d|s)?",
                 "reduc(ing|tion)",
-                "decline(d)?",
+                "decline(d|s)?",
                 "declining",
-                "plummet(ed|ing)?",
-                "fall(en)?",
+                "plummet(ed|ing|s)?",
+                "fall(en|s)?",
                 "drop(ped|s)?",
-                "loss",
+                "loss(es)?",
             ],
         },
         "SizeType": {
@@ -418,10 +446,19 @@ EVENT_TYPE_TO_DC_TYPES = {
     EventType.WETBULB: ["WetBulbTemperatureEvent"],
 }
 
-CHILD_PLACES_TYPES = {
-    "Country": "State",
-    "State": "County",
-    "County": "City",
+CHILD_PLACE_TYPES = {
+    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.STATE,
+    ContainedInPlaceType.STATE: ContainedInPlaceType.COUNTY,
+    ContainedInPlaceType.COUNTY: ContainedInPlaceType.CITY,
+}
+
+PARENT_PLACE_TYPES = {v: k for k, v in CHILD_PLACE_TYPES.items()}
+
+DEFAULT_PARENT_PLACES = {
+    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
 }
 
 MAP_PLACE_TYPES = frozenset([
@@ -439,6 +476,7 @@ QUERY_FAILED = 'failed'
 
 TEST_SESSION_ID = '007_999999999'
 
+EARTH_DCID = 'Earth'
 DEFAULT_DENOMINATOR = 'Count_Person'
 
 SV_DISPLAY_SHORT_NAME = {

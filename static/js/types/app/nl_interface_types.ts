@@ -35,6 +35,7 @@ export interface DebugInfo {
   status: string;
   originalQuery: string;
   placesDetected: Array<string>;
+  placesResolved: string;
   mainPlaceDCID: string;
   mainPlaceName: string;
   queryWithoutPlaces: string;
@@ -42,7 +43,6 @@ export interface DebugInfo {
   svSentences: Map<string, Array<string>>;
   rankingClassification: string;
   overviewClassification: string;
-  temporalClassification: string;
   sizeTypeClassification: string;
   timeDeltaClassification: string;
   comparisonClassification: string;

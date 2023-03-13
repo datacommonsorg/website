@@ -8,40 +8,26 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_CriminalActivities_CombinedCrime"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
                     ],
-                    "title": "Criminal Activities in California",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block"
+                    ],
+                    "title": "Criminal Activities (${date})",
+                    "type": "BAR"
                   },
                   {
-                    "statVarKey": [
-                      "Count_CriminalActivities_CombinedCrime_pc"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
                     ],
-                    "title": "Per Capita Criminal Activities in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
+                      "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Larceny Theft Cases in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft_pc"
-                    ],
-                    "title": "Per Capita Larceny Theft Cases in California",
-                    "type": "LINE"
+                    "title": "Per Capita Criminal Activities (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -53,36 +39,144 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
-                      "Count_CriminalActivities_Burglary_multiple_place_bar_block",
-                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
-                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
-                      "Count_CriminalActivities_Robbery_multiple_place_bar_block",
+                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block"
+                    ],
+                    "title": "Larceny Theft Cases (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Larceny Theft Cases (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block"
+                    ],
+                    "title": "Motor Vehicle Thefts (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Motor Vehicle Thefts (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block"
+                    ],
+                    "title": "Hate Crime Incidents (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Hate Crime Incidents (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery_multiple_place_bar_block"
+                    ],
+                    "title": "Robberies (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Robberies (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Compared with Other Variables in California",
+                    "title": "Violent Crimes (${date})",
                     "type": "BAR"
                   },
                   {
                     "comparisonPlaces": [
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Compared with Other Variables in California",
+                    "title": "Per Capita Violent Crimes (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -94,18 +188,26 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_CriminalActivities_MotorVehicleTheft"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
                     ],
-                    "title": "Motor Vehicle Thefts in California",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block"
+                    ],
+                    "title": "Forcible Rapes (${date})",
+                    "type": "BAR"
                   },
                   {
-                    "statVarKey": [
-                      "Count_CriminalActivities_MotorVehicleTheft_pc"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
                     ],
-                    "title": "Per Capita Motor Vehicle Thefts in California",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Forcible Rapes (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -116,18 +218,26 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
                     ],
-                    "title": "Hate Crime Incidents in California",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block"
+                    ],
+                    "title": "Property Related Crimes (${date})",
+                    "type": "BAR"
                   },
                   {
-                    "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime_pc"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
                     ],
-                    "title": "Per Capita Hate Crime Incidents in California",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Property Related Crimes (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -138,106 +248,26 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_CriminalActivities_Robbery"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
                     ],
-                    "title": "Robberies in California",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Count_CriminalActivities_Burglary_multiple_place_bar_block"
+                    ],
+                    "title": "Burglaries (${date})",
+                    "type": "BAR"
                   },
                   {
-                    "statVarKey": [
-                      "Count_CriminalActivities_Robbery_pc"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
                     ],
-                    "title": "Per Capita Robberies in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
-                      "Count_CriminalActivities_ViolentCrime"
+                      "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc"
                     ],
-                    "title": "Violent Crimes in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_ViolentCrime_pc"
-                    ],
-                    "title": "Per Capita Violent Crimes in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_ForcibleRape"
-                    ],
-                    "title": "Forcible Rapes in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_ForcibleRape_pc"
-                    ],
-                    "title": "Per Capita Forcible Rapes in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime"
-                    ],
-                    "title": "Property Related Crimes in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime_pc"
-                    ],
-                    "title": "Per Capita Property Related Crimes in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_Burglary"
-                    ],
-                    "title": "Burglaries in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_Burglary_pc"
-                    ],
-                    "title": "Per Capita Burglaries in California",
-                    "type": "LINE"
+                    "title": "Per Capita Burglaries (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -245,19 +275,6 @@
           }
         ],
         "statVarSpec": {
-          "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block": {
-            "name": "Aggravated Assault Cases",
-            "statVar": "Count_CriminalActivities_AggravatedAssault"
-          },
-          "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Aggravated Assault Cases",
-            "statVar": "Count_CriminalActivities_AggravatedAssault"
-          },
-          "Count_CriminalActivities_Burglary": {
-            "name": "Burglaries",
-            "statVar": "Count_CriminalActivities_Burglary"
-          },
           "Count_CriminalActivities_Burglary_multiple_place_bar_block": {
             "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
@@ -267,23 +284,14 @@
             "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
           },
-          "Count_CriminalActivities_Burglary_pc": {
-            "denom": "Count_Person",
-            "name": "Burglaries",
-            "statVar": "Count_CriminalActivities_Burglary"
-          },
-          "Count_CriminalActivities_CombinedCrime": {
+          "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block": {
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
-          "Count_CriminalActivities_CombinedCrime_pc": {
+          "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
-          },
-          "Count_CriminalActivities_ForcibleRape": {
-            "name": "Forcible Rapes",
-            "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
             "name": "Forcible Rapes",
@@ -294,15 +302,6 @@
             "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
           },
-          "Count_CriminalActivities_ForcibleRape_pc": {
-            "denom": "Count_Person",
-            "name": "Forcible Rapes",
-            "statVar": "Count_CriminalActivities_ForcibleRape"
-          },
-          "Count_CriminalActivities_LarcenyTheft": {
-            "name": "Larceny Theft Cases",
-            "statVar": "Count_CriminalActivities_LarcenyTheft"
-          },
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block": {
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
@@ -311,15 +310,6 @@
             "denom": "Count_Person",
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
-          },
-          "Count_CriminalActivities_LarcenyTheft_pc": {
-            "denom": "Count_Person",
-            "name": "Larceny Theft Cases",
-            "statVar": "Count_CriminalActivities_LarcenyTheft"
-          },
-          "Count_CriminalActivities_MotorVehicleTheft": {
-            "name": "Motor Vehicle Thefts",
-            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
             "name": "Motor Vehicle Thefts",
@@ -330,15 +320,6 @@
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
-          "Count_CriminalActivities_MotorVehicleTheft_pc": {
-            "denom": "Count_Person",
-            "name": "Motor Vehicle Thefts",
-            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
-          },
-          "Count_CriminalActivities_PropertyCrime": {
-            "name": "Property Related Crimes",
-            "statVar": "Count_CriminalActivities_PropertyCrime"
-          },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
@@ -347,15 +328,6 @@
             "denom": "Count_Person",
             "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
-          },
-          "Count_CriminalActivities_PropertyCrime_pc": {
-            "denom": "Count_Person",
-            "name": "Property Related Crimes",
-            "statVar": "Count_CriminalActivities_PropertyCrime"
-          },
-          "Count_CriminalActivities_Robbery": {
-            "name": "Robberies",
-            "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_Robbery_multiple_place_bar_block": {
             "name": "Robberies",
@@ -366,15 +338,6 @@
             "name": "Robberies",
             "statVar": "Count_CriminalActivities_Robbery"
           },
-          "Count_CriminalActivities_Robbery_pc": {
-            "denom": "Count_Person",
-            "name": "Robberies",
-            "statVar": "Count_CriminalActivities_Robbery"
-          },
-          "Count_CriminalActivities_ViolentCrime": {
-            "name": "Violent Crimes",
-            "statVar": "Count_CriminalActivities_ViolentCrime"
-          },
           "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block": {
             "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
@@ -384,16 +347,11 @@
             "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
-          "Count_CriminalActivities_ViolentCrime_pc": {
-            "denom": "Count_Person",
-            "name": "Violent Crimes",
-            "statVar": "Count_CriminalActivities_ViolentCrime"
-          },
-          "Count_CriminalIncidents_IsHateCrime": {
+          "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block": {
             "name": "Hate Crime Incidents",
             "statVar": "Count_CriminalIncidents_IsHateCrime"
           },
-          "Count_CriminalIncidents_IsHateCrime_pc": {
+          "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
             "name": "Hate Crime Incidents",
             "statVar": "Count_CriminalIncidents_IsHateCrime"

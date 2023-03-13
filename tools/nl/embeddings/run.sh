@@ -1,12 +1,11 @@
-
 #!/bin/bash
-# Copyright 2022 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,11 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-gcloud container clusters create $CLUSTER_NAME \
-  --num-nodes=$NODES \
-  --region=$REGION \
-  --project=$PROJECT_ID \
-  --machine-type=e2-highmem-4 \
-  --enable-ip-alias \
-  --workload-pool=$PROJECT_ID.svc.id.goog \
-  --scopes=https://www.googleapis.com/auth/trace.append
+
+python3 -m venv .env
+source .env/bin/activate
+pip3 install -r requirements.txt
+python3 build_embeddings.py

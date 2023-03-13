@@ -1,0 +1,223 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "filtered_svs": [],
+    "num_chart_candidates": 1,
+    "processed_fulfillment_types": [
+      "overview"
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 10
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "place_type": "City"
+        }
+      ],
+      "query": "tell me about palo alto",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0655282",
+              "name": "Palo Alto",
+              "place_type": "City"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/0655282",
+  "main_place_name": "Palo Alto",
+  "original_query": "tell me about palo alto",
+  "overview_classification": "ClassificationType.OVERVIEW",
+  "places_detected": [
+    "palo alto"
+  ],
+  "places_resolved": "(name: Palo Alto, dcid: geoId/0655282); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/0655282",
+      "name": "Palo Alto",
+      "place_type": "City"
+    },
+    "original_query": "tell me about palo alto",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/0655282"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "place_type": "City"
+        }
+      ]
+    },
+    "places_found_str": [
+      "palo alto"
+    ],
+    "query_transformations": {
+      "place_detection_input": "tell me about palo alto",
+      "place_detection_with_places_removed": "tell me about",
+      "sv_detection_query_input": "tell me about",
+      "sv_detection_query_stop_words_removal": ""
+    }
+  },
+  "query_with_places_removed": "tell me about",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.37027618288993835,
+      0.3159871995449066,
+      0.2831985354423523,
+      0.27669647336006165,
+      0.2557689845561981,
+      0.2371777594089508,
+      0.22020851075649261,
+      0.21446257829666138,
+      0.2134648710489273,
+      0.20017606019973755,
+      0.1957034170627594
+    ],
+    "SV": [
+      "dc/topic/Income",
+      "dc/topic/Economy",
+      "dc/topic/Jobs",
+      "dc/topic/MedicalConditions",
+      "dc/hlxvn1t8b9bhh",
+      "dc/g/Person_MedicalCondition-Wasting",
+      "AirQualityIndex_AirPollutant",
+      "dc/topic/WorkCommute",
+      "dc/topic/Agriculture",
+      "dc/g/Farm_FarmInventoryType-Forage",
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+    ],
+    "SV_to_Sentences": {
+      "AirQualityIndex_AirPollutant": [
+        "AQI (0.22020851075649261)"
+      ],
+      "dc/g/Farm_FarmInventoryType-Forage": [
+        "Forage Farms (0.20017606019973755)",
+        "forage farms (0.20017603039741516)"
+      ],
+      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+        "pig farm (0.1957034170627594)",
+        "Pig Farm (0.1957034170627594)"
+      ],
+      "dc/g/Person_MedicalCondition-Wasting": [
+        "people with wasting (0.2371777594089508)"
+      ],
+      "dc/hlxvn1t8b9bhh": [
+        "cattle ranchers (0.2557689845561981)",
+        "farmers (0.22553959488868713)"
+      ],
+      "dc/topic/Agriculture": [
+        "Agriculture (0.2134648710489273)"
+      ],
+      "dc/topic/Economy": [
+        "Economy (0.3159871995449066)"
+      ],
+      "dc/topic/Income": [
+        "pay (0.37027618288993835)",
+        "compensation (0.22850872576236725)",
+        "Earnings (0.2226836383342743)",
+        "Income (0.20594437420368195)"
+      ],
+      "dc/topic/Jobs": [
+        "Jobs (0.2831985354423523)",
+        "Careers (0.24140897393226624)",
+        "Professions (0.20911745727062225)"
+      ],
+      "dc/topic/MedicalConditions": [
+        "Maladies (0.27669647336006165)",
+        "Medical infirmities (0.2347509115934372)"
+      ],
+      "dc/topic/WorkCommute": [
+        "journey to work (0.21446257829666138)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "AirQualityIndex_AirPollutant": [
+      "AQI (0.22020851075649261)"
+    ],
+    "dc/g/Farm_FarmInventoryType-Forage": [
+      "Forage Farms (0.20017606019973755)",
+      "forage farms (0.20017603039741516)"
+    ],
+    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
+      "pig farm (0.1957034170627594)",
+      "Pig Farm (0.1957034170627594)"
+    ],
+    "dc/g/Person_MedicalCondition-Wasting": [
+      "people with wasting (0.2371777594089508)"
+    ],
+    "dc/hlxvn1t8b9bhh": [
+      "cattle ranchers (0.2557689845561981)",
+      "farmers (0.22553959488868713)"
+    ],
+    "dc/topic/Agriculture": [
+      "Agriculture (0.2134648710489273)"
+    ],
+    "dc/topic/Economy": [
+      "Economy (0.3159871995449066)"
+    ],
+    "dc/topic/Income": [
+      "pay (0.37027618288993835)",
+      "compensation (0.22850872576236725)",
+      "Earnings (0.2226836383342743)",
+      "Income (0.20594437420368195)"
+    ],
+    "dc/topic/Jobs": [
+      "Jobs (0.2831985354423523)",
+      "Careers (0.24140897393226624)",
+      "Professions (0.20911745727062225)"
+    ],
+    "dc/topic/MedicalConditions": [
+      "Maladies (0.27669647336006165)",
+      "Medical infirmities (0.2347509115934372)"
+    ],
+    "dc/topic/WorkCommute": [
+      "journey to work (0.21446257829666138)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

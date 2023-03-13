@@ -29,10 +29,9 @@ kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.namespace.name }}
-  {{- with .Values.ingress.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    kubernetes.io/ingress.global-static-ip-name: dc-website-ip
+    ingress.gcp.kubernetes.io/pre-shared-cert: dc-website-cert{{ .Values.resourceSuffix }}
 spec:
   rules:
     - http:
@@ -41,7 +40,7 @@ spec:
           pathType: ImplementationSpecific
           backend:
             service:
-              name: {{ include "dc-website.fullname" . }}
+              name: website-service{{ .Values.resourceSuffix }}
               port:
                 number: 8080
 {{- end }}

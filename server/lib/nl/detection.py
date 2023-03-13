@@ -33,7 +33,10 @@ class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
   query_without_place_substr: str
-  places_found: List[str]
+  # `query_places_mentioned` is a list of words in the query
+  # identified as possible places.
+  query_places_mentioned: List[str]
+  places_found: List[Place]
   main_place: Place
   using_default_place: bool = False
   using_from_context: bool = False
@@ -89,7 +92,9 @@ class BinaryClassificationResultType(IntEnum):
   SUCCESS = 1
 
 
-class ContainedInPlaceType(Enum):
+# Note: Inherit from `str` so that if the enum gets logged as json the serializer
+# will not complain.
+class ContainedInPlaceType(str, Enum):
   """ContainedInPlaceType indicates the type of places."""
   # PLACE is the most generic type.
   PLACE = "Place"
@@ -181,13 +186,6 @@ class RankingClassificationAttributes(ClassificationAttributes):
 class ComparisonClassificationAttributes(ClassificationAttributes):
   """Comparison classification attributes."""
   comparison_trigger_words: List[str]
-
-
-@dataclass
-class TemporalClassificationAttributes(ClassificationAttributes):
-  """Temporal classification attributes."""
-  date_str: str
-  date_type: PeriodType
 
 
 @dataclass

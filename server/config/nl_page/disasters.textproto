@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## This file specifies the disaster dashboard config for Earth.
+## This file specifies disaster charts config for the NL interface.
 
 metadata {
   topic_id: "disaster_dashboard"
@@ -33,6 +33,21 @@ metadata {
   contained_place_types {
     key: "AdministrativeArea1"
     value: "AdministrativeArea2"
+  }
+  event_type_spec {
+    key: "earthquake"
+    value {
+      id: "earthquake"
+      name: "Earthquake"
+      event_type_dcids: "EarthquakeEvent"
+      color: "#930000"
+      default_severity_filter: {
+        prop: 'magnitude'
+        display_name: 'Magnitude'
+        upper_limit: 10
+        lower_limit: 6
+      }
+    }
   }
   event_type_spec {
     key: "flood"
@@ -70,6 +85,11 @@ metadata {
       end_date_prop: "endDate"
       end_date_prop: "containmentDate"
       end_date_prop: "controlledDate"
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
     }
   }
   event_type_spec {
@@ -119,6 +139,11 @@ metadata {
         upper_limit: 100000,
         lower_limit: 10
       }
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
       polygon_geo_json_prop: "geoJsonCoordinatesDP1"
       end_date_prop: "endDate"
     }
@@ -160,7 +185,6 @@ metadata {
         prop: "differenceTemperature"
         display_name: "Difference"
         unit: "Celsius"
-        # If updating the lower_limit, also update the Extreme Heat event description (below, in this file).
         upper_limit: 35
         lower_limit: 18
       }
@@ -182,7 +206,6 @@ metadata {
         prop: "differenceTemperature"
         display_name: "Difference"
         unit: "Celsius"
-        # If updating the upper_limit, also update the Extreme Cold event description (below, in this file).
         upper_limit: -18
         lower_limit: -35
       }
@@ -205,6 +228,7 @@ categories {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
           polygon_event_type_key: "drought"
+          point_event_type_key: "earthquake"
           point_event_type_key: "fire"
           point_event_type_key: "flood"
           # point_event_type_key: "tornado"
@@ -220,12 +244,6 @@ categories {
 
 categories {
   title: "Drought"
-  description:
-    "Droughts are measured using the Standardized Precipitation Index (SPI), "
-    "which quantifies the precipitation deficit at a given location for a set "
-    "timescale. Places where the 9-month SPI was less than -1.5 are considered "
-    "to be experiencing drought. We source drought data from "
-    "[NOAA](https://www.drought.gov/data-maps-tools/global-precipitation-climatology-centre-gpcc-standardized-precipitation-index-spi)."
   blocks {
     type: DISASTER_EVENT
     columns {
@@ -267,11 +285,6 @@ categories {
 
 categories {
   title: "Fires"
-  description:
-    "Fire detection is based on both dispatcher reporting and VIIRS active "
-    "fire detection, which uses satellite imaging to identify fires based on "
-    "thermal readings. We source fire data from [NASA](https://lpdaac.usgs.gov/products/vnp14a1v001/) "
-    "and [WFIGS](https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-wildland-fire-locations-full-history/about)."
   blocks {
     type: DISASTER_EVENT
     columns {
@@ -324,10 +337,6 @@ categories {
 
 categories {
   title: "Floods"
-  description:
-    "Flood detection is based on MODIS and Sentinel-2 L1C satellite imagery "
-    "from the [Global Flood Database](https://developers.google.com/earth-engine/datasets/catalog/GLOBAL_FLOOD_DB_MODIS_EVENTS_V1) "
-    "and [Dynamic World](https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1) respectively."
   blocks {
     type: DISASTER_EVENT
     columns {
@@ -380,11 +389,6 @@ categories {
 
 categories {
   title: "Storms"
-  description:
-    "Cyclones, hurricanes, and typhoons are different names for the same "
-    "weather phenomenon: a rotating storm with extreme wind speeds and "
-    "torrential rain. We source our storm data from "
-    "[NOAA](https://www.ncei.noaa.gov/products/international-best-track-archive)."
   blocks {
     type: DISASTER_EVENT
     columns {
@@ -425,12 +429,6 @@ categories {
 
 categories {
   title: "Wet bulb"
-  description:
-    "Wet-bulb temperature is the lowest temperature to which an object can cool "
-    "down when moisture evaporates from it. It measures how well our bodies cool "
-    "down by sweating when it’s hot and humid. The theoretical limit to human "
-    "survival for more than a few hours in the shade, even with unlimited water, "
-    "is a wet-bulb temperature of 35 °C."
   blocks {
     type: DISASTER_EVENT
     columns {
@@ -485,7 +483,6 @@ categories {
 
 # categories {
 #   title: "Extreme Heat"
-#   description: "Heat events for a place are defined by a large ( > 18 degree Celsius) difference between maximum temperatures and the average of monthly maximum temperatures over 1980-2010."
 #   blocks {
 #     type: DISASTER_EVENT
 #     columns {
@@ -538,7 +535,6 @@ categories {
 
 # categories {
 #   title: "Extreme Cold"
-#   description: "Cold events for a place are defined by a large ( < -18 degree Celsius) difference between minimum temperatures and the average of monthly minimum temperatures over 1980-2010."
 #   blocks {
 #     type: DISASTER_EVENT
 #     columns {

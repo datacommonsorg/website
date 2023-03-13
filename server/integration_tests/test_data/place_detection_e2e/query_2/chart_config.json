@@ -1,0 +1,275 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in States of United States of America (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in States of United States of America (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in States of United States of America (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Income for Family Households in States of United States of America (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Income for Family Households in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Family Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in States of United States of America (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59"
+                    ],
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59"
+                    ],
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Population Working in the Finance and Insurance Industry"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59_pc"
+                    ],
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59_pc"
+                    ],
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Median Income for Nonfamily Households in States of United States of America (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Median Income for Nonfamily Households in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Nonfamily Households"
+          }
+        ],
+        "statVarSpec": {
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
+          },
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Household_FamilyHousehold": {
+            "name": "Median Income for Family Households",
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold": {
+            "name": "Median Income for Nonfamily Households",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "dc/x3gghqtglpr59": {
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
+            "statVar": "dc/x3gghqtglpr59"
+          },
+          "dc/x3gghqtglpr59_pc": {
+            "denom": "Count_Person",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
+            "statVar": "dc/x3gghqtglpr59"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
+  }
+}

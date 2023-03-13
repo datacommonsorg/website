@@ -21,7 +21,7 @@ import flask
 from flask import Response
 
 from server.cache import cache
-import server.services.datacommons as dc_service
+import server.services.datacommons as dc
 
 bp = flask.Blueprint('api.disease', __name__, url_prefix='/api/disease')
 
@@ -47,14 +47,8 @@ class DiseaseParentEncoder(JSONEncoder):
 @cache.memoize(timeout=3600 * 24)
 @bp.route('/<path:dcid>')
 def get_node(dcid):
-  """Returns data for a given disease node."""
-  response = dc_service.fetch_data('/internal/bio', {
-      'dcid': dcid,
-  },
-                                   compress=False,
-                                   post=False,
-                                   has_payload=False)
-  return response
+  """Returns data given a disease node."""
+  return dc.bio(dcid)
 
 
 @bp.route('/diseaseParent/<path:dcid>')
@@ -65,13 +59,13 @@ def get_disease_parents(dcid):
   curr_dcid = dcid
   # dcid of the biggest parent node where iteration stops
   while (curr_dcid != FINAL_PARENT_DISEASE_DCID):
-    node_dcids = dc_service.property_values([curr_dcid],
+    node_dcids = dc.property_values([curr_dcid],
                                             "specializationOf").get(
                                                 curr_dcid, [])
     if not node_dcids:
       break
     node_dcid = node_dcids[0]
-    node_names = dc_service.property_values([node_dcid],
+    node_names = dc.property_values([node_dcid],
                                             "name").get(node_dcid, [])
     node_name = node_dcid
     if node_names:
@@ -82,3 +76,4 @@ def get_disease_parents(dcid):
   return Response(json.dumps(list_parent, cls=DiseaseParentEncoder),
                   200,
                   mimetype='application/json')
+

@@ -33,6 +33,7 @@ interface DisasterEventMapInfoCardPropType {
 export function DisasterEventMapInfoCard(
   props: DisasterEventMapInfoCardPropType
 ): JSX.Element {
+  const seenProps = new Set();
   return (
     <div className="disaster-event-map-info-card-content">
       <div className="disaster-event-map-info-card-header">
@@ -50,6 +51,10 @@ export function DisasterEventMapInfoCard(
         )}
         {props.eventData.displayProps &&
           Object.keys(props.eventData.displayProps).map((prop) => {
+            if (seenProps.has(prop)) {
+              return;
+            }
+            seenProps.add(prop);
             return (
               <span key={prop}>
                 {prop}: {formatNumber(props.eventData.displayProps[prop])}
@@ -58,6 +63,10 @@ export function DisasterEventMapInfoCard(
           })}
         {props.eventData.severity &&
           Object.keys(props.eventData.severity).map((prop) => {
+            if (seenProps.has(prop)) {
+              return;
+            }
+            seenProps.add(prop);
             return (
               <span key={prop}>
                 {prop}: {formatNumber(props.eventData.severity[prop])}
@@ -66,7 +75,7 @@ export function DisasterEventMapInfoCard(
           })}
       </div>
       <div className="disaster-event-map-info-card-footer">
-        <a href={`/browser/${props.eventData.placeDcid}`}>More info</a>
+        <a href={`/event/${props.eventData.placeDcid}`}>More info</a>
       </div>
     </div>
   );

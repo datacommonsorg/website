@@ -56,6 +56,3 @@ patchesStrategicMerge:
         rollingUpdate:
           maxSurge: 9
           maxUnavailable: 50%
-
-generatorOptions:
- disableNameSuffixHash: true

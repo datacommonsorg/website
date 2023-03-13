@@ -25,6 +25,7 @@ import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
+import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
 
 const SVG_CHART_HEIGHT = 160;
@@ -34,7 +35,6 @@ export interface QueryResultProps {
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
-  feedbackLink: string;
 }
 
 export const QueryResult = memo(function QueryResult(
@@ -115,6 +115,7 @@ export const QueryResult = memo(function QueryResult(
         setErrorMsg("Sorry, we didn’t understand your question.");
       });
   }
+  const feedbackLink = getFeedbackLink(props.query || "", debugData);
   return (
     <>
       <div className="nl-query" ref={scrollRef}>
@@ -124,12 +125,17 @@ export const QueryResult = memo(function QueryResult(
       </div>
       <div className="nl-result">
         <Container className="feedback-link">
-          <a href={props.feedbackLink} target="_blank" rel="noreferrer">
+          <a href={feedbackLink} target="_blank" rel="noreferrer">
             Feedback
           </a>
         </Container>
         <Container>
-          {debugData && <DebugInfo debugData={debugData}></DebugInfo>}
+          {debugData && chartsData && (
+            <DebugInfo
+              debugData={debugData}
+              pageConfig={chartsData.config}
+            ></DebugInfo>
+          )}
           {chartsData && chartsData.config && (
             <SubjectPageMainPane
               id={`pg${props.queryIdx}`}

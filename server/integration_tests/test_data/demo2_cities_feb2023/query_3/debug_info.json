@@ -78,6 +78,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "dc/topic/WorkCommute"
       ]
@@ -119,7 +120,7 @@
         },
         {
           "attr": {
-            "block_id": 2,
+            "block_id": 6,
             "chart_type": "bar chart",
             "class": 1,
             "description": "",
@@ -156,7 +157,7 @@
         },
         {
           "attr": {
-            "block_id": 4,
+            "block_id": 3,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -181,7 +182,7 @@
         },
         {
           "attr": {
-            "block_id": 5,
+            "block_id": 7,
             "chart_type": "timeline",
             "class": 1,
             "description": "",
@@ -210,7 +211,7 @@
         },
         {
           "attr": {
-            "block_id": 6,
+            "block_id": 4,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -235,7 +236,7 @@
         },
         {
           "attr": {
-            "block_id": 7,
+            "block_id": 5,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -259,6 +260,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Percent_Person_WithAsthma",
         "Percent_Person_Children_WithAsthma",
@@ -286,7 +288,7 @@
         }
       ],
       "query": "How big are the public schools in Sunnyvale",
-      "query_type": 10,
+      "query_type": 11,
       "ranked_charts": [
         {
           "attr": {
@@ -373,6 +375,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Count_Student",
         "Count_Teacher",
@@ -385,23 +388,35 @@
   "main_place_name": "<None>",
   "original_query": "What is the commute pattern there",
   "overview_classification": "<None>",
-  "places_detected": [
-    "<None>"
-  ],
+  "places_detected": [],
+  "places_resolved": "",
+  "query_detection_debug_logs": {
+    "main_place_inferred": null,
+    "original_query": "What is the commute pattern there",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "what is the commute pattern there",
+      "place_detection_with_places_removed": "What is the commute pattern there",
+      "sv_detection_query_input": "What is the commute pattern there",
+      "sv_detection_query_stop_words_removal": "commute pattern"
+    }
+  },
   "query_with_places_removed": "What is the commute pattern there",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.672934353351593,
-      0.21922609210014343,
-      0.21280182898044586,
-      0.21179990470409393,
-      0.20494790375232697,
-      0.19941186904907227,
-      0.19819366931915283,
-      0.18487513065338135
+      0.6729344725608826,
+      0.21922603249549866,
+      0.21280178427696228,
+      0.21179993450641632,
+      0.2049480378627777,
+      0.19941174983978271,
+      0.1981937289237976,
+      0.1848750114440918
     ],
     "SV": [
       "dc/topic/WorkCommute",
@@ -415,81 +430,80 @@
     ],
     "SV_to_Sentences": {
       "Count_CriminalActivities_MotorVehicleTheft": [
-        "Number of vehicles stolen (0.20494790375232697)",
-        "Count of Criminal Activities: Motor Vehicle Theft (0.20094162225723267)",
-        "Number of motor vehicles taken (0.1918361335992813)",
-        "Number of thefts of motor vehicles (0.18853488564491272)",
-        "Total number of vehicles stolen (0.18824543058872223)",
-        "Number of motor vehicle heists (0.18401500582695007)",
-        "Total number of motor vehicle theft cases (0.1809389740228653)"
+        "Number of vehicles stolen (0.2049480378627777)",
+        "Count of Criminal Activities: Motor Vehicle Theft (0.20094166696071625)",
+        "Number of motor vehicles taken (0.19183625280857086)",
+        "Number of thefts of motor vehicles (0.1885349601507187)",
+        "Total number of vehicles stolen (0.18824565410614014)",
+        "Number of motor vehicle heists (0.18401502072811127)",
+        "Total number of motor vehicle theft cases (0.18093907833099365)"
       ],
       "Count_CriminalActivities_PropertyCrime": [
-        "Number of property cases (0.19941186904907227)"
+        "Number of property cases (0.19941174983978271)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Number of discriminatory crimes (0.19819366931915283)"
+        "Number of discriminatory crimes (0.1981937289237976)"
       ],
       "dc/g/Person_Industry-NAICS/492": [
-        "People Working as Couriers and Messengers (0.21280182898044586)",
-        "People working as couriers and messengers (0.21280182898044586)",
-        "Person With Industry = Couriers And Messengers (NAICS/492) (0.19283099472522736)"
+        "People Working as Couriers and Messengers (0.21280178427696228)",
+        "People working as couriers and messengers (0.21280178427696228)",
+        "Person With Industry = Couriers And Messengers (NAICS/492) (0.19283084571361542)"
       ],
       "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease": [
-        "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179990470409393)"
+        "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179993450641632)"
       ],
       "dc/n87t9dkckzxc8": [
-        "number of couriers and messengers workers (0.18487513065338135)",
-        "Population of Person: Couriers And Messengers (NAICS/492) (0.1812908798456192)"
+        "number of couriers and messengers workers (0.1848750114440918)",
+        "Population of Person: Couriers And Messengers (NAICS/492) (0.18129095435142517)"
       ],
       "dc/topic/Jobs": [
-        "Work Occupations (0.21922609210014343)"
+        "Work Occupations (0.21922603249549866)"
       ],
       "dc/topic/WorkCommute": [
-        "commute mode (0.672934353351593)",
-        "Work Commute (0.5764999389648438)",
-        "Work commute (0.5764999389648438)",
-        "travel to work (0.19010885059833527)"
+        "commute mode (0.6729344725608826)",
+        "Work commute (0.5764997601509094)",
+        "Work Commute (0.5764997601509094)",
+        "travel to work (0.1901087909936905)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_CriminalActivities_MotorVehicleTheft": [
-      "Number of vehicles stolen (0.20494790375232697)",
-      "Count of Criminal Activities: Motor Vehicle Theft (0.20094162225723267)",
-      "Number of motor vehicles taken (0.1918361335992813)",
-      "Number of thefts of motor vehicles (0.18853488564491272)",
-      "Total number of vehicles stolen (0.18824543058872223)",
-      "Number of motor vehicle heists (0.18401500582695007)",
-      "Total number of motor vehicle theft cases (0.1809389740228653)"
+      "Number of vehicles stolen (0.2049480378627777)",
+      "Count of Criminal Activities: Motor Vehicle Theft (0.20094166696071625)",
+      "Number of motor vehicles taken (0.19183625280857086)",
+      "Number of thefts of motor vehicles (0.1885349601507187)",
+      "Total number of vehicles stolen (0.18824565410614014)",
+      "Number of motor vehicle heists (0.18401502072811127)",
+      "Total number of motor vehicle theft cases (0.18093907833099365)"
     ],
     "Count_CriminalActivities_PropertyCrime": [
-      "Number of property cases (0.19941186904907227)"
+      "Number of property cases (0.19941174983978271)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Number of discriminatory crimes (0.19819366931915283)"
+      "Number of discriminatory crimes (0.1981937289237976)"
     ],
     "dc/g/Person_Industry-NAICS/492": [
-      "People Working as Couriers and Messengers (0.21280182898044586)",
-      "People working as couriers and messengers (0.21280182898044586)",
-      "Person With Industry = Couriers And Messengers (NAICS/492) (0.19283099472522736)"
+      "People Working as Couriers and Messengers (0.21280178427696228)",
+      "People working as couriers and messengers (0.21280178427696228)",
+      "Person With Industry = Couriers And Messengers (NAICS/492) (0.19283084571361542)"
     ],
     "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease": [
-      "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179990470409393)"
+      "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179993450641632)"
     ],
     "dc/n87t9dkckzxc8": [
-      "number of couriers and messengers workers (0.18487513065338135)",
-      "Population of Person: Couriers And Messengers (NAICS/492) (0.1812908798456192)"
+      "number of couriers and messengers workers (0.1848750114440918)",
+      "Population of Person: Couriers And Messengers (NAICS/492) (0.18129095435142517)"
     ],
     "dc/topic/Jobs": [
-      "Work Occupations (0.21922609210014343)"
+      "Work Occupations (0.21922603249549866)"
     ],
     "dc/topic/WorkCommute": [
-      "commute mode (0.672934353351593)",
-      "Work Commute (0.5764999389648438)",
-      "Work commute (0.5764999389648438)",
-      "travel to work (0.19010885059833527)"
+      "commute mode (0.6729344725608826)",
+      "Work commute (0.5764997601509094)",
+      "Work Commute (0.5764997601509094)",
+      "travel to work (0.1901087909936905)"
     ]
   },
-  "temporal_classification": "<None>",
   "time_delta_classification": "<None>"
 }

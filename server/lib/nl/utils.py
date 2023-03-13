@@ -20,9 +20,11 @@ import logging
 import os
 import random
 import re
+import time
 from typing import Dict, List, NamedTuple, Set, Tuple, Union
 
 import server.lib.nl.constants as constants
+import server.lib.nl.counters as ctr
 import server.lib.nl.detection as detection
 import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.utterance as nl_uttr
@@ -33,7 +35,7 @@ import server.services.datacommons as dc
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 # TODO: Consider tweaking/reducing this
-_NUM_CHILD_PLACES_FOR_EXISTENCE = 20
+_NUM_CHILD_PLACES_FOR_EXISTENCE = 15
 
 # (growth_direction, rank_order) -> reverse
 _TIME_DELTA_SORT_MAP = {
@@ -63,10 +65,8 @@ def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
   for v_str in list_string:
     if type(v_str) != str:
       continue
-
-    for word in v_str.split():
-      # Only add words which are strings.
-      set_strings.add(word.lower())
+    # Only add sentences/words which are strings.
+    set_strings.add(v_str.lower())
 
 
 def _add_to_set_from_nested_dict(
@@ -95,15 +95,24 @@ def _add_to_set_from_nested_dict(
 
 def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   """Remove stop words from a string and return the remaining in lower case."""
-  res = input_str.lower().split()
-  output = ''
-  for w in res:
-    if (w not in stop_words):
-      output += w + " "
-  if not output:
-    return ''
-  else:
-    return output[:-1]
+
+  # Note: we are removing the full sequence of words in every entry in `stop_words`.
+  # For example, if a stop_words entry is "these words remove" then the entire
+  # sequence "these words remove" will potentially be removed and not individual
+  # occurences of "these", "words" and "remove".
+
+  # Using \b<word>\b to match the word and not the string within another word.
+  # Example: if looking for "cat" in sentence "cat is a catty animal. i love a cat  but not cats"
+  # the words "citty" and "cats" will not be matched.
+  input_str = input_str.lower()
+  for words in stop_words:
+    # Using regex based replacements.
+    input_str = re.sub(rf"\b{words}\b", "", input_str)
+    # Also replace multiple spaces with a single space.
+    input_str = re.sub(r" +", " ", input_str)
+
+  # Return after removing the beginning and trailing white spaces.
+  return input_str.strip()
 
 
 def combine_stop_words() -> Set[str]:
@@ -120,6 +129,9 @@ def combine_stop_words() -> Set[str]:
   add_to_set_from_list(stop_words,
                        list(constants.PLACE_TYPE_TO_PLURALS.values()))
 
+  # Sort stop_words by the length (longer strings should come first) so that the
+  # longer sentences can be removed first.
+  stop_words = sorted(stop_words, key=len, reverse=True)
   return stop_words
 
 
@@ -146,13 +158,15 @@ def is_sv(sv):
 
 
 # Checks if there is an event in the last 1 year.
-def event_existence_for_place(place: str, event: detection.EventType) -> bool:
+def event_existence_for_place(place: str, event: detection.EventType,
+                              counters: ctr.Counters) -> bool:
   for event_type in constants.EVENT_TYPE_TO_DC_TYPES[event]:
+    start = time.time()
     date_list = dc.get_event_collection_date(event_type,
                                              place).get('eventCollectionDate',
                                                         {}).get('dates', [])
+    counters.timeit('event_existence_for_place', start)
     cur_year = datetime.datetime.now().year
-    logging.info(cur_year)
     prev_year = str(cur_year - 1)
     cur_year = str(cur_year)
     # A crude recency check
@@ -166,11 +180,14 @@ def event_existence_for_place(place: str, event: detection.EventType) -> bool:
 # Returns a list of existing SVs (as a union across places).
 # The order of the returned SVs matches the input order.
 #
-def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
+def sv_existence_for_places(places: List[str], svs: List[str],
+                            counters: ctr.Counters) -> List[str]:
   if not svs:
     return []
 
+  start = time.time()
   sv_existence = dc.observation_existence(svs, places)
+  counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
     logging.error("Existence checks for SVs failed.")
     return []
@@ -193,11 +210,14 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
 # per the ranking order.
 # TODO: The per-capita for this should be computed here.
 def rank_svs_by_latest_value(place: str, svs: List[str],
-                             order: detection.RankingType) -> List[str]:
+                             order: detection.RankingType,
+                             counters: ctr.Counters) -> List[str]:
+  start = time.time()
   points_data = util.point_core(entities=[place],
                                 variables=svs,
                                 date='',
                                 all_facets=False)
+  counters.timeit('rank_svs_by_latest_value', start)
 
   svs_with_vals = []
   for sv, place_data in points_data['data'].items():
@@ -213,10 +233,13 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
   return [sv for sv, _ in svs_with_vals]
 
 
-def has_series_with_single_datapoint(place: str, svs: List[str]):
+def has_series_with_single_datapoint(place: str, svs: List[str],
+                                     counters: ctr.Counters):
+  start = time.time()
   series_data = util.series_core(entities=[place],
                                  variables=svs,
                                  all_facets=False)
+  counters.timeit('has_series_with_single_datapoint', start)
   for _, place_data in series_data['data'].items():
     if place not in place_data:
       continue
@@ -245,13 +268,17 @@ class GrowthRanks(NamedTuple):
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
 # TODO: Compute per-date Count_Person
-def rank_places_by_series_growth(
-    places: List[str], sv: str, growth_direction: detection.TimeDeltaType,
-    rank_order: detection.RankingType) -> GrowthRankedLists:
+def rank_places_by_series_growth(places: List[str], sv: str,
+                                 growth_direction: detection.TimeDeltaType,
+                                 rank_order: detection.RankingType,
+                                 counters: ctr.Counters) -> GrowthRankedLists:
+  start = time.time()
   series_data = util.series_core(entities=places,
                                  variables=[sv],
                                  all_facets=False)
   place2denom = _compute_place_to_denom(sv, places)
+  # Count the RPC section (since we have multiple exit points)
+  counters.timeit('rank_places_by_series_growth', start)
 
   if 'data' not in series_data or sv not in series_data['data']:
     return []
@@ -263,7 +290,7 @@ def rank_places_by_series_growth(
       continue
 
     try:
-      net_growth = compute_series_growth(series, place2denom.get(place, 0))
+      net_growth = _compute_series_growth(series, place2denom.get(place, 0))
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
@@ -281,13 +308,16 @@ def rank_places_by_series_growth(
 
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the growth rate of the time-series.
-def rank_svs_by_series_growth(
-    place: str, svs: List[str], growth_direction: detection.TimeDeltaType,
-    rank_order: detection.RankingType) -> GrowthRankedLists:
+def rank_svs_by_series_growth(place: str, svs: List[str],
+                              growth_direction: detection.TimeDeltaType,
+                              rank_order: detection.RankingType,
+                              counters: ctr.Counters) -> GrowthRankedLists:
+  start = time.time()
   series_data = util.series_core(entities=[place],
                                  variables=svs,
                                  all_facets=False)
   place2denom = _compute_place_to_denom(svs[0], [place])
+  counters.timeit('rank_svs_by_series_growth', start)
 
   svs_with_vals = []
   for sv, place_data in series_data['data'].items():
@@ -298,7 +328,7 @@ def rank_svs_by_series_growth(
       continue
 
     try:
-      net_growth = compute_series_growth(series, place2denom.get(place, 0))
+      net_growth = _compute_series_growth(series, place2denom.get(place, 0))
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
@@ -316,7 +346,7 @@ def rank_svs_by_series_growth(
 
 # Computes net growth-rate for a time-series including only recent (since 2012) observations.
 # Returns a pair of
-def compute_series_growth(series: List[Dict], denom_val: float) -> GrowthRanks:
+def _compute_series_growth(series: List[Dict], denom_val: float) -> GrowthRanks:
   latest = None
   earliest = None
   # TODO: Apparently series is ordered, so simplify.
@@ -438,8 +468,6 @@ def _get_sample_child_places(main_place_dcid: str,
                contained_place_type)
   if not contained_place_type:
     return []
-  if contained_place_type == "City":
-    return ["geoId/0667000"]
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
     logging.info(
@@ -466,9 +494,11 @@ def _get_sample_child_places(main_place_dcid: str,
 
 
 def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
-                            counters: Dict) -> List[str]:
+                            counters: ctr.Counters) -> List[str]:
+  start = time.time()
   result = _get_sample_child_places(main_place_dcid, contained_place_type)
-  update_counter(counters, 'child_places_result', {
+  counters.timeit('get_sample_child_places', start)
+  counters.info('child_places_result', {
       'place': main_place_dcid,
       'type': contained_place_type,
       'result': result
@@ -476,9 +506,12 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
   return result
 
 
-def get_all_child_places(main_place_dcid: str,
-                         contained_place_type: str) -> List[detection.Place]:
+def get_all_child_places(main_place_dcid: str, contained_place_type: str,
+                         counters: ctr.Counters) -> List[detection.Place]:
+  start = time.time()
   payload = dc.get_places_in_v1([main_place_dcid], contained_place_type)
+  counters.timeit('get_all_child_places', start)
+
   results = []
   for entry in payload.get('data', []):
     if 'node' not in entry:
@@ -490,6 +523,30 @@ def get_all_child_places(main_place_dcid: str,
           detection.Place(dcid=value['dcid'],
                           name=value['name'],
                           place_type=contained_place_type))
+  return results
+
+
+def get_immediate_parent_places(
+    main_place_dcid: str, parent_place_type: str,
+    counters: ctr.Counters) -> List[detection.Place]:
+  start = time.time()
+  resp = dc.property_values_v1([main_place_dcid], 'containedInPlace')
+  counters.timeit('get_immediate_parent_places', start)
+  results = []
+  for item in resp.get('data', []):
+    if item.get('node', '') != main_place_dcid:
+      continue
+    for value in item.get('values', []):
+      if 'dcid' not in value or 'name' not in value or 'types' not in value:
+        continue
+      if parent_place_type not in value['types']:
+        continue
+      results.append(
+          detection.Place(dcid=value['dcid'],
+                          name=value['name'],
+                          place_type=parent_place_type))
+  # Sort results for determinism.
+  results.sort(key=lambda p: p.dcid)
   return results
 
 
@@ -608,7 +665,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   """
   # Run through all heuristics (various query string transforms).
   query = remove_punctuations(query)
-  query_lower_with_spaces = f" {query.lower()} "
+  query_lower = query.lower()
   query_without_stop_words = remove_stop_words(query, constants.STOP_WORDS)
   query_title_case = query.title()
   query_without_stop_words_title_case = query_without_stop_words.title()
@@ -618,16 +675,16 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
   # First check in special places. If they are found, add those first.
   places_found = []
   for special_place in constants.OVERRIDE_FOR_NER:
-    # Matching <space>special_place<space> because otherwise "asia" could
+    # Matching <special_place> as a word because otherwise "asia" could
     # also match "asian" which is undesirable.
-    if f" {special_place} " in query_lower_with_spaces:
+    if re.search(rf"\b{special_place}\b", query_lower):
       logging.info(f"Found one of the Special Places: {special_place}")
       places_found.append(special_place)
 
   # Now try all versions of the query.
   for q in [
-      query, query_lower_with_spaces, query_without_stop_words,
-      query_title_case, query_without_stop_words_title_case
+      query, query_lower, query_without_stop_words, query_title_case,
+      query_without_stop_words_title_case
   ]:
     logging.info(f"Trying place detection with: {q}")
     try:
@@ -640,6 +697,20 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         # heuristics above, for example.
         if "the " in p:
           p = p.replace("the ", "")
+
+        # If the detected place string needs to be replaced with shorter text,
+        # then do that here.
+        if p.lower() in constants.SHORTEN_PLACE_DETECTION_STRING:
+          p = constants.SHORTEN_PLACE_DETECTION_STRING[p.lower()]
+
+        # Also remove place text detected which is exactly equal to some place types
+        # e.g. "states" etc. This is a shortcoming of place entity recognitiion libraries.
+        # As a specific example, some entity annotation libraries classify "states" as a
+        # place. This is incorrect behavior because "states" on its own is not a place.
+        if (p.lower() in constants.PLACE_TYPE_TO_PLURALS.keys() or
+            p.lower() in constants.PLACE_TYPE_TO_PLURALS.values()):
+          continue
+
         # Add if not already done. Also check for the special places which get
         # added with a ", usa" appended.
         if (p.lower() not in places_found):
@@ -665,7 +736,7 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
         break
     # Insert places_found[i] in the candidates if it is not to be ignored
     # and if it is also found in the original query without punctuations.
-    # The extra check to find places_found[i] in `query_lower_with_spaces` is to avoid
+    # The extra check to find places_found[i] in `query_lower` is to avoid
     # situations where the removal of some stop words etc makes the remaining
     # query have some valid place name words next to each other. For example,
     # in the query "... united in the states ...", the removal of stop words
@@ -675,36 +746,21 @@ def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
     # query string.
     # If places_found[i] was a special place (constants.OVERRIDE_FOR_NER),
     # keep it always.
-    if (places_found[i] in constants.OVERRIDE_FOR_NER) or (
-        not ignore and places_found[i] in query_lower_with_spaces):
+    if (places_found[i]
+        in constants.OVERRIDE_FOR_NER) or (not ignore and
+                                           places_found[i] in query_lower):
       places_to_return.append(places_found[i])
 
   # For all the places detected, re-sort based on the string which occurs first.
   def fn(p):
-    ind = query_lower_with_spaces.find(f" {p} ")
-    if ind < 0:
+    res = re.search(rf"\b{p}\b", query_lower)
+    if res is None:
       return +1000000
-    return ind
+    else:
+      return res.start()
 
   places_to_return.sort(key=fn)
   return places_to_return
-
-
-# Convenience function to help update counters.
-#
-# For a given counter, caller should always pass the same type
-# for value.  If value is numeric, then its a single added
-# counter, otherwise, counter is a list of values.
-def update_counter(dbg_counters: Dict, counter: str, value: any):
-  should_add = counter not in dbg_counters
-  if isinstance(value, int) or isinstance(value, float):
-    if should_add:
-      dbg_counters[counter] = 0
-    dbg_counters[counter] += value
-  else:
-    if should_add:
-      dbg_counters[counter] = []
-    dbg_counters[counter].append(value)
 
 
 def get_contained_in_type(
@@ -791,10 +847,25 @@ def get_time_delta_title(direction: detection.TimeDeltaType,
 #
 
 _SV_PARTIAL_DCID_NO_PC = [
-    'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
-    "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
-    "ConsecutiveDryDays", "Percent", "Area_", "Median_", "LifeExpectancy_",
-    "AsFractionOf", "AsAFractionOfCount"
+    'Temperature',
+    'Precipitation',
+    "BarometricPressure",
+    "CloudCover",
+    "PrecipitableWater",
+    "Rainfall",
+    "Snowfall",
+    "Visibility",
+    "WindSpeed",
+    "ConsecutiveDryDays",
+    "Percent",
+    "Area_",
+    "Median_",
+    "LifeExpectancy_",
+    "AsFractionOf",
+    "AsAFractionOfCount",
+    "UnemploymentRate_",
+    "Mean_Income_",
+    "GenderIncomeInequality_",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]
@@ -808,3 +879,13 @@ def is_percapita_relevant(sv_dcid: str) -> bool:
     if skip_sv == sv_dcid:
       return False
   return True
+
+
+def get_default_child_place_type(
+    place: detection.Place) -> detection.ContainedInPlaceType:
+  if place.dcid == constants.EARTH_DCID:
+    return detection.ContainedInPlaceType.COUNTRY
+  # TODO: Since most queries/data tends to be US specific and we have
+  # maps for it, we pick County as default, but reconsider in future.
+  return constants.CHILD_PLACE_TYPES.get(place.place_type,
+                                         detection.ContainedInPlaceType.COUNTY)

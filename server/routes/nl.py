@@ -17,6 +17,7 @@ import asyncio
 import json
 import logging
 import os
+import time
 from typing import Dict, List
 
 import flask
@@ -30,6 +31,7 @@ from google.protobuf.json_format import MessageToJson
 import requests
 
 import server.lib.nl.constants as constants
+import server.lib.nl.counters as ctr
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Detection
 from server.lib.nl.detection import NLClassifier
@@ -42,7 +44,7 @@ import server.lib.nl.fulfillment.context as context
 import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
-from server.lib.util import get_disaster_dashboard_configs
+from server.lib.util import get_nl_disaster_config
 import server.services.bigtable as bt
 import server.services.datacommons as dc
 
@@ -63,16 +65,14 @@ def _maps_place(place_str):
     logging.info(f"place_str replaced with: {place_str}")
 
   api_key = current_app.config["MAPS_API_KEY"]
-  # Note on 02/15/2023: Maps textsearch API has deprecated the use of
-  # `input` as a url param and instead wants `query`.
-  # Reference: https://developers.google.com/maps/deprecations#unsupported-place-search-deprecation
-  url_formatted = f"{constants.MAPS_API}query={place_str}&key={api_key}"
+  # Note on 03/01/2023: switching to use the Maps Autocomplete API.
+  url_formatted = f"{constants.MAPS_API}input={place_str}&key={api_key}&types={constants.AUTOCOMPLETE_MAPS_API_TYPES_FILTER}"
   r = requests.get(url_formatted)
   resp = r.json()
 
-  # Return the first "political" place found.
-  if "results" in resp:
-    for res in resp["results"]:
+  # Return the first place found which has a type matching MAPS_GEO_TYPES.
+  if "predictions" in resp:
+    for res in resp["predictions"]:
       types_found = set(res["types"])
 
       if constants.MAPS_GEO_TYPES.intersection(types_found):
@@ -98,8 +98,8 @@ def _dc_recon(place_ids):
   return d_return
 
 
-def _remove_places(query, places_found):
-  for p_str in places_found:
+def _remove_places(query, places_str_found: List[str]):
+  for p_str in places_str_found:
     # See if the word "in" precedes the place. If so, best to remove it too.
     needle = "in " + p_str
     if needle not in query:
@@ -110,23 +110,56 @@ def _remove_places(query, places_found):
   return ' '.join(query.split())
 
 
-def _infer_place_dcid(places_found):
-  # TODO: propagate several of the logging errors in this function to place detection
-  # state displayed in debugInfo.
-  if not places_found:
-    logging.info("places_found is empty. Nothing to retrieve from Maps API.")
-    return ""
+def _get_place_from_dcids(place_dcids: List[str],
+                          debug_logs: Dict) -> List[Place]:
+  places = []
+  place_types_dict = dc.property_values(place_dcids, 'typeOf')
+  place_names_dict = dc.property_values(place_dcids, 'name')
 
-  place_dcid = ""
-  # Iterate over all the places until a valid place DCID is found.
-  for p_str in places_found:
-    # If this is a special place, return the known DCID.
-    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API:
-      place_dcid = constants.OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API[p_str.lower()]
+  dc_resolve_failures = []
+  # Iterate in the same order as place_dcids.
+  for p_dcid in place_dcids:
+
+    if (p_dcid in place_types_dict) and (p_dcid in place_names_dict):
+      p_types = place_types_dict[p_dcid]
+      p_type = _get_preferred_type(p_types)
+      p_name = place_names_dict[p_dcid][0]
+
+      places.append(Place(dcid=p_dcid, name=p_name, place_type=p_type))
+    else:
       logging.info(
-          f"{p_str} was found in OVERRIDE_PLACE_TO_DICD_FOR_MAPS_API. Returning its DICD {place_dcid} without querying Maps API."
+          f"Place DCID ({p_dcid}) did not correspond to a place_type and/or place name."
       )
-      break
+      dc_resolve_failures.append(p_dcid)
+
+  debug_logs.update({
+      "dc_resolution_failure": dc_resolve_failures,
+      "dc_resolved_places": places,
+  })
+  return places
+
+
+def _infer_place_dcids(places_str_found: List[str],
+                       debug_logs: Dict) -> List[str]:
+  if not places_str_found:
+    logging.info("places_found is empty. Nothing to retrieve from Maps API.")
+
+  override_places = []
+  maps_api_failures = []
+  no_dcids_found = []
+  place_dcids = []
+  # Iterate over all the places until a valid place DCID is found.
+  for p_str in places_str_found:
+    place_dcid = ""
+    # If this is a special place, return the known DCID.
+    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API:
+      place_dcid = constants.OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API[p_str.lower()]
+      logging.info(
+          f"{p_str} was found in OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API. Recording its DCID {place_dcid} without querying Maps API."
+      )
+      place_dcids.append(place_dcid)
+      override_places.append((p_str.lower(), place_dcid))
+      continue
 
     logging.info(f"Searching Maps API with: {p_str}")
     place = _maps_place(p_str)
@@ -142,18 +175,28 @@ def _infer_place_dcid(places_found):
       if place_id in place_ids_map:
         place_dcid = place_ids_map[place_id]
         logging.info(f"DC API found DCID: {place_dcid}")
-        break
+        place_dcids.append(place_dcid)
       else:
         logging.info(
             f"Maps API found a place {place_id} but no DCID match found for place string: {p_str}."
         )
+        no_dcids_found.append(place_id)
     else:
-      logging.info("Maps API did not find a place for place string: {p_str}.")
+      logging.info(f"Maps API did not find a place for place string: {p_str}.")
+      maps_api_failures.append(p_str)
 
-  if not place_dcid:
+  if not place_dcids:
     logging.info(
-        f"No place DCIDs were found. Using places_found = {places_found}")
-  return place_dcid
+        f"No place DCIDs were found. Using places_found = {places_str_found}.")
+
+  # Update the debug_logs dict.
+  debug_logs.update({
+      "dcids_resolved": place_dcids,
+      "dcid_overrides_found": override_places,
+      "maps_api_failures": maps_api_failures,
+      "dcid_not_found_for_place_ids": no_dcids_found
+  })
+  return place_dcids
 
 
 def _empty_svs_score_dict():
@@ -162,8 +205,8 @@ def _empty_svs_score_dict():
 
 def _result_with_debug_info(data_dict: Dict, status: str,
                             query_detection: Detection,
-                            uttr_history: List[Dict],
-                            debug_counters: Dict) -> Dict:
+                            uttr_history: List[Dict], debug_counters: Dict,
+                            query_detection_debug_logs: str) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -177,7 +220,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
 
   ranking_classification = "<None>"
   overview_classification = "<None>"
-  temporal_classification = "<None>"
   size_type_classification = "<None>"
   time_delta_classification = "<None>"
   comparison_classification = "<None>"
@@ -191,8 +233,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       ranking_classification = str(classification.attributes.ranking_type)
     elif classification.type == ClassificationType.OVERVIEW:
       overview_classification = str(classification.type)
-    elif classification.type == ClassificationType.TEMPORAL:
-      temporal_classification = str(classification.type)
     elif classification.type == ClassificationType.SIZE_TYPE:
       size_type_classification = str(classification.attributes.size_types)
     elif classification.type == ClassificationType.TIME_DELTA:
@@ -222,7 +262,6 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,
       'overview_classification': overview_classification,
-      'temporal_classification': temporal_classification,
       'size_type_classification': size_type_classification,
       'time_delta_classification': time_delta_classification,
       'contained_in_classification': contained_in_classification,
@@ -233,69 +272,114 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       'counters': debug_counters,
       'data_spec': uttr_history,
   }
-  if query_detection.places_detected:
+
+  places_found_formatted = ""
+  for place in query_detection.places_detected.places_found:
+    places_found_formatted += f"(name: {place.name}, dcid: {place.dcid}); "
+
+  debug_info.update({
+      'places_detected':
+          query_detection.places_detected.query_places_mentioned,
+      'places_resolved':
+          places_found_formatted,
+      'query_with_places_removed':
+          query_detection.places_detected.query_without_place_substr,
+      'query_detection_debug_logs':
+          query_detection_debug_logs,
+  })
+
+  if query_detection.places_detected.main_place:
     debug_info.update({
-        'places_detected':
-            query_detection.places_detected.places_found,
-        'main_place_dcid':
-            query_detection.places_detected.main_place.dcid,
-        'main_place_name':
-            query_detection.places_detected.main_place.name,
-        'query_with_places_removed':
-            query_detection.places_detected.query_without_place_substr,
+        'main_place_dcid': query_detection.places_detected.main_place.dcid,
+        'main_place_name': query_detection.places_detected.main_place.name,
     })
   else:
     debug_info.update({
-        'places_detected': ["<None>"],
         'main_place_dcid': "<None>",
         'main_place_name': "<None>",
-        'query_with_places_removed': query_detection.original_query,
     })
   data_dict['debug'] = debug_info
   return data_dict
 
 
-def _detection(orig_query, cleaned_query) -> Detection:
+def _detection(orig_query: str, cleaned_query: str,
+               query_detection_debug_logs: Dict) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
-  places_found = model.detect_place(cleaned_query)
+  places_str_found = model.detect_place(cleaned_query)
 
-  if not places_found:
+  if not places_str_found:
     logging.info("Place detection failed.")
 
-  logging.info("Found places: {}".format(places_found))
-  # If place_dcid was already set by the url, skip inferring it.
-  place_dcid = request.args.get('place_dcid', '')
-  if not place_dcid and places_found:
-    place_dcid = _infer_place_dcid(places_found)
+  logging.info("Found places in query: {}".format(places_str_found))
 
-  if place_dcid:
-    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
-    main_place_type = _get_preferred_type(place_types)
-    main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
+  query = cleaned_query
+  place_dcids = []
+  main_place = None
+  resolved_places = []
 
-    # Step 2: replace the places in the query sentence with "".
-    query = _remove_places(cleaned_query.lower(), places_found)
+  # Start updating the query_detection_debug_logs. Create space for place dcid inference
+  # and place resolution. If they remain empty, the function belows were never triggered.
+  query_detection_debug_logs["place_dcid_inference"] = {}
+  query_detection_debug_logs["place_resolution"] = {}
+  # Look to find place DCIDs.
+  if places_str_found:
+    place_dcids = _infer_place_dcids(
+        places_str_found, query_detection_debug_logs["place_dcid_inference"])
+    logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
-    # Set PlaceDetection.
-    place_detection = PlaceDetection(query_original=orig_query,
-                                     query_without_place_substr=query,
-                                     places_found=places_found,
-                                     main_place=Place(
-                                         dcid=place_dcid,
-                                         name=main_place_name,
-                                         place_type=main_place_type))
-  else:
-    query = cleaned_query
-    # TODO: even if no place_dcid was found, debugInfo should be able to display
-    # the places_found (which can be valid even if no dcid was found).
-    place_detection = None
+  if place_dcids:
+    resolved_places = _get_place_from_dcids(
+        place_dcids, query_detection_debug_logs["place_resolution"])
+    logging.info(
+        f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
+
+    # Step 2: replace the place strings with "" if place_dcids were found.
+    # Typically, this could also be done under the check for resolved_places
+    # but we don't expected the resolution from place dcids to fail (typically).
+    # Also, even if the resolution fails, if there is a place dcid found, it should
+    # be considered good enough to remove the place strings.
+    # TODO: investigate whether it is better to only remove place strings for which
+    # a DCID is found and leave the others in the query string. This is now relevant
+    # because we support multiple place detection+resolution. Previously, even if
+    # just one place was used (resolved), it made sense to remove all place strings.
+    # But now that multiple place strings are being resolved, if there is a failure
+    # in resolving a place, perhaps it should not be removed? This would be a change
+    # and would need to be validated first.
+    query = _remove_places(cleaned_query.lower(), places_str_found)
+
+  if resolved_places:
+    main_place = resolved_places[0]
+    logging.info(f"Using main_place as: {main_place}")
+
+  # Set PlaceDetection.
+  place_detection = PlaceDetection(query_original=orig_query,
+                                   query_without_place_substr=query,
+                                   query_places_mentioned=places_str_found,
+                                   places_found=resolved_places,
+                                   main_place=main_place)
+
+  # Update the various place detection and query transformation debug logs dict.
+  query_detection_debug_logs["places_found_str"] = places_str_found
+  query_detection_debug_logs["main_place_inferred"] = main_place
+  query_detection_debug_logs["query_transformations"] = {
+      "place_detection_input": cleaned_query.lower(),
+      "place_detection_with_places_removed": query,
+  }
+  if not query_detection_debug_logs["place_dcid_inference"]:
+    query_detection_debug_logs[
+        "place_dcid_inference"] = "Place DCID Inference did not trigger (no place strings found)."
+  if not query_detection_debug_logs["place_resolution"]:
+    query_detection_debug_logs[
+        "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
 
   # Step 3: Identify the SV matched based on the query.
+  sv_debug_logs = {}
   svs_scores_dict = _empty_svs_score_dict()
   try:
-    svs_scores_dict = model.detect_svs(query)
+    svs_scores_dict = model.detect_svs(
+        query, query_detection_debug_logs["query_transformations"])
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
@@ -311,15 +395,13 @@ def _detection(orig_query, cleaned_query) -> Detection:
   ranking_classification = model.heuristic_ranking_classification(query)
   comparison_classification = model.heuristic_comparison_classification(query)
   overview_classification = model.heuristic_overview_classification(query)
-  temporal_classification = model.query_classification("temporal", query)
   size_type_classification = model.heuristic_size_type_classification(query)
   time_delta_classification = model.heuristic_time_delta_classification(query)
-  contained_in_classification = model.query_classification(
-      "contained_in", query)
+  contained_in_classification = model.heuristic_containedin_classification(
+      query)
   event_classification = model.heuristic_event_classification(query)
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Comparison classification: {comparison_classification}')
-  logging.info(f'Temporal classification: {temporal_classification}')
   logging.info(f'SizeType classification: {size_type_classification}')
   logging.info(f'TimeDelta classification: {time_delta_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
@@ -387,17 +469,12 @@ def data():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
 
-  # TODO: Switch to NL-specific event configs instead of relying
-  # on disaster dashboard's.
-  disaster_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
+  disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
-    disaster_configs = get_disaster_dashboard_configs()
-  disaster_config = None
-  if disaster_configs:
-    disaster_config = disaster_configs[0]
+    disaster_config = get_nl_disaster_config()
   else:
-    logging.error('Unable to load event configs!')
+    logging.info('Unable to load event configs!')
 
   original_query = request.args.get('q')
   context_history = []
@@ -422,9 +499,16 @@ def data():
                                    _detection("", ""), escaped_context_history,
                                    {})
 
+  counters = ctr.Counters()
+
+  query_detection_debug_logs = {}
+  query_detection_debug_logs["original_query"] = query
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
-  query_detection = _detection(str(escape(original_query)), query)
+  start = time.time()
+  query_detection = _detection(str(escape(original_query)), query,
+                               query_detection_debug_logs)
+  counters.timeit('query_detection', start)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
@@ -436,12 +520,18 @@ def data():
     else:
       session_id = constants.TEST_SESSION_ID
 
-  utterance = fulfillment.fulfill(query_detection, prev_utterance, session_id)
+  start = time.time()
+  utterance = fulfillment.fulfill(query_detection, prev_utterance, counters,
+                                  session_id)
+  counters.timeit('fulfillment', start)
 
   if utterance.rankedCharts:
+    start = time.time()
     page_config_pb = nl_page_config.build_page_config(utterance,
                                                       disaster_config)
     page_config = json.loads(MessageToJson(page_config_pb))
+    counters.timeit('build_page_config', start)
+
     # Use the first chart's place as main place.
     main_place = utterance.rankedCharts[0].places[0]
   else:
@@ -450,7 +540,7 @@ def data():
     logging.info('Found empty place for query "%s"',
                  query_detection.original_query)
 
-  dbg_counters = utterance.counters
+  dbg_counters = utterance.counters.get()
   utterance.counters = None
   context_history = nl_utterance.save_utterance(utterance)
 
@@ -479,7 +569,8 @@ def data():
     loop.run_until_complete(bt.write_row(session_info))
 
   data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
-                                      context_history, dbg_counters)
+                                      context_history, dbg_counters,
+                                      query_detection_debug_logs)
 
   return data_dict
 

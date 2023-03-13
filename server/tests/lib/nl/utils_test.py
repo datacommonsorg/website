@@ -28,9 +28,7 @@ class TestNLUtilsAddToSet(unittest.TestCase):
 
     # Start with a few words.
     words_set = {'random', 'existing', 'words'}
-    expected = {
-        'random', 'existing', 'words', 'more', 'including', 'a', 'sentence'
-    }
+    expected = {'random', 'existing', 'words', 'more', 'including a sentence'}
 
     # Add some words
     utils.add_to_set_from_list(words_set, list_with_words)
@@ -49,12 +47,10 @@ class TestNLUtilsAddToSet(unittest.TestCase):
       self.assertIn(word.lower(), got)
 
     for key in constants.PLACE_TYPE_TO_PLURALS.keys():
-      for word in key.split():
-        self.assertIn(word.lower(), got)
+      self.assertIn(key.lower(), got)
 
     for val in constants.PLACE_TYPE_TO_PLURALS.values():
-      for word in val.split():
-        self.assertIn(word.lower(), got)
+      self.assertIn(val.lower(), got)
 
     # This is the most complex because the values could we lists or
     # dictionary (of lists). The strings themselves are also sentences
@@ -69,8 +65,7 @@ class TestNLUtilsAddToSet(unittest.TestCase):
       # At this point either vals_list is empty or a list of lists (of str).
       for words_list in vals_list:
         for words in words_list:
-          for word in words.split():
-            self.assertIn(word.lower(), got)
+          self.assertIn(words.lower(), got)
 
 
 class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
@@ -83,11 +78,19 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ["population of palo alto", "population palo alto"],
       ["tell me about life expectancy", "life expectancy"],
       ["what about Capitalization", "capitalization"],
-      [
-          "say something about crime in counties in California",
-          "crime california"
-      ],
+      ["say something about crime in California counties", "crime california"],
       ["how are you", ""],
+      ["tell me about the climate extremes in palo alto", "climate palo alto"],
+      [
+          "How big are the public elementary schools in Sunnyvale",
+          "public sunnyvale"
+      ],
+      [
+          "what is relationship between the sickest and healthiest people in the world",
+          "people world"
+      ],
+      ["how does it correlate with heart disease", "heart disease"],
+      ["best high schools in Florida counties", "florida"],
       [
           "interest rates among people who are living in poverty across US states",
           "interest rates people living poverty us"
@@ -133,7 +136,7 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     # (20 - 10) / (2 years * 10)
-    gr = utils.compute_series_growth(s, 100.0)
+    gr = utils._compute_series_growth(s, 100.0)
     self.assertEqual(0.0013698630136986301, gr.pct)
     self.assertEqual(0.0136986301369863, gr.abs)
     self.assertEqual(0.00013698630136986303, gr.pc)
@@ -154,7 +157,7 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     # (10 - 20) / (24 months * 20)
-    gr = utils.compute_series_growth(s, 100.0)
+    gr = utils._compute_series_growth(s, 100.0)
     self.assertEqual(-0.0006849315068493151, gr.pct)
     self.assertEqual(-0.0136986301369863, gr.abs)
     self.assertEqual(-0.00013698630136986303, gr.pc)
@@ -189,7 +192,7 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     # (10 - 20) / (24 months * 20)
-    gr = utils.compute_series_growth(s, 100.0)
+    gr = utils._compute_series_growth(s, 100.0)
     self.assertEqual(-0.0006849315068493151, gr.pct)
     self.assertEqual(-0.0136986301369863, gr.abs)
     self.assertEqual(-0.00013698630136986303, gr.pc)
@@ -210,7 +213,7 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     # (20 - 10) / (2 years * 10)
-    gr = utils.compute_series_growth(s, 100.0)
+    gr = utils._compute_series_growth(s, 100.0)
     self.assertEqual(0.0013698630136986301, gr.pct)
     self.assertEqual(0.0136986301369863, gr.abs)
     self.assertEqual(0.00013698630136986303, gr.pc)
@@ -231,6 +234,6 @@ class TestComputeGrowthRate(unittest.TestCase):
         },
     ]
     with self.assertRaises(ValueError) as context:
-      utils.compute_series_growth(s, 100.0)
+      utils._compute_series_growth(s, 100.0)
     self.assertTrue(
         'Dates have different granularity' in str(context.exception))

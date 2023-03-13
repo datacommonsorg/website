@@ -36,15 +36,9 @@ configMapGenerator:
     name: store-configmap
     files:
       - custom_bigtable_info.yaml
+  - name: redis-config
+    files:
+      - redis.json
 
 patchesStrategicMerge:
-  - |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: website-app
-    spec:
-      replicas: 6
-
-generatorOptions:
- disableNameSuffixHash: true
+  - patch_deployment.yaml

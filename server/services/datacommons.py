@@ -31,13 +31,6 @@ from server.services.discovery import get_service_url
 
 cfg = libconfig.get_config()
 
-# --------------------------------- CONSTANTS ---------------------------------
-
-# The default value to limit to
-_MAX_LIMIT = 100
-
-# ----------------------------- WRAPPER FUNCTIONS -----------------------------
-
 
 # Cache for one day.
 @cache.memoize(timeout=3600 * 24)
@@ -197,6 +190,16 @@ def properties(node, direction):
   return get(f'{url}/{direction}/{node}').get('properties', [])
 
 
+def property_values_v1(nodes, prop, out=True):
+  """Retrieves the property values with V1 response."""
+  direction = 'out' if out else 'in'
+  url = get_service_url('/v1/bulk/property/values')
+  return post(f'{url}/{direction}', {
+      'nodes': sorted(set(nodes)),
+      'property': prop,
+  })
+
+
 def property_values(nodes, prop, out=True):
   """Retrieves the property values for a list of nodes.
 
@@ -205,12 +208,7 @@ def property_values(nodes, prop, out=True):
       prop: The property label to query for.
       out: Whether the property direction is 'out'.
   """
-  direction = 'out' if out else 'in'
-  url = get_service_url('/v1/bulk/property/values')
-  resp = post(f'{url}/{direction}', {
-      'nodes': sorted(set(nodes)),
-      'property': prop,
-  })
+  resp = property_values_v1(nodes, prop, out)
   result = {}
   for item in resp.get('data', []):
     node, values = item['node'], item.get('values', [])
@@ -276,6 +274,12 @@ def observation_existence(variables, entities):
       'entities': entities,
       'variables': variables,
   })
+
+
+def bio(entity):
+  """Fetch biology subgraph linking to the given entity"""
+  url = get_service_url('/v1/internal/page/bio')
+  return get(url + "/" + entity)
 
 
 def resolve_id(in_ids, in_prop, out_prop):

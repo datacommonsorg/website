@@ -85,7 +85,7 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_stanford_dc(app, is_local):
+def register_routes_disasters(app):
   # Install blueprints specific to Stanford DC
   from server.routes import disasters
   from server.routes import event
@@ -98,8 +98,9 @@ def register_routes_stanford_dc(app, is_local):
     return
 
   # load disaster dashboard configs
-  disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
-  app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
+  app.config[
+      'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
+  app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
 
   if app.config['INTEGRATION']:
     return
@@ -191,10 +192,6 @@ def create_app():
   cfg = libconfig.get_config()
   app.config.from_object(cfg)
 
-  # USE_LOCAL_MIXER
-  if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
-    app.config['API_ROOT'] = 'http://127.0.0.1:8081'
-
   # Init extentions
   from server.cache import cache
 
@@ -215,12 +212,12 @@ def create_app():
     register_routes_custom_dc(app)
   if (cfg.ENV == 'stanford' or os.environ.get('ENABLE_MODEL') == 'true' or
       cfg.LOCAL and not cfg.LITE):
-    register_routes_stanford_dc(app, cfg.LOCAL)
+    register_routes_disasters(app)
 
   if cfg.TEST or cfg.INTEGRATION:
     # disaster dashboard tests require stanford's routes to be registered.
     register_routes_base_dc(app)
-    register_routes_stanford_dc(app, cfg.LOCAL)
+    register_routes_disasters(app)
   else:
     register_routes_base_dc(app)
 
@@ -246,6 +243,7 @@ def create_app():
     if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
       ranked_statvars.add(chart['relatedChart']['denominator'])
   app.config['RANKED_STAT_VARS'] = ranked_statvars
+  app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
 
   if not cfg.TEST and not cfg.LITE:
     secret_client = secretmanager.SecretManagerServiceClient()
@@ -297,15 +295,12 @@ def create_app():
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
-    import server.lib.nl.training as libnl
     import server.services.nl as nl
 
-    # For the classification types available, check lib.training (libnl).
-    classification_types = [
-        'ranking', 'temporal', 'contained_in', 'correlation'
-    ]
-    nl_model = nl.Model(app, libnl.CLASSIFICATION_INFO, classification_types)
+    nl_model = nl.Model()
     app.config['NL_MODEL'] = nl_model
+    # This also requires disaster and event routes.
+    app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
 
   if not cfg.TEST:
     urls = get_health_check_urls()

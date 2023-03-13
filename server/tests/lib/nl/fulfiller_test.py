@@ -18,6 +18,7 @@ import unittest
 from unittest.mock import patch
 
 from server.lib.nl import constants
+from server.lib.nl import counters as ctr
 from server.lib.nl import fulfiller
 from server.lib.nl import utils
 from server.lib.nl import utterance
@@ -87,8 +88,9 @@ class TestDataSpecNext(unittest.TestCase):
     mock_extend_svs.return_value = {}
     mock_single_datapoint.return_value = False
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Person_Male'],
-                                     ['Count_Person_Female']]
+    mock_sv_existence.side_effect = [[
+        'Count_Person_Male', 'Count_Person_Female'
+    ]]
 
     got = _run(detection, [])
 
@@ -126,8 +128,9 @@ class TestDataSpecNext(unittest.TestCase):
     mock_extend_svs.return_value = {}
     mock_single_datapoint.return_value = True
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Person_Male'],
-                                     ['Count_Person_Female']]
+    mock_sv_existence.side_effect = [[
+        'Count_Person_Male', 'Count_Person_Female'
+    ]]
 
     got = _run(detection, [])
 
@@ -151,7 +154,7 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Farm'], ['Income_Farm']]
+    mock_sv_existence.side_effect = [['Count_Farm', 'Income_Farm']]
 
     got = _run(detection, [SIMPLE_UTTR])
 
@@ -226,8 +229,9 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     # - Make SVs (from context) exist
-    mock_sv_existence.side_effect = [['Count_Person_Male'],
-                                     ['Count_Person_Female']]
+    mock_sv_existence.side_effect = [[
+        'Count_Person_Male', 'Count_Person_Female'
+    ]]
 
     # Pass in the simple SV utterance as context
     got = _run(detection, [SIMPLE_UTTR])
@@ -250,11 +254,9 @@ class TestDataSpecNext(unittest.TestCase):
         'Count_Person_Male': ['Count_Person_Male', 'Count_Person_Female']
     }
     # - Make SVs exist. Importantly, the second call is for both male + female.
-    mock_sv_existence.side_effect = [['Count_Person_Male'],
-                                     [
-                                         'Count_Person_Male',
-                                         'Count_Person_Female'
-                                     ]]
+    mock_sv_existence.side_effect = [[
+        'Count_Person_Male', 'Count_Person_Female'
+    ]]
     mock_single_datapoint.return_value = False
 
     got = _run(detection, [])
@@ -294,13 +296,11 @@ class TestDataSpecNext(unittest.TestCase):
                        is_topic_peer_group=True)
     ]
     mock_single_datapoint.return_value = False
-    # - Make SVs exist. Importantly, in the order in which the ChartVars were set.
+    # - Make SVs exist. The order doesn't matter.
     #   Make Wheat inventory fail existence check.
-    mock_sv_existence.side_effect = [['Count_Farm'], ['Area_Farm'],
-                                     [
-                                         'FarmInventory_Rice',
-                                         'FarmInventory_Barley'
-                                     ]]
+    mock_sv_existence.side_effect = [[
+        'Count_Farm', 'Area_Farm', 'FarmInventory_Rice', 'FarmInventory_Barley'
+    ]]
 
     got = _run(detection, [])
 
@@ -340,8 +340,9 @@ class TestDataSpecNext(unittest.TestCase):
     ]
     # - Make SVs exist
     mock_sv_existence.side_effect = [[
-        'Count_Farm'
-    ], ['FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley']]
+        'Count_Farm', 'FarmInventory_Rice', 'FarmInventory_Wheat',
+        'FarmInventory_Barley'
+    ]]
     # Differently order result
     mock_rank_svs.return_value = [
         'FarmInventory_Barley',
@@ -432,19 +433,24 @@ class TestDataSpecNext(unittest.TestCase):
     mock_extend_svs.return_value = {}
     mock_single_datapoint.return_value = False
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Person_Male'],
-                                     ['Count_Person_Female']]
+    mock_sv_existence.side_effect = [[
+        'Count_Person_Male', 'Count_Person_Female'
+    ]]
 
-    got = fulfiller.fulfill(detection, None, constants.TEST_SESSION_ID).counters
+    counters = ctr.Counters()
+    fulfiller.fulfill(detection, None, counters, constants.TEST_SESSION_ID)
+    got = counters.get()
 
     self.maxDiff = None
     _COUNTERS = {
-        'filtered_svs': ['Count_Person_Male', 'Count_Person_Female'],
+        'filtered_svs': [['Count_Person_Male', 'Count_Person_Female']],
         'processed_fulfillment_types': ['simple'],
         'num_chart_candidates': 2,
         'stat_var_extensions': [{}]
     }
-    self.assertEqual(got, _COUNTERS)
+    # We don't want to compare TIMING
+    self.assertEqual(got['INFO'], _COUNTERS)
+    self.assertEqual(got['ERROR'], {})
 
 
 # Helper to construct Detection() class.
@@ -453,12 +459,12 @@ def _detection(place: str,
                scores: List[float],
                query_type: ClassificationType = ClassificationType.SIMPLE):
   if place:
-    places_detected = PlaceDetection(query_original='foo sv in place',
-                                     places_found=[],
-                                     query_without_place_substr='foo sv',
-                                     main_place=Place(dcid=place,
-                                                      name='Foo Place',
-                                                      place_type='State'))
+    places_detected = PlaceDetection(
+        query_original='foo sv in place',
+        query_places_mentioned=[],
+        query_without_place_substr='foo sv',
+        places_found=[Place(dcid=place, name='Foo Place', place_type='State')],
+        main_place=Place(dcid=place, name='Foo Place', place_type='State'))
   else:
     places_detected = None
   detection = Detection(original_query='foo sv in place',
@@ -530,5 +536,7 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
   prev_uttr = None
   if uttr_dict:
     prev_uttr = utterance.load_utterance(uttr_dict)
+  counters = ctr.Counters()
   return utterance.save_utterance(
-      fulfiller.fulfill(detection, prev_uttr, constants.TEST_SESSION_ID))[0]
+      fulfiller.fulfill(detection, prev_uttr, counters,
+                        constants.TEST_SESSION_ID))[0]

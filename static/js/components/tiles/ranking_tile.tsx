@@ -31,14 +31,14 @@ import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
-import { formatNumber } from "../../utils/string_utils";
+import { formatNumber, getDateRange } from "../../utils/string_utils";
 import {
   formatString,
-  getSourcesJsx,
   getStatVarName,
   getUnitString,
 } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
+import { ChartFooter } from "./chart_footer";
 
 const RANKING_COUNT = 5;
 
@@ -50,6 +50,7 @@ interface RankingGroup {
   scaling: number[];
   sources: Set<string>;
   numDataPoints?: number;
+  dateRange: string;
 }
 
 interface RankingData {
@@ -81,7 +82,6 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   const isMultiColumn = props.rankingMetadata.showMultiColumn;
   const svNames = props.statVarSpec.map((sv) => sv.name);
-  // TODO: Make use of ChartTileContainer for the footer section.
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -99,6 +99,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           const svName = getStatVarName(statVar, props.statVarSpec);
           const numDataPoints = rankingData[statVar].numDataPoints;
           const sources = rankingData[statVar].sources;
+          const dateRange = rankingData[statVar].dateRange;
           return (
             <React.Fragment key={statVar}>
               {props.rankingMetadata.showHighest && (
@@ -107,39 +108,26 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     key={`${statVar}-highest`}
                     unit={unit}
                     scaling={scaling}
-                    title={
+                    title={formatString(
                       props.title ||
-                      formatString(
-                        props.rankingMetadata.highestTitle
+                        (props.rankingMetadata.highestTitle
                           ? props.rankingMetadata.highestTitle
-                          : "Highest ${statVar}",
-                        {
-                          date: "",
-                          place: "",
-                          statVar: svName,
-                        }
-                      )
-                    }
+                          : "Highest ${statVar}"),
+                      {
+                        date: dateRange,
+                        place: "",
+                        statVar: svName,
+                      }
+                    )}
                     points={points.slice(-rankingCount).reverse()}
                     isHighest={true}
                     svNames={isMultiColumn ? svNames : undefined}
                     formatNumberFn={formatNumber}
                   />
-                  <footer>
-                    {!_.isEmpty(sources) && (
-                      <div className="sources">
-                        Data from {getSourcesJsx(sources)}
-                      </div>
-                    )}
-                    <a
-                      href="#"
-                      onClick={(event) => {
-                        handleEmbed(event, points);
-                      }}
-                    >
-                      Export
-                    </a>
-                  </footer>
+                  <ChartFooter
+                    sources={sources}
+                    handleEmbed={() => handleEmbed(points.reverse())}
+                  />
                 </div>
               )}
               {props.rankingMetadata.showLowest && (
@@ -148,40 +136,27 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     key={`${statVar}-lowest`}
                     unit={unit}
                     scaling={scaling}
-                    title={
+                    title={formatString(
                       props.title ||
-                      formatString(
-                        props.rankingMetadata.lowestTitle
+                        (props.rankingMetadata.lowestTitle
                           ? props.rankingMetadata.lowestTitle
-                          : "Lowest ${statVar}",
-                        {
-                          date: "",
-                          place: "",
-                          statVar: svName,
-                        }
-                      )
-                    }
+                          : "Lowest ${statVar}"),
+                      {
+                        date: dateRange,
+                        place: "",
+                        statVar: svName,
+                      }
+                    )}
                     numDataPoints={numDataPoints}
                     points={points.slice(0, rankingCount)}
                     isHighest={false}
                     svNames={isMultiColumn ? svNames : undefined}
                     formatNumberFn={formatNumber}
                   />
-                  <footer>
-                    {!_.isEmpty(sources) && (
-                      <div className="sources">
-                        Data from {getSourcesJsx(sources)}
-                      </div>
-                    )}
-                    <a
-                      href="#"
-                      onClick={(event) => {
-                        handleEmbed(event, points);
-                      }}
-                    >
-                      Export
-                    </a>
-                  </footer>
+                  <ChartFooter
+                    sources={sources}
+                    handleEmbed={() => handleEmbed(points)}
+                  />
                 </div>
               )}
             </React.Fragment>
@@ -191,11 +166,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     </div>
   );
 
-  function handleEmbed(
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    rankingPoints: RankingPoint[]
-  ): void {
-    e.preventDefault();
+  function handleEmbed(rankingPoints: RankingPoint[]): void {
     embedModalElement.current.show(
       "",
       rankingPointsToCsv(rankingPoints),
@@ -300,7 +271,10 @@ function pointApiToPerSvRankingData(
       continue;
     }
     const arr = [];
+    // Note: this returns sources and dates for all places, even those which
+    // might not display.
     const sources = new Set<string>();
+    const dates = new Set<string>();
     let svUnit = "";
     for (const place in statData.data[spec.statVar]) {
       const statPoint = statData.data[spec.statVar][place];
@@ -332,6 +306,7 @@ function pointApiToPerSvRankingData(
         }
       }
       arr.push(rankingPoint);
+      dates.add(statPoint.date);
       if (statPoint.facet && statData.facets[statPoint.facet]) {
         const statPointSource = statData.facets[statPoint.facet].provenanceUrl;
         const statPointUnit = statData.facets[statPoint.facet].unit;
@@ -352,6 +327,7 @@ function pointApiToPerSvRankingData(
       scaling: [spec.scaling],
       numDataPoints,
       sources,
+      dateRange: getDateRange(Array.from(dates)),
     };
   }
   return rankingData;

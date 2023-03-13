@@ -32,6 +32,9 @@ function help {
   exit 1
 }
 
+PROJECT_ID=""
+ENV=""
+
 while getopts ":e:r:p:h" OPTION; do
   case $OPTION in
     e)
@@ -61,7 +64,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
 if [[ $REGION == "" ]]; then
-  $REGION=us-central1
+  REGION="us-central1"
 fi
 
 cd $ROOT
@@ -96,8 +99,8 @@ fi
 CLUSTER_NAME=$CLUSTER_PREFIX-$REGION
 
 # Deploy to GKE
-kustomize edit set image gcr.io/$IMAGE_PROJECT/datacommons-website=gcr.io/$IMAGE_PROJECT/datacommons-website:$WEBSITE_HASH
-kustomize edit set image gcr.io/$IMAGE_PROJECT/datacommons-nl=gcr.io/$IMAGE_PROJECT/datacommons-nl:$WEBSITE_HASH
+kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/$IMAGE_PROJECT/datacommons-website:$WEBSITE_HASH
+kustomize edit set image gcr.io/datcom-ci/datacommons-nl=gcr.io/$IMAGE_PROJECT/datacommons-nl:$WEBSITE_HASH
 kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/datacommons-mixer:$MIXER_HASH
 kustomize build > kustomize-build.yaml
 cp kustomization.yaml kustomize-deployed.yaml

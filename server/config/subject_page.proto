@@ -92,7 +92,7 @@ message RankingTileSpec {
 
   string diff_base_date = 5; // For comparisons
 
-  // Titles can include the ${statVar} placeholder.
+  // Titles can include the ${statVar} and ${date} placeholder.
   string highest_title = 6;
   string lowest_title = 7;
 
@@ -115,7 +115,10 @@ message DisasterEventMapTileSpec {
 }
 
 message HistogramTileSpec {
+  // Key for event type specs defined in the PageMetadata that should be displayed
   string event_type_key = 1;
+  // Property of the events to aggregate. If blank, defaults to count.
+  string prop = 2;
 }
 
 message TopEventTileSpec {
@@ -167,7 +170,9 @@ message Tile {
     // allowed in BlockTypes: DISASTER_EVENT
     DISASTER_EVENT_MAP = 9;
   }
-  // Must be specified for all visual tiles
+  // Must be specified for all visual tiles. Supports ${statVar}, ${place} placeholders.
+  // For map, bar, ranking: supports ${date} placeholder.
+  // For scatter: supports ${xDate} and ${yDate} placeholder.
   string title = 1;
   // Must be set for HIHGLIGHT tiles
   string description = 2;
@@ -212,6 +217,7 @@ message Block {
 }
 
 message Category {
+  // Title can include ${place} placeholder string.
   string title = 1;
   string description = 2;
   map<string, StatVarSpec> stat_var_spec = 4;

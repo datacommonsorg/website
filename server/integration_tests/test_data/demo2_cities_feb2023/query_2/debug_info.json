@@ -4,23 +4,23 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_existence_check": [
-      {
-        "places": [
-          "geoId/0677000"
-        ],
-        "svs": [
-          "Percent_Person_Children_WithAsthma"
-        ]
-      }
-    ],
     "failed_existence_check_extended_svs": [
       {
         "places": [
           "geoId/0677000"
         ],
         "svs": [
-          "Count_Person_Upto18Years",
+          "Percent_Person_Children_WithAsthma",
+          "Count_Person_Upto18Years"
+        ]
+      }
+    ],
+    "failed_partial_existence_check": [
+      {
+        "places": [
+          "geoId/0677000"
+        ],
+        "svs": [
           "Percent_Person_Children_WithAsthma"
         ]
       }
@@ -136,7 +136,7 @@
         },
         {
           "attr": {
-            "block_id": 2,
+            "block_id": 6,
             "chart_type": "bar chart",
             "class": 1,
             "description": "",
@@ -173,7 +173,7 @@
         },
         {
           "attr": {
-            "block_id": 4,
+            "block_id": 3,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -198,7 +198,7 @@
         },
         {
           "attr": {
-            "block_id": 5,
+            "block_id": 7,
             "chart_type": "timeline",
             "class": 1,
             "description": "",
@@ -227,7 +227,7 @@
         },
         {
           "attr": {
-            "block_id": 6,
+            "block_id": 4,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -252,7 +252,7 @@
         },
         {
           "attr": {
-            "block_id": 7,
+            "block_id": 5,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -276,6 +276,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Percent_Person_WithAsthma",
         "Percent_Person_Children_WithAsthma",
@@ -303,7 +304,7 @@
         }
       ],
       "query": "How big are the public schools in Sunnyvale",
-      "query_type": 10,
+      "query_type": 11,
       "ranked_charts": [
         {
           "attr": {
@@ -390,6 +391,7 @@
           ]
         }
       ],
+      "session_id": "007_999999999",
       "svs": [
         "Count_Student",
         "Count_Teacher",
@@ -402,25 +404,37 @@
   "main_place_name": "<None>",
   "original_query": "What is the prevalence of asthma there",
   "overview_classification": "<None>",
-  "places_detected": [
-    "<None>"
-  ],
+  "places_detected": [],
+  "places_resolved": "",
+  "query_detection_debug_logs": {
+    "main_place_inferred": null,
+    "original_query": "What is the prevalence of asthma there",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "what is the prevalence of asthma there",
+      "place_detection_with_places_removed": "What is the prevalence of asthma there",
+      "sv_detection_query_input": "What is the prevalence of asthma there",
+      "sv_detection_query_stop_words_removal": "prevalence asthma"
+    }
+  },
   "query_with_places_removed": "What is the prevalence of asthma there",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.9887778759002686,
-      0.8786572813987732,
-      0.8242023587226868,
-      0.5711095333099365,
-      0.5687742233276367,
-      0.5341616272926331,
-      0.4882681965827942,
-      0.48637837171554565,
-      0.48093605041503906,
-      0.4783497154712677
+      0.988778293132782,
+      0.8786563873291016,
+      0.8242026567459106,
+      0.5711094737052917,
+      0.5687739849090576,
+      0.5341616868972778,
+      0.48826801776885986,
+      0.48637840151786804,
+      0.4809361398220062,
+      0.4783497750759125
     ],
     "SV": [
       "Percent_Person_WithAsthma",
@@ -436,89 +450,88 @@
     ],
     "SV_to_Sentences": {
       "Count_Death_DiseasesOfTheRespiratorySystem": [
-        "Number of Deaths Due to Diseases of the Respiratory System (0.48093605041503906)",
-        "Number of deaths due to diseases of the respiratory system (0.48093605041503906)"
+        "Number of Deaths Due to Diseases of the Respiratory System (0.4809361398220062)",
+        "Number of deaths due to diseases of the respiratory system (0.4809361398220062)"
       ],
       "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-        "Prevalence: 18 - 64 Years, No Health Insurance (0.48637837171554565)"
+        "Prevalence: 18 - 64 Years, No Health Insurance (0.48637840151786804)"
       ],
       "Percent_Person_Children_WithAsthma": [
-        "Prevalence: Asthma in Children (0.8786572813987732)",
-        "percent of children that have asthma (0.7320818901062012)",
-        "Percent of Children That Have Asthma (0.7320818901062012)"
+        "Prevalence: Asthma in Children (0.8786563873291016)",
+        "Percent of Children That Have Asthma (0.7320816516876221)",
+        "percent of children that have asthma (0.7320816516876221)"
       ],
       "Percent_Person_Smoking": [
-        "Prevalence: Smoking (0.5711095333099365)"
+        "Prevalence: Smoking (0.5711094737052917)"
       ],
       "Percent_Person_WithArthritis": [
-        "Prevalence: Arthritis (0.5687742233276367)",
-        "Percentage of Population With Arthritis (0.47449493408203125)"
+        "Prevalence: Arthritis (0.5687739849090576)",
+        "Percentage of population with arthritis (0.47449490427970886)"
       ],
       "Percent_Person_WithAsthma": [
-        "Prevalence: Asthma (0.9887778759002686)",
-        "Percent of People That Have Asthma (0.80416339635849)",
-        "percent of people that have asthma (0.80416339635849)"
+        "Prevalence: Asthma (0.988778293132782)",
+        "percent of people that have asthma (0.8041638135910034)",
+        "Percent of People That Have Asthma (0.8041638135910034)"
       ],
       "Percent_Person_WithChronicObstructivePulmonaryDisease": [
-        "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616272926331)",
-        "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891929626464844)",
-        "percent of people that have chronic obstructive pulmonary disease (0.4891929626464844)"
+        "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616868972778)",
+        "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891931116580963)",
+        "percent of people that have chronic obstructive pulmonary disease (0.4891931116580963)"
       ],
       "Percent_Person_WithCoronaryHeartDisease": [
-        "Prevalence: Coronary Heart Disease (0.4783497154712677)"
+        "Prevalence: Coronary Heart Disease (0.4783497750759125)"
       ],
       "Percent_Person_WithHighCholesterol": [
-        "Prevalence: High Cholesterol (0.4882681965827942)"
+        "Prevalence: High Cholesterol (0.48826801776885986)"
       ],
       "dc/g/Person_MedicalCondition-Asthma": [
-        "Number of People With Asthma (0.8242023587226868)",
-        "people with asthma (0.7225264310836792)",
-        "Person With Medical Condition = Asthma (0.6960465312004089)"
+        "Number of People With Asthma (0.8242026567459106)",
+        "people with asthma (0.7225262522697449)",
+        "Person With Medical Condition = Asthma (0.6960466504096985)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Death_DiseasesOfTheRespiratorySystem": [
-      "Number of Deaths Due to Diseases of the Respiratory System (0.48093605041503906)",
-      "Number of deaths due to diseases of the respiratory system (0.48093605041503906)"
+      "Number of Deaths Due to Diseases of the Respiratory System (0.4809361398220062)",
+      "Number of deaths due to diseases of the respiratory system (0.4809361398220062)"
     ],
     "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-      "Prevalence: 18 - 64 Years, No Health Insurance (0.48637837171554565)"
+      "Prevalence: 18 - 64 Years, No Health Insurance (0.48637840151786804)"
     ],
     "Percent_Person_Children_WithAsthma": [
-      "Prevalence: Asthma in Children (0.8786572813987732)",
-      "percent of children that have asthma (0.7320818901062012)",
-      "Percent of Children That Have Asthma (0.7320818901062012)"
+      "Prevalence: Asthma in Children (0.8786563873291016)",
+      "Percent of Children That Have Asthma (0.7320816516876221)",
+      "percent of children that have asthma (0.7320816516876221)"
     ],
     "Percent_Person_Smoking": [
-      "Prevalence: Smoking (0.5711095333099365)"
+      "Prevalence: Smoking (0.5711094737052917)"
     ],
     "Percent_Person_WithArthritis": [
-      "Prevalence: Arthritis (0.5687742233276367)",
-      "Percentage of Population With Arthritis (0.47449493408203125)"
+      "Prevalence: Arthritis (0.5687739849090576)",
+      "Percentage of population with arthritis (0.47449490427970886)"
     ],
     "Percent_Person_WithAsthma": [
-      "Prevalence: Asthma (0.9887778759002686)",
-      "Percent of People That Have Asthma (0.80416339635849)",
-      "percent of people that have asthma (0.80416339635849)"
+      "Prevalence: Asthma (0.988778293132782)",
+      "percent of people that have asthma (0.8041638135910034)",
+      "Percent of People That Have Asthma (0.8041638135910034)"
     ],
     "Percent_Person_WithChronicObstructivePulmonaryDisease": [
-      "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616272926331)",
-      "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891929626464844)",
-      "percent of people that have chronic obstructive pulmonary disease (0.4891929626464844)"
+      "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616868972778)",
+      "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891931116580963)",
+      "percent of people that have chronic obstructive pulmonary disease (0.4891931116580963)"
     ],
     "Percent_Person_WithCoronaryHeartDisease": [
-      "Prevalence: Coronary Heart Disease (0.4783497154712677)"
+      "Prevalence: Coronary Heart Disease (0.4783497750759125)"
     ],
     "Percent_Person_WithHighCholesterol": [
-      "Prevalence: High Cholesterol (0.4882681965827942)"
+      "Prevalence: High Cholesterol (0.48826801776885986)"
     ],
     "dc/g/Person_MedicalCondition-Asthma": [
-      "Number of People With Asthma (0.8242023587226868)",
-      "people with asthma (0.7225264310836792)",
-      "Person With Medical Condition = Asthma (0.6960465312004089)"
+      "Number of People With Asthma (0.8242026567459106)",
+      "people with asthma (0.7225262522697449)",
+      "Person With Medical Condition = Asthma (0.6960466504096985)"
     ]
   },
-  "temporal_classification": "<None>",
   "time_delta_classification": "<None>"
 }
