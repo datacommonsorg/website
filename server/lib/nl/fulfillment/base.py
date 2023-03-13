@@ -185,13 +185,28 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
   if len(places) > 1:
     return False
 
+  place = places[0]  # Caller populate_charts_for_places ensures this exists
+
+  if place.place_type == 'Continent':
+    # Continent is special in that it has a single parent entity
+    # 'Earth' which is of a general type 'Place'. So handle it here
+    # (instead of relying on PARENT_PLACE_TYPES).
+    earth = Place(
+        dcid='Earth',
+        name='Earth',
+        place_type='Place',
+    )
+    state.uttr.counters.warn('parent_place_fallback', {
+        'child': place.dcid,
+        'parent': earth.dcid
+    })
+    return _add_charts(state, [earth], svs)
+
   # Get the place-type.  Either of child-place (contained-in query-type),
   # or of the place itself.
-  pt = state.place_type if state.place_type else places[0].place_type
+  pt = state.place_type if state.place_type else place.place_type
   if isinstance(pt, str):
     pt = ContainedInPlaceType(pt)
-
-  place = places[0]  # Caller populate_charts_for_places ensures this exists
 
   # Walk up the parent type hierarchy trying to add charts.
   parent_type = constants.PARENT_PLACE_TYPES.get(pt, None)
