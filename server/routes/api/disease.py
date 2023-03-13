@@ -47,7 +47,7 @@ class DiseaseParentEncoder(JSONEncoder):
 @cache.memoize(timeout=3600 * 24)
 @bp.route('/<path:dcid>')
 def get_node(dcid):
-  """Returns data for given a disease node."""
+  """Returns data for a given disease node."""
   response = dc_service.fetch_data('/internal/bio', {
       'dcid': dcid,
   },
@@ -58,8 +58,8 @@ def get_node(dcid):
 
 
 @bp.route('/diseaseParent/<path:dcid>')
-def get_disease_parent(dcid):
-  """Returns parent node for given a disease node."""
+def get_disease_parents(dcid):
+  """Returns a list of parent nodes for a given disease node."""
   # list to store parent node
   list_parent = []
   curr_dcid = dcid
