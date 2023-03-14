@@ -17,14 +17,12 @@ import os
 from typing import Dict, List, Union
 
 from datasets import load_dataset
-from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 import torch
 
 import nl_server.gcs as gcs
 
-TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
 
@@ -32,18 +30,15 @@ class Embeddings:
   """Manages the embeddings."""
 
   def __init__(self, embeddings_file: str) -> None:
-    self.embeddings_file = embeddings_file
     self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
-    self._download_embeddings()
     self.dcids: List[str] = []
     self.sentences: List[str] = []
+    downloaded_file = gcs.download(embeddings_file)
 
     logging.info('Loading embeddings file')
     try:
-      ds = load_dataset('csv',
-                        data_files=os.path.join(TEMP_DIR,
-                                                f'{self.embeddings_file}'))
+      ds = load_dataset('csv', data_files=downloaded_file)
     except:
       error_str = "No embedding could be loaded."
       logging.error(error_str)
@@ -60,13 +55,6 @@ class Embeddings:
 
     self.dataset_embeddings = torch.from_numpy(self.df.to_numpy()).to(
         torch.float)
-
-  def _download_embeddings(self):
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name=gcs.BUCKET)
-    blob = bucket.get_blob(self.embeddings_file)
-    # Download
-    blob.download_to_filename(os.path.join(TEMP_DIR, self.embeddings_file))
 
   def get_embedding_at_index(self, index: int) -> List[float]:
     if index < 0 or index >= len(self.df):

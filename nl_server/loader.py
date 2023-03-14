@@ -20,6 +20,7 @@ from nl_server.ner_place_model import NERPlaces
 
 nl_embeddings_cache_key = 'nl_embeddings'
 nl_ner_cache_key = 'nl_ner'
+nl_place_recog_key = 'nl_place_recog'
 nl_cache_path = '~/.datacommons/'
 nl_cache_expire = 3600 * 24  # Cache for 1 day
 
