@@ -20,6 +20,7 @@
 
 import React from "react";
 import ReactMarkdown from "react-markdown";
+
 import { NamedTypedPlace } from "../../shared/types";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 
