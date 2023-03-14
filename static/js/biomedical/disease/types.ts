@@ -34,6 +34,13 @@ export interface DiseaseSymptomAssociationData {
   oddsRatio: number;
 }
 
+export interface DiseaseParentData {
+  // dcid of disease node
+  name: string;
+  // dcid of disease node
+  dcid: string;
+}
+
 export interface CompoundDiseaseTreatmentData {
   // node name and link
   node: string;
