@@ -66,6 +66,9 @@ def get_all_variables(page_config):
 
 
 def exist_keys_category(place_dcid, category, stat_vars_existence):
+  """
+  Returns a dict of stat_var_spec key -> bool if data is available for the spec.
+  """
   exist_keys = {}
   for stat_var_key, spec in category.stat_var_spec.items():
     stat_var = spec.stat_var
@@ -80,6 +83,10 @@ def exist_keys_category(place_dcid, category, stat_vars_existence):
 
 
 def remove_empty_charts(page_config, place_dcid):
+  """
+  Returns the page config stripped of charts with no data.
+  TODO: Add checks for child places, given the tile type.
+  """
   all_stat_vars = get_all_variables(page_config)
   if not all_stat_vars:
     return page_config
