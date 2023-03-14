@@ -14,6 +14,7 @@
 """Endpoints for disaster dashboard"""
 
 import copy
+import dataclasses
 import json
 
 import flask
@@ -25,7 +26,6 @@ from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
-import dataclasses
 
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"

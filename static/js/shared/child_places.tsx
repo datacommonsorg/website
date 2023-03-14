@@ -22,8 +22,8 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { displayNameForPlaceType } from "../place/util";
-import { ChildPlacesByType, NamedTypedPlace } from "./types";
 import { getChildPlacesPromise } from "../utils/place_utils";
+import { ChildPlacesByType, NamedTypedPlace } from "./types";
 
 interface ChildPlacesPropType {
   parentPlace: NamedTypedPlace;

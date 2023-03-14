@@ -150,5 +150,9 @@ def place_metadata(place_dcid) -> PlaceMetadata:
   if EUROPE_DCID in parent_dcids:
     contained_place_types_override = EUROPE_CONTAINED_PLACE_TYPES
 
-  return PlaceMetadata(place_dcid=escape(place_dcid), place_name=place_name, place_types=place_types, parent_places=parent_places,
-                       contained_place_types_override=contained_place_types_override)
+  return PlaceMetadata(
+      place_dcid=escape(place_dcid),
+      place_name=place_name,
+      place_types=place_types,
+      parent_places=parent_places,
+      contained_place_types_override=contained_place_types_override)

@@ -103,7 +103,9 @@ def register_routes_disasters(app):
   app.config[
       'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
   app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
-  app.config['DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config()
+  app.config[
+      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+      )
 
   if app.config['INTEGRATION']:
     return
