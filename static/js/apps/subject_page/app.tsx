@@ -15,7 +15,7 @@
  */
 
 /**
- * Main component for basic subject page.
+ * Main component for basic subject pages.
  */
 
 import React from "react";

@@ -114,7 +114,7 @@ def get_disaster_event_config():
   return get_subject_page_config(filepath)
 
 
-# Returns disaster event config loaded as SubjectPageConfig protos
+# Returns disaster sustainability config loaded as SubjectPageConfig protos
 def get_disaster_sustainability_config():
   filepath = os.path.join(get_repo_root(), "config", "disaster_dashboard",
                           "sustainability.textproto")

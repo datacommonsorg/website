@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint file for basic subject page.
+ * Entrypoint file for basic subject pages.
  */
 
 import "../../i18n/compiled-lang/en/units.json";
