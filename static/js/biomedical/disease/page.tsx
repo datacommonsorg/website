@@ -27,6 +27,7 @@ import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { getEntityLink } from "../bio_charts_utils";
 import {
   drawDiseaseGeneAssocChart,
+  drawDiseaseOntologyHierarchy,
   drawDiseaseSymptomAssociationChart,
 } from "./chart";
 import {
@@ -72,6 +73,7 @@ export interface PageStateType {
   diseaseCommonName: string;
   diseasePrevalenceIDexists: boolean;
   dataFetched: boolean;
+  diseaseParent: [];
 }
 
 export class Page extends React.Component<PagePropType, PageStateType> {
@@ -85,6 +87,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       diseaseCommonName: null,
       diseasePrevalenceIDexists: null,
       dataFetched: false,
+      diseaseParent: null,
     };
   }
 
@@ -100,6 +103,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     drawDiseaseSymptomAssociationChart(
       "disease-symptom-association-chart",
       this.state.diseaseSymptomAssociation
+    );
+    drawDiseaseOntologyHierarchy(
+      "disease-ontology-hierarchy-chart",
+      this.state.diseaseParent
     );
   }
   render(): JSX.Element {
@@ -147,6 +154,20 @@ export class Page extends React.Component<PagePropType, PageStateType> {
               symptom associations are displayed for the disease of interest.
             </p>
             <div id="disease-symptom-association-chart"></div>
+          </>
+        )}
+        {!_.isEmpty(this.state.diseaseParent) && (
+          <>
+            <h5>Disease Ontology Hierachy</h5>
+            <p>
+              The hierarchy of diseases fetched from the Disease Ontology
+              database. The smallest sized and lightest colored circle
+              represents the child node or the disease of interest. As one
+              proceeds from left to right, the circle size keeps increasing and
+              circle color darkens, representing the subsequent nodes being
+              parents to the preceeding ones.
+            </p>
+            <div id="disease-ontology-hierarchy-chart"></div>
           </>
         )}
         <br></br>
@@ -210,20 +231,29 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       </>
     );
   }
+
   private fetchData(): void {
-    axios.get("/api/disease/" + this.props.dcid).then((resp) => {
-      this.setState({
-        diseaseGeneAssociation: getDiseaseGeneAssociation(resp.data),
-        diseaseSymptomAssociation: getDiseaseSymptomAssociation(resp.data),
-        chemicalCompoundDiseaseTreatment: getCompoundDiseaseTreatment(
-          resp.data
-        ),
-        chemicalCompoundDiseaseContraindication:
-          getCompoundDiseaseContraindication(resp.data),
-        diseaseCommonName: getDiseaseCommonName(resp.data),
-        diseasePrevalenceIDexists: doesDiseasePrevalenceIDexist(resp.data),
-        dataFetched: true,
-      });
-    });
+    const diseasePromise = axios
+      .get("/api/disease/" + this.props.dcid)
+      .then((resp) => resp.data);
+    const diseaseParentPromise = axios
+      .get("/api/disease/diseaseParent/" + this.props.dcid)
+      .then((resp) => resp.data);
+    Promise.all([diseasePromise, diseaseParentPromise]).then(
+      ([disease, diseaseParent]) => {
+        this.setState({
+          diseaseGeneAssociation: getDiseaseGeneAssociation(disease),
+          diseaseSymptomAssociation: getDiseaseSymptomAssociation(disease),
+          chemicalCompoundDiseaseTreatment:
+            getCompoundDiseaseTreatment(disease),
+          chemicalCompoundDiseaseContraindication:
+            getCompoundDiseaseContraindication(disease),
+          diseaseCommonName: getDiseaseCommonName(disease),
+          diseasePrevalenceIDexists: doesDiseasePrevalenceIDexist(disease),
+          dataFetched: true,
+          diseaseParent: diseaseParent,
+        });
+      }
+    );
   }
 }
