@@ -109,6 +109,20 @@ categories {
     columns {
       tiles {
         type: LINE
+        title: "Population growth rate in ${place}"
+        stat_var_key: "pop_growth"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Population density (people per km²) in ${place}"
+        stat_var_key: "pop_density"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
         title: "Median individual income in ${place}"
         stat_var_key: "median_income"
       }
@@ -137,6 +151,13 @@ categories {
     columns {
       tiles {
         type: LINE
+        title: "Children in employment in ${place}"
+        stat_var_key: "child_employment"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
         title: "Infant mortality of ${place}"
         stat_var_key: "infant_mortality"
       }
@@ -148,6 +169,20 @@ categories {
     value {
       stat_var: "Count_Person"
       name: "Population"
+    }
+  }
+  stat_var_spec {
+    key: "pop_growth"
+    value {
+      stat_var: "GrowthRate_Count_Person"
+      name: "Population Growth Rate"
+    }
+  }
+  stat_var_spec {
+    key: "pop_density"
+    value {
+      stat_var: "Count_Person_PerArea"
+      name: "Population Density"
     }
   }
   stat_var_spec {
@@ -187,6 +222,14 @@ categories {
       stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
       name: "GDP per capita"
       unit: "USD"
+    }
+  }
+  stat_var_spec {
+    key: "child_employment"
+    value {
+      stat_var: "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
+      name: "Child employment"
+      unit: "%"
     }
   }
 }
