@@ -26,6 +26,7 @@ import {
 } from "../bio_charts_utils";
 import {
   DiseaseGeneAssociationData,
+  DiseaseParentData,
   DiseaseSymptomAssociationData,
 } from "./types";
 // graph specific dimensions
@@ -35,6 +36,10 @@ const GRAPH_WIDTH = 760;
 const Y_AXIS_LIMIT = 0.5;
 // dimension of tissue legend dots
 const LEGEND_CIRCLE_RADIUS = 4;
+// constant for incrementing size and color darkness disease node circles
+const DISEASE_PARENT_LEGEND_INCREMENT = 2;
+// height for legend
+const LEGEND_HEIGHT = 15;
 // length of the error bar cap for disease-gene associations chart
 const ERROR_BAR_CAP_LENGTH = 10;
 
@@ -246,4 +251,121 @@ export function drawDiseaseSymptomAssociationChart(
       circleIDFunc,
       (d) => `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
     );
+}
+/**
+ * Draws the disease ontology hierarchy chart for the disease of interest
+ * @param id the div id where the chart is rendered on the page
+ * @param data the disease data passed into the function
+ */
+export function drawDiseaseOntologyHierarchy(
+  id: string,
+  data: DiseaseParentData[]
+): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
+  const height = GRAPH_HEIGHT - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH - MARGIN.left - MARGIN.right;
+  const svg = d3
+    .select(`#${id}`)
+    .append("svg")
+    .attr("width", width + MARGIN.left + MARGIN.right)
+    .attr("height", height + MARGIN.top + MARGIN.bottom)
+    .append("g")
+    .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
+  // plots the axes
+  const x = d3
+    .scaleBand()
+    .range([0, width])
+    .domain(
+      data.map((d) => {
+        return d.name;
+      })
+    )
+    .padding(1);
+  svg
+    .append("g")
+    .attr("transform", "translate(0," + (height - MARGIN.bottom) + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("dx", "-.8em")
+    .attr("dy", ".8em")
+    .attr("transform", "rotate(-40)")
+    .style("text-anchor", "end");
+  // color scale for disease nodes
+  const color_scale = d3
+    .scaleSequential<string>()
+    .domain([0, 10])
+    .interpolator(d3.interpolateOrRd);
+  const circleIDFunc = getElementIDFunc(id, "circle");
+  // the circles
+  svg
+    .selectAll("disease-parent-circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", (d) => {
+      return x(d.name);
+    })
+    .attr("cy", () => {
+      return height - MARGIN.bottom;
+    })
+    .attr("r", (d, i) => {
+      return LEGEND_CIRCLE_RADIUS + DISEASE_PARENT_LEGEND_INCREMENT * i;
+    })
+    .attr("id", (d, i) => circleIDFunc(i))
+    .style("fill", (d, i) => {
+      return color_scale(i + DISEASE_PARENT_LEGEND_INCREMENT);
+    })
+    .call(
+      handleMouseEvents,
+      circleIDFunc,
+      (d) => `Disease Name: ${d.name}<br>Disease Dcid: ${d.dcid}`
+    );
+  // the legend
+  const defs = svg.append("defs");
+  const linearGradient = defs
+    .append("linearGradient")
+    .attr("id", "linear-gradient");
+  linearGradient
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "0%");
+  //Set the color for the start (0%)
+  linearGradient
+    .append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#ffa474"); //light orange
+
+  //Set the color for the end (100%)
+  linearGradient
+    .append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#8b0000"); //dark red
+
+  //Draw the rectangle and fill with gradient
+  svg
+    .append("rect")
+    .attr("x", 80)
+    .attr("y", 15)
+    .attr("width", GRAPH_HEIGHT)
+    .attr("height", LEGEND_HEIGHT)
+    .style("fill", "url(#linear-gradient)");
+
+  //Append title
+  svg
+    .append("text")
+    .attr("class", "disease-node-legend")
+    .attr("x", 50)
+    .attr("y", LEGEND_HEIGHT / 3)
+    .text("Child Node");
+
+  svg
+    .append("text")
+    .attr("class", "disease-node-legend")
+    .attr("x", 450)
+    .attr("y", LEGEND_HEIGHT / 3)
+    .text("Parent Node");
 }
