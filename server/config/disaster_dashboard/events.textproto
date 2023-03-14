@@ -20,54 +20,8 @@ metadata {
 }
 
 categories {
-  title: "More information about ${place}"
-
+  title: "Other natural disasters in ${place}"
   blocks {
-    columns {
-      tiles {
-        type: LINE
-        title: "Population of ${place}"
-        stat_var_key: "population"
-      }
-    }
-    columns {
-      tiles {
-        type: LINE
-        title: "Median individual income in ${place}"
-        stat_var_key: "median_income"
-      }
-    }
-    columns {
-      tiles {
-        type: LINE
-        title: "Gini index in ${place}"
-        stat_var_key: "gini_index"
-      }
-    }
-    columns {
-      tiles {
-        type: LINE
-        title: "GDP per capita in ${place}"
-        stat_var_key: "gdp_percapita"
-      }
-    }
-    columns {
-      tiles {
-        type: LINE
-        title: "Poverty rate of ${place}"
-        stat_var_key: "poverty_rate"
-      }
-    }
-    columns {
-      tiles {
-        type: LINE
-        title: "Infant mortality of ${place}"
-        stat_var_key: "infant_mortality"
-      }
-    }
-  }
-  blocks {
-    title: "Other disasters"
     columns {
       tiles {
         type: LINE
@@ -104,12 +58,131 @@ categories {
       }
     }
   }
+  stat_var_spec {
+    key: "count_drought"
+    value {
+      stat_var: "Count_DroughtEvent"
+      name: "Droughts"
+    }
+  }
+  stat_var_spec {
+    key: "count_earthquake"
+    value {
+      stat_var: "Count_EarthquakeEvent"
+      name: "Earthquakes"
+    }
+  }
+  stat_var_spec {
+    key: "count_fire"
+    value {
+      stat_var: "Count_FireEvent"
+      name: "Fires"
+    }
+  }
+  stat_var_spec {
+    key: "count_flood"
+    value {
+      stat_var: "Count_FloodEvent"
+      name: "Floods"
+    }
+  }
+  stat_var_spec {
+    key: "count_wetbulbtemperature"
+    value {
+      stat_var: "Count_WetBulbTemperatureEvent"
+      name: "Wet bulb temperature events"
+    }
+  }
+}
+
+categories {
+  title: "More information about ${place}"
+
+  blocks {
+    columns {
+      tiles {
+        type: LINE
+        title: "Population of ${place}"
+        stat_var_key: "population"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Population growth rate in ${place}"
+        stat_var_key: "pop_growth"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Population density (people per km²) in ${place}"
+        stat_var_key: "pop_density"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Median individual income in ${place}"
+        stat_var_key: "median_income"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Gini index in ${place}"
+        stat_var_key: "gini_index"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "GDP per capita in ${place}"
+        stat_var_key: "gdp_percapita"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Poverty rate of ${place}"
+        stat_var_key: "poverty_rate"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Children in employment in ${place}"
+        stat_var_key: "child_employment"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Infant mortality of ${place}"
+        stat_var_key: "infant_mortality"
+      }
+    }
+  }
 
   stat_var_spec {
     key: "population"
     value {
       stat_var: "Count_Person"
       name: "Population"
+    }
+  }
+  stat_var_spec {
+    key: "pop_growth"
+    value {
+      stat_var: "GrowthRate_Count_Person"
+      name: "Population Growth Rate"
+    }
+  }
+  stat_var_spec {
+    key: "pop_density"
+    value {
+      stat_var: "Count_Person_PerArea"
+      name: "Population Density"
     }
   }
   stat_var_spec {
@@ -152,38 +225,11 @@ categories {
     }
   }
   stat_var_spec {
-    key: "count_drought"
+    key: "child_employment"
     value {
-      stat_var: "Count_DroughtEvent"
-      name: "Droughts"
-    }
-  }
-  stat_var_spec {
-    key: "count_earthquake"
-    value {
-      stat_var: "Count_EarthquakeEvent"
-      name: "Earthquakes"
-    }
-  }
-  stat_var_spec {
-    key: "count_fire"
-    value {
-      stat_var: "Count_FireEvent"
-      name: "Fires"
-    }
-  }
-  stat_var_spec {
-    key: "count_flood"
-    value {
-      stat_var: "Count_FloodEvent"
-      name: "Floods"
-    }
-  }
-  stat_var_spec {
-    key: "count_wetbulbtemperature"
-    value {
-      stat_var: "Count_WetBulbTemperatureEvent"
-      name: "Wet bulb temperature events"
+      stat_var: "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
+      name: "Child employment"
+      unit: "%"
     }
   }
 }
