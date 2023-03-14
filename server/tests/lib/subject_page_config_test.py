@@ -148,8 +148,6 @@ class TestRemoveEmptyCharts(unittest.TestCase):
     config = lib_util.get_subject_page_config(
         "server/tests/test_data/existence.textproto")
     result = lib_subject_page_config.remove_empty_charts(config, 'place_id')
-    print("result:")
-    print(result)
     expect = lib_util.get_subject_page_config(
         "server/tests/test_data/existence_expect.textproto")
     assert result == expect
