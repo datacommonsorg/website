@@ -15,7 +15,7 @@
  */
 
 /**
- * Main component for the disaster dashboard.
+ * Main component for the sustainability explorer.
  */
 
 import React from "react";
@@ -29,7 +29,7 @@ import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { ChildPlaces } from "../../shared/child_places";
 import { ParentBreadcrumbs } from "../../shared/parent_breadcrumbs";
 
-const PAGE_ID = "disaster";
+const PAGE_ID = "sustainability";
 
 interface AppPropType {
   /**

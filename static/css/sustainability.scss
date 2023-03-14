@@ -1,0 +1,81 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Styling for sustainability explorer.
+ */
+
+@use "./shared/subject_page";
+@import "base";
+@import "./draw";
+@import "./draw_choropleth";
+@import "./draw_scatter";
+@import "./shared/story_block";
+@import "./shared/story_chart";
+
+#disaster-dashboard {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+
+h3 {
+  color: var(--secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4rem;
+}
+
+.place-links {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+#child-places {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #efefef;
+
+  #child-place-head {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--dc-gray);
+  }
+
+  .child-place-group {
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .child-place-type {
+    color: var(--dc-gray);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .child-place-link {
+    color: var(--dc-gray);
+    font-size: 13px;
+    margin-right: 4px;
+    text-decoration: underline;
+    color: var(--dc-gray);
+    display: inline-block;
+  }
+}

@@ -20,7 +20,7 @@
 
 import React from "react";
 
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedTypedPlace } from "./types";
 
 interface ParentBreadcrumbsPropType {
   /**

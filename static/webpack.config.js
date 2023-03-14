@@ -105,6 +105,10 @@ const config = {
       __dirname + "/js/apps/disaster_dashboard/main.ts",
       __dirname + "/css/disaster_dashboard.scss",
     ],
+    sustainability: [
+      __dirname + "/js/apps/sustainability/main.ts",
+      __dirname + "/css/sustainability.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
