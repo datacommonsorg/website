@@ -561,25 +561,38 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "query_detection_debug_logs": {
+    "main_place_inferred": null,
+    "original_query": "Which jobs have grown the most",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "which jobs have grown the most",
+      "place_detection_with_places_removed": "Which jobs have grown the most",
+      "sv_detection_query_input": "Which jobs have grown the most",
+      "sv_detection_query_stop_words_removal": "jobs"
+    }
+  },
   "query_with_places_removed": "Which jobs have grown the most",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      1.0000001192092896,
-      0.5788652300834656,
-      0.5738630294799805,
-      0.5676054358482361,
-      0.5567134618759155,
-      0.552095890045166,
-      0.5458866953849792,
-      0.545170783996582,
-      0.5446446537971497,
-      0.543643593788147,
-      0.543643593788147,
-      0.543643593788147,
-      0.5414539575576782
+      1.0,
+      0.5788649916648865,
+      0.5738630890846252,
+      0.5676053762435913,
+      0.5567134022712708,
+      0.5520957112312317,
+      0.545886754989624,
+      0.5451705455780029,
+      0.5446445345878601,
+      0.5436434745788574,
+      0.5436434745788574,
+      0.5436434745788574,
+      0.5414538979530334
     ],
     "SV": [
       "dc/topic/Jobs",
@@ -598,103 +611,103 @@
     ],
     "SV_to_Sentences": {
       "Count_Worker_NAICSProfessionalScientificTechnicalServices": [
-        "People working in the professional, scientific, and technical services field (0.5676054358482361)"
+        "People working in the professional, scientific, and technical services field (0.5676053762435913)"
       ],
       "Count_Worker_NAICSTotalAllIndustries": [
-        "People working in all fields (0.545170783996582)"
+        "People working in all fields (0.5451705455780029)"
       ],
       "dc/g/Person_Industry-NAICS/11": [
-        "People working in the agriculture, forestry, fishing, and hunting industry (0.5567134618759155)",
-        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5567134618759155)",
-        "workers in agriculture, forestry, fishing and hunting industry (0.5436568856239319)"
+        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5567134022712708)",
+        "People working in the agriculture, forestry, fishing, and hunting industry (0.5567134022712708)",
+        "workers in agriculture, forestry, fishing and hunting industry (0.5436568260192871)"
       ],
       "dc/g/Person_Industry-NAICS/3133": [
-        "workers in manufacturing industry (0.543643593788147)"
+        "workers in manufacturing industry (0.5436434745788574)"
       ],
       "dc/g/Person_Industry-NAICS/33": [
-        "workers in manufacturing industry (0.543643593788147)"
+        "workers in manufacturing industry (0.5436434745788574)"
       ],
       "dc/g/Person_Industry-NAICS/451": [
-        "workers in sports, hobby, music instrument, book stores industry (0.5788652300834656)"
+        "workers in sports, hobby, music instrument, book stores industry (0.5788649916648865)"
       ],
       "dc/g/Person_Industry-NAICS/54": [
-        "workers in professional, scientific, and technical services industry (0.5738630294799805)"
+        "workers in professional, scientific, and technical services industry (0.5738630890846252)"
       ],
       "dc/g/Person_Industry-NAICS/61": [
-        "workers in educational services industry (0.552095890045166)"
+        "workers in educational services industry (0.5520957112312317)"
       ],
       "dc/g/Person_Industry-NAICS/7172": [
-        "People Working in the Arts, Entertainment, and Recreation and Accommodation and Food Services Industries (0.5458866953849792)",
-        "People working in the arts, entertainment, and recreation and accommodation and food services industries (0.5458866953849792)"
+        "People Working in the Arts, Entertainment, and Recreation and Accommodation and Food Services Industries (0.545886754989624)",
+        "People working in the arts, entertainment, and recreation and accommodation and food services industries (0.545886754989624)"
       ],
       "dc/g/Person_Industry-NAICS/JOLTS300000": [
-        "workers in manufacturing industry (0.543643593788147)"
+        "workers in manufacturing industry (0.5436434745788574)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.5446446537971497)"
+        "Economy (0.5446445345878601)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (1.0000001192092896)",
-        "Careers (0.8129148483276367)",
-        "Employment Positions (0.7128066420555115)",
+        "Jobs (1.0)",
+        "Careers (0.8129149675369263)",
+        "Employment Positions (0.7128062844276428)",
         "Job Roles (0.6906682848930359)",
-        "Work Occupations (0.672441840171814)",
-        "Professions (0.6682440638542175)",
-        "Occupational professions (0.6139257550239563)"
+        "Work Occupations (0.6724414229393005)",
+        "Professions (0.6682443618774414)",
+        "Occupational professions (0.6139256358146667)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.5414539575576782)"
+        "journey to work (0.5414538979530334)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Worker_NAICSProfessionalScientificTechnicalServices": [
-      "People working in the professional, scientific, and technical services field (0.5676054358482361)"
+      "People working in the professional, scientific, and technical services field (0.5676053762435913)"
     ],
     "Count_Worker_NAICSTotalAllIndustries": [
-      "People working in all fields (0.545170783996582)"
+      "People working in all fields (0.5451705455780029)"
     ],
     "dc/g/Person_Industry-NAICS/11": [
-      "People working in the agriculture, forestry, fishing, and hunting industry (0.5567134618759155)",
-      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5567134618759155)",
-      "workers in agriculture, forestry, fishing and hunting industry (0.5436568856239319)"
+      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5567134022712708)",
+      "People working in the agriculture, forestry, fishing, and hunting industry (0.5567134022712708)",
+      "workers in agriculture, forestry, fishing and hunting industry (0.5436568260192871)"
     ],
     "dc/g/Person_Industry-NAICS/3133": [
-      "workers in manufacturing industry (0.543643593788147)"
+      "workers in manufacturing industry (0.5436434745788574)"
     ],
     "dc/g/Person_Industry-NAICS/33": [
-      "workers in manufacturing industry (0.543643593788147)"
+      "workers in manufacturing industry (0.5436434745788574)"
     ],
     "dc/g/Person_Industry-NAICS/451": [
-      "workers in sports, hobby, music instrument, book stores industry (0.5788652300834656)"
+      "workers in sports, hobby, music instrument, book stores industry (0.5788649916648865)"
     ],
     "dc/g/Person_Industry-NAICS/54": [
-      "workers in professional, scientific, and technical services industry (0.5738630294799805)"
+      "workers in professional, scientific, and technical services industry (0.5738630890846252)"
     ],
     "dc/g/Person_Industry-NAICS/61": [
-      "workers in educational services industry (0.552095890045166)"
+      "workers in educational services industry (0.5520957112312317)"
     ],
     "dc/g/Person_Industry-NAICS/7172": [
-      "People Working in the Arts, Entertainment, and Recreation and Accommodation and Food Services Industries (0.5458866953849792)",
-      "People working in the arts, entertainment, and recreation and accommodation and food services industries (0.5458866953849792)"
+      "People Working in the Arts, Entertainment, and Recreation and Accommodation and Food Services Industries (0.545886754989624)",
+      "People working in the arts, entertainment, and recreation and accommodation and food services industries (0.545886754989624)"
     ],
     "dc/g/Person_Industry-NAICS/JOLTS300000": [
-      "workers in manufacturing industry (0.543643593788147)"
+      "workers in manufacturing industry (0.5436434745788574)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.5446446537971497)"
+      "Economy (0.5446445345878601)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (1.0000001192092896)",
-      "Careers (0.8129148483276367)",
-      "Employment Positions (0.7128066420555115)",
+      "Jobs (1.0)",
+      "Careers (0.8129149675369263)",
+      "Employment Positions (0.7128062844276428)",
       "Job Roles (0.6906682848930359)",
-      "Work Occupations (0.672441840171814)",
-      "Professions (0.6682440638542175)",
-      "Occupational professions (0.6139257550239563)"
+      "Work Occupations (0.6724414229393005)",
+      "Professions (0.6682443618774414)",
+      "Occupational professions (0.6139256358146667)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.5414539575576782)"
+      "journey to work (0.5414538979530334)"
     ]
   },
   "time_delta_classification": "[<TimeDeltaType.INCREASE: 0>]"

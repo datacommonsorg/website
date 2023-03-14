@@ -91,7 +91,7 @@ def get_provenance(properties):
   """
   ret = []
 
-  provenance = properties['provenance']
+  provenance = properties.get('provenance', None)
   if not provenance:
     return ret
 

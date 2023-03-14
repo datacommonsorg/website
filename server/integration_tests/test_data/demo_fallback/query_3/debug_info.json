@@ -22,14 +22,19 @@
           "geoId/06023",
           "geoId/06025",
           "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
+          "geoId/06029"
         ],
         "type": "County"
+      },
+      {
+        "place": "geoId/06",
+        "result": [],
+        "type": "State"
+      },
+      {
+        "place": "geoId/06",
+        "result": [],
+        "type": "Country"
       },
       {
         "place": "geoId/06",
@@ -48,14 +53,19 @@
           "geoId/06023",
           "geoId/06025",
           "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
+          "geoId/06029"
         ],
         "type": "County"
+      },
+      {
+        "place": "geoId/06",
+        "result": [],
+        "type": "State"
+      },
+      {
+        "place": "geoId/06",
+        "result": [],
+        "type": "Country"
       }
     ],
     "containedin_failed_populate_placetype": [
@@ -78,149 +88,18 @@
           "geoId/06023",
           "geoId/06025",
           "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
+          "geoId/06029"
         ],
         "svs": [
-          "Count_CriminalActivities_CombinedCrime"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_LarcenyTheft"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_MotorVehicleTheft"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalIncidents_IsHateCrime"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_Robbery"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
+          "Count_CriminalActivities_ForcibleRape",
+          "Count_CriminalActivities_Arson",
+          "Count_CriminalActivities_Burglary",
+          "Count_CriminalActivities_PropertyCrime",
+          "Count_CriminalIncidents_IsHateCrime",
+          "Count_CriminalActivities_MotorVehicleTheft",
+          "Count_CriminalActivities_CombinedCrime",
+          "Count_CriminalActivities_Robbery",
+          "Count_CriminalActivities_LarcenyTheft",
           "Count_CriminalActivities_ViolentCrime"
         ]
       },
@@ -240,368 +119,89 @@
           "geoId/06023",
           "geoId/06025",
           "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
+          "geoId/06029"
         ],
         "svs": [
-          "Count_CriminalActivities_ForcibleRape"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_PropertyCrime"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_Burglary"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_Arson"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_CombinedCrime"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_LarcenyTheft"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_MotorVehicleTheft"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalIncidents_IsHateCrime"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_Robbery"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
+          "Count_CriminalActivities_ForcibleRape",
+          "Count_CriminalActivities_Arson",
+          "Count_CriminalActivities_Burglary",
+          "Count_CriminalActivities_PropertyCrime",
+          "Count_CriminalIncidents_IsHateCrime",
+          "Count_CriminalActivities_MotorVehicleTheft",
+          "Count_CriminalActivities_CombinedCrime",
+          "Count_CriminalActivities_Robbery",
+          "Count_CriminalActivities_LarcenyTheft",
           "Count_CriminalActivities_ViolentCrime"
         ]
-      },
+      }
+    ],
+    "failed_existence_check_extended_svs": [
       {
         "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_ForcibleRape"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_PropertyCrime"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
-        ],
-        "svs": [
-          "Count_CriminalActivities_Burglary"
-        ]
-      },
-      {
-        "places": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
+          "geoId/06"
         ],
         "svs": [
           "Count_CriminalActivities_Arson"
         ]
       },
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Count_CriminalActivities_Arson"
+        ]
+      },
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Count_CriminalActivities_Arson"
+        ]
+      },
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Count_CriminalActivities_Arson"
+        ]
+      },
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Count_CriminalActivities_Arson"
+        ]
+      },
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Count_CriminalActivities_Arson"
+        ]
+      },
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Count_CriminalActivities_Arson"
+        ]
+      },
+      {
+        "places": [
+          "geoId/06"
+        ],
+        "svs": [
+          "Count_CriminalActivities_Arson"
+        ]
+      }
+    ],
+    "failed_partial_existence_check": [
       {
         "places": [
           "geoId/06"
@@ -667,6 +267,12 @@
     ],
     "num_chart_candidates": 10,
     "num_populate_fallbacks": 2,
+    "parent_place_type_fallback": [
+      "State",
+      "Country",
+      "State",
+      "Country"
+    ],
     "processed_fulfillment_types": [
       "ranking_across_places",
       "containedin",
@@ -850,7 +456,7 @@
         },
         {
           "attr": {
-            "block_id": 3,
+            "block_id": 11,
             "chart_type": "bar chart",
             "class": 1,
             "description": "",
@@ -882,7 +488,7 @@
         },
         {
           "attr": {
-            "block_id": 4,
+            "block_id": 3,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -907,7 +513,7 @@
         },
         {
           "attr": {
-            "block_id": 5,
+            "block_id": 4,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -932,7 +538,7 @@
         },
         {
           "attr": {
-            "block_id": 6,
+            "block_id": 5,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -957,7 +563,7 @@
         },
         {
           "attr": {
-            "block_id": 7,
+            "block_id": 6,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -982,7 +588,7 @@
         },
         {
           "attr": {
-            "block_id": 8,
+            "block_id": 7,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -1007,7 +613,7 @@
         },
         {
           "attr": {
-            "block_id": 9,
+            "block_id": 8,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -1032,7 +638,7 @@
         },
         {
           "attr": {
-            "block_id": 10,
+            "block_id": 9,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -1434,6 +1040,41 @@
     "california"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "original_query": "counties in California with highest crime",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/06"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ]
+    },
+    "places_found_str": [
+      "california"
+    ],
+    "query_transformations": {
+      "place_detection_input": "counties in california with highest crime",
+      "place_detection_with_places_removed": "counties with highest crime",
+      "sv_detection_query_input": "counties with highest crime",
+      "sv_detection_query_stop_words_removal": "crime"
+    }
+  },
   "query_with_places_removed": "counties with highest crime",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",

@@ -130,7 +130,12 @@ export const QueryResult = memo(function QueryResult(
           </a>
         </Container>
         <Container>
-          {debugData && <DebugInfo debugData={debugData}></DebugInfo>}
+          {debugData && (
+            <DebugInfo
+              debugData={debugData}
+              pageConfig={chartsData ? chartsData.config : null}
+            ></DebugInfo>
+          )}
           {chartsData && chartsData.config && (
             <SubjectPageMainPane
               id={`pg${props.queryIdx}`}

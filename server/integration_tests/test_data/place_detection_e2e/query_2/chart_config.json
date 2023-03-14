@@ -150,20 +150,20 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59"
                     ],
-                    "title": "Median Income for People Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "dc/x3gghqtglpr59"
                     ],
-                    "title": "Median Income for People Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Median Income for People Working in the Finance and Insurance Industry"
+            "title": "Median Income for Population Working in the Finance and Insurance Industry"
           },
           {
             "columns": [
@@ -177,14 +177,14 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59_pc"
                     ],
-                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "dc/x3gghqtglpr59_pc"
                     ],
-                    "title": "Per Capita Median Income for People Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -245,12 +245,12 @@
             "statVar": "Median_Income_Person"
           },
           "dc/x3gghqtglpr59": {
-            "name": "Median Income for People Working in the Finance and Insurance Industry",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
             "statVar": "dc/x3gghqtglpr59"
           },
           "dc/x3gghqtglpr59_pc": {
             "denom": "Count_Person",
-            "name": "Median Income for People Working in the Finance and Insurance Industry",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
             "statVar": "dc/x3gghqtglpr59"
           }
         }

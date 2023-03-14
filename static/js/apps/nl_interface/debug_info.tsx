@@ -89,6 +89,7 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
 };
 export interface DebugInfoProps {
   debugData: any; // from the server response
+  pageConfig: any;
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
@@ -118,7 +119,6 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     correlationClassification: props.debugData["correlation_classification"],
     eventClassification: props.debugData["event_classification"],
     counters: props.debugData["counters"],
-    dataSpec: props.debugData["data_spec"],
   };
 
   const toggleShowDebug = () => {
@@ -222,7 +222,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Query Detection Debug Logs:</b>
+            <b>Query Detection:</b>
           </Row>
           <Row>
             <Col>
@@ -232,7 +232,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Debug Counters</b>
+            <b>Query Fulfillment:</b>
           </Row>
           <Row>
             <Col>
@@ -240,11 +240,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Utterances</b>
+            <b>Page Config:</b>
           </Row>
           <Row>
             <Col>
-              <pre>{JSON.stringify(debugInfo.dataSpec, null, 2)}</pre>
+              <pre>{JSON.stringify(props.pageConfig, null, 2)}</pre>
             </Col>
           </Row>
         </div>

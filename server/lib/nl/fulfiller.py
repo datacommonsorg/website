@@ -16,8 +16,7 @@
 import logging
 from typing import List
 
-from server.lib.nl import utils
-from server.lib.nl.detection import ClassificationType
+from server.lib.nl import counters as ctr
 from server.lib.nl.detection import Detection
 from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
@@ -33,7 +32,7 @@ _SV_THRESHOLD = 0.5
 # and past utterances.
 #
 def fulfill(query_detection: Detection, currentUtterance: Utterance,
-            session_id: str) -> Utterance:
+            counters: ctr.Counters, session_id: str) -> Utterance:
 
   filtered_svs = filter_svs(query_detection.svs_detected.sv_dcids,
                             query_detection.svs_detected.sv_scores)
@@ -49,8 +48,9 @@ def fulfill(query_detection: Detection, currentUtterance: Utterance,
                    chartCandidates=[],
                    rankedCharts=[],
                    answerPlaces=[],
+                   counters=counters,
                    session_id=session_id)
-  uttr.counters['filtered_svs'] = filtered_svs
+  uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.
   if (query_detection.places_detected) and (
@@ -83,8 +83,8 @@ def fulfill_query_type(uttr: Utterance, query_type: QueryType) -> bool:
   handler = handlers.QUERY_HANDLERS.get(query_type, None)
   if handler:
     found = handler.module.populate(uttr)
-    utils.update_counter(uttr.counters, 'processed_fulfillment_types',
-                         handler.module.__name__.split('.')[-1])
+    uttr.counters.info('processed_fulfillment_types',
+                       handler.module.__name__.split('.')[-1])
 
   return found
 

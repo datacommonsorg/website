@@ -17,6 +17,7 @@ import asyncio
 import json
 import logging
 import os
+import time
 from typing import Dict, List
 
 import flask
@@ -30,6 +31,7 @@ from google.protobuf.json_format import MessageToJson
 import requests
 
 import server.lib.nl.constants as constants
+import server.lib.nl.counters as ctr
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import Detection
 from server.lib.nl.detection import NLClassifier
@@ -96,8 +98,8 @@ def _dc_recon(place_ids):
   return d_return
 
 
-def _remove_places(query, places_str_found: List[str]):
-  for p_str in places_str_found:
+def _remove_places(query, place_str_to_dcids: Dict[str, str]):
+  for p_str in place_str_to_dcids.keys():
     # See if the word "in" precedes the place. If so, best to remove it too.
     needle = "in " + p_str
     if needle not in query:
@@ -138,14 +140,14 @@ def _get_place_from_dcids(place_dcids: List[str],
 
 
 def _infer_place_dcids(places_str_found: List[str],
-                       debug_logs: Dict) -> List[str]:
+                       debug_logs: Dict) -> Dict[str, str]:
   if not places_str_found:
     logging.info("places_found is empty. Nothing to retrieve from Maps API.")
 
   override_places = []
   maps_api_failures = []
   no_dcids_found = []
-  place_dcids = []
+  place_dcids = {}
   # Iterate over all the places until a valid place DCID is found.
   for p_str in places_str_found:
     place_dcid = ""
@@ -155,7 +157,7 @@ def _infer_place_dcids(places_str_found: List[str],
       logging.info(
           f"{p_str} was found in OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API. Recording its DCID {place_dcid} without querying Maps API."
       )
-      place_dcids.append(place_dcid)
+      place_dcids[p_str] = place_dcid
       override_places.append((p_str.lower(), place_dcid))
       continue
 
@@ -173,7 +175,7 @@ def _infer_place_dcids(places_str_found: List[str],
       if place_id in place_ids_map:
         place_dcid = place_ids_map[place_id]
         logging.info(f"DC API found DCID: {place_dcid}")
-        place_dcids.append(place_dcid)
+        place_dcids[p_str] = place_dcid
       else:
         logging.info(
             f"Maps API found a place {place_id} but no DCID match found for place string: {p_str}."
@@ -329,7 +331,7 @@ def _detection(orig_query: str, cleaned_query: str,
 
   if place_dcids:
     resolved_places = _get_place_from_dcids(
-        place_dcids, query_detection_debug_logs["place_resolution"])
+        place_dcids.values(), query_detection_debug_logs["place_resolution"])
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
@@ -338,14 +340,7 @@ def _detection(orig_query: str, cleaned_query: str,
     # but we don't expected the resolution from place dcids to fail (typically).
     # Also, even if the resolution fails, if there is a place dcid found, it should
     # be considered good enough to remove the place strings.
-    # TODO: investigate whether it is better to only remove place strings for which
-    # a DCID is found and leave the others in the query string. This is now relevant
-    # because we support multiple place detection+resolution. Previously, even if
-    # just one place was used (resolved), it made sense to remove all place strings.
-    # But now that multiple place strings are being resolved, if there is a failure
-    # in resolving a place, perhaps it should not be removed? This would be a change
-    # and would need to be validated first.
-    query = _remove_places(cleaned_query.lower(), places_str_found)
+    query = _remove_places(cleaned_query.lower(), place_dcids)
 
   if resolved_places:
     main_place = resolved_places[0]
@@ -467,14 +462,12 @@ def data():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
 
-  # TODO: Switch to NL-specific event configs instead of relying
-  # on disaster dashboard's.
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     disaster_config = get_nl_disaster_config()
   else:
-    logging.error('Unable to load event configs!')
+    logging.info('Unable to load event configs!')
 
   original_query = request.args.get('q')
   context_history = []
@@ -499,12 +492,16 @@ def data():
                                    _detection("", ""), escaped_context_history,
                                    {})
 
+  counters = ctr.Counters()
+
   query_detection_debug_logs = {}
   query_detection_debug_logs["original_query"] = query
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
+  start = time.time()
   query_detection = _detection(str(escape(original_query)), query,
                                query_detection_debug_logs)
+  counters.timeit('query_detection', start)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
@@ -516,12 +513,18 @@ def data():
     else:
       session_id = constants.TEST_SESSION_ID
 
-  utterance = fulfillment.fulfill(query_detection, prev_utterance, session_id)
+  start = time.time()
+  utterance = fulfillment.fulfill(query_detection, prev_utterance, counters,
+                                  session_id)
+  counters.timeit('fulfillment', start)
 
   if utterance.rankedCharts:
+    start = time.time()
     page_config_pb = nl_page_config.build_page_config(utterance,
                                                       disaster_config)
     page_config = json.loads(MessageToJson(page_config_pb))
+    counters.timeit('build_page_config', start)
+
     # Use the first chart's place as main place.
     main_place = utterance.rankedCharts[0].places[0]
   else:
@@ -530,7 +533,7 @@ def data():
     logging.info('Found empty place for query "%s"',
                  query_detection.original_query)
 
-  dbg_counters = utterance.counters
+  dbg_counters = utterance.counters.get()
   utterance.counters = None
   context_history = nl_utterance.save_utterance(utterance)
 

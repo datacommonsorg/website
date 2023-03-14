@@ -22,7 +22,7 @@ from enum import IntEnum
 import logging
 from typing import Dict, List
 
-from server.lib.nl import constants
+from server.lib.nl import counters as ctr
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import ContainedInClassificationAttributes
 from server.lib.nl.detection import ContainedInPlaceType
@@ -130,7 +130,7 @@ class Utterance:
   # Debug counters that are cleared out before serializing.
   # Some of these might be promoted to the main Debug Info display,
   # but everything else will appear in the raw output.
-  counters: Dict = field(default_factory=dict)
+  counters: ctr.Counters
 
 
 #
@@ -279,6 +279,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
                      detection=None,
                      chartCandidates=None,
                      answerPlaces=None,
+                     counters=None,
                      session_id=udict['session_id'])
     prev_uttr = uttr
   return uttr
