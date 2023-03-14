@@ -101,13 +101,9 @@ const config = {
       __dirname + "/js/apps/event/main.ts",
       __dirname + "/css/event.scss",
     ],
-    disaster_dashboard: [
-      __dirname + "/js/apps/disaster_dashboard/main.ts",
-      __dirname + "/css/disaster_dashboard.scss",
-    ],
-    sustainability: [
-      __dirname + "/js/apps/sustainability/main.ts",
-      __dirname + "/css/sustainability.scss",
+    subject_page: [
+      __dirname + "/js/apps/subject_page/main.ts",
+      __dirname + "/css/subject_page.scss",
     ],
   },
   output: {

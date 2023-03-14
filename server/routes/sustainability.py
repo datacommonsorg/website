@@ -25,6 +25,7 @@ from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
+import dataclasses
 
 # Define blueprint
 bp = Blueprint("sustainability", __name__, url_prefix='/sustainability')
@@ -59,8 +60,5 @@ def sustainability_explorer(place_dcid=None):
 
   return flask.render_template(
       'custom_dc/stanford/sustainability.html',
-      place_type=json.dumps(place_metadata.place_types),
-      place_name=place_metadata.place_name,
-      place_dcid=place_dcid,
-      config=MessageToJson(dashboard_config),
-      parent_places=json.dumps(place_metadata.parent_places))
+      place_metadata=dataclasses.asdict(place_metadata),
+      config=MessageToJson(dashboard_config))

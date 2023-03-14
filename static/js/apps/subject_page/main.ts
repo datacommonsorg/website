@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint file for sustainability explorer.
+ * Entrypoint file for basic subject page.
  */
 
 import "../../i18n/compiled-lang/en/units.json";
@@ -25,7 +25,7 @@ import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
 import { getFilteredParentPlaces } from "../../utils/app/disaster_dashboard_utils";
-import { App } from "../sustainability/app";
+import { App } from "./app";
 
 window.onload = () => {
   renderPage();

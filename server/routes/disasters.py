@@ -25,6 +25,7 @@ from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
+import dataclasses
 
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
@@ -70,9 +71,6 @@ def disaster_dashboard(place_dcid=None):
       dashboard_config, place_dcid)
 
   return flask.render_template(
-      'custom_dc/stanford/disaster_dashboard.html',
-      place_type=json.dumps(place_metadata.place_types),
-      place_name=place_metadata.place_name,
-      place_dcid=place_dcid,
-      config=MessageToJson(dashboard_config),
-      parent_places=json.dumps(place_metadata.parent_places))
+      'custom_dc/stanford/sustainability.html',
+      place_metadata=dataclasses.asdict(place_metadata),
+      config=MessageToJson(dashboard_config))
