@@ -28,7 +28,7 @@ import { ChildPlaces } from "../../shared/child_places";
 import { ParentBreadcrumbs } from "../../shared/parent_breadcrumbs";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 
-const PAGE_ID = "subject_page";
+const PAGE_ID = "sustainability";
 
 interface AppPropType {
   /**
