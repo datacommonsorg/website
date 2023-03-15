@@ -24,6 +24,4 @@ class Config(_base.Config):
 
 
 class LocalConfig(Config, local.Config):
-  API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
-  API_PROJECT = 'datcom-mixer-statvar'
-  SECRET_PROJECT = 'datcom-stanford'
+  pass
