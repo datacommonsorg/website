@@ -195,7 +195,7 @@ message Tile {
 }
 
 message Block {
-  // Title can include ${place} placeholder string.
+  // Title and description can include ${place} and ${place_dcid} placeholder strings.
   string title = 1;
   string description = 2;
   // Footnote that goes across the bottom of each block. Multiple footnotes can
@@ -218,8 +218,9 @@ message Block {
 }
 
 message Category {
-  // Title can include ${place} placeholder string.
+  // Title and description can include ${place} and ${place_dcid} placeholder strings.
   string title = 1;
+  // Description can also have markdown.
   string description = 2;
   map<string, StatVarSpec> stat_var_spec = 4;
   repeated Block blocks = 3;
