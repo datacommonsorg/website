@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React, { useRef } from "react";
 
+import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartFooter } from "./chart_footer";
@@ -37,26 +38,37 @@ interface ChartTileContainerProp {
   getDataCsv?: () => string;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not the title section of the container should be hidden.
+  hideTitle?: boolean;
+  // Whether or not this is the initial loading state.
+  isInitialLoading?: boolean;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
-  const title = props.title
+  const title = props.title && !props.isInitialLoading
     ? formatString(props.title, props.replacementStrings)
     : "";
+  const showEmbed = props.allowEmbed && !props.isInitialLoading;
   return (
     <div
       className={`chart-container ${props.className ? props.className : ""}`}
       ref={containerRef}
     >
-      {title && <h4>{title}</h4>}
-      {props.children}
+      <div
+        className={`chart-content ${
+          props.isInitialLoading ? INITAL_LOADING_CLASS : ""
+        }`}
+      >
+        {!props.hideTitle && <h4>{title}</h4>}
+        {props.children}
+      </div>
       <ChartFooter
         sources={props.sources}
-        handleEmbed={props.allowEmbed ? handleEmbed : null}
+        handleEmbed={showEmbed ? handleEmbed : null}
       />
-      {props.allowEmbed && <ChartEmbed ref={embedModalElement} />}
+      {showEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>
   );
 

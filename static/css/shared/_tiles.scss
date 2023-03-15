@@ -42,6 +42,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0,
     margin-right: 0 !important;
     display: flex;
     justify-content: space-between;
+    min-height: 1.1rem;
   }
 }
 
@@ -64,6 +65,10 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0,
 .svg-container {
   min-height: 200px;
   width: 100%;
+}
+
+.initial-loading-placeholder {
+  background-color: var(--light);
 }
 
 /**
@@ -213,6 +218,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0,
  
   .disaster-event-map-legend {
     display: flex;
+    min-height: 25px;
   }
  
   .disaster-event-map-zoom-button-section {
@@ -378,4 +384,12 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0,
   a {
     margin-right: 0.5rem;
   }
+}
+
+/**
+ * Top event tile
+ */
+
+.top-event-content {
+  min-height: 325px;
 }
