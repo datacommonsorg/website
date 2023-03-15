@@ -97,13 +97,17 @@ const config = {
       __dirname + "/css/import_wizard2.scss",
     ],
     user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
+    disaster_dashboard: [
+      __dirname + "/js/apps/disaster_dashboard/main.ts",
+      __dirname + "/css/disaster_dashboard.scss",
+    ],
     event: [
       __dirname + "/js/apps/event/main.ts",
       __dirname + "/css/event.scss",
     ],
-    subject_page: [
-      __dirname + "/js/apps/subject_page/main.ts",
-      __dirname + "/css/subject_page.scss",
+    sustainability: [
+      __dirname + "/js/apps/sustainability/main.ts",
+      __dirname + "/css/sustainability.scss",
     ],
   },
   output: {
