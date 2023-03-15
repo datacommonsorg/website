@@ -181,7 +181,6 @@ export function DisasterEventMapTile(
       replacementStrings={rs}
       className={`${CSS_SELECTOR_PREFIX}-tile`}
       allowEmbed={false}
-      hideTitle={true}
       isInitialLoading={isInitialLoading}
     >
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>

@@ -38,8 +38,6 @@ interface ChartTileContainerProp {
   getDataCsv?: () => string;
   // Extra classes to add to the container.
   className?: string;
-  // Whether or not the title section of the container should be hidden.
-  hideTitle?: boolean;
   // Whether or not this is the initial loading state.
   isInitialLoading?: boolean;
 }
@@ -47,6 +45,7 @@ interface ChartTileContainerProp {
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
+  // on initial loading, hide the title text
   const title =
     props.title && !props.isInitialLoading
       ? formatString(props.title, props.replacementStrings)
@@ -62,7 +61,11 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
           props.isInitialLoading ? INITAL_LOADING_CLASS : ""
         }`}
       >
-        {!props.hideTitle && <h4>{title}</h4>}
+        {
+          /* If props.title is not empty, we want to render this header element
+              even if title is empty to keep the space on the page */
+          props.title && <h4>{title}</h4>
+        }
         {props.children}
       </div>
       <ChartFooter
