@@ -61,7 +61,3 @@ class Config:
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
   OVERRIDE_CSS_PATH = ''
-  # The GCP project of the mixer which Flask talks to. This only needs to
-  # be set for local development. Website deployed to GKE bundles the mixer
-  # as a custom service accessible via localhost.
-  API_PROJECT = ''
