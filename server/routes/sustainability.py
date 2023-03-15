@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,9 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Endpoints for disaster dashboard"""
+"""Endpoints for sustainability explorer."""
 
-import copy
 import dataclasses
 
 import flask
@@ -26,39 +25,27 @@ from google.protobuf.json_format import MessageToJson
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
 
-EARTH_FIRE_SEVERITY_MIN = 500
-FIRE_EVENT_TYPE_SPEC = "fire"
-
 # Define blueprint
-bp = Blueprint("disasters", __name__, url_prefix='/disasters')
+bp = Blueprint("sustainability", __name__, url_prefix='/sustainability')
 
 
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
-def disaster_dashboard(place_dcid=None):
+def sustainability_explorer(place_dcid=None):
   if not place_dcid:
     return redirect(url_for(
-        'disasters.disaster_dashboard',
+        'sustainability.sustainability_explorer',
         place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
-  dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
+  dashboard_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    dashboard_config = server.lib.util.get_disaster_dashboard_config()
+    dashboard_config = server.lib.util.get_disaster_sustainability_config()
 
   if not dashboard_config:
     return "Error: no config installed"
-
-  # Override the min severity for fires for Earth
-  # TODO: Do this by extending the config instead.
-  if place_dcid == lib_subject_page_config.DEFAULT_PLACE_DCID:
-    dashboard_config = copy.deepcopy(dashboard_config)
-    for key in dashboard_config.metadata.event_type_spec:
-      if key == FIRE_EVENT_TYPE_SPEC:
-        spec = dashboard_config.metadata.event_type_spec[key]
-        spec.default_severity_filter.lower_limit = EARTH_FIRE_SEVERITY_MIN
 
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
   if place_metadata.contained_place_types_override:
@@ -70,6 +57,6 @@ def disaster_dashboard(place_dcid=None):
       dashboard_config, place_dcid)
 
   return flask.render_template(
-      'custom_dc/stanford/disaster_dashboard.html',
+      'custom_dc/stanford/sustainability.html',
       place_metadata=dataclasses.asdict(place_metadata),
       config=MessageToJson(dashboard_config))

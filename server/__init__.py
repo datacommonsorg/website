@@ -89,10 +89,12 @@ def register_routes_disasters(app):
   # Install blueprints specific to Stanford DC
   from server.routes import disasters
   from server.routes import event
+  from server.routes import sustainability
   from server.routes.api import disaster_api
   app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_api.bp)
   app.register_blueprint(event.bp)
+  app.register_blueprint(sustainability.bp)
 
   if app.config['TEST']:
     return
@@ -101,6 +103,9 @@ def register_routes_disasters(app):
   app.config[
       'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
   app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
+  app.config[
+      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+      )
 
   if app.config['INTEGRATION']:
     return

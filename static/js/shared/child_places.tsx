@@ -21,8 +21,8 @@
 import _ from "lodash";
 import React from "react";
 
-import { displayNameForPlaceType } from "../../place/util";
-import { ChildPlacesByType, NamedTypedPlace } from "../../shared/types";
+import { displayNameForPlaceType } from "../place/util";
+import { ChildPlacesByType, NamedTypedPlace } from "../shared/types";
 
 interface ChildPlacesPropType {
   parentPlace: NamedTypedPlace;

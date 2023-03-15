@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * Main component for the disaster dashboard.
+ * Main component for sustainability explorer.
  */
 
 import React from "react";
@@ -28,7 +28,7 @@ import { ChildPlaces } from "../../shared/child_places";
 import { ParentBreadcrumbs } from "../../shared/parent_breadcrumbs";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 
-const PAGE_ID = "disaster";
+const PAGE_ID = "sustainability";
 
 interface AppPropType {
   /**
