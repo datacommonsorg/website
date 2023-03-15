@@ -17,8 +17,7 @@ from server.app_env import _base
 
 class Config(_base.Config):
   WEBDRIVER = True
-  SECRET_PROJECT = 'datcom-website-dev'
   API_ROOT = 'https://autopush.api.datacommons.org'
-  API_PROJECT = 'datcom-mixer-autopush'
+  SECRET_PROJECT = 'datcom-website-dev'
   AI_CONFIG_PATH = None  # No models in this configuration.
   SCHEME = 'http'

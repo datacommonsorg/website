@@ -24,9 +24,16 @@ import { RawIntlProvider } from "react-intl";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { intl } from "../../i18n/i18n";
+<<<<<<< HEAD
 import { ChildPlaces } from "../../shared/child_places";
 import { ParentBreadcrumbs } from "../../shared/parent_breadcrumbs";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+=======
+import { ChildPlacesByType, NamedTypedPlace } from "../../shared/types";
+import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { ChildPlaces } from "./child_places";
+import { ParentBreadcrumbs } from "./parent_breadcrumbs";
+>>>>>>> 4be52874cd1629d3fd40f81420db1c0cc18459d2
 
 const PAGE_ID = "subject_page";
 
@@ -43,7 +50,10 @@ export function App(props: AppPropType): JSX.Element {
             id={PAGE_ID}
             categories={props.metadata.pageConfig.categories}
           />
-          <ChildPlaces parentPlace={props.metadata.place}></ChildPlaces>
+          <ChildPlaces
+            childPlaces={props.metadata.childPlaces}
+            parentPlace={props.metadata.place}
+          ></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
           <h1 id="place-name">{props.metadata.place.name}</h1>

@@ -516,20 +516,25 @@ export function addMapPoints(
   getTooltipHtml?: (place: NamedPlace) => string,
   minDotRadius?: number
 ): d3.Selection<SVGCircleElement, MapPoint, SVGGElement, unknown> {
-  // get the smallest diagonal length of a region on the d3 map.
-  let minRegionDiagonal = Number.MAX_VALUE;
-  d3.select(containerElement)
-    .select(`#${MAP_GEO_REGIONS_ID}`)
-    .selectAll("path")
-    .each((_, idx, paths) => {
-      const pathClientRect = (
-        paths[idx] as SVGPathElement
-      ).getBoundingClientRect();
-      minRegionDiagonal = Math.sqrt(
-        Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
-      );
-    });
-  const minDotSize = minDotRadius || Math.max(minRegionDiagonal * 0.02, 1.1);
+  let minDotSize = minDotRadius;
+  // It is an expensive function to read all the lengths of the regions on the
+  // d3 map so only calculate minDotSize if it's not passed in as an argument.
+  if (!minDotSize) {
+    // get the smallest diagonal length of a region on the d3 map.
+    let minRegionDiagonal = Number.MAX_VALUE;
+    d3.select(containerElement)
+      .select(`#${MAP_GEO_REGIONS_ID}`)
+      .selectAll("path")
+      .each((_, idx, paths) => {
+        const pathClientRect = (
+          paths[idx] as SVGPathElement
+        ).getBoundingClientRect();
+        minRegionDiagonal = Math.sqrt(
+          Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
+        );
+      });
+    minDotSize = Math.max(minRegionDiagonal * 0.02, 1.1);
+  }
   const filteredMapPoints = mapPoints.filter((point) => {
     const projectedPoint = projection([point.longitude, point.latitude]);
     return (
