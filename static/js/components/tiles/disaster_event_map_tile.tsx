@@ -278,9 +278,15 @@ export function DisasterEventMapTile(
           eventDcids.push(eventPoint.placeDcid);
         }
       }
+      // if at least one event type feature was read from an event point, then
+      // all event points should contain geojson feature information IF its
+      // available for the event point.
+      const eventDcidsToFetch = _.isEmpty(eventTypeFeatures[eventType])
+        ? eventDcids
+        : [];
       geoJsonPromises.push(
         fetchNodeGeoJson(
-          eventDcids,
+          eventDcidsToFetch,
           props.eventTypeSpec[eventType][geoJsonPropKey]
         )
       );

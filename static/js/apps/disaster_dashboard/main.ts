@@ -43,6 +43,9 @@ function renderPage(): void {
   const parentPlaces = JSON.parse(
     document.getElementById("place").dataset.parents
   );
+  const childPlaces = JSON.parse(
+    document.getElementById("place").dataset.children
+  );
 
   Promise.resolve(
     loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)])
@@ -53,6 +56,7 @@ function renderPage(): void {
       place,
       dashboardConfig,
       parentPlaces: getFilteredParentPlaces(parentPlaces, place),
+      childPlaces,
     }),
     document.getElementById("body")
   );
