@@ -26,24 +26,15 @@ import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { intl } from "../../i18n/i18n";
 import { ChildPlaces } from "../../shared/child_places";
 import { ParentBreadcrumbs } from "../../shared/parent_breadcrumbs";
-import { NamedTypedPlace } from "../../shared/types";
-import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { SubjectPageMetadata } from "../../types/subject_page_types";
 
 const PAGE_ID = "subject_page";
 
 interface AppPropType {
   /**
-   * The place to show the dashboard for.
+   * Page metadata for the app.
    */
-  place: NamedTypedPlace;
-  /**
-   * Config of the page
-   */
-  dashboardConfig: SubjectPageConfig;
-  /**
-   * parent places of the place we are showing the dashboard for.
-   */
-  parentPlaces: NamedTypedPlace[];
+  metadata: SubjectPageMetadata;
 }
 
 export function App(props: AppPropType): JSX.Element {
@@ -53,21 +44,21 @@ export function App(props: AppPropType): JSX.Element {
         <div className="col-md-3x col-lg-2 order-last order-lg-0">
           <SubjectPageSidebar
             id={PAGE_ID}
-            categories={props.dashboardConfig.categories}
+            categories={props.metadata.pageConfig.categories}
           />
-          <ChildPlaces parentPlace={props.place}></ChildPlaces>
+          <ChildPlaces parentPlace={props.metadata.place}></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
-          <h1 id="place-name">{props.place.name}</h1>
+          <h1 id="place-name">{props.metadata.place.name}</h1>
           <ParentBreadcrumbs
-            place={props.place}
-            parentPlaces={props.parentPlaces}
+            place={props.metadata.place}
+            parentPlaces={props.metadata.parentPlaces}
           ></ParentBreadcrumbs>
           <SubjectPageMainPane
             id={PAGE_ID}
-            place={props.place}
-            pageConfig={props.dashboardConfig}
-            parentPlaces={props.parentPlaces}
+            place={props.metadata.place}
+            pageConfig={props.metadata.pageConfig}
+            parentPlaces={props.metadata.parentPlaces}
           />
         </div>
       </div>

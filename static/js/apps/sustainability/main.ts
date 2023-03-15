@@ -24,7 +24,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { getFilteredParentPlaces } from "../../utils/app/disaster_dashboard_utils";
+import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils";
 import { App } from "./app";
 
 window.onload = () => {
@@ -32,17 +32,7 @@ window.onload = () => {
 };
 
 function renderPage(): void {
-  const placeDcid = document.getElementById("place").dataset.dcid;
-  const placeName = document.getElementById("place").dataset.name || placeDcid;
-  const placeTypes =
-    JSON.parse(document.getElementById("place").dataset.type) || [];
-  const dashboardConfig = JSON.parse(
-    document.getElementById("dashboard-config").dataset.config
-  );
-  const place = { dcid: placeDcid, name: placeName, types: placeTypes };
-  const parentPlaces = JSON.parse(
-    document.getElementById("place").dataset.parents
-  );
+  const metadata = loadSubjectPageMetadataFromPage();
 
   Promise.resolve(
     loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)])
@@ -50,9 +40,7 @@ function renderPage(): void {
 
   ReactDOM.render(
     React.createElement(App, {
-      place,
-      dashboardConfig,
-      parentPlaces: getFilteredParentPlaces(parentPlaces, place),
+      metadata,
     }),
     document.getElementById("body")
   );
