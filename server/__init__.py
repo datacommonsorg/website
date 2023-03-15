@@ -275,9 +275,9 @@ def create_app():
   if app.config['LOCAL']:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-  if app.config['API_PROJECT']:
+  if cfg.SECRET_PROJECT:
     secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.API_PROJECT,
+    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                     'mixer-api-key', 'latest')
     secret_response = secret_client.access_secret_version(name=secret_name)
     app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')

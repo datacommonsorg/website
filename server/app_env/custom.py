@@ -25,3 +25,10 @@ class Config(_base.Config):
 
 class LocalConfig(Config, local.Config):
   LITE = True
+  API_ROOT = 'https://autopush.api.datacommons.org'
+  # NEED TO DO THE FOLLOWING CHANGES:
+  # 1. Get an API key from Data Commons team
+  # 2. In the custom GCP project, store the API key in secret manager
+  #    `printf "<API_KEY>" | gcloud secrets create mixer-api-key --data-file=-`
+  # 3. Update SECRET_PROJECT to be the custom GCP project id.
+  SECRET_PROJECT = ''
