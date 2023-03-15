@@ -67,6 +67,7 @@ def disaster_dashboard(place_dcid=None):
     dashboard_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
 
+  # TODO: move this to the place_metadata helper
   child_places = place_api.child_fetch(place_dcid)
   for place_type in child_places:
     child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)

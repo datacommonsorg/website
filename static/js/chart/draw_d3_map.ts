@@ -517,6 +517,8 @@ export function addMapPoints(
   minDotRadius?: number
 ): d3.Selection<SVGCircleElement, MapPoint, SVGGElement, unknown> {
   let minDotSize = minDotRadius;
+  // It is an expensive function to read all the lengths of the regions on the
+  // d3 map so only calculate minDotSize if it's not passed in as an argument.
   if (!minDotSize) {
     // get the smallest diagonal length of a region on the d3 map.
     let minRegionDiagonal = Number.MAX_VALUE;
