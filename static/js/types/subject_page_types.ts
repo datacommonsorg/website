@@ -15,6 +15,7 @@
  */
 import { NamedTypedPlace } from "../shared/types";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
+import { ChildPlacesByType } from "./../shared/types";
 
 export interface SubjectPageMetadata {
   /**
@@ -29,4 +30,8 @@ export interface SubjectPageMetadata {
    * parent places of the place we are showing the dashboard for.
    */
   parentPlaces: NamedTypedPlace[];
+  /**
+   * child places of the place we are showing the dashboard for.
+   */
+  childPlaces: ChildPlacesByType;
 }

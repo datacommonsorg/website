@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Union
 
 from flask import escape
 
@@ -53,6 +53,8 @@ class PlaceMetadata:
   parent_places: List[str]
   # If set, use this to override the contained_place_types map in config metadata.
   contained_place_types_override: Dict[str, str]
+  # Corresponds to typescript type ChildPlacesByType
+  child_places: Dict[str, List[Dict[str, Union[str, int]]]]
 
 
 def get_all_variables(page_config):
@@ -150,9 +152,16 @@ def place_metadata(place_dcid) -> PlaceMetadata:
   if EUROPE_DCID in parent_dcids:
     contained_place_types_override = EUROPE_CONTAINED_PLACE_TYPES
 
+  child_places = place_api.child_fetch(place_dcid)
+  for place_type in child_places:
+    child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
+    child_places[place_type] = child_places[place_type][:place_api.
+                                                        CHILD_PLACE_LIMIT]
+
   return PlaceMetadata(
       place_dcid=escape(place_dcid),
       place_name=place_name,
       place_types=place_types,
       parent_places=parent_places,
+      child_places=child_places,
       contained_place_types_override=contained_place_types_override)

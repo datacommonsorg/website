@@ -46,7 +46,10 @@ export function App(props: AppPropType): JSX.Element {
             id={PAGE_ID}
             categories={props.metadata.pageConfig.categories}
           />
-          <ChildPlaces parentPlace={props.metadata.place}></ChildPlaces>
+          <ChildPlaces
+            childPlaces={props.metadata.childPlaces}
+            parentPlace={props.metadata.place}
+          ></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
           <h1 id="place-name">{props.metadata.place.name}</h1>

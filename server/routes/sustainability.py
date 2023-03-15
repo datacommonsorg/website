@@ -13,9 +13,7 @@
 # limitations under the License.
 """Endpoints for sustainability explorer."""
 
-import copy
 import dataclasses
-import json
 
 import flask
 from flask import Blueprint

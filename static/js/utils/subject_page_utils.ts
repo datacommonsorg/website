@@ -149,9 +149,13 @@ export function loadSubjectPageMetadataFromPage(): SubjectPageMetadata {
   const pageConfig = JSON.parse(
     document.getElementById("dashboard-config").dataset.config
   );
+  const childPlaces = JSON.parse(
+    document.getElementById("place").dataset.children
+  );
   return {
     pageConfig: pageConfig,
     place: place,
     parentPlaces: getFilteredParentPlaces(parentPlaces, place),
+    childPlaces: childPlaces,
   };
 }

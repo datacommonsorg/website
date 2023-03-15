@@ -24,7 +24,9 @@
        data-dcid='{{ place_metadata.place_dcid }}'
        data-name='{{ place_metadata.place_name }}'
        data-type='{{ place_metadata.place_types|tojson|safe }}'
-       data-parents='{{ place_metadata.parent_places|tojson|safe }}'></div>
+       data-parents='{{ place_metadata.parent_places|tojson|safe }}'
+       data-children='{{ place_metadata.child_places|tojson|safe }}'>
+  </div>
   <div id='dashboard-config' data-config='{{ config }}'></div>
 </div>
 {% endmacro %}
