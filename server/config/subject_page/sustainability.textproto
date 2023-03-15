@@ -33,3 +33,30 @@ metadata {
     value: "AdministrativeArea2"
   }
 }
+
+categories {
+  title: "Air quality"
+  blocks {
+    columns {
+      tiles {}
+    }
+  }
+}
+
+categories {
+  title: "Temperature"
+  blocks {
+    columns {
+      tiles {}
+    }
+  }
+}
+
+categories {
+  title: "Energy"
+  blocks {
+    columns {
+      tiles {}
+    }
+  }
+}

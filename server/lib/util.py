@@ -102,21 +102,21 @@ def get_topic_page_config():
 
 # Returns disaster dashboard config loaded as SubjectPageConfig protos
 def get_disaster_dashboard_config():
-  filepath = os.path.join(get_repo_root(), "config", "disaster_dashboard",
+  filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "dashboard.textproto")
   return get_subject_page_config(filepath)
 
 
 # Returns disaster event config loaded as SubjectPageConfig protos
 def get_disaster_event_config():
-  filepath = os.path.join(get_repo_root(), "config", "disaster_dashboard",
+  filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "events.textproto")
   return get_subject_page_config(filepath)
 
 
 # Returns disaster sustainability config loaded as SubjectPageConfig protos
 def get_disaster_sustainability_config():
-  filepath = os.path.join(get_repo_root(), "config", "disaster_dashboard",
+  filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "sustainability.textproto")
   return get_subject_page_config(filepath)
 

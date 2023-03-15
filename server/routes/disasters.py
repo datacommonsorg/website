@@ -71,6 +71,6 @@ def disaster_dashboard(place_dcid=None):
       dashboard_config, place_dcid)
 
   return flask.render_template(
-      'custom_dc/stanford/sustainability.html',
+      'custom_dc/stanford/disaster_dashboard.html',
       place_metadata=dataclasses.asdict(place_metadata),
       config=MessageToJson(dashboard_config))

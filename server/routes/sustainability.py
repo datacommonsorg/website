@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Endpoints for disaster dashboard"""
+"""Endpoints for sustainability explorer."""
 
 import copy
 import dataclasses
@@ -44,7 +44,7 @@ def sustainability_explorer(place_dcid=None):
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    dashboard_config = server.lib.util.get_disaster_dashboard_config()
+    dashboard_config = server.lib.util.get_disaster_sustainability_config()
 
   if not dashboard_config:
     return "Error: no config installed"
