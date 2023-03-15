@@ -86,23 +86,27 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     }
   }, [props, barChartData]);
 
-  if (!barChartData) {
-    return null;
-  }
   const rs: ReplacementStrings = {
     place: props.place ? props.place.name : "",
-    date: barChartData.dateRange,
+    date: barChartData && barChartData.dateRange,
   };
   return (
     <ChartTileContainer
       title={props.title}
-      sources={barChartData.sources}
+      sources={barChartData && barChartData.sources}
       replacementStrings={rs}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
-      getDataCsv={() => dataGroupsToCsv(barChartData.dataGroup)}
+      getDataCsv={
+        barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
+      }
+      isInitialLoading={_.isNull(barChartData)}
     >
-      <div id={props.id} className="svg-container"></div>
+      <div
+        id={props.id}
+        className="svg-container"
+        style={{ minHeight: props.svgChartHeight }}
+      ></div>
     </ChartTileContainer>
   );
 }

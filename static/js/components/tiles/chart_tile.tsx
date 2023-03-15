@@ -47,9 +47,10 @@ interface ChartTileContainerProp {
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
-  const title = props.title && !props.isInitialLoading
-    ? formatString(props.title, props.replacementStrings)
-    : "";
+  const title =
+    props.title && !props.isInitialLoading
+      ? formatString(props.title, props.replacementStrings)
+      : "";
   const showEmbed = props.allowEmbed && !props.isInitialLoading;
   return (
     <div
