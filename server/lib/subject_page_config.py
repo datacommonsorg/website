@@ -35,7 +35,6 @@ EUROPE_CONTAINED_PLACE_TYPES = {
 FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.HIGHLIGHT,
     subject_page_pb2.Tile.TileType.RANKING,
-    subject_page_pb2.Tile.TileType.HISTOGRAM,
     subject_page_pb2.Tile.TileType.MAP,
     subject_page_pb2.Tile.TileType.SCATTER,
     subject_page_pb2.Tile.TileType.BIVARIATE,

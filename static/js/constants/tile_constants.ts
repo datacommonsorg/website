@@ -20,3 +20,5 @@
 
 // Default height to use for charts in tile components
 export const SVG_CHART_HEIGHT = 200;
+// CSS class for initial loading treatment
+export const INITAL_LOADING_CLASS = "initial-loading-placeholder";
