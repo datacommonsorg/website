@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import time
-from webdriver_tests.base_test import WebdriverBaseTest
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_tests.base_test import WebdriverBaseTest
 
 # TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280

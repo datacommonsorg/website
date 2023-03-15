@@ -1,0 +1,42 @@
+[
+  {
+    "header": "CO2 emissions in Manufacturing",
+    "preposition": "for",
+    "examples": [
+      {
+        "text": "India, China, US",
+        "url": "#place=country%2FUSA%2Ccountry%2FIND%2Ccountry%2FCHN&statsVar=Annual_Emissions_CarbonDioxide_Manufacturing"
+      }
+    ]
+  },
+  {
+    "header": "CO2 emissions in Steel Manufacturing",
+    "preposition": "for",
+    "examples": [
+      {
+        "text": "Japan, China, US, Germany",
+        "url": "#place=country%2FDEU%2Ccountry%2FGBR%2Ccountry%2FJPN%2Ccountry%2FCHN&statsVar=Annual_Emissions_CarbonDioxide_SteelManufacturing&chart=%7B%22amount%22%3A%7B%22pc%22%3Atrue%7D%7D"
+      }
+    ]
+  },
+  {
+    "header": "CO2 emissions for Road Transportation (per capita)",
+    "preposition": "for",
+    "examples": [
+      {
+        "text": "India, China, US, Germany",
+        "url": "#place=country%2FUSA%2Ccountry%2FIND%2Ccountry%2FCHN%2Ccountry%2FDEU&statsVar=Annual_Emissions_CarbonDioxide_FuelCombustionForRoadVehicles&chart=%7B%22amount%22%3A%7B%22pc%22%3Atrue%7D%7D"
+      }
+    ]
+  },
+  {
+    "header": "CO2 emissions in Power Generation (per capita)",
+    "preposition": "for",
+    "examples": [
+      {
+        "text": "India, China, Germany, US, UK",
+        "url": "#place=country%2FDEU%2Ccountry%2FGBR%2Ccountry%2FJPN%2Ccountry%2FCHN%2Ccountry%2FIND&statsVar=Annual_Emissions_CarbonDioxide_Power&chart=%7B%22amount%22%3A%7B%22pc%22%3Atrue%7D%7D"
+      }
+    ]
+  }
+]

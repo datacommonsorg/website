@@ -25,10 +25,11 @@ resources:
 
 configMapGenerator:
   - name: website-configmap
-    behavior: create
+    behavior: merge
     literals:
       - flaskEnv=dev
       - secretProject=datcom-website-dev
+      - enableModel=true
   - name: mixer-configmap
     behavior: create
     literals:

@@ -13,34 +13,69 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+variable "website_githash" {
+  type        =  string
+  description = "Determines which DC website image to use."
+}
+
+variable "mixer_githash" {
+  type        =  string
+  description = "Determines which DC Mixer image to use."
+}
 
 variable "project_id" {
   type        = string
-  description = "Project id of the GCP project where the website is to be set up."
+  description = "This is the same GCP project id from the setup step."
 }
 
-variable "website_domain" {
+variable "dc_website_domain" {
   type        = string
-  description = "Domain name that you own that will be used for the Data Commons website."
+  description = "This is the domain registered from the setup step."
 }
 
-variable "storage_project_id" {
+variable "web_robot_sa_email" {
   type        = string
-  description = "Project id of the GCP project id of an existing data storage project."
-}
-
-variable "brand_support_email" {
-  type        = string
-  description = "Branch support email."
+  description = "Robot SA used for workload identity."
   default     = null
 }
 
-variable "web_user_members" {
-  type        =  list(string)
-  description = "List of users that are allowed to be authenticated in IAP."
+variable "cluster_name_prefix" {
+  type        = string
+  description = "Prefix used for GKE clusters to be created to host DC apps."
+  default     = "datacommons"
 }
 
-variable "region" {
+variable "location" {
   type        =  string
-  description = "GCP region where the cluster will be created in."
+  description = <<EOF
+Location of the GCP resources to be created.
+
+Can be regional, like "us-central1". Or zonal like "us-central1-a"
+
+Major difference between regional and zonal is that for GKE cluster, regional
+clusters will have nodes in each zone of that region, giving higher availability,
+but is more expensive.
+
+For regional only resources, if zonal location is specified, the region
+will be parsed from the zone.
+EOF
+  default     = "us-central1-a"
+}
+
+variable "global_static_ip_name" {
+  type        =  string
+  description = "Name of the global static IP that exposes DC web service."
+  default     = null
+}
+
+variable "resource_suffix" {
+  type        = string
+  description = "This is the resource_suffix generated from the setup step, if previous step used resource suffix."
+  default     = null
+}
+
+variable "use_resource_suffix" {
+  type        = bool
+  description = "If true then add a random suffix to the ending of GCP resource names to avoid name collision."
+  default     = false
 }

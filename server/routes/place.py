@@ -13,51 +13,16 @@
 # limitations under the License.
 """Place Explorer related handlers."""
 
+import json
+import os
+
 import flask
-from flask import current_app, g
-import routes.api.place as place_api
+from flask import current_app
+from flask import g
+
+import server.routes.api.place as place_api
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
-
-# List of DCIDs displayed in the static place_landing.html page.
-_PLACE_LANDING_DCIDS = [
-    'geoId/1714000',
-    'geoId/4805000',
-    'geoId/0667000',
-    'geoId/5363000',
-    'geoId/17031',
-    'geoId/06059',
-    'geoId/48201',
-    'geoId/06085',
-    'geoId/06',
-    'geoId/48',
-    'geoId/17',
-    'geoId/21',
-    'geoId/36',
-    'geoId/26',
-    'country/CAN',
-    'country/USA',
-    'country/IND',
-    'country/MYS',
-    'country/DEU',
-]
-
-# List of DCIDs displayed in the IITM static place_landing.html page.
-_PLACE_LANDING_DCIDS_IITM = [
-    'wikidataId/Q1353',
-    'wikidataId/Q43433',
-    'wikidataId/Q1797336',
-    'wikidataId/Q15341',
-    'wikidataId/Q15446',
-    'wikidataId/Q1445',
-    'wikidataId/Q1061',
-    'wikidataId/Q1177',
-    'country/IND',
-    'country/USA',
-    'country/CAN',
-    'country/MYS',
-    'country/DEU',
-]
 
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
@@ -116,13 +81,18 @@ def place(place_dcid=None):
 
 def place_landing():
   """Returns filled template for the place landing page."""
-  landing_dcids = _PLACE_LANDING_DCIDS
-  template = 'place_landing.html'
-  if g.env_name == 'IITM':
-    landing_dcids = _PLACE_LANDING_DCIDS_IITM
-    template = 'custom_dc/iitm/place_landing.html'
-  # Use display names (including state, if applicable) for the static page
-  place_names = place_api.get_display_name('^'.join(landing_dcids), g.locale)
-  return flask.render_template(template,
-                               place_names=place_names,
-                               maps_api_key=current_app.config['MAPS_API_KEY'])
+  template_file = os.path.join('custom_dc', g.env, 'place_landing.html')
+  dcid_json = os.path.join('custom_dc', g.env, 'place_landing_dcids.json')
+  if not os.path.exists(
+      os.path.join(current_app.root_path, 'templates', template_file)):
+    template_file = 'place_landing.html'
+    dcid_json = 'place_landing_dcids.json'
+
+  with open(os.path.join(current_app.root_path, 'templates', dcid_json)) as f:
+    landing_dcids = json.load(f)
+    # Use display names (including state, if applicable) for the static page
+    place_names = place_api.get_display_name('^'.join(landing_dcids), g.locale)
+    return flask.render_template(
+        template_file,
+        place_names=place_names,
+        maps_api_key=current_app.config['MAPS_API_KEY'])

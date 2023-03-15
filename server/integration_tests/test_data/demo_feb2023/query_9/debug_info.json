@@ -1,0 +1,1017 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "ClassificationType.CORRELATION",
+  "counters": {
+    "child_places_result": [
+      {
+        "place": "country/USA",
+        "result": [
+          "geoId/01001",
+          "geoId/01003",
+          "geoId/01005",
+          "geoId/01007",
+          "geoId/01009",
+          "geoId/01011",
+          "geoId/01013",
+          "geoId/01015",
+          "geoId/01017",
+          "geoId/01019",
+          "geoId/01021",
+          "geoId/01023",
+          "geoId/01025",
+          "geoId/01027",
+          "geoId/01029"
+        ],
+        "type": "County"
+      }
+    ],
+    "correlation_context_svs": [
+      [
+        "Percent_Person_WithHighBloodPressure"
+      ]
+    ],
+    "correlation_main_svs": [
+      [
+        "Median_Income_Person",
+        "Median_Earnings_Person",
+        "Median_Income_Household",
+        "Mean_Income_Household",
+        "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices"
+      ]
+    ],
+    "filtered_svs": [
+      "dc/topic/Income",
+      "Mean_Income_Household",
+      "Median_Income_Household",
+      "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices",
+      "WagesTotal_Worker_NAICSInformation",
+      "WagesTotal_Worker_NAICSTotalAllIndustries",
+      "WagesTotal_Worker_NAICSFinanceInsurance",
+      "dc/jefhcs9qxc971",
+      "WagesTotal_Worker_NAICSEducationalServices",
+      "Mean_Income_Household_FamilyHousehold",
+      "Mean_Income_Household_NonfamilyHousehold",
+      "dc/xj2nk2bg60fg",
+      "dc/wzz9t818m1gk8",
+      "dc/5hv2p802zmh03",
+      "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises",
+      "WagesTotal_Worker_NAICSUtilities"
+    ],
+    "num_chart_candidates": 5,
+    "processed_fulfillment_types": [
+      "correlation"
+    ],
+    "topics_processed": [
+      {
+        "dc/topic/Income": {
+          "peer_groups": [
+            [
+              "Individual Income",
+              [
+                "Median_Income_Person",
+                "Median_Earnings_Person"
+              ]
+            ],
+            [
+              "Houshold Income",
+              [
+                "Median_Income_Household"
+              ]
+            ]
+          ],
+          "svs": [
+            "Median_Income_Person",
+            "Median_Earnings_Person",
+            "Median_Income_Household"
+          ]
+        }
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 5
+        }
+      ],
+      "places": [],
+      "query": "How does this correlate with income",
+      "query_type": 5,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "scatter chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 5,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person",
+            "Percent_Person_WithHighBloodPressure"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "scatter chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 5,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Earnings_Person",
+            "Percent_Person_WithHighBloodPressure"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "scatter chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 5,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household",
+            "Percent_Person_WithHighBloodPressure"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "scatter chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 5,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household",
+            "Percent_Person_WithHighBloodPressure"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "scatter chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 5,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Percent_Person_WithHighBloodPressure"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "dc/topic/Income",
+        "Mean_Income_Household",
+        "Median_Income_Household",
+        "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices",
+        "WagesTotal_Worker_NAICSInformation",
+        "WagesTotal_Worker_NAICSTotalAllIndustries",
+        "WagesTotal_Worker_NAICSFinanceInsurance",
+        "dc/jefhcs9qxc971",
+        "WagesTotal_Worker_NAICSEducationalServices",
+        "Mean_Income_Household_FamilyHousehold",
+        "Mean_Income_Household_NonfamilyHousehold",
+        "dc/xj2nk2bg60fg",
+        "dc/wzz9t818m1gk8",
+        "dc/5hv2p802zmh03",
+        "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises",
+        "WagesTotal_Worker_NAICSUtilities"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "County",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Which counties in the USA have the highest levels of blood pressure",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithHighBloodPressure"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Percent_Person_WithHighBloodPressure",
+        "dc/g/Person_MedicalCondition-HighBloodPressure",
+        "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "County",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "Which counties in california have the highest levels of blood pressure",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithHighBloodPressure"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Percent_Person_WithHighBloodPressure",
+        "dc/g/Person_MedicalCondition-HighBloodPressure",
+        "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        }
+      ],
+      "places": [],
+      "query": "What are the most common health issues there",
+      "query_type": 3,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranked bar chart",
+            "class": 0,
+            "description": "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/MedicalConditions",
+            "title": "Medical Conditions"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithStroke",
+            "Percent_Person_WithChronicKidneyDisease"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "dc/topic/MedicalConditions",
+        "Percent_Person_WithPhysicalHealthNotGood",
+        "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
+        "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "time_delta_type": [
+            0
+          ],
+          "type": 8
+        }
+      ],
+      "places": [],
+      "query": "Which jobs have grown the most",
+      "query_type": 7,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "abs",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSOtherServices",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "pct",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "Count_Worker_NAICSConstruction",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSOtherServices",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 0,
+            "growth_ranking_type": "pc",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSOtherServices",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "dc/topic/Jobs",
+        "dc/g/Person_Industry-NAICS/451",
+        "dc/g/Person_Industry-NAICS/54",
+        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+        "dc/g/Person_Industry-NAICS/11",
+        "dc/g/Person_Industry-NAICS/61",
+        "dc/g/Person_Industry-NAICS/7172",
+        "Count_Worker_NAICSTotalAllIndustries",
+        "dc/topic/Economy",
+        "dc/g/Person_Industry-NAICS/33",
+        "dc/g/Person_Industry-NAICS/JOLTS300000",
+        "dc/g/Person_Industry-NAICS/3133",
+        "dc/topic/WorkCommute"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        }
+      ],
+      "places": [],
+      "query": "What were the most common jobs there",
+      "query_type": 3,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranked bar chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/Jobs",
+            "title": "Categories of Jobs"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": [
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSOtherServices",
+            "dc/ndg1xk1e9frc2",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "dc/8p97n7l96lgg8",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSUtilities",
+            "Count_Worker_NAICSAgricultureForestryFishingHunting",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "dc/topic/Jobs",
+        "Count_Worker_NAICSTotalAllIndustries",
+        "dc/g/Person_Industry-NAICS/10",
+        "dc/g/Person_Industry-NAICS/11",
+        "dc/g/Person_Industry-NAICS/451"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 10
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer County",
+          "place_type": "County"
+        }
+      ],
+      "query": "Tell me about Placer County",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06061",
+              "name": "Placer County",
+              "place_type": "County"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "event_type": [
+            4
+          ],
+          "type": 9
+        }
+      ],
+      "places": [],
+      "query": "Where were the major fires in the last year",
+      "query_type": 9,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 6,
+          "event": 4,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            5
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "Across",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "What are the projected temperature extremes across California",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest increase in max temperature under different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest decrease in min temperature under different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "dc/topic/ProjectedClimateExtremes"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "original_query": "How does this correlate with income",
+  "overview_classification": "<None>",
+  "places_detected": [],
+  "places_resolved": "",
+  "query_detection_debug_logs": {
+    "main_place_inferred": null,
+    "original_query": "How does this correlate with income",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "how does this correlate with income",
+      "place_detection_with_places_removed": "How does this correlate with income",
+      "sv_detection_query_input": "How does this correlate with income",
+      "sv_detection_query_stop_words_removal": "income"
+    }
+  },
+  "query_with_places_removed": "How does this correlate with income",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.9999999403953552,
+      0.6791032552719116,
+      0.6765091419219971,
+      0.6606361269950867,
+      0.6594827771186829,
+      0.6582103371620178,
+      0.6566452980041504,
+      0.6428042650222778,
+      0.6428042650222778,
+      0.6427714824676514,
+      0.6424230337142944,
+      0.6410238742828369,
+      0.6408997774124146,
+      0.6330270767211914,
+      0.632879376411438,
+      0.6279056072235107
+    ],
+    "SV": [
+      "dc/topic/Income",
+      "Mean_Income_Household",
+      "Median_Income_Household",
+      "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices",
+      "WagesTotal_Worker_NAICSInformation",
+      "WagesTotal_Worker_NAICSTotalAllIndustries",
+      "WagesTotal_Worker_NAICSFinanceInsurance",
+      "dc/jefhcs9qxc971",
+      "WagesTotal_Worker_NAICSEducationalServices",
+      "Mean_Income_Household_FamilyHousehold",
+      "Mean_Income_Household_NonfamilyHousehold",
+      "dc/xj2nk2bg60fg",
+      "dc/wzz9t818m1gk8",
+      "dc/5hv2p802zmh03",
+      "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises",
+      "WagesTotal_Worker_NAICSUtilities"
+    ],
+    "SV_to_Sentences": {
+      "Mean_Income_Household": [
+        "Mean Income of Household: With Income (0.6791032552719116)"
+      ],
+      "Mean_Income_Household_FamilyHousehold": [
+        "Mean Income of Household: Family Household, With Income (0.6427714824676514)"
+      ],
+      "Mean_Income_Household_NonfamilyHousehold": [
+        "Mean Income of Household: a Nonfamily Household, With Income (0.6424230337142944)",
+        "Mean Income of Household: Nonfamily Household, With Income (0.6282116770744324)"
+      ],
+      "Median_Income_Household": [
+        "Middle household income (0.6765091419219971)",
+        "Mean household income (0.6622447967529297)",
+        "Typical household income (0.6534321904182434)"
+      ],
+      "WagesTotal_Worker_NAICSEducationalServices": [
+        "Income for workers in the educational services sector (0.6428042650222778)"
+      ],
+      "WagesTotal_Worker_NAICSFinanceInsurance": [
+        "Income for workers in the finance and insurance sector (0.6566452980041504)"
+      ],
+      "WagesTotal_Worker_NAICSInformation": [
+        "Income for workers in the information sector (0.6594827771186829)"
+      ],
+      "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises": [
+        "Income for workers in the management of companies and enterprises sector (0.632879376411438)"
+      ],
+      "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices": [
+        "Income for workers in the professional, scientific, and technical services sector (0.6606361269950867)"
+      ],
+      "WagesTotal_Worker_NAICSTotalAllIndustries": [
+        "Income for workers in all sectors (0.6582103371620178)"
+      ],
+      "WagesTotal_Worker_NAICSUtilities": [
+        "Income for workers in the utilities sector (0.6279056072235107)"
+      ],
+      "dc/5hv2p802zmh03": [
+        "Income in the middle for the professional, scientific, and technical services sector (0.6330270767211914)"
+      ],
+      "dc/jefhcs9qxc971": [
+        "Income for workers in the educational services sector (0.6428042650222778)"
+      ],
+      "dc/topic/Income": [
+        "Income (0.9999999403953552)",
+        "Earnings (0.6541888117790222)",
+        "Salary (0.6506458520889282)"
+      ],
+      "dc/wzz9t818m1gk8": [
+        "Income for workers in the manufacturing sector (0.6408997774124146)"
+      ],
+      "dc/xj2nk2bg60fg": [
+        "Middle income for those working in the information sector (0.6410238742828369)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Mean_Income_Household": [
+      "Mean Income of Household: With Income (0.6791032552719116)"
+    ],
+    "Mean_Income_Household_FamilyHousehold": [
+      "Mean Income of Household: Family Household, With Income (0.6427714824676514)"
+    ],
+    "Mean_Income_Household_NonfamilyHousehold": [
+      "Mean Income of Household: a Nonfamily Household, With Income (0.6424230337142944)",
+      "Mean Income of Household: Nonfamily Household, With Income (0.6282116770744324)"
+    ],
+    "Median_Income_Household": [
+      "Middle household income (0.6765091419219971)",
+      "Mean household income (0.6622447967529297)",
+      "Typical household income (0.6534321904182434)"
+    ],
+    "WagesTotal_Worker_NAICSEducationalServices": [
+      "Income for workers in the educational services sector (0.6428042650222778)"
+    ],
+    "WagesTotal_Worker_NAICSFinanceInsurance": [
+      "Income for workers in the finance and insurance sector (0.6566452980041504)"
+    ],
+    "WagesTotal_Worker_NAICSInformation": [
+      "Income for workers in the information sector (0.6594827771186829)"
+    ],
+    "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises": [
+      "Income for workers in the management of companies and enterprises sector (0.632879376411438)"
+    ],
+    "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices": [
+      "Income for workers in the professional, scientific, and technical services sector (0.6606361269950867)"
+    ],
+    "WagesTotal_Worker_NAICSTotalAllIndustries": [
+      "Income for workers in all sectors (0.6582103371620178)"
+    ],
+    "WagesTotal_Worker_NAICSUtilities": [
+      "Income for workers in the utilities sector (0.6279056072235107)"
+    ],
+    "dc/5hv2p802zmh03": [
+      "Income in the middle for the professional, scientific, and technical services sector (0.6330270767211914)"
+    ],
+    "dc/jefhcs9qxc971": [
+      "Income for workers in the educational services sector (0.6428042650222778)"
+    ],
+    "dc/topic/Income": [
+      "Income (0.9999999403953552)",
+      "Earnings (0.6541888117790222)",
+      "Salary (0.6506458520889282)"
+    ],
+    "dc/wzz9t818m1gk8": [
+      "Income for workers in the manufacturing sector (0.6408997774124146)"
+    ],
+    "dc/xj2nk2bg60fg": [
+      "Middle income for those working in the information sector (0.6410238742828369)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

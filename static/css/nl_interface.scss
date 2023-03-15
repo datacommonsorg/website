@@ -1,0 +1,452 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@use "./shared/subject_page";
+@import "./tools/base_tools";
+@import "./draw";
+@import "./draw_choropleth";
+@import "./draw_scatter";
+@import "./shared/story_block";
+@import "./shared/story_chart";
+
+$page-vertical-padding: 2rem;
+$query-vertical-padding: 2rem 0 1rem 0;
+$page-background-color: #fff;
+$answer-background-color: #f5f5f5;
+$answer-background-color-transparent: #f5f5f500;
+$answer-border-radius: 1rem;
+$container-horizontal-padding: 2rem;
+$question-text-color: var(--dark);
+$chart-svg-height: 200px;
+$answer-min-height: 100vh;
+$text-color: inherit;
+$search-section-bottom-height: 7rem;
+$feedback-link-font-color: #70757a;
+
+#main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: stretch;
+}
+
+#nl-interface {
+  margin: 0;
+  padding: 0;
+  background: $page-background-color;
+  flex: 1 1 auto;
+  position: relative;
+}
+
+#dc-nl-interface {
+  overflow-y: scroll;
+  overflow-x: hidden;;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#results-thread-container {
+  padding: 0;
+  margin-bottom: $search-section-bottom-height;
+}
+
+#search-section-container-center {
+  position: absolute;
+  top: calc(50% - #{$search-section-bottom-height});
+}
+
+#search-section-container-bottom {
+  position: fixed;
+  top: calc(100% - #{$search-section-bottom-height});
+  height: $search-section-bottom-height;
+  transition: top 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  background-image: linear-gradient(
+    180deg,
+    $answer-background-color-transparent,
+    $page-background-color 25%
+  );
+}
+
+#search-container {
+  font-size: 0.9rem;
+  width: 100vw;
+  padding-top: $page-vertical-padding;
+
+  .search-section {
+    align-items: flex-end;
+    padding-bottom: $page-vertical-padding;
+    // HACK: account for scrollbar differences
+    margin-left: -7px;
+    padding-right: 7px;
+    display: flex;
+  }
+
+  .search-box-section {
+    flex-grow: 1;
+  }
+
+  .input-group {
+    align-items: center;
+  }
+
+  .btn {
+    height: 2.5rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .history-button {
+    margin-left: 0.5rem;
+  }
+
+  .search-history-container {
+    margin-right: 50px;
+    max-height: 10rem;
+    overflow-y: auto;
+    background-color: white;
+  }
+
+  .search-history-entry,
+  .search-history-message {
+    padding: 0.375rem 0.75rem;
+    cursor: default;
+  }
+
+  .search-history-message {
+    color: #7b7b7b;
+  }
+
+  .search-history-entry:hover {
+    padding: 0.375rem 0.75rem;
+    background-color: var(--dc-gray-lite);
+  }
+
+  .input-query {
+    flex-grow: 1;
+  }
+}
+
+.nl-query {
+ padding-top: 2rem; 
+}
+
+.nl-query-error {
+  padding: $query-vertical-padding;
+}
+
+.nl-history {
+  color: var(--gray-dark);
+  font-size: 1rem;
+}
+
+.nl-history.container,
+.nl-query .container,
+.nl-result .container,
+#search-container .container {
+  padding-left: $container-horizontal-padding;
+  padding-right: $container-horizontal-padding;
+}
+
+.nl-result {
+  min-height: $answer-min-height;
+
+  .container {
+    position: relative;
+    background: $answer-background-color;
+    border-radius: $answer-border-radius;
+  }
+
+  .container.feedback-link {
+    background-color: transparent;
+    display: flex;
+    justify-content: flex-end;
+    min-height: 1rem;
+
+    a {
+      color: $feedback-link-font-color;
+      font-style: italic;
+      text-align: right;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+  }
+
+  .block-column {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 16px;
+    min-width: 20rem;
+  }
+
+  .chart-container {
+    background: white;
+    margin-top: 0;
+    padding: 10px;
+
+    h4 {
+      margin-bottom: 0;
+    }
+
+    .svg-container {
+      min-height: $chart-svg-height;
+    }
+
+    .legend {
+      margin-left: 0 !important;
+    }
+  }
+
+  .block-title {
+    display: none;
+  }
+
+  .tile-hidden {
+    position: absolute;
+    top: -10000px;
+    visibility: hidden;
+  }
+
+  .tile-lg {
+    width: 100%;
+  }
+
+  .tile-md {
+    width: calc((100% - 16px) / 2);
+  }
+
+  .tile-sm {
+    width: calc((100% - 32px) / 3);
+  }
+
+  .place-overview-tile {
+    .col-12 {
+      padding: 0.5em 0 !important;
+    }
+    .source {
+      color: var(--dc-gray);
+      font-size: 0.7rem;
+    }
+
+    .factoid a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .factoid .table thead th {
+      vertical-align: middle;
+    }
+
+    .factoid th,
+    .factoid td {
+      font-size: 0.9rem;
+      padding: 0.25rem;
+    }
+
+    .overview-with-ranking .map-container {
+      margin-right: 15px;
+    }
+
+    .map-container {
+      height: 100%;
+    }
+  }
+}
+
+.nl-query h2 {
+  color: $question-text-color;
+}
+
+.expando,
+.expando:hover,
+h2,
+h3,
+.category p,
+.block .block-footer,
+.disaster-event-map-selectors-section,
+.disaster-event-map-severity-filters .disaster-type-filters,
+.nl-query-error p,
+.subtopics-section a {
+  color: $text-color;
+}
+
+.expando {
+  font-size: 0.9rem;
+}
+
+.expando,
+.debug-info-toggle {
+  cursor: pointer;
+}
+
+.debug-info-toggle {
+  display: block;
+  text-align: right;
+}
+
+.debug-info-toggle.show {
+  color: #666;
+  font-size: 0.8rem;
+  padding-top: 0.5em;
+  margin-bottom: -1em;
+  position: absolute;
+  top: 0.5rem;
+  right: -2.5rem;
+}
+
+.debug-info-toggle.hide {
+  font-weight: bold;
+}
+
+.nl-query-result-debug-info {
+  background: white;
+  padding: 2em;
+  font-size: 0.8em;
+  border: 1px solid var(--gray);
+
+  table,
+  th,
+  tr,
+  td {
+    border: 1px solid black;
+  }
+
+  .feedback-link {
+    padding: 1rem 0;
+  }
+}
+
+.nl-result .subtopic.notitle {
+  border-color: #999 !important;
+}
+
+.history-item {
+  padding: 0.25rem 0.5rem;
+  background: var(--dc-red-fade);
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+// From https://codepen.io/nzbin/pen/GGrXbp
+$loading-dot-color: #999;
+.dot-loading-stage {
+  width: 100%;
+  height: $answer-min-height;
+  padding: 20%;
+
+  .dot-flashing {
+    margin: auto;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+  }
+  .dot-flashing::before,
+  .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  .dot-flashing::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
+  .dot-flashing::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
+
+  @keyframes dot-flashing {
+    0% {
+      background-color: $loading-dot-color;
+    }
+    50%,
+    100% {
+      background-color: rgba(193, 193, 193, 0.2);
+    }
+  }
+}
+
+.disaster-event-map-selectors-section {
+  padding-bottom: 10px;
+}
+
+.disaster-event-map-tile {
+  display: flex;
+  flex-direction: column;
+  .disaster-event-map-container {
+    height: 100%;
+    .disaster-event-map-chart-section {
+      display: flex;
+      flex-direction: column;
+
+      .svg-container {
+        min-height: 400px;
+        svg {
+          height: 100%;
+          width: 100%;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.chart-container.map-chart {
+  display: flex;
+  flex-direction: column;
+
+  .map svg {
+    height: 100%;
+    width: 100%;
+    display: block;
+  }
+}
+
+.chart-container {
+  .legend div {
+    font-size: 12px;
+
+    a {
+      text-shadow: 0 0 7px #000;
+    }
+  }
+}
+
+#subject-page-main-pane .col-12 {
+  padding-bottom: 1em;
+}

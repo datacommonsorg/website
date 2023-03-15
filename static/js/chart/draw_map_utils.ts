@@ -21,7 +21,6 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
-import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
@@ -137,17 +136,20 @@ const genScaleImg = (
 };
 
 /**
- * Draw a color scale legend.
- * @param color The d3 linearScale that encodes the color gradient to be
- *        plotted.
- *
- * @return the width of the legend
+ * Add a legend to a svg element and return the width
+ * @param svg svg to add the legend to
+ * @param height height of the legend
+ * @param color color scale to use for the legend
+ * @param unit unit for the values on the legend
+ * @param formatNumberFn function to use to format numbers
+ * @returns
  */
 export function generateLegend(
   svg: d3.Selection<SVGElement, any, any, any>,
   height: number,
   color: d3.ScaleLinear<number, number>,
-  unit: string
+  unit: string,
+  formatNumberFn: (value: number, unit?: string) => string
 ): number {
   // Build a scale from color.domain() to the canvas height (from [height, 0]).
   // NOTE: This assumes the color domain is linear.
@@ -177,11 +179,11 @@ export function generateLegend(
   // at the very bottom of the legend.
   let tickValues = [yScale.invert(0), yScale.invert(height)];
   const formattedTickValues = tickValues.map((tick) =>
-    formatNumber(tick, unit)
+    formatNumberFn(tick, unit)
   );
   tickValues = tickValues.concat(
     color.ticks(NUM_TICKS).filter((tick) => {
-      const formattedTick = formatNumber(tick, unit);
+      const formattedTick = formatNumberFn(tick, unit);
       const tickHeight = yScale(tick);
       return (
         formattedTickValues.indexOf(formattedTick) === -1 &&
@@ -197,7 +199,7 @@ export function generateLegend(
         .axisRight(yScale)
         .tickSize(TICK_SIZE)
         .tickFormat((d) => {
-          return formatNumber(d.valueOf(), unit);
+          return formatNumberFn(d.valueOf(), unit);
         })
         .tickValues(tickValues)
     )
@@ -222,24 +224,28 @@ export function generateLegend(
 /**
  * Generate a svg that contains a color scale legend
  *
- * @param containerId id of the container to draw the legend in
+ * @param containerElement element to draw the legend in
  * @param height height of the legend
  * @param colorScale the color scale to use for the legend
  * @param unit unit of measurement
  * @param marginLeft left margin of the legend
+ * @param formatNumberFn function to use to format numbers
  *
- * @return width of the svg
+ * @return width of the svg including the margins
  */
 export function generateLegendSvg(
-  containerId: string,
+  containerElement: HTMLDivElement,
   height: number,
   colorScale: d3.ScaleLinear<number, number>,
   unit: string,
-  marginLeft: number
+  marginLeft: number,
+  formatNumberFn: (value: number, unit?: string) => string
 ): number {
-  const svg = d3.select(`#${containerId}`).append("svg");
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+  const svg = container.append("svg");
   const legendWidth =
-    generateLegend(svg, height, colorScale, unit) + marginLeft;
+    generateLegend(svg, height, colorScale, unit, formatNumberFn) + marginLeft;
   svg
     .attr("width", legendWidth)
     .attr("height", height + TICK_SIZE * 2)
@@ -252,5 +258,5 @@ export function getPlacePathId(placeDcid: string): string {
   if (_.isEmpty(placeDcid)) {
     return "";
   }
-  return placeDcid.replace("/", "-");
+  return placeDcid.replaceAll("/", "-");
 }

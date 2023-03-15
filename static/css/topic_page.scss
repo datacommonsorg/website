@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+@use "./shared/subject_page";
 @import "./base";
 @import "./draw";
 @import "./draw_choropleth";
 @import "./draw_scatter";
 @import "./shared/story_block";
 @import "./shared/story_chart";
-
-$chart-container-top-margin: 20px;
 
 #dc-topic-page {
   margin-left: 1.5rem;
@@ -41,95 +41,6 @@ $chart-container-top-margin: 20px;
   font-size: .95rem;
 }
 
-.chart-container {
-  margin-top: $chart-container-top-margin;
-  position: relative;
-  width: 100%;
-}
-
-.svg-container {
-  min-height: 200px;
-  width: 100%;
-}
-
-.chart-container h4 {
-  text-align: center;
-}
-
-.block-body {
-  display: flex;
-}
-
-.left-tiles,
-.right-tiles {
-  display: flex;
-  flex-direction: column;
-}
-
-section.subtopic {
-  padding-bottom: 1.5rem;
-}
-
-.ranking-tile {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: $chart-container-top-margin;
-  grid-row-gap: $chart-container-top-margin;
-}
-
-.ranking-list {
-  width: 100%;
-}
-
-.ranking-list td {
-  font-size: .9rem;
-  vertical-align: top;
-}
-
-.ranking-list table {
-  width: 100%;
-}
-
-.ranking-list td.rank {
-  width: 10%;
-}
-
-.ranking-list td.stat {
-  width: 25%;
-}
-
-.highlight-tile {
-  display: flex;
-  font-family: $headings-font-family;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background: var(--dc-red-fade);
-  border-radius: 5px;
-}
-
-.highlight-tile .stat {
-  font-size: 4rem;
-  line-height: 1;
-}
-
-.highlight-tile .desc {
-  padding-left: 1em;
-  font-size: 1.2rem;
-}
-
-.scatter-svg-container {
-  font-size: 0.75rem;
-}
-
-.scatter-svg-container circle:hover {
-  stroke: var(--dc-gray);
-  stroke-width: 1.5;
-}
-
-.scatter-svg-container circle {
-  r: 3.5;
-}
-
 .page-selector-container {
   display: flex;
   justify-content: space-between;
@@ -144,79 +55,4 @@ section.subtopic {
 .page-selector-container h1 {
   margin-bottom: 0;
   padding-right: 0.5rem;
-}
-
-.chart-container.map-chart,
-.chart-container.scatter-chart,
-.chart-container.bivariate-chart,
-.chart-container.line-chart,
-.chart-container.bar-chart {
-  border: 0.5px solid #dee2e6;
-  border-radius: 3px;
-  padding: 15px;
-}
-
-.chart-container.ranking-tile {
-  padding-top: 15.5px;
-}
-
-.chart-container footer {
-  margin-left: inherit !important;
-}
-
-article.category > h2 {
-  color: var(--dc-gray);
-  font-weight: 600;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  line-height: 1.5rem;
-  margin-top: 10px;
-}
-
-#dc-topic-page .block .row {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-
-#dc-topic-page .col-12 {
-  padding: 1em 0 2em 0;
-}
-
-.subtopic {
-  border-top: 1px solid var(--dc-gray);
-  padding: 1em 0;
-}
-
-.subtopic:first-of-type {
-  border-top: none;
-}
-
-#sidebar {
-  padding-top: 100px;
-  padding-right: 30px;
-}
-
-#sidebar .nav-item a {
-  padding: 0.25rem 0 0.25rem 0.5rem;
-  font-size: 0.8rem;
-}
-
-#sidebar .nav-item.category a {
-  font-weight: 600;
-  padding-top: 1em;
-}
-
-#sidebar .nav-item a {
-  font-weight: 300;
-  text-decoration: none;
-  color: var(--dc-gray);
-  display: inline-block;
-  font-size: 0.9rem;
-  line-height: 1.2rem;
-  padding: 0.3rem 0;
-  text-decoration: none;
-}
-
-.subtopic.notitle:not(:first-of-type) {
-  border-top: 0.5px dotted #dee2e6 !important;
 }

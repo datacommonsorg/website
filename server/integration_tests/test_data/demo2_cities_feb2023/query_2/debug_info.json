@@ -1,0 +1,537 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "failed_existence_check_extended_svs": [
+      {
+        "places": [
+          "geoId/0677000"
+        ],
+        "svs": [
+          "Percent_Person_Children_WithAsthma",
+          "Count_Person_Upto18Years"
+        ]
+      }
+    ],
+    "failed_partial_existence_check": [
+      {
+        "places": [
+          "geoId/0677000"
+        ],
+        "svs": [
+          "Percent_Person_Children_WithAsthma"
+        ]
+      }
+    ],
+    "filtered_svs": [
+      "Percent_Person_WithAsthma",
+      "Percent_Person_Children_WithAsthma",
+      "dc/g/Person_MedicalCondition-Asthma",
+      "Percent_Person_Smoking",
+      "Percent_Person_WithArthritis",
+      "Percent_Person_WithChronicObstructivePulmonaryDisease"
+    ],
+    "num_chart_candidates": 6,
+    "processed_fulfillment_types": [
+      "simple"
+    ],
+    "stat_var_extensions": [
+      {
+        "Percent_Person_Children_WithAsthma": [
+          "Count_Person_Upto18Years",
+          "Percent_Person_Children_WithAsthma"
+        ],
+        "Percent_Person_Smoking": [
+          "Percent_Person_BingeDrinking",
+          "Percent_Person_Obesity",
+          "Percent_Person_PhysicalInactivity",
+          "Percent_Person_SleepLessThan7Hours",
+          "Percent_Person_Smoking"
+        ],
+        "Percent_Person_WithArthritis": [
+          "Percent_Person_WithAllTeethLoss",
+          "Percent_Person_WithArthritis",
+          "Percent_Person_WithAsthma",
+          "Percent_Person_WithCancerExcludingSkinCancer",
+          "Percent_Person_WithChronicKidneyDisease",
+          "Percent_Person_WithChronicObstructivePulmonaryDisease",
+          "Percent_Person_WithCoronaryHeartDisease",
+          "Percent_Person_WithDiabetes",
+          "Percent_Person_WithHighBloodPressure",
+          "Percent_Person_WithHighCholesterol",
+          "Percent_Person_WithMentalHealthNotGood",
+          "Percent_Person_WithPhysicalHealthNotGood",
+          "Percent_Person_WithStroke"
+        ],
+        "Percent_Person_WithAsthma": [
+          "Percent_Person_WithAllTeethLoss",
+          "Percent_Person_WithArthritis",
+          "Percent_Person_WithAsthma",
+          "Percent_Person_WithCancerExcludingSkinCancer",
+          "Percent_Person_WithChronicKidneyDisease",
+          "Percent_Person_WithChronicObstructivePulmonaryDisease",
+          "Percent_Person_WithCoronaryHeartDisease",
+          "Percent_Person_WithDiabetes",
+          "Percent_Person_WithHighBloodPressure",
+          "Percent_Person_WithHighCholesterol",
+          "Percent_Person_WithMentalHealthNotGood",
+          "Percent_Person_WithPhysicalHealthNotGood",
+          "Percent_Person_WithStroke"
+        ],
+        "Percent_Person_WithChronicObstructivePulmonaryDisease": [
+          "Percent_Person_WithAllTeethLoss",
+          "Percent_Person_WithArthritis",
+          "Percent_Person_WithAsthma",
+          "Percent_Person_WithCancerExcludingSkinCancer",
+          "Percent_Person_WithChronicKidneyDisease",
+          "Percent_Person_WithChronicObstructivePulmonaryDisease",
+          "Percent_Person_WithCoronaryHeartDisease",
+          "Percent_Person_WithDiabetes",
+          "Percent_Person_WithHighBloodPressure",
+          "Percent_Person_WithHighCholesterol",
+          "Percent_Person_WithMentalHealthNotGood",
+          "Percent_Person_WithPhysicalHealthNotGood",
+          "Percent_Person_WithStroke"
+        ]
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [],
+      "query": "What is the prevalence of asthma there",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithAsthma"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithAllTeethLoss",
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithChronicKidneyDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithStroke"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_Smoking"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithArthritis"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Person_WithChronicObstructivePulmonaryDisease"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Percent_Person_WithAsthma",
+        "Percent_Person_Children_WithAsthma",
+        "dc/g/Person_MedicalCondition-Asthma",
+        "Percent_Person_Smoking",
+        "Percent_Person_WithArthritis",
+        "Percent_Person_WithChronicObstructivePulmonaryDisease"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "PublicSchool",
+          "type": 4
+        },
+        {
+          "type": 11
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0677000",
+          "name": "Sunnyvale",
+          "place_type": "City"
+        }
+      ],
+      "query": "How big are the public schools in Sunnyvale",
+      "query_type": 11,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Student"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Teacher"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "PublicSchool",
+            "ranking_types": [
+              1
+            ],
+            "skip_map_for_ranking": true,
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0677000",
+              "name": "Sunnyvale",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Percent_Student_AsAFractionOf_Count_Teacher"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Student",
+        "Count_Teacher",
+        "Percent_Student_AsAFractionOf_Count_Teacher"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "original_query": "What is the prevalence of asthma there",
+  "overview_classification": "<None>",
+  "places_detected": [],
+  "places_resolved": "",
+  "query_detection_debug_logs": {
+    "main_place_inferred": null,
+    "original_query": "What is the prevalence of asthma there",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "what is the prevalence of asthma there",
+      "place_detection_with_places_removed": "What is the prevalence of asthma there",
+      "sv_detection_query_input": "What is the prevalence of asthma there",
+      "sv_detection_query_stop_words_removal": "prevalence asthma"
+    }
+  },
+  "query_with_places_removed": "What is the prevalence of asthma there",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.988778293132782,
+      0.8786563873291016,
+      0.8242026567459106,
+      0.5711094737052917,
+      0.5687739849090576,
+      0.5341616868972778,
+      0.48826801776885986,
+      0.48637840151786804,
+      0.4809361398220062,
+      0.4783497750759125
+    ],
+    "SV": [
+      "Percent_Person_WithAsthma",
+      "Percent_Person_Children_WithAsthma",
+      "dc/g/Person_MedicalCondition-Asthma",
+      "Percent_Person_Smoking",
+      "Percent_Person_WithArthritis",
+      "Percent_Person_WithChronicObstructivePulmonaryDisease",
+      "Percent_Person_WithHighCholesterol",
+      "Percent_Person_18To64Years_ReceivedNoHealthInsurance",
+      "Count_Death_DiseasesOfTheRespiratorySystem",
+      "Percent_Person_WithCoronaryHeartDisease"
+    ],
+    "SV_to_Sentences": {
+      "Count_Death_DiseasesOfTheRespiratorySystem": [
+        "Number of Deaths Due to Diseases of the Respiratory System (0.4809361398220062)",
+        "Number of deaths due to diseases of the respiratory system (0.4809361398220062)"
+      ],
+      "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
+        "Prevalence: 18 - 64 Years, No Health Insurance (0.48637840151786804)"
+      ],
+      "Percent_Person_Children_WithAsthma": [
+        "Prevalence: Asthma in Children (0.8786563873291016)",
+        "Percent of Children That Have Asthma (0.7320816516876221)",
+        "percent of children that have asthma (0.7320816516876221)"
+      ],
+      "Percent_Person_Smoking": [
+        "Prevalence: Smoking (0.5711094737052917)"
+      ],
+      "Percent_Person_WithArthritis": [
+        "Prevalence: Arthritis (0.5687739849090576)",
+        "Percentage of population with arthritis (0.47449490427970886)"
+      ],
+      "Percent_Person_WithAsthma": [
+        "Prevalence: Asthma (0.988778293132782)",
+        "percent of people that have asthma (0.8041638135910034)",
+        "Percent of People That Have Asthma (0.8041638135910034)"
+      ],
+      "Percent_Person_WithChronicObstructivePulmonaryDisease": [
+        "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616868972778)",
+        "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891931116580963)",
+        "percent of people that have chronic obstructive pulmonary disease (0.4891931116580963)"
+      ],
+      "Percent_Person_WithCoronaryHeartDisease": [
+        "Prevalence: Coronary Heart Disease (0.4783497750759125)"
+      ],
+      "Percent_Person_WithHighCholesterol": [
+        "Prevalence: High Cholesterol (0.48826801776885986)"
+      ],
+      "dc/g/Person_MedicalCondition-Asthma": [
+        "Number of People With Asthma (0.8242026567459106)",
+        "people with asthma (0.7225262522697449)",
+        "Person With Medical Condition = Asthma (0.6960466504096985)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_Death_DiseasesOfTheRespiratorySystem": [
+      "Number of Deaths Due to Diseases of the Respiratory System (0.4809361398220062)",
+      "Number of deaths due to diseases of the respiratory system (0.4809361398220062)"
+    ],
+    "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
+      "Prevalence: 18 - 64 Years, No Health Insurance (0.48637840151786804)"
+    ],
+    "Percent_Person_Children_WithAsthma": [
+      "Prevalence: Asthma in Children (0.8786563873291016)",
+      "Percent of Children That Have Asthma (0.7320816516876221)",
+      "percent of children that have asthma (0.7320816516876221)"
+    ],
+    "Percent_Person_Smoking": [
+      "Prevalence: Smoking (0.5711094737052917)"
+    ],
+    "Percent_Person_WithArthritis": [
+      "Prevalence: Arthritis (0.5687739849090576)",
+      "Percentage of population with arthritis (0.47449490427970886)"
+    ],
+    "Percent_Person_WithAsthma": [
+      "Prevalence: Asthma (0.988778293132782)",
+      "percent of people that have asthma (0.8041638135910034)",
+      "Percent of People That Have Asthma (0.8041638135910034)"
+    ],
+    "Percent_Person_WithChronicObstructivePulmonaryDisease": [
+      "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616868972778)",
+      "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891931116580963)",
+      "percent of people that have chronic obstructive pulmonary disease (0.4891931116580963)"
+    ],
+    "Percent_Person_WithCoronaryHeartDisease": [
+      "Prevalence: Coronary Heart Disease (0.4783497750759125)"
+    ],
+    "Percent_Person_WithHighCholesterol": [
+      "Prevalence: High Cholesterol (0.48826801776885986)"
+    ],
+    "dc/g/Person_MedicalCondition-Asthma": [
+      "Number of People With Asthma (0.8242026567459106)",
+      "people with asthma (0.7225262522697449)",
+      "Person With Medical Condition = Asthma (0.6960466504096985)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

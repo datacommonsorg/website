@@ -25,7 +25,7 @@ resources:
   - ../../base
 
 configMapGenerator:
-  - behavior: create
+  - behavior: merge
     literals:
       - flaskEnv=tidal
       - secretProject=tidal-dc-poc

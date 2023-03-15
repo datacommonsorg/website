@@ -27,9 +27,16 @@ resources:
   - namespace.yaml
 
 configMapGenerator:
+  - name: website-configmap
+    behavior: create
+    literals:
+      - enableModel=false
   - name: ai-config
     files:
       - ai.yaml
+  - name: model-config
+    files:
+      - model.yaml
   - name: memdb-config
     files:
       - memdb.json

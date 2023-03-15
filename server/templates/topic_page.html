@@ -26,17 +26,11 @@
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/topic_page.min.css', t=config['VERSION'])}}>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 {% endblock %}
 
 {% block content %}
-<div id="body" class="container-fluid">
-  <div id="body-row" class="row">
-    <div id="sidebar" class="col-md-3x col-lg-2 order-last order-lg-0"></div>
-    <main class="col-md-9x col-lg-10">
-      <div id="main-pane" class="row"></div>
-    </main>
-  </div>
-</div>
+<div id="body" class="container-fluid"></div>
 <div id="metadata" class="d-none" data-place-dcid="{{ place_dcid }}" data-topic-id="{{ topic_id }}">
   <div id="place-name" data-pn="{{ place_name }}"></div>
   <div id="place-type" data-pt="{{ place_type }}"></div>

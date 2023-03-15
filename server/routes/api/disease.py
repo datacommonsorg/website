@@ -13,22 +13,64 @@
 # limitations under the License.
 """Disease browser related handlers."""
 
-import flask
+from dataclasses import dataclass
+import json
+from json import JSONEncoder
 
-from cache import cache
-import services.datacommons as dc_service
+import flask
+from flask import Response
+
+from server.cache import cache
+import server.services.datacommons as dc
 
 bp = flask.Blueprint('api.disease', __name__, url_prefix='/api/disease')
 
+# disease of final parent
+FINAL_PARENT_DISEASE_DCID = "bio/DOID_4"
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+
+# class which defines an object storing parent dcid and name
+@dataclass
+class DiseaseParent:
+  dcid: str
+  name: str
+
+
+# subclass JSONEncoder
+class DiseaseParentEncoder(JSONEncoder):
+
+  def default(self, o):
+    return o.__dict__
+
+
+# Cache for one day.
+@cache.memoize(timeout=3600 * 24)
 @bp.route('/<path:dcid>')
 def get_node(dcid):
   """Returns data given a disease node."""
-  response = dc_service.fetch_data('/internal/bio', {
-      'dcid': dcid,
-  },
-                                   compress=False,
-                                   post=False,
-                                   has_payload=False)
-  return response
+  return dc.bio(dcid)
+
+
+@bp.route('/diseaseParent/<path:dcid>')
+def get_disease_parents(dcid):
+  """Returns a list of parent nodes for a given disease node."""
+  # list to store parent node
+  list_parent = []
+  curr_dcid = dcid
+  # dcid of the biggest parent node where iteration stops
+  while (curr_dcid != FINAL_PARENT_DISEASE_DCID):
+    node_dcids = dc.property_values([curr_dcid],
+                                    "specializationOf").get(curr_dcid, [])
+    if not node_dcids:
+      break
+    node_dcid = node_dcids[0]
+    node_names = dc.property_values([node_dcid], "name").get(node_dcid, [])
+    node_name = node_dcid
+    if node_names:
+      node_name = node_names[0]
+    list_parent.append(DiseaseParent(node_dcid, node_name))
+    curr_dcid = node_dcid
+  # return a list of dcid and name lists
+  return Response(json.dumps(list_parent, cls=DiseaseParentEncoder),
+                  200,
+                  mimetype='application/json')

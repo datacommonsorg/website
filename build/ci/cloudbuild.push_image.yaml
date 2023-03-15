@@ -13,20 +13,27 @@
 # limitations under the License.
 
 steps:
-  # Push website image to container registry
-  - id: push-image
+  - id: push-web-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
     args:
       - -c
       - |
         set -e
-        DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag ${_IMAGE}:${_TAG} .
-        docker push ${_IMAGE}:${_TAG}
-
-substitutions:
-  _IMAGE: gcr.io/datcom-ci/datacommons-website
+        DOCKER_BUILDKIT=1 docker build -f build/web_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-website:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-website:${_TAG}
+  - id: push-nl-server
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1 docker build -f build/nl_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG}
+    waitFor: ["-"]
 
 timeout: 3600s
 options:
   dynamic_substitutions: true
+  machineType: "E2_HIGHCPU_8"

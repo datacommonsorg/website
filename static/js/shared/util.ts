@@ -39,6 +39,9 @@ const NO_DATE_CAP_RCP_STATVARS = [
   // These stat vars compare against historical observed data, so we do not want
   // to hardcode the default date.
   "DifferenceRelativeToObservationalData_",
+  // These SVs are not a time-series, but a single value across multi-decadal time-horizons.
+  "ProjectedMax_Until_",
+  "ProjectedMin_Until_",
 ];
 
 // used to set fields in an object

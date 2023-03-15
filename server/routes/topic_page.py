@@ -13,13 +13,19 @@
 # limitations under the License.
 """Topic page related handlers."""
 
-from flask import current_app
-import flask
-import os
 import json
-import routes.api.place as place_api
+import os
+
+import flask
+from flask import current_app
+from flask import g
 from google.protobuf.json_format import MessageToJson
-import lib.util as libutil
+
+import server.lib.util as libutil
+import server.routes.api.place as place_api
+
+_NL_DISASTER_TOPIC = 'nl_disasters'
+_DEBUG_TOPICS = ['dev', _NL_DISASTER_TOPIC]
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
@@ -34,9 +40,17 @@ def topic_page(topic_id=None, place_dcid=None):
     return flask.render_template('topic_page_landing.html')
 
   all_configs = current_app.config['TOPIC_PAGE_CONFIG']
-  if os.environ.get('FLASK_ENV') == 'local':
+  if g.env == 'local':
     all_configs = libutil.get_topic_page_config()
   topic_configs = all_configs.get(topic_id, [])
+
+  if topic_id in _DEBUG_TOPICS:
+    if g.env in ['local', 'autopush', 'dev']:
+      if topic_id == _NL_DISASTER_TOPIC:
+        topic_configs = [libutil.get_nl_disaster_config()]
+    else:
+      flask.abort(404)
+
   if len(topic_configs) < 1:
     return "Error: no config found"
 

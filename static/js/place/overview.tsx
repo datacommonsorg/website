@@ -16,7 +16,7 @@
 
 import React from "react";
 
-import { Map } from "./map";
+import { GoogleMap } from "../components/google_map";
 import { Ranking } from "./ranking";
 
 interface OverviewPropType {
@@ -28,22 +28,32 @@ interface OverviewPropType {
    * The locale of the page.
    */
   locale: string;
+  /**
+   * Whether to show ranking.
+   */
+  showRanking: boolean;
 }
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
     return (
-      <section className="factoid col-12">
+      <section
+        className={`factoid col-12 ${
+          this.props.showRanking && "overview-with-ranking"
+        }`}
+      >
         <div className="row">
-          <div className="col-12 col-md-4">
-            <Map dcid={this.props.dcid}></Map>
+          <div className={`col-12 ${this.props.showRanking && "col-md-4"}`}>
+            <GoogleMap dcid={this.props.dcid}></GoogleMap>
           </div>
-          <div className="col-12 col-md-8">
-            <Ranking
-              dcid={this.props.dcid}
-              locale={this.props.locale}
-            ></Ranking>
-          </div>
+          {this.props.showRanking && (
+            <div className="col-12 col-md-8">
+              <Ranking
+                dcid={this.props.dcid}
+                locale={this.props.locale}
+              ></Ranking>
+            </div>
+          )}
         </div>
       </section>
     );

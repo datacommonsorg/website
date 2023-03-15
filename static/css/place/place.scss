@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@use "../shared/ranking_unit";
+@use "../shared/chart_embed";
 @import "../base";
 @import "../draw";
 @import "../draw_choropleth";
@@ -26,6 +28,14 @@ $vertical-section-border: 1px solid var(--dc-gray-lite);
 $vertical-section-margin: 2rem;
 $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
 $chart-border: 0.5px solid #dee2e6;
+
+// TODO (chejennifer): move this back to shared modal stylesheet
+.modal-dialog {
+  @include media-breakpoint-down(md) {
+    max-width: calc(100% - 30px);
+    margin: auto;
+  }
+}
 
 #dc-places {
   margin-left: 1.5rem;
@@ -90,6 +100,11 @@ h3 {
 .factoid a,
 #title a {
   text-decoration: underline;
+}
+
+.map-container {
+  height: 100%;
+  min-height: 160px;
 }
 
 #menu a {
@@ -186,11 +201,6 @@ h3 {
 .factoid td {
   font-size: 0.9rem;
   padding: 0.25rem;
-}
-
-#map-container {
-  height: 100%;
-  min-height: 160px;
 }
 
 #sidebar-outer {
@@ -293,32 +303,6 @@ h3 {
   margin-bottom: 15px;
 }
 
-.modal .modal-chart-container {
-  display: flex;
-  justify-content: center;
-}
-
-.modal .chart-container {
-  display: inline-block;
-}
-
-.modal .outlinks {
-  display: none;
-}
-
-.modal .modal-chart-container>svg {
-  visibility: hidden;
-}
-
-.modal .modal-chart-container img {
-  border-radius: 3px;
-  border: $chart-border;
-}
-
-.modal textarea {
-  height: 8rem;
-}
-
 .landing-link {
   margin-left: 0.25em;
 }
@@ -365,19 +349,10 @@ h3 {
   margin-top: 0rem;
 }
 
-.ranking-list td {
-  font-size: 0.9rem;
-  vertical-align: top;
-}
+.map-container {
+  display: flex;
 
-.ranking-list td.rank {
-  width: 10%;
-}
-
-.ranking-list .num-value {
-  width: 25%;
-}
-
-.ranking-list .bold {
-  font-weight: 600;
+  .map {
+    flex-grow: 1;
+  }
 }

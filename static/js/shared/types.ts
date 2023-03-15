@@ -37,6 +37,17 @@ export interface NamedTypedPlace {
 }
 
 /**
+ * Place with name and population.
+ */
+export interface NamedPopPlace {
+  dcid: string;
+  name: string;
+  pop: number;
+}
+
+export type ChildPlacesByType = Record<string, Array<NamedPopPlace>>;
+
+/**
  * Enum type of the stat var hierarchy wizard.
  */
 export const StatVarHierarchyType = {
@@ -203,4 +214,15 @@ export interface DataPointMetadata {
   placeStatDate: string;
   statVarSource: string;
   errorMessage?: string;
+}
+
+// Stores a single property value.
+// Parameters match output of "nodes" from the triples API or "values" from the property values API.
+// You can think of this as representing a single node in the KG.
+export interface PropertyValue {
+  provenanceId: string;
+  dcid?: string;
+  name?: string;
+  value?: string;
+  types?: Array<string>;
 }

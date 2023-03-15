@@ -112,6 +112,10 @@ test("is valid date", () => {
       date: "2020-1-1",
       wanted: false,
     },
+    {
+      date: "9999-99",
+      wanted: false,
+    },
   ];
 
   for (const c of cases) {

@@ -24,10 +24,11 @@ resources:
 
 configMapGenerator:
   - name: website-configmap
-    behavior: create
+    behavior: merge
     literals:
       - flaskEnv=
       - secretProject=
+      - enableModel=
   - name: mixer-configmap
     behavior: create
     literals:

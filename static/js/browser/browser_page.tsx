@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { GoogleMap } from "../components/google_map";
 import { StatVarHierarchyType } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { ImageSection } from "./image_section";
@@ -87,6 +88,7 @@ export class BrowserPage extends React.Component<
     if (selectedSvString) {
       selectedSVs = selectedSvString.split(SELECTED_SV_SEP);
     }
+    const showAllProperties = !!urlParams.get("all");
     return (
       <>
         {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
@@ -113,6 +115,9 @@ export class BrowserPage extends React.Component<
             </h2>
           </>
         )}
+        <div id="overview-map">
+          <GoogleMap dcid={this.props.dcid}></GoogleMap>
+        </div>
         <div id="node-content">
           <div className="table-page-section">
             <h3>{outArcHeader}</h3>
@@ -121,6 +126,7 @@ export class BrowserPage extends React.Component<
               labels={this.state.outLabels}
               provDomain={this.state.provDomain}
               nodeTypes={this.props.nodeTypes}
+              showAllProperties={showAllProperties}
             />
           </div>
           {this.props.shouldShowStatVarHierarchy && (

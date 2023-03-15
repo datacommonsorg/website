@@ -17,9 +17,9 @@ import collections
 from flask import Blueprint
 from flask import render_template
 
-from cache import cache
-from routes.api.place import child_fetch
-from services.datacommons import fetch_data
+from server.cache import cache
+from server.routes.api.place import child_fetch
+from server.services.datacommons import fetch_data
 
 # Define blueprint
 bp = Blueprint(

@@ -1,0 +1,147 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Individual Median Income (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Individual Median Earnings (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Household Median Income (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Average Income for Households (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Total Wages Paid to Professional, Scientific, and Technical Services (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States of America",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Mean_Income_Household_scatter": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Median_Earnings_Person_scatter": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
+          },
+          "Median_Income_Household_scatter": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Person_scatter": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "Percent_Person_WithHighBloodPressure_scatter": {
+            "name": "High Bood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
+            "unit": "%"
+          },
+          "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices_scatter": {
+            "name": "Total Wages Paid to Professional, Scientific, and Technical Services",
+            "statVar": "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "County"
+      },
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
+  }
+}

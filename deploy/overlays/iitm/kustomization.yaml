@@ -23,7 +23,7 @@ resources:
 
 configMapGenerator:
   - name: website-configmap
-    behavior: create
+    behavior: merge
     literals:
       - flaskEnv=iitm
       - secretProject=datcom-iitm
@@ -41,3 +41,13 @@ patchesStrategicMerge:
       name: website-app
     spec:
       replicas: 4
+
+patchesJson6902:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: website-app
+    patch: |-
+      - op: remove
+        path: /spec/template/spec/containers/2

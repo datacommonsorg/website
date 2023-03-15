@@ -137,12 +137,9 @@ export function axios_mock(): void {
     });
 
   // get place names, geoId/05
-  when(axios.get)
+  when(axios.post)
     .calledWith("/api/place/name", {
-      params: {
-        dcids: ["geoId/05"],
-      },
-      paramsSerializer: stringifyFn,
+      dcids: ["geoId/05"],
     })
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
@@ -335,8 +332,8 @@ export function axios_mock(): void {
       },
     });
 
-  when(axios.get)
-    .calledWith("/api/place/displayname?dcid=geoId/05")
+  when(axios.post)
+    .calledWith("/api/place/displayname", { dcids: ["geoId/05"] })
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",
@@ -437,27 +434,28 @@ export function axios_mock(): void {
       data: ["NotInTheTree"],
     });
 
-  when(axios.post)
-    .calledWith("/api/stats/stat-var-summary", {
-      statVars: ["Count_Person", "Median_Age_Person"],
+  when(axios.get)
+    .calledWith("/api/variable/info", {
+      params: {
+        dcids: ["Count_Person", "Median_Age_Person"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        statVarSummary: {
-          Count_Person: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        Count_Person: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
-          Median_Age_Person: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        },
+        Median_Age_Person: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
         },

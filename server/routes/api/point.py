@@ -12,47 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Blueprint, request
-from cache import cache
-import services.datacommons as dc
+from flask import Blueprint
+from flask import request
+
+from server.cache import cache
+import server.lib.util as util
+
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
-
-
-def compact_point(point_resp, all_facets):
-  result = {
-      'facets': point_resp.get('facets', {}),
-  }
-  data = {}
-  for obs_by_variable in point_resp.get('observationsByVariable', []):
-    var = obs_by_variable['variable']
-    data[var] = {}
-    for obs_by_entity in obs_by_variable['observationsByEntity']:
-      entity = obs_by_entity['entity']
-      data[var][entity] = None
-      if 'pointsByFacet' in obs_by_entity:
-        if all_facets:
-          data[var][entity] = obs_by_entity['pointsByFacet']
-        else:
-          # There should be only one point.
-          data[var][entity] = obs_by_entity['pointsByFacet'][0]
-      else:
-        if all_facets:
-          data[var][entity] = []
-        else:
-          data[var][entity] = {}
-  result['data'] = data
-  return result
-
-
-def point_core(entities, variables, date, all_facets):
-  resp = dc.point(entities, variables, date, all_facets)
-  return compact_point(resp, all_facets)
-
-
-def point_within_core(parent_entity, child_type, variables, date, all_facets):
-  resp = dc.point_within(parent_entity, child_type, variables, date, all_facets)
-  return compact_point(resp, all_facets)
 
 
 @bp.route('', strict_slashes=False)
@@ -66,7 +33,7 @@ def point():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return point_core(entities, variables, date, False)
+  return util.point_core(entities, variables, date, False)
 
 
 @bp.route('/all')
@@ -80,7 +47,7 @@ def point_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return point_core(entities, variables, date, True)
+  return util.point_core(entities, variables, date, True)
 
 
 @bp.route('/within')
@@ -102,7 +69,8 @@ def point_within():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return point_within_core(parent_entity, child_type, variables, date, False)
+  return util.point_within_core(parent_entity, child_type, variables, date,
+                                False)
 
 
 @bp.route('/within/all')
@@ -124,4 +92,5 @@ def point_within_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return point_within_core(parent_entity, child_type, variables, date, True)
+  return util.point_within_core(parent_entity, child_type, variables, date,
+                                True)

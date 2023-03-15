@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Point } from "../topic_page/ranking_unit";
+import { RankingPoint } from "../types/ranking_unit_types";
 
 export const chartTypeEnum = {
   LINE: "LINE",
@@ -117,7 +117,7 @@ export interface GeoJsonFeatureProperties {
 }
 
 export type GeoJsonFeature = GeoJSON.Feature<
-  GeoJSON.MultiPolygon,
+  GeoJSON.MultiPolygon | GeoJSON.MultiLineString,
   GeoJsonFeatureProperties
 >;
 
@@ -156,7 +156,7 @@ export interface RankingChartDataGroup {
   exploreUrl: string;
   sources: string[];
   // Optional for storing the processed rankingData
-  rankingData?: { lowest: Point[]; highest: Point[] };
+  rankingData?: { lowest: RankingPoint[]; highest: RankingPoint[] };
 }
 
 // A map from statvar dcid to RankingChartDataGroup

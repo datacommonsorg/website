@@ -365,65 +365,6 @@ export function shouldFillInValues(series: number[][]): boolean {
   return false;
 }
 
-// TODO(beets): Create DataPoints class and add this to that class.
-/**
- * Returns the value associated with the given label in dataPoints, or null.
- */
-function findDataPointOrNull(
-  dataPoints: DataPoint[],
-  label: string
-): number | null {
-  for (const dp of dataPoints) {
-    if (dp.label == label) {
-      return dp.value;
-    }
-  }
-  return null;
-}
-
-// TODO(beets): Also add a dataPointsToCsv function.
-// TODO(beets): Create DataGroups class and add this to that class.
-/**
- * Returns dataGroups as a CSV.
- */
-export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
-  if (!dataGroups || dataGroups.length == 0) {
-    return "";
-  }
-  // Get all the dates
-  let allLabels = new Set<string>();
-  for (const dg of dataGroups) {
-    const dates = dg.value.map((dp) => dp.label);
-    allLabels = new Set([...Array.from(allLabels), ...dates]);
-  }
-  // Create the the header row.
-  const header = ["label"];
-  for (const dg of dataGroups) {
-    header.push(`"${dg.label}"`);
-  }
-
-  // Iterate each year, group, place, stats var to populate data
-  const rows: string[][] = [];
-  for (const label of Array.from(allLabels)) {
-    const row: string[] = [label];
-    for (const dg of dataGroups) {
-      const v = findDataPointOrNull(dg.value, label);
-      if (v) {
-        row.push(String(v));
-      } else {
-        row.push("");
-      }
-    }
-    rows.push(row);
-  }
-  const headerRow = header.join(",") + "\n";
-  let result = headerRow;
-  for (const row of rows) {
-    result += row.join(",") + "\n";
-  }
-  return result;
-}
-
 // Expand an array of DataPoints based on given dates.
 // If a date is not present in the array, add a null data point for it.
 export function expandDataPoints(

@@ -13,10 +13,11 @@
 # limitations under the License.
 
 import unittest
-from flask import g
 from unittest.mock import patch
 
-from main import app
+from flask import g
+
+from web_app import app
 
 
 class TestHlParamSelection(unittest.TestCase):
@@ -39,7 +40,7 @@ class TestHlParamSelection(unittest.TestCase):
       assert (g.locale == 'ru')
       assert (g.locale_choices == ['ru', 'en'])
 
-  @patch('lib.i18n.AVAILABLE_LANGUAGES', ['en', 'pt-br', 'pt'])
+  @patch('server.lib.i18n.AVAILABLE_LANGUAGES', ['en', 'pt-br', 'pt'])
   def test_complex_hl(self):
     with app.test_client() as c:
       c.get('/?hl=pt-BR')

@@ -22,8 +22,9 @@ import * as d3 from "d3";
 import * as d3Regression from "d3-regression";
 import ReactDOM from "react-dom";
 
-import { formatNumber } from "../i18n/i18n";
+import { ChartQuadrant } from "../constants/scatter_chart_constants";
 import { NamedPlace } from "../shared/types";
+import { formatNumber } from "../utils/string_utils";
 import { wrap } from "./base";
 
 /**
@@ -60,6 +61,13 @@ const TOOLTIP_OFFSET = 5;
 // When using log scale, can't have zero, so use this value in place of 0. This
 // number is chosen because should be smaller than any values in our data.
 const MIN_LOGSCALE_VAL = 1e-11;
+// Number of sections to break each quadrant into when searching for points to
+// highlight
+const HIGHLIGHT_QUADRANT_SECTIONS = 4;
+// Min number of points in a quadrant to highlight
+const MIN_HIGHLIGHT_POINTS = 4;
+const MIN_TEXT_LABEL_HEIGHT = 10;
+const MIN_TEXT_LABEL_LENGTH = 95;
 
 enum ScaleType {
   LOG,
@@ -551,6 +559,153 @@ function addRegressionLine(
 }
 
 /**
+ * Adds text labels for a list of points
+ */
+function addTextLabels(
+  labelsGroup: d3.Selection<SVGGElement, any, any, any>,
+  xScale: ScatterScale,
+  yScale: ScatterScale,
+  points: Point[]
+): void {
+  labelsGroup
+    .attr("class", "dot-label")
+    .selectAll("text")
+    .data(points)
+    .enter()
+    .append("text")
+    .attr("dy", "0.35em")
+    .attr("x", (point) => xScale(point.xVal) + 7)
+    .attr("y", (point) => yScale(point.yVal))
+    .text((point) => point.place.name);
+}
+
+/**
+ * Gets at least MIN_HIGHLIGHT_POINTS points to highlight in each quadrant for a
+ * list of quadrants
+ *
+ * TODO: split this function up into smaller functions
+ */
+function getQuadrantHighlightPoints(
+  points: Point[],
+  xScale: ScatterScale,
+  yScale: ScatterScale,
+  quadrants: ChartQuadrant[]
+): Record<ChartQuadrant, Point[]> {
+  const numSectionsPerAxis = HIGHLIGHT_QUADRANT_SECTIONS * 2;
+  const xScaleRange = xScale.range();
+  const yScaleRange = yScale.range();
+  const xSectionLength = (xScaleRange[1] - xScaleRange[0]) / numSectionsPerAxis;
+  const ySectionLength = (yScaleRange[0] - yScaleRange[1]) / numSectionsPerAxis;
+  // Get the list of points in each section of the chart
+  const sectionPoints = {};
+  for (const point of points) {
+    const x = Math.floor(xScale(point.xVal) / xSectionLength);
+    const y = Math.floor(yScale(point.yVal) / ySectionLength);
+    if (!sectionPoints[x]) {
+      sectionPoints[x] = {};
+    }
+    if (!sectionPoints[x][y]) {
+      sectionPoints[x][y] = [];
+    }
+    sectionPoints[x][y].push(point);
+  }
+  // get the top (closest to the chart corner) MIN_HIGHLIGHT_POINTS points in
+  // each quadrant.
+  const result = {} as Record<ChartQuadrant, Point[]>;
+  for (const quadrant of quadrants) {
+    // depending on the quadrant traverse x and y axis either in increasing or
+    // decreasing value
+    const xIncrease =
+      quadrant == ChartQuadrant.TOP_RIGHT ||
+      quadrant == ChartQuadrant.BOTTOM_RIGHT;
+    const yIncrease =
+      quadrant == ChartQuadrant.BOTTOM_LEFT ||
+      quadrant == ChartQuadrant.BOTTOM_RIGHT;
+    // go layer by layer starting at the outside corner of each quadrant and add
+    // points until the whole quadrant has been searched or min number of points
+    // has been added.
+    const points: Point[] = [];
+    let layer = 0;
+    while (
+      layer < HIGHLIGHT_QUADRANT_SECTIONS &&
+      points.length < MIN_HIGHLIGHT_POINTS
+    ) {
+      const startingX = xIncrease ? numSectionsPerAxis - layer - 1 : layer;
+      const startingY = yIncrease ? numSectionsPerAxis - layer - 1 : layer;
+      // traverse along x of this section
+      if (xIncrease) {
+        for (let x = startingX; x < numSectionsPerAxis; x++) {
+          if (sectionPoints[x] && sectionPoints[x][startingY]) {
+            points.push(...sectionPoints[x][startingY]);
+          }
+        }
+      } else {
+        for (let x = startingX; x >= 0; x--) {
+          if (sectionPoints[x] && sectionPoints[x][startingY]) {
+            points.push(...sectionPoints[x][startingY]);
+          }
+        }
+      }
+      // traverse along y of this section
+      if (yIncrease) {
+        for (let y = startingY + 1; y < numSectionsPerAxis; y++) {
+          if (sectionPoints[startingX] && sectionPoints[startingX][y]) {
+            points.push(...sectionPoints[startingX][y]);
+          }
+        }
+      } else {
+        for (let y = startingY - 1; y >= 0; y--) {
+          if (sectionPoints[startingX] && sectionPoints[startingX][y]) {
+            points.push(...sectionPoints[startingX][y]);
+          }
+        }
+      }
+      layer++;
+    }
+    // filter out points that are too close to other points
+    result[quadrant] = points.filter((point, idx) => {
+      for (let i = idx - 1; i >= 0; i--) {
+        const iPoint = points[i];
+        const diffX = xScale(point.xVal) - xScale(iPoint.xVal);
+        const diffY = yScale(point.yVal) - yScale(iPoint.yVal);
+        if (
+          Math.abs(diffX) < MIN_TEXT_LABEL_LENGTH &&
+          Math.abs(diffY) < MIN_TEXT_LABEL_HEIGHT
+        ) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+  return result;
+}
+
+/**
+ * Highlights at least MIN_HIGHLIGHT_POINTS points per quadrant for a list of
+ * quadrants.
+ */
+function addHighlightPoints(
+  highlightGroup: d3.Selection<SVGGElement, any, any, any>,
+  quadrants: ChartQuadrant[],
+  points: Point[],
+  xScale: ScatterScale,
+  yScale: ScatterScale
+): void {
+  const quadrantPoints = getQuadrantHighlightPoints(
+    points,
+    xScale,
+    yScale,
+    quadrants
+  );
+  const pointsToLabel = [];
+  Object.values(quadrantPoints).forEach((quadrantPoints) => {
+    pointsToLabel.push(...quadrantPoints);
+  });
+  addTextLabels(highlightGroup, xScale, yScale, pointsToLabel);
+}
+
+/**
  * Options that can be set for how the scatter plot is drawn.
  */
 export interface ScatterPlotOptions {
@@ -562,6 +717,7 @@ export interface ScatterPlotOptions {
   showDensity: boolean;
   showLabels: boolean;
   showRegression: boolean;
+  highlightPoints: ChartQuadrant[];
 }
 
 /**
@@ -699,21 +855,24 @@ export function drawScatter(
   }
 
   if (options.showLabels) {
-    g.append("g")
-      .attr("class", "dot-label")
-      .selectAll("text")
-      .data(Object.values(points))
-      .enter()
-      .append("text")
-      .attr("dy", "0.35em")
-      .attr("x", (point) => xScale(point.xVal) + 7)
-      .attr("y", (point) => yScale(point.yVal))
-      .text((point) => point.place.name);
+    const labelsGroup = g.append("g");
+    addTextLabels(labelsGroup, xScale, yScale, Object.values(points));
   }
 
   if (options.showRegression) {
     const regressionLine = g.append("g");
     addRegressionLine(regressionLine, xScale, yScale, points, xMinMax);
+  }
+
+  if (options.highlightPoints) {
+    const highlightGroup = g.append("g");
+    addHighlightPoints(
+      highlightGroup,
+      options.highlightPoints,
+      Object.values(points),
+      xScale,
+      yScale
+    );
   }
 
   addTooltip(

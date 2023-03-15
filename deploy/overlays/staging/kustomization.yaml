@@ -28,10 +28,11 @@ resources:
 
 configMapGenerator:
   - name: website-configmap
-    behavior: create
+    behavior: merge
     literals:
       - flaskEnv=staging
       - secretProject=datcom-website-staging
+      - enableModel=true
   - name: mixer-configmap
     behavior: create
     literals:

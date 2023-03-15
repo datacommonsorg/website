@@ -1,0 +1,292 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.ACROSS",
+  "correlation_classification": "<None>",
+  "counters": {
+    "child_places_result": [
+      {
+        "place": "geoId/06",
+        "result": [
+          "geoId/06001",
+          "geoId/06003",
+          "geoId/06005",
+          "geoId/06007",
+          "geoId/06009",
+          "geoId/06011",
+          "geoId/06013",
+          "geoId/06015",
+          "geoId/06017",
+          "geoId/06019",
+          "geoId/06021",
+          "geoId/06023",
+          "geoId/06025",
+          "geoId/06027",
+          "geoId/06029"
+        ],
+        "type": "County"
+      }
+    ],
+    "contained_in_across_fallback": [
+      "County"
+    ],
+    "filtered_svs": [
+      "dc/topic/ProjectedClimateExtremes"
+    ],
+    "num_chart_candidates": 2,
+    "processed_fulfillment_types": [
+      "ranking_across_places"
+    ],
+    "topics_processed": [
+      {
+        "dc/topic/ProjectedClimateExtremes": {
+          "peer_groups": [
+            [
+              "Projected highest increase in max temperature under different scenarios",
+              "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
+              [
+                "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+                "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+                "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+              ]
+            ],
+            [
+              "Projected highest decrease in min temperature under different scenarios",
+              "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
+              [
+                "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+                "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+                "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+              ]
+            ]
+          ],
+          "svs": []
+        }
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            5
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "Across",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "What are the projected temperature extremes across California",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest increase in max temperature under different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+            "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [
+              5
+            ],
+            "source_topic": "dc/topic/ProjectedClimateExtremes",
+            "title": "Projected highest decrease in min temperature under different scenarios"
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+            "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "dc/topic/ProjectedClimateExtremes"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/06",
+  "main_place_name": "California",
+  "original_query": "What are the projected temperature extremes across California",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "california"
+  ],
+  "places_resolved": "(name: California, dcid: geoId/06); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "original_query": "What are the projected temperature extremes across California",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/06"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ]
+    },
+    "places_found_str": [
+      "california"
+    ],
+    "query_transformations": {
+      "place_detection_input": "what are the projected temperature extremes across california",
+      "place_detection_with_places_removed": "what are the projected temperature extremes across",
+      "sv_detection_query_input": "what are the projected temperature extremes across",
+      "sv_detection_query_stop_words_removal": "projected temperature"
+    }
+  },
+  "query_with_places_removed": "what are the projected temperature extremes across",
+  "ranking_classification": "[<RankingType.EXTREME: 5>]",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.51848304271698,
+      0.42471712827682495,
+      0.40863367915153503,
+      0.3799542784690857,
+      0.3513970375061035,
+      0.2996428608894348
+    ],
+    "SV": [
+      "dc/topic/ProjectedClimateExtremes",
+      "Count_HeatEvent",
+      "dc/topic/HeatIllnesses",
+      "dc/topic/ClimateChange",
+      "Annual_Generation_Electricity",
+      "dc/topic/Income"
+    ],
+    "SV_to_Sentences": {
+      "Annual_Generation_Electricity": [
+        "The yearly energy output (0.3513970375061035)"
+      ],
+      "Count_HeatEvent": [
+        "Number of heat events (0.42471712827682495)",
+        "Count of Heat Event (0.41193887591362)",
+        "Number of extreme heat events (0.405324786901474)",
+        "Number of heat crises (0.34115636348724365)",
+        "Number of heat emergencies (0.335088312625885)",
+        "Number of Heat Waves (0.3255012035369873)",
+        "Number of heat waves (0.3255012035369873)",
+        "Number of heat waves experienced (0.31514811515808105)",
+        "Number of heat surges (0.31507018208503723)"
+      ],
+      "dc/topic/ClimateChange": [
+        "Global warming (0.3799542784690857)",
+        "Climate Change (0.35997411608695984)",
+        "Impact of Climate Change (0.3196205794811249)"
+      ],
+      "dc/topic/HeatIllnesses": [
+        "Heat related health conditions (0.40863367915153503)",
+        "Heat related maladies (0.3506269156932831)",
+        "Heat Illnesses (0.3310242295265198)",
+        "Heat-related health problems (0.32922443747520447)"
+      ],
+      "dc/topic/Income": [
+        "Salary (0.2996428608894348)"
+      ],
+      "dc/topic/ProjectedClimateExtremes": [
+        "Projected Climate Extremes (0.51848304271698)",
+        "Climate Extremes (0.32177937030792236)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Annual_Generation_Electricity": [
+      "The yearly energy output (0.3513970375061035)"
+    ],
+    "Count_HeatEvent": [
+      "Number of heat events (0.42471712827682495)",
+      "Count of Heat Event (0.41193887591362)",
+      "Number of extreme heat events (0.405324786901474)",
+      "Number of heat crises (0.34115636348724365)",
+      "Number of heat emergencies (0.335088312625885)",
+      "Number of Heat Waves (0.3255012035369873)",
+      "Number of heat waves (0.3255012035369873)",
+      "Number of heat waves experienced (0.31514811515808105)",
+      "Number of heat surges (0.31507018208503723)"
+    ],
+    "dc/topic/ClimateChange": [
+      "Global warming (0.3799542784690857)",
+      "Climate Change (0.35997411608695984)",
+      "Impact of Climate Change (0.3196205794811249)"
+    ],
+    "dc/topic/HeatIllnesses": [
+      "Heat related health conditions (0.40863367915153503)",
+      "Heat related maladies (0.3506269156932831)",
+      "Heat Illnesses (0.3310242295265198)",
+      "Heat-related health problems (0.32922443747520447)"
+    ],
+    "dc/topic/Income": [
+      "Salary (0.2996428608894348)"
+    ],
+    "dc/topic/ProjectedClimateExtremes": [
+      "Projected Climate Extremes (0.51848304271698)",
+      "Climate Extremes (0.32177937030792236)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

@@ -12,8 +12,9 @@ server/dist/**
 **/node_modules/**
 
 # Local env.
-.vscode
 *.swp
+.vscode
+!.vscode/launch.json
 
 # Mac
 .DS_Store
@@ -31,6 +32,7 @@ mixer-grpc.*.pb
 deploy/overlays/**/endpoints.yaml
 deploy/overlays/**/kustomize-build.yaml
 deploy/overlays/**/kustomize-deployed.yaml
+deploy/overlays/kustomization.yaml
 
 deploy/git/mixer_hash.txt
 deploy/git/website_hash.txt
@@ -39,8 +41,6 @@ deploy/git/website_hash.txt
 build/helm/**/*.tgz
 
 # Terraform
-# Instance variables.
-*.tfvars
 # Local .terraform directories
 **/.terraform/*
 **/.terraform.lock.*
@@ -48,3 +48,5 @@ build/helm/**/*.tgz
 *.tfstate
 *.tfstate.*
 pylist.json
+
+pytest_log.txt

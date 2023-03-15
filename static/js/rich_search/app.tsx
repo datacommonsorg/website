@@ -23,6 +23,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Card, Container, Row } from "reactstrap";
 
+import { TextSearchBar } from "../components/text_search_bar";
 import { getStatVarInfo } from "../shared/stat_var";
 import {
   getTokensFromUrl,
@@ -35,7 +36,6 @@ import {
   getPlaceNames,
 } from "../utils/place_utils";
 import { StatVarResults, StatVarResultsPropType } from "./stat_vars";
-import { TextSearchBar } from "./text_search_bar";
 
 interface AppPropType {
   query: string;
@@ -59,6 +59,7 @@ function App({
               <Container className="place-options" fluid={true}>
                 <div className="place-options-section">
                   <TextSearchBar
+                    inputId="query-search-input"
                     onSearch={onSearch}
                     initialValue={query}
                     placeholder='For example "doctorate degrees in the USA"'

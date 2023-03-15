@@ -37,6 +37,7 @@ import {
 } from "../../chart/draw_leaflet_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { formatNumber } from "../../i18n/i18n";
 import { DataPointMetadata } from "../../shared/types";
 import { removeSpinner } from "../../shared/util";
 import { MAP_CONTAINER_ID } from "./chart";
@@ -61,6 +62,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
 
   const [errorMessage, setErrorMessage] = useState("");
   const chartContainerRef = useRef<HTMLDivElement>();
+  const legendContainerRef = useRef<HTMLDivElement>(null);
   const leafletMap = useRef(null);
   const geotiffLayer = useRef(null);
   const geojsonLayer = useRef(null);
@@ -119,11 +121,12 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
     );
     const legendHeight = height * LEGEND_HEIGHT_SCALING;
     generateLegendSvg(
-      LEGEND_CONTAINER_ID,
+      legendContainerRef.current,
       legendHeight,
       colorScale,
       "",
-      LEGEND_MARGIN_LEFT
+      LEGEND_MARGIN_LEFT,
+      formatNumber
     );
     if (geotiffLayer.current) {
       leafletMap.current.removeLayer(geotiffLayer.current);
@@ -176,7 +179,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
           style={{ height: chartHeight }}
         >
           <div id={MAP_CONTAINER_ID}></div>
-          <div id={LEGEND_CONTAINER_ID}></div>
+          <div id={LEGEND_CONTAINER_ID} ref={legendContainerRef}></div>
         </div>
       </div>
     );

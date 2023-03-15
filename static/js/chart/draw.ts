@@ -17,7 +17,6 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
-import { formatNumber } from "../i18n/i18n";
 import {
   GA_EVENT_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_CHART_CLICK,
@@ -69,7 +68,8 @@ const AXIS_GRID_FILL = "#999";
 
 // Max Y value used for y domains for charts that have only 0 values.
 const MAX_Y_FOR_ZERO_CHARTS = 10;
-
+// Max width in pixels for a bar in a histogram
+const MAX_HISTOGRAM_BAR_WIDTH = 75;
 const MIN_POINTS_FOR_DOTS_ON_LINE_CHART = 12;
 const TOOLTIP_ID = "draw-tooltip";
 // min distance between bottom of the tooltip and a datapoint
@@ -198,12 +198,14 @@ function getRowLabels(
  * @param dataGroupsDict mapping of place to datagroups from which the html content will be generated from.
  * @param highlightedTime the timepoint we are showing a tooltip for.
  * @param dataLabels: mapping of place to mapping of datagroup to row label
+ * @param formatNumberFn function to use to format numbers
  * @param unit units for the data.
  */
 function getTooltipContent(
   dataGroupsDict: { [place: string]: DataGroup[] },
   highlightedTime: number,
   rowLabels: { [place: string]: { [dataGroup: string]: string } },
+  formatNumberFn: (value: number, unit?: string) => string,
   unit?: string
 ): string {
   let tooltipDate = "";
@@ -226,7 +228,7 @@ function getTooltipContent(
       if (dataPoint) {
         tooltipDate = dataPoint.label;
         displayValue = !_.isNull(dataPoint.value)
-          ? `${formatNumber(dataPoint.value)} ${unit}`
+          ? `${formatNumberFn(dataPoint.value)} ${unit}`
           : "N/A";
         tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
       }
@@ -276,6 +278,7 @@ function getHighlightedTime(
  * @param setOfTimePoints all the timepoints in the dataGroupsDict.
  * @param highlightArea svg element to hold the elements for highlighting points.
  * @param chartAreaBoundary boundary of the chart of interest relative to its container.
+ * @param formatNumberFn function to use to format numbers
  * @param unit units of the data of the chart of interest.
  */
 function addHighlightOnHover(
@@ -287,6 +290,7 @@ function addHighlightOnHover(
   setOfTimePoints: Set<number>,
   highlightArea: d3.Selection<SVGGElement, any, any, any>,
   chartAreaBoundary: Boundary,
+  formatNumberFn: (value: number, unit?: string) => string,
   unit?: string,
   statVarInfo?: { [key: string]: StatVarInfo }
 ): void {
@@ -373,6 +377,7 @@ function addHighlightOnHover(
         dataGroupsDict,
         highlightedTime,
         rowLabels,
+        formatNumberFn,
         unit
       );
       showTooltip(
@@ -418,8 +423,9 @@ function addXAxis(
     }
   }
 
+  let heightFromBottom = MARGIN.bottom;
   axis
-    .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
+    .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
     .call(d3Axis)
     .call((g) =>
       g
@@ -443,8 +449,9 @@ function addXAxis(
   }
 
   if (shouldRotate) {
+    heightFromBottom = ROTATE_MARGIN_BOTTOM;
     axis
-      .attr("transform", `translate(0, ${chartHeight - ROTATE_MARGIN_BOTTOM})`)
+      .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
       .selectAll("text")
       .style("text-anchor", "end")
       .style("text-rendering", "optimizedLegibility")
@@ -518,6 +525,8 @@ function updateXAxis(
  * @param axis: d3-selection with an SVG element to add the y-axis to
  * @param chartWidth: The width of the SVG chart
  * @param yScale: d3-scale for the y-ayis
+ * @param formatNumberFn function to use to format numbers
+ * @param textFontFamily name of font-family to set axes-labels to
  * @param unit: optional unit for the tick values
  *
  * @return the width of the y-axis bounding-box. The x-coordinate of the grid starts at this value.
@@ -526,6 +535,8 @@ function addYAxis(
   axis: d3.Selection<SVGGElement, any, any, any>,
   chartWidth: number,
   yScale: d3.ScaleLinear<any, any>,
+  formatNumberFn: (value: number, unit?: string) => string,
+  textFontFamily?: string,
   unit?: string
 ) {
   const tickLength = chartWidth - MARGIN.right - MARGIN.left;
@@ -537,7 +548,7 @@ function addYAxis(
         .ticks(NUM_Y_TICKS)
         .tickSize(tickLength)
         .tickFormat((d) => {
-          return formatNumber(d.valueOf(), unit);
+          return formatNumberFn(d.valueOf(), unit);
         })
     )
     .call((g) => g.select(".domain").remove())
@@ -556,10 +567,12 @@ function addYAxis(
         .attr("x", -tickLength)
         .attr("dy", -4)
         .style("fill", AXIS_TEXT_FILL)
-        .style("font-family", TEXT_FONT_FAMILY)
         .style("shape-rendering", "crispEdges")
     );
 
+  if (textFontFamily) {
+    axis.call((g) => g.selectAll("text").style("font-family", textFontFamily));
+  }
   let maxLabelWidth = 0;
   axis.selectAll("text").each(function () {
     maxLabelWidth = Math.max(
@@ -580,6 +593,7 @@ function addYAxis(
  * @param chartWidth
  * @param chartHeight
  * @param dataPoints
+ * @param formatNumberFn
  * @param unit
  */
 function drawHistogram(
@@ -587,7 +601,9 @@ function drawHistogram(
   chartWidth: number,
   chartHeight: number,
   dataPoints: DataPoint[],
-  unit?: string
+  formatNumberFn: (value: number, unit?: string) => string,
+  unit?: string,
+  fillColor?: string
 ): void {
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
@@ -611,33 +627,52 @@ function drawHistogram(
     .domain([Math.min(0, yExtent[0]), yExtent[1]])
     .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
 
-  const leftWidth = addYAxis(tempYAxis, chartWidth, y, unit);
+  // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
+  // of axis labels that results in the labels being cut-off.
+  // TODO (juliawu): identify why this is and fix root cause.
+  const leftWidth = addYAxis(
+    tempYAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    undefined,
+    unit
+  );
 
   const x = d3
     .scaleBand()
     .domain(textList)
     .rangeRound([leftWidth, chartWidth - MARGIN.right])
     .paddingInner(0.1)
-    .paddingOuter(0.1);
+    .paddingOuter(0.5);
 
   const bottomHeight = addXAxis(xAxis, chartHeight, x, true);
 
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, unit);
+  // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
+  // of axis labels that results in the labels being cut-off.
+  // TODO (juliawu): identify why this is and fix root cause.
+  addYAxis(yAxis, chartWidth, y, formatNumberFn, undefined, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const color = getColorFn(["A"])("A"); // we only need one color
+  const color = fillColor ? fillColor : getColorFn(["A"])("A"); // we only need one color
 
   chart
     .append("g")
     .selectAll("rect")
     .data(dataPoints)
     .join("rect")
-    .attr("x", (d) => x(d.label))
+    .attr("x", (d) => {
+      return (
+        x(d.label) +
+        // shift label if max bar width is used instead of original bandwidth
+        (x.bandwidth() - Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH)) / 2
+      );
+    })
     .attr("y", (d) => y(Math.max(0, d.value)))
-    .attr("width", x.bandwidth())
+    .attr("width", Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH))
     .attr("height", (d) => Math.abs(y(0) - y(d.value)))
     .attr("fill", color);
 }
@@ -649,6 +684,7 @@ function drawHistogram(
  * @param chartWidth
  * @param chartHeight
  * @param dataGroups
+ * @param formatNumberFn
  * @param unit
  */
 function drawStackBarChart(
@@ -656,6 +692,7 @@ function drawStackBarChart(
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
+  formatNumberFn: (value: number, unit?: string) => string,
   unit?: string
 ): void {
   const labelToLink = {};
@@ -699,7 +736,14 @@ function drawStackBarChart(
     .nice()
     .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
 
-  const leftWidth = addYAxis(tempYAxis, chartWidth, y, unit);
+  const leftWidth = addYAxis(
+    tempYAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
 
   const x = d3
     .scaleBand()
@@ -713,7 +757,7 @@ function drawStackBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, unit);
+  addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = getColorFn(keys);
@@ -751,6 +795,7 @@ function drawStackBarChart(
  * @param chartWidth
  * @param chartHeight
  * @param dataGroups
+ * @param formatNumberFn
  * @param unit
  */
 function drawGroupBarChart(
@@ -758,6 +803,7 @@ function drawGroupBarChart(
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
+  formatNumberFn: (value: number, unit?: string) => string,
   unit?: string
 ): void {
   if (_.isEmpty(dataGroups)) {
@@ -795,7 +841,14 @@ function drawGroupBarChart(
     .domain([minV, maxV])
     .nice()
     .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
-  const leftWidth = addYAxis(tempYAxis, chartWidth, y, unit);
+  const leftWidth = addYAxis(
+    tempYAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
 
   const x0 = d3
     .scaleBand()
@@ -814,7 +867,7 @@ function drawGroupBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, unit);
+  addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const colorFn = getColorFn(keys);
@@ -857,6 +910,7 @@ function drawGroupBarChart(
  * @param dataGroups
  * @param showAllDots
  * @param highlightOnHover
+ * @param formatNumberFn
  * @param unit
  * @param handleDotClick
  *
@@ -869,6 +923,7 @@ function drawLineChart(
   dataGroups: DataGroup[],
   showAllDots: boolean,
   highlightOnHover: boolean,
+  formatNumberFn: (value: number, unit?: string) => string,
   unit?: string,
   handleDotClick?: (dotData: DotDataPoint) => void
 ): boolean {
@@ -902,11 +957,23 @@ function drawLineChart(
     .domain([minV, maxV])
     .range([height - MARGIN.bottom, MARGIN.top])
     .nice(NUM_Y_TICKS);
-  const leftWidth = addYAxis(yAxis, width, yScale, unit);
+  const leftWidth = addYAxis(
+    yAxis,
+    width,
+    yScale,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
 
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => d.time))
+    .domain(
+      d3.extent(
+        dataGroups.flatMap((dg) => dg.value),
+        (d) => d.time
+      )
+    )
     .range([leftWidth, width - MARGIN.right]);
 
   let singlePointLabel = null;
@@ -1015,6 +1082,7 @@ function drawLineChart(
       timePoints,
       highlight,
       chartAreaBoundary,
+      formatNumberFn,
       unit
     );
   }
@@ -1056,14 +1124,16 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
 /**
  * Draw a group of lines chart with in-chart legend given a dataGroupsDict with different geoIds.
  *
- * @param id: DOM id.
+ * @param selector selector for the container to draw the chart in
  * @param width: width for the chart.
  * @param height: height for the chart.
  * @param statVarInfos: object from stat var dcid to its info struct.
  * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
- * @param sources: an array of source domain.
+ * @param formatNumberFn function to use to format numbers
+ * @param yLabel label for the y axis
  * @param unit the unit of the measurement.
+ * @param modelsDataGroupsDict dict of place to data groups for model datagroups
  */
 function drawGroupLineChart(
   selector: string | HTMLDivElement,
@@ -1072,6 +1142,7 @@ function drawGroupLineChart(
   statVarInfos: { [key: string]: StatVarInfo },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
+  formatNumberFn: (value: number, unit?: string) => string,
   ylabel?: string,
   unit?: string,
   modelsDataGroupsDict?: { [place: string]: DataGroup[] }
@@ -1138,7 +1209,14 @@ function drawGroupLineChart(
     .range([height - MARGIN.bottom, MARGIN.top + YLABEL.height])
     .nice(NUM_Y_TICKS);
 
-  const leftWidth = addYAxis(tempYAxis, width - legendWidth, yScale, unit);
+  const leftWidth = addYAxis(
+    tempYAxis,
+    width - legendWidth,
+    yScale,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
 
   const chartWidth = width - MARGIN.right - legendWidth;
   const allDataPoints = dataGroupsAll
@@ -1169,7 +1247,14 @@ function drawGroupLineChart(
   const yPosTop = MARGIN.top + YLABEL.height;
   yScale.rangeRound([yPosBottom, yPosTop]);
   tempYAxis.remove();
-  addYAxis(yAxis, width - legendWidth, yScale, unit);
+  addYAxis(
+    yAxis,
+    width - legendWidth,
+    yScale,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
   // add ylabel
@@ -1292,6 +1377,7 @@ function drawGroupLineChart(
     timePoints,
     highlight,
     chartAreaBoundary,
+    formatNumberFn,
     unit,
     statVarInfos
   );

@@ -1,0 +1,223 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "test"
+  topic_name: "Test for tile spec"
+  place_dcid: "geoId/06"
+  contained_place_types {
+    key: "State"
+    value: "County"
+  }
+}
+
+categories {
+  title: "Test ranking tile with many stat vars"
+
+  blocks {
+    title: "Projected highest increase in min temperature in different scenarios"
+    columns {
+      tiles {
+        type: RANKING
+        title: "Increase in min temperatures across scenarios"
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+          show_multi_column: true
+        }
+        stat_var_key: "rcp_26"
+        stat_var_key: "rcp_45"
+        stat_var_key: "rcp_60"
+      }
+    }
+  }
+  blocks {
+    title: "Projected highest decrease in min temperature in different scenarios"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "rcp_26"
+        stat_var_key: "rcp_45"
+        stat_var_key: "rcp_60"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "rcp_26"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
+      unit: "Celsius"
+      name: "RCP 2.6"
+    }
+  }
+  stat_var_spec {
+    key: "rcp_45"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
+      unit: "Celsius"
+      name: "RCP 4.5"
+    }
+  }
+  stat_var_spec {
+    key: "rcp_60"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+      unit: "Celsius"
+      name: "RCP 6.0"
+    }
+  }
+}
+
+categories {
+  title: "Test tile place override"
+  blocks {
+    title: "Should be China or Madrid, not California"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "is the life expectancy in ${place} (${date})"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "country/CHN"
+      }
+      tiles {
+        type: LINE
+        title: "Life expectancy in ${place}"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "country/CHN"
+      }
+    }
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "is the life expectancy in ${place} (${date})"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "nuts/ES300"
+      }
+      tiles {
+        type: LINE
+        title: "Life expectancy in ${place}"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "nuts/ES300"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "life_expectancy"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Average lifespan"
+    }
+  }
+}
+
+categories {
+  title: "Test date replacement in title"
+  blocks {
+    columns {
+      tiles {
+        type: MAP
+        title: "Total number of earthquakes - ${date}"
+        stat_var_key: "earthquake_all"
+      }
+      tiles {
+        type: BAR
+        title: "Frequency of earthquakes by magnitude - ${date}"
+        stat_var_key: "earthquake_mag_3"
+        stat_var_key: "earthquake_mag_4"
+        stat_var_key: "earthquake_mag_5"
+      }
+    }
+    columns {
+      tiles {
+        type: SCATTER
+        title: "Poverty rate (${xDate}) vs. Uninsurance rate (${yDate})"
+        stat_var_key: 'poverty_rate'
+        stat_var_key: 'uninsurance_rate'
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_rate'
+        title: "Poverty rate - ${date}"
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest by poverty rate - ${date}"
+          show_lowest: true
+          lowest_title: "Lowest by poverty rate - ${date}"
+        }
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_rate'
+        title: "Poverty rate - ${date}"
+        ranking_tile_spec {
+          show_highest: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_all"
+    value {
+      stat_var: "Count_EarthquakeEvent"
+      name: "All magnitudes"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_3"
+    value {
+      stat_var: "Count_EarthquakeEvent_M3To4"
+      name: "magnitude 3 to 4"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_4"
+    value {
+      stat_var: "Count_EarthquakeEvent_M4To5"
+      name: "magnitude 4 to 5"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_5"
+    value {
+      stat_var: "Count_EarthquakeEvent_M5To6"
+      name: "magnitude 5 to 6"
+    }
+  }
+  stat_var_spec {
+    key: 'poverty_rate'
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Poverty rate"
+    }
+  }
+  stat_var_spec {
+    key: 'uninsurance_rate'
+    value {
+      stat_var: "Count_Person_NoHealthInsurance"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Uninsurance rate"
+    }
+  }
+}

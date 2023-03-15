@@ -29,21 +29,25 @@ categories {
 
   blocks {
     title: "Gini index of economic activity"
-    left_tiles {
-      type: HIGHLIGHT
-      description: "Gini index of economic activity for ${place} (${date})"
-      stat_var_key: "gini"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Gini index of economic activity for ${place} (${date})"
+        stat_var_key: "gini"
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "In economics, the Gini index is a measure of income inequality within a nation or social group. It measures the inequality among values of a frequency distribution (e.g. a Gini index of 0 represents perfect equality, while 100 represents perfect inequality)."
+      }
     }
-    left_tiles {
-      type: DESCRIPTION
-      description: "In economics, the Gini index is a measure of income inequality within a nation or social group. It measures the inequality among values of a frequency distribution (e.g. a Gini index of 0 represents perfect equality, while 100 represents perfect inequality)."
+    columns {
+      tiles: {
+        type: LINE
+        title: "Gini index of economic activity for ${place}"
+        stat_var_key: "gini"
+      }
+      # TODO: Add rankings of other /Countries/
     }
-    right_tiles: {
-      type: LINE
-      title: "Gini index of economic activity for ${place}"
-      stat_var_key: "gini"
-    }
-    # TODO: Add rankings of other /Countries/
   }
 
   stat_var_spec {
@@ -61,65 +65,77 @@ categories {
   blocks {
     title: "Income inequality between sexes"
     description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
-    left_tiles {
-      type: MAP
-      title: "Income inequality between sexes (${date})"
-      stat_var_key: "income_inequality"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        type: MAP
+        title: "Income inequality between sexes (${date})"
+        stat_var_key: "income_inequality"
       }
-      stat_var_key: "income_inequality"
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "income_inequality"
+      }
     }
   }
 
   blocks {
     title: "Income and employment, by sex"
     description: "Median incomes of individuals, broken down by sex"
-    left_tiles {
-      title: "Median income by sex"
-      type: LINE
-      stat_var_key: "median_income_female"
-      stat_var_key: "median_income_male"
+    columns {
+      tiles {
+        title: "Median income by sex"
+        type: LINE
+        stat_var_key: "median_income_female"
+        stat_var_key: "median_income_male"
+      }
     }
-    right_tiles {
-      title: "Unemployment rate by sex"
-      type: LINE
-      stat_var_key: "unemployment_female"
-      stat_var_key: "unemployment_male"
+    columns {
+      tiles {
+        title: "Unemployment rate by sex"
+        type: LINE
+        stat_var_key: "unemployment_female"
+        stat_var_key: "unemployment_male"
+      }
+      # There is only state-level data for Median Income, not unemployment rate.
     }
-    # There is only state-level data for Median Income, not unemployment rate.
   }
 
   blocks {
     title: "Poverty rate, by sex"
     description: "Percentage of the population of each sex living below the poverty level."
-    left_tiles {
-      type: MAP
-      title: "Percentage of the female population in poverty (${date})"
-      stat_var_key: "poverty_rate_female"
-    }
-    right_tiles {
-      type: MAP
-      title: "Percentage of the male population in poverty (${date})"
-      stat_var_key: "poverty_rate_male"
-    }
-    left_tiles {
-      type: LINE
-      title: "Poverty rate, by sex"
-      stat_var_key: "poverty_rate_female"
-      stat_var_key: "poverty_rate_male"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of the female population in poverty (${date})"
+        stat_var_key: "poverty_rate_female"
       }
-      stat_var_key: "poverty_rate_female"
-      stat_var_key: "poverty_rate_male"
+      tiles {
+        type: LINE
+        title: "Poverty rate, by sex"
+        stat_var_key: "poverty_rate_female"
+        stat_var_key: "poverty_rate_male"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of the male population in poverty (${date})"
+        stat_var_key: "poverty_rate_male"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "poverty_rate_female"
+        stat_var_key: "poverty_rate_male"
+      }
     }
   }
 
@@ -141,24 +157,28 @@ categories {
     #   scaling: 100
     #   name: "Male, insured"
     # }
-    right_tiles {
-      type: LINE
-      title: "Uninsured, by sex"
-      stat_var_key: "uninsured_rate_female"
-      stat_var_key: "uninsured_rate_male"
-    }
-    left_tiles {
-      type: HIGHLIGHT
-      description: "Americans have no health insurance (${date})"
-      stat_var_key: "uninsured_count"
-    }
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Americans have no health insurance (${date})"
+        stat_var_key: "uninsured_count"
       }
-      stat_var_key: "uninsured_rate_female"
-      stat_var_key: "uninsured_rate_male"
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "uninsured_rate_female"
+        stat_var_key: "uninsured_rate_male"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Uninsured, by sex"
+        stat_var_key: "uninsured_rate_female"
+        stat_var_key: "uninsured_rate_male"
+      }
     }
   }
 
@@ -180,19 +200,23 @@ categories {
     #   scaling: 100
     #   name: "Male, insured"
     # }
-    left_tiles {
-      type: LINE
-      title: "With disability, by sex in ${place}"
-      stat_var_key: "disability_rate_female"
-      stat_var_key: "disability_rate_male"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
+    columns {
+      tiles {
+        type: LINE
+        title: "With disability, by sex in ${place}"
+        stat_var_key: "disability_rate_female"
+        stat_var_key: "disability_rate_male"
       }
-      stat_var_key: "disability_rate_female"
-      stat_var_key: "disability_rate_male"
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "disability_rate_female"
+        stat_var_key: "disability_rate_male"
+      }
     }
   }
 
@@ -200,70 +224,82 @@ categories {
   blocks {
     title: "Education attainment by sex"
     description: "Percentage of the population of each sex with an associate's degree"
-    left_tiles {
-      type: LINE
-      title: "Associate's degree holders by sex"
-      stat_var_key: "associates_female"
-      stat_var_key: "associates_male"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        type: LINE
+        title: "Associate's degree holders by sex"
+        stat_var_key: "associates_female"
+        stat_var_key: "associates_male"
       }
-      stat_var_key: "associates_female"
-      stat_var_key: "associates_male"
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "associates_female"
+        stat_var_key: "associates_male"
+      }
     }
   }
 
   blocks {
     # Note: title intentionally left out
     description: "Percentage of the population of each sex with an bachelors's degree"
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "bachelors_female"
+        stat_var_key: "bachelors_male"
       }
-      stat_var_key: "bachelors_female"
-      stat_var_key: "bachelors_male"
     }
-    right_tiles {
-      title: "Bachelor's degree holders by sex"
-      type: LINE
-      stat_var_key: "bachelors_female"
-      stat_var_key: "bachelors_male"
+    columns {
+      tiles {
+        title: "Bachelor's degree holders by sex"
+        type: LINE
+        stat_var_key: "bachelors_female"
+        stat_var_key: "bachelors_male"
+      }
     }
   }
 
   blocks {
     # Note: title intentionally left out
     description: "Percentage of the population of each sex with a graduate or professional degree"
-    left_tiles {
-      type: MAP
-      title: "Percentage of females who are graduate or professional degree holders"
-      stat_var_key: "graduate_female"
-    }
-    right_tiles {
-      type: MAP
-      title: "Percentage of males who are graduate or professional degree holders"
-      stat_var_key: "graduate_male"
-    }
-    left_tiles {
-      type: LINE
-      title: "Graduate or professional degree holders by sex"
-      stat_var_key: "graduate_female"
-      stat_var_key: "graduate_male"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of females who are graduate or professional degree holders"
+        stat_var_key: "graduate_female"
       }
-      stat_var_key: "graduate_female"
-      stat_var_key: "graduate_male"
+      tiles {
+        type: LINE
+        title: "Graduate or professional degree holders by sex"
+        stat_var_key: "graduate_female"
+        stat_var_key: "graduate_male"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of males who are graduate or professional degree holders"
+        stat_var_key: "graduate_male"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "graduate_female"
+        stat_var_key: "graduate_male"
+      }
     }
   }
 
@@ -464,14 +500,18 @@ categories {
   #     stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
   #     unit: "$"
   #   }
-  #   left_tiles {
-  #     type: LINE
-  #     title: "Median household income by race"
+  #   columns {
+  #     tiles {
+  #       type: LINE
+  #       title: "Median household income by race"
+  #     }
   #   }
-  #   right_tiles {
-  #     type: RANKING
-  #     ranking_metadata {
-  #       show_highest: true
+  #   columns {
+  #     tiles {
+  #       type: RANKING
+  #       ranking_tile_spec {
+  #         show_highest: true
+  #       }
   #     }
   #   }
   # }
@@ -479,92 +519,105 @@ categories {
   blocks {
     title: "Median household income by race"
     # TODO: This data is not available at the country level!
-    left_tiles {
-      type: BAR
-      title: "Median household income by race"
-      stat_var_key: "income_aian"
-      stat_var_key: "income_a"
-      stat_var_key: "income_baa"
-      stat_var_key: "income_hl"
-      stat_var_key: "income_nhpi"
-      stat_var_key: "income_w"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        highest_title: "Highest among ${statVar}"
+    columns {
+      tiles {
+        type: BAR
+        title: "Median household income by race"
+        stat_var_key: "income_aian"
+        stat_var_key: "income_a"
+        stat_var_key: "income_baa"
+        stat_var_key: "income_hl"
+        stat_var_key: "income_nhpi"
+        stat_var_key: "income_w"
       }
-      stat_var_key: "income_aian"
-      stat_var_key: "income_a"
-      stat_var_key: "income_baa"
-      stat_var_key: "income_hl"
-      stat_var_key: "income_nhpi"
-      stat_var_key: "income_w"
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest among ${statVar}"
+        }
+        stat_var_key: "income_aian"
+        stat_var_key: "income_a"
+        stat_var_key: "income_baa"
+        stat_var_key: "income_hl"
+        stat_var_key: "income_nhpi"
+        stat_var_key: "income_w"
+      }
     }
   }
 
   blocks {
     title: "Poverty rate by race"
     description: "Percentage of the population of each race living in poverty"
-    left_tiles {
-      type: LINE
-      title: "Poverty rate by race in ${place}"
-      stat_var_key: "poverty_aian"
-      stat_var_key: "poverty_a"
-      stat_var_key: "poverty_baa"
-      stat_var_key: "poverty_hl"
-      stat_var_key: "poverty_nhpi"
-      stat_var_key: "poverty_w"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        highest_title: "Highest among ${statVar}"
+    columns {
+      tiles {
+        type: LINE
+        title: "Poverty rate by race in ${place}"
+        stat_var_key: "poverty_aian"
+        stat_var_key: "poverty_a"
+        stat_var_key: "poverty_baa"
+        stat_var_key: "poverty_hl"
+        stat_var_key: "poverty_nhpi"
+        stat_var_key: "poverty_w"
       }
-      stat_var_key: "poverty_aian"
-      stat_var_key: "poverty_a"
-      stat_var_key: "poverty_baa"
-      stat_var_key: "poverty_hl"
-      stat_var_key: "poverty_nhpi"
-      stat_var_key: "poverty_w"
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest among ${statVar}"
+        }
+        stat_var_key: "poverty_aian"
+        stat_var_key: "poverty_a"
+        stat_var_key: "poverty_baa"
+        stat_var_key: "poverty_hl"
+        stat_var_key: "poverty_nhpi"
+        stat_var_key: "poverty_w"
+      }
     }
   }
 
   blocks {
     title: "Disability status by race"
     description: "Percentage of the population of each race with disabilities"
-    left_tiles {
-      type: LINE
-      title: "Percentage of the population of each race with disabilities in ${place}"
-      stat_var_key: "disability_aian"
-      stat_var_key: "disability_a"
-      stat_var_key: "disability_baa"
-      stat_var_key: "disability_hl"
-      stat_var_key: "disability_nhpi"
-      stat_var_key: "disability_w"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        highest_title: "Highest among ${statVar}"
+    columns {
+      tiles {
+        type: LINE
+        title: "Percentage of the population of each race with disabilities in ${place}"
+        stat_var_key: "disability_aian"
+        stat_var_key: "disability_a"
+        stat_var_key: "disability_baa"
+        stat_var_key: "disability_hl"
+        stat_var_key: "disability_nhpi"
+        stat_var_key: "disability_w"
       }
-      stat_var_key: "disability_aian"
-      stat_var_key: "disability_a"
-      stat_var_key: "disability_baa"
-      stat_var_key: "disability_hl"
-      stat_var_key: "disability_nhpi"
-      stat_var_key: "disability_w"
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest among ${statVar}"
+        }
+        stat_var_key: "disability_aian"
+        stat_var_key: "disability_a"
+        stat_var_key: "disability_baa"
+        stat_var_key: "disability_hl"
+        stat_var_key: "disability_nhpi"
+        stat_var_key: "disability_w"
+      }
     }
   }
 
   blocks {
     title: "Correctional facility residents by race"
     description: "Percentage of the population of each facility type, broken down by race"
+    columns {
     # TODO(bhoot): Count_Person_ResidesInJuvenileFacilities is not available at the country level
-    # left_tiles {
+    # tiles {
     #   title: "Percentage of the population in juvenile facilities, ${place} (${date})"
     #   type: MAP
     #   stat_var_override {
@@ -574,18 +627,20 @@ categories {
     #     unit: "%"
     #   }
     # }
-    left_tiles {
-      title: "Racial breakdown of juvenile facility residents"
-      type: LINE
-      stat_var_key: "juvie_aian"
-      stat_var_key: "juvie_a"
-      stat_var_key: "juvie_baa"
-      stat_var_key: "juvie_hl"
-      stat_var_key: "juvie_nhpi"
-      stat_var_key: "juvie_w"
+      tiles {
+        title: "Racial breakdown of juvenile facility residents"
+        type: LINE
+        stat_var_key: "juvie_aian"
+        stat_var_key: "juvie_a"
+        stat_var_key: "juvie_baa"
+        stat_var_key: "juvie_hl"
+        stat_var_key: "juvie_nhpi"
+        stat_var_key: "juvie_w"
+      }
     }
+    columns {
     # TODO: Enable when juvenile map is available.
-    # right_tiles {
+    # tiles {
     #   title: "Percentage of the population in adult correctional facilities, ${place} (${date})"
     #   type: MAP
     #   stat_var_override {
@@ -595,39 +650,44 @@ categories {
     #     unit: "%"
     #   }
     # }
-    right_tiles {
-      title: "Racial breakdown of adult correctional facility residents"
-      type: LINE
-      stat_var_key: "jail_aian"
-      stat_var_key: "jail_a"
-      stat_var_key: "jail_baa"
-      stat_var_key: "jail_hl"
-      stat_var_key: "jail_nhpi"
-      stat_var_key: "jail_w"
+      tiles {
+        title: "Racial breakdown of adult correctional facility residents"
+        type: LINE
+        stat_var_key: "jail_aian"
+        stat_var_key: "jail_a"
+        stat_var_key: "jail_baa"
+        stat_var_key: "jail_hl"
+        stat_var_key: "jail_nhpi"
+        stat_var_key: "jail_w"
+      }
     }
   }
   blocks {
     # Title intentionally left out to "merge" with previous block
     description: "Percentage of the population of each race living in correctional facilities"
-    left_tiles {
-      title: "Percentage of each race in correctional facilities"
-      type: LINE
-      stat_var_key: "juvie_rate_aian"
-      stat_var_key: "juvie_rate_a"
-      stat_var_key: "juvie_rate_baa"
-      stat_var_key: "juvie_rate_hl"
-      stat_var_key: "juvie_rate_nhpi"
-      stat_var_key: "juvie_rate_w"
+    columns {
+      tiles {
+        title: "Percentage of each race in correctional facilities"
+        type: LINE
+        stat_var_key: "juvie_rate_aian"
+        stat_var_key: "juvie_rate_a"
+        stat_var_key: "juvie_rate_baa"
+        stat_var_key: "juvie_rate_hl"
+        stat_var_key: "juvie_rate_nhpi"
+        stat_var_key: "juvie_rate_w"
+      }
     }
-    right_tiles {
-      title: "Percentage of each race in correctional facilities"
-      type: LINE
-      stat_var_key: "jail_rate_aian"
-      stat_var_key: "jail_rate_a"
-      stat_var_key: "jail_rate_baa"
-      stat_var_key: "jail_rate_hl"
-      stat_var_key: "jail_rate_nhpi"
-      stat_var_key: "jail_rate_w"
+    columns {
+      tiles {
+        title: "Percentage of each race in correctional facilities"
+        type: LINE
+        stat_var_key: "jail_rate_aian"
+        stat_var_key: "jail_rate_a"
+        stat_var_key: "jail_rate_baa"
+        stat_var_key: "jail_rate_hl"
+        stat_var_key: "jail_rate_nhpi"
+        stat_var_key: "jail_rate_w"
+      }
     }
   }
 
@@ -1046,51 +1106,57 @@ categories {
   description: "The US Census Bureau collects data on disability through a few programs which have different definitions of disability. The data in this section is from the American Community Survey (ACS) which includes six questions on the topic. Respondents reporting hearing, vision, cognitive, ambulatory, self-care or independent living difficulties are considered to have a disability. For more information, see https://www.census.gov/topics/health/disability/guidance/data-collection-acs.html"
 
   blocks {
-    left_tiles {
-      title: "Percentage of the population with disabilities (${date})"
-      type: MAP
-      stat_var_key: "disability_rate"
-    }
-
-    right_tiles {
-      type: HIGHLIGHT
-      description: "of Americans have disabilities (${date})"
-      stat_var_key: "disability_rate"
-    }
-
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        title: "Percentage of the population with disabilities (${date})"
+        type: MAP
+        stat_var_key: "disability_rate"
       }
-      stat_var_key: "disability_rate"
+    }
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "of Americans have disabilities (${date})"
+        stat_var_key: "disability_rate"
+      }
+
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "disability_rate"
+      }
     }
   }
 
   blocks {
     title: "Without health insurance"
-
-    right_tiles {
-      title: "Percentage of the population with disabilities (${date})"
-      type: MAP
-      stat_var_key: "disabled_uninsured_rate"
-    }
-
-    left_tiles {
-      type: HIGHLIGHT
-      description: "of Americans with disabilities have no health insurance (${date})"
-      stat_var_key: "disabled_uninsured_rate"
-    }
-
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "of Americans with disabilities have no health insurance (${date})"
+        stat_var_key: "disabled_uninsured_rate"
       }
-      stat_var_key: "disabled_uninsured_rate"
+
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "disabled_uninsured_rate"
+      }
     }
+    columns {
+      tiles {
+        title: "Percentage of the population with disabilities (${date})"
+        type: MAP
+        stat_var_key: "disabled_uninsured_rate"
+      }
+    }
+
   }
 
   # TODO: Computed percentages does not sum up to 100% with uninsured block.
@@ -1103,23 +1169,24 @@ categories {
   #     unit: "%"
   #     scaling: 100
   #   }
-
-  #   left_tiles {
-  #     title: "Percentage of the population with disabilities and health insurance (${date})"
-  #     type: MAP
+  #   columns {
+  #     tiles {
+  #       title: "Percentage of the population with disabilities and health insurance (${date})"
+  #       type: MAP
+  #     }
   #   }
-
+  #   columns {  
   #   # TODO(pradh): Count_Person_WithHealthInsurance_WithDisability not available at country level.
-  #   # right_tiles {
+  #   # tiles {
   #   #   type: HIGHLIGHT
   #   #   description: "of Americans with disabilities have health insurance (${date})"
   #   # }
-
-  #   right_tiles {
-  #     type: RANKING
-  #     ranking_metadata {
-  #       show_highest: true
-  #       show_lowest: true
+  #     tiles {
+  #       type: RANKING
+  #       ranking_tile_spec {
+  #         show_highest: true
+  #         show_lowest: true
+  #       }
   #     }
   #   }
   # }
@@ -1128,15 +1195,19 @@ categories {
   blocks {
     title: "Food assistance for households with disabilities"
     description: "Number of households with one or more people with a disability receiving food stamps in the last 12 months."
-    left_tiles {
-      type: MAP
-      title: "Number of households with one or more people with a disability receiving food stamps (${date})"
-      stat_var_key: "disabled_foodstamps"
+    columns {
+      tiles {
+        type: MAP
+        title: "Number of households with one or more people with a disability receiving food stamps (${date})"
+        stat_var_key: "disabled_foodstamps"
+      }
     }
-    right_tiles {
-      type: MAP
-      title: "Number of households with one or more people with a disability not receiving food stamps (${date})"
-      stat_var_key: "disabled_nofoodstamps"
+    columns {
+      tiles {
+        type: MAP
+        title: "Number of households with one or more people with a disability not receiving food stamps (${date})"
+        stat_var_key: "disabled_nofoodstamps"
+      }
     }
   }
 
@@ -1144,20 +1215,24 @@ categories {
   blocks {
     title: "Correctional facility residents with disabilities"
     description: "Percentage of the population of each facility type with disabiliites"
+    columns {
     # TODO(bhoot): This data is not available at the state level. Neither is the "no disability" corrolary data.
-    # left_tiles {
+    # tiles {
     #   title: "Percentage of the juvenile facility residents with disabiliites (${date})"
     #   type: MAP
     # }
-    left_tiles {
-      title: "Percentage of the juvenile facility residents with disabiliites"
-      type: LINE
-      stat_var_key: "disabled_juvie"
+      tiles {
+        title: "Percentage of the juvenile facility residents with disabiliites"
+        type: LINE
+        stat_var_key: "disabled_juvie"
+      }
     }
-    right_tiles {
-      title: "Percentage of the adult correctional facility residents with disabiliites (${date})"
-      type: MAP
-      stat_var_key: "disabled_jail"
+    columns {
+      tiles {
+        title: "Percentage of the adult correctional facility residents with disabiliites (${date})"
+        type: MAP
+        stat_var_key: "disabled_jail"
+      }
     }
   }
 

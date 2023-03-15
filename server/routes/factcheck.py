@@ -14,7 +14,8 @@
 
 from flask import Blueprint
 from flask import render_template
-from lib.gcs import list_blobs
+
+from server.lib.gcs import list_blobs
 
 _MAX_BLOBS = 1
 _FC_FEEDS_BUCKET = 'datacommons-feeds'

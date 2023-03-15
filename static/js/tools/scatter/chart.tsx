@@ -225,6 +225,7 @@ function plot(
     showDensity: props.display.showDensity,
     showLabels: props.display.showLabels,
     showRegression: props.display.showRegression,
+    highlightPoints: [],
   };
   const ScatterPlotProperties: ScatterPlotProperties = {
     width: svgContainerRealWidth,
@@ -271,7 +272,7 @@ function plot(
       ),
     };
     drawBivariate(
-      SVG_CONTAINER_ID,
+      svgContainerRef,
       mapLegendRef,
       props.points,
       geoJsonData,

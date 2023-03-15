@@ -1,0 +1,81 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Student"
+                    ],
+                    "title": "Number of Students in Public Schools of Sunnyvale (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Teacher"
+                    ],
+                    "title": "Number of Teachers in Public Schools of Sunnyvale (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Student_AsAFractionOf_Count_Teacher"
+                    ],
+                    "title": "Student-Teacher Ratio in Public Schools of Sunnyvale (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_Student": {
+            "name": "Number of Students",
+            "statVar": "Count_Student"
+          },
+          "Count_Teacher": {
+            "name": "Number of Teachers",
+            "statVar": "Count_Teacher"
+          },
+          "Percent_Student_AsAFractionOf_Count_Teacher": {
+            "name": "Student-Teacher Ratio",
+            "statVar": "Percent_Student_AsAFractionOf_Count_Teacher",
+            "unit": "%"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "City": "PublicSchool"
+      },
+      "placeDcid": [
+        "geoId/0677000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/0677000",
+    "name": "Sunnyvale",
+    "place_type": "City"
+  }
+}

@@ -13,21 +13,24 @@
 # limitations under the License.
 """Helper functions for getting disaster dashboard data for the app config"""
 
-from google.cloud import storage
 import json
+import logging
 import re
 
+from google.cloud import storage
+
 EVENT_TYPES = [
-    "EarthquakeEvent", "WildlandFireEvent", "WildfireEvent", "CycloneEvent",
+    "FireEvent", "WildlandFireEvent", "WildfireEvent", "CycloneEvent",
     "HurricaneTyphoonEvent", "HurricaneEvent", "TornadoEvent", "FloodEvent",
-    "DroughtEvent"
+    "DroughtEvent", "WetBulbTemperatureEvent", "ColdTemperatureEvent",
+    "HeatTemperatureEvent"
 ]
+DISASTER_DATA_FOLDER = "disaster_dashboard/"
 
 
 def get_disaster_dashboard_data(gcs_bucket):
   """
   Gets and processes disaster data from gcs.
-
   Returns
       A dictionary of event type to dictionary of date (YYYY-MM) to list of
       events:
@@ -50,15 +53,15 @@ def get_disaster_dashboard_data(gcs_bucket):
           },
           ...
       }
-
   """
   result = {}
   for event_type in EVENT_TYPES:
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(gcs_bucket)
     file_name = re.sub('(?!^)([A-Z]+)', r'_\1', event_type).lower() + ".json"
-    blob = bucket.get_blob(file_name)
+    blob = bucket.get_blob(DISASTER_DATA_FOLDER + file_name)
     if not blob:
+      logging.info(f'file for {event_type} not found, skipping.')
       continue
     events_data = json.loads(blob.download_as_bytes())
     events_by_date = {}

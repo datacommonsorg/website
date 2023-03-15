@@ -17,15 +17,15 @@ import json
 import logging
 import math
 import re
-from typing import Any, Iterator, Mapping, Optional, Sequence, Tuple
+from typing import Iterator, Mapping, Optional, Sequence, Tuple
 
 import google.auth
 from google.cloud import language_v1
-import lib.config as libconfig
 import requests
 import yaml
 
-import services.datacommons as dc
+import server.lib.config as libconfig
+import server.services.datacommons as dc
 
 cfg = libconfig.get_config()
 

@@ -14,10 +14,15 @@
 
 import json
 
-from flask import Blueprint, current_app, request, Response
-from cache import cache
-import services.ai as ai
-import services.datacommons as dc
+from flask import Blueprint
+from flask import current_app
+from flask import request
+from flask import Response
+
+from server.cache import cache
+import server.services.ai as ai
+import server.services.datacommons as dc
+
 # TODO(shifucun): add unittest for this module
 
 # Define blueprint
@@ -88,23 +93,6 @@ def stats_var_property_wrapper(dcids):
         'ranked': dcid in ranked_statvars
     }
   return result
-
-
-@bp.route('/stat-var-summary', methods=["POST"])
-def get_statvar_summary():
-  """Gets the summaries for a list of stat vars."""
-  stat_vars = request.json.get("statVars")
-  result = dc.get_statvar_summary(stat_vars)
-  return Response(json.dumps(result.get("statVarSummary", {})),
-                  200,
-                  mimetype='application/json')
-
-
-@bp.route('/propvals/<string:prop>/<path:dcids>')
-def get_property_value(dcids, prop):
-  """Returns the property values for given node dcids and property label."""
-  response = dc.property_values(dcids.split('^'), prop)
-  return Response(json.dumps(response), 200, mimetype='application/json')
 
 
 @bp.route('/stat-var-search')

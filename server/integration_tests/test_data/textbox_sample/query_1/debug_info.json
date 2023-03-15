@@ -1,0 +1,403 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "filtered_svs": [
+      "Mean_Income_Household_FamilyHousehold",
+      "dc/topic/Income",
+      "Median_Income_Household_FamilyHousehold",
+      "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+      "Median_Income_Household_MarriedCoupleFamilyHousehold",
+      "Median_Income_Household"
+    ],
+    "num_chart_candidates": 7,
+    "processed_fulfillment_types": [
+      "simple"
+    ],
+    "stat_var_extensions": [
+      {
+        "Mean_Income_Household_FamilyHousehold": [
+          "Mean_Income_Household_FamilyHousehold"
+        ],
+        "Mean_Income_Household_MarriedCoupleFamilyHousehold": [
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+        ],
+        "Median_Income_Household": [
+          "Median_Income_Household"
+        ],
+        "Median_Income_Household_FamilyHousehold": [
+          "Median_Income_Household_FamilyHousehold"
+        ],
+        "Median_Income_Household_MarriedCoupleFamilyHousehold": [
+          "Median_Income_Household_MarriedCoupleFamilyHousehold"
+        ]
+      }
+    ],
+    "topics_processed": [
+      {
+        "dc/topic/Income": {
+          "peer_groups": [
+            [
+              "Individual Income",
+              "",
+              [
+                "Median_Income_Person",
+                "Median_Earnings_Person"
+              ]
+            ],
+            [
+              "Houshold Income",
+              "",
+              [
+                "Median_Income_Household"
+              ]
+            ]
+          ],
+          "svs": []
+        }
+      }
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "family earnings in california",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "dc/topic/Income",
+            "title": "Individual Income"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Person",
+            "Median_Earnings_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "dc/topic/Income",
+            "title": "Houshold Income"
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_FamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Median_Income_Household"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Mean_Income_Household_FamilyHousehold",
+        "dc/topic/Income",
+        "Median_Income_Household_FamilyHousehold",
+        "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+        "Median_Income_Household_MarriedCoupleFamilyHousehold",
+        "Median_Income_Household"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/06",
+  "main_place_name": "California",
+  "original_query": "family earnings in california",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "california"
+  ],
+  "places_resolved": "(name: California, dcid: geoId/06); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "original_query": "family earnings in california",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/06"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ]
+    },
+    "places_found_str": [
+      "california"
+    ],
+    "query_transformations": {
+      "place_detection_input": "family earnings in california",
+      "place_detection_with_places_removed": "family earnings",
+      "sv_detection_query_input": "family earnings",
+      "sv_detection_query_stop_words_removal": "family earnings"
+    }
+  },
+  "query_with_places_removed": "family earnings",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.6994976997375488,
+      0.6870845556259155,
+      0.652523934841156,
+      0.6368762850761414,
+      0.6139131784439087,
+      0.6136519908905029
+    ],
+    "SV": [
+      "Mean_Income_Household_FamilyHousehold",
+      "dc/topic/Income",
+      "Median_Income_Household_FamilyHousehold",
+      "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+      "Median_Income_Household_MarriedCoupleFamilyHousehold",
+      "Median_Income_Household"
+    ],
+    "SV_to_Sentences": {
+      "Mean_Income_Household_FamilyHousehold": [
+        "Average Income for Family Households (0.6994976997375488)",
+        "Average income for family households (0.6994976997375488)",
+        "Mean Income of Household: Family Household, With Income (0.6543492674827576)",
+        "Mean Income of Household: in a family household with Income (0.6418176889419556)"
+      ],
+      "Mean_Income_Household_MarriedCoupleFamilyHousehold": [
+        "Mean Income of Household: a Married Couple in a family household with Income (0.6368762850761414)",
+        "Mean Income of Household: Married Couple Family Household, With Income (0.6318106651306152)",
+        "Average income for married couple family households (0.615295946598053)",
+        "Average Income for Married Couple Family Households (0.615295946598053)"
+      ],
+      "Median_Income_Household": [
+        "Typical household income (0.6136519908905029)",
+        "Middle household income (0.5836639404296875)"
+      ],
+      "Median_Income_Household_FamilyHousehold": [
+        "Median Income for Family Households (0.652523934841156)",
+        "Median income for family households (0.652523934841156)",
+        "Median Income of Household: in a family household with Income (0.6219029426574707)",
+        "Median Income of Household: Family Household, With Income (0.6150482296943665)"
+      ],
+      "Median_Income_Household_MarriedCoupleFamilyHousehold": [
+        "Median Income of Household: a Married Couple in a family household with Income (0.6139131784439087)",
+        "Median income for married couple family households (0.607136070728302)",
+        "Median Income for Married Couple Family Households (0.607136070728302)",
+        "Median Income of Household: Married Couple Family Household, With Income (0.5924118757247925)"
+      ],
+      "dc/topic/Income": [
+        "Earnings (0.6870845556259155)",
+        "Income (0.613845705986023)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Mean_Income_Household_FamilyHousehold": [
+      "Average Income for Family Households (0.6994976997375488)",
+      "Average income for family households (0.6994976997375488)",
+      "Mean Income of Household: Family Household, With Income (0.6543492674827576)",
+      "Mean Income of Household: in a family household with Income (0.6418176889419556)"
+    ],
+    "Mean_Income_Household_MarriedCoupleFamilyHousehold": [
+      "Mean Income of Household: a Married Couple in a family household with Income (0.6368762850761414)",
+      "Mean Income of Household: Married Couple Family Household, With Income (0.6318106651306152)",
+      "Average income for married couple family households (0.615295946598053)",
+      "Average Income for Married Couple Family Households (0.615295946598053)"
+    ],
+    "Median_Income_Household": [
+      "Typical household income (0.6136519908905029)",
+      "Middle household income (0.5836639404296875)"
+    ],
+    "Median_Income_Household_FamilyHousehold": [
+      "Median Income for Family Households (0.652523934841156)",
+      "Median income for family households (0.652523934841156)",
+      "Median Income of Household: in a family household with Income (0.6219029426574707)",
+      "Median Income of Household: Family Household, With Income (0.6150482296943665)"
+    ],
+    "Median_Income_Household_MarriedCoupleFamilyHousehold": [
+      "Median Income of Household: a Married Couple in a family household with Income (0.6139131784439087)",
+      "Median income for married couple family households (0.607136070728302)",
+      "Median Income for Married Couple Family Households (0.607136070728302)",
+      "Median Income of Household: Married Couple Family Household, With Income (0.5924118757247925)"
+    ],
+    "dc/topic/Income": [
+      "Earnings (0.6870845556259155)",
+      "Income (0.613845705986023)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

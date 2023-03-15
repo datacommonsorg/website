@@ -140,28 +140,29 @@ export function axios_mock(): void {
     )
     .mockResolvedValue(demographicsGroupsData);
 
-  // stat var summary for demographics node
-  when(axios.post)
-    .calledWith("/api/stats/stat-var-summary", {
-      statVars: ["Count_Person", "Median_Age_Person"],
+  // stat var info for demographics node
+  when(axios.get)
+    .calledWith("/api/variable/info", {
+      params: {
+        dcids: ["Count_Person", "Median_Age_Person"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        statVarSummary: {
-          Count_Person: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        Count_Person: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
-          Median_Age_Person: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        },
+        Median_Age_Person: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
         },

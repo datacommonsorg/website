@@ -13,10 +13,12 @@
 # limitations under the License.
 """Place Ranking related handlers."""
 
-import flask
 import json
-import services.datacommons as dc
-import routes.api.place as place_api
+
+import flask
+
+import server.routes.api.place as place_api
+import server.services.datacommons as dc
 
 bp = flask.Blueprint('api.ranking', __name__, url_prefix='/api/ranking')
 

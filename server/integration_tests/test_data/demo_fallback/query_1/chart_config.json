@@ -1,0 +1,34 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "type": "PLACE_OVERVIEW"
+                  }
+                ]
+              }
+            ],
+            "title": "San Francisco"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0667000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/0667000",
+    "name": "San Francisco",
+    "place_type": "City"
+  }
+}

@@ -4,13 +4,13 @@ Website is deployed in Kubernetes cluster. A deployment contains the following
 containers:
 
 - website: A Flask app with static files complied by Webpack.
-- mixer: The Data Commons API server.
-- esp: Google Extensive Service Proxy used for gRPC to Json transcoding.
+- mixer: A Data Commons API server.
+- esp: Google Extensive Service Proxy used for endpoints management.
 
-[Mixer](https://github.com/datacommonsorg/mixer) is a submodule of this Git
+[mixer](https://github.com/datacommonsorg/mixer) is a submodule of this Git
 repo. The exact commit of the submodule is deployed together with the website so
-it may not be the same API version as `https://api.datacommons.org/version`.
-Make sure to update and track the mixer change for a new deployment:
+it may not be the same version as in `https://api.datacommons.org/version`.
+Make sure to update and track the mixer changes for a new deployment:
 
 ```bash
 git submodule foreach git pull origin master
@@ -19,31 +19,52 @@ git submodule update --init --recursive
 
 ## Local Development with Flask
 
-For changes that do not test GCP deployment or involve mixer changes, can
-simply run in local environment (Mac or Linux machine). This way the local Flask
-App talks to the [autopush Mixer](https://autopush.api.datacommons.org).
+For changes that do not test GCP deployment or involve mixer changes, one can
+simply run in a local environment (Mac or Linux machine). This way the local
+Flask app talks to the [autopush mixer](https://autopush.api.datacommons.org).
 
 Note: the `autopush mixer` contains the latest data and mixer code changes. It
-could be necessary to update the mixer submodule if compatibility is required
-between website and mixer changes.
+is necessary to update the mixer submodule if compatibility is required between
+website and mixer changes.
 
 ### Prerequisites
 
-- Install [`nodejs`](https://nodejs.org/en/download/)
-- Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-- Install node 18.4.0: `nvm install 18.4.0`
-- Install [`protoc`](https://grpc.io/docs/protoc-installation/)
+**WARNING**: Make sure to go through each of the following steps.
 
-### [Optional] Place Search
+- Python 3.7
 
-Development that involves place search needs the following additional
-requirements:
+  Confirm the Python3 version is 3.7.x. Otherwise please try
+  [pyenv](https://github.com/pyenv/pyenv) to switch the Python3 versioin.
 
-- Contact Data Commons team to get dev maps api key.
+  ```bash
+  python3 --version
+  ```
 
-- Install [`gcloud`](https://cloud.google.com/sdk/docs/install)
+- Node.js 18.4.0
 
-- Get GCP authentication
+  Install [`nodejs`](https://nodejs.org/en/download/) and
+  [nvm](https://github.com/nvm-sh/nvm#installing-and-updating). Run the
+  following command to use Node.js 18.4.0:
+
+  ```bash
+  nvm install 18.4.0
+  nvm use 18.4.0
+  ```
+
+- Protoc 3.21.9
+
+  Install [`protoc`](https://grpc.io/docs/protoc-installation/) at version
+  3.21.9.
+
+- [Optional] gcloud
+
+  gcloud is required to make the place search working locallly. This requires
+  installation of [`gcloud`](https://cloud.google.com/sdk/docs/install).
+
+  Then ask Data Commons team to grant you permission for the Google Maps API key
+  access.
+
+  Finally authenticate locally with
 
   ```bash
   gcloud auth application-default login
@@ -65,13 +86,12 @@ Start the flask webserver locally at localhost:8080
 ./run_server.sh
 ```
 
-If you don't have access to DataCommons maps API, run
+If you don't have access to DataCommons maps API, can bring up website without
+place search functionality
 
 ```bash
 ./run_server.sh -e lite
 ```
-
-This brings up website without place search functionality.
 
 There are multiple environments for the server, specified by `-e` options.
 For example, `custom` is for custom data commons and `iitm` is
@@ -80,12 +100,38 @@ for iitm data commons.
 To start multiple instances, bind each server instance to a different port.
 The following example will start localhost on port 8081. The default is 8080.
 
-```bash
-./run_server.sh -p 8081
-```
-
 Please note the strict syntax requirements for the script, and leave a space
 after the flag. So: `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
+
+To enable language models
+
+```bash
+./run_server.sh -m
+```
+
+### Start NL Server
+
+Natural language models are hosted on a separate server. For features that
+depend on it (all NL-based interfaces and endpoints), the NL server needs
+to be brought up locally (in a separate process):
+
+```bash
+./run_nl_server.sh -p 6060
+```
+
+By default the NL server runs on port 6060.
+
+### Use Local Mixer
+
+If local mixer is needed, can start it locally by following [this
+instruction](https://github.com/datacommonsorg/mixer/blob/master/docs/developer_guide.md#develop-mixer-locally-with-docker-and-kubernetes).
+This allows development with custom BigTable or mixer code change.
+
+Then start the Flask server with `-l` option to let it use the local mixer:
+
+```bash
+./run_server.sh -l
+```
 
 ## Deploy local changes to dev insance in GCP
 
@@ -158,23 +204,35 @@ npm test testfilename -- -u
 
 ## Other Developing Tips
 
-### GKE config
+### Deploy latest code/data
 
-The GKE configuration is stored [here](../deploy/overlays).
-
-### Custom Instance
-
-Create a pub/sub topic for mixer to listen to data change.
+The autopush instance(autopush.datacommons.org) always has the latest code and
+data. For this to happen in other dev/demo instance, in a clean git checkout,
+simply run:
 
 ```bash
-gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
+./script/deploy_latest.sh <ENV_NAME>
 ```
 
-### Redis memcache
+### Debug Flask in Visual Studio Code
 
-[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
-is used for production deployment. Each cluster has a Redis instance located in
-the same region.
+1. [Optional] Update variables in 'env' of 'Flask' configurations in
+   .vscode/launch.json as needed.
+
+1. In the left hand side menu of VS Code, click on "Run and Debug".
+
+1. On top of the "Run and Debug" pane, select "DC Website Flask" and click on
+   the green "Play" button.
+
+1. In "DEBUG CONSOLE" (not "TERMINAL"), check the server logs show up.
+
+This brings up Flask server from the debugger. Now you can set break point and
+inspect variables from the debugger pane.
+
+TIPS: you can inspect variable in the botton of "DEBUG CONSOLE" window.
+
+A full tutorial of debugging Flask app in Visual Studio Code is in
+[here](https://code.visualstudio.com/docs/python/tutorial-flask).
 
 ### Add new charts in Place Page
 
@@ -224,7 +282,7 @@ the same region.
    ./scripts/compile_messages.sh
    ```
 
-1. **IMPORTANT**: Manually restart the flask or minikube instance to reload the config and translations. Most likely, this means re-running `run_server.py`
+1. **IMPORTANT**: Manually restart Flask to reload the config and translations. Most likely, this means re-running `run_server.py`
 
 1. Test the data on a place page!
 
@@ -245,3 +303,33 @@ the same region.
   ```python
   self.driver.save_screenshot(filename)
   ```
+
+### Working with NL Models
+
+NL models are large and take time to load. They are intialized once in
+production but would reload in local environment every time the code changes. We
+cache the model object in a disk cache for 1 day to make things faster.
+
+If you need to reload new embeddings, can manually remove the cache by
+
+```bash
+rm -rf ~/.datacommons/cache.*
+```
+
+### GKE config
+
+The GKE configuration is stored [here](../deploy/overlays).
+
+### Custom Instance
+
+Create a pub/sub topic for mixer to listen to data change.
+
+```bash
+gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
+```
+
+### Redis memcache
+
+[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
+is used for production deployment. Each cluster has a Redis instance located in
+the same region.

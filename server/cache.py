@@ -14,9 +14,9 @@
 
 import json
 import os
-import requests
 
 from flask_caching import Cache
+import requests
 
 # Per GCP region redis config. This is a mounted volume for the website container.
 REDIS_CONFIG = '/datacommons/redis/redis.json'

@@ -14,8 +14,10 @@
 
 import re
 
-from flask import Blueprint, request
-import services.datacommons as dc
+from flask import Blueprint
+from flask import request
+
+import server.services.datacommons as dc
 
 bp = Blueprint("facets", __name__, url_prefix='/api/facets')
 
@@ -24,7 +26,7 @@ def get_variable_facets_from_series(series_response):
   """Gets the available facets for each sv in an api response for series_within.
 
   Args:
-      series_response: the response from a dc.series_within call.
+      series_response: the response from a dc.obs_series_within call.
 
   Returns:
       a dict of sv to dict of facet id to facet information:
@@ -54,10 +56,10 @@ def get_variable_facets_from_series(series_response):
 
 
 def get_variable_facets_from_points(point_response):
-  """Gets the available facets for each sv in an api response for point_within.
+  """Gets the available facets for each sv in an api response for obs_point_within.
 
   Args:
-      points_response: the response from a dc.point_within call.
+      points_response: the response from a dc.obs_point_within call.
 
   Returns:
       a dict of sv to dict of facet id to facet information:
@@ -146,10 +148,10 @@ def get_facets_within():
     date = min_date
     if min_date == "latest":
       date = ""
-    point_response = dc.point_within(parent_place, child_type, stat_vars, date,
-                                     True)
+    point_response = dc.obs_point_within(parent_place, child_type, stat_vars,
+                                         date, True)
     return get_variable_facets_from_points(point_response), 200
   else:
-    series_response = dc.series_within(parent_place, child_type, stat_vars,
-                                       True)
+    series_response = dc.obs_series_within(parent_place, child_type, stat_vars,
+                                           True)
     return get_variable_facets_from_series(series_response), 200

@@ -14,21 +14,28 @@
 """This module defines the endpoints that support drawing a choropleth map.
 """
 import json
+from typing import List
 import urllib.parse
 
-import routes.api.shared as shared_api
-import services.datacommons as dc
-import lib.util as lib_util
-import routes.api.place as place_api
-import routes.api.series as series_api
-import routes.api.point as point_api
-import routes.api.landing_page as landing_page_api
-
-from routes.api.shared import is_float
+from flask import Blueprint
+from flask import current_app
+from flask import g
+from flask import make_response
+from flask import request
+from flask import Response
+from flask import send_file
+from flask import url_for
 from geojson_rewind import rewind
-from cache import cache
-from flask import Blueprint, current_app, request, Response, g, url_for, send_file, make_response
-from routes.api.place import EQUIVALENT_PLACE_TYPES
+
+from server.cache import cache
+import server.lib.util as lib_util
+import server.routes.api.landing_page as landing_page_api
+from server.routes.api.place import EQUIVALENT_PLACE_TYPES
+import server.routes.api.place as place_api
+from server.routes.api.shared import is_float
+import server.routes.api.shared as shared_api
+import server.services.datacommons as dc
+
 # Define blueprint
 bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 
@@ -66,6 +73,9 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "EurostatNUTS3": "geoJsonCoordinatesDP1",
     "IPCCPlace_50": "geoJsonCoordinates",
 }
+MULTILINE_GEOJSON_TYPE = "MultiLineString"
+MULTIPOLYGON_GEOJSON_TYPE = "MultiPolygon"
+POLYGON_GEOJSON_TYPE = "Polygon"
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -124,30 +134,67 @@ def get_choropleth_display_level(geoDcid):
     return geoDcid, display_level
 
 
-def reverse_geojson_righthand_rule(geoJsonCords, obj_type):
-  """Changes GeoJSON handedness to the reverse of the righthand_rule.
+def get_multipolygon_geojson_coordinates(geojson):
+  """
+  Gets geojson coordinates in the form of multipolygon geojson coordinates that
+  are in the reverse of the righthand_rule.
 
   GeoJSON is stored in DataCommons following the right hand rule as per rfc
   spec (https://www.rfc-editor.org/rfc/rfc7946). However, d3 requires geoJSON
   that violates the right hand rule (see explanation on d3 winding order here:
-  https://stackoverflow.com/a/49311635). This function fixes these lists to be
-  in the format expected by D3 and turns all polygons into multipolygons for
+  https://stackoverflow.com/a/49311635). This function returns coordinates in
+  the format expected by D3 and turns all polygons into multipolygons for
   downstream consistency.
       Args:
-          geoJsonCords: Nested list of geojson.
-          obj_type: Object feature type.
+          geojson: geojson of type MultiPolygon or Polygon
       Returns:
-          Nested list of geocoords.
+          Nested list of geo coordinates.
   """
-  if obj_type == "Polygon":
-    geoJsonCords[0].reverse()
-    return [geoJsonCords]
-  elif obj_type == "MultiPolygon":
-    for polygon in geoJsonCords:
+  # The geojson data for each place varies in whether it follows the
+  # righthand rule or not. We want to ensure geojsons for all places
+  # does follow the righthand rule.
+  right_handed_geojson = rewind(geojson)
+  geojson_type = right_handed_geojson['type']
+  geojson_coords = right_handed_geojson['coordinates']
+  if geojson_type == POLYGON_GEOJSON_TYPE:
+    geojson_coords[0].reverse()
+    return [geojson_coords]
+  elif geojson_type == MULTIPOLYGON_GEOJSON_TYPE:
+    for polygon in geojson_coords:
       polygon[0].reverse()
-    return geoJsonCords
+    return geojson_coords
   else:
-    assert False, f"Type {obj_type} unknown!"
+    assert False, f"Type {geojson_type} unknown!"
+
+
+def get_geojson_feature(geo_id: str, geo_name: str, json_text: List[str]):
+  """
+  Gets a single geojson feature from a list of json strings
+  """
+  # Exclude geo if no renderings are present.
+  if len(json_text) < 1:
+    return None
+  geojson = json.loads(json_text[0])
+  geo_feature = {
+      "type": "Feature",
+      "id": geo_id,
+      "properties": {
+          "name": geo_name,
+          "geoDcid": geo_id,
+      }
+  }
+  geojson_type = geojson.get("type", "")
+  if geojson_type == MULTILINE_GEOJSON_TYPE:
+    geo_feature['geometry'] = geojson
+  elif geojson_type == POLYGON_GEOJSON_TYPE or geojson_type == MULTIPOLYGON_GEOJSON_TYPE:
+    coordinates = get_multipolygon_geojson_coordinates(geojson)
+    geo_feature['geometry'] = {
+        "type": "MultiPolygon",
+        "coordinates": coordinates
+    }
+  else:
+    geo_feature = None
+  return geo_feature
 
 
 @bp.route('/geojson')
@@ -162,6 +209,10 @@ def geojson():
   place_type = request.args.get("placeType")
   if not place_type:
     place_dcid, place_type = get_choropleth_display_level(place_dcid)
+  cached_geojson = current_app.config['CACHED_GEOJSONS'].get(
+      place_dcid, {}).get(place_type, None)
+  if cached_geojson:
+    return lib_util.gzip_compress_response(cached_geojson, is_json=True)
   geos = []
   if place_dcid and place_type:
     geos = dc.get_places_in([place_dcid], place_type).get(place_dcid, [])
@@ -183,39 +234,43 @@ def geojson():
           ['geoId/46102'], 'geoJsonCoordinates').get('geoId/46102', '')
     for geo_id, json_text in geojson_by_geo.items():
       if json_text and geo_id in names_by_geo:
-        geo_feature = {
-            "type": "Feature",
-            "geometry": {
-                "type": "MultiPolygon",
-            },
-            "id": geo_id,
-            "properties": {
-                "name": names_by_geo.get(geo_id, "Unnamed Area"),
-                "geoDcid": geo_id,
-            }
-        }
-        # Load, simplify, and add geoJSON coordinates.
-        # Exclude geo if no or multiple renderings are present.
-        if len(json_text) != 1:
-          continue
-        geojson = json.loads(json_text[0])
-        # The geojson data for each place varies in whether it follows the
-        # righthand rule or not. We want to ensure geojsons for all places
-        # does follow the righthand rule.
-        geojson = rewind(geojson)
-        geo_feature['geometry']['coordinates'] = (
-            reverse_geojson_righthand_rule(geojson['coordinates'],
-                                           geojson['type']))
-        features.append(geo_feature)
-  return Response(json.dumps({
+        geo_name = names_by_geo.get(geo_id, "Unnamed Area")
+        geo_feature = get_geojson_feature(geo_id, geo_name, json_text)
+        if geo_feature:
+          features.append(geo_feature)
+  result = {
       "type": "FeatureCollection",
       "features": features,
       "properties": {
           "current_geo": place_dcid
       }
-  }),
-                  200,
-                  mimetype='application/json')
+  }
+  return lib_util.gzip_compress_response(result, is_json=True)
+
+
+@bp.route('/node-geojson', methods=['POST'])
+def node_geojson():
+  """Gets geoJson data for a list of nodes and a specified property to use to
+     get the geoJson data"""
+  nodes = request.json.get("nodes", [])
+  geojson_prop = request.json.get("geoJsonProp")
+  if not geojson_prop:
+    return "error: must provide a geoJsonProp field", 400
+  features = []
+  geojson_by_node = dc.property_values(nodes, geojson_prop)
+  for node_id, json_text in geojson_by_node.items():
+    if json_text:
+      geo_feature = get_geojson_feature(node_id, node_id, json_text)
+      if geo_feature:
+        features.append(geo_feature)
+  result = {
+      "type": "FeatureCollection",
+      "features": features,
+      "properties": {
+          "current_geo": ""
+      }
+  }
+  return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 def get_choropleth_configs():
@@ -324,9 +379,9 @@ def choropleth_data(dcid):
   if not stat_vars or not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   # Get data for all the stat vars for every place we will need and process the data
-  numerator_resp = point_api.point_within_core(display_dcid, display_level,
-                                               list(stat_vars), '', False)
-  denominator_resp = series_api.series_core(list(geos), list(denoms), False)
+  numerator_resp = lib_util.point_within_core(display_dcid, display_level,
+                                              list(stat_vars), '', False)
+  denominator_resp = lib_util.series_core(list(geos), list(denoms), False)
 
   result = {}
   # Process the data for each config

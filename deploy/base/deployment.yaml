@@ -25,11 +25,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      # maximum number of Pods that can be created over the desired number of Pods
-      maxSurge: 4
-      # Maximum number of pods that can be unavailable during the update process
-      # Environment have different number of pods, this is roughly 8% in prod.
-      maxUnavailable: 5
+      maxSurge: 50%
+      maxUnavailable: 50%
   selector:
     matchLabels:
       app: website-app
@@ -48,6 +45,9 @@ spec:
         - name: ai-config
           configMap:
             name: ai-config
+        - name: model-config
+          configMap:
+            name: model-config
         - name: memdb-config
           configMap:
             name: memdb-config
@@ -63,13 +63,14 @@ spec:
               path: /healthz
               port: 8080
             failureThreshold: 30
-            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /healthz
               port: 8080
-            failureThreshold: 1
-            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
           resources:
             limits:
               memory: "3G"
@@ -84,6 +85,11 @@ spec:
                 configMapKeyRef:
                   name: website-configmap
                   key: flaskEnv
+            - name: ENABLE_MODEL
+              valueFrom:
+                configMapKeyRef:
+                  name: website-configmap
+                  key: enableModel
             # This is the GCP project that holds the secrets: api key, etc...
             - name: SECRET_PROJECT
               valueFrom:
@@ -156,16 +162,44 @@ spec:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
             failureThreshold: 30
-            periodSeconds: 10
+
           readinessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
-            periodSeconds: 10
           livenessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
-            periodSeconds: 10
-            initialDelaySeconds: 10
+        - name: nl
+          image: gcr.io/datcom-ci/datacommons-nl:abcxyz
+          resources:
+            limits:
+              memory: "2G"
+            requests:
+              memory: "2G"
+          env:
+            - name: FLASK_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: website-configmap
+                  key: flaskEnv
+          volumeMounts:
+            - name: model-config
+              mountPath: /datacommons/model
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+          ports:
+            - containerPort: 6060
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args:
@@ -183,9 +217,9 @@ spec:
                   key: serviceName
           resources:
             limits:
-              memory: "2G"
+              memory: "1G"
             requests:
-              memory: "2G"
+              memory: "1G"
           readinessProbe:
             httpGet:
               path: /healthz

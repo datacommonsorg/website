@@ -107,6 +107,8 @@ export const USA_CHILD_PLACE_TYPES = {
   Country: ["State", "County"],
   State: ["County"],
   County: ["County"],
+  CensusRegion: ["State", "County"],
+  CensusDivision: ["State", "County"],
 };
 
 export const AA1_AA2_CHILD_PLACE_TYPES = {

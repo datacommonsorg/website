@@ -1,0 +1,49 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flask",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "python": "${command:python.interpreterPath}",
+            "program": "${workspaceRoot}/web_app.py",
+            "env": {
+                "FLASK_APP": "${workspaceRoot}/web_app.py",
+                "FLASK_ENV": "local",
+                "FLASK_DEBUG": "1",
+                "ENABLE_MODEL": "true"
+            },
+            "args": [
+                "8080",
+                "--no-debugger",
+            ],
+            "cwd": "${workspaceRoot}",
+            "envFile": "${workspaceFolder}/.env",
+            "jinja": true,
+            "console": "internalConsole",
+        },
+        {
+            "name": "Flask - without NL",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "python": "${command:python.interpreterPath}",
+            "program": "${workspaceRoot}/web_app.py",
+            "env": {
+                "FLASK_APP": "${workspaceRoot}/web_app.py",
+                "FLASK_ENV": "local",
+                "FLASK_DEBUG": "1",
+                "ENABLE_MODEL": "false"
+            },
+            "args": [
+                "8080",
+                "--no-debugger",
+            ],
+            "cwd": "${workspaceRoot}",
+            "envFile": "${workspaceFolder}/.env",
+            "jinja": true,
+            "console": "internalConsole",
+        }
+    ]
+}

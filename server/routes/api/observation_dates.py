@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Blueprint, request
-import services.datacommons as dc
+from flask import Blueprint
+from flask import request
+
+import server.services.datacommons as dc
 
 # Define blueprint
-bp = Blueprint("observation-dates", __name__)
+bp = Blueprint("observation_dates", __name__)
 
 
 @bp.route('/api/observation-dates')
@@ -33,10 +35,4 @@ def observation_dates():
   variable = request.args.get('variable')
   if not variable:
     return 'error: must provide a variable field', 400
-  return dc.post(
-      '/v1/bulk/observation-dates/linked', {
-          'linked_property': "containedInPlace",
-          'linked_entity': parent_entity,
-          'entity_type': child_type,
-          'variables': [variable],
-      })
+  return dc.get_series_dates(parent_entity, child_type, [variable])

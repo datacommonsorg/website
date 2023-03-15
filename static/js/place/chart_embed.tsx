@@ -39,6 +39,7 @@ interface ChartEmbedStateType {
   chartTitle: string;
   chartDate: string;
   sources: string[];
+  chartDownloadXml: string;
 }
 
 /**
@@ -46,7 +47,6 @@ interface ChartEmbedStateType {
  * in a Modal
  */
 class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
-  private chartDownloadXml: string;
   private modalId: string;
   private svgContainerElement: React.RefObject<HTMLDivElement>;
   private textareaElement: React.RefObject<HTMLTextAreaElement>;
@@ -62,8 +62,8 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       chartTitle: "",
       chartDate: "",
       sources: [],
+      chartDownloadXml: "",
     };
-    this.chartDownloadXml = "";
     this.modalId = randDomId();
     this.svgContainerElement = React.createRef();
     this.textareaElement = React.createRef();
@@ -202,12 +202,13 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     }
 
     if (this.state.svgXml) {
-      this.chartDownloadXml = this.decorateSvgChart();
+      const chartDownloadXml = this.decorateSvgChart();
       const imageElement = document.createElement("img");
       const chartBase64 =
-        "data:image/svg+xml," + encodeURIComponent(this.chartDownloadXml);
+        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
       imageElement.src = chartBase64;
       this.svgContainerElement.current.append(imageElement);
+      this.setState({ chartDownloadXml });
     }
   }
 
@@ -226,7 +227,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
    * On click handler for "Copy SVG to clipboard button".
    */
   public onDownloadSvg(): void {
-    saveToFile("chart.svg", this.chartDownloadXml);
+    saveToFile("chart.svg", this.state.chartDownloadXml);
   }
 
   /**
@@ -267,7 +268,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
           ></textarea>
         </ModalBody>
         <ModalFooter>
-          {this.chartDownloadXml && (
+          {this.state.chartDownloadXml && (
             <>
               <Button color="primary" onClick={this.onDownloadSvg}>
                 {intl.formatMessage({

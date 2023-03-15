@@ -14,7 +14,8 @@
 """Place Ranking related handlers."""
 
 import flask
-import routes.api.place as place_api
+
+import server.routes.api.place as place_api
 
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 

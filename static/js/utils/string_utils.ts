@@ -52,6 +52,9 @@ export function formatDate(strDate: string): string {
  *  Given a list of dates as strings, returns the date range as a string
  */
 export function getDateRange(dates: string[]): string {
+  if (dates.length === 0) {
+    return "";
+  }
   const minDate = formatDate(_.min(dates));
   const maxDate = formatDate(_.max(dates));
   return minDate === maxDate ? `${minDate}` : `${minDate} to ${maxDate}`;
@@ -86,6 +89,66 @@ export function getCommonPrefix(words: string[]): string {
  * Given a date string, check that it is in the form YYYY-MM-DD or YYYY-MM or YYYY
  */
 export function isValidDate(date: string): boolean {
+  if (Number.isNaN(Date.parse(date))) {
+    return false;
+  }
   const dateRegex = /^(\d\d\d\d)(-\d\d)?(-\d\d)?$/;
   return dateRegex.test(date);
+}
+
+/**
+ * Equivalent to i18n.formatNumber, but with a fixed locale.
+ */
+export function formatNumber(
+  value: number,
+  unit?: string,
+  useDefaultFormat?: boolean,
+  numFractionDigits?: number
+): string {
+  if (isNaN(value)) {
+    return "-";
+  }
+  if (useDefaultFormat) {
+    return Intl.NumberFormat("en-US").format(value);
+  }
+  const formatOptions: any = {
+    /* any is used since not all available options are defined in NumberFormatOptions */
+    compactDisplay: "short",
+    maximumSignificantDigits: 3,
+    notation: "compact",
+    style: "decimal",
+  };
+
+  if (numFractionDigits !== undefined) {
+    formatOptions.maximumFractionDigits = numFractionDigits;
+    formatOptions.minimumFractionDigits = numFractionDigits;
+    delete formatOptions.maximumSignificantDigits;
+  }
+
+  let returnText = Intl.NumberFormat("en-US", formatOptions).format(value);
+  let displayUnit = unit;
+  switch (unit) {
+    case "SquareKilometer":
+      displayUnit = "km²";
+      break;
+    case "Knot":
+      displayUnit = "kn";
+      break;
+    case "Celsius":
+      displayUnit = "°C";
+      break;
+    case "Percent":
+      displayUnit = "%";
+      break;
+    case "MetricTonCO2e":
+      displayUnit = "MTCO2e";
+      break;
+    case "MetricTon":
+      displayUnit = "t";
+      break;
+  }
+  if (displayUnit) {
+    returnText = `${returnText} ${displayUnit}`;
+  }
+  return returnText;
 }

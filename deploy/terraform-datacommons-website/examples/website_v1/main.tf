@@ -13,73 +13,89 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 terraform {
-  backend "gcs" {
-    prefix = "dc_website_v1"
-  }
+  backend "gcs" {}
 }
 
-module "enabled_google_apis" {
-  source  = "terraform-google-modules/project-factory/google//modules/project_services"
-  version = "~> 13.0.0"
-  project_id                  = var.project_id
-  disable_services_on_destroy = false
-  activate_apis = [
-    "apikeys.googleapis.com",
-    "binaryauthorization.googleapis.com",
-    "compute.googleapis.com",
-    "container.googleapis.com",
-    "containerregistry.googleapis.com",
-    "dns.googleapis.com",
-    "iam.googleapis.com",
-    "iap.googleapis.com",
-    "logging.googleapis.com",
-    "monitoring.googleapis.com",
-    "secretmanager.googleapis.com",
-    "servicenetworking.googleapis.com",
-    "stackdriver.googleapis.com"
-  ]
+provider "google" {
+  project               = var.project_id
+  billing_project       = var.project_id
+  user_project_override = true
 }
 
-module "iam" {
-  source                   =  "../../modules/iam"
-  project_id               = var.project_id
-  storage_project_id       = var.storage_project_id
+locals {
+  resource_suffix    = var.use_resource_suffix ? format("-%s", var.resource_suffix) : ""
+  web_robot_sa_email = (
+    var.web_robot_sa_email != null ?
+    var.web_robot_sa_email :
+    format("website-robot@%s.iam.gserviceaccount.com", var.project_id)
+  )
 }
 
-module "iap" {
-  source                   =  "../../modules/iap"
-  project_id               = var.project_id
-  brand_support_email      = var.brand_support_email
-  web_user_members         = var.web_user_members
+resource "google_project_iam_member" "web_robot_iam" {
+  for_each = toset([
+    "roles/endpoints.serviceAgent", # service control report for endpoints.
+    "roles/logging.logWriter", # Logging and monitoring
+    "roles/monitoring.metricWriter",
+    "roles/stackdriver.resourceMetadata.writer",
+    "roles/compute.networkViewer",
+    "roles/cloudtrace.agent",
+    "roles/bigquery.jobUser",   # Query BigQuery
+    "roles/pubsub.editor", # TMCF + CSV GCS data change subscription
+    "roles/secretmanager.secretAccessor"
+  ])
+  role    = each.key
+  member  = "serviceAccount:${local.web_robot_sa_email}"
+  project = var.project_id
 }
 
-module "vpc" {
-  source                   =  "../../modules/vpc"
-  project_id               = var.project_id
-  subnet_region            = var.region
-
-  depends_on = [
-    module.enabled_google_apis
-  ]
+# For controller to communicate with and write data to resource bucket.
+resource "google_project_iam_member" "datcom_iam" {
+  for_each = toset([
+    "roles/pubsub.subscriber",
+    "roles/storage.admin"
+  ])
+  role    = each.key
+  member  = "serviceAccount:datcom@system.gserviceaccount.com"
+  project = var.project_id
 }
 
 module "apikeys" {
   source                   =  "../../modules/apikeys"
   project_id               = var.project_id
-  website_domain           = var.website_domain
+  dc_website_domain        = var.dc_website_domain
+  location                 = var.location
 
-  depends_on = [
-    module.enabled_google_apis
-  ]
+  resource_suffix          = local.resource_suffix
 }
 
 module "esp" {
   source                   =  "../../modules/esp"
   project_id               = var.project_id
+  mixer_githash            = var.mixer_githash
+}
+
+module "cluster" {
+  source                   =  "../../modules/gke"
+  project_id               = var.project_id
+  location                 = var.location
+  cluster_name_prefix      = var.cluster_name_prefix
+  web_robot_sa_email       = local.web_robot_sa_email
+
+  resource_suffix          = local.resource_suffix
 
   depends_on = [
-    module.enabled_google_apis
+    module.apikeys,
+    module.esp,
+    google_project_iam_member.web_robot_iam
   ]
+}
+
+resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
+  name    = format("dc-website-cert%s", local.resource_suffix)
+  project = var.project_id
+
+  managed {
+    domains = [format("%s.", var.dc_website_domain)]
+  }
 }

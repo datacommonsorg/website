@@ -1,0 +1,246 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "<None>",
+  "correlation_classification": "<None>",
+  "counters": {
+    "failed_populate_main_places": [
+      [
+        {
+          "dcid": "geoId/0667000",
+          "name": "San Francisco",
+          "place_type": "City"
+        },
+        {
+          "dcid": "geoId/1714000",
+          "name": "Chicago",
+          "place_type": "City"
+        }
+      ]
+    ],
+    "filtered_svs": [],
+    "num_chart_candidates": 1,
+    "num_populate_fallbacks": 1,
+    "processed_fulfillment_types": [
+      "simple",
+      "overview"
+    ]
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "dcid": "geoId/0667000",
+          "name": "San Francisco",
+          "place_type": "City"
+        },
+        {
+          "dcid": "geoId/1714000",
+          "name": "Chicago",
+          "place_type": "City"
+        }
+      ],
+      "query": "Number of Shakespeare fans in San Francisco and Chicago.",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "dcid": "geoId/0667000",
+              "name": "San Francisco",
+              "place_type": "City"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/0667000",
+  "main_place_name": "San Francisco",
+  "original_query": "Number of Shakespeare fans in San Francisco and Chicago.",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "san francisco",
+    "chicago"
+  ],
+  "places_resolved": "(name: San Francisco, dcid: geoId/0667000); (name: Chicago, dcid: geoId/1714000); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/0667000",
+      "name": "San Francisco",
+      "place_type": "City"
+    },
+    "original_query": "Number of Shakespeare fans in San Francisco and Chicago",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/0667000",
+        "geoId/1714000"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/0667000",
+          "name": "San Francisco",
+          "place_type": "City"
+        },
+        {
+          "dcid": "geoId/1714000",
+          "name": "Chicago",
+          "place_type": "City"
+        }
+      ]
+    },
+    "places_found_str": [
+      "san francisco",
+      "chicago"
+    ],
+    "query_transformations": {
+      "place_detection_input": "number of shakespeare fans in san francisco and chicago",
+      "place_detection_with_places_removed": "number of shakespeare fans and",
+      "sv_detection_query_input": "number of shakespeare fans and",
+      "sv_detection_query_stop_words_removal": "number shakespeare fans"
+    }
+  },
+  "query_with_places_removed": "number of shakespeare fans and",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.3691325783729553,
+      0.29036542773246765,
+      0.2894546687602997,
+      0.2783314883708954,
+      0.2729201316833496,
+      0.26915016770362854,
+      0.2653329074382782,
+      0.26523512601852417,
+      0.2610830068588257,
+      0.2539288103580475
+    ],
+    "SV": [
+      "Count_HeavySnowEvent",
+      "Count_Person_Male",
+      "Count_CriminalIncidents_IsHateCrime",
+      "Count_EarthquakeEvent",
+      "Count_Person_5To9Years",
+      "Count_CriminalActivities_Robbery",
+      "Count_HeavyRainEvent",
+      "Count_Worker_NAICSArtsEntertainmentRecreation",
+      "Count_DroughtEvent",
+      "Count_FloodEvent"
+    ],
+    "SV_to_Sentences": {
+      "Count_CriminalActivities_Robbery": [
+        "Number of heists (0.26915016770362854)"
+      ],
+      "Count_CriminalIncidents_IsHateCrime": [
+        "Number of hate crimes (0.2894546687602997)",
+        "Number of Hate Crime Incidents (0.25507888197898865)",
+        "Number of hate crime incidents (0.25507888197898865)"
+      ],
+      "Count_DroughtEvent": [
+        "Number of droughts (0.2610830068588257)",
+        "Number of Droughts (0.2610830068588257)"
+      ],
+      "Count_EarthquakeEvent": [
+        "Number of tremors (0.2783314883708954)",
+        "Number of temblors (0.27476662397384644)",
+        "Number of quakes (0.27175644040107727)",
+        "Number of Earthquakes (0.2537490129470825)"
+      ],
+      "Count_FloodEvent": [
+        "Number of floods (0.2539288103580475)",
+        "Number of Floods (0.2539287507534027)"
+      ],
+      "Count_HeavyRainEvent": [
+        "Number of Heavy Rains (0.2653329074382782)",
+        "Number of heavy rains (0.2653329074382782)"
+      ],
+      "Count_HeavySnowEvent": [
+        "Number of blizzards (0.3691325783729553)"
+      ],
+      "Count_Person_5To9Years": [
+        "Number of 5 to 9 year old people (0.2729201316833496)"
+      ],
+      "Count_Person_Male": [
+        "Number of Males (0.29036542773246765)"
+      ],
+      "Count_Worker_NAICSArtsEntertainmentRecreation": [
+        "Employment numbers in entertainment and recreation (0.26523512601852417)",
+        "number of arts, entertainment, and recreation workers (0.25554004311561584)",
+        "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.2542625069618225)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_CriminalActivities_Robbery": [
+      "Number of heists (0.26915016770362854)"
+    ],
+    "Count_CriminalIncidents_IsHateCrime": [
+      "Number of hate crimes (0.2894546687602997)",
+      "Number of Hate Crime Incidents (0.25507888197898865)",
+      "Number of hate crime incidents (0.25507888197898865)"
+    ],
+    "Count_DroughtEvent": [
+      "Number of droughts (0.2610830068588257)",
+      "Number of Droughts (0.2610830068588257)"
+    ],
+    "Count_EarthquakeEvent": [
+      "Number of tremors (0.2783314883708954)",
+      "Number of temblors (0.27476662397384644)",
+      "Number of quakes (0.27175644040107727)",
+      "Number of Earthquakes (0.2537490129470825)"
+    ],
+    "Count_FloodEvent": [
+      "Number of floods (0.2539288103580475)",
+      "Number of Floods (0.2539287507534027)"
+    ],
+    "Count_HeavyRainEvent": [
+      "Number of Heavy Rains (0.2653329074382782)",
+      "Number of heavy rains (0.2653329074382782)"
+    ],
+    "Count_HeavySnowEvent": [
+      "Number of blizzards (0.3691325783729553)"
+    ],
+    "Count_Person_5To9Years": [
+      "Number of 5 to 9 year old people (0.2729201316833496)"
+    ],
+    "Count_Person_Male": [
+      "Number of Males (0.29036542773246765)"
+    ],
+    "Count_Worker_NAICSArtsEntertainmentRecreation": [
+      "Employment numbers in entertainment and recreation (0.26523512601852417)",
+      "number of arts, entertainment, and recreation workers (0.25554004311561584)",
+      "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.2542625069618225)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

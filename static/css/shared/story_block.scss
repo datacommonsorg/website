@@ -29,6 +29,11 @@ $subtopic-color: #222;
   background: $subtopic-background;
 }
 
+.block .block-footer {
+  margin-top: 1rem;
+  font-size: .8rem;
+}
+
 .block h3 a {
   line-height: 1.2rem;
 }

@@ -21,9 +21,13 @@ import {
   EARTH_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../shared/constants";
-import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { DisplayNameApiResponse } from "../shared/stat_types";
+import {
+  ChildPlacesByType,
+  NamedPlace,
+  NamedTypedPlace,
+} from "../shared/types";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
-import { stringifyFn } from "./axios";
 
 let ps: google.maps.places.PlacesService;
 
@@ -32,16 +36,20 @@ const CURATED_SAMPLE_PLACES = {
   [EARTH_NAMED_TYPED_PLACE.dcid]: {
     Country: [
       { dcid: "country/USA", name: "United States of America" },
-      { dcid: "country/MEX", name: "Mexico" },
-      { dcid: "country/BRA", name: "Brazil" },
+      { dcid: "country/FRA", name: "France" },
       { dcid: "country/DEU", name: "Germany" },
       { dcid: "country/POL", name: "Poland" },
-      { dcid: "country/RUS", name: "Russia" },
-      { dcid: "country/ZAF", name: "South Africa" },
-      { dcid: "country/ZWE", name: "Zimbabwe" },
-      { dcid: "country/CHN", name: "People's Republic of China" },
-      { dcid: "country/IND", name: "India" },
+      { dcid: "country/CAN", name: "Canada" },
       { dcid: "country/AUS", name: "Australia" },
+      { dcid: "country/NLD", name: "Netherlands" },
+      { dcid: "country/ESP", name: "Spain" },
+      { dcid: "country/CHL", name: "Chile" },
+      { dcid: "country/SWE", name: "Sweden" },
+      { dcid: "country/GBR", name: "United Kingdom" },
+      { dcid: "country/CRI", name: "Costa Rica" },
+      { dcid: "country/LVA", name: "Latvia" },
+      { dcid: "country/GRC", name: "Greece" },
+      { dcid: "country/IND", name: "India" },
     ],
   },
 };
@@ -101,6 +109,23 @@ export function getParentPlacesPromise(
       return parentPlaces;
     })
     .catch(() => []);
+}
+
+/**
+ * Used to get child places (filtered by wanted place type list).
+ * Returns lists of NamedPopPlace keyed by place type.
+ */
+export function getChildPlacesPromise(
+  placeDcid: string
+): Promise<ChildPlacesByType> {
+  return axios
+    .get(`/api/place/child/${placeDcid}`)
+    .then((resp) => {
+      return resp.data;
+    })
+    .catch(() => {
+      return {};
+    });
 }
 
 /**
@@ -168,14 +193,32 @@ export function getPlaceNames(
     return Promise.resolve({});
   }
   return axios
-    .get("/api/place/name", {
-      params: {
-        dcids: dcids,
-      },
-      paramsSerializer: stringifyFn,
+    .post("/api/place/name", {
+      dcids: dcids,
     })
     .then((resp) => {
       return resp.data;
+    });
+}
+
+/**
+ * Given a list of place dcids, returns a promise with a map of dcids to place
+ * display names (display names are different from place names because they
+ * will have the state code at the end of the name if state code is available)
+ */
+export function getPlaceDisplayNames(
+  dcids: string[]
+): Promise<DisplayNameApiResponse> {
+  if (!dcids.length) {
+    return Promise.resolve({});
+  }
+  return axios
+    .post("/api/place/displayname", { dcids })
+    .then((resp) => {
+      return resp.data;
+    })
+    .catch(() => {
+      return {};
     });
 }
 

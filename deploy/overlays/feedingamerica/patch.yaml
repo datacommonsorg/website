@@ -22,3 +22,5 @@
 - op: add
   path: /spec/template/spec/containers/1/args/0
   value: --tmcf_csv_folder=food
+- op: remove
+  path: /spec/template/spec/containers/2

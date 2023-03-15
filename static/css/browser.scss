@@ -40,25 +40,6 @@
   vertical-align: top;
 }
 
-.expando {
-  cursor: pointer;
-  float: right;
-}
-
-.expando:hover {
-  text-decoration: underline;
-}
-
-.expando .material-icons {
-  font-size: 1rem;
-  vertical-align: middle;
-}
-
-.expando span {
-  line-height: 1;
-  vertical-align: middle;
-}
-
 .browser-in-arc-section .card {
   margin: $vertical-spacing 0 2 * $vertical-spacing;
 }
@@ -212,4 +193,17 @@
   font-weight: 300;
   color: var(--gray);
   padding-left: 1em;
+}
+
+.map-container {
+  height: 100%;
+  min-height: 160px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#overview-map {
+  padding-top: 5px;
+  padding-bottom: 0px;
+  margin-bottom: -0.5rem;
 }

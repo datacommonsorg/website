@@ -17,19 +17,25 @@ TODO(shifucun): once this is well tested, can deprecate corresponding code
 in chart.py and place.py
 """
 
+from collections import defaultdict
 import copy
 import json
 import logging
-import urllib.parse
-from collections import defaultdict
 import time
+import urllib.parse
 
-import lib.range as lib_range
-import routes.api.place as place_api
-import services.datacommons as dc_service
-from cache import cache
-from flask import Blueprint, Response, current_app, g, url_for, request
+from flask import Blueprint
+from flask import current_app
+from flask import g
+from flask import request
+from flask import Response
+from flask import url_for
 from flask_babel import gettext
+
+from server.cache import cache
+import server.lib.range as lib_range
+import server.routes.api.place as place_api
+import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
@@ -39,15 +45,6 @@ MAX_DENOMINATOR_BACK_YEAR = 3
 MIN_CHART_TO_KEEP_TOPICS = 30
 MAX_OVERVIEW_CHART_GROUP = 5
 OVERVIEW = 'Overview'
-
-
-def get_landing_page_data(dcid, new_stat_vars, category):
-  data = {'node': dcid, 'category': category}
-  if new_stat_vars:
-    data['newStatVars'] = new_stat_vars
-  url = '/v1/internal/page/place/'
-  response = dc_service.post(url, data)
-  return response
 
 
 def build_url(dcids, statvar_to_denom, is_scaled=False):
@@ -411,7 +408,7 @@ def data(dcid):
                              target_category)
   new_stat_vars = current_app.config['NEW_STAT_VARS']
 
-  raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category)
+  raw_page_data = dc.get_landing_page_data(dcid, target_category, new_stat_vars)
 
   if 'statVarSeries' not in raw_page_data:
     logging.info("Landing Page: No data for %s", dcid)
@@ -508,7 +505,7 @@ def data(dcid):
   # Populate data for the Overview page for categories which don't have
   # any configured data there by "borrowing" it from the category page.
   def populate_additional_category_data(category):
-    cat_data = get_landing_page_data(dcid, new_stat_vars, category)
+    cat_data = dc.get_landing_page_data(dcid, category, new_stat_vars)
     total_charts = 0
     cat_stats = cat_data['statVarSeries']
     cat_spec_and_stat = build_spec(current_app.config['CHART_CONFIG'], category)

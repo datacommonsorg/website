@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import html
 import json
 
-from flask import Blueprint, escape, request
-import services.datacommons as dc
+from flask import Blueprint
+from flask import escape
+from flask import request
+
+import server.services.datacommons as dc
 
 bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 
@@ -25,5 +27,16 @@ bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 def get_variable_path():
   """Gets the path of a stat var to the root of the stat var hierarchy."""
   dcid = escape(request.args.get("dcid"))
-  url_path = "/v1/variable/ancestors/" + dcid
-  return json.dumps([dcid] + dc.get(url_path).get("ancestors", [])), 200
+  return json.dumps([dcid] + dc.get_variable_ancestors(dcid)), 200
+
+
+@bp.route('/info')
+def variable_info():
+  """Gets the info of a list of stat var."""
+  dcids = request.args.getlist("dcids")
+  data = dc.variable_info(dcids).get("data", [])
+  result = {}
+  for item in data:
+    if "info" in item and "node" in item:
+      result[item["node"]] = item["info"]
+  return result

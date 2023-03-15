@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Blueprint, current_app, request
-import services.datacommons as dc
+from flask import Blueprint
+from flask import current_app
+from flask import request
+
+import server.services.datacommons as dc
 
 bp = Blueprint("variable-group", __name__, url_prefix='/api/variable-group')
 
@@ -36,10 +39,9 @@ def get_variable_group_info():
   """
   dcid = request.args.get("dcid")
   entities = request.args.getlist("entities")
-  url = "/v1/info/variable-group/{}".format(dcid)
-  if entities:
-    url += "?constrained_entities=" + "&constrained_entities=".join(entities)
-  result = dc.get(url).get("info", {})
+  numEntitiesExistence = request.args.get("numEntitiesExistence", 1)
+  resp = dc.get_variable_group_info([dcid], entities, numEntitiesExistence)
+  result = resp.get("data", [{}])[0].get("info", {})
   if current_app.config["ENABLE_BLOCKLIST"]:
     childSVG = result.get("childStatVarGroups", [])
     filteredChildSVG = []

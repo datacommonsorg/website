@@ -1,0 +1,238 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_WithAllTeethLoss_multiple_place_bar_block",
+                      "Percent_Person_WithArthritis_multiple_place_bar_block",
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
+                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
+                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
+                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
+                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
+                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block"
+                    ],
+                    "title": "Compared with Other Variables in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Smoking"
+                    ],
+                    "title": "Percentage of Population That Smokes in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_BingeDrinking",
+                      "Percent_Person_Obesity",
+                      "Percent_Person_PhysicalInactivity",
+                      "Percent_Person_SleepLessThan7Hours",
+                      "Percent_Person_Smoking"
+                    ],
+                    "title": "Compared with Other Variables in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithArthritis"
+                    ],
+                    "title": "Arthritis in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
+                    ],
+                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Percent_Person_BingeDrinking": {
+            "name": "Percentage of Population Who Binge Drink",
+            "statVar": "Percent_Person_BingeDrinking",
+            "unit": "%"
+          },
+          "Percent_Person_Obesity": {
+            "name": "Percentage of Population That Is Obese",
+            "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          },
+          "Percent_Person_PhysicalInactivity": {
+            "name": "Percentage of Population Who Are Physically Inactive",
+            "statVar": "Percent_Person_PhysicalInactivity",
+            "unit": "%"
+          },
+          "Percent_Person_SleepLessThan7Hours": {
+            "name": "Percentage of Population That Sleeps Less Than 7 Hours Per Night",
+            "statVar": "Percent_Person_SleepLessThan7Hours",
+            "unit": "%"
+          },
+          "Percent_Person_Smoking": {
+            "name": "Percentage of Population That Smokes",
+            "statVar": "Percent_Person_Smoking",
+            "unit": "%"
+          },
+          "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
+            "name": "Prevalance of Complete Tooth Loss in the Population",
+            "statVar": "Percent_Person_WithAllTeethLoss",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis_multiple_place_bar_block": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma_multiple_place_bar_block": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block": {
+            "name": "Cancer (excluding skin cancer)",
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block": {
+            "name": "Chronic Kidney Disease",
+            "statVar": "Percent_Person_WithChronicKidneyDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
+            "name": "Coronary Heart Disease",
+            "statVar": "Percent_Person_WithCoronaryHeartDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithDiabetes_multiple_place_bar_block": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
+            "name": "High Bood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighCholesterol_multiple_place_bar_block": {
+            "name": "High Cholesterol",
+            "statVar": "Percent_Person_WithHighCholesterol",
+            "unit": "%"
+          },
+          "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
+            "name": "Mental Health Issues",
+            "statVar": "Percent_Person_WithMentalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
+            "name": "Physical Health Issues",
+            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithStroke_multiple_place_bar_block": {
+            "name": "Stroke",
+            "statVar": "Percent_Person_WithStroke",
+            "unit": "%"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0677000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/0677000",
+    "name": "Sunnyvale",
+    "place_type": "City"
+  }
+}

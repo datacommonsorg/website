@@ -22,6 +22,7 @@
 import _ from "lodash";
 import React from "react";
 
+import { GoogleMap } from "../components/google_map";
 import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
@@ -30,8 +31,11 @@ const NUM_VALUES_UNEXPANDED = 5;
 interface ArcTableRowPropType {
   propertyLabel: string;
   values: Array<ArcValue>;
-  provenanceId: string;
-  src: URL;
+  // If provenanceId and src are skipped, ensure that table only has 2-columns.
+  provenanceId?: string;
+  src?: URL;
+  // If set to true, will not add a link to the property node.
+  noPropLink?: boolean;
 }
 
 interface ArcTableRowStateType {
@@ -60,6 +64,9 @@ export class ArcTableRow extends React.Component<
             <a href={HREF_PREFIX + value.dcid}>{value.text}</a>
             {value.dcid !== value.text && (
               <span className="dcid-text"> (dcid: {value.dcid})</span>
+            )}
+            {value.dcid.startsWith("latLong/") && (
+              <GoogleMap dcid={value.dcid}></GoogleMap>
             )}
           </>
         ) : (
@@ -94,9 +101,13 @@ export class ArcTableRow extends React.Component<
     return (
       <tr>
         <td className="property-column">
-          <a href={HREF_PREFIX + this.props.propertyLabel}>
-            {this.props.propertyLabel}
-          </a>
+          {this.props.noPropLink ? (
+            this.props.propertyLabel
+          ) : (
+            <a href={HREF_PREFIX + this.props.propertyLabel}>
+              {this.props.propertyLabel}
+            </a>
+          )}
         </td>
         <td>
           <div className="values-row">
@@ -112,11 +123,17 @@ export class ArcTableRow extends React.Component<
               })}
           </div>
         </td>
-        <td className="provenance-column">
-          {this.props.provenanceId && (
-            <a href={HREF_PREFIX + this.props.provenanceId}>{this.props.src}</a>
-          )}
-        </td>
+        {this.props.provenanceId && this.props.src ? (
+          <td className="provenance-column">
+            {this.props.provenanceId && (
+              <a href={HREF_PREFIX + this.props.provenanceId}>
+                {this.props.src}
+              </a>
+            )}
+          </td>
+        ) : (
+          <td></td>
+        )}
       </tr>
     );
   }

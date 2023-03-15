@@ -49,6 +49,8 @@ interface StatVarWidgetPropsType {
   selectSV?: (sv: string) => void;
   // Whether to disable the alert when there are unavailable SVs.
   disableAlert?: boolean;
+  // Number of entities that should have data for each stat var (group) shown
+  numEntitiesExistence?: number;
 }
 
 export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
@@ -122,6 +124,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             selectSV={props.selectSV}
             searchLabel={"Statistical Variables"}
             deselectSV={(sv) => props.deselectSVs([sv])}
+            numEntitiesExistence={props.numEntitiesExistence}
           />
         </div>
       </div>

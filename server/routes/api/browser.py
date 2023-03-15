@@ -13,14 +13,14 @@
 # limitations under the License.
 """Graph browser related handlers."""
 
-import flask
 import json
 
-from cache import cache
-import services.datacommons as dc
-from flask import Response
+import flask
 from flask import request
-import routes.api.place as place_api
+from flask import Response
+
+from server.cache import cache
+import server.services.datacommons as dc
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
@@ -122,4 +122,4 @@ def get_observation_id():
 @bp.route('/num_stat_vars/<path:dcid>')
 def get_num_stat_vars(dcid):
   """Returns number of stat vars for a dcid"""
-  return json.dumps(len(place_api.stat_vars(dcid)))
+  return json.dumps(len(dc.get_variables(dcid)))

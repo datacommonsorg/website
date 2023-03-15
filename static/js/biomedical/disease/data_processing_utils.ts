@@ -132,7 +132,7 @@ export function getDiseaseSymptomAssociation(
               continue;
             }
             for (const n2 of n1.neighbors) {
-              if (n2.property !== "descriptorName") {
+              if (n2.property !== "name") {
                 continue;
               }
               // check if the list is empty or not
@@ -325,4 +325,34 @@ export function getDiseaseCommonName(data: GraphNodes): string {
     // return formatted disease name
     return formattedDiseaseName;
   }
+}
+/**
+ * Checks whether the stat var for medical condition of disease exists
+ * @param data
+ * @returns boolean indicating if desired stat var exists
+ */
+export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
+  // sets the default value of the boolean as false and checking for null values
+  if (
+    _.isEmpty(data) ||
+    _.isEmpty(data.nodes) ||
+    _.isEmpty(data.nodes[0].neighbors)
+  ) {
+    return false;
+  }
+
+  for (const neighbour of data.nodes[0].neighbors) {
+    if (neighbour.property !== "medicalCondition") {
+      continue;
+    }
+    // check for null or non-existent property values
+    if (_.isEmpty(neighbour.nodes)) {
+      continue;
+    }
+    const medicalCondition = neighbour.nodes[0].value;
+    if (!_.isEmpty(medicalCondition)) {
+      return true;
+    }
+  }
+  return false;
 }

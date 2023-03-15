@@ -15,10 +15,14 @@
 
 import json
 import logging
-from flask import Blueprint, escape, request, Response
 
-from cache import cache
-import services.datacommons as dc
+from flask import Blueprint
+from flask import escape
+from flask import request
+from flask import Response
+
+from server.cache import cache
+import server.services.datacommons as dc
 
 BIO_DCID_PREFIX = 'bio/'
 LOGGING_PREFIX_PPI = 'Protein browser PPI'
@@ -36,13 +40,7 @@ bp = Blueprint('api.protein', __name__, url_prefix='/api/protein')
 @bp.route('/<path:dcid>')
 def get_node(dcid):
   """Returns data given a protein node."""
-  response = dc.fetch_data('/internal/bio', {
-      'dcid': dcid,
-  },
-                           compress=False,
-                           post=False,
-                           has_payload=False)
-  return response
+  return dc.bio(dcid)
 
 
 def _log_ppi(message, caller=None):

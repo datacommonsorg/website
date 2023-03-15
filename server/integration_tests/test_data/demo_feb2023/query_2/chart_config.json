@@ -1,0 +1,86 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "title": "Most severe fires in California",
+                    "topEventTileSpec": {
+                      "eventTypeKey": "fire",
+                      "showStartDate": true
+                    },
+                    "type": "TOP_EVENT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "disasterEventMapTileSpec": {
+                      "pointEventTypeKey": [
+                        "fire"
+                      ]
+                    },
+                    "title": "Fires in California",
+                    "type": "DISASTER_EVENT_MAP"
+                  }
+                ]
+              }
+            ],
+            "type": "DISASTER_EVENT"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
+      "eventTypeSpec": {
+        "fire": {
+          "color": "#f01212",
+          "defaultSeverityFilter": {
+            "displayName": "Area",
+            "lowerLimit": 200.0,
+            "prop": "area",
+            "unit": "SquareKilometer",
+            "upperLimit": 1000.0
+          },
+          "displayProp": [
+            {
+              "displayName": "Area",
+              "prop": "area",
+              "unit": "SquareKilometer"
+            }
+          ],
+          "endDateProp": [
+            "endDate",
+            "containmentDate",
+            "controlledDate"
+          ],
+          "eventTypeDcids": [
+            "WildlandFireEvent",
+            "WildfireEvent",
+            "FireEvent"
+          ],
+          "id": "fire",
+          "name": "Fire"
+        }
+      },
+      "placeDcid": [
+        "geoId/06"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
+  }
+}

@@ -28,6 +28,7 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import { stringifyFn } from "../../utils/axios";
+import { getPlaceDisplayNames } from "../../utils/place_utils";
 import { computeRatio } from "../shared_util";
 
 export interface StatData {
@@ -174,11 +175,8 @@ export function fetchRawData(
         return resp.data;
       });
   }
-  const displayNamesPromise: Promise<DisplayNameApiResponse> = axios
-    .get(`/api/place/displayname?dcid=${places.join("&dcid=")}`)
-    .then((resp) => {
-      return resp.data;
-    });
+  const displayNamesPromise: Promise<DisplayNameApiResponse> =
+    getPlaceDisplayNames(places);
 
   const statAllDataPromise: Promise<SeriesAllApiResponse> = axios
     .get("/api/observations/series/all", {
