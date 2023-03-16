@@ -22,11 +22,14 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
 
 export interface ReplacementStrings {
+  // TODO: Rename place to placeName. Make it optional.
   place: string;
+  // TODO: Make it optional.
   date: string;
   statVar?: string;
   xDate?: string;
   yDate?: string;
+  placeDcid?: string;
 }
 
 /**
