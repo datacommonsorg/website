@@ -49,6 +49,7 @@ export function App(props: AppPropType): JSX.Element {
           <ChildPlaces
             childPlaces={props.metadata.childPlaces}
             parentPlace={props.metadata.place}
+            urlFormatString='/disasters/${place_dcid}'
           ></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
