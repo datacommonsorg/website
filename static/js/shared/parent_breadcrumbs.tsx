@@ -33,7 +33,7 @@ interface ParentBreadcrumbsPropType {
    */
   parentPlaces: NamedTypedPlace[];
   /**
-   * Format string must include ${place_dcid} for child place URLs.
+   * Format string must include ${placeDcid} for child place URLs.
    */
   urlFormatString: string;
 }
@@ -57,7 +57,7 @@ export function ParentBreadcrumbs(
     const rs: ReplacementStrings = {
       place: "",
       date: "",
-      place_dcid: place.dcid,
+      placeDcid: place.dcid,
     };
     return (
       <React.Fragment key={place.dcid}>
