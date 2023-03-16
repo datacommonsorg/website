@@ -49,17 +49,18 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
             const rs: ReplacementStrings = {
               place: "",
               date: "",
-              place_dcid: place.dcid
+              place_dcid: place.dcid,
             };
-            return (<a
-              // href={"/disasters/" + place.dcid}
-              href={formatString(props.urlFormatString, rs)}
-              className="child-place-link"
-              key={`child-place-${i}`}
-            >
-              {place.name || place.dcid}
-              {i < props.childPlaces[placeType].length - 1 ? "," : ""}
-            </a>)
+            return (
+              <a
+                href={formatString(props.urlFormatString, rs)}
+                className="child-place-link"
+                key={`child-place-${i}`}
+              >
+                {place.name || place.dcid}
+                {i < props.childPlaces[placeType].length - 1 ? "," : ""}
+              </a>
+            );
           })}
         </div>
       ))}
