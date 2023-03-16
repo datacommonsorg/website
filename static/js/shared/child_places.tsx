@@ -28,7 +28,7 @@ import { formatString, ReplacementStrings } from "../utils/tile_utils";
 interface ChildPlacesPropType {
   parentPlace: NamedTypedPlace;
   childPlaces: ChildPlacesByType;
-  // Format string must include ${dcid} for child place URLs.
+  // Format string must include ${place_dcid} for child place URLs.
   urlFormatString: string;
 }
 

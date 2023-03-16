@@ -57,6 +57,7 @@ export function App(props: AppPropType): JSX.Element {
           <ParentBreadcrumbs
             place={props.metadata.place}
             parentPlaces={props.metadata.parentPlaces}
+            urlFormatString="/sustainability/${place_dcid}"
           ></ParentBreadcrumbs>
           <SubjectPageMainPane
             id={PAGE_ID}
