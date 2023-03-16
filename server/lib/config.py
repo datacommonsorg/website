@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+import google.auth
 
 from werkzeug.utils import import_string
 
@@ -27,6 +28,10 @@ def get_config():
     # USE_LOCAL_MIXER
     if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
       cfg.API_ROOT = 'http://127.0.0.1:8081'
+    # Set up secret project for GCP deployment
+    if not cfg.LOCAL:
+      _, project_id = google.auth.default()
+      cfg.SECRET_PROJECT = project_id
     return cfg
   except:
     raise ValueError("No valid config class is specified: %s" % config_class)

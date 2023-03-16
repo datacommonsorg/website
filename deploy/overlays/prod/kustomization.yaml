@@ -31,7 +31,6 @@ configMapGenerator:
     behavior: merge
     literals:
       - flaskEnv=production
-      - secretProject=datcom-website-prod
   - name: mixer-configmap
     behavior: create
     literals:

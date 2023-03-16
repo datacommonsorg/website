@@ -277,10 +277,9 @@ def create_app():
             'openid',
         ])
 
-  if app.config['LOCAL']:
+  if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-
-  if cfg.SECRET_PROJECT:
+    # Only need to fetch the API key for local development.
     secret_client = secretmanager.SecretManagerServiceClient()
     secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                     'mixer-api-key', 'latest')

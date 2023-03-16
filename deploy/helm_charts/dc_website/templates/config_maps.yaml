@@ -56,7 +56,6 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   flaskEnv: {{ required "Flask env is required." .Values.website.flaskEnv }}
-  secretProject: {{ required "Flask secret project is required." .Values.website.secretGCPProjectID }}
   enableModel: {{ .Values.website.enableModel | quote }}
 
 ---
