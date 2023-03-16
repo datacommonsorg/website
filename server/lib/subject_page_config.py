@@ -33,6 +33,7 @@ EUROPE_CONTAINED_PLACE_TYPES = {
 
 # Tile types to filter with existence checks.
 FILTER_TILE_TYPES = [
+    subject_page_pb2.Tile.TileType.TYPE_NONE,
     subject_page_pb2.Tile.TileType.HIGHLIGHT,
     subject_page_pb2.Tile.TileType.RANKING,
     subject_page_pb2.Tile.TileType.MAP,

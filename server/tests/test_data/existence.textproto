@@ -83,6 +83,11 @@ categories {
   title: "This empty category should be filtered out"
   blocks {
     columns {
+      tiles {}
+    }
+  }
+  blocks {
+    columns {
     }
   }
 }

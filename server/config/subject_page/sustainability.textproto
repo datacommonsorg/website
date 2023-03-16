@@ -35,7 +35,8 @@ metadata {
 }
 
 categories {
-  title: "Air quality"
+  title: "Natural disasters"
+  description: "More at [the disaster dashboard](/disasters/${placeDcid})"
   blocks {
     columns {
       tiles {}
@@ -44,7 +45,136 @@ categories {
 }
 
 categories {
-  title: "Temperature"
+  title: "Environment"
+  blocks {
+    title: "Air quality"
+    columns {
+      tiles {
+        type: LINE
+        title: "Air quality index"
+        stat_var_key: "aqi"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Air quality index"
+        stat_var_key: "aqi"
+      }
+    }
+  }
+  blocks {
+    title: "Temperature"
+    columns {
+      tiles {
+        type: LINE
+        title: "Projected max temperature change under RCP 2.6 (based on year 2006)"
+        stat_var_key: "temp_rcp26"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Projected max temperature change under RCP 4.5 (based on year 2006)"
+        stat_var_key: "temp_rcp45"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Projected max temperature change under RCP 4.5, SSP 2 (based on year 2015)"
+        stat_var_key: "temp_ssp245"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Projected max temperature change under RCP 8.5, SSP 5 (based on year 2015)"
+        stat_var_key: "temp_ssp585"
+      }
+    }
+  }
+  blocks {
+    title: "Energy"
+    columns {
+      tiles {}
+    }
+  }
+  stat_var_spec {
+    key: "aqi"
+    value {
+      stat_var: "AirQualityIndex_AirPollutant"
+      name: "AQI"
+    }
+  }
+  stat_var_spec {
+    key: "temp_rcp26"
+    value {
+      stat_var: "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26"
+      unit: "°C"
+    }
+  }
+  stat_var_spec {
+    key: "temp_rcp45"
+    value {
+      stat_var: "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"
+      unit: "°C"
+    }
+  }
+  stat_var_spec {
+    key: "temp_ssp245"
+    value {
+      stat_var: "DifferenceRelativeToBaseDate2015_Temperature_SSP245"
+      unit: "°C"
+    }
+  }
+  stat_var_spec {
+    key: "temp_ssp585"
+    value {
+      stat_var: "DifferenceRelativeToBaseDate2015_Temperature_SSP585"
+      unit: "°C"
+    }
+  }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+}
+
+categories {
+  title: "Health"
   blocks {
     columns {
       tiles {}
@@ -53,7 +183,16 @@ categories {
 }
 
 categories {
-  title: "Energy"
+  title: "Shelter"
+  blocks {
+    columns {
+      tiles {}
+    }
+  }
+}
+
+categories {
+  title: "Economics"
   blocks {
     columns {
       tiles {}
