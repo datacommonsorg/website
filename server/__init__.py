@@ -279,6 +279,8 @@ def create_app():
 
   if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
+  if cfg.NEED_API_KEY:
     # Only need to fetch the API key for local development.
     secret_client = secretmanager.SecretManagerServiceClient()
     secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,

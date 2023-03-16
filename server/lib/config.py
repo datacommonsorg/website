@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import os
-import google.auth
 
+import google.auth
 from werkzeug.utils import import_string
 
 

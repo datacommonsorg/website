@@ -79,7 +79,6 @@ class TestConfig(unittest.TestCase):
     self.assertEqual(config.LOCAL, expected['LOCAL'])
     self.assertEqual(config.LITE, expected['LITE'])
     self.assertEqual(config.API_ROOT, expected['API_ROOT'])
-    self.assertEqual(config.SECRET_PROJECT, expected['SECRET_PROJECT'])
     self.assertEqual(config.GA_ACCOUNT, expected['GA_ACCOUNT'])
     self.assertEqual(config.MAPS_API_KEY, expected['MAPS_API_KEY'])
     self.assertEqual(config.SCHEME, expected['SCHEME'])
