@@ -37,6 +37,8 @@ class Config:
   # Eanbling this to "True" requires adding "bigtable/user" acccess for the
   # service account in datcom-store IAM settings
   LOG_QUERY = False
+  # Whether to use mixer api key
+  NEED_API_KEY = False
 
   # Environment name of the config.
   ENV = ''

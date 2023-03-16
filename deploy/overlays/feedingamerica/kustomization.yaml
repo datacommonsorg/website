@@ -27,7 +27,6 @@ configMapGenerator:
   - behavior: merge
     literals:
       - flaskEnv=feedingamerica
-      - secretProject=datcom-feedingamerica
     name: website-configmap
   - behavior: create
     literals:

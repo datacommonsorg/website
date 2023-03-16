@@ -49,7 +49,7 @@ export function App(props: AppPropType): JSX.Element {
           <ChildPlaces
             childPlaces={props.metadata.childPlaces}
             parentPlace={props.metadata.place}
-            urlFormatString='/sustainability/${place_dcid}'
+            urlFormatString="/sustainability/${placeDcid}"
           ></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
@@ -57,6 +57,7 @@ export function App(props: AppPropType): JSX.Element {
           <ParentBreadcrumbs
             place={props.metadata.place}
             parentPlaces={props.metadata.parentPlaces}
+            urlFormatString="/sustainability/${placeDcid}"
           ></ParentBreadcrumbs>
           <SubjectPageMainPane
             id={PAGE_ID}

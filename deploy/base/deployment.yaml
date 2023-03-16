@@ -90,12 +90,6 @@ spec:
                 configMapKeyRef:
                   name: website-configmap
                   key: enableModel
-            # This is the GCP project that holds the secrets: api key, etc...
-            - name: SECRET_PROJECT
-              valueFrom:
-                configMapKeyRef:
-                  name: website-configmap
-                  key: secretProject
             - name: WEBSITE_HASH
               valueFrom:
                 configMapKeyRef:

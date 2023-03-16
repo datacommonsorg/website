@@ -28,7 +28,7 @@ import { formatString, ReplacementStrings } from "../utils/tile_utils";
 interface ChildPlacesPropType {
   parentPlace: NamedTypedPlace;
   childPlaces: ChildPlacesByType;
-  // Format string must include ${dcid} for child place URLs.
+  // Format string must include ${placeDcid} for child place URLs.
   urlFormatString: string;
 }
 
@@ -49,17 +49,18 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
             const rs: ReplacementStrings = {
               place: "",
               date: "",
-              place_dcid: place.dcid
+              placeDcid: place.dcid,
             };
-            return (<a
-              // href={"/disasters/" + place.dcid}
-              href={formatString(props.urlFormatString, rs)}
-              className="child-place-link"
-              key={`child-place-${i}`}
-            >
-              {place.name || place.dcid}
-              {i < props.childPlaces[placeType].length - 1 ? "," : ""}
-            </a>)
+            return (
+              <a
+                href={formatString(props.urlFormatString, rs)}
+                className="child-place-link"
+                key={`child-place-${i}`}
+              >
+                {place.name || place.dcid}
+                {i < props.childPlaces[placeType].length - 1 ? "," : ""}
+              </a>
+            );
           })}
         </div>
       ))}
