@@ -1,0 +1,59 @@
+placeDcid,placeName,Date:Median_Age_Person,Value:Median_Age_Person,Source:Median_Age_Person,Date:Count_Person,Value:Count_Person,Source:Count_Person
+geoId/06001,Alameda County,2020,37.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,1648556,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06003,Alpine County,2020,47.6,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,1235,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06005,Amador County,2020,49.9,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,41259,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06007,Butte County,2020,36.9,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,208309,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06009,Calaveras County,2020,52.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,46221,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06011,Colusa County,2020,35.4,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,21917,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06013,Contra Costa County,2020,39.9,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,1161413,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06015,Del Norte County,2020,40,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,28100,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06017,El Dorado County,2020,46.3,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,193221,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06019,Fresno County,2020,32.4,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,1013581,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06021,Glenn County,2020,35.9,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,28805,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06023,Humboldt County,2020,38.9,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,136310,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06025,Imperial County,2020,32.5,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,179851,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06027,Inyo County,2020,45.3,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,18970,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06029,Kern County,2020,31.9,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,917673,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06031,Kings County,2020,32,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,153443,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06033,Lake County,2020,45.3,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,68766,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06035,Lassen County,2020,36.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,33159,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06037,Los Angeles County,2020,36.7,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,9829544,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06039,Madera County,2020,34.1,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,159410,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06041,Marin County,2020,47.1,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,260206,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06043,Mariposa County,2020,51.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,17147,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06045,Mendocino County,2020,43.4,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,91305,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06047,Merced County,2020,31.2,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,286461,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06049,Modoc County,2020,47.6,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,8661,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06051,Mono County,2020,39.5,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,13247,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06053,Monterey County,2020,34.7,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,437325,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06055,Napa County,2020,41.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,136207,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06057,Nevada County,2020,50.5,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,103487,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06059,Orange County,2020,38.3,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,3167809,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06061,Placer County,2020,42.2,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,412300,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06063,Plumas County,2020,51.9,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,19915,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06065,Riverside County,2020,35.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,2458395,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06067,Sacramento County,2020,36.4,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,1588921,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06069,San Benito County,2020,35.7,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,66677,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06071,San Bernardino County,2020,33.6,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,2194710,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06073,San Diego County,2020,36.1,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,3286069,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06075,San Francisco County,2020,38.3,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,815201,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06077,San Joaquin County,2020,34.4,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,789410,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06079,San Luis Obispo County,2020,39.5,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,283159,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06081,San Mateo County,2020,39.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,737888,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06083,Santa Barbara County,2020,33.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,446475,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06085,Santa Clara County,2020,37.2,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,1885508,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06087,Santa Cruz County,2020,38.2,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,267792,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06089,Shasta County,2020,41.7,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,182139,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06091,Sierra County,2020,54,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,3283,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06093,Siskiyou County,2020,47.7,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,44118,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06095,Solano County,2020,38.3,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,451716,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06097,Sonoma County,2020,42.4,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,485887,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06099,Stanislaus County,2020,34.3,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,552999,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06101,Sutter County,2020,35.8,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,99063,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06103,Tehama County,2020,40.6,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,65498,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06105,Trinity County,2020,52.4,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,16060,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06107,Tulare County,2020,31.2,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,477054,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06109,Tuolumne County,2020,48.7,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,55810,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06111,Ventura County,2020,38.5,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,839784,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06113,Yolo County,2020,31.1,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,216986,https://www2.census.gov/programs-surveys/popest/tables
+geoId/06115,Yuba County,2020,33,https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html,2021,83421,https://www2.census.gov/programs-surveys/popest/tables
