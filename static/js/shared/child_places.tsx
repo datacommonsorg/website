@@ -23,10 +23,13 @@ import React from "react";
 
 import { displayNameForPlaceType } from "../place/util";
 import { ChildPlacesByType, NamedTypedPlace } from "../shared/types";
+import { formatString, ReplacementStrings } from "../utils/tile_utils";
 
 interface ChildPlacesPropType {
   parentPlace: NamedTypedPlace;
   childPlaces: ChildPlacesByType;
+  // Format string must include ${dcid} for child place URLs.
+  urlFormatString: string;
 }
 
 export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
@@ -42,16 +45,22 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
           <div className="child-place-type">
             {displayNameForPlaceType(placeType, true /* isPlural */)}
           </div>
-          {props.childPlaces[placeType].map((place, i) => (
-            <a
-              href={"/disasters/" + place.dcid}
+          {props.childPlaces[placeType].map((place, i) => {
+            const rs: ReplacementStrings = {
+              place: "",
+              date: "",
+              place_dcid: place.dcid
+            };
+            return (<a
+              // href={"/disasters/" + place.dcid}
+              href={formatString(props.urlFormatString, rs)}
               className="child-place-link"
               key={`child-place-${i}`}
             >
               {place.name || place.dcid}
               {i < props.childPlaces[placeType].length - 1 ? "," : ""}
-            </a>
-          ))}
+            </a>)
+          })}
         </div>
       ))}
     </div>
