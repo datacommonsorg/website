@@ -19,7 +19,6 @@ and rename it as `<instance>.yaml`.
 
   - `nameSuffix`
   - `configMapGenerator[website-configmap].literals.flaskEnv`: a unique ID of the deployment, usually `<instance>`. This is used by Flask to config web server.
-  - `configMapGenerator[website-configmap].literals.secretProject`: the hosting GCP project
   - `configMapGenerator[mixer-configmap].literals.mixerProject`: the hosting GCP project
   - `configMapGenerator[mixer-configmap].literals.serviceName`: set this to `website-esp.endpoints.<the_hosting_GCP_project>.cloud.goog`
   - `patchesStrategicMerge.spec.replicas`: each node in `<instance>.yaml` corresponds to 9 replicas.
@@ -115,7 +114,6 @@ The `memdb.json` file must have the following fields:
 ```
 
 `<IMPORT_NAME>` will be used to group the Statistical Variables from the import in the website tree hierarchy navigation.
-
 
 ## Merging Configs
 

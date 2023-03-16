@@ -21,3 +21,4 @@ class Config(_base.Config):
   SECRET_PROJECT = 'datcom-website-dev'
   AI_CONFIG_PATH = None  # No models in this configuration.
   SCHEME = 'http'
+  NEED_API_KEY = True

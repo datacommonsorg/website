@@ -27,7 +27,6 @@ configMapGenerator:
     behavior: merge
     literals:
       - flaskEnv=
-      - secretProject=
       - enableModel=
   - name: mixer-configmap
     behavior: create

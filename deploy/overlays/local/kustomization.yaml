@@ -37,7 +37,6 @@ configMapGenerator:
     behavior: create
     literals:
       - flaskEnv=minikube
-      - secretProject=datcom-website-dev
       - enableModel=true
   - name: mixer-configmap
     behavior: create

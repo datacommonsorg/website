@@ -26,7 +26,6 @@ configMapGenerator:
     behavior: merge
     literals:
       - flaskEnv=iitm
-      - secretProject=datcom-iitm
   - name: mixer-configmap
     behavior: create
     literals:
