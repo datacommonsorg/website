@@ -140,7 +140,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "With disability, by sex in ${place}"
+        title: "With disability, by sex in ${placeName}"
         stat_var_key: "disability_rate_female"
         stat_var_key: "disability_rate_male"
       }
@@ -433,7 +433,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Poverty rate by race in ${place}"
+        title: "Poverty rate by race in ${placeName}"
         stat_var_key: "poverty_aian"
         stat_var_key: "poverty_a"
         stat_var_key: "poverty_baa"
@@ -465,7 +465,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Percentage of the population of each race with disabilities in ${place}"
+        title: "Percentage of the population of each race with disabilities in ${placeName}"
         stat_var_key: "disability_aian"
         stat_var_key: "disability_a"
         stat_var_key: "disability_baa"

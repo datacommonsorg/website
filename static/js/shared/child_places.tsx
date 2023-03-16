@@ -47,8 +47,6 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
           </div>
           {props.childPlaces[placeType].map((place, i) => {
             const rs: ReplacementStrings = {
-              place: "",
-              date: "",
               placeDcid: place.dcid,
             };
             return (

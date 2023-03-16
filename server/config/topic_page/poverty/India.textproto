@@ -37,7 +37,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Poverty rate in ${place}"
+        title: "Poverty rate in ${placeName}"
         stat_var_key: "poverty_rate"
       }
     }
@@ -79,7 +79,7 @@ categories {
     description: "Mean monthly wages"
     columns {
       tiles {
-        title: "Mean monthly wages in ${place}"
+        title: "Mean monthly wages in ${placeName}"
         type: LINE
         stat_var_key: "monthly_wages"
       }
@@ -106,7 +106,7 @@ categories {
     description: "Percentage of those below poverty who live in urban vs. rural areas"
     columns {
       tiles: {
-        title: "Urban vs. Rural among those below poverty in ${place}"
+        title: "Urban vs. Rural among those below poverty in ${placeName}"
         type: LINE
         stat_var_key: "poverty_rate_urban"
         stat_var_key: "poverty_rate_rural"
@@ -454,7 +454,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Houseless rate in ${place} (${date})"
+        title: "Houseless rate in ${placeName} (${date})"
         stat_var_key: "houseless_rate"
       }
       tiles {

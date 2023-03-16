@@ -78,8 +78,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   }, [props, lineChartData]);
 
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: "",
+    placeName: props.place.name,
   };
   return (
     <ChartTileContainer

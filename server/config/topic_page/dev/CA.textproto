@@ -92,13 +92,13 @@ categories {
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "is the life expectancy in ${place} (${date})"
+        description: "is the life expectancy in ${placeName} (${date})"
         stat_var_key: "life_expectancy"
         place_dcid_override: "country/CHN"
       }
       tiles {
         type: LINE
-        title: "Life expectancy in ${place}"
+        title: "Life expectancy in ${placeName}"
         stat_var_key: "life_expectancy"
         place_dcid_override: "country/CHN"
       }
@@ -106,13 +106,13 @@ categories {
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "is the life expectancy in ${place} (${date})"
+        description: "is the life expectancy in ${placeName} (${date})"
         stat_var_key: "life_expectancy"
         place_dcid_override: "nuts/ES300"
       }
       tiles {
         type: LINE
-        title: "Life expectancy in ${place}"
+        title: "Life expectancy in ${placeName}"
         stat_var_key: "life_expectancy"
         place_dcid_override: "nuts/ES300"
       }

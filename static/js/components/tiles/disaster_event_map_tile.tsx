@@ -161,8 +161,7 @@ export function DisasterEventMapTile(
   }, [props]);
 
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: "",
+    placeName: props.place.name,
   };
 
   const sources = new Set<string>();
