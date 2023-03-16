@@ -32,6 +32,8 @@ export interface ReplacementStrings {
 
 /**
  * Formats a string with replacement strings.
+ * NOTE: unspecified keys will not be replaced / removed from the string.
+ *
  * @param s The string to format
  * @param rs The replacement strings to use
  */
