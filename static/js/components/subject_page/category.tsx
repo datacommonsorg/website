@@ -54,7 +54,7 @@ export const Category = memo(function Category(
   const svProvider = new StatVarProvider(props.config.statVarSpec);
   const rs: ReplacementStrings = {
     place: props.place.name,
-    place_dcid: props.place ? props.place.dcid : "",
+    placeDcid: props.place ? props.place.dcid : "",
     date: "",
   };
   const title = props.config.title ? formatString(props.config.title, rs) : "";
