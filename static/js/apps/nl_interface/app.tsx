@@ -166,7 +166,8 @@ export function App(): JSX.Element {
     );
   });
 
-  const isStartState = false; /* Temporarily remove query history: queries.length === 0; */
+  const isStartState =
+    false; /* Temporarily remove query history: queries.length === 0; */
 
   return (
     <>
