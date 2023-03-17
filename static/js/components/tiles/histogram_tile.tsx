@@ -240,8 +240,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
 
   // for title formatting
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: "",
+    placeName: props.place.name,
   };
 
   // organize provenance info to pass to ChartTileContainer
