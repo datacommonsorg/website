@@ -133,7 +133,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                           : "Highest ${statVar}"),
                       {
                         date: dateRange,
-                        place: "",
+                        placeName: "",
                         statVar: svName,
                       }
                     )}
@@ -161,7 +161,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                           : "Lowest ${statVar}"),
                       {
                         date: dateRange,
-                        place: "",
+                        placeName: "",
                         statVar: svName,
                       }
                     )}

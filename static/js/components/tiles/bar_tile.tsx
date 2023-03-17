@@ -87,7 +87,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   }, [props, barChartData]);
 
   const rs: ReplacementStrings = {
-    place: props.place ? props.place.name : "",
+    placeName: props.place ? props.place.name : "",
     date: barChartData && barChartData.dateRange,
   };
   return (

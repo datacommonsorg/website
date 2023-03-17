@@ -114,8 +114,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
 
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: "",
+    placeName: props.place.name,
     xDate: scatterChartData && scatterChartData.xDate,
     yDate: scatterChartData && scatterChartData.yDate,
   };
