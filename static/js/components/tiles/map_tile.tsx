@@ -135,7 +135,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   }, [props]);
 
   const rs: ReplacementStrings = {
-    place: props.place.name,
+    placeName: props.place.name,
     date: mapChartData && mapChartData.dateRange,
   };
   return (
