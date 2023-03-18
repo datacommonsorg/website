@@ -25,7 +25,6 @@ configMapGenerator:
   - behavior: merge
     literals:
       - flaskEnv=stanford_staging
-      - secretProject=datcom-stanford-staging
     name: website-configmap
   - behavior: create
     literals:

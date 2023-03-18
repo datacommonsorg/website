@@ -20,5 +20,3 @@ class Config(_base.Config):
   NAME = "Google Stanford Data Commons (Staging)"
   ENABLE_BLOCKLIST = True
   GCS_BUCKET = 'datcom-stanford-staging-resources'
-  API_PROJECT = 'datcom-mixer-statvar'
-  SECRET_PROJECT = 'datcom-stanford-staging'

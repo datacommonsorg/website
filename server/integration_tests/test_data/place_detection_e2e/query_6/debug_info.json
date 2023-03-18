@@ -22,17 +22,12 @@
           "geoId/01023",
           "geoId/01025",
           "geoId/01027",
-          "geoId/01029",
-          "geoId/01031",
-          "geoId/01033",
-          "geoId/01035",
-          "geoId/01037",
-          "geoId/01039"
+          "geoId/01029"
         ],
         "type": "County"
       }
     ],
-    "failed_existence_check": [
+    "failed_partial_existence_check": [
       {
         "places": [
           "geoId/01001",
@@ -49,12 +44,7 @@
           "geoId/01023",
           "geoId/01025",
           "geoId/01027",
-          "geoId/01029",
-          "geoId/01031",
-          "geoId/01033",
-          "geoId/01035",
-          "geoId/01037",
-          "geoId/01039"
+          "geoId/01029"
         ],
         "svs": [
           "Count_Person_PovertyStatusDetermined"
@@ -76,12 +66,7 @@
           "geoId/01023",
           "geoId/01025",
           "geoId/01027",
-          "geoId/01029",
-          "geoId/01031",
-          "geoId/01033",
-          "geoId/01035",
-          "geoId/01037",
-          "geoId/01039"
+          "geoId/01029"
         ],
         "svs": [
           "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
@@ -103,12 +88,7 @@
           "geoId/01023",
           "geoId/01025",
           "geoId/01027",
-          "geoId/01029",
-          "geoId/01031",
-          "geoId/01033",
-          "geoId/01035",
-          "geoId/01037",
-          "geoId/01039"
+          "geoId/01029"
         ],
         "svs": [
           "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined"
@@ -130,12 +110,7 @@
           "geoId/01023",
           "geoId/01025",
           "geoId/01027",
-          "geoId/01029",
-          "geoId/01031",
-          "geoId/01033",
-          "geoId/01035",
-          "geoId/01037",
-          "geoId/01039"
+          "geoId/01029"
         ],
         "svs": [
           "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
@@ -1031,7 +1006,7 @@
         },
         {
           "attr": {
-            "block_id": 7,
+            "block_id": 8,
             "chart_type": "timeline",
             "class": 1,
             "description": "",
@@ -1058,7 +1033,7 @@
         },
         {
           "attr": {
-            "block_id": 8,
+            "block_id": 7,
             "chart_type": "timeline",
             "class": 0,
             "description": "",
@@ -1362,6 +1337,41 @@
     "us"
   ],
   "places_resolved": "(name: United States of America, dcid: country/USA); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
+    },
+    "original_query": "counties in the US with the most poverty",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "country/USA"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "country/USA",
+          "name": "United States of America",
+          "place_type": "Country"
+        }
+      ]
+    },
+    "places_found_str": [
+      "us"
+    ],
+    "query_transformations": {
+      "place_detection_input": "counties in the us with the most poverty",
+      "place_detection_with_places_removed": "counties in the with the most poverty",
+      "sv_detection_query_input": "counties in the with the most poverty",
+      "sv_detection_query_stop_words_removal": "poverty"
+    }
+  },
   "query_with_places_removed": "counties in the with the most poverty",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",

@@ -37,6 +37,8 @@ class Config:
   # Eanbling this to "True" requires adding "bigtable/user" acccess for the
   # service account in datcom-store IAM settings
   LOG_QUERY = False
+  # Whether to use mixer api key
+  NEED_API_KEY = False
 
   # Environment name of the config.
   ENV = ''
@@ -61,7 +63,3 @@ class Config:
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
   OVERRIDE_CSS_PATH = ''
-  # The GCP project of the mixer which Flask talks to. This only needs to
-  # be set for local development. Website deployed to GKE bundles the mixer
-  # as a custom service accessible via localhost.
-  API_PROJECT = ''

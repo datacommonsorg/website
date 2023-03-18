@@ -10,7 +10,7 @@
         "geoId/12"
       ]
     ],
-    "failed_existence_check": [
+    "failed_partial_existence_check": [
       {
         "places": [
           "geoId/06",
@@ -404,6 +404,48 @@
     "florida"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); (name: Florida, dcid: geoId/12); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "original_query": "Compare crime in California and Florida",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/06",
+        "geoId/12"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "place_type": "State"
+        }
+      ]
+    },
+    "places_found_str": [
+      "california",
+      "florida"
+    ],
+    "query_transformations": {
+      "place_detection_input": "compare crime in california and florida",
+      "place_detection_with_places_removed": "compare crime and",
+      "sv_detection_query_input": "compare crime and",
+      "sv_detection_query_stop_words_removal": "crime"
+    }
+  },
   "query_with_places_removed": "compare crime and",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",

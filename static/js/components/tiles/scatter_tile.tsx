@@ -31,7 +31,6 @@ import {
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { getPlaceChartData } from "../../tools/map/util";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { getUnit } from "../../tools/shared_util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
@@ -114,43 +113,50 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     }
   }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
 
-  if (!scatterChartData) {
-    return null;
-  }
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: "",
-    xDate: scatterChartData.xDate,
-    yDate: scatterChartData.yDate,
+    placeName: props.place.name,
+    xDate: scatterChartData && scatterChartData.xDate,
+    yDate: scatterChartData && scatterChartData.yDate,
   };
 
   return (
     <ChartTileContainer
       title={props.title}
-      sources={scatterChartData.sources}
+      sources={scatterChartData && scatterChartData.sources}
       replacementStrings={rs}
       className={`${props.className} scatter-chart`}
       allowEmbed={!errorMsg}
-      getDataCsv={() =>
-        scatterDataToCsv(
-          scatterChartData.xStatVar.statVar,
-          scatterChartData.xStatVar.denom,
-          scatterChartData.yStatVar.statVar,
-          scatterChartData.yStatVar.denom,
-          scatterChartData.points
-        )
+      getDataCsv={
+        scatterChartData
+          ? () =>
+              scatterDataToCsv(
+                scatterChartData.xStatVar.statVar,
+                scatterChartData.xStatVar.denom,
+                scatterChartData.yStatVar.statVar,
+                scatterChartData.yStatVar.denom,
+                scatterChartData.points
+              )
+          : null
       }
+      isInitialLoading={_.isNull(scatterChartData)}
     >
       {errorMsg ? (
-        <div className="error-msg">{errorMsg}</div>
+        <div className="error-msg" style={{ minHeight: props.svgChartHeight }}>
+          {errorMsg}
+        </div>
       ) : (
         <>
           <div
             id={props.id}
             className="scatter-svg-container"
             ref={svgContainer}
+            style={{ minHeight: props.svgChartHeight }}
           />
-          <div id="scatter-tooltip" ref={tooltip} />
+          <div
+            id="scatter-tooltip"
+            ref={tooltip}
+            style={{ visibility: "hidden" }}
+          />
         </>
       )}
     </ChartTileContainer>

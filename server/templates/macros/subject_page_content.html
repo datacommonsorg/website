@@ -1,0 +1,32 @@
+{#
+  Copyright 2023 Google LLC
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+       http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+#}
+
+{# Inserts content required for subject_page/main.ts.
+   Requires lib/subject_page_config/PlaceMetadata and subject_page_config json.
+#}
+{% macro subject_page_content(place_metadata, config) %}
+<div id='body' class='container-fluid'></div>
+<div id='metadata' class='d-none'>
+  <div id='place'
+       data-dcid='{{ place_metadata.place_dcid }}'
+       data-name='{{ place_metadata.place_name }}'
+       data-type='{{ place_metadata.place_types|tojson|safe }}'
+       data-parents='{{ place_metadata.parent_places|tojson|safe }}'
+       data-children='{{ place_metadata.child_places|tojson|safe }}'>
+  </div>
+  <div id='dashboard-config' data-config='{{ config }}'></div>
+</div>
+{% endmacro %}

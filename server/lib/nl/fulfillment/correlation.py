@@ -55,8 +55,8 @@ def populate(uttr: Utterance) -> bool:
         PopulateState(uttr=uttr, main_cb=None, place_type=place_type)):
       return True
     else:
-      uttr.counters.warn('correlation_failed_populate_placestype',
-                         place_type.value)
+      uttr.counters.err('correlation_failed_populate_placestype',
+                        place_type.value)
   return False
 
 
@@ -65,14 +65,13 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
     if (_populate_correlation_for_place(state, pl)):
       return True
     else:
-      state.uttr.counters.warn('correlation_failed_populate_main_place',
-                               pl.dcid)
+      state.uttr.counters.err('correlation_failed_populate_main_place', pl.dcid)
   for pl in places_from_context(state.uttr):
     if (_populate_correlation_for_place(state, pl)):
       return True
     else:
-      state.uttr.counters.warn('correlation_failed_populate_context_place',
-                               pl.dcid)
+      state.uttr.counters.err('correlation_failed_populate_context_place',
+                              pl.dcid)
 
   default_place = get_default_contained_in_place(state)
   if default_place:
@@ -98,9 +97,9 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   main_svs = utils.sv_existence_for_places(places_to_check, main_svs,
                                            state.uttr.counters)
   if not main_svs:
-    state.uttr.counters.warn('correlation_failed_existence_check_main_sv',
-                             main_svs)
-    state.uttr.counters.warn('correlation_failed_missing_main_sv', 1)
+    state.uttr.counters.err('correlation_failed_existence_check_main_sv',
+                            main_svs)
+    state.uttr.counters.err('correlation_failed_missing_main_sv', 1)
     logging.info('Correlation found no Main SV')
     return False
 
@@ -113,10 +112,10 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
     if context_svs:
       break
     else:
-      state.uttr.counters.warn('correlation_failed_existence_check_context_sv',
-                               opened_svs)
+      state.uttr.counters.err('correlation_failed_existence_check_context_sv',
+                              opened_svs)
   if not context_svs:
-    state.uttr.counters.warn('correlation_failed_missing_context_sv', 1)
+    state.uttr.counters.err('correlation_failed_missing_context_sv', 1)
     logging.info('Correlation found no Context SV')
     return False
 

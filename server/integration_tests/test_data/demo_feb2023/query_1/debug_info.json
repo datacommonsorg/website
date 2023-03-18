@@ -22,12 +22,7 @@
           "geoId/06023",
           "geoId/06025",
           "geoId/06027",
-          "geoId/06029",
-          "geoId/06031",
-          "geoId/06033",
-          "geoId/06035",
-          "geoId/06037",
-          "geoId/06039"
+          "geoId/06029"
         ],
         "type": "County"
       }
@@ -168,18 +163,53 @@
     "california"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "original_query": "What are the projected temperature extremes across California",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": [
+        "geoId/06"
+      ],
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ]
+    },
+    "places_found_str": [
+      "california"
+    ],
+    "query_transformations": {
+      "place_detection_input": "what are the projected temperature extremes across california",
+      "place_detection_with_places_removed": "what are the projected temperature extremes across",
+      "sv_detection_query_input": "what are the projected temperature extremes across",
+      "sv_detection_query_stop_words_removal": "projected temperature"
+    }
+  },
   "query_with_places_removed": "what are the projected temperature extremes across",
   "ranking_classification": "[<RankingType.EXTREME: 5>]",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.5184829831123352,
-      0.4247172772884369,
-      0.4086335003376007,
-      0.37995415925979614,
-      0.3513971269130707,
-      0.29964280128479004
+      0.51848304271698,
+      0.42471712827682495,
+      0.40863367915153503,
+      0.3799542784690857,
+      0.3513970375061035,
+      0.2996428608894348
     ],
     "SV": [
       "dc/topic/ProjectedClimateExtremes",
@@ -191,71 +221,71 @@
     ],
     "SV_to_Sentences": {
       "Annual_Generation_Electricity": [
-        "The yearly energy output (0.3513971269130707)"
+        "The yearly energy output (0.3513970375061035)"
       ],
       "Count_HeatEvent": [
-        "Number of heat events (0.4247172772884369)",
-        "Count of Heat Event (0.41193878650665283)",
-        "Number of extreme heat events (0.40532490611076355)",
-        "Number of heat crises (0.3411562442779541)",
-        "Number of heat emergencies (0.3350882828235626)",
-        "Number of Heat Waves (0.3255011737346649)",
-        "Number of heat waves (0.3255011737346649)",
+        "Number of heat events (0.42471712827682495)",
+        "Count of Heat Event (0.41193887591362)",
+        "Number of extreme heat events (0.405324786901474)",
+        "Number of heat crises (0.34115636348724365)",
+        "Number of heat emergencies (0.335088312625885)",
+        "Number of Heat Waves (0.3255012035369873)",
+        "Number of heat waves (0.3255012035369873)",
         "Number of heat waves experienced (0.31514811515808105)",
-        "Number of heat surges (0.3150702714920044)"
+        "Number of heat surges (0.31507018208503723)"
       ],
       "dc/topic/ClimateChange": [
-        "Global warming (0.37995415925979614)",
-        "Climate Change (0.3599739968776703)",
-        "Impact of Climate Change (0.31962060928344727)"
+        "Global warming (0.3799542784690857)",
+        "Climate Change (0.35997411608695984)",
+        "Impact of Climate Change (0.3196205794811249)"
       ],
       "dc/topic/HeatIllnesses": [
-        "Heat related health conditions (0.4086335003376007)",
-        "Heat related maladies (0.3506268858909607)",
-        "Heat Illnesses (0.331024169921875)",
-        "Heat-related health problems (0.3292243778705597)"
+        "Heat related health conditions (0.40863367915153503)",
+        "Heat related maladies (0.3506269156932831)",
+        "Heat Illnesses (0.3310242295265198)",
+        "Heat-related health problems (0.32922443747520447)"
       ],
       "dc/topic/Income": [
-        "Salary (0.29964280128479004)"
+        "Salary (0.2996428608894348)"
       ],
       "dc/topic/ProjectedClimateExtremes": [
-        "Projected Climate Extremes (0.5184829831123352)",
-        "Climate Extremes (0.3217793405056)"
+        "Projected Climate Extremes (0.51848304271698)",
+        "Climate Extremes (0.32177937030792236)"
       ]
     }
   },
   "svs_to_sentences": {
     "Annual_Generation_Electricity": [
-      "The yearly energy output (0.3513971269130707)"
+      "The yearly energy output (0.3513970375061035)"
     ],
     "Count_HeatEvent": [
-      "Number of heat events (0.4247172772884369)",
-      "Count of Heat Event (0.41193878650665283)",
-      "Number of extreme heat events (0.40532490611076355)",
-      "Number of heat crises (0.3411562442779541)",
-      "Number of heat emergencies (0.3350882828235626)",
-      "Number of Heat Waves (0.3255011737346649)",
-      "Number of heat waves (0.3255011737346649)",
+      "Number of heat events (0.42471712827682495)",
+      "Count of Heat Event (0.41193887591362)",
+      "Number of extreme heat events (0.405324786901474)",
+      "Number of heat crises (0.34115636348724365)",
+      "Number of heat emergencies (0.335088312625885)",
+      "Number of Heat Waves (0.3255012035369873)",
+      "Number of heat waves (0.3255012035369873)",
       "Number of heat waves experienced (0.31514811515808105)",
-      "Number of heat surges (0.3150702714920044)"
+      "Number of heat surges (0.31507018208503723)"
     ],
     "dc/topic/ClimateChange": [
-      "Global warming (0.37995415925979614)",
-      "Climate Change (0.3599739968776703)",
-      "Impact of Climate Change (0.31962060928344727)"
+      "Global warming (0.3799542784690857)",
+      "Climate Change (0.35997411608695984)",
+      "Impact of Climate Change (0.3196205794811249)"
     ],
     "dc/topic/HeatIllnesses": [
-      "Heat related health conditions (0.4086335003376007)",
-      "Heat related maladies (0.3506268858909607)",
-      "Heat Illnesses (0.331024169921875)",
-      "Heat-related health problems (0.3292243778705597)"
+      "Heat related health conditions (0.40863367915153503)",
+      "Heat related maladies (0.3506269156932831)",
+      "Heat Illnesses (0.3310242295265198)",
+      "Heat-related health problems (0.32922443747520447)"
     ],
     "dc/topic/Income": [
-      "Salary (0.29964280128479004)"
+      "Salary (0.2996428608894348)"
     ],
     "dc/topic/ProjectedClimateExtremes": [
-      "Projected Climate Extremes (0.5184829831123352)",
-      "Climate Extremes (0.3217793405056)"
+      "Projected Climate Extremes (0.51848304271698)",
+      "Climate Extremes (0.32177937030792236)"
     ]
   },
   "time_delta_classification": "<None>"

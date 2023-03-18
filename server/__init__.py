@@ -89,10 +89,12 @@ def register_routes_disasters(app):
   # Install blueprints specific to Stanford DC
   from server.routes import disasters
   from server.routes import event
+  from server.routes import sustainability
   from server.routes.api import disaster_api
   app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_api.bp)
   app.register_blueprint(event.bp)
+  app.register_blueprint(sustainability.bp)
 
   if app.config['TEST']:
     return
@@ -101,6 +103,9 @@ def register_routes_disasters(app):
   app.config[
       'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
   app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
+  app.config[
+      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+      )
 
   if app.config['INTEGRATION']:
     return
@@ -272,12 +277,13 @@ def create_app():
             'openid',
         ])
 
-  if app.config['LOCAL']:
+  if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-  if app.config['API_PROJECT']:
+  if cfg.NEED_API_KEY:
+    # Only need to fetch the API key for local development.
     secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.API_PROJECT,
+    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                     'mixer-api-key', 'latest')
     secret_response = secret_client.access_secret_version(name=secret_name)
     app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')

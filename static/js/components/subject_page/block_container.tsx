@@ -21,12 +21,16 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
+import { NamedTypedPlace } from "../../shared/types";
+import { formatString, ReplacementStrings } from "../../utils/tile_utils";
+
 export interface BlockContainerPropType {
   id: string;
   title?: string;
   description: string;
   children?: React.ReactNode;
   footnote?: string;
+  place?: NamedTypedPlace;
 }
 
 export function BlockContainer(props: BlockContainerPropType): JSX.Element {
@@ -40,13 +44,17 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       })
       .join("\n");
   }
+  const rs: ReplacementStrings = {
+    placeName: props.place ? props.place.name : "",
+  };
+  const title = props.title ? formatString(props.title, rs) : "";
 
   return (
     <section
-      className={`block subtopic ${props.title ? "" : "notitle"}`}
+      className={`block subtopic ${title ? "" : "notitle"}`}
       id={props.id}
     >
-      {props.title && <h3>{props.title}</h3>}
+      {title && <h3>{title}</h3>}
       {props.description && <p className="block-desc">{props.description}</p>}
       {props.children}
       {footnote && (

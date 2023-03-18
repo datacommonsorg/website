@@ -32,7 +32,7 @@ categories {
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "Gini index of economic activity for ${place} (${date})"
+        description: "Gini index of economic activity for ${placeName} (${date})"
         stat_var_key: "gini"
       }
       tiles {
@@ -43,7 +43,7 @@ categories {
     columns {
       tiles: {
         type: LINE
-        title: "Gini index of economic activity for ${place}"
+        title: "Gini index of economic activity for ${placeName}"
         stat_var_key: "gini"
       }
       # TODO: Add rankings of other /Countries/
@@ -203,7 +203,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "With disability, by sex in ${place}"
+        title: "With disability, by sex in ${placeName}"
         stat_var_key: "disability_rate_female"
         stat_var_key: "disability_rate_male"
       }
@@ -554,7 +554,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Poverty rate by race in ${place}"
+        title: "Poverty rate by race in ${placeName}"
         stat_var_key: "poverty_aian"
         stat_var_key: "poverty_a"
         stat_var_key: "poverty_baa"
@@ -586,7 +586,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Percentage of the population of each race with disabilities in ${place}"
+        title: "Percentage of the population of each race with disabilities in ${placeName}"
         stat_var_key: "disability_aian"
         stat_var_key: "disability_a"
         stat_var_key: "disability_baa"
@@ -618,7 +618,7 @@ categories {
     columns {
     # TODO(bhoot): Count_Person_ResidesInJuvenileFacilities is not available at the country level
     # tiles {
-    #   title: "Percentage of the population in juvenile facilities, ${place} (${date})"
+    #   title: "Percentage of the population in juvenile facilities, ${placeName} (${date})"
     #   type: MAP
     #   stat_var_override {
     #     stat_var: "Count_Person_ResidesInJuvenileFacilities"
@@ -641,7 +641,7 @@ categories {
     columns {
     # TODO: Enable when juvenile map is available.
     # tiles {
-    #   title: "Percentage of the population in adult correctional facilities, ${place} (${date})"
+    #   title: "Percentage of the population in adult correctional facilities, ${placeName} (${date})"
     #   type: MAP
     #   stat_var_override {
     #     stat_var: "Count_Person_ResidesInAdultCorrectionalFacilities"

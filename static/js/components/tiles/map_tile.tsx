@@ -92,6 +92,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
+  const [svgHeight, setSvgHeight] = useState(null);
 
   useEffect(() => {
     fetchData(
@@ -122,25 +123,40 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     }
   }, [mapChartData, props]);
 
-  if (!mapChartData) {
-    return null;
-  }
+  useEffect(() => {
+    let svgHeight = props.svgChartHeight;
+    if (svgContainer.current) {
+      svgHeight = Math.max(
+        svgContainer.current.offsetHeight,
+        props.svgChartHeight
+      );
+    }
+    setSvgHeight(svgHeight);
+  }, [props]);
+
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: mapChartData.dateRange,
+    placeName: props.place.name,
+    date: mapChartData && mapChartData.dateRange,
   };
   return (
     <ChartTileContainer
       title={props.title}
-      sources={mapChartData.sources}
+      sources={mapChartData && mapChartData.sources}
       replacementStrings={rs}
       className={`${props.className} map-chart`}
       allowEmbed={true}
-      getDataCsv={() =>
-        mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)
+      getDataCsv={
+        mapChartData
+          ? () => mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)
+          : null
       }
+      isInitialLoading={_.isNull(mapChartData)}
     >
-      <div className="svg-container" ref={svgContainer}>
+      <div
+        className="svg-container"
+        ref={svgContainer}
+        style={{ minHeight: svgHeight }}
+      >
         <div className="map" ref={mapContainer}></div>
         <div className="legend" ref={legendContainer}></div>
       </div>
@@ -294,10 +310,7 @@ function draw(
   mapContainer: React.RefObject<HTMLDivElement>
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
-  const height = Math.max(
-    svgContainer.current.offsetHeight,
-    props.svgChartHeight
-  );
+  const height = svgContainer.current.offsetHeight;
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,

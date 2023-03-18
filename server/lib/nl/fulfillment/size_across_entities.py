@@ -67,12 +67,12 @@ def populate(uttr: Utterance):
   # Only if there are no SVs detected and contained-in is detected, do we consider
   # the SIZE_TYPE classification.
   if uttr.svs:
-    uttr.counters.warn('size-across-entities_failed_foundvars', uttr.svs)
+    uttr.counters.err('size-across-entities_failed_foundvars', uttr.svs)
     return False
   place_type = utils.get_contained_in_type(uttr)
   size_types = utils.get_size_types(uttr)
   if not place_type or not size_types:
-    uttr.counters.warn('size-across-entities_failed_noplaceorsizetype', '-')
+    uttr.counters.err('size-across-entities_failed_noplaceorsizetype', '-')
     return False
 
   uttr.svs = _get_vars(place_type)
@@ -95,18 +95,18 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for size_across_entities')
   if not state.ranking_types:
-    state.uttr.counters.warn('size-across-entities_failed_cb_norankingtypes', 1)
+    state.uttr.counters.err('size-across-entities_failed_cb_norankingtypes', 1)
     return False
   if len(places) > 1:
-    state.uttr.counters.warn('size-across-entities_failed_cb_toomanyplaces',
-                             [p.dcid for p in places])
+    state.uttr.counters.err('size-across-entities_failed_cb_toomanyplaces',
+                            [p.dcid for p in places])
     return False
   if not state.place_type:
-    state.uttr.counters.warn('size-across-entities_failed_cb_noplacetype', 1)
+    state.uttr.counters.err('size-across-entities_failed_cb_noplacetype', 1)
     return False
   if not chart_vars.svs:
-    state.uttr.counters.warn('size-across-entities_failed_cb_emptyvars',
-                             chart_vars.svs)
+    state.uttr.counters.err('size-across-entities_failed_cb_emptyvars',
+                            chart_vars.svs)
     return False
 
   chart_vars.response_type = "ranking table"

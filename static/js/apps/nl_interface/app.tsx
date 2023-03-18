@@ -21,7 +21,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../tools/stat_var/util";
-import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 
@@ -148,12 +147,6 @@ export function App(): JSX.Element {
     }
   }
 
-  function onHistoryItemClick(queries: string[]) {
-    urlPrompts.current.unshift(...queries);
-    autoRun.current = true;
-    inputNextPrompt(false /* delayStart */);
-  }
-
   const queryResults = queries.map((q, i) => {
     return (
       <QueryResult
@@ -184,7 +177,6 @@ export function App(): JSX.Element {
             }
           }}
         />
-        {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
       </div>
     </>
   );

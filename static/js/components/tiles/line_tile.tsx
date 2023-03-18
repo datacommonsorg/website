@@ -77,23 +77,27 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     }
   }, [props, lineChartData]);
 
-  if (!lineChartData) {
-    return null;
-  }
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: "",
+    placeName: props.place.name,
   };
   return (
     <ChartTileContainer
       title={props.title}
-      sources={lineChartData.sources}
+      sources={lineChartData && lineChartData.sources}
       replacementStrings={rs}
       className={`${props.className} line-chart`}
       allowEmbed={true}
-      getDataCsv={() => dataGroupsToCsv(lineChartData.dataGroup)}
+      getDataCsv={
+        lineChartData ? () => dataGroupsToCsv(lineChartData.dataGroup) : null
+      }
+      isInitialLoading={_.isNull(lineChartData)}
     >
-      <div id={props.id} className="svg-container" ref={svgContainer}></div>
+      <div
+        id={props.id}
+        className="svg-container"
+        ref={svgContainer}
+        style={{ minHeight: props.svgChartHeight }}
+      ></div>
     </ChartTileContainer>
   );
 }

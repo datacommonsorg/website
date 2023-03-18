@@ -19,49 +19,47 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { displayNameForPlaceType } from "../../place/util";
-import { ChildPlacesByType, NamedTypedPlace } from "../../shared/types";
-import { getChildPlacesPromise } from "../../utils/place_utils";
+import { displayNameForPlaceType } from "../place/util";
+import { ChildPlacesByType, NamedTypedPlace } from "../shared/types";
+import { formatString, ReplacementStrings } from "../utils/tile_utils";
 
 interface ChildPlacesPropType {
   parentPlace: NamedTypedPlace;
+  childPlaces: ChildPlacesByType;
+  // Format string must include ${placeDcid} for child place URLs.
+  urlFormatString: string;
 }
 
 export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
-  const [childPlaces, setChildPlaces] = useState<
-    ChildPlacesByType | undefined
-  >();
-
-  useEffect(() => {
-    getChildPlacesPromise(props.parentPlace.dcid).then((childPlaces) =>
-      setChildPlaces(childPlaces)
-    );
-  }, []);
-
-  if (_.isEmpty(childPlaces) || !props.parentPlace) {
+  if (_.isEmpty(props.childPlaces) || !props.parentPlace) {
     return null;
   }
 
   return (
     <div id="child-places">
       <span id="child-place-head">Places in {props.parentPlace.name}</span>
-      {Object.keys(childPlaces).map((placeType) => (
+      {Object.keys(props.childPlaces).map((placeType) => (
         <div key={placeType} className="child-place-group">
           <div className="child-place-type">
             {displayNameForPlaceType(placeType, true /* isPlural */)}
           </div>
-          {childPlaces[placeType].map((place, i) => (
-            <a
-              href={"/disasters/" + place.dcid}
-              className="child-place-link"
-              key={`child-place-${i}`}
-            >
-              {place.name || place.dcid}
-              {i < childPlaces[placeType].length - 1 ? "," : ""}
-            </a>
-          ))}
+          {props.childPlaces[placeType].map((place, i) => {
+            const rs: ReplacementStrings = {
+              placeDcid: place.dcid,
+            };
+            return (
+              <a
+                href={formatString(props.urlFormatString, rs)}
+                className="child-place-link"
+                key={`child-place-${i}`}
+              >
+                {place.name || place.dcid}
+                {i < props.childPlaces[placeType].length - 1 ? "," : ""}
+              </a>
+            );
+          })}
         </div>
       ))}
     </div>

@@ -564,18 +564,31 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "query_detection_debug_logs": {
+    "main_place_inferred": null,
+    "original_query": "What are the most common health issues there",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "what are the most common health issues there",
+      "place_detection_with_places_removed": "What are the most common health issues there",
+      "sv_detection_query_input": "What are the most common health issues there",
+      "sv_detection_query_stop_words_removal": "common health issues"
+    }
+  },
   "query_with_places_removed": "What are the most common health issues there",
   "ranking_classification": "[<RankingType.HIGH: 1>]",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.852666437625885,
-      0.6370556950569153,
-      0.5472055673599243,
-      0.5040631890296936,
-      0.4827020466327667,
-      0.45107942819595337
+      0.8526664972305298,
+      0.6370555758476257,
+      0.54720538854599,
+      0.5040633678436279,
+      0.48270201683044434,
+      0.45107921957969666
     ],
     "SV": [
       "dc/topic/MedicalConditions",
@@ -587,71 +600,71 @@
     ],
     "SV_to_Sentences": {
       "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-        "Prevalence: 18 - 64 Years, No Health Insurance (0.5040631890296936)"
+        "Prevalence: 18 - 64 Years, No Health Insurance (0.5040633678436279)"
       ],
       "Percent_Person_Obesity": [
-        "Prevalence: Obesity (0.45107942819595337)"
+        "Prevalence: Obesity (0.45107921957969666)"
       ],
       "Percent_Person_WithMentalHealthNotGood": [
-        "Prevalence: Mental Health Not Good (0.4827020466327667)"
+        "Prevalence: Mental Health Not Good (0.48270201683044434)"
       ],
       "Percent_Person_WithPhysicalHealthNotGood": [
-        "Prevalence: Physical Health Not Good (0.6370556950569153)",
-        "Percentage of people who have physical health issues (0.5516789555549622)",
-        "Percentage of people with chronic health issues (0.4949118494987488)",
-        "Percentage of people with poor health (0.48223167657852173)",
-        "Percentage of the population with poor physical health (0.46065205335617065)",
-        "Percentage of Population With Poor Physical Health (0.45458126068115234)",
-        "Percentage of population with poor physical health (0.45458126068115234)",
-        "percent of people whose physical health is not good (0.44217750430107117)"
+        "Prevalence: Physical Health Not Good (0.6370555758476257)",
+        "Percentage of people who have physical health issues (0.5516788959503174)",
+        "Percentage of people with chronic health issues (0.4949120283126831)",
+        "Percentage of people with poor health (0.4822315275669098)",
+        "Percentage of the population with poor physical health (0.4606519639492035)",
+        "Percentage of population with poor physical health (0.45458146929740906)",
+        "Percentage of Population With Poor Physical Health (0.45458146929740906)",
+        "percent of people whose physical health is not good (0.44217735528945923)"
       ],
       "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-        "people with physical health not good (0.5472055673599243)",
-        "Number of People With Poor Physical Health (0.515442430973053)",
+        "people with physical health not good (0.54720538854599)",
+        "Number of People With Poor Physical Health (0.5154424905776978)",
         "Person With Medical Condition = Physical Health Not Good (0.4871799349784851)"
       ],
       "dc/topic/MedicalConditions": [
-        "health issues (0.852666437625885)",
+        "health issues (0.8526664972305298)",
         "Health problems (0.7848365306854248)",
-        "Health conditions (0.672957181930542)",
-        "Medical Conditions (0.571463406085968)",
-        "Medical ailments (0.49890971183776855)",
-        "Diseases: Medical disorders (0.4527035057544708)"
+        "Health conditions (0.6729574799537659)",
+        "Medical Conditions (0.5714633464813232)",
+        "Medical ailments (0.4989095628261566)",
+        "Diseases: Medical disorders (0.45270347595214844)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-      "Prevalence: 18 - 64 Years, No Health Insurance (0.5040631890296936)"
+      "Prevalence: 18 - 64 Years, No Health Insurance (0.5040633678436279)"
     ],
     "Percent_Person_Obesity": [
-      "Prevalence: Obesity (0.45107942819595337)"
+      "Prevalence: Obesity (0.45107921957969666)"
     ],
     "Percent_Person_WithMentalHealthNotGood": [
-      "Prevalence: Mental Health Not Good (0.4827020466327667)"
+      "Prevalence: Mental Health Not Good (0.48270201683044434)"
     ],
     "Percent_Person_WithPhysicalHealthNotGood": [
-      "Prevalence: Physical Health Not Good (0.6370556950569153)",
-      "Percentage of people who have physical health issues (0.5516789555549622)",
-      "Percentage of people with chronic health issues (0.4949118494987488)",
-      "Percentage of people with poor health (0.48223167657852173)",
-      "Percentage of the population with poor physical health (0.46065205335617065)",
-      "Percentage of Population With Poor Physical Health (0.45458126068115234)",
-      "Percentage of population with poor physical health (0.45458126068115234)",
-      "percent of people whose physical health is not good (0.44217750430107117)"
+      "Prevalence: Physical Health Not Good (0.6370555758476257)",
+      "Percentage of people who have physical health issues (0.5516788959503174)",
+      "Percentage of people with chronic health issues (0.4949120283126831)",
+      "Percentage of people with poor health (0.4822315275669098)",
+      "Percentage of the population with poor physical health (0.4606519639492035)",
+      "Percentage of population with poor physical health (0.45458146929740906)",
+      "Percentage of Population With Poor Physical Health (0.45458146929740906)",
+      "percent of people whose physical health is not good (0.44217735528945923)"
     ],
     "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-      "people with physical health not good (0.5472055673599243)",
-      "Number of People With Poor Physical Health (0.515442430973053)",
+      "people with physical health not good (0.54720538854599)",
+      "Number of People With Poor Physical Health (0.5154424905776978)",
       "Person With Medical Condition = Physical Health Not Good (0.4871799349784851)"
     ],
     "dc/topic/MedicalConditions": [
-      "health issues (0.852666437625885)",
+      "health issues (0.8526664972305298)",
       "Health problems (0.7848365306854248)",
-      "Health conditions (0.672957181930542)",
-      "Medical Conditions (0.571463406085968)",
-      "Medical ailments (0.49890971183776855)",
-      "Diseases: Medical disorders (0.4527035057544708)"
+      "Health conditions (0.6729574799537659)",
+      "Medical Conditions (0.5714633464813232)",
+      "Medical ailments (0.4989095628261566)",
+      "Diseases: Medical disorders (0.45270347595214844)"
     ]
   },
   "time_delta_classification": "<None>"

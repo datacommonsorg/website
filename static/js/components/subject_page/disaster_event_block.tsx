@@ -111,10 +111,6 @@ export function DisasterEventBlock(
     };
   }, [props]);
 
-  if (disasterEventData == null) {
-    return <></>;
-  }
-
   const columnWidth = getColumnWidth(props.columns);
   const minIdxToHide = getMinTileIdxToHide();
   return (
@@ -123,6 +119,7 @@ export function DisasterEventBlock(
       title={props.title}
       description={props.description}
       footnote={props.footnote}
+      place={props.place}
     >
       <DisasterEventMapSelectors
         blockId={props.id}
@@ -206,9 +203,12 @@ export function DisasterEventBlock(
     ) {
       return;
     }
-    prevDataOptions.current = dataOptions;
     const spinnerId = getSpinnerId();
-    loadSpinner(spinnerId);
+    // If this is not the first data fetch, show a spinner
+    if (prevDataOptions.current) {
+      loadSpinner(spinnerId);
+    }
+    prevDataOptions.current = dataOptions;
     fetchDisasterEventPoints(dataOptions)
       .then((disasterEventData) => {
         setDisasterEventData(disasterEventData);
@@ -276,7 +276,7 @@ function renderTiles(
   disasterEventData: Record<string, DisasterEventPointData>,
   tileClassName?: string
 ): JSX.Element {
-  if (!tiles || !disasterEventData) {
+  if (!tiles) {
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
@@ -293,10 +293,13 @@ function renderTiles(
     switch (tile.type) {
       case "DISASTER_EVENT_MAP": {
         const eventTypeSpec = getTileEventTypeSpecs(props.eventTypeSpec, tile);
-        const specEventData = {};
-        Object.keys(eventTypeSpec).forEach((specId) => {
-          specEventData[specId] = disasterEventData[specId];
-        });
+        let tileEventData = null;
+        if (disasterEventData) {
+          tileEventData = {};
+          Object.keys(eventTypeSpec).forEach((specId) => {
+            tileEventData[specId] = disasterEventData[specId];
+          });
+        }
         return (
           <DisasterEventMapTile
             key={id}
@@ -305,7 +308,7 @@ function renderTiles(
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             eventTypeSpec={eventTypeSpec}
-            disasterEventData={specEventData}
+            disasterEventData={tileEventData}
             tileSpec={tile.disasterEventMapTileSpec}
           />
         );
@@ -313,6 +316,11 @@ function renderTiles(
       case "HISTOGRAM": {
         const eventTypeSpec =
           props.eventTypeSpec[tile.histogramTileSpec.eventTypeKey];
+        let tileEventData = null;
+        if (disasterEventData) {
+          tileEventData =
+            disasterEventData[tile.histogramTileSpec.eventTypeKey];
+        }
         return (
           <HistogramTile
             key={id}
@@ -322,18 +330,17 @@ function renderTiles(
             selectedDate={getDate(props.id)}
             eventTypeSpec={eventTypeSpec}
             property={tile.histogramTileSpec.prop}
-            disasterEventData={
-              disasterEventData[tile.histogramTileSpec.eventTypeKey] || {
-                eventPoints: [],
-                provenanceInfo: {},
-              }
-            }
+            disasterEventData={tileEventData}
           />
         );
       }
       case "TOP_EVENT": {
         const eventTypeSpec =
           props.eventTypeSpec[tile.topEventTileSpec.eventTypeKey];
+        let tileEventData = null;
+        if (disasterEventData) {
+          tileEventData = disasterEventData[tile.topEventTileSpec.eventTypeKey];
+        }
         return (
           <TopEventTile
             key={id}
@@ -343,12 +350,7 @@ function renderTiles(
             topEventMetadata={tile.topEventTileSpec}
             className={className}
             eventTypeSpec={eventTypeSpec}
-            disasterEventData={
-              disasterEventData[tile.topEventTileSpec.eventTypeKey] || {
-                eventPoints: [],
-                provenanceInfo: {},
-              }
-            }
+            disasterEventData={tileEventData}
             enclosedPlaceType={enclosedPlaceType}
           />
         );

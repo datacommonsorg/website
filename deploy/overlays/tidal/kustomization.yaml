@@ -28,7 +28,6 @@ configMapGenerator:
   - behavior: merge
     literals:
       - flaskEnv=tidal
-      - secretProject=tidal-dc-poc
     name: website-configmap
   - behavior: create
     literals:

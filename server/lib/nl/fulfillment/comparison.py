@@ -38,9 +38,9 @@ def populate(uttr: Utterance) -> bool:
     if populate_charts_for_places(state, places_to_compare):
       return True
     else:
-      uttr.counters.warn('comparison_failed_populate_places', dcids)
+      uttr.counters.err('comparison_failed_populate_places', dcids)
   if not place_comparison_candidates:
-    uttr.counters.warn('comparison_failed_to_find_multiple_places', 1)
+    uttr.counters.err('comparison_failed_to_find_multiple_places', 1)
   return False
 
 
@@ -48,10 +48,10 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for comparison')
   if len(places) < 2:
-    state.uttr.counters.warn('comparison_failed_cb_toofewplaces', 1)
+    state.uttr.counters.err('comparison_failed_cb_toofewplaces', 1)
     return False
   if chart_vars.event:
-    state.uttr.counters.warn('comparison_failed_cb_events', 1)
+    state.uttr.counters.err('comparison_failed_cb_events', 1)
     return False
   chart_vars.response_type = "comparison chart"
   chart_vars.include_percapita = True

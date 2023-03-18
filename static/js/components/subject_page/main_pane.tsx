@@ -113,6 +113,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   return (
     <div id="subject-page-main-pane">
       {!_.isEmpty(props.pageConfig) &&
+        !_.isEmpty(props.pageConfig.categories) &&
         props.pageConfig.categories.map((category, idx) => {
           const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
           return (

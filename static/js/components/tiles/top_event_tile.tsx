@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
+import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
@@ -62,12 +63,14 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const severityFilter = props.eventTypeSpec.defaultSeverityFilter;
   const severityProp = severityFilter.prop;
   const severityDisplay = severityFilter.displayName || severityFilter.prop;
-  const topEvents = rankEventData(
-    props.disasterEventData,
-    props.topEventMetadata.reverseSort
-  );
+  const topEvents = props.disasterEventData
+    ? rankEventData(props.disasterEventData, props.topEventMetadata.reverseSort)
+    : null;
 
   useEffect(() => {
+    if (_.isNull(topEvents)) {
+      return;
+    }
     updateEventPlaces(topEvents);
   }, [props]);
 
@@ -88,30 +91,40 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     }
   }
 
-  if (topEvents === undefined || eventPlaces == null) {
-    return <></>;
-  }
-  const showPlaceColumn =
-    Object.keys(eventPlaces).length / topEvents.length >
-    MIN_PERCENT_PLACE_NAMES;
-  const showNameColumn =
-    topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
+  const isInitialLoading = _.isNull(topEvents) || _.isNull(eventPlaces);
+  const showChart = !isInitialLoading && !_.isEmpty(topEvents);
+  let showPlaceColumn = false;
+  let showNameColumn = false;
   const sources = new Set<string>();
-  Object.values(props.disasterEventData.provenanceInfo).forEach((provInfo) => {
-    sources.add(provInfo.provenanceUrl);
-  });
+  if (!isInitialLoading) {
+    showPlaceColumn =
+      Object.keys(eventPlaces).length / topEvents.length >
+      MIN_PERCENT_PLACE_NAMES;
+    showNameColumn =
+      topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
+    Object.values(props.disasterEventData.provenanceInfo).forEach(
+      (provInfo) => {
+        sources.add(provInfo.provenanceUrl);
+      }
+    );
+  }
 
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
       ref={chartContainer}
     >
-      {_.isEmpty(topEvents) ? (
-        <p>There were no severe events in that time period.</p>
-      ) : (
-        <div className="ranking-unit-container">
-          <div className="ranking-list">
-            <h4>{props.title}</h4>
+      <div
+        className={`ranking-unit-container ${
+          isInitialLoading ? INITAL_LOADING_CLASS : ""
+        }`}
+      >
+        <div className={`ranking-list top-event-content `}>
+          {<h4>{!isInitialLoading && props.title}</h4>}
+          {!showChart && !isInitialLoading && (
+            <p>There were no severe events in that time period.</p>
+          )}
+          {showChart && (
             <table>
               <thead>
                 <tr>
@@ -183,13 +196,13 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                 })}
               </tbody>
             </table>
-            <ChartFooter
-              sources={sources}
-              handleEmbed={() => handleEmbed(topEvents)}
-            />
-          </div>
+          )}
+          <ChartFooter
+            sources={sources}
+            handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
+          />
         </div>
-      )}
+      </div>
       <ChartEmbed ref={embedModalElement} />
     </div>
   );

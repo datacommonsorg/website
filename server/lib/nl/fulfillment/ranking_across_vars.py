@@ -49,7 +49,7 @@ def populate(uttr: Utterance):
                       ranking_types=ranking_types)):
       return True
     else:
-      uttr.counters.warn('ranking-across-vars_failed_populate', 1)
+      uttr.counters.err('ranking-across-vars_failed_populate', 1)
 
   return False
 
@@ -58,26 +58,26 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for ranking_across_vars')
   if chart_vars.event:
-    state.uttr.counters.warn('ranking-across-vars_failed_cb_events', 1)
+    state.uttr.counters.err('ranking-across-vars_failed_cb_events', 1)
     return False
   if not state.ranking_types:
-    state.uttr.counters.warn('ranking-across-vars_failed_cb_norankingtypes', 1)
+    state.uttr.counters.err('ranking-across-vars_failed_cb_norankingtypes', 1)
     return False
   if len(places) > 1:
-    state.uttr.counters.warn('ranking-across-vars_failed_cb_toomanyplaces',
-                             [p.dcid for p in places])
+    state.uttr.counters.err('ranking-across-vars_failed_cb_toomanyplaces',
+                            [p.dcid for p in places])
     return False
   if state.place_type:
-    state.uttr.counters.warn('ranking-across-vars_failed_cb_hasplacetype',
-                             state.place_type.value)
+    state.uttr.counters.err('ranking-across-vars_failed_cb_hasplacetype',
+                            state.place_type.value)
     return False
   if len(chart_vars.svs) < 2:
-    state.uttr.counters.warn('ranking-across-vars_failed_cb_toofewvars',
-                             chart_vars.svs)
+    state.uttr.counters.err('ranking-across-vars_failed_cb_toofewvars',
+                            chart_vars.svs)
     return False
   if not chart_vars.is_topic_peer_group:
-    state.uttr.counters.warn('ranking-across-vars_failed_cb_notpeergroup',
-                             chart_vars.svs)
+    state.uttr.counters.err('ranking-across-vars_failed_cb_notpeergroup',
+                            chart_vars.svs)
     return False
 
   # Ranking among peer group of SVs.
