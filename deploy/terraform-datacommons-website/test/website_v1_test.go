@@ -1,4 +1,4 @@
-package website_v1
+package websitev1
 
 import (
 	"crypto/tls"
@@ -18,11 +18,17 @@ import (
 )
 
 const (
-	IMAGE_PROJECT           = "datcom-ci"
-	PROJECT_ID              = "custom-dc-test"
-	WEBSITE_DOMAIN          = "custom-dc-test.alex-datacommons.dev"
-	RELEASE_WEBSITE_GITHASH = "ed26415"
-	RELEASE_MIXER_GITHASH   = "23a1a90"
+	WebsiteImageProject   = "datcom-ci"
+	MixerImageProject     = "datcom-ci"
+	ProjectID             = "custom-dc-test"
+	WebsiteDomain         = "custom-dc-test.alex-datacommons.dev"
+	ReleaseWebsiteGithash = "1ea8f35"
+	ReleaseMixerGithash   = "23a1a90"
+
+	KubeContextName = "gke_custom-dc-test_us-central1-a_datacommons-us-central1-a"
+	TfStateBucket   = "custom-dc-test-terraform-state"
+	TfStatePrefix   = "integration_test/website_v1"
+	TfVarFile       = "variables.tfvars.integration_test"
 )
 
 // Use a separate KUBECONFIG for testing instead of the default $HOME/.kube/config
@@ -54,7 +60,10 @@ terraform state rm \
 */
 func importStates(t *testing.T, options *terraform.Options) error {
 	args := []string{"import", fmt.Sprintf("--var-file=%s", options.VarFiles[0])}
+	// Certificates are attached to loadbalancers(created by ingress). After LB is destroyed upon helm destroy,
+	// it takes a while for the cert to be deletable, so it is kept out of the test loop and is imported each time.
 	terraform.RunTerraformCommand(t, options, append(args, "google_compute_managed_ssl_certificate.dc_website_cert", "dc-website-cert")...)
+	// API keys can only be soft deleted, which Terraform does during delete operations. Creating it again will error out.
 	terraform.RunTerraformCommand(t, options, append(args, "module.apikeys.google_apikeys_key.maps_api_key", "maps-api-key")...)
 	return nil
 }
@@ -77,7 +86,7 @@ func veifyWebsiteDeployment(t *testing.T) {
 		t.Fatalf("Failed to parse sleep duration. Please fix the code in veifyWebsiteDeployment: %v", err)
 	}
 	options := http_helper.HttpGetOptions{
-		Url:       fmt.Sprintf("https://%s", WEBSITE_DOMAIN),
+		Url:       fmt.Sprintf("https://%s", WebsiteDomain),
 		TlsConfig: &tls.Config{},
 		Timeout:   10, // Seconds
 	}
@@ -105,28 +114,28 @@ func mixerPathTo(relativePath string) string {
 func testWebsiteDeployment(t *testing.T) {
 	options := &helm.Options{
 		KubectlOptions: k8s.NewKubectlOptions(
-			"gke_custom-dc-test_us-central1-a_datacommons-us-central1-a", // context name
+			KubeContextName,         // context name
 			os.Getenv("KUBECONFIG"), // kubeconfig path
 			"website",               // namespace
 		),
 		SetValues: map[string]string{
-			"website.image.project":      IMAGE_PROJECT,
-			"website.image.tag":          RELEASE_WEBSITE_GITHASH,
-			"website.githash":            RELEASE_WEBSITE_GITHASH,
-			"mixer.image.project":        IMAGE_PROJECT,
-			"mixer.image.tag":            RELEASE_MIXER_GITHASH,
-			"mixer.githash":              RELEASE_MIXER_GITHASH,
-			"website.gcpProjectID":       PROJECT_ID,
-			"website.domain":             WEBSITE_DOMAIN,
-			"website.secretGCPProjectID": PROJECT_ID,
-			"mixer.gcpProjectID":         PROJECT_ID,
-			"mixer.serviceName":          fmt.Sprintf("website-esp.endpoints.%s.cloud.goog", PROJECT_ID),
+			"website.image.project":      WebsiteImageProject,
+			"website.image.tag":          ReleaseWebsiteGithash,
+			"website.githash":            ReleaseWebsiteGithash,
+			"mixer.image.project":        MixerImageProject,
+			"mixer.image.tag":            ReleaseMixerGithash,
+			"mixer.githash":              ReleaseMixerGithash,
+			"website.gcpProjectID":       ProjectID,
+			"website.domain":             WebsiteDomain,
+			"website.secretGCPProjectID": ProjectID,
+			"mixer.gcpProjectID":         ProjectID,
+			"mixer.serviceName":          fmt.Sprintf("website-esp.endpoints.%s.cloud.goog", ProjectID),
 			"ingress.enabled":            "true",
 		},
 		SetFiles: map[string]string{
 			"mixer.schemaConfigs.\"base\\.mcf\"":   mixerPathTo("deploy/mapping/base.mcf"),
 			"mixer.schemaConfigs.\"encode\\.mcf\"": mixerPathTo("deploy/mapping/encode.mcf"),
-			// Warning: This will be off from RELEASE_MIXER_GITHASH
+			// Warning: This will be off from ReleaseMixerGithash
 			"kgStoreConfig.bigqueryVersion":  mixerPathTo("deploy/storage/bigquery.version"),
 			"kgStoreConfig.baseBigtableInfo": mixerPathTo("deploy/storage/base_bigtable_info.yaml"),
 		},
@@ -135,7 +144,7 @@ func testWebsiteDeployment(t *testing.T) {
 	helmChartPath := "../../helm_charts/dc_website"
 	releaseName := "dc-website-e2e"
 	helm.Upgrade(t, options, helmChartPath, releaseName)
-	defer helm.Delete(t, options, releaseName, true)
+	// defer helm.Delete(t, options, releaseName, true)
 	veifyWebsiteDeployment(t)
 }
 
@@ -144,7 +153,7 @@ func fetchKubeConfig(t *testing.T, clusterName string) {
 	// TODO(alexyfchen): Support different zones / regions.
 	cmd := exec.Command(
 		"gcloud", "container", "clusters", "get-credentials",
-		clusterName, "--zone", "us-central1-a", "--project", PROJECT_ID)
+		clusterName, "--zone", "us-central1-a", "--project", ProjectID)
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("Failed to fetch kubeconfig: %v", err)
 	}
@@ -157,10 +166,10 @@ func TestWebsiteV1(t *testing.T) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		// Set the path to the Terraform code that will be tested.
 		TerraformDir: "../examples/website_v1",
-		VarFiles:     []string{"variables.tfvars.integration_test"},
+		VarFiles:     []string{TfVarFile},
 		BackendConfig: map[string]interface{}{
-			"bucket": "custom-dc-test-terraform-state",
-			"prefix": "integration_test/website_v1",
+			"bucket": TfStateBucket,
+			"prefix": TfStatePrefix,
 		},
 	})
 
@@ -181,10 +190,10 @@ func TestWebsiteV1(t *testing.T) {
 	removeStates(t, terraformOptions)
 	defer terraform.Destroy(t, terraformOptions) // "Similar to: terraform destroy"
 
-	cluster_name := terraform.Output(t, terraformOptions, "cluster_name")
-	assert.Equal(t, "datacommons-us-central1-a", cluster_name)
+	clusterName := terraform.Output(t, terraformOptions, "cluster_name")
+	assert.Equal(t, "datacommons-us-central1-a", clusterName)
 
 	// Deploy all k8s resources and verify the website is set up correctly before teardown.
-	fetchKubeConfig(t, cluster_name)
+	fetchKubeConfig(t, clusterName)
 	testWebsiteDeployment(t)
 }
