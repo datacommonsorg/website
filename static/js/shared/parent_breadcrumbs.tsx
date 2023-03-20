@@ -20,6 +20,7 @@
 
 import React from "react";
 
+import { formatString, ReplacementStrings } from "../utils/tile_utils";
 import { NamedTypedPlace } from "./types";
 
 interface ParentBreadcrumbsPropType {
@@ -31,6 +32,10 @@ interface ParentBreadcrumbsPropType {
    * List of parent places.
    */
   parentPlaces: NamedTypedPlace[];
+  /**
+   * Format string must include ${placeDcid} for child place URLs.
+   */
+  urlFormatString: string;
 }
 
 export function ParentBreadcrumbs(
@@ -49,9 +54,15 @@ export function ParentBreadcrumbs(
   const num = props.parentPlaces.length;
   const breadcrumbs = props.parentPlaces.map((place, index) => {
     const name = place.name.split(",")[0];
+    const rs: ReplacementStrings = {
+      placeDcid: place.dcid,
+    };
     return (
       <React.Fragment key={place.dcid}>
-        <a className="place-links" href={`/disasters/${place.dcid}`}>
+        <a
+          className="place-links"
+          href={formatString(props.urlFormatString, rs)}
+        >
           {name}
         </a>
         {index < num - 1 && <span>, </span>}

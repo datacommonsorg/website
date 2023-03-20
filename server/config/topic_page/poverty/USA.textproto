@@ -39,7 +39,7 @@ categories {
     columns {
       tiles: {
         type: LINE
-        title: "Poverty rate in ${place}"
+        title: "Poverty rate in ${placeName}"
         stat_var_key: 'poverty_rate'
       }
     }
@@ -84,7 +84,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Poverty rate by sex in ${place}"
+        title: "Poverty rate by sex in ${placeName}"
         stat_var_key: 'poverty_rate_female'
         stat_var_key: 'poverty_rate_male'
       }
@@ -109,7 +109,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Poverty rate by race in ${place}"
+        title: "Poverty rate by race in ${placeName}"
         stat_var_key: 'povery_rate_american_indian'
         stat_var_key: 'poverty_rate_asian'
         stat_var_key: 'poverty_rate_african_american'
@@ -241,14 +241,14 @@ categories {
       }
       tiles {
         type: MAP
-        title: "Poverty rate in ${place}"
+        title: "Poverty rate in ${placeName}"
         stat_var_key: 'poverty_rate'
       }
     }
     columns {
       tiles: {
         type: LINE
-        title: "Poverty rate in ${place}"
+        title: "Poverty rate in ${placeName}"
         stat_var_key: 'poverty_rate'
       }
     }

@@ -22,15 +22,18 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
 
 export interface ReplacementStrings {
-  place: string;
-  date: string;
+  placeName?: string;
+  date?: string;
   statVar?: string;
   xDate?: string;
   yDate?: string;
+  placeDcid?: string;
 }
 
 /**
  * Formats a string with replacement strings.
+ * NOTE: unspecified keys will not be replaced / removed from the string.
+ *
  * @param s The string to format
  * @param rs The replacement strings to use
  */

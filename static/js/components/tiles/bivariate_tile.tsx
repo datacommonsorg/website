@@ -107,8 +107,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   }, [bivariateChartData, props]);
 
   const rs: ReplacementStrings = {
-    place: props.place.dcid,
-    date: "",
+    placeName: props.place.dcid,
   };
   return (
     <ChartTileContainer
