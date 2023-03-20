@@ -4,39 +4,52 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "comparison_place_candidates": [
-      [
-        "geoId/06",
-        "geoId/12"
+    "ERROR": {
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "geoId/06",
+            "geoId/12"
+          ],
+          "svs": [
+            "Count_CriminalActivities_Arson"
+          ]
+        }
       ]
-    ],
-    "failed_partial_existence_check": [
-      {
-        "places": [
+    },
+    "INFO": {
+      "comparison_place_candidates": [
+        [
           "geoId/06",
           "geoId/12"
-        ],
-        "svs": [
+        ]
+      ],
+      "filtered_svs": [
+        [
+          "Count_CriminalActivities_CombinedCrime",
+          "Count_CriminalActivities_LarcenyTheft",
+          "Count_CriminalActivities_MotorVehicleTheft",
+          "Count_CriminalIncidents_IsHateCrime",
+          "Count_CriminalActivities_Robbery",
+          "Count_CriminalActivities_ViolentCrime",
+          "Count_CriminalActivities_ForcibleRape",
+          "Count_CriminalActivities_PropertyCrime",
+          "Count_CriminalActivities_Burglary",
           "Count_CriminalActivities_Arson"
         ]
-      }
-    ],
-    "filtered_svs": [
-      "Count_CriminalActivities_CombinedCrime",
-      "Count_CriminalActivities_LarcenyTheft",
-      "Count_CriminalActivities_MotorVehicleTheft",
-      "Count_CriminalIncidents_IsHateCrime",
-      "Count_CriminalActivities_Robbery",
-      "Count_CriminalActivities_ViolentCrime",
-      "Count_CriminalActivities_ForcibleRape",
-      "Count_CriminalActivities_PropertyCrime",
-      "Count_CriminalActivities_Burglary",
-      "Count_CriminalActivities_Arson"
-    ],
-    "num_chart_candidates": 9,
-    "processed_fulfillment_types": [
-      "comparison"
-    ]
+      ],
+      "num_chart_candidates": 9,
+      "processed_fulfillment_types": [
+        "comparison"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.21,
+      "fulfillment": 0.16,
+      "get_sv_details": 0.21,
+      "query_detection": 0.75,
+      "sv_existence_for_places": 0.15
+    }
   },
   "data_spec": [
     {
@@ -414,10 +427,10 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/06",
-        "geoId/12"
-      ],
+      "dcids_resolved": {
+        "california": "geoId/06",
+        "florida": "geoId/12"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

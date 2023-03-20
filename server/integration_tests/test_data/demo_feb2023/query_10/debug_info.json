@@ -4,13 +4,23 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [],
-    "overview_failed_noplaces": 1,
-    "processed_fulfillment_types": [
-      "simple",
-      "overview"
-    ],
-    "simple_failed_noplaceandsv": 1
+    "ERROR": {
+      "overview_failed_noplaces": 1,
+      "simple_failed_noplaceandsv": 1
+    },
+    "INFO": {
+      "filtered_svs": [
+        []
+      ],
+      "processed_fulfillment_types": [
+        "simple",
+        "overview"
+      ]
+    },
+    "TIMING": {
+      "fulfillment": 0.0,
+      "query_detection": 0.07
+    }
   },
   "data_spec": [
     {

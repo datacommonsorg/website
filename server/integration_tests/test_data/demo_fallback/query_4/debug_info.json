@@ -4,54 +4,70 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_existence_check": [
-      {
-        "places": [
-          "geoId/06"
-        ],
-        "svs": [
-          "Percent_Person_Obesity",
-          "Percent_Person_BingeDrinking",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
+    "ERROR": {
+      "failed_existence_check": [
+        {
+          "places": [
+            "geoId/06"
+          ],
+          "svs": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking",
+            "Percent_Person_PhysicalInactivity"
+          ]
+        }
+      ],
+      "parent_place_fallback": [
+        {
+          "child": "geoId/06",
+          "parent": "country/USA"
+        }
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "Percent_Person_Obesity"
         ]
-      }
-    ],
-    "filtered_svs": [
-      "Percent_Person_Obesity"
-    ],
-    "num_chart_candidates": 2,
-    "parent_place_fallback": [
-      {
-        "child": "geoId/06",
-        "parent": "country/USA"
-      }
-    ],
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "simple_timeline_to_bar_demotions": 2,
-    "stat_var_extensions": [
-      {
-        "Percent_Person_Obesity": [
-          "Percent_Person_BingeDrinking",
-          "Percent_Person_Obesity",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
-        ]
-      },
-      {
-        "Percent_Person_Obesity": [
-          "Percent_Person_BingeDrinking",
-          "Percent_Person_Obesity",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
-        ]
-      }
-    ]
+      ],
+      "num_chart_candidates": 2,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "simple_timeline_to_bar_demotions": 2,
+      "stat_var_extensions": [
+        {
+          "Percent_Person_Obesity": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ]
+        },
+        {
+          "Percent_Person_Obesity": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ]
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.23,
+      "extend_svs": 0.58,
+      "fulfillment": 1.17,
+      "get_immediate_parent_places": 0.11,
+      "get_sv_details": 0.23,
+      "has_series_with_single_datapoint": 0.22999999999999998,
+      "query_detection": 0.15,
+      "sv_existence_for_places": 0.25
+    }
   },
   "data_spec": [
     {
@@ -799,9 +815,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/06"
-      ],
+      "dcids_resolved": {
+        "california": "geoId/06"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

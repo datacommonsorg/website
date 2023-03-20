@@ -4,66 +4,80 @@
   "contained_in_classification": "ContainedInPlaceType.ACROSS",
   "correlation_classification": "<None>",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "geoId/06",
-        "result": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029"
-        ],
-        "type": "County"
-      }
-    ],
-    "contained_in_across_fallback": [
-      "County"
-    ],
-    "filtered_svs": [
-      "dc/topic/ProjectedClimateExtremes"
-    ],
-    "num_chart_candidates": 2,
-    "processed_fulfillment_types": [
-      "ranking_across_places"
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/ProjectedClimateExtremes": {
-          "peer_groups": [
-            [
-              "Projected highest increase in max temperature under different scenarios",
-              "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
+    "ERROR": {},
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "geoId/06",
+          "result": [
+            "geoId/06001",
+            "geoId/06003",
+            "geoId/06005",
+            "geoId/06007",
+            "geoId/06009",
+            "geoId/06011",
+            "geoId/06013",
+            "geoId/06015",
+            "geoId/06017",
+            "geoId/06019",
+            "geoId/06021",
+            "geoId/06023",
+            "geoId/06025",
+            "geoId/06027",
+            "geoId/06029"
+          ],
+          "type": "County"
+        }
+      ],
+      "contained_in_across_fallback": [
+        "County"
+      ],
+      "filtered_svs": [
+        [
+          "dc/topic/ProjectedClimateExtremes"
+        ]
+      ],
+      "num_chart_candidates": 2,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/ProjectedClimateExtremes": {
+            "peer_groups": [
               [
-                "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
-                "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
-                "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+                "Projected highest increase in max temperature under different scenarios",
+                "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
+                [
+                  "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
+                  "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
+                  "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+                ]
+              ],
+              [
+                "Projected highest decrease in min temperature under different scenarios",
+                "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
+                [
+                  "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
+                  "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
+                  "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+                ]
               ]
             ],
-            [
-              "Projected highest decrease in min temperature under different scenarios",
-              "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
-              [
-                "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
-                "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
-                "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
-              ]
-            ]
-          ],
-          "svs": []
+            "svs": []
+          }
         }
-      }
-    ]
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.24,
+      "fulfillment": 0.24,
+      "get_sample_child_places": 0.1,
+      "get_sv_details": 0.24,
+      "query_detection": 0.63,
+      "sv_existence_for_places": 0.13,
+      "topic_calls": 0.0
+    }
   },
   "data_spec": [
     {
@@ -173,9 +187,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/06"
-      ],
+      "dcids_resolved": {
+        "california": "geoId/06"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

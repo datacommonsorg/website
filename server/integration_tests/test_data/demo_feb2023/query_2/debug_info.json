@@ -4,11 +4,23 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "event"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "event"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.17,
+      "event_existence_for_place": 0.11,
+      "fulfillment": 0.11,
+      "get_sv_details": 0.17,
+      "query_detection": 0.06
+    }
   },
   "data_spec": [
     {

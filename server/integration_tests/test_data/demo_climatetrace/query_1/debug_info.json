@@ -4,159 +4,174 @@
   "contained_in_classification": "ContainedInPlaceType.COUNTRY",
   "correlation_classification": "<None>",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "Earth",
-        "result": [
-          "country/ABW",
-          "country/AFG",
-          "country/AGO",
-          "country/AIA",
-          "country/ALB",
-          "country/AND",
-          "country/ANT",
-          "country/ARE",
-          "country/ARG",
-          "country/ARM",
-          "country/ASM",
-          "country/ATA",
-          "country/ATB",
-          "country/ATF",
-          "country/ATG"
-        ],
-        "type": "Country"
-      }
-    ],
-    "failed_partial_existence_check": [
-      {
-        "places": [
-          "country/ABW",
-          "country/AFG",
-          "country/AGO",
-          "country/AIA",
-          "country/ALB",
-          "country/AND",
-          "country/ANT",
-          "country/ARE",
-          "country/ARG",
-          "country/ARM",
-          "country/ASM",
-          "country/ATA",
-          "country/ATB",
-          "country/ATF",
-          "country/ATG"
-        ],
-        "svs": [
-          "Annual_Emissions_GreenhouseGas_NonBiogenic"
-        ]
-      },
-      {
-        "places": [
-          "country/ABW",
-          "country/AFG",
-          "country/AGO",
-          "country/AIA",
-          "country/ALB",
-          "country/AND",
-          "country/ANT",
-          "country/ARE",
-          "country/ARG",
-          "country/ARM",
-          "country/ASM",
-          "country/ATA",
-          "country/ATB",
-          "country/ATF",
-          "country/ATG"
-        ],
-        "svs": [
-          "Annual_Emissions_CarbonDioxide_NonBiogenic"
-        ]
-      },
-      {
-        "places": [
-          "country/ABW",
-          "country/AFG",
-          "country/AGO",
-          "country/AIA",
-          "country/ALB",
-          "country/AND",
-          "country/ANT",
-          "country/ARE",
-          "country/ARG",
-          "country/ARM",
-          "country/ASM",
-          "country/ATA",
-          "country/ATB",
-          "country/ATF",
-          "country/ATG"
-        ],
-        "svs": [
+    "ERROR": {
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "country/ABW",
+            "country/AFG",
+            "country/AGO",
+            "country/AIA",
+            "country/ALB",
+            "country/AND",
+            "country/ANT",
+            "country/ARE",
+            "country/ARG",
+            "country/ARM",
+            "country/ASM",
+            "country/ATA",
+            "country/ATB",
+            "country/ATF",
+            "country/ATG"
+          ],
+          "svs": [
+            "Annual_Emissions_GreenhouseGas_NonBiogenic"
+          ]
+        },
+        {
+          "places": [
+            "country/ABW",
+            "country/AFG",
+            "country/AGO",
+            "country/AIA",
+            "country/ALB",
+            "country/AND",
+            "country/ANT",
+            "country/ARE",
+            "country/ARG",
+            "country/ARM",
+            "country/ASM",
+            "country/ATA",
+            "country/ATB",
+            "country/ATF",
+            "country/ATG"
+          ],
+          "svs": [
+            "Annual_Emissions_CarbonDioxide_NonBiogenic"
+          ]
+        },
+        {
+          "places": [
+            "country/ABW",
+            "country/AFG",
+            "country/AGO",
+            "country/AIA",
+            "country/ALB",
+            "country/AND",
+            "country/ANT",
+            "country/ARE",
+            "country/ARG",
+            "country/ARM",
+            "country/ASM",
+            "country/ATA",
+            "country/ATB",
+            "country/ATF",
+            "country/ATG"
+          ],
+          "svs": [
+            "Annual_Emissions_Methane_NonBiogenic"
+          ]
+        }
+      ]
+    },
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "Earth",
+          "result": [
+            "country/ABW",
+            "country/AFG",
+            "country/AGO",
+            "country/AIA",
+            "country/ALB",
+            "country/AND",
+            "country/ANT",
+            "country/ARE",
+            "country/ARG",
+            "country/ARM",
+            "country/ASM",
+            "country/ATA",
+            "country/ATB",
+            "country/ATF",
+            "country/ATG"
+          ],
+          "type": "Country"
+        }
+      ],
+      "filtered_svs": [
+        [
+          "Annual_Emissions_GreenhouseGas",
+          "dc/topic/GreenhouseGasEmissionsBySource",
+          "Annual_Emissions_GreenhouseGas_NonBiogenic",
+          "dc/topic/CarbonDioxideEmissionsBySource",
+          "dc/topic/PowerEmissionsByGas",
+          "dc/topic/AgricultureEmissionsByGas",
+          "Annual_Emissions_CarbonDioxide_NonBiogenic",
+          "dc/topic/ManufacturingEmissionsByGas",
           "Annual_Emissions_Methane_NonBiogenic"
         ]
-      }
-    ],
-    "filtered_svs": [
-      "Annual_Emissions_GreenhouseGas",
-      "dc/topic/GreenhouseGasEmissionsBySource",
-      "Annual_Emissions_GreenhouseGas_NonBiogenic",
-      "dc/topic/CarbonDioxideEmissionsBySource",
-      "dc/topic/PowerEmissionsByGas",
-      "dc/topic/AgricultureEmissionsByGas",
-      "Annual_Emissions_CarbonDioxide_NonBiogenic",
-      "dc/topic/ManufacturingEmissionsByGas",
-      "Annual_Emissions_Methane_NonBiogenic"
-    ],
-    "num_chart_candidates": 2,
-    "processed_fulfillment_types": [
-      "ranking_across_places"
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/GreenhouseGasEmissionsBySource": {
-          "peer_groups": [
-            [
-              "Greenhouse Gas Emissions by Source",
-              "Breakdown of annual emissions of all greenhouse gases by emission sources (measured in tonnes of CO\u2082 equivalents).",
+      ],
+      "num_chart_candidates": 2,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/GreenhouseGasEmissionsBySource": {
+            "peer_groups": [
               [
-                "Annual_Emissions_GreenhouseGas_Agriculture",
-                "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
-                "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
-                "Annual_Emissions_GreenhouseGas_Manufacturing",
-                "Annual_Emissions_GreenhouseGas_MineralExtraction",
-                "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
-                "Annual_Emissions_GreenhouseGas_Transportation",
-                "Annual_Emissions_GreenhouseGas_WasteManagement"
+                "Greenhouse Gas Emissions by Source",
+                "Breakdown of annual emissions of all greenhouse gases by emission sources (measured in tonnes of CO\u2082 equivalents).",
+                [
+                  "Annual_Emissions_GreenhouseGas_Agriculture",
+                  "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+                  "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
+                  "Annual_Emissions_GreenhouseGas_Manufacturing",
+                  "Annual_Emissions_GreenhouseGas_MineralExtraction",
+                  "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
+                  "Annual_Emissions_GreenhouseGas_Transportation",
+                  "Annual_Emissions_GreenhouseGas_WasteManagement"
+                ]
               ]
-            ]
-          ],
-          "svs": []
+            ],
+            "svs": []
+          }
+        },
+        {
+          "dc/topic/CarbonDioxideEmissionsBySource": {
+            "peer_groups": [],
+            "svs": []
+          }
+        },
+        {
+          "dc/topic/PowerEmissionsByGas": {
+            "peer_groups": [],
+            "svs": []
+          }
+        },
+        {
+          "dc/topic/AgricultureEmissionsByGas": {
+            "peer_groups": [],
+            "svs": []
+          }
+        },
+        {
+          "dc/topic/ManufacturingEmissionsByGas": {
+            "peer_groups": [],
+            "svs": []
+          }
         }
-      },
-      {
-        "dc/topic/CarbonDioxideEmissionsBySource": {
-          "peer_groups": [],
-          "svs": []
-        }
-      },
-      {
-        "dc/topic/PowerEmissionsByGas": {
-          "peer_groups": [],
-          "svs": []
-        }
-      },
-      {
-        "dc/topic/AgricultureEmissionsByGas": {
-          "peer_groups": [],
-          "svs": []
-        }
-      },
-      {
-        "dc/topic/ManufacturingEmissionsByGas": {
-          "peer_groups": [],
-          "svs": []
-        }
-      }
-    ]
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.24,
+      "fulfillment": 0.26,
+      "get_sample_child_places": 0.12,
+      "get_sv_details": 0.23,
+      "query_detection": 0.08,
+      "sv_existence_for_places": 0.13,
+      "topic_calls": 0.0
+    }
   },
   "data_spec": [
     {

@@ -4,27 +4,7 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_populate_main_places": [
-      [
-        {
-          "dcid": "geoId/0667000",
-          "name": "San Francisco",
-          "place_type": "City"
-        },
-        {
-          "dcid": "geoId/1714000",
-          "name": "Chicago",
-          "place_type": "City"
-        }
-      ]
-    ],
-    "filtered_svs": [],
-    "num_chart_candidates": 1,
-    "num_populate_fallbacks": 1,
-    "processed_fulfillment_types": [
-      "simple",
-      "overview"
-    ]
+    "ERROR": "FATAL: Found unserializable counter value!"
   },
   "data_spec": [
     {
@@ -96,10 +76,10 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/0667000",
-        "geoId/1714000"
-      ],
+      "dcids_resolved": {
+        "chicago": "geoId/1714000",
+        "san francisco": "geoId/0667000"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

@@ -4,38 +4,51 @@
   "contained_in_classification": "ContainedInPlaceType.COUNTY",
   "correlation_classification": "<None>",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "geoId/06",
-        "result": [
-          "geoId/06001",
-          "geoId/06003",
-          "geoId/06005",
-          "geoId/06007",
-          "geoId/06009",
-          "geoId/06011",
-          "geoId/06013",
-          "geoId/06015",
-          "geoId/06017",
-          "geoId/06019",
-          "geoId/06021",
-          "geoId/06023",
-          "geoId/06025",
-          "geoId/06027",
-          "geoId/06029"
-        ],
-        "type": "County"
-      }
-    ],
-    "filtered_svs": [
-      "Percent_Person_WithHighBloodPressure",
-      "dc/g/Person_MedicalCondition-HighBloodPressure",
-      "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
-    ],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "ranking_across_places"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "geoId/06",
+          "result": [
+            "geoId/06001",
+            "geoId/06003",
+            "geoId/06005",
+            "geoId/06007",
+            "geoId/06009",
+            "geoId/06011",
+            "geoId/06013",
+            "geoId/06015",
+            "geoId/06017",
+            "geoId/06019",
+            "geoId/06021",
+            "geoId/06023",
+            "geoId/06025",
+            "geoId/06027",
+            "geoId/06029"
+          ],
+          "type": "County"
+        }
+      ],
+      "filtered_svs": [
+        [
+          "Percent_Person_WithHighBloodPressure",
+          "dc/g/Person_MedicalCondition-HighBloodPressure",
+          "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.22,
+      "fulfillment": 0.23,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.22,
+      "query_detection": 0.15,
+      "sv_existence_for_places": 0.12
+    }
   },
   "data_spec": [
     {
@@ -588,9 +601,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/06"
-      ],
+      "dcids_resolved": {
+        "california": "geoId/06"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

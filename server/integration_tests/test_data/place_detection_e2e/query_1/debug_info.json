@@ -4,11 +4,22 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "overview"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "overview"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.17,
+      "fulfillment": 0.0,
+      "get_sv_details": 0.17,
+      "query_detection": 0.59
+    }
   },
   "data_spec": [
     {
@@ -74,9 +85,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/0655282"
-      ],
+      "dcids_resolved": {
+        "palo alto": "geoId/0655282"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

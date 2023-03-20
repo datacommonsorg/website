@@ -4,38 +4,51 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "comparison_place_candidates": [
-      [
-        "geoId/0677000",
-        "geoId/0665028"
-      ]
-    ],
-    "filtered_svs": [],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "comparison"
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/WorkCommute": {
-          "peer_groups": [
-            [
-              "Modes of Commute",
-              "",
+    "ERROR": {},
+    "INFO": {
+      "comparison_place_candidates": [
+        [
+          "geoId/0677000",
+          "geoId/0665028"
+        ]
+      ],
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "comparison"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/WorkCommute": {
+            "peer_groups": [
               [
-                "dc/6rltk4kf75612",
-                "dc/vp8cbt6k79t94",
-                "dc/hbkh95kc7pkb6",
-                "dc/wc8q05drd74bd",
-                "dc/0gettc3bc60cb",
-                "dc/vt2q292eme79f"
+                "Modes of Commute",
+                "",
+                [
+                  "dc/6rltk4kf75612",
+                  "dc/vp8cbt6k79t94",
+                  "dc/hbkh95kc7pkb6",
+                  "dc/wc8q05drd74bd",
+                  "dc/0gettc3bc60cb",
+                  "dc/vt2q292eme79f"
+                ]
               ]
-            ]
-          ],
-          "svs": []
+            ],
+            "svs": []
+          }
         }
-      }
-    ]
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.0,
+      "fulfillment": 0.12,
+      "get_sv_details": 0.0,
+      "query_detection": 0.59,
+      "sv_existence_for_places": 0.12,
+      "topic_calls": 0.0
+    }
   },
   "data_spec": [
     {
@@ -458,9 +471,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/0665028"
-      ],
+      "dcids_resolved": {
+        "san bruno": "geoId/0665028"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

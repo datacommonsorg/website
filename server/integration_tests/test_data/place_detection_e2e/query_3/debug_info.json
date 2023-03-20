@@ -4,38 +4,52 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [],
-    "num_chart_candidates": 8,
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "stat_var_extensions": [
-      {
-        "Mean_Income_Household": [
-          "Mean_Income_Household"
-        ],
-        "Median_Earnings_Person": [
-          "Median_Earnings_Person"
-        ],
-        "Median_Income_Household": [
-          "Median_Income_Household"
-        ],
-        "Median_Income_Household_FamilyHousehold": [
-          "Median_Income_Household_FamilyHousehold"
-        ],
-        "Median_Income_Household_NonfamilyHousehold": [
-          "Median_Income_Household_NonfamilyHousehold"
-        ],
-        "Median_Income_Person": [
-          "Median_Income_Person"
-        ],
-        "dc/x3gghqtglpr59": [
-          "dc/x3gghqtglpr59",
-          "Count_Worker_NAICSFinanceInsurance",
-          "WagesTotal_Worker_NAICSFinanceInsurance"
-        ]
-      }
-    ]
+    "ERROR": {},
+    "INFO": {
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 8,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "stat_var_extensions": [
+        {
+          "Mean_Income_Household": [
+            "Mean_Income_Household"
+          ],
+          "Median_Earnings_Person": [
+            "Median_Earnings_Person"
+          ],
+          "Median_Income_Household": [
+            "Median_Income_Household"
+          ],
+          "Median_Income_Household_FamilyHousehold": [
+            "Median_Income_Household_FamilyHousehold"
+          ],
+          "Median_Income_Household_NonfamilyHousehold": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ],
+          "Median_Income_Person": [
+            "Median_Income_Person"
+          ],
+          "dc/x3gghqtglpr59": [
+            "dc/x3gghqtglpr59",
+            "Count_Worker_NAICSFinanceInsurance",
+            "WagesTotal_Worker_NAICSFinanceInsurance"
+          ]
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.26,
+      "extend_svs": 2.42,
+      "fulfillment": 3.84,
+      "get_sv_details": 0.26,
+      "has_series_with_single_datapoint": 1.29,
+      "query_detection": 0.7,
+      "sv_existence_for_places": 0.12
+    }
   },
   "data_spec": [
     {
@@ -547,9 +561,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/12"
-      ],
+      "dcids_resolved": {
+        "florida": "geoId/12"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

@@ -4,84 +4,99 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_populate_callback_primary": 2,
-    "filtered_svs": [
-      "dc/topic/MedicalConditions",
-      "Percent_Person_WithPhysicalHealthNotGood",
-      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
-      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
-    ],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "ranking_across_vars"
-    ],
-    "ranking-across-vars_failed_cb_toofewvars": [
-      [
-        "Percent_Person_WithPhysicalHealthNotGood"
-      ],
-      [
-        "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
-      ]
-    ],
-    "ranking-across-vars_reranked_svs": [
-      {
-        "orig": [
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
+    "ERROR": {
+      "failed_populate_callback_primary": 2,
+      "ranking-across-vars_failed_cb_toofewvars": [
+        [
+          "Percent_Person_WithPhysicalHealthNotGood"
         ],
-        "ranked": [
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithStroke",
-          "Percent_Person_WithChronicKidneyDisease"
+        [
+          "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
         ]
-      }
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/MedicalConditions": {
-          "peer_groups": [
-            [
-              "Medical Conditions",
-              "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
-              [
-                "Percent_Person_WithArthritis",
-                "Percent_Person_WithAsthma",
-                "Percent_Person_WithCancerExcludingSkinCancer",
-                "Percent_Person_WithChronicKidneyDisease",
-                "Percent_Person_WithChronicObstructivePulmonaryDisease",
-                "Percent_Person_WithCoronaryHeartDisease",
-                "Percent_Person_WithDiabetes",
-                "Percent_Person_WithHighBloodPressure",
-                "Percent_Person_WithHighCholesterol",
-                "Percent_Person_WithMentalHealthNotGood",
-                "Percent_Person_WithPhysicalHealthNotGood",
-                "Percent_Person_WithStroke"
-              ]
-            ]
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "dc/topic/MedicalConditions",
+          "Percent_Person_WithPhysicalHealthNotGood",
+          "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
+          "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "ranking_across_vars"
+      ],
+      "ranking-across-vars_reranked_svs": [
+        {
+          "orig": [
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithChronicKidneyDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithStroke"
           ],
-          "svs": []
+          "ranked": [
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithStroke",
+            "Percent_Person_WithChronicKidneyDisease"
+          ]
         }
-      }
-    ]
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/MedicalConditions": {
+            "peer_groups": [
+              [
+                "Medical Conditions",
+                "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
+                [
+                  "Percent_Person_WithArthritis",
+                  "Percent_Person_WithAsthma",
+                  "Percent_Person_WithCancerExcludingSkinCancer",
+                  "Percent_Person_WithChronicKidneyDisease",
+                  "Percent_Person_WithChronicObstructivePulmonaryDisease",
+                  "Percent_Person_WithCoronaryHeartDisease",
+                  "Percent_Person_WithDiabetes",
+                  "Percent_Person_WithHighBloodPressure",
+                  "Percent_Person_WithHighCholesterol",
+                  "Percent_Person_WithMentalHealthNotGood",
+                  "Percent_Person_WithPhysicalHealthNotGood",
+                  "Percent_Person_WithStroke"
+                ]
+              ]
+            ],
+            "svs": []
+          }
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.23,
+      "fulfillment": 0.25,
+      "get_sv_details": 0.23,
+      "query_detection": 0.07,
+      "rank_svs_by_latest_value": 0.13,
+      "sv_existence_for_places": 0.11,
+      "topic_calls": 0.0
+    }
   },
   "data_spec": [
     {

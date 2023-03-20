@@ -4,34 +4,47 @@
   "contained_in_classification": "ContainedInPlaceType.PUBLIC_SCHOOL",
   "correlation_classification": "<None>",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "geoId/0677000",
-        "result": [
-          "nces/060134312546",
-          "nces/060216913485",
-          "nces/061029001127",
-          "nces/061029001146",
-          "nces/061029001153",
-          "nces/061029001154",
-          "nces/061443001696",
-          "nces/061443008353",
-          "nces/063543001588",
-          "nces/063543006049",
-          "nces/063543007867",
-          "nces/063846002796",
-          "nces/063846004088",
-          "nces/063846006456",
-          "nces/063846006458"
-        ],
-        "type": "PublicSchool"
-      }
-    ],
-    "filtered_svs": [],
-    "num_chart_candidates": 3,
-    "processed_fulfillment_types": [
-      "size_across_entities"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "geoId/0677000",
+          "result": [
+            "nces/060134312546",
+            "nces/060216913485",
+            "nces/061029001127",
+            "nces/061029001146",
+            "nces/061029001153",
+            "nces/061029001154",
+            "nces/061443001696",
+            "nces/061443008353",
+            "nces/063543001588",
+            "nces/063543006049",
+            "nces/063543007867",
+            "nces/063846002796",
+            "nces/063846004088",
+            "nces/063846006456",
+            "nces/063846006458"
+          ],
+          "type": "PublicSchool"
+        }
+      ],
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 3,
+      "processed_fulfillment_types": [
+        "size_across_entities"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.28,
+      "fulfillment": 0.25,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.27,
+      "query_detection": 0.7,
+      "sv_existence_for_places": 0.14
+    }
   },
   "data_spec": [
     {
@@ -166,9 +179,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/0677000"
-      ],
+      "dcids_resolved": {
+        "sunnyvale": "geoId/0677000"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

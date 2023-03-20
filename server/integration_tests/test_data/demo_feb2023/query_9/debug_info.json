@@ -4,91 +4,105 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "ClassificationType.CORRELATION",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "country/USA",
-        "result": [
-          "geoId/01001",
-          "geoId/01003",
-          "geoId/01005",
-          "geoId/01007",
-          "geoId/01009",
-          "geoId/01011",
-          "geoId/01013",
-          "geoId/01015",
-          "geoId/01017",
-          "geoId/01019",
-          "geoId/01021",
-          "geoId/01023",
-          "geoId/01025",
-          "geoId/01027",
-          "geoId/01029"
-        ],
-        "type": "County"
-      }
-    ],
-    "correlation_context_svs": [
-      [
-        "Percent_Person_WithHighBloodPressure"
-      ]
-    ],
-    "correlation_main_svs": [
-      [
-        "Median_Income_Person",
-        "Median_Earnings_Person",
-        "Median_Income_Household",
-        "Mean_Income_Household",
-        "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices"
-      ]
-    ],
-    "filtered_svs": [
-      "dc/topic/Income",
-      "Mean_Income_Household",
-      "Median_Income_Household",
-      "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices",
-      "WagesTotal_Worker_NAICSInformation",
-      "WagesTotal_Worker_NAICSTotalAllIndustries",
-      "WagesTotal_Worker_NAICSFinanceInsurance",
-      "dc/jefhcs9qxc971",
-      "WagesTotal_Worker_NAICSEducationalServices",
-      "Mean_Income_Household_FamilyHousehold",
-      "Mean_Income_Household_NonfamilyHousehold",
-      "dc/xj2nk2bg60fg",
-      "dc/wzz9t818m1gk8",
-      "dc/5hv2p802zmh03",
-      "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises",
-      "WagesTotal_Worker_NAICSUtilities"
-    ],
-    "num_chart_candidates": 5,
-    "processed_fulfillment_types": [
-      "correlation"
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/Income": {
-          "peer_groups": [
-            [
-              "Individual Income",
+    "ERROR": {},
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/USA",
+          "result": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "type": "County"
+        }
+      ],
+      "correlation_context_svs": [
+        [
+          "Percent_Person_WithHighBloodPressure"
+        ]
+      ],
+      "correlation_main_svs": [
+        [
+          "Median_Income_Person",
+          "Median_Earnings_Person",
+          "Median_Income_Household",
+          "Mean_Income_Household",
+          "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices"
+        ]
+      ],
+      "filtered_svs": [
+        [
+          "dc/topic/Income",
+          "Mean_Income_Household",
+          "Median_Income_Household",
+          "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices",
+          "WagesTotal_Worker_NAICSInformation",
+          "WagesTotal_Worker_NAICSTotalAllIndustries",
+          "WagesTotal_Worker_NAICSFinanceInsurance",
+          "dc/jefhcs9qxc971",
+          "WagesTotal_Worker_NAICSEducationalServices",
+          "Mean_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_NonfamilyHousehold",
+          "dc/xj2nk2bg60fg",
+          "dc/wzz9t818m1gk8",
+          "dc/5hv2p802zmh03",
+          "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises",
+          "WagesTotal_Worker_NAICSUtilities"
+        ]
+      ],
+      "num_chart_candidates": 5,
+      "processed_fulfillment_types": [
+        "correlation"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/Income": {
+            "peer_groups": [
               [
-                "Median_Income_Person",
-                "Median_Earnings_Person"
+                "Individual Income",
+                [
+                  "Median_Income_Person",
+                  "Median_Earnings_Person"
+                ]
+              ],
+              [
+                "Houshold Income",
+                [
+                  "Median_Income_Household"
+                ]
               ]
             ],
-            [
-              "Houshold Income",
-              [
-                "Median_Income_Household"
-              ]
+            "svs": [
+              "Median_Income_Person",
+              "Median_Earnings_Person",
+              "Median_Income_Household"
             ]
-          ],
-          "svs": [
-            "Median_Income_Person",
-            "Median_Earnings_Person",
-            "Median_Income_Household"
-          ]
+          }
         }
-      }
-    ]
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.28,
+      "fulfillment": 0.32,
+      "get_sample_child_places": 0.17,
+      "get_sv_details": 0.28,
+      "open_top_topics_ordered": 0.0,
+      "query_detection": 0.07,
+      "sv_existence_for_places": 0.15
+    }
   },
   "data_spec": [
     {

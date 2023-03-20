@@ -4,141 +4,155 @@
   "contained_in_classification": "ContainedInPlaceType.COUNTY",
   "correlation_classification": "<None>",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "country/USA",
-        "result": [
-          "geoId/01001",
-          "geoId/01003",
-          "geoId/01005",
-          "geoId/01007",
-          "geoId/01009",
-          "geoId/01011",
-          "geoId/01013",
-          "geoId/01015",
-          "geoId/01017",
-          "geoId/01019",
-          "geoId/01021",
-          "geoId/01023",
-          "geoId/01025",
-          "geoId/01027",
-          "geoId/01029"
-        ],
-        "type": "County"
-      }
-    ],
-    "failed_partial_existence_check": [
-      {
-        "places": [
-          "geoId/01001",
-          "geoId/01003",
-          "geoId/01005",
-          "geoId/01007",
-          "geoId/01009",
-          "geoId/01011",
-          "geoId/01013",
-          "geoId/01015",
-          "geoId/01017",
-          "geoId/01019",
-          "geoId/01021",
-          "geoId/01023",
-          "geoId/01025",
-          "geoId/01027",
-          "geoId/01029"
-        ],
-        "svs": [
-          "Count_Person_PovertyStatusDetermined"
+    "ERROR": {
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "Count_Person_PovertyStatusDetermined"
+          ]
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
+          ]
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined"
+          ]
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
+          ]
+        }
+      ]
+    },
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/USA",
+          "result": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "type": "County"
+        }
+      ],
+      "filtered_svs": [
+        [
+          "Count_Person_BelowPovertyLevelInThePast12Months",
+          "Count_Person_PovertyStatusDetermined",
+          "Count_Person_AbovePovertyLevelInThePast12Months",
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined",
+          "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined",
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months"
         ]
-      },
-      {
-        "places": [
-          "geoId/01001",
-          "geoId/01003",
-          "geoId/01005",
-          "geoId/01007",
-          "geoId/01009",
-          "geoId/01011",
-          "geoId/01013",
-          "geoId/01015",
-          "geoId/01017",
-          "geoId/01019",
-          "geoId/01021",
-          "geoId/01023",
-          "geoId/01025",
-          "geoId/01027",
-          "geoId/01029"
-        ],
-        "svs": [
-          "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
-        ]
-      },
-      {
-        "places": [
-          "geoId/01001",
-          "geoId/01003",
-          "geoId/01005",
-          "geoId/01007",
-          "geoId/01009",
-          "geoId/01011",
-          "geoId/01013",
-          "geoId/01015",
-          "geoId/01017",
-          "geoId/01019",
-          "geoId/01021",
-          "geoId/01023",
-          "geoId/01025",
-          "geoId/01027",
-          "geoId/01029"
-        ],
-        "svs": [
-          "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined"
-        ]
-      },
-      {
-        "places": [
-          "geoId/01001",
-          "geoId/01003",
-          "geoId/01005",
-          "geoId/01007",
-          "geoId/01009",
-          "geoId/01011",
-          "geoId/01013",
-          "geoId/01015",
-          "geoId/01017",
-          "geoId/01019",
-          "geoId/01021",
-          "geoId/01023",
-          "geoId/01025",
-          "geoId/01027",
-          "geoId/01029"
-        ],
-        "svs": [
-          "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
-        ]
-      }
-    ],
-    "filtered_svs": [
-      "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Count_Person_PovertyStatusDetermined",
-      "Count_Person_AbovePovertyLevelInThePast12Months",
-      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-      "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined",
-      "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined",
-      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-      "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-      "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months",
-      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-    ],
-    "num_chart_candidates": 12,
-    "processed_fulfillment_types": [
-      "ranking_across_places"
-    ]
+      ],
+      "num_chart_candidates": 12,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.25,
+      "fulfillment": 0.6,
+      "get_sample_child_places": 0.45,
+      "get_sv_details": 0.25,
+      "query_detection": 0.16,
+      "sv_existence_for_places": 0.14
+    }
   },
   "data_spec": [
     {
@@ -1347,9 +1361,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "country/USA"
-      ],
+      "dcids_resolved": {
+        "us": "country/USA"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

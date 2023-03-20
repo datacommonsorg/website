@@ -4,36 +4,49 @@
   "contained_in_classification": "ContainedInPlaceType.CITY",
   "correlation_classification": "<None>",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "wikidataId/Q213205",
-        "result": [
-          "geoId/0600135",
-          "geoId/0600562",
-          "geoId/0600618",
-          "geoId/0600674",
-          "geoId/0600898",
-          "geoId/0600996",
-          "geoId/0601416",
-          "geoId/0601458",
-          "geoId/0601486",
-          "geoId/0601640",
-          "geoId/0602168",
-          "geoId/0602252",
-          "geoId/0602980",
-          "geoId/0603036",
-          "geoId/0603092"
-        ],
-        "type": "City"
-      }
-    ],
-    "filtered_svs": [
-      "Count_CriminalActivities_LarcenyTheft"
-    ],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "ranking_across_places"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "wikidataId/Q213205",
+          "result": [
+            "geoId/0600135",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600898",
+            "geoId/0600996",
+            "geoId/0601416",
+            "geoId/0601458",
+            "geoId/0601486",
+            "geoId/0601640",
+            "geoId/0602168",
+            "geoId/0602252",
+            "geoId/0602980",
+            "geoId/0603036",
+            "geoId/0603092"
+          ],
+          "type": "City"
+        }
+      ],
+      "filtered_svs": [
+        [
+          "Count_CriminalActivities_LarcenyTheft"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.26,
+      "fulfillment": 0.24,
+      "get_sample_child_places": 0.12,
+      "get_sv_details": 0.26,
+      "query_detection": 0.32,
+      "sv_existence_for_places": 0.12
+    }
   },
   "data_spec": [
     {
@@ -518,9 +531,9 @@
           "wikidataId/Q213205"
         ]
       ],
-      "dcids_resolved": [
-        "wikidataId/Q213205"
-      ],
+      "dcids_resolved": {
+        "sf bay area": "wikidataId/Q213205"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

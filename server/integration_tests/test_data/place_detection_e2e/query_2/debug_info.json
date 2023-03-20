@@ -4,42 +4,55 @@
   "contained_in_classification": "ContainedInPlaceType.STATE",
   "correlation_classification": "<None>",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "country/USA",
-        "result": [
-          "geoId/01",
-          "geoId/02",
-          "geoId/04",
-          "geoId/05",
-          "geoId/06",
-          "geoId/08",
-          "geoId/09",
-          "geoId/10",
-          "geoId/11",
-          "geoId/12",
-          "geoId/13",
-          "geoId/15",
-          "geoId/16",
-          "geoId/17",
-          "geoId/18"
-        ],
-        "type": "State"
-      }
-    ],
-    "filtered_svs": [
-      "Median_Income_Person",
-      "Median_Income_Household",
-      "Median_Earnings_Person",
-      "Median_Income_Household_FamilyHousehold",
-      "Mean_Income_Household",
-      "dc/x3gghqtglpr59",
-      "Median_Income_Household_NonfamilyHousehold"
-    ],
-    "num_chart_candidates": 7,
-    "processed_fulfillment_types": [
-      "ranking_across_places"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/USA",
+          "result": [
+            "geoId/01",
+            "geoId/02",
+            "geoId/04",
+            "geoId/05",
+            "geoId/06",
+            "geoId/08",
+            "geoId/09",
+            "geoId/10",
+            "geoId/11",
+            "geoId/12",
+            "geoId/13",
+            "geoId/15",
+            "geoId/16",
+            "geoId/17",
+            "geoId/18"
+          ],
+          "type": "State"
+        }
+      ],
+      "filtered_svs": [
+        [
+          "Median_Income_Person",
+          "Median_Income_Household",
+          "Median_Earnings_Person",
+          "Median_Income_Household_FamilyHousehold",
+          "Mean_Income_Household",
+          "dc/x3gghqtglpr59",
+          "Median_Income_Household_NonfamilyHousehold"
+        ]
+      ],
+      "num_chart_candidates": 7,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.25,
+      "fulfillment": 0.3,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.25,
+      "query_detection": 0.58,
+      "sv_existence_for_places": 0.19
+    }
   },
   "data_spec": [
     {
@@ -329,9 +342,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "country/USA"
-      ],
+      "dcids_resolved": {
+        "us": "country/USA"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {

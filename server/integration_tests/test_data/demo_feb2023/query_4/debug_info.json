@@ -4,105 +4,120 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_populate_callback_primary": 1,
-    "filtered_svs": [
-      "dc/topic/Jobs",
-      "Count_Worker_NAICSTotalAllIndustries",
-      "dc/g/Person_Industry-NAICS/10",
-      "dc/g/Person_Industry-NAICS/11",
-      "dc/g/Person_Industry-NAICS/451"
-    ],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "ranking_across_vars"
-    ],
-    "ranking-across-vars_failed_cb_toofewvars": [
-      [
-        "Count_Worker_NAICSTotalAllIndustries"
-      ]
-    ],
-    "ranking-across-vars_reranked_svs": [
-      {
-        "orig": [
-          "Count_Worker_NAICSAccommodationFoodServices",
-          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-          "Count_Worker_NAICSAgricultureForestryFishingHunting",
-          "Count_Worker_NAICSConstruction",
-          "Count_Worker_NAICSEducationalServices",
-          "Count_Worker_NAICSHealthCareSocialAssistance",
-          "dc/ndg1xk1e9frc2",
-          "Count_Worker_NAICSFinanceInsurance",
-          "Count_Worker_NAICSInformation",
-          "Count_Worker_NAICSArtsEntertainmentRecreation",
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-          "Count_Worker_NAICSOtherServices",
-          "dc/8p97n7l96lgg8",
-          "Count_Worker_NAICSUtilities",
-          "dc/p69tpsldf99h7",
-          "Count_Worker_NAICSRealEstateRentalLeasing",
-          "Count_Worker_NAICSPublicAdministration",
-          "Count_Worker_NAICSWholesaleTrade",
-          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-          "Count_Worker_NAICSPublicAdministration"
-        ],
-        "ranked": [
-          "Count_Worker_NAICSHealthCareSocialAssistance",
-          "dc/p69tpsldf99h7",
-          "Count_Worker_NAICSAccommodationFoodServices",
-          "Count_Worker_NAICSConstruction",
-          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-          "Count_Worker_NAICSFinanceInsurance",
-          "Count_Worker_NAICSOtherServices",
-          "dc/ndg1xk1e9frc2",
-          "Count_Worker_NAICSPublicAdministration",
-          "Count_Worker_NAICSRealEstateRentalLeasing",
-          "Count_Worker_NAICSWholesaleTrade",
-          "Count_Worker_NAICSArtsEntertainmentRecreation",
-          "dc/8p97n7l96lgg8",
-          "Count_Worker_NAICSInformation",
-          "Count_Worker_NAICSEducationalServices",
-          "Count_Worker_NAICSUtilities",
-          "Count_Worker_NAICSAgricultureForestryFishingHunting",
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+    "ERROR": {
+      "failed_populate_callback_primary": 1,
+      "ranking-across-vars_failed_cb_toofewvars": [
+        [
+          "Count_Worker_NAICSTotalAllIndustries"
         ]
-      }
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/Jobs": {
-          "peer_groups": [
-            [
-              "Categories of Jobs",
-              "",
-              [
-                "Count_Worker_NAICSAccommodationFoodServices",
-                "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-                "Count_Worker_NAICSAgricultureForestryFishingHunting",
-                "Count_Worker_NAICSConstruction",
-                "Count_Worker_NAICSEducationalServices",
-                "Count_Worker_NAICSHealthCareSocialAssistance",
-                "dc/ndg1xk1e9frc2",
-                "Count_Worker_NAICSFinanceInsurance",
-                "Count_Worker_NAICSInformation",
-                "Count_Worker_NAICSArtsEntertainmentRecreation",
-                "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-                "Count_Worker_NAICSOtherServices",
-                "dc/8p97n7l96lgg8",
-                "Count_Worker_NAICSUtilities",
-                "dc/p69tpsldf99h7",
-                "Count_Worker_NAICSRealEstateRentalLeasing",
-                "Count_Worker_NAICSPublicAdministration",
-                "Count_Worker_NAICSWholesaleTrade",
-                "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-                "Count_Worker_NAICSPublicAdministration"
-              ]
-            ]
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "dc/topic/Jobs",
+          "Count_Worker_NAICSTotalAllIndustries",
+          "dc/g/Person_Industry-NAICS/10",
+          "dc/g/Person_Industry-NAICS/11",
+          "dc/g/Person_Industry-NAICS/451"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "ranking_across_vars"
+      ],
+      "ranking-across-vars_reranked_svs": [
+        {
+          "orig": [
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSAgricultureForestryFishingHunting",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/ndg1xk1e9frc2",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+            "Count_Worker_NAICSOtherServices",
+            "dc/8p97n7l96lgg8",
+            "Count_Worker_NAICSUtilities",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSPublicAdministration"
           ],
-          "svs": []
+          "ranked": [
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSOtherServices",
+            "dc/ndg1xk1e9frc2",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "dc/8p97n7l96lgg8",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSUtilities",
+            "Count_Worker_NAICSAgricultureForestryFishingHunting",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          ]
         }
-      }
-    ]
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/Jobs": {
+            "peer_groups": [
+              [
+                "Categories of Jobs",
+                "",
+                [
+                  "Count_Worker_NAICSAccommodationFoodServices",
+                  "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+                  "Count_Worker_NAICSAgricultureForestryFishingHunting",
+                  "Count_Worker_NAICSConstruction",
+                  "Count_Worker_NAICSEducationalServices",
+                  "Count_Worker_NAICSHealthCareSocialAssistance",
+                  "dc/ndg1xk1e9frc2",
+                  "Count_Worker_NAICSFinanceInsurance",
+                  "Count_Worker_NAICSInformation",
+                  "Count_Worker_NAICSArtsEntertainmentRecreation",
+                  "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+                  "Count_Worker_NAICSOtherServices",
+                  "dc/8p97n7l96lgg8",
+                  "Count_Worker_NAICSUtilities",
+                  "dc/p69tpsldf99h7",
+                  "Count_Worker_NAICSRealEstateRentalLeasing",
+                  "Count_Worker_NAICSPublicAdministration",
+                  "Count_Worker_NAICSWholesaleTrade",
+                  "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+                  "Count_Worker_NAICSPublicAdministration"
+                ]
+              ]
+            ],
+            "svs": []
+          }
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.3,
+      "fulfillment": 0.4,
+      "get_sv_details": 0.3,
+      "query_detection": 0.06,
+      "rank_svs_by_latest_value": 0.18,
+      "sv_existence_for_places": 0.12,
+      "topic_calls": 0.1
+    }
   },
   "data_spec": [
     {

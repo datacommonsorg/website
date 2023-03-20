@@ -4,61 +4,76 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [
-      "Mean_Income_Household_FamilyHousehold",
-      "dc/topic/Income",
-      "Median_Income_Household_FamilyHousehold",
-      "Mean_Income_Household_MarriedCoupleFamilyHousehold",
-      "Median_Income_Household_MarriedCoupleFamilyHousehold",
-      "Median_Income_Household"
-    ],
-    "num_chart_candidates": 7,
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "stat_var_extensions": [
-      {
-        "Mean_Income_Household_FamilyHousehold": [
-          "Mean_Income_Household_FamilyHousehold"
-        ],
-        "Mean_Income_Household_MarriedCoupleFamilyHousehold": [
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold"
-        ],
-        "Median_Income_Household": [
+    "ERROR": {},
+    "INFO": {
+      "filtered_svs": [
+        [
+          "Mean_Income_Household_FamilyHousehold",
+          "dc/topic/Income",
+          "Median_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+          "Median_Income_Household_MarriedCoupleFamilyHousehold",
           "Median_Income_Household"
-        ],
-        "Median_Income_Household_FamilyHousehold": [
-          "Median_Income_Household_FamilyHousehold"
-        ],
-        "Median_Income_Household_MarriedCoupleFamilyHousehold": [
-          "Median_Income_Household_MarriedCoupleFamilyHousehold"
         ]
-      }
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/Income": {
-          "peer_groups": [
-            [
-              "Individual Income",
-              "",
+      ],
+      "num_chart_candidates": 7,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "stat_var_extensions": [
+        {
+          "Mean_Income_Household_FamilyHousehold": [
+            "Mean_Income_Household_FamilyHousehold"
+          ],
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold": [
+            "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+          ],
+          "Median_Income_Household": [
+            "Median_Income_Household"
+          ],
+          "Median_Income_Household_FamilyHousehold": [
+            "Median_Income_Household_FamilyHousehold"
+          ],
+          "Median_Income_Household_MarriedCoupleFamilyHousehold": [
+            "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          ]
+        }
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/Income": {
+            "peer_groups": [
               [
-                "Median_Income_Person",
-                "Median_Earnings_Person"
+                "Individual Income",
+                "",
+                [
+                  "Median_Income_Person",
+                  "Median_Earnings_Person"
+                ]
+              ],
+              [
+                "Houshold Income",
+                "",
+                [
+                  "Median_Income_Household"
+                ]
               ]
             ],
-            [
-              "Houshold Income",
-              "",
-              [
-                "Median_Income_Household"
-              ]
-            ]
-          ],
-          "svs": []
+            "svs": []
+          }
         }
-      }
-    ]
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.25,
+      "extend_svs": 1.31,
+      "fulfillment": 2.36,
+      "get_sv_details": 0.25,
+      "has_series_with_single_datapoint": 0.72,
+      "query_detection": 0.55,
+      "sv_existence_for_places": 0.12,
+      "topic_calls": 0.21
+    }
   },
   "data_spec": [
     {
@@ -284,9 +299,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/06"
-      ],
+      "dcids_resolved": {
+        "california": "geoId/06"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {
