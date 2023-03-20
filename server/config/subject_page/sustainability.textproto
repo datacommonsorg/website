@@ -97,7 +97,18 @@ categories {
   blocks {
     title: "Energy"
     columns {
-      tiles {}
+      tiles {
+        title: "Energy use (kg of oil equivalent per capita)"
+        type: LINE
+        stat_var_key: "energy_consumption_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Electricity generation per capita",
+        type: LINE
+        stat_var_key: "energy_generation"
+      }
     }
   }
   stat_var_spec {
@@ -112,6 +123,7 @@ categories {
     value {
       stat_var: "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26"
       unit: "°C"
+      name: "Projected max temp. change, RCP 2.6 (based on 2006)"
     }
   }
   stat_var_spec {
@@ -119,6 +131,7 @@ categories {
     value {
       stat_var: "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"
       unit: "°C"
+      name: "Projected max temp. change, RCP 4.5 (based on 2006)"
     }
   }
   stat_var_spec {
@@ -126,6 +139,7 @@ categories {
     value {
       stat_var: "DifferenceRelativeToBaseDate2015_Temperature_SSP245"
       unit: "°C"
+      name: "Projected max temp. change, RCP 4.5, SSP 2 (based on 2015)"
     }
   }
   stat_var_spec {
@@ -133,20 +147,24 @@ categories {
     value {
       stat_var: "DifferenceRelativeToBaseDate2015_Temperature_SSP585"
       unit: "°C"
+      name: "Projected max temp. change, RCP 8.5, SSP 5 (based on 2015)"
     }
   }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
+  stat_var_spec {
+    key: "energy_consumption_pc"
+    value {
+      stat_var: "Amount_Consumption_Energy_PerCapita"
+      unit: "kgoe"
+    }
+  }
+  stat_var_spec {
+    key: "energy_generation"
+    value {
+      stat_var: "Annual_Generation_Electricity"
+      denom: "Count_Person"
+      unit: "kWh / person"
+    }
+  }
   # stat_var_spec {
   #   key:
   #   value {
