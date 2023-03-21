@@ -181,7 +181,8 @@ message Tile {
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
-  // [optional] a list of place dcids used for this tile.
+  // [optional] a list of place dcids used for this tile. Can also be "self" to
+  // use the main place id of the page. Only used for BAR tiles.
   repeated string comparison_places = 7;
   // [optional] If set, used instead of main place for the page.
   string place_dcid_override = 11;

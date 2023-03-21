@@ -27,3 +27,4 @@ export const CATEGORY_ID_PREFIX = "cat";
 export const BLOCK_ID_PREFIX = "blk";
 export const COLUMN_ID_PREFIX = "col";
 export const TILE_ID_PREFIX = "tile";
+export const SELF_PLACE_DCID_PLACEHOLDER = "self";
