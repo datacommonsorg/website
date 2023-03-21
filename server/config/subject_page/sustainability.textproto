@@ -690,32 +690,237 @@ categories {
   title: "Economics"
   blocks {
     columns {
-      tiles {}
+      tiles {
+        title: "Gross domestic product per capita"
+        type: LINE
+        stat_var_key: "gdp_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Gross domestic product growth rate"
+        type: LINE
+        stat_var_key: "gdp_growth"
+      }
+    }
+    columns {
+      tiles {
+        title: "Gross national income per capita (purchasing power parity)"
+        type: LINE
+        stat_var_key: "gni_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Government debt per capita"
+        type: LINE
+        stat_var_key: "debt_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Government expenditures (% of GDP)"
+        type: LINE
+        stat_var_key: "expenditures_military"
+        stat_var_key: "expenditures_education"
+      }
+    }
+    columns {
+      tiles {
+        title: "Labor force participation rate"
+        type: LINE
+        stat_var_key: "labor_force"
+      }
+    }
+    columns {
+      tiles {
+        title: "Labor force participation rate"
+        type: LINE
+        stat_var_key: "labor_force_participation"
+      }
+    }
+    columns {
+      tiles {
+        title: "Unemployment rate"
+        type: LINE
+        stat_var_key: "unemployment"
+      }
+    }
+    columns {
+      tiles {
+        title: "Worker vs nonworker population"
+        type: LINE
+        stat_var_key: "worker"
+        stat_var_key: "nonworker"
+      }
+    }
+    columns {
+      tiles {
+        title: "Percentage of the population below poverty"
+        type: LINE
+        stat_var_key: "poverty_rate"
+      }
+    }
+    columns {
+      tiles {
+        title: "Children in employment"
+        type: LINE
+        stat_var_key: "children_employed"
+      }
+    }
+    columns {
+      tiles {
+        title: "Median income"
+        type: LINE
+        stat_var_key: "median_income_individual"
+        stat_var_key: "median_income_household"
+      }
+    }
+    columns {
+      tiles {
+        title: "Worker wages (daily)"
+        type: LINE
+        stat_var_key: "mean_wages"
+      }
     }
   }
 
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
+  stat_var_spec {
+    key: "gdp_pc"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+      unit: "$"
+      name: "GDP per capita"
+    }
+  }
+  stat_var_spec {
+    key: "gdp_growth"
+    value {
+      stat_var: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      unit: "%"
+      name: "GDP growth rate"
+    }
+  }
+  stat_var_spec {
+    key: "gni_pc"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+      unit: "$"
+      name: "GNI (purchasing power parity) per capita"
+    }
+  }
+  stat_var_spec {
+    key: "debt_pc"
+    value {
+      stat_var: "Amount_Debt_Government"
+      denom: "Count_Person"
+      unit: "$"
+      name: "Government debt per capita"
+    }
+  }
+  stat_var_spec {
+    key: "expenditures_education"
+    value {
+      stat_var: "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      unit: "%"
+      name: "Education"
+    }
+  }
+  stat_var_spec {
+    key: "expenditures_military"
+    value {
+      stat_var: "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      unit: "%"
+      name: "Military"
+    }
+  }
+  stat_var_spec {
+    key: "labor_force"
+    value {
+      stat_var: "Count_Person_InLaborForce"
+      denom: "Count_Person_16OrMoreYears"
+      scaling: 100
+      unit: "%"
+      name: "Labor force participation rate"
+    }
+  }
+  stat_var_spec {
+    key: "labor_force_participation"
+    value {
+      stat_var: "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
+      scaling: 100
+      unit: "%"
+      name: "Labor force participation rate"
+    }
+  }
+  stat_var_spec {
+    key: "unemployment"
+    value {
+      stat_var: "UnemploymentRate_Person"
+      unit: "%"
+      name: "Unemployment rate"
+    }
+  }
+  stat_var_spec {
+    key: "worker"
+    value {
+      stat_var: "Count_Person_Workers"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Worker"
+    }
+  }
+  stat_var_spec {
+    key: "nonworker"
+    value {
+      stat_var: "Count_Person_NonWorker"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Non-Worker"
+    }
+  }
+  stat_var_spec {
+    key: "poverty_rate"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Poverty rate"
+    }
+  }
+  stat_var_spec {
+    key: "children_employed"
+    value {
+      stat_var: "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
+      unit: "%"
+      name: "Child employment rate"
+    }
+  }
+  stat_var_spec {
+    key: "median_income_household"
+    value {
+      stat_var: "Median_Income_Household"
+      unit: "$"
+      name: "Household"
+    }
+  }
+  stat_var_spec {
+    key: "median_income_individual"
+    value {
+      stat_var: "Median_Income_Person"
+      unit: "$"
+      name: "Individual"
+    }
+  }
+  stat_var_spec {
+    key: "mean_wages"
+    value {
+      stat_var: "Mean_WagesDaily_Worker"
+      unit: "₹",
+      name: "Daily wages"
+    }
+  }
 }
