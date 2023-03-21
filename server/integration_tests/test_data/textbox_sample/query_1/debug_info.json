@@ -4,7 +4,6 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-      "Mean_Income_Household_MarriedCoupleFamilyHousehold",
     "ERROR": {},
     "INFO": {
       "filtered_svs": [
@@ -66,14 +65,14 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.28,
-      "extend_svs": 1.83,
-      "fulfillment": 3.53,
-      "get_sv_details": 0.28,
-      "has_series_with_single_datapoint": 1.22,
-      "query_detection": 0.85,
-      "sv_existence_for_places": 0.16,
-      "topic_calls": 0.32
+      "build_page_config": 0.33,
+      "extend_svs": 1.69,
+      "fulfillment": 3.09,
+      "get_sv_details": 0.33,
+      "has_series_with_single_datapoint": 1.0,
+      "query_detection": 0.79,
+      "sv_existence_for_places": 0.13,
+      "topic_calls": 0.26
     }
   },
   "data_spec": [

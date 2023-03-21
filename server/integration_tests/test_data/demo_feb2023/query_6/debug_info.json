@@ -4,84 +4,99 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_populate_callback_primary": 2,
-    "filtered_svs": [
-      "dc/topic/MedicalConditions",
-      "Percent_Person_WithPhysicalHealthNotGood",
-      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
-      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
-    ],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "ranking_across_vars"
-    ],
-    "ranking-across-vars_failed_cb_toofewvars": [
-      [
-        "Percent_Person_WithPhysicalHealthNotGood"
-      ],
-      [
-        "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
-      ]
-    ],
-    "ranking-across-vars_reranked_svs": [
-      {
-        "orig": [
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
+    "ERROR": {
+      "failed_populate_callback_primary": 2,
+      "ranking-across-vars_failed_cb_toofewvars": [
+        [
+          "Percent_Person_WithPhysicalHealthNotGood"
         ],
-        "ranked": [
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithStroke",
-          "Percent_Person_WithChronicKidneyDisease"
+        [
+          "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
         ]
-      }
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/MedicalConditions": {
-          "peer_groups": [
-            [
-              "Medical Conditions",
-              "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
-              [
-                "Percent_Person_WithArthritis",
-                "Percent_Person_WithAsthma",
-                "Percent_Person_WithCancerExcludingSkinCancer",
-                "Percent_Person_WithChronicKidneyDisease",
-                "Percent_Person_WithChronicObstructivePulmonaryDisease",
-                "Percent_Person_WithCoronaryHeartDisease",
-                "Percent_Person_WithDiabetes",
-                "Percent_Person_WithHighBloodPressure",
-                "Percent_Person_WithHighCholesterol",
-                "Percent_Person_WithMentalHealthNotGood",
-                "Percent_Person_WithPhysicalHealthNotGood",
-                "Percent_Person_WithStroke"
-              ]
-            ]
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "dc/topic/MedicalConditions",
+          "Percent_Person_WithPhysicalHealthNotGood",
+          "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
+          "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "ranking_across_vars"
+      ],
+      "ranking-across-vars_reranked_svs": [
+        {
+          "orig": [
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithChronicKidneyDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithStroke"
           ],
-          "svs": []
+          "ranked": [
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithStroke",
+            "Percent_Person_WithChronicKidneyDisease"
+          ]
         }
-      }
-    ]
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/MedicalConditions": {
+            "peer_groups": [
+              [
+                "Medical Conditions",
+                "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
+                [
+                  "Percent_Person_WithArthritis",
+                  "Percent_Person_WithAsthma",
+                  "Percent_Person_WithCancerExcludingSkinCancer",
+                  "Percent_Person_WithChronicKidneyDisease",
+                  "Percent_Person_WithChronicObstructivePulmonaryDisease",
+                  "Percent_Person_WithCoronaryHeartDisease",
+                  "Percent_Person_WithDiabetes",
+                  "Percent_Person_WithHighBloodPressure",
+                  "Percent_Person_WithHighCholesterol",
+                  "Percent_Person_WithMentalHealthNotGood",
+                  "Percent_Person_WithPhysicalHealthNotGood",
+                  "Percent_Person_WithStroke"
+                ]
+              ]
+            ],
+            "svs": []
+          }
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.36,
+      "fulfillment": 0.32,
+      "get_sv_details": 0.36,
+      "query_detection": 0.11,
+      "rank_svs_by_latest_value": 0.17,
+      "sv_existence_for_places": 0.15,
+      "topic_calls": 0.0
+    }
   },
   "data_spec": [
     {
@@ -583,12 +598,12 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.8526664972305298,
-      0.6370555758476257,
-      0.54720538854599,
-      0.5040633678436279,
-      0.48270201683044434,
-      0.45107921957969666
+      0.852666437625885,
+      0.6370558738708496,
+      0.5472057461738586,
+      0.5040634274482727,
+      0.48270198702812195,
+      0.45107948780059814
     ],
     "SV": [
       "dc/topic/MedicalConditions",
@@ -600,71 +615,71 @@
     ],
     "SV_to_Sentences": {
       "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-        "Prevalence: 18 - 64 Years, No Health Insurance (0.5040633678436279)"
+        "Prevalence: 18 - 64 Years, No Health Insurance (0.5040634274482727)"
       ],
       "Percent_Person_Obesity": [
-        "Prevalence: Obesity (0.45107921957969666)"
+        "Prevalence: Obesity (0.45107948780059814)"
       ],
       "Percent_Person_WithMentalHealthNotGood": [
-        "Prevalence: Mental Health Not Good (0.48270201683044434)"
+        "Prevalence: Mental Health Not Good (0.48270198702812195)"
       ],
       "Percent_Person_WithPhysicalHealthNotGood": [
-        "Prevalence: Physical Health Not Good (0.6370555758476257)",
-        "Percentage of people who have physical health issues (0.5516788959503174)",
-        "Percentage of people with chronic health issues (0.4949120283126831)",
-        "Percentage of people with poor health (0.4822315275669098)",
-        "Percentage of the population with poor physical health (0.4606519639492035)",
-        "Percentage of population with poor physical health (0.45458146929740906)",
-        "Percentage of Population With Poor Physical Health (0.45458146929740906)",
-        "percent of people whose physical health is not good (0.44217735528945923)"
+        "Prevalence: Physical Health Not Good (0.6370558738708496)",
+        "Percentage of people who have physical health issues (0.5516790747642517)",
+        "Percentage of people with chronic health issues (0.49491196870803833)",
+        "Percentage of people with poor health (0.4822317063808441)",
+        "Percentage of the population with poor physical health (0.46065208315849304)",
+        "Percentage of population with poor physical health (0.4545813202857971)",
+        "Percentage of Population With Poor Physical Health (0.4545813202857971)",
+        "percent of people whose physical health is not good (0.44217750430107117)"
       ],
       "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-        "people with physical health not good (0.54720538854599)",
+        "people with physical health not good (0.5472057461738586)",
         "Number of People With Poor Physical Health (0.5154424905776978)",
-        "Person With Medical Condition = Physical Health Not Good (0.4871799349784851)"
+        "Person With Medical Condition = Physical Health Not Good (0.4871799647808075)"
       ],
       "dc/topic/MedicalConditions": [
-        "health issues (0.8526664972305298)",
-        "Health problems (0.7848365306854248)",
-        "Health conditions (0.6729574799537659)",
-        "Medical Conditions (0.5714633464813232)",
-        "Medical ailments (0.4989095628261566)",
-        "Diseases: Medical disorders (0.45270347595214844)"
+        "health issues (0.852666437625885)",
+        "Health problems (0.7848365902900696)",
+        "Health conditions (0.6729572415351868)",
+        "Medical Conditions (0.5714635252952576)",
+        "Medical ailments (0.498909592628479)",
+        "Diseases: Medical disorders (0.4527036249637604)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-      "Prevalence: 18 - 64 Years, No Health Insurance (0.5040633678436279)"
+      "Prevalence: 18 - 64 Years, No Health Insurance (0.5040634274482727)"
     ],
     "Percent_Person_Obesity": [
-      "Prevalence: Obesity (0.45107921957969666)"
+      "Prevalence: Obesity (0.45107948780059814)"
     ],
     "Percent_Person_WithMentalHealthNotGood": [
-      "Prevalence: Mental Health Not Good (0.48270201683044434)"
+      "Prevalence: Mental Health Not Good (0.48270198702812195)"
     ],
     "Percent_Person_WithPhysicalHealthNotGood": [
-      "Prevalence: Physical Health Not Good (0.6370555758476257)",
-      "Percentage of people who have physical health issues (0.5516788959503174)",
-      "Percentage of people with chronic health issues (0.4949120283126831)",
-      "Percentage of people with poor health (0.4822315275669098)",
-      "Percentage of the population with poor physical health (0.4606519639492035)",
-      "Percentage of population with poor physical health (0.45458146929740906)",
-      "Percentage of Population With Poor Physical Health (0.45458146929740906)",
-      "percent of people whose physical health is not good (0.44217735528945923)"
+      "Prevalence: Physical Health Not Good (0.6370558738708496)",
+      "Percentage of people who have physical health issues (0.5516790747642517)",
+      "Percentage of people with chronic health issues (0.49491196870803833)",
+      "Percentage of people with poor health (0.4822317063808441)",
+      "Percentage of the population with poor physical health (0.46065208315849304)",
+      "Percentage of population with poor physical health (0.4545813202857971)",
+      "Percentage of Population With Poor Physical Health (0.4545813202857971)",
+      "percent of people whose physical health is not good (0.44217750430107117)"
     ],
     "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-      "people with physical health not good (0.54720538854599)",
+      "people with physical health not good (0.5472057461738586)",
       "Number of People With Poor Physical Health (0.5154424905776978)",
-      "Person With Medical Condition = Physical Health Not Good (0.4871799349784851)"
+      "Person With Medical Condition = Physical Health Not Good (0.4871799647808075)"
     ],
     "dc/topic/MedicalConditions": [
-      "health issues (0.8526664972305298)",
-      "Health problems (0.7848365306854248)",
-      "Health conditions (0.6729574799537659)",
-      "Medical Conditions (0.5714633464813232)",
-      "Medical ailments (0.4989095628261566)",
-      "Diseases: Medical disorders (0.45270347595214844)"
+      "health issues (0.852666437625885)",
+      "Health problems (0.7848365902900696)",
+      "Health conditions (0.6729572415351868)",
+      "Medical Conditions (0.5714635252952576)",
+      "Medical ailments (0.498909592628479)",
+      "Diseases: Medical disorders (0.4527036249637604)"
     ]
   },
   "time_delta_classification": "<None>"
