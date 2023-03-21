@@ -518,6 +518,7 @@ EU_PLACE_TYPE_REMAP = {
 # Key is canonical AA types (and excludes county, province, etc.)
 PAK_PLACE_TYPE_REMAP = {
     ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.ADMIN_AREA_1,
+    # TODO: Remove this after fixing in the KG.
     ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.ADMIN_AREA_3,
 }
 
