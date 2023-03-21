@@ -100,7 +100,7 @@ class TestRemoveEmptyCharts(unittest.TestCase):
             },
         }
     }
-    result = lib_subject_page_config.exist_keys_category(
+    result = lib_subject_page_config._exist_keys_category(
         'place_id', category, stat_vars_existence)
     expect = {
         "kept_0": True,
