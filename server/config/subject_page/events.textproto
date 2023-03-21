@@ -151,6 +151,13 @@ categories {
     columns {
       tiles {
         type: LINE
+        title: "Life expectancy of ${place}"
+        stat_var_key: "life_expectancy"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
         title: "Children in employment in ${place}"
         stat_var_key: "child_employment"
       }
@@ -199,6 +206,14 @@ categories {
       denom: "Count_Person"
       name: "Poverty rate"
       unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "life_expectancy"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Life expectancy"
+      unit: "Years"
     }
   }
   stat_var_spec {
