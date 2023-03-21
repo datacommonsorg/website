@@ -67,14 +67,14 @@
         "City": "PublicSchool"
       },
       "placeDcid": [
-        "geoId/4871156"
+        "geoId/0677000"
       ]
     }
   },
   "context": {},
   "debug": {},
   "place": {
-    "dcid": "geoId/4871156",
+    "dcid": "geoId/0677000",
     "name": "Sunnyvale",
     "place_type": "City"
   }
