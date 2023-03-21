@@ -501,7 +501,7 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
   counters.info('child_places_result', {
       'place': main_place_dcid,
       'type': contained_place_type,
-      'result': result
+      'result': result[:3]
   })
   return result
 
@@ -818,10 +818,16 @@ def pluralize_place_type(place_type: str) -> str:
   return result.title()
 
 
-def has_map(place_type: any) -> bool:
+def has_map(place_type: any, places: List[detection.Place]) -> bool:
   if isinstance(place_type, str):
     place_type = detection.ContainedInPlaceType(place_type)
-  return place_type in constants.MAP_PLACE_TYPES
+  if place_type == detection.ContainedInPlaceType.COUNTRY:
+    return True
+  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
+  if not ptype or not places:
+    # Either not an equivalent type or places is empty, no map!
+    return False
+  return places[0].country in constants.ADMIN_AREA_MAP_COUNTRIES
 
 
 def new_session_id() -> str:
@@ -866,6 +872,8 @@ _SV_PARTIAL_DCID_NO_PC = [
     "UnemploymentRate_",
     "Mean_Income_",
     "GenderIncomeInequality_",
+    "FertilityRate_",
+    "GrowthRate_",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]
@@ -885,7 +893,48 @@ def get_default_child_place_type(
     place: detection.Place) -> detection.ContainedInPlaceType:
   if place.dcid == constants.EARTH_DCID:
     return detection.ContainedInPlaceType.COUNTRY
+  # Canonicalize the type.
+  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place.place_type,
+                                                   place.place_type)
+  ptype = constants.CHILD_PLACE_TYPES.get(ptype, None)
+  if ptype:
+    ptype = admin_area_equiv_for_place(ptype, place)
   # TODO: Since most queries/data tends to be US specific and we have
   # maps for it, we pick County as default, but reconsider in future.
-  return constants.CHILD_PLACE_TYPES.get(place.place_type,
-                                         detection.ContainedInPlaceType.COUNTY)
+  if not ptype:
+    ptype = detection.ContainedInPlaceType.COUNTY
+  return ptype
+
+
+def get_parent_place_type(
+    place_type: detection.ContainedInPlaceType,
+    place: detection.Place) -> detection.ContainedInPlaceType:
+  # Canonicalize the type.
+  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, place_type)
+  ptype = constants.PARENT_PLACE_TYPES.get(ptype, None)
+  if ptype:
+    ptype = admin_area_equiv_for_place(ptype, place)
+  return ptype
+
+
+# Given a place-type and a corresponding (contained-in) place,
+# returns the specific AdminArea type (County, EurostatNUTS2, etc)
+# corresponding to the country that the place is located in.
+def admin_area_equiv_for_place(
+    place_type: detection.ContainedInPlaceType,
+    place: detection.Place) -> detection.ClassificationAttributes:
+  # Convert to AA equivalent
+  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
+  # Not an admin-equivalent type
+  if not ptype:
+    return place_type
+
+  custom_remap = {}
+  if place.country == 'country/USA':
+    custom_remap = constants.USA_PLACE_TYPE_REMAP
+  elif place.country == 'country/PAK':
+    custom_remap = constants.PAK_PLACE_TYPE_REMAP
+  elif place.country in constants.EU_COUNTRIES:
+    custom_remap = constants.EU_PLACE_TYPE_REMAP
+
+  return custom_remap.get(ptype, ptype)

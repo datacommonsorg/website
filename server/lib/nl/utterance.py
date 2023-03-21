@@ -145,6 +145,7 @@ def _place_to_dict(places: List[Place]) -> List[Dict]:
     pdict['dcid'] = p.dcid
     pdict['name'] = p.name
     pdict['place_type'] = p.place_type
+    pdict['country'] = p.country
     places_dict.append(pdict)
   return places_dict
 
@@ -155,7 +156,8 @@ def _dict_to_place(places_dict: List[Dict]) -> List[Place]:
     places.append(
         Place(dcid=pdict['dcid'],
               name=pdict['name'],
-              place_type=pdict['place_type']))
+              place_type=pdict['place_type'],
+              country=pdict['country']))
   return places
 
 

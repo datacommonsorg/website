@@ -329,12 +329,17 @@ class Model:
     # place_type_to_enum is an OrderedDict.
     place_type_to_enum = OrderedDict({
         "county": ContainedInPlaceType.COUNTY,
+        "continent": ContainedInPlaceType.CONTINENT,
         "state": ContainedInPlaceType.STATE,
         "country": ContainedInPlaceType.COUNTRY,
         "city": ContainedInPlaceType.CITY,
         "district": ContainedInPlaceType.DISTRICT,
         "province": ContainedInPlaceType.PROVINCE,
-        "town": ContainedInPlaceType.TOWN,
+        "department": ContainedInPlaceType.DEPARTMENT,
+        "division": ContainedInPlaceType.DIVISION,
+        "municipality": ContainedInPlaceType.MUNICIPALITY,
+        "parish": ContainedInPlaceType.PARISH,
+        "town": ContainedInPlaceType.CITY,
         "zip": ContainedInPlaceType.ZIP,
         # Schools.
         "high school": ContainedInPlaceType.HIGH_SCHOOL,

@@ -4,38 +4,52 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [],
-    "num_chart_candidates": 8,
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "stat_var_extensions": [
-      {
-        "Mean_Income_Household": [
-          "Mean_Income_Household"
-        ],
-        "Median_Earnings_Person": [
-          "Median_Earnings_Person"
-        ],
-        "Median_Income_Household": [
-          "Median_Income_Household"
-        ],
-        "Median_Income_Household_FamilyHousehold": [
-          "Median_Income_Household_FamilyHousehold"
-        ],
-        "Median_Income_Household_NonfamilyHousehold": [
-          "Median_Income_Household_NonfamilyHousehold"
-        ],
-        "Median_Income_Person": [
-          "Median_Income_Person"
-        ],
-        "dc/x3gghqtglpr59": [
-          "dc/x3gghqtglpr59",
-          "Count_Worker_NAICSFinanceInsurance",
-          "WagesTotal_Worker_NAICSFinanceInsurance"
-        ]
-      }
-    ]
+    "ERROR": {},
+    "INFO": {
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 8,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "stat_var_extensions": [
+        {
+          "Mean_Income_Household": [
+            "Mean_Income_Household"
+          ],
+          "Median_Earnings_Person": [
+            "Median_Earnings_Person"
+          ],
+          "Median_Income_Household": [
+            "Median_Income_Household"
+          ],
+          "Median_Income_Household_FamilyHousehold": [
+            "Median_Income_Household_FamilyHousehold"
+          ],
+          "Median_Income_Household_NonfamilyHousehold": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ],
+          "Median_Income_Person": [
+            "Median_Income_Person"
+          ],
+          "dc/x3gghqtglpr59": [
+            "dc/x3gghqtglpr59",
+            "Count_Worker_NAICSFinanceInsurance",
+            "WagesTotal_Worker_NAICSFinanceInsurance"
+          ]
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.45,
+      "extend_svs": 3.54,
+      "fulfillment": 15.42,
+      "get_sv_details": 0.45,
+      "has_series_with_single_datapoint": 11.65,
+      "query_detection": 0.61,
+      "sv_existence_for_places": 0.21
+    }
   },
   "data_spec": [
     {
@@ -46,6 +60,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
@@ -70,6 +85,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -95,6 +111,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -120,6 +137,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -145,6 +163,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -170,6 +189,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -195,6 +215,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -220,6 +241,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -247,6 +269,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -275,8 +298,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -301,8 +325,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -328,8 +353,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -355,8 +381,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -382,8 +409,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -409,8 +437,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -436,8 +465,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -463,8 +493,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -492,6 +523,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -516,6 +548,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -539,6 +572,7 @@
   "places_resolved": "(name: Florida, dcid: geoId/12); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "geoId/12",
       "name": "Florida",
       "place_type": "State"
@@ -547,15 +581,16 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/12"
-      ],
+      "dcids_resolved": {
+        "florida": "geoId/12"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
