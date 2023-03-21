@@ -118,6 +118,8 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
           !_.isEmpty(props.pageConfig.categories) &&
           props.pageConfig.categories.map((category, idx) => {
             const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
+            // TODO: just use DataFetchContextProvider for fetching data and
+            // remove DataContext.
             return (
               <DataContext.Provider
                 key={id}

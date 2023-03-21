@@ -41,7 +41,12 @@ interface DataFetchContextProviderPropType {
 export function DataFetchContextProvider(
   props: DataFetchContextProviderPropType
 ) {
+  // Map of key to data promise that holds all pairs of cacheKey and dataPromise
+  // that have been used when calling fetchData.
   const fetchingCache = useRef<Record<string, Promise<any>>>({});
+  // Memoized callback function to fetch data but checks fetchingCache first
+  // before calling the promise. Memoize this so that the function is not
+  // re-created even if the component is re-rendered.
   const fetchData = useCallback(
     (cacheKey: string, dataPromise: () => Promise<any>) => {
       const cache = fetchingCache.current;
@@ -52,6 +57,7 @@ export function DataFetchContextProvider(
     },
     []
   );
+  // Memoized context value which is an object of the type DataFetchContextType.
   const contextValue = useMemo(
     () => ({
       fetchData,
