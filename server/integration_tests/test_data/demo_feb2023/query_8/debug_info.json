@@ -67,7 +67,7 @@
       "places": [
         {
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -93,7 +93,7 @@
           "places": [
             {
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -642,17 +642,17 @@
   ],
   "event_classification": "<None>",
   "main_place_dcid": "country/USA",
-  "main_place_name": "United States of America",
+  "main_place_name": "United States",
   "original_query": "Which counties in the USA have the highest levels of blood pressure",
   "overview_classification": "<None>",
   "places_detected": [
     "usa"
   ],
-  "places_resolved": "(name: United States of America, dcid: country/USA); ",
+  "places_resolved": "(name: United States, dcid: country/USA); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     },
     "original_query": "Which counties in the USA have the highest levels of blood pressure",
@@ -669,7 +669,7 @@
       "dc_resolved_places": [
         {
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ]

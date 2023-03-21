@@ -46,11 +46,11 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.28,
-      "fulfillment": 0.34,
-      "get_sample_child_places": 0.13,
-      "get_sv_details": 0.28,
-      "query_detection": 0.73,
+      "build_page_config": 0.45,
+      "fulfillment": 0.37,
+      "get_sample_child_places": 0.17,
+      "get_sv_details": 0.45,
+      "query_detection": 0.79,
       "sv_existence_for_places": 0.2
     }
   },
@@ -70,8 +70,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -96,8 +97,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -123,8 +125,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -150,8 +153,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -177,8 +181,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -204,8 +209,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -231,8 +237,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -258,8 +265,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -287,6 +295,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -311,6 +320,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -325,17 +335,18 @@
   ],
   "event_classification": "<None>",
   "main_place_dcid": "country/USA",
-  "main_place_name": "United States of America",
+  "main_place_name": "United States",
   "original_query": "US states which have that highest median income",
   "overview_classification": "<None>",
   "places_detected": [
     "us"
   ],
-  "places_resolved": "(name: United States of America, dcid: country/USA); ",
+  "places_resolved": "(name: United States, dcid: country/USA); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     },
     "original_query": "US states which have that highest median income",
@@ -351,8 +362,9 @@
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ]

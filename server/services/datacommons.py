@@ -221,6 +221,14 @@ def property_values(nodes, prop, out=True):
   return result
 
 
+def get_place_info(dcids: List[str]) -> Dict:
+  """Retrieves Place Info given a list of DCIDs."""
+  url = get_service_url('/v1/bulk/info/place')
+  return post(f'{url}', {
+      'nodes': sorted(set(dcids)),
+  })
+
+
 def get_variable_group_info(nodes: List[str],
                             entities: List[str],
                             numEntitiesExistence=1) -> Dict:

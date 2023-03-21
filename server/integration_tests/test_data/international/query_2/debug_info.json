@@ -1,0 +1,431 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.PROVINCE",
+  "correlation_classification": "<None>",
+  "counters": {
+    "ERROR": {
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "country/MAC",
+            "wikidataId/Q11725",
+            "wikidataId/Q11736",
+            "wikidataId/Q15175",
+            "wikidataId/Q15176",
+            "wikidataId/Q16963",
+            "wikidataId/Q16967",
+            "wikidataId/Q17269",
+            "wikidataId/Q19206",
+            "wikidataId/Q19770",
+            "wikidataId/Q21208",
+            "wikidataId/Q34476188",
+            "wikidataId/Q34800",
+            "wikidataId/Q40956",
+            "wikidataId/Q41079"
+          ],
+          "svs": [
+            "Median_Age_Person"
+          ],
+          "type": "AdministrativeArea1"
+        },
+        {
+          "places": [
+            "country/MAC",
+            "wikidataId/Q11725",
+            "wikidataId/Q11736",
+            "wikidataId/Q15175",
+            "wikidataId/Q15176",
+            "wikidataId/Q16963",
+            "wikidataId/Q16967",
+            "wikidataId/Q17269",
+            "wikidataId/Q19206",
+            "wikidataId/Q19770",
+            "wikidataId/Q21208",
+            "wikidataId/Q34476188",
+            "wikidataId/Q34800",
+            "wikidataId/Q40956",
+            "wikidataId/Q41079"
+          ],
+          "svs": [
+            "Count_Death"
+          ],
+          "type": "AdministrativeArea1"
+        }
+      ]
+    },
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/CHN",
+          "result": [
+            "country/MAC",
+            "wikidataId/Q11725",
+            "wikidataId/Q11736"
+          ],
+          "type": "AdministrativeArea1"
+        }
+      ],
+      "contained_in_admin_area_equivalent": [
+        [
+          "Province",
+          "AdministrativeArea1"
+        ]
+      ],
+      "filtered_svs": [
+        [
+          "LifeExpectancy_Person",
+          "LifeExpectancy_Person_Male",
+          "LifeExpectancy_Person_Female",
+          "Count_Death_AsAFractionOfCount_Person",
+          "Median_Age_Person",
+          "Count_Death"
+        ]
+      ],
+      "num_chart_candidates": 4,
+      "processed_fulfillment_types": [
+        "containedin"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.31,
+      "fulfillment": 0.32,
+      "get_sample_child_places": 0.15,
+      "get_sv_details": 0.31,
+      "query_detection": 0.67,
+      "sv_existence_for_places": 0.17
+    }
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "Province",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/CHN",
+          "dcid": "country/CHN",
+          "name": "China",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Life expectancy across provinces of China",
+      "query_type": 4,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person_Male"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person_Female"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Death_AsAFractionOfCount_Person"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "LifeExpectancy_Person",
+        "LifeExpectancy_Person_Male",
+        "LifeExpectancy_Person_Female",
+        "Count_Death_AsAFractionOfCount_Person",
+        "Median_Age_Person",
+        "Count_Death"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "District",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/IND",
+          "dcid": "country/IND",
+          "name": "India",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Where are the most rural districts in India",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea2",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "country": "country/IND",
+              "dcid": "country/IND",
+              "name": "India",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_Rural"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person_Rural",
+        "Area_Farm_Cropland",
+        "Area_Farm"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "country/CHN",
+  "main_place_name": "China",
+  "original_query": "Life expectancy across provinces of China",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "china"
+  ],
+  "places_resolved": "(name: China, dcid: country/CHN); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "country": "country/CHN",
+      "dcid": "country/CHN",
+      "name": "China",
+      "place_type": "Country"
+    },
+    "original_query": "Life expectancy across provinces of China",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": {
+        "china": "country/CHN"
+      },
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "country": "country/CHN",
+          "dcid": "country/CHN",
+          "name": "China",
+          "place_type": "Country"
+        }
+      ]
+    },
+    "places_found_str": [
+      "china"
+    ],
+    "query_transformations": {
+      "place_detection_input": "life expectancy across provinces of china",
+      "place_detection_with_places_removed": "life expectancy across provinces of",
+      "sv_detection_query_input": "life expectancy across provinces of",
+      "sv_detection_query_stop_words_removal": "life expectancy"
+    }
+  },
+  "query_with_places_removed": "life expectancy across provinces of",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.9999999403953552,
+      0.8181014657020569,
+      0.8119910955429077,
+      0.5961612462997437,
+      0.5053414702415466,
+      0.5053173303604126
+    ],
+    "SV": [
+      "LifeExpectancy_Person",
+      "LifeExpectancy_Person_Male",
+      "LifeExpectancy_Person_Female",
+      "Count_Death_AsAFractionOfCount_Person",
+      "Median_Age_Person",
+      "Count_Death"
+    ],
+    "SV_to_Sentences": {
+      "Count_Death": [
+        "Count of Mortality Event (0.5053173303604126)"
+      ],
+      "Count_Death_AsAFractionOfCount_Person": [
+        "Mortality rate (0.5961612462997437)",
+        "Death rate (0.5275478363037109)"
+      ],
+      "LifeExpectancy_Person": [
+        "Life Expectancy (0.9999999403953552)",
+        "Average life expectancy of the population (0.8563627004623413)",
+        "Typical lifespan of the population (0.7687246799468994)",
+        "Mean lifespan of the population (0.7668242454528809)",
+        "Average lifespan of the population (0.7393943667411804)",
+        "Average lifespan of a population (0.7195129990577698)",
+        "Average Lifespan of a Population (0.7195129990577698)",
+        "Median lifespan of the population (0.6611571907997131)"
+      ],
+      "LifeExpectancy_Person_Female": [
+        "Life expectancy at birth, female (years) (0.8119910955429077)",
+        "Female life expectancy (0.8110572695732117)",
+        "Female Life Expectancy (0.8110572695732117)",
+        "Life expectancy of females at birth (0.6985270977020264)"
+      ],
+      "LifeExpectancy_Person_Male": [
+        "Life Expectancy: Male (0.8181014657020569)",
+        "Male Life Expectancy (0.79051274061203)",
+        "Male life expectancy (0.79051274061203)",
+        "Life Expectancy of Males at birth (0.6862162351608276)"
+      ],
+      "Median_Age_Person": [
+        "Mean age of the population (0.5053414702415466)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_Death": [
+      "Count of Mortality Event (0.5053173303604126)"
+    ],
+    "Count_Death_AsAFractionOfCount_Person": [
+      "Mortality rate (0.5961612462997437)",
+      "Death rate (0.5275478363037109)"
+    ],
+    "LifeExpectancy_Person": [
+      "Life Expectancy (0.9999999403953552)",
+      "Average life expectancy of the population (0.8563627004623413)",
+      "Typical lifespan of the population (0.7687246799468994)",
+      "Mean lifespan of the population (0.7668242454528809)",
+      "Average lifespan of the population (0.7393943667411804)",
+      "Average lifespan of a population (0.7195129990577698)",
+      "Average Lifespan of a Population (0.7195129990577698)",
+      "Median lifespan of the population (0.6611571907997131)"
+    ],
+    "LifeExpectancy_Person_Female": [
+      "Life expectancy at birth, female (years) (0.8119910955429077)",
+      "Female life expectancy (0.8110572695732117)",
+      "Female Life Expectancy (0.8110572695732117)",
+      "Life expectancy of females at birth (0.6985270977020264)"
+    ],
+    "LifeExpectancy_Person_Male": [
+      "Life Expectancy: Male (0.8181014657020569)",
+      "Male Life Expectancy (0.79051274061203)",
+      "Male life expectancy (0.79051274061203)",
+      "Life Expectancy of Males at birth (0.6862162351608276)"
+    ],
+    "Median_Age_Person": [
+      "Mean age of the population (0.5053414702415466)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

@@ -76,7 +76,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                                   places, chart_origin)
   else:
     chart_vars.response_type = "ranking table"
-    if not utils.has_map(state.place_type):
+    if not utils.has_map(state.place_type, places):
       chart_vars.skip_map_for_ranking = True
     chart_vars.include_percapita = True
     return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
