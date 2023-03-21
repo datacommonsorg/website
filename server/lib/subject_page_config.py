@@ -47,6 +47,7 @@ CHILD_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.BAR,
 ]
 
+# Placeholder allowed in config that should be interpreted as the main place dcid.
 SELF_PLACE_DCID_PLACEHOLDER = "self"
 
 
@@ -75,6 +76,10 @@ def get_all_variables(page_config):
 
 
 def _sv_places_exist(places, stat_var, stat_vars_existence, place_dcid):
+  """
+  Returns true if stat_var exists for all places in stat_vars_existence. Also
+  supports "self" placeholder replacement.
+  """
   sv_entity = stat_vars_existence['variable'][stat_var]['entity']
   for p in places:
     if p == SELF_PLACE_DCID_PLACEHOLDER:
@@ -103,6 +108,10 @@ def _exist_keys_category(places: List[str], category, stat_vars_existence,
 
 
 def _bar_comparison_places(page_config, place_dcid):
+  """
+  Returns all comparison places from bar charts in the config. Supports "self"
+  placeholder replacement.
+  """
   places = set()
   for category in page_config.categories:
     for block in category.blocks:
@@ -120,7 +129,7 @@ def _bar_comparison_places(page_config, place_dcid):
 def remove_empty_charts(page_config, place_dcid, contained_place_type):
   """
   Returns the page config stripped of charts with no data.
-  TODO: Add checks for child places, given the tile type.
+  TODO: Add checks for map geojson existence.
   """
   ctr = nl_ctr.Counters()
 
