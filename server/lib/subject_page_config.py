@@ -149,7 +149,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type):
           filtered_keys = []
           if t.type == subject_page_pb2.Tile.TileType.BAR:
             if not t.comparison_places:
-              filtered_keys = [k for k in t.stat_var_key if place_exist_keys[k]]
+              filtered_keys = [k for k in t.stat_var_key if child_exist_keys[k]]
             else:
               # Should be the comparison places.
               comparison_exist_keys = _exist_keys_category(

@@ -101,7 +101,7 @@ class TestRemoveEmptyCharts(unittest.TestCase):
         }
     }
     result = lib_subject_page_config._exist_keys_category(
-        'place_id', category, stat_vars_existence)
+        ['place_id'], category, stat_vars_existence, 'place_id')
     expect = {
         "kept_0": True,
         "kept_1": True,
@@ -110,44 +110,80 @@ class TestRemoveEmptyCharts(unittest.TestCase):
     }
     assert result == expect
 
+  @mock.patch('server.lib.nl.utils.get_sample_child_places')
   @mock.patch('server.services.datacommons.observation_existence')
-  def test_remove_empty_charts(self, mock_observation_existence):
+  def test_remove_empty_charts(self, mock_observation_existence, mock_sample_child_places):
+
+    def sample_child_places_side_effect(place_dcid, contained_place_type, _):
+        return [ 'child_id' ]
 
     def obs_side_effect(all_svs, place_dcids):
       return {
           'variable': {
               "sv_exists_1": {
                   'entity': {
-                      'place_id': True
+                      'place_id': True,
+                      'child_id': False
                   }
               },
               "sv_exists_3": {
                   'entity': {
-                      'place_id': True
+                      'place_id': True,
+                      'child_id': False
                   }
               },
               "sv_filtered_1": {
                   'entity': {
-                      'place_id': False
+                      'place_id': False,
+                      'child_id': False
                   }
               },
               "sv_filtered_2": {
                   'entity': {
-                      'place_id': False
+                      'place_id': False,
+                      'child_id': False
                   }
               },
               "sv_filtered_3": {
                   'entity': {
-                      'place_id': False
+                      'place_id': False,
+                      'child_id': False
+                  }
+              },
+              "sv_child_exists_1": {
+                  'entity': {
+                      'place_id': False,
+                      'child_id': True
+                  }
+              },
+              "sv_child_filtered_1": {
+                  'entity': {
+                      'place_id': False,
+                      'child_id': False
+                  }
+              },
+              "sv_parent_exists_1": {
+                  'entity': {
+                      'place_id': True,
+                      'child_id': False
+                  }
+              },
+              "sv_parent_filtered_1": {
+                  'entity': {
+                      'place_id': False,
+                      'child_id': False
                   }
               },
           }
       }
 
     mock_observation_existence.side_effect = obs_side_effect
+    mock_sample_child_places.side_effect = sample_child_places_side_effect
+
     config = lib_util.get_subject_page_config(
         "server/tests/test_data/existence.textproto")
-    result = lib_subject_page_config.remove_empty_charts(config, 'place_id')
+    result = lib_subject_page_config.remove_empty_charts(config, 'place_id', 'child_type')
     expect = lib_util.get_subject_page_config(
         "server/tests/test_data/existence_expect.textproto")
+    print(expect)
     assert result == expect
