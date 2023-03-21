@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import React, { createContext, useCallback, useMemo, useRef } from "react";
-
 /**
  * The Data Fetch Context and the Provider component. This is used to cache
  * data fetches.
  */
+
+import React, { createContext, useCallback, useMemo, useRef } from "react";
 
 interface DataFetchContextType {
   // A function to use to fetch data with a given cache key and data promise.
