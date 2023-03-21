@@ -57,7 +57,9 @@ TOPIC_PAGE_CONFIGS = {
 GZIP_COMPRESSION_LEVEL = 3
 
 # Dict of place dcid to place type to filename of the geojson to cache for that
-# place + place type combination
+# place + place type combination.
+# To generate cached geojson files, follow instructions/use the endpoint here:
+# https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
 CACHED_GEOJSON_FILES = {
     "Earth": {
         "Country": "earth_country_dp13"
