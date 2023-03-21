@@ -380,6 +380,10 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "state": "states",
     "province": "provinces",
     "county": "counties",
+    "division": "divisions",
+    "department": "departments",
+    "municipality": "municipalities",
+    "parish": "parishes",
     "city": "cities",
     "censuszipcodetabulationarea": "census zip code tabulation areas",
     "town": "towns",
@@ -446,14 +450,81 @@ EVENT_TYPE_TO_DC_TYPES = {
     EventType.WETBULB: ["WetBulbTemperatureEvent"],
 }
 
+# Key is canonical AA types (and excludes county, province, etc.)
 CHILD_PLACE_TYPES = {
-    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.STATE,
-    ContainedInPlaceType.STATE: ContainedInPlaceType.COUNTY,
-    ContainedInPlaceType.COUNTY: ContainedInPlaceType.CITY,
+    ContainedInPlaceType.CONTINENT: ContainedInPlaceType.COUNTRY,
+    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.CITY,
 }
 
-PARENT_PLACE_TYPES = {v: k for k, v in CHILD_PLACE_TYPES.items()}
+# Key is canonical AA types (and excludes county, province, etc.).
+# Note also that we don't include CONTINENT because we virtually have no
+# data at Continent level.
+PARENT_PLACE_TYPES = {
+    ContainedInPlaceType.CITY: ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.COUNTRY
+}
 
+#
+# Equivalent place types to AdminArea1 or AdminArea2.  This maps the different ways
+# that a user may refer to admin-areas to the canonical AdminArea type.
+#
+# TODO: As we add more countries, make this map a function of the country as well.
+#
+ADMIN_DIVISION_EQUIVALENTS = {
+    ContainedInPlaceType.STATE:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.EU_NUTS_2:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.PROVINCE:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.DEPARTMENT:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.DIVISION:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.ADMIN_AREA_1:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.EU_NUTS_3:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.COUNTY:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.DISTRICT:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.PARISH:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.MUNICIPALITY:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ADMIN_AREA_2:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    # NOTE: This is a hack for since district equivalents for PAK alone is AA level 3
+    ContainedInPlaceType.ADMIN_AREA_3:
+        ContainedInPlaceType.ADMIN_AREA_2,
+}
+
+# Key is canonical AA types (and excludes county, province, etc.)
+USA_PLACE_TYPE_REMAP = {
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.STATE,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.COUNTY,
+}
+
+# Key is canonical AA types (and excludes county, province, etc.)
+EU_PLACE_TYPE_REMAP = {
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.EU_NUTS_2,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.EU_NUTS_3,
+}
+
+# Key is canonical AA types (and excludes county, province, etc.)
+PAK_PLACE_TYPE_REMAP = {
+    ContainedInPlaceType.ADMIN_AREA_1:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    # TODO: Remove this after fixing in the KG.
+    ContainedInPlaceType.ADMIN_AREA_2:
+        ContainedInPlaceType.ADMIN_AREA_3,
+}
+
+# This is only for US.
 DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
     ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
@@ -461,10 +532,57 @@ DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
 }
 
-MAP_PLACE_TYPES = frozenset([
-    ContainedInPlaceType.COUNTY, ContainedInPlaceType.STATE,
-    ContainedInPlaceType.COUNTRY
+EU_COUNTRIES = frozenset([
+    "country/ALB",
+    "country/AUT",
+    "country/BEL",
+    "country/BGR",
+    "country/CHE",
+    "country/CYP",
+    "country/CZE",
+    "country/DEU",
+    "country/DNK",
+    "country/ESP",
+    "country/EST",
+    "country/FIN",
+    "country/FRA",
+    "country/FXX",
+    "country/GBR",
+    "country/GRC",
+    "country/HRV",
+    "country/HUN",
+    "country/IRL",
+    "country/ISL",
+    "country/ITA",
+    "country/LIE",
+    "country/LTU",
+    "country/LUX",
+    "country/LVA",
+    "country/MKD",
+    "country/MLT",
+    "country/MNE",
+    "country/NLD",
+    "country/NOR",
+    "country/POL",
+    "country/PRT",
+    "country/ROU",
+    "country/SRB",
+    "country/SVK",
+    "country/SVN",
+    "country/SWE",
+    "country/TUR",
 ])
+
+NON_EU_MAP_COUNTRIES = [
+    'country/BGD',
+    'country/CHN',
+    'country/IND',
+    'country/NPL',
+    'country/PAK',
+    'country/USA',
+]
+
+ADMIN_AREA_MAP_COUNTRIES = frozenset(list(EU_COUNTRIES) + NON_EU_MAP_COUNTRIES)
 
 # Key is SV DCID and value is (denominator SV DCID, name snippet for title).
 ADDITIONAL_DENOMINATOR_VARS = {
@@ -658,3 +776,6 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
     "Annual_Emissions_CarbonDioxide_WasteManagement":
         "CO₂ emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes).",
 }
+
+# Have a shorter limit to avoid spamming the json.
+DBG_LIST_LIMIT = 3

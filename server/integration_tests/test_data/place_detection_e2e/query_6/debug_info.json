@@ -26,7 +26,8 @@
           ],
           "svs": [
             "Count_Person_PovertyStatusDetermined"
-          ]
+          ],
+          "type": "County"
         },
         {
           "places": [
@@ -48,7 +49,8 @@
           ],
           "svs": [
             "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
-          ]
+          ],
+          "type": "County"
         },
         {
           "places": [
@@ -70,7 +72,8 @@
           ],
           "svs": [
             "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined"
-          ]
+          ],
+          "type": "County"
         },
         {
           "places": [
@@ -92,7 +95,8 @@
           ],
           "svs": [
             "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
-          ]
+          ],
+          "type": "County"
         }
       ]
     },
@@ -146,12 +150,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.29,
-      "fulfillment": 0.39,
-      "get_sample_child_places": 0.21,
-      "get_sv_details": 0.29,
-      "query_detection": 0.26,
-      "sv_existence_for_places": 0.17
+      "build_page_config": 0.37,
+      "fulfillment": 0.55,
+      "get_sample_child_places": 0.32,
+      "get_sv_details": 0.35,
+      "query_detection": 0.24,
+      "sv_existence_for_places": 0.23
     }
   },
   "data_spec": [
@@ -170,8 +174,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -196,8 +201,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -223,8 +229,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -250,8 +257,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -277,8 +285,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -304,8 +313,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -331,8 +341,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -358,8 +369,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -385,8 +397,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -412,8 +425,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -439,8 +453,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -466,8 +481,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -493,8 +509,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -531,6 +548,7 @@
       ],
       "places": [
         {
+          "country": "country/MEX",
           "dcid": "wikidataId/Q1489",
           "name": "Mexico City",
           "place_type": "City"
@@ -555,6 +573,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/MEX",
               "dcid": "wikidataId/Q1489",
               "name": "Mexico City",
               "place_type": "City"
@@ -585,16 +604,19 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/36",
           "name": "New York",
           "place_type": "State"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/53",
           "name": "Washington",
           "place_type": "State"
@@ -619,16 +641,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -654,16 +679,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -689,16 +717,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -724,16 +755,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -759,16 +793,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -794,16 +831,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -829,16 +869,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -860,6 +903,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
@@ -884,6 +928,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -909,6 +954,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -934,6 +980,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -959,6 +1006,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -984,6 +1032,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -1009,6 +1058,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -1034,6 +1084,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -1061,6 +1112,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -1089,8 +1141,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -1115,8 +1168,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1142,8 +1196,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1169,8 +1224,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1196,8 +1252,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1223,8 +1280,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1250,8 +1308,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1277,8 +1336,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1306,6 +1366,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -1330,6 +1391,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -1344,17 +1406,18 @@
   ],
   "event_classification": "<None>",
   "main_place_dcid": "country/USA",
-  "main_place_name": "United States of America",
+  "main_place_name": "United States",
   "original_query": "counties in the US with the most poverty",
   "overview_classification": "<None>",
   "places_detected": [
     "us"
   ],
-  "places_resolved": "(name: United States of America, dcid: country/USA); ",
+  "places_resolved": "(name: United States, dcid: country/USA); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     },
     "original_query": "counties in the US with the most poverty",
@@ -1370,8 +1433,9 @@
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ]

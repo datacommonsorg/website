@@ -21,7 +21,7 @@ from server.lib.nl.detection import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import ChartVars
 from server.lib.nl.fulfillment.base import get_default_contained_in_place
-from server.lib.nl.fulfillment.base import handle_contained_in_across
+from server.lib.nl.fulfillment.base import handle_contained_in_type
 from server.lib.nl.fulfillment.base import open_top_topics_ordered
 from server.lib.nl.fulfillment.base import PopulateState
 from server.lib.nl.fulfillment.context import \
@@ -81,7 +81,7 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
 
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
-  handle_contained_in_across(state, [place])
+  handle_contained_in_type(state, [place])
 
   # Get child place samples for existence check.
   places_to_check = utils.get_sample_child_places(place.dcid,

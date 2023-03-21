@@ -12,7 +12,8 @@
           ],
           "svs": [
             "Count_Person_PerArea"
-          ]
+          ],
+          "type": null
         },
         {
           "places": [
@@ -20,139 +21,67 @@
           ],
           "svs": [
             "GrowthRate_Count_Person"
-          ]
+          ],
+          "type": null
         },
         {
           "places": [
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_AsianOrPacificIslander",
-            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-            "Count_Person_OneRace",
-            "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
             "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_TwoOrMoreRaces",
-            "Count_Person_HispanicOrLatino",
-            "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-            "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_WhiteAlone",
-            "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-            "Count_Person_HispanicOrLatino_AsianAlone",
-            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-            "Count_Person_AsianAlone",
-            "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NonWhite",
-            "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-            "Count_Person_WhiteAloneNotHispanicOrLatino",
-            "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-            "Count_Person_BlackOrAfricanAmericanAlone",
-            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_WhiteAlone",
-            "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NotHispanicOrLatino",
-            "Count_Person_NotHispanicOrLatino_AsianAlone",
-            "Count_Person_SomeOtherRaceAlone",
-            "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-            "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-            "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
-          ]
-        },
-        {
-          "places": [
-            "wikidataId/Q1489"
-          ],
-          "svs": [
-            "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_AsianOrPacificIslander",
-            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-            "Count_Person_OneRace",
             "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_TwoOrMoreRaces",
-            "Count_Person_HispanicOrLatino",
-            "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-            "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_WhiteAlone",
-            "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-            "Count_Person_HispanicOrLatino_AsianAlone",
-            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-            "Count_Person_AsianAlone",
-            "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NonWhite",
-            "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-            "Count_Person_WhiteAloneNotHispanicOrLatino",
-            "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
             "Count_Person_BlackOrAfricanAmericanAlone",
-            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_WhiteAlone",
-            "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_NotHispanicOrLatino",
-            "Count_Person_NotHispanicOrLatino_AsianAlone",
-            "Count_Person_SomeOtherRaceAlone",
-            "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-            "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-            "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
-          ]
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_HispanicOrLatino"
+          ],
+          "type": null
         },
         {
           "places": [
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Female",
-            "Count_Person_Male"
-          ]
+            "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_BlackOrAfricanAmericanAlone",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_HispanicOrLatino"
+          ],
+          "type": null
         },
         {
           "places": [
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_Male",
+            "Count_Person_Female"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
             "Count_Person_Producer_TwoOrMoreRaces",
-            "Count_Person_Producer_AsianAlone",
             "Count_Person_Producer_BlackOrAfricanAmericanAlone",
             "Count_Person_Producer_HispanicOrLatino",
             "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_Producer_WhiteAlone"
-          ]
+            "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone"
+          ],
+          "type": null
         },
         {
           "places": [
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Female",
-            "Count_Person_Male"
-          ]
+            "Count_Person_Male",
+            "Count_Person_Female"
+          ],
+          "type": null
         }
       ],
       "failed_partial_existence_check": [
@@ -162,7 +91,8 @@
           ],
           "svs": [
             "Count_Person_PerArea"
-          ]
+          ],
+          "type": null
         },
         {
           "places": [
@@ -170,7 +100,8 @@
           ],
           "svs": [
             "GrowthRate_Count_Person"
-          ]
+          ],
+          "type": null
         },
         {
           "places": [
@@ -178,7 +109,8 @@
           ],
           "svs": [
             "Count_Person_OneRace"
-          ]
+          ],
+          "type": null
         },
         {
           "places": [
@@ -186,7 +118,8 @@
           ],
           "svs": [
             "Count_Person_TwoOrMoreRaces"
-          ]
+          ],
+          "type": null
         },
         {
           "places": [
@@ -194,7 +127,8 @@
           ],
           "svs": [
             "Count_Person_Female"
-          ]
+          ],
+          "type": null
         },
         {
           "places": [
@@ -202,7 +136,8 @@
           ],
           "svs": [
             "Count_Person_Producer_TwoOrMoreRaces"
-          ]
+          ],
+          "type": null
         },
         {
           "places": [
@@ -210,7 +145,8 @@
           ],
           "svs": [
             "Count_Person_Male"
-          ]
+          ],
+          "type": null
         }
       ]
     },
@@ -353,13 +289,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.26,
-      "extend_svs": 1.55,
-      "fulfillment": 1.87,
-      "get_sv_details": 0.26,
-      "has_series_with_single_datapoint": 0.16,
-      "query_detection": 0.85,
-      "sv_existence_for_places": 0.16
+      "build_page_config": 0.42,
+      "extend_svs": 2.28,
+      "fulfillment": 2.7,
+      "get_sv_details": 0.42,
+      "has_series_with_single_datapoint": 0.2,
+      "query_detection": 0.66,
+      "sv_existence_for_places": 0.21
     }
   },
   "data_spec": [
@@ -371,6 +307,7 @@
       ],
       "places": [
         {
+          "country": "country/MEX",
           "dcid": "wikidataId/Q1489",
           "name": "Mexico City",
           "place_type": "City"
@@ -395,6 +332,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/MEX",
               "dcid": "wikidataId/Q1489",
               "name": "Mexico City",
               "place_type": "City"
@@ -425,16 +363,19 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/36",
           "name": "New York",
           "place_type": "State"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/53",
           "name": "Washington",
           "place_type": "State"
@@ -459,16 +400,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -494,16 +438,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -529,16 +476,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -564,16 +514,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -599,16 +552,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -634,16 +590,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -669,16 +628,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -700,6 +662,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
@@ -724,6 +687,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -749,6 +713,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -774,6 +739,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -799,6 +765,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -824,6 +791,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -849,6 +817,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -874,6 +843,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -901,6 +871,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -929,8 +900,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -955,8 +927,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -982,8 +955,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1009,8 +983,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1036,8 +1011,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1063,8 +1039,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1090,8 +1067,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1117,8 +1095,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1146,6 +1125,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -1170,6 +1150,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -1193,6 +1174,7 @@
   "places_resolved": "(name: Mexico City, dcid: wikidataId/Q1489); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/MEX",
       "dcid": "wikidataId/Q1489",
       "name": "Mexico City",
       "place_type": "City"
@@ -1210,6 +1192,7 @@
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/MEX",
           "dcid": "wikidataId/Q1489",
           "name": "Mexico City",
           "place_type": "City"

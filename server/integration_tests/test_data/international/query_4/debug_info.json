@@ -1,0 +1,537 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.DISTRICT",
+  "correlation_classification": "<None>",
+  "counters": {
+    "ERROR": {},
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/TUR",
+          "result": [
+            "nuts/TR100",
+            "nuts/TR211",
+            "nuts/TR212"
+          ],
+          "type": "EurostatNUTS3"
+        }
+      ],
+      "contained_in_admin_area_equivalent": [
+        [
+          "District",
+          "EurostatNUTS3"
+        ]
+      ],
+      "filtered_svs": [
+        [
+          "FertilityRate_Person_Female",
+          "GrowthRate_Count_Person"
+        ]
+      ],
+      "num_chart_candidates": 2,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.32,
+      "fulfillment": 0.32,
+      "get_sample_child_places": 0.15,
+      "get_sv_details": 0.32,
+      "query_detection": 0.69,
+      "sv_existence_for_places": 0.17
+    }
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "District",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/TUR",
+          "dcid": "country/TUR",
+          "name": "Turkey",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Districts in Turkey with the highest fertility rate",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "EurostatNUTS3",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "country": "country/TUR",
+              "dcid": "country/TUR",
+              "name": "Turkey",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "FertilityRate_Person_Female"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "EurostatNUTS3",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "country": "country/TUR",
+              "dcid": "country/TUR",
+              "name": "Turkey",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "GrowthRate_Count_Person"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "FertilityRate_Person_Female",
+        "GrowthRate_Count_Person"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "County",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/GBR",
+          "dcid": "country/GBR",
+          "name": "United Kingdom",
+          "place_type": "Country"
+        }
+      ],
+      "query": "GDP of counties in the United Kingdom",
+      "query_type": 4,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "EurostatNUTS3",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/GBR",
+              "dcid": "country/GBR",
+              "name": "United Kingdom",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+        "dc/g/EconomicActivity_Industry",
+        "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+        "dc/topic/Economy",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
+        "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "Province",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/CHN",
+          "dcid": "country/CHN",
+          "name": "China",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Life expectancy across provinces of China",
+      "query_type": 4,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person_Male"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person_Female"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Death_AsAFractionOfCount_Person"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "LifeExpectancy_Person",
+        "LifeExpectancy_Person_Male",
+        "LifeExpectancy_Person_Female",
+        "Count_Death_AsAFractionOfCount_Person",
+        "Median_Age_Person",
+        "Count_Death"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "District",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/IND",
+          "dcid": "country/IND",
+          "name": "India",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Where are the most rural districts in India",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea2",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "country": "country/IND",
+              "dcid": "country/IND",
+              "name": "India",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_Rural"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person_Rural",
+        "Area_Farm_Cropland",
+        "Area_Farm"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "country/TUR",
+  "main_place_name": "Turkey",
+  "original_query": "Districts in Turkey with the highest fertility rate",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "turkey"
+  ],
+  "places_resolved": "(name: Turkey, dcid: country/TUR); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "country": "country/TUR",
+      "dcid": "country/TUR",
+      "name": "Turkey",
+      "place_type": "Country"
+    },
+    "original_query": "Districts in Turkey with the highest fertility rate",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": {
+        "turkey": "country/TUR"
+      },
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "country": "country/TUR",
+          "dcid": "country/TUR",
+          "name": "Turkey",
+          "place_type": "Country"
+        }
+      ]
+    },
+    "places_found_str": [
+      "turkey"
+    ],
+    "query_transformations": {
+      "place_detection_input": "districts in turkey with the highest fertility rate",
+      "place_detection_with_places_removed": "districts with the highest fertility rate",
+      "sv_detection_query_input": "districts with the highest fertility rate",
+      "sv_detection_query_stop_words_removal": "districts fertility rate"
+    }
+  },
+  "query_with_places_removed": "districts with the highest fertility rate",
+  "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.7500918507575989,
+      0.552291214466095,
+      0.47341689467430115,
+      0.47279447317123413,
+      0.47152411937713623,
+      0.4682553708553314,
+      0.4668121337890625,
+      0.46678492426872253
+    ],
+    "SV": [
+      "FertilityRate_Person_Female",
+      "GrowthRate_Count_Person",
+      "Count_Person_TwoOrMoreRaces_ResidesInJuvenileFacilities",
+      "Count_Person_NotInLaborForce_Male_MarriedInThePast12Months",
+      "Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities",
+      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth",
+      "Count_Person_NotInLaborForce_Female_MarriedInThePast12Months",
+      "UnemploymentRate_Person_Male"
+    ],
+    "SV_to_Sentences": {
+      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
+        "Infant Mortality Rate (0.4682553708553314)"
+      ],
+      "Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities": [
+        "Population: Male, Foreign Born, Juvenile Facilities (0.47152411937713623)"
+      ],
+      "Count_Person_NotInLaborForce_Female_MarriedInThePast12Months": [
+        "Population: Not in Labor Force, Female, Married in The Past 12 Months (0.4668121337890625)"
+      ],
+      "Count_Person_NotInLaborForce_Male_MarriedInThePast12Months": [
+        "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.47279447317123413)"
+      ],
+      "Count_Person_TwoOrMoreRaces_ResidesInJuvenileFacilities": [
+        "Population: Two or More Races, Juvenile Facilities (0.47341689467430115)"
+      ],
+      "FertilityRate_Person_Female": [
+        "Fertility Rate (0.7500918507575989)",
+        "Fertility of the population (0.6975283622741699)",
+        "Birth rate of the population (0.6018930673599243)",
+        "Birth rate per woman (0.5418902039527893)",
+        "Number of offspring per woman (0.5105675458908081)",
+        "Number of children born per woman (0.5047275424003601)",
+        "Number of babies born per woman (0.469687283039093)"
+      ],
+      "GrowthRate_Count_Person": [
+        "Rate of Population Growth (0.552291214466095)",
+        "Rate of population growth (0.552291214466095)",
+        "Population Growth Rate (0.5479618310928345)",
+        "Population growth rate (0.5479618310928345)",
+        "Rate of increase in population (0.5281090140342712)",
+        "Population increase rate (0.5204557180404663)"
+      ],
+      "UnemploymentRate_Person_Male": [
+        "Unemployment Rate of the male population (0.46678492426872253)",
+        "Unemployment Rate of the Male Population (0.46678492426872253)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
+      "Infant Mortality Rate (0.4682553708553314)"
+    ],
+    "Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities": [
+      "Population: Male, Foreign Born, Juvenile Facilities (0.47152411937713623)"
+    ],
+    "Count_Person_NotInLaborForce_Female_MarriedInThePast12Months": [
+      "Population: Not in Labor Force, Female, Married in The Past 12 Months (0.4668121337890625)"
+    ],
+    "Count_Person_NotInLaborForce_Male_MarriedInThePast12Months": [
+      "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.47279447317123413)"
+    ],
+    "Count_Person_TwoOrMoreRaces_ResidesInJuvenileFacilities": [
+      "Population: Two or More Races, Juvenile Facilities (0.47341689467430115)"
+    ],
+    "FertilityRate_Person_Female": [
+      "Fertility Rate (0.7500918507575989)",
+      "Fertility of the population (0.6975283622741699)",
+      "Birth rate of the population (0.6018930673599243)",
+      "Birth rate per woman (0.5418902039527893)",
+      "Number of offspring per woman (0.5105675458908081)",
+      "Number of children born per woman (0.5047275424003601)",
+      "Number of babies born per woman (0.469687283039093)"
+    ],
+    "GrowthRate_Count_Person": [
+      "Rate of Population Growth (0.552291214466095)",
+      "Rate of population growth (0.552291214466095)",
+      "Population Growth Rate (0.5479618310928345)",
+      "Population growth rate (0.5479618310928345)",
+      "Rate of increase in population (0.5281090140342712)",
+      "Population increase rate (0.5204557180404663)"
+    ],
+    "UnemploymentRate_Person_Male": [
+      "Unemployment Rate of the male population (0.46678492426872253)",
+      "Unemployment Rate of the Male Population (0.46678492426872253)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}
