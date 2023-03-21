@@ -4,54 +4,70 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_existence_check": [
-      {
-        "places": [
-          "geoId/06"
-        ],
-        "svs": [
-          "Percent_Person_Obesity",
-          "Percent_Person_BingeDrinking",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
+    "ERROR": {
+      "failed_existence_check": [
+        {
+          "places": [
+            "geoId/06"
+          ],
+          "svs": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Smoking",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_Obesity"
+          ]
+        }
+      ],
+      "parent_place_fallback": [
+        {
+          "child": "geoId/06",
+          "parent": "country/USA"
+        }
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "Percent_Person_Obesity"
         ]
-      }
-    ],
-    "filtered_svs": [
-      "Percent_Person_Obesity"
-    ],
-    "num_chart_candidates": 2,
-    "parent_place_fallback": [
-      {
-        "child": "geoId/06",
-        "parent": "country/USA"
-      }
-    ],
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "simple_timeline_to_bar_demotions": 2,
-    "stat_var_extensions": [
-      {
-        "Percent_Person_Obesity": [
-          "Percent_Person_BingeDrinking",
-          "Percent_Person_Obesity",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
-        ]
-      },
-      {
-        "Percent_Person_Obesity": [
-          "Percent_Person_BingeDrinking",
-          "Percent_Person_Obesity",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
-        ]
-      }
-    ]
+      ],
+      "num_chart_candidates": 2,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "simple_timeline_to_bar_demotions": 2,
+      "stat_var_extensions": [
+        {
+          "Percent_Person_Obesity": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ]
+        },
+        {
+          "Percent_Person_Obesity": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ]
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.27,
+      "extend_svs": 0.86,
+      "fulfillment": 1.69,
+      "get_immediate_parent_places": 0.14,
+      "get_sv_details": 0.27,
+      "has_series_with_single_datapoint": 0.32,
+      "query_detection": 0.22,
+      "sv_existence_for_places": 0.36
+    }
   },
   "data_spec": [
     {
@@ -799,9 +815,9 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/06"
-      ],
+      "dcids_resolved": {
+        "california": "geoId/06"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {
@@ -830,14 +846,14 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7435534000396729,
-      0.4429702162742615,
-      0.4272724390029907,
-      0.4235864579677582,
-      0.4143773019313812,
-      0.4143413007259369,
-      0.395723432302475,
-      0.388375461101532
+      0.7435534596443176,
+      0.44297027587890625,
+      0.427272230386734,
+      0.4235866367816925,
+      0.4143773913383484,
+      0.41434112191200256,
+      0.3957231640815735,
+      0.38837534189224243
     ],
     "SV": [
       "Percent_Person_Obesity",
@@ -851,79 +867,79 @@
     ],
     "SV_to_Sentences": {
       "Percent_Person_Obesity": [
-        "Prevalence: Obesity (0.7435534000396729)",
-        "Percentage of the population that is obese (0.65312659740448)",
-        "Percentage of people who are classified as obese (0.6383181810379028)",
+        "Prevalence: Obesity (0.7435534596443176)",
+        "Percentage of the population that is obese (0.6531268358230591)",
+        "Percentage of people who are classified as obese (0.6383180618286133)",
         "Percentage of population that is obese (0.636038601398468)",
         "Percentage of Population That Is Obese (0.636038601398468)",
-        "Percentage of overweight people (0.5690838098526001)",
-        "Percent of fat people (0.5576059818267822)",
-        "Percentage of people who are overweight (0.5477599501609802)",
-        "Percentage of people who have a BMI over 30 (0.3838990330696106)"
+        "Percentage of overweight people (0.5690832138061523)",
+        "Percent of fat people (0.5576062798500061)",
+        "Percentage of people who are overweight (0.5477598905563354)",
+        "Percentage of people who have a BMI over 30 (0.38389888405799866)"
       ],
       "Percent_Person_WithPhysicalHealthNotGood": [
-        "Prevalence: Physical Health Not Good (0.4143773019313812)",
-        "Percentage of the population with poor physical health (0.3835512697696686)",
-        "Percentage of population with poor physical health (0.37608346343040466)"
+        "Prevalence: Physical Health Not Good (0.4143773913383484)",
+        "Percentage of the population with poor physical health (0.38355112075805664)",
+        "Percentage of population with poor physical health (0.3760833144187927)"
       ],
       "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting": [
-        "People who are 4 years or younger and have severe wasting (0.388375461101532)"
+        "People who are 4 years or younger and have severe wasting (0.38837534189224243)"
       ],
       "dc/g/Person_MedicalCondition-Diabetes": [
-        "people with diabetes (0.4235864579677582)"
+        "people with diabetes (0.4235866367816925)"
       ],
       "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-        "people with physical health not good (0.4429702162742615)",
-        "Number of People With Poor Physical Health (0.4120839536190033)"
+        "people with physical health not good (0.44297027587890625)",
+        "Number of People With Poor Physical Health (0.4120839238166809)"
       ],
       "dc/g/Person_MedicalCondition-SevereWasting": [
-        "people with severe wasting (0.4143413007259369)"
+        "people with severe wasting (0.41434112191200256)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.395723432302475)"
+        "people with wasting (0.3957231640815735)"
       ],
       "dc/topic/MedicalConditions": [
-        "Health problems (0.4272724390029907)",
-        "health issues (0.41941502690315247)"
+        "Health problems (0.427272230386734)",
+        "health issues (0.4194149374961853)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_Obesity": [
-      "Prevalence: Obesity (0.7435534000396729)",
-      "Percentage of the population that is obese (0.65312659740448)",
-      "Percentage of people who are classified as obese (0.6383181810379028)",
+      "Prevalence: Obesity (0.7435534596443176)",
+      "Percentage of the population that is obese (0.6531268358230591)",
+      "Percentage of people who are classified as obese (0.6383180618286133)",
       "Percentage of population that is obese (0.636038601398468)",
       "Percentage of Population That Is Obese (0.636038601398468)",
-      "Percentage of overweight people (0.5690838098526001)",
-      "Percent of fat people (0.5576059818267822)",
-      "Percentage of people who are overweight (0.5477599501609802)",
-      "Percentage of people who have a BMI over 30 (0.3838990330696106)"
+      "Percentage of overweight people (0.5690832138061523)",
+      "Percent of fat people (0.5576062798500061)",
+      "Percentage of people who are overweight (0.5477598905563354)",
+      "Percentage of people who have a BMI over 30 (0.38389888405799866)"
     ],
     "Percent_Person_WithPhysicalHealthNotGood": [
-      "Prevalence: Physical Health Not Good (0.4143773019313812)",
-      "Percentage of the population with poor physical health (0.3835512697696686)",
-      "Percentage of population with poor physical health (0.37608346343040466)"
+      "Prevalence: Physical Health Not Good (0.4143773913383484)",
+      "Percentage of the population with poor physical health (0.38355112075805664)",
+      "Percentage of population with poor physical health (0.3760833144187927)"
     ],
     "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting": [
-      "People who are 4 years or younger and have severe wasting (0.388375461101532)"
+      "People who are 4 years or younger and have severe wasting (0.38837534189224243)"
     ],
     "dc/g/Person_MedicalCondition-Diabetes": [
-      "people with diabetes (0.4235864579677582)"
+      "people with diabetes (0.4235866367816925)"
     ],
     "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-      "people with physical health not good (0.4429702162742615)",
-      "Number of People With Poor Physical Health (0.4120839536190033)"
+      "people with physical health not good (0.44297027587890625)",
+      "Number of People With Poor Physical Health (0.4120839238166809)"
     ],
     "dc/g/Person_MedicalCondition-SevereWasting": [
-      "people with severe wasting (0.4143413007259369)"
+      "people with severe wasting (0.41434112191200256)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.395723432302475)"
+      "people with wasting (0.3957231640815735)"
     ],
     "dc/topic/MedicalConditions": [
-      "Health problems (0.4272724390029907)",
-      "health issues (0.41941502690315247)"
+      "Health problems (0.427272230386734)",
+      "health issues (0.4194149374961853)"
     ]
   },
   "time_delta_classification": "<None>"
