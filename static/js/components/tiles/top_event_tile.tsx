@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
@@ -55,7 +55,9 @@ interface TopEventTilePropType {
   className?: string;
 }
 
-export function TopEventTile(props: TopEventTilePropType): JSX.Element {
+export const TopEventTile = memo(function TopEventTile(
+  props: TopEventTilePropType
+): JSX.Element {
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
   const [eventPlaces, setEventPlaces] =
@@ -411,4 +413,4 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     }
     return ret;
   }
-}
+});
