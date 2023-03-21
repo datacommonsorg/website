@@ -380,7 +380,6 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "state": "states",
     "province": "provinces",
     "county": "counties",
-    "continent": "continents",
     "division": "divisions",
     "department": "departments",
     "municipality": "municipalities",
@@ -469,7 +468,8 @@ PARENT_PLACE_TYPES = {
 }
 
 #
-# Equivalent place types to AdminArea1 or AdminArea2
+# Equivalent place types to AdminArea1 or AdminArea2.  This maps the different ways
+# that a user may refer to admin-areas to the canonical AdminArea type.
 #
 # TODO: As we add more countries, make this map a function of the country as well.
 #
