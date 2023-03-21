@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
@@ -220,7 +220,9 @@ function shouldShowHistogram(histogramData: DataPoint[]): boolean {
 /**
  * Main histogram tile component
  */
-export function HistogramTile(props: HistogramTilePropType): JSX.Element {
+export const HistogramTile = memo(function HistogramTile(
+  props: HistogramTilePropType
+): JSX.Element {
   const svgContainer = useRef(null);
   const isInitialLoading = _.isNull(props.disasterEventData);
   let histogramData = [];
@@ -340,4 +342,4 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
       );
     }
   }
-}
+});
