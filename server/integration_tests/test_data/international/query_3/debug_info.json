@@ -1,0 +1,677 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.COUNTY",
+  "correlation_classification": "<None>",
+  "counters": {
+    "ERROR": {
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13",
+            "nuts/UKC14",
+            "nuts/UKC21",
+            "nuts/UKC22",
+            "nuts/UKC23",
+            "nuts/UKD11",
+            "nuts/UKD12",
+            "nuts/UKD32",
+            "nuts/UKD33",
+            "nuts/UKD34",
+            "nuts/UKD35",
+            "nuts/UKD36",
+            "nuts/UKD37"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+          ],
+          "type": "EurostatNUTS3"
+        },
+        {
+          "places": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13",
+            "nuts/UKC14",
+            "nuts/UKC21",
+            "nuts/UKC22",
+            "nuts/UKC23",
+            "nuts/UKD11",
+            "nuts/UKD12",
+            "nuts/UKD32",
+            "nuts/UKD33",
+            "nuts/UKD34",
+            "nuts/UKD35",
+            "nuts/UKD36",
+            "nuts/UKD37"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
+          ],
+          "type": "EurostatNUTS3"
+        },
+        {
+          "places": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13",
+            "nuts/UKC14",
+            "nuts/UKC21",
+            "nuts/UKC22",
+            "nuts/UKC23",
+            "nuts/UKD11",
+            "nuts/UKD12",
+            "nuts/UKD32",
+            "nuts/UKD33",
+            "nuts/UKD34",
+            "nuts/UKD35",
+            "nuts/UKD36",
+            "nuts/UKD37"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+          ],
+          "type": "EurostatNUTS3"
+        },
+        {
+          "places": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13",
+            "nuts/UKC14",
+            "nuts/UKC21",
+            "nuts/UKC22",
+            "nuts/UKC23",
+            "nuts/UKD11",
+            "nuts/UKD12",
+            "nuts/UKD32",
+            "nuts/UKD33",
+            "nuts/UKD34",
+            "nuts/UKD35",
+            "nuts/UKD36",
+            "nuts/UKD37"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
+          ],
+          "type": "EurostatNUTS3"
+        },
+        {
+          "places": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13",
+            "nuts/UKC14",
+            "nuts/UKC21",
+            "nuts/UKC22",
+            "nuts/UKC23",
+            "nuts/UKD11",
+            "nuts/UKD12",
+            "nuts/UKD32",
+            "nuts/UKD33",
+            "nuts/UKD34",
+            "nuts/UKD35",
+            "nuts/UKD36",
+            "nuts/UKD37"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue"
+          ],
+          "type": "EurostatNUTS3"
+        },
+        {
+          "places": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13",
+            "nuts/UKC14",
+            "nuts/UKC21",
+            "nuts/UKC22",
+            "nuts/UKC23",
+            "nuts/UKD11",
+            "nuts/UKD12",
+            "nuts/UKD32",
+            "nuts/UKD33",
+            "nuts/UKD34",
+            "nuts/UKD35",
+            "nuts/UKD36",
+            "nuts/UKD37"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
+          ],
+          "type": "EurostatNUTS3"
+        },
+        {
+          "places": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13",
+            "nuts/UKC14",
+            "nuts/UKC21",
+            "nuts/UKC22",
+            "nuts/UKC23",
+            "nuts/UKD11",
+            "nuts/UKD12",
+            "nuts/UKD32",
+            "nuts/UKD33",
+            "nuts/UKD34",
+            "nuts/UKD35",
+            "nuts/UKD36",
+            "nuts/UKD37"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
+          ],
+          "type": "EurostatNUTS3"
+        },
+        {
+          "places": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13",
+            "nuts/UKC14",
+            "nuts/UKC21",
+            "nuts/UKC22",
+            "nuts/UKC23",
+            "nuts/UKD11",
+            "nuts/UKD12",
+            "nuts/UKD32",
+            "nuts/UKD33",
+            "nuts/UKD34",
+            "nuts/UKD35",
+            "nuts/UKD36",
+            "nuts/UKD37"
+          ],
+          "svs": [
+            "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          ],
+          "type": "EurostatNUTS3"
+        }
+      ]
+    },
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/GBR",
+          "result": [
+            "nuts/UKC11",
+            "nuts/UKC12",
+            "nuts/UKC13"
+          ],
+          "type": "EurostatNUTS3"
+        }
+      ],
+      "contained_in_admin_area_equivalent": [
+        [
+          "County",
+          "EurostatNUTS3"
+        ]
+      ],
+      "filtered_svs": [
+        [
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+          "dc/g/EconomicActivity_Industry",
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+          "dc/topic/Economy",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
+          "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "containedin"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/Economy": {
+            "peer_groups": [],
+            "svs": []
+          }
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.31,
+      "fulfillment": 0.39,
+      "get_sample_child_places": 0.21,
+      "get_sv_details": 0.31,
+      "query_detection": 0.94,
+      "sv_existence_for_places": 0.18,
+      "topic_calls": 0.0
+    }
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "County",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/GBR",
+          "dcid": "country/GBR",
+          "name": "United Kingdom",
+          "place_type": "Country"
+        }
+      ],
+      "query": "GDP of counties in the United Kingdom",
+      "query_type": 4,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "EurostatNUTS3",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/GBR",
+              "dcid": "country/GBR",
+              "name": "United Kingdom",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+        "dc/g/EconomicActivity_Industry",
+        "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+        "dc/topic/Economy",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
+        "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "Province",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/CHN",
+          "dcid": "country/CHN",
+          "name": "China",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Life expectancy across provinces of China",
+      "query_type": 4,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person_Male"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "LifeExpectancy_Person_Female"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea1",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/CHN",
+              "dcid": "country/CHN",
+              "name": "China",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Death_AsAFractionOfCount_Person"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "LifeExpectancy_Person",
+        "LifeExpectancy_Person_Male",
+        "LifeExpectancy_Person_Female",
+        "Count_Death_AsAFractionOfCount_Person",
+        "Median_Age_Person",
+        "Count_Death"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "District",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/IND",
+          "dcid": "country/IND",
+          "name": "India",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Where are the most rural districts in India",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea2",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "country": "country/IND",
+              "dcid": "country/IND",
+              "name": "India",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_Rural"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person_Rural",
+        "Area_Farm_Cropland",
+        "Area_Farm"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "country/GBR",
+  "main_place_name": "United Kingdom",
+  "original_query": "GDP of counties in the United Kingdom",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "gdp",
+    "united kingdom"
+  ],
+  "places_resolved": "(name: United Kingdom, dcid: country/GBR); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "country": "country/GBR",
+      "dcid": "country/GBR",
+      "name": "United Kingdom",
+      "place_type": "Country"
+    },
+    "original_query": "GDP of counties in the United Kingdom",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": {
+        "united kingdom": "country/GBR"
+      },
+      "maps_api_failures": [
+        "gdp"
+      ]
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "country": "country/GBR",
+          "dcid": "country/GBR",
+          "name": "United Kingdom",
+          "place_type": "Country"
+        }
+      ]
+    },
+    "places_found_str": [
+      "gdp",
+      "united kingdom"
+    ],
+    "query_transformations": {
+      "place_detection_input": "gdp of counties in the united kingdom",
+      "place_detection_with_places_removed": "gdp of counties in the",
+      "sv_detection_query_input": "gdp of counties in the",
+      "sv_detection_query_stop_words_removal": "gdp"
+    }
+  },
+  "query_with_places_removed": "gdp of counties in the",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.7848206758499146,
+      0.7488872408866882,
+      0.6779435276985168,
+      0.6746389269828796,
+      0.6742427945137024,
+      0.6736500263214111,
+      0.6669632792472839,
+      0.6655664443969727,
+      0.6592216491699219,
+      0.6516274213790894,
+      0.6323909759521484
+    ],
+    "SV": [
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+      "dc/g/EconomicActivity_Industry",
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+      "dc/topic/Economy",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
+      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+    ],
+    "SV_to_Sentences": {
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue": [
+        "Gross Domestic Product (GDP) of the Agriculture, Forestry, Fishing and Hunting Industry (0.6516274213790894)",
+        "Gross Domestic Product (GDP) of the agriculture, forestry, fishing, and hunting industry (0.6487920880317688)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue": [
+        "Gross Domestic Product (GDP) of the arts, entertainment, and recreation industry (0.6655664443969727)",
+        "Gross Domestic Product (GDP) of the Arts, Entertainment, and Recreation Industry (0.6655663847923279)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": [
+        "Gross Domestic Product (GDP) of the Finance and Insurance Industry (0.6669632792472839)",
+        "Gross Domestic Product (GDP) of the finance and insurance industry (0.6669632792472839)",
+        "How much the finance and insurance sector contributes to the GDP. (0.6466923356056213)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": [
+        "Gross Domestic Product (GDP) of the information industry (0.6742427945137024)",
+        "Gross Domestic Product (GDP) of the Information Industry (0.6742427945137024)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": [
+        "Gross Domestic Product (GDP) of the professional, scientific, and technical services industry (0.6746389269828796)",
+        "Gross Domestic Product (GDP) of the Professional, Scientific, and Technical Services Industry (0.6746389269828796)",
+        "The GDP contribution of the professional, scientific, and technical services field (0.6437943577766418)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue": [
+        "The GDP contribution of the utilities field (0.6592216491699219)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+        "Nominal GDP (0.7848206758499146)",
+        "Nominal Gross Domestic Production (GDP) (0.7130014300346375)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+        "Nominal Gross Domestic Production (GDP) Per Capita (0.6779435276985168)"
+      ],
+      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+        "Growth Rate of Gross Domestic Production (GDP) (0.6323909759521484)"
+      ],
+      "dc/g/EconomicActivity_Industry": [
+        "Total nominal GDP (0.7488872408866882)"
+      ],
+      "dc/topic/Economy": [
+        "Economy (0.6736500263214111)",
+        "Summary of the economy (0.649835467338562)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue": [
+      "Gross Domestic Product (GDP) of the Agriculture, Forestry, Fishing and Hunting Industry (0.6516274213790894)",
+      "Gross Domestic Product (GDP) of the agriculture, forestry, fishing, and hunting industry (0.6487920880317688)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue": [
+      "Gross Domestic Product (GDP) of the arts, entertainment, and recreation industry (0.6655664443969727)",
+      "Gross Domestic Product (GDP) of the Arts, Entertainment, and Recreation Industry (0.6655663847923279)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": [
+      "Gross Domestic Product (GDP) of the Finance and Insurance Industry (0.6669632792472839)",
+      "Gross Domestic Product (GDP) of the finance and insurance industry (0.6669632792472839)",
+      "How much the finance and insurance sector contributes to the GDP. (0.6466923356056213)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": [
+      "Gross Domestic Product (GDP) of the information industry (0.6742427945137024)",
+      "Gross Domestic Product (GDP) of the Information Industry (0.6742427945137024)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": [
+      "Gross Domestic Product (GDP) of the professional, scientific, and technical services industry (0.6746389269828796)",
+      "Gross Domestic Product (GDP) of the Professional, Scientific, and Technical Services Industry (0.6746389269828796)",
+      "The GDP contribution of the professional, scientific, and technical services field (0.6437943577766418)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue": [
+      "The GDP contribution of the utilities field (0.6592216491699219)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+      "Nominal GDP (0.7848206758499146)",
+      "Nominal Gross Domestic Production (GDP) (0.7130014300346375)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+      "Nominal Gross Domestic Production (GDP) Per Capita (0.6779435276985168)"
+    ],
+    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+      "Growth Rate of Gross Domestic Production (GDP) (0.6323909759521484)"
+    ],
+    "dc/g/EconomicActivity_Industry": [
+      "Total nominal GDP (0.7488872408866882)"
+    ],
+    "dc/topic/Economy": [
+      "Economy (0.6736500263214111)",
+      "Summary of the economy (0.649835467338562)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}
