@@ -105,9 +105,16 @@ categories {
     title: "Energy"
     columns {
       tiles {
-        title: "Energy use (kg of oil equivalent per capita)"
+        title: "Energy consumption (kg of oil equivalent per capita)"
         type: LINE
         stat_var_key: "energy_consumption_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Electricity consumption per capita",
+        type: LINE
+        stat_var_key: "energy_consumption"
       }
     }
     columns {
@@ -115,6 +122,13 @@ categories {
         title: "Electricity generation per capita",
         type: LINE
         stat_var_key: "energy_generation"
+      }
+    }
+    columns {
+      tiles {
+        title: "Annual average retail price of electricity, all sectors"
+        type: LINE
+        stat_var_key: "electricity_price"
       }
     }
   }
@@ -163,6 +177,7 @@ categories {
     value {
       stat_var: "Amount_Consumption_Energy_PerCapita"
       unit: "kgoe"
+      name: "Electricity consumption per capita"
     }
   }
   stat_var_spec {
@@ -170,42 +185,249 @@ categories {
     value {
       stat_var: "Annual_Generation_Electricity"
       denom: "Count_Person"
+      name: "Electricity generation per capita"
       unit: "kWh"
     }
   }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
+  stat_var_spec {
+    key: "energy_consumption"
+    value {
+      stat_var: "Amount_Consumption_Electricity_PerCapita"
+      name: "Electricity consumption per capita"
+      unit: "kWh"
+    }
+  }
+  stat_var_spec {
+    key: "electricity_price"
+    value {
+      stat_var: "Annual_Average_RetailPrice_Electricity"
+      unit: "¢/kWh"
+      name: "Annual average retail price of electricity, all sectors"
+    }
+  }
 }
 
 categories {
   title: "Health"
   blocks {
     columns {
-      tiles {}
+      tiles {
+        type: LINE
+        title: "Life expectancy (years)"
+        stat_var_key: "life_expectancy"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Infant mortality rate"
+        stat_var_key: "infant_mortality"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Infant mortality rate, by gender"
+        stat_var_key: "infant_mortality_male"
+        stat_var_key: "infant_mortality_female"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Wasting among children under 5"
+        stat_var_key: "wasting"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Wasting among children under 5, by gender"
+        stat_var_key: "wasting_male"
+        stat_var_key: "wasting_female"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Alcohol consumption per capita (annual)"
+        stat_var_key: "alcohol"
+      }
+    }
+    columns {
+      tiles {
+        type: BAR
+        title: "Mortality events"
+        stat_var_key: "death_circulatory"
+        stat_var_key: "death_neoplasms"
+        stat_var_key: "death_respiratory"
+        stat_var_key: "death_external"
+        stat_var_key: "death_nervous"
+        comparison_places: "self"
+      }
+    }
+    columns {
+      tiles {
+        type: BAR
+        title: "Health outcomes"
+        stat_var_key: "high_cholesterol"
+        stat_var_key: "high_blood_pressure"
+        stat_var_key: "arthritis"
+        stat_var_key: "mental_health"
+        stat_var_key: "physical_health"
+        comparison_places: "self"
+      }
     }
   }
+
+  stat_var_spec {
+    key: "life_expectancy"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Life expectancy"
+      unit: "Years"
+    }
+  }
+  stat_var_spec {
+    key: "death_circulatory"
+    value {
+      stat_var: "Count_Death_DiseasesOfTheCirculatorySystem"
+      name: "Circulatory system"
+    }
+  }
+  stat_var_spec {
+    key: "death_neoplasms"
+    value {
+      stat_var: "Count_Death_Neoplasms"
+      name: "Neoplasms"
+    }
+  }
+  stat_var_spec {
+    key: "death_respiratory"
+    value {
+      stat_var: "Count_Death_DiseasesOfTheRespiratorySystem"
+      name: "Respiratory system"
+    }
+  }
+  stat_var_spec {
+    key: "death_external"
+    value {
+      stat_var: "Count_Death_ExternalCauses"
+      name: "External causes"
+    }
+  }
+  stat_var_spec {
+    key: "death_nervous"
+    value {
+      stat_var: "Count_Death_DiseasesOfTheNervousSystem"
+      name: "Nervous system"
+    }
+  }
+  stat_var_spec {
+    key: "infant_mortality_male"
+    value {
+      stat_var: "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male"
+      name: "Male"
+      scaling: 0.1
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "infant_mortality_female"
+    value {
+      stat_var: "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+      name: "Female"
+      scaling: 0.1
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "infant_mortality"
+    value {
+      stat_var: "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+      name: "Infant mortality rate"
+      scaling: 0.1
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "wasting"
+    value {
+      stat_var: "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
+      name: "Wasting under 5 years old"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "wasting_male"
+    value {
+      stat_var: "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male"
+      name: "Male"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "wasting_female"
+    value {
+      stat_var: "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female"
+      name: "Female"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "alcohol"
+    value {
+      stat_var: "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
+      name: "Annual alcohol consumption per person"
+      unit: "L"
+    }
+  }
+  stat_var_spec {
+    key: "high_cholesterol"
+    value {
+      stat_var: "Percent_Person_WithHighCholesterol"
+      name: "High cholesterol"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "high_blood_pressure"
+    value {
+      stat_var: "Percent_Person_WithHighBloodPressure"
+      name: "High blood pressure"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "arthritis"
+    value {
+      stat_var: "Percent_Person_WithArthritis"
+      name: "Arthritis"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "mental_health"
+    value {
+      stat_var: "Percent_Person_WithMentalHealthNotGood"
+      name: "Poor mental health"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "physical_health"
+    value {
+      stat_var: "Percent_Person_WithPhysicalHealthNotGood"
+      name: "Poor physical health"
+      unit: "%"
+    }
+  }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
 }
 
 categories {
