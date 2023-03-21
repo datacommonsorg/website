@@ -100,8 +100,10 @@ class TestRemoveEmptyCharts(unittest.TestCase):
             },
         }
     }
-    result = lib_subject_page_config._exist_keys_category(
-        ['place_id'], category, stat_vars_existence, 'place_id')
+    result = lib_subject_page_config._exist_keys_category(['place_id'],
+                                                          category,
+                                                          stat_vars_existence,
+                                                          'place_id')
     expect = {
         "kept_0": True,
         "kept_1": True,
@@ -112,10 +114,11 @@ class TestRemoveEmptyCharts(unittest.TestCase):
 
   @mock.patch('server.lib.nl.utils.get_sample_child_places')
   @mock.patch('server.services.datacommons.observation_existence')
-  def test_remove_empty_charts(self, mock_observation_existence, mock_sample_child_places):
+  def test_remove_empty_charts(self, mock_observation_existence,
+                               mock_sample_child_places):
 
     def sample_child_places_side_effect(place_dcid, contained_place_type, _):
-        return [ 'child_id' ]
+      return ['child_id']
 
     def obs_side_effect(all_svs, place_dcids):
       return {
@@ -182,7 +185,8 @@ class TestRemoveEmptyCharts(unittest.TestCase):
 
     config = lib_util.get_subject_page_config(
         "server/tests/test_data/existence.textproto")
-    result = lib_subject_page_config.remove_empty_charts(config, 'place_id', 'child_type')
+    result = lib_subject_page_config.remove_empty_charts(
+        config, 'place_id', 'child_type')
     expect = lib_util.get_subject_page_config(
         "server/tests/test_data/existence_expect.textproto")
     print(expect)
