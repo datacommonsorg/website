@@ -140,9 +140,11 @@ message ScatterTileSpec {
 }
 
 message Tile {
-  // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
-  // with any required fields for your new TileType. Also, specify what block types can render
-  // the tiles.
+  // When adding a new TileType:
+  // - make sure to update verify_tile in subject_page_configs_test.py with any
+  //   required fields for your new TileType.
+  // - specify what block types can render the tiles.
+  // - update *_FILTER_TILE_TYPES in lib/subject_page_config.py
   enum TileType {
     TYPE_NONE = 0;
     // allowed in BlockTypes: TYPE_NONE

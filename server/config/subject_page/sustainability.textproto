@@ -16,22 +16,7 @@
 
 metadata {
   topic_id: "sustainability_explorer"
-  contained_place_types {
-    key: "Planet"
-    value: "Country"
-  }
-  contained_place_types {
-    key: "Continent"
-    value: "Country"
-  }
-  contained_place_types {
-    key: "Country"
-    value: "AdministrativeArea1"
-  }
-  contained_place_types {
-    key: "AdministrativeArea1"
-    value: "AdministrativeArea2"
-  }
+  # Contained_place_types set in routes/event.py.
 }
 
 categories {
@@ -63,11 +48,17 @@ categories {
       }
     }
   }
+
   blocks {
     title: "Temperature"
     columns {
       tiles {
         type: LINE
+        title: "Projected max temperature change under RCP 2.6 (based on year 2006)"
+        stat_var_key: "temp_rcp26"
+      }
+      tiles {
+        type: MAP
         title: "Projected max temperature change under RCP 2.6 (based on year 2006)"
         stat_var_key: "temp_rcp26"
       }
@@ -78,10 +69,20 @@ categories {
         title: "Projected max temperature change under RCP 4.5 (based on year 2006)"
         stat_var_key: "temp_rcp45"
       }
+      tiles {
+        type: MAP
+        title: "Projected max temperature change under RCP 4.5 (based on year 2006)"
+        stat_var_key: "temp_rcp45"
+      }
     }
     columns {
       tiles {
         type: LINE
+        title: "Projected max temperature change under RCP 4.5, SSP 2 (based on year 2015)"
+        stat_var_key: "temp_ssp245"
+      }
+      tiles {
+        type: MAP
         title: "Projected max temperature change under RCP 4.5, SSP 2 (based on year 2015)"
         stat_var_key: "temp_ssp245"
       }
@@ -92,8 +93,14 @@ categories {
         title: "Projected max temperature change under RCP 8.5, SSP 5 (based on year 2015)"
         stat_var_key: "temp_ssp585"
       }
+      tiles {
+        type: MAP
+        title: "Projected max temperature change under RCP 8.5, SSP 5 (based on year 2015)"
+        stat_var_key: "temp_ssp585"
+      }
     }
   }
+
   blocks {
     title: "Energy"
     columns {
@@ -111,6 +118,7 @@ categories {
       }
     }
   }
+
   stat_var_spec {
     key: "aqi"
     value {
@@ -137,7 +145,7 @@ categories {
   stat_var_spec {
     key: "temp_ssp245"
     value {
-      stat_var: "DifferenceRelativeToBaseDate2015_Temperature_SSP245"
+      stat_var: "DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245"
       unit: "°C"
       name: "Projected max temp. change, RCP 4.5, SSP 2 (based on 2015)"
     }
@@ -145,7 +153,7 @@ categories {
   stat_var_spec {
     key: "temp_ssp585"
     value {
-      stat_var: "DifferenceRelativeToBaseDate2015_Temperature_SSP585"
+      stat_var: "DifferenceRelativeToBaseDate2015_Max_Temperature_SSP585"
       unit: "°C"
       name: "Projected max temp. change, RCP 8.5, SSP 5 (based on 2015)"
     }
@@ -162,7 +170,7 @@ categories {
     value {
       stat_var: "Annual_Generation_Electricity"
       denom: "Count_Person"
-      unit: "kWh / person"
+      unit: "kWh"
     }
   }
   # stat_var_spec {

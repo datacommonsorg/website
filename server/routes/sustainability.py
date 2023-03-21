@@ -25,6 +25,13 @@ from google.protobuf.json_format import MessageToJson
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
 
+DEFAULT_CONTAINED_PLACE_TYPES = {
+    "Continent": "Country",
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "AdministrativeArea3",
+}
+
 # Define blueprint
 bp = Blueprint("sustainability", __name__, url_prefix='/sustainability')
 
@@ -38,25 +45,33 @@ def sustainability_explorer(place_dcid=None):
         place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
-  dashboard_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
+  subject_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    dashboard_config = server.lib.util.get_disaster_sustainability_config()
+    subject_config = server.lib.util.get_disaster_sustainability_config()
 
-  if not dashboard_config:
+  if not subject_config:
     return "Error: no config installed"
 
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
   if place_metadata.contained_place_types_override:
-    dashboard_config.metadata.contained_place_types.clear()
-    dashboard_config.metadata.contained_place_types.update(
+    subject_config.metadata.contained_place_types.clear()
+    subject_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
+  else:
+    subject_config.metadata.contained_place_types.update(
+        DEFAULT_CONTAINED_PLACE_TYPES)
 
-  dashboard_config = lib_subject_page_config.remove_empty_charts(
-      dashboard_config, place_dcid)
+  place_type = None
+  for pt in place_metadata.place_types:
+    if pt in DEFAULT_CONTAINED_PLACE_TYPES:
+      place_type = pt
+      break
+  subject_config = lib_subject_page_config.remove_empty_charts(
+      subject_config, place_dcid, DEFAULT_CONTAINED_PLACE_TYPES[place_type])
 
   return flask.render_template(
       'custom_dc/stanford/sustainability.html',
       place_metadata=dataclasses.asdict(place_metadata),
-      config=MessageToJson(dashboard_config))
+      config=MessageToJson(subject_config))
