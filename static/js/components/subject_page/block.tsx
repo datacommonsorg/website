@@ -24,8 +24,8 @@ import React, { useEffect, useState } from "react";
 import {
   COLUMN_ID_PREFIX,
   HIDE_TILE_CLASS,
-  TILE_ID_PREFIX,
   SELF_PLACE_DCID_PLACEHOLDER,
+  TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
@@ -152,7 +152,11 @@ function renderTiles(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
-    const comparisonPlaces = tile.comparisonPlaces ? tile.comparisonPlaces.map(p => p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p) : undefined;
+    const comparisonPlaces = tile.comparisonPlaces
+      ? tile.comparisonPlaces.map((p) =>
+          p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
+        )
+      : undefined;
     const className = classNameList.join(" ");
     switch (tile.type) {
       case "HIGHLIGHT":

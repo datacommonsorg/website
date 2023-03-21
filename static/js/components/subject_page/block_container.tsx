@@ -50,7 +50,9 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
     date: "",
   };
   const title = props.title ? formatString(props.title, rs) : "";
-  const description = props.description ? formatString(props.description, rs) : "";
+  const description = props.description
+    ? formatString(props.description, rs)
+    : "";
 
   return (
     <section
