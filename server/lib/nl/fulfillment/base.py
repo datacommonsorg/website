@@ -294,10 +294,11 @@ class ExistenceCheckStateTracker:
           exist_cv.exist_event = utils.event_existence_for_place(
               places[0], chart_vars.event, self.state.uttr.counters)
           if not exist_cv.exist_event:
-            state.uttr.counters.err('failed_event_existence_check', {
-                'places': places[:3],
-                'event': chart_vars.event
-            })
+            state.uttr.counters.err(
+                'failed_event_existence_check', {
+                    'places': places[:constants.DBG_LIST_LIMIT],
+                    'event': chart_vars.event
+                })
         else:
           self.all_svs.update(chart_vars.svs)
         exist_state.chart_vars_list.append(exist_cv)
@@ -323,9 +324,9 @@ class ExistenceCheckStateTracker:
                    ', '.join(self.all_svs))
       self.state.uttr.counters.err(
           'failed_existence_check', {
-              'places': self.places[:3],
+              'places': self.places[:constants.DBG_LIST_LIMIT],
               'type': self.state.place_type,
-              'svs': list(self.all_svs)[:3],
+              'svs': list(self.all_svs)[:constants.DBG_LIST_LIMIT],
           })
       return
 
@@ -339,9 +340,13 @@ class ExistenceCheckStateTracker:
         if len(ecv.exist_svs) < len(ecv.chart_vars.svs):
           self.state.uttr.counters.err(
               'failed_partial_existence_check', {
-                  'places': self.places,
-                  'type': self.state.place_type,
-                  'svs': list(set(ecv.chart_vars.svs) - set(exist_svs))[:3],
+                  'places':
+                      self.places,
+                  'type':
+                      self.state.place_type,
+                  'svs':
+                      list(set(ecv.chart_vars.svs) - set(exist_svs))
+                      [:constants.DBG_LIST_LIMIT],
               })
 
       for esv in es.extended_svs:
@@ -352,11 +357,12 @@ class ExistenceCheckStateTracker:
         self.state.uttr.counters.err(
             'failed_existence_check_extended_svs', {
                 'places':
-                    self.places[:3],
+                    self.places[:constants.DBG_LIST_LIMIT],
                 'type':
                     self.state.place_type,
                 'svs':
-                    list(set(es.extended_svs) - set(es.extended_exist_svs))[:3]
+                    list(set(es.extended_svs) - set(es.extended_exist_svs))
+                    [:constants.DBG_LIST_LIMIT]
             })
         logging.info('Existence check failed for %s - %s',
                      ', '.join(self.places), ', '.join(es.extended_svs))

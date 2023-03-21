@@ -517,9 +517,11 @@ EU_PLACE_TYPE_REMAP = {
 
 # Key is canonical AA types (and excludes county, province, etc.)
 PAK_PLACE_TYPE_REMAP = {
-    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.ADMIN_AREA_1:
+        ContainedInPlaceType.ADMIN_AREA_1,
     # TODO: Remove this after fixing in the KG.
-    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.ADMIN_AREA_3,
+    ContainedInPlaceType.ADMIN_AREA_2:
+        ContainedInPlaceType.ADMIN_AREA_3,
 }
 
 # This is only for US.
@@ -774,3 +776,6 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
     "Annual_Emissions_CarbonDioxide_WasteManagement":
         "CO₂ emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes).",
 }
+
+# Have a shorter limit to avoid spamming the json.
+DBG_LIST_LIMIT = 3

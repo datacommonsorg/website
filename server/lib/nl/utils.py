@@ -498,11 +498,12 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
   start = time.time()
   result = _get_sample_child_places(main_place_dcid, contained_place_type)
   counters.timeit('get_sample_child_places', start)
-  counters.info('child_places_result', {
-      'place': main_place_dcid,
-      'type': contained_place_type,
-      'result': result[:3]
-  })
+  counters.info(
+      'child_places_result', {
+          'place': main_place_dcid,
+          'type': contained_place_type,
+          'result': result[:constants.DBG_LIST_LIMIT]
+      })
   return result
 
 
