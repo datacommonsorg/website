@@ -32,12 +32,15 @@ import server.routes.api.shared as shared_api
 import server.services.datacommons as dc
 
 DEFAULT_EVENT_DCID = ""
+
+# Important: please keep order of keys from smallest to biggest place type.
 DEFAULT_CONTAINED_PLACE_TYPES = {
-    "Continent": "Country",
-    "Country": "AdministrativeArea1",
-    "AdministrativeArea1": "AdministrativeArea2",
     "AdministrativeArea2": "AdministrativeArea3",
+    "AdministrativeArea1": "AdministrativeArea2",
+    "Country": "AdministrativeArea1",
+    "Continent": "Country",
 }
+
 EMPTY_SUBJECT_PAGE_ARGS = {
     "place_type": "{}",
     "place_name": "",
@@ -147,8 +150,8 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
     Returns a single place dcid to use for the subject page config (preferring
     the lowest granularity for topic).
     """
-  for container in reversed(DEFAULT_CONTAINED_PLACE_TYPES.keys()):
-    for place_dcid, type_list in reversed(places.items()):
+  for container in DEFAULT_CONTAINED_PLACE_TYPES.keys():
+    for place_dcid, type_list in reversed(list(places.items())):
       if container in type_list:
         return place_dcid
   return None
