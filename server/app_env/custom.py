@@ -25,7 +25,7 @@ class Config(_base.Config):
 
 class LocalConfig(Config, local.Config):
   LITE = True
-  API_ROOT = 'https://autopush.api.datacommons.org'
+  API_ROOT = 'https://api.datacommons.org'
   # NEED TO DO THE FOLLOWING CHANGES:
   # 1. Send an email to <support+custom@datacommons.org> to get an API key
   #    for Data Commons API.

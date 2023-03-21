@@ -20,40 +20,40 @@ metadata {
 }
 
 categories {
-  title: "Other natural disasters in ${place}"
+  title: "Other natural disasters in ${placeName}"
   blocks {
     columns {
       tiles {
         type: LINE
-        title: "Number of droughts in ${place}"
+        title: "Number of droughts in ${placeName}"
         stat_var_key: "count_drought"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Number of earthquakes in ${place}"
+        title: "Number of earthquakes in ${placeName}"
         stat_var_key: "count_earthquake"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Number of fires in ${place}"
+        title: "Number of fires in ${placeName}"
         stat_var_key: "count_fire"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Number of floods in ${place}"
+        title: "Number of floods in ${placeName}"
         stat_var_key: "count_flood"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Number of wet bulb temperature events in ${place}"
+        title: "Number of wet bulb temperature events in ${placeName}"
         stat_var_key: "count_wetbulbtemperature"
       }
     }
@@ -96,76 +96,76 @@ categories {
 }
 
 categories {
-  title: "More information about ${place}"
+  title: "More information about ${placeName}"
 
   blocks {
     columns {
       tiles {
         type: LINE
-        title: "Population of ${place}"
+        title: "Population of ${placeName}"
         stat_var_key: "population"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Population growth rate in ${place}"
+        title: "Population growth rate in ${placeName}"
         stat_var_key: "pop_growth"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Population density (people per km²) in ${place}"
+        title: "Population density (people per km²) in ${placeName}"
         stat_var_key: "pop_density"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Median individual income in ${place}"
+        title: "Median individual income in ${placeName}"
         stat_var_key: "median_income"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Gini index in ${place}"
+        title: "Gini index in ${placeName}"
         stat_var_key: "gini_index"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "GDP per capita in ${place}"
+        title: "GDP per capita in ${placeName}"
         stat_var_key: "gdp_percapita"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Poverty rate of ${place}"
+        title: "Poverty rate of ${placeName}"
         stat_var_key: "poverty_rate"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Life expectancy of ${place}"
+        title: "Life expectancy of ${placeName}"
         stat_var_key: "life_expectancy"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Children in employment in ${place}"
+        title: "Children in employment in ${placeName}"
         stat_var_key: "child_employment"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Infant mortality of ${place}"
+        title: "Infant mortality of ${placeName}"
         stat_var_key: "infant_mortality"
       }
     }

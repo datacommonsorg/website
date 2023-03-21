@@ -26,6 +26,7 @@ class Place:
   dcid: str
   name: str
   place_type: str
+  country: str = None
 
 
 @dataclass
@@ -100,11 +101,16 @@ class ContainedInPlaceType(str, Enum):
   PLACE = "Place"
   COUNTRY = "Country"
   STATE = "State"
-  PROVINCE = "Province"
   COUNTY = "County"
   CITY = "City"
+  PROVINCE = "Province"
   DISTRICT = "District"
-  TOWN = "Town"
+  DEPARTMENT = "Department"
+  DIVISION = "Division"
+  MUNICIPALITY = "Municipality"
+  PARISH = "Parish"
+  CONTINENT = "Continent"
+
   ZIP = "CensusZipCodeTabulationArea"
   SCHOOL = "School"
   PUBLIC_SCHOOL = "PublicSchool"
@@ -113,6 +119,17 @@ class ContainedInPlaceType(str, Enum):
   ELEMENTARY_SCHOOL = "ElementarySchool"
   MIDDLE_SCHOOL = "MiddleSchool"
   HIGH_SCHOOL = "HighSchool"
+
+  # NOTE: This is a type that State/Province may get remapped to.
+  ADMIN_AREA_1 = "AdministrativeArea1"
+  # NOTE: This is a type that County/District may get remapped to.
+  ADMIN_AREA_2 = "AdministrativeArea2"
+  ADMIN_AREA_3 = "AdministrativeArea3"
+
+  # Typically corresponds to state equivalent
+  EU_NUTS_2 = "EurostatNUTS2"
+  # Typically corresponds to county equivalent
+  EU_NUTS_3 = "EurostatNUTS3"
 
   # Across is a generic containedInPlaceType which determines if the
   # query is using the word "across".

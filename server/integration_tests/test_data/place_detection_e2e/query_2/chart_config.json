@@ -15,14 +15,14 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in States of United States of America (${date})",
+                    "title": "Individual Median Income in States of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in States of United States of America (${date})",
+                    "title": "Individual Median Income in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -42,14 +42,14 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in States of United States of America (${date})",
+                    "title": "Household Median Income in States of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in States of United States of America (${date})",
+                    "title": "Household Median Income in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -69,14 +69,14 @@
                     "statVarKey": [
                       "Median_Earnings_Person"
                     ],
-                    "title": "Individual Median Earnings in States of United States of America (${date})",
+                    "title": "Individual Median Earnings in States of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Median_Earnings_Person"
                     ],
-                    "title": "Individual Median Earnings in States of United States of America (${date})",
+                    "title": "Individual Median Earnings in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -96,14 +96,14 @@
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Income for Family Households in States of United States of America (${date})",
+                    "title": "Median Income for Family Households in States of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Income for Family Households in States of United States of America (${date})",
+                    "title": "Median Income for Family Households in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -123,14 +123,14 @@
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in States of United States of America (${date})",
+                    "title": "Average Income for Households in States of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in States of United States of America (${date})",
+                    "title": "Average Income for Households in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -150,14 +150,14 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59"
                     ],
-                    "title": "Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in States of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "dc/x3gghqtglpr59"
                     ],
-                    "title": "Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -177,14 +177,14 @@
                     "statVarKey": [
                       "dc/x3gghqtglpr59_pc"
                     ],
-                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in States of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "dc/x3gghqtglpr59_pc"
                     ],
-                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in States of United States of America (${date})",
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -203,14 +203,14 @@
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Income for Nonfamily Households in States of United States of America (${date})",
+                    "title": "Median Income for Nonfamily Households in States of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Income for Nonfamily Households in States of United States of America (${date})",
+                    "title": "Median Income for Nonfamily Households in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -269,7 +269,7 @@
   "debug": {},
   "place": {
     "dcid": "country/USA",
-    "name": "United States of America",
+    "name": "United States",
     "place_type": "Country"
   }
 }

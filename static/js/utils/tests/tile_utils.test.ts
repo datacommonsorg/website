@@ -29,7 +29,7 @@ test("formatString", () => {
     {
       s: "test abc",
       rs: {
-        place: "country/USA",
+        placeName: "country/USA",
         date: "2020",
       },
       expected: "test abc",
@@ -37,23 +37,23 @@ test("formatString", () => {
     {
       s: "test ${abc}",
       rs: {
-        place: "country/USA",
+        placeName: "country/USA",
         date: "2020",
       },
       expected: "test ${abc}",
     },
     {
-      s: "test ${place}",
+      s: "test ${placeName}",
       rs: {
-        place: "",
+        placeName: "",
         date: "2020",
       },
       expected: "test ",
     },
     {
-      s: "test ${place} ${date}",
+      s: "test ${placeName} ${date}",
       rs: {
-        place: "country/USA",
+        placeName: "country/USA",
         date: "2020",
       },
       expected: "test country/USA 2020",

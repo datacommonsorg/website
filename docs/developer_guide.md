@@ -124,7 +124,7 @@ By default the NL server runs on port 6060.
 ### Use Local Mixer
 
 If local mixer is needed, can start it locally by following [this
-instruction](https://github.com/datacommonsorg/mixer/blob/master/docs/developer_guide.md#running-esp-locally).
+instruction](https://github.com/datacommonsorg/mixer/blob/master/docs/developer_guide.md#develop-mixer-locally-as-a-go-server-recommended).
 This allows development with custom BigTable or mixer code change. Make sure to
 also [run ESP locally](https://github.com/datacommonsorg/mixer/blob/master/docs/developer_guide.md#running-esp-locally).
 

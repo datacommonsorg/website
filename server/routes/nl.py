@@ -112,25 +112,47 @@ def _remove_places(query, place_str_to_dcids: Dict[str, str]):
 
 def _get_place_from_dcids(place_dcids: List[str],
                           debug_logs: Dict) -> List[Place]:
-  places = []
-  place_types_dict = dc.property_values(place_dcids, 'typeOf')
-  place_names_dict = dc.property_values(place_dcids, 'name')
+  place_info_result = dc.get_place_info(place_dcids)
+  dcid2place = {}
+  for res in place_info_result.get('data', []):
+    if 'node' not in res or 'info' not in res:
+      continue
+    dcid = res['node']
+    info = res['info']
+    if 'self' not in info:
+      continue
+    self = info['self']
+    if 'name' not in self or 'type' not in self:
+      continue
+    name = self['name']
+    ptype = self['type']
+    country = None
+    for parent in info.get('parents', []):
+      if ('dcid' in parent and 'type' in parent and
+          parent['type'] == 'Country'):
+        country = parent['dcid']
+        break
+    if not country and ptype == 'Country':
+      # Set country for entities of type country too, so
+      # downstream code can rely on it.
+      country = dcid
+    dcid2place[dcid] = Place(dcid=dcid,
+                             name=name,
+                             place_type=ptype,
+                             country=country)
 
+  places = []
   dc_resolve_failures = []
   # Iterate in the same order as place_dcids.
   for p_dcid in place_dcids:
 
-    if (p_dcid in place_types_dict) and (p_dcid in place_names_dict):
-      p_types = place_types_dict[p_dcid]
-      p_type = _get_preferred_type(p_types)
-      p_name = place_names_dict[p_dcid][0]
-
-      places.append(Place(dcid=p_dcid, name=p_name, place_type=p_type))
-    else:
+    if p_dcid not in dcid2place:
       logging.info(
           f"Place DCID ({p_dcid}) did not correspond to a place_type and/or place name."
       )
       dc_resolve_failures.append(p_dcid)
+    else:
+      places.append(dcid2place[p_dcid])
 
   debug_logs.update({
       "dc_resolution_failure": dc_resolve_failures,

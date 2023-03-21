@@ -4,105 +4,120 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_populate_callback_primary": 1,
-    "filtered_svs": [
-      "dc/topic/Jobs",
-      "Count_Worker_NAICSTotalAllIndustries",
-      "dc/g/Person_Industry-NAICS/10",
-      "dc/g/Person_Industry-NAICS/11",
-      "dc/g/Person_Industry-NAICS/451"
-    ],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "ranking_across_vars"
-    ],
-    "ranking-across-vars_failed_cb_toofewvars": [
-      [
-        "Count_Worker_NAICSTotalAllIndustries"
-      ]
-    ],
-    "ranking-across-vars_reranked_svs": [
-      {
-        "orig": [
-          "Count_Worker_NAICSAccommodationFoodServices",
-          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-          "Count_Worker_NAICSAgricultureForestryFishingHunting",
-          "Count_Worker_NAICSConstruction",
-          "Count_Worker_NAICSEducationalServices",
-          "Count_Worker_NAICSHealthCareSocialAssistance",
-          "dc/ndg1xk1e9frc2",
-          "Count_Worker_NAICSFinanceInsurance",
-          "Count_Worker_NAICSInformation",
-          "Count_Worker_NAICSArtsEntertainmentRecreation",
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-          "Count_Worker_NAICSOtherServices",
-          "dc/8p97n7l96lgg8",
-          "Count_Worker_NAICSUtilities",
-          "dc/p69tpsldf99h7",
-          "Count_Worker_NAICSRealEstateRentalLeasing",
-          "Count_Worker_NAICSPublicAdministration",
-          "Count_Worker_NAICSWholesaleTrade",
-          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-          "Count_Worker_NAICSPublicAdministration"
-        ],
-        "ranked": [
-          "Count_Worker_NAICSHealthCareSocialAssistance",
-          "dc/p69tpsldf99h7",
-          "Count_Worker_NAICSAccommodationFoodServices",
-          "Count_Worker_NAICSConstruction",
-          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-          "Count_Worker_NAICSFinanceInsurance",
-          "Count_Worker_NAICSOtherServices",
-          "dc/ndg1xk1e9frc2",
-          "Count_Worker_NAICSPublicAdministration",
-          "Count_Worker_NAICSRealEstateRentalLeasing",
-          "Count_Worker_NAICSWholesaleTrade",
-          "Count_Worker_NAICSArtsEntertainmentRecreation",
-          "dc/8p97n7l96lgg8",
-          "Count_Worker_NAICSInformation",
-          "Count_Worker_NAICSEducationalServices",
-          "Count_Worker_NAICSUtilities",
-          "Count_Worker_NAICSAgricultureForestryFishingHunting",
-          "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+    "ERROR": {
+      "failed_populate_callback_primary": 1,
+      "ranking-across-vars_failed_cb_toofewvars": [
+        [
+          "Count_Worker_NAICSTotalAllIndustries"
         ]
-      }
-    ],
-    "topics_processed": [
-      {
-        "dc/topic/Jobs": {
-          "peer_groups": [
-            [
-              "Categories of Jobs",
-              "",
-              [
-                "Count_Worker_NAICSAccommodationFoodServices",
-                "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-                "Count_Worker_NAICSAgricultureForestryFishingHunting",
-                "Count_Worker_NAICSConstruction",
-                "Count_Worker_NAICSEducationalServices",
-                "Count_Worker_NAICSHealthCareSocialAssistance",
-                "dc/ndg1xk1e9frc2",
-                "Count_Worker_NAICSFinanceInsurance",
-                "Count_Worker_NAICSInformation",
-                "Count_Worker_NAICSArtsEntertainmentRecreation",
-                "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-                "Count_Worker_NAICSOtherServices",
-                "dc/8p97n7l96lgg8",
-                "Count_Worker_NAICSUtilities",
-                "dc/p69tpsldf99h7",
-                "Count_Worker_NAICSRealEstateRentalLeasing",
-                "Count_Worker_NAICSPublicAdministration",
-                "Count_Worker_NAICSWholesaleTrade",
-                "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-                "Count_Worker_NAICSPublicAdministration"
-              ]
-            ]
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "dc/topic/Jobs",
+          "Count_Worker_NAICSTotalAllIndustries",
+          "dc/g/Person_Industry-NAICS/10",
+          "dc/g/Person_Industry-NAICS/11",
+          "dc/g/Person_Industry-NAICS/451"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "ranking_across_vars"
+      ],
+      "ranking-across-vars_reranked_svs": [
+        {
+          "orig": [
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSAgricultureForestryFishingHunting",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/ndg1xk1e9frc2",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+            "Count_Worker_NAICSOtherServices",
+            "dc/8p97n7l96lgg8",
+            "Count_Worker_NAICSUtilities",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSPublicAdministration"
           ],
-          "svs": []
+          "ranked": [
+            "Count_Worker_NAICSHealthCareSocialAssistance",
+            "dc/p69tpsldf99h7",
+            "Count_Worker_NAICSAccommodationFoodServices",
+            "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+            "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+            "Count_Worker_NAICSFinanceInsurance",
+            "Count_Worker_NAICSOtherServices",
+            "dc/ndg1xk1e9frc2",
+            "Count_Worker_NAICSPublicAdministration",
+            "Count_Worker_NAICSRealEstateRentalLeasing",
+            "Count_Worker_NAICSWholesaleTrade",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
+            "dc/8p97n7l96lgg8",
+            "Count_Worker_NAICSInformation",
+            "Count_Worker_NAICSEducationalServices",
+            "Count_Worker_NAICSUtilities",
+            "Count_Worker_NAICSAgricultureForestryFishingHunting",
+            "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          ]
         }
-      }
-    ]
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/Jobs": {
+            "peer_groups": [
+              [
+                "Categories of Jobs",
+                "",
+                [
+                  "Count_Worker_NAICSAccommodationFoodServices",
+                  "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+                  "Count_Worker_NAICSAgricultureForestryFishingHunting",
+                  "Count_Worker_NAICSConstruction",
+                  "Count_Worker_NAICSEducationalServices",
+                  "Count_Worker_NAICSHealthCareSocialAssistance",
+                  "dc/ndg1xk1e9frc2",
+                  "Count_Worker_NAICSFinanceInsurance",
+                  "Count_Worker_NAICSInformation",
+                  "Count_Worker_NAICSArtsEntertainmentRecreation",
+                  "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+                  "Count_Worker_NAICSOtherServices",
+                  "dc/8p97n7l96lgg8",
+                  "Count_Worker_NAICSUtilities",
+                  "dc/p69tpsldf99h7",
+                  "Count_Worker_NAICSRealEstateRentalLeasing",
+                  "Count_Worker_NAICSPublicAdministration",
+                  "Count_Worker_NAICSWholesaleTrade",
+                  "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+                  "Count_Worker_NAICSPublicAdministration"
+                ]
+              ]
+            ],
+            "svs": []
+          }
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.3,
+      "fulfillment": 0.54,
+      "get_sv_details": 0.3,
+      "query_detection": 0.11,
+      "rank_svs_by_latest_value": 0.22,
+      "sv_existence_for_places": 0.15,
+      "topic_calls": 0.16
+    }
   },
   "data_spec": [
     {
@@ -378,16 +393,16 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6630917191505432,
-      0.5311393737792969,
-      0.5156572461128235,
-      0.504181981086731,
-      0.5037508010864258,
-      0.4981713593006134,
+      0.6630918383598328,
+      0.5311392545700073,
+      0.5156573057174683,
+      0.5041817426681519,
+      0.5037508606910706,
+      0.49817147850990295,
       0.49578019976615906,
-      0.4867854118347168,
-      0.47936156392097473,
-      0.4769403636455536
+      0.4867852032184601,
+      0.47936153411865234,
+      0.4769403040409088
     ],
     "SV": [
       "dc/topic/Jobs",
@@ -403,87 +418,87 @@
     ],
     "SV_to_Sentences": {
       "Count_Worker_NAICSAgricultureForestryFishingHunting": [
-        "People working in agriculture, forestry, fishing, and hunting field. (0.4867854118347168)"
+        "People working in agriculture, forestry, fishing, and hunting field. (0.4867852032184601)"
       ],
       "Count_Worker_NAICSTotalAllIndustries": [
-        "People working in all fields (0.5311393737792969)"
+        "People working in all fields (0.5311392545700073)"
       ],
       "dc/g/Person_Industry-NAICS/10": [
-        "workers in total, all industries industry (0.5156572461128235)"
+        "workers in total, all industries industry (0.5156573057174683)"
       ],
       "dc/g/Person_Industry-NAICS/11": [
-        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.504181981086731)",
-        "People working in the agriculture, forestry, fishing, and hunting industry (0.504181981086731)",
-        "workers in agriculture, forestry, fishing and hunting industry (0.48914894461631775)"
+        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5041817426681519)",
+        "People working in the agriculture, forestry, fishing, and hunting industry (0.5041817426681519)",
+        "workers in agriculture, forestry, fishing and hunting industry (0.4891488552093506)"
       ],
       "dc/g/Person_Industry-NAICS/1121": [
-        "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.4981713593006134)",
-        "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.4981713593006134)",
-        "workers in agriculture, forestry, fishing and hunting, and mining industry (0.48515573143959045)"
+        "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.49817147850990295)",
+        "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.49817147850990295)",
+        "workers in agriculture, forestry, fishing and hunting, and mining industry (0.4851556122303009)"
       ],
       "dc/g/Person_Industry-NAICS/44": [
-        "workers in retail trade industry (0.4769403636455536)"
+        "workers in retail trade industry (0.4769403040409088)"
       ],
       "dc/g/Person_Industry-NAICS/451": [
-        "workers in sports, hobby, music instrument, book stores industry (0.5037508010864258)"
+        "workers in sports, hobby, music instrument, book stores industry (0.5037508606910706)"
       ],
       "dc/g/Person_Industry-NAICS/54": [
         "workers in professional, scientific, and technical services industry (0.49578019976615906)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "agriculture workers (0.47936156392097473)"
+        "agriculture workers (0.47936153411865234)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.6630917191505432)",
+        "Jobs (0.6630918383598328)",
         "Careers (0.5856789946556091)",
-        "Work Occupations (0.5732883810997009)",
-        "Occupational professions (0.5660203695297241)",
-        "Professions (0.5471441745758057)",
-        "Employment Positions (0.5181440114974976)",
-        "Job Roles (0.5173631906509399)"
+        "Work Occupations (0.5732885599136353)",
+        "Occupational professions (0.5660203099250793)",
+        "Professions (0.54714435338974)",
+        "Employment Positions (0.5181438326835632)",
+        "Job Roles (0.5173628330230713)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Worker_NAICSAgricultureForestryFishingHunting": [
-      "People working in agriculture, forestry, fishing, and hunting field. (0.4867854118347168)"
+      "People working in agriculture, forestry, fishing, and hunting field. (0.4867852032184601)"
     ],
     "Count_Worker_NAICSTotalAllIndustries": [
-      "People working in all fields (0.5311393737792969)"
+      "People working in all fields (0.5311392545700073)"
     ],
     "dc/g/Person_Industry-NAICS/10": [
-      "workers in total, all industries industry (0.5156572461128235)"
+      "workers in total, all industries industry (0.5156573057174683)"
     ],
     "dc/g/Person_Industry-NAICS/11": [
-      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.504181981086731)",
-      "People working in the agriculture, forestry, fishing, and hunting industry (0.504181981086731)",
-      "workers in agriculture, forestry, fishing and hunting industry (0.48914894461631775)"
+      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5041817426681519)",
+      "People working in the agriculture, forestry, fishing, and hunting industry (0.5041817426681519)",
+      "workers in agriculture, forestry, fishing and hunting industry (0.4891488552093506)"
     ],
     "dc/g/Person_Industry-NAICS/1121": [
-      "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.4981713593006134)",
-      "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.4981713593006134)",
-      "workers in agriculture, forestry, fishing and hunting, and mining industry (0.48515573143959045)"
+      "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.49817147850990295)",
+      "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.49817147850990295)",
+      "workers in agriculture, forestry, fishing and hunting, and mining industry (0.4851556122303009)"
     ],
     "dc/g/Person_Industry-NAICS/44": [
-      "workers in retail trade industry (0.4769403636455536)"
+      "workers in retail trade industry (0.4769403040409088)"
     ],
     "dc/g/Person_Industry-NAICS/451": [
-      "workers in sports, hobby, music instrument, book stores industry (0.5037508010864258)"
+      "workers in sports, hobby, music instrument, book stores industry (0.5037508606910706)"
     ],
     "dc/g/Person_Industry-NAICS/54": [
       "workers in professional, scientific, and technical services industry (0.49578019976615906)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "agriculture workers (0.47936156392097473)"
+      "agriculture workers (0.47936153411865234)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.6630917191505432)",
+      "Jobs (0.6630918383598328)",
       "Careers (0.5856789946556091)",
-      "Work Occupations (0.5732883810997009)",
-      "Occupational professions (0.5660203695297241)",
-      "Professions (0.5471441745758057)",
-      "Employment Positions (0.5181440114974976)",
-      "Job Roles (0.5173631906509399)"
+      "Work Occupations (0.5732885599136353)",
+      "Occupational professions (0.5660203099250793)",
+      "Professions (0.54714435338974)",
+      "Employment Positions (0.5181438326835632)",
+      "Job Roles (0.5173628330230713)"
     ]
   },
   "time_delta_classification": "<None>"

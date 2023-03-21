@@ -53,9 +53,8 @@ export const Category = memo(function Category(
 ): JSX.Element {
   const svProvider = new StatVarProvider(props.config.statVarSpec);
   const rs: ReplacementStrings = {
-    place: props.place.name,
+    placeName: props.place.name,
     placeDcid: props.place ? props.place.dcid : "",
-    date: "",
   };
   const title = props.config.title ? formatString(props.config.title, rs) : "";
   const description = props.config.description

@@ -45,9 +45,8 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       .join("\n");
   }
   const rs: ReplacementStrings = {
-    place: props.place ? props.place.name : "",
+    placeName: props.place ? props.place.name : "",
     placeDcid: props.place ? props.place.dcid : "",
-    date: "",
   };
   const title = props.title ? formatString(props.title, rs) : "";
   const description = props.description

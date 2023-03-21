@@ -57,8 +57,32 @@ TOPIC_PAGE_CONFIGS = {
 GZIP_COMPRESSION_LEVEL = 3
 
 # Dict of place dcid to place type to filename of the geojson to cache for that
-# place + place type combination
-CACHED_GEOJSON_FILES = {"Earth": {"Country": "earth_country_dp13"}}
+# place + place type combination.
+# To generate cached geojson files, follow instructions/use the endpoint here:
+# https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
+CACHED_GEOJSON_FILES = {
+    "Earth": {
+        "Country": "earth_country_dp13"
+    },
+    "africa": {
+        "Country": "africa_country_dp10"
+    },
+    "asia": {
+        "Country": "asia_country_dp10"
+    },
+    "europe": {
+        "Country": "europe_country_dp6"
+    },
+    "northamerica": {
+        "Country": "northamerica_country_dp13"
+    },
+    "oceania": {
+        "Country": "oceania_country_dp13"
+    },
+    "southamerica": {
+        "Country": "southamerica_country_dp10"
+    }
+}
 
 
 def get_repo_root():

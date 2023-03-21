@@ -55,8 +55,6 @@ export function ParentBreadcrumbs(
   const breadcrumbs = props.parentPlaces.map((place, index) => {
     const name = place.name.split(",")[0];
     const rs: ReplacementStrings = {
-      place: "",
-      date: "",
       placeDcid: place.dcid,
     };
     return (

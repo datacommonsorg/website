@@ -172,7 +172,7 @@ message Tile {
     // allowed in BlockTypes: DISASTER_EVENT
     DISASTER_EVENT_MAP = 9;
   }
-  // Must be specified for all visual tiles. Supports ${statVar}, ${place} placeholders.
+  // Must be specified for all visual tiles. Supports ${statVar}, ${placeName} placeholders.
   // For map, bar, ranking: supports ${date} placeholder.
   // For scatter: supports ${xDate} and ${yDate} placeholder.
   string title = 1;
@@ -198,7 +198,7 @@ message Tile {
 }
 
 message Block {
-  // Title and description can include ${place} and ${place_dcid} placeholder strings.
+  // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
   string description = 2;
   // Footnote that goes across the bottom of each block. Multiple footnotes can
@@ -221,7 +221,7 @@ message Block {
 }
 
 message Category {
-  // Title and description can include ${place} and ${place_dcid} placeholder strings.
+  // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
   // Description can also have markdown.
   string description = 2;
