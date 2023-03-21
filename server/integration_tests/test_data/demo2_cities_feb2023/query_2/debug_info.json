@@ -4,99 +4,114 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_existence_check_extended_svs": [
-      {
-        "places": [
-          "geoId/0677000"
-        ],
-        "svs": [
+    "ERROR": {
+      "failed_existence_check_extended_svs": [
+        {
+          "places": [
+            "geoId/0677000"
+          ],
+          "svs": [
+            "Count_Person_Upto18Years",
+            "Percent_Person_Children_WithAsthma"
+          ]
+        }
+      ],
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "geoId/0677000"
+          ],
+          "svs": [
+            "Percent_Person_Children_WithAsthma"
+          ]
+        }
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "Percent_Person_WithAsthma",
           "Percent_Person_Children_WithAsthma",
-          "Count_Person_Upto18Years"
-        ]
-      }
-    ],
-    "failed_partial_existence_check": [
-      {
-        "places": [
-          "geoId/0677000"
-        ],
-        "svs": [
-          "Percent_Person_Children_WithAsthma"
-        ]
-      }
-    ],
-    "filtered_svs": [
-      "Percent_Person_WithAsthma",
-      "Percent_Person_Children_WithAsthma",
-      "dc/g/Person_MedicalCondition-Asthma",
-      "Percent_Person_Smoking",
-      "Percent_Person_WithArthritis",
-      "Percent_Person_WithChronicObstructivePulmonaryDisease"
-    ],
-    "num_chart_candidates": 6,
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "stat_var_extensions": [
-      {
-        "Percent_Person_Children_WithAsthma": [
-          "Count_Person_Upto18Years",
-          "Percent_Person_Children_WithAsthma"
-        ],
-        "Percent_Person_Smoking": [
-          "Percent_Person_BingeDrinking",
-          "Percent_Person_Obesity",
-          "Percent_Person_PhysicalInactivity",
-          "Percent_Person_SleepLessThan7Hours",
-          "Percent_Person_Smoking"
-        ],
-        "Percent_Person_WithArthritis": [
-          "Percent_Person_WithAllTeethLoss",
+          "dc/g/Person_MedicalCondition-Asthma",
+          "Percent_Person_Smoking",
           "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
-        ],
-        "Percent_Person_WithAsthma": [
-          "Percent_Person_WithAllTeethLoss",
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
-        ],
-        "Percent_Person_WithChronicObstructivePulmonaryDisease": [
-          "Percent_Person_WithAllTeethLoss",
-          "Percent_Person_WithArthritis",
-          "Percent_Person_WithAsthma",
-          "Percent_Person_WithCancerExcludingSkinCancer",
-          "Percent_Person_WithChronicKidneyDisease",
-          "Percent_Person_WithChronicObstructivePulmonaryDisease",
-          "Percent_Person_WithCoronaryHeartDisease",
-          "Percent_Person_WithDiabetes",
-          "Percent_Person_WithHighBloodPressure",
-          "Percent_Person_WithHighCholesterol",
-          "Percent_Person_WithMentalHealthNotGood",
-          "Percent_Person_WithPhysicalHealthNotGood",
-          "Percent_Person_WithStroke"
+          "Percent_Person_WithChronicObstructivePulmonaryDisease"
         ]
-      }
-    ]
+      ],
+      "num_chart_candidates": 6,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "stat_var_extensions": [
+        {
+          "Percent_Person_Children_WithAsthma": [
+            "Count_Person_Upto18Years",
+            "Percent_Person_Children_WithAsthma"
+          ],
+          "Percent_Person_Smoking": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ],
+          "Percent_Person_WithArthritis": [
+            "Percent_Person_WithAllTeethLoss",
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithChronicKidneyDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithStroke"
+          ],
+          "Percent_Person_WithAsthma": [
+            "Percent_Person_WithAllTeethLoss",
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithChronicKidneyDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithStroke"
+          ],
+          "Percent_Person_WithChronicObstructivePulmonaryDisease": [
+            "Percent_Person_WithAllTeethLoss",
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithAsthma",
+            "Percent_Person_WithCancerExcludingSkinCancer",
+            "Percent_Person_WithChronicKidneyDisease",
+            "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithCoronaryHeartDisease",
+            "Percent_Person_WithDiabetes",
+            "Percent_Person_WithHighBloodPressure",
+            "Percent_Person_WithHighCholesterol",
+            "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithPhysicalHealthNotGood",
+            "Percent_Person_WithStroke"
+          ]
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.41,
+      "extend_svs": 1.86,
+      "fulfillment": 3.02,
+      "get_sv_details": 0.41,
+      "has_series_with_single_datapoint": 0.9600000000000001,
+      "query_detection": 0.12,
+      "sv_existence_for_places": 0.19
+    }
   },
   "data_spec": [
     {
@@ -425,14 +440,14 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.988778293132782,
-      0.8786563873291016,
-      0.8242026567459106,
-      0.5711094737052917,
-      0.5687739849090576,
-      0.5341616868972778,
-      0.48826801776885986,
-      0.48637840151786804,
+      0.9887781143188477,
+      0.8786571621894836,
+      0.8242024779319763,
+      0.5711097121238708,
+      0.5687741637229919,
+      0.5341614484786987,
+      0.4882679283618927,
+      0.48637858033180237,
       0.4809361398220062,
       0.4783497750759125
     ],
@@ -454,40 +469,40 @@
         "Number of deaths due to diseases of the respiratory system (0.4809361398220062)"
       ],
       "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-        "Prevalence: 18 - 64 Years, No Health Insurance (0.48637840151786804)"
+        "Prevalence: 18 - 64 Years, No Health Insurance (0.48637858033180237)"
       ],
       "Percent_Person_Children_WithAsthma": [
-        "Prevalence: Asthma in Children (0.8786563873291016)",
-        "Percent of Children That Have Asthma (0.7320816516876221)",
-        "percent of children that have asthma (0.7320816516876221)"
+        "Prevalence: Asthma in Children (0.8786571621894836)",
+        "Percent of Children That Have Asthma (0.7320817708969116)",
+        "percent of children that have asthma (0.7320817708969116)"
       ],
       "Percent_Person_Smoking": [
-        "Prevalence: Smoking (0.5711094737052917)"
+        "Prevalence: Smoking (0.5711097121238708)"
       ],
       "Percent_Person_WithArthritis": [
-        "Prevalence: Arthritis (0.5687739849090576)",
-        "Percentage of population with arthritis (0.47449490427970886)"
+        "Prevalence: Arthritis (0.5687741637229919)",
+        "Percentage of population with arthritis (0.47449496388435364)"
       ],
       "Percent_Person_WithAsthma": [
-        "Prevalence: Asthma (0.988778293132782)",
-        "percent of people that have asthma (0.8041638135910034)",
-        "Percent of People That Have Asthma (0.8041638135910034)"
+        "Prevalence: Asthma (0.9887781143188477)",
+        "percent of people that have asthma (0.8041632771492004)",
+        "Percent of People That Have Asthma (0.8041632771492004)"
       ],
       "Percent_Person_WithChronicObstructivePulmonaryDisease": [
-        "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616868972778)",
-        "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891931116580963)",
-        "percent of people that have chronic obstructive pulmonary disease (0.4891931116580963)"
+        "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341614484786987)",
+        "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891930818557739)",
+        "percent of people that have chronic obstructive pulmonary disease (0.4891930818557739)"
       ],
       "Percent_Person_WithCoronaryHeartDisease": [
         "Prevalence: Coronary Heart Disease (0.4783497750759125)"
       ],
       "Percent_Person_WithHighCholesterol": [
-        "Prevalence: High Cholesterol (0.48826801776885986)"
+        "Prevalence: High Cholesterol (0.4882679283618927)"
       ],
       "dc/g/Person_MedicalCondition-Asthma": [
-        "Number of People With Asthma (0.8242026567459106)",
+        "Number of People With Asthma (0.8242024779319763)",
         "people with asthma (0.7225262522697449)",
-        "Person With Medical Condition = Asthma (0.6960466504096985)"
+        "Person With Medical Condition = Asthma (0.6960467100143433)"
       ]
     }
   },
@@ -497,40 +512,40 @@
       "Number of deaths due to diseases of the respiratory system (0.4809361398220062)"
     ],
     "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-      "Prevalence: 18 - 64 Years, No Health Insurance (0.48637840151786804)"
+      "Prevalence: 18 - 64 Years, No Health Insurance (0.48637858033180237)"
     ],
     "Percent_Person_Children_WithAsthma": [
-      "Prevalence: Asthma in Children (0.8786563873291016)",
-      "Percent of Children That Have Asthma (0.7320816516876221)",
-      "percent of children that have asthma (0.7320816516876221)"
+      "Prevalence: Asthma in Children (0.8786571621894836)",
+      "Percent of Children That Have Asthma (0.7320817708969116)",
+      "percent of children that have asthma (0.7320817708969116)"
     ],
     "Percent_Person_Smoking": [
-      "Prevalence: Smoking (0.5711094737052917)"
+      "Prevalence: Smoking (0.5711097121238708)"
     ],
     "Percent_Person_WithArthritis": [
-      "Prevalence: Arthritis (0.5687739849090576)",
-      "Percentage of population with arthritis (0.47449490427970886)"
+      "Prevalence: Arthritis (0.5687741637229919)",
+      "Percentage of population with arthritis (0.47449496388435364)"
     ],
     "Percent_Person_WithAsthma": [
-      "Prevalence: Asthma (0.988778293132782)",
-      "percent of people that have asthma (0.8041638135910034)",
-      "Percent of People That Have Asthma (0.8041638135910034)"
+      "Prevalence: Asthma (0.9887781143188477)",
+      "percent of people that have asthma (0.8041632771492004)",
+      "Percent of People That Have Asthma (0.8041632771492004)"
     ],
     "Percent_Person_WithChronicObstructivePulmonaryDisease": [
-      "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341616868972778)",
-      "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891931116580963)",
-      "percent of people that have chronic obstructive pulmonary disease (0.4891931116580963)"
+      "Prevalence: Chronic Obstructive Pulmonary Disease (0.5341614484786987)",
+      "Percent of People That Have Chronic Obstructive Pulmonary Disease (0.4891930818557739)",
+      "percent of people that have chronic obstructive pulmonary disease (0.4891930818557739)"
     ],
     "Percent_Person_WithCoronaryHeartDisease": [
       "Prevalence: Coronary Heart Disease (0.4783497750759125)"
     ],
     "Percent_Person_WithHighCholesterol": [
-      "Prevalence: High Cholesterol (0.48826801776885986)"
+      "Prevalence: High Cholesterol (0.4882679283618927)"
     ],
     "dc/g/Person_MedicalCondition-Asthma": [
-      "Number of People With Asthma (0.8242026567459106)",
+      "Number of People With Asthma (0.8242024779319763)",
       "people with asthma (0.7225262522697449)",
-      "Person With Medical Condition = Asthma (0.6960466504096985)"
+      "Person With Medical Condition = Asthma (0.6960467100143433)"
     ]
   },
   "time_delta_classification": "<None>"
