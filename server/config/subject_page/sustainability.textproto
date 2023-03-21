@@ -220,6 +220,20 @@ categories {
     columns {
       tiles {
         type: LINE
+        title: "Covid-19 cumulative cases"
+        stat_var_key: "covid_cases"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Covid-19 cumulative deaths"
+        stat_var_key: "covid_deaths"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
         title: "Infant mortality rate"
         stat_var_key: "infant_mortality"
       }
@@ -286,6 +300,20 @@ categories {
       stat_var: "LifeExpectancy_Person"
       name: "Life expectancy"
       unit: "Years"
+    }
+  }
+  stat_var_spec {
+    key: "covid_cases"
+    value {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+      name: "Covid-19 cumulative cases"
+    }
+  }
+  stat_var_spec {
+    key: "covid_deaths"
+    value {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+      name: "Covid-19 cumulative deaths"
     }
   }
   stat_var_spec {
@@ -422,19 +450,238 @@ categories {
       unit: "%"
     }
   }
-  # stat_var_spec {
-  #   key:
-  #   value {
-  #     stat_var:
-  #   }
-  # }
 }
 
 categories {
-  title: "Shelter"
+  title: "Housing"
   blocks {
     columns {
-      tiles {}
+      tiles {
+        title: "Housing units per capita"
+        type: LINE
+        stat_var_key: "housing_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Housing unit occupancy"
+        type: LINE
+        stat_var_key: "count_occupied"
+        stat_var_key: "count_vacant"
+      }
+    }
+    columns {
+      tiles {
+        title: "Mean household size"
+        type: LINE
+        stat_var_key: "size_owner"
+        stat_var_key: "size_renter"
+      }
+    }
+    columns {
+      tiles {
+        title: "Housing ownership"
+        type: LINE
+        stat_var_key: "count_owner"
+        stat_var_key: "count_renter"
+      }
+    }
+    columns {
+      tiles {
+        title: "Mortgage status of owner occupied housing"
+        type: LINE
+        stat_var_key: "with_mortgage"
+        stat_var_key: "without_mortgage"
+      }
+    }
+    columns {
+      tiles {
+        title: "Housing units by date built"
+        type: BAR
+        comparison_places: "self"
+        stat_var_key: "1930"
+        stat_var_key: "1940"
+        stat_var_key: "1950"
+        stat_var_key: "1960"
+        stat_var_key: "1970"
+        stat_var_key: "1980"
+        stat_var_key: "1990"
+        stat_var_key: "2000"
+        stat_var_key: "2010"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "housing_pc"
+    value {
+      stat_var: "Count_HousingUnit"
+      denom: "Count_Person"
+      name: "Housing units per capita"
+    }
+  }
+  stat_var_spec {
+    key: "count_owner"
+    value {
+      stat_var: "Count_HousingUnit_OwnerOccupied"
+      denom: "Count_HousingUnit"
+      name: "Owner occupied"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "count_renter"
+    value {
+      stat_var: "Count_HousingUnit_RenterOccupied"
+      denom: "Count_HousingUnit"
+      name: "Renter occupied"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "count_occupied"
+    value {
+      stat_var: "Count_HousingUnit_OccupiedHousingUnit"
+      name: "Occupied housing unit"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "count_vacant"
+    value {
+      stat_var: "Count_HousingUnit_VacantHousingUnit"
+      name: "Vacant housing unit"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "size_owner"
+    value {
+      stat_var: "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
+      name: "Owner occupied"
+    }
+  }
+  stat_var_spec {
+    key: "size_renter"
+    value {
+      stat_var: "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_RenterOccupied"
+      name: "Renter occupied"
+    }
+  }
+  stat_var_spec {
+    key: "without_mortgage"
+    value {
+      stat_var: "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+      name: "Without mortgage"
+      denom: "Count_HousingUnit_OwnerOccupied"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "with_mortgage"
+    value {
+      stat_var: "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
+      name: "With mortgage"
+      denom: "Count_HousingUnit_OwnerOccupied"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "1930"
+    value {
+      stat_var: "Count_HousingUnit_Before1939DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "Before 1930"
+    }
+  }
+  stat_var_spec {
+    key: "1940"
+    value {
+      stat_var: "Count_HousingUnit_1940To1949DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1940 - 1949"
+    }
+  }
+  stat_var_spec {
+    key: "1950"
+    value {
+      stat_var: "Count_HousingUnit_1950To1959DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1950 - 1959"
+    }
+  }
+  stat_var_spec {
+    key: "1960"
+    value {
+      stat_var: "Count_HousingUnit_1960To1969DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1960 - 1969"
+    }
+  }
+  stat_var_spec {
+    key: "1970"
+    value {
+      stat_var: "Count_HousingUnit_1970To1979DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1970 - 1979"
+    }
+  }
+  stat_var_spec {
+    key: "1980"
+    value {
+      stat_var: "Count_HousingUnit_1980To1989DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1980 - 1989"
+    }
+  }
+  stat_var_spec {
+    key: "1990"
+    value {
+      stat_var: "Count_HousingUnit_1990To1999DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1990 - 1999"
+    }
+  }
+  stat_var_spec {
+    key: "2000"
+    value {
+      stat_var: "Count_HousingUnit_2000To2009DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "2000 - 2010"
+    }
+  }
+  stat_var_spec {
+    key: "2010"
+    value {
+      stat_var: "Count_HousingUnit_2010OrLaterDateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "After 2010"
     }
   }
 }
@@ -446,4 +693,29 @@ categories {
       tiles {}
     }
   }
+
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
+  # stat_var_spec {
+  #   key:
+  #   value {
+  #     stat_var:
+  #   }
+  # }
 }
