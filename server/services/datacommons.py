@@ -198,9 +198,7 @@ def properties_v1(nodes, direction):
       direction: Predicate direction, either be 'in' or 'out'.
   """
   url = get_service_url('/v1/bulk/properties')
-  return post(f'{url}/{direction}', {
-    'nodes': nodes
-    }).get('data', [])
+  return post(f'{url}/{direction}', {'nodes': nodes}).get('data', [])
 
 
 def property_values_v1(nodes, prop, out=True):

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+import logging
 from typing import Dict, List, Union
 
 from flask import escape
@@ -22,7 +23,6 @@ import server.lib.nl.counters as nl_ctr
 import server.lib.nl.utils as nl_utils
 import server.routes.api.place as place_api
 import server.services.datacommons as dc
-import logging
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
@@ -144,7 +144,6 @@ def _places_with_geojson(places):
 def remove_empty_charts(page_config, place_dcid, contained_place_type):
   """
   Returns the page config stripped of charts with no data.
-  TODO: Add checks for map geojson existence.
   """
   ctr = nl_ctr.Counters()
 
