@@ -13,6 +13,9 @@ msgstr "О Data Commons"
 msgid "Blog"
 msgstr "Блог"
 
+msgid "Cities, India"
+msgstr ""
+
 msgid "Cities, United States"
 msgstr "Города в США"
 
@@ -37,6 +40,9 @@ msgstr "Источники данных"
 msgid "Disclaimers"
 msgstr "Отказ от обязательств"
 
+msgid "Districts, India"
+msgstr ""
+
 msgid "Documentation"
 msgstr "Документация"
 
@@ -45,6 +51,9 @@ msgstr "Экономические показатели в мире"
 
 msgid "Enter a country, state, county or city"
 msgstr "Укажите страну, штат, округ или город"
+
+msgid "Enter a country, state, district or city"
+msgstr ""
 
 msgid "Explore"
 msgstr "Обзор"
@@ -103,8 +112,14 @@ msgstr "Загрузка…"
 msgid "Map Explorer"
 msgstr "Изучение карт"
 
+msgid "Maps Explorer"
+msgstr ""
+
 msgid "Median Income, United States"
 msgstr "Медианный доход в США"
+
+msgid "Natural Language Explorer"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>В окне выше доступен поиск информации по городу, почтовому индексу, округу, штату или стране.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
@@ -130,10 +145,16 @@ msgstr "Просмотр точечных диаграмм"
 msgid "Scatter Plots"
 msgstr ""
 
+msgid "States, India"
+msgstr ""
+
 msgid "States, United States"
 msgstr "Штаты в США"
 
 msgid "Statistical Variable Explorer"
+msgstr ""
+
+msgid "Terms Of Use"
 msgstr ""
 
 msgid "Terms and Conditions"

@@ -13,6 +13,9 @@ msgstr "À propos de Data Commons"
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Cities, India"
+msgstr ""
+
 msgid "Cities, United States"
 msgstr "Villes des États-Unis"
 
@@ -37,6 +40,9 @@ msgstr "Sources des données"
 msgid "Disclaimers"
 msgstr "Clauses de non-responsabilité"
 
+msgid "Districts, India"
+msgstr ""
+
 msgid "Documentation"
 msgstr "Documentation"
 
@@ -45,6 +51,9 @@ msgstr "Indicateurs économiques dans le monde entier"
 
 msgid "Enter a country, state, county or city"
 msgstr "Saisissez un pays, un État, un comté ou une ville"
+
+msgid "Enter a country, state, district or city"
+msgstr ""
 
 msgid "Explore"
 msgstr "Outils d'exploration"
@@ -103,8 +112,14 @@ msgstr "Chargement…"
 msgid "Map Explorer"
 msgstr "Explorateur de cartes"
 
+msgid "Maps Explorer"
+msgstr ""
+
 msgid "Median Income, United States"
 msgstr "Revenu moyen aux États-Unis"
+
+msgid "Natural Language Explorer"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>L'outil d'exploration par lieu vous aide à mieux comprendre les principales données concernant un lieu spécifique. Il regroupe des graphiques sur des sujets variés, tels que la démographie, l'éducation ou l'économie du lieu en question, et compare ces données à celles d'autres lieux. Découvrez le classement des différents lieux en fonction de critères tels que le taux de chômage et de criminalité ou le niveau de revenus.</p><p>Utilisez le champ de recherche ci-dessus pour consulter les graphiques de la ville, du code postal, du comté, de l'État ou du pays qui vous intéresse.</p><p>Vous pouvez également commencer votre exploration par des lieux bien connus.</p>"
@@ -130,10 +145,16 @@ msgstr "Explorateur de graphiques à nuage de points"
 msgid "Scatter Plots"
 msgstr ""
 
+msgid "States, India"
+msgstr ""
+
 msgid "States, United States"
 msgstr "États des États-Unis"
 
 msgid "Statistical Variable Explorer"
+msgstr ""
+
+msgid "Terms Of Use"
 msgstr ""
 
 msgid "Terms and Conditions"

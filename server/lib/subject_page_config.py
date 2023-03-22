@@ -141,7 +141,7 @@ def _places_with_geojson(places):
   return result
 
 
-def remove_empty_charts(page_config, place_dcid, contained_place_type):
+def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
   """
   Returns the page config stripped of charts with no data.
   """
@@ -152,7 +152,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type):
     return page_config
 
   # TODO: find child places only if there are maps, etc.
-  sample_child_places = nl_utils.get_sample_child_places(
+  sample_child_places = [] if contained_place_type == None else nl_utils.get_sample_child_places(
       place_dcid, contained_place_type, ctr)
   bar_comparison_places = _bar_comparison_places(page_config, place_dcid)
   all_places = sample_child_places + bar_comparison_places + [place_dcid]
