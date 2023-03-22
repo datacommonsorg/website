@@ -16,7 +16,12 @@
 
 metadata {
   topic_id: "event"
-  # Contained_place_types set in routes/event.py.
+
+  # Contained_place_types set in routes/event.py. This is only for testing.
+  contained_place_types {
+    key: "Planet"
+    value: "Country"
+  }
 }
 
 categories {
