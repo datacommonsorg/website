@@ -18,22 +18,9 @@ metadata {
   topic_id: "disaster_dashboard"
   topic_name: "Disaster Dashboard"
   place_dcid: "Earth"
-  contained_place_types {
-    key: "Planet"
-    value: "Country"
-  }
-  contained_place_types {
-    key: "Continent"
-    value: "Country"
-  }
-  contained_place_types {
-    key: "Country"
-    value: "AdministrativeArea1"
-  }
-  contained_place_types {
-    key: "AdministrativeArea1"
-    value: "AdministrativeArea2"
-  }
+
+  # Contained_place_types set in routes/event.py.
+
   event_type_spec {
     key: "flood"
     value {
