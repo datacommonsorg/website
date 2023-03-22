@@ -24,11 +24,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
+import { initSearchAutocomplete } from "../../shared/place_autocomplete";
 import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils";
 import { App } from "./app";
 
 window.onload = () => {
   renderPage();
+  initSearchAutocomplete("/sustainability");
 };
 
 function renderPage(): void {

@@ -16,6 +16,8 @@
 
 metadata {
   topic_id: "sustainability_explorer"
+  topic_name: "Sustainability Explorer"
+  place_dcid: "Earth"
 
   # Contained_place_types is replaced in routes/sustainability.py. This is only for testing.
   contained_place_types {
@@ -28,8 +30,21 @@ categories {
   title: "Natural disasters"
   description: "More at [the disaster dashboard](/disasters/${placeDcid})"
   blocks {
+    type: DISASTER_EVENT
     columns {
-      tiles {}
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          polygon_event_type_key: "drought"
+          point_event_type_key: "fire"
+          point_event_type_key: "flood"
+          # point_event_type_key: "tornado"
+          path_event_type_key: "storm"
+          point_event_type_key: "wetbulb"
+          # point_event_type_key: "heat"
+          # point_event_type_key: "cold"
+        }
+      }
     }
   }
 }

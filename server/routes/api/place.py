@@ -331,7 +331,6 @@ def child_fetch(parent_dcid):
 
   # Filter by wanted place types
   place_type = get_place_type(parent_dcid)
-  print(place_type)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
 
   place_types = dc.property_values(place_dcids, 'typeOf', True)

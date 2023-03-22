@@ -53,12 +53,28 @@ export function App(props: AppPropType): JSX.Element {
           ></ChildPlaces>
         </div>
         <div className="col-md-9x col-lg-10">
-          <h1 id="place-name">{props.metadata.place.name}</h1>
-          <ParentBreadcrumbs
-            place={props.metadata.place}
-            parentPlaces={props.metadata.parentPlaces}
-            urlFormatString="/disasters/${placeDcid}"
-          ></ParentBreadcrumbs>
+          <div id="title" className="row">
+            <div className="col-12 col-md-8 order-last order-md-2">
+              <h1 id="place-name">{props.metadata.place.name}</h1>
+              <ParentBreadcrumbs
+                place={props.metadata.place}
+                parentPlaces={props.metadata.parentPlaces}
+                urlFormatString="/disasters/${placeDcid}"
+              ></ParentBreadcrumbs>
+            </div>
+            <div className="col-12 col-md-4 order-first order-md-last pb-3 pb-md-0">
+              <div className="search border">
+                <div id="location-field">
+                  <div id="search-icon"></div>
+                  <input
+                    id="place-autocomplete"
+                    placeholder="Enter a country, state, county or city"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
           <SubjectPageMainPane
             id={PAGE_ID}
             place={props.metadata.place}
