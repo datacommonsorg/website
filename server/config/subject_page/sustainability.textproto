@@ -16,6 +16,8 @@
 
 metadata {
   topic_id: "sustainability_explorer"
+  topic_name: "Sustainability Explorer"
+  place_dcid: "Earth"
   contained_place_types {
     key: "Planet"
     value: "Country"
@@ -35,28 +37,23 @@ metadata {
 }
 
 categories {
-  title: "Air quality"
+  title: "Natural disasters"
   blocks {
+    type: DISASTER_EVENT
     columns {
-      tiles {}
-    }
-  }
-}
-
-categories {
-  title: "Temperature"
-  blocks {
-    columns {
-      tiles {}
-    }
-  }
-}
-
-categories {
-  title: "Energy"
-  blocks {
-    columns {
-      tiles {}
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          polygon_event_type_key: "drought"
+          point_event_type_key: "fire"
+          point_event_type_key: "flood"
+          # point_event_type_key: "tornado"
+          path_event_type_key: "storm"
+          point_event_type_key: "wetbulb"
+          # point_event_type_key: "heat"
+          # point_event_type_key: "cold"
+        }
+      }
     }
   }
 }
