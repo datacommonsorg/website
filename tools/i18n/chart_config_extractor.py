@@ -72,7 +72,6 @@ def main():
       maybe_add_message(messages, id, message)
 
   # Add chart categories to the message catalog
-  # TODO: Also add topics
   for category in categories:
     id = f'CHART_TITLE-CHART_CATEGORY-{category}'
     message = {
