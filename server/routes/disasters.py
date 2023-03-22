@@ -72,4 +72,5 @@ def disaster_dashboard(place_dcid=None):
   return flask.render_template(
       'custom_dc/stanford/disaster_dashboard.html',
       place_metadata=dataclasses.asdict(place_metadata),
-      config=MessageToJson(dashboard_config))
+      config=MessageToJson(dashboard_config),
+      maps_api_key=current_app.config['MAPS_API_KEY'])
