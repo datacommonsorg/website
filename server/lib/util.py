@@ -128,7 +128,10 @@ def get_topic_page_config():
 def get_disaster_dashboard_config():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "dashboard.textproto")
-  return get_subject_page_config(filepath)
+  disaster_event_metadata = get_disaster_event_metadata()
+  config = get_subject_page_config(filepath)
+  config.metadata.MergeFrom(disaster_event_metadata)
+  return config
 
 
 # Returns disaster event config loaded as SubjectPageConfig protos
@@ -142,7 +145,10 @@ def get_disaster_event_config():
 def get_disaster_sustainability_config():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "sustainability.textproto")
-  return get_subject_page_config(filepath)
+  disaster_event_metadata = get_disaster_event_metadata()
+  config = get_subject_page_config(filepath)
+  config.metadata.MergeFrom(disaster_event_metadata)
+  return config
 
 
 # Returns disaster dashboard config for NL
@@ -150,6 +156,17 @@ def get_nl_disaster_config():
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "disasters.textproto")
   return get_subject_page_config(filepath)
+
+
+# Returns common event_type_spec for all disaster event related pages.
+def get_disaster_event_metadata():
+  filepath = os.path.join(get_repo_root(), "config", "subject_page",
+                          "disaster_event_spec.textproto")
+  with open(filepath, 'r') as f:
+    data = f.read()
+    subject_page_config = subject_page_pb2.PageMetadata()
+    text_format.Parse(data, subject_page_config)
+    return subject_page_config
 
 
 # Returns dict of place dcid to place type to geojson object. Geojson object is

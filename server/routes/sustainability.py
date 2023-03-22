@@ -38,25 +38,25 @@ def sustainability_explorer(place_dcid=None):
         place_dcid=lib_subject_page_config.DEFAULT_PLACE_DCID),
                     code=302)
 
-  dashboard_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
+  subject_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
-    dashboard_config = server.lib.util.get_disaster_sustainability_config()
+    subject_config = server.lib.util.get_disaster_sustainability_config()
 
-  if not dashboard_config:
+  if not subject_config:
     return "Error: no config installed"
 
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
   if place_metadata.contained_place_types_override:
-    dashboard_config.metadata.contained_place_types.clear()
-    dashboard_config.metadata.contained_place_types.update(
+    subject_config.metadata.contained_place_types.clear()
+    subject_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
 
-  dashboard_config = lib_subject_page_config.remove_empty_charts(
-      dashboard_config, place_dcid)
+  subject_config = lib_subject_page_config.remove_empty_charts(
+      subject_config, place_dcid)
 
   return flask.render_template(
       'custom_dc/stanford/sustainability.html',
       place_metadata=dataclasses.asdict(place_metadata),
-      config=MessageToJson(dashboard_config))
+      config=MessageToJson(subject_config))
