@@ -163,7 +163,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Children in employment in ${placeName}"
+        title: "Employed children in ${placeName}"
         stat_var_key: "child_employment"
       }
     }

@@ -34,6 +34,7 @@ DEFAULT_CONTAINED_PLACE_TYPES = {
     "Continent": "Country",
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "AdministrativeArea3",
 }
 
 # Define blueprint
@@ -82,8 +83,10 @@ def disaster_dashboard(place_dcid=None):
     if pt in config_place_types:
       place_type = pt
       break
+  contained_place_type = config_place_types[
+      place_type] if place_type != None else None
   dashboard_config = lib_subject_page_config.remove_empty_charts(
-      dashboard_config, place_dcid, config_place_types[place_type])
+      dashboard_config, place_dcid, contained_place_type)
 
   return flask.render_template(
       'custom_dc/stanford/disaster_dashboard.html',

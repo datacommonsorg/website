@@ -71,8 +71,10 @@ def sustainability_explorer(place_dcid=None):
     if pt in config_place_types:
       place_type = pt
       break
+  contained_place_type = config_place_types[
+      place_type] if place_type != None else None
   subject_config = lib_subject_page_config.remove_empty_charts(
-      subject_config, place_dcid, config_place_types[place_type])
+      subject_config, place_dcid, contained_place_type)
 
   return flask.render_template(
       'custom_dc/stanford/sustainability.html',
