@@ -16,6 +16,8 @@
 
 metadata {
   topic_id: "sustainability_explorer"
+  topic_name: "Sustainability Explorer"
+  place_dcid: "Earth"
   contained_place_types {
     key: "Planet"
     value: "Country"
@@ -35,7 +37,7 @@ metadata {
 }
 
 categories {
-  title: "Air quality"
+  title: "Natural disasters"
   blocks {
     type: DISASTER_EVENT
     columns {
@@ -52,24 +54,6 @@ categories {
           # point_event_type_key: "cold"
         }
       }
-    }
-  }
-}
-
-categories {
-  title: "Temperature"
-  blocks {
-    columns {
-      tiles {}
-    }
-  }
-}
-
-categories {
-  title: "Energy"
-  blocks {
-    columns {
-      tiles {}
     }
   }
 }

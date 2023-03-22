@@ -39,12 +39,10 @@ def sustainability_explorer(place_dcid=None):
                     code=302)
 
   subject_config = current_app.config['DISASTER_SUSTAINABILITY_CONFIG']
-  event_metadata = current_app.config['DISASTER_EVENT_METADATA']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
     subject_config = server.lib.util.get_disaster_sustainability_config()
-    event_metadata = server.lib.util.get_disaster_event_metadata()
 
   if not subject_config:
     return "Error: no config installed"
@@ -54,8 +52,6 @@ def sustainability_explorer(place_dcid=None):
     subject_config.metadata.contained_place_types.clear()
     subject_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
-
-  subject_config.metadata.MergeFrom(event_metadata)
 
   subject_config = lib_subject_page_config.remove_empty_charts(
       subject_config, place_dcid)

@@ -128,7 +128,10 @@ def get_topic_page_config():
 def get_disaster_dashboard_config():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "dashboard.textproto")
-  return get_subject_page_config(filepath)
+  disaster_event_metadata = get_disaster_event_metadata()
+  config = get_subject_page_config(filepath)
+  config.metadata.MergeFrom(disaster_event_metadata)
+  return config
 
 
 # Returns disaster event config loaded as SubjectPageConfig protos
@@ -142,7 +145,10 @@ def get_disaster_event_config():
 def get_disaster_sustainability_config():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "sustainability.textproto")
-  return get_subject_page_config(filepath)
+  disaster_event_metadata = get_disaster_event_metadata()
+  config = get_subject_page_config(filepath)
+  config.metadata.MergeFrom(disaster_event_metadata)
+  return config
 
 
 # Returns disaster dashboard config for NL
