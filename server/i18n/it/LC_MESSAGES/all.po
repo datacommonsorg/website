@@ -2,7 +2,7 @@ msgid "%(project)s is a Google supported project"
 msgstr "%(project)s è un progetto supportato da Google"
 
 msgid "APIs"
-msgstr "API"
+msgstr ""
 
 msgid "About"
 msgstr "Informazioni"
@@ -188,16 +188,16 @@ msgid "in United States"
 msgstr "negli Stati Uniti"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr ""
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr ""
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consumo di alcol pro capite (annuale)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr ""
 
 msgid "CHART_TITLE-Arson"
 msgstr "Incendio doloso"
@@ -206,13 +206,13 @@ msgid "CHART_TITLE-Arson_rate"
 msgstr "Incendi dolosi per 100.000 persone"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
-msgstr "Tasso di conseguimento di diplomi universitari per sesso"
+msgstr "Tasso di conseguimento di diplomi universitari per genere"
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
-msgstr "Tasso di conseguimento della laurea per sesso"
+msgstr "Tasso di conseguimento della laurea per genere"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Criminalità"
@@ -221,7 +221,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Dati demografici"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Aspetti economici"
@@ -230,13 +230,13 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Istruzione"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "Ambiente"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Patrimonio netto"
@@ -248,37 +248,37 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Abitazioni"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Panoramica"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr ""
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Bambini che lavorano"
 
 msgid "CHART_TITLE-Children_employed_gender"
-msgstr "Bambini che lavorano per sesso"
+msgstr "Bambini che lavorano per genere"
 
 msgid "CHART_TITLE-Children_severe_wasting"
 msgstr "Grave deperimento tra bambini sotto i 5 anni"
 
 msgid "CHART_TITLE-Children_severe_wasting_by_gender"
-msgstr "Grave deperimento tra bambini sotto i 5 anni per sesso"
+msgstr "Grave deperimento tra bambini sotto i 5 anni per genere"
 
 msgid "CHART_TITLE-Children_wasting"
 msgstr "Deperimento tra bambini sotto i 5 anni"
 
 msgid "CHART_TITLE-Children_wasting_by_gender"
-msgstr "Deperimento tra bambini sotto i 5 anni per sesso"
+msgstr "Deperimento tra bambini sotto i 5 anni per genere"
 
 msgid "CHART_TITLE-Citizenship"
 msgstr "Cittadinanza"
@@ -317,10 +317,10 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Consumo di elettricità pro capite"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr ""
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr ""
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "Consumo energetico (kg di petrolio equivalente pro capite)"
@@ -362,49 +362,49 @@ msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Spesa pubblica per le forze armate (% del PIL)"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
-msgstr "Tasso di conseguimento della laurea o di un diploma professionale per sesso"
+msgstr "Tasso di conseguimento della laurea o di un diploma professionale per genere"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "Comportamenti legati alla salute"
@@ -458,7 +458,7 @@ msgid "CHART_TITLE-Infant_mortality_rate"
 msgstr "Tasso di mortalità infantile"
 
 msgid "CHART_TITLE-Infant_mortality_rate_gender"
-msgstr "Tasso di mortalità infantile per sesso"
+msgstr "Tasso di mortalità infantile per genere"
 
 msgid "CHART_TITLE-Inward_remittance"
 msgstr "Rimessa interna"
@@ -491,19 +491,19 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Capitalizzazione di mercato delle società nazionali (% del PIL)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Median_age"
 msgstr "Età media"
 
 msgid "CHART_TITLE-Median_age_gender"
-msgstr "Età media per sesso"
+msgstr "Età media per genere"
 
 msgid "CHART_TITLE-Median_age_race"
 msgstr "Età media per gruppo etnico"
@@ -515,7 +515,7 @@ msgid "CHART_TITLE-Median_household_income_race"
 msgstr "Reddito familiare medio per gruppo etnico"
 
 msgid "CHART_TITLE-Median_income_gender"
-msgstr "Reddito medio per sesso"
+msgstr "Reddito medio per genere"
 
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "Reddito personale medio"
@@ -530,10 +530,10 @@ msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Rimessa esterna"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr ""
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
-msgstr "Percentuale di persone senza assicurazione sanitaria per sesso"
+msgstr "Percentuale di persone senza assicurazione sanitaria per genere"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "Percentuale di persone senza assicurazione sanitaria per gruppo etnico"
@@ -572,10 +572,10 @@ msgid "CHART_TITLE-Population_density"
 msgstr "Densità di popolazione (persone per km²)"
 
 msgid "CHART_TITLE-Population_gender"
-msgstr "Popolazione per sesso"
+msgstr "Popolazione per genere"
 
 msgid "CHART_TITLE-Population_gender_distribution"
-msgstr "Distribuzione in base al sesso"
+msgstr "Distribuzione in base al genere"
 
 msgid "CHART_TITLE-Population_growth_rate"
 msgstr "Tasso di crescita della popolazione"
@@ -590,7 +590,7 @@ msgid "CHART_TITLE-Poverty_rate"
 msgstr "Tasso di povertà"
 
 msgid "CHART_TITLE-Poverty_rate_gender"
-msgstr "Tasso di povertà per sesso"
+msgstr "Tasso di povertà per genere"
 
 msgid "CHART_TITLE-Poverty_rate_race"
 msgstr "Tasso di povertà per gruppo etnico"
@@ -602,16 +602,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Farmaci prescritti pro capite (per trimestre)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "Reati contro la proprietà"
@@ -650,7 +650,7 @@ msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
 msgstr "Tasso di disoccupazione: urbana e rurale"
 
 msgid "CHART_TITLE-Unemployment_rate_gender"
-msgstr "Tasso di disoccupazione per sesso"
+msgstr "Tasso di disoccupazione per genere"
 
 msgid "CHART_TITLE-Urban and rural households"
 msgstr "Nuclei familiari urbani e rurali"
@@ -689,17 +689,20 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Popolazione di lavoratori e non lavoratori"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr ""
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
+msgstr ""
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Panoramica"
 

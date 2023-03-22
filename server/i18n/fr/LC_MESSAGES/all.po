@@ -2,7 +2,7 @@ msgid "%(project)s is a Google supported project"
 msgstr "%(project)s est un projet développé par Google"
 
 msgid "APIs"
-msgstr "API"
+msgstr ""
 
 msgid "About"
 msgstr "À propos"
@@ -116,7 +116,7 @@ msgid "Maps Explorer"
 msgstr ""
 
 msgid "Median Income, United States"
-msgstr "Revenu moyen aux États-Unis"
+msgstr "Revenu médian aux États-Unis"
 
 msgid "Natural Language Explorer"
 msgstr ""
@@ -188,16 +188,16 @@ msgid "in United States"
 msgstr "aux États-Unis"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr ""
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr ""
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consommation annuelle d'alcool par habitant"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr ""
 
 msgid "CHART_TITLE-Arson"
 msgstr "Incendies"
@@ -212,7 +212,7 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Taux d'obtention d'une licence par sexe"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Crimes"
@@ -221,7 +221,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Données démographiques"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Économie"
@@ -230,10 +230,10 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Éducation"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 msgstr "Environment"
@@ -248,19 +248,19 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Logement"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Aperçu"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr ""
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Enfants qui travaillent"
@@ -317,10 +317,10 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Consommation d'électricité par habitant"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr ""
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr ""
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "Consommation d'énergie par habitant (en kg d'équivalent pétrole)"
@@ -365,46 +365,46 @@ msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "Taux d'obtention d'un diplôme de troisième cycle ou professionnel par sexe"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "Comportements nocifs pour la santé"
@@ -491,34 +491,34 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Capitalisation boursière des entreprises nationales (% du PIB)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Median_age"
-msgstr "Âge moyen"
+msgstr "Âge médian"
 
 msgid "CHART_TITLE-Median_age_gender"
-msgstr "Âge moyen par sexe"
+msgstr "Âge médian par sexe"
 
 msgid "CHART_TITLE-Median_age_race"
 msgstr "Âge médian par origine ethnique"
 
 msgid "CHART_TITLE-Median_household_income"
-msgstr "Revenu moyen du foyer"
+msgstr "Revenu médian du foyer"
 
 msgid "CHART_TITLE-Median_household_income_race"
-msgstr "Revenu moyen du foyer par origine ethnique"
+msgstr "Revenu médian du foyer par origine ethnique"
 
 msgid "CHART_TITLE-Median_income_gender"
-msgstr "Revenu moyen par sexe"
+msgstr "Revenu médian par sexe"
 
 msgid "CHART_TITLE-Median_individual_income"
-msgstr "Revenu moyen individuel"
+msgstr "Revenu médian individuel"
 
 msgid "CHART_TITLE-Mortality_events"
 msgstr "Cas de mortalité"
@@ -530,7 +530,7 @@ msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Fonds transférés à l'étranger"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr ""
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "Pourcentage de la population sans assurance santé par sexe"
@@ -602,16 +602,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Médicaments sur ordonnance par habitant (données trimestrielles)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "Crimes contre les biens"
@@ -689,17 +689,20 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Population de personnes avec et sans emploi"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr ""
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
+msgstr ""
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Aperçu"
 

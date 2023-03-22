@@ -2,7 +2,7 @@ msgid "%(project)s is a Google supported project"
 msgstr "%(project)s एक ऐसा प्रोजेक्ट है जिसे Google से सहायता मिलती है"
 
 msgid "APIs"
-msgstr "APIs"
+msgstr ""
 
 msgid "About"
 msgstr "इसके बारे में जानकारी"
@@ -35,7 +35,7 @@ msgid "Data Download Tool"
 msgstr ""
 
 msgid "Data Sources"
-msgstr "डेटा स्रोत"
+msgstr "डेटा सोर्स"
 
 msgid "Disclaimers"
 msgstr "खंंडन"
@@ -188,16 +188,16 @@ msgid "in United States"
 msgstr "संयुक्त राज्य अमेरिका में"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr ""
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr ""
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "अल्कोहल की प्रति व्यक्ति खपत (सालाना)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr ""
 
 msgid "CHART_TITLE-Arson"
 msgstr "आगज़नी"
@@ -212,7 +212,7 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की दर जो स्नातक हैं"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "अपराध"
@@ -221,7 +221,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "लोगों की जानकारी, जैसे कि उम्र, लिंग, आय, शिक्षा वगैरह"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "अर्थशास्त्र"
@@ -230,13 +230,13 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "शिक्षा"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "एनवायरमेंट"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "इक्विटी"
@@ -248,19 +248,19 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "घर"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "खास जानकारी"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr ""
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "नौकरी करने वाले बच्चों की संख्या"
@@ -317,10 +317,10 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "प्रति व्यक्ति बिजली की खपत"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr ""
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr ""
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "ऊर्जा की खपत (प्रति व्यक्ति किलोग्राम तेल)"
@@ -365,46 +365,46 @@ msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की संख्या जिनके पास प्रोफ़ेशनल डिग्री है"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "स्वास्थ्य से जुड़ी बुरी आदतें"
@@ -491,13 +491,13 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP का प्रतिशत)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Median_age"
 msgstr "औसत उम्र"
@@ -530,7 +530,7 @@ msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "लोगों के बैंक खातों से निकाली गई कुल रकम"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr ""
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है"
@@ -602,16 +602,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "बताई गई दवाई प्रति व्यक्ति (हर तिमाही में)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "प्रॉपर्टी से जुड़े अपराधों की कुल संख्या"
@@ -689,17 +689,20 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "कामकाजी बनाम गैर-कामकाजी लोगों की जनसंख्या"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr ""
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
+msgstr ""
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "खास जानकारी"
 

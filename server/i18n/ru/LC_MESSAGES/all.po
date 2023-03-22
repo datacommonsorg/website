@@ -2,7 +2,7 @@ msgid "%(project)s is a Google supported project"
 msgstr "Проект %(project)s поддерживается Google"
 
 msgid "APIs"
-msgstr "API"
+msgstr ""
 
 msgid "About"
 msgstr "Информация"
@@ -188,16 +188,16 @@ msgid "in United States"
 msgstr "в США"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr ""
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr ""
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Потребление алкоголя на душу населения (в год)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr ""
 
 msgid "CHART_TITLE-Arson"
 msgstr "Поджог"
@@ -212,7 +212,7 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Процент имеющих степень бакалавра людей по полу"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Преступления"
@@ -221,7 +221,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Демография"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Экономика"
@@ -230,13 +230,13 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Образование"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "Окружающая среда"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Собственный капитал"
@@ -248,19 +248,19 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Жилье"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Обзор"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr ""
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr ""
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Количество работающих детей"
@@ -317,10 +317,10 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Электропотребление на душу населения"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr ""
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr ""
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "Энергопотребление (кг нефтяного эквивалента на душу населения)"
@@ -365,46 +365,46 @@ msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "Процент людей, имеющих степень магистра или высшее профессиональное образование, по полу"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr ""
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "Вредные привычки"
@@ -491,13 +491,13 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Рыночная капитализация отечественных компаний (в % от ВВП)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr ""
 
 msgid "CHART_TITLE-Median_age"
 msgstr "Медианный возраст"
@@ -530,7 +530,7 @@ msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Переводы за рубеж"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr ""
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "Процент людей без медицинской страховки по полу"
@@ -602,16 +602,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Количество прописанных лекарств на душу населения (за квартал)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr ""
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "Имущественные преступления"
@@ -689,17 +689,20 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Доля работающих и неработающих"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr ""
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr ""
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
+msgstr ""
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Обзор"
 

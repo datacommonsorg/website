@@ -14,6 +14,9 @@
   "chart_clause-placetype_near_place": {
     "defaultMessage": "{chartTitle}: {placeName} के आस-पास की {placeType}"
   },
+  "chart_clause-rankings_in_place": {
+    "defaultMessage": ""
+  },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{placeName} में {variable}"
   },
