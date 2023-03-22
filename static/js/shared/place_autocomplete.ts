@@ -24,7 +24,7 @@ let acs: google.maps.places.AutocompleteService;
  *
  * Note: i18n.loadLocaleData must be called before this.
  */
-function initSearchAutocomplete(): void {
+function initSearchAutocomplete(urlPrefix: string): void {
   // Create the autocomplete object, restricting the search predictions to
   // geographical location types.
   const options = {
@@ -35,7 +35,7 @@ function initSearchAutocomplete(): void {
     "place-autocomplete"
   ) as HTMLInputElement;
   ac = new google.maps.places.Autocomplete(acElem, options);
-  ac.addListener("place_changed", placeChangedCallback);
+  ac.addListener("place_changed", () => { placeChangedCallback(urlPrefix) });
   // Create the autocomplete service.
   acs = new google.maps.places.AutocompleteService();
 }
@@ -43,47 +43,47 @@ function initSearchAutocomplete(): void {
 /*
  * If the autocomplete object does not have a place_id, query the autocomplete service. Otherwise, get url for the place.
  */
-function placeChangedCallback(): void {
+function placeChangedCallback(urlPrefix: string): void {
   // Get the place details from the autocomplete object.
   const place = ac.getPlace();
   // place won't have place_id information if no autocomplete object has been selected (ie. user did not select any of the autocomplete suggestions)
   if (!place.place_id) {
-    queryAutocompleteService(place.name);
+    queryAutocompleteService(place.name, urlPrefix);
   } else {
-    getPlaceAndRender(place.place_id, place.name);
+    getPlaceAndRender(place.place_id, place.name, urlPrefix);
   }
 }
 
-function queryAutocompleteService(place_name): void {
+function queryAutocompleteService(placeName: string, urlPrefix: string): void {
   acs.getPlacePredictions(
     {
-      input: place_name,
+      input: placeName,
       types: ["(regions)"],
     },
-    queryAutocompleteCallback(place_name)
+    queryAutocompleteCallback(placeName, urlPrefix)
   );
 }
 
-const queryAutocompleteCallback = (place_name) => (predictions, status) => {
+const queryAutocompleteCallback = (placeName: string, urlPrefix: string) => (predictions, status) => {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    getPlaceAndRender(predictions[0].place_id, place_name);
+    getPlaceAndRender(predictions[0].place_id, placeName, urlPrefix);
   } else {
-    placeNotFoundAlert(place_name);
+    placeNotFoundAlert(placeName);
   }
 };
 
 // Get url for a given place_id if we have data for the place. Otherwise, alert that the place is not found.
-function getPlaceAndRender(placeId: string, placeName: string): void {
+function getPlaceAndRender(placeId: string, placeName: string, urlPrefix: string): void {
   getPlaceDcids([placeId])
     .then((data) => {
-      window.location.href = localizeLink(`/place/${data[placeId]}`);
+      window.location.href = localizeLink(`${urlPrefix}/${data[placeId]}`);
     })
     .catch(() => {
       placeNotFoundAlert(placeName);
     });
 }
 
-function placeNotFoundAlert(place_name): void {
+function placeNotFoundAlert(placeName): void {
   // TODO(datcom): change defaultMessage to take the localized place name, from KG, not i18n.
   alert(
     intl.formatMessage(
@@ -93,7 +93,7 @@ function placeNotFoundAlert(place_name): void {
         description:
           'Text for an alert that we show when user tries to navigate to a place with no data. For example, "Sorry, but we don\'t have any data about {Hong Kong Island, Hong Kong}".',
       },
-      { placeName: place_name }
+      { placeName: placeName }
     )
   );
   const acElem = document.getElementById(
@@ -112,3 +112,4 @@ function placeNotFoundAlert(place_name): void {
 }
 
 export { initSearchAutocomplete };
+
