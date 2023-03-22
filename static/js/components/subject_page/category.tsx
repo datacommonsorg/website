@@ -63,7 +63,7 @@ export const Category = memo(function Category(
   return (
     <article className="category col-12" id={props.id}>
       {title && <h2 className="block-title">{title}</h2>}
-      {props.config.description && <ReactMarkdown>{description}</ReactMarkdown>}
+      {description && <ReactMarkdown>{description}</ReactMarkdown>}
       {renderBlocks(props, svProvider)}
     </article>
   );

@@ -202,12 +202,13 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
           DEFAULT_CONTAINED_PLACE_TYPES)
 
     place_type = None
+    config_place_types = subject_config.metadata.contained_place_types
     for pt in place_metadata.place_types:
-      if pt in DEFAULT_CONTAINED_PLACE_TYPES:
+      if pt in config_place_types:
         place_type = pt
         break
     subject_config = lib_subject_page_config.remove_empty_charts(
-        subject_config, place_dcid, DEFAULT_CONTAINED_PLACE_TYPES[place_type])
+        subject_config, place_dcid, config_place_types[place_type])
 
     # TODO: If not enough charts from the current place, add from the next place up and so on.
     subject_page_args = {

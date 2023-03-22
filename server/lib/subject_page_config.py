@@ -38,7 +38,6 @@ EUROPE_CONTAINED_PLACE_TYPES = {
 PLACE_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.TYPE_NONE,
     subject_page_pb2.Tile.TileType.HIGHLIGHT,
-    subject_page_pb2.Tile.TileType.RANKING,
     subject_page_pb2.Tile.TileType.LINE,
 ]
 CHILD_FILTER_TILE_TYPES = [
@@ -46,6 +45,7 @@ CHILD_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.SCATTER,
     subject_page_pb2.Tile.TileType.BIVARIATE,
     subject_page_pb2.Tile.TileType.BAR,
+    subject_page_pb2.Tile.TileType.RANKING,
 ]
 
 # Placeholder allowed in config that should be interpreted as the main place dcid.
