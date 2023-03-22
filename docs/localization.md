@@ -26,13 +26,12 @@ Prepare mesages for translation by extracting from both python and react with:
 ./scripts/extract_messages.sh
 ```
 
-Send a PR with the changes from the script then follow the instructions in google3.
-
+Send a PR with the changes from the script then follow the instructions in [google3](http://google3/datacommons/i18n/README.md).
 
 ## Compile translation files for use
 
 In order to use the extracted strings (regardless of translation status),
-compile the messages to be used by both libraries after following the steps in google3.
+compile the messages to be used by both libraries after following the steps in [google3](http://google3/datacommons/i18n/README.md).
 
 ```bash
 ./scripts/compile_messages.sh
