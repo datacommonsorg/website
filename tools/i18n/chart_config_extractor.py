@@ -63,6 +63,8 @@ def main():
   # Extract strings from each chart
   for conf in chart_config:
     categories.add(conf['category'])
+    if 'topic' in conf:
+      categories.add(conf['topic'])
     (id, message) = extract_message_from_chart(conf)
     maybe_add_message(messages, id, message)
     if conf.get('relatedChart', {}).get('scale', False):

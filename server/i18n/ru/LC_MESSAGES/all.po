@@ -211,17 +211,26 @@ msgstr "Процент людей с неоконченным высшим об�
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Процент имеющих степень бакалавра людей по полу"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Преступления"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Демография"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Экономика"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Образование"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
@@ -238,8 +247,20 @@ msgstr "Здоровье"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Жилье"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Обзор"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Количество работающих детей"

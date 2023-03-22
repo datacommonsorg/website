@@ -211,17 +211,26 @@ msgstr "Tasa de diplomados por sexo"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Tasa de personas con grados por sexo"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Criminalidad"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Demografía"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Economía"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Educación"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
@@ -238,8 +247,20 @@ msgstr "Salud"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Vivienda"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Descripción general"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Niños trabajadores"

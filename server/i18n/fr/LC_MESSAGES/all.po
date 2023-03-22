@@ -211,17 +211,26 @@ msgstr "Taux d'obtention d'un diplôme d'associé par sexe"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Taux d'obtention d'une licence par sexe"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Crimes"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Données démographiques"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Économie"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Éducation"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
@@ -238,8 +247,20 @@ msgstr "Santé"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Logement"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Aperçu"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Enfants qui travaillent"
