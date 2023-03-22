@@ -13,6 +13,9 @@ msgstr "Acerca de Data Commons"
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Cities, India"
+msgstr ""
+
 msgid "Cities, United States"
 msgstr "Ciudades (Estados Unidos)"
 
@@ -37,6 +40,9 @@ msgstr "Fuentes de datos"
 msgid "Disclaimers"
 msgstr "Renuncias de responsabilidad"
 
+msgid "Districts, India"
+msgstr ""
+
 msgid "Documentation"
 msgstr "Documentación"
 
@@ -45,6 +51,9 @@ msgstr "Indicadores económicos (Todo el mundo)"
 
 msgid "Enter a country, state, county or city"
 msgstr "Introduce un país, un estado, un condado o una ciudad"
+
+msgid "Enter a country, state, district or city"
+msgstr ""
 
 msgid "Explore"
 msgstr "Ver"
@@ -103,8 +112,14 @@ msgstr "Cargando..."
 msgid "Map Explorer"
 msgstr "Explorador de mapas"
 
+msgid "Maps Explorer"
+msgstr ""
+
 msgid "Median Income, United States"
 msgstr "Ingresos medios (Estados Unidos)"
+
+msgid "Natural Language Explorer"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>La herramienta Explorador de lugares permite conocer los datos principales de un lugar. Reúne un conjunto de gráficos sobre demografía, educación, economía y otros aspectos del sitio y los compara con los de otros lugares. También permite ver las clasificaciones de los distintos lugares en relación con diferentes métricas, como el desempleo, la criminalidad o los ingresos.</p><p>Puedes acceder a los gráficos de la ciudad, el código postal, el condado, el estado o el país que quieras a través del cuadro de búsqueda que aparece arriba.</p><p>Si quieres, también puedes consultar los datos de lugares conocidos:</p>"
@@ -130,10 +145,16 @@ msgstr "Explorador de gráficos de dispersión"
 msgid "Scatter Plots"
 msgstr ""
 
+msgid "States, India"
+msgstr ""
+
 msgid "States, United States"
 msgstr "Estados (Estados Unidos)"
 
 msgid "Statistical Variable Explorer"
+msgstr ""
+
+msgid "Terms Of Use"
 msgstr ""
 
 msgid "Terms and Conditions"
