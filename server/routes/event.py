@@ -25,6 +25,7 @@ from flask import escape
 from flask import render_template
 from google.protobuf.json_format import MessageToJson
 
+from server.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
 import server.routes.api.node as node_api
@@ -159,6 +160,7 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
 
 @bp.route('/')
 @bp.route('/<path:dcid>', strict_slashes=False)
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def event_node(dcid=DEFAULT_EVENT_DCID):
   if not os.environ.get('FLASK_ENV') in [
       'autopush', 'local', 'dev', 'stanford', 'local-stanford',
