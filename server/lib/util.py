@@ -152,6 +152,16 @@ def get_nl_disaster_config():
   return get_subject_page_config(filepath)
 
 
+def get_disaster_event_metadata():
+  filepath = os.path.join(get_repo_root(), "config", "subject_page",
+                          "disaster_event_spec.textproto")
+  with open(filepath, 'r') as f:
+    data = f.read()
+    subject_page_config = subject_page_pb2.PageMetadata()
+    text_format.Parse(data, subject_page_config)
+    return subject_page_config
+
+
 # Returns dict of place dcid to place type to geojson object. Geojson object is
 # a feature collection where the geometry of the features do not follow the
 # right hand rule.

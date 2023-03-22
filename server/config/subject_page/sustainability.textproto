@@ -37,8 +37,21 @@ metadata {
 categories {
   title: "Air quality"
   blocks {
+    type: DISASTER_EVENT
     columns {
-      tiles {}
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          polygon_event_type_key: "drought"
+          point_event_type_key: "fire"
+          point_event_type_key: "flood"
+          # point_event_type_key: "tornado"
+          path_event_type_key: "storm"
+          point_event_type_key: "wetbulb"
+          # point_event_type_key: "heat"
+          # point_event_type_key: "cold"
+        }
+      }
     }
   }
 }

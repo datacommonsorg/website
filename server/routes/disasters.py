@@ -43,10 +43,12 @@ def disaster_dashboard(place_dcid=None):
                     code=302)
 
   dashboard_config = current_app.config['DISASTER_DASHBOARD_CONFIG']
+  event_metadata = current_app.config['DISASTER_EVENT_METADATA']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     # TODO: Delete this when we are close to launch
     dashboard_config = server.lib.util.get_disaster_dashboard_config()
+    event_metadata = server.lib.util.get_disaster_event_metadata()
 
   if not dashboard_config:
     return "Error: no config installed"
@@ -65,6 +67,8 @@ def disaster_dashboard(place_dcid=None):
     dashboard_config.metadata.contained_place_types.clear()
     dashboard_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
+
+  dashboard_config.metadata.MergeFrom(event_metadata)
 
   dashboard_config = lib_subject_page_config.remove_empty_charts(
       dashboard_config, place_dcid)
