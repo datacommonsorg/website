@@ -152,6 +152,7 @@ def get_nl_disaster_config():
   return get_subject_page_config(filepath)
 
 
+# Returns common event_type_spec for all disaster event related pages.
 def get_disaster_event_metadata():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "disaster_event_spec.textproto")
