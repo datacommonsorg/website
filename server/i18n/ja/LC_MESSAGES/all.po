@@ -211,17 +211,26 @@ msgstr "準学士号の取得率（性別ごと）"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "学士号の取得率（性別ごと）"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "犯罪"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "人口統計"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "経済"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "学歴"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
@@ -238,8 +247,20 @@ msgstr "健康"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "住宅"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "概要"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "就労している児童"

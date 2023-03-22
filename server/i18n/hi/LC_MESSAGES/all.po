@@ -211,17 +211,26 @@ msgstr "लिंग के हिसाब से असोसिएट डि�
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की दर जो स्नातक हैं"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "अपराध"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "लोगों की जानकारी, जैसे कि उम्र, लिंग, आय, शिक्षा वगैरह"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "अर्थशास्त्र"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "शिक्षा"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
@@ -238,8 +247,20 @@ msgstr "स्वास्थ्य"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "घर"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "खास जानकारी"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "नौकरी करने वाले बच्चों की संख्या"
