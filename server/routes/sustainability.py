@@ -59,4 +59,5 @@ def sustainability_explorer(place_dcid=None):
   return flask.render_template(
       'custom_dc/stanford/sustainability.html',
       place_metadata=dataclasses.asdict(place_metadata),
-      config=MessageToJson(subject_config))
+      config=MessageToJson(subject_config),
+      maps_api_key=current_app.config['MAPS_API_KEY'])
