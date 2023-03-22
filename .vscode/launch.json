@@ -6,7 +6,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,
-            "python": "${command:python.interpreterPath}",
+            "python": "${workspaceFolder}/.env/bin/python3",
             "program": "${workspaceRoot}/web_app.py",
             "env": {
                 "FLASK_APP": "${workspaceRoot}/web_app.py",
@@ -28,7 +28,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,
-            "python": "${command:python.interpreterPath}",
+            "python": "${workspaceFolder}/.env/bin/python3",
             "program": "${workspaceRoot}/web_app.py",
             "env": {
                 "FLASK_APP": "${workspaceRoot}/web_app.py",

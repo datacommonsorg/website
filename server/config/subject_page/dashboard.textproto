@@ -18,21 +18,11 @@ metadata {
   topic_id: "disaster_dashboard"
   topic_name: "Disaster Dashboard"
   place_dcid: "Earth"
+
+  # Contained_place_types is replaced in routes/disasters.py. This is only for testing.
   contained_place_types {
     key: "Planet"
     value: "Country"
-  }
-  contained_place_types {
-    key: "Continent"
-    value: "Country"
-  }
-  contained_place_types {
-    key: "Country"
-    value: "AdministrativeArea1"
-  }
-  contained_place_types {
-    key: "AdministrativeArea1"
-    value: "AdministrativeArea2"
   }
 
   # Event_type_spec filled in code.

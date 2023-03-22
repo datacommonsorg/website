@@ -25,6 +25,7 @@ from flask import escape
 from flask import render_template
 from google.protobuf.json_format import MessageToJson
 
+from server.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
 import server.routes.api.node as node_api
@@ -159,6 +160,7 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
 
 @bp.route('/')
 @bp.route('/<path:dcid>', strict_slashes=False)
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def event_node(dcid=DEFAULT_EVENT_DCID):
   if not os.environ.get('FLASK_ENV') in [
       'autopush', 'local', 'dev', 'stanford', 'local-stanford',
@@ -199,8 +201,14 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
       subject_config.metadata.contained_place_types.update(
           DEFAULT_CONTAINED_PLACE_TYPES)
 
+    place_type = None
+    config_place_types = subject_config.metadata.contained_place_types
+    for pt in place_metadata.place_types:
+      if pt in config_place_types:
+        place_type = pt
+        break
     subject_config = lib_subject_page_config.remove_empty_charts(
-        subject_config, place_dcid)
+        subject_config, place_dcid, config_place_types[place_type])
 
     # TODO: If not enough charts from the current place, add from the next place up and so on.
     subject_page_args = {

@@ -29,6 +29,13 @@ import server.lib.util
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
 
+DEFAULT_CONTAINED_PLACE_TYPES = {
+    "Planet": "Country",
+    "Continent": "Country",
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+}
+
 # Define blueprint
 bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 
@@ -65,9 +72,18 @@ def disaster_dashboard(place_dcid=None):
     dashboard_config.metadata.contained_place_types.clear()
     dashboard_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
+  else:
+    dashboard_config.metadata.contained_place_types.update(
+        DEFAULT_CONTAINED_PLACE_TYPES)
 
+  place_type = None
+  config_place_types = dashboard_config.metadata.contained_place_types
+  for pt in place_metadata.place_types:
+    if pt in config_place_types:
+      place_type = pt
+      break
   dashboard_config = lib_subject_page_config.remove_empty_charts(
-      dashboard_config, place_dcid)
+      dashboard_config, place_dcid, config_place_types[place_type])
 
   return flask.render_template(
       'custom_dc/stanford/disaster_dashboard.html',

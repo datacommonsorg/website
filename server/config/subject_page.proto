@@ -140,9 +140,11 @@ message ScatterTileSpec {
 }
 
 message Tile {
-  // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
-  // with any required fields for your new TileType. Also, specify what block types can render
-  // the tiles.
+  // When adding a new TileType:
+  // - make sure to update verify_tile in subject_page_configs_test.py with any
+  //   required fields for your new TileType.
+  // - specify what block types can render the tiles.
+  // - update *_FILTER_TILE_TYPES in lib/subject_page_config.py
   enum TileType {
     TYPE_NONE = 0;
     // allowed in BlockTypes: TYPE_NONE
@@ -179,7 +181,8 @@ message Tile {
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
-  // [optional] a list of place dcids used for this tile.
+  // [optional] a list of place dcids used for this tile. Can also be "self" to
+  // use the main place id of the page. Only used for BAR tiles.
   repeated string comparison_places = 7;
   // [optional] If set, used instead of main place for the page.
   string place_dcid_override = 11;
@@ -195,7 +198,7 @@ message Tile {
 }
 
 message Block {
-  // Title can include ${placeName} placeholder string.
+  // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
   string description = 2;
   // Footnote that goes across the bottom of each block. Multiple footnotes can
@@ -218,8 +221,9 @@ message Block {
 }
 
 message Category {
-  // Title can include ${placeName} placeholder string.
+  // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
+  // Description can also have markdown.
   string description = 2;
   map<string, StatVarSpec> stat_var_spec = 4;
   repeated Block blocks = 3;

@@ -18,26 +18,17 @@ metadata {
   topic_id: "sustainability_explorer"
   topic_name: "Sustainability Explorer"
   place_dcid: "Earth"
+
+  # Contained_place_types is replaced in routes/sustainability.py. This is only for testing.
   contained_place_types {
     key: "Planet"
     value: "Country"
-  }
-  contained_place_types {
-    key: "Continent"
-    value: "Country"
-  }
-  contained_place_types {
-    key: "Country"
-    value: "AdministrativeArea1"
-  }
-  contained_place_types {
-    key: "AdministrativeArea1"
-    value: "AdministrativeArea2"
   }
 }
 
 categories {
   title: "Natural disasters"
+  description: "More at [the disaster dashboard](/disasters/${placeDcid})"
   blocks {
     type: DISASTER_EVENT
     columns {
@@ -54,6 +45,910 @@ categories {
           # point_event_type_key: "cold"
         }
       }
+    }
+  }
+}
+
+categories {
+  title: "Environment"
+  blocks {
+    title: "Air quality"
+    columns {
+      tiles {
+        type: LINE
+        title: "Air quality index"
+        stat_var_key: "aqi"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Air quality index"
+        stat_var_key: "aqi"
+      }
+    }
+  }
+
+  blocks {
+    title: "Temperature"
+    columns {
+      tiles {
+        type: LINE
+        title: "Projected max temperature change under RCP 2.6 (based on year 2006)"
+        stat_var_key: "temp_rcp26"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Projected max temperature change under RCP 2.6 (based on year 2006)"
+        stat_var_key: "temp_rcp26"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Projected max temperature change under RCP 4.5 (based on year 2006)"
+        stat_var_key: "temp_rcp45"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Projected max temperature change under RCP 4.5 (based on year 2006)"
+        stat_var_key: "temp_rcp45"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Projected max temperature change under RCP 4.5, SSP 2 (based on year 2015)"
+        stat_var_key: "temp_ssp245"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Projected max temperature change under RCP 4.5, SSP 2 (based on year 2015)"
+        stat_var_key: "temp_ssp245"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Projected max temperature change under RCP 8.5, SSP 5 (based on year 2015)"
+        stat_var_key: "temp_ssp585"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Projected max temperature change under RCP 8.5, SSP 5 (based on year 2015)"
+        stat_var_key: "temp_ssp585"
+      }
+    }
+  }
+
+  blocks {
+    title: "Energy"
+    columns {
+      tiles {
+        title: "Energy consumption (kg of oil equivalent per capita)"
+        type: LINE
+        stat_var_key: "energy_consumption_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Electricity consumption per capita",
+        type: LINE
+        stat_var_key: "energy_consumption"
+      }
+    }
+    columns {
+      tiles {
+        title: "Electricity generation per capita",
+        type: LINE
+        stat_var_key: "energy_generation"
+      }
+    }
+    columns {
+      tiles {
+        title: "Annual average retail price of electricity, all sectors"
+        type: LINE
+        stat_var_key: "electricity_price"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "aqi"
+    value {
+      stat_var: "AirQualityIndex_AirPollutant"
+      name: "AQI"
+    }
+  }
+  stat_var_spec {
+    key: "temp_rcp26"
+    value {
+      stat_var: "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26"
+      unit: "°C"
+      name: "Projected max temp. change, RCP 2.6 (based on 2006)"
+    }
+  }
+  stat_var_spec {
+    key: "temp_rcp45"
+    value {
+      stat_var: "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"
+      unit: "°C"
+      name: "Projected max temp. change, RCP 4.5 (based on 2006)"
+    }
+  }
+  stat_var_spec {
+    key: "temp_ssp245"
+    value {
+      stat_var: "DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245"
+      unit: "°C"
+      name: "Projected max temp. change, RCP 4.5, SSP 2 (based on 2015)"
+    }
+  }
+  stat_var_spec {
+    key: "temp_ssp585"
+    value {
+      stat_var: "DifferenceRelativeToBaseDate2015_Max_Temperature_SSP585"
+      unit: "°C"
+      name: "Projected max temp. change, RCP 8.5, SSP 5 (based on 2015)"
+    }
+  }
+  stat_var_spec {
+    key: "energy_consumption_pc"
+    value {
+      stat_var: "Amount_Consumption_Energy_PerCapita"
+      unit: "kgoe"
+      name: "Electricity consumption per capita"
+    }
+  }
+  stat_var_spec {
+    key: "energy_generation"
+    value {
+      stat_var: "Annual_Generation_Electricity"
+      denom: "Count_Person"
+      name: "Electricity generation per capita"
+      unit: "kWh"
+    }
+  }
+  stat_var_spec {
+    key: "energy_consumption"
+    value {
+      stat_var: "Amount_Consumption_Electricity_PerCapita"
+      name: "Electricity consumption per capita"
+      unit: "kWh"
+    }
+  }
+  stat_var_spec {
+    key: "electricity_price"
+    value {
+      stat_var: "Annual_Average_RetailPrice_Electricity"
+      unit: "¢/kWh"
+      name: "Annual average retail price of electricity, all sectors"
+    }
+  }
+}
+
+categories {
+  title: "Health"
+  blocks {
+    columns {
+      tiles {
+        type: LINE
+        title: "Life expectancy (years)"
+        stat_var_key: "life_expectancy"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Covid-19 cumulative cases"
+        stat_var_key: "covid_cases"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Covid-19 cumulative deaths"
+        stat_var_key: "covid_deaths"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Infant mortality rate"
+        stat_var_key: "infant_mortality"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Infant mortality rate, by gender"
+        stat_var_key: "infant_mortality_male"
+        stat_var_key: "infant_mortality_female"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Wasting among children under 5"
+        stat_var_key: "wasting"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Wasting among children under 5, by gender"
+        stat_var_key: "wasting_male"
+        stat_var_key: "wasting_female"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Alcohol consumption per capita (annual)"
+        stat_var_key: "alcohol"
+      }
+    }
+    columns {
+      tiles {
+        type: BAR
+        title: "Mortality events"
+        stat_var_key: "death_circulatory"
+        stat_var_key: "death_neoplasms"
+        stat_var_key: "death_respiratory"
+        stat_var_key: "death_external"
+        stat_var_key: "death_nervous"
+        comparison_places: "self"
+      }
+    }
+    columns {
+      tiles {
+        type: BAR
+        title: "Health outcomes"
+        stat_var_key: "high_cholesterol"
+        stat_var_key: "high_blood_pressure"
+        stat_var_key: "arthritis"
+        stat_var_key: "mental_health"
+        stat_var_key: "physical_health"
+        comparison_places: "self"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "life_expectancy"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Life expectancy"
+      unit: "Years"
+    }
+  }
+  stat_var_spec {
+    key: "covid_cases"
+    value {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+      name: "Covid-19 cumulative cases"
+    }
+  }
+  stat_var_spec {
+    key: "covid_deaths"
+    value {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+      name: "Covid-19 cumulative deaths"
+    }
+  }
+  stat_var_spec {
+    key: "death_circulatory"
+    value {
+      stat_var: "Count_Death_DiseasesOfTheCirculatorySystem"
+      name: "Circulatory system"
+    }
+  }
+  stat_var_spec {
+    key: "death_neoplasms"
+    value {
+      stat_var: "Count_Death_Neoplasms"
+      name: "Neoplasms"
+    }
+  }
+  stat_var_spec {
+    key: "death_respiratory"
+    value {
+      stat_var: "Count_Death_DiseasesOfTheRespiratorySystem"
+      name: "Respiratory system"
+    }
+  }
+  stat_var_spec {
+    key: "death_external"
+    value {
+      stat_var: "Count_Death_ExternalCauses"
+      name: "External causes"
+    }
+  }
+  stat_var_spec {
+    key: "death_nervous"
+    value {
+      stat_var: "Count_Death_DiseasesOfTheNervousSystem"
+      name: "Nervous system"
+    }
+  }
+  stat_var_spec {
+    key: "infant_mortality_male"
+    value {
+      stat_var: "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male"
+      name: "Male"
+      scaling: 0.1
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "infant_mortality_female"
+    value {
+      stat_var: "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+      name: "Female"
+      scaling: 0.1
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "infant_mortality"
+    value {
+      stat_var: "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+      name: "Infant mortality rate"
+      scaling: 0.1
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "wasting"
+    value {
+      stat_var: "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
+      name: "Wasting under 5 years old"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "wasting_male"
+    value {
+      stat_var: "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male"
+      name: "Male"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "wasting_female"
+    value {
+      stat_var: "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female"
+      name: "Female"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "alcohol"
+    value {
+      stat_var: "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
+      name: "Annual alcohol consumption per person"
+      unit: "L"
+    }
+  }
+  stat_var_spec {
+    key: "high_cholesterol"
+    value {
+      stat_var: "Percent_Person_WithHighCholesterol"
+      name: "High cholesterol"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "high_blood_pressure"
+    value {
+      stat_var: "Percent_Person_WithHighBloodPressure"
+      name: "High blood pressure"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "arthritis"
+    value {
+      stat_var: "Percent_Person_WithArthritis"
+      name: "Arthritis"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "mental_health"
+    value {
+      stat_var: "Percent_Person_WithMentalHealthNotGood"
+      name: "Poor mental health"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "physical_health"
+    value {
+      stat_var: "Percent_Person_WithPhysicalHealthNotGood"
+      name: "Poor physical health"
+      unit: "%"
+    }
+  }
+}
+
+categories {
+  title: "Housing"
+  blocks {
+    columns {
+      tiles {
+        title: "Housing units per capita"
+        type: LINE
+        stat_var_key: "housing_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Housing unit occupancy"
+        type: LINE
+        stat_var_key: "count_occupied"
+        stat_var_key: "count_vacant"
+      }
+    }
+    columns {
+      tiles {
+        title: "Mean household size"
+        type: LINE
+        stat_var_key: "size_owner"
+        stat_var_key: "size_renter"
+      }
+    }
+    columns {
+      tiles {
+        title: "Housing ownership"
+        type: LINE
+        stat_var_key: "count_owner"
+        stat_var_key: "count_renter"
+      }
+    }
+    columns {
+      tiles {
+        title: "Mortgage status of owner occupied housing"
+        type: LINE
+        stat_var_key: "with_mortgage"
+        stat_var_key: "without_mortgage"
+      }
+    }
+    columns {
+      tiles {
+        title: "Housing units by date built"
+        type: BAR
+        comparison_places: "self"
+        stat_var_key: "1930"
+        stat_var_key: "1940"
+        stat_var_key: "1950"
+        stat_var_key: "1960"
+        stat_var_key: "1970"
+        stat_var_key: "1980"
+        stat_var_key: "1990"
+        stat_var_key: "2000"
+        stat_var_key: "2010"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "housing_pc"
+    value {
+      stat_var: "Count_HousingUnit"
+      denom: "Count_Person"
+      name: "Housing units per capita"
+    }
+  }
+  stat_var_spec {
+    key: "count_owner"
+    value {
+      stat_var: "Count_HousingUnit_OwnerOccupied"
+      denom: "Count_HousingUnit"
+      name: "Owner occupied"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "count_renter"
+    value {
+      stat_var: "Count_HousingUnit_RenterOccupied"
+      denom: "Count_HousingUnit"
+      name: "Renter occupied"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "count_occupied"
+    value {
+      stat_var: "Count_HousingUnit_OccupiedHousingUnit"
+      name: "Occupied housing unit"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "count_vacant"
+    value {
+      stat_var: "Count_HousingUnit_VacantHousingUnit"
+      name: "Vacant housing unit"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "size_owner"
+    value {
+      stat_var: "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
+      name: "Owner occupied"
+    }
+  }
+  stat_var_spec {
+    key: "size_renter"
+    value {
+      stat_var: "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_RenterOccupied"
+      name: "Renter occupied"
+    }
+  }
+  stat_var_spec {
+    key: "without_mortgage"
+    value {
+      stat_var: "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+      name: "Without mortgage"
+      denom: "Count_HousingUnit_OwnerOccupied"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "with_mortgage"
+    value {
+      stat_var: "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
+      name: "With mortgage"
+      denom: "Count_HousingUnit_OwnerOccupied"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_spec {
+    key: "1930"
+    value {
+      stat_var: "Count_HousingUnit_Before1939DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "Before 1930"
+    }
+  }
+  stat_var_spec {
+    key: "1940"
+    value {
+      stat_var: "Count_HousingUnit_1940To1949DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1940 - 1949"
+    }
+  }
+  stat_var_spec {
+    key: "1950"
+    value {
+      stat_var: "Count_HousingUnit_1950To1959DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1950 - 1959"
+    }
+  }
+  stat_var_spec {
+    key: "1960"
+    value {
+      stat_var: "Count_HousingUnit_1960To1969DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1960 - 1969"
+    }
+  }
+  stat_var_spec {
+    key: "1970"
+    value {
+      stat_var: "Count_HousingUnit_1970To1979DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1970 - 1979"
+    }
+  }
+  stat_var_spec {
+    key: "1980"
+    value {
+      stat_var: "Count_HousingUnit_1980To1989DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1980 - 1989"
+    }
+  }
+  stat_var_spec {
+    key: "1990"
+    value {
+      stat_var: "Count_HousingUnit_1990To1999DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "1990 - 1999"
+    }
+  }
+  stat_var_spec {
+    key: "2000"
+    value {
+      stat_var: "Count_HousingUnit_2000To2009DateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "2000 - 2010"
+    }
+  }
+  stat_var_spec {
+    key: "2010"
+    value {
+      stat_var: "Count_HousingUnit_2010OrLaterDateBuilt"
+      denom: "Count_HousingUnit"
+      unit: "%"
+      scaling: 100
+      name: "After 2010"
+    }
+  }
+}
+
+categories {
+  title: "Economics"
+  blocks {
+    columns {
+      tiles {
+        title: "Gross domestic product per capita"
+        type: LINE
+        stat_var_key: "gdp_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Gross domestic product growth rate"
+        type: LINE
+        stat_var_key: "gdp_growth"
+      }
+    }
+    columns {
+      tiles {
+        title: "Gross national income per capita (purchasing power parity)"
+        type: LINE
+        stat_var_key: "gni_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Government debt per capita"
+        type: LINE
+        stat_var_key: "debt_pc"
+      }
+    }
+    columns {
+      tiles {
+        title: "Government expenditures (% of GDP)"
+        type: LINE
+        stat_var_key: "expenditures_military"
+        stat_var_key: "expenditures_education"
+      }
+    }
+    columns {
+      tiles {
+        title: "Labor force participation rate"
+        type: LINE
+        stat_var_key: "labor_force"
+      }
+    }
+    columns {
+      tiles {
+        title: "Labor force participation rate"
+        type: LINE
+        stat_var_key: "labor_force_participation"
+      }
+    }
+    columns {
+      tiles {
+        title: "Unemployment rate"
+        type: LINE
+        stat_var_key: "unemployment"
+      }
+    }
+    columns {
+      tiles {
+        title: "Worker vs nonworker population"
+        type: LINE
+        stat_var_key: "worker"
+        stat_var_key: "nonworker"
+      }
+    }
+    columns {
+      tiles {
+        title: "Percentage of the population below poverty"
+        type: LINE
+        stat_var_key: "poverty_rate"
+      }
+    }
+    columns {
+      tiles {
+        title: "Children in employment"
+        type: LINE
+        stat_var_key: "children_employed"
+      }
+    }
+    columns {
+      tiles {
+        title: "Median income"
+        type: LINE
+        stat_var_key: "median_income_individual"
+        stat_var_key: "median_income_household"
+      }
+    }
+    columns {
+      tiles {
+        title: "Worker wages (daily)"
+        type: LINE
+        stat_var_key: "mean_wages"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "gdp_pc"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+      unit: "$"
+      name: "GDP per capita"
+    }
+  }
+  stat_var_spec {
+    key: "gdp_growth"
+    value {
+      stat_var: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      unit: "%"
+      name: "GDP growth rate"
+    }
+  }
+  stat_var_spec {
+    key: "gni_pc"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+      unit: "$"
+      name: "GNI (purchasing power parity) per capita"
+    }
+  }
+  stat_var_spec {
+    key: "debt_pc"
+    value {
+      stat_var: "Amount_Debt_Government"
+      denom: "Count_Person"
+      unit: "$"
+      name: "Government debt per capita"
+    }
+  }
+  stat_var_spec {
+    key: "expenditures_education"
+    value {
+      stat_var: "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      unit: "%"
+      name: "Education"
+    }
+  }
+  stat_var_spec {
+    key: "expenditures_military"
+    value {
+      stat_var: "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      unit: "%"
+      name: "Military"
+    }
+  }
+  stat_var_spec {
+    key: "labor_force"
+    value {
+      stat_var: "Count_Person_InLaborForce"
+      denom: "Count_Person_16OrMoreYears"
+      scaling: 100
+      unit: "%"
+      name: "Labor force participation rate"
+    }
+  }
+  stat_var_spec {
+    key: "labor_force_participation"
+    value {
+      stat_var: "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
+      scaling: 100
+      unit: "%"
+      name: "Labor force participation rate"
+    }
+  }
+  stat_var_spec {
+    key: "unemployment"
+    value {
+      stat_var: "UnemploymentRate_Person"
+      unit: "%"
+      name: "Unemployment rate"
+    }
+  }
+  stat_var_spec {
+    key: "worker"
+    value {
+      stat_var: "Count_Person_Workers"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Worker"
+    }
+  }
+  stat_var_spec {
+    key: "nonworker"
+    value {
+      stat_var: "Count_Person_NonWorker"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Non-Worker"
+    }
+  }
+  stat_var_spec {
+    key: "poverty_rate"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Poverty rate"
+    }
+  }
+  stat_var_spec {
+    key: "children_employed"
+    value {
+      stat_var: "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
+      unit: "%"
+      name: "Child employment rate"
+    }
+  }
+  stat_var_spec {
+    key: "median_income_household"
+    value {
+      stat_var: "Median_Income_Household"
+      unit: "$"
+      name: "Household"
+    }
+  }
+  stat_var_spec {
+    key: "median_income_individual"
+    value {
+      stat_var: "Median_Income_Person"
+      unit: "$"
+      name: "Individual"
+    }
+  }
+  stat_var_spec {
+    key: "mean_wages"
+    value {
+      stat_var: "Mean_WagesDaily_Worker"
+      unit: "₹",
+      name: "Daily wages"
     }
   }
 }

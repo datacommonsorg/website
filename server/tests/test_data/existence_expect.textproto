@@ -43,3 +43,50 @@ categories {
     }
   }
 }
+
+categories {
+  title: "test filtering for bar charts"
+  blocks {
+    columns {
+      tiles {
+        type: BAR
+        stat_var_key: "sv_child_exists_1"
+      }
+      tiles {
+        type: BAR
+        stat_var_key: "sv_parent_exists_1"
+        comparison_places: "self"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "sv_child_exists_1"
+    value {
+      stat_var: "sv_child_exists_1"
+    }
+  }
+  stat_var_spec {
+    key: "sv_parent_exists_1"
+    value {
+      stat_var: "sv_parent_exists_1"
+    }
+  }
+}
+
+categories {
+  title: "test filtering for other charts using child places"
+  blocks {
+    columns {
+      tiles {
+        type: SCATTER
+        stat_var_key: "sv_child_exists_1"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "sv_child_exists_1"
+    value {
+      stat_var: "sv_child_exists_1"
+    }
+  }
+}

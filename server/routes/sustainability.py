@@ -22,8 +22,16 @@ from flask import redirect
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
+from server.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
+
+DEFAULT_CONTAINED_PLACE_TYPES = {
+    "Continent": "Country",
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "AdministrativeArea3",
+}
 
 # Define blueprint
 bp = Blueprint("sustainability", __name__, url_prefix='/sustainability')
@@ -31,6 +39,7 @@ bp = Blueprint("sustainability", __name__, url_prefix='/sustainability')
 
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def sustainability_explorer(place_dcid=None):
   if not place_dcid:
     return redirect(url_for(
@@ -52,9 +61,18 @@ def sustainability_explorer(place_dcid=None):
     subject_config.metadata.contained_place_types.clear()
     subject_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
+  else:
+    subject_config.metadata.contained_place_types.update(
+        DEFAULT_CONTAINED_PLACE_TYPES)
 
+  place_type = None
+  config_place_types = subject_config.metadata.contained_place_types
+  for pt in place_metadata.place_types:
+    if pt in config_place_types:
+      place_type = pt
+      break
   subject_config = lib_subject_page_config.remove_empty_charts(
-      subject_config, place_dcid)
+      subject_config, place_dcid, config_place_types[place_type])
 
   return flask.render_template(
       'custom_dc/stanford/sustainability.html',

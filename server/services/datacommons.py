@@ -190,6 +190,17 @@ def properties(node, direction):
   return get(f'{url}/{direction}/{node}').get('properties', [])
 
 
+def properties_v1(nodes, direction):
+  """Retrieves the properties for a list of nodes.
+
+  Args:
+      nodes: List of node DCIDs.
+      direction: Predicate direction, either be 'in' or 'out'.
+  """
+  url = get_service_url('/v1/bulk/properties')
+  return post(f'{url}/{direction}', {'nodes': nodes}).get('data', [])
+
+
 def property_values_v1(nodes, prop, out=True):
   """Retrieves the property values with V1 response."""
   direction = 'out' if out else 'in'
