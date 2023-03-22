@@ -18,6 +18,10 @@ msgstr "About Data Commons"
 msgid "Blog"
 msgstr "Blog"
 
+#. Heading for a list of cities in India. See this message on https://datacommons.org/place
+msgid "Cities, India"
+msgstr ""
+
 #. Heading for a list of cities in the US. See this message on https://datacommons.org/place
 msgid "Cities, United States"
 msgstr "Cities, United States"
@@ -50,6 +54,10 @@ msgstr "Data Sources"
 msgid "Disclaimers"
 msgstr "Disclaimers"
 
+#. Heading for a list of districts in India. See this message on https://datacommons.org/place
+msgid "Districts, India"
+msgstr ""
+
 #. The label for a list of documentation links.
 #. The label for a link to our documentation site.
 msgid "Documentation"
@@ -62,6 +70,9 @@ msgstr "Economic Indicators, Worldwide"
 #. A hint shown in the search box, asking users to search for places.
 msgid "Enter a country, state, county or city"
 msgstr "Enter a country, state, county or city"
+
+msgid "Enter a country, state, district or city"
+msgstr ""
 
 #. The label for a collection of exploration tools.
 msgid "Explore"
@@ -136,9 +147,15 @@ msgstr "Loading..."
 msgid "Map Explorer"
 msgstr ""
 
+msgid "Maps Explorer"
+msgstr ""
+
 #. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
 msgid "Median Income, United States"
 msgstr "Median Income, United States"
+
+msgid "Natural Language Explorer"
+msgstr ""
 
 #. The name of a tool to browse statistics about a place.
 msgid "PLACE_EXPLORER_INTRO"
@@ -171,12 +188,21 @@ msgstr ""
 msgid "Scatter Plots"
 msgstr ""
 
+#. Heading for a list of states in India. See this message on https://datacommons.org/place
+msgid "States, India"
+msgstr ""
+
 #. Heading for a list of states in the US. See this message on https://datacommons.org/place
 msgid "States, United States"
 msgstr "States, United States"
 
-#. The name of a tool that provides observation and import information about statistical variables.
+#. The name of a tool that provides observation and import information about statistical             variables.
+#. The name of a tool that provides observation and import information about statistical                 variables.
 msgid "Statistical Variable Explorer"
+msgstr ""
+
+#. The label for a link to site terms of use.
+msgid "Terms Of Use"
 msgstr ""
 
 #. The label for a link to site terms and conditions.

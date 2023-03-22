@@ -51,6 +51,7 @@ def main():
   chart_config = []
   for filename in os.listdir(chart_config_dir):
     if filename.endswith(".json"):
+      print("Processing: ", filename)
       with open(os.path.join(chart_config_dir, filename),
                 encoding='utf-8') as f:
         chart_config.extend(json.load(f))

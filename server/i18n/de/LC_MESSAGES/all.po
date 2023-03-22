@@ -13,6 +13,9 @@ msgstr "Informationen zu Data Commons"
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Cities, India"
+msgstr ""
+
 msgid "Cities, United States"
 msgstr "Städte, USA"
 
@@ -37,6 +40,9 @@ msgstr "Datenquellen"
 msgid "Disclaimers"
 msgstr "Haftungsausschlüsse"
 
+msgid "Districts, India"
+msgstr ""
+
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -45,6 +51,9 @@ msgstr "Wirtschaftsindikatoren, weltweit"
 
 msgid "Enter a country, state, county or city"
 msgstr "Geben Sie ein Land, einen Bundesstaat, ein County oder eine Stadt ein"
+
+msgid "Enter a country, state, district or city"
+msgstr ""
 
 msgid "Explore"
 msgstr "Erkunden"
@@ -103,8 +112,14 @@ msgstr "Wird geladen…"
 msgid "Map Explorer"
 msgstr "Karten-Explorer"
 
+msgid "Maps Explorer"
+msgstr ""
+
 msgid "Median Income, United States"
 msgstr "Medianeinkommen, USA"
+
+msgid "Natural Language Explorer"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Das Tool „Place Explorer“ liefert Informationen zu den wichtigsten Daten eines Ortes. Es fasst verschiedene Diagramme für den jeweiligen Ort zusammen, unter anderem zu Demografie, Bildung oder Wirtschaft, und setzt diese durch den Vergleich mit anderen Orten in einen Kontext. Sie können auch eine Rangfolge mehrerer Orte mit unterschiedlichen Kennzahlen wie Arbeitslosigkeit, Kriminalität und Einkommen ansehen.</p><p>Über das Suchfeld oben haben Sie die Möglichkeit, Diagramme für Ihre Lieblingsstadt, eine bestimmte Postleitzahl, ein County, einen Bundesstaat oder ein Land aufzurufen.</p><p>Oder Sie entdecken zuerst einige bekannte Orte ...</p>"
@@ -130,10 +145,16 @@ msgstr "Streudiagramm-Explorer"
 msgid "Scatter Plots"
 msgstr ""
 
+msgid "States, India"
+msgstr ""
+
 msgid "States, United States"
 msgstr "Bundesstaaten, USA"
 
 msgid "Statistical Variable Explorer"
+msgstr ""
+
+msgid "Terms Of Use"
 msgstr ""
 
 msgid "Terms and Conditions"
