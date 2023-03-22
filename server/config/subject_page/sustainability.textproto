@@ -57,6 +57,8 @@ categories {
         title: "Projected max temperature change under RCP 2.6 (based on year 2006)"
         stat_var_key: "temp_rcp26"
       }
+    }
+    columns {
       tiles {
         type: MAP
         title: "Projected max temperature change under RCP 2.6 (based on year 2006)"
@@ -69,6 +71,8 @@ categories {
         title: "Projected max temperature change under RCP 4.5 (based on year 2006)"
         stat_var_key: "temp_rcp45"
       }
+    }
+    columns {
       tiles {
         type: MAP
         title: "Projected max temperature change under RCP 4.5 (based on year 2006)"
@@ -81,6 +85,8 @@ categories {
         title: "Projected max temperature change under RCP 4.5, SSP 2 (based on year 2015)"
         stat_var_key: "temp_ssp245"
       }
+    }
+    columns {
       tiles {
         type: MAP
         title: "Projected max temperature change under RCP 4.5, SSP 2 (based on year 2015)"
@@ -93,6 +99,8 @@ categories {
         title: "Projected max temperature change under RCP 8.5, SSP 5 (based on year 2015)"
         stat_var_key: "temp_ssp585"
       }
+    }
+    columns {
       tiles {
         type: MAP
         title: "Projected max temperature change under RCP 8.5, SSP 5 (based on year 2015)"

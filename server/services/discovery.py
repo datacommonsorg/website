@@ -147,6 +147,7 @@ endpoints = Endpoints([
     '/v1/variable/ancestors',
     '/node/triples',
     '/v1/properties',
+    '/v1/bulk/properties',
     '/v1/bulk/property/values',
     '/v1/bulk/property/values/in/linked',
     '/node/property-values',

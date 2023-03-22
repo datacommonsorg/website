@@ -22,6 +22,7 @@ import server.lib.nl.counters as nl_ctr
 import server.lib.nl.utils as nl_utils
 import server.routes.api.place as place_api
 import server.services.datacommons as dc
+import logging
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
@@ -126,6 +127,20 @@ def _bar_comparison_places(page_config, place_dcid):
   return list(places)
 
 
+def _places_with_geojson(places):
+  """
+  Returns the list of places, filtered for those which have a geoJsonCoordinates
+  property.
+  """
+  result = []
+  resp = dc.properties_v1(places, 'out')
+  for node_dict in resp:
+    props = node_dict.get('properties', [])
+    if 'geoJsonCoordinates' in props:
+      result.append(node_dict.get('node', ''))
+  return result
+
+
 def remove_empty_charts(page_config, place_dcid, contained_place_type):
   """
   Returns the page config stripped of charts with no data.
@@ -143,6 +158,8 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type):
   bar_comparison_places = _bar_comparison_places(page_config, place_dcid)
   all_places = sample_child_places + bar_comparison_places + [place_dcid]
   stat_vars_existence = dc.observation_existence(all_stat_vars, all_places)
+
+  child_places_geojson = _places_with_geojson(sample_child_places)
 
   for category in page_config.categories:
     place_exist_keys = _exist_keys_category([place_dcid], category,
@@ -167,6 +184,10 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type):
               filtered_keys = [
                   k for k in t.stat_var_key if comparison_exist_keys[k]
               ]
+          elif t.type == subject_page_pb2.Tile.TileType.MAP:
+            if len(child_places_geojson) == 0:
+              continue
+            filtered_keys = [k for k in t.stat_var_key if child_exist_keys[k]]
           elif t.type in PLACE_FILTER_TILE_TYPES:
             filtered_keys = [k for k in t.stat_var_key if place_exist_keys[k]]
           elif t.type in CHILD_FILTER_TILE_TYPES:
