@@ -46,21 +46,21 @@ def sustainability_explorer(place_dcid=None):
     subject_config = server.lib.util.get_disaster_sustainability_config()
     event_metadata = server.lib.util.get_disaster_event_metadata()
 
-  if not dashboard_config:
+  if not subject_config:
     return "Error: no config installed"
 
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
   if place_metadata.contained_place_types_override:
-    dashboard_config.metadata.contained_place_types.clear()
-    dashboard_config.metadata.contained_place_types.update(
+    subject_config.metadata.contained_place_types.clear()
+    subject_config.metadata.contained_place_types.update(
         place_metadata.contained_place_types_override)
 
   subject_config.metadata.MergeFrom(event_metadata)
 
-  dashboard_config = lib_subject_page_config.remove_empty_charts(
-      dashboard_config, place_dcid)
+  subject_config = lib_subject_page_config.remove_empty_charts(
+      subject_config, place_dcid)
 
   return flask.render_template(
       'custom_dc/stanford/sustainability.html',
       place_metadata=dataclasses.asdict(place_metadata),
-      config=MessageToJson(dashboard_config))
+      config=MessageToJson(subject_config))
