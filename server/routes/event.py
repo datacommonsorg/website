@@ -207,8 +207,8 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
       if pt in config_place_types:
         place_type = pt
         break
-    contained_place_type = config_place_types[
-        place_type] if place_type != None else None
+    contained_place_type = config_place_types.get(
+        place_type, None) if place_type != None else None
     subject_config = lib_subject_page_config.remove_empty_charts(
         subject_config, place_dcid, contained_place_type)
 
