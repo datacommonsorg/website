@@ -26,18 +26,20 @@ Prepare mesages for translation by extracting from both python and react with:
 ./scripts/extract_messages.sh
 ```
 
+Send a PR with the changes from the script then follow the instructions in google3.
+
+
 ## Compile translation files for use
 
 In order to use the extracted strings (regardless of translation status),
-compile the messages to be used by both libraries.
+compile the messages to be used by both libraries after following the steps in google3.
 
 ```bash
 ./scripts/compile_messages.sh
 ```
 
 Restart the flask / minikube server (for template strings) or npm for these strings to take effect.
-
-NOTE: Don't forget to update the list of languages in that file if a new language is added.
+To test the instructions, append the `hl=<language_code>` to the URL. e.g.: /place/country/USA?hl=fr
 
 ## Adding languages
 
