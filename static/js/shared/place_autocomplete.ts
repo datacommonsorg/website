@@ -35,7 +35,9 @@ function initSearchAutocomplete(urlPrefix: string): void {
     "place-autocomplete"
   ) as HTMLInputElement;
   ac = new google.maps.places.Autocomplete(acElem, options);
-  ac.addListener("place_changed", () => { placeChangedCallback(urlPrefix) });
+  ac.addListener("place_changed", () => {
+    placeChangedCallback(urlPrefix);
+  });
   // Create the autocomplete service.
   acs = new google.maps.places.AutocompleteService();
 }
@@ -64,16 +66,21 @@ function queryAutocompleteService(placeName: string, urlPrefix: string): void {
   );
 }
 
-const queryAutocompleteCallback = (placeName: string, urlPrefix: string) => (predictions, status) => {
-  if (status === google.maps.places.PlacesServiceStatus.OK) {
-    getPlaceAndRender(predictions[0].place_id, placeName, urlPrefix);
-  } else {
-    placeNotFoundAlert(placeName);
-  }
-};
+const queryAutocompleteCallback =
+  (placeName: string, urlPrefix: string) => (predictions, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      getPlaceAndRender(predictions[0].place_id, placeName, urlPrefix);
+    } else {
+      placeNotFoundAlert(placeName);
+    }
+  };
 
 // Get url for a given place_id if we have data for the place. Otherwise, alert that the place is not found.
-function getPlaceAndRender(placeId: string, placeName: string, urlPrefix: string): void {
+function getPlaceAndRender(
+  placeId: string,
+  placeName: string,
+  urlPrefix: string
+): void {
   getPlaceDcids([placeId])
     .then((data) => {
       window.location.href = localizeLink(`${urlPrefix}/${data[placeId]}`);
@@ -112,4 +119,3 @@ function placeNotFoundAlert(placeName): void {
 }
 
 export { initSearchAutocomplete };
-
