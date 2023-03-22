@@ -277,6 +277,10 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Rate of bachelor's degree attainment by gender"
 
 #. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
+#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Crime"
 
@@ -285,12 +289,20 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Demographics"
 
 #. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
+
+#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Economics"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Education"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
@@ -313,8 +325,24 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Housing"
 
 #. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
+#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Overview"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 #. Title of a place chart: Number of children who are employed
 msgid "CHART_TITLE-Children_employed"
