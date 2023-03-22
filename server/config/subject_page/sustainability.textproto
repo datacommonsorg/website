@@ -791,7 +791,7 @@ categories {
     }
     columns {
       tiles {
-        title: "Children in employment"
+        title: "Employed children"
         type: LINE
         stat_var_key: "children_employed"
       }
