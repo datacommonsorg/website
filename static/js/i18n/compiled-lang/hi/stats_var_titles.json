@@ -506,7 +506,7 @@
   "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "परिवारों की संख्या (अफ़्रीकी-अमेरिकी)"
+      "value": "परिवारों की संख्या (अफ़्रीकी मूल के अमेरिकी)"
     }
   ],
   "Count_HousingUnit_HouseholderRaceHispanicOrLatino": [
@@ -896,7 +896,7 @@
   "Count_Person_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "लोगों की संख्या (अफ़्रीकी-अमेरिकी)"
+      "value": "लोगों की संख्या (अफ़्रीकी मूल के अमेरिकी)"
     }
   ],
   "Count_Person_Divorced": [
@@ -1418,7 +1418,7 @@
   "Median_Age_Person_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "औसत उम्र (अफ़्रीकी-अमेरिकी)"
+      "value": "औसत उम्र (अफ़्रीकी मूल के अमेरिकी)"
     }
   ],
   "Median_Age_Person_Female": [
@@ -1484,7 +1484,7 @@
   "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "परिवार की औसत आमदनी (अफ़्रीकी-अमेरिकी)"
+      "value": "परिवार की औसत आमदनी (अफ़्रीकी मूल के अमेरिकी)"
     }
   ],
   "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
@@ -1544,7 +1544,7 @@
   "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (अफ़्रीकी-अमेरिकी)"
+      "value": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (अफ़्रीकी मूल के अमेरिकी)"
     }
   ],
   "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water withdrawal rate"
+      "value": "Water Withdrawal Rate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

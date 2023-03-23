@@ -51,6 +51,9 @@ CHILD_FILTER_TILE_TYPES = [
 # Placeholder allowed in config that should be interpreted as the main place dcid.
 SELF_PLACE_DCID_PLACEHOLDER = "self"
 
+# Only keep every third sample place.
+SAMPLE_PLACE_STEP = 3
+
 
 @dataclass
 class PlaceMetadata:
@@ -121,9 +124,9 @@ def _bar_comparison_places(page_config, place_dcid):
           if t.type == subject_page_pb2.Tile.TileType.BAR:
             for p in t.comparison_places:
               if p == SELF_PLACE_DCID_PLACEHOLDER:
-                places.update(place_dcid)
+                places.add(place_dcid)
               else:
-                places.update(p)
+                places.add(p)
   return list(places)
 
 
@@ -153,10 +156,12 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
 
   # TODO: find child places only if there are maps, etc.
   sample_child_places = [] if contained_place_type == None else nl_utils.get_sample_child_places(
-      place_dcid, contained_place_type, ctr)
+      place_dcid, contained_place_type, ctr)[::SAMPLE_PLACE_STEP]
   bar_comparison_places = _bar_comparison_places(page_config, place_dcid)
   all_places = sample_child_places + bar_comparison_places + [place_dcid]
+  logging.info('_remove_empty_charts all_places: %s', all_places)
   stat_vars_existence = dc.observation_existence(all_stat_vars, all_places)
+  logging.info('_remove_empty_charts obs: %s', stat_vars_existence)
 
   child_places_geojson = _places_with_geojson(sample_child_places)
 
@@ -165,6 +170,8 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
                                             stat_vars_existence, place_dcid)
     child_exist_keys = _exist_keys_category(sample_child_places, category,
                                             stat_vars_existence, place_dcid)
+    logging.info('_remove_empty_charts place_exist_keys: %s', place_exist_keys)
+    logging.info('_remove_empty_charts child_exist_keys: %s', child_exist_keys)
 
     for block in category.blocks:
       for column in block.columns:
@@ -180,6 +187,8 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
               comparison_exist_keys = _exist_keys_category(
                   t.comparison_places, category, stat_vars_existence,
                   place_dcid)
+              logging.info('_remove_empty_charts comparison_exist_keys: %s',
+                           comparison_exist_keys)
               filtered_keys = [
                   k for k in t.stat_var_key if comparison_exist_keys[k]
               ]
