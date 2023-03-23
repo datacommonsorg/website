@@ -204,7 +204,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
 
     # TODO: If not enough charts from the current place, add from the next place up and so on.
     subject_page_args = {
-        "place_type": json.dumps(place_metadata.place_type),
+        "place_type": place_metadata.place_type,
         "place_name": place_metadata.place_name,
         "place_dcid": place_dcid,
         "parent_places": json.dumps(place_metadata.parent_places),

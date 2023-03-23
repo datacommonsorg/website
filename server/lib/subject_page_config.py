@@ -269,7 +269,7 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
       child_places[place_type] = child_places[place_type][:place_api.
                                                           CHILD_PLACE_LIMIT]
 
-    # Filter child places for unsupported place types
+    # Filter out unsupported place types
     supported_place_types = set(contained_place_types.keys())
     supported_place_types.update(contained_place_types.values())
     for ptype, places in child_places.items():
