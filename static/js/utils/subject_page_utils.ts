@@ -138,18 +138,23 @@ export function fetchGeoJsonData(
  * Extract data from the DOM inserted using the subject_page_content macro.
  */
 export function loadSubjectPageMetadataFromPage(): SubjectPageMetadata {
-  const placeDcid = document.getElementById("place").dataset.dcid;
-  const placeName = document.getElementById("place").dataset.name || placeDcid;
-  const placeTypes = [document.getElementById("place").dataset.type] || [];
+  const placeEl = document.getElementById("place");
+  if (!placeEl) {
+    return;
+  }
+
+  const placeDcid = placeEl.dataset.dcid;
+  const placeName = placeEl.dataset.name || placeDcid;
+  const placeTypes = [placeEl.dataset.type] || [];
   const place = { dcid: placeDcid, name: placeName, types: placeTypes };
   const parentPlaces = JSON.parse(
-    document.getElementById("place").dataset.parents
+    placeEl.dataset.parents
   );
   const pageConfig = JSON.parse(
     document.getElementById("dashboard-config").dataset.config
   );
   const childPlaces = JSON.parse(
-    document.getElementById("place").dataset.children
+    placeEl.dataset.children
   );
   return {
     pageConfig: pageConfig,

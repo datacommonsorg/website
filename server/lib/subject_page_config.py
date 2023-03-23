@@ -76,13 +76,15 @@ SAMPLE_PLACE_STEP = 3
 class PlaceMetadata:
   """Place metadata for subject pages."""
   place_dcid: str
-  place_name: str
-  place_type: str
-  parent_places: List[str]
+  place_name: str = None
+  place_type: str = None
+  parent_places: List[str] = None
   # If set, use this to override the contained_place_types map in config metadata.
-  contained_place_types: Dict[str, str]
+  contained_place_types: Dict[str, str] = None
   # Corresponds to typescript type ChildPlacesByType
-  child_places: Dict[str, List[Dict[str, Union[str, int]]]]
+  child_places: Dict[str, List[Dict[str, Union[str, int]]]] = None
+  # Set to true if there was an error generating this object
+  is_error: bool = False
 
 
 def get_all_variables(page_config):
@@ -245,7 +247,8 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
   if place_dcid != DEFAULT_PLACE_DCID:
     place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
     if not place_types:
-      place_types = ["Place"]
+      return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
+
     parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
 
   place_name = place_api.get_i18n_name([place_dcid

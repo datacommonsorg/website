@@ -35,6 +35,9 @@ window.onload = () => {
 
 function renderPage(): void {
   const metadata = loadSubjectPageMetadataFromPage();
+  if (!metadata) {
+    return;
+  }
 
   Promise.resolve(
     loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)])

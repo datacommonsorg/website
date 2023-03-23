@@ -18,6 +18,7 @@
    Requires lib/subject_page_config/PlaceMetadata and subject_page_config json.
 #}
 {% macro subject_page_content(place_metadata, config) %}
+{% if not place_metadata.is_error %}
 <div id='body' class='container-fluid'></div>
 <div id='metadata' class='d-none'>
   <div id='place'
@@ -29,4 +30,25 @@
   </div>
   <div id='dashboard-config' data-config='{{ config }}'></div>
 </div>
+{% else %}
+<div id='body' class='container'>
+  <h1>{{ place_metadata.place_dcid }}</h1>
+  Sorry, we don't have any charts to show for this place. Please try another:
+
+  <div class="row">
+    <div class="col-12 col-md-6 pt-3">
+      <div class="search border">
+        <div id="location-field">
+          <div id="search-icon"></div>
+          <input
+            id="place-autocomplete"
+            placeholder="Enter a country, state, county or city"
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endmacro %}
