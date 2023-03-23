@@ -86,7 +86,7 @@
   "Amount_Emissions_CarbonDioxide_PerCapita": [
     {
       "type": 0,
-      "value": "CO2 उत्सर्जन"
+      "value": "Carbon Dioxide Emissions"
     }
   ],
   "Amount_Remittance_InwardRemittance": [
@@ -506,7 +506,7 @@
   "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+      "value": "अफ़्रीकी मूल के अमेरिकी"
     }
   ],
   "Count_HousingUnit_HouseholderRaceHispanicOrLatino": [
@@ -872,7 +872,7 @@
   "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+      "value": "अफ़्रीकी मूल के अमेरिकी"
     }
   ],
   "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": [
@@ -896,7 +896,7 @@
   "Count_Person_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+      "value": "अफ़्रीकी मूल के अमेरिकी"
     }
   ],
   "Count_Person_Divorced": [
@@ -1418,7 +1418,7 @@
   "Median_Age_Person_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+      "value": "अफ़्रीकी मूल के अमेरिकी"
     }
   ],
   "Median_Age_Person_Female": [
@@ -1484,7 +1484,7 @@
   "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+      "value": "अफ़्रीकी मूल के अमेरिकी"
     }
   ],
   "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
@@ -1544,7 +1544,7 @@
   "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "अश्वेत या अफ़्रीकी-अमेरिकी"
+      "value": "अफ़्रीकी मूल के अमेरिकी"
     }
   ],
   "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water withdrawal rate"
+      "value": "Water Withdrawal Rate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
