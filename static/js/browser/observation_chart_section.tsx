@@ -29,7 +29,7 @@ import {
 } from "../shared/stat_types";
 import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
 import { stringifyFn } from "../utils/axios";
-import { getUnit } from "../utils/stat_metadata";
+import { getUnit } from "../utils/stat_metadata_utils";
 import { ObservationChart } from "./observation_chart";
 
 const IGNORED_SOURCE_SERIES_MMETHODS = new Set([

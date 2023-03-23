@@ -47,11 +47,10 @@ import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
-import { getUnit } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getUnitString, ReplacementStrings } from "../../utils/tile_utils";
+import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface MapTilePropType {
@@ -253,6 +252,7 @@ function processData(
     return;
   }
   const isPerCapita = !_.isEmpty(statVarSpec.denom);
+  let unit = statVarSpec.unit;
   for (const geoFeature of rawData.geoJson.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
@@ -277,16 +277,12 @@ function processData(
         sources.add(source);
       }
     });
+    unit = unit || placeChartData.unit;
   }
   // check for empty data values
   if (_.isEmpty(dataValues)) {
     return;
   }
-  const statUnit = getUnit(
-    Object.values(rawData.placeStat),
-    rawData.metadataMap
-  );
-  const unit = getUnitString(statUnit, statVarSpec.denom);
   setChartData({
     dataValues,
     metadata,

@@ -37,7 +37,9 @@ SERIES_WITHIN_ALL_FACETS = {
             'measurementMethod':
                 'CensusPEPSurvey',
             'provenanceUrl':
-                'https://www.census.gov/programs-surveys/popest.html'
+                'https://www.census.gov/programs-surveys/popest.html',
+            'unit':
+                'testUnit'
         },
     },
     'observationsByVariable': [{
@@ -480,7 +482,8 @@ POINT_WITHIN_2015 = {
             'importName': 'BLS_LAUS',
             'measurementMethod': 'BLSSeasonallyUnadjusted',
             'observationPeriod': 'P1Y',
-            'provenanceUrl': 'https://www.bls.gov/lau/'
+            'provenanceUrl': 'https://www.bls.gov/lau/',
+            'unit': 'testUnit'
         }
     },
     'observationsByVariable': [{

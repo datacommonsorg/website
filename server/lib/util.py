@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 from datetime import datetime
 import gzip
 import hashlib
@@ -224,14 +225,33 @@ def parse_date(date_string):
     raise ValueError("Invalid date: %s", date_string)
 
 
+# For all facets that have a unit with a shortDisplayName, adds a
+# unitDisplayName property to the facet with the short display name as the value
+def _get_processed_facets(facets):
+  units = set()
+  for facet in facets.values():
+    facet_unit = facet.get('unit')
+    if facet_unit:
+      units.add(facet_unit)
+  unit_shortnames = dc.property_values(list(units), 'shortDisplayName')
+  result = copy.deepcopy(facets)
+  for facet_id, facet in facets.items():
+    facet_unit_shortname = unit_shortnames.get(facet.get('unit'), [])
+    if len(facet_unit_shortname) > 0:
+      result[facet_id]['unitDisplayName'] = facet_unit_shortname[0]
+  return result
+
+
 def point_core(entities, variables, date, all_facets):
   resp = dc.obs_point(entities, variables, date, all_facets)
+  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
 def point_within_core(parent_entity, child_type, variables, date, all_facets):
   resp = dc.obs_point_within(parent_entity, child_type, variables, date,
                              all_facets)
+  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
@@ -268,11 +288,13 @@ def _compact_point(point_resp, all_facets):
 
 def series_core(entities, variables, all_facets):
   resp = dc.obs_series(entities, variables, all_facets)
+  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
 def series_within_core(parent_entity, child_type, variables, all_facets):
   resp = dc.obs_series_within(parent_entity, child_type, variables, all_facets)
+  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 

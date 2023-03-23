@@ -33,12 +33,9 @@ import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
+import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import {
-  formatString,
-  getStatVarName,
-  getUnitString,
-} from "../../utils/tile_utils";
+import { formatString, getStatVarName } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
@@ -328,10 +325,9 @@ function pointApiToPerSvRankingData(
       dates.add(statPoint.date);
       if (statPoint.facet && statData.facets[statPoint.facet]) {
         const statPointSource = statData.facets[statPoint.facet].provenanceUrl;
-        const statPointUnit = statData.facets[statPoint.facet].unit;
+        svUnit = svUnit || getUnit(statData.facets[statPoint.facet]);
         if (statPointSource) {
           sources.add(statPointSource);
-          svUnit = svUnit || statPointUnit;
         }
       }
     }
@@ -339,7 +335,6 @@ function pointApiToPerSvRankingData(
       return a.value - b.value;
     });
     const numDataPoints = arr.length;
-    svUnit = getUnitString(svUnit, spec.denom);
     rankingData[spec.statVar] = {
       points: arr,
       unit: [spec.unit || svUnit],

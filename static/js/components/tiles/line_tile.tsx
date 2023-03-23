@@ -30,11 +30,8 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
-import {
-  getStatVarName,
-  getUnitString,
-  ReplacementStrings,
-} from "../../utils/tile_utils";
+import { getUnit } from "../../utils/stat_metadata_utils";
+import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface LineTilePropType {
@@ -200,7 +197,7 @@ function rawToChart(
           dataPoints
         )
       );
-      const svUnit = getUnitString(raw.facets[series.facet].unit, spec.denom);
+      const svUnit = getUnit(raw.facets[series.facet]);
       unit = unit || svUnit;
       sources.add(raw.facets[series.facet].provenanceUrl);
     }
