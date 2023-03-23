@@ -47,6 +47,7 @@ interface SubjectPageMainPanePropType {
 }
 
 const PLACE_TYPE_GEOJSON_PROP = {
+  City: "geoJsonCoordinates",
   Country: "geoJsonCoordinatesDP3",
   State: "geoJsonCoordinatesDP3",
   AdministrativeArea1: "geoJsonCoordinatesDP3",
@@ -93,9 +94,10 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         break;
       }
     }
-    const placeGeoJsonPromise = placeGeoJsonProp
-      ? fetchNodeGeoJson([props.place.dcid], placeGeoJsonProp)
-      : Promise.resolve(null);
+    const placeGeoJsonPromise = fetchNodeGeoJson(
+      [props.place.dcid],
+      placeGeoJsonProp
+    );
     const parentPlacesPromise = !_.isUndefined(props.parentPlaces)
       ? Promise.resolve(props.parentPlaces)
       : getParentPlacesPromise(props.place.dcid);
