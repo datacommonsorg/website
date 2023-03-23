@@ -26,6 +26,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import {
   EntityObservation,
@@ -49,7 +50,7 @@ import {
 import { getUnit } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
-import { formatNumber, getDateRange } from "../../utils/string_utils";
+import { getDateRange } from "../../utils/string_utils";
 import { getUnitString, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 

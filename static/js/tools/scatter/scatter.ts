@@ -17,11 +17,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../../i18n/i18n";
 import { AppWithContext } from "./app";
 
 window.onload = () => {
-  ReactDOM.render(
-    React.createElement(AppWithContext),
-    document.getElementById("main-pane")
+  loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)]).then(
+    () => {
+      ReactDOM.render(
+        React.createElement(AppWithContext),
+        document.getElementById("main-pane")
+      );
+    }
   );
 };
