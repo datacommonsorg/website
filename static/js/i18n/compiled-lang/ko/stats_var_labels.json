@@ -86,7 +86,7 @@
   "Amount_Emissions_CarbonDioxide_PerCapita": [
     {
       "type": 0,
-      "value": "CO2 배출"
+      "value": "Carbon Dioxide Emissions"
     }
   ],
   "Amount_Remittance_InwardRemittance": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water withdrawal rate"
+      "value": "Water Withdrawal Rate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
