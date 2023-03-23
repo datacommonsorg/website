@@ -97,12 +97,14 @@ class TestApiPointWithin(unittest.TestCase):
                 'importName': 'BLS_LAUS',
                 'measurementMethod': 'BLSSeasonallyUnadjusted',
                 'observationPeriod': 'P1Y',
-                'provenanceUrl': 'https://www.bls.gov/lau/'
+                'provenanceUrl': 'https://www.bls.gov/lau/',
+                'unit': 'testUnit',
+                'unitDisplayName': 'shortUnit'
             }
         },
     }
 
-    def side_effect(url, data):
+    def post_side_effect(url, data):
       if url.endswith('/v1/bulk/observations/point/linked') and data == {
           'linked_entity': 'country/USA',
           'linked_property': 'containedInPlace',
@@ -112,8 +114,21 @@ class TestApiPointWithin(unittest.TestCase):
           'all_facets': False
       }:
         return mock_data.POINT_WITHIN_2015
+      if url.endswith('/v1/bulk/property/values/out') and data == {
+          'nodes': ['testUnit'],
+          'property': 'shortDisplayName'
+      }:
+        return {
+            'data': [{
+                'node': 'testUnit',
+                'values': [{
+                    'value': 'shortUnit'
+                }]
+            }]
+        }
 
-    post.side_effect = side_effect
+    post.side_effect = post_side_effect
+
     response = app.test_client().get(
         '/api/observations/point/within',
         query_string={
