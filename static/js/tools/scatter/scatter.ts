@@ -21,7 +21,7 @@ import { loadLocaleData } from "../../i18n/i18n";
 import { AppWithContext } from "./app";
 
 window.onload = () => {
-  loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)]).then(
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       ReactDOM.render(
         React.createElement(AppWithContext),

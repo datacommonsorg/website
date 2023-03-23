@@ -25,7 +25,7 @@ import { DevPage } from "./dev_page";
 import { loadLocaleData } from "./i18n/i18n";
 
 window.onload = () => {
-  loadLocaleData("en", [import(`./i18n/compiled-lang/en/units.json`)]).then(
+  loadLocaleData("en", [import("./i18n/compiled-lang/en/units.json")]).then(
     () => {
       ReactDOM.render(
         React.createElement(DevPage),

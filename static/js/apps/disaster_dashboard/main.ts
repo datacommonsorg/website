@@ -29,7 +29,7 @@ import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils"
 import { App } from "./app";
 
 window.onload = () => {
-  loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)]).then(
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       renderPage();
     }
