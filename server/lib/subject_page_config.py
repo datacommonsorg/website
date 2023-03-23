@@ -26,12 +26,29 @@ import server.services.datacommons as dc
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
-EUROPE_DCID = "europe"
-EUROPE_CONTAINED_PLACE_TYPES = {
-    "Country": "EurostatNUTS1",
-    "EurostatNUTS1": "EurostatNUTS2",
-    "EurostatNUTS2": "EurostatNUTS3",
-    "EurostatNUTS3": "EurostatNUTS3",
+OVERRIDE_CONTAINED_PLACE_TYPES = {
+    "europe": {
+        "Country": "EurostatNUTS1",
+        "EurostatNUTS1": "EurostatNUTS2",
+        "EurostatNUTS2": "EurostatNUTS3",
+        "EurostatNUTS3": "EurostatNUTS3",
+    },
+    "country/USA": {
+        "Country": "State",
+        "State": "County",
+    },
+    "country/IND": {
+        "Country": "State",
+        "State": "AdministrativeArea2",
+    }
+}
+
+DEFAULT_CONTAINED_PLACE_TYPES = {
+    "Planet": "Country",
+    "Continent": "Country",
+    "Country": "AdministrativeArea1",
+    "AdministrativeArea1": "AdministrativeArea2",
+    "AdministrativeArea2": "AdministrativeArea3",
 }
 
 # Tile types to filter with existence checks.
@@ -60,10 +77,10 @@ class PlaceMetadata:
   """Place metadata for subject pages."""
   place_dcid: str
   place_name: str
-  place_types: List[str]
+  place_type: str
   parent_places: List[str]
   # If set, use this to override the contained_place_types map in config metadata.
-  contained_place_types_override: Dict[str, str]
+  contained_place_types: Dict[str, str]
   # Corresponds to typescript type ChildPlacesByType
   child_places: Dict[str, List[Dict[str, Union[str, int]]]]
 
@@ -159,9 +176,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
       place_dcid, contained_place_type, ctr)[::SAMPLE_PLACE_STEP]
   bar_comparison_places = _bar_comparison_places(page_config, place_dcid)
   all_places = sample_child_places + bar_comparison_places + [place_dcid]
-  logging.info('_remove_empty_charts all_places: %s', all_places)
   stat_vars_existence = dc.observation_existence(all_stat_vars, all_places)
-  logging.info('_remove_empty_charts obs: %s', stat_vars_existence)
 
   child_places_geojson = _places_with_geojson(sample_child_places)
 
@@ -170,8 +185,6 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
                                             stat_vars_existence, place_dcid)
     child_exist_keys = _exist_keys_category(sample_child_places, category,
                                             stat_vars_existence, place_dcid)
-    logging.info('_remove_empty_charts place_exist_keys: %s', place_exist_keys)
-    logging.info('_remove_empty_charts child_exist_keys: %s', child_exist_keys)
 
     for block in category.blocks:
       for column in block.columns:
@@ -187,8 +200,6 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
               comparison_exist_keys = _exist_keys_category(
                   t.comparison_places, category, stat_vars_existence,
                   place_dcid)
-              logging.info('_remove_empty_charts comparison_exist_keys: %s',
-                           comparison_exist_keys)
               filtered_keys = [
                   k for k in t.stat_var_key if comparison_exist_keys[k]
               ]
@@ -225,7 +236,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
   return page_config
 
 
-def place_metadata(place_dcid) -> PlaceMetadata:
+def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """
@@ -236,27 +247,45 @@ def place_metadata(place_dcid) -> PlaceMetadata:
     if not place_types:
       place_types = ["Place"]
     parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
+
   place_name = place_api.get_i18n_name([place_dcid
                                        ]).get(place_dcid, escape(place_dcid))
 
   # If this is a European place, update the contained_place_types in the page
   # metadata to use a custom dict instead.
-  # TODO: Find a better way to handle this
-  parent_dcids = map(lambda place: place.get("dcid", ""), parent_places)
-  contained_place_types_override = None
-  if EUROPE_DCID in parent_dcids:
-    contained_place_types_override = EUROPE_CONTAINED_PLACE_TYPES
+  parent_dcids = set([place.get("dcid", "") for place in parent_places])
+  parent_dcids.add(place_dcid)
+  contained_place_types = DEFAULT_CONTAINED_PLACE_TYPES
+  for parent_dcid, contained_place_type_overrides in OVERRIDE_CONTAINED_PLACE_TYPES.items(
+  ):
+    if parent_dcid in parent_dcids:
+      contained_place_types = contained_place_type_overrides
 
-  child_places = place_api.child_fetch(place_dcid)
-  for place_type in child_places:
-    child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
-    child_places[place_type] = child_places[place_type][:place_api.
-                                                        CHILD_PLACE_LIMIT]
+  filtered_child_places = {}
+  if get_child_places:
+    child_places = place_api.child_fetch(place_dcid)
+    for place_type in child_places:
+      child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
+      child_places[place_type] = child_places[place_type][:place_api.
+                                                          CHILD_PLACE_LIMIT]
 
-  return PlaceMetadata(
-      place_dcid=escape(place_dcid),
-      place_name=place_name,
-      place_types=place_types,
-      parent_places=parent_places,
-      child_places=child_places,
-      contained_place_types_override=contained_place_types_override)
+    # Filter out unsupported place types
+    supported_place_types = set(contained_place_types.keys())
+    supported_place_types.update(contained_place_types.values())
+    for ptype, places in child_places.items():
+      if ptype in supported_place_types:
+        filtered_child_places[ptype] = places
+
+  # Find the main place type
+  place_type = place_types[0]
+  for pt in place_types:
+    if pt in contained_place_types:
+      place_type = pt
+      break
+
+  return PlaceMetadata(place_dcid=escape(place_dcid),
+                       place_name=place_name,
+                       place_type=place_type,
+                       parent_places=parent_places,
+                       child_places=filtered_child_places,
+                       contained_place_types=contained_place_types)

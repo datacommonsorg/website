@@ -29,14 +29,6 @@ import server.lib.util
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
 
-DEFAULT_CONTAINED_PLACE_TYPES = {
-    "Planet": "Country",
-    "Continent": "Country",
-    "Country": "AdministrativeArea1",
-    "AdministrativeArea1": "AdministrativeArea2",
-    "AdministrativeArea2": "AdministrativeArea3",
-}
-
 # Define blueprint
 bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 
@@ -68,23 +60,14 @@ def disaster_dashboard(place_dcid=None):
         spec = dashboard_config.metadata.event_type_spec[key]
         spec.default_severity_filter.lower_limit = EARTH_FIRE_SEVERITY_MIN
 
+  # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
-  if place_metadata.contained_place_types_override:
-    dashboard_config.metadata.contained_place_types.clear()
-    dashboard_config.metadata.contained_place_types.update(
-        place_metadata.contained_place_types_override)
-  else:
-    dashboard_config.metadata.contained_place_types.update(
-        DEFAULT_CONTAINED_PLACE_TYPES)
+  dashboard_config.metadata.contained_place_types.clear()
+  dashboard_config.metadata.contained_place_types.update(
+      place_metadata.contained_place_types)
 
-  place_type = None
-  config_place_types = dashboard_config.metadata.contained_place_types
-  for pt in place_metadata.place_types:
-    if pt in config_place_types:
-      place_type = pt
-      break
-  contained_place_type = config_place_types.get(
-      place_type, None) if place_type != None else None
+  contained_place_type = place_metadata.contained_place_types.get(
+      place_metadata.place_type, None)
   dashboard_config = lib_subject_page_config.remove_empty_charts(
       dashboard_config, place_dcid, contained_place_type)
 
