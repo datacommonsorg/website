@@ -23,6 +23,7 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
@@ -33,7 +34,7 @@ import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
-import { formatNumber, getDateRange } from "../../utils/string_utils";
+import { getDateRange } from "../../utils/string_utils";
 import { formatString, getStatVarName } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";

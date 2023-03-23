@@ -56,23 +56,14 @@ def sustainability_explorer(place_dcid=None):
   if not subject_config:
     return "Error: no config installed"
 
+  # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
-  if place_metadata.contained_place_types_override:
-    subject_config.metadata.contained_place_types.clear()
-    subject_config.metadata.contained_place_types.update(
-        place_metadata.contained_place_types_override)
-  else:
-    subject_config.metadata.contained_place_types.update(
-        DEFAULT_CONTAINED_PLACE_TYPES)
+  subject_config.metadata.contained_place_types.clear()
+  subject_config.metadata.contained_place_types.update(
+      place_metadata.contained_place_types)
 
-  place_type = None
-  config_place_types = subject_config.metadata.contained_place_types
-  for pt in place_metadata.place_types:
-    if pt in config_place_types:
-      place_type = pt
-      break
-  contained_place_type = config_place_types.get(
-      place_type, None) if place_type != None else None
+  contained_place_type = place_metadata.contained_place_types.get(
+      place_metadata.place_type, None)
   subject_config = lib_subject_page_config.remove_empty_charts(
       subject_config, place_dcid, contained_place_type)
 
