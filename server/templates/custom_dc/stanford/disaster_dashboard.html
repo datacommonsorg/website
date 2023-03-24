@@ -19,7 +19,8 @@
 
 {% set main_id = 'disaster_dashboard' %}
 {% set page_id = 'page-disaster-dashboard' %}
-{% set title = place_metadata.place_name + ' - Disasters Dashboard' %}
+{% set place_name = place_metadata.place_name or 'Error' %}
+{% set title = place_name + ' - Disasters Dashboard' %}
 {% set subpage_title = 'Severe Weather and Natural Disasters Dashboard' %}
 
 {% block head %}
