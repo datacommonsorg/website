@@ -23,6 +23,7 @@ import _ from "lodash";
 import React, { memo, useEffect, useRef, useState } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
@@ -37,7 +38,6 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-import { formatNumber } from "../../utils/string_utils";
 import { ChartFooter } from "./chart_footer";
 
 const RANKING_COUNT = 20;

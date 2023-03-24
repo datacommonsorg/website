@@ -31,7 +31,7 @@ export function fetchNodeGeoJson(
   nodes: string[],
   geoJsonProp: string
 ): Promise<GeoJsonData> {
-  if (!nodes.length) {
+  if (!nodes.length || !geoJsonProp) {
     return Promise.resolve({
       type: "FeatureCollection",
       features: [],
