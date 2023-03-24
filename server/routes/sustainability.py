@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for sustainability explorer."""
 
+import copy
 import dataclasses
 
 import flask
@@ -55,6 +56,7 @@ def sustainability_explorer(place_dcid=None):
 
   if not subject_config:
     return "Error: no config installed"
+  subject_config = copy.deepcopy(subject_config)
 
   # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
@@ -62,10 +64,13 @@ def sustainability_explorer(place_dcid=None):
   subject_config.metadata.contained_place_types.update(
       place_metadata.contained_place_types)
 
+  # Post-processing on subject page config
   contained_place_type = place_metadata.contained_place_types.get(
       place_metadata.place_type, None)
   subject_config = lib_subject_page_config.remove_empty_charts(
       subject_config, place_dcid, contained_place_type)
+  lib_subject_page_config.update_event_spec_by_type(subject_config,
+                                                    place_metadata.place_type)
 
   return flask.render_template(
       'custom_dc/stanford/sustainability.html',

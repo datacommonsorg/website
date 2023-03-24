@@ -40,7 +40,7 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { formatNumber } from "../../utils/string_utils";
 import { ChartFooter } from "./chart_footer";
 
-const RANKING_COUNT = 10;
+const RANKING_COUNT = 20;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
 
 interface TopEventTilePropType {

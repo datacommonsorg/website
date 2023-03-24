@@ -44,6 +44,8 @@ message EventTypeSpec {
   string color = 4;
   // Default severity filter to use for this event type.
   SeverityFilter default_severity_filter = 5;
+  // Severity filter overrides, keyed by place type.
+  map<string, SeverityFilter> place_type_severity_filter = 10;
   // Properties to display from the propVals object of an event (in tooltips, ranking, etc).
   message DisplayProp {
     string prop = 1;
