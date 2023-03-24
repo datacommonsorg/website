@@ -11,9 +11,9 @@
             "geoId/06"
           ],
           "svs": [
-            "Percent_Person_Smoking",
             "Percent_Person_Obesity",
-            "Percent_Person_PhysicalInactivity"
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Smoking"
           ],
           "type": null
         }
@@ -58,14 +58,14 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.28,
-      "extend_svs": 0.69,
-      "fulfillment": 1.37,
-      "get_immediate_parent_places": 0.19,
+      "build_page_config": 0.29,
+      "extend_svs": 0.65,
+      "fulfillment": 1.43,
+      "get_immediate_parent_places": 0.17,
       "get_sv_details": 0.28,
-      "has_series_with_single_datapoint": 0.23,
-      "query_detection": 0.15,
-      "sv_existence_for_places": 0.27
+      "has_series_with_single_datapoint": 0.3,
+      "query_detection": 0.17,
+      "sv_existence_for_places": 0.29000000000000004
     }
   },
   "data_spec": [

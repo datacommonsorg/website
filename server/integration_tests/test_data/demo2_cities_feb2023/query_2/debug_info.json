@@ -11,8 +11,8 @@
             "geoId/0677000"
           ],
           "svs": [
-            "Percent_Person_Children_WithAsthma",
-            "Count_Person_Upto18Years"
+            "Count_Person_Upto18Years",
+            "Percent_Person_Children_WithAsthma"
           ],
           "type": null
         }
@@ -106,13 +106,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.39,
-      "extend_svs": 13.62,
-      "fulfillment": 14.79,
-      "get_sv_details": 0.39,
-      "has_series_with_single_datapoint": 1.0299999999999998,
+      "build_page_config": 1.3,
+      "extend_svs": 1.94,
+      "fulfillment": 3.19,
+      "get_sv_details": 1.29,
+      "has_series_with_single_datapoint": 1.0499999999999998,
       "query_detection": 0.06,
-      "sv_existence_for_places": 0.14
+      "sv_existence_for_places": 0.2
     }
   },
   "data_spec": [

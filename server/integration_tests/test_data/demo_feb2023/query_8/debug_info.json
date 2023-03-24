@@ -31,11 +31,11 @@
     },
     "TIMING": {
       "build_page_config": 0.0,
-      "fulfillment": 0.32,
-      "get_sample_child_places": 0.18,
+      "fulfillment": 0.31,
+      "get_sample_child_places": 0.19,
       "get_sv_details": 0.0,
-      "query_detection": 0.38,
-      "sv_existence_for_places": 0.14
+      "query_detection": 0.51,
+      "sv_existence_for_places": 0.12
     }
   },
   "data_spec": [

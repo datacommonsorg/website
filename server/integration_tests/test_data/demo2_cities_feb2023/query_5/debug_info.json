@@ -28,12 +28,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.36,
-      "fulfillment": 0.32,
+      "build_page_config": 0.34,
+      "fulfillment": 0.28,
       "get_sample_child_places": 0.15,
-      "get_sv_details": 0.36,
-      "query_detection": 0.23,
-      "sv_existence_for_places": 0.17
+      "get_sv_details": 0.34,
+      "query_detection": 0.26,
+      "sv_existence_for_places": 0.13
     }
   },
   "data_spec": [

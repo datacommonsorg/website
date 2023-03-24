@@ -29,9 +29,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
+            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_AsianAlone",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone"
           ],
           "type": null
         },
@@ -40,9 +40,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
+            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_AsianAlone",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone"
           ],
           "type": null
         },
@@ -61,9 +61,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
+            "Count_Person_Producer_AsianAlone",
             "Count_Person_Producer_BlackOrAfricanAmericanAlone",
-            "Count_Person_Producer_TwoOrMoreRaces",
-            "Count_Person_Producer_WhiteAlone"
+            "Count_Person_Producer_HispanicOrLatino"
           ],
           "type": null
         },
@@ -292,13 +292,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.25,
-      "extend_svs": 1.18,
-      "fulfillment": 1.51,
-      "get_sv_details": 0.25,
-      "has_series_with_single_datapoint": 0.22,
-      "query_detection": 0.4,
-      "sv_existence_for_places": 0.11,
+      "build_page_config": 0.28,
+      "extend_svs": 1.35,
+      "fulfillment": 1.73,
+      "get_sv_details": 0.27,
+      "has_series_with_single_datapoint": 0.24,
+      "query_detection": 0.51,
+      "sv_existence_for_places": 0.14,
       "topic_calls": 0.0
     }
   },

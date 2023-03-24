@@ -148,12 +148,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.27,
-      "fulfillment": 0.63,
-      "get_sv_details": 0.27,
-      "query_detection": 0.06,
-      "rank_svs_by_series_growth": 0.47,
-      "sv_existence_for_places": 0.16,
+      "build_page_config": 0.34,
+      "fulfillment": 0.56,
+      "get_sv_details": 0.33,
+      "query_detection": 0.07,
+      "rank_svs_by_series_growth": 0.45,
+      "sv_existence_for_places": 0.1,
       "topic_calls": 0.0
     }
   },

@@ -46,7 +46,7 @@
       "fulfillment": 0.16,
       "get_sv_details": 0.0,
       "query_detection": 0.46,
-      "sv_existence_for_places": 0.16,
+      "sv_existence_for_places": 0.15,
       "topic_calls": 0.0
     }
   },

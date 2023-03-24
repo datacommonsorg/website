@@ -65,14 +65,14 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.24,
-      "extend_svs": 1.15,
-      "fulfillment": 12.08,
-      "get_sv_details": 0.24,
-      "has_series_with_single_datapoint": 10.59,
-      "query_detection": 0.39,
-      "sv_existence_for_places": 0.1,
-      "topic_calls": 0.23
+      "build_page_config": 0.26,
+      "extend_svs": 1.41,
+      "fulfillment": 3.04,
+      "get_sv_details": 0.26,
+      "has_series_with_single_datapoint": 1.24,
+      "query_detection": 0.46,
+      "sv_existence_for_places": 0.12,
+      "topic_calls": 0.26
     }
   },
   "data_spec": [

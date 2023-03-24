@@ -42,13 +42,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.23,
-      "extend_svs": 2.01,
-      "fulfillment": 4.27,
-      "get_sv_details": 0.23,
-      "has_series_with_single_datapoint": 2.1399999999999997,
-      "query_detection": 0.36,
-      "sv_existence_for_places": 0.1
+      "build_page_config": 0.28,
+      "extend_svs": 2.33,
+      "fulfillment": 3.98,
+      "get_sv_details": 0.28,
+      "has_series_with_single_datapoint": 1.5,
+      "query_detection": 0.44,
+      "sv_existence_for_places": 0.13
     }
   },
   "data_spec": [
