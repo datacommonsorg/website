@@ -147,15 +147,11 @@ export function loadSubjectPageMetadataFromPage(): SubjectPageMetadata {
   const placeName = placeEl.dataset.name || placeDcid;
   const placeTypes = [placeEl.dataset.type] || [];
   const place = { dcid: placeDcid, name: placeName, types: placeTypes };
-  const parentPlaces = JSON.parse(
-    placeEl.dataset.parents
-  );
+  const parentPlaces = JSON.parse(placeEl.dataset.parents);
   const pageConfig = JSON.parse(
     document.getElementById("dashboard-config").dataset.config
   );
-  const childPlaces = JSON.parse(
-    placeEl.dataset.children
-  );
+  const childPlaces = JSON.parse(placeEl.dataset.children);
   return {
     pageConfig: pageConfig,
     place: place,
