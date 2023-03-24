@@ -25,6 +25,7 @@ export interface StatMetadata {
   observationPeriod?: string;
   scalingFactor?: string;
   unit?: string;
+  unitDisplayName?: string;
 }
 
 export interface Observation {

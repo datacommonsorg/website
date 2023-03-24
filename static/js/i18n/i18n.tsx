@@ -165,6 +165,9 @@ function formatNumber(
   useDefaultFormat?: boolean,
   numFractionDigits?: number
 ): string {
+  if (isNaN(value)) {
+    return "-";
+  }
   if (useDefaultFormat) {
     return Intl.NumberFormat(intl.locale).format(value);
   }
@@ -182,7 +185,6 @@ function formatNumber(
     delete formatOptions.maximumSignificantDigits;
   }
 
-  let shouldAddUnit = false;
   let unitKey: string;
   switch (unit) {
     case "₹":
@@ -203,66 +205,51 @@ function formatNumber(
       break;
     case "MetricTon":
     case "t":
-      shouldAddUnit = true;
       unitKey = "metric-ton";
       break;
     case "kWh":
-      shouldAddUnit = true;
       unitKey = "kilowatt-hour";
       break;
     case "GWh":
-      shouldAddUnit = true;
       unitKey = "gigawatt-hour";
       break;
     case "g":
-      shouldAddUnit = true;
       unitKey = "gram";
       break;
     case "kg":
-      shouldAddUnit = true;
       unitKey = "kilogram";
       break;
     case "L":
-      shouldAddUnit = true;
       unitKey = "liter";
       break;
     case "celsius":
     case "Celsius":
-      shouldAddUnit = true;
       unitKey = "celsius";
       break;
     case "μg/m³":
-      shouldAddUnit = true;
       unitKey = "micro-gram-per-cubic-meter";
       break;
     case "MetricTonCO2e":
     case "MTCO2e":
-      shouldAddUnit = true;
       unitKey = "metric-tons-of-co2";
       break;
     case "per-million":
-      shouldAddUnit = true;
       unitKey = "per-million";
       break;
     case "¢/kWh":
-      shouldAddUnit = true;
       unitKey = "cent-per-kilowatt";
       break;
     case "ppb":
-      shouldAddUnit = true;
       unitKey = "ppb";
       break;
     case "mgd":
-      shouldAddUnit = true;
       unitKey = "million-gallon-per-day";
-    case "Knot":
-    case "Millibar":
-    case "SquareKilometer":
-      shouldAddUnit = true;
+      break;
+    default:
       unitKey = unit;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
-  if (shouldAddUnit) {
+  if (unitKey) {
     returnText = intl.formatMessage(
       {
         id: unitKey,

@@ -24,18 +24,16 @@ import React, { useEffect, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
+import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-import { formatNumber, getDateRange } from "../../utils/string_utils";
-import {
-  getStatVarName,
-  getUnitString,
-  ReplacementStrings,
-} from "../../utils/tile_utils";
+import { getUnit } from "../../utils/stat_metadata_utils";
+import { getDateRange } from "../../utils/string_utils";
+import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 const NUM_PLACES = 6;
@@ -196,10 +194,7 @@ function processData(
           dates.add(stat.date);
           if (raw.facets[stat.facet]) {
             sources.add(raw.facets[stat.facet].provenanceUrl);
-            const svUnit = getUnitString(
-              raw.facets[stat.facet].unit,
-              spec.denom
-            );
+            const svUnit = getUnit(raw.facets[stat.facet]);
             unit = unit || svUnit;
           }
           if (spec.denom && spec.denom in raw.data) {
