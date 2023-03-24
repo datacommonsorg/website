@@ -58,6 +58,7 @@ export class StatVarCharts extends React.Component<
       opened: false,
       selectionCount: 0,
       title: this.props.statVar.displayName,
+      showTooltip: false,
     });
     return (
       <Collapsible
