@@ -92,6 +92,7 @@ categories {
           event_type_key: "drought"
           show_start_date: true
           show_end_date: true
+          ranking_count: 20
         }
       }
     }
@@ -145,6 +146,7 @@ categories {
         top_event_tile_spec {
           event_type_key: "fire"
           show_start_date: true
+          ranking_count: 20
         }
       }
     }
@@ -204,6 +206,7 @@ categories {
         top_event_tile_spec {
           event_type_key: "flood"
           show_start_date: true
+          ranking_count: 20
         }
       }
     }
@@ -256,6 +259,7 @@ categories {
         top_event_tile_spec {
           event_type_key: "storm"
           show_start_date: true
+          ranking_count: 20
         }
       }
     }
@@ -309,6 +313,7 @@ categories {
           show_start_date: true
           display_prop: "humidity"
           display_prop: "temperature"
+          ranking_count: 20
         }
       }
     }
@@ -363,6 +368,7 @@ categories {
 #           event_type_key: "heat"
 #           display_prop: "referenceTemperature"
 #           show_start_date: true
+#           ranking_count: 20
 #         }
 #       }
 #     }
@@ -417,6 +423,7 @@ categories {
 #           display_prop: "referenceTemperature"
 #           show_start_date: true
 #           reverse_sort: true
+#           ranking_count: 20
 #         }
 #       }
 #     }

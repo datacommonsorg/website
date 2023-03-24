@@ -107,11 +107,10 @@ article.category {
 
 .disaster-event-map-severity-filters {
   font-size: .9rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem 0;
   overflow-y: auto;
-  border-left: 1px solid rgba(0, 0, 0, 0.125);
-  margin-top: 20px;
-  margin-left: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin-top: 10px;
 
   .disaster-type-filters {
     padding-bottom: 0.5rem;

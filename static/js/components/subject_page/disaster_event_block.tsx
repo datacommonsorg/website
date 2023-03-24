@@ -134,6 +134,12 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
           <i className="material-icons">tune</i>
         </div>
       </DisasterEventMapSelectors>
+      {showFilters && (
+        <DisasterEventMapFilters
+          eventTypeSpec={blockEventTypeSpecs.current}
+          blockId={props.id}
+        />
+      )}
       <div className="block-body row" ref={blockBodyRef}>
         <div className="block-column-container row">
           {props.columns &&
@@ -163,13 +169,6 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
             </div>
           </div>
         </div>
-        {showFilters && (
-          <DisasterEventMapFilters
-            eventTypeSpec={blockEventTypeSpecs.current}
-            height={filterSectionHeight}
-            blockId={props.id}
-          />
-        )}
       </div>
     </BlockContainer>
   );

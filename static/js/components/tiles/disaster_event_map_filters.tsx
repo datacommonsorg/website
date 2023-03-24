@@ -34,8 +34,6 @@ const DELAY_MS = 700;
 interface DisasterEventMapFiltersPropType {
   // map of disaster type to information about that event type
   eventTypeSpec: Record<string, EventTypeSpec>;
-  // height to set this component to.
-  height: number;
   // id of the block this component is in.
   blockId: string;
 }
@@ -85,62 +83,61 @@ export function DisasterEventMapFilters(
   }
 
   return (
-    <div
-      className={"disaster-event-map-severity-filters"}
-      style={props.height ? { height: props.height } : {}}
-    >
+    <div className={"disaster-event-map-severity-filters"}>
       <h3>Filters</h3>
-      {Object.keys(severityFilterInputs).map((disasterType) => {
-        const disasterTypeName = props.eventTypeSpec[disasterType].name;
-        const severityFilter = severityFilterInputs[disasterType];
-        return (
-          <div
-            className="disaster-type-filters"
-            key={`${disasterType}-filters`}
-          >
-            <div className="disaster-type-name">
-              {disasterTypeName} ({severityFilter.prop})
-            </div>
+      <div className="row">
+        {Object.keys(severityFilterInputs).map((disasterType) => {
+          const disasterTypeName = props.eventTypeSpec[disasterType].name;
+          const severityFilter = severityFilterInputs[disasterType];
+          return (
             <div
-              className="prop-filter"
-              key={`${disasterType}-${severityFilter.prop}-filter`}
+              className="disaster-type-filters col"
+              key={`${disasterType}-filters`}
             >
-              <div className="prop-filter-input">
-                <span>min: </span>
-                <Input
-                  type="number"
-                  onChange={(e) =>
-                    onFilterInputChanged(
-                      disasterType,
-                      Number(e.target.value),
-                      false /* isUpperLimit */
-                    )
-                  }
-                  value={severityFilter.lowerLimit}
-                  onBlur={() => updateFilterHash()}
-                  onKeyPress={(e) => e.key === "Enter" && updateFilterHash()}
-                />
+              <div className="disaster-type-name">
+                {disasterTypeName} ({severityFilter.prop})
               </div>
-              <div className="prop-filter-input">
-                <span>max: </span>
-                <Input
-                  type="number"
-                  onChange={(e) =>
-                    onFilterInputChanged(
-                      disasterType,
-                      Number(e.target.value),
-                      true /* isUpperLimit */
-                    )
-                  }
-                  value={severityFilter.upperLimit}
-                  onBlur={() => updateFilterHash()}
-                  onKeyPress={(e) => e.key === "Enter" && updateFilterHash()}
-                />
+              <div
+                className="prop-filter"
+                key={`${disasterType}-${severityFilter.prop}-filter`}
+              >
+                <div className="prop-filter-input">
+                  <span>min: </span>
+                  <Input
+                    type="number"
+                    onChange={(e) =>
+                      onFilterInputChanged(
+                        disasterType,
+                        Number(e.target.value),
+                        false /* isUpperLimit */
+                      )
+                    }
+                    value={severityFilter.lowerLimit}
+                    onBlur={() => updateFilterHash()}
+                    onKeyPress={(e) => e.key === "Enter" && updateFilterHash()}
+                  />
+                </div>
+                <div className="prop-filter-input">
+                  <span>max: </span>
+                  <Input
+                    type="number"
+                    onChange={(e) =>
+                      onFilterInputChanged(
+                        disasterType,
+                        Number(e.target.value),
+                        true /* isUpperLimit */
+                      )
+                    }
+                    value={severityFilter.upperLimit}
+                    onBlur={() => updateFilterHash()}
+                    onKeyPress={(e) => e.key === "Enter" && updateFilterHash()}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
