@@ -248,6 +248,12 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
     place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
     if not place_types:
       return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
+    wanted_place_types = [
+        x for x in place_types if x in place_api.ALL_WANTED_PLACE_TYPES
+    ]
+    if len(wanted_place_types) == 0:
+      return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
+    place_types = wanted_place_types
 
     parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
 
