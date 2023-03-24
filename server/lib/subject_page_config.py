@@ -299,3 +299,13 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
                        parent_places=parent_places,
                        child_places=filtered_child_places,
                        contained_place_types=contained_place_types)
+
+
+def update_event_spec_by_type(page_config, place_type: str):
+  """Updates default event severity filters to place type filter if specified."""
+  for event_spec in page_config.metadata.event_type_spec.values():
+    if place_type in event_spec.place_type_severity_filter:
+      event_spec.default_severity_filter.MergeFrom(
+          event_spec.place_type_severity_filter[place_type])
+      event_spec.place_type_severity_filter.clear()
+      continue

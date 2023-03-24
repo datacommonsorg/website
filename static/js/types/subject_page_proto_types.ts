@@ -86,6 +86,7 @@ export interface TopEventTileSpec {
   showStartDate: boolean;
   showEndDate: boolean;
   reverseSort: boolean;
+  rankingCount?: number;
 }
 
 export interface ScatterTileSpec {

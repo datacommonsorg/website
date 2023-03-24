@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for event pages"""
 
+import copy
 import json
 import logging
 import os
@@ -187,6 +188,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
     # Reload configs for faster local iteration.
     subject_config = lib_util.get_disaster_event_config()
 
+  subject_config = copy.deepcopy(subject_config)
   places = get_places(properties)
   place_dcid = find_best_place_for_config(places)
 
@@ -195,11 +197,14 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
     place_metadata = lib_subject_page_config.place_metadata(
         place_dcid, get_child_places=False)
     if not place_metadata.is_error:
+      # Update contained places from place metadata
       subject_config.metadata.contained_place_types.clear()
       subject_config.metadata.contained_place_types.update(
           place_metadata.contained_place_types)
       contained_place_type = place_metadata.contained_place_types.get(
           place_metadata.place_type, None)
+
+      # Post-processing on subject page config
       subject_config = lib_subject_page_config.remove_empty_charts(
           subject_config, place_dcid, contained_place_type)
 

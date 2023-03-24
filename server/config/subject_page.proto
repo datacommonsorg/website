@@ -44,6 +44,8 @@ message EventTypeSpec {
   string color = 4;
   // Default severity filter to use for this event type.
   SeverityFilter default_severity_filter = 5;
+  // Severity filter overrides, keyed by place type.
+  map<string, SeverityFilter> place_type_severity_filter = 10;
   // Properties to display from the propVals object of an event (in tooltips, ranking, etc).
   message DisplayProp {
     string prop = 1;
@@ -130,6 +132,10 @@ message TopEventTileSpec {
   bool show_start_date = 3;
   bool show_end_date = 4;
   bool reverse_sort = 5;
+
+  // Number of items to show in the ranking tile. If not set, 10 items will be
+  // shown.
+  int32 ranking_count = 6;
 }
 
 message ScatterTileSpec {
