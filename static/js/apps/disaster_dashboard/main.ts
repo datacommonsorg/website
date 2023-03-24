@@ -39,6 +39,9 @@ window.onload = () => {
 
 function renderPage(): void {
   const metadata = loadSubjectPageMetadataFromPage();
+  if (!metadata) {
+    return;
+  }
 
   ReactDOM.render(
     React.createElement(App, {
