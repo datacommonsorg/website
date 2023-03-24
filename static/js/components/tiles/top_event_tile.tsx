@@ -40,7 +40,7 @@ import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { ChartFooter } from "./chart_footer";
 
-const RANKING_COUNT = 20;
+const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
 
 interface TopEventTilePropType {
@@ -345,7 +345,10 @@ export const TopEventTile = memo(function TopEventTile(
         return b.severity[severityProp] - a.severity[severityProp];
       }
     });
-    return filteredPoints.slice(0, RANKING_COUNT);
+    return filteredPoints.slice(
+      0,
+      props.topEventMetadata.rankingCount || DEFAULT_RANKING_COUNT
+    );
   }
 
   function handleEmbed(topEvents: DisasterEventPoint[]): void {

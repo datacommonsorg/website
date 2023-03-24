@@ -132,6 +132,10 @@ message TopEventTileSpec {
   bool show_start_date = 3;
   bool show_end_date = 4;
   bool reverse_sort = 5;
+
+  // Number of items to show in the ranking tile. If not set, 10 items will be
+  // shown.
+  int32 ranking_count = 6;
 }
 
 message ScatterTileSpec {
