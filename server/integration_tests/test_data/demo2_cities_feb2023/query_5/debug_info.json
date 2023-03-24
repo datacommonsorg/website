@@ -12,19 +12,7 @@
           "result": [
             "geoId/0600135",
             "geoId/0600562",
-            "geoId/0600618",
-            "geoId/0600674",
-            "geoId/0600898",
-            "geoId/0600996",
-            "geoId/0601416",
-            "geoId/0601458",
-            "geoId/0601486",
-            "geoId/0601640",
-            "geoId/0602168",
-            "geoId/0602252",
-            "geoId/0602980",
-            "geoId/0603036",
-            "geoId/0603092"
+            "geoId/0600618"
           ],
           "type": "City"
         }
@@ -40,12 +28,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.41,
-      "fulfillment": 0.31,
+      "build_page_config": 0.36,
+      "fulfillment": 0.32,
       "get_sample_child_places": 0.15,
-      "get_sv_details": 0.41,
-      "query_detection": 0.49,
-      "sv_existence_for_places": 0.16
+      "get_sv_details": 0.36,
+      "query_detection": 0.23,
+      "sv_existence_for_places": 0.17
     }
   },
   "data_spec": [
@@ -64,6 +52,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "wikidataId/Q213205",
           "name": "San Francisco Bay Area",
           "place_type": "AdministrativeArea"
@@ -91,6 +80,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "wikidataId/Q213205",
               "name": "San Francisco Bay Area",
               "place_type": "AdministrativeArea"
@@ -114,6 +104,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0665028",
           "name": "San Bruno",
           "place_type": "City"
@@ -138,11 +129,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/0665028",
               "name": "San Bruno",
               "place_type": "City"
@@ -187,6 +180,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -233,6 +227,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -258,6 +253,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -295,6 +291,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -320,6 +317,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -349,6 +347,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -374,6 +373,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -406,6 +406,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0677000",
           "name": "Sunnyvale",
           "place_type": "City"
@@ -433,6 +434,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -461,6 +463,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -489,6 +492,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -518,6 +522,7 @@
   "places_resolved": "(name: San Francisco Bay Area, dcid: wikidataId/Q213205); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "wikidataId/Q213205",
       "name": "San Francisco Bay Area",
       "place_type": "AdministrativeArea"
@@ -540,6 +545,7 @@
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "wikidataId/Q213205",
           "name": "San Francisco Bay Area",
           "place_type": "AdministrativeArea"
@@ -562,21 +568,23 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6994097828865051,
-      0.41775715351104736,
-      0.3595605790615082,
-      0.3463655412197113,
-      0.3448747992515564,
-      0.34113407135009766,
+      0.6994096040725708,
+      0.4177573323249817,
+      0.3727898895740509,
+      0.3595603406429291,
+      0.34636518359184265,
+      0.34487470984458923,
+      0.3411339223384857,
       0.3387206792831421,
-      0.3326483368873596,
-      0.33171406388282776,
-      0.33129677176475525,
-      0.3221518397331238
+      0.3326481580734253,
+      0.33171385526657104,
+      0.33129674196243286,
+      0.322151780128479
     ],
     "SV": [
       "Count_CriminalActivities_LarcenyTheft",
       "Count_CriminalActivities_ForcibleRape",
+      "dc/3jr0p7yjw06z9",
       "Count_CriminalActivities_Robbery",
       "Count_CriminalIncidents_IsHateCrime",
       "Count_CriminalActivities_CombinedCrime",
@@ -592,43 +600,45 @@
         "Count of Criminal Activities: Arson (0.3387206792831421)"
       ],
       "Count_CriminalActivities_Burglary": [
-        "Count of Criminal Activities: Burglary (0.33129677176475525)"
+        "Count of Criminal Activities: Burglary (0.33129674196243286)"
       ],
       "Count_CriminalActivities_CombinedCrime": [
-        "Crime statistics (0.3448747992515564)"
+        "Crime statistics (0.34487470984458923)"
       ],
       "Count_CriminalActivities_ForcibleRape": [
-        "Count of Criminal Activities: Forcible Rape (0.41775715351104736)",
-        "Number of forcible rape crimes (0.34736010432243347)",
-        "Number of crimes counted as Forcible Rape (0.32063716650009155)"
+        "Count of Criminal Activities: Forcible Rape (0.4177573323249817)",
+        "Number of forcible rape crimes (0.347360223531723)"
       ],
       "Count_CriminalActivities_LarcenyTheft": [
-        "Count of Criminal Activities: Larceny Theft (0.6994097828865051)",
-        "Number of crimes counted as Larceny Theft (0.6456341743469238)",
-        "Number of larceny theft crimes (0.6368502378463745)",
-        "Number of larceny theft incidents (0.6242314577102661)",
-        "Number of Larceny Theft Cases (0.6214361190795898)",
-        "Total number of larceny theft cases (0.593014657497406)",
-        "Number of larceny theft charges (0.5891729593276978)",
-        "Total number of larceny theft offenses (0.5783951878547668)"
+        "Count of Criminal Activities: Larceny Theft (0.6994096040725708)",
+        "Number of crimes counted as Larceny Theft (0.6456339359283447)",
+        "Number of larceny theft crimes (0.6368502974510193)",
+        "Number of larceny theft incidents (0.6242316961288452)",
+        "Number of Larceny Theft Cases (0.6214360594749451)",
+        "Total number of larceny theft cases (0.5930147171020508)",
+        "Number of larceny theft charges (0.5891730785369873)",
+        "Total number of larceny theft offenses (0.5783951282501221)"
       ],
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326483368873596)"
+        "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326481580734253)"
       ],
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.34113407135009766)"
+        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.3411339223384857)"
       ],
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.3221518397331238)"
+        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.322151780128479)"
       ],
       "Count_CriminalActivities_Robbery": [
-        "Count of Criminal Activities: Robbery (0.3595605790615082)"
+        "Count of Criminal Activities: Robbery (0.3595603406429291)"
       ],
       "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
-        "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.33171406388282776)"
+        "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.33171385526657104)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Hate crime incidents (0.3463655412197113)"
+        "Hate crime incidents (0.34636518359184265)"
+      ],
+      "dc/3jr0p7yjw06z9": [
+        "Gambling Establishments (0.3727898895740509)"
       ]
     }
   },
@@ -637,43 +647,45 @@
       "Count of Criminal Activities: Arson (0.3387206792831421)"
     ],
     "Count_CriminalActivities_Burglary": [
-      "Count of Criminal Activities: Burglary (0.33129677176475525)"
+      "Count of Criminal Activities: Burglary (0.33129674196243286)"
     ],
     "Count_CriminalActivities_CombinedCrime": [
-      "Crime statistics (0.3448747992515564)"
+      "Crime statistics (0.34487470984458923)"
     ],
     "Count_CriminalActivities_ForcibleRape": [
-      "Count of Criminal Activities: Forcible Rape (0.41775715351104736)",
-      "Number of forcible rape crimes (0.34736010432243347)",
-      "Number of crimes counted as Forcible Rape (0.32063716650009155)"
+      "Count of Criminal Activities: Forcible Rape (0.4177573323249817)",
+      "Number of forcible rape crimes (0.347360223531723)"
     ],
     "Count_CriminalActivities_LarcenyTheft": [
-      "Count of Criminal Activities: Larceny Theft (0.6994097828865051)",
-      "Number of crimes counted as Larceny Theft (0.6456341743469238)",
-      "Number of larceny theft crimes (0.6368502378463745)",
-      "Number of larceny theft incidents (0.6242314577102661)",
-      "Number of Larceny Theft Cases (0.6214361190795898)",
-      "Total number of larceny theft cases (0.593014657497406)",
-      "Number of larceny theft charges (0.5891729593276978)",
-      "Total number of larceny theft offenses (0.5783951878547668)"
+      "Count of Criminal Activities: Larceny Theft (0.6994096040725708)",
+      "Number of crimes counted as Larceny Theft (0.6456339359283447)",
+      "Number of larceny theft crimes (0.6368502974510193)",
+      "Number of larceny theft incidents (0.6242316961288452)",
+      "Number of Larceny Theft Cases (0.6214360594749451)",
+      "Total number of larceny theft cases (0.5930147171020508)",
+      "Number of larceny theft charges (0.5891730785369873)",
+      "Total number of larceny theft offenses (0.5783951282501221)"
     ],
     "Count_CriminalActivities_MurderAndNonNegligentManslaughter": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326483368873596)"
+      "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326481580734253)"
     ],
     "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.34113407135009766)"
+      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.3411339223384857)"
     ],
     "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.3221518397331238)"
+      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.322151780128479)"
     ],
     "Count_CriminalActivities_Robbery": [
-      "Count of Criminal Activities: Robbery (0.3595605790615082)"
+      "Count of Criminal Activities: Robbery (0.3595603406429291)"
     ],
     "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
-      "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.33171406388282776)"
+      "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.33171385526657104)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Hate crime incidents (0.3463655412197113)"
+      "Hate crime incidents (0.34636518359184265)"
+    ],
+    "dc/3jr0p7yjw06z9": [
+      "Gambling Establishments (0.3727898895740509)"
     ]
   },
   "time_delta_classification": "<None>"

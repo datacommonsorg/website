@@ -107,19 +107,7 @@
           "result": [
             "geoId/01001",
             "geoId/01003",
-            "geoId/01005",
-            "geoId/01007",
-            "geoId/01009",
-            "geoId/01011",
-            "geoId/01013",
-            "geoId/01015",
-            "geoId/01017",
-            "geoId/01019",
-            "geoId/01021",
-            "geoId/01023",
-            "geoId/01025",
-            "geoId/01027",
-            "geoId/01029"
+            "geoId/01005"
           ],
           "type": "County"
         }
@@ -150,12 +138,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.37,
-      "fulfillment": 0.55,
-      "get_sample_child_places": 0.32,
-      "get_sv_details": 0.35,
-      "query_detection": 0.24,
-      "sv_existence_for_places": 0.23
+      "build_page_config": 0.27,
+      "fulfillment": 0.32,
+      "get_sample_child_places": 0.17,
+      "get_sv_details": 0.27,
+      "query_detection": 0.15,
+      "sv_existence_for_places": 0.14
     }
   },
   "data_spec": [
@@ -593,7 +581,8 @@
         "Count_Person_TwoOrMoreRaces",
         "Count_Person_Female",
         "Count_Person_Producer_TwoOrMoreRaces",
-        "Count_Person_Male"
+        "Count_Person_Male",
+        "dc/topic/RacialBreakdown"
       ]
     },
     {
@@ -1456,22 +1445,22 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7128116488456726,
+      0.7128112316131592,
       0.7120997309684753,
-      0.690367579460144,
-      0.6868858337402344,
-      0.6809423565864563,
-      0.673106849193573,
-      0.6727954149246216,
-      0.6680918335914612,
+      0.6903679370880127,
+      0.6868859529495239,
+      0.6809426546096802,
+      0.6731067895889282,
+      0.6727956533432007,
+      0.6680922508239746,
       0.6667652726173401,
-      0.6660560369491577,
-      0.6626519560813904,
-      0.654260516166687,
-      0.6455996632575989,
-      0.6453518867492676,
+      0.6660557985305786,
+      0.662651777267456,
+      0.6542606353759766,
+      0.6455992460250854,
+      0.6453515887260437,
       0.6444410085678101,
-      0.6390772461891174
+      0.6390771269798279
     ],
     "SV": [
       "Count_Person_BelowPovertyLevelInThePast12Months",
@@ -1493,53 +1482,53 @@
     ],
     "SV_to_Sentences": {
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-        "Number of families in poverty in the past year (0.673106849193573)",
-        "Number of households below poverty line in the past year (0.6552074551582336)"
+        "Number of families in poverty in the past year (0.6731067895889282)",
+        "Number of households below poverty line in the past year (0.6552075147628784)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months": [
-        "Population: Above Poverty Level in The Past 12 Months (0.690367579460144)",
-        "Quantity of individuals who were not living in poverty (0.6846537590026855)",
-        "Number of people who haven't been living in poverty in the past year (0.6585137844085693)"
+        "Population: Above Poverty Level in The Past 12 Months (0.6903679370880127)",
+        "Quantity of individuals who were not living in poverty (0.6846542358398438)",
+        "Number of people who haven't been living in poverty in the past year (0.6585140824317932)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455996632575989)"
+        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455992460250854)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660560369491577)"
+        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660557985305786)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
-        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.654260516166687)"
+        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542606353759766)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months": [
-        "Population: Below Poverty Level in The Past 12 Months (0.7128116488456726)"
+        "Population: Below Poverty Level in The Past 12 Months (0.7128112316131592)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
         "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667652726173401)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868858337402344)"
+        "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868859529495239)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
-        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809423565864563)"
+        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809426546096802)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626519560813904)"
+        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.662651777267456)"
       ],
       "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
-        "Population: Female, Below Poverty Level in The Past 12 Months (0.6390772461891174)"
+        "Population: Female, Below Poverty Level in The Past 12 Months (0.6390771269798279)"
       ],
       "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
-        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680918335914612)"
+        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680922508239746)"
       ],
       "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
-        "Population: Male, Below Poverty Level in The Past 12 Months (0.6453518867492676)"
+        "Population: Male, Below Poverty Level in The Past 12 Months (0.6453515887260437)"
       ],
       "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
-        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727954149246216)"
+        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727956533432007)"
       ],
       "Count_Person_PovertyStatusDetermined": [
         "Number of People Living in Poverty (0.7120997309684753)",
-        "Population: Poverty Status Determined (0.7043507695198059)"
+        "Population: Poverty Status Determined (0.7043508887290955)"
       ],
       "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters": [
         "Population: Poverty Status Determined, Group Quarters (0.6444410085678101)"
@@ -1548,53 +1537,53 @@
   },
   "svs_to_sentences": {
     "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-      "Number of families in poverty in the past year (0.673106849193573)",
-      "Number of households below poverty line in the past year (0.6552074551582336)"
+      "Number of families in poverty in the past year (0.6731067895889282)",
+      "Number of households below poverty line in the past year (0.6552075147628784)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months": [
-      "Population: Above Poverty Level in The Past 12 Months (0.690367579460144)",
-      "Quantity of individuals who were not living in poverty (0.6846537590026855)",
-      "Number of people who haven't been living in poverty in the past year (0.6585137844085693)"
+      "Population: Above Poverty Level in The Past 12 Months (0.6903679370880127)",
+      "Quantity of individuals who were not living in poverty (0.6846542358398438)",
+      "Number of people who haven't been living in poverty in the past year (0.6585140824317932)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455996632575989)"
+      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455992460250854)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660560369491577)"
+      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660557985305786)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
-      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.654260516166687)"
+      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542606353759766)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months": [
-      "Population: Below Poverty Level in The Past 12 Months (0.7128116488456726)"
+      "Population: Below Poverty Level in The Past 12 Months (0.7128112316131592)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
       "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667652726173401)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868858337402344)"
+      "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868859529495239)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
-      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809423565864563)"
+      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809426546096802)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626519560813904)"
+      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.662651777267456)"
     ],
     "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
-      "Population: Female, Below Poverty Level in The Past 12 Months (0.6390772461891174)"
+      "Population: Female, Below Poverty Level in The Past 12 Months (0.6390771269798279)"
     ],
     "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
-      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680918335914612)"
+      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680922508239746)"
     ],
     "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
-      "Population: Male, Below Poverty Level in The Past 12 Months (0.6453518867492676)"
+      "Population: Male, Below Poverty Level in The Past 12 Months (0.6453515887260437)"
     ],
     "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
-      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727954149246216)"
+      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727956533432007)"
     ],
     "Count_Person_PovertyStatusDetermined": [
       "Number of People Living in Poverty (0.7120997309684753)",
-      "Population: Poverty Status Determined (0.7043507695198059)"
+      "Population: Poverty Status Determined (0.7043508887290955)"
     ],
     "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters": [
       "Population: Poverty Status Determined, Group Quarters (0.6444410085678101)"

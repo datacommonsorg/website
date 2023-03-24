@@ -29,11 +29,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_BlackOrAfricanAmericanAlone",
-            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_HispanicOrLatino"
+            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
           ],
           "type": null
         },
@@ -42,11 +40,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-            "Count_Person_BlackOrAfricanAmericanAlone",
-            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_HispanicOrLatino"
+            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
           ],
           "type": null
         },
@@ -55,8 +51,8 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Male",
-            "Count_Person_Female"
+            "Count_Person_Female",
+            "Count_Person_Male"
           ],
           "type": null
         },
@@ -65,11 +61,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Producer_TwoOrMoreRaces",
             "Count_Person_Producer_BlackOrAfricanAmericanAlone",
-            "Count_Person_Producer_HispanicOrLatino",
-            "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
-            "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone"
+            "Count_Person_Producer_TwoOrMoreRaces",
+            "Count_Person_Producer_WhiteAlone"
           ],
           "type": null
         },
@@ -78,8 +72,8 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Male",
-            "Count_Person_Female"
+            "Count_Person_Female",
+            "Count_Person_Male"
           ],
           "type": null
         }
@@ -160,7 +154,8 @@
           "Count_Person_TwoOrMoreRaces",
           "Count_Person_Female",
           "Count_Person_Producer_TwoOrMoreRaces",
-          "Count_Person_Male"
+          "Count_Person_Male",
+          "dc/topic/RacialBreakdown"
         ]
       ],
       "num_chart_candidates": 1,
@@ -286,16 +281,25 @@
             "GrowthRate_Count_Person"
           ]
         }
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/RacialBreakdown": {
+            "peer_groups": [],
+            "svs": []
+          }
+        }
       ]
     },
     "TIMING": {
-      "build_page_config": 0.42,
-      "extend_svs": 2.28,
-      "fulfillment": 2.7,
-      "get_sv_details": 0.42,
-      "has_series_with_single_datapoint": 0.2,
-      "query_detection": 0.66,
-      "sv_existence_for_places": 0.21
+      "build_page_config": 0.25,
+      "extend_svs": 1.18,
+      "fulfillment": 1.51,
+      "get_sv_details": 0.25,
+      "has_series_with_single_datapoint": 0.22,
+      "query_detection": 0.4,
+      "sv_existence_for_places": 0.11,
+      "topic_calls": 0.0
     }
   },
   "data_spec": [
@@ -352,7 +356,8 @@
         "Count_Person_TwoOrMoreRaces",
         "Count_Person_Female",
         "Count_Person_Producer_TwoOrMoreRaces",
-        "Count_Person_Male"
+        "Count_Person_Male",
+        "dc/topic/RacialBreakdown"
       ]
     },
     {
@@ -1215,14 +1220,15 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7989296317100525,
-      0.6706734895706177,
-      0.6289511919021606,
-      0.6197829842567444,
-      0.619201123714447,
-      0.610393762588501,
-      0.592808723449707,
-      0.5911923050880432
+      0.7989296913146973,
+      0.6706736087799072,
+      0.6289509534835815,
+      0.6197832226753235,
+      0.6192010641098022,
+      0.6103933453559875,
+      0.5928092002868652,
+      0.5911924242973328,
+      0.5882201194763184
     ],
     "SV": [
       "Count_Person",
@@ -1232,83 +1238,88 @@
       "Count_Person_TwoOrMoreRaces",
       "Count_Person_Female",
       "Count_Person_Producer_TwoOrMoreRaces",
-      "Count_Person_Male"
+      "Count_Person_Male",
+      "dc/topic/RacialBreakdown"
     ],
     "SV_to_Sentences": {
       "Count_Person": [
-        "Population (0.7989296317100525)",
-        "Population count (0.7335239052772522)",
-        "Size of the population (0.7168886065483093)",
-        "Total number of people in the population (0.7077704071998596)",
-        "Total Number of People in a Population (0.7049033641815186)",
-        "Total number of people in a population (0.7049033045768738)",
-        "Number of inhabitants (0.6202282309532166)"
+        "Population (0.7989296913146973)",
+        "Population count (0.7335238456726074)",
+        "Size of the population (0.7168887853622437)",
+        "Total number of people in the population (0.7077705264091492)",
+        "Total number of people in a population (0.7049036622047424)",
+        "Total Number of People in a Population (0.7049036622047424)",
+        "Number of inhabitants (0.6202282905578613)"
       ],
       "Count_Person_Female": [
-        "Population: Female (0.610393762588501)"
+        "Population: Female (0.6103933453559875)"
       ],
       "Count_Person_Male": [
-        "Population: Male (0.5911923050880432)"
+        "Population: Male (0.5911924242973328)"
       ],
       "Count_Person_OneRace": [
-        "Population: One Race (0.6197829842567444)"
+        "Population: One Race (0.6197832226753235)"
       ],
       "Count_Person_PerArea": [
-        "Population Density (0.6706734895706177)",
-        "number of people per area (0.5703409910202026)"
+        "Population Density (0.6706736087799072)"
       ],
       "Count_Person_Producer_TwoOrMoreRaces": [
-        "Population: Producer, Two or More Races (0.592808723449707)"
+        "Population: Producer, Two or More Races (0.5928092002868652)"
       ],
       "Count_Person_TwoOrMoreRaces": [
-        "Population: Two or More Races (0.619201123714447)"
+        "Population: Two or More Races (0.6192010641098022)"
       ],
       "GrowthRate_Count_Person": [
-        "Increase in population (0.6289511919021606)",
-        "Population Growth Rate (0.6123271584510803)",
-        "Population growth rate (0.6123271584510803)",
-        "Rate of Population Growth (0.6034149527549744)",
-        "Rate of population growth (0.6034149527549744)",
-        "Population increase rate (0.5746012926101685)"
+        "Increase in population (0.6289509534835815)",
+        "Population growth rate (0.612326979637146)",
+        "Population Growth Rate (0.612326979637146)",
+        "Rate of population growth (0.6034150123596191)",
+        "Rate of Population Growth (0.6034150123596191)",
+        "Population increase rate (0.5746010541915894)"
+      ],
+      "dc/topic/RacialBreakdown": [
+        "population race (0.5882201194763184)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Person": [
-      "Population (0.7989296317100525)",
-      "Population count (0.7335239052772522)",
-      "Size of the population (0.7168886065483093)",
-      "Total number of people in the population (0.7077704071998596)",
-      "Total Number of People in a Population (0.7049033641815186)",
-      "Total number of people in a population (0.7049033045768738)",
-      "Number of inhabitants (0.6202282309532166)"
+      "Population (0.7989296913146973)",
+      "Population count (0.7335238456726074)",
+      "Size of the population (0.7168887853622437)",
+      "Total number of people in the population (0.7077705264091492)",
+      "Total number of people in a population (0.7049036622047424)",
+      "Total Number of People in a Population (0.7049036622047424)",
+      "Number of inhabitants (0.6202282905578613)"
     ],
     "Count_Person_Female": [
-      "Population: Female (0.610393762588501)"
+      "Population: Female (0.6103933453559875)"
     ],
     "Count_Person_Male": [
-      "Population: Male (0.5911923050880432)"
+      "Population: Male (0.5911924242973328)"
     ],
     "Count_Person_OneRace": [
-      "Population: One Race (0.6197829842567444)"
+      "Population: One Race (0.6197832226753235)"
     ],
     "Count_Person_PerArea": [
-      "Population Density (0.6706734895706177)",
-      "number of people per area (0.5703409910202026)"
+      "Population Density (0.6706736087799072)"
     ],
     "Count_Person_Producer_TwoOrMoreRaces": [
-      "Population: Producer, Two or More Races (0.592808723449707)"
+      "Population: Producer, Two or More Races (0.5928092002868652)"
     ],
     "Count_Person_TwoOrMoreRaces": [
-      "Population: Two or More Races (0.619201123714447)"
+      "Population: Two or More Races (0.6192010641098022)"
     ],
     "GrowthRate_Count_Person": [
-      "Increase in population (0.6289511919021606)",
-      "Population Growth Rate (0.6123271584510803)",
-      "Population growth rate (0.6123271584510803)",
-      "Rate of Population Growth (0.6034149527549744)",
-      "Rate of population growth (0.6034149527549744)",
-      "Population increase rate (0.5746012926101685)"
+      "Increase in population (0.6289509534835815)",
+      "Population growth rate (0.612326979637146)",
+      "Population Growth Rate (0.612326979637146)",
+      "Rate of population growth (0.6034150123596191)",
+      "Rate of Population Growth (0.6034150123596191)",
+      "Population increase rate (0.5746010541915894)"
+    ],
+    "dc/topic/RacialBreakdown": [
+      "population race (0.5882201194763184)"
     ]
   },
   "time_delta_classification": "<None>"

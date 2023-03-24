@@ -88,12 +88,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.31,
-      "fulfillment": 0.32,
-      "get_sample_child_places": 0.15,
-      "get_sv_details": 0.31,
-      "query_detection": 0.67,
-      "sv_existence_for_places": 0.17
+      "build_page_config": 0.22,
+      "fulfillment": 0.23,
+      "get_sample_child_places": 0.1,
+      "get_sv_details": 0.22,
+      "query_detection": 0.39,
+      "sv_existence_for_places": 0.13
     }
   },
   "data_spec": [
@@ -343,11 +343,11 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.9999999403953552,
-      0.8181014657020569,
+      0.9999998807907104,
+      0.818101704120636,
       0.8119910955429077,
-      0.5961612462997437,
-      0.5053414702415466,
+      0.5961609482765198,
+      0.5053415894508362,
       0.5053173303604126
     ],
     "SV": [
@@ -363,33 +363,33 @@
         "Count of Mortality Event (0.5053173303604126)"
       ],
       "Count_Death_AsAFractionOfCount_Person": [
-        "Mortality rate (0.5961612462997437)",
-        "Death rate (0.5275478363037109)"
+        "Mortality rate (0.5961609482765198)",
+        "Death rate (0.5275478959083557)"
       ],
       "LifeExpectancy_Person": [
-        "Life Expectancy (0.9999999403953552)",
-        "Average life expectancy of the population (0.8563627004623413)",
-        "Typical lifespan of the population (0.7687246799468994)",
+        "Life Expectancy (0.9999998807907104)",
+        "Average life expectancy of the population (0.8563627600669861)",
+        "Typical lifespan of the population (0.7687245607376099)",
         "Mean lifespan of the population (0.7668242454528809)",
-        "Average lifespan of the population (0.7393943667411804)",
+        "Average lifespan of the population (0.73939448595047)",
         "Average lifespan of a population (0.7195129990577698)",
         "Average Lifespan of a Population (0.7195129990577698)",
-        "Median lifespan of the population (0.6611571907997131)"
+        "Median lifespan of the population (0.6611571311950684)"
       ],
       "LifeExpectancy_Person_Female": [
         "Life expectancy at birth, female (years) (0.8119910955429077)",
-        "Female life expectancy (0.8110572695732117)",
-        "Female Life Expectancy (0.8110572695732117)",
-        "Life expectancy of females at birth (0.6985270977020264)"
+        "Female life expectancy (0.8110573291778564)",
+        "Female Life Expectancy (0.8110573291778564)",
+        "Life expectancy of females at birth (0.6985270380973816)"
       ],
       "LifeExpectancy_Person_Male": [
-        "Life Expectancy: Male (0.8181014657020569)",
-        "Male Life Expectancy (0.79051274061203)",
+        "Life Expectancy: Male (0.818101704120636)",
         "Male life expectancy (0.79051274061203)",
+        "Male Life Expectancy (0.79051274061203)",
         "Life Expectancy of Males at birth (0.6862162351608276)"
       ],
       "Median_Age_Person": [
-        "Mean age of the population (0.5053414702415466)"
+        "Mean age of the population (0.5053415894508362)"
       ]
     }
   },
@@ -398,33 +398,33 @@
       "Count of Mortality Event (0.5053173303604126)"
     ],
     "Count_Death_AsAFractionOfCount_Person": [
-      "Mortality rate (0.5961612462997437)",
-      "Death rate (0.5275478363037109)"
+      "Mortality rate (0.5961609482765198)",
+      "Death rate (0.5275478959083557)"
     ],
     "LifeExpectancy_Person": [
-      "Life Expectancy (0.9999999403953552)",
-      "Average life expectancy of the population (0.8563627004623413)",
-      "Typical lifespan of the population (0.7687246799468994)",
+      "Life Expectancy (0.9999998807907104)",
+      "Average life expectancy of the population (0.8563627600669861)",
+      "Typical lifespan of the population (0.7687245607376099)",
       "Mean lifespan of the population (0.7668242454528809)",
-      "Average lifespan of the population (0.7393943667411804)",
+      "Average lifespan of the population (0.73939448595047)",
       "Average lifespan of a population (0.7195129990577698)",
       "Average Lifespan of a Population (0.7195129990577698)",
-      "Median lifespan of the population (0.6611571907997131)"
+      "Median lifespan of the population (0.6611571311950684)"
     ],
     "LifeExpectancy_Person_Female": [
       "Life expectancy at birth, female (years) (0.8119910955429077)",
-      "Female life expectancy (0.8110572695732117)",
-      "Female Life Expectancy (0.8110572695732117)",
-      "Life expectancy of females at birth (0.6985270977020264)"
+      "Female life expectancy (0.8110573291778564)",
+      "Female Life Expectancy (0.8110573291778564)",
+      "Life expectancy of females at birth (0.6985270380973816)"
     ],
     "LifeExpectancy_Person_Male": [
-      "Life Expectancy: Male (0.8181014657020569)",
-      "Male Life Expectancy (0.79051274061203)",
+      "Life Expectancy: Male (0.818101704120636)",
       "Male life expectancy (0.79051274061203)",
+      "Male Life Expectancy (0.79051274061203)",
       "Life Expectancy of Males at birth (0.6862162351608276)"
     ],
     "Median_Age_Person": [
-      "Mean age of the population (0.5053414702415466)"
+      "Mean age of the population (0.5053415894508362)"
     ]
   },
   "time_delta_classification": "<None>"

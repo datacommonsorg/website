@@ -12,19 +12,7 @@
           "result": [
             "geoId/01",
             "geoId/02",
-            "geoId/04",
-            "geoId/05",
-            "geoId/06",
-            "geoId/08",
-            "geoId/09",
-            "geoId/10",
-            "geoId/11",
-            "geoId/12",
-            "geoId/13",
-            "geoId/15",
-            "geoId/16",
-            "geoId/17",
-            "geoId/18"
+            "geoId/04"
           ],
           "type": "State"
         }
@@ -46,12 +34,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.45,
-      "fulfillment": 0.37,
-      "get_sample_child_places": 0.17,
-      "get_sv_details": 0.45,
-      "query_detection": 0.79,
-      "sv_existence_for_places": 0.2
+      "build_page_config": 0.23,
+      "fulfillment": 0.25,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.23,
+      "query_detection": 0.43,
+      "sv_existence_for_places": 0.13
     }
   },
   "data_spec": [
@@ -385,13 +373,13 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      1.0,
-      0.9218265414237976,
-      0.8443343639373779,
-      0.819288432598114,
-      0.8156336545944214,
-      0.8111510872840881,
-      0.8066859841346741
+      1.0000001192092896,
+      0.9218266010284424,
+      0.8443343043327332,
+      0.8192883133888245,
+      0.8156335353851318,
+      0.811150848865509,
+      0.8066861629486084
     ],
     "SV": [
       "Median_Income_Person",
@@ -404,75 +392,75 @@
     ],
     "SV_to_Sentences": {
       "Mean_Income_Household": [
-        "Median income of households in the region (0.8156336545944214)"
+        "Median income of households in the region (0.8156335353851318)"
       ],
       "Median_Earnings_Person": [
-        "Median income for population identifying as With Earnings (0.8443343639373779)",
-        "Median Earnings for All People (0.8229597806930542)",
-        "Median earnings for all people (0.8229597806930542)"
+        "Median income for population identifying as With Earnings (0.8443343043327332)",
+        "Median Earnings for All People (0.8229594826698303)",
+        "Median earnings for all people (0.8229594826698303)"
       ],
       "Median_Income_Household": [
-        "Median household income (0.9218265414237976)",
-        "Median Income of Household (0.9102110266685486)",
-        "Median Income for All Households (0.8729930520057678)",
-        "Median income for all households (0.8729930520057678)"
+        "Median household income (0.9218266010284424)",
+        "Median Income of Household (0.9102110862731934)",
+        "Median income for all households (0.8729925751686096)",
+        "Median Income for All Households (0.8729925751686096)"
       ],
       "Median_Income_Household_FamilyHousehold": [
-        "Median Income for Family Households (0.819288432598114)",
-        "Median income for family households (0.819288432598114)",
-        "Median Income of Household: in a family household with Income (0.8157026767730713)",
-        "Median Income of Household: Family Household, With Income (0.8133258819580078)"
+        "Median income for family households (0.8192883133888245)",
+        "Median Income for Family Households (0.8192881345748901)",
+        "Median Income of Household: in a family household with Income (0.8157025575637817)",
+        "Median Income of Household: Family Household, With Income (0.8133260607719421)"
       ],
       "Median_Income_Household_NonfamilyHousehold": [
-        "Median Income of Household: Nonfamily Household, With Income (0.8066859841346741)"
+        "Median Income of Household: Nonfamily Household, With Income (0.8066861629486084)"
       ],
       "Median_Income_Person": [
-        "Median Income (1.0)",
-        "Median income (1.0)",
-        "Median income of the population (0.9306241273880005)",
-        "Median Income of a Population (0.9285945892333984)",
-        "Median pay (0.8329888582229614)"
+        "Median income (1.0000001192092896)",
+        "Median Income (1.0000001192092896)",
+        "Median income of the population (0.9306236505508423)",
+        "Median Income of a Population (0.9285945296287537)",
+        "Median pay (0.8329883217811584)"
       ],
       "dc/x3gghqtglpr59": [
-        "Median income for people working in the finance and insurance industry (0.8111510872840881)",
-        "Median Income for People Working in the Finance and Insurance Industry (0.8111510872840881)"
+        "Median income for people working in the finance and insurance industry (0.811150848865509)",
+        "Median Income for People Working in the Finance and Insurance Industry (0.811150848865509)"
       ]
     }
   },
   "svs_to_sentences": {
     "Mean_Income_Household": [
-      "Median income of households in the region (0.8156336545944214)"
+      "Median income of households in the region (0.8156335353851318)"
     ],
     "Median_Earnings_Person": [
-      "Median income for population identifying as With Earnings (0.8443343639373779)",
-      "Median Earnings for All People (0.8229597806930542)",
-      "Median earnings for all people (0.8229597806930542)"
+      "Median income for population identifying as With Earnings (0.8443343043327332)",
+      "Median Earnings for All People (0.8229594826698303)",
+      "Median earnings for all people (0.8229594826698303)"
     ],
     "Median_Income_Household": [
-      "Median household income (0.9218265414237976)",
-      "Median Income of Household (0.9102110266685486)",
-      "Median Income for All Households (0.8729930520057678)",
-      "Median income for all households (0.8729930520057678)"
+      "Median household income (0.9218266010284424)",
+      "Median Income of Household (0.9102110862731934)",
+      "Median income for all households (0.8729925751686096)",
+      "Median Income for All Households (0.8729925751686096)"
     ],
     "Median_Income_Household_FamilyHousehold": [
-      "Median Income for Family Households (0.819288432598114)",
-      "Median income for family households (0.819288432598114)",
-      "Median Income of Household: in a family household with Income (0.8157026767730713)",
-      "Median Income of Household: Family Household, With Income (0.8133258819580078)"
+      "Median income for family households (0.8192883133888245)",
+      "Median Income for Family Households (0.8192881345748901)",
+      "Median Income of Household: in a family household with Income (0.8157025575637817)",
+      "Median Income of Household: Family Household, With Income (0.8133260607719421)"
     ],
     "Median_Income_Household_NonfamilyHousehold": [
-      "Median Income of Household: Nonfamily Household, With Income (0.8066859841346741)"
+      "Median Income of Household: Nonfamily Household, With Income (0.8066861629486084)"
     ],
     "Median_Income_Person": [
-      "Median Income (1.0)",
-      "Median income (1.0)",
-      "Median income of the population (0.9306241273880005)",
-      "Median Income of a Population (0.9285945892333984)",
-      "Median pay (0.8329888582229614)"
+      "Median income (1.0000001192092896)",
+      "Median Income (1.0000001192092896)",
+      "Median income of the population (0.9306236505508423)",
+      "Median Income of a Population (0.9285945296287537)",
+      "Median pay (0.8329883217811584)"
     ],
     "dc/x3gghqtglpr59": [
-      "Median income for people working in the finance and insurance industry (0.8111510872840881)",
-      "Median Income for People Working in the Finance and Insurance Industry (0.8111510872840881)"
+      "Median income for people working in the finance and insurance industry (0.811150848865509)",
+      "Median Income for People Working in the Finance and Insurance Industry (0.811150848865509)"
     ]
   },
   "time_delta_classification": "<None>"
