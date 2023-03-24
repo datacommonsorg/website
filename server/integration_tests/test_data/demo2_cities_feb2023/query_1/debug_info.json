@@ -12,19 +12,7 @@
           "result": [
             "nces/060134312546",
             "nces/060216913485",
-            "nces/061029001127",
-            "nces/061029001146",
-            "nces/061029001153",
-            "nces/061029001154",
-            "nces/061443001696",
-            "nces/061443008353",
-            "nces/063543001588",
-            "nces/063543006049",
-            "nces/063543007867",
-            "nces/063846002796",
-            "nces/063846004088",
-            "nces/063846006456",
-            "nces/063846006458"
+            "nces/061029001127"
           ],
           "type": "PublicSchool"
         }
@@ -38,12 +26,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.4,
-      "fulfillment": 0.32,
-      "get_sample_child_places": 0.15,
-      "get_sv_details": 0.4,
-      "query_detection": 0.91,
-      "sv_existence_for_places": 0.17
+      "build_page_config": 0.44,
+      "fulfillment": 0.3,
+      "get_sample_child_places": 0.14,
+      "get_sv_details": 0.44,
+      "query_detection": 0.65,
+      "sv_existence_for_places": 0.16
     }
   },
   "data_spec": [
@@ -59,6 +47,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0677000",
           "name": "Sunnyvale",
           "place_type": "City"
@@ -86,6 +75,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -114,6 +104,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -142,6 +133,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0677000",
               "name": "Sunnyvale",
               "place_type": "City"
@@ -171,6 +163,7 @@
   "places_resolved": "(name: Sunnyvale, dcid: geoId/0677000); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "geoId/0677000",
       "name": "Sunnyvale",
       "place_type": "City"
@@ -188,6 +181,7 @@
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0677000",
           "name": "Sunnyvale",
           "place_type": "City"
@@ -210,17 +204,18 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3702760636806488,
-      0.3159869909286499,
-      0.2831982672214508,
-      0.27669644355773926,
-      0.2557690441608429,
-      0.23717781901359558,
-      0.22020851075649261,
-      0.21446256339550018,
-      0.21346479654312134,
-      0.20017604529857635,
-      0.19570349156856537
+      0.37027618288993835,
+      0.3159870505332947,
+      0.2831985652446747,
+      0.27669620513916016,
+      0.2557689845561981,
+      0.24891072511672974,
+      0.2371777892112732,
+      0.23379194736480713,
+      0.2202083170413971,
+      0.21446260809898376,
+      0.2134648859500885,
+      0.20017603039741516
     ],
     "SV": [
       "dc/topic/Income",
@@ -228,100 +223,105 @@
       "dc/topic/Jobs",
       "dc/topic/MedicalConditions",
       "dc/hlxvn1t8b9bhh",
+      "dc/topic/RacialBreakdown",
       "dc/g/Person_MedicalCondition-Wasting",
+      "dc/3jr0p7yjw06z9",
       "AirQualityIndex_AirPollutant",
       "dc/topic/WorkCommute",
       "dc/topic/Agriculture",
-      "dc/g/Farm_FarmInventoryType-Forage",
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+      "dc/g/Farm_FarmInventoryType-Forage"
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.22020851075649261)"
+        "AQI (0.2202083170413971)"
+      ],
+      "dc/3jr0p7yjw06z9": [
+        "casinos (0.23379194736480713)"
       ],
       "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017604529857635)",
-        "forage farms (0.20017604529857635)"
-      ],
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.19570349156856537)",
-        "Pig Farm (0.19570349156856537)"
+        "Forage Farms (0.20017603039741516)",
+        "forage farms (0.20017603039741516)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.23717781901359558)"
+        "people with wasting (0.2371777892112732)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "cattle ranchers (0.2557690441608429)",
-        "farmers (0.22553956508636475)"
+        "cattle ranchers (0.2557689845561981)",
+        "farmers (0.22553953528404236)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.21346479654312134)"
+        "Agriculture (0.2134648859500885)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.3159869909286499)"
+        "Economy (0.3159870505332947)"
       ],
       "dc/topic/Income": [
-        "pay (0.3702760636806488)",
-        "compensation (0.22850868105888367)",
-        "Earnings (0.22268348932266235)",
-        "Income (0.20594438910484314)"
+        "pay (0.37027618288993835)",
+        "compensation (0.2285088300704956)",
+        "Earnings (0.2226836085319519)",
+        "Income (0.20594435930252075)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.2831982672214508)",
-        "Careers (0.241409033536911)",
-        "Professions (0.2091175615787506)"
+        "Jobs (0.2831985652446747)",
+        "Careers (0.24140900373458862)",
+        "Professions (0.2091173678636551)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.27669644355773926)",
-        "Medical infirmities (0.23475101590156555)"
+        "Maladies (0.27669620513916016)",
+        "Medical infirmities (0.23475098609924316)"
+      ],
+      "dc/topic/RacialBreakdown": [
+        "ethnicity (0.24891072511672974)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.21446256339550018)"
+        "journey to work (0.21446260809898376)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.22020851075649261)"
+      "AQI (0.2202083170413971)"
+    ],
+    "dc/3jr0p7yjw06z9": [
+      "casinos (0.23379194736480713)"
     ],
     "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017604529857635)",
-      "forage farms (0.20017604529857635)"
-    ],
-    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.19570349156856537)",
-      "Pig Farm (0.19570349156856537)"
+      "Forage Farms (0.20017603039741516)",
+      "forage farms (0.20017603039741516)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.23717781901359558)"
+      "people with wasting (0.2371777892112732)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "cattle ranchers (0.2557690441608429)",
-      "farmers (0.22553956508636475)"
+      "cattle ranchers (0.2557689845561981)",
+      "farmers (0.22553953528404236)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.21346479654312134)"
+      "Agriculture (0.2134648859500885)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.3159869909286499)"
+      "Economy (0.3159870505332947)"
     ],
     "dc/topic/Income": [
-      "pay (0.3702760636806488)",
-      "compensation (0.22850868105888367)",
-      "Earnings (0.22268348932266235)",
-      "Income (0.20594438910484314)"
+      "pay (0.37027618288993835)",
+      "compensation (0.2285088300704956)",
+      "Earnings (0.2226836085319519)",
+      "Income (0.20594435930252075)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.2831982672214508)",
-      "Careers (0.241409033536911)",
-      "Professions (0.2091175615787506)"
+      "Jobs (0.2831985652446747)",
+      "Careers (0.24140900373458862)",
+      "Professions (0.2091173678636551)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.27669644355773926)",
-      "Medical infirmities (0.23475101590156555)"
+      "Maladies (0.27669620513916016)",
+      "Medical infirmities (0.23475098609924316)"
+    ],
+    "dc/topic/RacialBreakdown": [
+      "ethnicity (0.24891072511672974)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.21446256339550018)"
+      "journey to work (0.21446260809898376)"
     ]
   },
   "time_delta_classification": "<None>"

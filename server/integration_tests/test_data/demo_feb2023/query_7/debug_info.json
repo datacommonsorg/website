@@ -12,19 +12,7 @@
           "result": [
             "geoId/06001",
             "geoId/06003",
-            "geoId/06005",
-            "geoId/06007",
-            "geoId/06009",
-            "geoId/06011",
-            "geoId/06013",
-            "geoId/06015",
-            "geoId/06017",
-            "geoId/06019",
-            "geoId/06021",
-            "geoId/06023",
-            "geoId/06025",
-            "geoId/06027",
-            "geoId/06029"
+            "geoId/06005"
           ],
           "type": "County"
         }
@@ -42,12 +30,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.26,
-      "fulfillment": 0.31,
-      "get_sample_child_places": 0.13,
-      "get_sv_details": 0.26,
-      "query_detection": 0.25,
-      "sv_existence_for_places": 0.18
+      "build_page_config": 0.27,
+      "fulfillment": 0.22,
+      "get_sample_child_places": 0.1,
+      "get_sv_details": 0.27,
+      "query_detection": 0.16,
+      "sv_existence_for_places": 0.12
     }
   },
   "data_spec": [
@@ -66,6 +54,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -92,6 +81,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -140,6 +130,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -208,6 +199,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -251,6 +243,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -294,6 +287,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -323,16 +317,13 @@
         "dc/topic/Jobs",
         "dc/g/Person_Industry-NAICS/451",
         "dc/g/Person_Industry-NAICS/54",
+        "Count_Teacher",
         "Count_Worker_NAICSProfessionalScientificTechnicalServices",
         "dc/g/Person_Industry-NAICS/11",
         "dc/g/Person_Industry-NAICS/61",
         "dc/g/Person_Industry-NAICS/7172",
         "Count_Worker_NAICSTotalAllIndustries",
-        "dc/topic/Economy",
-        "dc/g/Person_Industry-NAICS/33",
-        "dc/g/Person_Industry-NAICS/JOLTS300000",
-        "dc/g/Person_Industry-NAICS/3133",
-        "dc/topic/WorkCommute"
+        "dc/topic/Economy"
       ]
     },
     {
@@ -366,6 +357,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -411,6 +403,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06061",
           "name": "Placer County",
           "place_type": "County"
@@ -435,6 +428,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -483,6 +477,7 @@
           "event": 4,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -509,6 +504,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -535,6 +531,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -564,6 +561,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -593,6 +591,7 @@
   "places_resolved": "(name: California, dcid: geoId/06); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "geoId/06",
       "name": "California",
       "place_type": "State"
@@ -610,6 +609,7 @@
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -632,11 +632,11 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6393457651138306,
-      0.5648800730705261,
-      0.527260422706604,
-      0.49340179562568665,
-      0.48477083444595337
+      0.6393455862998962,
+      0.5648801326751709,
+      0.5272606611251831,
+      0.49340182542800903,
+      0.48477068543434143
     ],
     "SV": [
       "Percent_Person_WithHighBloodPressure",
@@ -647,67 +647,67 @@
     ],
     "SV_to_Sentences": {
       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-        "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.48477083444595337)"
+        "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.48477068543434143)"
       ],
       "Percent_Person_WithHighBloodPressure": [
-        "Prevalence: High Blood Pressure (0.6393457651138306)",
-        "Proportion of people with high blood pressure (0.5782808065414429)",
-        "Percentage of individuals with high blood pressure (0.5560430884361267)",
-        "Percentage of the population that has high blood pressure (0.5391581058502197)",
-        "Percentage of people who have high blood pressure (0.5356094837188721)",
-        "Percent of people with high blood pressure (0.5325262546539307)",
-        "Percentage of people with high blood pressure (0.5309882164001465)",
-        "percent of people that have high blood pressure (0.524931013584137)",
-        "Percentage of the population with high blood pressure (0.5236256122589111)",
-        "Percentage of Population With High Blood Pressure (0.505821704864502)",
-        "Percentage of population with high blood pressure (0.505821704864502)",
-        "Percentage of people with uncontrolled hypertension (0.5010706782341003)"
+        "Prevalence: High Blood Pressure (0.6393455862998962)",
+        "Proportion of people with high blood pressure (0.5782811641693115)",
+        "Percentage of individuals with high blood pressure (0.5560433864593506)",
+        "Percentage of the population that has high blood pressure (0.539158284664154)",
+        "Percentage of people who have high blood pressure (0.5356097221374512)",
+        "Percent of people with high blood pressure (0.5325266718864441)",
+        "Percentage of people with high blood pressure (0.530988335609436)",
+        "percent of people that have high blood pressure (0.5249310731887817)",
+        "Percentage of the population with high blood pressure (0.5236257314682007)",
+        "Percentage of population with high blood pressure (0.5058220028877258)",
+        "Percentage of Population With High Blood Pressure (0.5058220028877258)",
+        "Percentage of people with uncontrolled hypertension (0.501070499420166)"
       ],
       "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-        "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340179562568665)",
-        "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.484121173620224)"
+        "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340182542800903)",
+        "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.4841213524341583)"
       ],
       "dc/g/Person_MedicalCondition-HighBloodPressure": [
-        "Person With Medical Condition = High Blood Pressure (0.5648800730705261)",
-        "Number of People With High Blood Pressure (0.5599528551101685)",
-        "people with high blood pressure (0.5592367649078369)"
+        "Person With Medical Condition = High Blood Pressure (0.5648801326751709)",
+        "Number of People With High Blood Pressure (0.5599534511566162)",
+        "people with high blood pressure (0.5592368841171265)"
       ],
       "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-        "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.527260422706604)",
-        "high blood pressure patients who are taking blood pressure medication (0.5227407813072205)"
+        "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.5272606611251831)",
+        "high blood pressure patients who are taking blood pressure medication (0.5227408409118652)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-      "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.48477083444595337)"
+      "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.48477068543434143)"
     ],
     "Percent_Person_WithHighBloodPressure": [
-      "Prevalence: High Blood Pressure (0.6393457651138306)",
-      "Proportion of people with high blood pressure (0.5782808065414429)",
-      "Percentage of individuals with high blood pressure (0.5560430884361267)",
-      "Percentage of the population that has high blood pressure (0.5391581058502197)",
-      "Percentage of people who have high blood pressure (0.5356094837188721)",
-      "Percent of people with high blood pressure (0.5325262546539307)",
-      "Percentage of people with high blood pressure (0.5309882164001465)",
-      "percent of people that have high blood pressure (0.524931013584137)",
-      "Percentage of the population with high blood pressure (0.5236256122589111)",
-      "Percentage of Population With High Blood Pressure (0.505821704864502)",
-      "Percentage of population with high blood pressure (0.505821704864502)",
-      "Percentage of people with uncontrolled hypertension (0.5010706782341003)"
+      "Prevalence: High Blood Pressure (0.6393455862998962)",
+      "Proportion of people with high blood pressure (0.5782811641693115)",
+      "Percentage of individuals with high blood pressure (0.5560433864593506)",
+      "Percentage of the population that has high blood pressure (0.539158284664154)",
+      "Percentage of people who have high blood pressure (0.5356097221374512)",
+      "Percent of people with high blood pressure (0.5325266718864441)",
+      "Percentage of people with high blood pressure (0.530988335609436)",
+      "percent of people that have high blood pressure (0.5249310731887817)",
+      "Percentage of the population with high blood pressure (0.5236257314682007)",
+      "Percentage of population with high blood pressure (0.5058220028877258)",
+      "Percentage of Population With High Blood Pressure (0.5058220028877258)",
+      "Percentage of people with uncontrolled hypertension (0.501070499420166)"
     ],
     "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-      "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340179562568665)",
-      "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.484121173620224)"
+      "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340182542800903)",
+      "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.4841213524341583)"
     ],
     "dc/g/Person_MedicalCondition-HighBloodPressure": [
-      "Person With Medical Condition = High Blood Pressure (0.5648800730705261)",
-      "Number of People With High Blood Pressure (0.5599528551101685)",
-      "people with high blood pressure (0.5592367649078369)"
+      "Person With Medical Condition = High Blood Pressure (0.5648801326751709)",
+      "Number of People With High Blood Pressure (0.5599534511566162)",
+      "people with high blood pressure (0.5592368841171265)"
     ],
     "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-      "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.527260422706604)",
-      "high blood pressure patients who are taking blood pressure medication (0.5227407813072205)"
+      "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.5272606611251831)",
+      "high blood pressure patients who are taking blood pressure medication (0.5227408409118652)"
     ]
   },
   "time_delta_classification": "<None>"

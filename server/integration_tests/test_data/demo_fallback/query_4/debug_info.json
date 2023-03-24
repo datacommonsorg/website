@@ -11,12 +11,11 @@
             "geoId/06"
           ],
           "svs": [
+            "Percent_Person_Obesity",
             "Percent_Person_BingeDrinking",
-            "Percent_Person_Smoking",
-            "Percent_Person_SleepLessThan7Hours",
-            "Percent_Person_PhysicalInactivity",
-            "Percent_Person_Obesity"
-          ]
+            "Percent_Person_Smoking"
+          ],
+          "type": null
         }
       ],
       "parent_place_fallback": [
@@ -59,14 +58,14 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.27,
-      "extend_svs": 0.86,
-      "fulfillment": 1.69,
-      "get_immediate_parent_places": 0.14,
-      "get_sv_details": 0.27,
-      "has_series_with_single_datapoint": 0.32,
-      "query_detection": 0.22,
-      "sv_existence_for_places": 0.36
+      "build_page_config": 0.29,
+      "extend_svs": 0.65,
+      "fulfillment": 1.43,
+      "get_immediate_parent_places": 0.17,
+      "get_sv_details": 0.28,
+      "has_series_with_single_datapoint": 0.3,
+      "query_detection": 0.17,
+      "sv_existence_for_places": 0.29000000000000004
     }
   },
   "data_spec": [
@@ -78,6 +77,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -102,6 +102,7 @@
           "event": null,
           "places": [
             {
+              "country": null,
               "dcid": "country/USA",
               "name": "United States",
               "place_type": "Country"
@@ -127,6 +128,7 @@
           "event": null,
           "places": [
             {
+              "country": null,
               "dcid": "country/USA",
               "name": "United States",
               "place_type": "Country"
@@ -161,6 +163,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -185,6 +188,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -210,6 +214,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -235,6 +240,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -267,6 +273,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -292,6 +299,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -317,6 +325,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -342,6 +351,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -367,6 +377,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -392,6 +403,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -417,6 +429,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -449,11 +462,13 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
@@ -478,11 +493,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -508,11 +525,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -538,11 +557,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -568,11 +589,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -598,11 +621,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -628,11 +653,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -658,11 +685,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -688,11 +717,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -718,11 +749,13 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -755,11 +788,13 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0667000",
           "name": "San Francisco",
           "place_type": "City"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/1714000",
           "name": "Chicago",
           "place_type": "City"
@@ -784,6 +819,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0667000",
               "name": "San Francisco",
               "place_type": "City"
@@ -807,6 +843,7 @@
   "places_resolved": "(name: California, dcid: geoId/06); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "geoId/06",
       "name": "California",
       "place_type": "State"
@@ -824,6 +861,7 @@
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -846,14 +884,14 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7435534596443176,
-      0.44297027587890625,
-      0.427272230386734,
-      0.4235866367816925,
-      0.4143773913383484,
-      0.41434112191200256,
-      0.3957231640815735,
-      0.38837534189224243
+      0.7435535192489624,
+      0.4429701566696167,
+      0.42727240920066833,
+      0.42358648777008057,
+      0.414377361536026,
+      0.4143412411212921,
+      0.395723432302475,
+      0.3883754312992096
     ],
     "SV": [
       "Percent_Person_Obesity",
@@ -867,79 +905,79 @@
     ],
     "SV_to_Sentences": {
       "Percent_Person_Obesity": [
-        "Prevalence: Obesity (0.7435534596443176)",
-        "Percentage of the population that is obese (0.6531268358230591)",
-        "Percentage of people who are classified as obese (0.6383180618286133)",
-        "Percentage of population that is obese (0.636038601398468)",
-        "Percentage of Population That Is Obese (0.636038601398468)",
-        "Percentage of overweight people (0.5690832138061523)",
-        "Percent of fat people (0.5576062798500061)",
-        "Percentage of people who are overweight (0.5477598905563354)",
-        "Percentage of people who have a BMI over 30 (0.38389888405799866)"
+        "Prevalence: Obesity (0.7435535192489624)",
+        "Percentage of the population that is obese (0.6531265377998352)",
+        "Percentage of people who are classified as obese (0.6383181810379028)",
+        "Percentage of Population That Is Obese (0.6360387206077576)",
+        "Percentage of population that is obese (0.6360387206077576)",
+        "Percentage of overweight people (0.5690838098526001)",
+        "Percent of fat people (0.5576061010360718)",
+        "Percentage of people who are overweight (0.5477600693702698)",
+        "Percentage of people who have a BMI over 30 (0.38389912247657776)"
       ],
       "Percent_Person_WithPhysicalHealthNotGood": [
-        "Prevalence: Physical Health Not Good (0.4143773913383484)",
-        "Percentage of the population with poor physical health (0.38355112075805664)",
-        "Percentage of population with poor physical health (0.3760833144187927)"
+        "Prevalence: Physical Health Not Good (0.414377361536026)",
+        "Percentage of the population with poor physical health (0.38355129957199097)",
+        "Percentage of Population With Poor Physical Health (0.37608346343040466)"
       ],
       "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting": [
-        "People who are 4 years or younger and have severe wasting (0.38837534189224243)"
+        "People who are 4 years or younger and have severe wasting (0.3883754312992096)"
       ],
       "dc/g/Person_MedicalCondition-Diabetes": [
-        "people with diabetes (0.4235866367816925)"
+        "people with diabetes (0.42358648777008057)"
       ],
       "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-        "people with physical health not good (0.44297027587890625)",
-        "Number of People With Poor Physical Health (0.4120839238166809)"
+        "people with physical health not good (0.4429701566696167)",
+        "Number of People With Poor Physical Health (0.4120839536190033)"
       ],
       "dc/g/Person_MedicalCondition-SevereWasting": [
-        "people with severe wasting (0.41434112191200256)"
+        "people with severe wasting (0.4143412411212921)"
       ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.3957231640815735)"
+        "people with wasting (0.395723432302475)"
       ],
       "dc/topic/MedicalConditions": [
-        "Health problems (0.427272230386734)",
-        "health issues (0.4194149374961853)"
+        "Health problems (0.42727240920066833)",
+        "health issues (0.41941505670547485)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_Obesity": [
-      "Prevalence: Obesity (0.7435534596443176)",
-      "Percentage of the population that is obese (0.6531268358230591)",
-      "Percentage of people who are classified as obese (0.6383180618286133)",
-      "Percentage of population that is obese (0.636038601398468)",
-      "Percentage of Population That Is Obese (0.636038601398468)",
-      "Percentage of overweight people (0.5690832138061523)",
-      "Percent of fat people (0.5576062798500061)",
-      "Percentage of people who are overweight (0.5477598905563354)",
-      "Percentage of people who have a BMI over 30 (0.38389888405799866)"
+      "Prevalence: Obesity (0.7435535192489624)",
+      "Percentage of the population that is obese (0.6531265377998352)",
+      "Percentage of people who are classified as obese (0.6383181810379028)",
+      "Percentage of Population That Is Obese (0.6360387206077576)",
+      "Percentage of population that is obese (0.6360387206077576)",
+      "Percentage of overweight people (0.5690838098526001)",
+      "Percent of fat people (0.5576061010360718)",
+      "Percentage of people who are overweight (0.5477600693702698)",
+      "Percentage of people who have a BMI over 30 (0.38389912247657776)"
     ],
     "Percent_Person_WithPhysicalHealthNotGood": [
-      "Prevalence: Physical Health Not Good (0.4143773913383484)",
-      "Percentage of the population with poor physical health (0.38355112075805664)",
-      "Percentage of population with poor physical health (0.3760833144187927)"
+      "Prevalence: Physical Health Not Good (0.414377361536026)",
+      "Percentage of the population with poor physical health (0.38355129957199097)",
+      "Percentage of Population With Poor Physical Health (0.37608346343040466)"
     ],
     "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting": [
-      "People who are 4 years or younger and have severe wasting (0.38837534189224243)"
+      "People who are 4 years or younger and have severe wasting (0.3883754312992096)"
     ],
     "dc/g/Person_MedicalCondition-Diabetes": [
-      "people with diabetes (0.4235866367816925)"
+      "people with diabetes (0.42358648777008057)"
     ],
     "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-      "people with physical health not good (0.44297027587890625)",
-      "Number of People With Poor Physical Health (0.4120839238166809)"
+      "people with physical health not good (0.4429701566696167)",
+      "Number of People With Poor Physical Health (0.4120839536190033)"
     ],
     "dc/g/Person_MedicalCondition-SevereWasting": [
-      "people with severe wasting (0.41434112191200256)"
+      "people with severe wasting (0.4143412411212921)"
     ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.3957231640815735)"
+      "people with wasting (0.395723432302475)"
     ],
     "dc/topic/MedicalConditions": [
-      "Health problems (0.427272230386734)",
-      "health issues (0.4194149374961853)"
+      "Health problems (0.42727240920066833)",
+      "health issues (0.41941505670547485)"
     ]
   },
   "time_delta_classification": "<None>"

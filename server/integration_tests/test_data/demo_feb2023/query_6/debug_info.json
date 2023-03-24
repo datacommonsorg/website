@@ -89,12 +89,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.36,
-      "fulfillment": 0.32,
-      "get_sv_details": 0.36,
-      "query_detection": 0.11,
-      "rank_svs_by_latest_value": 0.17,
-      "sv_existence_for_places": 0.15,
+      "build_page_config": 0.28,
+      "fulfillment": 0.38,
+      "get_sv_details": 0.27,
+      "query_detection": 0.07,
+      "rank_svs_by_latest_value": 0.25,
+      "sv_existence_for_places": 0.12,
       "topic_calls": 0.0
     }
   },
@@ -130,6 +130,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -198,6 +199,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -241,6 +243,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -284,6 +287,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -313,16 +317,13 @@
         "dc/topic/Jobs",
         "dc/g/Person_Industry-NAICS/451",
         "dc/g/Person_Industry-NAICS/54",
+        "Count_Teacher",
         "Count_Worker_NAICSProfessionalScientificTechnicalServices",
         "dc/g/Person_Industry-NAICS/11",
         "dc/g/Person_Industry-NAICS/61",
         "dc/g/Person_Industry-NAICS/7172",
         "Count_Worker_NAICSTotalAllIndustries",
-        "dc/topic/Economy",
-        "dc/g/Person_Industry-NAICS/33",
-        "dc/g/Person_Industry-NAICS/JOLTS300000",
-        "dc/g/Person_Industry-NAICS/3133",
-        "dc/topic/WorkCommute"
+        "dc/topic/Economy"
       ]
     },
     {
@@ -356,6 +357,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -401,6 +403,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06061",
           "name": "Placer County",
           "place_type": "County"
@@ -425,6 +428,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -473,6 +477,7 @@
           "event": 4,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -499,6 +504,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -525,6 +531,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -554,6 +561,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -598,12 +606,12 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.852666437625885,
-      0.6370558738708496,
-      0.5472057461738586,
+      0.8526666760444641,
+      0.6370555758476257,
+      0.5472053289413452,
       0.5040634274482727,
-      0.48270198702812195,
-      0.45107948780059814
+      0.48270195722579956,
+      0.4510791301727295
     ],
     "SV": [
       "dc/topic/MedicalConditions",
@@ -618,33 +626,33 @@
         "Prevalence: 18 - 64 Years, No Health Insurance (0.5040634274482727)"
       ],
       "Percent_Person_Obesity": [
-        "Prevalence: Obesity (0.45107948780059814)"
+        "Prevalence: Obesity (0.4510791301727295)"
       ],
       "Percent_Person_WithMentalHealthNotGood": [
-        "Prevalence: Mental Health Not Good (0.48270198702812195)"
+        "Prevalence: Mental Health Not Good (0.48270195722579956)"
       ],
       "Percent_Person_WithPhysicalHealthNotGood": [
-        "Prevalence: Physical Health Not Good (0.6370558738708496)",
-        "Percentage of people who have physical health issues (0.5516790747642517)",
-        "Percentage of people with chronic health issues (0.49491196870803833)",
-        "Percentage of people with poor health (0.4822317063808441)",
-        "Percentage of the population with poor physical health (0.46065208315849304)",
-        "Percentage of population with poor physical health (0.4545813202857971)",
+        "Prevalence: Physical Health Not Good (0.6370555758476257)",
+        "Percentage of people who have physical health issues (0.5516789555549622)",
+        "Percentage of people with chronic health issues (0.4949120283126831)",
+        "Percentage of people with poor health (0.4822315573692322)",
+        "Percentage of the population with poor physical health (0.4606519341468811)",
         "Percentage of Population With Poor Physical Health (0.4545813202857971)",
-        "percent of people whose physical health is not good (0.44217750430107117)"
+        "Percentage of population with poor physical health (0.4545813202857971)",
+        "percent of people whose physical health is not good (0.4421774744987488)"
       ],
       "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-        "people with physical health not good (0.5472057461738586)",
-        "Number of People With Poor Physical Health (0.5154424905776978)",
-        "Person With Medical Condition = Physical Health Not Good (0.4871799647808075)"
+        "people with physical health not good (0.5472053289413452)",
+        "Number of People With Poor Physical Health (0.5154426097869873)",
+        "Person With Medical Condition = Physical Health Not Good (0.4871799945831299)"
       ],
       "dc/topic/MedicalConditions": [
-        "health issues (0.852666437625885)",
-        "Health problems (0.7848365902900696)",
-        "Health conditions (0.6729572415351868)",
-        "Medical Conditions (0.5714635252952576)",
-        "Medical ailments (0.498909592628479)",
-        "Diseases: Medical disorders (0.4527036249637604)"
+        "health issues (0.8526666760444641)",
+        "Health problems (0.7848365306854248)",
+        "Health conditions (0.6729574203491211)",
+        "Medical Conditions (0.5714634656906128)",
+        "Medical ailments (0.49890977144241333)",
+        "Diseases: Medical disorders (0.45270341634750366)"
       ]
     }
   },
@@ -653,33 +661,33 @@
       "Prevalence: 18 - 64 Years, No Health Insurance (0.5040634274482727)"
     ],
     "Percent_Person_Obesity": [
-      "Prevalence: Obesity (0.45107948780059814)"
+      "Prevalence: Obesity (0.4510791301727295)"
     ],
     "Percent_Person_WithMentalHealthNotGood": [
-      "Prevalence: Mental Health Not Good (0.48270198702812195)"
+      "Prevalence: Mental Health Not Good (0.48270195722579956)"
     ],
     "Percent_Person_WithPhysicalHealthNotGood": [
-      "Prevalence: Physical Health Not Good (0.6370558738708496)",
-      "Percentage of people who have physical health issues (0.5516790747642517)",
-      "Percentage of people with chronic health issues (0.49491196870803833)",
-      "Percentage of people with poor health (0.4822317063808441)",
-      "Percentage of the population with poor physical health (0.46065208315849304)",
-      "Percentage of population with poor physical health (0.4545813202857971)",
+      "Prevalence: Physical Health Not Good (0.6370555758476257)",
+      "Percentage of people who have physical health issues (0.5516789555549622)",
+      "Percentage of people with chronic health issues (0.4949120283126831)",
+      "Percentage of people with poor health (0.4822315573692322)",
+      "Percentage of the population with poor physical health (0.4606519341468811)",
       "Percentage of Population With Poor Physical Health (0.4545813202857971)",
-      "percent of people whose physical health is not good (0.44217750430107117)"
+      "Percentage of population with poor physical health (0.4545813202857971)",
+      "percent of people whose physical health is not good (0.4421774744987488)"
     ],
     "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-      "people with physical health not good (0.5472057461738586)",
-      "Number of People With Poor Physical Health (0.5154424905776978)",
-      "Person With Medical Condition = Physical Health Not Good (0.4871799647808075)"
+      "people with physical health not good (0.5472053289413452)",
+      "Number of People With Poor Physical Health (0.5154426097869873)",
+      "Person With Medical Condition = Physical Health Not Good (0.4871799945831299)"
     ],
     "dc/topic/MedicalConditions": [
-      "health issues (0.852666437625885)",
-      "Health problems (0.7848365902900696)",
-      "Health conditions (0.6729572415351868)",
-      "Medical Conditions (0.5714635252952576)",
-      "Medical ailments (0.498909592628479)",
-      "Diseases: Medical disorders (0.4527036249637604)"
+      "health issues (0.8526666760444641)",
+      "Health problems (0.7848365306854248)",
+      "Health conditions (0.6729574203491211)",
+      "Medical Conditions (0.5714634656906128)",
+      "Medical ailments (0.49890977144241333)",
+      "Diseases: Medical disorders (0.45270341634750366)"
     ]
   },
   "time_delta_classification": "<None>"

@@ -19,7 +19,7 @@
     },
     "TIMING": {
       "fulfillment": 0.0,
-      "query_detection": 0.19
+      "query_detection": 0.07
     }
   },
   "data_spec": [
@@ -62,8 +62,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -88,8 +89,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -114,8 +116,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -140,8 +143,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -166,8 +170,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -212,8 +217,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -238,8 +244,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -270,6 +277,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -296,6 +304,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -344,6 +353,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -412,6 +422,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -455,6 +466,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -498,6 +510,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -527,16 +540,13 @@
         "dc/topic/Jobs",
         "dc/g/Person_Industry-NAICS/451",
         "dc/g/Person_Industry-NAICS/54",
+        "Count_Teacher",
         "Count_Worker_NAICSProfessionalScientificTechnicalServices",
         "dc/g/Person_Industry-NAICS/11",
         "dc/g/Person_Industry-NAICS/61",
         "dc/g/Person_Industry-NAICS/7172",
         "Count_Worker_NAICSTotalAllIndustries",
-        "dc/topic/Economy",
-        "dc/g/Person_Industry-NAICS/33",
-        "dc/g/Person_Industry-NAICS/JOLTS300000",
-        "dc/g/Person_Industry-NAICS/3133",
-        "dc/topic/WorkCommute"
+        "dc/topic/Economy"
       ]
     },
     {
@@ -570,6 +580,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -615,6 +626,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06061",
           "name": "Placer County",
           "place_type": "County"
@@ -639,6 +651,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -687,6 +700,7 @@
           "event": 4,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -713,6 +727,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -739,6 +754,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -768,6 +784,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -812,14 +829,14 @@
   "status": "Successful**No Place Found**.**No SVs Found**.",
   "sv_matching": {
     "CosineScore": [
-      0.45038560032844543,
-      0.3795040249824524,
-      0.325519859790802,
+      0.4503854513168335,
+      0.3795038163661957,
+      0.32551974058151245,
       0.2942036986351013,
-      0.26393020153045654,
-      0.2527967393398285,
+      0.26393014192581177,
+      0.2527967095375061,
       0.2489320933818817,
-      0.22625192999839783
+      0.22625182569026947
     ],
     "SV": [
       "LifeExpectancy_Person",
@@ -833,37 +850,37 @@
     ],
     "SV_to_Sentences": {
       "Count_HousingUnit": [
-        "Total number of living spaces in the area (0.22625192999839783)"
+        "Total number of living spaces in the area (0.22625182569026947)"
       ],
       "Count_HousingUnit_VacantHousingUnit": [
         "Number of unused living spaces (0.2489320933818817)"
       ],
       "Count_Person_IndependentLivingDifficulty": [
-        "Population: Independent Living Difficulty (0.26393020153045654)",
-        "Number of People With an Independent Living Difficulty (0.248734250664711)",
-        "Number of people who are experiencing Independent Living Difficulty (0.22672688961029053)"
+        "Population: Independent Living Difficulty (0.26393014192581177)",
+        "Number of People With an Independent Living Difficulty (0.24873414635658264)",
+        "Number of people who are experiencing Independent Living Difficulty (0.22672691941261292)"
       ],
       "LifeExpectancy_Person": [
-        "Life Expectancy (0.45038560032844543)",
-        "Mean lifespan of the population (0.29608431458473206)",
-        "Average life expectancy of the population (0.2871566414833069)",
-        "Typical lifespan of the population (0.2523553669452667)",
-        "Average lifespan of the population (0.22540785372257233)"
+        "Life Expectancy (0.4503854513168335)",
+        "Mean lifespan of the population (0.2960842549800873)",
+        "Average life expectancy of the population (0.28715649247169495)",
+        "Typical lifespan of the population (0.2523551881313324)",
+        "Average lifespan of the population (0.22540777921676636)"
       ],
       "LifeExpectancy_Person_Female": [
-        "Life expectancy at birth, female (years) (0.3795040249824524)",
-        "Life expectancy of females at birth (0.3344574272632599)",
-        "Female Life Expectancy (0.3250548243522644)",
-        "Female life expectancy (0.3250548243522644)"
+        "Life expectancy at birth, female (years) (0.3795038163661957)",
+        "Life expectancy of females at birth (0.3344573378562927)",
+        "Female Life Expectancy (0.32505476474761963)",
+        "Female life expectancy (0.32505476474761963)"
       ],
       "LifeExpectancy_Person_Male": [
-        "Life Expectancy: Male (0.325519859790802)",
-        "Male life expectancy (0.29512831568717957)",
-        "Male Life Expectancy (0.29512831568717957)",
+        "Life Expectancy: Male (0.32551974058151245)",
+        "Male life expectancy (0.2951282560825348)",
+        "Male Life Expectancy (0.2951282560825348)",
         "Life Expectancy of Males at birth (0.29132378101348877)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.2527967393398285)"
+        "Economy (0.2527967095375061)"
       ],
       "dc/topic/WorkCommute": [
         "journey to work (0.2942036986351013)"
@@ -872,37 +889,37 @@
   },
   "svs_to_sentences": {
     "Count_HousingUnit": [
-      "Total number of living spaces in the area (0.22625192999839783)"
+      "Total number of living spaces in the area (0.22625182569026947)"
     ],
     "Count_HousingUnit_VacantHousingUnit": [
       "Number of unused living spaces (0.2489320933818817)"
     ],
     "Count_Person_IndependentLivingDifficulty": [
-      "Population: Independent Living Difficulty (0.26393020153045654)",
-      "Number of People With an Independent Living Difficulty (0.248734250664711)",
-      "Number of people who are experiencing Independent Living Difficulty (0.22672688961029053)"
+      "Population: Independent Living Difficulty (0.26393014192581177)",
+      "Number of People With an Independent Living Difficulty (0.24873414635658264)",
+      "Number of people who are experiencing Independent Living Difficulty (0.22672691941261292)"
     ],
     "LifeExpectancy_Person": [
-      "Life Expectancy (0.45038560032844543)",
-      "Mean lifespan of the population (0.29608431458473206)",
-      "Average life expectancy of the population (0.2871566414833069)",
-      "Typical lifespan of the population (0.2523553669452667)",
-      "Average lifespan of the population (0.22540785372257233)"
+      "Life Expectancy (0.4503854513168335)",
+      "Mean lifespan of the population (0.2960842549800873)",
+      "Average life expectancy of the population (0.28715649247169495)",
+      "Typical lifespan of the population (0.2523551881313324)",
+      "Average lifespan of the population (0.22540777921676636)"
     ],
     "LifeExpectancy_Person_Female": [
-      "Life expectancy at birth, female (years) (0.3795040249824524)",
-      "Life expectancy of females at birth (0.3344574272632599)",
-      "Female Life Expectancy (0.3250548243522644)",
-      "Female life expectancy (0.3250548243522644)"
+      "Life expectancy at birth, female (years) (0.3795038163661957)",
+      "Life expectancy of females at birth (0.3344573378562927)",
+      "Female Life Expectancy (0.32505476474761963)",
+      "Female life expectancy (0.32505476474761963)"
     ],
     "LifeExpectancy_Person_Male": [
-      "Life Expectancy: Male (0.325519859790802)",
-      "Male life expectancy (0.29512831568717957)",
-      "Male Life Expectancy (0.29512831568717957)",
+      "Life Expectancy: Male (0.32551974058151245)",
+      "Male life expectancy (0.2951282560825348)",
+      "Male Life Expectancy (0.2951282560825348)",
       "Life Expectancy of Males at birth (0.29132378101348877)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.2527967393398285)"
+      "Economy (0.2527967095375061)"
     ],
     "dc/topic/WorkCommute": [
       "journey to work (0.2942036986351013)"

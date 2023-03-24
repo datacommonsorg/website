@@ -26,7 +26,8 @@
           ],
           "svs": [
             "Annual_Emissions_GreenhouseGas_NonBiogenic"
-          ]
+          ],
+          "type": "Country"
         },
         {
           "places": [
@@ -48,7 +49,8 @@
           ],
           "svs": [
             "Annual_Emissions_CarbonDioxide_NonBiogenic"
-          ]
+          ],
+          "type": "Country"
         },
         {
           "places": [
@@ -70,7 +72,8 @@
           ],
           "svs": [
             "Annual_Emissions_Methane_NonBiogenic"
-          ]
+          ],
+          "type": "Country"
         }
       ]
     },
@@ -81,19 +84,7 @@
           "result": [
             "country/ABW",
             "country/AFG",
-            "country/AGO",
-            "country/AIA",
-            "country/ALB",
-            "country/AND",
-            "country/ANT",
-            "country/ARE",
-            "country/ARG",
-            "country/ARM",
-            "country/ASM",
-            "country/ATA",
-            "country/ATB",
-            "country/ATF",
-            "country/ATG"
+            "country/AGO"
           ],
           "type": "Country"
         }
@@ -164,12 +155,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.38,
-      "fulfillment": 0.36,
-      "get_sample_child_places": 0.15,
-      "get_sv_details": 0.38,
-      "query_detection": 0.16,
-      "sv_existence_for_places": 0.21,
+      "build_page_config": 0.36,
+      "fulfillment": 0.31,
+      "get_sample_child_places": 0.12,
+      "get_sv_details": 0.35,
+      "query_detection": 0.09,
+      "sv_existence_for_places": 0.19,
       "topic_calls": 0.0
     }
   },
@@ -209,6 +200,7 @@
           "event": null,
           "places": [
             {
+              "country": null,
               "dcid": "Earth",
               "name": "Earth",
               "place_type": "Place"
@@ -236,6 +228,7 @@
           "event": null,
           "places": [
             {
+              "country": null,
               "dcid": "Earth",
               "name": "Earth",
               "place_type": "Place"
@@ -293,15 +286,15 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.8358153700828552,
-      0.7782641649246216,
-      0.6273308992385864,
-      0.6002588868141174,
-      0.5912922620773315,
-      0.5357999801635742,
-      0.5346863269805908,
-      0.5228844285011292,
-      0.5113645195960999
+      0.835814893245697,
+      0.7782639861106873,
+      0.6273306608200073,
+      0.6002591848373413,
+      0.5912925004959106,
+      0.5358000993728638,
+      0.5346860289573669,
+      0.5228844881057739,
+      0.5113645792007446
     ],
     "SV": [
       "Annual_Emissions_GreenhouseGas",
@@ -316,83 +309,83 @@
     ],
     "SV_to_Sentences": {
       "Annual_Emissions_CarbonDioxide_NonBiogenic": [
-        "Annual Emissions of Non-Biogenic Carbon Dioxide (0.5346863269805908)",
-        "Annual emissions of non-biogenic carbon dioxide (0.5346863269805908)"
+        "Annual emissions of non-biogenic carbon dioxide (0.5346860289573669)",
+        "Annual Emissions of Non-Biogenic Carbon Dioxide (0.5346860289573669)"
       ],
       "Annual_Emissions_GreenhouseGas": [
-        "emissions from greenhouse gases (0.8358153700828552)",
-        "Greenhouse Gas Emissions (0.8137985467910767)",
-        "ghg emissions (0.5999011397361755)"
+        "emissions from greenhouse gases (0.835814893245697)",
+        "Greenhouse Gas Emissions (0.813798189163208)",
+        "ghg emissions (0.5999009609222412)"
       ],
       "Annual_Emissions_GreenhouseGas_NonBiogenic": [
-        "Annual emissions of non-biogenic greenhouse gases (0.6273308992385864)",
-        "Annual Emissions of Non-Biogenic Greenhouse Gases (0.6273308992385864)"
+        "Annual Emissions of Non-Biogenic Greenhouse Gases (0.6273306608200073)",
+        "Annual emissions of non-biogenic greenhouse gases (0.6273306608200073)"
       ],
       "Annual_Emissions_Methane_NonBiogenic": [
-        "Annual Emissions of Non-Biogenic Methane (0.5113645195960999)"
+        "Annual emissions of non-biogenic methane (0.5113645792007446)"
       ],
       "dc/topic/AgricultureEmissionsByGas": [
-        "Amount of gases emitted by agricultural sector (0.5357999801635742)",
-        "Emissions from agriculture (0.5344695448875427)"
+        "Amount of gases emitted by agricultural sector (0.5358000993728638)",
+        "Emissions from agriculture (0.5344700813293457)"
       ],
       "dc/topic/CarbonDioxideEmissionsBySource": [
-        "Carbon dioxide emissions by source (0.6002588868141174)",
+        "Carbon dioxide emissions by source (0.6002591848373413)",
         "source of co2 emissions (0.5928410291671753)",
-        "sources of carbon dioxide emissions (0.5649524927139282)",
-        "Breakdown of co2 emissions by source (0.5461018681526184)"
+        "sources of carbon dioxide emissions (0.5649526119232178)",
+        "Breakdown of co2 emissions by source (0.5461017489433289)"
       ],
       "dc/topic/GreenhouseGasEmissionsBySource": [
-        "sources of greenhouse gases (0.7782641649246216)",
-        "Greenhouse gas emissions by source (0.7719554305076599)",
+        "sources of greenhouse gases (0.7782639861106873)",
+        "Greenhouse gas emissions by source (0.7719553709030151)",
         "Breakdown of greenhouse gas emissions by source (0.7027941942214966)"
       ],
       "dc/topic/ManufacturingEmissionsByGas": [
-        "Emissions from manufacturing (0.5228844285011292)"
+        "Emissions from manufacturing (0.5228844881057739)"
       ],
       "dc/topic/PowerEmissionsByGas": [
-        "Emissions from power (0.5912922620773315)",
-        "Amount of gases emitted by the power sector (0.5221654176712036)"
+        "Emissions from power (0.5912925004959106)",
+        "Amount of gases emitted by the power sector (0.522165060043335)"
       ]
     }
   },
   "svs_to_sentences": {
     "Annual_Emissions_CarbonDioxide_NonBiogenic": [
-      "Annual Emissions of Non-Biogenic Carbon Dioxide (0.5346863269805908)",
-      "Annual emissions of non-biogenic carbon dioxide (0.5346863269805908)"
+      "Annual emissions of non-biogenic carbon dioxide (0.5346860289573669)",
+      "Annual Emissions of Non-Biogenic Carbon Dioxide (0.5346860289573669)"
     ],
     "Annual_Emissions_GreenhouseGas": [
-      "emissions from greenhouse gases (0.8358153700828552)",
-      "Greenhouse Gas Emissions (0.8137985467910767)",
-      "ghg emissions (0.5999011397361755)"
+      "emissions from greenhouse gases (0.835814893245697)",
+      "Greenhouse Gas Emissions (0.813798189163208)",
+      "ghg emissions (0.5999009609222412)"
     ],
     "Annual_Emissions_GreenhouseGas_NonBiogenic": [
-      "Annual emissions of non-biogenic greenhouse gases (0.6273308992385864)",
-      "Annual Emissions of Non-Biogenic Greenhouse Gases (0.6273308992385864)"
+      "Annual Emissions of Non-Biogenic Greenhouse Gases (0.6273306608200073)",
+      "Annual emissions of non-biogenic greenhouse gases (0.6273306608200073)"
     ],
     "Annual_Emissions_Methane_NonBiogenic": [
-      "Annual Emissions of Non-Biogenic Methane (0.5113645195960999)"
+      "Annual emissions of non-biogenic methane (0.5113645792007446)"
     ],
     "dc/topic/AgricultureEmissionsByGas": [
-      "Amount of gases emitted by agricultural sector (0.5357999801635742)",
-      "Emissions from agriculture (0.5344695448875427)"
+      "Amount of gases emitted by agricultural sector (0.5358000993728638)",
+      "Emissions from agriculture (0.5344700813293457)"
     ],
     "dc/topic/CarbonDioxideEmissionsBySource": [
-      "Carbon dioxide emissions by source (0.6002588868141174)",
+      "Carbon dioxide emissions by source (0.6002591848373413)",
       "source of co2 emissions (0.5928410291671753)",
-      "sources of carbon dioxide emissions (0.5649524927139282)",
-      "Breakdown of co2 emissions by source (0.5461018681526184)"
+      "sources of carbon dioxide emissions (0.5649526119232178)",
+      "Breakdown of co2 emissions by source (0.5461017489433289)"
     ],
     "dc/topic/GreenhouseGasEmissionsBySource": [
-      "sources of greenhouse gases (0.7782641649246216)",
-      "Greenhouse gas emissions by source (0.7719554305076599)",
+      "sources of greenhouse gases (0.7782639861106873)",
+      "Greenhouse gas emissions by source (0.7719553709030151)",
       "Breakdown of greenhouse gas emissions by source (0.7027941942214966)"
     ],
     "dc/topic/ManufacturingEmissionsByGas": [
-      "Emissions from manufacturing (0.5228844285011292)"
+      "Emissions from manufacturing (0.5228844881057739)"
     ],
     "dc/topic/PowerEmissionsByGas": [
-      "Emissions from power (0.5912922620773315)",
-      "Amount of gases emitted by the power sector (0.5221654176712036)"
+      "Emissions from power (0.5912925004959106)",
+      "Amount of gases emitted by the power sector (0.522165060043335)"
     ]
   },
   "time_delta_classification": "<None>"

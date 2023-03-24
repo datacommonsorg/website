@@ -15,11 +15,11 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.28,
-      "event_existence_for_place": 0.17,
-      "fulfillment": 0.17,
-      "get_sv_details": 0.27,
-      "query_detection": 0.69
+      "build_page_config": 0.2,
+      "event_existence_for_place": 0.1,
+      "fulfillment": 0.1,
+      "get_sv_details": 0.2,
+      "query_detection": 0.45
     }
   },
   "data_spec": [
@@ -465,16 +465,17 @@
   "sv_matching": {
     "CosineScore": [
       0.37027618288993835,
-      0.3159871995449066,
-      0.2831985354423523,
-      0.27669647336006165,
+      0.3159870505332947,
+      0.2831985652446747,
+      0.27669620513916016,
       0.2557689845561981,
-      0.2371777594089508,
-      0.22020851075649261,
-      0.21446257829666138,
-      0.2134648710489273,
-      0.20017606019973755,
-      0.1957034170627594
+      0.24891072511672974,
+      0.2371777892112732,
+      0.23379194736480713,
+      0.2202083170413971,
+      0.21446260809898376,
+      0.2134648859500885,
+      0.20017603039741516
     ],
     "SV": [
       "dc/topic/Income",
@@ -482,100 +483,105 @@
       "dc/topic/Jobs",
       "dc/topic/MedicalConditions",
       "dc/hlxvn1t8b9bhh",
+      "dc/topic/RacialBreakdown",
       "dc/g/Person_MedicalCondition-Wasting",
+      "dc/3jr0p7yjw06z9",
       "AirQualityIndex_AirPollutant",
       "dc/topic/WorkCommute",
       "dc/topic/Agriculture",
-      "dc/g/Farm_FarmInventoryType-Forage",
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+      "dc/g/Farm_FarmInventoryType-Forage"
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.22020851075649261)"
+        "AQI (0.2202083170413971)"
+      ],
+      "dc/3jr0p7yjw06z9": [
+        "casinos (0.23379194736480713)"
       ],
       "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017606019973755)",
+        "Forage Farms (0.20017603039741516)",
         "forage farms (0.20017603039741516)"
       ],
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.1957034170627594)",
-        "Pig Farm (0.1957034170627594)"
-      ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.2371777594089508)"
+        "people with wasting (0.2371777892112732)"
       ],
       "dc/hlxvn1t8b9bhh": [
         "cattle ranchers (0.2557689845561981)",
-        "farmers (0.22553959488868713)"
+        "farmers (0.22553953528404236)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.2134648710489273)"
+        "Agriculture (0.2134648859500885)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.3159871995449066)"
+        "Economy (0.3159870505332947)"
       ],
       "dc/topic/Income": [
         "pay (0.37027618288993835)",
-        "compensation (0.22850872576236725)",
-        "Earnings (0.2226836383342743)",
-        "Income (0.20594437420368195)"
+        "compensation (0.2285088300704956)",
+        "Earnings (0.2226836085319519)",
+        "Income (0.20594435930252075)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.2831985354423523)",
-        "Careers (0.24140897393226624)",
-        "Professions (0.20911745727062225)"
+        "Jobs (0.2831985652446747)",
+        "Careers (0.24140900373458862)",
+        "Professions (0.2091173678636551)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.27669647336006165)",
-        "Medical infirmities (0.2347509115934372)"
+        "Maladies (0.27669620513916016)",
+        "Medical infirmities (0.23475098609924316)"
+      ],
+      "dc/topic/RacialBreakdown": [
+        "ethnicity (0.24891072511672974)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.21446257829666138)"
+        "journey to work (0.21446260809898376)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.22020851075649261)"
+      "AQI (0.2202083170413971)"
+    ],
+    "dc/3jr0p7yjw06z9": [
+      "casinos (0.23379194736480713)"
     ],
     "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017606019973755)",
+      "Forage Farms (0.20017603039741516)",
       "forage farms (0.20017603039741516)"
     ],
-    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.1957034170627594)",
-      "Pig Farm (0.1957034170627594)"
-    ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.2371777594089508)"
+      "people with wasting (0.2371777892112732)"
     ],
     "dc/hlxvn1t8b9bhh": [
       "cattle ranchers (0.2557689845561981)",
-      "farmers (0.22553959488868713)"
+      "farmers (0.22553953528404236)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.2134648710489273)"
+      "Agriculture (0.2134648859500885)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.3159871995449066)"
+      "Economy (0.3159870505332947)"
     ],
     "dc/topic/Income": [
       "pay (0.37027618288993835)",
-      "compensation (0.22850872576236725)",
-      "Earnings (0.2226836383342743)",
-      "Income (0.20594437420368195)"
+      "compensation (0.2285088300704956)",
+      "Earnings (0.2226836085319519)",
+      "Income (0.20594435930252075)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.2831985354423523)",
-      "Careers (0.24140897393226624)",
-      "Professions (0.20911745727062225)"
+      "Jobs (0.2831985652446747)",
+      "Careers (0.24140900373458862)",
+      "Professions (0.2091173678636551)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.27669647336006165)",
-      "Medical infirmities (0.2347509115934372)"
+      "Maladies (0.27669620513916016)",
+      "Medical infirmities (0.23475098609924316)"
+    ],
+    "dc/topic/RacialBreakdown": [
+      "ethnicity (0.24891072511672974)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.21446257829666138)"
+      "journey to work (0.21446260809898376)"
     ]
   },
   "time_delta_classification": "<None>"

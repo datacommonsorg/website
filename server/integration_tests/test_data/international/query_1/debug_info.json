@@ -85,12 +85,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.31,
-      "fulfillment": 0.36,
-      "get_sample_child_places": 0.19,
-      "get_sv_details": 0.31,
-      "query_detection": 0.56,
-      "sv_existence_for_places": 0.17
+      "build_page_config": 0.27,
+      "fulfillment": 0.31,
+      "get_sample_child_places": 0.15,
+      "get_sv_details": 0.27,
+      "query_detection": 0.52,
+      "sv_existence_for_places": 0.16
     }
   },
   "data_spec": [
@@ -207,19 +207,20 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.5804552435874939,
+      0.5804553627967834,
       0.5062130689620972,
-      0.5036056637763977,
-      0.44577115774154663,
-      0.4431600570678711,
-      0.43282419443130493,
-      0.43102163076400757,
-      0.4296838045120239,
-      0.42763301730155945,
-      0.42681071162223816,
-      0.423821359872818,
-      0.41825616359710693,
-      0.41741037368774414
+      0.5036059021949768,
+      0.4457712173461914,
+      0.44315993785858154,
+      0.4328242242336273,
+      0.43102166056632996,
+      0.42968395352363586,
+      0.4276331663131714,
+      0.42681068181991577,
+      0.42382127046585083,
+      0.4201914072036743,
+      0.41825613379478455,
+      0.41741031408309937
     ],
     "SV": [
       "Count_Person_Rural",
@@ -233,106 +234,111 @@
       "Area_Farm_CornForGrain",
       "Area_Farm_SweetPotatoes",
       "Area_Farm_WheatForGrain",
+      "Count_Person_DetailedPrimarySchool",
       "dc/g/Person_Industry-NAICS/JOLTS923000",
       "Area_Farm_HarvestedCropland"
     ],
     "SV_to_Sentences": {
       "Area_Farm": [
-        "Area of Farm (0.5036056637763977)",
-        "Total Farm Area (0.43092861771583557)",
-        "total Farm Area (0.43092861771583557)"
+        "Area of Farm (0.5036059021949768)",
+        "total Farm Area (0.43092861771583557)",
+        "Total Farm Area (0.43092861771583557)"
       ],
       "Area_Farm_CornForGrain": [
-        "Area of Farm: Corn for Grain (0.42763301730155945)"
+        "Area of Farm: Corn for Grain (0.4276331663131714)"
       ],
       "Area_Farm_Cropland": [
         "Area of Farm: Cropland (0.5062130689620972)",
-        "Farms with cropland (0.4184269905090332)"
+        "Farms with cropland (0.4184269607067108)"
       ],
       "Area_Farm_HarvestedCropland": [
-        "Area of Farms With Harvested Cropland (0.41741037368774414)",
-        "area of farms with harvested cropland (0.41741037368774414)"
+        "Area of Farms With Harvested Cropland (0.41741031408309937)"
       ],
       "Area_Farm_IrrigatedLand": [
-        "Area of Farm: Irrigated Land (0.43282419443130493)"
+        "Area of Farm: Irrigated Land (0.4328242242336273)"
       ],
       "Area_Farm_PimaCotton": [
-        "Area of Farm: Pima Cotton (0.43102163076400757)"
+        "Area of Farm: Pima Cotton (0.43102166056632996)"
       ],
       "Area_Farm_Rice": [
-        "Area of Farm: Rice (0.4296838045120239)"
+        "Area of Farm: Rice (0.42968395352363586)"
       ],
       "Area_Farm_SweetPotatoes": [
-        "Area of Farm: Sweet Potatoes (0.42681071162223816)"
+        "Area of Farm: Sweet Potatoes (0.42681068181991577)"
       ],
       "Area_Farm_WheatForGrain": [
-        "Area of Farms Growing Wheat (0.423821359872818)",
-        "area of farms growing wheat (0.423821359872818)"
+        "area of farms growing wheat (0.42382127046585083)",
+        "Area of Farms Growing Wheat (0.42382127046585083)"
+      ],
+      "Count_Person_DetailedPrimarySchool": [
+        "counties with highest number children in elementary school (0.4201914072036743)"
       ],
       "Count_Person_Rural": [
-        "Number of people living in rural areas (0.5804552435874939)",
-        "Number of People Living in Rural Areas (0.5804552435874939)"
+        "Number of people living in rural areas (0.5804553627967834)",
+        "Number of People Living in Rural Areas (0.5804553627967834)"
       ],
       "dc/g/Farm_FarmType-Cropland": [
-        "cropland farm (0.4431600570678711)",
-        "Cropland Farms (0.43549999594688416)",
-        "Farms with cropland (0.4184269905090332)"
+        "cropland farm (0.44315993785858154)",
+        "Cropland Farms (0.43550002574920654)",
+        "Farms with cropland (0.4184269607067108)"
       ],
       "dc/g/Person_Industry-NAICS/JOLTS923000": [
-        "workers in state and local government education industry (0.41825616359710693)"
+        "workers in state and local government education industry (0.41825613379478455)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "farmers (0.44577115774154663)"
+        "farmers (0.4457712173461914)"
       ]
     }
   },
   "svs_to_sentences": {
     "Area_Farm": [
-      "Area of Farm (0.5036056637763977)",
-      "Total Farm Area (0.43092861771583557)",
-      "total Farm Area (0.43092861771583557)"
+      "Area of Farm (0.5036059021949768)",
+      "total Farm Area (0.43092861771583557)",
+      "Total Farm Area (0.43092861771583557)"
     ],
     "Area_Farm_CornForGrain": [
-      "Area of Farm: Corn for Grain (0.42763301730155945)"
+      "Area of Farm: Corn for Grain (0.4276331663131714)"
     ],
     "Area_Farm_Cropland": [
       "Area of Farm: Cropland (0.5062130689620972)",
-      "Farms with cropland (0.4184269905090332)"
+      "Farms with cropland (0.4184269607067108)"
     ],
     "Area_Farm_HarvestedCropland": [
-      "Area of Farms With Harvested Cropland (0.41741037368774414)",
-      "area of farms with harvested cropland (0.41741037368774414)"
+      "Area of Farms With Harvested Cropland (0.41741031408309937)"
     ],
     "Area_Farm_IrrigatedLand": [
-      "Area of Farm: Irrigated Land (0.43282419443130493)"
+      "Area of Farm: Irrigated Land (0.4328242242336273)"
     ],
     "Area_Farm_PimaCotton": [
-      "Area of Farm: Pima Cotton (0.43102163076400757)"
+      "Area of Farm: Pima Cotton (0.43102166056632996)"
     ],
     "Area_Farm_Rice": [
-      "Area of Farm: Rice (0.4296838045120239)"
+      "Area of Farm: Rice (0.42968395352363586)"
     ],
     "Area_Farm_SweetPotatoes": [
-      "Area of Farm: Sweet Potatoes (0.42681071162223816)"
+      "Area of Farm: Sweet Potatoes (0.42681068181991577)"
     ],
     "Area_Farm_WheatForGrain": [
-      "Area of Farms Growing Wheat (0.423821359872818)",
-      "area of farms growing wheat (0.423821359872818)"
+      "area of farms growing wheat (0.42382127046585083)",
+      "Area of Farms Growing Wheat (0.42382127046585083)"
+    ],
+    "Count_Person_DetailedPrimarySchool": [
+      "counties with highest number children in elementary school (0.4201914072036743)"
     ],
     "Count_Person_Rural": [
-      "Number of people living in rural areas (0.5804552435874939)",
-      "Number of People Living in Rural Areas (0.5804552435874939)"
+      "Number of people living in rural areas (0.5804553627967834)",
+      "Number of People Living in Rural Areas (0.5804553627967834)"
     ],
     "dc/g/Farm_FarmType-Cropland": [
-      "cropland farm (0.4431600570678711)",
-      "Cropland Farms (0.43549999594688416)",
-      "Farms with cropland (0.4184269905090332)"
+      "cropland farm (0.44315993785858154)",
+      "Cropland Farms (0.43550002574920654)",
+      "Farms with cropland (0.4184269607067108)"
     ],
     "dc/g/Person_Industry-NAICS/JOLTS923000": [
-      "workers in state and local government education industry (0.41825616359710693)"
+      "workers in state and local government education industry (0.41825613379478455)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "farmers (0.44577115774154663)"
+      "farmers (0.4457712173461914)"
     ]
   },
   "time_delta_classification": "<None>"

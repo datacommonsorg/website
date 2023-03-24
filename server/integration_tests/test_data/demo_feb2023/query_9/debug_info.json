@@ -12,19 +12,7 @@
           "result": [
             "geoId/01001",
             "geoId/01003",
-            "geoId/01005",
-            "geoId/01007",
-            "geoId/01009",
-            "geoId/01011",
-            "geoId/01013",
-            "geoId/01015",
-            "geoId/01017",
-            "geoId/01019",
-            "geoId/01021",
-            "geoId/01023",
-            "geoId/01025",
-            "geoId/01027",
-            "geoId/01029"
+            "geoId/01005"
           ],
           "type": "County"
         }
@@ -95,13 +83,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.29,
-      "fulfillment": 0.34,
-      "get_sample_child_places": 0.2,
+      "build_page_config": 0.3,
+      "fulfillment": 0.37,
+      "get_sample_child_places": 0.17,
       "get_sv_details": 0.29,
       "open_top_topics_ordered": 0.0,
-      "query_detection": 0.12,
-      "sv_existence_for_places": 0.14
+      "query_detection": 0.07,
+      "sv_existence_for_places": 0.19
     }
   },
   "data_spec": [
@@ -131,8 +119,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -157,8 +146,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -183,8 +173,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -209,8 +200,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -235,8 +227,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -281,8 +274,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -307,8 +301,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -339,6 +334,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -365,6 +361,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -413,6 +410,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -481,6 +479,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -524,6 +523,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -567,6 +567,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -596,16 +597,13 @@
         "dc/topic/Jobs",
         "dc/g/Person_Industry-NAICS/451",
         "dc/g/Person_Industry-NAICS/54",
+        "Count_Teacher",
         "Count_Worker_NAICSProfessionalScientificTechnicalServices",
         "dc/g/Person_Industry-NAICS/11",
         "dc/g/Person_Industry-NAICS/61",
         "dc/g/Person_Industry-NAICS/7172",
         "Count_Worker_NAICSTotalAllIndustries",
-        "dc/topic/Economy",
-        "dc/g/Person_Industry-NAICS/33",
-        "dc/g/Person_Industry-NAICS/JOLTS300000",
-        "dc/g/Person_Industry-NAICS/3133",
-        "dc/topic/WorkCommute"
+        "dc/topic/Economy"
       ]
     },
     {
@@ -639,6 +637,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -684,6 +683,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06061",
           "name": "Placer County",
           "place_type": "County"
@@ -708,6 +708,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06061",
               "name": "Placer County",
               "place_type": "County"
@@ -756,6 +757,7 @@
           "event": 4,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -782,6 +784,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -808,6 +811,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -837,6 +841,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -881,22 +886,22 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      1.0,
-      0.679103434085846,
-      0.6765090823173523,
-      0.6606362462043762,
-      0.6594826579093933,
-      0.6582103371620178,
-      0.6566448211669922,
-      0.6428044438362122,
-      0.6428044438362122,
-      0.6427717804908752,
-      0.6424232125282288,
+      0.9999998807907104,
+      0.6791033744812012,
+      0.6765092611312866,
+      0.6606360673904419,
+      0.6594827771186829,
+      0.658210039138794,
+      0.6566452980041504,
+      0.6428040862083435,
+      0.6428040862083435,
+      0.6427716612815857,
+      0.6424229741096497,
       0.6410238742828369,
-      0.6409000754356384,
-      0.6330274939537048,
-      0.6328794360160828,
-      0.6279057264328003
+      0.6408997178077698,
+      0.6330272555351257,
+      0.6328793168067932,
+      0.6279056668281555
     ],
     "SV": [
       "dc/topic/Income",
@@ -918,54 +923,54 @@
     ],
     "SV_to_Sentences": {
       "Mean_Income_Household": [
-        "Mean Income of Household: With Income (0.679103434085846)"
+        "Mean Income of Household: With Income (0.6791033744812012)"
       ],
       "Mean_Income_Household_FamilyHousehold": [
-        "Mean Income of Household: Family Household, With Income (0.6427717804908752)"
+        "Mean Income of Household: Family Household, With Income (0.6427716612815857)"
       ],
       "Mean_Income_Household_NonfamilyHousehold": [
-        "Mean Income of Household: a Nonfamily Household, With Income (0.6424232125282288)",
-        "Mean Income of Household: Nonfamily Household, With Income (0.6282117962837219)"
+        "Mean Income of Household: a Nonfamily Household, With Income (0.6424229741096497)",
+        "Mean Income of Household: Nonfamily Household, With Income (0.6282118558883667)"
       ],
       "Median_Income_Household": [
-        "Middle household income (0.6765090823173523)",
-        "Mean household income (0.6622447967529297)",
-        "Typical household income (0.6534323692321777)"
+        "Middle household income (0.6765092611312866)",
+        "Mean household income (0.6622447371482849)",
+        "Typical household income (0.6534322500228882)"
       ],
       "WagesTotal_Worker_NAICSEducationalServices": [
-        "Income for workers in the educational services sector (0.6428044438362122)"
+        "Income for workers in the educational services sector (0.6428040862083435)"
       ],
       "WagesTotal_Worker_NAICSFinanceInsurance": [
-        "Income for workers in the finance and insurance sector (0.6566448211669922)"
+        "Income for workers in the finance and insurance sector (0.6566452980041504)"
       ],
       "WagesTotal_Worker_NAICSInformation": [
-        "Income for workers in the information sector (0.6594826579093933)"
+        "Income for workers in the information sector (0.6594827771186829)"
       ],
       "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises": [
-        "Income for workers in the management of companies and enterprises sector (0.6328794360160828)"
+        "Income for workers in the management of companies and enterprises sector (0.6328793168067932)"
       ],
       "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices": [
-        "Income for workers in the professional, scientific, and technical services sector (0.6606362462043762)"
+        "Income for workers in the professional, scientific, and technical services sector (0.6606360673904419)"
       ],
       "WagesTotal_Worker_NAICSTotalAllIndustries": [
-        "Income for workers in all sectors (0.6582103371620178)"
+        "Income for workers in all sectors (0.658210039138794)"
       ],
       "WagesTotal_Worker_NAICSUtilities": [
-        "Income for workers in the utilities sector (0.6279057264328003)"
+        "Income for workers in the utilities sector (0.6279056668281555)"
       ],
       "dc/5hv2p802zmh03": [
-        "Income in the middle for the professional, scientific, and technical services sector (0.6330274939537048)"
+        "Income in the middle for the professional, scientific, and technical services sector (0.6330272555351257)"
       ],
       "dc/jefhcs9qxc971": [
-        "Income for workers in the educational services sector (0.6428044438362122)"
+        "Income for workers in the educational services sector (0.6428040862083435)"
       ],
       "dc/topic/Income": [
-        "Income (1.0)",
-        "Earnings (0.654188871383667)",
-        "Salary (0.650645911693573)"
+        "Income (0.9999998807907104)",
+        "Earnings (0.6541888117790222)",
+        "Salary (0.6506460309028625)"
       ],
       "dc/wzz9t818m1gk8": [
-        "Income for workers in the manufacturing sector (0.6409000754356384)"
+        "Income for workers in the manufacturing sector (0.6408997178077698)"
       ],
       "dc/xj2nk2bg60fg": [
         "Middle income for those working in the information sector (0.6410238742828369)"
@@ -974,54 +979,54 @@
   },
   "svs_to_sentences": {
     "Mean_Income_Household": [
-      "Mean Income of Household: With Income (0.679103434085846)"
+      "Mean Income of Household: With Income (0.6791033744812012)"
     ],
     "Mean_Income_Household_FamilyHousehold": [
-      "Mean Income of Household: Family Household, With Income (0.6427717804908752)"
+      "Mean Income of Household: Family Household, With Income (0.6427716612815857)"
     ],
     "Mean_Income_Household_NonfamilyHousehold": [
-      "Mean Income of Household: a Nonfamily Household, With Income (0.6424232125282288)",
-      "Mean Income of Household: Nonfamily Household, With Income (0.6282117962837219)"
+      "Mean Income of Household: a Nonfamily Household, With Income (0.6424229741096497)",
+      "Mean Income of Household: Nonfamily Household, With Income (0.6282118558883667)"
     ],
     "Median_Income_Household": [
-      "Middle household income (0.6765090823173523)",
-      "Mean household income (0.6622447967529297)",
-      "Typical household income (0.6534323692321777)"
+      "Middle household income (0.6765092611312866)",
+      "Mean household income (0.6622447371482849)",
+      "Typical household income (0.6534322500228882)"
     ],
     "WagesTotal_Worker_NAICSEducationalServices": [
-      "Income for workers in the educational services sector (0.6428044438362122)"
+      "Income for workers in the educational services sector (0.6428040862083435)"
     ],
     "WagesTotal_Worker_NAICSFinanceInsurance": [
-      "Income for workers in the finance and insurance sector (0.6566448211669922)"
+      "Income for workers in the finance and insurance sector (0.6566452980041504)"
     ],
     "WagesTotal_Worker_NAICSInformation": [
-      "Income for workers in the information sector (0.6594826579093933)"
+      "Income for workers in the information sector (0.6594827771186829)"
     ],
     "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises": [
-      "Income for workers in the management of companies and enterprises sector (0.6328794360160828)"
+      "Income for workers in the management of companies and enterprises sector (0.6328793168067932)"
     ],
     "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices": [
-      "Income for workers in the professional, scientific, and technical services sector (0.6606362462043762)"
+      "Income for workers in the professional, scientific, and technical services sector (0.6606360673904419)"
     ],
     "WagesTotal_Worker_NAICSTotalAllIndustries": [
-      "Income for workers in all sectors (0.6582103371620178)"
+      "Income for workers in all sectors (0.658210039138794)"
     ],
     "WagesTotal_Worker_NAICSUtilities": [
-      "Income for workers in the utilities sector (0.6279057264328003)"
+      "Income for workers in the utilities sector (0.6279056668281555)"
     ],
     "dc/5hv2p802zmh03": [
-      "Income in the middle for the professional, scientific, and technical services sector (0.6330274939537048)"
+      "Income in the middle for the professional, scientific, and technical services sector (0.6330272555351257)"
     ],
     "dc/jefhcs9qxc971": [
-      "Income for workers in the educational services sector (0.6428044438362122)"
+      "Income for workers in the educational services sector (0.6428040862083435)"
     ],
     "dc/topic/Income": [
-      "Income (1.0)",
-      "Earnings (0.654188871383667)",
-      "Salary (0.650645911693573)"
+      "Income (0.9999998807907104)",
+      "Earnings (0.6541888117790222)",
+      "Salary (0.6506460309028625)"
     ],
     "dc/wzz9t818m1gk8": [
-      "Income for workers in the manufacturing sector (0.6409000754356384)"
+      "Income for workers in the manufacturing sector (0.6408997178077698)"
     ],
     "dc/xj2nk2bg60fg": [
       "Middle income for those working in the information sector (0.6410238742828369)"

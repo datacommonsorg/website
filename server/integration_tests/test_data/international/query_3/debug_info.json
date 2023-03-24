@@ -239,12 +239,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.31,
-      "fulfillment": 0.39,
-      "get_sample_child_places": 0.21,
-      "get_sv_details": 0.31,
-      "query_detection": 0.94,
-      "sv_existence_for_places": 0.18,
+      "build_page_config": 0.25,
+      "fulfillment": 0.25,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.25,
+      "query_detection": 0.54,
+      "sv_existence_for_places": 0.13,
       "topic_calls": 0.0
     }
   },
@@ -560,15 +560,15 @@
   "sv_matching": {
     "CosineScore": [
       0.7848206758499146,
-      0.7488872408866882,
-      0.6779435276985168,
-      0.6746389269828796,
-      0.6742427945137024,
+      0.7488871812820435,
+      0.6779435873031616,
+      0.6746389865875244,
+      0.6742426156997681,
       0.6736500263214111,
-      0.6669632792472839,
-      0.6655664443969727,
-      0.6592216491699219,
-      0.6516274213790894,
+      0.6669631600379944,
+      0.6655665040016174,
+      0.6592214703559875,
+      0.6516273021697998,
       0.6323909759521484
     ],
     "SV": [
@@ -586,91 +586,91 @@
     ],
     "SV_to_Sentences": {
       "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue": [
-        "Gross Domestic Product (GDP) of the Agriculture, Forestry, Fishing and Hunting Industry (0.6516274213790894)",
-        "Gross Domestic Product (GDP) of the agriculture, forestry, fishing, and hunting industry (0.6487920880317688)"
+        "Gross Domestic Product (GDP) of the Agriculture, Forestry, Fishing and Hunting Industry (0.6516273021697998)",
+        "Gross Domestic Product (GDP) of the agriculture, forestry, fishing, and hunting industry (0.6487919092178345)"
       ],
       "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue": [
-        "Gross Domestic Product (GDP) of the arts, entertainment, and recreation industry (0.6655664443969727)",
-        "Gross Domestic Product (GDP) of the Arts, Entertainment, and Recreation Industry (0.6655663847923279)"
+        "Gross Domestic Product (GDP) of the Arts, Entertainment, and Recreation Industry (0.6655665040016174)",
+        "Gross Domestic Product (GDP) of the arts, entertainment, and recreation industry (0.6655665040016174)"
       ],
       "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": [
-        "Gross Domestic Product (GDP) of the Finance and Insurance Industry (0.6669632792472839)",
-        "Gross Domestic Product (GDP) of the finance and insurance industry (0.6669632792472839)",
-        "How much the finance and insurance sector contributes to the GDP. (0.6466923356056213)"
+        "Gross Domestic Product (GDP) of the Finance and Insurance Industry (0.6669631600379944)",
+        "Gross Domestic Product (GDP) of the finance and insurance industry (0.6669631600379944)",
+        "How much the finance and insurance sector contributes to the GDP. (0.646692156791687)"
       ],
       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": [
-        "Gross Domestic Product (GDP) of the information industry (0.6742427945137024)",
-        "Gross Domestic Product (GDP) of the Information Industry (0.6742427945137024)"
+        "Gross Domestic Product (GDP) of the information industry (0.6742426156997681)",
+        "Gross Domestic Product (GDP) of the Information Industry (0.6742426156997681)"
       ],
       "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": [
-        "Gross Domestic Product (GDP) of the professional, scientific, and technical services industry (0.6746389269828796)",
-        "Gross Domestic Product (GDP) of the Professional, Scientific, and Technical Services Industry (0.6746389269828796)",
-        "The GDP contribution of the professional, scientific, and technical services field (0.6437943577766418)"
+        "Gross Domestic Product (GDP) of the professional, scientific, and technical services industry (0.6746389865875244)",
+        "Gross Domestic Product (GDP) of the Professional, Scientific, and Technical Services Industry (0.6746389865875244)",
+        "The GDP contribution of the professional, scientific, and technical services field (0.6437944173812866)"
       ],
       "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue": [
-        "The GDP contribution of the utilities field (0.6592216491699219)"
+        "The GDP contribution of the utilities field (0.6592214703559875)"
       ],
       "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
         "Nominal GDP (0.7848206758499146)",
         "Nominal Gross Domestic Production (GDP) (0.7130014300346375)"
       ],
       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
-        "Nominal Gross Domestic Production (GDP) Per Capita (0.6779435276985168)"
+        "Nominal Gross Domestic Production (GDP) Per Capita (0.6779435873031616)"
       ],
       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
         "Growth Rate of Gross Domestic Production (GDP) (0.6323909759521484)"
       ],
       "dc/g/EconomicActivity_Industry": [
-        "Total nominal GDP (0.7488872408866882)"
+        "Total nominal GDP (0.7488871812820435)"
       ],
       "dc/topic/Economy": [
         "Economy (0.6736500263214111)",
-        "Summary of the economy (0.649835467338562)"
+        "Summary of the economy (0.6498353481292725)"
       ]
     }
   },
   "svs_to_sentences": {
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue": [
-      "Gross Domestic Product (GDP) of the Agriculture, Forestry, Fishing and Hunting Industry (0.6516274213790894)",
-      "Gross Domestic Product (GDP) of the agriculture, forestry, fishing, and hunting industry (0.6487920880317688)"
+      "Gross Domestic Product (GDP) of the Agriculture, Forestry, Fishing and Hunting Industry (0.6516273021697998)",
+      "Gross Domestic Product (GDP) of the agriculture, forestry, fishing, and hunting industry (0.6487919092178345)"
     ],
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue": [
-      "Gross Domestic Product (GDP) of the arts, entertainment, and recreation industry (0.6655664443969727)",
-      "Gross Domestic Product (GDP) of the Arts, Entertainment, and Recreation Industry (0.6655663847923279)"
+      "Gross Domestic Product (GDP) of the Arts, Entertainment, and Recreation Industry (0.6655665040016174)",
+      "Gross Domestic Product (GDP) of the arts, entertainment, and recreation industry (0.6655665040016174)"
     ],
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": [
-      "Gross Domestic Product (GDP) of the Finance and Insurance Industry (0.6669632792472839)",
-      "Gross Domestic Product (GDP) of the finance and insurance industry (0.6669632792472839)",
-      "How much the finance and insurance sector contributes to the GDP. (0.6466923356056213)"
+      "Gross Domestic Product (GDP) of the Finance and Insurance Industry (0.6669631600379944)",
+      "Gross Domestic Product (GDP) of the finance and insurance industry (0.6669631600379944)",
+      "How much the finance and insurance sector contributes to the GDP. (0.646692156791687)"
     ],
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": [
-      "Gross Domestic Product (GDP) of the information industry (0.6742427945137024)",
-      "Gross Domestic Product (GDP) of the Information Industry (0.6742427945137024)"
+      "Gross Domestic Product (GDP) of the information industry (0.6742426156997681)",
+      "Gross Domestic Product (GDP) of the Information Industry (0.6742426156997681)"
     ],
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": [
-      "Gross Domestic Product (GDP) of the professional, scientific, and technical services industry (0.6746389269828796)",
-      "Gross Domestic Product (GDP) of the Professional, Scientific, and Technical Services Industry (0.6746389269828796)",
-      "The GDP contribution of the professional, scientific, and technical services field (0.6437943577766418)"
+      "Gross Domestic Product (GDP) of the professional, scientific, and technical services industry (0.6746389865875244)",
+      "Gross Domestic Product (GDP) of the Professional, Scientific, and Technical Services Industry (0.6746389865875244)",
+      "The GDP contribution of the professional, scientific, and technical services field (0.6437944173812866)"
     ],
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue": [
-      "The GDP contribution of the utilities field (0.6592216491699219)"
+      "The GDP contribution of the utilities field (0.6592214703559875)"
     ],
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
       "Nominal GDP (0.7848206758499146)",
       "Nominal Gross Domestic Production (GDP) (0.7130014300346375)"
     ],
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
-      "Nominal Gross Domestic Production (GDP) Per Capita (0.6779435276985168)"
+      "Nominal Gross Domestic Production (GDP) Per Capita (0.6779435873031616)"
     ],
     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
       "Growth Rate of Gross Domestic Production (GDP) (0.6323909759521484)"
     ],
     "dc/g/EconomicActivity_Industry": [
-      "Total nominal GDP (0.7488872408866882)"
+      "Total nominal GDP (0.7488871812820435)"
     ],
     "dc/topic/Economy": [
       "Economy (0.6736500263214111)",
-      "Summary of the economy (0.649835467338562)"
+      "Summary of the economy (0.6498353481292725)"
     ]
   },
   "time_delta_classification": "<None>"
