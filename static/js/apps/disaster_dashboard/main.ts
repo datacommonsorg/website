@@ -34,7 +34,6 @@ window.onload = () => {
       renderPage();
     }
   );
-  initSearchAutocomplete("/disasters");
 };
 
 function renderPage(): void {
@@ -49,4 +48,7 @@ function renderPage(): void {
     }),
     document.getElementById("body")
   );
+
+  // Load this after the place-autocomplete input is rendered.
+  initSearchAutocomplete("/disasters");
 }
