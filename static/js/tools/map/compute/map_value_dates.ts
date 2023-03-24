@@ -81,6 +81,7 @@ export function useComputeMapValueAndDate(
     if (_.isEmpty(wantedFacetData)) {
       return;
     }
+    let unit = "";
     for (const placeDcid in wantedFacetData) {
       const placeChartData = getPlaceChartData(
         wantedFacetData,
@@ -102,6 +103,7 @@ export function useComputeMapValueAndDate(
           sources.add(source);
         }
       });
+      unit = unit || placeChartData.unit;
     }
     dispatchSources(sources);
     dispatchMetadata(metadata);
@@ -112,7 +114,7 @@ export function useComputeMapValueAndDate(
         statVar: _.cloneDeep(statVar.value),
         placeInfo: _.cloneDeep(placeInfo.value),
       },
-      payload: { mapValues, mapDates },
+      payload: { mapValues, mapDates, unit },
     });
   }, [
     dateCtx.value,

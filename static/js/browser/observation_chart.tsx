@@ -26,7 +26,7 @@ import { drawLineChart } from "../chart/draw";
 import { formatNumber } from "../i18n/i18n";
 import { Series, StatMetadata } from "../shared/stat_types";
 import { randDomId } from "../shared/util";
-import { getUnit } from "../utils/stat_metadata";
+import { getUnit } from "../utils/stat_metadata_utils";
 import { URI_PREFIX } from "./constants";
 
 // Chart size

@@ -26,6 +26,7 @@ import {
 import { NamedPlace } from "../shared/types";
 import { getMatchingObservation } from "../tools/shared_util";
 import { isBetween } from "./number_utils";
+import { getUnit } from "./stat_metadata_utils";
 
 interface PlaceAxisChartData {
   value: number;
@@ -33,6 +34,7 @@ interface PlaceAxisChartData {
   sources: string[];
   denomValue?: number;
   denomDate?: string;
+  unit?: string;
 }
 
 /**
@@ -87,7 +89,15 @@ function getPlaceAxisChartData(
       console.log(`No population data for ${placeDcid}`);
     }
   }
-  return { value, statDate, sources, denomDate, denomValue };
+  const unit = getUnit(metadataMap[metaHash]);
+  return { value, statDate, sources, denomDate, denomValue, unit };
+}
+
+interface PlaceScatterData {
+  point: Point;
+  sources: string[];
+  xUnit?: string;
+  yUnit?: string;
 }
 
 /**
@@ -114,7 +124,7 @@ export function getPlaceScatterData(
   popBounds?: [number, number],
   xScaling?: number,
   yScaling?: number
-): { point: Point; sources: string[] } {
+): PlaceScatterData {
   const xChartData = getPlaceAxisChartData(
     xStatVarData,
     populationData,
@@ -151,5 +161,5 @@ export function getPlaceScatterData(
     yPopDate: yChartData.denomDate,
   };
   const sources = xChartData.sources.concat(yChartData.sources);
-  return { point, sources };
+  return { point, sources, xUnit: xChartData.unit, yUnit: yChartData.unit };
 }

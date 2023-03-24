@@ -29,11 +29,10 @@ import React, {
 } from "react";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import { getUnit } from "../../tools/shared_util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
-import { Chart, CHART_CONTAINER_ID, MAP_TYPE } from "./chart";
+import { Chart, MAP_TYPE } from "./chart";
 import { emptyChartStore } from "./chart_store";
 import { useComputeBreadcrumbValues } from "./compute/breadcrumb";
 import { useComputeFacetList } from "./compute/facets";
@@ -210,16 +209,12 @@ export function ChartLoader(): JSX.Element {
     }
 
     const date = getDate(statVar.value.dcid, dateCtx.value);
-    const unit = getUnit(
-      Object.values(chartStore.defaultStat.data.data),
-      chartStore.defaultStat.data.facets
-    );
     const rankingLink = getRankingLink(
       statVar.value,
       placeInfo.value.selectedPlace.dcid,
       placeInfo.value.enclosedPlaceType,
       date,
-      unit
+      chartStore.mapValuesDates.data.unit
     );
     return (
       <div className="chart-region">
@@ -230,7 +225,7 @@ export function ChartLoader(): JSX.Element {
           breadcrumbDataValues={chartStore.breadcrumbValues.data}
           dates={chartStore.mapValuesDates.data.mapDates}
           sources={sources}
-          unit={unit}
+          unit={chartStore.mapValuesDates.data.unit}
           mapPointValues={chartStore.mapPointValues.data}
           mapPoints={chartStore.mapPointCoordinate.data}
           europeanCountries={europeanCountries}
@@ -262,7 +257,7 @@ export function ChartLoader(): JSX.Element {
             breadcrumbDataValues={chartStore.breadcrumbValues.data}
             mapDataValues={chartStore.mapValuesDates.data.mapValues}
             metadata={metadata}
-            unit={unit}
+            unit={chartStore.mapValuesDates.data.unit}
             geoJsonFeatures={
               chartStore.geoJson.data ? chartStore.geoJson.data.features : []
             }

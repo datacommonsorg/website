@@ -29,7 +29,11 @@ import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils"
 import { App } from "./app";
 
 window.onload = () => {
-  renderPage();
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
   initSearchAutocomplete("/disasters");
 };
 
@@ -38,10 +42,6 @@ function renderPage(): void {
   if (!metadata) {
     return;
   }
-
-  Promise.resolve(
-    loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)])
-  );
 
   ReactDOM.render(
     React.createElement(App, {

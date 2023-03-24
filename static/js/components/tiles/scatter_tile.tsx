@@ -32,18 +32,13 @@ import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
-import { getUnit } from "../../tools/shared_util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
-import {
-  getStatVarName,
-  getUnitString,
-  ReplacementStrings,
-} from "../../utils/tile_utils";
+import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface ScatterTilePropType {
@@ -245,6 +240,8 @@ function processData(
   const sources: Set<string> = new Set();
   const xDates: Set<string> = new Set();
   const yDates: Set<string> = new Set();
+  let xUnit = xStatVar.unit;
+  let yUnit = yStatVar.unit;
   for (const place in xPlacePointStat) {
     const namedPlace = {
       dcid: place,
@@ -276,25 +273,11 @@ function processData(
     points[place] = placeChartData.point;
     xDates.add(placeChartData.point.xDate);
     yDates.add(placeChartData.point.yDate);
+    xUnit = xUnit || placeChartData.xUnit;
+    yUnit = yUnit || placeChartData.yUnit;
   }
   if (_.isEmpty(points)) {
     setErrorMsg("Sorry, we don't have data for those variables");
-  }
-  let xUnit = xStatVar.unit;
-  if (!xUnit) {
-    const xStatUnit = getUnit(
-      Object.values(xPlacePointStat),
-      rawData.placeStats.facets
-    );
-    xUnit = getUnitString(xStatUnit, xStatVar.denom);
-  }
-  let yUnit = yStatVar.unit;
-  if (!yUnit) {
-    const yStatUnit = getUnit(
-      Object.values(yPlacePointStat),
-      rawData.placeStats.facets
-    );
-    yUnit = getUnitString(yStatUnit, yStatVar.denom);
   }
   setChartdata({
     xStatVar,
