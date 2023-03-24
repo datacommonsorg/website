@@ -182,7 +182,7 @@ form.node-title {
   padding: 0.3rem;
   overflow-wrap: anywhere;
   z-index: 5000;
-  min-width: 12rem;
+  max-width: 50vw;
 }
 
 #tree-widget-info i {
