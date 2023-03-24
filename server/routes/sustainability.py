@@ -58,6 +58,13 @@ def sustainability_explorer(place_dcid=None):
 
   # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
+  if place_metadata.is_error:
+    return flask.render_template(
+        'custom_dc/stanford/sustainability.html',
+        place_metadata=place_metadata,
+        config=None,
+        maps_api_key=current_app.config['MAPS_API_KEY'])
+
   subject_config.metadata.contained_place_types.clear()
   subject_config.metadata.contained_place_types.update(
       place_metadata.contained_place_types)
