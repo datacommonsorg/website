@@ -62,6 +62,13 @@ def disaster_dashboard(place_dcid=None):
 
   # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
+  if place_metadata.is_error:
+    return flask.render_template(
+        'custom_dc/stanford/disaster_dashboard.html',
+        place_metadata=place_metadata,
+        config=None,
+        maps_api_key=current_app.config['MAPS_API_KEY'])
+
   dashboard_config.metadata.contained_place_types.clear()
   dashboard_config.metadata.contained_place_types.update(
       place_metadata.contained_place_types)

@@ -65,6 +65,8 @@ const MAP_POLYGON_LAYER_CLASS = "map-polygon-layer";
 const MAP_POLYGON_HIGHLIGHT_CLASS = "map-polygon-highlight";
 const MAP_PATH_LAYER_CLASS = "map-path-layer";
 const MAP_PATH_HIGHLIGHT_CLASS = "map-path-highlight";
+const MAP_PATH_STROKE_WIDTH = "1.5px";
+const MAP_PATH_OPACITY = "0.5";
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -670,10 +672,11 @@ export function addPathLayer(
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);
     })
-    .attr("stroke-width", STROKE_WIDTH)
+    .attr("stroke-width", MAP_PATH_STROKE_WIDTH)
     .attr("stroke", (d: GeoJsonFeature) => {
       return getRegionColor(d.properties.geoDcid);
     })
+    .attr("opacity", MAP_PATH_OPACITY)
     .on("mouseover", (d: GeoJsonFeature) => {
       mouseHoverAction(
         containerElement,
