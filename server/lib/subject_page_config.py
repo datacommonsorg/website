@@ -28,6 +28,7 @@ DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
 OVERRIDE_CONTAINED_PLACE_TYPES = {
     "europe": {
+        "Continent": "Country",
         "Country": "EurostatNUTS1",
         "EurostatNUTS1": "EurostatNUTS2",
         "EurostatNUTS2": "EurostatNUTS3",
