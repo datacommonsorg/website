@@ -2,7 +2,7 @@ msgid "%(project)s is a Google supported project"
 msgstr "Проект %(project)s поддерживается Google"
 
 msgid "APIs"
-msgstr "API"
+msgstr "APIs"
 
 msgid "About"
 msgstr "Информация"
@@ -14,7 +14,7 @@ msgid "Blog"
 msgstr "Блог"
 
 msgid "Cities, India"
-msgstr ""
+msgstr "Cities, India"
 
 msgid "Cities, United States"
 msgstr "Города в США"
@@ -32,7 +32,7 @@ msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr ""
+msgstr "Data Download Tool"
 
 msgid "Data Sources"
 msgstr "Источники данных"
@@ -41,7 +41,7 @@ msgid "Disclaimers"
 msgstr "Отказ от обязательств"
 
 msgid "Districts, India"
-msgstr ""
+msgstr "Districts, India"
 
 msgid "Documentation"
 msgstr "Документация"
@@ -53,7 +53,7 @@ msgid "Enter a country, state, county or city"
 msgstr "Укажите страну, штат, округ или город"
 
 msgid "Enter a country, state, district or city"
-msgstr ""
+msgstr "Enter a country, state, district or city"
 
 msgid "Explore"
 msgstr "Обзор"
@@ -113,13 +113,13 @@ msgid "Map Explorer"
 msgstr "Изучение карт"
 
 msgid "Maps Explorer"
-msgstr ""
+msgstr "Maps Explorer"
 
 msgid "Median Income, United States"
 msgstr "Медианный доход в США"
 
 msgid "Natural Language Explorer"
-msgstr ""
+msgstr "Natural Language Explorer"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>В окне выше доступен поиск информации по городу, почтовому индексу, округу, штату или стране.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
@@ -143,25 +143,25 @@ msgid "Scatter Plot Explorer"
 msgstr "Просмотр точечных диаграмм"
 
 msgid "Scatter Plots"
-msgstr ""
+msgstr "Scatter Plots"
 
 msgid "States, India"
-msgstr ""
+msgstr "States, India"
 
 msgid "States, United States"
 msgstr "Штаты в США"
 
 msgid "Statistical Variable Explorer"
-msgstr ""
+msgstr "Statistical Variable Explorer"
 
 msgid "Terms Of Use"
-msgstr ""
+msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "Условия использования"
 
 msgid "Timeline Charts"
-msgstr ""
+msgstr "Timeline Charts"
 
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
@@ -197,7 +197,7 @@ msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Потребление алкоголя на душу населения (в год)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr "Annual greenhouse gas emissions"
 
 msgid "CHART_TITLE-Arson"
 msgstr "Поджог"
@@ -236,7 +236,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "Окружающая среда"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Собственный капитал"
@@ -702,4 +702,7 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Обзор"
 

@@ -29,16 +29,16 @@ import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils"
 import { App } from "./app";
 
 window.onload = () => {
-  renderPage();
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
   initSearchAutocomplete("/sustainability");
 };
 
 function renderPage(): void {
   const metadata = loadSubjectPageMetadataFromPage();
-
-  Promise.resolve(
-    loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)])
-  );
 
   ReactDOM.render(
     React.createElement(App, {

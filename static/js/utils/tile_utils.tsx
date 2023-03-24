@@ -71,14 +71,3 @@ export function getStatVarName(
   }
   return label;
 }
-
-/**
- * Gets the unit given the unit for the stat var and the dcid of the denominator
- * TODO(chejennifer): clean up all the getUnit functions in this repo
- * @param statUnit the unit for the stat var
- * @param denomDcid the dcid of the denominator
- */
-export function getUnitString(statUnit: string, denomDcid?: string): string {
-  // TODO: Improve this to be denomDcid based.
-  return statUnit;
-}

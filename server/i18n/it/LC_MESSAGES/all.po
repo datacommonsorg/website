@@ -2,7 +2,7 @@ msgid "%(project)s is a Google supported project"
 msgstr "%(project)s è un progetto supportato da Google"
 
 msgid "APIs"
-msgstr "API"
+msgstr "APIs"
 
 msgid "About"
 msgstr "Informazioni"
@@ -14,7 +14,7 @@ msgid "Blog"
 msgstr "Blog"
 
 msgid "Cities, India"
-msgstr ""
+msgstr "Cities, India"
 
 msgid "Cities, United States"
 msgstr "Città, Stati Uniti"
@@ -32,7 +32,7 @@ msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr ""
+msgstr "Data Download Tool"
 
 msgid "Data Sources"
 msgstr "Fonti dei dati"
@@ -41,7 +41,7 @@ msgid "Disclaimers"
 msgstr "Limitazioni di responsabilità"
 
 msgid "Districts, India"
-msgstr ""
+msgstr "Districts, India"
 
 msgid "Documentation"
 msgstr "Documentazione"
@@ -53,7 +53,7 @@ msgid "Enter a country, state, county or city"
 msgstr "Inserisci un paese, uno stato, una contea o una città"
 
 msgid "Enter a country, state, district or city"
-msgstr ""
+msgstr "Enter a country, state, district or city"
 
 msgid "Explore"
 msgstr "Esplora"
@@ -113,13 +113,13 @@ msgid "Map Explorer"
 msgstr "Strumento di esplorazione delle mappe"
 
 msgid "Maps Explorer"
-msgstr ""
+msgstr "Maps Explorer"
 
 msgid "Median Income, United States"
 msgstr "Reddito medio, Stati Uniti"
 
 msgid "Natural Language Explorer"
-msgstr ""
+msgstr "Natural Language Explorer"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Lo strumento Place Explorer ti consente di conoscere i dati fondamentali relativi a un luogo. Raccoglie una serie di grafici relativi a dati demografici, istruzione, aspetti economici e altro ancora, collocandoli nel contesto e confrontandoli con altri luoghi. Puoi anche conoscere il posizionamento di luoghi differenti in merito a diverse metriche quali disoccupazione, criminalità e reddito.</p><p>Puoi analizzare in dettaglio i grafici per città, codice postale, contea, stato o paese che preferisci usando la casella di ricerca in alto.</p><p>In alternativa puoi iniziare a esplorare alcuni luoghi molto noti.</p>"
@@ -143,25 +143,25 @@ msgid "Scatter Plot Explorer"
 msgstr "Strumento di esplorazione dei grafici a dispersione"
 
 msgid "Scatter Plots"
-msgstr ""
+msgstr "Scatter Plots"
 
 msgid "States, India"
-msgstr ""
+msgstr "States, India"
 
 msgid "States, United States"
 msgstr "Stati, Stati Uniti"
 
 msgid "Statistical Variable Explorer"
-msgstr ""
+msgstr "Statistical Variable Explorer"
 
 msgid "Terms Of Use"
-msgstr ""
+msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "Termini e condizioni"
 
 msgid "Timeline Charts"
-msgstr ""
+msgstr "Timeline Charts"
 
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
@@ -197,7 +197,7 @@ msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consumo di alcol pro capite (annuale)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr "Annual greenhouse gas emissions"
 
 msgid "CHART_TITLE-Arson"
 msgstr "Incendio doloso"
@@ -206,10 +206,10 @@ msgid "CHART_TITLE-Arson_rate"
 msgstr "Incendi dolosi per 100.000 persone"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
-msgstr "Tasso di conseguimento di diplomi universitari per sesso"
+msgstr "Tasso di conseguimento di diplomi universitari per genere"
 
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
-msgstr "Tasso di conseguimento della laurea per sesso"
+msgstr "Tasso di conseguimento della laurea per genere"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
 msgstr "Air"
@@ -236,7 +236,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "Ambiente"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Patrimonio netto"
@@ -266,19 +266,19 @@ msgid "CHART_TITLE-Children_employed"
 msgstr "Bambini che lavorano"
 
 msgid "CHART_TITLE-Children_employed_gender"
-msgstr "Bambini che lavorano per sesso"
+msgstr "Bambini che lavorano per genere"
 
 msgid "CHART_TITLE-Children_severe_wasting"
 msgstr "Grave deperimento tra bambini sotto i 5 anni"
 
 msgid "CHART_TITLE-Children_severe_wasting_by_gender"
-msgstr "Grave deperimento tra bambini sotto i 5 anni per sesso"
+msgstr "Grave deperimento tra bambini sotto i 5 anni per genere"
 
 msgid "CHART_TITLE-Children_wasting"
 msgstr "Deperimento tra bambini sotto i 5 anni"
 
 msgid "CHART_TITLE-Children_wasting_by_gender"
-msgstr "Deperimento tra bambini sotto i 5 anni per sesso"
+msgstr "Deperimento tra bambini sotto i 5 anni per genere"
 
 msgid "CHART_TITLE-Citizenship"
 msgstr "Cittadinanza"
@@ -362,7 +362,7 @@ msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Spesa pubblica per le forze armate (% del PIL)"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
-msgstr "Tasso di conseguimento della laurea o di un diploma professionale per sesso"
+msgstr "Tasso di conseguimento della laurea o di un diploma professionale per genere"
 
 msgid "CHART_TITLE-Hate_Crime"
 msgstr "Hate Crime"
@@ -458,7 +458,7 @@ msgid "CHART_TITLE-Infant_mortality_rate"
 msgstr "Tasso di mortalità infantile"
 
 msgid "CHART_TITLE-Infant_mortality_rate_gender"
-msgstr "Tasso di mortalità infantile per sesso"
+msgstr "Tasso di mortalità infantile per genere"
 
 msgid "CHART_TITLE-Inward_remittance"
 msgstr "Rimessa interna"
@@ -503,7 +503,7 @@ msgid "CHART_TITLE-Median_age"
 msgstr "Età media"
 
 msgid "CHART_TITLE-Median_age_gender"
-msgstr "Età media per sesso"
+msgstr "Età media per genere"
 
 msgid "CHART_TITLE-Median_age_race"
 msgstr "Età media per gruppo etnico"
@@ -515,7 +515,7 @@ msgid "CHART_TITLE-Median_household_income_race"
 msgstr "Reddito familiare medio per gruppo etnico"
 
 msgid "CHART_TITLE-Median_income_gender"
-msgstr "Reddito medio per sesso"
+msgstr "Reddito medio per genere"
 
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "Reddito personale medio"
@@ -533,7 +533,7 @@ msgid "CHART_TITLE-Palmer_drought_severity_index"
 msgstr "Palmer drought severity index"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
-msgstr "Percentuale di persone senza assicurazione sanitaria per sesso"
+msgstr "Percentuale di persone senza assicurazione sanitaria per genere"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_race"
 msgstr "Percentuale di persone senza assicurazione sanitaria per gruppo etnico"
@@ -572,10 +572,10 @@ msgid "CHART_TITLE-Population_density"
 msgstr "Densità di popolazione (persone per km²)"
 
 msgid "CHART_TITLE-Population_gender"
-msgstr "Popolazione per sesso"
+msgstr "Popolazione per genere"
 
 msgid "CHART_TITLE-Population_gender_distribution"
-msgstr "Distribuzione in base al sesso"
+msgstr "Distribuzione in base al genere"
 
 msgid "CHART_TITLE-Population_growth_rate"
 msgstr "Tasso di crescita della popolazione"
@@ -590,7 +590,7 @@ msgid "CHART_TITLE-Poverty_rate"
 msgstr "Tasso di povertà"
 
 msgid "CHART_TITLE-Poverty_rate_gender"
-msgstr "Tasso di povertà per sesso"
+msgstr "Tasso di povertà per genere"
 
 msgid "CHART_TITLE-Poverty_rate_race"
 msgstr "Tasso di povertà per gruppo etnico"
@@ -650,7 +650,7 @@ msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
 msgstr "Tasso di disoccupazione: urbana e rurale"
 
 msgid "CHART_TITLE-Unemployment_rate_gender"
-msgstr "Tasso di disoccupazione per sesso"
+msgstr "Tasso di disoccupazione per genere"
 
 msgid "CHART_TITLE-Urban and rural households"
 msgstr "Nuclei familiari urbani e rurali"
@@ -702,4 +702,7 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Panoramica"
 

@@ -14,6 +14,9 @@
   "chart_clause-placetype_near_place": {
     "defaultMessage": "{chartTitle}: {placeType} in der Nähe von {placeName}"
   },
+  "chart_clause-rankings_in_place": {
+    "defaultMessage": "{variable}: rankings in {placeName}"
+  },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{variable} in {placeName}"
   },
@@ -69,7 +72,7 @@
     "defaultMessage": "Verwaltungsbereiche"
   },
   "plural_administrative_area_level": {
-    "defaultMessage": "Orte des Verwaltungsgebiets {level}"
+    "defaultMessage": "Orte der Verwaltungseinheit {level}"
   },
   "plural_borough": {
     "defaultMessage": "Bezirke"
@@ -159,7 +162,7 @@
     "defaultMessage": "Verwaltungseinheit"
   },
   "singular_administrative_area_level": {
-    "defaultMessage": "Ort im Verwaltungsbereich {level}"
+    "defaultMessage": "Ort in der Verwaltungseinheit {level}"
   },
   "singular_borough": {
     "defaultMessage": "Bezirk"
