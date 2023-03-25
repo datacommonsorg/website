@@ -79,6 +79,27 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/TransportationEmissionsByGas": [
         "dc/svpg/TransportationEmissionsByGas"
     ],
+    "dc/topic/SDG_1": [
+        "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX",
+        "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByAge",
+        "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByGender",
+        "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByResidence",
+        "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX",
+        "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender",
+        "sdg/SP_ACS_BSRVH2O_ALLAREA_E",
+        "sdg/SP_ACS_BSRVSAN_ALLAREA_E",
+    ],
+    "dc/topic/SDG_2": [
+        "sdg/SN_ITK_DEFC_E", "sdg/SH_STA_STNT_lt5Y_M", "sdg/SH_STA_WAST_lt5Y_CA"
+    ],
+    "dc/topic/SDG_3": [
+        "dc/svpg/SDG_3_WomensHealth",
+        "dc/svpg/SDG_3_PreventableChildDeaths",
+        "dc/svpg/SDG_3_EpidemicEradication",
+        "dc/svpg/SDG_3_HealthInsurance",
+        "dc/svpg/SDG_3_TobaccoAndAlcohol",
+        "dc/svpg/SDG_3_HealthWorkerDensity",
+    ],
 }
 
 _PEER_GROUP_TO_OVERRIDE = {
@@ -261,6 +282,55 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Transportation",
         "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Transportation"
     ],
+    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByAge": [
+        "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX",
+        "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX",
+        "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX",
+    ],
+    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByGender": [
+        "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE",
+        "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE",
+    ],
+    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByResidence": [
+        "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX",
+        "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX",
+    ],
+    "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender": [
+        "sdg/SI_POV_EMP1_15gte_M_A_FEMALE",
+        "sdg/SI_POV_EMP1_15gte_M_A_MALE",
+    ],
+    "dc/svpg/SDG_3_WomensHealth": [
+        "sdg/SH_STA_MORT_E_FEMALE",
+        "sdg/SH_FPL_MTMM_15-49_CA_FEMALE",
+        "sdg/SP_DYN_ADKL_15-19_C_FEMALE",
+        "sdg/SH_STA_ANEM_15-49_E_FEMALE",
+    ],
+    "dc/svpg/SDG_3_PreventableChildDeaths": [
+        "sdg/SH_DYN_IMRT_lt1Y_E_BOTHSEX",
+        "sdg/SH_DYN_MORT_lt5Y_E_BOTHSEX",
+        "sdg/SH_DYN_NMRT_lt1M_E_BOTHSEX",
+    ],
+    "dc/svpg/SDG_3_EpidemicEradication": [
+        "sdg/SH_HIV_INCD_ALLAGE_E_BOTHSEX",
+        "sdg/SH_TBS_INCD_E",
+        "sdg/SH_HAP_HBSAG_lt5Y_E",
+        "sdg/SH_TRP_INTVN_CA",
+    ],
+    "dc/svpg/SDG_3_HealthInsurance": [
+        "sdg/SH_ACS_UNHC_E",
+        "sdg/SH_XPD_EARN10_G",
+        "sdg/SH_XPD_EARN25_G",
+    ],
+    "dc/svpg/SDG_3_HealthWorkerDensity": [
+        "sdg/SH_MED_DEN_C_PHYS",
+        "sdg/SH_MED_DEN_C_NURSMID",
+        "sdg/SH_MED_DEN_C_PHAR",
+        "sdg/SH_MED_DEN_C_DENT",
+    ],
+    "dc/svpg/SDG_3_TobaccoAndAlcohol": [
+        "sdg/SH_PRV_SMOK_15gte_E_BOTHSEX",
+        "sdg/SH_SUD_ALCOL_15gte_NA_BOTHSEX",
+    ],
 }
 
 _SVPG_NAMES_OVERRIDE = {
@@ -298,6 +368,27 @@ _SVPG_NAMES_OVERRIDE = {
         "Emissions from Power Sector",
     "dc/svpg/TransportationEmissionsByGas":
         "Emissions from Transportation Sector",
+    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByAge":
+        "Population below international poverty line by age",
+    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByGender":
+        "Population below international poverty line by gender",
+    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByResidence":
+        ""
+        "Population below international poverty line in rural vs. urban areas",
+    "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender":
+        "Employed population below international poverty line by gender",
+    "dc/svpg/SDG_3_WomensHealth":
+        "Women's health",
+    "dc/svpg/SDG_3_PreventableChildDeaths":
+        "Preventable newborn and children deaths",
+    "dc/svpg/SDG_3_EpidemicEradication":
+        "Ending epidemics",
+    "dc/svpg/SDG_3_HealthInsurance":
+        "Health coverage and financial risk",
+    "dc/svpg/SDG_3_HealthWorkerDensity":
+        "Health worker density",
+    "dc/svpg/SDG_3_TobaccoAndAlcohol":
+        "Tobacco and alcohol",
 }
 
 _SVPG_DESC_OVERRIDE = {
