@@ -241,21 +241,14 @@ export class StatVarGroupNode extends React.Component<
   }
 
   private fetchData(): void {
-    // stat var (group) dcid can contain [/_-.&], need to encode here.
-    // Example: dc/g/Person_Citizenship-NotAUSCitizen_CorrectionalFacilityOperator-StateOperated&FederallyOperated&PrivatelyOperated
-    let url = `/api/variable-group/info?dcid=${encodeURIComponent(
-      this.props.data.id
-    )}`;
     const entityList = this.props.entities;
-    for (const entity of entityList) {
-      url += `&entities=${entity.dcid}`;
-    }
-    if (this.props.numEntitiesExistence) {
-      url += `&numEntitiesExistence=${this.props.numEntitiesExistence}`;
-    }
-    this.dataFetchingEntities = entityList;
+    this.dataFetchingEntities = this.props.entities;
     axios
-      .get(url)
+      .post("/api/variable-group/info", {
+        dcid: this.props.data.id,
+        entities: entityList.map((entity) => entity.dcid),
+        numEntitiesExistence: this.props.numEntitiesExistence,
+      })
       .then((resp) => {
         const data = resp.data;
         const childSV: StatVarInfo[] = data["childStatVars"] || [];

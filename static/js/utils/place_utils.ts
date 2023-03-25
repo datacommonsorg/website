@@ -32,26 +32,10 @@ import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
 let ps: google.maps.places.PlacesService;
 
 const DEFAULT_SAMPLE_SIZE = 50;
-const CURATED_SAMPLE_PLACES = {
-  [EARTH_NAMED_TYPED_PLACE.dcid]: {
-    Country: [
-      { dcid: "country/USA", name: "United States of America" },
-      { dcid: "country/FRA", name: "France" },
-      { dcid: "country/DEU", name: "Germany" },
-      { dcid: "country/POL", name: "Poland" },
-      { dcid: "country/CAN", name: "Canada" },
-      { dcid: "country/AUS", name: "Australia" },
-      { dcid: "country/NLD", name: "Netherlands" },
-      { dcid: "country/ESP", name: "Spain" },
-      { dcid: "country/CHL", name: "Chile" },
-      { dcid: "country/SWE", name: "Sweden" },
-      { dcid: "country/GBR", name: "United Kingdom" },
-      { dcid: "country/CRI", name: "Costa Rica" },
-      { dcid: "country/LVA", name: "Latvia" },
-      { dcid: "country/GRC", name: "Greece" },
-      { dcid: "country/IND", name: "India" },
-    ],
-  },
+// Place and place type combinations where all children places should be
+// returned as sample places.
+const SAMPLE_PLACES_ALL = {
+  [EARTH_NAMED_TYPED_PLACE.dcid]: new Set(["Country"]),
 };
 
 export const ENCLOSED_PLACE_TYPE_NAMES = {
@@ -73,10 +57,10 @@ export function getSamplePlaces(
   sampleSize?: number
 ): Array<NamedPlace> {
   if (
-    parentPlace in CURATED_SAMPLE_PLACES &&
-    childPlaceType in CURATED_SAMPLE_PLACES[parentPlace]
+    parentPlace in SAMPLE_PLACES_ALL &&
+    SAMPLE_PLACES_ALL[parentPlace].has(childPlaceType)
   ) {
-    return CURATED_SAMPLE_PLACES[parentPlace][childPlaceType];
+    return childrenPlaces;
   }
   return _.sampleSize(childrenPlaces, sampleSize || DEFAULT_SAMPLE_SIZE);
 }
