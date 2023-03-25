@@ -207,16 +207,24 @@ class TestApiSeriesWithin(unittest.TestCase):
           'all_facets': True
       }:
         return mock_data.SERIES_WITHIN_ALL_FACETS
-      if url.endswith('/v1/bulk/property/values/out') and data == {
+      if url.endswith('/v1/bulk/triples/out') and data == {
           'nodes': ['testUnit'],
-          'property': 'shortDisplayName'
       }:
         return {
             'data': [{
                 'node': 'testUnit',
-                'values': [{
-                    'value': 'shortUnit'
-                }]
+                'triples': {
+                    'name': {
+                        'nodes': [{
+                            'value': 'longUnitName'
+                        }]
+                    },
+                    'shortDisplayName': {
+                        'nodes': [{
+                            'value': 'shortUnit'
+                        }]
+                    },
+                }
             }]
         }
 
