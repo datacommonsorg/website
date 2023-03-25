@@ -84,10 +84,10 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByAge",
         "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByGender",
         "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByResidence",
-        "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX",
-        "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender",
         "sdg/SP_ACS_BSRVH2O_ALLAREA_E",
         "sdg/SP_ACS_BSRVSAN_ALLAREA_E",
+        "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX",
+        "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender",
     ],
     "dc/topic/SDG_2": [
         "sdg/SN_ITK_DEFC_E", "sdg/SH_STA_STNT_lt5Y_M", "sdg/SH_STA_WAST_lt5Y_CA"

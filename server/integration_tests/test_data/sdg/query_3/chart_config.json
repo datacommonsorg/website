@@ -122,14 +122,14 @@
                     "statVarKey": [
                       "sdg/SH_XPD_EARN10_G"
                     ],
-                    "title": "Population spending over 10% of household expenditure or income in the World (${date})",
+                    "title": "Population with health spending over 10% of household expenditure or income in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_XPD_EARN25_G"
                     ],
-                    "title": "Population spending over 25% of household expenditure or income in the World (${date})",
+                    "title": "Population with health spending over 25% of household expenditure or income in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -268,11 +268,11 @@
             "statVar": "sdg/SH_TRP_INTVN_CA"
           },
           "sdg/SH_XPD_EARN10_G": {
-            "name": "Population spending over 10% of household expenditure or income",
+            "name": "Population with health spending over 10% of household expenditure or income",
             "statVar": "sdg/SH_XPD_EARN10_G"
           },
           "sdg/SH_XPD_EARN25_G": {
-            "name": "Population spending over 25% of household expenditure or income",
+            "name": "Population with health spending over 25% of household expenditure or income",
             "statVar": "sdg/SH_XPD_EARN25_G"
           },
           "sdg/SP_DYN_ADKL_15-19_C_FEMALE": {
