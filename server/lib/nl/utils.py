@@ -875,6 +875,7 @@ _SV_PARTIAL_DCID_NO_PC = [
     "GenderIncomeInequality_",
     "FertilityRate_",
     "GrowthRate_",
+    "sdg/",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]
