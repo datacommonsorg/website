@@ -17,10 +17,10 @@ from dataclasses import dataclass
 from typing import List
 
 from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import NLClassifier
-from server.lib.nl.detection import Place
 from server.lib.nl.detection import ContainedInClassificationAttributes
 from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import Place
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
 from server.lib.nl.fulfillment import context
