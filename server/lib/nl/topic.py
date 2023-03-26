@@ -100,6 +100,12 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/SDG_3_TobaccoAndAlcohol",
         "dc/svpg/SDG_3_HealthWorkerDensity",
     ],
+    "dc/topic/MaternalHealth": [
+        "sdg/SH_STA_MORT_E_FEMALE",
+        "sdg/SH_FPL_MTMM_15-49_CA_FEMALE",
+        "sdg/SP_DYN_ADKL_15-19_C_FEMALE",
+        "sdg/SH_STA_ANEM_15-49_E_FEMALE",
+    ]
 }
 
 _PEER_GROUP_TO_OVERRIDE = {
