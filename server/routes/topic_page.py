@@ -27,6 +27,9 @@ import server.routes.api.place as place_api
 _NL_DISASTER_TOPIC = 'nl_disasters'
 _SDG_TOPIC = 'sdg'
 _DEBUG_TOPICS = ['dev', _SDG_TOPIC, _NL_DISASTER_TOPIC]
+_SDG_COMPARISON_PLACES = [
+    'country/USA', 'country/CHN', 'country/JPN', 'country/IND'
+]
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
@@ -71,6 +74,12 @@ def topic_page(topic_id=None, place_dcid=None):
   if topic_id == _SDG_TOPIC:
     topic_place_config = topic_configs[0]
     topic_place_config.metadata.place_dcid.append(place_dcid)
+    for category in topic_place_config.categories:
+      for block in category.blocks:
+        for column in block.columns:
+          for tile in column.tiles:
+            tile.comparison_places.append(place_dcid)
+            tile.comparison_places.extend(_SDG_COMPARISON_PLACES)
     topic_place_config = lib_subject_page_config.remove_empty_charts(
         topic_place_config, place_dcid, '')
   else:

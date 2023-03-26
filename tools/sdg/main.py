@@ -25,7 +25,6 @@ logging.getLogger().setLevel(logging.INFO)
 _SDG_ROOT = "sdg/g/SDG"
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
-_BASE_PLACES = ['country/USA', 'country/CHN', 'country/JPN', 'country/IND']
 _MAX_BLOCKS = 20
 
 
@@ -64,7 +63,6 @@ def add_chart(svg_ids, category):
         tile.type = Tile.TileType.BAR
         tile.stat_var_key.append(sv['id'])
         tile.title = sv['displayName']
-        tile.comparison_places.extend(_BASE_PLACES)
         spec = category.stat_var_spec[sv['id']]
         spec.stat_var = sv['id']
         spec.name = sv['displayName']
