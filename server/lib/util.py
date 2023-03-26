@@ -20,7 +20,7 @@ import json
 import logging
 import os
 import time
-from typing import List
+from typing import Dict, List
 import urllib
 
 from flask import make_response
@@ -226,6 +226,30 @@ def parse_date(date_string):
     raise ValueError("Invalid date: %s", date_string)
 
 
+def _get_unit_names(units: List[str]) -> Dict:
+  if not units:
+    return {}
+
+  dcid2name = {}
+  resp = dc.bulk_triples(nodes=units, direction='out')
+
+  for node in resp.get('data', []):
+    if 'node' not in node or 'triples' not in node:
+      continue
+    dcid = node['node']
+    triples = node['triples']
+    short_name = triples.get('shortDisplayName', None)
+    name = triples.get('name', None)
+    if short_name and short_name.get('nodes', []):
+      # Prefer short names
+      dcid2name[dcid] = short_name['nodes'][0].get('value', '')
+    elif name and name.get('nodes', []):
+      # Otherwise use name
+      dcid2name[dcid] = name['nodes'][0].get('value', '')
+
+  return dcid2name
+
+
 # For all facets that have a unit with a shortDisplayName, adds a
 # unitDisplayName property to the facet with the short display name as the value
 def _get_processed_facets(facets):
@@ -234,12 +258,12 @@ def _get_processed_facets(facets):
     facet_unit = facet.get('unit')
     if facet_unit:
       units.add(facet_unit)
-  unit_shortnames = dc.property_values(list(units), 'shortDisplayName')
+  unit2name = _get_unit_names(list(units))
   result = copy.deepcopy(facets)
   for facet_id, facet in facets.items():
-    facet_unit_shortname = unit_shortnames.get(facet.get('unit'), [])
-    if len(facet_unit_shortname) > 0:
-      result[facet_id]['unitDisplayName'] = facet_unit_shortname[0]
+    facet_unit = facet.get('unit')
+    if facet_unit and unit2name.get(facet_unit, ''):
+      result[facet_id]['unitDisplayName'] = unit2name[facet_unit]
   return result
 
 
