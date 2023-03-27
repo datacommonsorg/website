@@ -50,3 +50,7 @@ build/helm/**/*.tgz
 pylist.json
 
 pytest_log.txt
+
+
+tools/sdg/sdg.textproto
+tools/sdg/subject_page_pb2.py

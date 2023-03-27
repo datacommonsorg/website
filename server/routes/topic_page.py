@@ -14,18 +14,22 @@
 """Topic page related handlers."""
 
 import json
-import os
 
 import flask
 from flask import current_app
 from flask import g
 from google.protobuf.json_format import MessageToJson
 
+import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as libutil
 import server.routes.api.place as place_api
 
 _NL_DISASTER_TOPIC = 'nl_disasters'
-_DEBUG_TOPICS = ['dev', _NL_DISASTER_TOPIC]
+_SDG_TOPIC = 'sdg'
+_DEBUG_TOPICS = ['dev', _SDG_TOPIC, _NL_DISASTER_TOPIC]
+_SDG_COMPARISON_PLACES = [
+    'country/USA', 'country/CHN', 'country/JPN', 'country/IND'
+]
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
@@ -67,12 +71,25 @@ def topic_page(topic_id=None, place_dcid=None):
 
   # Find the config for the topic & place.
   topic_place_config = None
-  for config in topic_configs:
-    if place_dcid in config.metadata.place_dcid:
-      topic_place_config = config
-      break
-  if not topic_place_config:
-    return "Error: no config found"
+  if topic_id == _SDG_TOPIC:
+    topic_place_config = topic_configs[0]
+    topic_place_config.metadata.place_dcid.append(place_dcid)
+    # Populuate comparison places (fixed places) for all tiles
+    for category in topic_place_config.categories:
+      for block in category.blocks:
+        for column in block.columns:
+          for tile in column.tiles:
+            tile.comparison_places.append(place_dcid)
+            tile.comparison_places.extend(_SDG_COMPARISON_PLACES)
+    topic_place_config = lib_subject_page_config.remove_empty_charts(
+        topic_place_config, place_dcid, '')
+  else:
+    for config in topic_configs:
+      if place_dcid in config.metadata.place_dcid:
+        topic_place_config = config
+        break
+    if not topic_place_config:
+      return "Error: no config found"
 
   # TODO: should use place metadata API to fetch these data in one call.
   place_type = place_api.get_place_type(place_dcid)
