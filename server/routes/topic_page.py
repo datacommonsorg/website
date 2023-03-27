@@ -18,6 +18,7 @@ import json
 import flask
 from flask import current_app
 from flask import g
+from flask import request
 from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
@@ -30,6 +31,8 @@ _DEBUG_TOPICS = ['dev', _SDG_TOPIC, _NL_DISASTER_TOPIC]
 _SDG_COMPARISON_PLACES = [
     'country/USA', 'country/CHN', 'country/JPN', 'country/IND'
 ]
+# Max number of places; Choose 6 to match the bar_tile bar limits.s
+_MAX_NUM_PLACES = 6
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
@@ -75,12 +78,20 @@ def topic_page(topic_id=None, place_dcid=None):
     topic_place_config = topic_configs[0]
     topic_place_config.metadata.place_dcid.append(place_dcid)
     # Populuate comparison places (fixed places) for all tiles
+    comparison_places = [place_dcid]
+    more_places = request.args.getlist('places')
+    if more_places:
+      comparison_places.extend(more_places)
+    for p in _SDG_COMPARISON_PLACES:
+      if p not in comparison_places:
+        comparison_places.append(p)
+        if len(comparison_places) == _MAX_NUM_PLACES:
+          break
     for category in topic_place_config.categories:
       for block in category.blocks:
         for column in block.columns:
           for tile in column.tiles:
-            tile.comparison_places.append(place_dcid)
-            tile.comparison_places.extend(_SDG_COMPARISON_PLACES)
+            tile.comparison_places.extend(comparison_places)
     topic_place_config = lib_subject_page_config.remove_empty_charts(
         topic_place_config, place_dcid, '')
   else:
