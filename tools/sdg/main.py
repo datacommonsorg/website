@@ -76,7 +76,7 @@ def add_charts(svg_ids, category):
 def build_config():
   page_config = SubjectPageConfig()
   page_config.metadata.topic_id = 'sdg'
-  page_config.metadata.topic_name = 'SDG'
+  page_config.metadata.topic_name = 'Sustainable Development Goals'
   resp = post(API_PATH_SVG_INFO, {'nodes': [_SDG_ROOT]})
   if not resp['data']:
     return page_config

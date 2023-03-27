@@ -108,15 +108,15 @@ class TestSubjectPageConfigs(unittest.TestCase):
         "sustainability": [libutil.get_disaster_sustainability_config()],
     })
     for id, configs in all_configs.items():
-      # if id == 'sdg':
-      #   continue
+      if id == 'sdg':
+        continue
       for page_i, page in enumerate(configs):
         page_msg = f"{id}[config={page_i}]"
         self.assertNotEqual(page.metadata.topic_id, '', page_msg)
         self.assertNotEqual(page.metadata.topic_name, '', page_msg)
-        # self.assertGreater(len(page.metadata.place_dcid), 0, page_msg)
-        # self.assertGreater(len(page.metadata.contained_place_types), 0,
-        #                    page_msg)
+        self.assertGreater(len(page.metadata.place_dcid), 0, page_msg)
+        self.assertGreater(len(page.metadata.contained_place_types), 0,
+                           page_msg)
         event_type_specs = self.verify_event_type_specs(page, page_msg)
 
         for cat_i, cat in enumerate(page.categories):
