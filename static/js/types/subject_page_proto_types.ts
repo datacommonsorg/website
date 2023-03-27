@@ -96,6 +96,10 @@ export interface ScatterTileSpec {
   highlightBottomLeft?: boolean;
 }
 
+export interface BarTileSpec {
+  xLabelLinkRoot?: string;
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
@@ -108,6 +112,7 @@ export interface TileConfig {
   topEventTileSpec?: TopEventTileSpec;
   scatterTileSpec?: ScatterTileSpec;
   histogramTileSpec?: HistogramTileSpec;
+  barTileSpec?: BarTileSpec;
 }
 
 export interface ColumnConfig {
