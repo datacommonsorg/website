@@ -26,6 +26,7 @@ _SDG_ROOT = "sdg/g/SDG"
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 _MAX_BLOCKS = 20
+_MAX_SV_PER_SECTION = 3
 
 
 def write_page_config(page_config):
@@ -48,7 +49,7 @@ def post(url, req):
   return response.json()
 
 
-def add_chart(svg_ids, category):
+def add_charts(svg_ids, category):
   if len(category.blocks) == _MAX_BLOCKS:
     return
   resp = post(API_PATH_SVG_INFO, {'nodes': svg_ids})
@@ -57,7 +58,7 @@ def add_chart(svg_ids, category):
     if child_svs:
       block = category.blocks.add()
       block.title = item['info']['absoluteName']
-      for sv in child_svs[:3]:
+      for sv in child_svs[:_MAX_SV_PER_SECTION]:
         column = block.columns.add()
         tile = column.tiles.add()
         tile.type = Tile.TileType.BAR
@@ -69,20 +70,22 @@ def add_chart(svg_ids, category):
     else:
       child_svgs = item['info'].get('childStatVarGroups')
       if child_svgs:
-        add_chart([x['id'] for x in child_svgs], category)
+        add_charts([x['id'] for x in child_svgs], category)
 
 
 def build_config():
-  resp = post(API_PATH_SVG_INFO, {'nodes': [_SDG_ROOT]})
-  l0 = resp['data'][0]['info']
   page_config = SubjectPageConfig()
   page_config.metadata.topic_id = 'sdg'
   page_config.metadata.topic_name = 'SDG'
-  for svg in l0['childStatVarGroups']:
+  resp = post(API_PATH_SVG_INFO, {'nodes': [_SDG_ROOT]})
+  if not resp['data']:
+    return page_config
+  root = resp['data'][0]['info']
+  for svg in root['childStatVarGroups']:
     print(svg['id'])
     category = page_config.categories.add()
-    category.title = svg['displayName']
-    add_chart(svg['id'], category)
+    category.title = svg.get('displayName', '')
+    add_charts(svg['id'], category)
   return page_config
 
 

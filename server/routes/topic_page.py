@@ -74,6 +74,7 @@ def topic_page(topic_id=None, place_dcid=None):
   if topic_id == _SDG_TOPIC:
     topic_place_config = topic_configs[0]
     topic_place_config.metadata.place_dcid.append(place_dcid)
+    # Populuate comparison places (fixed places) for all tiles
     for category in topic_place_config.categories:
       for block in category.blocks:
         for column in block.columns:
