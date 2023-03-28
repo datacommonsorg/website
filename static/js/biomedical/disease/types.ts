@@ -37,13 +37,13 @@ export interface DiseaseSymptomAssociationData {
 }
 
 // specialization of NamedNode for disease parent data types
-export type DiseaseParent = NamedNode
+export type DiseaseParent = NamedNode;
 
 export interface DiseaseParentTree {
   // name of the parent
   name: string;
-  // array of children 
-  children: []
+  // array of children
+  children: [];
 }
 
 export interface CompoundDiseaseTreatmentData {

@@ -363,14 +363,15 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
  * @param data
  * @returns an array consisting of disease name and a sub-array of its children
  */
-export function formatDiseaseParentTreeData(data: DiseaseParent[]):DiseaseParentTree[]{
+export function formatDiseaseParentTreeData(
+  data: DiseaseParent[]
+): DiseaseParentTree[] {
   // sets the default value of the boolean as false and checking for null values
   let current = null;
-  for(const node of data) {
-    const child = current?[current]:[]
-    const nodeCurr = {name:node.name, children:child}
-    current = nodeCurr
+  for (const node of data) {
+    const child = current ? [current] : [];
+    const nodeCurr = { name: node.name, children: child };
+    current = nodeCurr;
   }
   return current;
-
 }

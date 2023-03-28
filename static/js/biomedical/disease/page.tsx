@@ -32,21 +32,20 @@ import {
 } from "./chart";
 import {
   doesDiseasePrevalenceIDexist,
+  formatDiseaseParentTreeData,
   getCompoundDiseaseContraindication,
   getCompoundDiseaseTreatment,
   getDiseaseCommonName,
   getDiseaseGeneAssociation,
   getDiseaseSymptomAssociation,
-  formatDiseaseParentTreeData
 } from "./data_processing_utils";
 import { DrugTreatmentTable } from "./drug_table";
 import {
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
+  DiseaseParent,
   DiseaseSymptomAssociationData,
-  DiseaseParent 
-
 } from "./types";
 
 const DISEASE_TREATMENT_COLUMNS = [
@@ -90,7 +89,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       diseaseCommonName: null,
       diseasePrevalenceIDexists: null,
       dataFetched: false,
-      diseaseParent: null
+      diseaseParent: null,
     };
   }
 
