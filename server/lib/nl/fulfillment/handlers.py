@@ -17,7 +17,10 @@ from dataclasses import dataclass
 from typing import List
 
 from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import ContainedInClassificationAttributes
+from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import Place
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
 from server.lib.nl.fulfillment import context
@@ -137,8 +140,28 @@ def first_query_type(uttr: Utterance):
   query_types = sorted(
       query_types, key=(lambda q: QUERY_HANDLERS.get(q, default_config).rank))
   if query_types:
+    _maybe_promote_simple_to_containedin(uttr, query_types)
     return query_types[-1]
   return None
+
+
+def _maybe_promote_simple_to_containedin(uttr: Utterance,
+                                         query_types: List[QueryType]):
+  if not _should_promote_simple_to_containedin(query_types[-1], uttr.places):
+    return
+  uttr.classifications.append(
+      NLClassifier(type=ClassificationType.CONTAINED_IN,
+                   attributes=ContainedInClassificationAttributes(
+                       contained_in_place_type=ContainedInPlaceType.ACROSS)))
+  if QueryType.CONTAINED_IN in query_types:
+    query_types.remove(QueryType.CONTAINED_IN)
+  query_types[-1] = QueryType.CONTAINED_IN
+
+
+def _should_promote_simple_to_containedin(query_type: QueryType,
+                                          places: List[Place]) -> bool:
+  return (query_type == QueryType.SIMPLE and len(places) == 1 and
+          (places[0].place_type == 'Continent' or places[0].dcid == 'Earth'))
 
 
 def _classification_to_query_type(cl: NLClassifier,
