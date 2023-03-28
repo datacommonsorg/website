@@ -13,8 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ const LEGEND_ARROW_LENGTH = 5;
+ const LEGEND_ARROW_WIDTH = 6;
+ const LEGEND_TITLE_FONT_WEIGHT = 600;
+ const MIN_LEGEND_CELL_SIZE = 8;
+ const LEGEND_CELL_SIZE_SCALE = 0.01;
+ const LEGEND_MARKER_WIDTH = 9;
+ const LEGEND_MARKER_HEIGHT = 9;
+ const LEGEND_AXIS_STROKE_COLOR = "black";
+ 
 import * as d3 from "d3";
-import _ from "lodash";
+import { hierarchy, tree } from "d3";
+import _, { update } from "lodash";
 
 import {
   addXLabel,
@@ -26,6 +36,8 @@ import {
 } from "../bio_charts_utils";
 import {
   DiseaseGeneAssociationData,
+  DiseaseParent,
+  DiseaseParentTree,
   DiseaseSymptomAssociationData,
 } from "./types";
 // graph specific dimensions
@@ -246,4 +258,67 @@ export function drawDiseaseSymptomAssociationChart(
       circleIDFunc,
       (d) => `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
     );
+}
+/**
+ * Draws the disease ontology hierarchy chart for the disease of interest
+ * @param id the div id where the chart is rendered on the page
+ * @param data the disease data passed into the function
+ */
+export function drawDiseaseOntologyHierarchy(
+  id: string,
+  data: DiseaseParentTree[]
+): void {
+const height = GRAPH_HEIGHT - MARGIN.top - MARGIN.bottom;
+const width = GRAPH_WIDTH - MARGIN.left;
+// tree root
+const root = d3.hierarchy(data)
+.sort((a,b) => b.height - a.height);
+// tree layout
+var treeLayout = d3.tree()
+  .size([600, 120]);
+// calling the tree layout function for the rearrangement of root
+treeLayout(root);
+
+const svg = d3
+  .select(`#${id}`)
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .append("g")
+  .attr("transform", "translate("  + MARGIN.top + ")");
+
+svg.selectAll('.link')
+  .data(root.links())
+  .enter()
+  .append('line')
+  .attr('x1', function(d:any) {return d.source.x;})
+  .attr('y1', function(d:any) {return d.source.y + 50;})
+  .attr('x2', function(d:any) {return d.target.x;})
+  .attr('y2', function(d:any, i) {return d.target.y + 150;})
+  //.attr('y2', function(d:any, i) {return 150+(i*40);})
+  .attr('stroke', "black")
+  .attr('stroke-width', 2);
+  
+// Add nodes
+svg.selectAll('.node')
+  .data(root.descendants())
+  .enter()
+  .append('circle')
+  .attr('cx', function(d:any, i) {return d.x ;})
+  .attr('cy', function(d,i){return 50+(i*40)})
+  .attr('r', 10)
+  .attr("fill", "maroon")
+  .attr('stroke', "black")
+  .attr('stroke-width', 1);
+  
+// draw labels
+svg.selectAll('g.labels')
+  .data(root.descendants())
+  .enter()
+  .append('text')
+  .style('fill', 'black')
+  .attr('x', function(d: any) {return d.x + 15;})
+  .attr('y', function(d:any,i ) {return 55+(i*40)})
+  .text((d:any) => d.data.name);
+
 }

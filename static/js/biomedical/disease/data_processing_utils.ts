@@ -21,6 +21,8 @@ import {
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
+  DiseaseParent,
+  DiseaseParentTree,
   DiseaseSymptomAssociationData,
 } from "./types";
 
@@ -355,4 +357,20 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
     }
   }
   return false;
+}
+/**
+ * Converts the disease parent data from a flat array to a tree array for tree visualization
+ * @param data
+ * @returns an array consisting of disease name and a sub-array of its children
+ */
+export function formatDiseaseParentTreeData(data: DiseaseParent[]):DiseaseParentTree[]{
+  // sets the default value of the boolean as false and checking for null values
+  let current = null;
+  for(const node of data) {
+    const child = current?[current]:[]
+    const nodeCurr = {name:node.name, children:child}
+    current = nodeCurr
+  }
+  return current;
+
 }
