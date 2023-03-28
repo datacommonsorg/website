@@ -18,15 +18,18 @@
  * Component for rendering the header of a stat var node.
  */
 
+import * as d3 from "d3";
 import React from "react";
 
 import { Context, ContextType } from "../shared/context";
 import { StatVarHierarchyNodeType } from "../shared/types";
 import { StatVarHierarchyType } from "../shared/types";
+import { hideTooltip, showTooltip, SV_HIERARCHY_SECTION_ID } from "./util";
 
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
 const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
 const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
+const TOOLTIP_TOP_OFFSET = 10;
 
 interface StatVarHierarchyNodeHeaderPropType {
   childrenStatVarCount: number;
@@ -35,6 +38,8 @@ interface StatVarHierarchyNodeHeaderPropType {
   opened: boolean;
   highlighted: boolean;
   nodeType: StatVarHierarchyNodeType;
+  showTooltip: boolean;
+  nodeDcid: string;
 }
 
 export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchyNodeHeaderPropType> {
@@ -68,7 +73,11 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
         }
       >
         {prefixHtml}
-        <span className={className}>
+        <span
+          className={className}
+          onMouseMove={this.props.showTooltip ? this.mouseMoveAction : null}
+          onMouseOut={() => hideTooltip()}
+        >
           {this.props.title}
           {this.props.childrenStatVarCount > 0 &&
             this.props.nodeType !== StatVarHierarchyNodeType.STAT_VAR && (
@@ -80,5 +89,15 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
       </div>
     );
   }
+
+  private mouseMoveAction = (e) => {
+    const left = e.pageX;
+    const containerY = (
+      d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
+    ).getBoundingClientRect().y;
+    const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
+    const tooltipHtml = `<b>${this.props.title}</b></br><span>dcid: ${this.props.nodeDcid}</span>`;
+    showTooltip(tooltipHtml, { left, top });
+  };
 }
 StatVarHierarchyNodeHeader.contextType = Context;
