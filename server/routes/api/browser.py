@@ -22,7 +22,7 @@ from flask import Response
 from server.cache import cache
 import server.services.datacommons as dc
 
-bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
+bp = flask.Blueprint('api_browser', __name__, url_prefix='/api/browser')
 
 NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'

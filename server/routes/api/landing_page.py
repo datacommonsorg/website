@@ -38,7 +38,7 @@ import server.routes.api.place as place_api
 import server.services.datacommons as dc
 
 # Define blueprint
-bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
+bp = Blueprint("api_landing_page", __name__, url_prefix='/api/landingpage')
 
 BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
 MAX_DENOMINATOR_BACK_YEAR = 3

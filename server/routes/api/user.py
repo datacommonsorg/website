@@ -23,7 +23,7 @@ import flask
 from flask import current_app
 from google.cloud import firestore
 
-bp = flask.Blueprint('api.user', __name__, url_prefix='/api/user')
+bp = flask.Blueprint('api_user', __name__, url_prefix='/api/user')
 
 # User information is stored in Cloud Firestore as "users" collection.
 # Each user document has a "imports" subcollection that stores the import
