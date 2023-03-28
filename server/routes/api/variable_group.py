@@ -30,16 +30,21 @@ UPDATE_NUM_DESCENDENTS_SVG = {"dc/g/Establishment", "dc/g/Employment"}
 NUM_DESCENDENTS_TO_SUBTRACT = 12123
 
 
-@bp.route('/info')
+@bp.route('/info', methods=['GET', 'POST'])
 def get_variable_group_info():
   """Gets the stat var group node information.
 
   This is to retrieve the adjacent nodes, including child stat vars, child stat
   var groups and parent stat var groups for the given stat var group node.
   """
-  dcid = request.args.get("dcid")
-  entities = request.args.getlist("entities")
-  numEntitiesExistence = request.args.get("numEntitiesExistence", 1)
+  if request.method == 'GET':
+    dcid = request.args.get("dcid")
+    entities = request.args.getlist("entities")
+    numEntitiesExistence = request.args.get("numEntitiesExistence", 1)
+  else:
+    dcid = request.json.get("dcid")
+    entities = request.json.get("entities")
+    numEntitiesExistence = request.json.get("numEntitiesExistence", 1)
   resp = dc.get_variable_group_info([dcid], entities, numEntitiesExistence)
   result = resp.get("data", [{}])[0].get("info", {})
   if current_app.config["ENABLE_BLOCKLIST"]:
