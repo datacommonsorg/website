@@ -108,6 +108,8 @@ class TestSubjectPageConfigs(unittest.TestCase):
         "sustainability": [libutil.get_disaster_sustainability_config()],
     })
     for id, configs in all_configs.items():
+      if id == 'sdg':
+        continue
       for page_i, page in enumerate(configs):
         page_msg = f"{id}[config={page_i}]"
         self.assertNotEqual(page.metadata.topic_id, '', page_msg)

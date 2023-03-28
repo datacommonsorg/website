@@ -16,13 +16,6 @@
                   },
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
-                    ],
-                    "title": "Employed population below international poverty line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
                     ],
                     "title": "Access to basic drinking water services in Countries of Africa (${date})",
@@ -33,6 +26,13 @@
                       "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
                     ],
                     "title": "Access to basic sanitation services in Countries of Africa (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                    ],
+                    "title": "Employed population below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]

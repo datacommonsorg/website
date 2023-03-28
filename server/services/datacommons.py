@@ -179,6 +179,17 @@ def triples(node, direction):
   return get(f'{url}/{direction}/{node}')
 
 
+def bulk_triples(nodes, direction):
+  """Retrieves the triples for multiple nodes.
+
+  Args:
+      nodes: DCIDs of nodes.
+      direction: Predicate direction, either be 'in' or 'out'.
+  """
+  url = get_service_url('/v1/bulk/triples')
+  return post(f'{url}/{direction}', {'nodes': nodes})
+
+
 def properties(node, direction):
   """Retrieves the properties for a node.
 

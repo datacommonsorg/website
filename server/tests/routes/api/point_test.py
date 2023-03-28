@@ -114,16 +114,24 @@ class TestApiPointWithin(unittest.TestCase):
           'all_facets': False
       }:
         return mock_data.POINT_WITHIN_2015
-      if url.endswith('/v1/bulk/property/values/out') and data == {
+      if url.endswith('/v1/bulk/triples/out') and data == {
           'nodes': ['testUnit'],
-          'property': 'shortDisplayName'
       }:
         return {
             'data': [{
                 'node': 'testUnit',
-                'values': [{
-                    'value': 'shortUnit'
-                }]
+                'triples': {
+                    'name': {
+                        'nodes': [{
+                            'value': 'longUnitName'
+                        }]
+                    },
+                    'shortDisplayName': {
+                        'nodes': [{
+                            'value': 'shortUnit'
+                        }]
+                    },
+                }
             }]
         }
 
