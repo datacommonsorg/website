@@ -234,18 +234,18 @@ export class StatVarHierarchy extends React.Component<
 
   private fetchData(): void {
     loadSpinner(SV_HIERARCHY_SECTION_ID);
-    let url = `/api/variable-group/info?dcid=${ROOT_SVG}`;
-    for (const entity of this.props.entities) {
-      url += `&entities=${entity.dcid}`;
-    }
-    if (this.props.numEntitiesExistence) {
-      url += `&numEntitiesExistence=${this.props.numEntitiesExistence}`;
-    }
+    const entityList = this.props.entities.map((entity) => entity.dcid);
     const allPromises: Promise<string[] | StatVarGroupInfo[]>[] = [];
     allPromises.push(
-      axios.get(url).then((resp) => {
-        return resp.data["childStatVarGroups"];
-      })
+      axios
+        .post("/api/variable-group/info", {
+          dcid: ROOT_SVG,
+          entities: entityList,
+          numEntitiesExistence: this.props.numEntitiesExistence,
+        })
+        .then((resp) => {
+          return resp.data["childStatVarGroups"];
+        })
     );
     const svPath = {};
     if (this.props.selectedSVs) {
