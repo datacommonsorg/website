@@ -27,6 +27,7 @@ API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 _MAX_BLOCKS = 20
 _MAX_SV_PER_SECTION = 3
+_X_LABEL_LINK_ROOT = "/topic/sdg/"
 
 
 def write_page_config(page_config):
@@ -64,6 +65,7 @@ def add_charts(svg_ids, category):
         tile.type = Tile.TileType.BAR
         tile.stat_var_key.append(sv['id'])
         tile.title = sv['displayName']
+        tile.bar_tile_spec.x_label_link_root = _X_LABEL_LINK_ROOT
         spec = category.stat_var_spec[sv['id']]
         spec.stat_var = sv['id']
         spec.name = sv['displayName']
