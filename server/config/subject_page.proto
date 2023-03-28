@@ -145,6 +145,12 @@ message ScatterTileSpec {
   bool highlight_bottom_left = 4;
 }
 
+message BarTileSpec {
+  // [optional] The root url to use for labels in the x-axis. If not specified,
+  // labels in the x-axis will link to Place Explorer.
+  string x_label_link_root = 1;
+}
+
 message Tile {
   // When adding a new TileType:
   // - make sure to update verify_tile in subject_page_configs_test.py with any
@@ -200,6 +206,7 @@ message Tile {
     TopEventTileSpec top_event_tile_spec = 8;
     ScatterTileSpec scatter_tile_spec = 9;
     HistogramTileSpec histogram_tile_spec = 10;
+    BarTileSpec bar_tile_spec = 12;
   }
 }
 
