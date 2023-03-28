@@ -218,6 +218,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
+            tileSpec={tile.barTileSpec}
           />
         );
       case "SCATTER":
