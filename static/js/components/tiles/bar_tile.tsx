@@ -37,7 +37,7 @@ import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
-const NUM_PLACES = 6;
+const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
