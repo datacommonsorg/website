@@ -14,7 +14,7 @@
 """Endpoints for disaster dashboard"""
 
 import copy
-import json
+import dataclasses
 
 import flask
 from flask import Blueprint
@@ -51,28 +51,31 @@ def disaster_dashboard(place_dcid=None):
   if not dashboard_config:
     return "Error: no config installed"
 
-  # Override the min severity for fires for Earth
-  # TODO: Do this by extending the config instead.
-  if place_dcid == lib_subject_page_config.DEFAULT_PLACE_DCID:
-    dashboard_config = copy.deepcopy(dashboard_config)
-    for key in dashboard_config.metadata.event_type_spec:
-      if key == FIRE_EVENT_TYPE_SPEC:
-        spec = dashboard_config.metadata.event_type_spec[key]
-        spec.default_severity_filter.lower_limit = EARTH_FIRE_SEVERITY_MIN
+  dashboard_config = copy.deepcopy(dashboard_config)
 
+  # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
-  if place_metadata.contained_place_types_override:
-    dashboard_config.metadata.contained_place_types.clear()
-    dashboard_config.metadata.contained_place_types.update(
-        place_metadata.contained_place_types_override)
+  if place_metadata.is_error:
+    return flask.render_template(
+        'custom_dc/stanford/disaster_dashboard.html',
+        place_metadata=place_metadata,
+        config=None,
+        maps_api_key=current_app.config['MAPS_API_KEY'])
 
+  dashboard_config.metadata.contained_place_types.clear()
+  dashboard_config.metadata.contained_place_types.update(
+      place_metadata.contained_place_types)
+
+  # Post-processing on subject page config
+  contained_place_type = place_metadata.contained_place_types.get(
+      place_metadata.place_type, None)
   dashboard_config = lib_subject_page_config.remove_empty_charts(
-      dashboard_config, place_dcid)
+      dashboard_config, place_dcid, contained_place_type)
+  lib_subject_page_config.update_event_spec_by_type(dashboard_config,
+                                                    place_metadata.place_type)
 
   return flask.render_template(
       'custom_dc/stanford/disaster_dashboard.html',
-      place_type=json.dumps(place_metadata.place_types),
-      place_name=place_metadata.place_name,
-      place_dcid=place_dcid,
+      place_metadata=dataclasses.asdict(place_metadata),
       config=MessageToJson(dashboard_config),
-      parent_places=json.dumps(place_metadata.parent_places))
+      maps_api_key=current_app.config['MAPS_API_KEY'])

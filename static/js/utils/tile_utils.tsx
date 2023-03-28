@@ -22,15 +22,18 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
 
 export interface ReplacementStrings {
-  place: string;
-  date: string;
+  placeName?: string;
+  date?: string;
   statVar?: string;
   xDate?: string;
   yDate?: string;
+  placeDcid?: string;
 }
 
 /**
  * Formats a string with replacement strings.
+ * NOTE: unspecified keys will not be replaced / removed from the string.
+ *
  * @param s The string to format
  * @param rs The replacement strings to use
  */
@@ -67,15 +70,4 @@ export function getStatVarName(
     return `${label} Per Capita`;
   }
   return label;
-}
-
-/**
- * Gets the unit given the unit for the stat var and the dcid of the denominator
- * TODO(chejennifer): clean up all the getUnit functions in this repo
- * @param statUnit the unit for the stat var
- * @param denomDcid the dcid of the denominator
- */
-export function getUnitString(statUnit: string, denomDcid?: string): string {
-  // TODO: Improve this to be denomDcid based.
-  return statUnit;
 }

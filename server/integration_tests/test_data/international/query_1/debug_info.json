@@ -1,0 +1,345 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.DISTRICT",
+  "correlation_classification": "<None>",
+  "counters": {
+    "ERROR": {
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "wikidataId/Q100067",
+            "wikidataId/Q100077",
+            "wikidataId/Q100082",
+            "wikidataId/Q100085",
+            "wikidataId/Q100093",
+            "wikidataId/Q100095",
+            "wikidataId/Q100117",
+            "wikidataId/Q100120",
+            "wikidataId/Q100124",
+            "wikidataId/Q100130",
+            "wikidataId/Q100131",
+            "wikidataId/Q100139",
+            "wikidataId/Q100144",
+            "wikidataId/Q100146",
+            "wikidataId/Q100152"
+          ],
+          "svs": [
+            "Area_Farm_Cropland"
+          ],
+          "type": "AdministrativeArea2"
+        },
+        {
+          "places": [
+            "wikidataId/Q100067",
+            "wikidataId/Q100077",
+            "wikidataId/Q100082",
+            "wikidataId/Q100085",
+            "wikidataId/Q100093",
+            "wikidataId/Q100095",
+            "wikidataId/Q100117",
+            "wikidataId/Q100120",
+            "wikidataId/Q100124",
+            "wikidataId/Q100130",
+            "wikidataId/Q100131",
+            "wikidataId/Q100139",
+            "wikidataId/Q100144",
+            "wikidataId/Q100146",
+            "wikidataId/Q100152"
+          ],
+          "svs": [
+            "Area_Farm"
+          ],
+          "type": "AdministrativeArea2"
+        }
+      ]
+    },
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/IND",
+          "result": [
+            "wikidataId/Q100067",
+            "wikidataId/Q100077",
+            "wikidataId/Q100082"
+          ],
+          "type": "AdministrativeArea2"
+        }
+      ],
+      "contained_in_admin_area_equivalent": [
+        [
+          "District",
+          "AdministrativeArea2"
+        ]
+      ],
+      "filtered_svs": [
+        [
+          "Count_Person_Rural",
+          "Area_Farm_Cropland",
+          "Area_Farm"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.27,
+      "fulfillment": 0.31,
+      "get_sample_child_places": 0.15,
+      "get_sv_details": 0.27,
+      "query_detection": 0.52,
+      "sv_existence_for_places": 0.16
+    }
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "District",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/IND",
+          "dcid": "country/IND",
+          "name": "India",
+          "place_type": "Country"
+        }
+      ],
+      "query": "Where are the most rural districts in India",
+      "query_type": 2,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "ranking table",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "AdministrativeArea2",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 2,
+          "event": null,
+          "places": [
+            {
+              "country": "country/IND",
+              "dcid": "country/IND",
+              "name": "India",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_Person_Rural"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person_Rural",
+        "Area_Farm_Cropland",
+        "Area_Farm"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "country/IND",
+  "main_place_name": "India",
+  "original_query": "Where are the most rural districts in India",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "india"
+  ],
+  "places_resolved": "(name: India, dcid: country/IND); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "country": "country/IND",
+      "dcid": "country/IND",
+      "name": "India",
+      "place_type": "Country"
+    },
+    "original_query": "Where are the most rural districts in India",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": {
+        "india": "country/IND"
+      },
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "country": "country/IND",
+          "dcid": "country/IND",
+          "name": "India",
+          "place_type": "Country"
+        }
+      ]
+    },
+    "places_found_str": [
+      "india"
+    ],
+    "query_transformations": {
+      "place_detection_input": "where are the most rural districts in india",
+      "place_detection_with_places_removed": "where are the most rural districts",
+      "sv_detection_query_input": "where are the most rural districts",
+      "sv_detection_query_stop_words_removal": "rural districts"
+    }
+  },
+  "query_with_places_removed": "where are the most rural districts",
+  "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.5804553627967834,
+      0.5062130689620972,
+      0.5036059021949768,
+      0.4457712173461914,
+      0.44315993785858154,
+      0.4328242242336273,
+      0.43102166056632996,
+      0.42968395352363586,
+      0.4276331663131714,
+      0.42681068181991577,
+      0.42382127046585083,
+      0.4201914072036743,
+      0.41825613379478455,
+      0.41741031408309937
+    ],
+    "SV": [
+      "Count_Person_Rural",
+      "Area_Farm_Cropland",
+      "Area_Farm",
+      "dc/hlxvn1t8b9bhh",
+      "dc/g/Farm_FarmType-Cropland",
+      "Area_Farm_IrrigatedLand",
+      "Area_Farm_PimaCotton",
+      "Area_Farm_Rice",
+      "Area_Farm_CornForGrain",
+      "Area_Farm_SweetPotatoes",
+      "Area_Farm_WheatForGrain",
+      "Count_Person_DetailedPrimarySchool",
+      "dc/g/Person_Industry-NAICS/JOLTS923000",
+      "Area_Farm_HarvestedCropland"
+    ],
+    "SV_to_Sentences": {
+      "Area_Farm": [
+        "Area of Farm (0.5036059021949768)",
+        "total Farm Area (0.43092861771583557)",
+        "Total Farm Area (0.43092861771583557)"
+      ],
+      "Area_Farm_CornForGrain": [
+        "Area of Farm: Corn for Grain (0.4276331663131714)"
+      ],
+      "Area_Farm_Cropland": [
+        "Area of Farm: Cropland (0.5062130689620972)",
+        "Farms with cropland (0.4184269607067108)"
+      ],
+      "Area_Farm_HarvestedCropland": [
+        "Area of Farms With Harvested Cropland (0.41741031408309937)"
+      ],
+      "Area_Farm_IrrigatedLand": [
+        "Area of Farm: Irrigated Land (0.4328242242336273)"
+      ],
+      "Area_Farm_PimaCotton": [
+        "Area of Farm: Pima Cotton (0.43102166056632996)"
+      ],
+      "Area_Farm_Rice": [
+        "Area of Farm: Rice (0.42968395352363586)"
+      ],
+      "Area_Farm_SweetPotatoes": [
+        "Area of Farm: Sweet Potatoes (0.42681068181991577)"
+      ],
+      "Area_Farm_WheatForGrain": [
+        "area of farms growing wheat (0.42382127046585083)",
+        "Area of Farms Growing Wheat (0.42382127046585083)"
+      ],
+      "Count_Person_DetailedPrimarySchool": [
+        "counties with highest number children in elementary school (0.4201914072036743)"
+      ],
+      "Count_Person_Rural": [
+        "Number of people living in rural areas (0.5804553627967834)",
+        "Number of People Living in Rural Areas (0.5804553627967834)"
+      ],
+      "dc/g/Farm_FarmType-Cropland": [
+        "cropland farm (0.44315993785858154)",
+        "Cropland Farms (0.43550002574920654)",
+        "Farms with cropland (0.4184269607067108)"
+      ],
+      "dc/g/Person_Industry-NAICS/JOLTS923000": [
+        "workers in state and local government education industry (0.41825613379478455)"
+      ],
+      "dc/hlxvn1t8b9bhh": [
+        "farmers (0.4457712173461914)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Area_Farm": [
+      "Area of Farm (0.5036059021949768)",
+      "total Farm Area (0.43092861771583557)",
+      "Total Farm Area (0.43092861771583557)"
+    ],
+    "Area_Farm_CornForGrain": [
+      "Area of Farm: Corn for Grain (0.4276331663131714)"
+    ],
+    "Area_Farm_Cropland": [
+      "Area of Farm: Cropland (0.5062130689620972)",
+      "Farms with cropland (0.4184269607067108)"
+    ],
+    "Area_Farm_HarvestedCropland": [
+      "Area of Farms With Harvested Cropland (0.41741031408309937)"
+    ],
+    "Area_Farm_IrrigatedLand": [
+      "Area of Farm: Irrigated Land (0.4328242242336273)"
+    ],
+    "Area_Farm_PimaCotton": [
+      "Area of Farm: Pima Cotton (0.43102166056632996)"
+    ],
+    "Area_Farm_Rice": [
+      "Area of Farm: Rice (0.42968395352363586)"
+    ],
+    "Area_Farm_SweetPotatoes": [
+      "Area of Farm: Sweet Potatoes (0.42681068181991577)"
+    ],
+    "Area_Farm_WheatForGrain": [
+      "area of farms growing wheat (0.42382127046585083)",
+      "Area of Farms Growing Wheat (0.42382127046585083)"
+    ],
+    "Count_Person_DetailedPrimarySchool": [
+      "counties with highest number children in elementary school (0.4201914072036743)"
+    ],
+    "Count_Person_Rural": [
+      "Number of people living in rural areas (0.5804553627967834)",
+      "Number of People Living in Rural Areas (0.5804553627967834)"
+    ],
+    "dc/g/Farm_FarmType-Cropland": [
+      "cropland farm (0.44315993785858154)",
+      "Cropland Farms (0.43550002574920654)",
+      "Farms with cropland (0.4184269607067108)"
+    ],
+    "dc/g/Person_Industry-NAICS/JOLTS923000": [
+      "workers in state and local government education industry (0.41825613379478455)"
+    ],
+    "dc/hlxvn1t8b9bhh": [
+      "farmers (0.4457712173461914)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}

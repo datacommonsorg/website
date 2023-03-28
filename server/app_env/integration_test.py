@@ -18,6 +18,6 @@ from server.app_env import _base
 class Config(_base.Config):
   INTEGRATION = True
   API_ROOT = 'https://autopush.api.datacommons.org'
-  API_PROJECT = 'datcom-mixer-autopush'
-  SCHEME = 'http'
   SECRET_PROJECT = 'datcom-website-dev'
+  SCHEME = 'http'
+  NEED_API_KEY = True

@@ -4,38 +4,52 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [],
-    "num_chart_candidates": 8,
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "stat_var_extensions": [
-      {
-        "Mean_Income_Household": [
-          "Mean_Income_Household"
-        ],
-        "Median_Earnings_Person": [
-          "Median_Earnings_Person"
-        ],
-        "Median_Income_Household": [
-          "Median_Income_Household"
-        ],
-        "Median_Income_Household_FamilyHousehold": [
-          "Median_Income_Household_FamilyHousehold"
-        ],
-        "Median_Income_Household_NonfamilyHousehold": [
-          "Median_Income_Household_NonfamilyHousehold"
-        ],
-        "Median_Income_Person": [
-          "Median_Income_Person"
-        ],
-        "dc/x3gghqtglpr59": [
-          "dc/x3gghqtglpr59",
-          "Count_Worker_NAICSFinanceInsurance",
-          "WagesTotal_Worker_NAICSFinanceInsurance"
-        ]
-      }
-    ]
+    "ERROR": {},
+    "INFO": {
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 8,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "stat_var_extensions": [
+        {
+          "Mean_Income_Household": [
+            "Mean_Income_Household"
+          ],
+          "Median_Earnings_Person": [
+            "Median_Earnings_Person"
+          ],
+          "Median_Income_Household": [
+            "Median_Income_Household"
+          ],
+          "Median_Income_Household_FamilyHousehold": [
+            "Median_Income_Household_FamilyHousehold"
+          ],
+          "Median_Income_Household_NonfamilyHousehold": [
+            "Median_Income_Household_NonfamilyHousehold"
+          ],
+          "Median_Income_Person": [
+            "Median_Income_Person"
+          ],
+          "dc/x3gghqtglpr59": [
+            "dc/x3gghqtglpr59",
+            "Count_Worker_NAICSFinanceInsurance",
+            "WagesTotal_Worker_NAICSFinanceInsurance"
+          ]
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.28,
+      "extend_svs": 2.33,
+      "fulfillment": 3.98,
+      "get_sv_details": 0.28,
+      "has_series_with_single_datapoint": 1.5,
+      "query_detection": 0.44,
+      "sv_existence_for_places": 0.13
+    }
   },
   "data_spec": [
     {
@@ -46,6 +60,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
@@ -70,6 +85,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -95,6 +111,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -120,6 +137,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -145,6 +163,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -170,6 +189,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -195,6 +215,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -220,6 +241,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -247,6 +269,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -275,8 +298,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -301,8 +325,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -328,8 +353,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -355,8 +381,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -382,8 +409,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -409,8 +437,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -436,8 +465,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -463,8 +493,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -492,6 +523,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -516,6 +548,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -539,6 +572,7 @@
   "places_resolved": "(name: Florida, dcid: geoId/12); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "geoId/12",
       "name": "Florida",
       "place_type": "State"
@@ -547,15 +581,16 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/12"
-      ],
+      "dcids_resolved": {
+        "florida": "geoId/12"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
@@ -579,16 +614,17 @@
   "sv_matching": {
     "CosineScore": [
       0.37027618288993835,
-      0.3159871995449066,
-      0.2831985354423523,
-      0.27669647336006165,
+      0.3159870505332947,
+      0.2831985652446747,
+      0.27669620513916016,
       0.2557689845561981,
-      0.2371777594089508,
-      0.22020851075649261,
-      0.21446257829666138,
-      0.2134648710489273,
-      0.20017606019973755,
-      0.1957034170627594
+      0.24891072511672974,
+      0.2371777892112732,
+      0.23379194736480713,
+      0.2202083170413971,
+      0.21446260809898376,
+      0.2134648859500885,
+      0.20017603039741516
     ],
     "SV": [
       "dc/topic/Income",
@@ -596,100 +632,105 @@
       "dc/topic/Jobs",
       "dc/topic/MedicalConditions",
       "dc/hlxvn1t8b9bhh",
+      "dc/topic/RacialBreakdown",
       "dc/g/Person_MedicalCondition-Wasting",
+      "dc/3jr0p7yjw06z9",
       "AirQualityIndex_AirPollutant",
       "dc/topic/WorkCommute",
       "dc/topic/Agriculture",
-      "dc/g/Farm_FarmInventoryType-Forage",
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+      "dc/g/Farm_FarmInventoryType-Forage"
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.22020851075649261)"
+        "AQI (0.2202083170413971)"
+      ],
+      "dc/3jr0p7yjw06z9": [
+        "casinos (0.23379194736480713)"
       ],
       "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017606019973755)",
+        "Forage Farms (0.20017603039741516)",
         "forage farms (0.20017603039741516)"
       ],
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.1957034170627594)",
-        "Pig Farm (0.1957034170627594)"
-      ],
       "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.2371777594089508)"
+        "people with wasting (0.2371777892112732)"
       ],
       "dc/hlxvn1t8b9bhh": [
         "cattle ranchers (0.2557689845561981)",
-        "farmers (0.22553959488868713)"
+        "farmers (0.22553953528404236)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.2134648710489273)"
+        "Agriculture (0.2134648859500885)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.3159871995449066)"
+        "Economy (0.3159870505332947)"
       ],
       "dc/topic/Income": [
         "pay (0.37027618288993835)",
-        "compensation (0.22850872576236725)",
-        "Earnings (0.2226836383342743)",
-        "Income (0.20594437420368195)"
+        "compensation (0.2285088300704956)",
+        "Earnings (0.2226836085319519)",
+        "Income (0.20594435930252075)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.2831985354423523)",
-        "Careers (0.24140897393226624)",
-        "Professions (0.20911745727062225)"
+        "Jobs (0.2831985652446747)",
+        "Careers (0.24140900373458862)",
+        "Professions (0.2091173678636551)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.27669647336006165)",
-        "Medical infirmities (0.2347509115934372)"
+        "Maladies (0.27669620513916016)",
+        "Medical infirmities (0.23475098609924316)"
+      ],
+      "dc/topic/RacialBreakdown": [
+        "ethnicity (0.24891072511672974)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.21446257829666138)"
+        "journey to work (0.21446260809898376)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.22020851075649261)"
+      "AQI (0.2202083170413971)"
+    ],
+    "dc/3jr0p7yjw06z9": [
+      "casinos (0.23379194736480713)"
     ],
     "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017606019973755)",
+      "Forage Farms (0.20017603039741516)",
       "forage farms (0.20017603039741516)"
     ],
-    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.1957034170627594)",
-      "Pig Farm (0.1957034170627594)"
-    ],
     "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.2371777594089508)"
+      "people with wasting (0.2371777892112732)"
     ],
     "dc/hlxvn1t8b9bhh": [
       "cattle ranchers (0.2557689845561981)",
-      "farmers (0.22553959488868713)"
+      "farmers (0.22553953528404236)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.2134648710489273)"
+      "Agriculture (0.2134648859500885)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.3159871995449066)"
+      "Economy (0.3159870505332947)"
     ],
     "dc/topic/Income": [
       "pay (0.37027618288993835)",
-      "compensation (0.22850872576236725)",
-      "Earnings (0.2226836383342743)",
-      "Income (0.20594437420368195)"
+      "compensation (0.2285088300704956)",
+      "Earnings (0.2226836085319519)",
+      "Income (0.20594435930252075)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.2831985354423523)",
-      "Careers (0.24140897393226624)",
-      "Professions (0.20911745727062225)"
+      "Jobs (0.2831985652446747)",
+      "Careers (0.24140900373458862)",
+      "Professions (0.2091173678636551)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.27669647336006165)",
-      "Medical infirmities (0.2347509115934372)"
+      "Maladies (0.27669620513916016)",
+      "Medical infirmities (0.23475098609924316)"
+    ],
+    "dc/topic/RacialBreakdown": [
+      "ethnicity (0.24891072511672974)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.21446257829666138)"
+      "journey to work (0.21446260809898376)"
     ]
   },
   "time_delta_classification": "<None>"

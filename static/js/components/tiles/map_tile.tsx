@@ -26,6 +26,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import {
   EntityObservation,
@@ -46,11 +47,10 @@ import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
-import { getUnit } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
-import { formatNumber, getDateRange } from "../../utils/string_utils";
-import { getUnitString, ReplacementStrings } from "../../utils/tile_utils";
+import { getDateRange } from "../../utils/string_utils";
+import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface MapTilePropType {
@@ -92,6 +92,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
+  const [svgHeight, setSvgHeight] = useState(null);
 
   useEffect(() => {
     fetchData(
@@ -122,25 +123,40 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     }
   }, [mapChartData, props]);
 
-  if (!mapChartData) {
-    return null;
-  }
+  useEffect(() => {
+    let svgHeight = props.svgChartHeight;
+    if (svgContainer.current) {
+      svgHeight = Math.max(
+        svgContainer.current.offsetHeight,
+        props.svgChartHeight
+      );
+    }
+    setSvgHeight(svgHeight);
+  }, [props]);
+
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: mapChartData.dateRange,
+    placeName: props.place.name,
+    date: mapChartData && mapChartData.dateRange,
   };
   return (
     <ChartTileContainer
       title={props.title}
-      sources={mapChartData.sources}
+      sources={mapChartData && mapChartData.sources}
       replacementStrings={rs}
       className={`${props.className} map-chart`}
       allowEmbed={true}
-      getDataCsv={() =>
-        mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)
+      getDataCsv={
+        mapChartData
+          ? () => mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)
+          : null
       }
+      isInitialLoading={_.isNull(mapChartData)}
     >
-      <div className="svg-container" ref={svgContainer}>
+      <div
+        className="svg-container"
+        ref={svgContainer}
+        style={{ minHeight: svgHeight }}
+      >
         <div className="map" ref={mapContainer}></div>
         <div className="legend" ref={legendContainer}></div>
       </div>
@@ -236,6 +252,7 @@ function processData(
     return;
   }
   const isPerCapita = !_.isEmpty(statVarSpec.denom);
+  let unit = statVarSpec.unit;
   for (const geoFeature of rawData.geoJson.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
@@ -260,16 +277,12 @@ function processData(
         sources.add(source);
       }
     });
+    unit = unit || placeChartData.unit;
   }
   // check for empty data values
   if (_.isEmpty(dataValues)) {
     return;
   }
-  const statUnit = getUnit(
-    Object.values(rawData.placeStat),
-    rawData.metadataMap
-  );
-  const unit = getUnitString(statUnit, statVarSpec.denom);
   setChartData({
     dataValues,
     metadata,
@@ -294,10 +307,7 @@ function draw(
   mapContainer: React.RefObject<HTMLDivElement>
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
-  const height = Math.max(
-    svgContainer.current.offsetHeight,
-    props.svgChartHeight
-  );
+  const height = svgContainer.current.offsetHeight;
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,

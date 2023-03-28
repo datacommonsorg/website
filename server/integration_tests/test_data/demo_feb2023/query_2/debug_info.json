@@ -4,11 +4,23 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "event"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "event"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.21,
+      "event_existence_for_place": 0.12,
+      "fulfillment": 0.12,
+      "get_sv_details": 0.21,
+      "query_detection": 0.08
+    }
   },
   "data_spec": [
     {
@@ -48,6 +60,7 @@
           "event": 4,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -74,6 +87,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
@@ -100,6 +114,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -129,6 +144,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
@@ -173,15 +189,17 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.29845675826072693,
-      0.29795393347740173,
-      0.2929868698120117,
-      0.28863877058029175,
-      0.2765377461910248,
-      0.2730202376842499,
-      0.26648256182670593
+      0.3154594302177429,
+      0.2984566390514374,
+      0.2979540228843689,
+      0.29298684000968933,
+      0.2886386513710022,
+      0.2765377163887024,
+      0.2730201780796051,
+      0.26648247241973877
     ],
     "SV": [
+      "dc/c58mvty4nhxdb",
       "Annual_Count_ElectricityConsumer",
       "Annual_Consumption_Electricity",
       "Annual_Generation_Electricity",
@@ -192,75 +210,79 @@
     ],
     "SV_to_Sentences": {
       "Annual_Consumption_Electricity": [
-        "The total amount of electricity used in a year (0.29795393347740173)",
-        "The yearly energy usage (0.2840510308742523)",
-        "The amount of electricity used each year (0.2826367914676666)",
-        "amount of electricity consumed in a year (0.2728409469127655)",
-        "Amount of electricity consumed in a year (0.2728409469127655)"
+        "The total amount of electricity used in a year (0.2979540228843689)",
+        "The yearly energy usage (0.2840510606765747)",
+        "The amount of electricity used each year (0.282636821269989)",
+        "Amount of electricity consumed in a year (0.2728409469127655)",
+        "amount of electricity consumed in a year (0.2728408873081207)"
       ],
       "Annual_Count_ElectricityConsumer": [
-        "The amount of electricity used in a year (0.29845675826072693)",
-        "Total Electricity Consumers in a Year (0.2700478732585907)",
-        "Total electricity consumers in a year (0.2700478732585907)"
+        "The amount of electricity used in a year (0.2984566390514374)",
+        "Total Electricity Consumers in a Year (0.27004796266555786)",
+        "Total electricity consumers in a year (0.2700478434562683)"
       ],
       "Annual_Generation_Electricity": [
-        "The yearly energy output (0.2929868698120117)",
-        "The annual electricity production (0.2753796875476837)",
-        "Amount of electricity generated in a year (0.2752251625061035)"
+        "The yearly energy output (0.29298684000968933)",
+        "The annual electricity production (0.2753797173500061)",
+        "Amount of electricity generated in a year (0.27522507309913635)"
       ],
       "Annual_Generation_Energy_Coal": [
-        "The yearly coal power production (0.26648256182670593)"
+        "The yearly coal power production (0.26648247241973877)"
       ],
       "Annual_Generation_Fuel_CrudeOil": [
-        "Amount of crude oil generated in a year (0.28863877058029175)",
-        "The annual crude oil supply (0.2876005172729492)",
-        "The yearly total of crude oil production (0.2681601643562317)",
-        "The amount of crude oil produced each year (0.26088881492614746)"
+        "Amount of crude oil generated in a year (0.2886386513710022)",
+        "The annual crude oil supply (0.2876005470752716)",
+        "The yearly total of crude oil production (0.2681601047515869)"
       ],
       "Annual_Generation_Fuel_DieselOil": [
-        "The annual diesel fuel supply (0.2765377461910248)",
+        "The annual diesel fuel supply (0.2765377163887024)",
         "amount of diesel oil generated in a year (0.262130469083786)",
         "Amount of diesel oil generated in a year (0.2621304392814636)"
       ],
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-        "Number of households with low income in the past year (0.2730202376842499)"
+        "Number of households with low income in the past year (0.2730201780796051)"
+      ],
+      "dc/c58mvty4nhxdb": [
+        "best school performance (0.3154594302177429)"
       ]
     }
   },
   "svs_to_sentences": {
     "Annual_Consumption_Electricity": [
-      "The total amount of electricity used in a year (0.29795393347740173)",
-      "The yearly energy usage (0.2840510308742523)",
-      "The amount of electricity used each year (0.2826367914676666)",
-      "amount of electricity consumed in a year (0.2728409469127655)",
-      "Amount of electricity consumed in a year (0.2728409469127655)"
+      "The total amount of electricity used in a year (0.2979540228843689)",
+      "The yearly energy usage (0.2840510606765747)",
+      "The amount of electricity used each year (0.282636821269989)",
+      "Amount of electricity consumed in a year (0.2728409469127655)",
+      "amount of electricity consumed in a year (0.2728408873081207)"
     ],
     "Annual_Count_ElectricityConsumer": [
-      "The amount of electricity used in a year (0.29845675826072693)",
-      "Total Electricity Consumers in a Year (0.2700478732585907)",
-      "Total electricity consumers in a year (0.2700478732585907)"
+      "The amount of electricity used in a year (0.2984566390514374)",
+      "Total Electricity Consumers in a Year (0.27004796266555786)",
+      "Total electricity consumers in a year (0.2700478434562683)"
     ],
     "Annual_Generation_Electricity": [
-      "The yearly energy output (0.2929868698120117)",
-      "The annual electricity production (0.2753796875476837)",
-      "Amount of electricity generated in a year (0.2752251625061035)"
+      "The yearly energy output (0.29298684000968933)",
+      "The annual electricity production (0.2753797173500061)",
+      "Amount of electricity generated in a year (0.27522507309913635)"
     ],
     "Annual_Generation_Energy_Coal": [
-      "The yearly coal power production (0.26648256182670593)"
+      "The yearly coal power production (0.26648247241973877)"
     ],
     "Annual_Generation_Fuel_CrudeOil": [
-      "Amount of crude oil generated in a year (0.28863877058029175)",
-      "The annual crude oil supply (0.2876005172729492)",
-      "The yearly total of crude oil production (0.2681601643562317)",
-      "The amount of crude oil produced each year (0.26088881492614746)"
+      "Amount of crude oil generated in a year (0.2886386513710022)",
+      "The annual crude oil supply (0.2876005470752716)",
+      "The yearly total of crude oil production (0.2681601047515869)"
     ],
     "Annual_Generation_Fuel_DieselOil": [
-      "The annual diesel fuel supply (0.2765377461910248)",
+      "The annual diesel fuel supply (0.2765377163887024)",
       "amount of diesel oil generated in a year (0.262130469083786)",
       "Amount of diesel oil generated in a year (0.2621304392814636)"
     ],
     "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-      "Number of households with low income in the past year (0.2730202376842499)"
+      "Number of households with low income in the past year (0.2730201780796051)"
+    ],
+    "dc/c58mvty4nhxdb": [
+      "best school performance (0.3154594302177429)"
     ]
   },
   "time_delta_classification": "<None>"

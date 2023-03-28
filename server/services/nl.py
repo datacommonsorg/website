@@ -329,12 +329,17 @@ class Model:
     # place_type_to_enum is an OrderedDict.
     place_type_to_enum = OrderedDict({
         "county": ContainedInPlaceType.COUNTY,
+        "continent": ContainedInPlaceType.CONTINENT,
         "state": ContainedInPlaceType.STATE,
         "country": ContainedInPlaceType.COUNTRY,
         "city": ContainedInPlaceType.CITY,
         "district": ContainedInPlaceType.DISTRICT,
         "province": ContainedInPlaceType.PROVINCE,
-        "town": ContainedInPlaceType.TOWN,
+        "department": ContainedInPlaceType.DEPARTMENT,
+        "division": ContainedInPlaceType.DIVISION,
+        "municipality": ContainedInPlaceType.MUNICIPALITY,
+        "parish": ContainedInPlaceType.PARISH,
+        "town": ContainedInPlaceType.CITY,
         "zip": ContainedInPlaceType.ZIP,
         # Schools.
         "high school": ContainedInPlaceType.HIGH_SCHOOL,
@@ -362,7 +367,7 @@ class Model:
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
       # Try to check if the special case of ACROSS can be found.
-      if "across" in query:
+      if "across" in query or "where in" in query or "within" in query:
         contained_in_place_type = ContainedInPlaceType.ACROSS
       else:
         return None

@@ -53,16 +53,17 @@ export const Category = memo(function Category(
 ): JSX.Element {
   const svProvider = new StatVarProvider(props.config.statVarSpec);
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: "",
+    placeName: props.place.name,
+    placeDcid: props.place ? props.place.dcid : "",
   };
   const title = props.config.title ? formatString(props.config.title, rs) : "";
+  const description = props.config.description
+    ? formatString(props.config.description, rs)
+    : "";
   return (
     <article className="category col-12" id={props.id}>
       {title && <h2 className="block-title">{title}</h2>}
-      {props.config.description && (
-        <ReactMarkdown>{props.config.description}</ReactMarkdown>
-      )}
+      {description && <ReactMarkdown>{description}</ReactMarkdown>}
       {renderBlocks(props, svProvider)}
     </article>
   );

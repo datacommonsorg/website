@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { getUnit } from "./stat_metadata";
+import { getUnit } from "./stat_metadata_utils";
 
 test("getUnit", () => {
   const testUnit = "Millimeter";
+  const shortUnit = "mm";
   const baseSourceSeries = {
     provenanceUrl: "testProv",
     val: { "2012-11": 123.45 },
@@ -45,4 +46,12 @@ test("getUnit", () => {
     unit: testUnit,
   };
   expect(getUnit(sourceSeriesWithUnitAndScalingFactor) === testUnit);
+
+  const sourceSeriesWithUnitDisplayName = {
+    ...baseSourceSeries,
+    scalingFactor: "100",
+    unit: testUnit,
+    unitDisplayName: shortUnit,
+  };
+  expect(getUnit(sourceSeriesWithUnitAndScalingFactor) === shortUnit);
 });

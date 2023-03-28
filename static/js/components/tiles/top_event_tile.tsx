@@ -20,8 +20,10 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
+import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
@@ -36,10 +38,9 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-import { formatNumber } from "../../utils/string_utils";
 import { ChartFooter } from "./chart_footer";
 
-const RANKING_COUNT = 10;
+const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
 
 interface TopEventTilePropType {
@@ -54,7 +55,9 @@ interface TopEventTilePropType {
   className?: string;
 }
 
-export function TopEventTile(props: TopEventTilePropType): JSX.Element {
+export const TopEventTile = memo(function TopEventTile(
+  props: TopEventTilePropType
+): JSX.Element {
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
   const [eventPlaces, setEventPlaces] =
@@ -62,12 +65,14 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const severityFilter = props.eventTypeSpec.defaultSeverityFilter;
   const severityProp = severityFilter.prop;
   const severityDisplay = severityFilter.displayName || severityFilter.prop;
-  const topEvents = rankEventData(
-    props.disasterEventData,
-    props.topEventMetadata.reverseSort
-  );
+  const topEvents = props.disasterEventData
+    ? rankEventData(props.disasterEventData, props.topEventMetadata.reverseSort)
+    : null;
 
   useEffect(() => {
+    if (_.isNull(topEvents)) {
+      return;
+    }
     updateEventPlaces(topEvents);
   }, [props]);
 
@@ -88,30 +93,40 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     }
   }
 
-  if (topEvents === undefined || eventPlaces == null) {
-    return <></>;
-  }
-  const showPlaceColumn =
-    Object.keys(eventPlaces).length / topEvents.length >
-    MIN_PERCENT_PLACE_NAMES;
-  const showNameColumn =
-    topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
+  const isInitialLoading = _.isNull(topEvents) || _.isNull(eventPlaces);
+  const showChart = !isInitialLoading && !_.isEmpty(topEvents);
+  let showPlaceColumn = false;
+  let showNameColumn = false;
   const sources = new Set<string>();
-  Object.values(props.disasterEventData.provenanceInfo).forEach((provInfo) => {
-    sources.add(provInfo.provenanceUrl);
-  });
+  if (!isInitialLoading) {
+    showPlaceColumn =
+      Object.keys(eventPlaces).length / topEvents.length >
+      MIN_PERCENT_PLACE_NAMES;
+    showNameColumn =
+      topEvents.filter((event) => !isUnnamedEvent(event.placeName)).length > 0;
+    Object.values(props.disasterEventData.provenanceInfo).forEach(
+      (provInfo) => {
+        sources.add(provInfo.provenanceUrl);
+      }
+    );
+  }
 
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
       ref={chartContainer}
     >
-      {_.isEmpty(topEvents) ? (
-        <p>There were no severe events in that time period.</p>
-      ) : (
-        <div className="ranking-unit-container">
-          <div className="ranking-list">
-            <h4>{props.title}</h4>
+      <div
+        className={`ranking-unit-container ${
+          isInitialLoading ? INITAL_LOADING_CLASS : ""
+        }`}
+      >
+        <div className={`ranking-list top-event-content `}>
+          {<h4>{!isInitialLoading && props.title}</h4>}
+          {!showChart && !isInitialLoading && (
+            <p>There were no severe events in that time period.</p>
+          )}
+          {showChart && (
             <table>
               <thead>
                 <tr>
@@ -183,13 +198,13 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                 })}
               </tbody>
             </table>
-            <ChartFooter
-              sources={sources}
-              handleEmbed={() => handleEmbed(topEvents)}
-            />
-          </div>
+          )}
+          <ChartFooter
+            sources={sources}
+            handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
+          />
         </div>
-      )}
+      </div>
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
@@ -330,7 +345,10 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
         return b.severity[severityProp] - a.severity[severityProp];
       }
     });
-    return filteredPoints.slice(0, RANKING_COUNT);
+    return filteredPoints.slice(
+      0,
+      props.topEventMetadata.rankingCount || DEFAULT_RANKING_COUNT
+    );
   }
 
   function handleEmbed(topEvents: DisasterEventPoint[]): void {
@@ -398,4 +416,4 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     }
     return ret;
   }
-}
+});

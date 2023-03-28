@@ -73,6 +73,20 @@
       "value": "placeName"
     }
   ],
+  "chart_clause-rankings_in_place": [
+    {
+      "type": 1,
+      "value": "variable"
+    },
+    {
+      "type": 0,
+      "value": ": rankings in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
   "chart_clause-variable_in_place": [
     {
       "type": 1,

@@ -106,34 +106,35 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
     }
   }, [bivariateChartData, props]);
 
-  if (!bivariateChartData) {
-    return null;
-  }
   const rs: ReplacementStrings = {
-    place: props.place.dcid,
-    date: "",
+    placeName: props.place.dcid,
   };
   return (
     <ChartTileContainer
       title={props.title}
-      sources={bivariateChartData.sources}
+      sources={bivariateChartData && bivariateChartData.sources}
       replacementStrings={rs}
       className={`${props.className} bivariate-chart`}
       allowEmbed={true}
-      getDataCsv={() =>
-        scatterDataToCsv(
-          bivariateChartData.xStatVar.statVar,
-          bivariateChartData.xStatVar.denom,
-          bivariateChartData.yStatVar.statVar,
-          bivariateChartData.yStatVar.denom,
-          bivariateChartData.points
-        )
+      getDataCsv={
+        bivariateChartData
+          ? () =>
+              scatterDataToCsv(
+                bivariateChartData.xStatVar.statVar,
+                bivariateChartData.xStatVar.denom,
+                bivariateChartData.yStatVar.statVar,
+                bivariateChartData.yStatVar.denom,
+                bivariateChartData.points
+              )
+          : null
       }
+      isInitialLoading={_.isNull(bivariateChartData)}
     >
       <div
         id={props.id}
         className="bivariate-svg-container"
         ref={svgContainer}
+        style={{ minHeight: props.svgChartHeight }}
       />
       <div id="bivariate-legend-container" ref={legend} />
     </ChartTileContainer>

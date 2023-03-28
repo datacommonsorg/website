@@ -4,348 +4,303 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_existence_check_extended_svs": [
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_PerArea"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "GrowthRate_Count_Person"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_TwoOrMoreRaces",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianAlone",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_SomeOtherRaceAlone",
-          "Count_Person_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_WhiteAlone",
+    "ERROR": {
+      "failed_existence_check_extended_svs": [
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_PerArea"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "GrowthRate_Count_Person"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_AsianAlone",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_AsianAlone",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Producer_AsianAlone",
+            "Count_Person_Producer_BlackOrAfricanAmericanAlone",
+            "Count_Person_Producer_HispanicOrLatino"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ],
+          "type": null
+        }
+      ],
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_PerArea"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "GrowthRate_Count_Person"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_OneRace"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_TwoOrMoreRaces"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Female"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Producer_TwoOrMoreRaces"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Male"
+          ],
+          "type": null
+        }
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "Count_Person",
+          "Count_Person_PerArea",
+          "GrowthRate_Count_Person",
           "Count_Person_OneRace",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_NotHispanicOrLatino",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_NonWhite",
-          "Count_Person_AsianOrPacificIslander"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
           "Count_Person_TwoOrMoreRaces",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianAlone",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_SomeOtherRaceAlone",
-          "Count_Person_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_WhiteAlone",
-          "Count_Person_OneRace",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_NotHispanicOrLatino",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_NonWhite",
-          "Count_Person_AsianOrPacificIslander"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
           "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Producer_AsianAlone",
-          "Count_Person_Producer_BlackOrAfricanAmericanAlone",
-          "Count_Person_Producer_WhiteAlone",
           "Count_Person_Producer_TwoOrMoreRaces",
-          "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Producer_HispanicOrLatino"
+          "Count_Person_Male",
+          "dc/topic/RacialBreakdown"
         ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      }
-    ],
-    "failed_partial_existence_check": [
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_PerArea"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "GrowthRate_Count_Person"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_OneRace"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_TwoOrMoreRaces"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Female"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Producer_TwoOrMoreRaces"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Male"
-        ]
-      }
-    ],
-    "filtered_svs": [
-      "Count_Person",
-      "Count_Person_PerArea",
-      "GrowthRate_Count_Person",
-      "Count_Person_OneRace",
-      "Count_Person_TwoOrMoreRaces",
-      "Count_Person_Female",
-      "Count_Person_Producer_TwoOrMoreRaces",
-      "Count_Person_Male"
-    ],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "stat_var_extensions": [
-      {
-        "Count_Person": [
-          "Count_Person"
-        ],
-        "Count_Person_Female": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ],
-        "Count_Person_Male": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ],
-        "Count_Person_OneRace": [
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_AsianAlone",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianOrPacificIslander",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NonWhite",
-          "Count_Person_NotHispanicOrLatino",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_OneRace",
-          "Count_Person_SomeOtherRaceAlone",
-          "Count_Person_TwoOrMoreRaces",
-          "Count_Person_WhiteAlone",
-          "Count_Person_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-        ],
-        "Count_Person_PerArea": [
-          "Count_Person_PerArea"
-        ],
-        "Count_Person_Producer_TwoOrMoreRaces": [
-          "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Producer_AsianAlone",
-          "Count_Person_Producer_BlackOrAfricanAmericanAlone",
-          "Count_Person_Producer_HispanicOrLatino",
-          "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Producer_TwoOrMoreRaces",
-          "Count_Person_Producer_WhiteAlone"
-        ],
-        "Count_Person_TwoOrMoreRaces": [
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_AsianAlone",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianOrPacificIslander",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NonWhite",
-          "Count_Person_NotHispanicOrLatino",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_OneRace",
-          "Count_Person_SomeOtherRaceAlone",
-          "Count_Person_TwoOrMoreRaces",
-          "Count_Person_WhiteAlone",
-          "Count_Person_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-        ],
-        "GrowthRate_Count_Person": [
-          "GrowthRate_Count_Person"
-        ]
-      }
-    ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "stat_var_extensions": [
+        {
+          "Count_Person": [
+            "Count_Person"
+          ],
+          "Count_Person_Female": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ],
+          "Count_Person_Male": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ],
+          "Count_Person_OneRace": [
+            "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_AsianAlone",
+            "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AsianOrPacificIslander",
+            "Count_Person_BlackOrAfricanAmericanAlone",
+            "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino",
+            "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_HispanicOrLatino_AsianAlone",
+            "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
+            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+            "Count_Person_HispanicOrLatino_WhiteAlone",
+            "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_NonWhite",
+            "Count_Person_NotHispanicOrLatino",
+            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_NotHispanicOrLatino_AsianAlone",
+            "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
+            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+            "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_OneRace",
+            "Count_Person_SomeOtherRaceAlone",
+            "Count_Person_TwoOrMoreRaces",
+            "Count_Person_WhiteAlone",
+            "Count_Person_WhiteAloneNotHispanicOrLatino",
+            "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          ],
+          "Count_Person_PerArea": [
+            "Count_Person_PerArea"
+          ],
+          "Count_Person_Producer_TwoOrMoreRaces": [
+            "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_Producer_AsianAlone",
+            "Count_Person_Producer_BlackOrAfricanAmericanAlone",
+            "Count_Person_Producer_HispanicOrLatino",
+            "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_Producer_TwoOrMoreRaces",
+            "Count_Person_Producer_WhiteAlone"
+          ],
+          "Count_Person_TwoOrMoreRaces": [
+            "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_AsianAlone",
+            "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AsianOrPacificIslander",
+            "Count_Person_BlackOrAfricanAmericanAlone",
+            "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino",
+            "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_HispanicOrLatino_AsianAlone",
+            "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
+            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+            "Count_Person_HispanicOrLatino_WhiteAlone",
+            "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_NonWhite",
+            "Count_Person_NotHispanicOrLatino",
+            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_NotHispanicOrLatino_AsianAlone",
+            "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
+            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+            "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_OneRace",
+            "Count_Person_SomeOtherRaceAlone",
+            "Count_Person_TwoOrMoreRaces",
+            "Count_Person_WhiteAlone",
+            "Count_Person_WhiteAloneNotHispanicOrLatino",
+            "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          ],
+          "GrowthRate_Count_Person": [
+            "GrowthRate_Count_Person"
+          ]
+        }
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/RacialBreakdown": {
+            "peer_groups": [],
+            "svs": []
+          }
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.28,
+      "extend_svs": 1.35,
+      "fulfillment": 1.73,
+      "get_sv_details": 0.27,
+      "has_series_with_single_datapoint": 0.24,
+      "query_detection": 0.51,
+      "sv_existence_for_places": 0.14,
+      "topic_calls": 0.0
+    }
   },
   "data_spec": [
     {
@@ -356,6 +311,7 @@
       ],
       "places": [
         {
+          "country": "country/MEX",
           "dcid": "wikidataId/Q1489",
           "name": "Mexico City",
           "place_type": "City"
@@ -380,6 +336,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/MEX",
               "dcid": "wikidataId/Q1489",
               "name": "Mexico City",
               "place_type": "City"
@@ -399,7 +356,8 @@
         "Count_Person_TwoOrMoreRaces",
         "Count_Person_Female",
         "Count_Person_Producer_TwoOrMoreRaces",
-        "Count_Person_Male"
+        "Count_Person_Male",
+        "dc/topic/RacialBreakdown"
       ]
     },
     {
@@ -410,16 +368,19 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/36",
           "name": "New York",
           "place_type": "State"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/53",
           "name": "Washington",
           "place_type": "State"
@@ -444,16 +405,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -479,16 +443,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -514,16 +481,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -549,16 +519,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -584,16 +557,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -619,16 +595,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -654,16 +633,19 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/36",
               "name": "New York",
               "place_type": "State"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
@@ -685,6 +667,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
@@ -709,6 +692,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -734,6 +718,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -759,6 +744,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -784,6 +770,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -809,6 +796,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -834,6 +822,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -859,6 +848,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -886,6 +876,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
@@ -914,8 +905,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -940,8 +932,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -967,8 +960,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -994,8 +988,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1021,8 +1016,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1048,8 +1044,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1075,8 +1072,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1102,8 +1100,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -1131,6 +1130,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -1155,6 +1155,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -1178,6 +1179,7 @@
   "places_resolved": "(name: Mexico City, dcid: wikidataId/Q1489); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/MEX",
       "dcid": "wikidataId/Q1489",
       "name": "Mexico City",
       "place_type": "City"
@@ -1186,15 +1188,16 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "wikidataId/Q1489"
-      ],
+      "dcids_resolved": {
+        "mexico city": "wikidataId/Q1489"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/MEX",
           "dcid": "wikidataId/Q1489",
           "name": "Mexico City",
           "place_type": "City"
@@ -1217,14 +1220,15 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7989295721054077,
-      0.6706737279891968,
-      0.6289511919021606,
-      0.6197829842567444,
+      0.7989296913146973,
+      0.6706736087799072,
+      0.6289509534835815,
+      0.6197832226753235,
       0.6192010641098022,
-      0.6103935837745667,
-      0.59280925989151,
-      0.591192364692688
+      0.6103933453559875,
+      0.5928092002868652,
+      0.5911924242973328,
+      0.5882201194763184
     ],
     "SV": [
       "Count_Person",
@@ -1234,83 +1238,88 @@
       "Count_Person_TwoOrMoreRaces",
       "Count_Person_Female",
       "Count_Person_Producer_TwoOrMoreRaces",
-      "Count_Person_Male"
+      "Count_Person_Male",
+      "dc/topic/RacialBreakdown"
     ],
     "SV_to_Sentences": {
       "Count_Person": [
-        "Population (0.7989295721054077)",
-        "Population count (0.7335239052772522)",
-        "Size of the population (0.7168888449668884)",
-        "Total number of people in the population (0.7077703475952148)",
-        "Total Number of People in a Population (0.7049037218093872)",
-        "Total number of people in a population (0.7049035429954529)",
-        "Number of inhabitants (0.620228111743927)"
+        "Population (0.7989296913146973)",
+        "Population count (0.7335238456726074)",
+        "Size of the population (0.7168887853622437)",
+        "Total number of people in the population (0.7077705264091492)",
+        "Total number of people in a population (0.7049036622047424)",
+        "Total Number of People in a Population (0.7049036622047424)",
+        "Number of inhabitants (0.6202282905578613)"
       ],
       "Count_Person_Female": [
-        "Population: Female (0.6103935837745667)"
+        "Population: Female (0.6103933453559875)"
       ],
       "Count_Person_Male": [
-        "Population: Male (0.591192364692688)"
+        "Population: Male (0.5911924242973328)"
       ],
       "Count_Person_OneRace": [
-        "Population: One Race (0.6197829842567444)"
+        "Population: One Race (0.6197832226753235)"
       ],
       "Count_Person_PerArea": [
-        "Population Density (0.6706737279891968)",
-        "number of people per area (0.5703409910202026)"
+        "Population Density (0.6706736087799072)"
       ],
       "Count_Person_Producer_TwoOrMoreRaces": [
-        "Population: Producer, Two or More Races (0.59280925989151)"
+        "Population: Producer, Two or More Races (0.5928092002868652)"
       ],
       "Count_Person_TwoOrMoreRaces": [
         "Population: Two or More Races (0.6192010641098022)"
       ],
       "GrowthRate_Count_Person": [
-        "Increase in population (0.6289511919021606)",
-        "Population Growth Rate (0.612326979637146)",
+        "Increase in population (0.6289509534835815)",
         "Population growth rate (0.612326979637146)",
-        "Rate of Population Growth (0.6034151315689087)",
-        "Rate of population growth (0.6034151315689087)",
-        "Population increase rate (0.5746009349822998)"
+        "Population Growth Rate (0.612326979637146)",
+        "Rate of population growth (0.6034150123596191)",
+        "Rate of Population Growth (0.6034150123596191)",
+        "Population increase rate (0.5746010541915894)"
+      ],
+      "dc/topic/RacialBreakdown": [
+        "population race (0.5882201194763184)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Person": [
-      "Population (0.7989295721054077)",
-      "Population count (0.7335239052772522)",
-      "Size of the population (0.7168888449668884)",
-      "Total number of people in the population (0.7077703475952148)",
-      "Total Number of People in a Population (0.7049037218093872)",
-      "Total number of people in a population (0.7049035429954529)",
-      "Number of inhabitants (0.620228111743927)"
+      "Population (0.7989296913146973)",
+      "Population count (0.7335238456726074)",
+      "Size of the population (0.7168887853622437)",
+      "Total number of people in the population (0.7077705264091492)",
+      "Total number of people in a population (0.7049036622047424)",
+      "Total Number of People in a Population (0.7049036622047424)",
+      "Number of inhabitants (0.6202282905578613)"
     ],
     "Count_Person_Female": [
-      "Population: Female (0.6103935837745667)"
+      "Population: Female (0.6103933453559875)"
     ],
     "Count_Person_Male": [
-      "Population: Male (0.591192364692688)"
+      "Population: Male (0.5911924242973328)"
     ],
     "Count_Person_OneRace": [
-      "Population: One Race (0.6197829842567444)"
+      "Population: One Race (0.6197832226753235)"
     ],
     "Count_Person_PerArea": [
-      "Population Density (0.6706737279891968)",
-      "number of people per area (0.5703409910202026)"
+      "Population Density (0.6706736087799072)"
     ],
     "Count_Person_Producer_TwoOrMoreRaces": [
-      "Population: Producer, Two or More Races (0.59280925989151)"
+      "Population: Producer, Two or More Races (0.5928092002868652)"
     ],
     "Count_Person_TwoOrMoreRaces": [
       "Population: Two or More Races (0.6192010641098022)"
     ],
     "GrowthRate_Count_Person": [
-      "Increase in population (0.6289511919021606)",
-      "Population Growth Rate (0.612326979637146)",
+      "Increase in population (0.6289509534835815)",
       "Population growth rate (0.612326979637146)",
-      "Rate of Population Growth (0.6034151315689087)",
-      "Rate of population growth (0.6034151315689087)",
-      "Population increase rate (0.5746009349822998)"
+      "Population Growth Rate (0.612326979637146)",
+      "Rate of population growth (0.6034150123596191)",
+      "Rate of Population Growth (0.6034150123596191)",
+      "Population increase rate (0.5746010541915894)"
+    ],
+    "dc/topic/RacialBreakdown": [
+      "population race (0.5882201194763184)"
     ]
   },
   "time_delta_classification": "<None>"

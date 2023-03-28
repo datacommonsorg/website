@@ -1,0 +1,58 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+                    ],
+                    "title": "GDP (Nominal Value) in Eurostat Nuts 3 Places of United Kingdom (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc"
+                    ],
+                    "title": "Per Capita GDP (Nominal Value) in Eurostat Nuts 3 Places of United Kingdom (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+            "name": "GDP (Nominal Value)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc": {
+            "denom": "Count_Person",
+            "name": "GDP (Nominal Value)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "EurostatNUTS3"
+      },
+      "placeDcid": [
+        "country/GBR"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "country/GBR",
+    "name": "United Kingdom",
+    "place_type": "Country"
+  }
+}

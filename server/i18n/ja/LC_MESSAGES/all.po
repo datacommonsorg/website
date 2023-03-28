@@ -2,7 +2,7 @@ msgid "%(project)s is a Google supported project"
 msgstr "%(project)s は Google がサポートするプロジェクトです"
 
 msgid "APIs"
-msgstr "API"
+msgstr "APIs"
 
 msgid "About"
 msgstr "基本情報"
@@ -12,6 +12,9 @@ msgstr "データコモンズについて"
 
 msgid "Blog"
 msgstr "ブログ"
+
+msgid "Cities, India"
+msgstr "Cities, India"
 
 msgid "Cities, United States"
 msgstr "米国の都市"
@@ -29,13 +32,16 @@ msgid "Data Commons"
 msgstr "データコモンズ"
 
 msgid "Data Download Tool"
-msgstr ""
+msgstr "Data Download Tool"
 
 msgid "Data Sources"
 msgstr "データソース"
 
 msgid "Disclaimers"
 msgstr "免責事項"
+
+msgid "Districts, India"
+msgstr "Districts, India"
 
 msgid "Documentation"
 msgstr "ドキュメント"
@@ -45,6 +51,9 @@ msgstr "全世界の経済指標"
 
 msgid "Enter a country, state, county or city"
 msgstr "国、州、郡、都市のいずれかを入力してください"
+
+msgid "Enter a country, state, district or city"
+msgstr "Enter a country, state, district or city"
 
 msgid "Explore"
 msgstr "探索"
@@ -103,8 +112,14 @@ msgstr "読み込んでいます…"
 msgid "Map Explorer"
 msgstr "マップ エクスプローラ"
 
+msgid "Maps Explorer"
+msgstr "Maps Explorer"
+
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
+
+msgid "Natural Language Explorer"
+msgstr "Natural Language Explorer"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>プレイス エクスプローラは、地域の基礎的なコアデータを把握するために役立つツールです。特定の地域の人口統計、教育、経済などに関する一連のグラフをまとめて、他の地域と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の地域がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている地域を探索することもできます。</p>"
@@ -128,19 +143,25 @@ msgid "Scatter Plot Explorer"
 msgstr "散布図エクスプローラ"
 
 msgid "Scatter Plots"
-msgstr ""
+msgstr "Scatter Plots"
+
+msgid "States, India"
+msgstr "States, India"
 
 msgid "States, United States"
 msgstr "米国の州"
 
 msgid "Statistical Variable Explorer"
-msgstr ""
+msgstr "Statistical Variable Explorer"
+
+msgid "Terms Of Use"
+msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "利用規約"
 
 msgid "Timeline Charts"
-msgstr ""
+msgstr "Timeline Charts"
 
 msgid "Timelines Explorer"
 msgstr "タイムライン エクスプローラ"
@@ -176,7 +197,7 @@ msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "1 人あたりのアルコール消費量（年間）"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr "Annual greenhouse gas emissions"
 
 msgid "CHART_TITLE-Arson"
 msgstr "放火"
@@ -190,11 +211,17 @@ msgstr "準学士号の取得率（性別ごと）"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "学士号の取得率（性別ごと）"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "犯罪"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "人口統計"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "経済"
@@ -202,11 +229,14 @@ msgstr "経済"
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "学歴"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "環境"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "資産"
@@ -217,8 +247,20 @@ msgstr "健康"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "住宅"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "概要"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "就労している児童"
@@ -660,4 +702,7 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "概要"
 

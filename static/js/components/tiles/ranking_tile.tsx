@@ -22,6 +22,8 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
+import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
@@ -31,17 +33,16 @@ import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
-import { formatNumber, getDateRange } from "../../utils/string_utils";
-import {
-  formatString,
-  getStatVarName,
-  getUnitString,
-} from "../../utils/tile_utils";
+import { getUnit } from "../../utils/stat_metadata_utils";
+import { getDateRange } from "../../utils/string_utils";
+import { formatString, getStatVarName } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
 const RANKING_COUNT = 5;
-
+const HEADING_HEIGHT = 36;
+const PER_RANKING_HEIGHT = 24;
+const FOOTER_HEIGHT = 26;
 interface RankingGroup {
   points: RankingPoint[];
   // If only value is used in RankingPoint - then there will only be one unit &
@@ -77,11 +78,16 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 
   const numRankingLists = getNumRankingLists(
     props.rankingMetadata,
-    rankingData
+    rankingData,
+    props.statVarSpec
   );
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   const isMultiColumn = props.rankingMetadata.showMultiColumn;
   const svNames = props.statVarSpec.map((sv) => sv.name);
+  // TODO: have a better way of calculating the loading placeholder height
+  const placeHolderHeight =
+    PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
+  const placeHolderArray = Array(numRankingLists).fill("");
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -91,6 +97,16 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           numRankingLists > 1 ? "repeat(2, 1fr)" : "repeat(1, 1fr)",
       }}
     >
+      {!rankingData &&
+        placeHolderArray.map((_, i) => {
+          return (
+            <div
+              key={`ranking-placeholder-${i}`}
+              className={INITAL_LOADING_CLASS}
+              style={{ minHeight: placeHolderHeight }}
+            ></div>
+          );
+        })}
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
           const points = rankingData[statVar].points;
@@ -115,7 +131,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                           : "Highest ${statVar}"),
                       {
                         date: dateRange,
-                        place: "",
+                        placeName: "",
                         statVar: svName,
                       }
                     )}
@@ -143,7 +159,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                           : "Lowest ${statVar}"),
                       {
                         date: dateRange,
-                        place: "",
+                        placeName: "",
                         statVar: svName,
                       }
                     )}
@@ -309,10 +325,9 @@ function pointApiToPerSvRankingData(
       dates.add(statPoint.date);
       if (statPoint.facet && statData.facets[statPoint.facet]) {
         const statPointSource = statData.facets[statPoint.facet].provenanceUrl;
-        const statPointUnit = statData.facets[statPoint.facet].unit;
+        svUnit = svUnit || getUnit(statData.facets[statPoint.facet]);
         if (statPointSource) {
           sources.add(statPointSource);
-          svUnit = svUnit || statPointUnit;
         }
       }
     }
@@ -320,7 +335,6 @@ function pointApiToPerSvRankingData(
       return a.value - b.value;
     });
     const numDataPoints = arr.length;
-    svUnit = getUnitString(svUnit, spec.denom);
     rankingData[spec.statVar] = {
       points: arr,
       unit: [spec.unit || svUnit],
@@ -340,7 +354,8 @@ function pointApiToPerSvRankingData(
  */
 function getNumRankingLists(
   rankingTileSpec: RankingTileSpec,
-  rankingData: { [sv: string]: RankingGroup }
+  rankingData: { [sv: string]: RankingGroup },
+  statVarSpec: StatVarSpec[]
 ): number {
   if (rankingTileSpec.showMultiColumn) {
     return [rankingTileSpec.showHighest, rankingTileSpec.showLowest].filter(
@@ -354,5 +369,8 @@ function getNumRankingLists(
   if (rankingTileSpec.showLowest) {
     numListsPerSv++;
   }
-  return rankingData ? Object.keys(rankingData).length * numListsPerSv : 0;
+  if (!rankingData) {
+    return statVarSpec.length * numListsPerSv;
+  }
+  return Object.keys(rankingData).length * numListsPerSv;
 }

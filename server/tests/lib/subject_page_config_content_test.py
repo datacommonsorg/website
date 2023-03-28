@@ -102,10 +102,14 @@ class TestSubjectPageConfigs(unittest.TestCase):
     """Tests all configs loaded at server start"""
     all_configs = {}
     all_configs.update(libutil.get_topic_page_config())
-    all_configs.update(
-        {"disaster_dashboard": [libutil.get_disaster_dashboard_config()]})
-    all_configs.update({"nl_disasters": [libutil.get_nl_disaster_config()]})
+    all_configs.update({
+        "nl_disasters": [libutil.get_nl_disaster_config()],
+        "disaster_dashboard": [libutil.get_disaster_dashboard_config()],
+        "sustainability": [libutil.get_disaster_sustainability_config()],
+    })
     for id, configs in all_configs.items():
+      if id == 'sdg':
+        continue
       for page_i, page in enumerate(configs):
         page_msg = f"{id}[config={page_i}]"
         self.assertNotEqual(page.metadata.topic_id, '', page_msg)

@@ -15,14 +15,14 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Bood Pressure in Counties of United States of America (${date})",
+                    "title": "High Bood Pressure in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Bood Pressure in Counties of United States of America (${date})",
+                    "title": "High Bood Pressure in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -53,7 +53,7 @@
   "debug": {},
   "place": {
     "dcid": "country/USA",
-    "name": "United States of America",
+    "name": "United States",
     "place_type": "Country"
   }
 }

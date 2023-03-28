@@ -4,42 +4,43 @@
   "contained_in_classification": "ContainedInPlaceType.STATE",
   "correlation_classification": "<None>",
   "counters": {
-    "child_places_result": [
-      {
-        "place": "country/USA",
-        "result": [
-          "geoId/01",
-          "geoId/02",
-          "geoId/04",
-          "geoId/05",
-          "geoId/06",
-          "geoId/08",
-          "geoId/09",
-          "geoId/10",
-          "geoId/11",
-          "geoId/12",
-          "geoId/13",
-          "geoId/15",
-          "geoId/16",
-          "geoId/17",
-          "geoId/18"
-        ],
-        "type": "State"
-      }
-    ],
-    "filtered_svs": [
-      "Median_Income_Person",
-      "Median_Income_Household",
-      "Median_Earnings_Person",
-      "Median_Income_Household_FamilyHousehold",
-      "Mean_Income_Household",
-      "dc/x3gghqtglpr59",
-      "Median_Income_Household_NonfamilyHousehold"
-    ],
-    "num_chart_candidates": 7,
-    "processed_fulfillment_types": [
-      "ranking_across_places"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/USA",
+          "result": [
+            "geoId/01",
+            "geoId/02",
+            "geoId/04"
+          ],
+          "type": "State"
+        }
+      ],
+      "filtered_svs": [
+        [
+          "Median_Income_Person",
+          "Median_Income_Household",
+          "Median_Earnings_Person",
+          "Median_Income_Household_FamilyHousehold",
+          "Mean_Income_Household",
+          "dc/x3gghqtglpr59",
+          "Median_Income_Household_NonfamilyHousehold"
+        ]
+      ],
+      "num_chart_candidates": 7,
+      "processed_fulfillment_types": [
+        "ranking_across_places"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.28,
+      "fulfillment": 0.3,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.28,
+      "query_detection": 0.45,
+      "sv_existence_for_places": 0.18
+    }
   },
   "data_spec": [
     {
@@ -57,8 +58,9 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
@@ -83,8 +85,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -110,8 +113,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -137,8 +141,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -164,8 +169,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -191,8 +197,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -218,8 +225,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -245,8 +253,9 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
@@ -274,6 +283,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -298,6 +308,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -312,34 +323,36 @@
   ],
   "event_classification": "<None>",
   "main_place_dcid": "country/USA",
-  "main_place_name": "United States of America",
+  "main_place_name": "United States",
   "original_query": "US states which have that highest median income",
   "overview_classification": "<None>",
   "places_detected": [
     "us"
   ],
-  "places_resolved": "(name: United States of America, dcid: country/USA); ",
+  "places_resolved": "(name: United States, dcid: country/USA); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "country/USA",
-      "name": "United States of America",
+      "name": "United States",
       "place_type": "Country"
     },
     "original_query": "US states which have that highest median income",
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "country/USA"
-      ],
+      "dcids_resolved": {
+        "us": "country/USA"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ]
@@ -361,12 +374,12 @@
   "sv_matching": {
     "CosineScore": [
       1.0000001192092896,
-      0.9218265414237976,
+      0.9218266010284424,
       0.8443343043327332,
-      0.819288432598114,
+      0.8192883133888245,
       0.8156335353851318,
-      0.8111509680747986,
-      0.8066862225532532
+      0.811150848865509,
+      0.8066861629486084
     ],
     "SV": [
       "Median_Income_Person",
@@ -383,34 +396,34 @@
       ],
       "Median_Earnings_Person": [
         "Median income for population identifying as With Earnings (0.8443343043327332)",
-        "Median Earnings for All People (0.8229596614837646)",
-        "Median earnings for all people (0.8229596614837646)"
+        "Median Earnings for All People (0.8229594826698303)",
+        "Median earnings for all people (0.8229594826698303)"
       ],
       "Median_Income_Household": [
-        "Median household income (0.9218265414237976)",
-        "Median Income of Household (0.9102110266685486)",
-        "Median Income for All Households (0.8729929327964783)",
-        "Median income for all households (0.8729929327964783)"
+        "Median household income (0.9218266010284424)",
+        "Median Income of Household (0.9102110862731934)",
+        "Median income for all households (0.8729925751686096)",
+        "Median Income for All Households (0.8729925751686096)"
       ],
       "Median_Income_Household_FamilyHousehold": [
-        "Median Income for Family Households (0.819288432598114)",
-        "Median income for family households (0.819288432598114)",
-        "Median Income of Household: in a family household with Income (0.8157023787498474)",
-        "Median Income of Household: Family Household, With Income (0.8133261799812317)"
+        "Median income for family households (0.8192883133888245)",
+        "Median Income for Family Households (0.8192881345748901)",
+        "Median Income of Household: in a family household with Income (0.8157025575637817)",
+        "Median Income of Household: Family Household, With Income (0.8133260607719421)"
       ],
       "Median_Income_Household_NonfamilyHousehold": [
-        "Median Income of Household: Nonfamily Household, With Income (0.8066862225532532)"
+        "Median Income of Household: Nonfamily Household, With Income (0.8066861629486084)"
       ],
       "Median_Income_Person": [
-        "Median Income (1.0000001192092896)",
         "Median income (1.0000001192092896)",
-        "Median income of the population (0.9306238889694214)",
+        "Median Income (1.0000001192092896)",
+        "Median income of the population (0.9306236505508423)",
         "Median Income of a Population (0.9285945296287537)",
-        "Median pay (0.832988440990448)"
+        "Median pay (0.8329883217811584)"
       ],
       "dc/x3gghqtglpr59": [
-        "Median income for people working in the finance and insurance industry (0.8111509680747986)",
-        "Median Income for People Working in the Finance and Insurance Industry (0.8111509680747986)"
+        "Median income for people working in the finance and insurance industry (0.811150848865509)",
+        "Median Income for People Working in the Finance and Insurance Industry (0.811150848865509)"
       ]
     }
   },
@@ -420,34 +433,34 @@
     ],
     "Median_Earnings_Person": [
       "Median income for population identifying as With Earnings (0.8443343043327332)",
-      "Median Earnings for All People (0.8229596614837646)",
-      "Median earnings for all people (0.8229596614837646)"
+      "Median Earnings for All People (0.8229594826698303)",
+      "Median earnings for all people (0.8229594826698303)"
     ],
     "Median_Income_Household": [
-      "Median household income (0.9218265414237976)",
-      "Median Income of Household (0.9102110266685486)",
-      "Median Income for All Households (0.8729929327964783)",
-      "Median income for all households (0.8729929327964783)"
+      "Median household income (0.9218266010284424)",
+      "Median Income of Household (0.9102110862731934)",
+      "Median income for all households (0.8729925751686096)",
+      "Median Income for All Households (0.8729925751686096)"
     ],
     "Median_Income_Household_FamilyHousehold": [
-      "Median Income for Family Households (0.819288432598114)",
-      "Median income for family households (0.819288432598114)",
-      "Median Income of Household: in a family household with Income (0.8157023787498474)",
-      "Median Income of Household: Family Household, With Income (0.8133261799812317)"
+      "Median income for family households (0.8192883133888245)",
+      "Median Income for Family Households (0.8192881345748901)",
+      "Median Income of Household: in a family household with Income (0.8157025575637817)",
+      "Median Income of Household: Family Household, With Income (0.8133260607719421)"
     ],
     "Median_Income_Household_NonfamilyHousehold": [
-      "Median Income of Household: Nonfamily Household, With Income (0.8066862225532532)"
+      "Median Income of Household: Nonfamily Household, With Income (0.8066861629486084)"
     ],
     "Median_Income_Person": [
-      "Median Income (1.0000001192092896)",
       "Median income (1.0000001192092896)",
-      "Median income of the population (0.9306238889694214)",
+      "Median Income (1.0000001192092896)",
+      "Median income of the population (0.9306236505508423)",
       "Median Income of a Population (0.9285945296287537)",
-      "Median pay (0.832988440990448)"
+      "Median pay (0.8329883217811584)"
     ],
     "dc/x3gghqtglpr59": [
-      "Median income for people working in the finance and insurance industry (0.8111509680747986)",
-      "Median Income for People Working in the Finance and Insurance Industry (0.8111509680747986)"
+      "Median income for people working in the finance and insurance industry (0.811150848865509)",
+      "Median Income for People Working in the Finance and Insurance Industry (0.811150848865509)"
     ]
   },
   "time_delta_classification": "<None>"

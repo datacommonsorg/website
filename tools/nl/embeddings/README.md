@@ -20,7 +20,7 @@ It includes ~1.3K curated variables.
    the end of the run.
 
     ```bash
-    ./run_.sh
+    ./run.sh
     ```
 3. Validate the CSV diffs, update [`model.yaml`](../../../deploy/base/model.yaml) with the generated embeddings version and test out locally.
 

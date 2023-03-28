@@ -38,7 +38,6 @@ import { saveToFile } from "../../shared/util";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
-import { getUnit } from "../shared_util";
 import { Chart } from "./chart";
 import {
   Axis,
@@ -339,6 +338,8 @@ function getChartData(
       : [place.lowerBound, place.upperBound];
   const points = {};
   const sources: Set<string> = new Set();
+  let xUnit = "";
+  let yUnit = "";
   for (const namedPlace of place.enclosedPlaces) {
     const xDenom = x.perCapita ? x.denom : null;
     const yDenom = y.perCapita ? y.denom : null;
@@ -361,15 +362,9 @@ function getChartData(
       }
     });
     points[namedPlace.dcid] = placeChartData.point;
+    xUnit = xUnit || placeChartData.xUnit;
+    yUnit = yUnit || placeChartData.yUnit;
   }
-  const xUnit = getUnit(
-    Object.values(cache.statVarsData[x.statVarDcid]),
-    cache.metadataMap
-  );
-  const yUnit = getUnit(
-    Object.values(cache.statVarsData[y.statVarDcid]),
-    cache.metadataMap
-  );
   return { points, sources, xUnit, yUnit };
 }
 

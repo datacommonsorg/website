@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
@@ -220,21 +220,19 @@ function shouldShowHistogram(histogramData: DataPoint[]): boolean {
 /**
  * Main histogram tile component
  */
-export function HistogramTile(props: HistogramTilePropType): JSX.Element {
+export const HistogramTile = memo(function HistogramTile(
+  props: HistogramTilePropType
+): JSX.Element {
   const svgContainer = useRef(null);
-  const [histogramData, setHistogramData] = useState<DataPoint[]>([]);
-
-  // format event data if data is available
-  useEffect(() => {
-    if (props.disasterEventData && props.disasterEventData.eventPoints) {
-      processData(
-        props.disasterEventData.eventPoints,
-        props.selectedDate,
-        setHistogramData,
-        props.property
-      );
-    }
-  }, [props]);
+  const isInitialLoading = _.isNull(props.disasterEventData);
+  let histogramData = [];
+  if (!isInitialLoading && !_.isEmpty(props.disasterEventData)) {
+    histogramData = getHistogramData(
+      props.disasterEventData.eventPoints,
+      props.selectedDate,
+      props.property
+    );
+  }
 
   useEffect(() => {
     if (shouldShowHistogram(histogramData)) {
@@ -244,8 +242,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
 
   // for title formatting
   const rs: ReplacementStrings = {
-    place: props.place.name,
-    date: "",
+    placeName: props.place.name,
   };
 
   // organize provenance info to pass to ChartTileContainer
@@ -258,38 +255,37 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
     );
   }
 
+  if (!isInitialLoading && !shouldShowHistogram(histogramData)) {
+    return <></>;
+  }
+
   // TODO (juliawu): add "sorry, we don't have data" message if data is
   //                 present at 6 months but not 30 days
   return (
-    <>
-      {shouldShowHistogram(histogramData) && (
-        <ChartTileContainer
-          title={props.title}
-          sources={sources}
-          replacementStrings={rs}
-          className={"histogram-chart"}
-          allowEmbed={false}
-        >
-          <div id={props.id} className="svg-container" ref={svgContainer}></div>
-        </ChartTileContainer>
-      )}
-    </>
+    <ChartTileContainer
+      title={props.title}
+      sources={sources}
+      replacementStrings={rs}
+      className={"histogram-chart"}
+      allowEmbed={false}
+      isInitialLoading={isInitialLoading}
+    >
+      <div id={props.id} className="svg-container" ref={svgContainer}></div>
+    </ChartTileContainer>
   );
 
   /**
    * Bin dates and values to plot based on given disasterEventPoints.
    * @param disasterEventPoints event data to process
    * @param dateSetting the date option selected by the user
-   * @param setHistogramData function for setting HistogramData in state
    * @param property the property to bin values for. Defaults to aggregating
    *                 counts if property is undefined.
    */
-  function processData(
+  function getHistogramData(
     disasterEventPoints: DisasterEventPoint[],
     dateSetting: string,
-    setHistogramData: (data: DataPoint[]) => void,
     property?: string
-  ): void {
+  ): DataPoint[] {
     let histogramData: DataPoint[] = [];
     // Try binning by day if dateSetting is "last 30 days" or a month
     if (
@@ -313,7 +309,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
         property
       );
     }
-    setHistogramData(histogramData);
+    return histogramData;
   }
 
   /**
@@ -346,4 +342,4 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
       );
     }
   }
-}
+});

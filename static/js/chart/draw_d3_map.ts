@@ -65,6 +65,8 @@ const MAP_POLYGON_LAYER_CLASS = "map-polygon-layer";
 const MAP_POLYGON_HIGHLIGHT_CLASS = "map-polygon-highlight";
 const MAP_PATH_LAYER_CLASS = "map-path-layer";
 const MAP_PATH_HIGHLIGHT_CLASS = "map-path-highlight";
+const MAP_PATH_STROKE_WIDTH = "1.5px";
+const MAP_PATH_OPACITY = "0.5";
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -516,20 +518,25 @@ export function addMapPoints(
   getTooltipHtml?: (place: NamedPlace) => string,
   minDotRadius?: number
 ): d3.Selection<SVGCircleElement, MapPoint, SVGGElement, unknown> {
-  // get the smallest diagonal length of a region on the d3 map.
-  let minRegionDiagonal = Number.MAX_VALUE;
-  d3.select(containerElement)
-    .select(`#${MAP_GEO_REGIONS_ID}`)
-    .selectAll("path")
-    .each((_, idx, paths) => {
-      const pathClientRect = (
-        paths[idx] as SVGPathElement
-      ).getBoundingClientRect();
-      minRegionDiagonal = Math.sqrt(
-        Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
-      );
-    });
-  const minDotSize = minDotRadius || Math.max(minRegionDiagonal * 0.02, 1.1);
+  let minDotSize = minDotRadius;
+  // It is an expensive function to read all the lengths of the regions on the
+  // d3 map so only calculate minDotSize if it's not passed in as an argument.
+  if (!minDotSize) {
+    // get the smallest diagonal length of a region on the d3 map.
+    let minRegionDiagonal = Number.MAX_VALUE;
+    d3.select(containerElement)
+      .select(`#${MAP_GEO_REGIONS_ID}`)
+      .selectAll("path")
+      .each((_, idx, paths) => {
+        const pathClientRect = (
+          paths[idx] as SVGPathElement
+        ).getBoundingClientRect();
+        minRegionDiagonal = Math.sqrt(
+          Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
+        );
+      });
+    minDotSize = Math.max(minRegionDiagonal * 0.02, 1.1);
+  }
   const filteredMapPoints = mapPoints.filter((point) => {
     const projectedPoint = projection([point.longitude, point.latitude]);
     return (
@@ -665,10 +672,11 @@ export function addPathLayer(
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);
     })
-    .attr("stroke-width", STROKE_WIDTH)
+    .attr("stroke-width", MAP_PATH_STROKE_WIDTH)
     .attr("stroke", (d: GeoJsonFeature) => {
       return getRegionColor(d.properties.geoDcid);
     })
+    .attr("opacity", MAP_PATH_OPACITY)
     .on("mouseover", (d: GeoJsonFeature) => {
       mouseHoverAction(
         containerElement,

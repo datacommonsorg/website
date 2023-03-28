@@ -24,6 +24,7 @@ import React, { useEffect, useState } from "react";
 import {
   COLUMN_ID_PREFIX,
   HIDE_TILE_CLASS,
+  SELF_PLACE_DCID_PLACEHOLDER,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
@@ -151,6 +152,11 @@ function renderTiles(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
+    const comparisonPlaces = tile.comparisonPlaces
+      ? tile.comparisonPlaces.map((p) =>
+          p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
+        )
+      : undefined;
     const className = classNameList.join(" ");
     switch (tile.type) {
       case "HIGHLIGHT":
@@ -207,11 +213,12 @@ function renderTiles(
             id={id}
             title={tile.title}
             place={place}
-            comparisonPlaces={tile.comparisonPlaces}
+            comparisonPlaces={comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
+            tileSpec={tile.barTileSpec}
           />
         );
       case "SCATTER":

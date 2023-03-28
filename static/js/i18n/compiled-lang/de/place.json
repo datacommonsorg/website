@@ -77,6 +77,20 @@
       "value": "placeName"
     }
   ],
+  "chart_clause-rankings_in_place": [
+    {
+      "type": 1,
+      "value": "variable"
+    },
+    {
+      "type": 0,
+      "value": ": rankings in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
   "chart_clause-variable_in_place": [
     {
       "type": 1,
@@ -228,7 +242,7 @@
   "plural_administrative_area_level": [
     {
       "type": 0,
-      "value": "Orte des Verwaltungsgebiets "
+      "value": "Orte der Verwaltungseinheit "
     },
     {
       "type": 1,
@@ -596,7 +610,7 @@
   "singular_administrative_area_level": [
     {
       "type": 0,
-      "value": "Ort im Verwaltungsbereich "
+      "value": "Ort in der Verwaltungseinheit "
     },
     {
       "type": 1,

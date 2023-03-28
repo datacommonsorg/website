@@ -185,3 +185,20 @@ class IntegrationTest(LiveServerTestCase):
         'counties in the US with the most poverty',
     ],
                       check_chart_config=False)
+
+  def test_international(self):
+    self.run_sequence('international', [
+        'Where are the most rural districts in India',
+        'Life expectancy across provinces of China',
+        'GDP of counties in the United Kingdom',
+        'Districts in Turkey with the highest fertility rate',
+        'Floods in Brazil',
+        'Drought in Africa',
+    ])
+
+  def test_sdg(self):
+    self.run_sequence('sdg', [
+        'tell me about poverty in africa',
+        'which countries have show the greatest reduction?',
+        'health in the world',
+    ])

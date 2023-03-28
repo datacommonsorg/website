@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import axios from "axios";
 import _ from "lodash";
 
@@ -26,6 +25,8 @@ import {
 } from "../constants/app/nl_interface_constants";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { ColumnConfig } from "../types/subject_page_proto_types";
+import { SubjectPageMetadata } from "./../types/subject_page_types";
+import { getFilteredParentPlaces } from "./app/disaster_dashboard_utils";
 import { isNlInterface } from "./nl_interface_utils";
 
 /**
@@ -131,4 +132,30 @@ export function fetchGeoJsonData(
         },
       };
     });
+}
+
+/**
+ * Extract data from the DOM inserted using the subject_page_content macro.
+ */
+export function loadSubjectPageMetadataFromPage(): SubjectPageMetadata {
+  const placeEl = document.getElementById("place");
+  if (!placeEl) {
+    return;
+  }
+
+  const placeDcid = placeEl.dataset.dcid;
+  const placeName = placeEl.dataset.name || placeDcid;
+  const placeTypes = [placeEl.dataset.type] || [];
+  const place = { dcid: placeDcid, name: placeName, types: placeTypes };
+  const parentPlaces = JSON.parse(placeEl.dataset.parents);
+  const pageConfig = JSON.parse(
+    document.getElementById("dashboard-config").dataset.config
+  );
+  const childPlaces = JSON.parse(placeEl.dataset.children);
+  return {
+    pageConfig: pageConfig,
+    place: place,
+    parentPlaces: getFilteredParentPlaces(parentPlaces, place),
+    childPlaces: childPlaces,
+  };
 }

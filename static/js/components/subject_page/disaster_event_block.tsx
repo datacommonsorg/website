@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 
 import {
   COLUMN_ID_PREFIX,
@@ -56,6 +56,7 @@ import { HistogramTile } from "../tiles/histogram_tile";
 import { TopEventTile } from "../tiles/top_event_tile";
 import { BlockContainer } from "./block_container";
 import { Column } from "./column";
+import { DataFetchContext } from "./data_fetch_context";
 
 // Either provide (place, enclosedPlaceType) or provide (places)
 interface DisasterEventBlockPropType {
@@ -70,11 +71,9 @@ interface DisasterEventBlockPropType {
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;
-
-export function DisasterEventBlock(
+export const DisasterEventBlock = memo(function DisasterEventBlock(
   props: DisasterEventBlockPropType
 ): JSX.Element {
-  const prevDataOptions = useRef<DisasterDataOptions>(null);
   const blockBodyRef = useRef<HTMLDivElement>(null);
   const blockEventTypeSpecs = useRef<Record<string, EventTypeSpec>>(
     getBlockEventTypeSpecs(props.eventTypeSpec, props.columns)
@@ -85,6 +84,7 @@ export function DisasterEventBlock(
     DEFAULT_FILTER_SECTION_HEIGHT
   );
   const [showFilters, setShowFilters] = useState(false);
+  const { fetchData } = useContext(DataFetchContext);
 
   useEffect(() => {
     // when showFilters is toggled, calculate what the filter section height
@@ -98,22 +98,18 @@ export function DisasterEventBlock(
   }, [showFilters]);
 
   useEffect(() => {
-    // when props change, update teh block specific event type specs and
+    // when props change, update the block specific event type specs and
     // re-fetch data.
     blockEventTypeSpecs.current = getBlockEventTypeSpecs(
       props.eventTypeSpec,
       props.columns
     );
-    fetchData();
-    window.addEventListener("hashchange", fetchData);
+    fetchDisasterData(true);
+    window.addEventListener("hashchange", () => fetchDisasterData(false));
     return () => {
-      window.removeEventListener("hashchange", fetchData);
+      window.removeEventListener("hashchange", () => fetchDisasterData(false));
     };
   }, [props]);
-
-  if (disasterEventData == null) {
-    return <></>;
-  }
 
   const columnWidth = getColumnWidth(props.columns);
   const minIdxToHide = getMinTileIdxToHide();
@@ -138,6 +134,12 @@ export function DisasterEventBlock(
           <i className="material-icons">tune</i>
         </div>
       </DisasterEventMapSelectors>
+      {showFilters && (
+        <DisasterEventMapFilters
+          eventTypeSpec={blockEventTypeSpecs.current}
+          blockId={props.id}
+        />
+      )}
       <div className="block-body row" ref={blockBodyRef}>
         <div className="block-column-container row">
           {props.columns &&
@@ -167,13 +169,6 @@ export function DisasterEventBlock(
             </div>
           </div>
         </div>
-        {showFilters && (
-          <DisasterEventMapFilters
-            eventTypeSpec={blockEventTypeSpecs.current}
-            height={filterSectionHeight}
-            blockId={props.id}
-          />
-        )}
       </div>
     </BlockContainer>
   );
@@ -182,45 +177,72 @@ export function DisasterEventBlock(
     return `${props.id}-spinner`;
   }
 
-  function fetchData(): void {
-    // sort event type specs for accurate equality comparison between previosu
-    // and current data options.
-    const eventTypeSpecs = Object.values(blockEventTypeSpecs.current).sort(
-      (a, b) => {
-        if (a.id < b.id) {
-          return -1;
-        } else {
-          return 1;
-        }
-      }
-    );
-    const dataOptions = {
-      eventTypeSpecs: eventTypeSpecs,
-      selectedDate: getDate(props.id),
-      severityFilters: getSeverityFilters(props.eventTypeSpec, props.id),
-      useCache: getUseCache(),
-      place: props.place.dcid,
+  // Gets the cache key to use for the disaster data fetch
+  function getDataFetchCacheKey(dataOptions: DisasterDataOptions): string {
+    const severityFilter =
+      dataOptions.severityFilters[dataOptions.eventTypeSpec.id] || null;
+    const cacheKeyParams = {
+      specId: dataOptions.eventTypeSpec.id,
+      date: dataOptions.selectedDate,
+      filterProp: severityFilter && severityFilter.prop,
+      filterUnit: severityFilter && severityFilter.unit,
+      filterUpper: severityFilter && severityFilter.upperLimit,
+      filterLower: severityFilter && severityFilter.lowerLimit,
+      useCache: dataOptions.useCache,
+      place: dataOptions.place,
     };
-    if (
-      prevDataOptions.current &&
-      _.isEqual(prevDataOptions.current, dataOptions)
-    ) {
-      return;
-    }
-    prevDataOptions.current = dataOptions;
+    let cacheKey = "";
+    Object.keys(cacheKeyParams)
+      .sort()
+      .forEach((key) => {
+        if (cacheKeyParams[key]) {
+          cacheKey += `&${key}=${cacheKeyParams[key]}`;
+        }
+      });
+    return cacheKey;
+  }
+
+  function fetchDisasterData(isInitialLoading: boolean): void {
     const spinnerId = getSpinnerId();
-    loadSpinner(spinnerId);
-    fetchDisasterEventPoints(dataOptions)
-      .then((disasterEventData) => {
-        setDisasterEventData(disasterEventData);
+    if (!isInitialLoading) {
+      loadSpinner(spinnerId);
+    }
+    const promises = [];
+    // list of spec ids that correspond to the spec id used for the promise at
+    // that index in the list of promises.
+    const specIds = [];
+    Object.values(blockEventTypeSpecs.current).forEach((spec) => {
+      const specDataOptions = {
+        eventTypeSpec: spec,
+        selectedDate: getDate(props.id),
+        severityFilters: getSeverityFilters(props.eventTypeSpec, props.id),
+        useCache: getUseCache(),
+        place: props.place.dcid,
+      };
+      specIds.push(spec.id);
+      const cacheKey = getDataFetchCacheKey(specDataOptions);
+      promises.push(
+        fetchData(cacheKey, () => fetchDisasterEventPoints(specDataOptions))
+      );
+    });
+    if (!promises) {
+      removeSpinner(spinnerId);
+    }
+    Promise.all(promises)
+      .then((resp) => {
+        const result = {};
+        resp.forEach((disasterDataResp, i) => {
+          result[specIds[i]] = disasterDataResp;
+        });
+        setDisasterEventData(result);
         removeSpinner(spinnerId);
       })
       .catch(() => {
-        removeSpinner(spinnerId);
         setDisasterEventData({});
+        removeSpinner(spinnerId);
       });
   }
-}
+});
 
 // Get the relevant event type specs for a tile
 function getTileEventTypeSpecs(
@@ -277,7 +299,7 @@ function renderTiles(
   disasterEventData: Record<string, DisasterEventPointData>,
   tileClassName?: string
 ): JSX.Element {
-  if (!tiles || !disasterEventData) {
+  if (!tiles) {
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
@@ -294,10 +316,13 @@ function renderTiles(
     switch (tile.type) {
       case "DISASTER_EVENT_MAP": {
         const eventTypeSpec = getTileEventTypeSpecs(props.eventTypeSpec, tile);
-        const specEventData = {};
-        Object.keys(eventTypeSpec).forEach((specId) => {
-          specEventData[specId] = disasterEventData[specId];
-        });
+        let tileEventData = null;
+        if (disasterEventData) {
+          tileEventData = {};
+          Object.keys(eventTypeSpec).forEach((specId) => {
+            tileEventData[specId] = disasterEventData[specId];
+          });
+        }
         return (
           <DisasterEventMapTile
             key={id}
@@ -306,7 +331,7 @@ function renderTiles(
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             eventTypeSpec={eventTypeSpec}
-            disasterEventData={specEventData}
+            disasterEventData={tileEventData}
             tileSpec={tile.disasterEventMapTileSpec}
           />
         );
@@ -314,6 +339,11 @@ function renderTiles(
       case "HISTOGRAM": {
         const eventTypeSpec =
           props.eventTypeSpec[tile.histogramTileSpec.eventTypeKey];
+        let tileEventData = null;
+        if (disasterEventData) {
+          tileEventData =
+            disasterEventData[tile.histogramTileSpec.eventTypeKey];
+        }
         return (
           <HistogramTile
             key={id}
@@ -323,18 +353,17 @@ function renderTiles(
             selectedDate={getDate(props.id)}
             eventTypeSpec={eventTypeSpec}
             property={tile.histogramTileSpec.prop}
-            disasterEventData={
-              disasterEventData[tile.histogramTileSpec.eventTypeKey] || {
-                eventPoints: [],
-                provenanceInfo: {},
-              }
-            }
+            disasterEventData={tileEventData}
           />
         );
       }
       case "TOP_EVENT": {
         const eventTypeSpec =
           props.eventTypeSpec[tile.topEventTileSpec.eventTypeKey];
+        let tileEventData = null;
+        if (disasterEventData) {
+          tileEventData = disasterEventData[tile.topEventTileSpec.eventTypeKey];
+        }
         return (
           <TopEventTile
             key={id}
@@ -344,12 +373,7 @@ function renderTiles(
             topEventMetadata={tile.topEventTileSpec}
             className={className}
             eventTypeSpec={eventTypeSpec}
-            disasterEventData={
-              disasterEventData[tile.topEventTileSpec.eventTypeKey] || {
-                eventPoints: [],
-                provenanceInfo: {},
-              }
-            }
+            disasterEventData={tileEventData}
             enclosedPlaceType={enclosedPlaceType}
           />
         );

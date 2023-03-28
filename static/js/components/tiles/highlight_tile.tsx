@@ -48,7 +48,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
     return null;
   }
   const rs: ReplacementStrings = {
-    place: props.place.name,
+    placeName: props.place.name,
     date: highlightData.date,
   };
   const description = formatString(props.description, rs);

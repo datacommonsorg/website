@@ -30,7 +30,6 @@ configMapGenerator:
     behavior: merge
     literals:
       - flaskEnv=custom
-      - secretProject=<PROJECT_ID>
   - name: mixer-configmap
     behavior: create
     literals:

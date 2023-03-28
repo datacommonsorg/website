@@ -86,6 +86,7 @@ export interface TopEventTileSpec {
   showStartDate: boolean;
   showEndDate: boolean;
   reverseSort: boolean;
+  rankingCount?: number;
 }
 
 export interface ScatterTileSpec {
@@ -93,6 +94,10 @@ export interface ScatterTileSpec {
   highlightTopLeft?: boolean;
   highlightBottomRight?: boolean;
   highlightBottomLeft?: boolean;
+}
+
+export interface BarTileSpec {
+  xLabelLinkRoot?: string;
 }
 
 export interface TileConfig {
@@ -107,6 +112,7 @@ export interface TileConfig {
   topEventTileSpec?: TopEventTileSpec;
   scatterTileSpec?: ScatterTileSpec;
   histogramTileSpec?: HistogramTileSpec;
+  barTileSpec?: BarTileSpec;
 }
 
 export interface ColumnConfig {
