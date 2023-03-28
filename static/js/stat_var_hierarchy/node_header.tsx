@@ -39,6 +39,7 @@ interface StatVarHierarchyNodeHeaderPropType {
   highlighted: boolean;
   nodeType: StatVarHierarchyNodeType;
   showTooltip: boolean;
+  nodeDcid: string;
 }
 
 export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchyNodeHeaderPropType> {
@@ -95,7 +96,7 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
       d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
     ).getBoundingClientRect().y;
     const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
-    const tooltipHtml = `<b>${this.props.title}</b>`;
+    const tooltipHtml = `<b>${this.props.title}</b></br><span>dcid: ${this.props.nodeDcid}</span>`;
     showTooltip(tooltipHtml, { left, top });
   };
 }

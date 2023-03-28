@@ -185,6 +185,11 @@ form.node-title {
   max-width: 50vw;
 }
 
+#tree-widget-tooltip span {
+  font-size: 0.7rem;
+  color: #7b7b7b;
+}
+
 #tree-widget-info i {
   padding: 0.3rem;
   color: $menu-foreground;

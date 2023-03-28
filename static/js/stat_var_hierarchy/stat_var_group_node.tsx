@@ -190,6 +190,7 @@ export class StatVarGroupNode extends React.Component<
         selectionCount: this.state.selectionCount,
         title: triggerTitle,
         showTooltip: this.props.path.length > 1,
+        nodeDcid: this.props.data.id,
       });
     };
     return (
