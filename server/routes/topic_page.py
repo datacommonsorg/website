@@ -37,12 +37,11 @@ _MAX_NUM_PLACES = 6
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
 
-def get_sdg_config(place_dcid, topic_config):
+def get_sdg_config(place_dcid, more_places, topic_config):
   topic_place_config = topic_config
   topic_place_config.metadata.place_dcid.append(place_dcid)
   # Populuate comparison places (fixed places) for all tiles
   comparison_places = [place_dcid]
-  more_places = request.args.getlist('places')
   if more_places:
     comparison_places.extend(more_places)
   for p in _SDG_COMPARISON_PLACES:
@@ -95,10 +94,13 @@ def topic_page(topic_id=None, place_dcid=None):
         config={},
         topics_summary=topics_summary)
 
+  more_places = request.args.getlist('places')
+
   # Find the config for the topic & place.
   topic_place_config = None
   if topic_id == _SDG_TOPIC:
-    topic_place_config = get_sdg_config(place_dcid, topic_configs[0])
+    topic_place_config = get_sdg_config(place_dcid, more_places,
+                                        topic_configs[0])
   else:
     for config in topic_configs:
       if place_dcid in config.metadata.place_dcid:
@@ -119,6 +121,7 @@ def topic_page(topic_id=None, place_dcid=None):
       place_type=place_type,
       place_name=place_name,
       place_dcid=place_dcid,
+      more_places=json.dumps(more_places),
       topic_id=topic_id,
       topic_name=topic_place_config.metadata.topic_name or "",
       config=MessageToJson(topic_place_config),
