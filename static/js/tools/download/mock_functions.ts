@@ -139,7 +139,7 @@ export function axios_mock(): void {
   when(axios.post)
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Demographics",
-      enitites: ["geoId/06001", "geoId/06002"],
+      entities: ["geoId/06001", "geoId/06002"],
       numEntitiesExistence: undefined,
     })
     .mockResolvedValue(demographicsGroupsData);
