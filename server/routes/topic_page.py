@@ -45,7 +45,7 @@ def get_sdg_config(place_dcid, more_places, topic_config):
   if more_places:
     comparison_places.extend(more_places)
   for p in _SDG_COMPARISON_PLACES:
-    if len(comparison_places) == _MAX_NUM_PLACES:
+    if len(comparison_places) >= _MAX_NUM_PLACES:
       break
     if p not in comparison_places:
       comparison_places.append(p)
