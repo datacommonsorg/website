@@ -19,7 +19,8 @@
 
 {% set main_id = 'sustainability' %}
 {% set page_id = 'page-sustainability' %}
-{% set title = place_metadata.place_name + '- Sustainability Explorer' %}
+{% set place_name = place_metadata.place_name or 'Error' %}
+{% set title = place_name + ' - Sustainability Explorer' %}
 {% set subpage_title = 'Sustainability Explorer' %}
 
 {% block head %}
@@ -33,4 +34,5 @@
 
 {% block footer %}
 <script src={{url_for('static', filename='sustainability.js', t=config['VERSION'])}}></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}" async></script>
 {% endblock %}

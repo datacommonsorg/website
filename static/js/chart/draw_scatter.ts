@@ -23,8 +23,8 @@ import * as d3Regression from "d3-regression";
 import ReactDOM from "react-dom";
 
 import { ChartQuadrant } from "../constants/scatter_chart_constants";
+import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
-import { formatNumber } from "../utils/string_utils";
 import { wrap } from "./base";
 
 /**

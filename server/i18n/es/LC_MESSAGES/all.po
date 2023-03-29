@@ -13,6 +13,9 @@ msgstr "Acerca de Data Commons"
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Cities, India"
+msgstr "Cities, India"
+
 msgid "Cities, United States"
 msgstr "Ciudades (Estados Unidos)"
 
@@ -29,13 +32,16 @@ msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr ""
+msgstr "Data Download Tool"
 
 msgid "Data Sources"
 msgstr "Fuentes de datos"
 
 msgid "Disclaimers"
 msgstr "Renuncias de responsabilidad"
+
+msgid "Districts, India"
+msgstr "Districts, India"
 
 msgid "Documentation"
 msgstr "Documentación"
@@ -45,6 +51,9 @@ msgstr "Indicadores económicos (Todo el mundo)"
 
 msgid "Enter a country, state, county or city"
 msgstr "Introduce un país, un estado, un condado o una ciudad"
+
+msgid "Enter a country, state, district or city"
+msgstr "Enter a country, state, district or city"
 
 msgid "Explore"
 msgstr "Ver"
@@ -103,8 +112,14 @@ msgstr "Cargando..."
 msgid "Map Explorer"
 msgstr "Explorador de mapas"
 
+msgid "Maps Explorer"
+msgstr "Maps Explorer"
+
 msgid "Median Income, United States"
 msgstr "Ingresos medios (Estados Unidos)"
+
+msgid "Natural Language Explorer"
+msgstr "Natural Language Explorer"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>La herramienta Explorador de lugares permite conocer los datos principales de un lugar. Reúne un conjunto de gráficos sobre demografía, educación, economía y otros aspectos del sitio y los compara con los de otros lugares. También permite ver las clasificaciones de los distintos lugares en relación con diferentes métricas, como el desempleo, la criminalidad o los ingresos.</p><p>Puedes acceder a los gráficos de la ciudad, el código postal, el condado, el estado o el país que quieras a través del cuadro de búsqueda que aparece arriba.</p><p>Si quieres, también puedes consultar los datos de lugares conocidos:</p>"
@@ -128,19 +143,25 @@ msgid "Scatter Plot Explorer"
 msgstr "Explorador de gráficos de dispersión"
 
 msgid "Scatter Plots"
-msgstr ""
+msgstr "Scatter Plots"
+
+msgid "States, India"
+msgstr "States, India"
 
 msgid "States, United States"
 msgstr "Estados (Estados Unidos)"
 
 msgid "Statistical Variable Explorer"
-msgstr ""
+msgstr "Statistical Variable Explorer"
+
+msgid "Terms Of Use"
+msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "Términos y Condiciones"
 
 msgid "Timeline Charts"
-msgstr ""
+msgstr "Timeline Charts"
 
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
@@ -176,7 +197,7 @@ msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consumo de alcohol per cápita (anual)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr "Annual greenhouse gas emissions"
 
 msgid "CHART_TITLE-Arson"
 msgstr "Incendios provocados"
@@ -190,11 +211,17 @@ msgstr "Tasa de diplomados por sexo"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Tasa de personas con grados por sexo"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Criminalidad"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Demografía"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Economía"
@@ -202,11 +229,14 @@ msgstr "Economía"
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Educación"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "Medio ambiente"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Patrimonio"
@@ -217,8 +247,20 @@ msgstr "Salud"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Vivienda"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Descripción general"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Niños trabajadores"
@@ -660,4 +702,7 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Vista general"
 

@@ -90,7 +90,7 @@ export interface MapPointsData {
 
 // List of options used when getting disaster event data.
 export interface DisasterDataOptions {
-  eventTypeSpecs: EventTypeSpec[];
+  eventTypeSpec: EventTypeSpec;
   selectedDate: string;
   severityFilters: Record<string, SeverityFilter>;
   useCache: boolean;

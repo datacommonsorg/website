@@ -13,6 +13,9 @@ msgstr "Informationen zu Data Commons"
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Cities, India"
+msgstr "Cities, India"
+
 msgid "Cities, United States"
 msgstr "Städte, USA"
 
@@ -29,13 +32,16 @@ msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr ""
+msgstr "Data Download Tool"
 
 msgid "Data Sources"
 msgstr "Datenquellen"
 
 msgid "Disclaimers"
 msgstr "Haftungsausschlüsse"
+
+msgid "Districts, India"
+msgstr "Districts, India"
 
 msgid "Documentation"
 msgstr "Dokumentation"
@@ -46,6 +52,9 @@ msgstr "Wirtschaftsindikatoren, weltweit"
 msgid "Enter a country, state, county or city"
 msgstr "Geben Sie ein Land, einen Bundesstaat, ein County oder eine Stadt ein"
 
+msgid "Enter a country, state, district or city"
+msgstr "Enter a country, state, district or city"
+
 msgid "Explore"
 msgstr "Erkunden"
 
@@ -53,13 +62,13 @@ msgid "Explore the data"
 msgstr "Daten ansehen"
 
 msgid "FAQ"
-msgstr "FAQ"
+msgstr "FAQs"
 
 msgid "Feedback"
 msgstr "Feedback"
 
 msgid "Frequently Asked Questions"
-msgstr "FAQ"
+msgstr "FAQs"
 
 msgid "Gini Index"
 msgstr "Gini-Index"
@@ -103,8 +112,14 @@ msgstr "Wird geladen…"
 msgid "Map Explorer"
 msgstr "Karten-Explorer"
 
+msgid "Maps Explorer"
+msgstr "Maps Explorer"
+
 msgid "Median Income, United States"
 msgstr "Medianeinkommen, USA"
+
+msgid "Natural Language Explorer"
+msgstr "Natural Language Explorer"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Das Tool „Place Explorer“ liefert Informationen zu den wichtigsten Daten eines Ortes. Es fasst verschiedene Diagramme für den jeweiligen Ort zusammen, unter anderem zu Demografie, Bildung oder Wirtschaft, und setzt diese durch den Vergleich mit anderen Orten in einen Kontext. Sie können auch eine Rangfolge mehrerer Orte mit unterschiedlichen Kennzahlen wie Arbeitslosigkeit, Kriminalität und Einkommen ansehen.</p><p>Über das Suchfeld oben haben Sie die Möglichkeit, Diagramme für Ihre Lieblingsstadt, eine bestimmte Postleitzahl, ein County, einen Bundesstaat oder ein Land aufzurufen.</p><p>Oder Sie entdecken zuerst einige bekannte Orte ...</p>"
@@ -128,19 +143,25 @@ msgid "Scatter Plot Explorer"
 msgstr "Streudiagramm-Explorer"
 
 msgid "Scatter Plots"
-msgstr ""
+msgstr "Scatter Plots"
+
+msgid "States, India"
+msgstr "States, India"
 
 msgid "States, United States"
 msgstr "Bundesstaaten, USA"
 
 msgid "Statistical Variable Explorer"
-msgstr ""
+msgstr "Statistical Variable Explorer"
+
+msgid "Terms Of Use"
+msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "Nutzungsbedingungen"
 
 msgid "Timeline Charts"
-msgstr ""
+msgstr "Timeline Charts"
 
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
@@ -176,7 +197,7 @@ msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alkoholkonsum pro Kopf (jährlich)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr "Annual greenhouse gas emissions"
 
 msgid "CHART_TITLE-Arson"
 msgstr "Brandstiftung"
@@ -190,11 +211,17 @@ msgstr "Anteil der Personen mit College-Abschluss nach Geschlecht"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Anteil der Personen mit Bachelor-Abschluss nach Geschlecht"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Kriminalität"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Demografie"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Wirtschaft"
@@ -202,11 +229,14 @@ msgstr "Wirtschaft"
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Ausbildung"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "Umwelt"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Eigenkapital"
@@ -217,8 +247,20 @@ msgstr "Gesundheit"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Wohnen"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Übersicht"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Kinder in Beschäftigungsverhältnissen"
@@ -449,10 +491,10 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Marktkapitalisierung inländischer Unternehmen (% des BIP)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean diesel PM concentration"
+msgstr "Mean Diesel PM concentration"
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean ozone concentration"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -647,17 +689,20 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Arbeitende und nicht arbeitende Bevölkerung im Vergleich"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (large facilities, non-biogenic)"
+msgstr "Carbon dioxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
 msgstr "Carbon dioxide emissions per capita"
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (large facilities, non-biogenic)"
+msgstr "Methane emissions (non-biogenic)"
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (large facilities, non-biogenic)"
+msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Übersicht"
 

@@ -24,19 +24,23 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
+import { initSearchAutocomplete } from "../../shared/place_autocomplete";
 import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils";
 import { App } from "./app";
 
 window.onload = () => {
-  renderPage();
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
 };
 
 function renderPage(): void {
   const metadata = loadSubjectPageMetadataFromPage();
-
-  Promise.resolve(
-    loadLocaleData("en", [import(`../../i18n/compiled-lang/en/units.json`)])
-  );
+  if (!metadata) {
+    return;
+  }
 
   ReactDOM.render(
     React.createElement(App, {
@@ -44,4 +48,7 @@ function renderPage(): void {
     }),
     document.getElementById("body")
   );
+
+  // Load this after the place-autocomplete input is rendered.
+  initSearchAutocomplete("/sustainability");
 }

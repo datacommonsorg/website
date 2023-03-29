@@ -195,3 +195,10 @@ class IntegrationTest(LiveServerTestCase):
         'Floods in Brazil',
         'Drought in Africa',
     ])
+
+  def test_sdg(self):
+    self.run_sequence('sdg', [
+        'tell me about poverty in africa',
+        'which countries have show the greatest reduction?',
+        'health in the world',
+    ])

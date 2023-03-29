@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 from datetime import datetime
 import gzip
 import hashlib
@@ -19,7 +20,7 @@ import json
 import logging
 import os
 import time
-from typing import List
+from typing import Dict, List
 import urllib
 
 from flask import make_response
@@ -50,6 +51,7 @@ TOPIC_PAGE_CONFIGS = {
     'equity': ['USA', 'CA'],
     'poverty': ['USA', 'India'],
     'dev': ['CA'],
+    'sdg': ['sdg']
 }
 
 # Levels range from 0 (fastest, least compression), to 9 (slowest, most
@@ -57,8 +59,32 @@ TOPIC_PAGE_CONFIGS = {
 GZIP_COMPRESSION_LEVEL = 3
 
 # Dict of place dcid to place type to filename of the geojson to cache for that
-# place + place type combination
-CACHED_GEOJSON_FILES = {"Earth": {"Country": "earth_country_dp13"}}
+# place + place type combination.
+# To generate cached geojson files, follow instructions/use the endpoint here:
+# https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
+CACHED_GEOJSON_FILES = {
+    "Earth": {
+        "Country": "earth_country_dp13"
+    },
+    "africa": {
+        "Country": "africa_country_dp10"
+    },
+    "asia": {
+        "Country": "asia_country_dp10"
+    },
+    "europe": {
+        "Country": "europe_country_dp6"
+    },
+    "northamerica": {
+        "Country": "northamerica_country_dp13"
+    },
+    "oceania": {
+        "Country": "oceania_country_dp13"
+    },
+    "southamerica": {
+        "Country": "southamerica_country_dp10"
+    }
+}
 
 
 def get_repo_root():
@@ -104,7 +130,10 @@ def get_topic_page_config():
 def get_disaster_dashboard_config():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "dashboard.textproto")
-  return get_subject_page_config(filepath)
+  disaster_event_metadata = get_disaster_event_metadata()
+  config = get_subject_page_config(filepath)
+  config.metadata.MergeFrom(disaster_event_metadata)
+  return config
 
 
 # Returns disaster event config loaded as SubjectPageConfig protos
@@ -118,7 +147,10 @@ def get_disaster_event_config():
 def get_disaster_sustainability_config():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "sustainability.textproto")
-  return get_subject_page_config(filepath)
+  disaster_event_metadata = get_disaster_event_metadata()
+  config = get_subject_page_config(filepath)
+  config.metadata.MergeFrom(disaster_event_metadata)
+  return config
 
 
 # Returns disaster dashboard config for NL
@@ -126,6 +158,17 @@ def get_nl_disaster_config():
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "disasters.textproto")
   return get_subject_page_config(filepath)
+
+
+# Returns common event_type_spec for all disaster event related pages.
+def get_disaster_event_metadata():
+  filepath = os.path.join(get_repo_root(), "config", "subject_page",
+                          "disaster_event_spec.textproto")
+  with open(filepath, 'r') as f:
+    data = f.read()
+    subject_page_config = subject_page_pb2.PageMetadata()
+    text_format.Parse(data, subject_page_config)
+    return subject_page_config
 
 
 # Returns dict of place dcid to place type to geojson object. Geojson object is
@@ -183,14 +226,57 @@ def parse_date(date_string):
     raise ValueError("Invalid date: %s", date_string)
 
 
+def _get_unit_names(units: List[str]) -> Dict:
+  if not units:
+    return {}
+
+  dcid2name = {}
+  resp = dc.bulk_triples(nodes=units, direction='out')
+
+  for node in resp.get('data', []):
+    if 'node' not in node or 'triples' not in node:
+      continue
+    dcid = node['node']
+    triples = node['triples']
+    short_name = triples.get('shortDisplayName', None)
+    name = triples.get('name', None)
+    if short_name and short_name.get('nodes', []):
+      # Prefer short names
+      dcid2name[dcid] = short_name['nodes'][0].get('value', '')
+    elif name and name.get('nodes', []):
+      # Otherwise use name
+      dcid2name[dcid] = name['nodes'][0].get('value', '')
+
+  return dcid2name
+
+
+# For all facets that have a unit with a shortDisplayName, adds a
+# unitDisplayName property to the facet with the short display name as the value
+def _get_processed_facets(facets):
+  units = set()
+  for facet in facets.values():
+    facet_unit = facet.get('unit')
+    if facet_unit:
+      units.add(facet_unit)
+  unit2name = _get_unit_names(list(units))
+  result = copy.deepcopy(facets)
+  for facet_id, facet in facets.items():
+    facet_unit = facet.get('unit')
+    if facet_unit and unit2name.get(facet_unit, ''):
+      result[facet_id]['unitDisplayName'] = unit2name[facet_unit]
+  return result
+
+
 def point_core(entities, variables, date, all_facets):
   resp = dc.obs_point(entities, variables, date, all_facets)
+  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
 def point_within_core(parent_entity, child_type, variables, date, all_facets):
   resp = dc.obs_point_within(parent_entity, child_type, variables, date,
                              all_facets)
+  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
@@ -227,11 +313,13 @@ def _compact_point(point_resp, all_facets):
 
 def series_core(entities, variables, all_facets):
   resp = dc.obs_series(entities, variables, all_facets)
+  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
 def series_within_core(parent_entity, child_type, variables, all_facets):
   resp = dc.obs_series_within(parent_entity, child_type, variables, all_facets)
+  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 

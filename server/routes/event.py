@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for event pages"""
 
+import copy
 import json
 import logging
 import os
@@ -25,6 +26,7 @@ from flask import escape
 from flask import render_template
 from google.protobuf.json_format import MessageToJson
 
+from server.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
 import server.routes.api.node as node_api
@@ -159,6 +161,7 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
 
 @bp.route('/')
 @bp.route('/<path:dcid>', strict_slashes=False)
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def event_node(dcid=DEFAULT_EVENT_DCID):
   if not os.environ.get('FLASK_ENV') in [
       'autopush', 'local', 'dev', 'stanford', 'local-stanford',
@@ -185,31 +188,34 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
     # Reload configs for faster local iteration.
     subject_config = lib_util.get_disaster_event_config()
 
+  subject_config = copy.deepcopy(subject_config)
   places = get_places(properties)
   place_dcid = find_best_place_for_config(places)
 
   subject_page_args = EMPTY_SUBJECT_PAGE_ARGS
   if place_dcid:
-    place_metadata = lib_subject_page_config.place_metadata(place_dcid)
-    subject_config.metadata.contained_place_types.clear()
-    if place_metadata.contained_place_types_override:
+    place_metadata = lib_subject_page_config.place_metadata(
+        place_dcid, get_child_places=False)
+    if not place_metadata.is_error:
+      # Update contained places from place metadata
+      subject_config.metadata.contained_place_types.clear()
       subject_config.metadata.contained_place_types.update(
-          place_metadata.contained_place_types_override)
-    else:
-      subject_config.metadata.contained_place_types.update(
-          DEFAULT_CONTAINED_PLACE_TYPES)
+          place_metadata.contained_place_types)
+      contained_place_type = place_metadata.contained_place_types.get(
+          place_metadata.place_type, None)
 
-    subject_config = lib_subject_page_config.remove_empty_charts(
-        subject_config, place_dcid)
+      # Post-processing on subject page config
+      subject_config = lib_subject_page_config.remove_empty_charts(
+          subject_config, place_dcid, contained_place_type)
 
-    # TODO: If not enough charts from the current place, add from the next place up and so on.
-    subject_page_args = {
-        "place_type": json.dumps(place_metadata.place_types),
-        "place_name": place_metadata.place_name,
-        "place_dcid": place_dcid,
-        "parent_places": json.dumps(place_metadata.parent_places),
-        "config": MessageToJson(subject_config)
-    }
+      # TODO: If not enough charts from the current place, add from the next place up and so on.
+      subject_page_args = {
+          "place_type": place_metadata.place_type,
+          "place_name": place_metadata.place_name,
+          "place_dcid": place_dcid,
+          "parent_places": json.dumps(place_metadata.parent_places),
+          "config": MessageToJson(subject_config)
+      }
 
   template_args = {
       "dcid": escape(dcid),

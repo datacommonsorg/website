@@ -31,6 +31,7 @@ import { fetchGeoJsonData, getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
 import { DataContext, DataContextType } from "./data_context";
+import { DataFetchContextProvider } from "./data_fetch_context";
 
 interface SubjectPageMainPanePropType {
   // Id for this subject page.
@@ -46,6 +47,7 @@ interface SubjectPageMainPanePropType {
 }
 
 const PLACE_TYPE_GEOJSON_PROP = {
+  City: "geoJsonCoordinates",
   Country: "geoJsonCoordinatesDP3",
   State: "geoJsonCoordinatesDP3",
   AdministrativeArea1: "geoJsonCoordinatesDP3",
@@ -92,9 +94,10 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         break;
       }
     }
-    const placeGeoJsonPromise = placeGeoJsonProp
-      ? fetchNodeGeoJson([props.place.dcid], placeGeoJsonProp)
-      : Promise.resolve(null);
+    const placeGeoJsonPromise = fetchNodeGeoJson(
+      [props.place.dcid],
+      placeGeoJsonProp
+    );
     const parentPlacesPromise = !_.isUndefined(props.parentPlaces)
       ? Promise.resolve(props.parentPlaces)
       : getParentPlacesPromise(props.place.dcid);
@@ -112,30 +115,40 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
 
   return (
     <div id="subject-page-main-pane">
-      {!_.isEmpty(props.pageConfig) &&
-        !_.isEmpty(props.pageConfig.categories) &&
-        props.pageConfig.categories.map((category, idx) => {
-          const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
-          return (
-            <DataContext.Provider key={id} value={contextData}>
-              <ErrorBoundary>
-                <Category
-                  id={id}
-                  place={props.place}
-                  enclosedPlaceType={enclosedPlaceType}
-                  config={category}
-                  eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
-                  svgChartHeight={
-                    // TODO: Unroll this for NL and use container offset from CSS instead.
-                    props.svgChartHeight
-                      ? props.svgChartHeight
-                      : SVG_CHART_HEIGHT
-                  }
-                />
-              </ErrorBoundary>
-            </DataContext.Provider>
-          );
-        })}
+      <DataFetchContextProvider id={props.id}>
+        {!_.isEmpty(props.pageConfig) &&
+          !_.isEmpty(props.pageConfig.categories) &&
+          props.pageConfig.categories.map((category, idx) => {
+            const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
+            // TODO: just use DataFetchContextProvider for fetching data and
+            // remove DataContext.
+            return (
+              <DataContext.Provider
+                key={id}
+                value={{
+                  geoJsonData: contextData.geoJsonData,
+                  parentPlaces: contextData.parentPlaces,
+                }}
+              >
+                <ErrorBoundary>
+                  <Category
+                    id={id}
+                    place={props.place}
+                    enclosedPlaceType={enclosedPlaceType}
+                    config={category}
+                    eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
+                    svgChartHeight={
+                      // TODO: Unroll this for NL and use container offset from CSS instead.
+                      props.svgChartHeight
+                        ? props.svgChartHeight
+                        : SVG_CHART_HEIGHT
+                    }
+                  />
+                </ErrorBoundary>
+              </DataContext.Provider>
+            );
+          })}
+      </DataFetchContextProvider>
     </div>
   );
 });

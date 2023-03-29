@@ -108,6 +108,7 @@ export interface ChartStore {
     data: {
       mapValues: { [dcid: string]: number };
       mapDates: Set<string>;
+      unit?: string;
     };
     context?: DataContext;
   };

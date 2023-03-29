@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 
 import {
   addMapPoints,
@@ -84,7 +84,7 @@ interface DisasterEventMapTilePropType {
   tileSpec: DisasterEventMapTileSpec;
 }
 
-export function DisasterEventMapTile(
+export const DisasterEventMapTile = memo(function DisasterEventMapTile(
   props: DisasterEventMapTilePropType
 ): JSX.Element {
   const svgContainerRef = useRef(null);
@@ -489,4 +489,4 @@ export function DisasterEventMapTile(
       _.isEmpty(geoJsonData.childrenGeoJson.features)
     );
   }
-}
+});

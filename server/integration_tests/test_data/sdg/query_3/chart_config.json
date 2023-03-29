@@ -1,0 +1,301 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT_E_FEMALE"
+                    ],
+                    "title": "Maternal mortality ratio in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_FPL_MTMM_15-49_CA_FEMALE"
+                    ],
+                    "title": "Access to modern family planning for women in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SP_DYN_ADKL_15-19_C_FEMALE"
+                    ],
+                    "title": "Birth rate for adolescent women in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM_15-49_E_FEMALE"
+                    ],
+                    "title": "Prevalence on anaemia in women in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's health"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_IMRT_lt1Y_E_BOTHSEX"
+                    ],
+                    "title": "Infant mortality rate in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_MORT_lt5Y_E_BOTHSEX"
+                    ],
+                    "title": "Mortality rate for children under 5 years in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT_lt1M_E_BOTHSEX"
+                    ],
+                    "title": "Neonatal mortality rate in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Preventable newborn and children deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_HIV_INCD_ALLAGE_E_BOTHSEX"
+                    ],
+                    "title": "Incidence of HIV infections in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_TBS_INCD_E"
+                    ],
+                    "title": "Incidence of Tuberculosis in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_HAP_HBSAG_lt5Y_E"
+                    ],
+                    "title": "Prevalence of hepatitis B in children under 5 years in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_TRP_INTVN_CA"
+                    ],
+                    "title": "Need for intervention against neglected tropical diseases in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Ending epidemics"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_ACS_UNHC_E"
+                    ],
+                    "title": "Universal health coverage index in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_XPD_EARN10_G"
+                    ],
+                    "title": "Population with health spending over 10% of household expenditure or income in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_XPD_EARN25_G"
+                    ],
+                    "title": "Population with health spending over 25% of household expenditure or income in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Health coverage and financial risk"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_PRV_SMOK_15gte_E_BOTHSEX"
+                    ],
+                    "title": "Prevalence of tobacco use in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_SUD_ALCOL_15gte_NA_BOTHSEX"
+                    ],
+                    "title": "Prevalence of alcohol use disorder in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Tobacco and alcohol"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_MED_DEN_C_PHYS"
+                    ],
+                    "title": "Density of medical doctors in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_MED_DEN_C_NURSMID"
+                    ],
+                    "title": "Density of nurses and midwives in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_MED_DEN_C_PHAR"
+                    ],
+                    "title": "Density of pharmacists in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_MED_DEN_C_DENT"
+                    ],
+                    "title": "Density of dentists in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Health worker density"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/SH_ACS_UNHC_E": {
+            "name": "Universal health coverage index",
+            "statVar": "sdg/SH_ACS_UNHC_E"
+          },
+          "sdg/SH_DYN_IMRT_lt1Y_E_BOTHSEX": {
+            "name": "Infant mortality rate",
+            "statVar": "sdg/SH_DYN_IMRT_lt1Y_E_BOTHSEX"
+          },
+          "sdg/SH_DYN_MORT_lt5Y_E_BOTHSEX": {
+            "name": "Mortality rate for children under 5 years",
+            "statVar": "sdg/SH_DYN_MORT_lt5Y_E_BOTHSEX"
+          },
+          "sdg/SH_DYN_NMRT_lt1M_E_BOTHSEX": {
+            "name": "Neonatal mortality rate",
+            "statVar": "sdg/SH_DYN_NMRT_lt1M_E_BOTHSEX"
+          },
+          "sdg/SH_FPL_MTMM_15-49_CA_FEMALE": {
+            "name": "Access to modern family planning for women",
+            "statVar": "sdg/SH_FPL_MTMM_15-49_CA_FEMALE"
+          },
+          "sdg/SH_HAP_HBSAG_lt5Y_E": {
+            "name": "Prevalence of hepatitis B in children under 5 years",
+            "statVar": "sdg/SH_HAP_HBSAG_lt5Y_E"
+          },
+          "sdg/SH_HIV_INCD_ALLAGE_E_BOTHSEX": {
+            "name": "Incidence of HIV infections",
+            "statVar": "sdg/SH_HIV_INCD_ALLAGE_E_BOTHSEX"
+          },
+          "sdg/SH_MED_DEN_C_DENT": {
+            "name": "Density of dentists",
+            "statVar": "sdg/SH_MED_DEN_C_DENT"
+          },
+          "sdg/SH_MED_DEN_C_NURSMID": {
+            "name": "Density of nurses and midwives",
+            "statVar": "sdg/SH_MED_DEN_C_NURSMID"
+          },
+          "sdg/SH_MED_DEN_C_PHAR": {
+            "name": "Density of pharmacists",
+            "statVar": "sdg/SH_MED_DEN_C_PHAR"
+          },
+          "sdg/SH_MED_DEN_C_PHYS": {
+            "name": "Density of medical doctors",
+            "statVar": "sdg/SH_MED_DEN_C_PHYS"
+          },
+          "sdg/SH_PRV_SMOK_15gte_E_BOTHSEX": {
+            "name": "Prevalence of tobacco use",
+            "statVar": "sdg/SH_PRV_SMOK_15gte_E_BOTHSEX"
+          },
+          "sdg/SH_STA_ANEM_15-49_E_FEMALE": {
+            "name": "Prevalence on anaemia in women",
+            "statVar": "sdg/SH_STA_ANEM_15-49_E_FEMALE"
+          },
+          "sdg/SH_STA_MORT_E_FEMALE": {
+            "name": "Maternal mortality ratio",
+            "statVar": "sdg/SH_STA_MORT_E_FEMALE"
+          },
+          "sdg/SH_SUD_ALCOL_15gte_NA_BOTHSEX": {
+            "name": "Prevalence of alcohol use disorder",
+            "statVar": "sdg/SH_SUD_ALCOL_15gte_NA_BOTHSEX"
+          },
+          "sdg/SH_TBS_INCD_E": {
+            "name": "Incidence of Tuberculosis",
+            "statVar": "sdg/SH_TBS_INCD_E"
+          },
+          "sdg/SH_TRP_INTVN_CA": {
+            "name": "Need for intervention against neglected tropical diseases",
+            "statVar": "sdg/SH_TRP_INTVN_CA"
+          },
+          "sdg/SH_XPD_EARN10_G": {
+            "name": "Population with health spending over 10% of household expenditure or income",
+            "statVar": "sdg/SH_XPD_EARN10_G"
+          },
+          "sdg/SH_XPD_EARN25_G": {
+            "name": "Population with health spending over 25% of household expenditure or income",
+            "statVar": "sdg/SH_XPD_EARN25_G"
+          },
+          "sdg/SP_DYN_ADKL_15-19_C_FEMALE": {
+            "name": "Birth rate for adolescent women",
+            "statVar": "sdg/SP_DYN_ADKL_15-19_C_FEMALE"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Place": "Country"
+      },
+      "placeDcid": [
+        "Earth"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "Earth",
+    "name": "Earth",
+    "place_type": "Place"
+  }
+}

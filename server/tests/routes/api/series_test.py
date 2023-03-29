@@ -189,7 +189,11 @@ class TestApiSeriesWithin(unittest.TestCase):
                 'measurementMethod':
                     'CensusPEPSurvey',
                 'provenanceUrl':
-                    'https://www.census.gov/programs-surveys/popest.html'
+                    'https://www.census.gov/programs-surveys/popest.html',
+                'unit':
+                    'testUnit',
+                'unitDisplayName':
+                    'shortUnit'
             },
         },
     }
@@ -203,6 +207,26 @@ class TestApiSeriesWithin(unittest.TestCase):
           'all_facets': True
       }:
         return mock_data.SERIES_WITHIN_ALL_FACETS
+      if url.endswith('/v1/bulk/triples/out') and data == {
+          'nodes': ['testUnit'],
+      }:
+        return {
+            'data': [{
+                'node': 'testUnit',
+                'triples': {
+                    'name': {
+                        'nodes': [{
+                            'value': 'longUnitName'
+                        }]
+                    },
+                    'shortDisplayName': {
+                        'nodes': [{
+                            'value': 'shortUnit'
+                        }]
+                    },
+                }
+            }]
+        }
 
     post.side_effect = side_effect
     response = app.test_client().get(

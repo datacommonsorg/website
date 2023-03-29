@@ -18,13 +18,9 @@ import logging
 import re
 from typing import Dict, List, Union
 
-import numpy as np
-import pandas as pd
-
 import server.lib.nl.constants as constants
 from server.lib.nl.detection import BinaryClassificationResultType
 from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import ClusteringClassificationAttributes
 from server.lib.nl.detection import ComparisonClassificationAttributes
 from server.lib.nl.detection import ContainedInClassificationAttributes
 from server.lib.nl.detection import ContainedInPlaceType
@@ -33,7 +29,6 @@ from server.lib.nl.detection import EventClassificationAttributes
 from server.lib.nl.detection import EventType
 from server.lib.nl.detection import NLClassifier
 from server.lib.nl.detection import OverviewClassificationAttributes
-from server.lib.nl.detection import PeriodType
 from server.lib.nl.detection import RankingClassificationAttributes
 from server.lib.nl.detection import RankingType
 from server.lib.nl.detection import SizeType
@@ -367,7 +362,7 @@ class Model:
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
       # Try to check if the special case of ACROSS can be found.
-      if "across" in query:
+      if "across" in query or "where in" in query or "within" in query:
         contained_in_place_type = ContainedInPlaceType.ACROSS
       else:
         return None

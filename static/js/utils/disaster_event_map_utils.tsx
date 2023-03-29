@@ -370,43 +370,30 @@ export function getDateRange(selectedDate: string): [string, string] {
  */
 export function fetchDisasterEventPoints(
   dataOptions: DisasterDataOptions
-): Promise<Record<string, DisasterEventPointData>> {
+): Promise<DisasterEventPointData> {
   // Date range to fetch data for.
   const dateRange = getDateRange(dataOptions.selectedDate);
   const promises = [];
-  // list of spec ids that correspond to the spec id used for the promise at
-  // that index in the list of promises.
-  const promiseSpecId = [];
-  for (const eventSpec of dataOptions.eventTypeSpecs) {
-    for (const eventType of eventSpec.eventTypeDcids) {
-      promiseSpecId.push(eventSpec.id);
-      promises.push(
-        fetchEventPoints(
-          eventType,
-          dataOptions.place,
-          dateRange,
-          eventSpec,
-          dataOptions.severityFilters[eventSpec.id],
-          dataOptions.useCache
-        )
-      );
-    }
+  for (const eventType of dataOptions.eventTypeSpec.eventTypeDcids) {
+    promises.push(
+      fetchEventPoints(
+        eventType,
+        dataOptions.place,
+        dateRange,
+        dataOptions.eventTypeSpec,
+        dataOptions.severityFilters[dataOptions.eventTypeSpec.id],
+        dataOptions.useCache
+      )
+    );
   }
   return Promise.all(promises).then((resp) => {
-    const result = {};
-    resp.forEach((eventTypeResp, i) => {
-      const eventSpecId = promiseSpecId[i];
-      if (!(eventSpecId in result)) {
-        result[eventSpecId] = {
-          eventPoints: [],
-          provenanceInfo: {},
-        };
-      }
-      result[eventSpecId].eventPoints.push(...eventTypeResp.eventPoints);
-      Object.assign(
-        result[eventSpecId].provenanceInfo,
-        eventTypeResp.provenanceInfo
-      );
+    const result = {
+      eventPoints: [],
+      provenanceInfo: {},
+    };
+    resp.forEach((eventTypeResp) => {
+      result.eventPoints.push(...eventTypeResp.eventPoints);
+      Object.assign(result.provenanceInfo, eventTypeResp.provenanceInfo);
     });
     return result;
   });

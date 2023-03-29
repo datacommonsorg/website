@@ -27,12 +27,12 @@ import {
 } from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
 import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
+import { initSearchAutocomplete } from "../shared/place_autocomplete";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
-import { initSearchAutocomplete } from "./place_autocomplete";
 import { PlaceHighlight } from "./place_highlight";
 import { isPlaceInUsa, USA_PLACE_TYPES_WITH_CHOROPLETH } from "./util";
 
@@ -48,7 +48,7 @@ const Y_SCROLL_MARGIN = 100;
 window.onload = () => {
   try {
     renderPage();
-    initSearchAutocomplete();
+    initSearchAutocomplete("/place");
     updatePageLayoutState();
     maybeToggleFixedSidebar();
     window.onresize = maybeToggleFixedSidebar;

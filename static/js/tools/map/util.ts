@@ -46,6 +46,7 @@ import {
   SampleDates,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
+import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getMatchingObservation, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
@@ -463,6 +464,7 @@ interface PlaceChartData {
   sources: Array<string>;
   date: string;
   value: number;
+  unit?: string;
 }
 
 /**
@@ -520,7 +522,8 @@ export function getPlaceChartData(
     sources.push(popSource);
   }
   sources.push(statVarSource);
-  return { metadata, sources, date: placeStatDate, value };
+  const unit = getUnit(metadataMap[facetId]);
+  return { metadata, sources, date: placeStatDate, value, unit };
 }
 
 /**

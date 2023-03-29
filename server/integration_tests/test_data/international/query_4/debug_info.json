@@ -35,12 +35,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.32,
-      "fulfillment": 0.32,
-      "get_sample_child_places": 0.15,
-      "get_sv_details": 0.32,
-      "query_detection": 0.69,
-      "sv_existence_for_places": 0.17
+      "build_page_config": 0.33,
+      "fulfillment": 0.27,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.33,
+      "query_detection": 0.47,
+      "sv_existence_for_places": 0.16
     }
   },
   "data_spec": [
@@ -437,14 +437,14 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7500918507575989,
-      0.552291214466095,
+      0.7500920295715332,
+      0.5522911548614502,
       0.47341689467430115,
-      0.47279447317123413,
-      0.47152411937713623,
-      0.4682553708553314,
+      0.4727942943572998,
+      0.47152405977249146,
+      0.46825528144836426,
       0.4668121337890625,
-      0.46678492426872253
+      0.46678483486175537
     ],
     "SV": [
       "FertilityRate_Person_Female",
@@ -458,79 +458,79 @@
     ],
     "SV_to_Sentences": {
       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
-        "Infant Mortality Rate (0.4682553708553314)"
+        "Infant Mortality Rate (0.46825528144836426)"
       ],
       "Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities": [
-        "Population: Male, Foreign Born, Juvenile Facilities (0.47152411937713623)"
+        "Population: Male, Foreign Born, Juvenile Facilities (0.47152405977249146)"
       ],
       "Count_Person_NotInLaborForce_Female_MarriedInThePast12Months": [
         "Population: Not in Labor Force, Female, Married in The Past 12 Months (0.4668121337890625)"
       ],
       "Count_Person_NotInLaborForce_Male_MarriedInThePast12Months": [
-        "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.47279447317123413)"
+        "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.4727942943572998)"
       ],
       "Count_Person_TwoOrMoreRaces_ResidesInJuvenileFacilities": [
         "Population: Two or More Races, Juvenile Facilities (0.47341689467430115)"
       ],
       "FertilityRate_Person_Female": [
-        "Fertility Rate (0.7500918507575989)",
+        "Fertility Rate (0.7500920295715332)",
         "Fertility of the population (0.6975283622741699)",
-        "Birth rate of the population (0.6018930673599243)",
-        "Birth rate per woman (0.5418902039527893)",
+        "Birth rate of the population (0.6018930077552795)",
+        "Birth rate per woman (0.5418903827667236)",
         "Number of offspring per woman (0.5105675458908081)",
         "Number of children born per woman (0.5047275424003601)",
-        "Number of babies born per woman (0.469687283039093)"
+        "Number of babies born per woman (0.46968746185302734)"
       ],
       "GrowthRate_Count_Person": [
-        "Rate of Population Growth (0.552291214466095)",
-        "Rate of population growth (0.552291214466095)",
-        "Population Growth Rate (0.5479618310928345)",
-        "Population growth rate (0.5479618310928345)",
-        "Rate of increase in population (0.5281090140342712)",
-        "Population increase rate (0.5204557180404663)"
+        "Rate of population growth (0.5522911548614502)",
+        "Rate of Population Growth (0.5522911548614502)",
+        "Population growth rate (0.5479618906974792)",
+        "Population Growth Rate (0.5479618906974792)",
+        "Rate of increase in population (0.5281088948249817)",
+        "Population increase rate (0.5204558372497559)"
       ],
       "UnemploymentRate_Person_Male": [
-        "Unemployment Rate of the male population (0.46678492426872253)",
-        "Unemployment Rate of the Male Population (0.46678492426872253)"
+        "Unemployment Rate of the male population (0.46678483486175537)",
+        "Unemployment Rate of the Male Population (0.46678483486175537)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
-      "Infant Mortality Rate (0.4682553708553314)"
+      "Infant Mortality Rate (0.46825528144836426)"
     ],
     "Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities": [
-      "Population: Male, Foreign Born, Juvenile Facilities (0.47152411937713623)"
+      "Population: Male, Foreign Born, Juvenile Facilities (0.47152405977249146)"
     ],
     "Count_Person_NotInLaborForce_Female_MarriedInThePast12Months": [
       "Population: Not in Labor Force, Female, Married in The Past 12 Months (0.4668121337890625)"
     ],
     "Count_Person_NotInLaborForce_Male_MarriedInThePast12Months": [
-      "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.47279447317123413)"
+      "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.4727942943572998)"
     ],
     "Count_Person_TwoOrMoreRaces_ResidesInJuvenileFacilities": [
       "Population: Two or More Races, Juvenile Facilities (0.47341689467430115)"
     ],
     "FertilityRate_Person_Female": [
-      "Fertility Rate (0.7500918507575989)",
+      "Fertility Rate (0.7500920295715332)",
       "Fertility of the population (0.6975283622741699)",
-      "Birth rate of the population (0.6018930673599243)",
-      "Birth rate per woman (0.5418902039527893)",
+      "Birth rate of the population (0.6018930077552795)",
+      "Birth rate per woman (0.5418903827667236)",
       "Number of offspring per woman (0.5105675458908081)",
       "Number of children born per woman (0.5047275424003601)",
-      "Number of babies born per woman (0.469687283039093)"
+      "Number of babies born per woman (0.46968746185302734)"
     ],
     "GrowthRate_Count_Person": [
-      "Rate of Population Growth (0.552291214466095)",
-      "Rate of population growth (0.552291214466095)",
-      "Population Growth Rate (0.5479618310928345)",
-      "Population growth rate (0.5479618310928345)",
-      "Rate of increase in population (0.5281090140342712)",
-      "Population increase rate (0.5204557180404663)"
+      "Rate of population growth (0.5522911548614502)",
+      "Rate of Population Growth (0.5522911548614502)",
+      "Population growth rate (0.5479618906974792)",
+      "Population Growth Rate (0.5479618906974792)",
+      "Rate of increase in population (0.5281088948249817)",
+      "Population increase rate (0.5204558372497559)"
     ],
     "UnemploymentRate_Person_Male": [
-      "Unemployment Rate of the male population (0.46678492426872253)",
-      "Unemployment Rate of the Male Population (0.46678492426872253)"
+      "Unemployment Rate of the male population (0.46678483486175537)",
+      "Unemployment Rate of the Male Population (0.46678483486175537)"
     ]
   },
   "time_delta_classification": "<None>"

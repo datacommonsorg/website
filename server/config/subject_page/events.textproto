@@ -16,7 +16,12 @@
 
 metadata {
   topic_id: "event"
-  # Contained_place_types set in routes/event.py.
+
+  # Contained_place_types set in routes/event.py. This is only for testing.
+  contained_place_types {
+    key: "Planet"
+    value: "Country"
+  }
 }
 
 categories {
@@ -151,7 +156,14 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Children in employment in ${placeName}"
+        title: "Life expectancy of ${placeName}"
+        stat_var_key: "life_expectancy"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Employed children in ${placeName}"
         stat_var_key: "child_employment"
       }
     }
@@ -199,6 +211,14 @@ categories {
       denom: "Count_Person"
       name: "Poverty rate"
       unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "life_expectancy"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Life expectancy"
+      unit: "Years"
     }
   }
   stat_var_spec {

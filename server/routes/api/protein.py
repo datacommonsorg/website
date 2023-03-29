@@ -33,7 +33,7 @@ DEFAULT_INTERACTION_SCORE = -1
 SUCCESS_CODE = 200
 BAD_REQUEST_CODE = 400
 
-bp = Blueprint('api.protein', __name__, url_prefix='/api/protein')
+bp = Blueprint('api_protein', __name__, url_prefix='/api/protein')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.

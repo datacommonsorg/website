@@ -21,12 +21,14 @@ import { StatMetadata } from "../shared/stat_types";
  * @param statMetadata
  */
 export function getUnit(statMetadata: StatMetadata): string {
-  let unit = "";
+  if (statMetadata.unitDisplayName) {
+    return statMetadata.unitDisplayName;
+  }
   if (statMetadata.unit) {
-    unit = statMetadata.unit;
+    return statMetadata.unit;
   }
   if (statMetadata.scalingFactor === "100") {
-    unit = "%";
+    return "%";
   }
-  return unit;
+  return "";
 }

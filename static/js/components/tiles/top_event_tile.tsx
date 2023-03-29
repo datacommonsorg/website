@@ -20,9 +20,10 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
+import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
@@ -37,10 +38,9 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-import { formatNumber } from "../../utils/string_utils";
 import { ChartFooter } from "./chart_footer";
 
-const RANKING_COUNT = 10;
+const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
 
 interface TopEventTilePropType {
@@ -55,7 +55,9 @@ interface TopEventTilePropType {
   className?: string;
 }
 
-export function TopEventTile(props: TopEventTilePropType): JSX.Element {
+export const TopEventTile = memo(function TopEventTile(
+  props: TopEventTilePropType
+): JSX.Element {
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
   const [eventPlaces, setEventPlaces] =
@@ -343,7 +345,10 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
         return b.severity[severityProp] - a.severity[severityProp];
       }
     });
-    return filteredPoints.slice(0, RANKING_COUNT);
+    return filteredPoints.slice(
+      0,
+      props.topEventMetadata.rankingCount || DEFAULT_RANKING_COUNT
+    );
   }
 
   function handleEmbed(topEvents: DisasterEventPoint[]): void {
@@ -411,4 +416,4 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     }
     return ret;
   }
-}
+});

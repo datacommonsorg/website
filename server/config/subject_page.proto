@@ -44,6 +44,8 @@ message EventTypeSpec {
   string color = 4;
   // Default severity filter to use for this event type.
   SeverityFilter default_severity_filter = 5;
+  // Severity filter overrides, keyed by place type.
+  map<string, SeverityFilter> place_type_severity_filter = 10;
   // Properties to display from the propVals object of an event (in tooltips, ranking, etc).
   message DisplayProp {
     string prop = 1;
@@ -130,6 +132,10 @@ message TopEventTileSpec {
   bool show_start_date = 3;
   bool show_end_date = 4;
   bool reverse_sort = 5;
+
+  // Number of items to show in the ranking tile. If not set, 10 items will be
+  // shown.
+  int32 ranking_count = 6;
 }
 
 message ScatterTileSpec {
@@ -139,10 +145,18 @@ message ScatterTileSpec {
   bool highlight_bottom_left = 4;
 }
 
+message BarTileSpec {
+  // [optional] The root url to use for labels in the x-axis. If not specified,
+  // labels in the x-axis will link to Place Explorer.
+  string x_label_link_root = 1;
+}
+
 message Tile {
-  // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
-  // with any required fields for your new TileType. Also, specify what block types can render
-  // the tiles.
+  // When adding a new TileType:
+  // - make sure to update verify_tile in subject_page_configs_test.py with any
+  //   required fields for your new TileType.
+  // - specify what block types can render the tiles.
+  // - update *_FILTER_TILE_TYPES in lib/subject_page_config.py
   enum TileType {
     TYPE_NONE = 0;
     // allowed in BlockTypes: TYPE_NONE
@@ -179,7 +193,8 @@ message Tile {
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
-  // [optional] a list of place dcids used for this tile.
+  // [optional] a list of place dcids used for this tile. Can also be "self" to
+  // use the main place id of the page. Only used for BAR tiles.
   repeated string comparison_places = 7;
   // [optional] If set, used instead of main place for the page.
   string place_dcid_override = 11;
@@ -191,11 +206,12 @@ message Tile {
     TopEventTileSpec top_event_tile_spec = 8;
     ScatterTileSpec scatter_tile_spec = 9;
     HistogramTileSpec histogram_tile_spec = 10;
+    BarTileSpec bar_tile_spec = 12;
   }
 }
 
 message Block {
-  // Title can include ${placeName} placeholder string.
+  // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
   string description = 2;
   // Footnote that goes across the bottom of each block. Multiple footnotes can
@@ -218,8 +234,9 @@ message Block {
 }
 
 message Category {
-  // Title can include ${placeName} placeholder string.
+  // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
+  // Description can also have markdown.
   string description = 2;
   map<string, StatVarSpec> stat_var_spec = 4;
   repeated Block blocks = 3;
