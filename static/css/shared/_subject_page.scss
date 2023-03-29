@@ -165,19 +165,26 @@ article.category {
 #subject-page-sidebar {
   padding-top: 100px;
   padding-right: 30px;
+  margin-left: -0.5rem;
 
-  .nav-item a {
+  .nav-item {
     font-weight: 300;
     color: var(--dc-gray);
     display: inline-block;
     font-size: 0.9rem;
     line-height: 1.2rem;
-    padding: 0.3rem 0;
+    padding: 0.3rem 0.5rem;
     text-decoration: none;
+    cursor: pointer;
   }
 
-  .nav-item.category a {
+  .nav-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 0.5rem;
+  }
+
+  .nav-item.category {
     font-weight: 600;
-    padding-top: 1em;
+    margin-top: 1em;
   }
 }
