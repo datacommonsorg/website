@@ -19,12 +19,15 @@
  */
 
 import * as d3 from "d3";
+import { geoChamberlin } from "d3-geo-projection";
 import * as geo from "geo-albers-usa-territories";
-import _ from "lodash";
+import _, { isMap } from "lodash";
 
 import {
   ASIA_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
+  NORTH_AMERICA_DCID,
+  OCEANIA_DCID,
 } from "../shared/constants";
 import { NamedPlace } from "../shared/types";
 import { getPlacePathId } from "./draw_map_utils";
@@ -67,6 +70,7 @@ const MAP_PATH_LAYER_CLASS = "map-path-layer";
 const MAP_PATH_HIGHLIGHT_CLASS = "map-path-highlight";
 const MAP_PATH_STROKE_WIDTH = "1.5px";
 const MAP_PATH_OPACITY = "0.5";
+const CUSTOM_PROJECTIONS = {};
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -256,37 +260,48 @@ export function getProjection(
   geoJson: GeoJsonData,
   zoomDcid?: string
 ): d3.GeoProjection {
-  const isEurope = enclosingPlaceDcid == EUROPE_NAMED_TYPED_PLACE.dcid;
-  const isAsia = enclosingPlaceDcid == ASIA_NAMED_TYPED_PLACE.dcid;
-  // TODO(beets): Refactor projection selection / modification to a helper function.
-  const projection = isUSAPlace
-    ? geo.geoAlbersUsaTerritories()
-    : isEurope
-    ? d3.geoAzimuthalEqualArea()
-    : d3.geoEquirectangular();
-
-  if (isEurope) {
-    // Reference:
-    // https://observablehq.com/@toja/five-map-projections-for-europe#_lambertAzimuthalEqualArea
-    projection
-      .rotate([-20.0, -52.0])
-      .translate([mapWidth / 2, mapHeight / 2])
-      .scale(mapWidth / 1.5)
-      .precision(0.1);
-  } else if (isAsia) {
-    // Reference:
-    // https://stackoverflow.com/questions/39958471/d3-js-map-with-albers-projection-how-to-rotate-it/41133970#41133970
-    projection
-      .rotate([-85, 0])
-      .center([0, 35])
-      .translate([mapWidth / 2, mapHeight / 2])
-      .scale(mapHeight / 1.5)
-      .precision(0.1);
+  let projection = null;
+  let isMapFitted = false;
+  switch (enclosingPlaceDcid) {
+    case EUROPE_NAMED_TYPED_PLACE.dcid:
+      // Reference:
+      // https://observablehq.com/@toja/five-map-projections-for-europe#_lambertAzimuthalEqualArea
+      projection = d3
+        .geoAzimuthalEqualArea()
+        .rotate([-20.0, -52.0])
+        .translate([mapWidth / 2, mapHeight / 2])
+        .scale(mapWidth / 1.5)
+        .precision(0.1);
+      isMapFitted = true;
+      break;
+    case ASIA_NAMED_TYPED_PLACE.dcid:
+      projection = d3
+        .geoEquirectangular()
+        .rotate([-85, 0])
+        .center([0, 35])
+        .translate([mapWidth / 2, mapHeight / 2])
+        .scale(mapHeight / 1.5)
+        .precision(0.1);
+      isMapFitted = true;
+      break;
+    case NORTH_AMERICA_DCID:
+      // Reference:
+      // https://observablehq.com/@toja/chamberlins-trimetric-projection-of-north-america
+      projection = geoChamberlin([-155, 55], [-35, 55], [-92.5, 10]).precision(
+        0.1
+      );
+      break;
+    case OCEANIA_DCID:
+      // Reference:
+      // https://gist.github.com/rveciana/a5349a84e4a9d5a01e55371806021614
+      projection = d3.geoEquirectangular().rotate([-100, 0]).precision(0.1);
+      break;
+    default:
+      projection = isUSAPlace
+        ? geo.geoAlbersUsaTerritories()
+        : d3.geoEquirectangular();
   }
   const geomap = d3.geoPath().projection(projection);
-
-  // Update projection to scale and center map
-  let isMapFitted = false || isEurope || isAsia;
   if (zoomDcid) {
     const geoJsonFeature = geoJson.features.find(
       (feature) => feature.properties.geoDcid === zoomDcid

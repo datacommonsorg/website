@@ -69,7 +69,8 @@
     "webpack": "^5.76.0",
     "webpack-cli": "^4.10.0",
     "webpack-remove-empty-scripts": "^0.6.3",
-    "geojson-rewind": "0.3.1"
+    "geojson-rewind": "0.3.1",
+    "d3-geo-projection": "^4.0.0"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.11.5",
