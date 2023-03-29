@@ -24,18 +24,19 @@
 set -e
 
 function help {
-  echo "Usage: $0 -erph"
+  echo "Usage: $0 -erpht"
   echo "-e       Instance environment as defined under /deploy/gke"
   echo "-r       GCP region Default: us-central1"
   echo "-p       GCP project to deploy the project to, when specified, docker image is also read from this project"
   echo "-h       Website hash used for deployment"
+  echo "-t       Comma separated list of custom BigTable names."
   exit 1
 }
 
 PROJECT_ID=""
 ENV=""
 
-while getopts ":e:r:p:h" OPTION; do
+while getopts ":e:r:p:h:t:" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
@@ -48,6 +49,9 @@ while getopts ":e:r:p:h" OPTION; do
       ;;
     h)
       WEBSITE_HASH=$OPTARG
+      ;;
+    t)
+      CUSTOM_BT_CSV=$OPTARG
       ;;
     *)
       help
@@ -86,7 +90,18 @@ if [[ $PROJECT_ID != "" ]]; then
   IMAGE_PROJECT=$PROJECT_ID
   cd $ROOT/deploy/overlays
   cp custom_kustomization.yaml.tpl kustomization.yaml
-  sed -i '' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  sed -i'' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  export PROJECT_ID=$PROJECT_ID
+  yq eval -i '.project = env(PROJECT_ID)' ../base/custom_bigtable_info.yaml
+  yq eval -i 'del(.tables)' ../base/custom_bigtable_info.yaml
+  yq eval -i '.tables = []' ../base/custom_bigtable_info.yaml
+  IFS=","
+  for TABLE in $CUSTOM_BT_CSV
+  do
+    echo "Adding custom BigTable: $TABLE"
+    export TABLE=$TABLE
+    yq eval -i '.tables += [ env(TABLE) ]' ../base/custom_bigtable_info.yaml
+  done
 else
   PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
   CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/gke/$ENV.yaml)
@@ -124,3 +139,4 @@ git checkout HEAD -- kustomization.yaml
 cd $ROOT
 git checkout HEAD -- deploy/git/mixer_hash.txt
 git checkout HEAD -- deploy/git/website_hash.txt
+git checkout HEAD -- deploy/base/custom_bigtable_info.yaml

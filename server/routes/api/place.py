@@ -117,7 +117,7 @@ PERSON_COUNT_LIMIT = 1000
 POPULATION_DCID = "Count_Person"
 
 # Define blueprint
-bp = Blueprint("api.place", __name__, url_prefix='/api/place')
+bp = Blueprint("api_place", __name__, url_prefix='/api/place')
 
 
 def get_place_types(place_dcids):

@@ -22,7 +22,7 @@ from flask import Response
 from server.cache import cache
 import server.services.datacommons as dc
 
-bp = flask.Blueprint('api.node', __name__, url_prefix='/api/node')
+bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
 
 
 @bp.route('/properties/<path:direction>/<path:dcid>')
