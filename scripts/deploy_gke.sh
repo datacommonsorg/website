@@ -93,7 +93,6 @@ if [[ $PROJECT_ID != "" ]]; then
   sed -i '' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
   export PROJECT_ID=$PROJECT_ID
   yq eval -i '.project = env(PROJECT_ID)' ../base/custom_bigtable_info.yaml
-  yq eval -i '.instance = "dc-graph"' ../base/custom_bigtable_info.yaml
   yq eval -i 'del(.tables)' ../base/custom_bigtable_info.yaml
   yq eval -i '.tables = []' ../base/custom_bigtable_info.yaml
   IFS=","
