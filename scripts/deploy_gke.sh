@@ -86,7 +86,7 @@ if [[ $PROJECT_ID != "" ]]; then
   IMAGE_PROJECT=$PROJECT_ID
   cd $ROOT/deploy/overlays
   cp custom_kustomization.yaml.tpl kustomization.yaml
-  sed -i '' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  sed -i'' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
 else
   PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
   CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/gke/$ENV.yaml)
