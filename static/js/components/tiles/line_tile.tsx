@@ -24,6 +24,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
+import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -69,9 +70,18 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   }, [props, rawData]);
 
   useEffect(() => {
-    if (lineChartData) {
-      draw(props, lineChartData, svgContainer);
+    if (!lineChartData) {
+      return;
     }
+    const debouncedHandler = _.debounce(() => {
+      draw(props, lineChartData, svgContainer);
+    }, RESIZE_DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    resizeObserver.observe(svgContainer.current);
+    return () => {
+      resizeObserver.unobserve(svgContainer.current);
+      debouncedHandler.cancel();
+    };
   }, [props, lineChartData]);
 
   const rs: ReplacementStrings = {

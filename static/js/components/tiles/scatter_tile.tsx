@@ -29,6 +29,7 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
+import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
@@ -97,7 +98,10 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   }, [props, rawData]);
 
   useEffect(() => {
-    if (scatterChartData && !_.isEmpty(scatterChartData.points)) {
+    if (!scatterChartData || _.isEmpty(scatterChartData.points)) {
+      return;
+    }
+    const debouncedHandler = _.debounce(() => {
       draw(
         scatterChartData,
         svgContainer,
@@ -105,7 +109,13 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
         tooltip,
         props.scatterTileSpec || {}
       );
-    }
+    }, RESIZE_DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    resizeObserver.observe(svgContainer.current);
+    return () => {
+      resizeObserver.unobserve(svgContainer.current);
+      debouncedHandler.cancel();
+    };
   }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
 
   const rs: ReplacementStrings = {

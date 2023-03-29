@@ -22,3 +22,5 @@
 export const SVG_CHART_HEIGHT = 200;
 // CSS class for initial loading treatment
 export const INITAL_LOADING_CLASS = "initial-loading-placeholder";
+// Number of ms to debounce re-draws when chart is resized
+export const RESIZE_DEBOUNCE_INTERVAL_MS = 10;

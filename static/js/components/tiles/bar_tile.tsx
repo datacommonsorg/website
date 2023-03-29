@@ -20,10 +20,11 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
+import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -67,6 +68,7 @@ interface BarChartData {
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
+  const chartContainerRef = useRef(null);
   const [rawData, setRawData] = useState<PointApiResponse | undefined>(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
@@ -83,9 +85,18 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   }, [props, rawData]);
 
   useEffect(() => {
-    if (barChartData) {
-      draw(props, barChartData);
+    if (!barChartData) {
+      return;
     }
+    const debouncedHandler = _.debounce(() => {
+      draw(props, barChartData);
+    }, RESIZE_DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    resizeObserver.observe(chartContainerRef.current);
+    return () => {
+      resizeObserver.unobserve(chartContainerRef.current);
+      debouncedHandler.cancel();
+    };
   }, [props, barChartData]);
 
   const rs: ReplacementStrings = {
@@ -108,6 +119,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         id={props.id}
         className="svg-container"
         style={{ minHeight: props.svgChartHeight }}
+        ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
   );

@@ -24,6 +24,7 @@ import React, { memo, useEffect, useRef } from "react";
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
 import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
+import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { NamedTypedPlace } from "../../shared/types";
 import {
@@ -235,9 +236,18 @@ export const HistogramTile = memo(function HistogramTile(
   }
 
   useEffect(() => {
-    if (shouldShowHistogram(histogramData)) {
-      renderHistogram(props, histogramData);
+    if (!shouldShowHistogram) {
+      return;
     }
+    const debouncedHandler = _.debounce(() => {
+      renderHistogram(props, histogramData);
+    }, RESIZE_DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    resizeObserver.observe(svgContainer.current);
+    return () => {
+      resizeObserver.unobserve(svgContainer.current);
+      debouncedHandler.cancel();
+    };
   }, [props, histogramData]);
 
   // for title formatting

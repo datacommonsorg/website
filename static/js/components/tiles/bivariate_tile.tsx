@@ -26,6 +26,7 @@ import ReactDOMServer from "react-dom/server";
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
+import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -101,9 +102,18 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   }, [props, rawData]);
 
   useEffect(() => {
-    if (bivariateChartData) {
-      draw(bivariateChartData, props, svgContainer, legend);
+    if (!bivariateChartData) {
+      return;
     }
+    const debouncedHandler = _.debounce(() => {
+      draw(bivariateChartData, props, svgContainer, legend);
+    }, RESIZE_DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    resizeObserver.observe(svgContainer.current);
+    return () => {
+      resizeObserver.unobserve(svgContainer.current);
+      debouncedHandler.cancel();
+    };
   }, [bivariateChartData, props]);
 
   const rs: ReplacementStrings = {
