@@ -124,14 +124,14 @@ gcloud config set project $PROJECT_ID
 gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
 kubectl apply -f kustomize-build.yaml
 
-Deploy Cloud Endpoints
+# Deploy Cloud Endpoints
 export SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
 export API_TITLE=$SERVICE_NAME
 cp $ROOT/gke/endpoints.yaml.tpl endpoints.yaml
 yq eval -i '.name = env(SERVICE_NAME)' endpoints.yaml
 yq eval -i '.title = env(API_TITLE)' endpoints.yaml
 
-Deploy ESP configuration
+# Deploy ESP configuration
 gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
 gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID
 
