@@ -13,6 +13,7 @@
 # limitations under the License.
 """Tests for Embeddings (in nl_embeddings.py)."""
 
+import json
 import os
 import unittest
 
@@ -27,6 +28,9 @@ from nl_server.loader import nl_embeddings_cache_key
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+_test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          'test_data')
 
 
 def _get_embeddings_file_name() -> str:
@@ -73,11 +77,61 @@ class TestEmbeddings(unittest.TestCase):
     got = self.nl_embeddings.detect_svs(query_str)
 
     # Check that all expected fields are present.
-    for key in ["SV", "CosineScore", "EmbeddingIndex", "SV_to_Sentences"]:
+    for key in ["SV", "CosineScore", "SV_to_Sentences", "MultiSV"]:
       self.assertTrue(key in got.keys())
 
     # Check that the first SV found is among the expected_list.
     self.assertTrue(got["SV"][0] in expected_list)
+    if got["MultiSV"]["Candidates"]:
+      self.assertTrue(got["CosineScore"][0] > got["MultiSV"]["Candidates"][0]
+                      ["AggCosineScore"])
+
+  @parameterized.expand([
+      ['number of poor hispanic women with phd', 'hispanic_women_phd.json'],
+      ['compare obesity vs. poverty', 'obesity_poverty.json'],
+      [
+          'show me the impact of climate change on drought',
+          'climatechange_drought.json'
+      ],
+      [
+          'how are factors like obesity, blood pressure and asthma impacted by climate change',
+          'climatechange_health.json'
+      ],
+      [
+          'Compare "Male population" with "Female Population"',
+          'gender_population.json'
+      ],
+  ])
+  def test_multisv_detection(self, query_str, want_file):
+    got = self.nl_embeddings.detect_svs(query_str)
+
+    got['SV_to_Sentences'] = {}
+    got['MultiSV']['SV_to_Sentences'] = {}
+    print(json.dumps(got, indent=2))
+
+    with open(os.path.join(_test_data, want_file)) as fp:
+      want = json.load(fp)
+
+    self.assertEqual(got['SV'][0], want['SV'][0])
+
+    got_multisv = got['MultiSV']['Candidates']
+    want_multisv = want['MultiSV']['Candidates']
+    self.assertEqual(len(want_multisv), len(got_multisv))
+    for i in range(len(want_multisv)):
+      want_parts = want_multisv[i]['Parts']
+      got_parts = got_multisv[i]['Parts']
+      self.assertEqual(len(want_parts), len(got_parts))
+      for i in range(len(got_parts)):
+        self.assertEqual(got_parts[i]['QueryPart'], want_parts[i]['QueryPart'])
+        self.assertEqual(got_parts[i]['SV'][0], want_parts[i]['SV'][0])
+
+    if not want_multisv:
+      return
+
+    if want['CosineScore'][0] > want_multisv[0]['AggCosineScore']:
+      self.assertTrue(got['CosineScore'][0] > got_multisv[0]['AggCosineScore'])
+    else:
+      self.assertTrue(got['CosineScore'][0] < got_multisv[0]['AggCosineScore'])
 
   # For these queries, the match score should be low (< 0.4).
   @parameterized.expand(["random random", "", "who where why", "__124__abc"])
@@ -85,8 +139,9 @@ class TestEmbeddings(unittest.TestCase):
     got = self.nl_embeddings.detect_svs(query_str)
 
     # Check that all expected fields are present.
-    for key in ["SV", "CosineScore", "EmbeddingIndex", "SV_to_Sentences"]:
+    for key in ["SV", "CosineScore", "SV_to_Sentences", "MultiSV"]:
       self.assertTrue(key in got.keys())
+    self.assertTrue(not got["MultiSV"]["Candidates"])
 
     # Check all scores.
     for score in got['CosineScore']:

@@ -233,7 +233,8 @@ def _result_with_debug_info(data_dict: Dict, status: str,
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
       'CosineScore': query_detection.svs_detected.sv_scores,
-      'SV_to_Sentences': query_detection.svs_detected.svs_to_sentences
+      'SV_to_Sentences': query_detection.svs_detected.svs_to_sentences,
+      'MultiSV': query_detection.svs_detected.multi_sv,
   }
   svs_to_sentences = query_detection.svs_detected.svs_to_sentences
 
@@ -390,7 +391,6 @@ def _detection(orig_query: str, cleaned_query: str,
         "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
 
   # Step 3: Identify the SV matched based on the query.
-  sv_debug_logs = {}
   svs_scores_dict = _empty_svs_score_dict()
   try:
     svs_scores_dict = model.detect_svs(
@@ -404,7 +404,8 @@ def _detection(orig_query: str, cleaned_query: str,
       query=query,
       sv_dcids=svs_scores_dict['SV'],
       sv_scores=svs_scores_dict['CosineScore'],
-      svs_to_sentences=svs_scores_dict['SV_to_Sentences'])
+      svs_to_sentences=svs_scores_dict['SV_to_Sentences'],
+      multi_sv=svs_scores_dict['MultiSV'])
 
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)

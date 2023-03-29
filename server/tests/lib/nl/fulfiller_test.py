@@ -481,7 +481,8 @@ def _detection(place: str,
                         svs_detected=SVDetection(query='foo sv',
                                                  svs_to_sentences={},
                                                  sv_dcids=svs,
-                                                 sv_scores=scores))
+                                                 sv_scores=scores,
+                                                 multi_sv={}))
   if query_type == ClassificationType.COMPARISON:
     # Set comparison classifier
     detection.classifications = [

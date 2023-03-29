@@ -526,10 +526,14 @@ PAK_PLACE_TYPE_REMAP = {
 
 # This is only for US.
 DEFAULT_PARENT_PLACES = {
-    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
-    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
-    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
-    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.COUNTRY:
+        Place('Earth', 'Earth', 'Place', 'country/USA'),
+    ContainedInPlaceType.COUNTY:
+        Place('country/USA', 'USA', 'Country', 'country/USA'),
+    ContainedInPlaceType.STATE:
+        Place('country/USA', 'USA', 'Country', 'country/USA'),
+    ContainedInPlaceType.CITY:
+        Place('country/USA', 'USA', 'Country', 'country/USA'),
 }
 
 EU_COUNTRIES = frozenset([

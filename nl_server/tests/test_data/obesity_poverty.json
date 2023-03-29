@@ -1,0 +1,90 @@
+{
+    "SV": [
+      "Percent_Person_Obesity",
+      "Count_Person_BelowPovertyLevelInThePast12Months",
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_AbovePovertyLevelInThePast12Months",
+      "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_PovertyStatusDetermined",
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months",
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone",
+      "Count_Person_Female_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
+    ],
+    "CosineScore": [
+      0.606473982334137,
+      0.5693899989128113,
+      0.569182276725769,
+      0.5649961829185486,
+      0.561160147190094,
+      0.5582886934280396,
+      0.5575057864189148,
+      0.5532658100128174,
+      0.552873432636261,
+      0.5521090030670166,
+      0.549347996711731,
+      0.549104630947113,
+      0.5460890531539917,
+      0.5434890389442444,
+      0.542962372303009,
+      0.5420929789543152,
+      0.5408390164375305,
+      0.5398738980293274
+    ],
+    "SV_to_Sentences": {},
+    "MultiSV": {
+      "Candidates": [
+        {
+          "Parts": [
+            {
+              "QueryPart": "compare obesity",
+              "SV": [
+                "Percent_Person_Obesity"
+              ],
+              "CosineScore": [
+                0.6748
+              ]
+            },
+            {
+              "QueryPart": "poverty",
+              "SV": [
+                "Count_Person_BelowPovertyLevelInThePast12Months",
+                "Count_Person_PovertyStatusDetermined",
+                "Count_Person_AbovePovertyLevelInThePast12Months",
+                "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+                "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+                "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+                "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined",
+                "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined",
+                "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+                "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone"
+              ],
+              "CosineScore": [
+                0.7128,
+                0.7121,
+                0.6904,
+                0.6869,
+                0.6809,
+                0.6731,
+                0.6728,
+                0.6681,
+                0.6668,
+                0.6661
+              ]
+            }
+          ],
+          "AggCosineScore": 0.6938,
+          "DelimBased": true
+        }
+      ],
+      "SV_to_Sentences": {}
+    }
+  }

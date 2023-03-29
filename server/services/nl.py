@@ -412,9 +412,8 @@ class Model:
     # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
     debug_logs["sv_detection_query_input"] = query
-    query = utils.remove_stop_words(query, ALL_STOP_WORDS)
-    debug_logs["sv_detection_query_stop_words_removal"] = query
-    logging.info(f"SV Detection: Query used after removing stop words: {query}")
+    debug_logs["sv_detection_query_stop_words_removal"] = \
+        utils.remove_stop_words(query, ALL_STOP_WORDS)
 
     # Make API call to the NL models/embeddings server.
     return dc.nl_search_sv(query)

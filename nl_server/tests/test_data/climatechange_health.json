@@ -1,0 +1,243 @@
+{
+    "SV": [
+      "dc/topic/ClimateChange",
+      "dc/topic/ProjectedClimateExtremes",
+      "dc/topic/HeatIllnesses",
+      "dc/g/Person_MedicalCondition-Asthma",
+      "Percent_Person_WithAsthma",
+      "AirQualityIndex_AirPollutant",
+      "dc/topic/MedicalConditions",
+      "Annual_Emissions_GreenhouseGas",
+      "Percent_Person_Children_WithAsthma",
+      "Percent_Person_Obesity",
+      "Percent_Person_WithHighBloodPressure"
+    ],
+    "CosineScore": [
+      0.6368623375892639,
+      0.469207227230072,
+      0.42005130648612976,
+      0.3958495259284973,
+      0.39174631237983704,
+      0.37489086389541626,
+      0.368700236082077,
+      0.3637590706348419,
+      0.3633468747138977,
+      0.3601759672164917,
+      0.35430842638015747
+    ],
+    "SV_to_Sentences": {},
+    "MultiSV": {
+      "Candidates": [
+        {
+          "Parts": [
+            {
+              "QueryPart": "factors like obesity blood pressure asthma impacted",
+              "SV": [
+                "Percent_Person_WithAsthma",
+                "dc/g/Person_MedicalCondition-Asthma",
+                "Percent_Person_Children_WithAsthma"
+              ],
+              "CosineScore": [
+                0.5791,
+                0.5629,
+                0.5369
+              ]
+            },
+            {
+              "QueryPart": "climate change",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ],
+              "CosineScore": [
+                1.0
+              ]
+            }
+          ],
+          "AggCosineScore": 0.7896,
+          "DelimBased": false
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "factors like obesity blood pressure asthma",
+              "SV": [
+                "Percent_Person_WithAsthma",
+                "dc/g/Person_MedicalCondition-Asthma",
+                "Percent_Person_Children_WithAsthma"
+              ],
+              "CosineScore": [
+                0.6266,
+                0.6134,
+                0.5909
+              ]
+            },
+            {
+              "QueryPart": "impacted climate change",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ],
+              "CosineScore": [
+                0.882
+              ]
+            }
+          ],
+          "AggCosineScore": 0.7543,
+          "DelimBased": false
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "factors like obesity",
+              "SV": [
+                "Percent_Person_Obesity"
+              ],
+              "CosineScore": [
+                0.6784
+              ]
+            },
+            {
+              "QueryPart": "blood pressure",
+              "SV": [
+                "Percent_Person_WithHighBloodPressure",
+                "dc/g/Person_MedicalCondition-HighBloodPressure"
+              ],
+              "CosineScore": [
+                0.6786,
+                0.6776
+              ]
+            },
+            {
+              "QueryPart": "asthma",
+              "SV": [
+                "dc/g/Person_MedicalCondition-Asthma",
+                "Percent_Person_WithAsthma"
+              ],
+              "CosineScore": [
+                0.7741,
+                0.7394
+              ]
+            },
+            {
+              "QueryPart": "impacted climate change",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ],
+              "CosineScore": [
+                0.882
+              ]
+            }
+          ],
+          "AggCosineScore": 0.7533,
+          "DelimBased": false
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "factors like obesity",
+              "SV": [
+                "Percent_Person_Obesity"
+              ],
+              "CosineScore": [
+                0.6784
+              ]
+            },
+            {
+              "QueryPart": "blood pressure",
+              "SV": [
+                "Percent_Person_WithHighBloodPressure",
+                "dc/g/Person_MedicalCondition-HighBloodPressure"
+              ],
+              "CosineScore": [
+                0.6786,
+                0.6776
+              ]
+            },
+            {
+              "QueryPart": "asthma impacted",
+              "SV": [
+                "dc/g/Person_MedicalCondition-Asthma",
+                "Percent_Person_WithAsthma"
+              ],
+              "CosineScore": [
+                0.6455,
+                0.6243
+              ]
+            },
+            {
+              "QueryPart": "climate change",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ],
+              "CosineScore": [
+                1.0
+              ]
+            }
+          ],
+          "AggCosineScore": 0.7506,
+          "DelimBased": false
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "factors like obesity",
+              "SV": [
+                "Percent_Person_Obesity"
+              ],
+              "CosineScore": [
+                0.6784
+              ]
+            },
+            {
+              "QueryPart": "blood pressure",
+              "SV": [
+                "Percent_Person_WithHighBloodPressure",
+                "dc/g/Person_MedicalCondition-HighBloodPressure"
+              ],
+              "CosineScore": [
+                0.6786,
+                0.6776
+              ]
+            },
+            {
+              "QueryPart": "asthma impacted climate change",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ],
+              "CosineScore": [
+                0.6582
+              ]
+            }
+          ],
+          "AggCosineScore": 0.6717,
+          "DelimBased": true
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "factors like obesity blood pressure",
+              "SV": [
+                "Percent_Person_Obesity",
+                "Percent_Person_WithHighBloodPressure"
+              ],
+              "CosineScore": [
+                0.6034,
+                0.5901
+              ]
+            },
+            {
+              "QueryPart": "asthma impacted climate change",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ],
+              "CosineScore": [
+                0.6582
+              ]
+            }
+          ],
+          "AggCosineScore": 0.6308,
+          "DelimBased": false
+        }
+      ],
+      "SV_to_Sentences": {}
+    }
+  }

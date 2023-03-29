@@ -1,0 +1,169 @@
+{
+    "SV": [
+      "Count_Person_Female",
+      "Count_Person_Male",
+      "Count_Person_Male_TwoOrMoreRaces",
+      "Count_Person_Female_TwoOrMoreRaces",
+      "Count_Person_Male_NonWhite",
+      "Count_Person_Male_SomeOtherRaceAlone",
+      "Count_Person_Female_NonWhite",
+      "Count_Person_Female_WithEarnings",
+      "Count_Person_Male_NotHispanicOrLatino_TwoOrMoreRaces",
+      "Count_Person_Female_SomeOtherRaceAlone",
+      "Count_Person_Male_NotHispanicOrLatino",
+      "Count_Person_Female_NotHispanicOrLatino_TwoOrMoreRaces",
+      "Count_Person_Male_ResidesInGroupQuarters",
+      "Count_Person_Male_WithEarnings",
+      "Count_Person_Male_HispanicOrLatino_TwoOrMoreRaces",
+      "Count_Person_Female_NotHispanicOrLatino",
+      "Count_Person_Female_ResidesInGroupQuarters"
+    ],
+    "CosineScore": [
+      0.8887199759483337,
+      0.8541339635848999,
+      0.781085193157196,
+      0.7729055881500244,
+      0.7095952033996582,
+      0.7067372798919678,
+      0.6974986791610718,
+      0.6912292838096619,
+      0.690077543258667,
+      0.6858757734298706,
+      0.6827239394187927,
+      0.6807835102081299,
+      0.6751968264579773,
+      0.6733239889144897,
+      0.6694574952125549,
+      0.6658027172088623,
+      0.6617954969406128
+    ],
+    "SV_to_Sentences": {},
+    "MultiSV": {
+      "Candidates": [
+        {
+          "Parts": [
+            {
+              "QueryPart": "male population",
+              "SV": [
+                "Count_Person_Male"
+              ],
+              "CosineScore": [
+                0.9596
+              ]
+            },
+            {
+              "QueryPart": "female population",
+              "SV": [
+                "Count_Person_Female"
+              ],
+              "CosineScore": [
+                0.9615
+              ]
+            }
+          ],
+          "AggCosineScore": 0.9606,
+          "DelimBased": true
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "compare male",
+              "SV": [
+                "Count_Person_Male"
+              ],
+              "CosineScore": [
+                0.5508
+              ]
+            },
+            {
+              "QueryPart": "population female",
+              "SV": [
+                "Count_Person_Female"
+              ],
+              "CosineScore": [
+                0.9658
+              ]
+            },
+            {
+              "QueryPart": "population",
+              "SV": [
+                "Count_Person"
+              ],
+              "CosineScore": [
+                1.0
+              ]
+            }
+          ],
+          "AggCosineScore": 0.8389,
+          "DelimBased": false
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "compare male",
+              "SV": [
+                "Count_Person_Male"
+              ],
+              "CosineScore": [
+                0.5508
+              ]
+            },
+            {
+              "QueryPart": "population",
+              "SV": [
+                "Count_Person"
+              ],
+              "CosineScore": [
+                1.0
+              ]
+            },
+            {
+              "QueryPart": "female population",
+              "SV": [
+                "Count_Person_Female"
+              ],
+              "CosineScore": [
+                0.9615
+              ]
+            }
+          ],
+          "AggCosineScore": 0.8375,
+          "DelimBased": false
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "compare male population",
+              "SV": [
+                "Count_Person_Male"
+              ],
+              "CosineScore": [
+                0.8045
+              ]
+            },
+            {
+              "QueryPart": "female",
+              "SV": [
+                "Count_Person_Female"
+              ],
+              "CosineScore": [
+                0.581
+              ]
+            },
+            {
+              "QueryPart": "population",
+              "SV": [
+                "Count_Person"
+              ],
+              "CosineScore": [
+                1.0
+              ]
+            }
+          ],
+          "AggCosineScore": 0.7951,
+          "DelimBased": false
+        }
+      ],
+      "SV_to_Sentences": {}
+    }
+  }
