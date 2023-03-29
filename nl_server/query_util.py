@@ -14,6 +14,7 @@
 """Query related helpers"""
 
 from dataclasses import dataclass
+import logging
 import re
 from typing import List
 
@@ -28,7 +29,9 @@ ALL_STOP_WORDS = utils.combine_stop_words()
 
 _MAX_SVS = 4
 
+# Use comma, "vs.", semi-colon, "and", ampersand as delimiters.
 _REGEX_DELIMITERS = r',|vs|;|and|&'
+# Regex to extract out substrings within double quotes.
 _REGEX_QUOTED_STRING = r'"([^"]+)"'
 
 
@@ -79,12 +82,16 @@ def _prepare_queryset(nsplits: int, query_parts: List[str]) -> QuerySet:
     for qs in rest.combinations:
       parts = [first] + qs.parts
       if len(parts) != len(set(parts)):
+        # There are duplicates, ignore this combination.
         continue
       result.combinations.append(QuerySplit(parts=parts))
 
   return result
 
 
+#
+# Given a query return its parts based on delimiters.
+#
 def get_parts_via_delimiters(query):
   parts = re.findall(_REGEX_QUOTED_STRING, query)
   if parts:
@@ -110,7 +117,7 @@ def _prepare_queryset_via_delimiters(query: str,
   if not cleaned_parts:
     return 0
 
-  print('Delimiter parts: ', cleaned_parts)
+  logging.info(f'{query} -> delimiter parts {cleaned_parts}')
   querysets.append(
       QuerySet(nsplits=len(cleaned_parts),
                delim_based=True,

@@ -97,9 +97,9 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
       <table>
         <thead>
           <tr>
-            <th>Num Vars</th>
+            <th>Number of Vars</th>
             <th>Avg Cosine Score</th>
-            <th>Parts</th>
+            <th>Vars for query parts</th>
           </tr>
         </thead>
         <tbody>
@@ -113,7 +113,7 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
                   <td>
                     {c.AggCosineScore}{" "}
                     {c.AggCosineScore > max_monovar_score
-                      ? "(> best 1-sv)"
+                      ? " (> best single var)"
                       : ""}
                   </td>
                   <td>
@@ -121,7 +121,7 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
                       {c.Parts.map((p) => {
                         return (
                           <li key={p.QueryPart}>
-                            {p.QueryPart}
+                            [{p.QueryPart}]
                             <ul>
                               {p.SV.length === p.CosineScore.length &&
                                 p.SV.map((sv, i) => {
@@ -266,20 +266,20 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Single Variables Matches (with scores):</b>
+            <b>Single Variables Matches:</b>
           </Row>
           <Row>Note: Variables with scores less than 0.5 are not used.</Row>
           <Row>
             <Col>{monoVarScoresElement(debugInfo.svScores)}</Col>
           </Row>
           <Row>
-            <b>Multi-Variable Matches (with scores):</b>
+            <b>Multi-Variable Matches:</b>
           </Row>
           <Row>
             <Col>{multiVarScoresElement(debugInfo.svScores)}</Col>
           </Row>
           <Row>
-            <b>Variable Sentences Matched (with scores):</b>
+            <b>Variable Sentences Matched:</b>
           </Row>
           <Row>
             <Col>

@@ -107,7 +107,9 @@ class TestEmbeddings(unittest.TestCase):
 
     got['SV_to_Sentences'] = {}
     got['MultiSV']['SV_to_Sentences'] = {}
-    print(json.dumps(got, indent=2))
+
+    # NOTE: Uncomment this to generate the golden.
+    # print(json.dumps(got, indent=2))
 
     with open(os.path.join(_test_data, want_file)) as fp:
       want = json.load(fp)

@@ -44,6 +44,7 @@ _MULTI_SV_SCORE_DIFFERENTIAL = 0.05
 _NUM_CANDIDATES_PER_NSPLIT = 3
 
 
+# List of SV candidates, along with scores.
 @dataclass
 class VarCandidates:
   # The below are sorted and parallel lists.
@@ -52,6 +53,8 @@ class VarCandidates:
   sv2sentences: Dict[str, List[str]]
 
 
+# One part of a single multi-var candidate and its
+# associated SVs and scores.
 @dataclass
 class MultiVarCandidatePart:
   query_part: str
@@ -59,6 +62,7 @@ class MultiVarCandidatePart:
   scores: List[float]
 
 
+# One multi-var candidate containing multiple parts.
 @dataclass
 class MultiVarCandidate:
   parts: List[MultiVarCandidatePart]
@@ -68,6 +72,7 @@ class MultiVarCandidate:
   delim_based: bool
 
 
+# List of multi-var candidates.
 @dataclass
 class MultiVarCandidates:
   candidates: List[MultiVarCandidate]
@@ -126,103 +131,10 @@ class Embeddings:
   def get_embedding(self, query: str) -> List[float]:
     return self.model.encode(query).tolist()
 
-  def detect_svs(self, orig_query: str) -> Dict[str, Union[Dict, List]]:
-    query_monovar = utils.remove_stop_words(orig_query,
-                                            query_util.ALL_STOP_WORDS)
-
-    # Search embeddings for single SV.
-    result_monovar = self._search_embeddings([query_monovar])[query_monovar]
-
-    # Try to detect multiple SVs.  Use the original query.
-    result_multivar = self._detect_multiple_svs(orig_query)
-
-    return {
-        'SV': result_monovar.svs,
-        'CosineScore': result_monovar.scores,
-        'SV_to_Sentences': result_monovar.sv2sentences,
-        'MultiSV': _multivar_candidates_to_dict(result_multivar)
-    }
-
-  # Detects one or more SVs from the query.
-  def _detect_multiple_svs(self, query: str) -> MultiVarCandidates:
-    querysets = query_util.prepare_multivar_querysets(query)
-    result = MultiVarCandidates(candidates=[], sv2sentences={})
-
-    # Make a distinct set of query strings
-    all_queries = set()
-    for qs in querysets:
-      for c in qs.combinations:
-        for p in c.parts:
-          all_queries.add(p)
-    if not all_queries:
-      return result
-
-    query2result = self._search_embeddings(list(all_queries))
-
-    #
-    # We take the lowest score from the top SV from the query-parts in a
-    # queryset (ignoring any queryset with a score below threshold).
-    #
-    # Pick one candidate with the highest such score for every num-stat-vars
-    # (ranging from 1 to 4). An average may let in a poor SV for a word sequence.
-    #
-    # TODO: Come up with a better ranking function.
-    #
-    for qs in querysets:
-      candidates: List[MultiVarCandidate] = []
-      for c in qs.combinations:
-        if not c or not c.parts:
-          continue
-
-        total = 0
-        candidate = MultiVarCandidate(parts=[],
-                                      delim_based=qs.delim_based,
-                                      score=-1)
-        lowest = _INIT_SCORE
-        for q in c.parts:
-          r = query2result.get(
-              q, VarCandidates(svs=[], scores=[], sv2sentences={}))
-          part = MultiVarCandidatePart(query_part=q, svs=[], scores=[])
-          score = 0  # Lowest score
-          if r.svs:
-            limit = _pick_top_k(r)
-            if limit > 0:
-              part.svs = r.svs[:limit]
-              part.scores = [round(s, 4) for s in r.scores[:limit]]
-              score = r.scores[0]
-
-          if score < lowest:
-            lowest = score
-          total += score
-          candidate.parts.append(part)
-
-        if lowest < _SV_SCORE_THRESHOLD:
-          continue
-
-        candidate.score = total / len(c.parts)
-        candidates.append(candidate)
-      if candidates:
-        # Pick the top candidate.
-        candidates.sort(key=lambda c: c.score, reverse=True)
-        result.candidates.extend(candidates[:_NUM_CANDIDATES_PER_NSPLIT])
-
-    # Sort the results by score.
-    result.candidates.sort(key=lambda c: c.score, reverse=True)
-
-    # Get all SVs
-    all_svs = set()
-    for c in result.candidates:
-      for p in c.parts:
-        all_svs.update(p.svs)
-
-    # Add sentences
-    for _, res in query2result.items():
-      for sv, sentences in res.sv2sentences.items():
-        if sv in all_svs:
-          result.sv2sentences[sv] = sentences
-
-    return result
-
+  #
+  # Given a list of queries, searches the in-memory embeddings index
+  # and returns a map of candidates keyed by input queries.
+  #
   def _search_embeddings(self, queries: List[str]) -> Dict[str, VarCandidates]:
     query_embeddings = self.model.encode(queries)
     hits = semantic_search(query_embeddings, self.dataset_embeddings, top_k=20)
@@ -269,14 +181,131 @@ class Embeddings:
 
     return query2result
 
+  #
+  # The main entry point to detect SVs.
+  #
+  def detect_svs(self, orig_query: str) -> Dict[str, Union[Dict, List]]:
+    # Remove all stop-words.
+    query_monovar = utils.remove_stop_words(orig_query,
+                                            query_util.ALL_STOP_WORDS)
 
+    # Search embeddings for a single SV.
+    result_monovar = self._search_embeddings([query_monovar])[query_monovar]
+
+    # Try to detect multiple SVs.  Use the original query so that
+    # the logic can rely on stop-words like `vs`, `and`, etc as hints
+    # for SV delimiters.
+    result_multivar = self._detect_multiple_svs(orig_query)
+
+    return {
+        'SV': result_monovar.svs,
+        'CosineScore': result_monovar.scores,
+        'SV_to_Sentences': result_monovar.sv2sentences,
+        'MultiSV': _multivar_candidates_to_dict(result_multivar)
+    }
+
+  #
+  # Detects one or more SVs from the query.
+  # TODO: Fix the query upstream to ensure the punctuations aren't stripped.
+  #
+  def _detect_multiple_svs(self, query: str) -> MultiVarCandidates:
+    #
+    # Prepare a combination of query-sets.
+    #
+    querysets = query_util.prepare_multivar_querysets(query)
+
+    result = MultiVarCandidates(candidates=[], sv2sentences={})
+
+    # Make a unique list of query strings
+    all_queries = set()
+    for qs in querysets:
+      for c in qs.combinations:
+        for p in c.parts:
+          all_queries.add(p)
+    if not all_queries:
+      return result
+
+    query2result = self._search_embeddings(list(all_queries))
+
+    #
+    # We take the average score from the top SV from the query-parts in a
+    # queryset (ignoring any queryset with a score below threshold). Then
+    # sort all candidates by that score.
+    #
+    # TODO: Come up with a better ranking function.
+    #
+    for qs in querysets:
+      candidates: List[MultiVarCandidate] = []
+      for c in qs.combinations:
+        if not c or not c.parts:
+          continue
+
+        total = 0
+        candidate = MultiVarCandidate(parts=[],
+                                      delim_based=qs.delim_based,
+                                      score=-1)
+        lowest = _INIT_SCORE
+        for q in c.parts:
+          r = query2result.get(
+              q, VarCandidates(svs=[], scores=[], sv2sentences={}))
+          part = MultiVarCandidatePart(query_part=q, svs=[], scores=[])
+          score = 0
+          if r.svs:
+            # Pick the top-K SVs.
+            limit = _pick_top_k(r)
+            if limit > 0:
+              part.svs = r.svs[:limit]
+              part.scores = [round(s, 4) for s in r.scores[:limit]]
+              score = r.scores[0]
+
+          if score < lowest:
+            lowest = score
+          total += score
+          candidate.parts.append(part)
+
+        if lowest < _SV_SCORE_THRESHOLD:
+          # A query-part's best SV did not cross our score threshold,
+          # so drop this candidate.
+          continue
+
+        # The candidate level score is the average.
+        candidate.score = total / len(c.parts)
+        candidates.append(candidate)
+
+      if candidates:
+        # Pick the top candidate.
+        candidates.sort(key=lambda c: c.score, reverse=True)
+        # Pick upto some number of candidates.  Could be just 1
+        # eventually.
+        result.candidates.extend(candidates[:_NUM_CANDIDATES_PER_NSPLIT])
+
+    # Sort the results by score.
+    result.candidates.sort(key=lambda c: c.score, reverse=True)
+
+    # Get all SVs
+    all_svs = set()
+    for c in result.candidates:
+      for p in c.parts:
+        all_svs.update(p.svs)
+
+    # Add sentences
+    for _, res in query2result.items():
+      for sv, sentences in res.sv2sentences.items():
+        if sv in all_svs:
+          result.sv2sentences[sv] = sentences
+
+    return result
+
+
+#
+# Given a list of variables select only those SVs that do not deviate
+# from the best SV by more than a certain threshold.
+#
 def _pick_top_k(candidates: VarCandidates) -> int:
-  k = 0
+  k = 1
   first = candidates.scores[0]
-  for i in range(len(candidates.scores)):
-    if candidates.scores[i] < _SV_SCORE_THRESHOLD:
-      break
-    if i > 0 and first - candidates.scores[i] > _MULTI_SV_SCORE_DIFFERENTIAL:
+  for i in range(1, len(candidates.scores)):
+    if first - candidates.scores[i] > _MULTI_SV_SCORE_DIFFERENTIAL:
       break
     k += 1
   return k
