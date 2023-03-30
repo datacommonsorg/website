@@ -53,6 +53,8 @@ class SVDetection:
 
   # Helpful to have all svs to sentences.
   svs_to_sentences: Dict[str, List[str]]
+  # Multi SV detection.
+  multi_sv: Dict
 
 
 class RankingType(IntEnum):
