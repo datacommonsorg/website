@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   drawScatter,
@@ -40,6 +40,7 @@ import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface ScatterTilePropType {
   id: string;
@@ -96,17 +97,20 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
-    if (scatterChartData && !_.isEmpty(scatterChartData.points)) {
-      draw(
-        scatterChartData,
-        svgContainer,
-        props.svgChartHeight,
-        tooltip,
-        props.scatterTileSpec || {}
-      );
+  const drawFn = useCallback(() => {
+    if (!scatterChartData || _.isEmpty(scatterChartData.points)) {
+      return;
     }
+    draw(
+      scatterChartData,
+      svgContainer,
+      props.svgChartHeight,
+      tooltip,
+      props.scatterTileSpec || {}
+    );
   }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place.name,

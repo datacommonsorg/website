@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
@@ -36,6 +36,7 @@ import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 const NUM_PLACES = 7;
 
@@ -67,6 +68,7 @@ interface BarChartData {
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
+  const chartContainerRef = useRef(null);
   const [rawData, setRawData] = useState<PointApiResponse | undefined>(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
@@ -82,11 +84,14 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
-    if (barChartData) {
-      draw(props, barChartData);
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(barChartData)) {
+      return;
     }
+    draw(props, barChartData);
   }, [props, barChartData]);
+
+  useDrawOnResize(drawFn, chartContainerRef.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place ? props.place.name : "",
@@ -108,6 +113,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         id={props.id}
         className="svg-container"
         style={{ minHeight: props.svgChartHeight }}
+        ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
   );

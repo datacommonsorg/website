@@ -74,8 +74,9 @@ function renderItem(
     <li
       key={randDomId()}
       className={`nav-item ${isCategory ? "category" : ""}`}
+      onClick={() => window.open(`#${redirectItemId}`, "_self")}
     >
-      <a href={`#${redirectItemId}`}>{title}</a>
+      {title}
     </li>
   );
 }
