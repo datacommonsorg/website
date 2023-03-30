@@ -22,7 +22,11 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 
-import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
+import {
+  DebugInfo,
+  MultiSVCandidate,
+  SVScores,
+} from "../../types/app/nl_interface_types";
 
 const svToSentences = (
   svScores: SVScores,
@@ -88,6 +92,30 @@ const monoVarScoresElement = (svScores: SVScores): JSX.Element => {
   );
 };
 
+const multiVarPartsElement = (c: MultiSVCandidate): JSX.Element => {
+  return (
+    <ul>
+      {c.Parts.map((p) => {
+        return (
+          <li key={p.QueryPart}>
+            [{p.QueryPart}]
+            <ul>
+              {p.SV.length === p.CosineScore.length &&
+                p.SV.map((sv, i) => {
+                  return (
+                    <li key={i}>
+                      {sv} ({p.CosineScore[i]})
+                    </li>
+                  );
+                })}
+            </ul>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
 const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
   const monovar_scores = Object.values(svScores.CosineScore);
   const max_monovar_score = monovar_scores.length > 0 ? monovar_scores[0] : 0;
@@ -116,27 +144,7 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
                       ? " (> best single var)"
                       : ""}
                   </td>
-                  <td>
-                    <ul>
-                      {c.Parts.map((p) => {
-                        return (
-                          <li key={p.QueryPart}>
-                            [{p.QueryPart}]
-                            <ul>
-                              {p.SV.length === p.CosineScore.length &&
-                                p.SV.map((sv, i) => {
-                                  return (
-                                    <li key={i}>
-                                      {sv} ({p.CosineScore[i]})
-                                    </li>
-                                  );
-                                })}
-                            </ul>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </td>
+                  <td>{multiVarPartsElement(c)}</td>
                 </tr>
               );
             })}

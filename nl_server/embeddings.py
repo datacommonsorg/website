@@ -32,7 +32,8 @@ TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
 # A value higher than the highest score.
-_INIT_SCORE = 1.1
+_HIGHEST_SCORE = 1.0
+_INIT_SCORE = (_HIGHEST_SCORE + 0.1)
 
 # Scores below this are ignored.
 _SV_SCORE_THRESHOLD = 0.5
@@ -67,7 +68,7 @@ class MultiVarCandidatePart:
 class MultiVarCandidate:
   parts: List[MultiVarCandidatePart]
   # Aggregate score
-  score: float
+  aggregate_score: float
   # Is this candidate based on a split computed from delimiters?
   delim_based: bool
 
@@ -76,7 +77,6 @@ class MultiVarCandidate:
 @dataclass
 class MultiVarCandidates:
   candidates: List[MultiVarCandidate]
-  sv2sentences: Dict[str, List[str]]
 
 
 class Embeddings:
@@ -139,7 +139,9 @@ class Embeddings:
     query_embeddings = self.model.encode(queries)
     hits = semantic_search(query_embeddings, self.dataset_embeddings, top_k=20)
 
+    # A map from input query -> SV DCID -> matched sentence -> score for that match
     query2sv2sentence2score: Dict[str, Dict[str, Dict[str, float]]] = {}
+    # A map from input query -> SV DCID -> highest matched score
     query2sv2score: Dict[str, Dict[str, float]] = {}
     for i, hit in enumerate(hits):
       q = queries[i]
@@ -160,6 +162,8 @@ class Embeddings:
 
     query2result: Dict[str, VarCandidates] = {}
 
+    # Go over the map and prepare parallel lists of
+    # SVs and scores in query2result.
     for q, sv2score in query2sv2score.items():
       sv2score_sorted = [(k, v) for (
           k,
@@ -169,6 +173,8 @@ class Embeddings:
       scores = [v for (_, v) in sv2score_sorted]
       query2result[q] = VarCandidates(svs=svs, scores=scores, sv2sentences={})
 
+    # Go over the results and prepare the sv2sentences map in
+    # query2result.
     for q, sv2sentence2score in query2sv2sentence2score.items():
       query2result[q].sv2sentences = {}
       for sv, sentence2score in sv2sentence2score.items():
@@ -197,6 +203,7 @@ class Embeddings:
     # for SV delimiters.
     result_multivar = self._detect_multiple_svs(orig_query)
 
+    # TODO: Rename SV_to_Sentences for consistency.
     return {
         'SV': result_monovar.svs,
         'CosineScore': result_monovar.scores,
@@ -214,7 +221,7 @@ class Embeddings:
     #
     querysets = query_util.prepare_multivar_querysets(query)
 
-    result = MultiVarCandidates(candidates=[], sv2sentences={})
+    result = MultiVarCandidates(candidates=[])
 
     # Make a unique list of query strings
     all_queries = set()
@@ -227,6 +234,17 @@ class Embeddings:
 
     query2result = self._search_embeddings(list(all_queries))
 
+    #
+    # A queryset is the set of all combinations of query
+    # splits of a given length. For example, a query like
+    # "hispanic women phd" may have a queryset for a
+    # 2-way split, like:
+    #   QuerySet(nsplits=2,
+    #            combinations=[
+    #               ['hispanic women', 'phd'],
+    #               ['hispanic', 'women phd'],
+    #             ])
+    # The 3-way split has only one combination.
     #
     # We take the average score from the top SV from the query-parts in a
     # queryset (ignoring any queryset with a score below threshold). Then
@@ -243,7 +261,7 @@ class Embeddings:
         total = 0
         candidate = MultiVarCandidate(parts=[],
                                       delim_based=qs.delim_based,
-                                      score=-1)
+                                      aggregate_score=-1)
         lowest = _INIT_SCORE
         for q in c.parts:
           r = query2result.get(
@@ -269,31 +287,18 @@ class Embeddings:
           continue
 
         # The candidate level score is the average.
-        candidate.score = total / len(c.parts)
+        candidate.aggregate_score = total / len(c.parts)
         candidates.append(candidate)
 
       if candidates:
         # Pick the top candidate.
-        candidates.sort(key=lambda c: c.score, reverse=True)
+        candidates.sort(key=lambda c: c.aggregate_score, reverse=True)
         # Pick upto some number of candidates.  Could be just 1
         # eventually.
         result.candidates.extend(candidates[:_NUM_CANDIDATES_PER_NSPLIT])
 
     # Sort the results by score.
-    result.candidates.sort(key=lambda c: c.score, reverse=True)
-
-    # Get all SVs
-    all_svs = set()
-    for c in result.candidates:
-      for p in c.parts:
-        all_svs.update(p.svs)
-
-    # Add sentences
-    for _, res in query2result.items():
-      for sv, sentences in res.sv2sentences.items():
-        if sv in all_svs:
-          result.sv2sentences[sv] = sentences
-
+    result.candidates.sort(key=lambda c: c.aggregate_score, reverse=True)
     return result
 
 
@@ -312,11 +317,11 @@ def _pick_top_k(candidates: VarCandidates) -> int:
 
 
 def _multivar_candidates_to_dict(candidates: MultiVarCandidates) -> Dict:
-  result = {'Candidates': [], 'SV_to_Sentences': candidates.sv2sentences}
+  result = {'Candidates': []}
   for c in candidates.candidates:
     c_dict = {
         'Parts': [],
-        'AggCosineScore': round(c.score, 4),
+        'AggCosineScore': round(c.aggregate_score, 4),
         'DelimBased': c.delim_based,
     }
     for p in c.parts:

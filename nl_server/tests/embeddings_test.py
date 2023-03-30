@@ -106,7 +106,6 @@ class TestEmbeddings(unittest.TestCase):
     got = self.nl_embeddings.detect_svs(query_str)
 
     got['SV_to_Sentences'] = {}
-    got['MultiSV']['SV_to_Sentences'] = {}
 
     # NOTE: Uncomment this to generate the golden.
     # print(json.dumps(got, indent=2))

@@ -165,7 +165,6 @@
           "AggCosineScore": 0.7979,
           "DelimBased": false
         }
-      ],
-      "SV_to_Sentences": {}
+      ]
     }
 }
