@@ -19,9 +19,8 @@
  */
 
 import * as d3 from "d3";
-import { geoChamberlin } from "d3-geo-projection";
 import * as geo from "geo-albers-usa-territories";
-import _, { isMap } from "lodash";
+import _ from "lodash";
 
 import {
   ASIA_NAMED_TYPED_PLACE,
@@ -286,10 +285,11 @@ export function getProjection(
       break;
     case NORTH_AMERICA_DCID:
       // Reference:
-      // https://observablehq.com/@toja/chamberlins-trimetric-projection-of-north-america
-      projection = geoChamberlin([-155, 55], [-35, 55], [-92.5, 10]).precision(
-        0.1
-      );
+      // https://www.icsm.gov.au/education/fundamentals-mapping/projections/commonly-used-map-projections#:~:text=Today%20the%20Lambert%20Conformal%20Conic,World%20Aeronautical%20Charts%20map%20series.
+      projection = d3
+        .geoConicConformal()
+        .rotate([100, 0]) // Central Meridian 100°W
+        .precision(0.1);
       break;
     case OCEANIA_DCID:
       // Reference:
