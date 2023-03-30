@@ -1,4 +1,5 @@
 declare module "googlemaps";
+
 // Set new property gtag on window.
 declare module "google-analytics" {
   global {
