@@ -15,7 +15,6 @@
 from dataclasses import dataclass
 import logging
 import os
-import re
 from typing import Dict, List, Union
 
 from datasets import load_dataset
@@ -26,7 +25,7 @@ import torch
 
 from nl_server import query_util
 import nl_server.gcs as gcs
-from server.lib.nl import utils
+from shared.lib import utils
 
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'

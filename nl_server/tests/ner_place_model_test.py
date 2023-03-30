@@ -22,13 +22,7 @@ from parameterized import parameterized
 from nl_server.loader import nl_cache_path
 from nl_server.loader import nl_ner_cache_key
 from nl_server.ner_place_model import NERPlaces
-import server.lib.nl.utils as nl_utils
-
-
-def _remove_punctuations(s):
-  s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', ' ', s)
-  return " ".join(s.split())
+import shared.lib.utils as nl_utils
 
 
 class TestNERPlaces(unittest.TestCase):

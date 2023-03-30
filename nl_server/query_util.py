@@ -18,8 +18,8 @@ import logging
 import re
 from typing import List
 
-from server.lib.nl import constants
-from server.lib.nl import utils
+from shared.lib import constants
+from shared.lib import utils
 
 # TODO: decouple words removal from detected attributes. Today, the removal
 # blanket removes anything that matches, including the various attribute/
@@ -33,12 +33,6 @@ _MAX_SVS = 4
 _REGEX_DELIMITERS = r',|vs|;|and|&'
 # Regex to extract out substrings within double quotes.
 _REGEX_QUOTED_STRING = r'"([^"]+)"'
-
-
-def _remove_punctuations(s):
-  s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', ' ', s)
-  return " ".join(s.split())
 
 
 # A specific way a query has been split.
@@ -111,7 +105,8 @@ def _prepare_queryset_via_delimiters(query: str,
     return 0
   cleaned_parts = []
   for p in parts:
-    p = utils.remove_stop_words(_remove_punctuations(p), constants.STOP_WORDS)
+    p = utils.remove_stop_words(utils.remove_punctuations(p),
+                                constants.STOP_WORDS)
     if p:
       cleaned_parts.append(p)
   if not cleaned_parts:
@@ -133,7 +128,7 @@ def prepare_multivar_querysets(query: str) -> List[QuerySet]:
 
   delim_nsplits = _prepare_queryset_via_delimiters(query, querysets)
 
-  query = _remove_punctuations(query)
+  query = utils.remove_punctuations(query)
   query = utils.remove_stop_words(query, constants.STOP_WORDS)
 
   query_parts = [x.strip() for x in query.split(' ') if x.strip()]

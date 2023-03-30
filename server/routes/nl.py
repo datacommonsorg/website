@@ -47,6 +47,7 @@ import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_nl_disaster_config
 import server.services.bigtable as bt
 import server.services.datacommons as dc
+import shared.lib.utils as shared_utils
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -499,7 +500,7 @@ def data():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
 
-  query = str(escape(utils.remove_punctuations(original_query)))
+  query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
       'place': {
           'dcid': '',
