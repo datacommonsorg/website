@@ -26,9 +26,26 @@ export interface SearchResult {
   config: SubjectPageConfig;
 }
 
+export interface MultiSVCandidatePart {
+  QueryPart: string;
+  SV: Array<string>;
+  CosineScore: Array<number>;
+}
+
+export interface MultiSVCandidate {
+  Parts: Array<MultiSVCandidatePart>;
+  AggCosineScore: number;
+  DelimBased: boolean;
+}
+
+export interface MultiSVScores {
+  Candidates: Array<MultiSVCandidate>;
+}
+
 export interface SVScores {
   SV: Map<number, string>;
   CosineScore: Map<number, number>;
+  MultiSV: MultiSVScores;
 }
 
 export interface DebugInfo {
