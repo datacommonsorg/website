@@ -15,27 +15,25 @@
       "Count_Person_Male_ResidesInGroupQuarters",
       "Count_Person_Male_WithEarnings",
       "Count_Person_Male_HispanicOrLatino_TwoOrMoreRaces",
-      "Count_Person_Female_NotHispanicOrLatino",
-      "Count_Person_Female_ResidesInGroupQuarters"
+      "Count_Person_Female_NotHispanicOrLatino"
     ],
     "CosineScore": [
       0.8887199759483337,
-      0.8541339635848999,
-      0.781085193157196,
-      0.7729055881500244,
-      0.7095952033996582,
-      0.7067372798919678,
+      0.8541340827941895,
+      0.7810853719711304,
+      0.7729058265686035,
+      0.7095950245857239,
+      0.7067370414733887,
       0.6974986791610718,
-      0.6912292838096619,
-      0.690077543258667,
-      0.6858757734298706,
-      0.6827239394187927,
-      0.6807835102081299,
+      0.6912292242050171,
+      0.6900774240493774,
+      0.6858758330345154,
+      0.6827239990234375,
+      0.6807833909988403,
       0.6751968264579773,
-      0.6733239889144897,
-      0.6694574952125549,
-      0.6658027172088623,
-      0.6617954969406128
+      0.6733241081237793,
+      0.6694575548171997,
+      0.665802538394928
     ],
     "SV_to_Sentences": {},
     "MultiSV": {
@@ -57,11 +55,11 @@
                 "Count_Person_Female"
               ],
               "CosineScore": [
-                0.9615
+                1.0
               ]
             }
           ],
-          "AggCosineScore": 0.9606,
+          "AggCosineScore": 0.9798,
           "DelimBased": true
         },
         {
@@ -69,43 +67,12 @@
             {
               "QueryPart": "compare male",
               "SV": [
-                "Count_Person_Male"
+                "Count_Person_Male",
+                "dc/topic/SDG_5"
               ],
               "CosineScore": [
-                0.5508
-              ]
-            },
-            {
-              "QueryPart": "population female",
-              "SV": [
-                "Count_Person_Female"
-              ],
-              "CosineScore": [
-                0.9658
-              ]
-            },
-            {
-              "QueryPart": "population",
-              "SV": [
-                "Count_Person"
-              ],
-              "CosineScore": [
-                1.0
-              ]
-            }
-          ],
-          "AggCosineScore": 0.8389,
-          "DelimBased": false
-        },
-        {
-          "Parts": [
-            {
-              "QueryPart": "compare male",
-              "SV": [
-                "Count_Person_Male"
-              ],
-              "CosineScore": [
-                0.5508
+                0.5508,
+                0.5161
               ]
             },
             {
@@ -123,11 +90,46 @@
                 "Count_Person_Female"
               ],
               "CosineScore": [
-                0.9615
+                1.0
               ]
             }
           ],
-          "AggCosineScore": 0.8375,
+          "AggCosineScore": 0.8503,
+          "DelimBased": false
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "compare male",
+              "SV": [
+                "Count_Person_Male",
+                "dc/topic/SDG_5"
+              ],
+              "CosineScore": [
+                0.5508,
+                0.5161
+              ]
+            },
+            {
+              "QueryPart": "population female",
+              "SV": [
+                "Count_Person_Female"
+              ],
+              "CosineScore": [
+                0.9676
+              ]
+            },
+            {
+              "QueryPart": "population",
+              "SV": [
+                "Count_Person"
+              ],
+              "CosineScore": [
+                1.0
+              ]
+            }
+          ],
+          "AggCosineScore": 0.8395,
           "DelimBased": false
         },
         {
@@ -147,7 +149,7 @@
                 "Count_Person_Female"
               ],
               "CosineScore": [
-                0.581
+                0.5892
               ]
             },
             {
@@ -160,10 +162,10 @@
               ]
             }
           ],
-          "AggCosineScore": 0.7951,
+          "AggCosineScore": 0.7979,
           "DelimBased": false
         }
       ],
       "SV_to_Sentences": {}
     }
-  }
+}

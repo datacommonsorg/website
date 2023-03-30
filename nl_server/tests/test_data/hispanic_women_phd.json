@@ -13,16 +13,16 @@
       "Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino"
     ],
     "CosineScore": [
-      0.7664961218833923,
+      0.7664961814880371,
       0.7206409573554993,
-      0.7120466828346252,
-      0.708885908126831,
+      0.7120468020439148,
+      0.7088860273361206,
       0.7034679055213928,
       0.6871253252029419,
-      0.6862049698829651,
-      0.6779770255088806,
+      0.6862050294876099,
+      0.6779772043228149,
       0.6773695349693298,
-      0.6744837164878845,
+      0.6744836568832397,
       0.6656818389892578
     ],
     "SV_to_Sentences": {},
@@ -99,39 +99,6 @@
         {
           "Parts": [
             {
-              "QueryPart": "number poor",
-              "SV": [
-                "Count_Person_PovertyStatusDetermined"
-              ],
-              "CosineScore": [
-                0.5276
-              ]
-            },
-            {
-              "QueryPart": "hispanic",
-              "SV": [
-                "Count_Person_HispanicOrLatino"
-              ],
-              "CosineScore": [
-                0.7212
-              ]
-            },
-            {
-              "QueryPart": "women phd",
-              "SV": [
-                "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female"
-              ],
-              "CosineScore": [
-                0.9085
-              ]
-            }
-          ],
-          "AggCosineScore": 0.7191,
-          "DelimBased": false
-        },
-        {
-          "Parts": [
-            {
               "QueryPart": "number poor hispanic",
               "SV": [
                 "Count_Person_NotHispanicOrLatino",
@@ -159,12 +126,12 @@
             {
               "QueryPart": "women",
               "SV": [
-                "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
-                "Count_Person_Female"
+                "Count_Person_Female",
+                "dc/topic/MaternalHealth"
               ],
               "CosineScore": [
-                0.5901,
-                0.552
+                0.6536,
+                0.6503
               ]
             },
             {
@@ -177,113 +144,10 @@
               ]
             }
           ],
-          "AggCosineScore": 0.7055,
-          "DelimBased": false
-        },
-        {
-          "Parts": [
-            {
-              "QueryPart": "number poor",
-              "SV": [
-                "Count_Person_PovertyStatusDetermined"
-              ],
-              "CosineScore": [
-                0.5276
-              ]
-            },
-            {
-              "QueryPart": "hispanic women",
-              "SV": [
-                "Count_Person_Female_HispanicOrLatino"
-              ],
-              "CosineScore": [
-                0.7784
-              ]
-            },
-            {
-              "QueryPart": "phd",
-              "SV": [
-                "Count_Person_EducationalAttainmentDoctorateDegree"
-              ],
-              "CosineScore": [
-                0.7767
-              ]
-            }
-          ],
-          "AggCosineScore": 0.6942,
-          "DelimBased": false
-        },
-        {
-          "Parts": [
-            {
-              "QueryPart": "number poor",
-              "SV": [
-                "Count_Person_PovertyStatusDetermined"
-              ],
-              "CosineScore": [
-                0.5276
-              ]
-            },
-            {
-              "QueryPart": "hispanic",
-              "SV": [
-                "Count_Person_HispanicOrLatino"
-              ],
-              "CosineScore": [
-                0.7212
-              ]
-            },
-            {
-              "QueryPart": "women",
-              "SV": [
-                "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
-                "Count_Person_Female"
-              ],
-              "CosineScore": [
-                0.5901,
-                0.552
-              ]
-            },
-            {
-              "QueryPart": "phd",
-              "SV": [
-                "Count_Person_EducationalAttainmentDoctorateDegree"
-              ],
-              "CosineScore": [
-                0.7767
-              ]
-            }
-          ],
-          "AggCosineScore": 0.6539,
-          "DelimBased": false
-        },
-        {
-          "Parts": [
-            {
-              "QueryPart": "number poor",
-              "SV": [
-                "Count_Person_PovertyStatusDetermined"
-              ],
-              "CosineScore": [
-                0.5276
-              ]
-            },
-            {
-              "QueryPart": "hispanic women phd",
-              "SV": [
-                "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
-                "Count_Person_Female_HispanicOrLatino"
-              ],
-              "CosineScore": [
-                0.6844,
-                0.6592
-              ]
-            }
-          ],
-          "AggCosineScore": 0.606,
+          "AggCosineScore": 0.7267,
           "DelimBased": false
         }
       ],
       "SV_to_Sentences": {}
     }
-  }
+}
