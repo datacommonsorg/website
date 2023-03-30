@@ -32,6 +32,7 @@ RUN npm install
 
 # Flask
 COPY server/. /workspace/server/
+COPY shared/. /workspace/shared/
 
 # NPM
 COPY static/. /workspace/static/
