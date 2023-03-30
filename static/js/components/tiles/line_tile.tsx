@@ -20,11 +20,10 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
-import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -34,6 +33,7 @@ import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface LineTilePropType {
   id: string;
@@ -69,20 +69,14 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
-    if (!lineChartData) {
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(lineChartData)) {
       return;
     }
-    const debouncedHandler = _.debounce(() => {
-      draw(props, lineChartData, svgContainer);
-    }, RESIZE_DEBOUNCE_INTERVAL_MS);
-    const resizeObserver = new ResizeObserver(debouncedHandler);
-    resizeObserver.observe(svgContainer.current);
-    return () => {
-      resizeObserver.unobserve(svgContainer.current);
-      debouncedHandler.cancel();
-    };
+    draw(props, lineChartData, svgContainer);
   }, [props, lineChartData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place.name,

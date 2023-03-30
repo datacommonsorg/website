@@ -20,11 +20,10 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
-import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -37,6 +36,7 @@ import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 const NUM_PLACES = 7;
 
@@ -84,20 +84,14 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
-    if (!barChartData) {
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(barChartData)) {
       return;
     }
-    const debouncedHandler = _.debounce(() => {
-      draw(props, barChartData);
-    }, RESIZE_DEBOUNCE_INTERVAL_MS);
-    const resizeObserver = new ResizeObserver(debouncedHandler);
-    resizeObserver.observe(chartContainerRef.current);
-    return () => {
-      resizeObserver.unobserve(chartContainerRef.current);
-      debouncedHandler.cancel();
-    };
+    draw(props, barChartData);
   }, [props, barChartData]);
+
+  useDrawOnResize(drawFn, chartContainerRef.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place ? props.place.name : "",

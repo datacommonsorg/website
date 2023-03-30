@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   drawScatter,
@@ -29,7 +29,6 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
-import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
@@ -41,6 +40,7 @@ import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface ScatterTilePropType {
   id: string;
@@ -97,26 +97,20 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
+  const drawFn = useCallback(() => {
     if (!scatterChartData || _.isEmpty(scatterChartData.points)) {
       return;
     }
-    const debouncedHandler = _.debounce(() => {
-      draw(
-        scatterChartData,
-        svgContainer,
-        props.svgChartHeight,
-        tooltip,
-        props.scatterTileSpec || {}
-      );
-    }, RESIZE_DEBOUNCE_INTERVAL_MS);
-    const resizeObserver = new ResizeObserver(debouncedHandler);
-    resizeObserver.observe(svgContainer.current);
-    return () => {
-      resizeObserver.unobserve(svgContainer.current);
-      debouncedHandler.cancel();
-    };
+    draw(
+      scatterChartData,
+      svgContainer,
+      props.svgChartHeight,
+      tooltip,
+      props.scatterTileSpec || {}
+    );
   }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place.name,

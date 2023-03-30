@@ -20,13 +20,12 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
-import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -42,6 +41,7 @@ import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface BivariateTilePropType {
   id: string;
@@ -101,20 +101,14 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
-    if (!bivariateChartData) {
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(bivariateChartData)) {
       return;
     }
-    const debouncedHandler = _.debounce(() => {
-      draw(bivariateChartData, props, svgContainer, legend);
-    }, RESIZE_DEBOUNCE_INTERVAL_MS);
-    const resizeObserver = new ResizeObserver(debouncedHandler);
-    resizeObserver.observe(svgContainer.current);
-    return () => {
-      resizeObserver.unobserve(svgContainer.current);
-      debouncedHandler.cancel();
-    };
-  }, [bivariateChartData, props]);
+    draw(bivariateChartData, props, svgContainer, legend);
+  }, [props, bivariateChartData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place.dcid,

@@ -19,12 +19,11 @@
  */
 
 import _ from "lodash";
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useCallback, useEffect, useRef } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
 import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
-import { RESIZE_DEBOUNCE_INTERVAL_MS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { NamedTypedPlace } from "../../shared/types";
 import {
@@ -35,6 +34,7 @@ import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import { getDateRange } from "../../utils/disaster_event_map_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface HistogramTilePropType {
   disasterEventData: DisasterEventPointData;
@@ -235,20 +235,14 @@ export const HistogramTile = memo(function HistogramTile(
     );
   }
 
-  useEffect(() => {
+  const drawFn = useCallback(() => {
     if (!shouldShowHistogram) {
       return;
     }
-    const debouncedHandler = _.debounce(() => {
-      renderHistogram(props, histogramData);
-    }, RESIZE_DEBOUNCE_INTERVAL_MS);
-    const resizeObserver = new ResizeObserver(debouncedHandler);
-    resizeObserver.observe(svgContainer.current);
-    return () => {
-      resizeObserver.unobserve(svgContainer.current);
-      debouncedHandler.cancel();
-    };
+    renderHistogram(props, histogramData);
   }, [props, histogramData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
 
   // for title formatting
   const rs: ReplacementStrings = {
