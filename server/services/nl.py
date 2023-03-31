@@ -351,7 +351,7 @@ class Model:
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
       # Try to check if the special case of ACROSS can be found.
-      if "across" in query or "where in" in query or "within" in query:
+      if "across" in query or "where" in query or "within" in query:
         contained_in_place_type = ContainedInPlaceType.ACROSS
       else:
         return None
