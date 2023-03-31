@@ -112,20 +112,20 @@ export function fetchDateList(
       MAX_YEARS;
     const dateList = [];
     const dateStringCut = increaseByYear ? 4 : 7;
-    // When creating the Date object, Date.parse() will interpret a date-only
-    // string as UTC. Necessary because toISOString() gets the iso string of the
+    // When creating the Date object, a date-only string will be interpretted as
+    // UTC. Necessary because toISOString() gets the iso string of the
     // date in UTC.
-    const currDate = new Date(Date.parse(minDate));
-    const endDate = new Date(Date.parse(maxDate));
+    const currDate = new Date(minDate);
+    const endDate = new Date(maxDate);
     // Need to generate the list of dates from min -> max because otherwise,
     // dates may get skipped or duplicated.
     while (currDate <= endDate) {
       const dateString = currDate.toISOString().substring(0, dateStringCut);
       dateList.push(dateString);
       if (increaseByYear) {
-        currDate.setFullYear(currDate.getFullYear() + 1);
+        currDate.setUTCFullYear(currDate.getUTCFullYear() + 1);
       } else {
-        currDate.setMonth(currDate.getMonth() + 1);
+        currDate.setUTCMonth(currDate.getUTCMonth() + 1);
       }
     }
     // If end date wasn't added to the dateList, add it now
