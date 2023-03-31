@@ -161,7 +161,6 @@ helm upgrade --install \
   --atomic \
   --debug \
   --timeout 10m \
-  --set resource_suffix="-custom" \
   --set website.image.project="$WEBSITE_IMAGE_PROJECT_ID" \
   --set website.image.tag="$WEBSITE_GITHASH" \
   --set website.githash="$WEBSITE_GITHASH" \
