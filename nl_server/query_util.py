@@ -69,8 +69,8 @@ def _prepare_queryset(nsplits: int, query_parts: List[str]) -> QuerySet:
   # "split index" with values ranging from 0 to (N-2).
   # The split-index is the last index of a sequence of words.
   #
-  # For e.g., for 3 splits of "hispanic poor male population",
-  # we do combinations(range(3)) which gives
+  # For e.g., for 3 nsplits of "hispanic poor male population",
+  # we do combinations(range(3), 2) which gives
   # [(0,1), (0,2), (1,2)], which refers to 3 QuerySplits:
   #    ['hispanic', 'poor', 'male population']
   #    ['hispanic', 'poor male', 'population']
