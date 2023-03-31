@@ -17,6 +17,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 import time
 from typing import Dict, List
 
@@ -47,6 +48,7 @@ import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_nl_disaster_config
 import server.services.bigtable as bt
 import server.services.datacommons as dc
+import shared.lib.utils as shared_utils
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -104,7 +106,9 @@ def _remove_places(query, place_str_to_dcids: Dict[str, str]):
     needle = "in " + p_str
     if needle not in query:
       needle = p_str
-    query = query.replace(needle, "")
+    # Use \b<word>\b to match the word and not the string
+    # within another word (eg to avoid match "us" in "houses").
+    query = re.sub(rf"\b{needle}\b", "", query)
 
   # Remove any extra spaces and return.
   return ' '.join(query.split())
@@ -499,7 +503,7 @@ def data():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
 
-  query = str(escape(utils.remove_punctuations(original_query)))
+  query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
       'place': {
           'dcid': '',

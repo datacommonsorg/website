@@ -15,10 +15,10 @@
 
 import unittest
 
-import server.lib.nl.constants as constants
+import shared.lib.constants as constants
 
 
-class TestNLConstants(unittest.TestCase):
+class TestConstants(unittest.TestCase):
 
   def test_place_detected_string_replacement(self):
     for k, v in constants.SHORTEN_PLACE_DETECTION_STRING.items():

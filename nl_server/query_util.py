@@ -14,12 +14,13 @@
 """Query related helpers"""
 
 from dataclasses import dataclass
+import itertools
 import logging
 import re
 from typing import List
 
-from server.lib.nl import constants
-from server.lib.nl import utils
+from shared.lib import constants
+from shared.lib import utils
 
 # TODO: decouple words removal from detected attributes. Today, the removal
 # blanket removes anything that matches, including the various attribute/
@@ -33,12 +34,6 @@ _MAX_SVS = 4
 _REGEX_DELIMITERS = r',|vs|;|and|&'
 # Regex to extract out substrings within double quotes.
 _REGEX_QUOTED_STRING = r'"([^"]+)"'
-
-
-def _remove_punctuations(s):
-  s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', ' ', s)
-  return " ".join(s.split())
 
 
 # A specific way a query has been split.
@@ -66,26 +61,31 @@ class QuerySet:
 def _prepare_queryset(nsplits: int, query_parts: List[str]) -> QuerySet:
   result = QuerySet(nsplits=nsplits, delim_based=False, combinations=[])
 
-  if nsplits == 1:
-    if query_parts:
-      result.combinations.append(QuerySplit(parts=[' '.join(query_parts)]))
-    return result
-
-  # For example, [A B C D E]. To split in 3 parts, the first part can range
-  # from 0 till 2, for a length of 3.
-  num = len(query_parts) - (nsplits - 1)
-  # Continuing with that example, end ranges from 1 to 3.
-  for end in range(1, num + 1):
-    # For a given first, there can be many combinations of rest.
-    first = ' '.join(query_parts[:end])
-    rest = _prepare_queryset(nsplits - 1, query_parts[end:])
-    for qs in rest.combinations:
-      parts = [first] + qs.parts
-      if len(parts) != len(set(parts)):
-        # There are duplicates, ignore this combination.
-        continue
-      result.combinations.append(QuerySplit(parts=parts))
-
+  assert nsplits >= 2
+  assert nsplits <= len(query_parts)
+  #
+  # For M nsplits on N query_parts, we compute different
+  # combinations each of which is a (M-1) array of
+  # "split index" with values ranging from 0 to (N-2).
+  # The split-index is the last index of a sequence of words.
+  #
+  # For e.g., for 3 nsplits of "hispanic poor male population",
+  # we do combinations(range(3), 2) which gives
+  # [(0,1), (0,2), (1,2)], which refers to 3 QuerySplits:
+  #    ['hispanic', 'poor', 'male population']
+  #    ['hispanic', 'poor male', 'population']
+  #    ['hispanic poor', 'male', 'population']
+  #
+  split_index_combos = itertools.combinations(range(len(query_parts) - 1),
+                                              nsplits - 1)
+  for split_index in split_index_combos:
+    qs = QuerySplit(parts=[])
+    start = 0
+    for last in split_index:
+      qs.parts.append(' '.join(query_parts[start:last + 1]))
+      start = last + 1
+    qs.parts.append(' '.join(query_parts[start:]))
+    result.combinations.append(qs)
   return result
 
 
@@ -111,7 +111,8 @@ def _prepare_queryset_via_delimiters(query: str,
     return 0
   cleaned_parts = []
   for p in parts:
-    p = utils.remove_stop_words(_remove_punctuations(p), constants.STOP_WORDS)
+    p = utils.remove_stop_words(utils.remove_punctuations(p),
+                                constants.STOP_WORDS)
     if p:
       cleaned_parts.append(p)
   if not cleaned_parts:
@@ -133,7 +134,7 @@ def prepare_multivar_querysets(query: str) -> List[QuerySet]:
 
   delim_nsplits = _prepare_queryset_via_delimiters(query, querysets)
 
-  query = _remove_punctuations(query)
+  query = utils.remove_punctuations(query)
   query = utils.remove_stop_words(query, constants.STOP_WORDS)
 
   query_parts = [x.strip() for x in query.split(' ') if x.strip()]

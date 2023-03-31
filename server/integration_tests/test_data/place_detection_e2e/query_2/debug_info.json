@@ -19,38 +19,78 @@
       ],
       "filtered_svs": [
         [
-          "Median_Income_Person",
-          "Median_Income_Household",
-          "Median_Earnings_Person",
-          "Median_Income_Household_FamilyHousehold",
-          "Mean_Income_Household",
-          "dc/x3gghqtglpr59",
-          "Median_Income_Household_NonfamilyHousehold"
+          "dc/topic/HomeValue",
+          "Count_HousingUnit_HomeValue400000To499999USDollar",
+          "Count_HousingUnit_HomeValue300000To399999USDollar",
+          "Count_HousingUnit_HomeValue750000To999999USDollar",
+          "Count_HousingUnit_HomeValue500000To749999USDollar",
+          "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+          "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+          "Count_HousingUnit_HomeValue175000To199999USDollar"
         ]
       ],
-      "num_chart_candidates": 7,
+      "num_chart_candidates": 9,
       "processed_fulfillment_types": [
-        "ranking_across_places"
+        "containedin"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/HomeValue": {
+            "peer_groups": [
+              [
+                "Home Value In US Dollars",
+                "",
+                [
+                  "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+                  "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+                  "Count_HousingUnit_HomeValue100000To124999USDollar",
+                  "Count_HousingUnit_HomeValue10000To14999USDollar",
+                  "Count_HousingUnit_HomeValue125000To149999USDollar",
+                  "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+                  "Count_HousingUnit_HomeValue150000To174999USDollar",
+                  "Count_HousingUnit_HomeValue15000To19999USDollar",
+                  "Count_HousingUnit_HomeValue175000To199999USDollar",
+                  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+                  "Count_HousingUnit_HomeValue200000To249999USDollar",
+                  "Count_HousingUnit_HomeValue20000To24999USDollar",
+                  "Count_HousingUnit_HomeValue250000To299999USDollar",
+                  "Count_HousingUnit_HomeValue25000To29999USDollar",
+                  "Count_HousingUnit_HomeValue300000To399999USDollar",
+                  "Count_HousingUnit_HomeValue30000To34999USDollar",
+                  "Count_HousingUnit_HomeValue35000To39999USDollar",
+                  "Count_HousingUnit_HomeValue400000To499999USDollar",
+                  "Count_HousingUnit_HomeValue40000To49999USDollar",
+                  "Count_HousingUnit_HomeValue500000To749999USDollar",
+                  "Count_HousingUnit_HomeValue50000To59999USDollar",
+                  "Count_HousingUnit_HomeValue60000To69999USDollar",
+                  "Count_HousingUnit_HomeValue70000To79999USDollar",
+                  "Count_HousingUnit_HomeValue750000To999999USDollar",
+                  "Count_HousingUnit_HomeValue80000To89999USDollar",
+                  "Count_HousingUnit_HomeValue90000To99999USDollar",
+                  "Count_HousingUnit_HomeValueUpto10000USDollar"
+                ]
+              ]
+            ],
+            "svs": [
+              "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
+            ]
+          }
+        }
       ]
     },
     "TIMING": {
-      "build_page_config": 0.28,
-      "fulfillment": 0.3,
-      "get_sample_child_places": 0.11,
-      "get_sv_details": 0.28,
-      "query_detection": 0.45,
-      "sv_existence_for_places": 0.18
+      "build_page_config": 0.24,
+      "fulfillment": 0.7,
+      "get_sample_child_places": 0.09,
+      "get_sv_details": 0.24,
+      "query_detection": 0.46,
+      "sv_existence_for_places": 0.15,
+      "topic_calls": 0.45
     }
   },
   "data_spec": [
     {
       "classifications": [
-        {
-          "ranking_type": [
-            1
-          ],
-          "type": 2
-        },
         {
           "contained_in_place_type": "State",
           "type": 4
@@ -64,24 +104,22 @@
           "place_type": "Country"
         }
       ],
-      "query": "US states which have that highest median income",
-      "query_type": 2,
+      "query": "US states which have that the cheapest houses",
+      "query_type": 4,
       "ranked_charts": [
         {
           "attr": {
             "block_id": 1,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
+            "ranking_types": [],
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -92,24 +130,22 @@
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
+            "ranking_types": [],
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -120,24 +156,48 @@
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 3,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -148,24 +208,22 @@
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 4,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -176,24 +234,22 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 5,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -204,24 +260,22 @@
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 6,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -232,24 +286,22 @@
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 7,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -260,19 +312,72 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
       "session_id": "007_999999999",
       "svs": [
-        "Median_Income_Person",
-        "Median_Income_Household",
-        "Median_Earnings_Person",
-        "Median_Income_Household_FamilyHousehold",
-        "Mean_Income_Household",
-        "dc/x3gghqtglpr59",
-        "Median_Income_Household_NonfamilyHousehold"
+        "dc/topic/HomeValue",
+        "Count_HousingUnit_HomeValue400000To499999USDollar",
+        "Count_HousingUnit_HomeValue300000To399999USDollar",
+        "Count_HousingUnit_HomeValue750000To999999USDollar",
+        "Count_HousingUnit_HomeValue500000To749999USDollar",
+        "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+        "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+        "Count_HousingUnit_HomeValue175000To199999USDollar"
       ]
     },
     {
@@ -324,7 +429,7 @@
   "event_classification": "<None>",
   "main_place_dcid": "country/USA",
   "main_place_name": "United States",
-  "original_query": "US states which have that highest median income",
+  "original_query": "US states which have that the cheapest houses",
   "overview_classification": "<None>",
   "places_detected": [
     "us"
@@ -337,7 +442,7 @@
       "name": "United States",
       "place_type": "Country"
     },
-    "original_query": "US states which have that highest median income",
+    "original_query": "US states which have that the cheapest houses",
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
@@ -361,106 +466,146 @@
       "us"
     ],
     "query_transformations": {
-      "place_detection_input": "us states which have that highest median income",
-      "place_detection_with_places_removed": "states which have that highest median income",
-      "sv_detection_query_input": "states which have that highest median income",
-      "sv_detection_query_stop_words_removal": "median income"
+      "place_detection_input": "us states which have that the cheapest houses",
+      "place_detection_with_places_removed": "states which have that the cheapest houses",
+      "sv_detection_query_input": "states which have that the cheapest houses",
+      "sv_detection_query_stop_words_removal": "cheapest houses"
     }
   },
-  "query_with_places_removed": "states which have that highest median income",
-  "ranking_classification": "[<RankingType.HIGH: 1>]",
+  "query_with_places_removed": "states which have that the cheapest houses",
+  "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      1.0000001192092896,
-      0.9218266010284424,
-      0.8443343043327332,
-      0.8192883133888245,
-      0.8156335353851318,
-      0.811150848865509,
-      0.8066861629486084
+      0.7095198035240173,
+      0.6297448873519897,
+      0.622887372970581,
+      0.612828254699707,
+      0.6071181297302246,
+      0.5951743125915527,
+      0.5864367485046387,
+      0.501216471195221,
+      0.49910038709640503
     ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.6842,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.6588
+              ],
+              "QueryPart": "states",
+              "SV": [
+                "dc/topic/Economy"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.7095
+              ],
+              "QueryPart": "cheapest houses",
+              "SV": [
+                "dc/topic/HomeValue"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "SV": [
-      "Median_Income_Person",
-      "Median_Income_Household",
-      "Median_Earnings_Person",
-      "Median_Income_Household_FamilyHousehold",
-      "Mean_Income_Household",
-      "dc/x3gghqtglpr59",
-      "Median_Income_Household_NonfamilyHousehold"
+      "dc/topic/HomeValue",
+      "Count_HousingUnit_HomeValue400000To499999USDollar",
+      "Count_HousingUnit_HomeValue300000To399999USDollar",
+      "Count_HousingUnit_HomeValue750000To999999USDollar",
+      "Count_HousingUnit_HomeValue500000To749999USDollar",
+      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+      "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+      "Count_HousingUnit_HomeValue175000To199999USDollar",
+      "Count_HousingUnit_HomeValueUpto10000USDollar"
     ],
     "SV_to_Sentences": {
-      "Mean_Income_Household": [
-        "Median income of households in the region (0.8156335353851318)"
+      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": [
+        "Number of houses that cost more than a million (0.5952)",
+        "Number of houses priced at $1,000,000 or more (0.5718)"
       ],
-      "Median_Earnings_Person": [
-        "Median income for population identifying as With Earnings (0.8443343043327332)",
-        "Median Earnings for All People (0.8229594826698303)",
-        "Median earnings for all people (0.8229594826698303)"
+      "Count_HousingUnit_HomeValue175000To199999USDollar": [
+        "Number of homes valued between $175,000 to $199,999 (0.5012)",
+        "Number of Homes Valued Between $175,000 to $199,999 (0.5012)"
       ],
-      "Median_Income_Household": [
-        "Median household income (0.9218266010284424)",
-        "Median Income of Household (0.9102110862731934)",
-        "Median income for all households (0.8729925751686096)",
-        "Median Income for All Households (0.8729925751686096)"
+      "Count_HousingUnit_HomeValue300000To399999USDollar": [
+        "Number of houses that cost between 300k and 400k (0.6229)",
+        "Number of houses priced between $300,000-$399,999 (0.5694)"
       ],
-      "Median_Income_Household_FamilyHousehold": [
-        "Median income for family households (0.8192883133888245)",
-        "Median Income for Family Households (0.8192881345748901)",
-        "Median Income of Household: in a family household with Income (0.8157025575637817)",
-        "Median Income of Household: Family Household, With Income (0.8133260607719421)"
+      "Count_HousingUnit_HomeValue400000To499999USDollar": [
+        "Number of houses that cost between 400k and 600k (0.6297)",
+        "Number of houses priced between $400,000-$499,999 (0.6025)",
+        "Number of homes valued at between $400,000-$499,999 (0.5158)",
+        "Number of homes valued at $400,000-$499,999 (0.5027)"
       ],
-      "Median_Income_Household_NonfamilyHousehold": [
-        "Median Income of Household: Nonfamily Household, With Income (0.8066861629486084)"
+      "Count_HousingUnit_HomeValue500000To749999USDollar": [
+        "Number of houses that cost between 500k and 750k (0.6071)",
+        "Number of houses priced between $500,000-$749,999 (0.5707)"
       ],
-      "Median_Income_Person": [
-        "Median income (1.0000001192092896)",
-        "Median Income (1.0000001192092896)",
-        "Median income of the population (0.9306236505508423)",
-        "Median Income of a Population (0.9285945296287537)",
-        "Median pay (0.8329883217811584)"
+      "Count_HousingUnit_HomeValue750000To999999USDollar": [
+        "Number of houses that cost between 750k and 1million (0.6128)",
+        "Number of houses priced between $750,000-$999,999 (0.553)"
       ],
-      "dc/x3gghqtglpr59": [
-        "Median income for people working in the finance and insurance industry (0.811150848865509)",
-        "Median Income for People Working in the Finance and Insurance Industry (0.811150848865509)"
+      "Count_HousingUnit_HomeValueUpto10000USDollar": [
+        "Number of homes valued at $10,000 or less (0.4991)"
+      ],
+      "Count_HousingUnit_WithRent_2000OrMoreUSDollar": [
+        "Number of houses priced at $2,000 or more (0.5864)"
+      ],
+      "dc/topic/HomeValue": [
+        "how much do houses cost in (0.7095)",
+        "how expensive are homes in (0.6764)",
+        "value of homes (0.5975)",
+        "Home Value (0.5179)"
       ]
     }
   },
   "svs_to_sentences": {
-    "Mean_Income_Household": [
-      "Median income of households in the region (0.8156335353851318)"
+    "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": [
+      "Number of houses that cost more than a million (0.5952)",
+      "Number of houses priced at $1,000,000 or more (0.5718)"
     ],
-    "Median_Earnings_Person": [
-      "Median income for population identifying as With Earnings (0.8443343043327332)",
-      "Median Earnings for All People (0.8229594826698303)",
-      "Median earnings for all people (0.8229594826698303)"
+    "Count_HousingUnit_HomeValue175000To199999USDollar": [
+      "Number of homes valued between $175,000 to $199,999 (0.5012)",
+      "Number of Homes Valued Between $175,000 to $199,999 (0.5012)"
     ],
-    "Median_Income_Household": [
-      "Median household income (0.9218266010284424)",
-      "Median Income of Household (0.9102110862731934)",
-      "Median income for all households (0.8729925751686096)",
-      "Median Income for All Households (0.8729925751686096)"
+    "Count_HousingUnit_HomeValue300000To399999USDollar": [
+      "Number of houses that cost between 300k and 400k (0.6229)",
+      "Number of houses priced between $300,000-$399,999 (0.5694)"
     ],
-    "Median_Income_Household_FamilyHousehold": [
-      "Median income for family households (0.8192883133888245)",
-      "Median Income for Family Households (0.8192881345748901)",
-      "Median Income of Household: in a family household with Income (0.8157025575637817)",
-      "Median Income of Household: Family Household, With Income (0.8133260607719421)"
+    "Count_HousingUnit_HomeValue400000To499999USDollar": [
+      "Number of houses that cost between 400k and 600k (0.6297)",
+      "Number of houses priced between $400,000-$499,999 (0.6025)",
+      "Number of homes valued at between $400,000-$499,999 (0.5158)",
+      "Number of homes valued at $400,000-$499,999 (0.5027)"
     ],
-    "Median_Income_Household_NonfamilyHousehold": [
-      "Median Income of Household: Nonfamily Household, With Income (0.8066861629486084)"
+    "Count_HousingUnit_HomeValue500000To749999USDollar": [
+      "Number of houses that cost between 500k and 750k (0.6071)",
+      "Number of houses priced between $500,000-$749,999 (0.5707)"
     ],
-    "Median_Income_Person": [
-      "Median income (1.0000001192092896)",
-      "Median Income (1.0000001192092896)",
-      "Median income of the population (0.9306236505508423)",
-      "Median Income of a Population (0.9285945296287537)",
-      "Median pay (0.8329883217811584)"
+    "Count_HousingUnit_HomeValue750000To999999USDollar": [
+      "Number of houses that cost between 750k and 1million (0.6128)",
+      "Number of houses priced between $750,000-$999,999 (0.553)"
     ],
-    "dc/x3gghqtglpr59": [
-      "Median income for people working in the finance and insurance industry (0.811150848865509)",
-      "Median Income for People Working in the Finance and Insurance Industry (0.811150848865509)"
+    "Count_HousingUnit_HomeValueUpto10000USDollar": [
+      "Number of homes valued at $10,000 or less (0.4991)"
+    ],
+    "Count_HousingUnit_WithRent_2000OrMoreUSDollar": [
+      "Number of houses priced at $2,000 or more (0.5864)"
+    ],
+    "dc/topic/HomeValue": [
+      "how much do houses cost in (0.7095)",
+      "how expensive are homes in (0.6764)",
+      "value of homes (0.5975)",
+      "Home Value (0.5179)"
     ]
   },
   "time_delta_classification": "<None>"
