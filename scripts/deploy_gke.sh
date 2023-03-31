@@ -24,9 +24,9 @@
 set -e
 
 function help {
-  echo "Usage: $0 -erpht"
+  echo "Usage: $0 -elpht"
   echo "-e       Instance environment as defined under /deploy/gke"
-  echo "-r       GCP region Default: us-central1"
+  echo "-l       GKE location(zone or region) Default: us-central1"
   echo "-p       GCP project to deploy the project to, when specified, docker image is also read from this project"
   echo "-h       Website hash used for deployment"
   echo "-t       Comma separated list of custom BigTable names."
@@ -36,13 +36,13 @@ function help {
 PROJECT_ID=""
 ENV=""
 
-while getopts ":e:r:p:h:t:" OPTION; do
+while getopts ":e:l:p:h:t:" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
       ;;
-    r)
-      REGION=$OPTARG
+    l)
+      LOCATION=$OPTARG
       ;;
     p)
       PROJECT_ID=$OPTARG
@@ -67,8 +67,8 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
-if [[ $REGION == "" ]]; then
-  REGION="us-central1"
+if [[ $LOCATION == "" ]]; then
+  LOCATION="us-central1"
 fi
 
 cd $ROOT
@@ -111,7 +111,7 @@ else
   IMAGE_PROJECT=datcom-ci
   cd $ROOT/deploy/overlays/$ENV
 fi
-CLUSTER_NAME=$CLUSTER_PREFIX-$REGION
+CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
 
 # Deploy to GKE
 kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/$IMAGE_PROJECT/datacommons-website:$WEBSITE_HASH
@@ -120,7 +120,14 @@ kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/dat
 kustomize build > kustomize-build.yaml
 cp kustomization.yaml kustomize-deployed.yaml
 gcloud config set project $PROJECT_ID
-gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
+
+if [[ $LOCATION =~ ^[a-z]+-[a-z0-9]+$ ]]; then
+  REGION=$LOCATION
+else
+  ZONE=$LOCATION
+fi
+gcloud container clusters get-credentials $CLUSTER_NAME \
+  ${REGION:+--region=$REGION} ${ZONE:+--zone=$ZONE} --project=$PROJECT_ID
 kubectl apply -f kustomize-build.yaml
 
 # Deploy Cloud Endpoints
