@@ -178,7 +178,7 @@ class IntegrationTest(LiveServerTestCase):
   def test_place_detection_e2e(self):
     self.run_sequence('place_detection_e2e', [
         'tell me about palo alto',
-        'US states which have that highest median income',
+        'US states which have that the cheapest houses',
         'what about in florida',
         'compare with california and new york state and washington state',
         'show me the population of mexico city',
