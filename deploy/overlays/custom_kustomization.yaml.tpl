@@ -16,7 +16,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-nameSuffix: -custom
+nameSuffix:
 namespace: website
 
 resources:
@@ -44,6 +44,11 @@ patchesStrategicMerge:
       name: website-app
     spec:
       replicas: 1
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 50%
+          maxUnavailable: 100%
 
 patchesJson6902:
   - target:

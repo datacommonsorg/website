@@ -63,6 +63,6 @@ do
   REGION=$(yq eval '.region.others[env(index)]' deploy/gke/"$ENV".yaml)
   echo $REGION
   if [[ $REGION != '' ]]; then
-    $ROOT/scripts/deploy_gke.sh -e $ENV -r $REGION
+    $ROOT/scripts/deploy_gke.sh -e $ENV -l $REGION
   fi
 done
