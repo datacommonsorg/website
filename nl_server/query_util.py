@@ -14,6 +14,7 @@
 """Query related helpers"""
 
 from dataclasses import dataclass
+import itertools
 import logging
 import re
 from typing import List
@@ -60,26 +61,31 @@ class QuerySet:
 def _prepare_queryset(nsplits: int, query_parts: List[str]) -> QuerySet:
   result = QuerySet(nsplits=nsplits, delim_based=False, combinations=[])
 
-  if nsplits == 1:
-    if query_parts:
-      result.combinations.append(QuerySplit(parts=[' '.join(query_parts)]))
-    return result
-
-  # For example, [A B C D E]. To split in 3 parts, the first part can range
-  # from 0 till 2, for a length of 3.
-  num = len(query_parts) - (nsplits - 1)
-  # Continuing with that example, end ranges from 1 to 3.
-  for end in range(1, num + 1):
-    # For a given first, there can be many combinations of rest.
-    first = ' '.join(query_parts[:end])
-    rest = _prepare_queryset(nsplits - 1, query_parts[end:])
-    for qs in rest.combinations:
-      parts = [first] + qs.parts
-      if len(parts) != len(set(parts)):
-        # There are duplicates, ignore this combination.
-        continue
-      result.combinations.append(QuerySplit(parts=parts))
-
+  assert nsplits >= 2
+  assert nsplits <= len(query_parts)
+  #
+  # For M nsplits on N query_parts, we compute different
+  # combinations each of which is a (M-1) array of
+  # "split index" with values ranging from 0 to (N-2).
+  # The split-index is the last index of a sequence of words.
+  #
+  # For e.g., for 3 splits of "hispanic poor male population",
+  # we do combinations(range(3)) which gives
+  # [(0,1), (0,2), (1,2)], which refers to 3 QuerySplits:
+  #    ['hispanic', 'poor', 'male population']
+  #    ['hispanic', 'poor male', 'population']
+  #    ['hispanic poor', 'male', 'population']
+  #
+  split_index_combos = itertools.combinations(range(len(query_parts) - 1),
+                                              nsplits - 1)
+  for split_index in split_index_combos:
+    qs = QuerySplit(parts=[])
+    start = 0
+    for last in split_index:
+      qs.parts.append(' '.join(query_parts[start:last + 1]))
+      start = last + 1
+    qs.parts.append(' '.join(query_parts[start:]))
+    result.combinations.append(qs)
   return result
 
 
