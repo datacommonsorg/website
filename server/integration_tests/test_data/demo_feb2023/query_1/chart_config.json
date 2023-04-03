@@ -126,9 +126,102 @@
               }
             ],
             "footnote": "RCP 2.6 is likely to keep global temperature rise below 2 \u00b0C by 2100.\n\nRCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.\n\nRCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 \u00b0C and 4 \u00b0C by 2100."
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Maximum Temperature"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Temperature"
+                    ],
+                    "title": "Mean Temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_Temperature"
+                    ],
+                    "title": "Mean Temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Temperature"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Min_Temperature"
+                    ],
+                    "title": "Min Temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Min_Temperature"
+                    ],
+                    "title": "Min Temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Min Temperature"
           }
         ],
         "statVarSpec": {
+          "Max_Temperature": {
+            "name": "Maximum Temperature",
+            "statVar": "Max_Temperature"
+          },
+          "Mean_Temperature": {
+            "name": "Mean Temperature",
+            "statVar": "Mean_Temperature"
+          },
+          "Min_Temperature": {
+            "name": "Min Temperature",
+            "statVar": "Min_Temperature"
+          },
           "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26": {
             "name": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
             "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
