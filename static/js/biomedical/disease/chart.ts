@@ -13,18 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const LEGEND_ARROW_LENGTH = 5;
-const LEGEND_ARROW_WIDTH = 6;
-const LEGEND_TITLE_FONT_WEIGHT = 600;
-const MIN_LEGEND_CELL_SIZE = 8;
-const LEGEND_CELL_SIZE_SCALE = 0.01;
-const LEGEND_MARKER_WIDTH = 9;
-const LEGEND_MARKER_HEIGHT = 9;
-const LEGEND_AXIS_STROKE_COLOR = "black";
 
 import * as d3 from "d3";
-import { hierarchy, tree } from "d3";
-import _, { update } from "lodash";
+import _ from "lodash";
 
 import {
   addXLabel,
@@ -36,7 +27,6 @@ import {
 } from "../bio_charts_utils";
 import {
   DiseaseGeneAssociationData,
-  DiseaseTreeNode,
   DiseaseParentTree,
   DiseaseSymptomAssociationData,
 } from "./types";
