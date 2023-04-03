@@ -53,7 +53,7 @@ cd $ROOT
 
 # Deploy in primary region
 PRIMARY_REGION=$(yq eval '.region.primary' deploy/gke/autopush.yaml)
-$ROOT/scripts/deploy_gke.sh -e $ENV -r $PRIMARY_REGION
+$ROOT/scripts/deploy_gke.sh -e $ENV -l $PRIMARY_REGION
 
 # Deploy in other regions
 len=$(yq eval '.region.others | length' deploy/gke/"$ENV".yaml)
