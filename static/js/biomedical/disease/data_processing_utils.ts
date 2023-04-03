@@ -369,8 +369,7 @@ export function formatDiseaseParentTreeData(
   let current = null;
   for (const node of data) {
     const children = current ? [current] : [];
-    const nodeCurr = { name: node.name, children: children };
-    current = nodeCurr;
+    current = { name: node.name, children: children };
   }
   return current;
 }
