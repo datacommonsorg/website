@@ -359,7 +359,7 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
   return false;
 }
 /**
- * Converts the disease parent data from a flat array to a tree array for tree visualization
+ * Converts the disease parent data from a flat array to a tree for tree visualization
  * @param data
  * @returns an array consisting of disease name and a sub-array of its children
  */
