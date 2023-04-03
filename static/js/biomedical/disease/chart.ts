@@ -36,7 +36,7 @@ import {
 } from "../bio_charts_utils";
 import {
   DiseaseGeneAssociationData,
-  DiseaseParent,
+  DiseaseTreeNode,
   DiseaseParentTree,
   DiseaseSymptomAssociationData,
 } from "./types";

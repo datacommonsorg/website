@@ -21,7 +21,7 @@ import {
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
-  DiseaseParent,
+  DiseaseTreeNode,
   DiseaseParentTree,
   DiseaseSymptomAssociationData,
 } from "./types";
@@ -364,7 +364,7 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
  * @returns an array consisting of disease name and a sub-array of its children
  */
 export function formatDiseaseParentTreeData(
-  data: DiseaseParent[]
+  data: DiseaseTreeNode[]
 ): DiseaseParentTree[] {
   // sets the default value of the boolean as false and checking for null values
   let current = null;

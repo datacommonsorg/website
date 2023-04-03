@@ -44,7 +44,7 @@ import {
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
-  DiseaseParent,
+  DiseaseTreeNode,
   DiseaseSymptomAssociationData,
 } from "./types";
 
@@ -75,7 +75,7 @@ export interface PageStateType {
   diseaseCommonName: string;
   diseasePrevalenceIDexists: boolean;
   dataFetched: boolean;
-  diseaseParent: DiseaseParent[];
+  diseaseParent: DiseaseTreeNode[];
 }
 
 export class Page extends React.Component<PagePropType, PageStateType> {
