@@ -9,7 +9,7 @@
         {
           "places": [
             "geoId/06",
-            "geoId/36",
+            "geoId/3608570915",
             "geoId/53"
           ],
           "svs": [],
@@ -24,24 +24,69 @@
       "comparison_place_candidates": [
         [
           "geoId/06",
-          "geoId/36",
+          "geoId/3608570915",
           "geoId/53"
         ]
       ],
       "filtered_svs": [
         []
       ],
-      "num_chart_candidates": 7,
+      "num_chart_candidates": 9,
       "processed_fulfillment_types": [
         "comparison"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/HomeValue": {
+            "peer_groups": [
+              [
+                "Home Value In US Dollars",
+                "",
+                [
+                  "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+                  "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+                  "Count_HousingUnit_HomeValue100000To124999USDollar",
+                  "Count_HousingUnit_HomeValue10000To14999USDollar",
+                  "Count_HousingUnit_HomeValue125000To149999USDollar",
+                  "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+                  "Count_HousingUnit_HomeValue150000To174999USDollar",
+                  "Count_HousingUnit_HomeValue15000To19999USDollar",
+                  "Count_HousingUnit_HomeValue175000To199999USDollar",
+                  "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+                  "Count_HousingUnit_HomeValue200000To249999USDollar",
+                  "Count_HousingUnit_HomeValue20000To24999USDollar",
+                  "Count_HousingUnit_HomeValue250000To299999USDollar",
+                  "Count_HousingUnit_HomeValue25000To29999USDollar",
+                  "Count_HousingUnit_HomeValue300000To399999USDollar",
+                  "Count_HousingUnit_HomeValue30000To34999USDollar",
+                  "Count_HousingUnit_HomeValue35000To39999USDollar",
+                  "Count_HousingUnit_HomeValue400000To499999USDollar",
+                  "Count_HousingUnit_HomeValue40000To49999USDollar",
+                  "Count_HousingUnit_HomeValue500000To749999USDollar",
+                  "Count_HousingUnit_HomeValue50000To59999USDollar",
+                  "Count_HousingUnit_HomeValue60000To69999USDollar",
+                  "Count_HousingUnit_HomeValue70000To79999USDollar",
+                  "Count_HousingUnit_HomeValue750000To999999USDollar",
+                  "Count_HousingUnit_HomeValue80000To89999USDollar",
+                  "Count_HousingUnit_HomeValue90000To99999USDollar",
+                  "Count_HousingUnit_HomeValueUpto10000USDollar"
+                ]
+              ]
+            ],
+            "svs": [
+              "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
+            ]
+          }
+        }
       ]
     },
     "TIMING": {
       "build_page_config": 0.01,
-      "fulfillment": 0.16,
+      "fulfillment": 0.18,
       "get_sv_details": 0.0,
-      "query_detection": 0.98,
-      "sv_existence_for_places": 0.16
+      "query_detection": 4.06,
+      "sv_existence_for_places": 0.17,
+      "topic_calls": 0.0
     }
   },
   "data_spec": [
@@ -60,9 +105,9 @@
         },
         {
           "country": "country/USA",
-          "dcid": "geoId/36",
-          "name": "New York",
-          "place_type": "State"
+          "dcid": "geoId/3608570915",
+          "name": "Staten Island",
+          "place_type": "CensusCountyDivision"
         },
         {
           "country": "country/USA",
@@ -83,7 +128,7 @@
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
           "chart_type": 3,
@@ -97,9 +142,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -109,7 +154,7 @@
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
@@ -121,8 +166,8 @@
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
-            "title": ""
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
           "chart_type": 3,
           "event": null,
@@ -135,9 +180,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -147,7 +192,33 @@
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
@@ -173,9 +244,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -185,7 +256,7 @@
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
           ]
         },
         {
@@ -211,9 +282,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -223,7 +294,7 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
@@ -249,9 +320,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -261,7 +332,7 @@
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -287,9 +358,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -299,7 +370,7 @@
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
@@ -325,9 +396,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -337,7 +408,83 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/53",
+              "name": "Washington",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/53",
+              "name": "Washington",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
@@ -367,10 +514,10 @@
             "chart_type": "timeline",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
           "chart_type": 0,
@@ -384,22 +531,22 @@
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "timeline",
+            "chart_type": "bar chart",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
-            "title": ""
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
-          "chart_type": 0,
+          "chart_type": 3,
           "event": null,
           "places": [
             {
@@ -410,7 +557,33 @@
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
@@ -436,7 +609,59 @@
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 10,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar"
           ]
         },
         {
@@ -462,7 +687,7 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
@@ -488,7 +713,7 @@
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -514,35 +739,7 @@
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 8,
-            "chart_type": "timeline",
-            "class": 1,
-            "description": "",
-            "include_percapita": true,
-            "place_type": null,
-            "ranking_types": [],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "country": "country/USA",
-              "dcid": "geoId/12",
-              "name": "Florida",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "dc/x3gghqtglpr59",
-            "Count_Worker_NAICSFinanceInsurance",
-            "WagesTotal_Worker_NAICSFinanceInsurance"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
@@ -568,7 +765,109 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 11,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_1000To1249USDollar",
+            "Count_HousingUnit_WithRent_1250To1499USDollar",
+            "Count_HousingUnit_WithRent_1500To1999USDollar",
+            "Count_HousingUnit_WithRent_100To149USDollar",
+            "Count_HousingUnit_WithRent_Upto100USDollar",
+            "Count_HousingUnit_WithRent_150To199USDollar",
+            "Count_HousingUnit_WithRent_2000To2499USDollar",
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+            "Count_HousingUnit_WithRent_2500To2999USDollar",
+            "Count_HousingUnit_WithRent_200To249USDollar",
+            "Count_HousingUnit_WithRent_250To299USDollar",
+            "Count_HousingUnit_WithRent_3000To3499USDollar",
+            "Count_HousingUnit_WithRent_3500OrMoreUSDollar",
+            "Count_HousingUnit_WithRent_300To349USDollar",
+            "Count_HousingUnit_WithRent_350To399USDollar",
+            "Count_HousingUnit_WithRent_400To449USDollar",
+            "Count_HousingUnit_WithRent_450To499USDollar",
+            "Count_HousingUnit_WithRent_500To549USDollar",
+            "Count_HousingUnit_WithRent_550To599USDollar",
+            "Count_HousingUnit_WithRent_600To649USDollar",
+            "Count_HousingUnit_WithRent_650To699USDollar",
+            "Count_HousingUnit_WithRent_700To749USDollar",
+            "Count_HousingUnit_WithRent_750To799USDollar",
+            "Count_HousingUnit_WithRent_800To899USDollar",
+            "Count_HousingUnit_WithRent_900To999USDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
@@ -577,12 +876,6 @@
     },
     {
       "classifications": [
-        {
-          "ranking_type": [
-            1
-          ],
-          "type": 2
-        },
         {
           "contained_in_place_type": "State",
           "type": 4
@@ -596,24 +889,22 @@
           "place_type": "Country"
         }
       ],
-      "query": "US states which have that highest median income",
-      "query_type": 2,
+      "query": "US states which have that the cheapest houses",
+      "query_type": 4,
       "ranked_charts": [
         {
           "attr": {
             "block_id": 1,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
+            "ranking_types": [],
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -624,24 +915,22 @@
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
+            "ranking_types": [],
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -652,24 +941,48 @@
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 3,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -680,24 +993,22 @@
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 4,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -708,24 +1019,22 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 5,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -736,24 +1045,22 @@
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 6,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -764,24 +1071,22 @@
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 7,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -792,19 +1097,72 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
       "session_id": "007_999999999",
       "svs": [
-        "Median_Income_Person",
-        "Median_Income_Household",
-        "Median_Earnings_Person",
-        "Median_Income_Household_FamilyHousehold",
-        "Mean_Income_Household",
-        "dc/x3gghqtglpr59",
-        "Median_Income_Household_NonfamilyHousehold"
+        "dc/topic/HomeValue",
+        "Count_HousingUnit_HomeValue400000To499999USDollar",
+        "Count_HousingUnit_HomeValue300000To399999USDollar",
+        "Count_HousingUnit_HomeValue750000To999999USDollar",
+        "Count_HousingUnit_HomeValue500000To749999USDollar",
+        "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+        "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+        "Count_HousingUnit_HomeValue175000To199999USDollar"
       ]
     },
     {
@@ -863,7 +1221,7 @@
     "new york state",
     "washington state"
   ],
-  "places_resolved": "(name: California, dcid: geoId/06); (name: New York, dcid: geoId/36); (name: Washington, dcid: geoId/53); ",
+  "places_resolved": "(name: California, dcid: geoId/06); (name: Staten Island, dcid: geoId/3608570915); (name: Washington, dcid: geoId/53); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -877,7 +1235,7 @@
       "dcid_overrides_found": [],
       "dcids_resolved": {
         "california": "geoId/06",
-        "new york state": "geoId/36",
+        "new york state": "geoId/3608570915",
         "washington state": "geoId/53"
       },
       "maps_api_failures": []
@@ -893,9 +1251,9 @@
         },
         {
           "country": "country/USA",
-          "dcid": "geoId/36",
-          "name": "New York",
-          "place_type": "State"
+          "dcid": "geoId/3608570915",
+          "name": "Staten Island",
+          "place_type": "CensusCountyDivision"
         },
         {
           "country": "country/USA",
@@ -924,123 +1282,132 @@
   "sv_matching": {
     "CosineScore": [
       0.37027618288993835,
-      0.3159870505332947,
+      0.31598708033561707,
       0.2831985652446747,
+      0.2767173647880554,
       0.27669620513916016,
-      0.2557689845561981,
+      0.2665468156337738,
+      0.25576895475387573,
       0.24891072511672974,
-      0.2371777892112732,
       0.23379194736480713,
-      0.2202083170413971,
-      0.21446260809898376,
-      0.2134648859500885,
-      0.20017603039741516
+      0.22020837664604187,
+      0.21446257829666138,
+      0.2134648561477661,
+      0.21002650260925293
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/topic/Income",
       "dc/topic/Economy",
       "dc/topic/Jobs",
+      "Count_CriminalActivities_CombinedCrime",
       "dc/topic/MedicalConditions",
+      "Count_Person_BlackOrAfricanAmericanAlone",
       "dc/hlxvn1t8b9bhh",
       "dc/topic/RacialBreakdown",
-      "dc/g/Person_MedicalCondition-Wasting",
       "dc/3jr0p7yjw06z9",
       "AirQualityIndex_AirPollutant",
       "dc/topic/WorkCommute",
       "dc/topic/Agriculture",
-      "dc/g/Farm_FarmInventoryType-Forage"
+      "dc/topic/SDG_2"
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.2202083170413971)"
+        "AQI (0.2202)"
+      ],
+      "Count_CriminalActivities_CombinedCrime": [
+        "crime in (0.2767)"
+      ],
+      "Count_Person_BlackOrAfricanAmericanAlone": [
+        "black people (0.2665)"
       ],
       "dc/3jr0p7yjw06z9": [
-        "casinos (0.23379194736480713)"
-      ],
-      "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017603039741516)",
-        "forage farms (0.20017603039741516)"
-      ],
-      "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.2371777892112732)"
+        "casinos (0.2338)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "cattle ranchers (0.2557689845561981)",
-        "farmers (0.22553953528404236)"
+        "cattle ranchers (0.2558)",
+        "farmers (0.2255)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.2134648859500885)"
+        "Agriculture (0.2135)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.3159870505332947)"
+        "Economy (0.316)"
       ],
       "dc/topic/Income": [
-        "pay (0.37027618288993835)",
-        "compensation (0.2285088300704956)",
-        "Earnings (0.2226836085319519)",
-        "Income (0.20594435930252075)"
+        "pay (0.3703)",
+        "wealth (0.2846)",
+        "compensation (0.2285)",
+        "Earnings (0.2227)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.2831985652446747)",
-        "Careers (0.24140900373458862)",
-        "Professions (0.2091173678636551)"
+        "Jobs (0.2832)",
+        "Careers (0.2414)",
+        "Professions (0.2091)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.27669620513916016)",
-        "Medical infirmities (0.23475098609924316)"
+        "Maladies (0.2767)",
+        "Medical infirmities (0.2348)"
       ],
       "dc/topic/RacialBreakdown": [
-        "ethnicity (0.24891072511672974)"
+        "ethnicity (0.2489)"
+      ],
+      "dc/topic/SDG_2": [
+        "Zero hunger (0.21)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.21446260809898376)"
+        "journey to work (0.2145)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.2202083170413971)"
+      "AQI (0.2202)"
+    ],
+    "Count_CriminalActivities_CombinedCrime": [
+      "crime in (0.2767)"
+    ],
+    "Count_Person_BlackOrAfricanAmericanAlone": [
+      "black people (0.2665)"
     ],
     "dc/3jr0p7yjw06z9": [
-      "casinos (0.23379194736480713)"
-    ],
-    "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017603039741516)",
-      "forage farms (0.20017603039741516)"
-    ],
-    "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.2371777892112732)"
+      "casinos (0.2338)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "cattle ranchers (0.2557689845561981)",
-      "farmers (0.22553953528404236)"
+      "cattle ranchers (0.2558)",
+      "farmers (0.2255)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.2134648859500885)"
+      "Agriculture (0.2135)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.3159870505332947)"
+      "Economy (0.316)"
     ],
     "dc/topic/Income": [
-      "pay (0.37027618288993835)",
-      "compensation (0.2285088300704956)",
-      "Earnings (0.2226836085319519)",
-      "Income (0.20594435930252075)"
+      "pay (0.3703)",
+      "wealth (0.2846)",
+      "compensation (0.2285)",
+      "Earnings (0.2227)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.2831985652446747)",
-      "Careers (0.24140900373458862)",
-      "Professions (0.2091173678636551)"
+      "Jobs (0.2832)",
+      "Careers (0.2414)",
+      "Professions (0.2091)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.27669620513916016)",
-      "Medical infirmities (0.23475098609924316)"
+      "Maladies (0.2767)",
+      "Medical infirmities (0.2348)"
     ],
     "dc/topic/RacialBreakdown": [
-      "ethnicity (0.24891072511672974)"
+      "ethnicity (0.2489)"
+    ],
+    "dc/topic/SDG_2": [
+      "Zero hunger (0.21)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.21446260809898376)"
+      "journey to work (0.2145)"
     ]
   },
   "time_delta_classification": "<None>"
