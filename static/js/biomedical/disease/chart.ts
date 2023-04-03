@@ -39,6 +39,12 @@ const Y_AXIS_LIMIT = 0.5;
 const LEGEND_CIRCLE_RADIUS = 4;
 // length of the error bar cap for disease-gene associations chart
 const ERROR_BAR_CAP_LENGTH = 10;
+// number or dimension by which the vertical or y-coordinate of the node is shifted
+const NODE_VERTICAL_SHIFT = 50;
+// number or dimension by which the horizontal or x-coordinate of the node is shifted
+const NODE_HORIZONTAL_SHIFT = 15;
+// spacing between two consecutive nodes
+const GRAPH_NODE_SPACING = 40;
 
 //TODO: Create a type.ts file and move all interfaces there
 
@@ -263,7 +269,7 @@ export function drawDiseaseOntologyHierarchy(
   // tree root
   const root = d3.hierarchy(data).sort((a, b) => b.height - a.height);
   // tree layout
-  const treeLayout = d3.tree().size([600, 120]);
+  const treeLayout = d3.tree().size([width, height]);
   // calling the tree layout function for the rearrangement of root
   treeLayout(root);
 
@@ -284,13 +290,13 @@ export function drawDiseaseOntologyHierarchy(
       return d.source.x;
     })
     .attr("y1", function (d: any) {
-      return d.source.y + 50;
+      return d.source.y + NODE_VERTICAL_SHIFT;
     })
     .attr("x2", function (d: any) {
       return d.target.x;
     })
-    .attr("y2", function (d: any, i) {
-      return d.target.y + 150;
+    .attr("y2", function (d: any) {
+      return d.target.y + 3*NODE_VERTICAL_SHIFT;
     })
     .attr("stroke", "black")
     .attr("stroke-width", 2);
@@ -301,11 +307,11 @@ export function drawDiseaseOntologyHierarchy(
     .data(root.descendants())
     .enter()
     .append("circle")
-    .attr("cx", function (d: any, i) {
+    .attr("cx", function (d: any) {
       return d.x;
     })
     .attr("cy", function (d, i) {
-      return 50 + i * 40;
+      return NODE_VERTICAL_SHIFT + i * GRAPH_NODE_SPACING;
     })
     .attr("r", 10)
     .attr("fill", "maroon")
@@ -320,10 +326,10 @@ export function drawDiseaseOntologyHierarchy(
     .append("text")
     .style("fill", "black")
     .attr("x", function (d: any) {
-      return d.x + 15;
+      return d.x + NODE_HORIZONTAL_SHIFT;
     })
     .attr("y", function (d: any, i) {
-      return 55 + i * 40;
+      return NODE_VERTICAL_SHIFT + i * GRAPH_NODE_SPACING;
     })
     .text((d: any) => d.data.name);
 }
