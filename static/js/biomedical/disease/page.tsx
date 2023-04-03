@@ -44,8 +44,8 @@ import {
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
-  DiseaseTreeNode,
   DiseaseSymptomAssociationData,
+  DiseaseTreeNode,
 } from "./types";
 
 const DISEASE_TREATMENT_COLUMNS = [
@@ -164,8 +164,9 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             <h5>Disease Ontology Hierachy</h5>
             <p>
               The hierarchy of diseases fetched from the Disease Ontology
-              database. The first or topmost node represents the biggest parent 
-              while the last or bottommost node represents the disease node of interest.
+              database. The first or topmost node represents the biggest parent
+              while the last or bottommost node represents the disease node of
+              interest.
             </p>
             <div id="disease-ontology-hierarchy-chart"></div>
           </>

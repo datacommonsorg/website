@@ -21,9 +21,9 @@ import {
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
-  DiseaseTreeNode,
   DiseaseParentTree,
   DiseaseSymptomAssociationData,
+  DiseaseTreeNode,
 } from "./types";
 
 /**

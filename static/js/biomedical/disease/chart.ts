@@ -297,7 +297,7 @@ export function drawDiseaseOntologyHierarchy(
       return d.target.x;
     })
     .attr("y2", function (d: any) {
-      return d.target.y + 3*NODE_VERTICAL_SHIFT;
+      return d.target.y + 3 * NODE_VERTICAL_SHIFT;
     })
     .attr("stroke", "black")
     .attr("stroke-width", 2);
@@ -315,8 +315,7 @@ export function drawDiseaseOntologyHierarchy(
     .attr("cy", function (d, i) {
       return NODE_VERTICAL_SHIFT + i * GRAPH_NODE_SPACING;
     })
-    .attr("r", DISEASE_NODE_RADIUS)
-
+    .attr("r", DISEASE_NODE_RADIUS);
 
   // draw labels
   svg
