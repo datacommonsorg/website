@@ -292,7 +292,6 @@ export function drawDiseaseOntologyHierarchy(
     .attr("y2", function (d: any, i) {
       return d.target.y + 150;
     })
-    //.attr('y2', function(d:any, i) {return 150+(i*40);})
     .attr("stroke", "black")
     .attr("stroke-width", 2);
 
