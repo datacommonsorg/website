@@ -25,7 +25,173 @@
             "geoId/01029"
           ],
           "svs": [
-            "Count_Person_PovertyStatusDetermined"
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX",
+            "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX",
+            "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE",
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX",
+            "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "sdg/SI_POV_EMP1_15gte_M_A_FEMALE",
+            "sdg/SI_POV_EMP1_15gte_M_A_MALE"
           ],
           "type": "County"
         },
@@ -74,29 +240,6 @@
             "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined"
           ],
           "type": "County"
-        },
-        {
-          "places": [
-            "geoId/01001",
-            "geoId/01003",
-            "geoId/01005",
-            "geoId/01007",
-            "geoId/01009",
-            "geoId/01011",
-            "geoId/01013",
-            "geoId/01015",
-            "geoId/01017",
-            "geoId/01019",
-            "geoId/01021",
-            "geoId/01023",
-            "geoId/01025",
-            "geoId/01027",
-            "geoId/01029"
-          ],
-          "svs": [
-            "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
-          ],
-          "type": "County"
         }
       ]
     },
@@ -114,8 +257,8 @@
       ],
       "filtered_svs": [
         [
+          "dc/topic/SDG_1",
           "Count_Person_BelowPovertyLevelInThePast12Months",
-          "Count_Person_PovertyStatusDetermined",
           "Count_Person_AbovePovertyLevelInThePast12Months",
           "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
           "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
@@ -126,24 +269,69 @@
           "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
           "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
           "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
         ]
       ],
-      "num_chart_candidates": 12,
+      "num_chart_candidates": 10,
       "processed_fulfillment_types": [
         "ranking_across_places"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/SDG_1": {
+            "peer_groups": [
+              [
+                "Population below international poverty line by age",
+                "",
+                [
+                  "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX",
+                  "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX",
+                  "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX"
+                ]
+              ],
+              [
+                "Population below international poverty line by gender",
+                "",
+                [
+                  "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE",
+                  "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE"
+                ]
+              ],
+              [
+                "Population below international poverty line in rural vs. urban areas",
+                "",
+                [
+                  "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX",
+                  "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX"
+                ]
+              ],
+              [
+                "Employed population below international poverty line by gender",
+                "",
+                [
+                  "sdg/SI_POV_EMP1_15gte_M_A_FEMALE",
+                  "sdg/SI_POV_EMP1_15gte_M_A_MALE"
+                ]
+              ]
+            ],
+            "svs": [
+              "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX",
+              "sdg/SP_ACS_BSRVH2O_ALLAREA_E",
+              "sdg/SP_ACS_BSRVSAN_ALLAREA_E",
+              "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+            ]
+          }
+        }
       ]
     },
     "TIMING": {
-      "build_page_config": 0.31,
-      "fulfillment": 0.36,
-      "get_sample_child_places": 0.19,
-      "get_sv_details": 0.3,
-      "query_detection": 0.16,
-      "sv_existence_for_places": 0.16
+      "build_page_config": 0.28,
+      "fulfillment": 0.84,
+      "get_sample_child_places": 0.18,
+      "get_sv_details": 0.27,
+      "query_detection": 0.2,
+      "sv_existence_for_places": 0.17,
+      "topic_calls": 0.48
     }
   },
   "data_spec": [
@@ -173,7 +361,7 @@
       "ranked_charts": [
         {
           "attr": {
-            "block_id": 1,
+            "block_id": 6,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -201,7 +389,7 @@
         },
         {
           "attr": {
-            "block_id": 3,
+            "block_id": 7,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -229,7 +417,7 @@
         },
         {
           "attr": {
-            "block_id": 4,
+            "block_id": 8,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -257,7 +445,7 @@
         },
         {
           "attr": {
-            "block_id": 5,
+            "block_id": 9,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -285,7 +473,7 @@
         },
         {
           "attr": {
-            "block_id": 6,
+            "block_id": 10,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -313,7 +501,7 @@
         },
         {
           "attr": {
-            "block_id": 9,
+            "block_id": 13,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -341,7 +529,7 @@
         },
         {
           "attr": {
-            "block_id": 10,
+            "block_id": 14,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -369,7 +557,7 @@
         },
         {
           "attr": {
-            "block_id": 11,
+            "block_id": 15,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -397,7 +585,7 @@
         },
         {
           "attr": {
-            "block_id": 12,
+            "block_id": 16,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -425,7 +613,7 @@
         },
         {
           "attr": {
-            "block_id": 13,
+            "block_id": 17,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -450,68 +638,12 @@
           "svs": [
             "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
           ]
-        },
-        {
-          "attr": {
-            "block_id": 14,
-            "chart_type": "ranking table",
-            "class": 0,
-            "description": "",
-            "include_percapita": true,
-            "place_type": "County",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 2,
-          "event": null,
-          "places": [
-            {
-              "country": "country/USA",
-              "dcid": "country/USA",
-              "name": "United States",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 16,
-            "chart_type": "ranking table",
-            "class": 0,
-            "description": "",
-            "include_percapita": true,
-            "place_type": "County",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 2,
-          "event": null,
-          "places": [
-            {
-              "country": "country/USA",
-              "dcid": "country/USA",
-              "name": "United States",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          ]
         }
       ],
       "session_id": "007_999999999",
       "svs": [
+        "dc/topic/SDG_1",
         "Count_Person_BelowPovertyLevelInThePast12Months",
-        "Count_Person_PovertyStatusDetermined",
         "Count_Person_AbovePovertyLevelInThePast12Months",
         "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
         "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
@@ -522,10 +654,7 @@
         "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
         "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
         "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-        "Count_Person_Male_BelowPovertyLevelInThePast12Months",
-        "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
-        "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
       ]
     },
     {
@@ -577,12 +706,12 @@
         "Count_Person",
         "Count_Person_PerArea",
         "GrowthRate_Count_Person",
+        "dc/topic/RacialBreakdown",
         "Count_Person_OneRace",
         "Count_Person_TwoOrMoreRaces",
         "Count_Person_Female",
         "Count_Person_Producer_TwoOrMoreRaces",
-        "Count_Person_Male",
-        "dc/topic/RacialBreakdown"
+        "Count_Person_Male"
       ]
     },
     {
@@ -600,9 +729,9 @@
         },
         {
           "country": "country/USA",
-          "dcid": "geoId/36",
-          "name": "New York",
-          "place_type": "State"
+          "dcid": "geoId/3608570915",
+          "name": "Staten Island",
+          "place_type": "CensusCountyDivision"
         },
         {
           "country": "country/USA",
@@ -623,7 +752,7 @@
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
           "chart_type": 3,
@@ -637,9 +766,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -649,7 +778,7 @@
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
@@ -661,8 +790,8 @@
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
-            "title": ""
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
           "chart_type": 3,
           "event": null,
@@ -675,9 +804,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -687,7 +816,33 @@
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
@@ -713,9 +868,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -725,7 +880,7 @@
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
           ]
         },
         {
@@ -751,9 +906,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -763,7 +918,7 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
@@ -789,9 +944,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -801,7 +956,7 @@
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -827,9 +982,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -839,7 +994,7 @@
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
@@ -865,9 +1020,9 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
               "country": "country/USA",
@@ -877,7 +1032,83 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/53",
+              "name": "Washington",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/53",
+              "name": "Washington",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
@@ -907,10 +1138,10 @@
             "chart_type": "timeline",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
           "chart_type": 0,
@@ -924,22 +1155,22 @@
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "timeline",
+            "chart_type": "bar chart",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
-            "title": ""
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
-          "chart_type": 0,
+          "chart_type": 3,
           "event": null,
           "places": [
             {
@@ -950,7 +1181,33 @@
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
@@ -976,7 +1233,59 @@
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 10,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar"
           ]
         },
         {
@@ -1002,7 +1311,7 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
@@ -1028,7 +1337,7 @@
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -1054,35 +1363,7 @@
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 8,
-            "chart_type": "timeline",
-            "class": 1,
-            "description": "",
-            "include_percapita": true,
-            "place_type": null,
-            "ranking_types": [],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "country": "country/USA",
-              "dcid": "geoId/12",
-              "name": "Florida",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "dc/x3gghqtglpr59",
-            "Count_Worker_NAICSFinanceInsurance",
-            "WagesTotal_Worker_NAICSFinanceInsurance"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
@@ -1108,7 +1389,109 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 11,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_1000To1249USDollar",
+            "Count_HousingUnit_WithRent_1250To1499USDollar",
+            "Count_HousingUnit_WithRent_1500To1999USDollar",
+            "Count_HousingUnit_WithRent_100To149USDollar",
+            "Count_HousingUnit_WithRent_Upto100USDollar",
+            "Count_HousingUnit_WithRent_150To199USDollar",
+            "Count_HousingUnit_WithRent_2000To2499USDollar",
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+            "Count_HousingUnit_WithRent_2500To2999USDollar",
+            "Count_HousingUnit_WithRent_200To249USDollar",
+            "Count_HousingUnit_WithRent_250To299USDollar",
+            "Count_HousingUnit_WithRent_3000To3499USDollar",
+            "Count_HousingUnit_WithRent_3500OrMoreUSDollar",
+            "Count_HousingUnit_WithRent_300To349USDollar",
+            "Count_HousingUnit_WithRent_350To399USDollar",
+            "Count_HousingUnit_WithRent_400To449USDollar",
+            "Count_HousingUnit_WithRent_450To499USDollar",
+            "Count_HousingUnit_WithRent_500To549USDollar",
+            "Count_HousingUnit_WithRent_550To599USDollar",
+            "Count_HousingUnit_WithRent_600To649USDollar",
+            "Count_HousingUnit_WithRent_650To699USDollar",
+            "Count_HousingUnit_WithRent_700To749USDollar",
+            "Count_HousingUnit_WithRent_750To799USDollar",
+            "Count_HousingUnit_WithRent_800To899USDollar",
+            "Count_HousingUnit_WithRent_900To999USDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
@@ -1117,12 +1500,6 @@
     },
     {
       "classifications": [
-        {
-          "ranking_type": [
-            1
-          ],
-          "type": 2
-        },
         {
           "contained_in_place_type": "State",
           "type": 4
@@ -1136,24 +1513,22 @@
           "place_type": "Country"
         }
       ],
-      "query": "US states which have that highest median income",
-      "query_type": 2,
+      "query": "US states which have that the cheapest houses",
+      "query_type": 4,
       "ranked_charts": [
         {
           "attr": {
             "block_id": 1,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
+            "ranking_types": [],
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -1164,24 +1539,22 @@
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
+            "ranking_types": [],
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -1192,24 +1565,48 @@
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 3,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -1220,24 +1617,22 @@
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 4,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -1248,24 +1643,22 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 5,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -1276,24 +1669,22 @@
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 6,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -1304,24 +1695,22 @@
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 7,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
@@ -1332,19 +1721,72 @@
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
       "session_id": "007_999999999",
       "svs": [
-        "Median_Income_Person",
-        "Median_Income_Household",
-        "Median_Earnings_Person",
-        "Median_Income_Household_FamilyHousehold",
-        "Mean_Income_Household",
-        "dc/x3gghqtglpr59",
-        "Median_Income_Household_NonfamilyHousehold"
+        "dc/topic/HomeValue",
+        "Count_HousingUnit_HomeValue400000To499999USDollar",
+        "Count_HousingUnit_HomeValue300000To399999USDollar",
+        "Count_HousingUnit_HomeValue750000To999999USDollar",
+        "Count_HousingUnit_HomeValue500000To749999USDollar",
+        "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+        "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+        "Count_HousingUnit_HomeValue175000To199999USDollar"
       ]
     },
     {
@@ -1445,26 +1887,26 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7128112316131592,
-      0.7120997309684753,
+      0.8146070837974548,
+      0.7726284265518188,
       0.6903679370880127,
-      0.6868859529495239,
-      0.6809426546096802,
-      0.6731067895889282,
+      0.6868860125541687,
+      0.6809425950050354,
+      0.6731067299842834,
       0.6727956533432007,
-      0.6680922508239746,
-      0.6667652726173401,
-      0.6660557985305786,
-      0.662651777267456,
-      0.6542606353759766,
-      0.6455992460250854,
-      0.6453515887260437,
-      0.6444410085678101,
-      0.6390771269798279
+      0.6680923104286194,
+      0.6667653322219849,
+      0.6660558581352234,
+      0.6626517176628113,
+      0.6542607545852661,
+      0.645599365234375
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
+      "dc/topic/SDG_1",
       "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Count_Person_PovertyStatusDetermined",
       "Count_Person_AbovePovertyLevelInThePast12Months",
       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
@@ -1475,118 +1917,103 @@
       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months",
-      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
     ],
     "SV_to_Sentences": {
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-        "Number of families in poverty in the past year (0.6731067895889282)",
-        "Number of households below poverty line in the past year (0.6552075147628784)"
+        "Number of families in poverty in the past year (0.6731)",
+        "Number of households below poverty line in the past year (0.6552)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months": [
-        "Population: Above Poverty Level in The Past 12 Months (0.6903679370880127)",
-        "Quantity of individuals who were not living in poverty (0.6846542358398438)",
-        "Number of people who haven't been living in poverty in the past year (0.6585140824317932)"
+        "Population: Above Poverty Level in The Past 12 Months (0.6904)",
+        "Quantity of individuals who were not living in poverty (0.6847)",
+        "Number of people who haven't been living in poverty in the past year (0.6585)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455992460250854)"
+        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6456)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660557985305786)"
+        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6661)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
-        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542606353759766)"
+        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6543)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months": [
-        "Population: Below Poverty Level in The Past 12 Months (0.7128112316131592)"
+        "Population who are in poverty (0.7726)",
+        "Population: Below Poverty Level in The Past 12 Months (0.7128)",
+        "Population confirmed to be Living in Poverty in the past year\\ (0.6811)",
+        "how many people are determined to be living in poverty (0.6726)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667652726173401)"
+        "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6668)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868859529495239)"
+        "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6869)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
-        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809426546096802)"
+        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.662651777267456)"
-      ],
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
-        "Population: Female, Below Poverty Level in The Past 12 Months (0.6390771269798279)"
+        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6627)"
       ],
       "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
-        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680922508239746)"
-      ],
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
-        "Population: Male, Below Poverty Level in The Past 12 Months (0.6453515887260437)"
+        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6681)"
       ],
       "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
-        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727956533432007)"
+        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6728)"
       ],
-      "Count_Person_PovertyStatusDetermined": [
-        "Number of People Living in Poverty (0.7120997309684753)",
-        "Population: Poverty Status Determined (0.7043508887290955)"
-      ],
-      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters": [
-        "Population: Poverty Status Determined, Group Quarters (0.6444410085678101)"
+      "dc/topic/SDG_1": [
+        "End poverty (0.8146)",
+        "End poverty in all its forms (0.7174)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-      "Number of families in poverty in the past year (0.6731067895889282)",
-      "Number of households below poverty line in the past year (0.6552075147628784)"
+      "Number of families in poverty in the past year (0.6731)",
+      "Number of households below poverty line in the past year (0.6552)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months": [
-      "Population: Above Poverty Level in The Past 12 Months (0.6903679370880127)",
-      "Quantity of individuals who were not living in poverty (0.6846542358398438)",
-      "Number of people who haven't been living in poverty in the past year (0.6585140824317932)"
+      "Population: Above Poverty Level in The Past 12 Months (0.6904)",
+      "Quantity of individuals who were not living in poverty (0.6847)",
+      "Number of people who haven't been living in poverty in the past year (0.6585)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6455992460250854)"
+      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6456)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660557985305786)"
+      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6661)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
-      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542606353759766)"
+      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6543)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months": [
-      "Population: Below Poverty Level in The Past 12 Months (0.7128112316131592)"
+      "Population who are in poverty (0.7726)",
+      "Population: Below Poverty Level in The Past 12 Months (0.7128)",
+      "Population confirmed to be Living in Poverty in the past year\\ (0.6811)",
+      "how many people are determined to be living in poverty (0.6726)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667652726173401)"
+      "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6668)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868859529495239)"
+      "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6869)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
-      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809426546096802)"
+      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.662651777267456)"
-    ],
-    "Count_Person_Female_BelowPovertyLevelInThePast12Months": [
-      "Population: Female, Below Poverty Level in The Past 12 Months (0.6390771269798279)"
+      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6627)"
     ],
     "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
-      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680922508239746)"
-    ],
-    "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
-      "Population: Male, Below Poverty Level in The Past 12 Months (0.6453515887260437)"
+      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6681)"
     ],
     "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
-      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727956533432007)"
+      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6728)"
     ],
-    "Count_Person_PovertyStatusDetermined": [
-      "Number of People Living in Poverty (0.7120997309684753)",
-      "Population: Poverty Status Determined (0.7043508887290955)"
-    ],
-    "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters": [
-      "Population: Poverty Status Determined, Group Quarters (0.6444410085678101)"
+    "dc/topic/SDG_1": [
+      "End poverty (0.8146)",
+      "End poverty in all its forms (0.7174)"
     ]
   },
   "time_delta_classification": "<None>"

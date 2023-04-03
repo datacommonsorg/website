@@ -71,7 +71,7 @@ class TestEmbeddings(unittest.TestCase):
           ["dc/g/FarmInventory", 'dc/topic/AgriculturalProduction']
       ],
       ["agriculture workers", ["dc/hlxvn1t8b9bhh"]],
-      ["heart disease", ["dc/g/Person_MedicalCondition-CoronaryHeartDisease"]],
+      ["heart disease", ["Percent_Person_WithCoronaryHeartDisease"]],
   ])
   def test_sv_detection(self, query_str, expected_list):
     got = self.nl_embeddings.detect_svs(query_str)
