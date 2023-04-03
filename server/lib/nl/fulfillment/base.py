@@ -148,7 +148,9 @@ def populate_charts(state: PopulateState) -> bool:
 # Populate charts for given places.
 def populate_charts_for_places(state: PopulateState,
                                places: List[Place]) -> bool:
-  handle_contained_in_type(state, places)
+  if not handle_contained_in_type(state, places):
+    # Counter updated in handle_contained_in_type()
+    return False
 
   if (len(state.uttr.svs) > 0):
     if _add_charts_with_place_fallback(state, places, state.uttr.svs):
@@ -595,11 +597,11 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
 
 def handle_contained_in_type(state: PopulateState, places: List[Place]):
   if utils.get_contained_in_type(
-      state.uttr) == ContainedInPlaceType.ACROSS and len(places) == 1:
+      state.uttr) == ContainedInPlaceType.GUESS and len(places) == 1:
     state.place_type = utils.get_default_child_place_type(places[0])
     state.uttr.counters.info('contained_in_across_fallback',
                              state.place_type.value)
-    return
+    return True
 
   if state.place_type and places:
     ptype = state.place_type
@@ -607,6 +609,13 @@ def handle_contained_in_type(state: PopulateState, places: List[Place]):
     if ptype != state.place_type:
       state.uttr.counters.info('contained_in_admin_area_equivalent',
                                (ptype, state.place_type))
+
+    if places[0].place_type == state.place_type.value:
+      state.uttr.counters.err('contained_in_sameplacetype',
+                              state.place_type.value)
+      return False
+
+  return True
 
 
 def get_default_contained_in_place(state: PopulateState) -> Place:
