@@ -45,7 +45,8 @@ const NODE_VERTICAL_SHIFT = 50;
 const NODE_HORIZONTAL_SHIFT = 15;
 // spacing between two consecutive nodes
 const GRAPH_NODE_SPACING = 40;
-
+// dimension of disease node circles
+const DISEASE_NODE_RADIUS = 10;
 //TODO: Create a type.ts file and move all interfaces there
 
 /**
@@ -307,16 +308,15 @@ export function drawDiseaseOntologyHierarchy(
     .data(root.descendants())
     .enter()
     .append("circle")
+    .attr("class", "disease-node-circle")
     .attr("cx", function (d: any) {
       return d.x;
     })
     .attr("cy", function (d, i) {
       return NODE_VERTICAL_SHIFT + i * GRAPH_NODE_SPACING;
     })
-    .attr("r", 10)
-    .attr("fill", "maroon")
-    .attr("stroke", "black")
-    .attr("stroke-width", 1);
+    .attr("r", DISEASE_NODE_RADIUS)
+
 
   // draw labels
   svg
@@ -324,7 +324,6 @@ export function drawDiseaseOntologyHierarchy(
     .data(root.descendants())
     .enter()
     .append("text")
-    .style("fill", "black")
     .attr("x", function (d: any) {
       return d.x + NODE_HORIZONTAL_SHIFT;
     })
