@@ -365,7 +365,7 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
  */
 export function formatDiseaseParentTreeData(
   data: DiseaseTreeNode[]
-): DiseaseParentTree[] {
+): DiseaseParentTree {
   // sets the default value of the boolean as false and checking for null values
   let current = null;
   for (const node of data) {

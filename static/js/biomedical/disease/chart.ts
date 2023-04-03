@@ -266,7 +266,7 @@ export function drawDiseaseSymptomAssociationChart(
  */
 export function drawDiseaseOntologyHierarchy(
   id: string,
-  data: DiseaseParentTree[]
+  data: DiseaseParentTree
 ): void {
   const height = GRAPH_HEIGHT - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH - MARGIN.left;
