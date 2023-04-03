@@ -164,11 +164,8 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             <h5>Disease Ontology Hierachy</h5>
             <p>
               The hierarchy of diseases fetched from the Disease Ontology
-              database. The smallest sized and lightest colored circle
-              represents the child node or the disease of interest. As one
-              proceeds from left to right, the circle size keeps increasing and
-              circle color darkens, representing the subsequent nodes being
-              parents to the preceeding ones.
+              database. The first or topmost node represents the biggest parent 
+              while the last or bottommost node represents the disease node of interest.
             </p>
             <div id="disease-ontology-hierarchy-chart"></div>
           </>
