@@ -40,7 +40,7 @@ export interface DiseaseSymptomAssociationData {
 export type DiseaseTreeNode = NamedNode;
 
 export interface DiseaseParentTree {
-  // name of the parent
+  // name of current node in the tree
   name: string;
   // array of children
   children: [];
