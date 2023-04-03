@@ -19,7 +19,7 @@ else
   ZONE=$LOCATION
 fi
 gcloud container clusters get-credentials $CLUSTER_NAME \
-  ${REGION:+--region $REGION} ${ZONE:+--zone $ZONE} --project=$PROJECT_ID
+  ${REGION:+--region=$REGION} ${ZONE:+--zone=$ZONE} --project=$PROJECT_ID
 
 # Create namespace if it does not exist.
 kubectl create namespace website \
