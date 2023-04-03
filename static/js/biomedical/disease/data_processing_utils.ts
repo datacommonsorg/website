@@ -95,7 +95,7 @@ export function getDiseaseGeneAssociation(
 
 /**
  * Fetches the disease-symptom association data
- * @param data
+ * @param data the data pertaining to the disease of interest
  * @returns an array of objects with symptom name and its corresponding association score, for the disease of interest
  */
 export function getDiseaseSymptomAssociation(
@@ -160,7 +160,7 @@ export function getDiseaseSymptomAssociation(
 
 /**
  * Fetches the chemical compound data which includes disease treatment and disease contraindication data
- * @param data
+ * @param data the data pertaining to the disease of interest
  * @returns an array of chemical compounds with their associated properties
  */
 export function getChemicalCompoundData(
@@ -247,7 +247,7 @@ export function getChemicalCompoundData(
 
 /**
  * Fetches the chemical compound disease treatment data
- * @param data
+ * @param data the data pertaining to the disease of interest
  * @returns an array of chemical compounds used for disease treatment and their other associated properties
  */
 export function getCompoundDiseaseTreatment(
@@ -268,7 +268,7 @@ export function getCompoundDiseaseTreatment(
 
 /**
  * Fetches the chemical compound disease contraindication data
- * @param data
+ * @param data the data pertaining to the disease of interest
  * @returns an array of chemical compounds contraindicated for disease treatment and their other associated properties
  */
 export function getCompoundDiseaseContraindication(
@@ -330,7 +330,7 @@ export function getDiseaseCommonName(data: GraphNodes): string {
 }
 /**
  * Checks whether the stat var for medical condition of disease exists
- * @param data
+ * @param data the data pertaining to the disease of interest
  * @returns boolean indicating if desired stat var exists
  */
 export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
@@ -360,17 +360,16 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
 }
 /**
  * Converts the disease parent data from a flat array to a tree for tree visualization
- * @param data
+ * @param data the disease ontology data pertaining to the disease of interest
  * @returns an array consisting of disease name and a sub-array of its children
  */
 export function formatDiseaseParentTreeData(
   data: DiseaseTreeNode[]
 ): DiseaseParentTree {
-  // sets the default value of the boolean as false and checking for null values
   let current = null;
   for (const node of data) {
-    const child = current ? [current] : [];
-    const nodeCurr = { name: node.name, children: child };
+    const children = current ? [current] : [];
+    const nodeCurr = { name: node.name, children: children };
     current = nodeCurr;
   }
   return current;
