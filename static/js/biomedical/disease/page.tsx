@@ -239,7 +239,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       .get("/api/disease/" + this.props.dcid)
       .then((resp) => resp.data);
     const diseaseParentPromise = axios
-      .get("/api/disease/diseaseParent/" + this.props.dcid)
+      .get("/api/disease/disease-parent/" + this.props.dcid)
       .then((resp) => resp.data);
     Promise.all([diseasePromise, diseaseParentPromise]).then(
       ([disease, diseaseParent]) => {
