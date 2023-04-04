@@ -334,8 +334,8 @@ class Model:
         "private school": ContainedInPlaceType.PRIVATE_SCHOOL,
         "school": ContainedInPlaceType.SCHOOL,
         # Pick the best type
-        "place": ContainedInPlaceType.GUESS,
-        "region": ContainedInPlaceType.GUESS,
+        "place": ContainedInPlaceType.DEFAULT_TYPE,
+        "region": ContainedInPlaceType.DEFAULT_TYPE,
     })
 
     query = query.lower()
@@ -355,7 +355,7 @@ class Model:
     if contained_in_place_type == ContainedInPlaceType.PLACE:
       # Additional keywords to decide whether we should GUESS sub-type
       if "across" in query or "where" in query or "within" in query:
-        contained_in_place_type = ContainedInPlaceType.GUESS
+        contained_in_place_type = ContainedInPlaceType.DEFAULT_TYPE
       else:
         return None
 
