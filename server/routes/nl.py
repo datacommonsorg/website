@@ -17,6 +17,7 @@ import asyncio
 import json
 import logging
 import os
+import re
 import time
 from typing import Dict, List
 
@@ -105,7 +106,9 @@ def _remove_places(query, place_str_to_dcids: Dict[str, str]):
     needle = "in " + p_str
     if needle not in query:
       needle = p_str
-    query = query.replace(needle, "")
+    # Use \b<word>\b to match the word and not the string
+    # within another word (eg to avoid match "us" in "houses").
+    query = re.sub(rf"\b{needle}\b", "", query)
 
   # Remove any extra spaces and return.
   return ' '.join(query.split())

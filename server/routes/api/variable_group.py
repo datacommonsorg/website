@@ -20,14 +20,7 @@ import server.services.datacommons as dc
 
 bp = Blueprint("variable-group", __name__, url_prefix='/api/variable-group')
 
-# Temporary fix for messy svgs. Remove once svgs have been fixed. SVGs that are
-# blocklisted here must be part of either blocklistedSvgIds or miscellaneousSvgIds
-# in the mixer file /internal/server/statvar/statvar_hierarchy_util.go
-BLOCKLISTED_STAT_VAR_GROUPS = {
-    "dc/g/Establishment_Industry", "dc/g/Uncategorized"
-}
-UPDATE_NUM_DESCENDENTS_SVG = {"dc/g/Establishment", "dc/g/Employment"}
-NUM_DESCENDENTS_TO_SUBTRACT = 12123
+BLOCKLISTED_STAT_VAR_GROUPS = {"dc/g/Uncategorized"}
 
 
 @bp.route('/info', methods=['GET', 'POST'])
@@ -54,9 +47,6 @@ def get_variable_group_info():
       svg_id = svg.get("id", "")
       if svg_id in BLOCKLISTED_STAT_VAR_GROUPS:
         continue
-      svg_num_descendents = svg.get("descendentStatVarCount", 0)
-      if svg_id in UPDATE_NUM_DESCENDENTS_SVG and svg_num_descendents > NUM_DESCENDENTS_TO_SUBTRACT:
-        svg["descendentStatVarCount"] = svg_num_descendents - NUM_DESCENDENTS_TO_SUBTRACT
       filteredChildSVG.append(svg)
     result["childStatVarGroups"] = filteredChildSVG
   return result
