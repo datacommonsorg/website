@@ -152,7 +152,7 @@ def _maybe_promote_simple_to_containedin(uttr: Utterance,
   uttr.classifications.append(
       NLClassifier(type=ClassificationType.CONTAINED_IN,
                    attributes=ContainedInClassificationAttributes(
-                       contained_in_place_type=ContainedInPlaceType.ACROSS)))
+                       contained_in_place_type=ContainedInPlaceType.GUESS)))
   if QueryType.CONTAINED_IN in query_types:
     query_types.remove(QueryType.CONTAINED_IN)
   query_types[-1] = QueryType.CONTAINED_IN

@@ -133,9 +133,8 @@ class ContainedInPlaceType(str, Enum):
   # Typically corresponds to county equivalent
   EU_NUTS_3 = "EurostatNUTS3"
 
-  # Across is a generic containedInPlaceType which determines if the
-  # query is using the word "across".
-  ACROSS = "Across"
+  # Indicates that the fulfiller should guess the child-type.
+  GUESS = "Guess"
 
 
 class EventType(IntEnum):
