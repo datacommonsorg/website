@@ -81,7 +81,9 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
 
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
-  handle_contained_in_type(state, [place])
+  if not handle_contained_in_type(state, [place]):
+    # counter updated in handle_contained_in_type
+    return False
 
   # Get child place samples for existence check.
   places_to_check = utils.get_sample_child_places(place.dcid,

@@ -450,3 +450,19 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
 
 # Have a shorter limit to avoid spamming the json.
 DBG_LIST_LIMIT = 3
+
+#
+# Sometimes the an SV/topic co-occurring with another higher-ranked
+# SV/topic may be undesirable.  For example, for the
+# [projected temperature extremes] query we don't want to also show
+# the current temperature.  This happens because descriptions the
+# SVs are close enough.
+# This map has a "key" --blocks--> "values" relation. If "key" is
+# a higher ranking SV than any of the "values".
+#
+SV_BLOCKS_MAP = {
+    "dc/topic/ProjectedClimateExtremes": [
+        "dc/topic/Temperature", "dc/topic/WetBulbTemperature"
+    ],
+    "dc/topic/WetBulbTemperature": ["dc/topic/Temperature"],
+}

@@ -169,6 +169,9 @@ class IntegrationTest(LiveServerTestCase):
             # We have no obesity data at State-level. Instead we should fallback to
             # parent place USA.
             'obesity in California',
+            # We should fail fulfilling "Country" type contained-in a country,
+            # instead we would pick contained-in from context (County).
+            'GDP of countries in the US',
         ])
 
   def test_demo_climatetrace(self):
