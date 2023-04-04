@@ -195,8 +195,7 @@ USA = Place('country/USA', 'USA', 'Country', 'country/USA')
 
 # This is only for US.
 DEFAULT_PARENT_PLACES = {
-    ContainedInPlaceType.COUNTRY:
-        Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
     ContainedInPlaceType.COUNTY: USA,
     ContainedInPlaceType.STATE: USA,
     ContainedInPlaceType.CITY: USA,
