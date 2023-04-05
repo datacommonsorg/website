@@ -117,11 +117,13 @@ class TestDataSpecNext(unittest.TestCase):
   @patch.object(utils, 'sv_existence_for_places')
   def test_simple_barchart_downgrade(self, mock_sv_existence,
                                      mock_single_datapoint, mock_extend_svs):
-    # First 2 SVs should be considered, and 3rd one dropped.
-    detection = _detection(
-        'geoId/06',
-        ['Count_Person_Male', 'Count_Person_Female', 'Count_Person_Foo'],
-        [0.6, 0.51, 0.4])
+    constants.SV_BLOCKS_MAP['Count_Person_Male'] = ['census/NumMales']
+    # First 3 SVs should be considered, and 4rd one dropped.
+    # But since 1st SV blocks 3rd one, that should also be dropped.
+    detection = _detection('geoId/06', [
+        'Count_Person_Male', 'census/NumMales', 'Count_Person_Female',
+        'Count_Person_Foo'
+    ], [0.6, 0.55, 0.51, 0.4])
 
     # MOCK:
     # - Do no SV extensions
