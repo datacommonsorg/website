@@ -1,0 +1,1255 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.COUNTRY",
+  "correlation_classification": "<None>",
+  "counters": {
+    "ERROR": {
+      "contained_in_sameplacetype": [
+        "Country"
+      ],
+      "containedin_failed_populate_placetype": [
+        "Country"
+      ],
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+          ],
+          "type": "County"
+        },
+        {
+          "places": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005",
+            "geoId/01007",
+            "geoId/01009",
+            "geoId/01011",
+            "geoId/01013",
+            "geoId/01015",
+            "geoId/01017",
+            "geoId/01019",
+            "geoId/01021",
+            "geoId/01023",
+            "geoId/01025",
+            "geoId/01027",
+            "geoId/01029"
+          ],
+          "svs": [
+            "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          ],
+          "type": "County"
+        }
+      ],
+      "failed_populate_main_places": [
+        [
+          "country/USA"
+        ]
+      ]
+    },
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "country/USA",
+          "result": [
+            "geoId/01001",
+            "geoId/01003",
+            "geoId/01005"
+          ],
+          "type": "County"
+        }
+      ],
+      "filtered_svs": [
+        [
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+          "dc/topic/Economy",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
+          "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+        ]
+      ],
+      "num_chart_candidates": 6,
+      "processed_fulfillment_types": [
+        "containedin"
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/Economy": {
+            "peer_groups": [],
+            "svs": []
+          }
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.26,
+      "fulfillment": 0.3,
+      "get_sample_child_places": 0.17,
+      "get_sv_details": 0.26,
+      "query_detection": 0.45,
+      "sv_existence_for_places": 0.13,
+      "topic_calls": 0.0
+    }
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "Country",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/USA",
+          "dcid": "country/USA",
+          "name": "United States",
+          "place_type": "Country"
+        }
+      ],
+      "query": "GDP of countries in the US",
+      "query_type": 4,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+        "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+        "dc/topic/Economy",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+        "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
+        "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "country": "country/USA",
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "obesity in California",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "bar chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Percent_Person_Obesity"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Percent_Person_BingeDrinking",
+            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
+            "Percent_Person_SleepLessThan7Hours",
+            "Percent_Person_Smoking"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Percent_Person_Obesity"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "ranking_type": [
+            1
+          ],
+          "type": 2
+        },
+        {
+          "contained_in_place_type": "County",
+          "type": 4
+        }
+      ],
+      "places": [
+        {
+          "country": "country/USA",
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "counties in California with highest crime",
+      "query_type": 1,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_CombinedCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_LarcenyTheft"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 10,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_AggravatedAssault",
+            "Count_CriminalActivities_Burglary",
+            "Count_CriminalActivities_ForcibleRape",
+            "Count_CriminalActivities_LarcenyTheft",
+            "Count_CriminalActivities_MotorVehicleTheft",
+            "Count_CriminalActivities_PropertyCrime",
+            "Count_CriminalActivities_Robbery",
+            "Count_CriminalActivities_ViolentCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_MotorVehicleTheft"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalIncidents_IsHateCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_Robbery"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_ViolentCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_ForcibleRape"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_PropertyCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_Burglary"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_CriminalActivities_CombinedCrime",
+        "Count_CriminalActivities_LarcenyTheft",
+        "Count_CriminalActivities_MotorVehicleTheft",
+        "Count_CriminalIncidents_IsHateCrime",
+        "Count_CriminalActivities_Robbery",
+        "Count_CriminalActivities_ViolentCrime",
+        "Count_CriminalActivities_ForcibleRape",
+        "Count_CriminalActivities_PropertyCrime",
+        "Count_CriminalActivities_Burglary"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 7
+        }
+      ],
+      "places": [
+        {
+          "country": "country/USA",
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        },
+        {
+          "country": "country/USA",
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "place_type": "State"
+        }
+      ],
+      "query": "Compare crime in California and Florida",
+      "query_type": 6,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_CombinedCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 2,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_LarcenyTheft"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 3,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_MotorVehicleTheft"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 4,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalIncidents_IsHateCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 5,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_Robbery"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 6,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_ViolentCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 7,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_ForcibleRape"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_PropertyCrime"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_CriminalActivities_Burglary"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_CriminalActivities_CombinedCrime",
+        "Count_CriminalActivities_LarcenyTheft",
+        "Count_CriminalActivities_MotorVehicleTheft",
+        "Count_CriminalIncidents_IsHateCrime",
+        "Count_CriminalActivities_Robbery",
+        "Count_CriminalActivities_ViolentCrime",
+        "Count_CriminalActivities_ForcibleRape",
+        "Count_CriminalActivities_PropertyCrime",
+        "Count_CriminalActivities_Burglary"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 12
+        }
+      ],
+      "places": [
+        {
+          "country": "country/USA",
+          "dcid": "geoId/0667000",
+          "name": "San Francisco",
+          "place_type": "City"
+        },
+        {
+          "country": "country/USA",
+          "dcid": "geoId/1714000",
+          "name": "Chicago",
+          "place_type": "City"
+        }
+      ],
+      "query": "Number of Shakespeare fans in San Francisco and Chicago.",
+      "query_type": 10,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 4,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/0667000",
+              "name": "San Francisco",
+              "place_type": "City"
+            }
+          ],
+          "svs": []
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": []
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "country/USA",
+  "main_place_name": "United States",
+  "original_query": "GDP of countries in the US",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "us"
+  ],
+  "places_resolved": "(name: United States, dcid: country/USA); ",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "country": "country/USA",
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    },
+    "original_query": "GDP of countries in the US",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": {
+        "us": "country/USA"
+      },
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "country": "country/USA",
+          "dcid": "country/USA",
+          "name": "United States",
+          "place_type": "Country"
+        }
+      ]
+    },
+    "places_found_str": [
+      "us"
+    ],
+    "query_transformations": {
+      "place_detection_input": "gdp of countries in the us",
+      "place_detection_with_places_removed": "gdp of countries in the",
+      "sv_detection_query_input": "gdp of countries in the",
+      "sv_detection_query_stop_words_removal": "gdp"
+    }
+  },
+  "query_with_places_removed": "gdp of countries in the",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.784820556640625,
+      0.6779434680938721,
+      0.6746388673782349,
+      0.6742424964904785,
+      0.6736500859260559,
+      0.6669632792472839,
+      0.6655663847923279,
+      0.6592215895652771,
+      0.6516273021697998,
+      0.6323908567428589
+    ],
+    "MultiSV": {
+      "Candidates": []
+    },
+    "SV": [
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+      "dc/topic/Economy",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
+      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+    ],
+    "SV_to_Sentences": {
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue": [
+        "Gross Domestic Product (GDP) of the Agriculture, Forestry, Fishing and Hunting Industry (0.6516)",
+        "Gross Domestic Product (GDP) of the agriculture, forestry, fishing, and hunting industry (0.6488)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue": [
+        "Gross Domestic Product (GDP) of the arts, entertainment, and recreation industry (0.6656)",
+        "Gross Domestic Product (GDP) of the Arts, Entertainment, and Recreation Industry (0.6656)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": [
+        "Gross Domestic Product (GDP) of the finance and insurance industry (0.667)",
+        "Gross Domestic Product (GDP) of the Finance and Insurance Industry (0.667)",
+        "How much the finance and insurance sector contributes to the GDP. (0.6467)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": [
+        "Gross Domestic Product (GDP) of the Information Industry (0.6742)",
+        "Gross Domestic Product (GDP) of the information industry (0.6742)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": [
+        "Gross Domestic Product (GDP) of the professional, scientific, and technical services industry (0.6746)",
+        "Gross Domestic Product (GDP) of the Professional, Scientific, and Technical Services Industry (0.6746)",
+        "The GDP contribution of the professional, scientific, and technical services field (0.6438)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue": [
+        "The GDP contribution of the utilities field (0.6592)",
+        "Gross Domestic Product (GDP) of the Utilities Industry (0.6288)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+        "Nominal GDP (0.7848)",
+        "Nominal Gross Domestic Production (GDP) (0.713)"
+      ],
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+        "Nominal Gross Domestic Production (GDP) Per Capita (0.6779)"
+      ],
+      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+        "Growth Rate of Gross Domestic Production (GDP) (0.6324)"
+      ],
+      "dc/topic/Economy": [
+        "Economy (0.6737)",
+        "Summary of the economy (0.6498)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue": [
+      "Gross Domestic Product (GDP) of the Agriculture, Forestry, Fishing and Hunting Industry (0.6516)",
+      "Gross Domestic Product (GDP) of the agriculture, forestry, fishing, and hunting industry (0.6488)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue": [
+      "Gross Domestic Product (GDP) of the arts, entertainment, and recreation industry (0.6656)",
+      "Gross Domestic Product (GDP) of the Arts, Entertainment, and Recreation Industry (0.6656)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": [
+      "Gross Domestic Product (GDP) of the finance and insurance industry (0.667)",
+      "Gross Domestic Product (GDP) of the Finance and Insurance Industry (0.667)",
+      "How much the finance and insurance sector contributes to the GDP. (0.6467)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": [
+      "Gross Domestic Product (GDP) of the Information Industry (0.6742)",
+      "Gross Domestic Product (GDP) of the information industry (0.6742)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": [
+      "Gross Domestic Product (GDP) of the professional, scientific, and technical services industry (0.6746)",
+      "Gross Domestic Product (GDP) of the Professional, Scientific, and Technical Services Industry (0.6746)",
+      "The GDP contribution of the professional, scientific, and technical services field (0.6438)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue": [
+      "The GDP contribution of the utilities field (0.6592)",
+      "Gross Domestic Product (GDP) of the Utilities Industry (0.6288)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+      "Nominal GDP (0.7848)",
+      "Nominal Gross Domestic Production (GDP) (0.713)"
+    ],
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": [
+      "Nominal Gross Domestic Production (GDP) Per Capita (0.6779)"
+    ],
+    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": [
+      "Growth Rate of Gross Domestic Production (GDP) (0.6324)"
+    ],
+    "dc/topic/Economy": [
+      "Economy (0.6737)",
+      "Summary of the economy (0.6498)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}
