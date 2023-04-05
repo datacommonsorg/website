@@ -333,6 +333,9 @@ class Model:
         "public school": ContainedInPlaceType.PUBLIC_SCHOOL,
         "private school": ContainedInPlaceType.PRIVATE_SCHOOL,
         "school": ContainedInPlaceType.SCHOOL,
+        # Pick the best type
+        "place": ContainedInPlaceType.DEFAULT_TYPE,
+        "region": ContainedInPlaceType.DEFAULT_TYPE,
     })
 
     query = query.lower()
@@ -350,9 +353,9 @@ class Model:
 
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
-      # Try to check if the special case of ACROSS can be found.
+      # Additional keywords to decide whether we should GUESS sub-type
       if "across" in query or "where" in query or "within" in query:
-        contained_in_place_type = ContainedInPlaceType.ACROSS
+        contained_in_place_type = ContainedInPlaceType.DEFAULT_TYPE
       else:
         return None
 

@@ -532,112 +532,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Male Population Below Poverty Status in the Last Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Male Population Below Poverty Status in the Last Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Male Population Below Poverty Status in the Last Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Male Population Below Poverty Status in the Last Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Male Population Below Poverty Status in the Last Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Female Population Below Poverty Level in the Last Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Female Population Below Poverty Level in the Last Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Female Population Below Poverty Level in the Last Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Female Population Below Poverty Level in the Last Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Female Population Below Poverty Level in the Last Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -730,24 +624,6 @@
             "denom": "Count_Person",
             "name": "Population Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-            "name": "Female Population Below Poverty Level in the Last Year",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Female Population Below Poverty Level in the Last Year",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-            "name": "Male Population Below Poverty Status in the Last Year",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Male Population Below Poverty Status in the Last Year",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           }
         }
       }
