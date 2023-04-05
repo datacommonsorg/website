@@ -360,6 +360,7 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "administrativearea3": "administrative area 3 places",
     "administrativearea4": "administrative area 4 places",
     "administrativearea5": "administrative area 5 places",
+    "region": "regions",
     # Schools
     "highschool": "high schools",
     "middleschool": "middle schools",

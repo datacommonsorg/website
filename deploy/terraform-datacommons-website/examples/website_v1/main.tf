@@ -93,7 +93,7 @@ module "cluster" {
 
 resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
   # Must match ingress annotation in ingress.yaml
-  name    = "dc-website-cert-custom"
+  name    = "dc-website-cert"
   project = var.project_id
 
   managed {
