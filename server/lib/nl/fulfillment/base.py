@@ -597,7 +597,7 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
 
 def handle_contained_in_type(state: PopulateState, places: List[Place]):
   if utils.get_contained_in_type(
-      state.uttr) == ContainedInPlaceType.GUESS and len(places) == 1:
+      state.uttr) == ContainedInPlaceType.DEFAULT_TYPE and len(places) == 1:
     state.place_type = utils.get_default_child_place_type(places[0])
     state.uttr.counters.info('contained_in_across_fallback',
                              state.place_type.value)
@@ -619,8 +619,11 @@ def handle_contained_in_type(state: PopulateState, places: List[Place]):
 
 
 def get_default_contained_in_place(state: PopulateState) -> Place:
-  if state.uttr.places or not state.place_type:
+  if state.uttr.places:
     return None
+  if not state.place_type:
+    # For a non-contained-in-place query, default to USA.
+    return constants.USA
   ptype = state.place_type
   if isinstance(ptype, str):
     ptype = ContainedInPlaceType(ptype)

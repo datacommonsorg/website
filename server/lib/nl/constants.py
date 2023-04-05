@@ -191,16 +191,14 @@ PAK_PLACE_TYPE_REMAP = {
         ContainedInPlaceType.ADMIN_AREA_3,
 }
 
+USA = Place('country/USA', 'USA', 'Country', 'country/USA')
+
 # This is only for US.
 DEFAULT_PARENT_PLACES = {
-    ContainedInPlaceType.COUNTRY:
-        Place('Earth', 'Earth', 'Place'),
-    ContainedInPlaceType.COUNTY:
-        Place('country/USA', 'USA', 'Country', 'country/USA'),
-    ContainedInPlaceType.STATE:
-        Place('country/USA', 'USA', 'Country', 'country/USA'),
-    ContainedInPlaceType.CITY:
-        Place('country/USA', 'USA', 'Country', 'country/USA'),
+    ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
+    ContainedInPlaceType.COUNTY: USA,
+    ContainedInPlaceType.STATE: USA,
+    ContainedInPlaceType.CITY: USA,
 }
 
 EU_COUNTRIES = frozenset([

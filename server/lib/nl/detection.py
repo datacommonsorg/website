@@ -133,8 +133,9 @@ class ContainedInPlaceType(str, Enum):
   # Typically corresponds to county equivalent
   EU_NUTS_3 = "EurostatNUTS3"
 
-  # Indicates that the fulfiller should guess the child-type.
-  GUESS = "Guess"
+  # Indicates that the fulfiller should use the contained-in-place-type
+  # depending on the place.
+  DEFAULT_TYPE = "DefaultType"
 
 
 class EventType(IntEnum):
