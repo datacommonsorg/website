@@ -84,6 +84,11 @@ spec:
             # - name: ingress-config
             #   mountPath: /datacommons/ingress
           env:
+            - name: SECRET_PROJECT
+              valueFrom:
+                configMapKeyRef:
+                  name: website-configmap{{ .Values.resourceSuffix }}
+                  key: secret_project
             - name: FLASK_ENV
               valueFrom:
                 configMapKeyRef:

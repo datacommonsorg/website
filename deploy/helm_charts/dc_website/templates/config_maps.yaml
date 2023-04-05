@@ -57,6 +57,7 @@ metadata:
 data:
   flaskEnv: {{ required "Flask env is required." .Values.website.flaskEnv }}
   enableModel: {{ .Values.website.enableModel | quote }}
+  secret_project: {{ required "GCP project id for secrets is required." | .Values.website.secretGCPProjectID }}
 
 ---
 
