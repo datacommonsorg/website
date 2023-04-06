@@ -34,7 +34,7 @@ from server.lib.nl.fulfillment.context import svs_from_context
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance
-import shared.lib.variables as vars
+import shared.lib.detected_variables as vars
 
 _MAX_CONTEXT_SVS = 3
 _MAX_MAIN_SVS = 5
@@ -171,8 +171,6 @@ def _handle_multi_sv_in_uttr(uttr: Utterance,
 
   final_svs: List[List[str]] = []
   for i, p in enumerate(parts):
-    # For the main SV of correlation, we expect a variable to
-    # be detected in this `uttr`
     svs = open_top_topics_ordered(p.svs, uttr.counters)
     svs = utils.sv_existence_for_places(places_to_check, svs, uttr.counters)
     if not svs:
@@ -183,7 +181,7 @@ def _handle_multi_sv_in_uttr(uttr: Utterance,
     final_svs.append(svs)
 
   lhs_svs = final_svs[0][:_MAX_MAIN_SVS]
-  rhs_svs = final_svs[1][:_MAX_CONTEXT_SVS]
+  rhs_svs = final_svs[1][:_MAX_MAIN_SVS]
   uttr.counters.info(f'multisv_correlation_lhs_svs', lhs_svs)
   uttr.counters.info(f'multisv_correlation_rhs_svs', rhs_svs)
   logging.info('[MultiSV] Correlation LHS SVs: %s', ', '.join(lhs_svs))

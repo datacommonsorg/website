@@ -36,7 +36,7 @@ from server.lib.nl.detection import RankingType
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import TimeDeltaClassificationAttributes
 from server.lib.nl.detection import TimeDeltaType
-from shared.lib.variables import MultiVarCandidates
+from shared.lib.detected_variables import MultiVarCandidates
 
 # How far back does the context go back.
 CTX_LOOKBACK_LIMIT = 15

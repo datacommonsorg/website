@@ -25,8 +25,8 @@ import torch
 
 from nl_server import query_util
 import nl_server.gcs as gcs
+from shared.lib import detected_variables as vars
 from shared.lib import utils
-from shared.lib import variables as vars
 
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'

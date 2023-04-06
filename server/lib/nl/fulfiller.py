@@ -23,7 +23,7 @@ from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance
-from shared.lib import variables as vars
+from shared.lib import detected_variables as vars
 
 # We will ignore SV detections that are below this threshold
 _SV_THRESHOLD = 0.5

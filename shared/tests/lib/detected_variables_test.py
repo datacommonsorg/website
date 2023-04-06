@@ -15,7 +15,7 @@
 
 import unittest
 
-import shared.lib.variables as variables
+import shared.lib.detected_variables as vars
 
 _MULTI_SV = {
     "Candidates": [{
@@ -96,10 +96,10 @@ _MULTI_SV = {
 }
 
 
-class TestVariables(unittest.TestCase):
+class TestDetectedVariables(unittest.TestCase):
 
   def test_main(self):
     self.assertEqual(
         _MULTI_SV,
-        variables.multivar_candidates_to_dict(
-            variables.dict_to_multivar_candidates(_MULTI_SV)))
+        vars.multivar_candidates_to_dict(
+            vars.dict_to_multivar_candidates(_MULTI_SV)))
