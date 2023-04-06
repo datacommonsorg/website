@@ -78,3 +78,112 @@ categories {
     }
   }
 }
+
+categories {
+  title: "This empty category should be filtered out"
+  blocks {
+    columns {
+      tiles {}
+    }
+  }
+  blocks {
+    columns {
+    }
+  }
+}
+
+categories {
+  title: "test filtering for bar charts"
+  blocks {
+    columns {
+      tiles {
+        type: BAR
+        stat_var_key: "sv_child_exists_1"
+      }
+      tiles {
+        type: BAR
+        stat_var_key: "sv_parent_exists_1"
+        comparison_places: "self"
+      }
+      tiles {
+        type: BAR
+        stat_var_key: "sv_child_filtered_1"
+      }
+      tiles {
+        type: BAR
+        stat_var_key: "sv_parent_filtered_1"
+        comparison_places: "self"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "sv_child_exists_1"
+    value {
+      stat_var: "sv_child_exists_1"
+    }
+  }
+  stat_var_spec {
+    key: "sv_child_filtered_1"
+    value {
+      stat_var: "sv_child_filtered_1"
+    }
+  }
+  stat_var_spec {
+    key: "sv_parent_exists_1"
+    value {
+      stat_var: "sv_parent_exists_1"
+    }
+  }
+  stat_var_spec {
+    key: "sv_parent_filtered_1"
+    value {
+      stat_var: "sv_parent_filtered_1"
+    }
+  }
+}
+
+categories {
+  title: "test filtering maps without geojson"
+  blocks {
+    columns {
+      tiles {
+        type: MAP
+        stat_var_key: "sv_child_exists_1"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "sv_child_exists_1"
+    value {
+      stat_var: "sv_child_exists_1"
+    }
+  }
+}
+
+categories {
+  title: "test filtering for other charts using child places"
+  blocks {
+    columns {
+      tiles {
+        type: SCATTER
+        stat_var_key: "sv_child_exists_1"
+      }
+      tiles {
+        type: BIVARIATE
+        stat_var_key: "sv_child_filtered_1"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "sv_child_exists_1"
+    value {
+      stat_var: "sv_child_exists_1"
+    }
+  }
+  stat_var_spec {
+    key: "sv_child_filtered_1"
+    value {
+      stat_var: "sv_child_filtered_1"
+    }
+  }
+}

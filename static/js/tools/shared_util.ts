@@ -49,24 +49,6 @@ export function getMatchingObservation(
 }
 
 /**
- * Helper function to get units given a list of observations
- */
-export function getUnit(
-  obsList: Observation[],
-  metadataMap: Record<string, StatMetadata>
-): string {
-  for (const obs of obsList) {
-    const facetId = obs.facet;
-    if (facetId in metadataMap) {
-      if (metadataMap[facetId].unit) {
-        return metadataMap[facetId].unit;
-      }
-    }
-  }
-  return "";
-}
-
-/**
  * Returns true if the stat var is an IPCC predication model for temperature.
  */
 export function isTemperaturePredictionModel(statVar: string): boolean {

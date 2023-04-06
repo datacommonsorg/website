@@ -125,7 +125,8 @@ def populate_charts(state: PopulateState) -> bool:
     if (populate_charts_for_places(state, state.uttr.places)):
       return True
     else:
-      state.uttr.counters.err('failed_populate_main_places', state.uttr.places)
+      dcids = [p.dcid for p in state.uttr.places]
+      state.uttr.counters.err('failed_populate_main_places', dcids)
   else:
     # If user has not provided a place, seek a place from the context.
     # Otherwise the result seems unexpected to them.
@@ -147,7 +148,9 @@ def populate_charts(state: PopulateState) -> bool:
 # Populate charts for given places.
 def populate_charts_for_places(state: PopulateState,
                                places: List[Place]) -> bool:
-  handle_contained_in_across(state, places)
+  if not handle_contained_in_type(state, places):
+    # Counter updated in handle_contained_in_type()
+    return False
 
   if (len(state.uttr.svs) > 0):
     if _add_charts_with_place_fallback(state, places, state.uttr.svs):
@@ -196,7 +199,7 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
         name='Earth',
         place_type='Place',
     )
-    state.uttr.counters.warn('parent_place_fallback', {
+    state.uttr.counters.err('parent_place_fallback', {
         'child': place.dcid,
         'parent': earth.dcid
     })
@@ -209,9 +212,12 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
     pt = ContainedInPlaceType(pt)
 
   # Walk up the parent type hierarchy trying to add charts.
-  parent_type = constants.PARENT_PLACE_TYPES.get(pt, None)
+  parent_type = utils.get_parent_place_type(pt, place)
   while parent_type:
     if state.place_type:
+      if parent_type == place.place_type:
+        # This is no longer contained-in, so break
+        break
       # Pick next parent type.
       state.uttr.counters.err('parent_place_type_fallback', parent_type)
       state.place_type = parent_type
@@ -236,7 +242,7 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
     if _add_charts(state, [place], svs):
       return True
     # Else, try next parent type.
-    parent_type = constants.PARENT_PLACE_TYPES.get(parent_type, None)
+    parent_type = utils.get_parent_place_type(parent_type, place)
 
   return False
 
@@ -290,10 +296,11 @@ class ExistenceCheckStateTracker:
           exist_cv.exist_event = utils.event_existence_for_place(
               places[0], chart_vars.event, self.state.uttr.counters)
           if not exist_cv.exist_event:
-            state.uttr.counters.err('failed_event_existence_check', {
-                'places': places,
-                'event': chart_vars.event
-            })
+            state.uttr.counters.err(
+                'failed_event_existence_check', {
+                    'places': places[:constants.DBG_LIST_LIMIT],
+                    'event': chart_vars.event
+                })
         else:
           self.all_svs.update(chart_vars.svs)
         exist_state.chart_vars_list.append(exist_cv)
@@ -317,10 +324,12 @@ class ExistenceCheckStateTracker:
     else:
       logging.info('Existence check failed for %s - %s', ', '.join(self.places),
                    ', '.join(self.all_svs))
-      self.state.uttr.counters.err('failed_existence_check', {
-          'places': self.places,
-          'svs': list(self.all_svs),
-      })
+      self.state.uttr.counters.err(
+          'failed_existence_check', {
+              'places': self.places[:constants.DBG_LIST_LIMIT],
+              'type': self.state.place_type,
+              'svs': list(self.all_svs)[:constants.DBG_LIST_LIMIT],
+          })
       return
 
     # Set "exist_svs" and "extended_exist_svs" in the same order it was originally found.
@@ -333,8 +342,13 @@ class ExistenceCheckStateTracker:
         if len(ecv.exist_svs) < len(ecv.chart_vars.svs):
           self.state.uttr.counters.err(
               'failed_partial_existence_check', {
-                  'places': self.places,
-                  'svs': list(set(ecv.chart_vars.svs) - set(exist_svs)),
+                  'places':
+                      self.places,
+                  'type':
+                      self.state.place_type,
+                  'svs':
+                      list(set(ecv.chart_vars.svs) - set(exist_svs))
+                      [:constants.DBG_LIST_LIMIT],
               })
 
       for esv in es.extended_svs:
@@ -344,8 +358,13 @@ class ExistenceCheckStateTracker:
       if len(es.extended_exist_svs) < len(es.extended_svs):
         self.state.uttr.counters.err(
             'failed_existence_check_extended_svs', {
-                'places': self.places,
-                'svs': list(set(es.extended_svs) - set(es.extended_exist_svs))
+                'places':
+                    self.places[:constants.DBG_LIST_LIMIT],
+                'type':
+                    self.state.place_type,
+                'svs':
+                    list(set(es.extended_svs) - set(es.extended_exist_svs))
+                    [:constants.DBG_LIST_LIMIT]
             })
         logging.info('Existence check failed for %s - %s',
                      ', '.join(self.places), ', '.join(es.extended_svs))
@@ -576,17 +595,35 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def handle_contained_in_across(state: PopulateState, places: List[Place]):
-  if utils.get_contained_in_type(
-      state.uttr) == ContainedInPlaceType.ACROSS and len(places) == 1:
+def handle_contained_in_type(state: PopulateState, places: List[Place]):
+  if (state.place_type == ContainedInPlaceType.DEFAULT_TYPE and
+      len(places) == 1):
     state.place_type = utils.get_default_child_place_type(places[0])
     state.uttr.counters.info('contained_in_across_fallback',
                              state.place_type.value)
+    return True
+
+  if state.place_type and places:
+    ptype = state.place_type
+    state.place_type = utils.admin_area_equiv_for_place(ptype, places[0])
+    if ptype != state.place_type:
+      state.uttr.counters.info('contained_in_admin_area_equivalent',
+                               (ptype, state.place_type))
+
+    if places[0].place_type == state.place_type.value:
+      state.uttr.counters.err('contained_in_sameplacetype',
+                              state.place_type.value)
+      return False
+
+  return True
 
 
 def get_default_contained_in_place(state: PopulateState) -> Place:
-  if state.uttr.places or not state.place_type:
+  if state.uttr.places:
     return None
+  if not state.place_type:
+    # For a non-contained-in-place query, default to USA.
+    return constants.USA
   ptype = state.place_type
   if isinstance(ptype, str):
     ptype = ContainedInPlaceType(ptype)

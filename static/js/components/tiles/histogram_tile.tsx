@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useRef } from "react";
+import React, { memo, useCallback, useEffect, useRef } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
@@ -34,6 +34,7 @@ import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import { getDateRange } from "../../utils/disaster_event_map_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface HistogramTilePropType {
   disasterEventData: DisasterEventPointData;
@@ -220,7 +221,9 @@ function shouldShowHistogram(histogramData: DataPoint[]): boolean {
 /**
  * Main histogram tile component
  */
-export function HistogramTile(props: HistogramTilePropType): JSX.Element {
+export const HistogramTile = memo(function HistogramTile(
+  props: HistogramTilePropType
+): JSX.Element {
   const svgContainer = useRef(null);
   const isInitialLoading = _.isNull(props.disasterEventData);
   let histogramData = [];
@@ -232,11 +235,14 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
     );
   }
 
-  useEffect(() => {
-    if (shouldShowHistogram(histogramData)) {
-      renderHistogram(props, histogramData);
+  const drawFn = useCallback(() => {
+    if (!shouldShowHistogram) {
+      return;
     }
+    renderHistogram(props, histogramData);
   }, [props, histogramData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
 
   // for title formatting
   const rs: ReplacementStrings = {
@@ -340,4 +346,4 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
       );
     }
   }
-}
+});

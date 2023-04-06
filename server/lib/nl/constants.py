@@ -19,188 +19,6 @@ from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
 from server.lib.nl.detection import Place
 
-STOP_WORDS: Set[str] = {
-    'ourselves',
-    'hers',
-    'between',
-    'yourself',
-    'but',
-    'again',
-    'there',
-    'about',
-    'once',
-    'during',
-    'out',
-    'very',
-    'having',
-    'with',
-    'they',
-    'own',
-    'an',
-    'be',
-    'some',
-    'for',
-    'do',
-    'its',
-    'yours',
-    'such',
-    'into',
-    'of',
-    'most',
-    'itself',
-    'other',
-    'off',
-    'is',
-    's',
-    'am',
-    'or',
-    'who',
-    'as',
-    'from',
-    'him',
-    'each',
-    'the',
-    'themselves',
-    'until',
-    'below',
-    'are',
-    'we',
-    'these',
-    'your',
-    'his',
-    'through',
-    'don',
-    'nor',
-    'me',
-    'were',
-    'her',
-    'more',
-    'himself',
-    'this',
-    'down',
-    'should',
-    'our',
-    'their',
-    'while',
-    'above',
-    'both',
-    'up',
-    'to',
-    'ours',
-    'had',
-    'she',
-    'all',
-    'no',
-    'when',
-    'at',
-    'any',
-    'before',
-    'them',
-    'same',
-    'and',
-    'been',
-    'have',
-    'in',
-    'will',
-    'on',
-    'does',
-    'yourselves',
-    'then',
-    'that',
-    'because',
-    'what',
-    'over',
-    'why',
-    'so',
-    'can',
-    'did',
-    'not',
-    'now',
-    'under',
-    'he',
-    'you',
-    'herself',
-    'has',
-    'just',
-    'where',
-    'too',
-    'only',
-    'myself',
-    'which',
-    'those',
-    'i',
-    'after',
-    'few',
-    'whom',
-    't',
-    'being',
-    'if',
-    'theirs',
-    'my',
-    'against',
-    'a',
-    'by',
-    'doing',
-    'it',
-    'how',
-    'further',
-    'was',
-    'here',
-    'than',
-    'tell',
-    'say',
-    'something',
-    'thing',
-    'among',
-    'across',
-}
-
-# TODO: remove this special casing when a better NER model is identified which
-# can always detect these.
-OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
-    'palo alto',
-    'mountain view',
-    'world',
-    'earth',
-    'africa',
-    'antarctica',
-    'asia',
-    'europe',
-    'north america',
-    'south america',
-    'oceania',
-    # San Francisco Bay Area(s)
-    'san francisco bay area',
-    'sf bay area',
-    'san francisco peninsula',
-    'san francisco north bay',
-    'san francisco south bay',
-    'san francisco east bay',
-    'sf peninsula',
-    'sf north bay',
-    'sf south bay',
-    'sf east bay',
-    # US
-    'united states',  # need this because the word "states" gets replaced.
-    'usa',
-])
-
-# Replace the detected place text with this alternate (shorter) place text.
-# The replacement text (value) should be contained within the detected text (key).
-# This is to ensure that the original query string does not need to be modified.
-# For example, if the query string contains "us states" and that is detected as a plce
-# string, we replce it with "us" only. This means that when detected place words/strings
-# are removed from the original query, "us" will be replaced and "states" will still
-# remain in the query. If the replacement string (value) is not contained within the
-# detected place (key), then the detected place and query may have nothing in common
-# which can lead to adverse downstream impact.
-SHORTEN_PLACE_DETECTION_STRING: Dict[str, str] = {
-    'us states': 'us',
-    'states us': 'us',
-    'usa states': 'usa',
-    'states usa': 'usa',
-}
-
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 
 SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
@@ -257,153 +75,6 @@ MAPS_GEO_TYPES = frozenset([
     'locality',
 ])
 
-# Note: These heuristics should be revisited if we change
-# query preprocessing (e.g. stopwords, stemming)
-QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
-    str, List[str]]]] = {
-        "Ranking": {
-            "High": [
-                "most",
-                "(?<!bottom to )top",
-                "best",  # leaving here for backwards-compatibility
-                "(?<!lowest to )highest",
-                "high",
-                "largest",
-                "biggest",
-                "greatest",
-                "strongest",
-                "richest",
-                "sickest",
-                "illest",
-                "oldest",
-                "major",  # as in 'major storms'
-                "descending",
-                "top to bottom",
-                "highest to lowest",
-            ],
-            "Low": [
-                "least",
-                "(?<!top to )bottom",
-                "worst",  # leaving here for backwards-compatibility
-                "(?<!highest to )lowest",
-                "low",
-                "smallest",
-                "weakest",
-                "youngest",
-                "poorest",
-                "healthiest",
-                "ascending",
-                "bottom to top",
-                "lowest to highest",
-            ],
-            "Best": ["best",],
-            "Worst": ["worst",],
-            "Extreme": ["extremes?", "impact"]
-        },
-        "Comparison": [
-            "compare(s|d)?",
-            "comparison",
-            "(is|has|have)( a| the)? \w+er",
-            # WARNING: These will conflate with Correlation
-            "vs",
-            "versus",
-        ],
-        "Correlation": [
-            "correlate",
-            "correlated",
-            "correlation",
-            "relationship to",
-            "relationship with",
-            "relationship between",
-            "related to",
-            "related with",
-            "related between",
-            # WARNING: These will conflate with Comparison
-            "vs",
-            "versus",
-        ],
-        "Event": {
-            "Fire": ["(wild)?fires?",],
-            "Drought": ["droughts?",],
-            "Flood": ["floods?",],
-            "Cyclone": [
-                "tropical storms?",
-                "cyclones?",
-                "hurricanes?",
-                "typhoons?",
-            ],
-            "ExtremeHeat": [
-                "(extreme )?heat",
-                "extreme(ly)? hot",
-            ],
-            "ExtremeCold": ["(extreme(ly)? )?cold",],
-            "WetBulb": ["wet(\W?)bulb",],
-            "Earthquake": ["earthquakes?",]
-        },
-        "TimeDelta": {
-            "Increase": [
-                "grow(n|th|s)?",
-                "grew",
-                "gain(s)?",
-                "increase(d|s)?",
-                "increasing",
-                "surge(d|s)?",
-                "surging",
-                "rise(d|n|s)?",
-                "rising",
-            ],
-            "Decrease": [
-                "decrease(d|s)?",
-                "decreasing",
-                "shr(ank|ink|unk)(ing)?",
-                "reduce(d|s)?",
-                "reduc(ing|tion)",
-                "decline(d|s)?",
-                "declining",
-                "plummet(ed|ing|s)?",
-                "fall(en|s)?",
-                "drop(ped|s)?",
-                "loss(es)?",
-            ],
-        },
-        "SizeType": {
-            "Big": ["big",],
-            "Small": ["small",],
-        },
-        "Overview": ["tell me (more )?about",],
-    }
-
-PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
-    "place": "places",
-    "continent": "continents",
-    "country": "countries",
-    "state": "states",
-    "province": "provinces",
-    "county": "counties",
-    "city": "cities",
-    "censuszipcodetabulationarea": "census zip code tabulation areas",
-    "town": "towns",
-    "village": "villages",
-    "censusdivision": "census divisions",
-    "borough": "boroughs",
-    "eurostatnuts1": "eurostat NUTS 1 places",
-    "eurostatnuts2": "eurostat NUTS 2 places",
-    "eurostatnuts3": "eurostat NUTS 3 places",
-    "administrativearea1": "administrative area 1 places",
-    "administrativearea2": "administrative area 2 places",
-    "administrativearea3": "administrative area 3 places",
-    "administrativearea4": "administrative area 4 places",
-    "administrativearea5": "administrative area 5 places",
-    # Schools
-    "highschool": "high schools",
-    "middleschool": "middle schools",
-    "elementaryschool": "elementary schools",
-    "primaryschool": "primary schools",
-    "publicschool": "public schools",
-    "privateschool": "private schools",
-    "school": "schools",
-}
-
 # TODO: Unify the different event maps by using a struct value.
 
 # Override the names from configs.  These have plurals, etc.
@@ -446,25 +117,141 @@ EVENT_TYPE_TO_DC_TYPES = {
     EventType.WETBULB: ["WetBulbTemperatureEvent"],
 }
 
+# Key is canonical AA types (and excludes county, province, etc.)
 CHILD_PLACE_TYPES = {
-    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.STATE,
-    ContainedInPlaceType.STATE: ContainedInPlaceType.COUNTY,
-    ContainedInPlaceType.COUNTY: ContainedInPlaceType.CITY,
+    ContainedInPlaceType.CONTINENT: ContainedInPlaceType.COUNTRY,
+    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.CITY,
 }
 
-PARENT_PLACE_TYPES = {v: k for k, v in CHILD_PLACE_TYPES.items()}
+# Key is canonical AA types (and excludes county, province, etc.).
+# Note also that we don't include CONTINENT because we virtually have no
+# data at Continent level.
+PARENT_PLACE_TYPES = {
+    ContainedInPlaceType.CITY: ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.COUNTRY
+}
 
+#
+# Equivalent place types to AdminArea1 or AdminArea2.  This maps the different ways
+# that a user may refer to admin-areas to the canonical AdminArea type.
+#
+# TODO: As we add more countries, make this map a function of the country as well.
+#
+ADMIN_DIVISION_EQUIVALENTS = {
+    ContainedInPlaceType.STATE:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.EU_NUTS_2:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.PROVINCE:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.DEPARTMENT:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.DIVISION:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.ADMIN_AREA_1:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    ContainedInPlaceType.EU_NUTS_3:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.COUNTY:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.DISTRICT:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.PARISH:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.MUNICIPALITY:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ADMIN_AREA_2:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    # NOTE: This is a hack for since district equivalents for PAK alone is AA level 3
+    ContainedInPlaceType.ADMIN_AREA_3:
+        ContainedInPlaceType.ADMIN_AREA_2,
+}
+
+# Key is canonical AA types (and excludes county, province, etc.)
+USA_PLACE_TYPE_REMAP = {
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.STATE,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.COUNTY,
+}
+
+# Key is canonical AA types (and excludes county, province, etc.)
+EU_PLACE_TYPE_REMAP = {
+    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.EU_NUTS_2,
+    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.EU_NUTS_3,
+}
+
+# Key is canonical AA types (and excludes county, province, etc.)
+PAK_PLACE_TYPE_REMAP = {
+    ContainedInPlaceType.ADMIN_AREA_1:
+        ContainedInPlaceType.ADMIN_AREA_1,
+    # TODO: Remove this after fixing in the KG.
+    ContainedInPlaceType.ADMIN_AREA_2:
+        ContainedInPlaceType.ADMIN_AREA_3,
+}
+
+USA = Place('country/USA', 'USA', 'Country', 'country/USA')
+
+# This is only for US.
 DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
-    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
-    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
-    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.COUNTY: USA,
+    ContainedInPlaceType.STATE: USA,
+    ContainedInPlaceType.CITY: USA,
 }
 
-MAP_PLACE_TYPES = frozenset([
-    ContainedInPlaceType.COUNTY, ContainedInPlaceType.STATE,
-    ContainedInPlaceType.COUNTRY
+EU_COUNTRIES = frozenset([
+    "country/ALB",
+    "country/AUT",
+    "country/BEL",
+    "country/BGR",
+    "country/CHE",
+    "country/CYP",
+    "country/CZE",
+    "country/DEU",
+    "country/DNK",
+    "country/ESP",
+    "country/EST",
+    "country/FIN",
+    "country/FRA",
+    "country/FXX",
+    "country/GBR",
+    "country/GRC",
+    "country/HRV",
+    "country/HUN",
+    "country/IRL",
+    "country/ISL",
+    "country/ITA",
+    "country/LIE",
+    "country/LTU",
+    "country/LUX",
+    "country/LVA",
+    "country/MKD",
+    "country/MLT",
+    "country/MNE",
+    "country/NLD",
+    "country/NOR",
+    "country/POL",
+    "country/PRT",
+    "country/ROU",
+    "country/SRB",
+    "country/SVK",
+    "country/SVN",
+    "country/SWE",
+    "country/TUR",
 ])
+
+NON_EU_MAP_COUNTRIES = [
+    'country/BGD',
+    'country/CHN',
+    'country/IND',
+    'country/NPL',
+    'country/PAK',
+    'country/USA',
+]
+
+ADMIN_AREA_MAP_COUNTRIES = frozenset(list(EU_COUNTRIES) + NON_EU_MAP_COUNTRIES)
 
 # Key is SV DCID and value is (denominator SV DCID, name snippet for title).
 ADDITIONAL_DENOMINATOR_VARS = {
@@ -657,4 +444,23 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
         "CO₂ emissions from on-road vehicles, aviation, shipping, railways and other modes of transportation (measured in tonnes).",
     "Annual_Emissions_CarbonDioxide_WasteManagement":
         "CO₂ emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes).",
+}
+
+# Have a shorter limit to avoid spamming the json.
+DBG_LIST_LIMIT = 3
+
+#
+# Sometimes the an SV/topic co-occurring with another higher-ranked
+# SV/topic may be undesirable.  For example, for the
+# [projected temperature extremes] query we don't want to also show
+# the current temperature.  This happens because descriptions the
+# SVs are close enough.
+# This map has a "key" --blocks--> "values" relation. If "key" is
+# a higher ranking SV than any of the "values".
+#
+SV_BLOCKS_MAP = {
+    "dc/topic/ProjectedClimateExtremes": [
+        "dc/topic/Temperature", "dc/topic/WetBulbTemperature"
+    ],
+    "dc/topic/WetBulbTemperature": ["dc/topic/Temperature"],
 }

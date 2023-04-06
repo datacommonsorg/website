@@ -51,6 +51,7 @@ def main():
   chart_config = []
   for filename in os.listdir(chart_config_dir):
     if filename.endswith(".json"):
+      print("Processing: ", filename)
       with open(os.path.join(chart_config_dir, filename),
                 encoding='utf-8') as f:
         chart_config.extend(json.load(f))
@@ -62,6 +63,8 @@ def main():
   # Extract strings from each chart
   for conf in chart_config:
     categories.add(conf['category'])
+    if 'topic' in conf:
+      categories.add(conf['topic'])
     (id, message) = extract_message_from_chart(conf)
     maybe_add_message(messages, id, message)
     if conf.get('relatedChart', {}).get('scale', False):

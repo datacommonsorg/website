@@ -87,6 +87,21 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
                     "title": "Median Income for Married Couple Family Households in California",
@@ -113,6 +128,10 @@
           }
         ],
         "statVarSpec": {
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
           "Mean_Income_Household_FamilyHousehold": {
             "name": "Average Income for Family Households",
             "statVar": "Mean_Income_Household_FamilyHousehold"

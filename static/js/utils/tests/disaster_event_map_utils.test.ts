@@ -544,92 +544,6 @@ test("fetch date list for single eventType", () => {
   });
 });
 
-test("fetch data for all disasters with date as YYYY-MM", () => {
-  axios_mock();
-  const eventSpecs = Object.keys(DISASTER_EVENT_TYPES).map((disasterType) => {
-    return {
-      id: disasterType,
-      name: disasterType,
-      eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
-      color: DISASTER_EVENT_COLORS[disasterType],
-      defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
-      displayProp: DISASTER_DISPLAY_PROP[disasterType],
-      endDateProp: [],
-    };
-  });
-  return fetchDisasterEventPoints({
-    eventTypeSpecs: eventSpecs,
-    place: TEST_PLACE,
-    selectedDate: YYYY_MM_DATE,
-    severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
-    useCache: true,
-  }).then((result) => {
-    expect(result[EARTHQUAKE_DISASTER_TYPE_ID].eventPoints).toEqual(
-      expect.arrayContaining([
-        EARTHQUAKE_EVENT_1_PROCESSED,
-        EARTHQUAKE_EVENT_2_PROCESSED,
-      ])
-    );
-    expect(result[STORM_DISASTER_TYPE_ID].eventPoints).toEqual(
-      expect.arrayContaining([
-        TORNADO_EVENT_1_PROCESSED,
-        CYCLONE_EVENT_1_PROCESSED,
-      ])
-    );
-    expect(result[EARTHQUAKE_DISASTER_TYPE_ID].provenanceInfo).toEqual({
-      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
-    });
-    expect(result[STORM_DISASTER_TYPE_ID].provenanceInfo).toEqual({
-      [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
-      [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
-    });
-  });
-});
-
-test("fetch data for all disasters with date as YYYY", () => {
-  axios_mock();
-  const eventSpecs = Object.keys(DISASTER_EVENT_TYPES).map((disasterType) => {
-    return {
-      id: disasterType,
-      name: disasterType,
-      eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
-      color: DISASTER_EVENT_COLORS[disasterType],
-      defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
-      displayProp: DISASTER_DISPLAY_PROP[disasterType],
-      endDateProp: [],
-    };
-  });
-  return fetchDisasterEventPoints({
-    eventTypeSpecs: eventSpecs,
-    place: TEST_PLACE,
-    selectedDate: YYYY_DATE,
-    severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
-    useCache: true,
-  }).then((result) => {
-    expect(result[EARTHQUAKE_DISASTER_TYPE_ID].eventPoints).toEqual(
-      expect.arrayContaining([
-        EARTHQUAKE_EVENT_1_PROCESSED,
-        EARTHQUAKE_EVENT_2_PROCESSED,
-        EARTHQUAKE_EVENT_3_PROCESSED,
-      ])
-    );
-    expect(result[STORM_DISASTER_TYPE_ID].eventPoints).toEqual(
-      expect.arrayContaining([
-        TORNADO_EVENT_1_PROCESSED,
-        TORNADO_EVENT_2_PROCESSED,
-        CYCLONE_EVENT_1_PROCESSED,
-      ])
-    );
-    expect(result[EARTHQUAKE_DISASTER_TYPE_ID].provenanceInfo).toEqual({
-      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
-    });
-    expect(result[STORM_DISASTER_TYPE_ID].provenanceInfo).toEqual({
-      [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
-      [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
-    });
-  });
-});
-
 test("fetch data for single disaster multiple events with date as YYYY-MM", () => {
   axios_mock();
   const eventSpec = {
@@ -643,7 +557,7 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
     endDateProp: [],
   };
   return fetchDisasterEventPoints({
-    eventTypeSpecs: [eventSpec],
+    eventTypeSpec: eventSpec,
     place: TEST_PLACE,
     selectedDate: YYYY_MM_DATE,
     severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
@@ -653,10 +567,10 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
       TORNADO_EVENT_1_PROCESSED,
       CYCLONE_EVENT_1_PROCESSED,
     ];
-    expect(result[STORM_DISASTER_TYPE_ID].eventPoints).toEqual(
+    expect(result.eventPoints).toEqual(
       expect.arrayContaining(expectedEventPoints)
     );
-    expect(result[STORM_DISASTER_TYPE_ID].provenanceInfo).toEqual({
+    expect(result.provenanceInfo).toEqual({
       [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
       [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
     });
@@ -676,7 +590,7 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
     endDateProp: [],
   };
   return fetchDisasterEventPoints({
-    eventTypeSpecs: [eventSpec],
+    eventTypeSpec: eventSpec,
     place: TEST_PLACE,
     selectedDate: YYYY_DATE,
     severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
@@ -687,10 +601,10 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
       TORNADO_EVENT_2_PROCESSED,
       CYCLONE_EVENT_1_PROCESSED,
     ];
-    expect(result[STORM_DISASTER_TYPE_ID].eventPoints).toEqual(
+    expect(result.eventPoints).toEqual(
       expect.arrayContaining(expectedEventPoints)
     );
-    expect(result[STORM_DISASTER_TYPE_ID].provenanceInfo).toEqual({
+    expect(result.provenanceInfo).toEqual({
       [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
       [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
     });
@@ -710,7 +624,7 @@ test("fetch data for single event with date as YYYY-MM", () => {
     endDateProp: [],
   };
   return fetchDisasterEventPoints({
-    eventTypeSpecs: [eventSpec],
+    eventTypeSpec: eventSpec,
     place: TEST_PLACE,
     selectedDate: YYYY_MM_DATE,
     severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
@@ -720,10 +634,10 @@ test("fetch data for single event with date as YYYY-MM", () => {
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
     ];
-    expect(result[EARTHQUAKE_DISASTER_TYPE_ID].eventPoints).toEqual(
+    expect(result.eventPoints).toEqual(
       expect.arrayContaining(expectedEventPoints)
     );
-    expect(result[EARTHQUAKE_DISASTER_TYPE_ID].provenanceInfo).toEqual({
+    expect(result.provenanceInfo).toEqual({
       [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
     });
   });
@@ -742,7 +656,7 @@ test("fetch data for single event with date as YYYY", () => {
     endDateProp: [],
   };
   return fetchDisasterEventPoints({
-    eventTypeSpecs: [eventSpec],
+    eventTypeSpec: eventSpec,
     place: TEST_PLACE,
     selectedDate: YYYY_DATE,
     severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
@@ -753,10 +667,10 @@ test("fetch data for single event with date as YYYY", () => {
       EARTHQUAKE_EVENT_2_PROCESSED,
       EARTHQUAKE_EVENT_3_PROCESSED,
     ];
-    expect(result[EARTHQUAKE_DISASTER_TYPE_ID].eventPoints).toEqual(
+    expect(result.eventPoints).toEqual(
       expect.arrayContaining(expectedEventPoints)
     );
-    expect(result[EARTHQUAKE_DISASTER_TYPE_ID].provenanceInfo).toEqual({
+    expect(result.provenanceInfo).toEqual({
       [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
     });
   });

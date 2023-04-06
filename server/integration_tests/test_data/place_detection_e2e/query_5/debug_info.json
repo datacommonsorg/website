@@ -4,348 +4,303 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "failed_existence_check_extended_svs": [
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_PerArea"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "GrowthRate_Count_Person"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_TwoOrMoreRaces",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianAlone",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_SomeOtherRaceAlone",
-          "Count_Person_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_WhiteAlone",
+    "ERROR": {
+      "failed_existence_check_extended_svs": [
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_PerArea"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "GrowthRate_Count_Person"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_SomeOtherRaceAlone",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_SomeOtherRaceAlone",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Male",
+            "Count_Person_Female"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Producer_AsianAlone",
+            "Count_Person_Producer_BlackOrAfricanAmericanAlone",
+            "Count_Person_Producer_TwoOrMoreRaces"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Male",
+            "Count_Person_Female"
+          ],
+          "type": null
+        }
+      ],
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_PerArea"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "GrowthRate_Count_Person"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_OneRace"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_TwoOrMoreRaces"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Female"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Producer_TwoOrMoreRaces"
+          ],
+          "type": null
+        },
+        {
+          "places": [
+            "wikidataId/Q1489"
+          ],
+          "svs": [
+            "Count_Person_Male"
+          ],
+          "type": null
+        }
+      ]
+    },
+    "INFO": {
+      "filtered_svs": [
+        [
+          "Count_Person",
+          "Count_Person_PerArea",
+          "GrowthRate_Count_Person",
+          "dc/topic/RacialBreakdown",
           "Count_Person_OneRace",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_NotHispanicOrLatino",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_NonWhite",
-          "Count_Person_AsianOrPacificIslander"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
           "Count_Person_TwoOrMoreRaces",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianAlone",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_SomeOtherRaceAlone",
-          "Count_Person_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_WhiteAlone",
-          "Count_Person_OneRace",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_NotHispanicOrLatino",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_NonWhite",
-          "Count_Person_AsianOrPacificIslander"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
           "Count_Person_Female",
-          "Count_Person_Male"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Producer_AsianAlone",
-          "Count_Person_Producer_BlackOrAfricanAmericanAlone",
-          "Count_Person_Producer_WhiteAlone",
           "Count_Person_Producer_TwoOrMoreRaces",
-          "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Producer_HispanicOrLatino"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Female",
           "Count_Person_Male"
         ]
-      }
-    ],
-    "failed_partial_existence_check": [
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_PerArea"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "GrowthRate_Count_Person"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_OneRace"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_TwoOrMoreRaces"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Female"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Producer_TwoOrMoreRaces"
-        ]
-      },
-      {
-        "places": [
-          "wikidataId/Q1489"
-        ],
-        "svs": [
-          "Count_Person_Male"
-        ]
-      }
-    ],
-    "filtered_svs": [
-      "Count_Person",
-      "Count_Person_PerArea",
-      "GrowthRate_Count_Person",
-      "Count_Person_OneRace",
-      "Count_Person_TwoOrMoreRaces",
-      "Count_Person_Female",
-      "Count_Person_Producer_TwoOrMoreRaces",
-      "Count_Person_Male"
-    ],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "simple"
-    ],
-    "stat_var_extensions": [
-      {
-        "Count_Person": [
-          "Count_Person"
-        ],
-        "Count_Person_Female": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ],
-        "Count_Person_Male": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ],
-        "Count_Person_OneRace": [
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_AsianAlone",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianOrPacificIslander",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NonWhite",
-          "Count_Person_NotHispanicOrLatino",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_OneRace",
-          "Count_Person_SomeOtherRaceAlone",
-          "Count_Person_TwoOrMoreRaces",
-          "Count_Person_WhiteAlone",
-          "Count_Person_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-        ],
-        "Count_Person_PerArea": [
-          "Count_Person_PerArea"
-        ],
-        "Count_Person_Producer_TwoOrMoreRaces": [
-          "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Producer_AsianAlone",
-          "Count_Person_Producer_BlackOrAfricanAmericanAlone",
-          "Count_Person_Producer_HispanicOrLatino",
-          "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Producer_TwoOrMoreRaces",
-          "Count_Person_Producer_WhiteAlone"
-        ],
-        "Count_Person_TwoOrMoreRaces": [
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_AsianAlone",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianOrPacificIslander",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone",
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NonWhite",
-          "Count_Person_NotHispanicOrLatino",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_NotHispanicOrLatino_AsianAlone",
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_OneRace",
-          "Count_Person_SomeOtherRaceAlone",
-          "Count_Person_TwoOrMoreRaces",
-          "Count_Person_WhiteAlone",
-          "Count_Person_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-        ],
-        "GrowthRate_Count_Person": [
-          "GrowthRate_Count_Person"
-        ]
-      }
-    ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "simple"
+      ],
+      "stat_var_extensions": [
+        {
+          "Count_Person": [
+            "Count_Person"
+          ],
+          "Count_Person_Female": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ],
+          "Count_Person_Male": [
+            "Count_Person_Female",
+            "Count_Person_Male"
+          ],
+          "Count_Person_OneRace": [
+            "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_AsianAlone",
+            "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AsianOrPacificIslander",
+            "Count_Person_BlackOrAfricanAmericanAlone",
+            "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino",
+            "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_HispanicOrLatino_AsianAlone",
+            "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
+            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+            "Count_Person_HispanicOrLatino_WhiteAlone",
+            "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_NonWhite",
+            "Count_Person_NotHispanicOrLatino",
+            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_NotHispanicOrLatino_AsianAlone",
+            "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
+            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+            "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_OneRace",
+            "Count_Person_SomeOtherRaceAlone",
+            "Count_Person_TwoOrMoreRaces",
+            "Count_Person_WhiteAlone",
+            "Count_Person_WhiteAloneNotHispanicOrLatino",
+            "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          ],
+          "Count_Person_PerArea": [
+            "Count_Person_PerArea"
+          ],
+          "Count_Person_Producer_TwoOrMoreRaces": [
+            "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_Producer_AsianAlone",
+            "Count_Person_Producer_BlackOrAfricanAmericanAlone",
+            "Count_Person_Producer_HispanicOrLatino",
+            "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_Producer_TwoOrMoreRaces",
+            "Count_Person_Producer_WhiteAlone"
+          ],
+          "Count_Person_TwoOrMoreRaces": [
+            "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_AsianAlone",
+            "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_AsianOrPacificIslander",
+            "Count_Person_BlackOrAfricanAmericanAlone",
+            "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino",
+            "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_HispanicOrLatino_AsianAlone",
+            "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
+            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+            "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+            "Count_Person_HispanicOrLatino_WhiteAlone",
+            "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+            "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_NonWhite",
+            "Count_Person_NotHispanicOrLatino",
+            "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_NotHispanicOrLatino_AsianAlone",
+            "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander",
+            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+            "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+            "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_OneRace",
+            "Count_Person_SomeOtherRaceAlone",
+            "Count_Person_TwoOrMoreRaces",
+            "Count_Person_WhiteAlone",
+            "Count_Person_WhiteAloneNotHispanicOrLatino",
+            "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          ],
+          "GrowthRate_Count_Person": [
+            "GrowthRate_Count_Person"
+          ]
+        }
+      ],
+      "topics_processed": [
+        {
+          "dc/topic/RacialBreakdown": {
+            "peer_groups": [],
+            "svs": []
+          }
+        }
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.25,
+      "extend_svs": 1.8,
+      "fulfillment": 2.09,
+      "get_sv_details": 0.25,
+      "has_series_with_single_datapoint": 0.14,
+      "query_detection": 0.57,
+      "sv_existence_for_places": 0.14,
+      "topic_calls": 0.0
+    }
   },
   "data_spec": [
     {
@@ -356,6 +311,7 @@
       ],
       "places": [
         {
+          "country": "country/MEX",
           "dcid": "wikidataId/Q1489",
           "name": "Mexico City",
           "place_type": "City"
@@ -380,6 +336,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/MEX",
               "dcid": "wikidataId/Q1489",
               "name": "Mexico City",
               "place_type": "City"
@@ -395,6 +352,7 @@
         "Count_Person",
         "Count_Person_PerArea",
         "GrowthRate_Count_Person",
+        "dc/topic/RacialBreakdown",
         "Count_Person_OneRace",
         "Count_Person_TwoOrMoreRaces",
         "Count_Person_Female",
@@ -410,16 +368,19 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/06",
           "name": "California",
           "place_type": "State"
         },
         {
-          "dcid": "geoId/36",
-          "name": "New York",
-          "place_type": "State"
+          "country": "country/USA",
+          "dcid": "geoId/3608570915",
+          "name": "Staten Island",
+          "place_type": "CensusCountyDivision"
         },
         {
+          "country": "country/USA",
           "dcid": "geoId/53",
           "name": "Washington",
           "place_type": "State"
@@ -437,30 +398,33 @@
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
           "chart_type": 3,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
@@ -472,30 +436,59 @@
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
-            "title": ""
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
           "chart_type": 3,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
@@ -514,23 +507,26 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
           ]
         },
         {
@@ -549,23 +545,26 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
@@ -584,23 +583,26 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -619,23 +621,26 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
@@ -654,23 +659,102 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/06",
               "name": "California",
               "place_type": "State"
             },
             {
-              "dcid": "geoId/36",
-              "name": "New York",
-              "place_type": "State"
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
             },
             {
+              "country": "country/USA",
               "dcid": "geoId/53",
               "name": "Washington",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/53",
+              "name": "Washington",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/3608570915",
+              "name": "Staten Island",
+              "place_type": "CensusCountyDivision"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/53",
+              "name": "Washington",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
@@ -685,6 +769,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/12",
           "name": "Florida",
           "place_type": "State"
@@ -699,48 +784,76 @@
             "chart_type": "timeline",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
           "chart_type": 0,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "timeline",
+            "chart_type": "bar chart",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": null,
             "ranking_types": [],
-            "source_topic": "",
-            "title": ""
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
-          "chart_type": 0,
+          "chart_type": 3,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
@@ -759,13 +872,66 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 10,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar"
           ]
         },
         {
@@ -784,13 +950,14 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
@@ -809,13 +976,14 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -834,40 +1002,14 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 8,
-            "chart_type": "timeline",
-            "class": 1,
-            "description": "",
-            "include_percapita": true,
-            "place_type": null,
-            "ranking_types": [],
-            "source_topic": "",
-            "title": ""
-          },
-          "chart_type": 0,
-          "event": null,
-          "places": [
-            {
-              "dcid": "geoId/12",
-              "name": "Florida",
-              "place_type": "State"
-            }
-          ],
-          "svs": [
-            "dc/x3gghqtglpr59",
-            "Count_Worker_NAICSFinanceInsurance",
-            "WagesTotal_Worker_NAICSFinanceInsurance"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
@@ -886,13 +1028,116 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/12",
               "name": "Florida",
               "place_type": "State"
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 11,
+            "chart_type": "bar chart",
+            "class": 1,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_1000To1249USDollar",
+            "Count_HousingUnit_WithRent_1250To1499USDollar",
+            "Count_HousingUnit_WithRent_1500To1999USDollar",
+            "Count_HousingUnit_WithRent_100To149USDollar",
+            "Count_HousingUnit_WithRent_Upto100USDollar",
+            "Count_HousingUnit_WithRent_150To199USDollar",
+            "Count_HousingUnit_WithRent_2000To2499USDollar",
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+            "Count_HousingUnit_WithRent_2500To2999USDollar",
+            "Count_HousingUnit_WithRent_200To249USDollar",
+            "Count_HousingUnit_WithRent_250To299USDollar",
+            "Count_HousingUnit_WithRent_3000To3499USDollar",
+            "Count_HousingUnit_WithRent_3500OrMoreUSDollar",
+            "Count_HousingUnit_WithRent_300To349USDollar",
+            "Count_HousingUnit_WithRent_350To399USDollar",
+            "Count_HousingUnit_WithRent_400To449USDollar",
+            "Count_HousingUnit_WithRent_450To499USDollar",
+            "Count_HousingUnit_WithRent_500To549USDollar",
+            "Count_HousingUnit_WithRent_550To599USDollar",
+            "Count_HousingUnit_WithRent_600To649USDollar",
+            "Count_HousingUnit_WithRent_650To699USDollar",
+            "Count_HousingUnit_WithRent_700To749USDollar",
+            "Count_HousingUnit_WithRent_750To799USDollar",
+            "Count_HousingUnit_WithRent_800To899USDollar",
+            "Count_HousingUnit_WithRent_900To999USDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "timeline",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 0,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
@@ -902,225 +1147,292 @@
     {
       "classifications": [
         {
-          "ranking_type": [
-            1
-          ],
-          "type": 2
-        },
-        {
           "contained_in_place_type": "State",
           "type": 4
         }
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "country/USA",
-          "name": "United States of America",
+          "name": "United States",
           "place_type": "Country"
         }
       ],
-      "query": "US states which have that highest median income",
-      "query_type": 2,
+      "query": "US states which have that the cheapest houses",
+      "query_type": 4,
       "ranked_charts": [
         {
           "attr": {
             "block_id": 1,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
+            "ranking_types": [],
+            "source_topic": "dc/topic/HomeValue",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
           "svs": [
-            "Median_Income_Person"
+            "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           ]
         },
         {
           "attr": {
             "block_id": 2,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
-            "include_percapita": true,
+            "include_percapita": false,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "",
-            "title": ""
+            "ranking_types": [],
+            "source_topic": "dc/topic/HomeValue",
+            "title": "Home Value In US Dollars"
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
           "svs": [
-            "Median_Income_Household"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+            "Count_HousingUnit_HomeValue100000To124999USDollar",
+            "Count_HousingUnit_HomeValue10000To14999USDollar",
+            "Count_HousingUnit_HomeValue125000To149999USDollar",
+            "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+            "Count_HousingUnit_HomeValue150000To174999USDollar",
+            "Count_HousingUnit_HomeValue15000To19999USDollar",
+            "Count_HousingUnit_HomeValue175000To199999USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue200000To249999USDollar",
+            "Count_HousingUnit_HomeValue20000To24999USDollar",
+            "Count_HousingUnit_HomeValue250000To299999USDollar",
+            "Count_HousingUnit_HomeValue25000To29999USDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue30000To34999USDollar",
+            "Count_HousingUnit_HomeValue35000To39999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue40000To49999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue50000To59999USDollar",
+            "Count_HousingUnit_HomeValue60000To69999USDollar",
+            "Count_HousingUnit_HomeValue70000To79999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar",
+            "Count_HousingUnit_HomeValue80000To89999USDollar",
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 3,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
           "svs": [
-            "Median_Earnings_Person"
+            "Count_HousingUnit_HomeValue400000To499999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 4,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
           "svs": [
-            "Median_Income_Household_FamilyHousehold"
+            "Count_HousingUnit_HomeValue300000To399999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 5,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
           "svs": [
-            "Mean_Income_Household"
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 6,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
           "svs": [
-            "dc/x3gghqtglpr59"
+            "Count_HousingUnit_HomeValue500000To749999USDollar"
           ]
         },
         {
           "attr": {
             "block_id": 7,
-            "chart_type": "ranking table",
+            "chart_type": "comparison map",
             "class": 0,
             "description": "",
             "include_percapita": true,
             "place_type": "State",
-            "ranking_types": [
-              1
-            ],
+            "ranking_types": [],
             "source_topic": "",
             "title": ""
           },
-          "chart_type": 2,
+          "chart_type": 1,
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "country/USA",
-              "name": "United States of America",
+              "name": "United States",
               "place_type": "Country"
             }
           ],
           "svs": [
-            "Median_Income_Household_NonfamilyHousehold"
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": "State",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "country/USA",
+              "name": "United States",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "Count_HousingUnit_HomeValue175000To199999USDollar"
           ]
         }
       ],
       "session_id": "007_999999999",
       "svs": [
-        "Median_Income_Person",
-        "Median_Income_Household",
-        "Median_Earnings_Person",
-        "Median_Income_Household_FamilyHousehold",
-        "Mean_Income_Household",
-        "dc/x3gghqtglpr59",
-        "Median_Income_Household_NonfamilyHousehold"
+        "dc/topic/HomeValue",
+        "Count_HousingUnit_HomeValue400000To499999USDollar",
+        "Count_HousingUnit_HomeValue300000To399999USDollar",
+        "Count_HousingUnit_HomeValue750000To999999USDollar",
+        "Count_HousingUnit_HomeValue500000To749999USDollar",
+        "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+        "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+        "Count_HousingUnit_HomeValue175000To199999USDollar"
       ]
     },
     {
@@ -1131,6 +1443,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -1155,6 +1468,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -1178,6 +1492,7 @@
   "places_resolved": "(name: Mexico City, dcid: wikidataId/Q1489); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/MEX",
       "dcid": "wikidataId/Q1489",
       "name": "Mexico City",
       "place_type": "City"
@@ -1186,15 +1501,16 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "wikidataId/Q1489"
-      ],
+      "dcids_resolved": {
+        "mexico city": "wikidataId/Q1489"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/MEX",
           "dcid": "wikidataId/Q1489",
           "name": "Mexico City",
           "place_type": "City"
@@ -1217,19 +1533,24 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7989295721054077,
-      0.6706737279891968,
-      0.6289511919021606,
-      0.6197829842567444,
-      0.6192010641098022,
-      0.6103935837745667,
-      0.59280925989151,
+      0.7989296913146973,
+      0.670673668384552,
+      0.6289510130882263,
+      0.6240816712379456,
+      0.6197832226753235,
+      0.619201123714447,
+      0.6103934645652771,
+      0.5928092002868652,
       0.591192364692688
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "Count_Person",
       "Count_Person_PerArea",
       "GrowthRate_Count_Person",
+      "dc/topic/RacialBreakdown",
       "Count_Person_OneRace",
       "Count_Person_TwoOrMoreRaces",
       "Count_Person_Female",
@@ -1238,79 +1559,83 @@
     ],
     "SV_to_Sentences": {
       "Count_Person": [
-        "Population (0.7989295721054077)",
-        "Population count (0.7335239052772522)",
-        "Size of the population (0.7168888449668884)",
-        "Total number of people in the population (0.7077703475952148)",
-        "Total Number of People in a Population (0.7049037218093872)",
-        "Total number of people in a population (0.7049035429954529)",
-        "Number of inhabitants (0.620228111743927)"
+        "Population (0.7989)",
+        "Population count (0.7335)",
+        "Size of the population (0.7169)",
+        "Total number of people in the population (0.7078)",
+        "Total number of people in a population (0.7049)",
+        "Total Number of People in a Population (0.7049)",
+        "Number of inhabitants (0.6202)"
       ],
       "Count_Person_Female": [
-        "Population: Female (0.6103935837745667)"
+        "Population: Female (0.6104)"
       ],
       "Count_Person_Male": [
-        "Population: Male (0.591192364692688)"
+        "Population: Male (0.5912)"
       ],
       "Count_Person_OneRace": [
-        "Population: One Race (0.6197829842567444)"
+        "Population: One Race (0.6198)"
       ],
       "Count_Person_PerArea": [
-        "Population Density (0.6706737279891968)",
-        "number of people per area (0.5703409910202026)"
+        "Population Density (0.6707)"
       ],
       "Count_Person_Producer_TwoOrMoreRaces": [
-        "Population: Producer, Two or More Races (0.59280925989151)"
+        "Population: Producer, Two or More Races (0.5928)"
       ],
       "Count_Person_TwoOrMoreRaces": [
-        "Population: Two or More Races (0.6192010641098022)"
+        "Population: Two or More Races (0.6192)"
       ],
       "GrowthRate_Count_Person": [
-        "Increase in population (0.6289511919021606)",
-        "Population Growth Rate (0.612326979637146)",
-        "Population growth rate (0.612326979637146)",
-        "Rate of Population Growth (0.6034151315689087)",
-        "Rate of population growth (0.6034151315689087)",
-        "Population increase rate (0.5746009349822998)"
+        "Increase in population (0.629)",
+        "Population growth rate (0.6123)",
+        "Population Growth Rate (0.6123)",
+        "Rate of population growth (0.6034)",
+        "Rate of Population Growth (0.6034)"
+      ],
+      "dc/topic/RacialBreakdown": [
+        "demographic distribution (0.6241)",
+        "population race (0.5882)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Person": [
-      "Population (0.7989295721054077)",
-      "Population count (0.7335239052772522)",
-      "Size of the population (0.7168888449668884)",
-      "Total number of people in the population (0.7077703475952148)",
-      "Total Number of People in a Population (0.7049037218093872)",
-      "Total number of people in a population (0.7049035429954529)",
-      "Number of inhabitants (0.620228111743927)"
+      "Population (0.7989)",
+      "Population count (0.7335)",
+      "Size of the population (0.7169)",
+      "Total number of people in the population (0.7078)",
+      "Total number of people in a population (0.7049)",
+      "Total Number of People in a Population (0.7049)",
+      "Number of inhabitants (0.6202)"
     ],
     "Count_Person_Female": [
-      "Population: Female (0.6103935837745667)"
+      "Population: Female (0.6104)"
     ],
     "Count_Person_Male": [
-      "Population: Male (0.591192364692688)"
+      "Population: Male (0.5912)"
     ],
     "Count_Person_OneRace": [
-      "Population: One Race (0.6197829842567444)"
+      "Population: One Race (0.6198)"
     ],
     "Count_Person_PerArea": [
-      "Population Density (0.6706737279891968)",
-      "number of people per area (0.5703409910202026)"
+      "Population Density (0.6707)"
     ],
     "Count_Person_Producer_TwoOrMoreRaces": [
-      "Population: Producer, Two or More Races (0.59280925989151)"
+      "Population: Producer, Two or More Races (0.5928)"
     ],
     "Count_Person_TwoOrMoreRaces": [
-      "Population: Two or More Races (0.6192010641098022)"
+      "Population: Two or More Races (0.6192)"
     ],
     "GrowthRate_Count_Person": [
-      "Increase in population (0.6289511919021606)",
-      "Population Growth Rate (0.612326979637146)",
-      "Population growth rate (0.612326979637146)",
-      "Rate of Population Growth (0.6034151315689087)",
-      "Rate of population growth (0.6034151315689087)",
-      "Population increase rate (0.5746009349822998)"
+      "Increase in population (0.629)",
+      "Population growth rate (0.6123)",
+      "Population Growth Rate (0.6123)",
+      "Rate of population growth (0.6034)",
+      "Rate of Population Growth (0.6034)"
+    ],
+    "dc/topic/RacialBreakdown": [
+      "demographic distribution (0.6241)",
+      "population race (0.5882)"
     ]
   },
   "time_delta_classification": "<None>"

@@ -1,0 +1,72 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "disasterEventMapTileSpec": {
+                      "pointEventTypeKey": [
+                        "drought"
+                      ]
+                    },
+                    "title": "Droughts in Africa",
+                    "type": "DISASTER_EVENT_MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Droughts in Africa",
+            "type": "DISASTER_EVENT"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Continent": "Country"
+      },
+      "eventTypeSpec": {
+        "drought": {
+          "color": "#ffa000",
+          "defaultSeverityFilter": {
+            "displayName": "Area",
+            "lowerLimit": 10.0,
+            "prop": "area",
+            "unit": "SquareKilometer",
+            "upperLimit": 100000.0
+          },
+          "displayProp": [
+            {
+              "displayName": "Area",
+              "prop": "area",
+              "unit": "SquareKilometer"
+            }
+          ],
+          "endDateProp": [
+            "endDate"
+          ],
+          "eventTypeDcids": [
+            "DroughtEvent"
+          ],
+          "id": "drought",
+          "name": "Drought",
+          "polygonGeoJsonProp": "geoJsonCoordinatesDP1"
+        }
+      },
+      "placeDcid": [
+        "africa"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "africa",
+    "name": "Africa",
+    "place_type": "Continent"
+  }
+}

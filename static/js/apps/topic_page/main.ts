@@ -28,7 +28,11 @@ import { TopicsSummary } from "../../types/app/topic_page_types";
 import { App } from "./app";
 
 window.onload = () => {
-  renderPage();
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
 };
 
 function renderPage(): void {
@@ -36,6 +40,9 @@ function renderPage(): void {
   const topic = document.getElementById("metadata").dataset.topicId;
   // TODO(beets): remove these if they remain unused.
   const dcid = document.getElementById("metadata").dataset.placeDcid;
+  const morePlaces = JSON.parse(
+    document.getElementById("metadata").dataset.morePlaces
+  );
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType =
     document.getElementById("place-type").dataset.pt || DEFAULT_PAGE_PLACE_TYPE;
@@ -63,6 +70,7 @@ function renderPage(): void {
   ReactDOM.render(
     React.createElement(App, {
       place,
+      morePlaces,
       topic,
       pageConfig,
       topicsSummary,

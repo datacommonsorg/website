@@ -112,20 +112,20 @@ export function fetchDateList(
       MAX_YEARS;
     const dateList = [];
     const dateStringCut = increaseByYear ? 4 : 7;
-    // When creating the Date object, Date.parse() will interpret a date-only
-    // string as UTC. Necessary because toISOString() gets the iso string of the
+    // When creating the Date object, a date-only string will be interpretted as
+    // UTC. Necessary because toISOString() gets the iso string of the
     // date in UTC.
-    const currDate = new Date(Date.parse(minDate));
-    const endDate = new Date(Date.parse(maxDate));
+    const currDate = new Date(minDate);
+    const endDate = new Date(maxDate);
     // Need to generate the list of dates from min -> max because otherwise,
     // dates may get skipped or duplicated.
     while (currDate <= endDate) {
       const dateString = currDate.toISOString().substring(0, dateStringCut);
       dateList.push(dateString);
       if (increaseByYear) {
-        currDate.setFullYear(currDate.getFullYear() + 1);
+        currDate.setUTCFullYear(currDate.getUTCFullYear() + 1);
       } else {
-        currDate.setMonth(currDate.getMonth() + 1);
+        currDate.setUTCMonth(currDate.getUTCMonth() + 1);
       }
     }
     // If end date wasn't added to the dateList, add it now
@@ -370,43 +370,30 @@ export function getDateRange(selectedDate: string): [string, string] {
  */
 export function fetchDisasterEventPoints(
   dataOptions: DisasterDataOptions
-): Promise<Record<string, DisasterEventPointData>> {
+): Promise<DisasterEventPointData> {
   // Date range to fetch data for.
   const dateRange = getDateRange(dataOptions.selectedDate);
   const promises = [];
-  // list of spec ids that correspond to the spec id used for the promise at
-  // that index in the list of promises.
-  const promiseSpecId = [];
-  for (const eventSpec of dataOptions.eventTypeSpecs) {
-    for (const eventType of eventSpec.eventTypeDcids) {
-      promiseSpecId.push(eventSpec.id);
-      promises.push(
-        fetchEventPoints(
-          eventType,
-          dataOptions.place,
-          dateRange,
-          eventSpec,
-          dataOptions.severityFilters[eventSpec.id],
-          dataOptions.useCache
-        )
-      );
-    }
+  for (const eventType of dataOptions.eventTypeSpec.eventTypeDcids) {
+    promises.push(
+      fetchEventPoints(
+        eventType,
+        dataOptions.place,
+        dateRange,
+        dataOptions.eventTypeSpec,
+        dataOptions.severityFilters[dataOptions.eventTypeSpec.id],
+        dataOptions.useCache
+      )
+    );
   }
   return Promise.all(promises).then((resp) => {
-    const result = {};
-    resp.forEach((eventTypeResp, i) => {
-      const eventSpecId = promiseSpecId[i];
-      if (!(eventSpecId in result)) {
-        result[eventSpecId] = {
-          eventPoints: [],
-          provenanceInfo: {},
-        };
-      }
-      result[eventSpecId].eventPoints.push(...eventTypeResp.eventPoints);
-      Object.assign(
-        result[eventSpecId].provenanceInfo,
-        eventTypeResp.provenanceInfo
-      );
+    const result = {
+      eventPoints: [],
+      provenanceInfo: {},
+    };
+    resp.forEach((eventTypeResp) => {
+      result.eventPoints.push(...eventTypeResp.eventPoints);
+      Object.assign(result.provenanceInfo, eventTypeResp.provenanceInfo);
     });
     return result;
   });

@@ -81,8 +81,8 @@ function run_lint_fix {
   then
     pip3 install isort -q
   fi
-  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ tools/ -e=*pb2.py
-  isort server/ nl_server/ tools/  --skip-glob *pb2.py  --profile google
+  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py
+  isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --profile google
   deactivate
 }
 
@@ -109,6 +109,7 @@ function run_py_test {
   # TODO(beets): add tests for other private dc instances
   # export FLASK_ENV=test-sustainability
   # python3 -m pytest tests/sustainability/**.py
+  python3 -m pytest shared/tests/ -s
 
   cd nl_server
   # Custom packages installation for nl_server.

@@ -1,0 +1,83 @@
+{
+    "SV": [
+      "dc/topic/ClimateChange",
+      "dc/topic/ProjectedClimateExtremes",
+      "Annual_Emissions_GreenhouseGas",
+      "dc/topic/GreenhouseGasEmissionsBySource",
+      "Annual_Generation_Electricity",
+      "Count_DroughtEvent",
+      "Count_HeatEvent",
+      "Annual_Consumption_Electricity",
+      "Count_HeavyRainEvent",
+      "dc/topic/CarbonDioxideEmissionsBySource",
+      "dc/topic/AgricultureEmissionsByGas",
+      "Annual_ExpectedLoss_NaturalHazardImpact"
+    ],
+    "CosineScore": [
+      0.8262420892715454,
+      0.5475385189056396,
+      0.48141297698020935,
+      0.41852420568466187,
+      0.37782663106918335,
+      0.37141096591949463,
+      0.350502610206604,
+      0.34617504477500916,
+      0.3422034978866577,
+      0.33296579122543335,
+      0.33168768882751465,
+      0.3311363756656647
+    ],
+    "SV_to_Sentences": {},
+    "MultiSV": {
+      "Candidates": [
+        {
+          "Parts": [
+            {
+              "QueryPart": "show impact climate change",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ],
+              "CosineScore": [
+                0.7973
+              ]
+            },
+            {
+              "QueryPart": "drought",
+              "SV": [
+                "Count_DroughtEvent"
+              ],
+              "CosineScore": [
+                0.7639
+              ]
+            }
+          ],
+          "AggCosineScore": 0.7806,
+          "DelimBased": false
+        },
+        {
+          "Parts": [
+            {
+              "QueryPart": "show impact climate",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ],
+              "CosineScore": [
+                0.6864
+              ]
+            },
+            {
+              "QueryPart": "change drought",
+              "SV": [
+                "Count_DroughtEvent"
+              ],
+              "CosineScore": [
+                0.7281
+              ]
+            }
+          ],
+          "AggCosineScore": 0.7073,
+          "DelimBased": false
+        }
+      ]
+    }
+  }

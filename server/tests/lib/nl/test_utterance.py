@@ -27,7 +27,8 @@ SIMPLE_PLACE_ONLY_UTTR = {
     'places': [{
         'dcid': 'geoId/06',
         'name': 'Foo Place',
-        'place_type': 'State'
+        'place_type': 'State',
+        'country': 'country/USA',
     }],
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
@@ -47,7 +48,8 @@ SIMPLE_PLACE_ONLY_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': []
@@ -64,7 +66,8 @@ OVERVIEW_PLACE_ONLY_UTTR = {
     'places': [{
         'dcid': 'geoId/01',
         'name': 'Foo Place',
-        'place_type': 'State'
+        'place_type': 'State',
+        'country': 'country/USA',
     }],
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
@@ -84,7 +87,8 @@ OVERVIEW_PLACE_ONLY_UTTR = {
         'places': [{
             'dcid': 'geoId/01',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': []
@@ -99,7 +103,8 @@ SIMPLE_UTTR = {
     'places': [{
         'dcid': 'geoId/06',
         'name': 'Foo Place',
-        'place_type': 'State'
+        'place_type': 'State',
+        'country': 'country/USA',
     }],
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
@@ -119,7 +124,8 @@ SIMPLE_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Person_Male']
@@ -139,7 +145,8 @@ SIMPLE_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Person_Female']
@@ -154,7 +161,8 @@ SIMPLE_WITH_SV_EXT_UTTR = {
     'places': [{
         'dcid': 'geoId/06',
         'name': 'Foo Place',
-        'place_type': 'State'
+        'place_type': 'State',
+        'country': 'country/USA',
     }],
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
@@ -174,7 +182,8 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Person_Male']
@@ -194,7 +203,8 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Person_Male', 'Count_Person_Female']
@@ -209,7 +219,8 @@ SIMPLE_WITH_TOPIC_UTTR = {
     'places': [{
         'dcid': 'geoId/06',
         'name': 'Foo Place',
-        'place_type': 'State'
+        'place_type': 'State',
+        'country': 'country/USA',
     }],
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
@@ -229,7 +240,8 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Farm']
@@ -249,7 +261,8 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Area_Farm']
@@ -269,7 +282,8 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['FarmInventory_Rice', 'FarmInventory_Barley']
@@ -287,10 +301,11 @@ COMPARISON_UTTR = {
     'places': [{
         'dcid': 'geoId/32',
         'name': 'Foo Place',
-        'place_type': 'State'
+        'place_type': 'State',
+        'country': 'country/USA',
     }],
     'query': 'foo sv in place',
-    'query_type': QueryType.COMPARISON,
+    'query_type': QueryType.COMPARISON_ACROSS_PLACES,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -307,11 +322,13 @@ COMPARISON_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }, {
             'dcid': 'geoId/32',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Person_Male']
@@ -331,11 +348,13 @@ COMPARISON_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }, {
             'dcid': 'geoId/32',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Person_Female']
@@ -370,7 +389,8 @@ CONTAINED_IN_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Farm']
@@ -390,7 +410,8 @@ CONTAINED_IN_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Income_Farm']
@@ -407,7 +428,7 @@ CORRELATION_UTTR = {
     }],
     'places': [],
     'query': 'foo sv in place',
-    'query_type': QueryType.CORRELATION,
+    'query_type': QueryType.CORRELATION_ACROSS_VARS,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -424,7 +445,8 @@ CORRELATION_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Farm', 'Mean_Precipitation']
@@ -444,10 +466,50 @@ CORRELATION_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Income_Farm', 'Mean_Precipitation']
+    }],
+    'svs': ['Mean_Precipitation'],
+    'session_id': '007_999999999',
+}
+
+# Utterance for multi-sv correlation.
+MULTISV_CORRELATION_UTTR = {
+    'classifications': [{
+        'type': ClassificationType.CORRELATION
+    }],
+    'places': [{
+        'country': 'country/USA',
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
+    'query': 'foo sv in place',
+    'query_type': QueryType.CORRELATION_ACROSS_VARS,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 1,
+            'chart_type': 'scatter chart',
+            'class': ChartOriginType.PRIMARY_CHART,
+            'description': '',
+            'include_percapita': False,
+            'place_type': 'County',
+            'ranking_types': [],
+            'source_topic': '',
+            'title': ''
+        },
+        'chart_type': ChartType.SCATTER_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State',
+            'country': 'country/USA',
+        }],
+        'event': None,
+        'svs': ['Prevalence_Obesity', 'Count_Poverty']
     }],
     'svs': ['Mean_Precipitation'],
     'session_id': '007_999999999',
@@ -482,7 +544,8 @@ RANKING_ACROSS_PLACES_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Agricultural_Workers']
@@ -517,7 +580,8 @@ RANKING_ACROSS_SVS_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA'
         }],
         'event':
             None,
@@ -559,7 +623,8 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'svs': [
             'FarmInventory_Rice', 'FarmInventory_Barley', 'FarmInventory_Wheat'
@@ -585,7 +650,8 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'svs': [
             'FarmInventory_Barley', 'FarmInventory_Rice', 'FarmInventory_Wheat'
@@ -609,7 +675,8 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'svs': ['FarmInventory_Barley', 'FarmInventory_Wheat']
     }],
@@ -623,7 +690,8 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
     'places': [{
         'dcid': 'geoId/06',
         'name': 'Foo Place',
-        'place_type': 'State'
+        'place_type': 'State',
+        'country': 'country/USA',
     }],
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
@@ -643,7 +711,8 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Person_Male']
@@ -663,7 +732,8 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': None,
         'svs': ['Count_Person_Female']
@@ -683,7 +753,8 @@ EVENT_UTTR = {
     'places': [{
         'dcid': 'geoId/06',
         'name': 'Foo Place',
-        'place_type': 'State'
+        'place_type': 'State',
+        'country': 'country/USA',
     }],
     'query': 'foo sv in place',
     'query_type': QueryType.EVENT,
@@ -703,7 +774,8 @@ EVENT_UTTR = {
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
-            'place_type': 'State'
+            'place_type': 'State',
+            'country': 'country/USA',
         }],
         'event': EventType.FIRE,
         'svs': []

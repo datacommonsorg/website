@@ -30,11 +30,11 @@ import {
   drawStackBarChart,
 } from "./chart/draw";
 import { chartTypeEnum } from "./chart/types";
+import { formatNumber } from "./i18n/i18n";
 import { StatVarInfo } from "./shared/stat_var";
 import { StatVarHierarchyType } from "./shared/types";
 import { randDomId } from "./shared/util";
 import { StatVarHierarchy } from "./stat_var_hierarchy/stat_var_hierarchy";
-import { formatNumber } from "./utils/string_utils";
 
 interface DevChartPropType {
   id: string;

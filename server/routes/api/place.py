@@ -117,7 +117,7 @@ PERSON_COUNT_LIMIT = 1000
 POPULATION_DCID = "Count_Person"
 
 # Define blueprint
-bp = Blueprint("api.place", __name__, url_prefix='/api/place')
+bp = Blueprint("api_place", __name__, url_prefix='/api/place')
 
 
 def get_place_types(place_dcids):
@@ -331,7 +331,6 @@ def child_fetch(parent_dcid):
 
   # Filter by wanted place types
   place_type = get_place_type(parent_dcid)
-  print(place_type)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
 
   place_types = dc.property_values(place_dcids, 'typeOf', True)

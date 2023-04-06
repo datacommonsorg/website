@@ -4,11 +4,22 @@
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "filtered_svs": [],
-    "num_chart_candidates": 1,
-    "processed_fulfillment_types": [
-      "overview"
-    ]
+    "ERROR": {},
+    "INFO": {
+      "filtered_svs": [
+        []
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "overview"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.21,
+      "fulfillment": 0.0,
+      "get_sv_details": 0.21,
+      "query_detection": 0.49
+    }
   },
   "data_spec": [
     {
@@ -19,6 +30,7 @@
       ],
       "places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -43,6 +55,7 @@
           "event": null,
           "places": [
             {
+              "country": "country/USA",
               "dcid": "geoId/0655282",
               "name": "Palo Alto",
               "place_type": "City"
@@ -66,6 +79,7 @@
   "places_resolved": "(name: Palo Alto, dcid: geoId/0655282); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
+      "country": "country/USA",
       "dcid": "geoId/0655282",
       "name": "Palo Alto",
       "place_type": "City"
@@ -74,15 +88,16 @@
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
-      "dcids_resolved": [
-        "geoId/0655282"
-      ],
+      "dcids_resolved": {
+        "palo alto": "geoId/0655282"
+      },
       "maps_api_failures": []
     },
     "place_resolution": {
       "dc_resolution_failure": [],
       "dc_resolved_places": [
         {
+          "country": "country/USA",
           "dcid": "geoId/0655282",
           "name": "Palo Alto",
           "place_type": "City"
@@ -106,117 +121,132 @@
   "sv_matching": {
     "CosineScore": [
       0.37027618288993835,
-      0.3159871995449066,
-      0.2831985354423523,
-      0.27669647336006165,
-      0.2557689845561981,
-      0.2371777594089508,
-      0.22020851075649261,
+      0.31598708033561707,
+      0.2831985652446747,
+      0.2767173647880554,
+      0.27669620513916016,
+      0.2665468156337738,
+      0.25576895475387573,
+      0.24891072511672974,
+      0.23379194736480713,
+      0.22020837664604187,
       0.21446257829666138,
-      0.2134648710489273,
-      0.20017606019973755,
-      0.1957034170627594
+      0.2134648561477661,
+      0.21002650260925293
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/topic/Income",
       "dc/topic/Economy",
       "dc/topic/Jobs",
+      "Count_CriminalActivities_CombinedCrime",
       "dc/topic/MedicalConditions",
+      "Count_Person_BlackOrAfricanAmericanAlone",
       "dc/hlxvn1t8b9bhh",
-      "dc/g/Person_MedicalCondition-Wasting",
+      "dc/topic/RacialBreakdown",
+      "dc/3jr0p7yjw06z9",
       "AirQualityIndex_AirPollutant",
       "dc/topic/WorkCommute",
       "dc/topic/Agriculture",
-      "dc/g/Farm_FarmInventoryType-Forage",
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs"
+      "dc/topic/SDG_2"
     ],
     "SV_to_Sentences": {
       "AirQualityIndex_AirPollutant": [
-        "AQI (0.22020851075649261)"
+        "AQI (0.2202)"
       ],
-      "dc/g/Farm_FarmInventoryType-Forage": [
-        "Forage Farms (0.20017606019973755)",
-        "forage farms (0.20017603039741516)"
+      "Count_CriminalActivities_CombinedCrime": [
+        "crime in (0.2767)"
       ],
-      "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-        "pig farm (0.1957034170627594)",
-        "Pig Farm (0.1957034170627594)"
+      "Count_Person_BlackOrAfricanAmericanAlone": [
+        "black people (0.2665)"
       ],
-      "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.2371777594089508)"
+      "dc/3jr0p7yjw06z9": [
+        "casinos (0.2338)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "cattle ranchers (0.2557689845561981)",
-        "farmers (0.22553959488868713)"
+        "cattle ranchers (0.2558)",
+        "farmers (0.2255)"
       ],
       "dc/topic/Agriculture": [
-        "Agriculture (0.2134648710489273)"
+        "Agriculture (0.2135)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.3159871995449066)"
+        "Economy (0.316)"
       ],
       "dc/topic/Income": [
-        "pay (0.37027618288993835)",
-        "compensation (0.22850872576236725)",
-        "Earnings (0.2226836383342743)",
-        "Income (0.20594437420368195)"
+        "pay (0.3703)",
+        "wealth (0.2846)",
+        "compensation (0.2285)",
+        "Earnings (0.2227)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.2831985354423523)",
-        "Careers (0.24140897393226624)",
-        "Professions (0.20911745727062225)"
+        "Jobs (0.2832)",
+        "Careers (0.2414)",
+        "Professions (0.2091)"
       ],
       "dc/topic/MedicalConditions": [
-        "Maladies (0.27669647336006165)",
-        "Medical infirmities (0.2347509115934372)"
+        "Maladies (0.2767)",
+        "Medical infirmities (0.2348)"
+      ],
+      "dc/topic/RacialBreakdown": [
+        "ethnicity (0.2489)"
+      ],
+      "dc/topic/SDG_2": [
+        "Zero hunger (0.21)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.21446257829666138)"
+        "journey to work (0.2145)"
       ]
     }
   },
   "svs_to_sentences": {
     "AirQualityIndex_AirPollutant": [
-      "AQI (0.22020851075649261)"
+      "AQI (0.2202)"
     ],
-    "dc/g/Farm_FarmInventoryType-Forage": [
-      "Forage Farms (0.20017606019973755)",
-      "forage farms (0.20017603039741516)"
+    "Count_CriminalActivities_CombinedCrime": [
+      "crime in (0.2767)"
     ],
-    "dc/g/Farm_FarmInventoryType-HogsAndPigs": [
-      "pig farm (0.1957034170627594)",
-      "Pig Farm (0.1957034170627594)"
+    "Count_Person_BlackOrAfricanAmericanAlone": [
+      "black people (0.2665)"
     ],
-    "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.2371777594089508)"
+    "dc/3jr0p7yjw06z9": [
+      "casinos (0.2338)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "cattle ranchers (0.2557689845561981)",
-      "farmers (0.22553959488868713)"
+      "cattle ranchers (0.2558)",
+      "farmers (0.2255)"
     ],
     "dc/topic/Agriculture": [
-      "Agriculture (0.2134648710489273)"
+      "Agriculture (0.2135)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.3159871995449066)"
+      "Economy (0.316)"
     ],
     "dc/topic/Income": [
-      "pay (0.37027618288993835)",
-      "compensation (0.22850872576236725)",
-      "Earnings (0.2226836383342743)",
-      "Income (0.20594437420368195)"
+      "pay (0.3703)",
+      "wealth (0.2846)",
+      "compensation (0.2285)",
+      "Earnings (0.2227)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.2831985354423523)",
-      "Careers (0.24140897393226624)",
-      "Professions (0.20911745727062225)"
+      "Jobs (0.2832)",
+      "Careers (0.2414)",
+      "Professions (0.2091)"
     ],
     "dc/topic/MedicalConditions": [
-      "Maladies (0.27669647336006165)",
-      "Medical infirmities (0.2347509115934372)"
+      "Maladies (0.2767)",
+      "Medical infirmities (0.2348)"
+    ],
+    "dc/topic/RacialBreakdown": [
+      "ethnicity (0.2489)"
+    ],
+    "dc/topic/SDG_2": [
+      "Zero hunger (0.21)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.21446257829666138)"
+      "journey to work (0.2145)"
     ]
   },
   "time_delta_classification": "<None>"

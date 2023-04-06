@@ -82,7 +82,6 @@ def search_sv():
   {
     'SV': List[str]
     'CosineScore': List[float],
-    'EmbeddingIndex': List[int],
     'SV_to_Sentences': Dict[str, str]
   }
   """
@@ -95,8 +94,8 @@ def search_sv():
     return json.dumps({
         'SV': [],
         'CosineScore': [],
-        'EmbeddingIndex': [],
-        'SV_to_Sentences': {}
+        'SV_to_Sentences': {},
+        'MultiSV': {}
     })
 
 

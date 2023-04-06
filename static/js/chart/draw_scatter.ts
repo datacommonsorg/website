@@ -23,8 +23,8 @@ import * as d3Regression from "d3-regression";
 import ReactDOM from "react-dom";
 
 import { ChartQuadrant } from "../constants/scatter_chart_constants";
+import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
-import { formatNumber } from "../utils/string_utils";
 import { wrap } from "./base";
 
 /**
@@ -757,13 +757,14 @@ export function drawScatter(
     yPerCapita: boolean
   ) => JSX.Element
 ): void {
+  const container = d3.select(svgContainerRef.current);
+  container.selectAll("*").remove();
   const svgContainerWidth = svgContainerRef.current.offsetWidth;
   const svgXTranslation =
     properties.width < svgContainerWidth
       ? (svgContainerWidth - properties.width) / 2
       : 0;
-  const svg = d3
-    .select(svgContainerRef.current)
+  const svg = container
     .append("svg")
     .attr("id", "scatterplot")
     .attr("width", properties.width)

@@ -43,7 +43,9 @@ resource "google_endpoints_service" "mixer_endpoint" {
                              "%SERVICE_NAME%", "website-esp.endpoints.${var.project_id}.cloud.goog"),
                              "%API_TITLE%"   , "website-esp.endpoints.${var.project_id}.cloud.goog")
 
-  protoc_output_base64 = data.local_file.mixer_grpc_pb.content_base64
+  # Marking as sensitive prevents excessively large field such as the compiled proto
+  # from being displayed.
+  protoc_output_base64 = sensitive(data.local_file.mixer_grpc_pb.content_base64)
 
   depends_on = [
     data.local_file.mixer_grpc_pb

@@ -59,7 +59,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   if not state.place_type:
     state.uttr.counters.err('containedin_failed_cb_missing_type', 1)
     return False
-  if not utils.has_map(state.place_type):
+  if not utils.has_map(state.place_type, contained_places):
     state.uttr.counters.err('containedin_failed_cb_nonmap_type',
                             state.place_type)
     return False

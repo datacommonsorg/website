@@ -16,8 +16,12 @@
 from dataclasses import dataclass
 from typing import List
 
+from server.lib.nl import utils
 from server.lib.nl.detection import ClassificationType
+from server.lib.nl.detection import ContainedInClassificationAttributes
+from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import NLClassifier
+from server.lib.nl.detection import Place
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
 from server.lib.nl.fulfillment import context
@@ -53,7 +57,7 @@ QUERY_HANDLERS = {
                            direct_fallback=QueryType.OVERVIEW),
 
     # Comparison has a more complex fallback logic captured in next_query_type().
-    QueryType.COMPARISON:
+    QueryType.COMPARISON_ACROSS_PLACES:
         QueryHandlerConfig(module=comparison, rank=2),
     QueryType.CONTAINED_IN:
         QueryHandlerConfig(module=containedin,
@@ -69,7 +73,7 @@ QUERY_HANDLERS = {
                            direct_fallback=QueryType.CONTAINED_IN),
 
     # Correlation has a more complex fallback logic captured in next_query_type().
-    QueryType.CORRELATION:
+    QueryType.CORRELATION_ACROSS_VARS:
         QueryHandlerConfig(module=correlation, rank=6),
     QueryType.TIME_DELTA_ACROSS_VARS:
         QueryHandlerConfig(module=time_delta_across_vars,
@@ -96,33 +100,6 @@ QUERY_HANDLERS = {
                            direct_fallback=QueryType.OVERVIEW),
 }
 
-# The ClassificationTypes not in this map rely on additional fields of detection.
-DIRECT_CLASSIFICATION_TYPE_TO_QUERY_TYPE = {
-    ClassificationType.SIMPLE:
-        QueryType.SIMPLE,
-    ClassificationType.CONTAINED_IN:
-        QueryType.CONTAINED_IN,
-    ClassificationType.CORRELATION:
-        QueryType.CORRELATION,
-    ClassificationType.COMPARISON:
-        QueryType.COMPARISON,
-    ClassificationType.EVENT:
-        QueryType.EVENT,
-    ClassificationType.SIZE_TYPE:
-        QueryType.SIZE_ACROSS_ENTITIES,
-
-    # Unsupported classification-types. Map them to SIMPLE for now.
-    # TODO: Handle this better.
-    ClassificationType.UNKNOWN:
-        QueryType.SIMPLE,
-    ClassificationType.OTHER:
-        QueryType.SIMPLE,
-    ClassificationType.TEMPORAL:
-        QueryType.SIMPLE,
-    ClassificationType.CLUSTERING:
-        QueryType.SIMPLE,
-}
-
 
 # The first query_type to try for the given utterance.  If there are multiple
 # classifications, we pick from among them.
@@ -137,14 +114,45 @@ def first_query_type(uttr: Utterance):
   query_types = sorted(
       query_types, key=(lambda q: QUERY_HANDLERS.get(q, default_config).rank))
   if query_types:
+    _maybe_promote_simple(uttr, query_types)
     return query_types[-1]
   return None
 
 
+def _maybe_promote_simple(uttr: Utterance, query_types: List[QueryType]):
+  remapped_type = None
+  if len(uttr.places) > 1:
+    # Promote to place comparison.
+    remapped_type = QueryType.COMPARISON_ACROSS_PLACES
+  elif _should_promote_simple_to_containedin(query_types[-1], uttr.places):
+    uttr.classifications.append(
+        NLClassifier(
+            type=ClassificationType.CONTAINED_IN,
+            attributes=ContainedInClassificationAttributes(
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+    remapped_type = QueryType.CONTAINED_IN
+  if remapped_type != None:
+    if remapped_type in query_types:
+      query_types.remove(remapped_type)
+    query_types[-1] = remapped_type
+
+
+def _should_promote_simple_to_containedin(query_type: QueryType,
+                                          places: List[Place]) -> bool:
+  return (query_type == QueryType.SIMPLE and len(places) == 1 and
+          (places[0].place_type == 'Continent' or places[0].dcid == 'Earth'))
+
+
 def _classification_to_query_type(cl: NLClassifier,
                                   uttr: Utterance) -> QueryType:
-  if cl.type in DIRECT_CLASSIFICATION_TYPE_TO_QUERY_TYPE:
-    query_type = DIRECT_CLASSIFICATION_TYPE_TO_QUERY_TYPE[cl.type]
+  if cl.type == ClassificationType.CONTAINED_IN:
+    query_type = QueryType.CONTAINED_IN
+  elif cl.type == ClassificationType.EVENT:
+    query_type = QueryType.EVENT
+  elif cl.type == ClassificationType.SIZE_TYPE:
+    query_type = QueryType.SIZE_ACROSS_ENTITIES
+  elif cl.type == ClassificationType.SIMPLE:
+    query_type = QueryType.SIMPLE
   elif cl.type == ClassificationType.OVERVIEW:
     if not uttr.svs:
       # We detected some overview words ("tell me about") *and* there were
@@ -166,8 +174,13 @@ def _classification_to_query_type(cl: NLClassifier,
       query_type = QueryType.TIME_DELTA_ACROSS_PLACES
     else:
       query_type = QueryType.TIME_DELTA_ACROSS_VARS
+  elif (cl.type == ClassificationType.COMPARISON or
+        cl.type == ClassificationType.CORRELATION):
+    query_type = _route_comparison_or_correlation(cl, uttr)
   else:
-    query_type = None
+    # For any unsupported type, fallback to SIMPLE
+    # TODO: Handle this better.
+    query_type = QueryType.SIMPLE
 
   return query_type
 
@@ -185,15 +198,52 @@ def next_query_type(query_types: List[QueryType]) -> QueryType:
     next_type = None
   elif config.direct_fallback != None:
     next_type = config.direct_fallback
-  elif prev_type == QueryType.COMPARISON:
-    if QueryType.CORRELATION not in query_types:
-      next_type = QueryType.CORRELATION
+  elif prev_type == QueryType.COMPARISON_ACROSS_PLACES:
+    if QueryType.CORRELATION_ACROSS_VARS not in query_types:
+      next_type = QueryType.CORRELATION_ACROSS_VARS
     else:
       next_type = QueryType.CONTAINED_IN
-  elif prev_type == QueryType.CORRELATION:
-    if QueryType.COMPARISON not in query_types:
-      next_type = QueryType.COMPARISON
+  elif prev_type == QueryType.CORRELATION_ACROSS_VARS:
+    if QueryType.COMPARISON_ACROSS_PLACES not in query_types:
+      next_type = QueryType.COMPARISON_ACROSS_PLACES
     else:
       next_type = QueryType.CONTAINED_IN
 
   return next_type
+
+
+# Route a comparison/correlation classification to a corresponding query_type.
+#
+def _route_comparison_or_correlation(cl: NLClassifier,
+                                     uttr: Utterance) -> QueryType:
+  multi_sv = utils.is_multi_sv(uttr)
+  multi_places = len(uttr.places) > 1
+
+  # There are 3 cases here based on current utterance:
+  # (1) Single place, not multi-sv
+  #     - This is legacy case where we get place/sv from context.
+  #     - Interpret COMPARISON as COMPARISON_ACROSS_PLACES
+  #       and CORRELATION as CORRELATION_ACROSS_VARS
+  # (2) Single place, multi-sv
+  #     - Interpret always as CORRELATION_ACROSS_VARS
+  #     - If child-type was not specified, we'll use DEFAULT_TYPE.
+  # (3) Multiple places (regardless of multi-sv)
+  #     - Interpret always as COMPARISON_ACROSS_PLACES
+  #     - We'll use the single-SV list
+  ctr = ''
+  if multi_places:
+    ctr = 'multi-place-comparison'
+    qt = QueryType.COMPARISON_ACROSS_PLACES
+  else:
+    if multi_sv:
+      ctr = 'multi-sv-correlation'
+      qt = QueryType.CORRELATION_ACROSS_VARS
+    else:
+      if cl.type == ClassificationType.COMPARISON:
+        ctr = 'context-place-comparison'
+        qt = QueryType.COMPARISON_ACROSS_PLACES
+      else:
+        ctr = 'context-sv-correlation'
+        qt = QueryType.CORRELATION_ACROSS_VARS
+  uttr.counters.info('route_comparison_correlation', ctr)
+  return qt

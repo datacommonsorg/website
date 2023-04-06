@@ -1,0 +1,61 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "disasterEventMapTileSpec": {
+                      "pointEventTypeKey": [
+                        "flood"
+                      ]
+                    },
+                    "title": "Floods in Brazil",
+                    "type": "DISASTER_EVENT_MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Floods in Brazil",
+            "type": "DISASTER_EVENT"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "AdministrativeArea1"
+      },
+      "eventTypeSpec": {
+        "flood": {
+          "color": "#3cbad1",
+          "defaultSeverityFilter": {
+            "displayName": "Area",
+            "lowerLimit": 100.0,
+            "prop": "area",
+            "unit": "SquareKilometer",
+            "upperLimit": 1000.0
+          },
+          "eventTypeDcids": [
+            "FloodEvent"
+          ],
+          "id": "flood",
+          "name": "Flood"
+        }
+      },
+      "placeDcid": [
+        "country/BRA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "country/BRA",
+    "name": "Brazil",
+    "place_type": "Country"
+  }
+}

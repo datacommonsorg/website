@@ -46,8 +46,12 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
   }
   const rs: ReplacementStrings = {
     placeName: props.place ? props.place.name : "",
+    placeDcid: props.place ? props.place.dcid : "",
   };
   const title = props.title ? formatString(props.title, rs) : "";
+  const description = props.description
+    ? formatString(props.description, rs)
+    : "";
 
   return (
     <section
@@ -55,7 +59,7 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       id={props.id}
     >
       {title && <h3>{title}</h3>}
-      {props.description && <p className="block-desc">{props.description}</p>}
+      {description && <p className="block-desc">{description}</p>}
       {props.children}
       {footnote && (
         <footer className="block-footer">

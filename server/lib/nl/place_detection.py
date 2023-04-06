@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from typing import List
 
-import server.lib.nl.constants as constants
-import server.lib.nl.utils as utils
 from server.services import datacommons as dc
+import shared.lib.utils as utils
 
 
 class NLPlaceDetector:

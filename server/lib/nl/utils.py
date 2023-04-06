@@ -13,15 +13,13 @@
 # limitations under the License.
 """Utility functions for use by the NL modules."""
 
-import copy
 import datetime
 import json
 import logging
 import os
 import random
-import re
 import time
-from typing import Dict, List, NamedTuple, Set, Tuple, Union
+from typing import Dict, List, NamedTuple, Set, Tuple
 
 import server.lib.nl.constants as constants
 import server.lib.nl.counters as ctr
@@ -30,6 +28,7 @@ import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.utterance as nl_uttr
 import server.lib.util as util
 import server.services.datacommons as dc
+import shared.lib.constants as shared_constants
 
 # TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
@@ -58,87 +57,6 @@ _TIME_DELTA_SORT_MAP = {
     (detection.TimeDeltaType.DECREASE, detection.RankingType.LOW):
         True,
 }
-
-
-def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
-  """Adds (in place) every string (in lower case) to a Set of strings."""
-  for v_str in list_string:
-    if type(v_str) != str:
-      continue
-    # Only add sentences/words which are strings.
-    set_strings.add(v_str.lower())
-
-
-def _add_to_set_from_nested_dict(
-    set_strings: Set[str],
-    nested_dict: Dict[str, Union[List[str], Dict[str, List[str]]]]) -> None:
-  """Adds (in place) every word/string (in lower case) to a Set of strings.
-
-    Args:
-        set_strings: the set of Strings to add to.
-        nested_dict: the dictionary from which to get the words. The keys are expected to be
-            strings but the values can either be a List of strings OR another dictionary with
-            string keys and values to be a List of strings. For ane example, see the constant
-            QUERY_CLASSIFICATION_HEURISTICS in lib/nl/nl_utils.py
-    """
-  for (_, v) in nested_dict.items():
-    if isinstance(v, list):
-      # If 'v' is a list, add all the words.
-      add_to_set_from_list(set_strings, v)
-    elif isinstance(v, dict):
-      # If 'v' is a dict, get the values from the dict and add those.
-      [
-          add_to_set_from_list(set_strings, val_list)
-          for (_, val_list) in v.items()
-      ]
-
-
-def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
-  """Remove stop words from a string and return the remaining in lower case."""
-
-  # Note: we are removing the full sequence of words in every entry in `stop_words`.
-  # For example, if a stop_words entry is "these words remove" then the entire
-  # sequence "these words remove" will potentially be removed and not individual
-  # occurences of "these", "words" and "remove".
-
-  # Using \b<word>\b to match the word and not the string within another word.
-  # Example: if looking for "cat" in sentence "cat is a catty animal. i love a cat  but not cats"
-  # the words "citty" and "cats" will not be matched.
-  input_str = input_str.lower()
-  for words in stop_words:
-    # Using regex based replacements.
-    input_str = re.sub(rf"\b{words}\b", "", input_str)
-    # Also replace multiple spaces with a single space.
-    input_str = re.sub(r" +", " ", input_str)
-
-  # Return after removing the beginning and trailing white spaces.
-  return input_str.strip()
-
-
-def combine_stop_words() -> Set[str]:
-  """Returns all the combined stop words from the various constants."""
-  # Make a copy.
-  stop_words = copy.deepcopy(constants.STOP_WORDS)
-
-  # Now add the words in the classification heuristics.
-  _add_to_set_from_nested_dict(stop_words,
-                               constants.QUERY_CLASSIFICATION_HEURISTICS)
-
-  # Also add the plurals.
-  add_to_set_from_list(stop_words, list(constants.PLACE_TYPE_TO_PLURALS.keys()))
-  add_to_set_from_list(stop_words,
-                       list(constants.PLACE_TYPE_TO_PLURALS.values()))
-
-  # Sort stop_words by the length (longer strings should come first) so that the
-  # longer sentences can be removed first.
-  stop_words = sorted(stop_words, key=len, reverse=True)
-  return stop_words
-
-
-def remove_punctuations(s):
-  s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', ' ', s)
-  return " ".join(s.split())
 
 
 def is_topic(sv):
@@ -498,11 +416,12 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
   start = time.time()
   result = _get_sample_child_places(main_place_dcid, contained_place_type)
   counters.timeit('get_sample_child_places', start)
-  counters.info('child_places_result', {
-      'place': main_place_dcid,
-      'type': contained_place_type,
-      'result': result
-  })
+  counters.info(
+      'child_places_result', {
+          'place': main_place_dcid,
+          'type': contained_place_type,
+          'result': result[:constants.DBG_LIST_LIMIT]
+      })
   return result
 
 
@@ -650,119 +569,6 @@ def parent_place_names(dcid: str) -> List[str]:
   return None
 
 
-def place_detection_with_heuristics(query_fn, query: str) -> List[str]:
-  """Returns all strings in the `query` detectd as places.
-  
-  Uses many string transformations of `query`, e.g. Title Case, to produce
-  candidate query strings which are all used for place detection. Among the
-  detected places, any place string entirely contained inside another place
-  string is ignored, i.e. if both "New York" and "New York City" are detected
-  then only "New York City" is returned.
-  
-  `query_fn` is the function used with every query string to detect places.
-  This function should only expect one required argument: the a query string
-  and returns a list of place strings detected in the provided string.
-  """
-  # Run through all heuristics (various query string transforms).
-  query = remove_punctuations(query)
-  query_lower = query.lower()
-  query_without_stop_words = remove_stop_words(query, constants.STOP_WORDS)
-  query_title_case = query.title()
-  query_without_stop_words_title_case = query_without_stop_words.title()
-
-  # TODO: work on finding a better fix for important places which are
-  # not getting detected.
-  # First check in special places. If they are found, add those first.
-  places_found = []
-  for special_place in constants.OVERRIDE_FOR_NER:
-    # Matching <special_place> as a word because otherwise "asia" could
-    # also match "asian" which is undesirable.
-    if re.search(rf"\b{special_place}\b", query_lower):
-      logging.info(f"Found one of the Special Places: {special_place}")
-      places_found.append(special_place)
-
-  # Now try all versions of the query.
-  for q in [
-      query, query_lower, query_without_stop_words, query_title_case,
-      query_without_stop_words_title_case
-  ]:
-    logging.info(f"Trying place detection with: {q}")
-    try:
-      for p in query_fn(q):
-        # remove "the" from the place. This helps where place detection can associate
-        # "the" with some places, e.g. "The United States"
-        # or "the SF Bay Area". Since we are sometimes doing special casing, e.g. for
-        # SF Bay Area, it is desirable to not have place names with these stop words.
-        # It also helps de-dupe where "the US" and "US" could both be detected by the
-        # heuristics above, for example.
-        if "the " in p:
-          p = p.replace("the ", "")
-
-        # If the detected place string needs to be replaced with shorter text,
-        # then do that here.
-        if p.lower() in constants.SHORTEN_PLACE_DETECTION_STRING:
-          p = constants.SHORTEN_PLACE_DETECTION_STRING[p.lower()]
-
-        # Also remove place text detected which is exactly equal to some place types
-        # e.g. "states" etc. This is a shortcoming of place entity recognitiion libraries.
-        # As a specific example, some entity annotation libraries classify "states" as a
-        # place. This is incorrect behavior because "states" on its own is not a place.
-        if (p.lower() in constants.PLACE_TYPE_TO_PLURALS.keys() or
-            p.lower() in constants.PLACE_TYPE_TO_PLURALS.values()):
-          continue
-
-        # Add if not already done. Also check for the special places which get
-        # added with a ", usa" appended.
-        if (p.lower() not in places_found):
-          places_found.append(p.lower())
-    except Exception as e:
-      logging.info(
-          f"query_fn {query_fn} raised an exception for query: '{q}'. Exception: {e}"
-      )
-
-  places_to_return = []
-  # Check if any of the detected place strings are entirely contained inside
-  # another detected string. If so, give the longer place string preference.
-  # Example: in the query "how about new york state", if both "new york" and
-  # "new york state" are detected, then prefer "new york state". Similary for
-  # "new york city", "san mateo county", "santa clara county" etc.
-  for i in range(0, len(places_found)):
-    ignore = False
-    for j in range(0, len(places_found)):
-      # Checking if the place at index i is contained entirely inside
-      # another place at index j != i. If so, it can be ignored.
-      if i != j and places_found[i] in places_found[j]:
-        ignore = True
-        break
-    # Insert places_found[i] in the candidates if it is not to be ignored
-    # and if it is also found in the original query without punctuations.
-    # The extra check to find places_found[i] in `query_lower` is to avoid
-    # situations where the removal of some stop words etc makes the remaining
-    # query have some valid place name words next to each other. For example,
-    # in the query "... united in the states ...", the removal of stop words
-    # results in the remaining query being ".... united states ..." which can
-    # now find "united states" as a place. Therefore, to avoid such situations
-    # we should try to find the place string found in the original (lower case)
-    # query string.
-    # If places_found[i] was a special place (constants.OVERRIDE_FOR_NER),
-    # keep it always.
-    if (places_found[i]
-        in constants.OVERRIDE_FOR_NER) or (not ignore and
-                                           places_found[i] in query_lower):
-      places_to_return.append(places_found[i])
-
-  # For all the places detected, re-sort based on the string which occurs first.
-  def fn(p):
-    res = re.search(rf"\b{p}\b", query_lower)
-    if res is None:
-      return +1000000
-    else:
-      return res.start()
-
-  places_to_return.sort(key=fn)
-  return places_to_return
-
-
 def get_contained_in_type(
     uttr: nl_uttr.Utterance) -> detection.ContainedInPlaceType:
   classification = ctx.classifications_of_type_from_utterance(
@@ -813,15 +619,21 @@ def get_time_delta_types(
 
 
 def pluralize_place_type(place_type: str) -> str:
-  result = constants.PLACE_TYPE_TO_PLURALS.get(
-      place_type.lower(), constants.PLACE_TYPE_TO_PLURALS["place"])
+  result = shared_constants.PLACE_TYPE_TO_PLURALS.get(
+      place_type.lower(), shared_constants.PLACE_TYPE_TO_PLURALS["place"])
   return result.title()
 
 
-def has_map(place_type: any) -> bool:
+def has_map(place_type: any, places: List[detection.Place]) -> bool:
   if isinstance(place_type, str):
     place_type = detection.ContainedInPlaceType(place_type)
-  return place_type in constants.MAP_PLACE_TYPES
+  if place_type == detection.ContainedInPlaceType.COUNTRY:
+    return True
+  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
+  if not ptype or not places:
+    # Either not an equivalent type or places is empty, no map!
+    return False
+  return places[0].country in constants.ADMIN_AREA_MAP_COUNTRIES
 
 
 def new_session_id() -> str:
@@ -866,6 +678,9 @@ _SV_PARTIAL_DCID_NO_PC = [
     "UnemploymentRate_",
     "Mean_Income_",
     "GenderIncomeInequality_",
+    "FertilityRate_",
+    "GrowthRate_",
+    "sdg/",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]
@@ -885,7 +700,59 @@ def get_default_child_place_type(
     place: detection.Place) -> detection.ContainedInPlaceType:
   if place.dcid == constants.EARTH_DCID:
     return detection.ContainedInPlaceType.COUNTRY
+  # Canonicalize the type.
+  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place.place_type,
+                                                   place.place_type)
+  ptype = constants.CHILD_PLACE_TYPES.get(ptype, None)
+  if ptype:
+    ptype = admin_area_equiv_for_place(ptype, place)
   # TODO: Since most queries/data tends to be US specific and we have
   # maps for it, we pick County as default, but reconsider in future.
-  return constants.CHILD_PLACE_TYPES.get(place.place_type,
-                                         detection.ContainedInPlaceType.COUNTY)
+  if not ptype:
+    ptype = detection.ContainedInPlaceType.COUNTY
+  return ptype
+
+
+def get_parent_place_type(
+    place_type: detection.ContainedInPlaceType,
+    place: detection.Place) -> detection.ContainedInPlaceType:
+  # Canonicalize the type.
+  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, place_type)
+  ptype = constants.PARENT_PLACE_TYPES.get(ptype, None)
+  if ptype:
+    ptype = admin_area_equiv_for_place(ptype, place)
+  return ptype
+
+
+# Given a place-type and a corresponding (contained-in) place,
+# returns the specific AdminArea type (County, EurostatNUTS2, etc)
+# corresponding to the country that the place is located in.
+def admin_area_equiv_for_place(
+    place_type: detection.ContainedInPlaceType,
+    place: detection.Place) -> detection.ClassificationAttributes:
+  # Convert to AA equivalent
+  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
+  # Not an admin-equivalent type
+  if not ptype:
+    return place_type
+
+  custom_remap = {}
+  if place.country == 'country/USA':
+    custom_remap = constants.USA_PLACE_TYPE_REMAP
+  elif place.country == 'country/PAK':
+    custom_remap = constants.PAK_PLACE_TYPE_REMAP
+  elif place.country in constants.EU_COUNTRIES:
+    custom_remap = constants.EU_PLACE_TYPE_REMAP
+
+  return custom_remap.get(ptype, ptype)
+
+
+# Returns true if the score of multi-sv detection exceeds the single
+# SV detection.
+def is_multi_sv(uttr: nl_uttr.Utterance) -> bool:
+  if (not uttr.detection.svs_detected.sv_scores or not uttr.multi_svs or
+      not uttr.multi_svs.candidates):
+    return False
+  top_sv_score = uttr.detection.svs_detected.sv_scores[0]
+  top_multi_sv_score = uttr.multi_svs.candidates[0].aggregate_score
+  return top_multi_sv_score > top_sv_score

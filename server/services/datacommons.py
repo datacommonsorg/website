@@ -179,6 +179,17 @@ def triples(node, direction):
   return get(f'{url}/{direction}/{node}')
 
 
+def bulk_triples(nodes, direction):
+  """Retrieves the triples for multiple nodes.
+
+  Args:
+      nodes: DCIDs of nodes.
+      direction: Predicate direction, either be 'in' or 'out'.
+  """
+  url = get_service_url('/v1/bulk/triples')
+  return post(f'{url}/{direction}', {'nodes': nodes})
+
+
 def properties(node, direction):
   """Retrieves the properties for a node.
 
@@ -188,6 +199,17 @@ def properties(node, direction):
   """
   url = get_service_url('/v1/properties')
   return get(f'{url}/{direction}/{node}').get('properties', [])
+
+
+def properties_v1(nodes, direction):
+  """Retrieves the properties for a list of nodes.
+
+  Args:
+      nodes: List of node DCIDs.
+      direction: Predicate direction, either be 'in' or 'out'.
+  """
+  url = get_service_url('/v1/bulk/properties')
+  return post(f'{url}/{direction}', {'nodes': nodes}).get('data', [])
 
 
 def property_values_v1(nodes, prop, out=True):
@@ -219,6 +241,14 @@ def property_values(nodes, prop, out=True):
       else:
         result[node].append(v['value'])
   return result
+
+
+def get_place_info(dcids: List[str]) -> Dict:
+  """Retrieves Place Info given a list of DCIDs."""
+  url = get_service_url('/v1/bulk/info/place')
+  return post(f'{url}', {
+      'nodes': sorted(set(dcids)),
+  })
 
 
 def get_variable_group_info(nodes: List[str],

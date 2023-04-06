@@ -22,7 +22,11 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 
-import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
+import {
+  DebugInfo,
+  MultiSVCandidate,
+  SVScores,
+} from "../../types/app/nl_interface_types";
 
 const svToSentences = (
   svScores: SVScores,
@@ -60,7 +64,7 @@ const svToSentences = (
   );
 };
 
-const matchScoresElement = (svScores: SVScores): JSX.Element => {
+const monoVarScoresElement = (svScores: SVScores): JSX.Element => {
   const svs = Object.values(svScores.SV);
   const scores = Object.values(svScores.CosineScore);
   return (
@@ -87,6 +91,69 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
     </div>
   );
 };
+
+const multiVarPartsElement = (c: MultiSVCandidate): JSX.Element => {
+  return (
+    <ul>
+      {c.Parts.map((p) => {
+        return (
+          <li key={p.QueryPart}>
+            [{p.QueryPart}]
+            <ul>
+              {p.SV.length === p.CosineScore.length &&
+                p.SV.map((sv, i) => {
+                  return (
+                    <li key={i}>
+                      {sv} ({p.CosineScore[i]})
+                    </li>
+                  );
+                })}
+            </ul>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
+  const monovar_scores = Object.values(svScores.CosineScore);
+  const max_monovar_score = monovar_scores.length > 0 ? monovar_scores[0] : 0;
+  const candidates = svScores.MultiSV.Candidates;
+  return (
+    <div id="multi-sv-scores-list">
+      <table>
+        <thead>
+          <tr>
+            <th>Number of Vars</th>
+            <th>Avg Cosine Score</th>
+            <th>Vars for query parts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {candidates.length > 0 &&
+            candidates.map((c, i) => {
+              return (
+                <tr key={i}>
+                  <td>
+                    {c.Parts.length} {c.DelimBased ? " (delim)" : ""}
+                  </td>
+                  <td>
+                    {c.AggCosineScore}{" "}
+                    {c.AggCosineScore > max_monovar_score
+                      ? " (> best single var)"
+                      : ""}
+                  </td>
+                  <td>{multiVarPartsElement(c)}</td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 export interface DebugInfoProps {
   debugData: any; // from the server response
   pageConfig: any;
@@ -207,14 +274,20 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>All Variables Matched (with scores):</b>
+            <b>Single Variables Matches:</b>
           </Row>
           <Row>Note: Variables with scores less than 0.5 are not used.</Row>
           <Row>
-            <Col>{matchScoresElement(debugInfo.svScores)}</Col>
+            <Col>{monoVarScoresElement(debugInfo.svScores)}</Col>
           </Row>
           <Row>
-            <b>Variable Sentences Matched (with scores):</b>
+            <b>Multi-Variable Matches:</b>
+          </Row>
+          <Row>
+            <Col>{multiVarScoresElement(debugInfo.svScores)}</Col>
+          </Row>
+          <Row>
+            <b>Variable Sentences Matched:</b>
           </Row>
           <Row>
             <Col>

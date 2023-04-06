@@ -92,7 +92,8 @@ module "cluster" {
 }
 
 resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
-  name    = format("dc-website-cert%s", local.resource_suffix)
+  # Must match ingress annotation in ingress.yaml
+  name    = "dc-website-cert"
   project = var.project_id
 
   # https://github.com/hashicorp/terraform-provider-google/issues/5356

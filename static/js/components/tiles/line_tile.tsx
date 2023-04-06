@@ -20,22 +20,20 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
+import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
-import { formatNumber } from "../../utils/string_utils";
-import {
-  getStatVarName,
-  getUnitString,
-  ReplacementStrings,
-} from "../../utils/tile_utils";
+import { getUnit } from "../../utils/stat_metadata_utils";
+import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface LineTilePropType {
   id: string;
@@ -71,11 +69,14 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
-    if (lineChartData) {
-      draw(props, lineChartData, svgContainer);
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(lineChartData)) {
+      return;
     }
+    draw(props, lineChartData, svgContainer);
   }, [props, lineChartData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place.name,
@@ -200,7 +201,7 @@ function rawToChart(
           dataPoints
         )
       );
-      const svUnit = getUnitString(raw.facets[series.facet].unit, spec.denom);
+      const svUnit = getUnit(raw.facets[series.facet]);
       unit = unit || svUnit;
       sources.add(raw.facets[series.facet].provenanceUrl);
     }
