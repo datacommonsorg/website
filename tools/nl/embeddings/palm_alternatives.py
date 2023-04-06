@@ -56,6 +56,7 @@ PALM_API_URL = f"https://generativelanguage.googleapis.com/v1beta1/models/chat-b
 
 SHEETS_DCID_COL = 'Id'
 SHEETS_DESCRIPTION_COL = 'Description'
+SHEETS_ALTERNATIVES_COL = 'Curated_Alternatives'
 CSV_PALM_ALTERNATIVES_COL = 'PaLM_Generated_Alternatives'
 
 MAX_ALTERNATIVES_LIMIT = 5
@@ -67,6 +68,37 @@ class Context:
     gs: any
     # Model
     model: any
+
+
+def _add_sv(name, sv, text2sv):
+    if not name:
+        return
+    svs_list = []
+    if name in text2sv:
+        svs_list = text2sv[name]
+
+    if sv not in svs_list:
+        svs_list.append(sv)
+
+    text2sv[name] = svs_list
+
+
+def _get_texts_dcids(df, sv_id_col_name, alternatives_col_name):
+    text2sv_dict = {}
+    for _, row in df.iterrows():
+        sv = row[sv_id_col_name].strip()
+        if alternatives_col_name in row:
+            alternatives = row[alternatives_col_name].split(';')
+            for alt in alternatives:
+                alt = alt.strip()
+                if not alt:
+                    continue
+                _add_sv(alt, sv, text2sv_dict)
+
+    texts = sorted(list(text2sv_dict.keys()))
+    dcids = [','.join(text2sv_dict[k]) for k in texts]
+
+    return (texts, dcids)
 
 
 def _get_sheets_data(ctx, sheets_url, worksheet_name) -> pd.DataFrame:
@@ -128,7 +160,7 @@ def load_svs(local_sheets_filepath: str) -> pd.DataFrame:
 
 
 def build_embeddings(ctx, texts):
-    print("Building embddings.")
+    print("Building embeddings.")
     embeddings = ctx.model.encode(texts, show_progress_bar=True)
     embeddings = pd.DataFrame(embeddings)
     return torch.from_numpy(embeddings.to_numpy()).to(torch.float)
@@ -141,9 +173,8 @@ def add_palm_alternatives(ctx, df_svs: pd.DataFrame) -> None:
     df_svs: DataFrame with the latest SVs, descriptions and other human curated alternatives.
     palm_alternatives_filepath: the filepath to write the PaLM alternatives to.
   """
-    texts = df_svs[SHEETS_DESCRIPTION_COL].to_list()
-    dcids = df_svs[SHEETS_DCID_COL].to_list()
-
+    (texts, dcids) = _get_texts_dcids(df_svs, SHEETS_DCID_COL,
+                                      SHEETS_ALTERNATIVES_COL)
     embeddings = build_embeddings(ctx, texts)
 
     # Start processing.
@@ -153,9 +184,13 @@ def add_palm_alternatives(ctx, df_svs: pd.DataFrame) -> None:
         if rid % 10 == 0:
             print(f"Processed: {rid}. Index = {rid}/{total_rows}")
             time.sleep(API_TIMEOUT_SECONDS)
-    
+
         sv_dcid = row[SHEETS_DCID_COL]
         sv_description = row[SHEETS_DESCRIPTION_COL]
+
+        # if the description is empty, use the first alternative.
+        if not sv_description:
+            sv_description = row[SHEETS_ALTERNATIVES_COL].split(";")[0]
 
         # Do not generate alternatives for topics.
         if 'dc/topic' in sv_dcid:
@@ -235,7 +270,9 @@ def main(_):
     cols = [SHEETS_DCID_COL, CSV_PALM_ALTERNATIVES_COL]
     df_svs[cols].to_csv(local_palm_alternatives_filepath, index=False)
 
-    print(f"Generating PaLM alternatives for {len(df_svs)} SVs took {end - start} seconds.")
+    print(
+        f"Generating PaLM alternatives for {len(df_svs)} SVs took {end - start} seconds."
+    )
 
 
 if __name__ == "__main__":
