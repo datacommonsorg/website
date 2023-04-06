@@ -70,7 +70,7 @@ def places_from_context(uttr: Utterance) -> List[Place]:
 # If instead of the last query, we had:
 #  [compare among palo alto, sunnyvale and san jose]
 # Then, the ordered candidates will be:
-#  [[palo alto, sunnyvale, san jose]]
+#  [[palo alto, sunnyvale, san jose], [fremont, san jose]]
 #
 def places_for_comparison_from_context(uttr: Utterance) -> List[List[Place]]:
   ans = []
@@ -93,10 +93,6 @@ def places_for_comparison_from_context(uttr: Utterance) -> List[List[Place]]:
     elif len(first.places) > 1:
       # Found multiple places in a single utterance.  Use this.
       ans.append(first.places)
-      if first_uttr_count == 0:
-        # This is the current utterance and we found multiple places,
-        # use this.
-        break
     first = first.prev_utterance
     first_uttr_count = first_uttr_count + 1
   return ans
