@@ -10,7 +10,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
@@ -21,7 +21,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
@@ -40,7 +40,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block"
@@ -51,7 +51,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc"
@@ -70,7 +70,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block"
@@ -81,7 +81,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc"
@@ -100,7 +100,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
@@ -111,7 +111,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
@@ -130,7 +130,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
@@ -141,7 +141,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
@@ -160,7 +160,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
@@ -171,7 +171,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
@@ -190,7 +190,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block"
@@ -201,7 +201,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc"
@@ -220,7 +220,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
@@ -231,7 +231,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
@@ -250,7 +250,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block"
@@ -261,7 +261,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block_pc"
@@ -280,7 +280,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined_multiple_place_bar_block"
@@ -291,7 +291,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined_multiple_place_bar_block_pc"
@@ -310,7 +310,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block"
@@ -321,7 +321,7 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/32"
+                      "geoId/12"
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block_pc"

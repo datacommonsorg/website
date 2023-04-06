@@ -9,7 +9,7 @@
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
             "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
@@ -19,7 +19,7 @@
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
             "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
@@ -29,7 +29,7 @@
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
             "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
@@ -39,7 +39,7 @@
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
             "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
@@ -49,19 +49,19 @@
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
-            "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX",
+            "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX",
             "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX",
-            "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX"
+            "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX"
           ],
           "type": null
         },
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
             "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE",
@@ -72,7 +72,7 @@
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
             "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX",
@@ -83,7 +83,7 @@
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
             "sdg/SI_POV_EMP1_15gte_M_A_MALE",
@@ -94,7 +94,7 @@
         {
           "places": [
             "geoId/06",
-            "geoId/32"
+            "geoId/12"
           ],
           "svs": [
             "Percent_Person_Obesity"
@@ -107,7 +107,7 @@
       "comparison_place_candidates": [
         [
           "geoId/06",
-          "geoId/32"
+          "geoId/12"
         ]
       ],
       "filtered_svs": [
@@ -184,12 +184,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.29,
-      "fulfillment": 0.6,
-      "get_sv_details": 0.29,
-      "query_detection": 0.47,
-      "sv_existence_for_places": 0.13,
-      "topic_calls": 0.46
+      "build_page_config": 1.16,
+      "fulfillment": 2.24,
+      "get_sv_details": 1.15,
+      "query_detection": 0.76,
+      "sv_existence_for_places": 1.39,
+      "topic_calls": 0.83
     }
   },
   "data_spec": [
@@ -211,12 +211,12 @@
         },
         {
           "country": "country/USA",
-          "dcid": "geoId/32",
-          "name": "Nevada",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "place_type": "State"
         }
       ],
-      "query": "Poverty vs. Obesity in California and Nevada",
+      "query": "Poverty vs. Obesity in California and Florida",
       "query_type": 6,
       "ranked_charts": [
         {
@@ -242,8 +242,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -274,8 +274,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -306,8 +306,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -338,8 +338,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -370,8 +370,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -402,8 +402,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -434,8 +434,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -466,8 +466,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -498,8 +498,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -530,8 +530,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -562,8 +562,8 @@
             },
             {
               "country": "country/USA",
-              "dcid": "geoId/32",
-              "name": "Nevada",
+              "dcid": "geoId/12",
+              "name": "Florida",
               "place_type": "State"
             }
           ],
@@ -658,13 +658,13 @@
   "event_classification": "<None>",
   "main_place_dcid": "geoId/06",
   "main_place_name": "California",
-  "original_query": "Poverty vs. Obesity in California and Nevada",
+  "original_query": "Poverty vs. Obesity in California and Florida",
   "overview_classification": "<None>",
   "places_detected": [
     "california",
-    "nevada"
+    "florida"
   ],
-  "places_resolved": "(name: California, dcid: geoId/06); (name: Nevada, dcid: geoId/32); ",
+  "places_resolved": "(name: California, dcid: geoId/06); (name: Florida, dcid: geoId/12); ",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -672,13 +672,13 @@
       "name": "California",
       "place_type": "State"
     },
-    "original_query": "Poverty vs Obesity in California and Nevada",
+    "original_query": "Poverty vs Obesity in California and Florida",
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
       "dcids_resolved": {
         "california": "geoId/06",
-        "nevada": "geoId/32"
+        "florida": "geoId/12"
       },
       "maps_api_failures": []
     },
@@ -693,18 +693,18 @@
         },
         {
           "country": "country/USA",
-          "dcid": "geoId/32",
-          "name": "Nevada",
+          "dcid": "geoId/12",
+          "name": "Florida",
           "place_type": "State"
         }
       ]
     },
     "places_found_str": [
       "california",
-      "nevada"
+      "florida"
     ],
     "query_transformations": {
-      "place_detection_input": "poverty vs obesity in california and nevada",
+      "place_detection_input": "poverty vs obesity in california and florida",
       "place_detection_with_places_removed": "poverty vs obesity and",
       "sv_detection_query_input": "poverty vs obesity and",
       "sv_detection_query_stop_words_removal": "poverty obesity"

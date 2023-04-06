@@ -183,7 +183,7 @@ class IntegrationTest(LiveServerTestCase):
             # a correlation chart for counties in CA.
             "Poverty vs. Obesity in California",
             # This should be a place comparison for a single more prominent SV.
-            "Poverty vs. Obesity in California and Nevada",
+            "Poverty vs. Obesity in California and Florida",
         ])
 
   def test_demo_climatetrace(self):
