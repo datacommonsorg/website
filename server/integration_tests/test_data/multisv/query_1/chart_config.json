@@ -1,0 +1,57 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Population Below Poverty Level Status in Past Year Per Capita (${xDate}) vs. Percentage of Population That Is Obese (${yDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Population Below Poverty Level Status in Past Year Per Capita",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
+          "Percent_Person_Obesity_scatter": {
+            "name": "Percentage of Population That Is Obese",
+            "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
+      "placeDcid": [
+        "geoId/06"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
+  }
+}
