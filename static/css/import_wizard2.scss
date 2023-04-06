@@ -218,3 +218,49 @@ tr th:last-child {
 .place-type-property-option span {
   width: 4rem;
 }
+
+.mapping-headers {
+  .header-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+
+    .header-item-input-section {
+      flex-grow: 1;
+    }
+
+    .header-input-subitem {
+      display: flex;
+      align-items: center;
+      padding: 0.2rem 0;
+
+      span {
+        min-width: 5rem;
+      }
+    }
+
+    .material-icons-outlined {
+      color: inherit;
+      opacity: 0.7;
+      cursor: default;
+      margin: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .material-icons-outlined:hover {
+      background-color: #ccc;
+    }
+  }
+
+  .mapping-header-input-add {
+    cursor: default;
+    width: fit-content;
+    padding: 0.5rem;
+  }
+
+  .mapping-header-input-add:hover {
+    background-color: #ccc;
+    border-radius: 1rem;
+  }
+}
