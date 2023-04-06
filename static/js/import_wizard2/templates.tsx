@@ -24,7 +24,8 @@ import { CsvData, MappedThing, Mapping } from "./types";
 
 // information about a template
 export interface TemplateInfo {
-  description: string;
+  title: string;
+  subtitle: string;
   explanation: JSX.Element;
   table: JSX.Element;
 }
@@ -175,22 +176,26 @@ const MULTI_VAR_COL_EXPLANATION = (
 // TEMPLATE_MAPPING_COMPONENTS
 export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
   constantVar: {
-    description: "Data about a constant variable",
+    title: "Single Variable",
+    subtitle: "One date column",
     explanation: CONSTANT_VAR_EXPLANATION,
     table: CONSTANT_VAR_TABLE,
   },
   multiVarCol: {
-    description: "Data about many variables, one per column",
+    title: "Multiple Variables",
+    subtitle: "One date column",
     explanation: MULTI_VAR_COL_EXPLANATION,
     table: MULTI_VAR_COL_TABLE,
   },
   multiVarMultiDateCol: {
-    description: "Data about many variables, many date columns",
+    title: "Multiple Variables",
+    subtitle: "Multiple date columns",
     explanation: MULTI_VAR_MULTI_DATE_COL_EXPLANATION,
     table: MULTI_VAR_MULTI_DATE_COL_TABLE,
   },
   singleVarMultiDateCol: {
-    description: "Data about a single variable, many date columns",
+    title: "Single Variable",
+    subtitle: "Multiple date columns",
     explanation: SINGLE_VAR_MULTI_DATE_COL_EXPLANATION,
     table: SINGLE_VAR_MULTI_DATE_COL_TABLE,
   },
