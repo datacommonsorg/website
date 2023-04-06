@@ -15,7 +15,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Income (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States",
+                    "title": "Individual Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -34,7 +34,7 @@
                       "Median_Earnings_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Earnings (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States",
+                    "title": "Individual Median Earnings (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -53,7 +53,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -72,7 +72,7 @@
                       "Mean_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Households (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States",
+                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -91,7 +91,7 @@
                       "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Total Wages Paid to Professional, Scientific, and Technical Services (${xDate}) vs. High Bood Pressure (${yDate}) in Counties of United States",
+                    "title": "Total Wages Paid to Professional, Scientific, and Technical Services (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
