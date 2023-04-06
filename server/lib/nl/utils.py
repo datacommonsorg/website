@@ -753,6 +753,13 @@ def is_multi_sv(uttr: nl_uttr.Utterance) -> bool:
   if (not uttr.detection.svs_detected.sv_scores or not uttr.multi_svs or
       not uttr.multi_svs.candidates):
     return False
+  # Get the top single-sv and multi-sv scores.
   top_sv_score = uttr.detection.svs_detected.sv_scores[0]
   top_multi_sv_score = uttr.multi_svs.candidates[0].aggregate_score
-  return top_multi_sv_score > top_sv_score
+
+  # Prefer multi-sv when the scores are higher or up to a score differential.
+  if (top_multi_sv_score > top_sv_score or
+      (top_sv_score - top_multi_sv_score <=
+       shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
+    return True
+  return False
