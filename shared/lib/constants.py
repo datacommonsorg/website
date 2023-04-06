@@ -370,3 +370,9 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "privateschool": "private schools",
     "school": "schools",
 }
+
+# A cosine score differential we use to indicate if scores
+# that differ by up to this amount are "near" SVs.
+# In Multi-SV detection, if the difference between successive scores exceeds
+# this threshold, then SVs at the lower score and below are ignored.
+MULTI_SV_SCORE_DIFFERENTIAL = 0.05
