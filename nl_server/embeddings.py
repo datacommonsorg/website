@@ -25,6 +25,8 @@ import torch
 
 from nl_server import query_util
 import nl_server.gcs as gcs
+from shared.lib import constants
+from shared.lib import detected_variables as vars
 from shared.lib import utils
 
 TEMP_DIR = '/tmp/'
@@ -37,45 +39,7 @@ _INIT_SCORE = (_HIGHEST_SCORE + 0.1)
 # Scores below this are ignored.
 _SV_SCORE_THRESHOLD = 0.5
 
-# If the difference between successive scores exceeds this threshold, then SVs at
-# the lower score and below are ignored.
-_MULTI_SV_SCORE_DIFFERENTIAL = 0.05
-
 _NUM_CANDIDATES_PER_NSPLIT = 3
-
-
-# List of SV candidates, along with scores.
-@dataclass
-class VarCandidates:
-  # The below are sorted and parallel lists.
-  svs: List[str]
-  scores: List[float]
-  sv2sentences: Dict[str, List[str]]
-
-
-# One part of a single multi-var candidate and its
-# associated SVs and scores.
-@dataclass
-class MultiVarCandidatePart:
-  query_part: str
-  svs: List[str]
-  scores: List[float]
-
-
-# One multi-var candidate containing multiple parts.
-@dataclass
-class MultiVarCandidate:
-  parts: List[MultiVarCandidatePart]
-  # Aggregate score
-  aggregate_score: float
-  # Is this candidate based on a split computed from delimiters?
-  delim_based: bool
-
-
-# List of multi-var candidates.
-@dataclass
-class MultiVarCandidates:
-  candidates: List[MultiVarCandidate]
 
 
 class Embeddings:
@@ -134,7 +98,8 @@ class Embeddings:
   # Given a list of queries, searches the in-memory embeddings index
   # and returns a map of candidates keyed by input queries.
   #
-  def _search_embeddings(self, queries: List[str]) -> Dict[str, VarCandidates]:
+  def _search_embeddings(self,
+                         queries: List[str]) -> Dict[str, vars.VarCandidates]:
     query_embeddings = self.model.encode(queries)
     hits = semantic_search(query_embeddings, self.dataset_embeddings, top_k=20)
 
@@ -159,7 +124,7 @@ class Embeddings:
           sentence = self.sentences[ent['corpus_id']]
           query2sv2sentence2score[q][dcid][sentence] = score
 
-    query2result: Dict[str, VarCandidates] = {}
+    query2result: Dict[str, vars.VarCandidates] = {}
 
     # Go over the map and prepare parallel lists of
     # SVs and scores in query2result.
@@ -170,7 +135,9 @@ class Embeddings:
                         ]
       svs = [k for (k, _) in sv2score_sorted]
       scores = [v for (_, v) in sv2score_sorted]
-      query2result[q] = VarCandidates(svs=svs, scores=scores, sv2sentences={})
+      query2result[q] = vars.VarCandidates(svs=svs,
+                                           scores=scores,
+                                           sv2sentences={})
 
     # Go over the results and prepare the sv2sentences map in
     # query2result.
@@ -207,20 +174,20 @@ class Embeddings:
         'SV': result_monovar.svs,
         'CosineScore': result_monovar.scores,
         'SV_to_Sentences': result_monovar.sv2sentences,
-        'MultiSV': _multivar_candidates_to_dict(result_multivar)
+        'MultiSV': vars.multivar_candidates_to_dict(result_multivar)
     }
 
   #
   # Detects one or more SVs from the query.
   # TODO: Fix the query upstream to ensure the punctuations aren't stripped.
   #
-  def _detect_multiple_svs(self, query: str) -> MultiVarCandidates:
+  def _detect_multiple_svs(self, query: str) -> vars.MultiVarCandidates:
     #
     # Prepare a combination of query-sets.
     #
     querysets = query_util.prepare_multivar_querysets(query)
 
-    result = MultiVarCandidates(candidates=[])
+    result = vars.MultiVarCandidates(candidates=[])
 
     # Make a unique list of query strings
     all_queries = set()
@@ -252,27 +219,27 @@ class Embeddings:
     # TODO: Come up with a better ranking function.
     #
     for qs in querysets:
-      candidates: List[MultiVarCandidate] = []
+      candidates: List[vars.MultiVarCandidate] = []
       for c in qs.combinations:
         if not c or not c.parts:
           continue
 
         total = 0
-        candidate = MultiVarCandidate(parts=[],
-                                      delim_based=qs.delim_based,
-                                      aggregate_score=-1)
+        candidate = vars.MultiVarCandidate(parts=[],
+                                           delim_based=qs.delim_based,
+                                           aggregate_score=-1)
         lowest = _INIT_SCORE
         for q in c.parts:
           r = query2result.get(
-              q, VarCandidates(svs=[], scores=[], sv2sentences={}))
-          part = MultiVarCandidatePart(query_part=q, svs=[], scores=[])
+              q, vars.VarCandidates(svs=[], scores=[], sv2sentences={}))
+          part = vars.MultiVarCandidatePart(query_part=q, svs=[], scores=[])
           score = 0
           if r.svs:
             # Pick the top-K SVs.
             limit = _pick_top_k(r)
             if limit > 0:
               part.svs = r.svs[:limit]
-              part.scores = [round(s, 4) for s in r.scores[:limit]]
+              part.scores = [s for s in r.scores[:limit]]
               score = r.scores[0]
 
           if score < lowest:
@@ -305,26 +272,11 @@ class Embeddings:
 # Given a list of variables select only those SVs that do not deviate
 # from the best SV by more than a certain threshold.
 #
-def _pick_top_k(candidates: VarCandidates) -> int:
+def _pick_top_k(candidates: vars.VarCandidates) -> int:
   k = 1
   first = candidates.scores[0]
   for i in range(1, len(candidates.scores)):
-    if first - candidates.scores[i] > _MULTI_SV_SCORE_DIFFERENTIAL:
+    if first - candidates.scores[i] > constants.MULTI_SV_SCORE_DIFFERENTIAL:
       break
     k += 1
   return k
-
-
-def _multivar_candidates_to_dict(candidates: MultiVarCandidates) -> Dict:
-  result = {'Candidates': []}
-  for c in candidates.candidates:
-    c_dict = {
-        'Parts': [],
-        'AggCosineScore': round(c.aggregate_score, 4),
-        'DelimBased': c.delim_based,
-    }
-    for p in c.parts:
-      p_dict = {'QueryPart': p.query_part, 'SV': p.svs, 'CosineScore': p.scores}
-      c_dict['Parts'].append(p_dict)
-    result['Candidates'].append(c_dict)
-  return result

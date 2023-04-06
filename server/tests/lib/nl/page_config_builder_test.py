@@ -448,7 +448,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Farm-name (${xDate}) vs. Mean_Precipitation-name (${yDate}) in Counties of Foo Place"
+         title: "Count_Farm-name (${yDate}) vs. Mean_Precipitation-name (${xDate}) in Counties of Foo Place"
          type: SCATTER
          stat_var_key: "Count_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"
@@ -461,7 +461,7 @@ CORRELATION_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Income_Farm-name (${xDate}) vs. Mean_Precipitation-name (${yDate}) in Counties of Foo Place"
+         title: "Income_Farm-name (${yDate}) vs. Mean_Precipitation-name (${xDate}) in Counties of Foo Place"
          type: SCATTER
          stat_var_key: "Income_Farm_scatter"
          stat_var_key: "Mean_Precipitation_scatter"

@@ -13,11 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-variable "website_githash" {
-  type        =  string
-  description = "Determines which DC website image to use."
-}
-
 variable "mixer_githash" {
   type        =  string
   description = "Determines which DC Mixer image to use."
