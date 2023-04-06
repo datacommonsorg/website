@@ -25,6 +25,7 @@ import torch
 
 from nl_server import query_util
 import nl_server.gcs as gcs
+from shared.lib import constants
 from shared.lib import detected_variables as vars
 from shared.lib import utils
 
@@ -37,10 +38,6 @@ _INIT_SCORE = (_HIGHEST_SCORE + 0.1)
 
 # Scores below this are ignored.
 _SV_SCORE_THRESHOLD = 0.5
-
-# If the difference between successive scores exceeds this threshold, then SVs at
-# the lower score and below are ignored.
-_MULTI_SV_SCORE_DIFFERENTIAL = 0.05
 
 _NUM_CANDIDATES_PER_NSPLIT = 3
 
@@ -242,7 +239,7 @@ class Embeddings:
             limit = _pick_top_k(r)
             if limit > 0:
               part.svs = r.svs[:limit]
-              part.scores = [round(s, 4) for s in r.scores[:limit]]
+              part.scores = [s for s in r.scores[:limit]]
               score = r.scores[0]
 
           if score < lowest:
@@ -279,7 +276,7 @@ def _pick_top_k(candidates: vars.VarCandidates) -> int:
   k = 1
   first = candidates.scores[0]
   for i in range(1, len(candidates.scores)):
-    if first - candidates.scores[i] > _MULTI_SV_SCORE_DIFFERENTIAL:
+    if first - candidates.scores[i] > constants.MULTI_SV_SCORE_DIFFERENTIAL:
       break
     k += 1
   return k
