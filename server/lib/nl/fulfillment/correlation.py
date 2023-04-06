@@ -102,6 +102,8 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
     # Counter updated in get_sample_child_places
     return False
 
+  # When multi-sv has a higher score than single-sv prefer that.
+  # See discussion in _route_comparison_or_correlation().
   if utils.is_multi_sv(state.uttr):
     lhs_svs, rhs_svs = _handle_multi_sv_in_uttr(state.uttr, places_to_check)
   else:
