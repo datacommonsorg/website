@@ -289,7 +289,7 @@ test("GenerateRowObservations_DateValuesInHeader", () => {
       { id: "id", header: "id", columnIdx: 0 },
       { id: "indicators", header: "indicators", columnIdx: 1 },
       { id: "2018", header: "2019", columnIdx: 2 },
-      { id: "2018", header: "2019", columnIdx: 3 },
+      { id: "2019", header: "2019", columnIdx: 3 },
     ],
     columnValuesSampled: null,
     rowsForDisplay: new Map([
@@ -307,15 +307,15 @@ test("GenerateRowObservations_DateValuesInHeader", () => {
     [
       2,
       [
-        "Value of Count_Person for USA in 2019 is 300000000 USDollar",
+        "Value of Count_Person for USA in 2018 is 300000000 USDollar",
         "Value of Count_Person for USA in 2019 is 329000000 USDollar",
       ],
     ],
-    [3, ["Value of Count_Goat for IND in 2019 is 2000000 USDollar"]],
+    [3, ["Value of Count_Goat for IND in 2018 is 2000000 USDollar"]],
     [
       1000,
       [
-        "Value of Count_Dog for CHN in 2019 is 100000001 USDollar",
+        "Value of Count_Dog for CHN in 2018 is 100000001 USDollar",
         "Value of Count_Dog for CHN in 2019 is 110000000 USDollar",
       ],
     ],
@@ -388,15 +388,15 @@ test("GenerateRowObservations_DateValuesInHeader_ValueMap", () => {
     [
       2,
       [
-        "Value of Count_Person for CAN in 2019 is 300000000 USDollar",
+        "Value of Count_Person for CAN in 2018 is 300000000 USDollar",
         "Value of Count_Person for CAN in 2019 is 329000000 USDollar",
       ],
     ],
-    [3, ["Value of Count_Goat for IND in 2019 is 2000000 USDollar"]],
+    [3, ["Value of Count_Goat for IND in 2018 is 2000000 USDollar"]],
     [
       1000,
       [
-        "Value of Count_Dog for CHN in 2019 is 100000001 USDollar",
+        "Value of Count_Dog for CHN in 2018 is 100000001 USDollar",
         "Value of Count_Dog for CHN in 2019 is 110000000 USDollar",
       ],
     ],
