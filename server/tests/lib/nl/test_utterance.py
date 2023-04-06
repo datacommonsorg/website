@@ -476,8 +476,7 @@ CORRELATION_UTTR = {
     'session_id': '007_999999999',
 }
 
-# Utterance for correlation wrt previous SV.
-# Depends on CONTAINED_IN_UTTR (for previous SV, parent place, child place type)
+# Utterance for multi-sv correlation.
 MULTISV_CORRELATION_UTTR = {
     'classifications': [{
         'type': ClassificationType.CORRELATION
