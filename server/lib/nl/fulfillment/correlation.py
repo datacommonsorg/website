@@ -13,10 +13,13 @@
 # limitations under the License.
 
 import logging
+from typing import List
 
 from server.lib.nl import utils
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import ContainedInClassificationAttributes
+from server.lib.nl.detection import ContainedInPlaceType
+from server.lib.nl.detection import NLClassifier
 from server.lib.nl.detection import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import ChartVars
@@ -31,6 +34,7 @@ from server.lib.nl.fulfillment.context import svs_from_context
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance
+import shared.lib.variables as vars
 
 _MAX_CONTEXT_SVS = 3
 _MAX_MAIN_SVS = 5
@@ -45,7 +49,12 @@ def populate(uttr: Utterance) -> bool:
   # Get the list of CONTAINED_IN classifications in order from current to past.
   classifications = classifications_of_type_from_context(
       uttr, ClassificationType.CONTAINED_IN)
-  logging.info(classifications)
+  if not classifications:
+    # If there are no classifications, attempt default type.
+    return _populate_correlation_for_place_type(
+        PopulateState(uttr=uttr,
+                      main_cb=None,
+                      place_type=ContainedInPlaceType.DEFAULT_TYPE))
   for classification in classifications:
     if (not classification or not isinstance(
         classification.attributes, ContainedInClassificationAttributes)):
@@ -93,48 +102,93 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
     # Counter updated in get_sample_child_places
     return False
 
+  if utils.is_multi_sv(state.uttr):
+    lhs_svs, rhs_svs = _handle_multi_sv_in_uttr(state.uttr, places_to_check)
+  else:
+    lhs_svs, rhs_svs = _handle_svs_from_context(state.uttr, places_to_check)
+
+  if not lhs_svs or not rhs_svs:
+    return False
+
+  found = False
+  for lhs_sv in lhs_svs:
+    for rhs_sv in rhs_svs:
+      if lhs_sv == rhs_sv:
+        continue
+      found |= _populate_correlation_chart(state, place, lhs_sv, rhs_sv)
+  return found
+
+
+def _handle_svs_from_context(uttr: Utterance,
+                             places_to_check: List[str]) -> tuple:
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
-  main_svs = open_top_topics_ordered(state.uttr.svs, state.uttr.counters)
+  main_svs = open_top_topics_ordered(uttr.svs, uttr.counters)
   main_svs = utils.sv_existence_for_places(places_to_check, main_svs,
-                                           state.uttr.counters)
+                                           uttr.counters)
   if not main_svs:
-    state.uttr.counters.err('correlation_failed_existence_check_main_sv',
-                            main_svs)
-    state.uttr.counters.err('correlation_failed_missing_main_sv', 1)
+    uttr.counters.err('correlation_failed_existence_check_main_sv', main_svs)
+    uttr.counters.err('correlation_failed_missing_main_sv', 1)
     logging.info('Correlation found no Main SV')
-    return False
+    return (None, None)
 
   # For related SV, walk up the chain to find all SVs.
   context_svs = []
-  for c_svs in svs_from_context(state.uttr):
-    opened_svs = open_top_topics_ordered(c_svs, state.uttr.counters)
+  for c_svs in svs_from_context(uttr):
+    opened_svs = open_top_topics_ordered(c_svs, uttr.counters)
     context_svs = utils.sv_existence_for_places(places_to_check, opened_svs,
-                                                state.uttr.counters)
+                                                uttr.counters)
     if context_svs:
       break
     else:
-      state.uttr.counters.err('correlation_failed_existence_check_context_sv',
-                              opened_svs)
+      uttr.counters.err('correlation_failed_existence_check_context_sv',
+                        opened_svs)
   if not context_svs:
-    state.uttr.counters.err('correlation_failed_missing_context_sv', 1)
+    uttr.counters.err('correlation_failed_missing_context_sv', 1)
     logging.info('Correlation found no Context SV')
-    return False
+    return (None, None)
 
   main_svs = main_svs[:_MAX_MAIN_SVS]
   context_svs = context_svs[:_MAX_CONTEXT_SVS]
-  state.uttr.counters.info('correlation_main_svs', main_svs)
-  state.uttr.counters.info('correlation_context_svs', context_svs)
+  uttr.counters.info('correlation_main_svs', main_svs)
+  uttr.counters.info('correlation_context_svs', context_svs)
   logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
   logging.info('Correlation Context SVs: %s', ', '.join(context_svs))
+  return (main_svs, context_svs)
 
-  found = False
-  for main_sv in main_svs:
-    for context_sv in context_svs:
-      if main_sv == context_sv:
-        continue
-      found |= _populate_correlation_chart(state, place, main_sv, context_sv)
-  return found
+
+def _handle_multi_sv_in_uttr(uttr: Utterance,
+                             places_to_check: List[str]) -> tuple:
+  # Loop over the candidates and find the one with 2 parts.
+  parts: List[vars.MultiVarCandidatePart] = None
+  for c in uttr.multi_svs.candidates:
+    if len(c.parts) == 2:
+      parts = c.parts
+      break
+
+  if not parts:
+    return (None, None)
+
+  final_svs: List[List[str]] = []
+  for i, p in enumerate(parts):
+    # For the main SV of correlation, we expect a variable to
+    # be detected in this `uttr`
+    svs = open_top_topics_ordered(p.svs, uttr.counters)
+    svs = utils.sv_existence_for_places(places_to_check, svs, uttr.counters)
+    if not svs:
+      uttr.counters.err(f'multisv_correlation_failed_existence_check_{i}_sv',
+                        svs)
+      uttr.counters.err(f'multisv_correlation_failed_missing_{i}_sv', 1)
+      return (None, None)
+    final_svs.append(svs)
+
+  lhs_svs = final_svs[0][:_MAX_MAIN_SVS]
+  rhs_svs = final_svs[1][:_MAX_CONTEXT_SVS]
+  uttr.counters.info(f'multisv_correlation_lhs_svs', lhs_svs)
+  uttr.counters.info(f'multisv_correlation_rhs_svs', rhs_svs)
+  logging.info('[MultiSV] Correlation LHS SVs: %s', ', '.join(lhs_svs))
+  logging.info('[MultiSV] Correlation RHS SVs: %s', ', '.join(rhs_svs))
+  return (lhs_svs, rhs_svs)
 
 
 def _populate_correlation_chart(state: PopulateState, place: Place, sv_1: str,

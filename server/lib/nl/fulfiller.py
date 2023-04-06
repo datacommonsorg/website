@@ -23,6 +23,7 @@ from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance
+from shared.lib import variables as vars
 
 # We will ignore SV detections that are below this threshold
 _SV_THRESHOLD = 0.5
@@ -38,6 +39,9 @@ def fulfill(query_detection: Detection, currentUtterance: Utterance,
   filtered_svs = filter_svs(query_detection.svs_detected.sv_dcids,
                             query_detection.svs_detected.sv_scores, counters)
 
+  multi_svs = vars.dict_to_multivar_candidates(
+      query_detection.svs_detected.multi_sv)
+
   # Construct Utterance datastructure.
   uttr = Utterance(prev_utterance=currentUtterance,
                    query=query_detection.original_query,
@@ -50,7 +54,8 @@ def fulfill(query_detection: Detection, currentUtterance: Utterance,
                    rankedCharts=[],
                    answerPlaces=[],
                    counters=counters,
-                   session_id=session_id)
+                   session_id=session_id,
+                   multi_svs=multi_svs)
   uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.
