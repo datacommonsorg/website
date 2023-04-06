@@ -169,6 +169,9 @@ class IntegrationTest(LiveServerTestCase):
             # We have no obesity data at State-level. Instead we should fallback to
             # parent place USA.
             'obesity in California',
+            # We should fail fulfilling "Country" type contained-in a country,
+            # instead we would pick contained-in from context (County).
+            'GDP of countries in the US',
         ])
 
   def test_demo_climatetrace(self):
@@ -178,7 +181,7 @@ class IntegrationTest(LiveServerTestCase):
   def test_place_detection_e2e(self):
     self.run_sequence('place_detection_e2e', [
         'tell me about palo alto',
-        'US states which have that highest median income',
+        'US states which have that the cheapest houses',
         'what about in florida',
         'compare with california and new york state and washington state',
         'show me the population of mexico city',

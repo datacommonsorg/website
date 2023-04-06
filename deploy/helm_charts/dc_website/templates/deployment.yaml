@@ -34,11 +34,11 @@ spec:
       maxUnavailable: {{ div .Values.replicas.default 4 | add 1 }}
   selector:
     matchLabels:
-      app: website-app{{ .Values.resourceSuffix }}
+      app: website-app
   template:
     metadata:
       labels:
-        app: website-app{{ .Values.resourceSuffix }}
+        app: website-app
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
@@ -84,6 +84,11 @@ spec:
             # - name: ingress-config
             #   mountPath: /datacommons/ingress
           env:
+            - name: SECRET_PROJECT
+              valueFrom:
+                configMapKeyRef:
+                  name: website-configmap{{ .Values.resourceSuffix }}
+                  key: secret_project
             - name: FLASK_ENV
               valueFrom:
                 configMapKeyRef:

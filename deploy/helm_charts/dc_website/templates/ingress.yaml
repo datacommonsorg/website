@@ -24,6 +24,9 @@ spec:
 
 ---
 
+# Note:
+# ingress.gcp.kubernetes.io/pre-shared-cert should match the name
+# of the certificate created in Terraform.
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -31,7 +34,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
   annotations:
     kubernetes.io/ingress.global-static-ip-name: dc-website-ip
-    ingress.gcp.kubernetes.io/pre-shared-cert: dc-website-cert{{ .Values.resourceSuffix }}
+    ingress.gcp.kubernetes.io/pre-shared-cert: dc-website-cert
 spec:
   rules:
     - http:

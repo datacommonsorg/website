@@ -191,12 +191,14 @@ PAK_PLACE_TYPE_REMAP = {
         ContainedInPlaceType.ADMIN_AREA_3,
 }
 
+USA = Place('country/USA', 'USA', 'Country', 'country/USA')
+
 # This is only for US.
 DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
-    ContainedInPlaceType.COUNTY: Place('country/USA', 'USA', 'Country'),
-    ContainedInPlaceType.STATE: Place('country/USA', 'USA', 'Country'),
-    ContainedInPlaceType.CITY: Place('country/USA', 'USA', 'Country'),
+    ContainedInPlaceType.COUNTY: USA,
+    ContainedInPlaceType.STATE: USA,
+    ContainedInPlaceType.CITY: USA,
 }
 
 EU_COUNTRIES = frozenset([
@@ -446,3 +448,19 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
 
 # Have a shorter limit to avoid spamming the json.
 DBG_LIST_LIMIT = 3
+
+#
+# Sometimes the an SV/topic co-occurring with another higher-ranked
+# SV/topic may be undesirable.  For example, for the
+# [projected temperature extremes] query we don't want to also show
+# the current temperature.  This happens because descriptions the
+# SVs are close enough.
+# This map has a "key" --blocks--> "values" relation. If "key" is
+# a higher ranking SV than any of the "values".
+#
+SV_BLOCKS_MAP = {
+    "dc/topic/ProjectedClimateExtremes": [
+        "dc/topic/Temperature", "dc/topic/WetBulbTemperature"
+    ],
+    "dc/topic/WetBulbTemperature": ["dc/topic/Temperature"],
+}
