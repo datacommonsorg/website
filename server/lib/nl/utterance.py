@@ -36,6 +36,7 @@ from server.lib.nl.detection import RankingType
 from server.lib.nl.detection import SimpleClassificationAttributes
 from server.lib.nl.detection import TimeDeltaClassificationAttributes
 from server.lib.nl.detection import TimeDeltaType
+from shared.lib.detected_variables import MultiVarCandidates
 
 # How far back does the context go back.
 CTX_LOOKBACK_LIMIT = 15
@@ -62,8 +63,8 @@ class QueryType(IntEnum):
   RANKING_ACROSS_PLACES = 2
   RANKING_ACROSS_VARS = 3
   CONTAINED_IN = 4
-  CORRELATION = 5
-  COMPARISON = 6
+  CORRELATION_ACROSS_VARS = 5
+  COMPARISON_ACROSS_PLACES = 6
   TIME_DELTA_ACROSS_VARS = 7
   TIME_DELTA_ACROSS_PLACES = 8
   EVENT = 9
@@ -131,6 +132,8 @@ class Utterance:
   # Some of these might be promoted to the main Debug Info display,
   # but everything else will appear in the raw output.
   counters: ctr.Counters
+  # Includes top candidates of multi-SV detection.
+  multi_svs: MultiVarCandidates
 
 
 #
@@ -282,6 +285,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
                      chartCandidates=None,
                      answerPlaces=None,
                      counters=None,
-                     session_id=udict['session_id'])
+                     session_id=udict['session_id'],
+                     multi_svs=None)
     prev_uttr = uttr
   return uttr

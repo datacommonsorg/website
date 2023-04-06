@@ -37,6 +37,7 @@ from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
 from server.tests.lib.nl.test_utterance import EVENT_UTTR
+from server.tests.lib.nl.test_utterance import MULTISV_CORRELATION_UTTR
 from server.tests.lib.nl.test_utterance import OVERVIEW_PLACE_ONLY_UTTR
 from server.tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
 from server.tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
@@ -188,6 +189,44 @@ class TestDataSpecNext(unittest.TestCase):
 
     self.maxDiff = None
     self.assertEqual(got, CORRELATION_UTTR)
+
+  # Multi-sv single query correlation
+  # Example: [poverty vs. obesity]
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'get_sample_child_places')
+  @patch.object(utils, 'sv_existence_for_places')
+  def test_multisv_correlation(self, mock_sv_existence, mock_child_places,
+                               mock_extend_svs):
+    # Detect a single SV for rainfall.
+    detection = _detection('geoId/06', ['Mean_Precipitation'], [0.6],
+                           ClassificationType.CORRELATION)
+    detection.svs_detected.multi_sv = {
+        'Candidates': [{
+            'Parts': [{
+                'QueryPart': 'obesity',
+                'SV': ['Prevalence_Obesity'],
+                'CosineScore': [0.9],
+            }, {
+                'QueryPart': 'poverty',
+                'SV': ['Count_Poverty'],
+                'CosineScore': [0.7],
+            }],
+            'AggCosineScore': 0.8,
+            'DelimBased': True,
+        }]
+    }
+
+    # MOCK:
+    # - Do no SV extensions
+    mock_extend_svs.return_value = {}
+    # - Return santa clara as child place
+    mock_child_places.return_value = ['geoId/06085']
+    # - Make SVs exist
+    mock_sv_existence.side_effect = [['Prevalence_Obesity'], ['Count_Poverty']]
+
+    got = _run(detection, [])
+    self.maxDiff = None
+    self.assertEqual(got, MULTISV_CORRELATION_UTTR)
 
   # This follows up on test_correlation()
   # Example: [which counties have the most agricultural workers]
@@ -484,7 +523,7 @@ def _detection(place: str,
                                                  svs_to_sentences={},
                                                  sv_dcids=svs,
                                                  sv_scores=scores,
-                                                 multi_sv={}))
+                                                 multi_sv=None))
   if query_type == ClassificationType.COMPARISON:
     # Set comparison classifier
     detection.classifications = [

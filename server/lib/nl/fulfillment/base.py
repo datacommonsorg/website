@@ -596,8 +596,8 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
 
 
 def handle_contained_in_type(state: PopulateState, places: List[Place]):
-  if utils.get_contained_in_type(
-      state.uttr) == ContainedInPlaceType.DEFAULT_TYPE and len(places) == 1:
+  if (state.place_type == ContainedInPlaceType.DEFAULT_TYPE and
+      len(places) == 1):
     state.place_type = utils.get_default_child_place_type(places[0])
     state.uttr.counters.info('contained_in_across_fallback',
                              state.place_type.value)
