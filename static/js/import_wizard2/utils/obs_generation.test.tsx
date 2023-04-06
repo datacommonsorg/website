@@ -323,8 +323,6 @@ test("GenerateRowObservations_DateValuesInHeader", () => {
   const actual = rowObsToStrList(
     generateRowObservations(inMappings, inCsvData, {})
   );
-  console.log(actual.values());
-  console.log(expected.values());
   expect(Array.from(actual.keys())).toEqual(Array.from(expected.keys()));
   expect(Array.from(actual.values())).toEqual(Array.from(expected.values()));
 });

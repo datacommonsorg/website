@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Component for the mapping section for the singleVarMultiDateCol template
+ */
+
 import _ from "lodash";
 import React from "react";
 import { Input } from "reactstrap";
@@ -33,6 +37,7 @@ import { MappingPlaceInput } from "../shared/mapping_place_input";
 export function SingleVarMultiDateCol(
   props: MappingTemplateProps
 ): JSX.Element {
+  // Set of column indices that have been mapped.
   const mappedColumnIndices = new Set();
   props.userMapping &&
     props.userMapping.forEach((mappingVal) => {
@@ -48,6 +53,7 @@ export function SingleVarMultiDateCol(
       }
     });
 
+  // Function to run when mapping value is updated.
   function onMappingValUpdate(
     mappedThing: MappedThing,
     mappingVal: MappingVal
