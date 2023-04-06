@@ -64,216 +64,213 @@ MAX_ALTERNATIVES_LIMIT = 5
 
 @dataclass
 class Context:
-    # gspread client
-    gs: any
-    # Model
-    model: any
+  # gspread client
+  gs: any
+  # Model
+  model: any
 
 
 def _add_sv(name, sv, text2sv):
-    if not name:
-        return
-    svs_list = []
-    if name in text2sv:
-        svs_list = text2sv[name]
+  if not name:
+    return
+  svs_list = []
+  if name in text2sv:
+    svs_list = text2sv[name]
 
-    if sv not in svs_list:
-        svs_list.append(sv)
+  if sv not in svs_list:
+    svs_list.append(sv)
 
-    text2sv[name] = svs_list
+  text2sv[name] = svs_list
 
 
 def _get_texts_dcids(df, sv_id_col_name, alternatives_col_name):
-    text2sv_dict = {}
-    for _, row in df.iterrows():
-        sv = row[sv_id_col_name].strip()
-        if alternatives_col_name in row:
-            alternatives = row[alternatives_col_name].split(';')
-            for alt in alternatives:
-                alt = alt.strip()
-                if not alt:
-                    continue
-                _add_sv(alt, sv, text2sv_dict)
+  text2sv_dict = {}
+  for _, row in df.iterrows():
+    sv = row[sv_id_col_name].strip()
+    if alternatives_col_name in row:
+      alternatives = row[alternatives_col_name].split(';')
+      for alt in alternatives:
+        alt = alt.strip()
+        if not alt:
+          continue
+        _add_sv(alt, sv, text2sv_dict)
 
-    texts = sorted(list(text2sv_dict.keys()))
-    dcids = [','.join(text2sv_dict[k]) for k in texts]
+  texts = sorted(list(text2sv_dict.keys()))
+  dcids = [','.join(text2sv_dict[k]) for k in texts]
 
-    return (texts, dcids)
+  return (texts, dcids)
 
 
 def _get_sheets_data(ctx, sheets_url, worksheet_name) -> pd.DataFrame:
-    print(
-        f"Downloading the latest sheets data from: Worksheet={worksheet_name}, Url={sheets_url}"
-    )
-    sheet = ctx.gs.open_by_url(sheets_url).worksheet(worksheet_name)
-    df = pd.DataFrame(sheet.get_all_records())
-    return df
+  print(
+      f"Downloading the latest sheets data from: Worksheet={worksheet_name}, Url={sheets_url}"
+  )
+  sheet = ctx.gs.open_by_url(sheets_url).worksheet(worksheet_name)
+  df = pd.DataFrame(sheet.get_all_records())
+  return df
 
 
 # Get most similar svs
 def _get_similar_sv_indices(query_embedding_tensor,
                             dataset_embeddings_tensor,
                             top_k=10) -> List[int]:
-    hits = semantic_search(query_embedding_tensor,
-                           dataset_embeddings_tensor,
-                           top_k=top_k)
+  hits = semantic_search(query_embedding_tensor,
+                         dataset_embeddings_tensor,
+                         top_k=top_k)
 
-    # Note: multiple results may map to the same DCID. As well, the same string may
-    # map to multiple DCIDs with the same score.
-    svindex2score = {}
-    for e in hits[0]:
-        d = e['corpus_id']
-        if d not in svindex2score:
-            svindex2score[d] = e['score']
+  # Note: multiple results may map to the same DCID. As well, the same string may
+  # map to multiple DCIDs with the same score.
+  svindex2score = {}
+  for e in hits[0]:
+    d = e['corpus_id']
+    if d not in svindex2score:
+      svindex2score[d] = e['score']
 
-    svindex_sorted = [
-        k for (k, _) in sorted(
-            svindex2score.items(), key=lambda item: item[1], reverse=True)
-    ]
-    return svindex_sorted
+  svindex_sorted = [
+      k for (k, _) in sorted(
+          svindex2score.items(), key=lambda item: item[1], reverse=True)
+  ]
+  return svindex_sorted
 
 
 def _sv_match_alternative(ctx,
                           sv_description,
                           dataset_embeddings_tensor,
                           top_k=10) -> List[int]:
-    description_embed = ctx.model.encode(sv_description,
-                                         show_progress_bar=False)
-    similar_inds = _get_similar_sv_indices(description_embed,
-                                           dataset_embeddings_tensor, top_k)
-    return similar_inds
+  description_embed = ctx.model.encode(sv_description, show_progress_bar=False)
+  similar_inds = _get_similar_sv_indices(description_embed,
+                                         dataset_embeddings_tensor, top_k)
+  return similar_inds
 
 
 def update_local_sheets_file(ctx, sheets_url: str, worksheet_name: str,
                              local_sheets_filepath: str) -> None:
-    """Download latest from Google sheets file and write to the local csv file."""
-    df = _get_sheets_data(ctx, sheets_url, worksheet_name)
-    df = df.fillna("")
-    print(f"Downloaded {len(df)} lines.")
+  """Download latest from Google sheets file and write to the local csv file."""
+  df = _get_sheets_data(ctx, sheets_url, worksheet_name)
+  df = df.fillna("")
+  print(f"Downloaded {len(df)} lines.")
 
-    print("Updating input CSV file")
-    df.to_csv(local_sheets_filepath, index=False)
+  print("Updating input CSV file")
+  df.to_csv(local_sheets_filepath, index=False)
 
 
 def load_svs(local_sheets_filepath: str) -> pd.DataFrame:
-    return pd.read_csv(local_sheets_filepath)
+  return pd.read_csv(local_sheets_filepath)
 
 
 def build_embeddings(ctx, texts):
-    print("Building embeddings.")
-    embeddings = ctx.model.encode(texts, show_progress_bar=True)
-    embeddings = pd.DataFrame(embeddings)
-    return torch.from_numpy(embeddings.to_numpy()).to(torch.float)
+  print("Building embeddings.")
+  embeddings = ctx.model.encode(texts, show_progress_bar=True)
+  embeddings = pd.DataFrame(embeddings)
+  return torch.from_numpy(embeddings.to_numpy()).to(torch.float)
 
 
 def add_palm_alternatives(ctx, df_svs: pd.DataFrame) -> None:
-    """Generate alternative descriptions using the PaLM API and add as a column to df_svs.
+  """Generate alternative descriptions using the PaLM API and add as a column to df_svs.
   
   Args:
     df_svs: DataFrame with the latest SVs, descriptions and other human curated alternatives.
     palm_alternatives_filepath: the filepath to write the PaLM alternatives to.
   """
-    (texts, dcids) = _get_texts_dcids(df_svs, SHEETS_DCID_COL,
-                                      SHEETS_ALTERNATIVES_COL)
-    embeddings = build_embeddings(ctx, texts)
+  (texts, dcids) = _get_texts_dcids(df_svs, SHEETS_DCID_COL,
+                                    SHEETS_ALTERNATIVES_COL)
+  embeddings = build_embeddings(ctx, texts)
 
-    # Start processing.
-    palm_alternatives = []
-    total_rows = len(df_svs)
-    for rid, row in df_svs.iterrows():
-        if rid % 10 == 0:
-            print(f"Processed: {rid}. Index = {rid}/{total_rows}")
-            time.sleep(API_TIMEOUT_SECONDS)
+  # Start processing.
+  palm_alternatives = []
+  total_rows = len(df_svs)
+  for rid, row in df_svs.iterrows():
+    if rid % 10 == 0:
+      print(f"Processed: {rid}. Index = {rid}/{total_rows}")
+      time.sleep(API_TIMEOUT_SECONDS)
 
-        sv_dcid = row[SHEETS_DCID_COL]
-        sv_description = row[SHEETS_DESCRIPTION_COL]
+    sv_dcid = row[SHEETS_DCID_COL]
+    sv_description = row[SHEETS_DESCRIPTION_COL]
 
-        # if the description is empty, use the first alternative.
-        if not sv_description:
-            sv_description = row[SHEETS_ALTERNATIVES_COL].split(";")[0]
+    # if the description is empty, use the first alternative.
+    if not sv_description:
+      sv_description = row[SHEETS_ALTERNATIVES_COL].split(";")[0]
 
-        # Do not generate alternatives for topics.
-        if 'dc/topic' in sv_dcid:
-            continue
-        print(
-            f"***Processing sv_dcid:{sv_dcid}, sv_description:{sv_description}")
+    # Do not generate alternatives for topics.
+    if 'dc/topic' in sv_dcid:
+      continue
+    print(f"***Processing sv_dcid:{sv_dcid}, sv_description:{sv_description}")
 
-        # Get Alternative.
-        valid_alts = []
-        for _ in range(MAX_API_RETRIES):
-            alts = palm_helper.palm_api_call(PALM_API_URL, sv_description,
-                                             TEMPERATURE, API_TIMEOUT_SECONDS)
+    # Get Alternative.
+    valid_alts = []
+    for _ in range(MAX_API_RETRIES):
+      alts = palm_helper.palm_api_call(PALM_API_URL, sv_description,
+                                       TEMPERATURE, API_TIMEOUT_SECONDS)
 
-            for a in alts:
-                # Check if we can find any valid alternates.
-                matched_inds = _sv_match_alternative(ctx,
-                                                     sv_description,
-                                                     embeddings,
-                                                     top_k=3)
+      for a in alts:
+        # Check if we can find any valid alternates.
+        matched_inds = _sv_match_alternative(ctx,
+                                             sv_description,
+                                             embeddings,
+                                             top_k=3)
 
-                top_sv_id = dcids[matched_inds[0]]
-                if top_sv_id == sv_dcid:
-                    valid_alts.append(a)
-                else:
-                    # Some print logs in case of no matches.
-                    print(f"  -- Not valid alternative: {a}")
-                    print(
-                        f"  -- Top Alternative was: {top_sv_id}. Expected SV: {sv_dcid}"
-                    )
+        top_sv_id = dcids[matched_inds[0]]
+        if top_sv_id == sv_dcid:
+          valid_alts.append(a)
+        else:
+          # Some print logs in case of no matches.
+          print(f"  -- Not valid alternative: {a}")
+          print(
+              f"  -- Top Alternative was: {top_sv_id}. Expected SV: {sv_dcid}")
 
-            if len(valid_alts) >= MAX_ALTERNATIVES_LIMIT:
-                break
+      if len(valid_alts) >= MAX_ALTERNATIVES_LIMIT:
+        break
 
-        palm_alts_string = ""
-        # Combine the valid alternatives in a string delimited by a semi colon.
-        palm_alts_string = ";".join(valid_alts)
-        print(f"  Alternates validated:")
-        print(palm_alts_string + "\n")
+    palm_alts_string = ""
+    # Combine the valid alternatives in a string delimited by a semi colon.
+    palm_alts_string = ";".join(valid_alts)
+    print(f"  Alternates validated:")
+    print(palm_alts_string + "\n")
 
-        palm_alternatives.append(palm_alts_string)
+    palm_alternatives.append(palm_alts_string)
 
-    assert len(palm_alternatives) == total_rows
-    df_svs[CSV_PALM_ALTERNATIVES_COL] = palm_alternatives
+  assert len(palm_alternatives) == total_rows
+  df_svs[CSV_PALM_ALTERNATIVES_COL] = palm_alternatives
 
 
 def main(_):
-    assert FLAGS.model_name and FLAGS.local_sheets_csv_filename and FLAGS.sheets_url and FLAGS.sheets_worksheet_name
+  assert FLAGS.model_name and FLAGS.local_sheets_csv_filename and FLAGS.sheets_url and FLAGS.sheets_worksheet_name
 
-    local_sheets_filepath = os.path.join(
-        'sheets', FLAGS.local_sheets_csv_filename + ".csv")
-    assert os.path.exists(local_sheets_filepath)
+  local_sheets_filepath = os.path.join('sheets',
+                                       FLAGS.local_sheets_csv_filename + ".csv")
+  assert os.path.exists(local_sheets_filepath)
 
-    local_palm_alternatives_filepath = os.path.join(
-        'csv', FLAGS.palm_alternatives_filename + ".csv")
-    assert os.path.exists(local_palm_alternatives_filepath)
+  local_palm_alternatives_filepath = os.path.join(
+      'csv', FLAGS.palm_alternatives_filename + ".csv")
+  assert os.path.exists(local_palm_alternatives_filepath)
 
-    assert PALM_API_KEY
+  assert PALM_API_KEY
 
-    gs = gspread.oauth()
-    model = SentenceTransformer(FLAGS.model_name)
+  gs = gspread.oauth()
+  model = SentenceTransformer(FLAGS.model_name)
 
-    ctx = Context(gs=gs, model=model)
+  ctx = Context(gs=gs, model=model)
 
-    # First update the local csv file corresponding to the latest SVs data in Google Sheets.
-    update_local_sheets_file(ctx, FLAGS.sheets_url, FLAGS.sheets_worksheet_name,
-                             local_sheets_filepath)
+  # First update the local csv file corresponding to the latest SVs data in Google Sheets.
+  update_local_sheets_file(ctx, FLAGS.sheets_url, FLAGS.sheets_worksheet_name,
+                           local_sheets_filepath)
 
-    # Now process the local sheets file and get the SV data.
-    df_svs = load_svs(local_sheets_filepath)
+  # Now process the local sheets file and get the SV data.
+  df_svs = load_svs(local_sheets_filepath)
 
-    # Process the dataframe to get alternative descriptions.
-    start = time.time()
-    add_palm_alternatives(ctx, df_svs)
-    end = time.time()
+  # Process the dataframe to get alternative descriptions.
+  start = time.time()
+  add_palm_alternatives(ctx, df_svs)
+  end = time.time()
 
-    # Write the PaLM alternatives to file.
-    cols = [SHEETS_DCID_COL, CSV_PALM_ALTERNATIVES_COL]
-    df_svs[cols].to_csv(local_palm_alternatives_filepath, index=False)
+  # Write the PaLM alternatives to file.
+  cols = [SHEETS_DCID_COL, CSV_PALM_ALTERNATIVES_COL]
+  df_svs[cols].to_csv(local_palm_alternatives_filepath, index=False)
 
-    print(
-        f"Generating PaLM alternatives for {len(df_svs)} SVs took {end - start} seconds."
-    )
+  print(
+      f"Generating PaLM alternatives for {len(df_svs)} SVs took {end - start} seconds."
+  )
 
 
 if __name__ == "__main__":
-    app.run(main)
+  app.run(main)
