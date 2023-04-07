@@ -13,6 +13,13 @@
 # limitations under the License.
 """Helper for parsing quantity"""
 
+# This library supports parsing numeric values and ranges from a query.
+# It requires numbers plus an optional multipler in words, like
+# 1M, 10 million, 2 trillion, 30K.
+
+# TODO: support non-digits too, like "one thousand".
+# TODO: maybe support units
+
 import logging
 import re
 
@@ -123,7 +130,6 @@ def parse_quantity(query_orig: str,
       if incl_range:
         ctr.err('quantity_match_multiple_ranges', 1)
         return None
-      logging.info(f'{regex} matched {w.groups()} {w.group(1)}, {w.group(2)}')
       incl_range = (w.start(), w.group(1).strip(), w.group(2).strip())
   if incl_range:
     return _make_quantity_range(lcmp=QCmpType.GE,
@@ -149,7 +155,6 @@ def parse_quantity(query_orig: str,
       if fail_if_found:
         ctr.err('quantity_matching_multimatches', cmp)
         return None
-      logging.info(f'{regex} matched {w.group(1)}')
       subs = w.group(1).strip()
       matches[cmp] = (w.start(), subs)
       query = query.replace(subs, '')
