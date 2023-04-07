@@ -31,7 +31,7 @@ It includes ~1.3K curated variables.
 To run the `run_gen_palm_alts.sh` script, you'll need the PaLM API Key which should be set as the Environment variable, e.g. 
 
 ```
-export PALM_API_KEy=<key>
+export PALM_API_KEY=<key>
 ```
 
 Then, you can run:
@@ -41,6 +41,8 @@ Then, you can run:
 ```
 
 This script, upon completion, should update the `palm_alternatives.csv` under the `csv` folder. Note, the API could be throttled so there are several timeouts in the scripts. That, along with the fact that the API response can be on O(seconds), this script can take a while to complete. For ~1500 SVs, this may take 1-2 hours.
+
+Note: the file `sheets/dc_nl_svs_curated.csv` should reflect the updated/new format the file downloaded from Google Sheets to manage the list of StatVars and human-curated descriptions (alternatives). However, for now it can be ignored because this migration is a work-in-progress.
 
 ## One time setup
 

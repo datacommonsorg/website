@@ -16,8 +16,9 @@
 
 from dataclasses import dataclass
 import datetime as datetime
-import logging
 import os
+import time
+from typing import List
 
 from absl import app
 from absl import flags
@@ -25,10 +26,7 @@ import gspread
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
-import time
 import torch
-
-from typing import List
 
 import palm_api_helper as palm_helper
 
@@ -68,6 +66,31 @@ class Context:
   gs: any
   # Model
   model: any
+
+
+def _df_svs_validated(df_svs: pd.DataFrame) -> bool:
+  # Returns true if the following validation conditions hold:
+  # 1. All rows have a DCID string.
+  # 2. All rows have a non-empty description OR
+  #    the first alternative is non-empty.
+  for rid, row in df_svs.iterrows():
+    sv_dcid = row[SHEETS_DCID_COL]
+    sv_description = row[SHEETS_DESCRIPTION_COL]
+
+    if not sv_dcid or not isinstance(sv_dcid, str):
+      print(f"Row ({rid}) in df_svs does not have a DCID.")
+      return False
+
+    if not sv_description or not isinstance(sv_description,
+                                            str) or len(sv_description) <= 3:
+      sv_alt = row[SHEETS_ALTERNATIVES_COL].split(";")[0]
+      if not sv_alt or not isinstance(sv_alt, str) or len(sv_alt) <= 3:
+        print(
+            f"Row ({rid}), with DCID ({sv_dcid}) in df_svs does not have a valid description or alternative."
+        )
+        return False
+
+  return True
 
 
 def _add_sv(name, sv, text2sv):
@@ -150,12 +173,26 @@ def update_local_sheets_file(ctx, sheets_url: str, worksheet_name: str,
   df = df.fillna("")
   print(f"Downloaded {len(df)} lines.")
 
+  print(
+      "Validating the DataFrame (downloaded from Sheets) and flagging any concerns."
+  )
+  if not _df_svs_validated(df):
+    raise ValueError("df_svs has a format error.")
+  print("Validation complete.")
+
   print("Updating input CSV file")
   df.to_csv(local_sheets_filepath, index=False)
 
 
 def load_svs(local_sheets_filepath: str) -> pd.DataFrame:
-  return pd.read_csv(local_sheets_filepath)
+  df = pd.read_csv(local_sheets_filepath).fillna("")
+  print(
+      "Validating the data DataFrame (reading from local) and flagging any concerns."
+  )
+  if not _df_svs_validated(df):
+    raise ValueError("df_svs has a format error.")
+  print("Validation complete.")
+  return df
 
 
 def build_embeddings(ctx, texts):
@@ -188,7 +225,7 @@ def add_palm_alternatives(ctx, df_svs: pd.DataFrame) -> None:
     sv_description = row[SHEETS_DESCRIPTION_COL]
 
     # if the description is empty, use the first alternative.
-    if not sv_description:
+    if not sv_description or not isinstance(sv_description, str):
       sv_description = row[SHEETS_ALTERNATIVES_COL].split(";")[0]
 
     # Do not generate alternatives for topics.
@@ -218,6 +255,12 @@ def add_palm_alternatives(ctx, df_svs: pd.DataFrame) -> None:
           print(
               f"  -- Top Alternative was: {top_sv_id}. Expected SV: {sv_dcid}")
 
+        # Check if we have enough alternatives already. If so, break.
+        if len(valid_alts) >= MAX_ALTERNATIVES_LIMIT:
+          break
+
+      # Check if we have enough alternatives already. If so, break and no
+      # need to keep calling the API again.
       if len(valid_alts) >= MAX_ALTERNATIVES_LIMIT:
         break
 
@@ -259,17 +302,17 @@ def main(_):
   df_svs = load_svs(local_sheets_filepath)
 
   # Process the dataframe to get alternative descriptions.
-  start = time.time()
-  add_palm_alternatives(ctx, df_svs)
-  end = time.time()
+  #start = time.time()
+  #add_palm_alternatives(ctx, df_svs)
+  #end = time.time()
 
   # Write the PaLM alternatives to file.
-  cols = [SHEETS_DCID_COL, CSV_PALM_ALTERNATIVES_COL]
-  df_svs[cols].to_csv(local_palm_alternatives_filepath, index=False)
+  # cols = [SHEETS_DCID_COL, CSV_PALM_ALTERNATIVES_COL]
+  # df_svs[cols].to_csv(local_palm_alternatives_filepath, index=False)
 
-  print(
-      f"Generating PaLM alternatives for {len(df_svs)} SVs took {end - start} seconds."
-  )
+  # print(
+  #     f"Generating PaLM alternatives for {len(df_svs)} SVs took {end - start} seconds."
+  # )
 
 
 if __name__ == "__main__":

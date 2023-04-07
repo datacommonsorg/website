@@ -13,11 +13,11 @@
 # limitations under the License.
 #
 # Helper functions to query the PaLM API for Alternate Sentence Generation.
-import requests
 import json
 import time
-
 from typing import List
+
+import requests
 
 API_HEADER = {'content-type': 'application/json'}
 
@@ -45,6 +45,10 @@ def _split_response_alternates(resp, timeout) -> List[str]:
     return []
 
   for i in range(len(alts)):
+    # PaLM API can sometimes return unexpectedly formatted answers. It
+    # may be due to the model being used or a poor prompt. Either way,
+    # these post-processing replacements take care of some known formatting
+    # anomalies.
     alts[i] = alts[i].strip().replace(".", "").replace("*",
                                                        "").replace("\\",
                                                                    "").strip()
