@@ -277,6 +277,7 @@ class SizeTypeClassificationAttributes(ClassificationAttributes):
 
 
 class QCmpType(str, Enum):
+  """Enum to represent comparison types"""
   EQ = "EQ"
   GE = "GE"
   GT = "GT"
@@ -286,6 +287,7 @@ class QCmpType(str, Enum):
 
 @dataclass
 class Quantity:
+  """Represents a numeric quantity that in a filter query."""
   cmp: QCmpType
   # The converted value
   val: float
@@ -296,6 +298,7 @@ class Quantity:
 
 @dataclass
 class QuantityRange:
+  """Represents a range of two numeric quantities."""
   lower: Quantity
   upper: Quantity
 
@@ -309,7 +312,7 @@ class QuantityClassificationAttributes(ClassificationAttributes):
   # One and only one of the below is set.
   qval: Quantity
   qrange: QuantityRange
-  # Earliest index in the query of the quantity sub-string.
+  # Smallest index in the query of the quantity sub-string.
   idx: int
 
   def __str__(self):
