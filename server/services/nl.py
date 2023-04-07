@@ -18,6 +18,7 @@ import logging
 import re
 from typing import Dict, List, Union
 
+from server.lib.nl.counters import Counters
 from server.lib.nl.detection import BinaryClassificationResultType
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import ComparisonClassificationAttributes
@@ -28,6 +29,10 @@ from server.lib.nl.detection import EventClassificationAttributes
 from server.lib.nl.detection import EventType
 from server.lib.nl.detection import NLClassifier
 from server.lib.nl.detection import OverviewClassificationAttributes
+from server.lib.nl.detection import QCmpType
+from server.lib.nl.detection import Quantity
+from server.lib.nl.detection import QuantityClassificationAttributes
+from server.lib.nl.detection import QuantityRange
 from server.lib.nl.detection import RankingClassificationAttributes
 from server.lib.nl.detection import RankingType
 from server.lib.nl.detection import SizeType
@@ -44,6 +49,92 @@ import shared.lib.utils as shared_utils
 # classification triggers and contained_in place types (and their plurals).
 # This may not always be the best thing to do.
 ALL_STOP_WORDS = shared_utils.combine_stop_words()
+
+# Match a number followed by an optional decimal part.
+NUMBER_RE = r'\d+(?:\.\d+)?'
+# Match a bunch of words indicating multipliers to be applied to a number.
+NUMBER_FACTOR_RE = r'k|m|b|t|hundred|thousand|million|billion|trillion'
+SPACE_RE = r'(?: )?'
+
+NUMBER_FACTOR_MAP = {
+    'hundred': 100,
+    'k': 1000,
+    'thousand': 1000,
+    'm': 1000000,
+    'million': 1000000,
+    'b': 1000000000,
+    'billion': 1000000000,
+    't': 1000000000000,
+    'trillion': 1000000000000,
+}
+
+
+def _sentence(x):
+  return r'(?:^|\W)' + x + r'(?:$|\W)'
+
+
+# Allow a bunch of stuff between X and number. Followed by an optional space and an optional factor.
+def _digits(x):
+  # Capture number space and factor all together as a single block.
+  return x + r'\s*?(' + NUMBER_RE + SPACE_RE + r'(?:' + NUMBER_FACTOR_RE + r')?)'
+
+
+# The order here matters. The ones earlier in the list may include
+# sub-strings that appear later.
+QUANTITY_RE = [
+    (QCmpType.GE,
+     _digits(r'(?:>=|greater than or equal to|greater than or equals|from)')),
+    (QCmpType.LE,
+     _digits(
+         r'(?:<=|less than or equal to|less than or equals|lesser than or equal to|lesser than or equals|upto)'
+     )),
+    (QCmpType.GT,
+     _digits(r'(?:>|over|above|exceeds|more than|greater than|higher than)')),
+    (QCmpType.LT,
+     _digits(r'(?:>|under|below|less than|lesser than|lower than)')),
+    (QCmpType.EQ, _digits(r'(?:==?|is|equal to|equals|has|as much as)'))
+]
+
+SPECIAL_QUANTITY_RANGE_RE = [
+    _digits(r'between') + r'[ ]*' + _digits(r'and'),
+    _digits(r'from') + r'[ ]*' + _digits(r'to'),
+]
+
+
+def _to_number(val: str, ctr: Counters) -> int:
+  try:
+    num = float(val)
+  except ValueError:
+    # Capture number and factor separately.
+    regex = _sentence(r'(' + NUMBER_RE + r')' + SPACE_RE + r'(' +
+                      NUMBER_FACTOR_RE + r')')
+    match = re.fullmatch(regex, val)
+    if not match or match.group(2) not in NUMBER_FACTOR_MAP:
+      ctr.err('quantity_match_number_parsing_failed', val)
+      return None
+    num = float(match.group(1).strip())
+    factor = NUMBER_FACTOR_MAP[match.group(2).strip()]
+    return num * factor
+  return num
+
+
+def _make_quantity_range(lcmp: QCmpType, lval: str, ucmp: QCmpType, uval: str,
+                         idx: int, ctr: Counters) -> NLClassifier:
+  lnum = _to_number(lval, ctr)
+  unum = _to_number(uval, ctr)
+  if lnum == None or unum == None:
+    return None
+  if lnum > unum:
+    ctr.err('quantity_match_incorrect_range', (lnum, unum))
+    return None
+  attributes = QuantityClassificationAttributes(qval=None,
+                                                qrange=QuantityRange(
+                                                    lower=Quantity(cmp=lcmp,
+                                                                   val=lnum),
+                                                    upper=Quantity(cmp=ucmp,
+                                                                   val=unum)),
+                                                idx=idx)
+  return NLClassifier(type=ClassificationType.QUANTITY, attributes=attributes)
 
 
 def pick_best(probs):
@@ -389,6 +480,73 @@ class Model:
         correlation_trigger_words=matches)
     return NLClassifier(type=ClassificationType.CORRELATION,
                         attributes=attributes)
+
+  def heuristic_quantity_classification(
+      self, query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
+    query = query_orig.lower()
+
+    # Check special quantity range regex first, since quantity regex is
+    # a subset of it.
+    incl_range = None
+    for regex in SPECIAL_QUANTITY_RANGE_RE:
+      for w in re.finditer(_sentence(regex), query):
+        if incl_range:
+          ctr.err('quantity_match_multiple_ranges', 1)
+          return None
+        logging.info(f'{regex} matched {w.groups()} {w.group(1)}, {w.group(2)}')
+        incl_range = (w.start(), w.group(1).strip(), w.group(2).strip())
+    if incl_range:
+      return _make_quantity_range(lcmp=QCmpType.GE,
+                                  lval=incl_range[1],
+                                  ucmp=QCmpType.LE,
+                                  uval=incl_range[2],
+                                  idx=incl_range[0],
+                                  ctr=ctr)
+
+    # Now go over the quantity regexes.  We can match up to 2 of them
+    # of appropriate types.
+    matches = {}
+    # The logic here depends on the ordering in QUANTITY_RE
+    for cmp, regex in QUANTITY_RE:
+      # If we've matched GE/LE, don't parse GT/LT (because it can be a sub-string).
+      # If we have matched anything at all, don't match EQ.
+      if ((cmp == QCmpType.GT and QCmpType.GE in matches) or
+          (cmp == QCmpType.LT and QCmpType.LE in matches) or
+          (cmp == QCmpType.EQ and matches)):
+        continue
+      for w in re.finditer(_sentence(regex), query):
+        if cmp in matches:
+          ctr.err('quantity_matching_multimatches', cmp)
+          return None
+        logging.info(f'{regex} matched {w.group(1)}')
+        matches[cmp] = (w.start(), w.group(1).strip())
+
+    # This is fine, not a quantity query.
+    if not matches:
+      return None
+
+    if len(matches) == 2:
+      lcmp = QCmpType.GE if QCmpType.GE in matches else QCmpType.GT
+      ucmp = QCmpType.LE if QCmpType.LE in matches else QCmpType.LT
+      idx = matches[lcmp][0]
+      if matches[ucmp][0] < matches[lcmp][0]:
+        idx = matches[ucmp][0]
+      return _make_quantity_range(lcmp=lcmp,
+                                  lval=matches[lcmp][1],
+                                  ucmp=ucmp,
+                                  uval=matches[ucmp][1],
+                                  idx=idx,
+                                  ctr=ctr)
+
+    cmp = list(matches.keys())[0]
+    num = _to_number(matches[cmp][1], ctr)
+    if num == None:
+      return None
+    attributes = QuantityClassificationAttributes(qval=Quantity(cmp=cmp,
+                                                                val=num),
+                                                  qrange=None,
+                                                  idx=matches[cmp][0])
+    return NLClassifier(type=ClassificationType.QUANTITY, attributes=attributes)
 
   def detect_svs(self, query: str,
                  debug_logs: Dict) -> Dict[str, Union[Dict, List]]:

@@ -276,20 +276,61 @@ class SizeTypeClassificationAttributes(ClassificationAttributes):
   size_types_trigger_words: List[str]
 
 
+class QCmpType(str, Enum):
+  EQ = "EQ"
+  GE = "GE"
+  GT = "GT"
+  LE = "LE"
+  LT = "LT"
+
+
+@dataclass
+class Quantity:
+  cmp: QCmpType
+  # The converted value
+  val: float
+
+  def __str__(self):
+    return f'({self.cmp.value} {self.val})'
+
+
+@dataclass
+class QuantityRange:
+  lower: Quantity
+  upper: Quantity
+
+  def __str__(self):
+    return f'{self.lower} {self.upper}'
+
+
+@dataclass
+class QuantityClassificationAttributes(ClassificationAttributes):
+  """Quantity classification attributes."""
+  # One and only one of the below is set.
+  qval: Quantity
+  qrange: QuantityRange
+  # Earliest index in the query of the quantity sub-string.
+  idx: int
+
+  def __str__(self):
+    if self.qval:
+      return f'({self.qval} idx:{self.idx})'
+    return f'({self.qrange} idx:{self.idx})'
+
+
 class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
   RANKING = 2
-  TEMPORAL = 3
+  QUANTITY = 3
   CONTAINED_IN = 4
   CORRELATION = 5
-  CLUSTERING = 6
   COMPARISON = 7
   TIME_DELTA = 8
   EVENT = 9
   OVERVIEW = 10
   SIZE_TYPE = 11
-  UNKNOWN = 12
+  UNKNOWN = 13
 
 
 @dataclass
