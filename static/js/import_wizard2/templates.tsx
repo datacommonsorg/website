@@ -280,6 +280,28 @@ function getSingleVarMultiDateUserMapping(predictedMapping: Mapping): Mapping {
   return userMapping;
 }
 
+function getMultiVarMultiDateUserMapping(predictedMapping: Mapping): Mapping {
+  let userMapping = new Map();
+  if (!_.isEmpty(predictedMapping)) {
+    userMapping = _.clone(predictedMapping);
+    predictedMapping.forEach((mappingVal, mappedThing) => {
+      // mappingVal for date must have headers
+      const invalidDateVal =
+        mappedThing === MappedThing.DATE && _.isEmpty(mappingVal.headers);
+      // mappingVal for everything else must have a column
+      const invalidNonDateVal =
+        mappedThing !== MappedThing.DATE && _.isEmpty(mappingVal.column);
+      if (invalidDateVal || invalidNonDateVal) {
+        console.log(
+          `Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`
+        );
+        userMapping.delete(mappedThing);
+      }
+    });
+  }
+  return userMapping;
+}
+
 // Map of templateId to a function that takes the predicted mapping and returns
 // the user mapping to use for that template.
 // TODO: add test that checks every template has a user mapping function once
@@ -289,4 +311,5 @@ export const TEMPLATE_PREDICTION_VALIDATION: {
 } = {
   constantVar: getConstantVarUserMapping,
   singleVarMultiDateCol: getSingleVarMultiDateUserMapping,
+  multiVarMultiDateCol: getMultiVarMultiDateUserMapping,
 };
