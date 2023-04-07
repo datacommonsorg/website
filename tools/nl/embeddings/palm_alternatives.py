@@ -241,10 +241,7 @@ def add_palm_alternatives(ctx, df_svs: pd.DataFrame) -> None:
 
       for a in alts:
         # Check if we can find any valid alternates.
-        matched_inds = _sv_match_alternative(ctx,
-                                             sv_description,
-                                             embeddings,
-                                             top_k=3)
+        matched_inds = _sv_match_alternative(ctx, a, embeddings, top_k=3)
 
         top_sv_id = dcids[matched_inds[0]]
         if top_sv_id == sv_dcid:
