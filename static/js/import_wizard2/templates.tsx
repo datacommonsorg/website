@@ -280,6 +280,28 @@ function getSingleVarMultiDateUserMapping(predictedMapping: Mapping): Mapping {
   return userMapping;
 }
 
+function getMultiVarMultiDateUserMapping(predictedMapping: Mapping): Mapping {
+  let userMapping = new Map();
+  if (!_.isEmpty(predictedMapping)) {
+    userMapping = _.clone(predictedMapping);
+    predictedMapping.forEach((mappingVal, mappedThing) => {
+      // mappingVal for date must have headers
+      const invalidDateVal =
+        mappedThing === MappedThing.DATE && _.isEmpty(mappingVal.headers);
+      // mappingVal for everything else must have a column
+      const invalidNonDateVal =
+        mappedThing !== MappedThing.DATE && _.isEmpty(mappingVal.column);
+      if (invalidDateVal || invalidNonDateVal) {
+        console.log(
+          `Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`
+        );
+        userMapping.delete(mappedThing);
+      }
+    });
+  }
+  return userMapping;
+}
+
 function getMultiVarColUserMapping(predictedMapping: Mapping): Mapping {
   let userMapping = new Map();
   if (!_.isEmpty(predictedMapping)) {
@@ -311,5 +333,6 @@ export const TEMPLATE_PREDICTION_VALIDATION: {
 } = {
   constantVar: getConstantVarUserMapping,
   singleVarMultiDateCol: getSingleVarMultiDateUserMapping,
+  multiVarMultiDateCol: getMultiVarMultiDateUserMapping,
   multiVarCol: getMultiVarColUserMapping,
 };
