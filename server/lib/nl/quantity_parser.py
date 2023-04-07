@@ -35,7 +35,7 @@ NUMBER_RE = r'\d+(?:\.\d+)?'
 # Match a bunch of words indicating multipliers to be applied to a number.
 NUMBER_FACTOR_RE = r'k|m|b|t|hundred|thousand|million|billion|trillion'
 
-SPACE_RE = r'(?: )?'
+SPACE_RE = r'(?: +)?'
 
 NUMBER_FACTOR_MAP = {
     'hundred': 100,
@@ -50,7 +50,8 @@ NUMBER_FACTOR_MAP = {
 }
 
 
-def _sentence(x):
+# Match x at word boundary.
+def _matchable(x):
   return r'(?:^|\W)' + x + r'(?:$|\W)'
 
 
@@ -78,6 +79,7 @@ QUANTITY_RE = [
     (QCmpType.EQ, _digits(r'(?:==?|is|equal to|equals|has|have|as much as)'))
 ]
 
+# These are combined patterns for a range.
 SPECIAL_QUANTITY_RANGE_RE = [
     _digits(r'between') + r'[ ]*' + _digits(r'and'),
     _digits(r'from') + r'[ ]*' + _digits(r'to'),
@@ -89,8 +91,8 @@ def _to_number(val: str, ctr: Counters) -> int:
     num = float(val)
   except ValueError:
     # Capture number and factor separately.
-    regex = _sentence(r'(' + NUMBER_RE + r')' + SPACE_RE + r'(' +
-                      NUMBER_FACTOR_RE + r')')
+    regex = _matchable(r'(' + NUMBER_RE + r')' + SPACE_RE + r'(' +
+                       NUMBER_FACTOR_RE + r')')
     match = re.fullmatch(regex, val)
     if (not match or len(match.groups()) != 2 or
         match.group(2) not in NUMBER_FACTOR_MAP):
@@ -127,7 +129,7 @@ def parse_quantity(query_orig: str,
   # a subset of it.
   incl_range = None
   for regex in SPECIAL_QUANTITY_RANGE_RE:
-    for w in re.finditer(_sentence(regex), query):
+    for w in re.finditer(_matchable(regex), query):
       if incl_range:
         ctr.err('quantity_match_multiple_ranges', 1)
         return None
@@ -152,7 +154,7 @@ def parse_quantity(query_orig: str,
         (cmp == QCmpType.LT and QCmpType.LE in matches) or
         (cmp == QCmpType.EQ and matches) or (cmp in matches)):
       fail_if_found = True
-    for w in re.finditer(_sentence(regex), query):
+    for w in re.finditer(_matchable(regex), query):
       if fail_if_found:
         ctr.err('quantity_matching_multimatches', cmp)
         return None
