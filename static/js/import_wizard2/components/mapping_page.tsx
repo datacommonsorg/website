@@ -86,7 +86,9 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
           <div className="mapping-page-navigation-option">
             <span>
               Selected template:{" "}
-              {TEMPLATE_OPTIONS[props.selectedTemplate].description}
+              {`${TEMPLATE_OPTIONS[props.selectedTemplate].title} (${
+                TEMPLATE_OPTIONS[props.selectedTemplate].subtitle
+              })`}
             </span>
             <span
               onClick={props.onChangeTemplate}
