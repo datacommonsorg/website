@@ -13,6 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+gcloud domains registrations describe $DOMAIN \
+  --project=$PROJECT_ID
+RET=$?
+if [ $RET == 0 ]; then
+  echo "$DOMAIN is already registered."
+  exit 0
+fi
+
 cat >contact.yaml <<EOL
 allContacts:
   email: '${CONTACT_EMAIL}'

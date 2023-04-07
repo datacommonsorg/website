@@ -18,8 +18,9 @@
  * Page for selecting a template
  */
 
+import _ from "lodash";
 import React, { useState } from "react";
-import { Button } from "reactstrap";
+import { Button, Card, CardBody } from "reactstrap";
 
 import { TEMPLATE_OPTIONS } from "../templates";
 
@@ -35,34 +36,68 @@ export function TemplateSelectionPage(
   const [selectedTemplate, setSelectedTemplate] = useState(
     props.selectedTemplate || sortedTemplateIds[0]
   );
+  const [openedInfo, setOpenedInfo] = useState(new Set());
+
+  // Toggle open/close the info for given templateId
+  function onInfoToggled(templateId: string): void {
+    const newOpenedInfo = _.cloneDeep(openedInfo);
+    if (newOpenedInfo.has(templateId)) {
+      newOpenedInfo.delete(templateId);
+    } else {
+      newOpenedInfo.add(templateId);
+    }
+    setOpenedInfo(newOpenedInfo);
+  }
 
   return (
     <>
-      <h2>Step 1: What format is the data in?</h2>
+      <h2>Select Template</h2>
       <div>Please choose a template that best matches your data file</div>
       <div className="template-options-container">
         {sortedTemplateIds.map((templateId) => {
           return (
-            <div
+            <Card
               key={templateId}
               onClick={() => setSelectedTemplate(templateId)}
               className={`template-option${
                 templateId === selectedTemplate ? "-selected" : ""
               }`}
             >
-              <div>{TEMPLATE_OPTIONS[templateId].description}</div>
-              <div className="template-option-example-container">
-                <span>e.g.,</span>
-                <div className="template-option-example">
-                  <div className="template-example-table">
-                    {TEMPLATE_OPTIONS[templateId].table}
-                  </div>
-                  <div className="template-example-explanation">
-                    {TEMPLATE_OPTIONS[templateId].explanation}
+              <div className="template-example-section">
+                <div className="template-example-table">
+                  {selectedTemplate === templateId && (
+                    <span className={"material-icons selected-icon"}>
+                      check_circle
+                    </span>
+                  )}
+                  {TEMPLATE_OPTIONS[templateId].table}
+                  <span
+                    className={"material-icons-outlined info-button"}
+                    onClick={(e) => {
+                      onInfoToggled(templateId);
+                      e.stopPropagation();
+                    }}
+                  >
+                    info
+                  </span>
+                  <div className="template-example-explanation-container">
+                    {openedInfo.has(templateId) && (
+                      <div className="template-example-explanation">
+                        {TEMPLATE_OPTIONS[templateId].explanation}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
+              <CardBody>
+                <div className="template-option-title">
+                  {TEMPLATE_OPTIONS[templateId].title}
+                </div>
+                <div className="template-option-subtitle">
+                  {TEMPLATE_OPTIONS[templateId].subtitle}
+                </div>
+              </CardBody>
+            </Card>
           );
         })}
       </div>

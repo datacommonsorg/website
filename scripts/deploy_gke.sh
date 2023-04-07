@@ -90,7 +90,13 @@ if [[ $PROJECT_ID != "" ]]; then
   IMAGE_PROJECT=$PROJECT_ID
   cd $ROOT/deploy/overlays
   cp custom_kustomization.yaml.tpl kustomization.yaml
-  sed -i'' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  # OS X has a different sed
+  # https://unix.stackexchange.com/questions/13711/differences-between-sed-on-mac-osx-and-other-standard-sed
+  if [ $(uname) == "Darwin" ]; then
+    sed -i '' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  else
+    sed -i'' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  fi
   export PROJECT_ID=$PROJECT_ID
   yq eval -i '.project = env(PROJECT_ID)' ../base/custom_bigtable_info.yaml
   yq eval -i 'del(.tables)' ../base/custom_bigtable_info.yaml
