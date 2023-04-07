@@ -92,12 +92,13 @@ def _to_number(val: str, ctr: Counters) -> int:
     regex = _sentence(r'(' + NUMBER_RE + r')' + SPACE_RE + r'(' +
                       NUMBER_FACTOR_RE + r')')
     match = re.fullmatch(regex, val)
-    if not match or match.group(2) not in NUMBER_FACTOR_MAP:
+    if (not match or len(match.groups()) != 2 or
+        match.group(2) not in NUMBER_FACTOR_MAP):
       ctr.err('quantity_match_number_parsing_failed', val)
       return None
     num = float(match.group(1).strip())
     factor = NUMBER_FACTOR_MAP[match.group(2).strip()]
-    return num * factor
+    return int(num * factor)
   return num
 
 
