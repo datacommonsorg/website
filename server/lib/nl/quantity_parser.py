@@ -101,7 +101,7 @@ def _to_number(val: str, ctr: Counters) -> int:
     num = float(match.group(1).strip())
     factor = NUMBER_FACTOR_MAP[match.group(2).strip()]
     return int(num * factor)
-  return num
+  return round(num, 2)
 
 
 def _make_quantity_range(lcmp: QCmpType, lval: str, ucmp: QCmpType, uval: str,

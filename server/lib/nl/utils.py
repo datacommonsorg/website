@@ -375,6 +375,82 @@ def _compute_growth_ranked_lists(
                            pc=[sv for sv, _ in things_by_pc])
 
 
+# Returns true if the value passes the quantity filter.
+def _passes_quantity(val: float, filter: detection.Quantity) -> bool:
+  lhs = val
+  rhs = round(filter.val, 2)
+  if filter.cmp == detection.QCmpType.EQ:
+    return lhs == rhs
+  elif filter.cmp == detection.QCmpType.GE:
+    return lhs >= rhs
+  elif filter.cmp == detection.QCmpType.GT:
+    return lhs > rhs
+  elif filter.cmp == detection.QCmpType.LE:
+    return lhs <= rhs
+  elif filter.cmp == detection.QCmpType.LT:
+    return lhs < rhs
+  return False
+
+
+# Returns true if the value passes the given filter.
+def passes_filter(val: float,
+                  filter: detection.QuantityClassificationAttributes) -> bool:
+  val = round(val, 2)
+  if filter.qval:
+    return _passes_quantity(val, filter.qval)
+  else:
+    return (_passes_quantity(val, filter.qrange.lower) and
+            _passes_quantity(val, filter.qrange.upper))
+
+
+#
+# API to apply a filter and rank stat-vars.
+#
+def filter_and_rank_places(
+    parent_place: detection.Place, child_type: detection.ContainedInPlaceType,
+    sv: str, filter: detection.QuantityClassificationAttributes
+) -> List[detection.Place]:
+  api_resp = util.point_within_core(parent_entity=parent_place.dcid,
+                                    child_type=child_type.value,
+                                    variables=[sv],
+                                    date='',
+                                    all_facets=False)
+  sv_data = api_resp.get('data', {}).get(sv, {})
+  child_and_value = []
+  for child_place, value_data in sv_data.items():
+    if 'value' not in value_data:
+      continue
+    val = value_data['value']
+    if passes_filter(val, filter):
+      child_and_value.append((child_place, val))
+
+  # Sort place_and_value by value
+  child_and_value = sorted(child_and_value,
+                           key=lambda pair: pair[1],
+                           reverse=True)
+  child_ids = [id for id, _ in child_and_value]
+  id2names = dc.property_values(child_ids, 'name')
+  result = []
+  for id in child_ids:
+    names = id2names.get(id, [])
+    if not names:
+      continue
+    result.append(detection.Place(id, names[0], child_type))
+  return result
+
+
+# Returns true if the places should be sorted in ascending. Otherwise, descending.
+def sort_filtered_results_lowest_first(
+    filter: detection.QuantityClassificationAttributes) -> bool:
+  if filter.qval and filter.qval.cmp in [
+      detection.QCmpType.LE, detection.QCmpType.LT
+  ]:
+    # Return the lowest
+    return True
+  # For range or GE/GT show the highest.
+  return False
+
+
 #
 # Given a place DCID and a child place type, returns a sample list
 # of places of that child type.
@@ -605,6 +681,17 @@ def get_ranking_types(uttr: nl_uttr.Utterance) -> List[detection.RankingType]:
   return ranking_types
 
 
+def get_quantity(
+    uttr: nl_uttr.Utterance) -> detection.QuantityClassificationAttributes:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, detection.ClassificationType.QUANTITY)
+  if (classification and
+      isinstance(classification[0].attributes,
+                 detection.QuantityClassificationAttributes)):
+    return classification[0].attributes
+  return None
+
+
 def get_time_delta_types(
     uttr: nl_uttr.Utterance) -> List[detection.TimeDeltaType]:
   classification = ctx.classifications_of_type_from_utterance(
@@ -762,4 +849,13 @@ def is_multi_sv(uttr: nl_uttr.Utterance) -> bool:
       (top_sv_score - top_multi_sv_score <=
        shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
     return True
+  return False
+
+
+def has_dual_sv(uttr: nl_uttr.Utterance) -> bool:
+  if not is_multi_sv(uttr):
+    return False
+  for c in uttr.multi_svs.candidates:
+    if len(c.parts) == 2:
+      return True
   return False
