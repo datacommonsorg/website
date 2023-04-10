@@ -26,23 +26,23 @@ It includes ~1.3K curated variables.
 
 4. If everything looks good, send out a PR with the `model.yaml` and CSV changes.
 
+Note: This process will change once `build_embeddings_v2.py` becomes the primary updating script. Instructions for `build_embeddings_v2.py` are as follows:
 
-## Generating Sentence Alternatives using the PaLM API.
-To run the `run_gen_palm_alts.sh` script, you'll need the PaLM API Key which should be set as the Environment variable, e.g. 
+1. Make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). Note that if the sheets file has a valid string entry for the `Override_Alternatives` column, then all other alternatives are ignored.
 
-```
-export PALM_API_KEY=<key>
-```
+2. Ensure any updated alternatives, i.e. PaLM alternatives, Other alternatives, are available as csv files: [`palm_alternatives.csv`]((csv/palm_alternatives.csv), [`other_alternatives.csv`](csv/other_alternatives.csv). The columns in these CSV files are: `Id`, `PaLM_Generated_Alternatives` (for PaLM Alternatives) and `Id`, `Other_Alternatives` (for Other Alternatives).
 
-Then, you can run:
+3. Run the command below which will both generate a new embeddings csv in
+   `gs://datcom-nl-models`, as well as update the corresponding csv under
+   [sheets/](sheets/).  Note down the embeddings file version printed at
+   the end of the run.
 
-```bash
-    ./run_gen_palm_alts.sh
-```
+    ```bash
+    ./run.sh
+    ```
+4. Validate the CSV diffs, update [`model.yaml`](../../../deploy/base/model.yaml) with the generated embeddings version and test out locally.
 
-This script, upon completion, should update the `palm_alternatives.csv` under the `csv` folder. Note, the API could be throttled so there are several timeouts in the scripts. That, along with the fact that the API response can be on O(seconds), this script can take a while to complete. For ~1500 SVs, this may take 1-2 hours.
-
-Note: the file `sheets/dc_nl_svs_curated.csv` should reflect the updated/new format the file downloaded from Google Sheets to manage the list of StatVars and human-curated descriptions (alternatives). However, for now it can be ignored because this migration is a work-in-progress.
+5. If everything looks good, send out a PR with the `model.yaml` and CSV changes.
 
 ## One time setup
 
