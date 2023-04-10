@@ -162,13 +162,28 @@ class IntegrationTest(LiveServerTestCase):
             # Two places should be detected but San Francisco is the main place.
             'Number of Shakespeare fans in San Francisco and Chicago.',
             # We should support comparison across multiple places in a single query.
-            'Compare crime in California and Florida',
+            # Since there are multiple places we shouldn't need the trigger word "compare".
+            'Crime in California and Florida',
             # We have no crime at county-level in CA, so we should fall back as:
             # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
             'counties in California with highest crime',
             # We have no obesity data at State-level. Instead we should fallback to
             # parent place USA.
             'obesity in California',
+            # We should fail fulfilling "Country" type contained-in a country,
+            # instead we would pick contained-in from context (County).
+            'GDP of countries in the US',
+        ])
+
+  def test_demo_multisv(self):
+    self.run_sequence(
+        'multisv',
+        [
+            # We support comparison with multiple stat-vars. This should be
+            # a correlation chart for counties in CA.
+            "Poverty vs. Obesity in California",
+            # This should be a place comparison for a single more prominent SV.
+            "Poverty vs. Obesity in California and Florida",
         ])
 
   def test_demo_climatetrace(self):
@@ -178,7 +193,7 @@ class IntegrationTest(LiveServerTestCase):
   def test_place_detection_e2e(self):
     self.run_sequence('place_detection_e2e', [
         'tell me about palo alto',
-        'US states which have that highest median income',
+        'US states which have that the cheapest houses',
         'what about in florida',
         'compare with california and new york state and washington state',
         'show me the population of mexico city',

@@ -7,12 +7,14 @@ State as of March 2023:
 
 Steps to add the titles to prod:
 
-1. To generate [`chart_titles_by_sv.json`](../../../server/config/nl_page/chart_titles_by_sv.json), run:
+1. Edit the spreadsheet document above.
+
+2. Generate [`chart_titles_by_sv.json`](../../../server/config/nl_page/chart_titles_by_sv.json), run:
 
    ```
-   python3 gen_chart_titles_by_sv.py
+   ./run.sh
    ```
 
-2. Update the `description` property on the SV nodes in the schema MCFs.
+3. Update the `description` property on the SV nodes in the schema MCFs.
 
    TODO: Update the code used here.

@@ -18,13 +18,8 @@ import logging
 import re
 from typing import Dict, List, Union
 
-import numpy as np
-import pandas as pd
-
-import server.lib.nl.constants as constants
 from server.lib.nl.detection import BinaryClassificationResultType
 from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import ClusteringClassificationAttributes
 from server.lib.nl.detection import ComparisonClassificationAttributes
 from server.lib.nl.detection import ContainedInClassificationAttributes
 from server.lib.nl.detection import ContainedInPlaceType
@@ -33,7 +28,6 @@ from server.lib.nl.detection import EventClassificationAttributes
 from server.lib.nl.detection import EventType
 from server.lib.nl.detection import NLClassifier
 from server.lib.nl.detection import OverviewClassificationAttributes
-from server.lib.nl.detection import PeriodType
 from server.lib.nl.detection import RankingClassificationAttributes
 from server.lib.nl.detection import RankingType
 from server.lib.nl.detection import SizeType
@@ -41,14 +35,15 @@ from server.lib.nl.detection import SizeTypeClassificationAttributes
 from server.lib.nl.detection import TimeDeltaClassificationAttributes
 from server.lib.nl.detection import TimeDeltaType
 from server.lib.nl.place_detection import NLPlaceDetector
-import server.lib.nl.utils as utils
 from server.services import datacommons as dc
+import shared.lib.constants as constants
+import shared.lib.utils as shared_utils
 
 # TODO: decouple words removal from detected attributes. Today, the removal
 # blanket removes anything that matches, including the various attribute/
 # classification triggers and contained_in place types (and their plurals).
 # This may not always be the best thing to do.
-ALL_STOP_WORDS = utils.combine_stop_words()
+ALL_STOP_WORDS = shared_utils.combine_stop_words()
 
 
 def pick_best(probs):
@@ -72,17 +67,6 @@ def pick_option(class_model, q,
     return categories[class_model.predict([q])[0]]
   else:
     return None
-
-
-def _prefix_length(s1, s2):
-  if not s1 or not s2:
-    return 0
-  short_str = min([s1, s2], key=len)
-  for i, char in enumerate(short_str):
-    for other in [s1, s2]:
-      if other[i] != char:
-        return i + 1
-  return len(short_str)
 
 
 class Model:
@@ -349,6 +333,9 @@ class Model:
         "public school": ContainedInPlaceType.PUBLIC_SCHOOL,
         "private school": ContainedInPlaceType.PRIVATE_SCHOOL,
         "school": ContainedInPlaceType.SCHOOL,
+        # Pick the best type
+        "place": ContainedInPlaceType.DEFAULT_TYPE,
+        "region": ContainedInPlaceType.DEFAULT_TYPE,
     })
 
     query = query.lower()
@@ -366,9 +353,9 @@ class Model:
 
     # If place_type is just PLACE, that means no actual type was detected.
     if contained_in_place_type == ContainedInPlaceType.PLACE:
-      # Try to check if the special case of ACROSS can be found.
-      if "across" in query or "where in" in query or "within" in query:
-        contained_in_place_type = ContainedInPlaceType.ACROSS
+      # Additional keywords to decide whether we should GUESS sub-type
+      if "across" in query or "where" in query or "within" in query:
+        contained_in_place_type = ContainedInPlaceType.DEFAULT_TYPE
       else:
         return None
 
@@ -412,9 +399,8 @@ class Model:
     # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
     debug_logs["sv_detection_query_input"] = query
-    query = utils.remove_stop_words(query, ALL_STOP_WORDS)
-    debug_logs["sv_detection_query_stop_words_removal"] = query
-    logging.info(f"SV Detection: Query used after removing stop words: {query}")
+    debug_logs["sv_detection_query_stop_words_removal"] = \
+        shared_utils.remove_stop_words(query, ALL_STOP_WORDS)
 
     # Make API call to the NL models/embeddings server.
     return dc.nl_search_sv(query)

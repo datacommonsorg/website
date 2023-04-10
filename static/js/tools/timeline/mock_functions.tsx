@@ -339,8 +339,12 @@ export function axios_mock(): void {
         "geoId/05": "Arkansas",
       },
     });
-  when(axios.get)
-    .calledWith("/api/variable-group/info?dcid=dc/g/Root")
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: [],
+      numEntitiesExistence: undefined,
+    })
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -359,10 +363,12 @@ export function axios_mock(): void {
         ],
       },
     });
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/05"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Demographics",
+      entities: ["geoId/05"],
+      numEntitiesExistence: undefined,
+    })
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -395,8 +401,12 @@ export function axios_mock(): void {
         ],
       },
     });
-  when(axios.get)
-    .calledWith("/api/variable-group/info?dcid=dc/g/Root&entities=geoId/05")
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: ["geoId/05"],
+      numEntitiesExistence: undefined,
+    })
     .mockResolvedValue({
       data: {
         childStatVarGroups: [

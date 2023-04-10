@@ -44,7 +44,7 @@ resource "google_container_node_pool" "gke_node_pools" {
   node_count = var.num_nodes
 
   node_config {
-    machine_type = "e2-highmem-4"
+    machine_type = "e2-highmem-2"
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

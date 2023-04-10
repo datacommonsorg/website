@@ -26,6 +26,7 @@ RUN pip3 install --no-cache-dir \
     -r /workspace/nl_server/requirements.txt
 # Flask
 COPY nl_server/. /workspace/nl_server/
+COPY shared/. /workspace/shared/
 
 # Run server
 WORKDIR /workspace

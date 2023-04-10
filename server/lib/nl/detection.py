@@ -53,6 +53,8 @@ class SVDetection:
 
   # Helpful to have all svs to sentences.
   svs_to_sentences: Dict[str, List[str]]
+  # Multi SV detection.
+  multi_sv: Dict
 
 
 class RankingType(IntEnum):
@@ -131,9 +133,9 @@ class ContainedInPlaceType(str, Enum):
   # Typically corresponds to county equivalent
   EU_NUTS_3 = "EurostatNUTS3"
 
-  # Across is a generic containedInPlaceType which determines if the
-  # query is using the word "across".
-  ACROSS = "Across"
+  # Indicates that the fulfiller should use the contained-in-place-type
+  # depending on the place.
+  DEFAULT_TYPE = "DefaultType"
 
 
 class EventType(IntEnum):

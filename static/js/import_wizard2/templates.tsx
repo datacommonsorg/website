@@ -17,14 +17,15 @@ import _ from "lodash";
 import React from "react";
 
 import { ConstantVar } from "./components/mapping_templates/constant_var";
-import { MulitVarCol } from "./components/mapping_templates/multi_var_col";
+import { MultiVarCol } from "./components/mapping_templates/multi_var_col";
 import { MultiVarMultiDateCol } from "./components/mapping_templates/multi_var_mulit_date_col";
 import { SingleVarMultiDateCol } from "./components/mapping_templates/single_var_multi_date_col";
 import { CsvData, MappedThing, Mapping } from "./types";
 
 // information about a template
 export interface TemplateInfo {
-  description: string;
+  title: string;
+  subtitle: string;
   explanation: JSX.Element;
   table: JSX.Element;
 }
@@ -175,22 +176,26 @@ const MULTI_VAR_COL_EXPLANATION = (
 // TEMPLATE_MAPPING_COMPONENTS
 export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
   constantVar: {
-    description: "Data about a constant variable",
+    title: "Single Variable",
+    subtitle: "One date column",
     explanation: CONSTANT_VAR_EXPLANATION,
     table: CONSTANT_VAR_TABLE,
   },
   multiVarCol: {
-    description: "Data about many variables, one per column",
+    title: "Multiple Variables",
+    subtitle: "One date column",
     explanation: MULTI_VAR_COL_EXPLANATION,
     table: MULTI_VAR_COL_TABLE,
   },
   multiVarMultiDateCol: {
-    description: "Data about many variables, many date columns",
+    title: "Multiple Variables",
+    subtitle: "Multiple date columns",
     explanation: MULTI_VAR_MULTI_DATE_COL_EXPLANATION,
     table: MULTI_VAR_MULTI_DATE_COL_TABLE,
   },
   singleVarMultiDateCol: {
-    description: "Data about a single variable, many date columns",
+    title: "Single Variable",
+    subtitle: "Multiple date columns",
     explanation: SINGLE_VAR_MULTI_DATE_COL_EXPLANATION,
     table: SINGLE_VAR_MULTI_DATE_COL_TABLE,
   },
@@ -210,7 +215,7 @@ export const TEMPLATE_MAPPING_COMPONENTS: {
   [templateId: string]: (props: MappingTemplateProps) => JSX.Element;
 } = {
   constantVar: ConstantVar,
-  multiVarCol: MulitVarCol,
+  multiVarCol: MultiVarCol,
   multiVarMultiDateCol: MultiVarMultiDateCol,
   singleVarMultiDateCol: SingleVarMultiDateCol,
 };
@@ -238,6 +243,87 @@ function getConstantVarUserMapping(predictedMapping: Mapping): Mapping {
   return userMapping;
 }
 
+function getSingleVarMultiDateUserMapping(predictedMapping: Mapping): Mapping {
+  let userMapping = new Map();
+  if (!_.isEmpty(predictedMapping)) {
+    userMapping = _.clone(predictedMapping);
+    const nonColumnMappedThings = new Set([
+      MappedThing.STAT_VAR,
+      MappedThing.DATE,
+    ]);
+    predictedMapping.forEach((mappingVal, mappedThing) => {
+      let isInvalid = false;
+      // mappingVal for stat var must have fileConstant
+      if (
+        mappedThing === MappedThing.STAT_VAR &&
+        _.isEmpty(mappingVal.fileConstant)
+      ) {
+        isInvalid = true;
+      }
+      // mapping val for date must have headers
+      isInvalid =
+        isInvalid ||
+        (mappedThing === MappedThing.DATE && _.isEmpty(mappingVal.headers));
+      // mappingVal for all other mapped things must have a column
+      isInvalid =
+        isInvalid ||
+        (!nonColumnMappedThings.has(mappedThing) &&
+          _.isEmpty(mappingVal.column));
+      if (isInvalid) {
+        console.log(
+          `Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`
+        );
+        userMapping.delete(mappedThing);
+      }
+    });
+  }
+  return userMapping;
+}
+
+function getMultiVarMultiDateUserMapping(predictedMapping: Mapping): Mapping {
+  let userMapping = new Map();
+  if (!_.isEmpty(predictedMapping)) {
+    userMapping = _.clone(predictedMapping);
+    predictedMapping.forEach((mappingVal, mappedThing) => {
+      // mappingVal for date must have headers
+      const invalidDateVal =
+        mappedThing === MappedThing.DATE && _.isEmpty(mappingVal.headers);
+      // mappingVal for everything else must have a column
+      const invalidNonDateVal =
+        mappedThing !== MappedThing.DATE && _.isEmpty(mappingVal.column);
+      if (invalidDateVal || invalidNonDateVal) {
+        console.log(
+          `Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`
+        );
+        userMapping.delete(mappedThing);
+      }
+    });
+  }
+  return userMapping;
+}
+
+function getMultiVarColUserMapping(predictedMapping: Mapping): Mapping {
+  let userMapping = new Map();
+  if (!_.isEmpty(predictedMapping)) {
+    userMapping = _.clone(predictedMapping);
+    predictedMapping.forEach((mappingVal, mappedThing) => {
+      // mappingVal for stat var must have headers
+      const invalidStatVarVal =
+        mappedThing === MappedThing.STAT_VAR && _.isEmpty(mappingVal.headers);
+      // mappingVal for non stat var things must have a column
+      const invalidNonStatVarVal =
+        mappedThing !== MappedThing.STAT_VAR && _.isEmpty(mappingVal.column);
+      if (invalidStatVarVal || invalidNonStatVarVal) {
+        console.log(
+          `Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`
+        );
+        userMapping.delete(mappedThing);
+      }
+    });
+  }
+  return userMapping;
+}
+
 // Map of templateId to a function that takes the predicted mapping and returns
 // the user mapping to use for that template.
 // TODO: add test that checks every template has a user mapping function once
@@ -246,4 +332,7 @@ export const TEMPLATE_PREDICTION_VALIDATION: {
   [templateId: string]: (predictedMapping: Mapping) => Mapping;
 } = {
   constantVar: getConstantVarUserMapping,
+  singleVarMultiDateCol: getSingleVarMultiDateUserMapping,
+  multiVarMultiDateCol: getMultiVarMultiDateUserMapping,
+  multiVarCol: getMultiVarColUserMapping,
 };

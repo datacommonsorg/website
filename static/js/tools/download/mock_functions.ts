@@ -110,34 +110,46 @@ export function axios_mock(): void {
     .mockResolvedValue({ data: { "geoId/06": "California" } });
 
   // get root stat var group
-  when(axios.get)
-    .calledWith("/api/variable-group/info?dcid=dc/g/Root")
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: [],
+      numEntitiesExistence: undefined,
+    })
     .mockResolvedValue(rootGroupsData);
 
   // get root stat var group for places in geoId/06
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/06001&entities=geoId/06002"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: ["geoId/06001", "geoId/06002"],
+      numEntitiesExistence: undefined,
+    })
     .mockResolvedValue(rootGroupsData);
 
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/06002&entities=geoId/06001"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: ["geoId/06002", "geoId/06001"],
+      numEntitiesExistence: undefined,
+    })
     .mockResolvedValue(rootGroupsData);
 
   // get demographics stat var group for places in geoId/06
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/06001&entities=geoId/06002"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Demographics",
+      entities: ["geoId/06001", "geoId/06002"],
+      numEntitiesExistence: undefined,
+    })
     .mockResolvedValue(demographicsGroupsData);
 
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/06002&entities=geoId/06001"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Demographics",
+      entities: ["geoId/06002", "geoId/06001"],
+      numEntitiesExistence: undefined,
+    })
     .mockResolvedValue(demographicsGroupsData);
 
   // stat var info for demographics node

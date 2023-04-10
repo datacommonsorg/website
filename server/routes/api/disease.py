@@ -23,7 +23,7 @@ from flask import Response
 from server.cache import cache
 import server.services.datacommons as dc
 
-bp = flask.Blueprint('api.disease', __name__, url_prefix='/api/disease')
+bp = flask.Blueprint('api_disease', __name__, url_prefix='/api/disease')
 
 # disease of final parent
 FINAL_PARENT_DISEASE_DCID = "bio/DOID_4"

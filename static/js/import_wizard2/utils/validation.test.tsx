@@ -113,6 +113,73 @@ test("Fail_ValueMissing", () => {
   expect(checkMappings(input)).toEqual(expected);
 });
 
+test("Fail_NullInColumnHeaderValue", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "iso", header: "iso", columnIdx: 1 },
+        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "a", header: "a", columnIdx: 1 },
+          null,
+          { id: "a", header: "abc", columnIdx: 1 },
+        ],
+      },
+    ],
+  ]);
+  const expected = ["Date: incomplete value for COLUMN_HEADER type"];
+  expect(checkMappings(input)).toEqual(expected);
+});
+
+test("Fail_DuplicateColumnHeaderValue", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "iso", header: "iso", columnIdx: 1 },
+        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "a", header: "a", columnIdx: 1 },
+          { id: "a", header: "abc", columnIdx: 1 },
+        ],
+      },
+    ],
+  ]);
+  const expected = [
+    "Date: found duplicate column in the value for COLUMN_HEADER type",
+  ];
+  expect(checkMappings(input)).toEqual(expected);
+});
+
 test("Pass_DateInColumnHeader", () => {
   const input: Mapping = new Map([
     [

@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
@@ -41,6 +41,7 @@ import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface BivariateTilePropType {
   id: string;
@@ -100,11 +101,14 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
-    if (bivariateChartData) {
-      draw(bivariateChartData, props, svgContainer, legend);
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(bivariateChartData)) {
+      return;
     }
-  }, [bivariateChartData, props]);
+    draw(bivariateChartData, props, svgContainer, legend);
+  }, [props, bivariateChartData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place.dcid,

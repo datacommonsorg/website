@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
@@ -28,6 +28,7 @@ import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
+import { BarTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
@@ -35,10 +36,12 @@ import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
-const NUM_PLACES = 6;
+const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
+const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
 
 interface BarTilePropType {
   id: string;
@@ -53,6 +56,8 @@ interface BarTilePropType {
   svgChartHeight: number;
   // Extra classes to add to the container.
   className?: string;
+  // Tile spec with additional information about what to show on this tile
+  tileSpec?: BarTileSpec;
 }
 
 interface BarChartData {
@@ -63,6 +68,7 @@ interface BarChartData {
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
+  const chartContainerRef = useRef(null);
   const [rawData, setRawData] = useState<PointApiResponse | undefined>(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
@@ -78,11 +84,14 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     }
   }, [props, rawData]);
 
-  useEffect(() => {
-    if (barChartData) {
-      draw(props, barChartData);
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(barChartData)) {
+      return;
     }
+    draw(props, barChartData);
   }, [props, barChartData]);
+
+  useDrawOnResize(drawFn, chartContainerRef.current);
 
   const rs: ReplacementStrings = {
     placeName: props.place ? props.place.name : "",
@@ -104,6 +113,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         id={props.id}
         className="svg-container"
         style={{ minHeight: props.svgChartHeight }}
+        ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
   );
@@ -207,8 +217,12 @@ function processData(
           }
           dataPoints.push(dataPoint);
         }
+        const specLinkRoot = props.tileSpec
+          ? props.tileSpec.xLabelLinkRoot
+          : "";
+        const link = `${specLinkRoot || DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
         dataGroups.push(
-          new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints)
+          new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
         );
       }
       if (!_.isEmpty(props.statVarSpec)) {

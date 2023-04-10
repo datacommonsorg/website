@@ -1,0 +1,214 @@
+{
+  "SV": [
+    "Count_Person_Female",
+    "Count_Person_Male",
+    "Count_Person_Male_TwoOrMoreRaces",
+    "Count_Person_Female_TwoOrMoreRaces",
+    "Count_Person_Male_NonWhite",
+    "Count_Person_Male_SomeOtherRaceAlone",
+    "Count_Person_Female_NonWhite",
+    "Count_Person_Female_WithEarnings",
+    "Count_Person_Male_NotHispanicOrLatino_TwoOrMoreRaces",
+    "Count_Person_Female_SomeOtherRaceAlone",
+    "Count_Person_Male_NotHispanicOrLatino",
+    "Count_Person_Female_NotHispanicOrLatino_TwoOrMoreRaces",
+    "Count_Person_Male_ResidesInGroupQuarters",
+    "Count_Person_Male_WithEarnings",
+    "Count_Person_Male_HispanicOrLatino_TwoOrMoreRaces",
+    "Count_Person_Female_NotHispanicOrLatino"
+  ],
+  "CosineScore": [
+    0.8887199759483337,
+    0.8541340827941895,
+    0.7810853719711304,
+    0.7729058265686035,
+    0.7095950245857239,
+    0.7067370414733887,
+    0.6974986791610718,
+    0.6912292242050171,
+    0.6900774240493774,
+    0.6858758330345154,
+    0.6827239990234375,
+    0.6807833909988403,
+    0.6751968264579773,
+    0.6733241081237793,
+    0.6694575548171997,
+    0.665802538394928
+  ],
+  "SV_to_Sentences": {},
+  "MultiSV": {
+    "Candidates": [
+      {
+        "Parts": [
+          {
+            "QueryPart": "male population",
+            "SV": [
+              "Count_Person_Male"
+            ],
+            "CosineScore": [
+              0.9596
+            ]
+          },
+          {
+            "QueryPart": "female population",
+            "SV": [
+              "Count_Person_Female"
+            ],
+            "CosineScore": [
+              1.0
+            ]
+          }
+        ],
+        "AggCosineScore": 0.9798,
+        "DelimBased": true
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "compare male",
+            "SV": [
+              "Count_Person_Male",
+              "dc/topic/SDG_5"
+            ],
+            "CosineScore": [
+              0.5508,
+              0.5161
+            ]
+          },
+          {
+            "QueryPart": "population",
+            "SV": [
+              "Count_Person"
+            ],
+            "CosineScore": [
+              1.0
+            ]
+          },
+          {
+            "QueryPart": "female population",
+            "SV": [
+              "Count_Person_Female"
+            ],
+            "CosineScore": [
+              1.0
+            ]
+          }
+        ],
+        "AggCosineScore": 0.8503,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "compare male",
+            "SV": [
+              "Count_Person_Male",
+              "dc/topic/SDG_5"
+            ],
+            "CosineScore": [
+              0.5508,
+              0.5161
+            ]
+          },
+          {
+            "QueryPart": "population female",
+            "SV": [
+              "Count_Person_Female"
+            ],
+            "CosineScore": [
+              0.9676
+            ]
+          },
+          {
+            "QueryPart": "population",
+            "SV": [
+              "Count_Person"
+            ],
+            "CosineScore": [
+              1.0
+            ]
+          }
+        ],
+        "AggCosineScore": 0.8395,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "compare male population",
+            "SV": [
+              "Count_Person_Male"
+            ],
+            "CosineScore": [
+              0.8045
+            ]
+          },
+          {
+            "QueryPart": "female",
+            "SV": [
+              "Count_Person_Female"
+            ],
+            "CosineScore": [
+              0.5892
+            ]
+          },
+          {
+            "QueryPart": "population",
+            "SV": [
+              "Count_Person"
+            ],
+            "CosineScore": [
+              1.0
+            ]
+          }
+        ],
+        "AggCosineScore": 0.7979,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "compare male",
+            "SV": [
+              "Count_Person_Male",
+              "dc/topic/SDG_5"
+            ],
+            "CosineScore": [
+              0.5508,
+              0.5161
+            ]
+          },
+          {
+            "QueryPart": "population",
+            "SV": [
+              "Count_Person"
+            ],
+            "CosineScore": [
+              1.0
+            ]
+          },
+          {
+            "QueryPart": "female",
+            "SV": [
+              "Count_Person_Female"
+            ],
+            "CosineScore": [
+              0.5892
+            ]
+          },
+          {
+            "QueryPart": "population",
+            "SV": [
+              "Count_Person"
+            ],
+            "CosineScore": [
+              1.0
+            ]
+          }
+        ],
+        "AggCosineScore": 0.785,
+        "DelimBased": false
+      }
+    ]
+  }
+}

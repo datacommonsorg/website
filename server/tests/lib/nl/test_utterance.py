@@ -305,7 +305,7 @@ COMPARISON_UTTR = {
         'country': 'country/USA',
     }],
     'query': 'foo sv in place',
-    'query_type': QueryType.COMPARISON,
+    'query_type': QueryType.COMPARISON_ACROSS_PLACES,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -428,7 +428,7 @@ CORRELATION_UTTR = {
     }],
     'places': [],
     'query': 'foo sv in place',
-    'query_type': QueryType.CORRELATION,
+    'query_type': QueryType.CORRELATION_ACROSS_VARS,
     'ranked_charts': [{
         'attr': {
             'block_id': 1,
@@ -471,6 +471,45 @@ CORRELATION_UTTR = {
         }],
         'event': None,
         'svs': ['Income_Farm', 'Mean_Precipitation']
+    }],
+    'svs': ['Mean_Precipitation'],
+    'session_id': '007_999999999',
+}
+
+# Utterance for multi-sv correlation.
+MULTISV_CORRELATION_UTTR = {
+    'classifications': [{
+        'type': ClassificationType.CORRELATION
+    }],
+    'places': [{
+        'country': 'country/USA',
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
+    'query': 'foo sv in place',
+    'query_type': QueryType.CORRELATION_ACROSS_VARS,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 1,
+            'chart_type': 'scatter chart',
+            'class': ChartOriginType.PRIMARY_CHART,
+            'description': '',
+            'include_percapita': False,
+            'place_type': 'County',
+            'ranking_types': [],
+            'source_topic': '',
+            'title': ''
+        },
+        'chart_type': ChartType.SCATTER_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State',
+            'country': 'country/USA',
+        }],
+        'event': None,
+        'svs': ['Prevalence_Obesity', 'Count_Poverty']
     }],
     'svs': ['Mean_Precipitation'],
     'session_id': '007_999999999',

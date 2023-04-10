@@ -1,0 +1,69 @@
+{
+    "SV": [
+      "dc/topic/SDG_1",
+      "Count_Person_BelowPovertyLevelInThePast12Months",
+      "Percent_Person_Obesity",
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_AbovePovertyLevelInThePast12Months",
+      "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months",
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone"
+    ],
+    "CosineScore": [
+      0.6437398195266724,
+      0.6102464199066162,
+      0.6064739227294922,
+      0.5691823363304138,
+      0.5649963617324829,
+      0.5611600875854492,
+      0.5582886338233948,
+      0.5575058460235596,
+      0.5532658696174622,
+      0.552873432636261,
+      0.5493479371070862,
+      0.549104630947113,
+      0.5460891723632812,
+      0.5434890985488892,
+      0.5429623126983643,
+      0.54209303855896
+    ],
+    "SV_to_Sentences": {},
+    "MultiSV": {
+      "Candidates": [
+        {
+          "Parts": [
+            {
+              "QueryPart": "compare obesity",
+              "SV": [
+                "Percent_Person_Obesity"
+              ],
+              "CosineScore": [
+                0.6748
+              ]
+            },
+            {
+              "QueryPart": "poverty",
+              "SV": [
+                "dc/topic/SDG_1",
+                "Count_Person_BelowPovertyLevelInThePast12Months"
+              ],
+              "CosineScore": [
+                0.8146,
+                0.7726
+              ]
+            }
+          ],
+          "AggCosineScore": 0.7447,
+          "DelimBased": true
+        }
+      ]
+    }
+}

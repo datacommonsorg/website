@@ -621,7 +621,7 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
   tile.stat_var_key.extend(sv_key_pair)
   tile.type = Tile.TileType.SCATTER
   tile.title = _decorate_chart_title(
-      title=f"{sv_names[0]} (${{xDate}}) vs. {sv_names[1]} (${{yDate}})",
+      title=f"{sv_names[0]} (${{yDate}}) vs. {sv_names[1]} (${{xDate}})",
       place=pri_place,
       do_pc=False,
       child_type=attr.get('place_type', ''))

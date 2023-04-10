@@ -18,7 +18,6 @@
  * Main component for topic pages.
  */
 
-import _ from "lodash";
 import React from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
@@ -33,6 +32,10 @@ interface AppPropType {
    * The place to show the page for.
    */
   place: NamedTypedPlace;
+  /**
+   * A list of additional places for the topic page.
+   */
+  morePlaces: string[];
   /**
    * The topic of the current page.
    */
@@ -62,6 +65,7 @@ export function App(props: AppPropType): JSX.Element {
         <div className="row col-md-9x col-lg-10">
           <PageSelector
             selectedPlace={props.place}
+            morePlaces={props.morePlaces}
             selectedTopic={props.topic}
             topicsSummary={props.topicsSummary}
           />

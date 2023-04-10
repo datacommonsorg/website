@@ -24,30 +24,34 @@
 set -e
 
 function help {
-  echo "Usage: $0 -erph"
+  echo "Usage: $0 -elpht"
   echo "-e       Instance environment as defined under /deploy/gke"
-  echo "-r       GCP region Default: us-central1"
+  echo "-l       GKE location(zone or region) Default: us-central1"
   echo "-p       GCP project to deploy the project to, when specified, docker image is also read from this project"
   echo "-h       Website hash used for deployment"
+  echo "-t       Comma separated list of custom BigTable names."
   exit 1
 }
 
 PROJECT_ID=""
 ENV=""
 
-while getopts ":e:r:p:h" OPTION; do
+while getopts ":e:l:p:h:t:" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
       ;;
-    r)
-      REGION=$OPTARG
+    l)
+      LOCATION=$OPTARG
       ;;
     p)
       PROJECT_ID=$OPTARG
       ;;
     h)
       WEBSITE_HASH=$OPTARG
+      ;;
+    t)
+      CUSTOM_BT_CSV=$OPTARG
       ;;
     *)
       help
@@ -63,8 +67,8 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
-if [[ $REGION == "" ]]; then
-  REGION="us-central1"
+if [[ $LOCATION == "" ]]; then
+  LOCATION="us-central1"
 fi
 
 cd $ROOT
@@ -86,7 +90,24 @@ if [[ $PROJECT_ID != "" ]]; then
   IMAGE_PROJECT=$PROJECT_ID
   cd $ROOT/deploy/overlays
   cp custom_kustomization.yaml.tpl kustomization.yaml
-  sed -i '' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  # OS X has a different sed
+  # https://unix.stackexchange.com/questions/13711/differences-between-sed-on-mac-osx-and-other-standard-sed
+  if [ $(uname) == "Darwin" ]; then
+    sed -i '' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  else
+    sed -i'' "s/<PROJECT_ID>/$PROJECT_ID/g" kustomization.yaml
+  fi
+  export PROJECT_ID=$PROJECT_ID
+  yq eval -i '.project = env(PROJECT_ID)' ../base/custom_bigtable_info.yaml
+  yq eval -i 'del(.tables)' ../base/custom_bigtable_info.yaml
+  yq eval -i '.tables = []' ../base/custom_bigtable_info.yaml
+  IFS=","
+  for TABLE in $CUSTOM_BT_CSV
+  do
+    echo "Adding custom BigTable: $TABLE"
+    export TABLE=$TABLE
+    yq eval -i '.tables += [ env(TABLE) ]' ../base/custom_bigtable_info.yaml
+  done
 else
   PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
   CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/gke/$ENV.yaml)
@@ -96,7 +117,7 @@ else
   IMAGE_PROJECT=datcom-ci
   cd $ROOT/deploy/overlays/$ENV
 fi
-CLUSTER_NAME=$CLUSTER_PREFIX-$REGION
+CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
 
 # Deploy to GKE
 kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/$IMAGE_PROJECT/datacommons-website:$WEBSITE_HASH
@@ -105,7 +126,14 @@ kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/dat
 kustomize build > kustomize-build.yaml
 cp kustomization.yaml kustomize-deployed.yaml
 gcloud config set project $PROJECT_ID
-gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
+
+if [[ $LOCATION =~ ^[a-z]+-[a-z0-9]+$ ]]; then
+  REGION=$LOCATION
+else
+  ZONE=$LOCATION
+fi
+gcloud container clusters get-credentials $CLUSTER_NAME \
+  ${REGION:+--region=$REGION} ${ZONE:+--zone=$ZONE} --project=$PROJECT_ID
 kubectl apply -f kustomize-build.yaml
 
 # Deploy Cloud Endpoints
@@ -124,3 +152,4 @@ git checkout HEAD -- kustomization.yaml
 cd $ROOT
 git checkout HEAD -- deploy/git/mixer_hash.txt
 git checkout HEAD -- deploy/git/website_hash.txt
+git checkout HEAD -- deploy/base/custom_bigtable_info.yaml
