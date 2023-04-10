@@ -27,8 +27,8 @@ import {
 } from "../bio_charts_utils";
 import {
   DiseaseGeneAssociationData,
-  DiseaseParentTree,
   DiseaseSymptomAssociationData,
+  DiseaseTreeNode,
 } from "./types";
 // graph specific dimensions
 const GRAPH_HEIGHT = 400;
@@ -43,6 +43,8 @@ const ERROR_BAR_CAP_LENGTH = 10;
 const NODE_VERTICAL_SHIFT = 50;
 // number or dimension by which the horizontal or x-coordinate of the node is shifted
 const NODE_HORIZONTAL_SHIFT = 15;
+// number by which the node line's end coordinate is multiplied for a vertical shift
+const NODE_END_SHIFT_FACTOR = 3;
 // spacing between two consecutive nodes
 const GRAPH_NODE_SPACING = 40;
 // dimension of disease node circles
@@ -259,11 +261,11 @@ export function drawDiseaseSymptomAssociationChart(
 /**
  * Draws the disease ontology hierarchy chart for the disease of interest
  * @param id the div id where the chart is rendered on the page
- * @param data the disease data passed into the function
+ * @param data parent node containing information of its subsequent children which is used to make a hierarchy chart for the parent and children nodes
  */
 export function drawDiseaseOntologyHierarchy(
   id: string,
-  data: DiseaseParentTree
+  data: DiseaseTreeNode
 ): void {
   const height = GRAPH_HEIGHT - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH - MARGIN.left;
@@ -297,7 +299,7 @@ export function drawDiseaseOntologyHierarchy(
       return d.target.x;
     })
     .attr("y2", function (d: any) {
-      return d.target.y + 3 * NODE_VERTICAL_SHIFT;
+      return d.target.y + NODE_END_SHIFT_FACTOR * NODE_VERTICAL_SHIFT;
     })
     .attr("stroke", "black")
     .attr("stroke-width", 2);

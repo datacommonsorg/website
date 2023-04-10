@@ -16,16 +16,15 @@
 import _ from "lodash";
 
 import { GraphNodes } from "../../shared/types";
+import { NamedNode } from "../../shared/types";
 import {
   ChemicalCompoundDataType,
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
-  DiseaseParentTree,
   DiseaseSymptomAssociationData,
   DiseaseTreeNode,
 } from "./types";
-
 /**
  * Fetches the disease-gene association data
  * @param data the data pertaining to the disease of interest
@@ -361,11 +360,11 @@ export function doesDiseasePrevalenceIDexist(data: GraphNodes): boolean {
 /**
  * Converts the disease parent data from a flat array to a tree for tree visualization
  * @param data the disease ontology data pertaining to the disease of interest
- * @returns an array consisting of disease name and a sub-array of its children
+ * @returns topmost parent node and its children
  */
 export function formatDiseaseParentTreeData(
-  data: DiseaseTreeNode[]
-): DiseaseParentTree {
+  data: NamedNode[]
+): DiseaseTreeNode {
   let current = null;
   for (const node of data) {
     const children = current ? [current] : [];

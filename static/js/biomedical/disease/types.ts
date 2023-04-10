@@ -36,14 +36,11 @@ export interface DiseaseSymptomAssociationData {
   oddsRatio: number;
 }
 
-// specialization of NamedNode for disease parent data types
-export type DiseaseTreeNode = NamedNode;
-
-export interface DiseaseParentTree {
+export interface DiseaseTreeNode {
   // name of current node in the tree
   name: string;
-  // array of children
-  children: [];
+  // array of disease child name and corresponding children
+  children: DiseaseTreeNode[];
 }
 
 export interface CompoundDiseaseTreatmentData {

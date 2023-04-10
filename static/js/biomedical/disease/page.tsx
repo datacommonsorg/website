@@ -24,6 +24,7 @@ import React from "react";
 
 import { MapTile } from "../../components/tiles/map_tile";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { NamedNode } from "../../shared/types";
 import { getEntityLink } from "../bio_charts_utils";
 import {
   drawDiseaseGeneAssocChart,
@@ -45,9 +46,7 @@ import {
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
   DiseaseSymptomAssociationData,
-  DiseaseTreeNode,
 } from "./types";
-
 const DISEASE_TREATMENT_COLUMNS = [
   { id: "node", name: "Parent Node" },
   { id: "id", name: "Compound ID" },
@@ -75,7 +74,7 @@ export interface PageStateType {
   diseaseCommonName: string;
   diseasePrevalenceIDexists: boolean;
   dataFetched: boolean;
-  diseaseParent: DiseaseTreeNode[];
+  diseaseParent: NamedNode[];
 }
 
 export class Page extends React.Component<PagePropType, PageStateType> {
