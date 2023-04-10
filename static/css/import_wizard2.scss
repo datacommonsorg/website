@@ -261,7 +261,6 @@ tr th:last-child {
 
 #mapping-section td {
   text-align: left;
-  word-break: break-all;
 }
 
 #mapping-section td:first-child {
@@ -294,7 +293,7 @@ tr th:last-child {
       padding: 0.2rem 0;
 
       span {
-        min-width: 5rem;
+        width: 6rem;
       }
     }
 
