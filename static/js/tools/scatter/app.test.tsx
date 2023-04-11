@@ -36,8 +36,8 @@ function TestApp(): JSX.Element {
     context.place.set({
       ...EmptyPlace,
       enclosingPlace: {
-        name: "Delaware",
         dcid: "geoId/10",
+        name: "Delaware",
         types: null,
       },
     });
@@ -87,7 +87,7 @@ function mockAxios(): void {
 
   // Statvar data
   when(axios.get)
-    .calledWith(`/api/variable-group/info`)
+    .calledWith("/api/variable-group/info")
     .mockResolvedValue({
       data: {
         absoluteName: "Data Commons Variables",
@@ -418,15 +418,6 @@ function mockAxios(): void {
     })
     .mockResolvedValue({
       data: {
-        facets: {
-          facet1: {
-            importName: "USCensusPEP_Annual_Population",
-            measurementMethod: "CensusPEPSurvey",
-            observationPeriod: "P1Y",
-            provenanceUrl:
-              "https://www2.census.gov/programs-surveys/popest/tables",
-          },
-        },
         data: {
           Count_Person: {
             "geoId/10001": {
@@ -456,6 +447,15 @@ function mockAxios(): void {
                 },
               ],
             },
+          },
+        },
+        facets: {
+          facet1: {
+            importName: "USCensusPEP_Annual_Population",
+            measurementMethod: "CensusPEPSurvey",
+            observationPeriod: "P1Y",
+            provenanceUrl:
+              "https://www2.census.gov/programs-surveys/popest/tables",
           },
         },
       },
@@ -656,8 +656,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/choropleth/geojson?placeDcid=geoId/10&placeType=County")
     .mockResolvedValue({
-      type: "FeatureCollection",
       features: [],
+      type: "FeatureCollection",
     });
 }
 
