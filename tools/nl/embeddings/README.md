@@ -28,9 +28,9 @@ It includes ~1.3K curated variables.
 
 Note: This process will change once `build_embeddings_v2.py` becomes the primary updating script. Instructions for `build_embeddings_v2.py` are as follows:
 
-1. Make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). Note that if the sheets file has a valid string entry for the `Override_Alternatives` column, then all other alternatives are ignored.
+1. Make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). Note that if the sheets file has a valid string entry for the `Override_Alternatives` column, then all other alternatives are ignored. The column `Curated_Alternatives` is supposed to be used to provide `;` (semi-colon) delimited human curated alternatives. The `Description` field can also be a manually curated best description string for the StatVar and it can be expected to be used as part of any automated alternative generation processed, e.g. using an LLM. The `Name` field is legacy and will eventually be removed once the new process and embeddings are established to lead to no regressions based on the current state.
 
-2. Ensure any updated alternatives, i.e. PaLM alternatives, Other alternatives, are available as csv files: [`palm_alternatives.csv`]((csv/palm_alternatives.csv), [`other_alternatives.csv`](csv/other_alternatives.csv). The columns in these CSV files are: `Id`, `PaLM_Generated_Alternatives` (for PaLM Alternatives) and `Id`, `Other_Alternatives` (for Other Alternatives).
+2. Ensure any updated alternatives, i.e. PaLM alternatives, Other alternatives, are available as csv files: [`palm_alternatives.csv`](csv/palm_alternatives.csv), [`other_alternatives.csv`](csv/other_alternatives.csv). The columns in these CSV files are: `Id`, `Alternatives`. These files are expected to be updated using (currently) separate processes.
 
 3. Run the command below which will both generate a new embeddings csv in
    `gs://datcom-nl-models`, as well as update the corresponding csv under

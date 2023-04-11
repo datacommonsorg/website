@@ -19,7 +19,7 @@
 from dataclasses import dataclass
 import datetime as datetime
 import os
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Set, Tuple
 
 from absl import app
 from absl import flags
@@ -33,8 +33,8 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('model_name', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name', 'datcom-nl-models', 'Storage bucket')
 
-flags.DEFINE_string('local_sheets_csv_filename', 'dc_nl_svs_curated',
-                    'Local Sheets CSV Filename')
+flags.DEFINE_string('local_sheets_csv_filepath', 'sheets/dc_nl_svs_curated.csv',
+                    'Local Sheets csv (relative) file path')
 flags.DEFINE_string(
     'sheets_url',
     'https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU',
@@ -42,50 +42,49 @@ flags.DEFINE_string(
 flags.DEFINE_string('worksheet_name', 'Demo_SVs',
                     'Worksheet name in the Google Sheets file')
 
-flags.DEFINE_string('palm_alternatives_filename', 'palm_alternatives',
-                    'PaLM alternative descriptions csv filename')
-flags.DEFINE_string('other_alternatives_filename', 'other_alternatives',
-                    'Other alternative descriptions csv filename')
+flags.DEFINE_string('palm_alternatives_filepath', 'csv/palm_alternatives.csv',
+                    'PaLM alternative descriptions csv (relative) file path')
+flags.DEFINE_string('other_alternatives_filepath', 'csv/other_alternatives.csv',
+                    'Other alternative descriptions csv (relative) file path')
 
 flags.DEFINE_string('merged_output_filename_prefix', 'embeddings',
                     'Final merged/concatenated SVs and descriptions file.')
 
 # Col names in the input files/sheets.
-SHEETS_DCID_COL = 'Id'
+DCID_COL = 'dcid'
+
 SHEETS_NAME_COL = 'Name'
 SHEETS_DESCRIPTION_COL = 'Description'
 SHEETS_ALTERNATIVES_COL = 'Curated_Alternatives'
 SHEETS_OVERRIDE_COL = 'Override_Alternatives'
 
-CSV_DCID_COL = 'Id'
-CSV_PALM_ALTERNATIVES_COL = 'PaLM_Generated_Alternatives'
-CSV_OTHER_ALTERNATIVES_COL = 'Other_Alternatives'
+CSV_ALTERNATIVES_COL = 'Alternatives'
 
 # Col names in the concatenated dataframe.
-COL_ID = 'dcid'
 COL_ALTERNATIVES = 'sentence'
 
 # Setting to a very high number right for now.
 MAX_ALTERNATIVES_LIMIT = 50
 
 
-def _add_sv(name: str, sv: str, text2sv: Dict[str, List[str]]) -> None:
+def _add_sv(name: str, sv: str, text2sv: Dict[str, Set[str]]) -> None:
   if not name:
     return
-  svs_list = []
-  if name in text2sv:
-    svs_list = text2sv[name]
 
-  if sv not in svs_list:
-    svs_list.append(sv)
-
-  text2sv[name] = svs_list
+  if name not in text2sv:
+    text2sv[name] = set()
+  
+  text2sv[name].add(sv)
 
 
 def _get_texts_dcids(df: pd.DataFrame) -> Tuple[List[str], List[str]]:
+  """Extract an ordered list of alternatives (texts) and the corresponding StatVar dcids."""
   text2sv_dict = {}
   for _, row in df.iterrows():
-    sv = row[COL_ID].strip()
+    sv = row[DCID_COL].strip()
+
+    # All alternative sentences are retrieved from COL_ALTERNATIVES, which
+    # are expected to be delimited by ";" (semi-colon).
     if COL_ALTERNATIVES in row:
       alternatives = row[COL_ALTERNATIVES].split(';')
 
@@ -95,20 +94,17 @@ def _get_texts_dcids(df: pd.DataFrame) -> Tuple[List[str], List[str]]:
 
   texts = sorted(list(text2sv_dict.keys()))
   dcids = [','.join(text2sv_dict[k]) for k in texts]
-
+  
   return (texts, dcids)
 
 
 def _trim_columns(df: pd.DataFrame) -> pd.DataFrame:
-  cols = [COL_ID, COL_ALTERNATIVES]
+  cols = [DCID_COL, COL_ALTERNATIVES]
   return df[cols]
 
 
 def _two_digits(number: int) -> str:
-  number_str = str(number)
-  if len(number_str) == 1:
-    number_str = "0" + number_str
-  return number_str
+  return str(number).zfill(2)
 
 
 def _make_gcs_embeddings_filename(filename_prefix: str) -> str:
@@ -123,8 +119,25 @@ def _make_gcs_embeddings_filename(filename_prefix: str) -> str:
   return f"{filename_prefix}_curated_merged_alternatives_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.csv"
 
 
-def _merge_dataframes(df_1: pd.DataFrame, df_2: pd.DataFrame) -> pd.DataFrame:
-  return df_1.merge(df_2, how='left', on=COL_ID).fillna("")
+def _merge_dataframes(df_1: pd.DataFrame, df_2: pd.DataFrame, concat_delimited=";") -> pd.DataFrame:
+  # In case there is a column (besides DCID_COL) which is common, the merged copy
+  # will contain two columns (one with a postfix _x and one with a postfix _y.
+  # Concatenate the two to produce a final version.
+  df_1 = df_1.merge(df_2, how='left', on=DCID_COL, suffixes=("_x", "_y")).fillna("")
+  
+  # Determine the columns which were common.
+  common_cols = set()
+  for col in df_1.columns:
+    if col.endswith("_x") or col.endswith("_y"):
+      common_cols.add(col.replace("_x", "").replace("_y", ""))
+  
+  # Replace the common columns with their concatenation.
+  for col in common_cols:
+    df_1[col] = df_1[f"{col}_x"].str.cat(df_1[f"{col}_y"], sep =";")
+    df_1[col] = df_1[col].replace(to_replace ="^;", value = "", regex = True)
+    df_1 = df_1.drop(columns=[f"{col}_x", f"{col}_y"])
+
+  return df_1
 
 
 def _concat_alternatives(alternatives: List[str],
@@ -137,15 +150,17 @@ def _concat_alternatives(alternatives: List[str],
 def _split_alt_string(alt_string: str) -> List[str]:
   alts = []
   for alt in alt_string.strip().split(";"):
-    if alt and alt != ";":
+    if alt:
       alts.append(alt)
   return alts
 
 
 def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
+  assert len(texts) == len(dcids)
+
   embeddings = ctx.model.encode(texts, show_progress_bar=True)
   embeddings = pd.DataFrame(embeddings)
-  embeddings[COL_ID] = dcids
+  embeddings[DCID_COL] = dcids
   embeddings[COL_ALTERNATIVES] = texts
   return embeddings
 
@@ -153,8 +168,6 @@ def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
 def get_sheets_data(ctx, sheets_url: str, worksheet_name: str) -> pd.DataFrame:
   sheet = ctx.gs.open_by_url(sheets_url).worksheet(worksheet_name)
   df = pd.DataFrame(sheet.get_all_records()).fillna("")
-  if SHEETS_DCID_COL in df.columns:
-    df.rename(columns={SHEETS_DCID_COL: COL_ID}, inplace=True)
   return df
 
 
@@ -162,8 +175,6 @@ def get_local_alternatives(local_filename: str,
                            local_col_names: List[str]) -> pd.DataFrame:
   df = pd.read_csv(local_filename).fillna("")
   df = df[local_col_names]
-  if CSV_DCID_COL in df.columns:
-    df.rename(columns={CSV_DCID_COL: COL_ID}, inplace=True)
   return df
 
 
@@ -181,8 +192,7 @@ def get_embeddings(ctx, df_svs: pd.DataFrame,
           SHEETS_NAME_COL,
           SHEETS_DESCRIPTION_COL,
           SHEETS_ALTERNATIVES_COL,
-          CSV_OTHER_ALTERNATIVES_COL,
-          CSV_PALM_ALTERNATIVES_COL,
+          CSV_ALTERNATIVES_COL,
       ]:
         # In order of preference, traverse the various alternative descriptions.
         alternatives += _split_alt_string(row[col_name])
@@ -197,7 +207,7 @@ def get_embeddings(ctx, df_svs: pd.DataFrame,
   print(
       f"Writing the concatenated dataframe after merging alternates to local file: {local_merged_filepath}"
   )
-  df_svs[[COL_ID, COL_ALTERNATIVES]].to_csv(local_merged_filepath, index=False)
+  df_svs[[DCID_COL, COL_ALTERNATIVES]].to_csv(local_merged_filepath, index=False)
 
   # Build embeddings.
   print("Getting texts, dcids and embeddings.")
@@ -211,27 +221,21 @@ def get_embeddings(ctx, df_svs: pd.DataFrame,
 @dataclass
 class Context:
   # gspread client
-  gs: any
+  gs: Any
   # Model
-  model: any
+  model: Any
   # GCS storage bucket
-  bucket: any
+  bucket: Any
   # Temp dir
   tmp: str
 
 
 def main(_):
-  assert FLAGS.model_name and FLAGS.bucket_name and FLAGS.local_sheets_csv_filename and FLAGS.sheets_url and FLAGS.worksheet_name
+  assert FLAGS.model_name and FLAGS.bucket_name and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
 
   assert os.path.exists(os.path.join('sheets'))
   assert os.path.exists(os.path.join('csv'))
 
-  local_sheets_filepath = os.path.join('sheets',
-                                       FLAGS.local_sheets_csv_filename + ".csv")
-  local_palm_alternatives_filepath = os.path.join(
-      'csv', FLAGS.palm_alternatives_filename + ".csv")
-  local_other_alternatives_filepath = os.path.join(
-      'csv', FLAGS.other_alternatives_filename + ".csv")
   local_merged_filepath = os.path.join(
       'csv', FLAGS.merged_output_filename_prefix + "_input_sv_descriptions.csv")
 
@@ -255,18 +259,18 @@ def main(_):
 
   # Write this downloaded file to local.
   print(
-      f"Writing the downloaded dataframe to local at: {local_sheets_filepath}")
-  df_svs.to_csv(local_sheets_filepath, index=False)
-
-  # Get the PaLM-based alternatives and add to the dataframe.
-  df_palm = get_local_alternatives(local_palm_alternatives_filepath,
-                                   [CSV_DCID_COL, CSV_PALM_ALTERNATIVES_COL])
-  df_svs = _merge_dataframes(df_svs, df_palm)
-
+      f"Writing the downloaded dataframe to local at: {FLAGS.local_sheets_csv_filepath}")
+  df_svs.to_csv(FLAGS.local_sheets_csv_filepath, index=False)
+  
   # Get other alternatives and add to the dataframe.
-  df_other = get_local_alternatives(local_other_alternatives_filepath,
-                                    [CSV_DCID_COL, CSV_OTHER_ALTERNATIVES_COL])
+  df_other = get_local_alternatives(FLAGS.other_alternatives_filepath,
+                                    [DCID_COL, CSV_ALTERNATIVES_COL])
   df_svs = _merge_dataframes(df_svs, df_other)
+                             
+  # Get the PaLM-based alternatives and add to the dataframe.
+  df_palm = get_local_alternatives(FLAGS.palm_alternatives_filepath,
+                                   [DCID_COL, CSV_ALTERNATIVES_COL])
+  df_svs = _merge_dataframes(df_svs, df_palm)
 
   embeddings_df = get_embeddings(ctx, df_svs, local_merged_filepath)
   print(f"Saving locally to {gcs_tmp_out_path}")
