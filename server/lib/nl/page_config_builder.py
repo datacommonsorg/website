@@ -59,7 +59,9 @@ class PageConfigBuilder:
     self.ignore_block_id_check = False
     if (uttr.query_type == QueryType.RANKING_ACROSS_PLACES or
         uttr.query_type == QueryType.TIME_DELTA_ACROSS_PLACES or
-        uttr.query_type == QueryType.TIME_DELTA_ACROSS_VARS):
+        uttr.query_type == QueryType.TIME_DELTA_ACROSS_VARS or
+        uttr.query_type == QueryType.FILTER_WITH_SINGLE_VAR or
+        uttr.query_type == QueryType.FILTER_WITH_DUAL_VARS):
       self.ignore_block_id_check = True
 
   # Returns a Block and a Column
@@ -347,20 +349,30 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
     # This is the case of multiple places for a single SV
     orig_title = sv2thing.name[svs[0]]
 
+  title_suffix = ''
+  if attr.get('title_suffix', None):
+    title_suffix = attr['title_suffix']
+
   if len(places) == 1:
     title = _decorate_chart_title(title=orig_title,
                                   place=places[0],
-                                  add_date=True)
+                                  add_date=True,
+                                  title_suffix=title_suffix)
     pc_title = _decorate_chart_title(title=orig_title,
                                      place=places[0],
                                      add_date=True,
-                                     do_pc=True)
+                                     do_pc=True,
+                                     title_suffix=title_suffix)
   else:
-    title = _decorate_chart_title(title=orig_title, add_date=True, place=None)
+    title = _decorate_chart_title(title=orig_title,
+                                  add_date=True,
+                                  place=None,
+                                  title_suffix=title_suffix)
     pc_title = _decorate_chart_title(title=orig_title,
                                      add_date=True,
                                      place=None,
-                                     do_pc=True)
+                                     do_pc=True,
+                                     title_suffix=title_suffix)
 
   # Total
   tile = Tile(type=Tile.TileType.BAR,
@@ -746,7 +758,8 @@ def _decorate_chart_title(title: str,
                           place: Place,
                           add_date: bool = False,
                           do_pc: bool = False,
-                          child_type: str = '') -> str:
+                          child_type: str = '',
+                          title_suffix: str = '') -> str:
   if not title:
     return ''
 
@@ -766,6 +779,9 @@ def _decorate_chart_title(title: str,
 
   if add_date:
     title = title + ' (${date})'
+
+  if title_suffix:
+    title += ' - ' + title_suffix
 
   return title
 

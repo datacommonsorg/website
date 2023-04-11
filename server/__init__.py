@@ -37,6 +37,7 @@ from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 import server.lib.util as libutil
 import server.services.ai as ai
+import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 
@@ -303,6 +304,10 @@ def create_app():
     app.config['NL_MODEL'] = nl_model
     # This also requires disaster and event routes.
     app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
+    if app.config['LOG_QUERY']:
+      app.config['NL_TABLE'] = bt.get_nl_table()
+    else:
+      app.config['NL_TABLE'] = None
 
   if not cfg.TEST:
     urls = get_health_check_urls()

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { NamedNode } from "../../shared/types";
+
 // types file containing different disease-specific interfaces
 
 export interface DiseaseGeneAssociationData {
@@ -32,6 +34,13 @@ export interface DiseaseSymptomAssociationData {
   name: string;
   // odds Ratio for association
   oddsRatio: number;
+}
+
+export interface DiseaseTreeNode {
+  // name of current node in the tree
+  name: string;
+  // array of disease child name and corresponding children
+  children: DiseaseTreeNode[];
 }
 
 export interface CompoundDiseaseTreatmentData {

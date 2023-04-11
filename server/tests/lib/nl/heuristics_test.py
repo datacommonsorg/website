@@ -23,6 +23,9 @@ from server.lib.nl.detection import RankingType
 from server.lib.nl.detection import TimeDeltaType
 from server.services.nl import Model
 
+# TODO: This should probably live in tests/services/nl_test.py
+# NOTE: Quantity classifier is tested in quantity_parser.
+
 
 class TestHeuristicEventClassifier(unittest.TestCase):
   """Test heuristic-based ranking classifier"""

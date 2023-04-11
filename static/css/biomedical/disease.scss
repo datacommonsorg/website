@@ -53,3 +53,10 @@ tbody {
 tbody tr:nth-child(even) {
   background-color: #eee;
 }
+
+.disease-node-circle {
+  fill: #800000;
+  stroke-opacity: 1;
+  stroke-width: 1.5;
+  border: 3px solid #000;
+}
