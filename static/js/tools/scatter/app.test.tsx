@@ -336,7 +336,7 @@ function mockAxios(): void {
     .mockResolvedValue({
       data: {
         data: {
-          Count_Person_Employed: dataAll.Count_Person_Employed,
+          Count_Person_Employed: dataAll.Count_Person_Employed, // eslint-disable-line camelcase
         },
         facets: facets,
       },
@@ -354,7 +354,7 @@ function mockAxios(): void {
     .mockResolvedValue({
       data: {
         data: {
-          Count_HousingUnit: dataAll.Count_HousingUnit,
+          Count_HousingUnit: dataAll.Count_HousingUnit, // eslint-disable-line camelcase
         },
         facets: facets,
       },
@@ -372,7 +372,7 @@ function mockAxios(): void {
     .mockResolvedValue({
       data: {
         data: {
-          Count_Establishment: dataAll.Count_Establishment,
+          Count_Establishment: dataAll.Count_Establishment, // eslint-disable-line camelcase
         },
         facets: facets,
       },
