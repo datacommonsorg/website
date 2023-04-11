@@ -93,7 +93,7 @@ def _get_texts_dcids(df: pd.DataFrame) -> Tuple[List[str], List[str]]:
         _add_sv(alt, sv, text2sv_dict)
 
   texts = sorted(list(text2sv_dict.keys()))
-  dcids = [','.join(text2sv_dict[k]) for k in texts]
+  dcids = [','.join(sorted(text2sv_dict[k])) for k in texts]
   
   return (texts, dcids)
 
