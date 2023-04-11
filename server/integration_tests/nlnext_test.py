@@ -207,7 +207,7 @@ class IntegrationTest(LiveServerTestCase):
 
   def test_international(self):
     self.run_sequence('international', [
-        'Where are the most rural districts in India',
+        'most rural districts in india',
         'Life expectancy across provinces of China',
         'GDP of counties in the United Kingdom',
         'Districts in Turkey with the highest fertility rate',
