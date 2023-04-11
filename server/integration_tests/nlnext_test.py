@@ -184,6 +184,10 @@ class IntegrationTest(LiveServerTestCase):
             "Poverty vs. Obesity in California",
             # This should be a place comparison for a single more prominent SV.
             "Poverty vs. Obesity in California and Florida",
+            # Filter query with top cities.
+            "California cities with hispanic population over 10000",
+            # Filter query with another SV.
+            "Prevalence of Asthma in California cities with hispanic population over 10000",
         ])
 
   def test_demo_climatetrace(self):

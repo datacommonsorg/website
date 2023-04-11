@@ -1,0 +1,53 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0644000",
+                      "geoId/0666000",
+                      "geoId/0668000",
+                      "geoId/0627000",
+                      "geoId/0669000",
+                      "geoId/0643000",
+                      "geoId/0603526"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma_multiple_place_bar_block"
+                    ],
+                    "title": "Asthma (${date}) - Top 7 of 289",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Percent_Person_WithAsthma_multiple_place_bar_block": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0644000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/0644000",
+    "name": "Los Angeles",
+    "place_type": "City"
+  }
+}

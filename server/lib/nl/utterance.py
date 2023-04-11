@@ -70,7 +70,11 @@ class QueryType(IntEnum):
   EVENT = 9
   OVERVIEW = 10
   SIZE_ACROSS_ENTITIES = 11
-  UNKNOWN = 12
+  # This is [cities with population over 1M]
+  FILTER_WITH_SINGLE_VAR = 12
+  # This is [median age in cities with population over 1M]
+  FILTER_WITH_DUAL_VARS = 13
+  UNKNOWN = 14
 
 
 # Type of chart.

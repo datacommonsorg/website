@@ -185,6 +185,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
     eventClassification: props.debugData["event_classification"],
+    quantityClassification: props.debugData["quantity_classification"],
     counters: props.debugData["counters"],
   };
 
@@ -271,6 +272,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <Col>
               Overview classification: {debugInfo.overviewClassification}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              Quantity classification: {debugInfo.quantityClassification}
             </Col>
           </Row>
           <Row>

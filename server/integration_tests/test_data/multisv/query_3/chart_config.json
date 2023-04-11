@@ -1,0 +1,52 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0644000",
+                      "geoId/0666000",
+                      "geoId/0668000",
+                      "geoId/0627000",
+                      "geoId/0669000",
+                      "geoId/0643000",
+                      "geoId/0603526"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Hispanic Population (${date}) - Top 7 of 289",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic Population",
+            "statVar": "Count_Person_HispanicOrLatino"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0644000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/0644000",
+    "name": "Los Angeles",
+    "place_type": "City"
+  }
+}
