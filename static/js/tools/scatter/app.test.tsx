@@ -16,7 +16,7 @@
 
 jest.mock("axios");
 
-import { waitFor, act } from "@testing-library/react";
+import { act, waitFor } from "@testing-library/react";
 import axios from "axios";
 import Cheerio from "cheerio";
 import Enzyme, { mount } from "enzyme";
@@ -49,14 +49,24 @@ function TestApp(): JSX.Element {
   );
 }
 
+declare global {
+  interface SVGElement {
+    getComputedTextLength(): number;
+    getBBox(): {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    };
+  }
+}
+
 beforeEach(() => {
   // Mock the info config object that is used for the landing page.
   window.infoConfig = [];
 
   // Stub getComputedTextLength and getBBox in SVGElement as they do not exist in d3node
-  // @ts-ignore
   SVGElement.prototype.getComputedTextLength = () => 100;
-  // @ts-ignore
   SVGElement.prototype.getBBox = () => ({ x: 1, y: 1, width: 1, height: 1 });
 });
 
