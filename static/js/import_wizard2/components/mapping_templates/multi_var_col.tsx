@@ -50,20 +50,6 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
       }
     });
 
-  // Function to run when mapping value is updated.
-  function onMappingValUpdate(
-    mappedThing: MappedThing,
-    mappingVal: MappingVal
-  ): void {
-    const newUserMapping = _.clone(props.userMapping);
-    if (_.isEmpty(mappingVal)) {
-      newUserMapping.delete(mappedThing);
-    } else {
-      newUserMapping.set(mappedThing, mappingVal);
-    }
-    props.onChangeUserMapping(newUserMapping);
-  }
-
   return (
     <div id="single-var-multi-date">
       <h3>Choose column titles containing data about these fields:</h3>
@@ -76,7 +62,7 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
                 mappingType={MappingType.COLUMN}
                 mappingVal={props.userMapping.get(MappedThing.PLACE)}
                 onMappingValUpdate={(mappingVal: MappingVal) =>
-                  onMappingValUpdate(MappedThing.PLACE, mappingVal)
+                  props.onMappingValUpdated(MappedThing.PLACE, mappingVal)
                 }
                 orderedColumns={props.csvData.orderedColumns}
               />
@@ -89,7 +75,7 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
                 mappingType={MappingType.COLUMN}
                 mappingVal={props.userMapping.get(MappedThing.DATE)}
                 onMappingValUpdate={(mappingVal: MappingVal) =>
-                  onMappingValUpdate(MappedThing.DATE, mappingVal)
+                  props.onMappingValUpdated(MappedThing.DATE, mappingVal)
                 }
                 orderedColumns={props.csvData.orderedColumns}
               />
@@ -105,7 +91,7 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
                 }
                 mappingVal={props.userMapping.get(MappedThing.STAT_VAR)}
                 onMappingValUpdate={(mappingVal: MappingVal) =>
-                  onMappingValUpdate(MappedThing.STAT_VAR, mappingVal)
+                  props.onMappingValUpdated(MappedThing.STAT_VAR, mappingVal)
                 }
                 orderedColumns={props.csvData.orderedColumns}
               />
@@ -117,7 +103,7 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
               <MappingColumnInput
                 mappingVal={props.userMapping.get(MappedThing.UNIT)}
                 onMappingValUpdate={(mappingVal) =>
-                  onMappingValUpdate(MappedThing.UNIT, mappingVal)
+                  props.onMappingValUpdated(MappedThing.UNIT, mappingVal)
                 }
                 orderedColumns={props.csvData.orderedColumns}
               />

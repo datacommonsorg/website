@@ -32,22 +32,8 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
       }
     });
 
-  function onMappingValUpdate(
-    mappedThing: MappedThing,
-    mappingVal: MappingVal
-  ): void {
-    const newUserMapping = _.clone(props.userMapping);
-    if (_.isEmpty(mappingVal)) {
-      newUserMapping.delete(mappedThing);
-    } else {
-      newUserMapping.set(mappedThing, mappingVal);
-    }
-    props.onChangeUserMapping(newUserMapping);
-  }
-
   return (
     <div id="constant-var">
-      <h3>Choose column titles containing data about these fields:</h3>
       <table className="table">
         <tbody>
           <tr>
@@ -62,7 +48,7 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
                     type: MappingType.FILE_CONSTANT,
                     fileConstant,
                   };
-                  onMappingValUpdate(MappedThing.STAT_VAR, mappingVal);
+                  props.onMappingValUpdated(MappedThing.STAT_VAR, mappingVal);
                 }}
                 placeholder="Enter the variable for this dataset"
                 value={
@@ -80,7 +66,7 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
                 mappingType={MappingType.COLUMN}
                 mappingVal={props.userMapping.get(MappedThing.PLACE)}
                 onMappingValUpdate={(mappingVal: MappingVal) =>
-                  onMappingValUpdate(MappedThing.PLACE, mappingVal)
+                  props.onMappingValUpdated(MappedThing.PLACE, mappingVal)
                 }
                 orderedColumns={props.csvData.orderedColumns}
               />
@@ -92,7 +78,7 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
               <MappingColumnInput
                 mappingVal={props.userMapping.get(MappedThing.DATE)}
                 onMappingValUpdate={(mappingVal) =>
-                  onMappingValUpdate(MappedThing.DATE, mappingVal)
+                  props.onMappingValUpdated(MappedThing.DATE, mappingVal)
                 }
                 orderedColumns={props.csvData.orderedColumns}
               />
@@ -104,7 +90,7 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
               <MappingColumnInput
                 mappingVal={props.userMapping.get(MappedThing.VALUE)}
                 onMappingValUpdate={(mappingVal) =>
-                  onMappingValUpdate(MappedThing.VALUE, mappingVal)
+                  props.onMappingValUpdated(MappedThing.VALUE, mappingVal)
                 }
                 orderedColumns={props.csvData.orderedColumns}
               />
@@ -116,7 +102,7 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
               <MappingColumnInput
                 mappingVal={props.userMapping.get(MappedThing.UNIT)}
                 onMappingValUpdate={(mappingVal) =>
-                  onMappingValUpdate(MappedThing.UNIT, mappingVal)
+                  props.onMappingValUpdated(MappedThing.UNIT, mappingVal)
                 }
                 orderedColumns={props.csvData.orderedColumns}
               />

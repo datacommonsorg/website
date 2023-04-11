@@ -28,7 +28,7 @@ import {
   TEMPLATE_OPTIONS,
   TEMPLATE_PREDICTION_VALIDATION,
 } from "../templates";
-import { CsvData, Mapping, ValueMap } from "../types";
+import { CsvData, MappedThing, Mapping, MappingVal, ValueMap } from "../types";
 import { shouldGenerateCsv } from "../utils/file_generation";
 import { checkMappings } from "../utils/validation";
 import { MappingPreviewSection } from "./mapping_preview_section";
@@ -65,6 +65,21 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
       TEMPLATE_PREDICTION_VALIDATION[props.selectedTemplate];
     setUserMapping(userMappingFn(predictedMapping));
   }, [props.csvData, props.selectedTemplate]);
+
+  // Function to run when mapping value is updated for a mapped thing.
+  function onMappingValUpdated(
+    mappedThing: MappedThing,
+    mappingVal: MappingVal
+  ): void {
+    const newUserMapping = _.clone(userMapping);
+    if (_.isEmpty(mappingVal)) {
+      newUserMapping.delete(mappedThing);
+    } else {
+      newUserMapping.set(mappedThing, mappingVal);
+    }
+    setUserMapping(newUserMapping);
+    setShowPreview(false);
+  }
 
   const MappingSectionComponent =
     TEMPLATE_MAPPING_COMPONENTS[props.selectedTemplate];
@@ -106,10 +121,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
         <MappingSectionComponent
           csvData={props.csvData}
           userMapping={userMapping}
-          onChangeUserMapping={(userMapping) => {
-            setUserMapping(userMapping);
-            setShowPreview(false);
-          }}
+          onMappingValUpdated={onMappingValUpdated}
         />
       </section>
       <section>
