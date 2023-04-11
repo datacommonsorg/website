@@ -85,17 +85,6 @@ function mockAxios(): void {
       },
     });
 
-  // Statvar data
-  when(axios.get)
-    .calledWith("/api/variable-group/info")
-    .mockResolvedValue({
-      data: {
-        absoluteName: "Data Commons Variables",
-        childStatVarGroups: [],
-        descendentStatVarCount: 0,
-      },
-    });
-
   // Population and statvar data
   const facets = {
     facet1: {
