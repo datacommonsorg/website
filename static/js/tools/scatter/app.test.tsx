@@ -655,6 +655,17 @@ function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
   expect($("circle").length).toEqual(n);
 }
 
+function expectCircleSizes(values: string[], app: Enzyme.ReactWrapper): void {
+  const $ = Cheerio.load(app.html());
+  const $tags = $("circle");
+  expect($tags.length).toEqual(values.length);
+  const actualValues = [];
+  $tags.each((i, tag) => {
+    actualValues.push($(tag).attr("r"));
+  });
+  expect(values.join(",")).toEqual(actualValues.join(","));
+}
+
 test("all functionalities", async () => {
   mockAxios();
   const app = mount(<TestApp />);
@@ -771,4 +782,23 @@ test("all functionalities", async () => {
     "Establishments Per Capita (2016)vsHousing Units Per Capita (2016)"
   );
   expectCircles(3, app);
+
+  // Selecting point size by population should resize points using a linear scale
+  expectCircleSizes(["3.5", "3.5", "3.5"], app);
+  await act(async () => {
+    app
+      .find("#population")
+      .at(0)
+      .simulate("change", { target: { checked: true } });
+  });
+  expectCircleSizes(["3.5", "20", "5.8328584241481405"], app);
+
+  // Changing to log scale should resize points
+  await act(async () => {
+    app
+      .find("#population-log")
+      .at(0)
+      .simulate("change", { target: { checked: true } });
+  });
+  expectCircleSizes(["3.5", "20", "7.286777364719656"], app);
 });

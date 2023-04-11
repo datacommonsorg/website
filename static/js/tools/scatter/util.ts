@@ -172,6 +172,15 @@ export function applyHash(context: ContextType): void {
   context.display.setRegression(
     applyHashBoolean(params, FieldToAbbreviation.showRegression)
   );
+  context.display.setPopulation(
+    applyHashBoolean(params, FieldToAbbreviation.showPopulation)
+  );
+  context.display.setPopulationLog(
+    applyHashBoolean(params, FieldToAbbreviation.showPopulationLog)
+  );
+  context.display.setPopulationX(
+    applyHashBoolean(params, FieldToAbbreviation.showPopulationX)
+  );
 }
 
 /**
@@ -377,6 +386,21 @@ function updateHashDisplayOptions(
     hash,
     FieldToAbbreviation.chartType,
     display.chartType === ScatterChartType.MAP
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showPopulation,
+    display.showPopulation
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showPopulationLog,
+    display.showPopulationLog
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showPopulationX,
+    display.showPopulationX
   );
 
   return hash;

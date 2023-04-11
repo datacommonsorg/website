@@ -112,6 +112,9 @@ interface DisplayOptionsWrapper {
   showLabels: boolean;
   chartType: ScatterChartType;
   showDensity: boolean;
+  showPopulation: boolean;
+  showPopulationLog: boolean;
+  showPopulationX: boolean;
   showRegression: boolean;
 
   // Setters
@@ -119,6 +122,9 @@ interface DisplayOptionsWrapper {
   setLabels: Setter<boolean>;
   setChartType: Setter<ScatterChartType>;
   setDensity: Setter<boolean>;
+  setPopulation: Setter<boolean>;
+  setPopulationLog: Setter<boolean>;
+  setPopulationX: Setter<boolean>;
   setRegression: Setter<boolean>;
 }
 
@@ -173,6 +179,9 @@ const FieldToAbbreviation = {
   showLabels: "ld",
   chartType: "ct",
   showDensity: "dd",
+  showPopulation: "pp",
+  showPopulationLog: "pl",
+  showPopulationX: "px",
   showRegression: "rg",
 };
 
@@ -186,6 +195,9 @@ function useContextStore(): ContextType {
   const [showQuadrants, setQuadrants] = useState(false);
   const [showLabels, setLabels] = useState(false);
   const [showDensity, setDensity] = useState(false);
+  const [showPopulation, setPopulation] = useState(false);
+  const [showPopulationLog, setPopulationLog] = useState(false);
+  const [showPopulationX, setPopulationX] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -235,6 +247,13 @@ function useContextStore(): ContextType {
       setChartType: (chartType) => setChartType(chartType),
       showDensity: showDensity,
       setDensity: (showDensity) => setDensity(showDensity),
+      showPopulation: showPopulation,
+      setPopulation: (showPopulation) => setPopulation(showPopulation),
+      showPopulationLog: showPopulationLog,
+      setPopulationLog: (showPopulationLog) =>
+        setPopulationLog(showPopulationLog),
+      showPopulationX: showPopulationX,
+      setPopulationX: (showPopulationX) => setPopulationX(showPopulationX),
       showRegression: showRegression,
       setRegression: (showRegression) => setRegression(showRegression),
     },

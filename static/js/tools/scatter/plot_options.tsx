@@ -33,6 +33,10 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG_SCALE,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_X_AXIS,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_Y_AXIS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
   GA_VALUE_TOOL_CHART_OPTION_SWAP,
   triggerGAEvent,
@@ -268,6 +272,96 @@ function PlotOptions(): JSX.Element {
               </div>
             </div>
             <div className="plot-options-row">
+              <div className="plot-options-label">Point size:</div>
+              <div className="plot-options-input-section pop-display">
+                <div className="plot-options-input">
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        checked={display.showPopulation}
+                        id="population"
+                        onChange={(e) => {
+                          checkPopulation(display, e);
+                          if (!display.showPopulation) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION,
+                            });
+                          }
+                        }}
+                        type="checkbox"
+                      />
+                      By population
+                    </Label>
+                  </FormGroup>
+                </div>
+                <div className="plot-options-input-radio">
+                  <FormGroup>
+                    <Label>
+                      <Input
+                        checked={display.showPopulationX}
+                        disabled={!display.showPopulation}
+                        id="population-x"
+                        onChange={(e) => {
+                          selectPopulationX(display, e);
+                          if (!display.showPopulationX) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_X_AXIS,
+                            });
+                          }
+                        }}
+                        type="radio"
+                        value="x"
+                      />
+                      From X-axis
+                    </Label>
+                    <Label>
+                      <Input
+                        checked={!display.showPopulationX}
+                        disabled={!display.showPopulation}
+                        id="population-y"
+                        onChange={(e) => {
+                          selectPopulationX(display, e);
+                          if (display.showPopulationX) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_Y_AXIS,
+                            });
+                          }
+                        }}
+                        type="radio"
+                        value="y"
+                      />
+                      From Y-axis
+                    </Label>
+                  </FormGroup>
+                </div>
+                <div className="plot-options-input">
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        id="population-log"
+                        type="checkbox"
+                        checked={display.showPopulationLog}
+                        disabled={!display.showPopulation}
+                        onChange={(e) => {
+                          checkPopulationLog(display, e);
+                          if (!display.showPopulationLog) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG_SCALE,
+                            });
+                          }
+                        }}
+                      />
+                      Log scale
+                    </Label>
+                  </FormGroup>
+                </div>
+              </div>
+            </div>
+            <div className="plot-options-row">
               <div className="plot-options-label">Filter by population:</div>
               <div className="plot-options-input-section pop-filter">
                 <div className="plot-options-input">
@@ -381,6 +475,36 @@ function checkDensity(
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   display.setDensity(event.target.checked);
+}
+
+/**
+ * Toggles whether to size dots by place population.
+ */
+function checkPopulation(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setPopulation(event.target.checked);
+}
+
+/**
+ * Toggles whether to size points using a log scale.
+ */
+function checkPopulationLog(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setPopulationLog(event.target.checked);
+}
+
+/**
+ * Toggles whether to use population values based on x or y axis observations
+ */
+function selectPopulationX(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setPopulationX(event.target.value == "x");
 }
 
 /**

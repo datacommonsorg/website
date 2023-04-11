@@ -56,6 +56,8 @@ const DENSITY_LEGEND_TEXT_HEIGHT = 15;
 const DENSITY_LEGEND_TEXT_PADDING = 5;
 const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
+const DEFAULT_MAX_POINT_SIZE = 20;
+const DEFAULT_POINT_SIZE = 3.5;
 const R_LINE_LABEL_MARGIN = 3;
 const TOOLTIP_OFFSET = 5;
 // When using log scale, can't have zero, so use this value in place of 0. This
@@ -423,6 +425,37 @@ function addDensity(
 }
 
 /**
+ * Sizes points by population using a linear or log scale
+ * @param options
+ * @param points
+ * @param dots
+ */
+function addSizeByPopulation(
+  options: ScatterPlotOptions,
+  points: { [placeDcid: string]: Point },
+  dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>
+) {
+  const populationValues = Object.values(points).map((point) =>
+    options.showPopulationX ? point.xPop : point.yPop
+  );
+  const populationMin = Math.min(...populationValues);
+  const populationMax = Math.max(...populationValues);
+  const pointSizeScale = options.showPopulationLog
+    ? d3.scaleLog()
+    : d3.scaleLinear();
+  pointSizeScale
+    .domain([populationMin, populationMax])
+    .range([DEFAULT_POINT_SIZE, DEFAULT_MAX_POINT_SIZE]);
+  dots.attr("r", (point) =>
+    options.showPopulationX && point.xPop
+      ? pointSizeScale(point.xPop)
+      : !options.showPopulationX && point.yPop
+      ? pointSizeScale(point.yPop)
+      : DEFAULT_POINT_SIZE
+  );
+}
+
+/**
  * Adds a hidden tooltip that becomse visible when hovering over a point
  * describing the point.
  * @param tooltip
@@ -715,6 +748,9 @@ export interface ScatterPlotOptions {
   yLog: boolean;
   showQuadrants: boolean;
   showDensity: boolean;
+  showPopulation: boolean;
+  showPopulationLog: boolean;
+  showPopulationX: boolean;
   showLabels: boolean;
   showRegression: boolean;
   highlightPoints: ChartQuadrant[];
@@ -830,7 +866,6 @@ export function drawScatter(
     .data(Object.values(points))
     .enter()
     .append("circle")
-    .attr("r", 5)
     .attr("cx", (point) => xScale(point.xVal))
     .attr("cy", (point) => yScale(point.yVal))
     .attr("stroke", "rgb(147, 0, 0)")
@@ -853,6 +888,12 @@ export function drawScatter(
       .attr("class", "scatter-dot")
       .attr("fill", DEFAULT_FILL)
       .attr("stroke-width", STROKE_WIDTH);
+  }
+
+  if (options.showPopulation) {
+    addSizeByPopulation(options, points, dots);
+  } else {
+    dots.attr("r", DEFAULT_POINT_SIZE);
   }
 
   if (options.showLabels) {
