@@ -33,6 +33,11 @@ from server.lib.nl.utterance import Utterance
 _MAX_PLACES_TO_RETURN = 7
 
 
+#
+# From the list of multi-sv candidates, this function finds the
+# dual SV candidate and then returns the first or second part
+# depending on the value of idx.
+#
 def _get_dual_sv_part(uttr: Utterance, idx: int) -> List[str]:
   for c in uttr.multi_svs.candidates:
     if len(c.parts) == 2:
@@ -71,6 +76,7 @@ def populate(uttr: Utterance):
   return found
 
 
+# TODO: Consider deduping with filter_with_single_var._populate_cb.
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for filter_with_dual_vars')
