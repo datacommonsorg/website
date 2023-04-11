@@ -33,6 +33,8 @@ SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
         'south america', 'southamerica', 'latin america', 'latinamerica'
     ],
     'oceania': ['oceania', 'australasia'],
+    # India gets resolved Indianapolis
+    'country/IND': ['india'],
     # special places
     'wikidataId/Q213205': ['san francisco bay area', 'sf bay area', 'bay area'],
     'wikidataId/Q1827082': ['san francisco peninsula', 'sf peninsula'],

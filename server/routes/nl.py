@@ -254,6 +254,7 @@ def _result_with_debug_info(data_dict: Dict, status: str,
   correlation_classification = "<None>"
   clustering_classification = "<None>"
   event_classification = "<None>"
+  quantity_classification = "<None>"
 
   for classification in query_detection.classifications:
     if classification.type == ClassificationType.RANKING:
@@ -275,12 +276,8 @@ def _result_with_debug_info(data_dict: Dict, status: str,
           str(classification.attributes.contained_in_place_type)
     elif classification.type == ClassificationType.CORRELATION:
       correlation_classification = str(classification.type)
-    elif classification.type == ClassificationType.CLUSTERING:
-      clustering_classification = str(classification.type)
-      clustering_classification += f". Top two SVs: "
-      clustering_classification += f"{classification.attributes.sv_dcid_1, classification.attributes.sv_dcid_2,}. "
-      clustering_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
-      clustering_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
+    elif classification.type == ClassificationType.QUANTITY:
+      quantity_classification = str(classification.attributes)
 
   debug_info = {
       'status': status,
@@ -296,6 +293,7 @@ def _result_with_debug_info(data_dict: Dict, status: str,
       'comparison_classification': comparison_classification,
       'correlation_classification': correlation_classification,
       'event_classification': event_classification,
+      'quantity_classification': quantity_classification,
       'counters': debug_counters,
       'data_spec': uttr_history,
   }
@@ -330,7 +328,8 @@ def _result_with_debug_info(data_dict: Dict, status: str,
 
 
 def _detection(orig_query: str, cleaned_query: str,
-               query_detection_debug_logs: Dict) -> Detection:
+               query_detection_debug_logs: Dict,
+               counters: ctr.Counters) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
@@ -414,19 +413,24 @@ def _detection(orig_query: str, cleaned_query: str,
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)
   comparison_classification = model.heuristic_comparison_classification(query)
+  correlation_classification = model.heuristic_correlation_classification(query)
   overview_classification = model.heuristic_overview_classification(query)
   size_type_classification = model.heuristic_size_type_classification(query)
   time_delta_classification = model.heuristic_time_delta_classification(query)
   contained_in_classification = model.heuristic_containedin_classification(
       query)
   event_classification = model.heuristic_event_classification(query)
+  quantity_classification = \
+    model.heuristic_quantity_classification(query, counters)
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Comparison classification: {comparison_classification}')
+  logging.info(f'Correlation classification: {correlation_classification}')
   logging.info(f'SizeType classification: {size_type_classification}')
   logging.info(f'TimeDelta classification: {time_delta_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
   logging.info(f'Event Classification: {event_classification}')
   logging.info(f'Overview classification: {overview_classification}')
+  logging.info(f'Quantity classification: {quantity_classification}')
 
   # Set the Classifications list.
   classifications = []
@@ -444,10 +448,8 @@ def _detection(orig_query: str, cleaned_query: str,
     classifications.append(event_classification)
   if overview_classification is not None:
     classifications.append(overview_classification)
-
-  # Correlation classification
-  correlation_classification = model.heuristic_correlation_classification(query)
-  logging.info(f'Correlation classification: {correlation_classification}')
+  if quantity_classification is not None:
+    classifications.append(quantity_classification)
   if correlation_classification is not None:
     classifications.append(correlation_classification)
 
@@ -513,21 +515,22 @@ def data():
       'config': {},
       'context': escaped_context_history
   }
-  if not query:
-    logging.info("Query was empty")
-    return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   _detection("", ""), escaped_context_history,
-                                   {})
 
   counters = ctr.Counters()
-
   query_detection_debug_logs = {}
   query_detection_debug_logs["original_query"] = query
+
+  if not query:
+    logging.info("Query was empty")
+    query_detection = _detection("", "", query_detection_debug_logs, counters)
+    return _result_with_debug_info(res, "Aborted: Query was Empty.",
+                                   query_detection, escaped_context_history, {})
+
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
   query_detection = _detection(str(escape(original_query)), query,
-                               query_detection_debug_logs)
+                               query_detection_debug_logs, counters)
   counters.timeit('query_detection', start)
 
   # Generate new utterance.
