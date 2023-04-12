@@ -156,27 +156,10 @@ if [[ -z "$MIXER_IMAGE_PROJECT_ID" ]]; then
   MIXER_IMAGE_PROJECT_ID="datcom-ci"
 fi
 
-helm upgrade --install \
-  dc-website deploy/helm_charts/dc_website \
-  --atomic \
-  --debug \
-  --timeout 10m \
-  --set website.image.project="$WEBSITE_IMAGE_PROJECT_ID" \
-  --set website.image.tag="$WEBSITE_GITHASH" \
-  --set website.githash="$WEBSITE_GITHASH" \
-  --set mixer.image.project="$MIXER_IMAGE_PROJECT_ID" \
-  --set mixer.image.tag="$MIXER_GITHASH" \
-  --set mixer.githash="$MIXER_GITHASH" \
-  --set website.gcpProjectID="$PROJECT_ID" \
-  --set website.domain="$DOMAIN" \
-  --set website.secretGCPProjectID="$PROJECT_ID" \
-  --set mixer.gcpProjectID="$PROJECT_ID" \
-  --set mixer.serviceName="website-esp.endpoints.$PROJECT_ID.cloud.goog" \
-  --set ingress.enabled=true \
-  --set-file mixer.schemaConfigs."base\.mcf"=mixer/deploy/mapping/base.mcf \
-  --set-file mixer.schemaConfigs."encode\.mcf"=mixer/deploy/mapping/encode.mcf \
-  --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
-  --set-file kgStoreConfig.baseBigtableInfo=mixer/deploy/storage/base_bigtable_info.yaml
+sh $WEBSITE_ROOT/scripts/deploy_gke_helm.sh \
+  -l CLUSTER_LOCATION \
+  -p $PROJECT_ID \
+  -h $WEBSITE_GITHASH
 
 # Run the BT automation Terraform script to set up BT loader.
 cd $ROOT
