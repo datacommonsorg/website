@@ -152,7 +152,7 @@ function run_integration_test {
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
-  # python3 -m pytest -vv server/integration_tests/
+  python3 -m pytest -vv server/integration_tests/
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"

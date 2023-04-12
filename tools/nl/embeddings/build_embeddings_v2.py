@@ -147,14 +147,14 @@ def _concat_alternatives(alternatives: List[str],
                          max_alternatives,
                          delimiter=";") -> str:
   alts = set(alternatives[0:max_alternatives])
-  return f"{delimiter}".join(alts)
+  return f"{delimiter}".join(sorted(alts))
 
 
 def _split_alt_string(alt_string: str) -> List[str]:
   alts = []
-  for alt in alt_string.strip().split(";"):
+  for alt in alt_string.split(";"):
     if alt:
-      alts.append(alt)
+      alts.append(alt.strip())
   return alts
 
 

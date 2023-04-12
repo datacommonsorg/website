@@ -1,5 +1,0 @@
-dcid,sentence
-SV_1,xyz1;desc1;some text for SV1;abc1; SV1 palm text sentence;palm text for SV1; SV1 more text;name1
-SV_2,desc2;some text for SV2;abc2; SV2 more text;xyz2;name2;even more text for SV2
-SV_3,override3
-SV_4,desc4;name4;xyz4;abc4

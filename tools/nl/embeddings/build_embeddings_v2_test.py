@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+import tempfile
 import unittest
 from unittest import mock
 
@@ -25,8 +26,13 @@ def get_test_sv_data():
   dcids = ["SV_1", "SV_2", "SV_3", "SV_4"]
   names = ["name1", "name2", "name3", "name4"]
   decriptions = ["desc1", "desc2", "desc3", "desc4"]
+
+  # SV_3 has an override which means that all other fields for SV_3 will
+  # be ignored and only the override alternative(s) will be used.
   overrides = ["", "", "override3", ""]
-  curated = ["abc1;xyz1", "abc2;xyz2;abc2", "abc3;xyz3", "abc4;xyz4"]
+
+  # SV_2 has a duplicate (abc2) which should be de-duped during processing.
+  curated = ["abc1;xyz1", "abc2;xyz2; abc2", "abc3;xyz3", "abc4;xyz4"]
 
   return pd.DataFrame.from_dict({
       "dcid": dcids,
@@ -35,6 +41,14 @@ def get_test_sv_data():
       "Override_Alternatives": overrides,
       "Curated_Alternatives": curated,
   })
+
+
+def _compare_files(t, output_path, expected_path):
+  with open(output_path) as gotf:
+    got = gotf.read()
+    with open(expected_path) as wantf:
+      want = wantf.read()
+      t.assertEqual(got, want)
 
 
 class TestEndToEnd(unittest.TestCase):
@@ -58,15 +72,19 @@ class TestEndToEnd(unittest.TestCase):
     worksheet_name = ""
 
     # Filepaths all correspond to the testdata folder.
-    local_sheets_csv_filepath = "testdata/output/sheets_data.csv"
-    local_merged_filepath = "testdata/output/merged_data.csv"
-    other_alternatives_filepath = "testdata/input/other_alternatives.csv"
-    palm_alternatives_filepath = "testdata/input/palm_alternatives.csv"
+    input_dir = "testdata/input"
+    input_other_alternatives_filepath = os.path.join(input_dir,
+                                                     "other_alternatives.csv")
+    input_palm_alternatives_filepath = os.path.join(input_dir,
+                                                    "palm_alternatives.csv")
 
-    with self.assertRaises(KeyError):
-      be.build(ctx, sheets_url, worksheet_name, local_sheets_csv_filepath,
-               local_merged_filepath,
-               [other_alternatives_filepath, palm_alternatives_filepath])
+    with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
+      tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
+      tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
+      be.build(
+          ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
+          tmp_local_merged_filepath,
+          [input_other_alternatives_filepath, input_palm_alternatives_filepath])
 
   def testSuccess(self):
 
@@ -85,49 +103,36 @@ class TestEndToEnd(unittest.TestCase):
     worksheet_name = ""
 
     # Filepaths all correspond to the testdata folder.
-    local_sheets_csv_filepath = "testdata/output/sheets_data.csv"
-    local_merged_filepath = "testdata/output/merged_data.csv"
-    other_alternatives_filepath = "testdata/input/other_alternatives.csv"
-    palm_alternatives_filepath = "testdata/input/palm_alternatives.csv"
+    input_dir = "testdata/input"
+    expected_dir = "testdata/expected"
+    input_other_alternatives_filepath = os.path.join(input_dir,
+                                                     "other_alternatives.csv")
+    input_palm_alternatives_filepath = os.path.join(input_dir,
+                                                    "palm_alternatives.csv")
+    expected_local_sheets_csv_filepath = os.path.join(expected_dir,
+                                                      "sheets_data.csv")
+    expected_local_merged_filepath = os.path.join(expected_dir,
+                                                  "merged_data.csv")
+    expected_embeddings_csv_filepath = os.path.join(expected_dir,
+                                                    "embeddings_df_csv.csv")
 
-    embeddings_df = be.build(
-        ctx, sheets_url, worksheet_name, local_sheets_csv_filepath,
-        local_merged_filepath,
-        [other_alternatives_filepath, palm_alternatives_filepath])
+    with tempfile.TemporaryDirectory() as tmp_dir:
+      tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
+      tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
+      tmp_embeddings_df_csv = os.path.join(tmp_dir, "embeddings_df_csv.csv")
 
-    # Verify that the output directory has the expected files.
-    self.assertTrue(os.path.exists(os.path.join(local_sheets_csv_filepath)))
-    self.assertTrue(os.path.exists(os.path.join(local_merged_filepath)))
+      embeddings_df = be.build(
+          ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
+          tmp_local_merged_filepath,
+          [input_other_alternatives_filepath, input_palm_alternatives_filepath])
 
-    # Verify that embeddings_df has 386 columns (embedding vector (384), dcid, sentence)
-    self.assertEqual(len(embeddings_df.columns), 386)
+      # Write embddings_df to temp directory.
+      embeddings_df.to_csv(tmp_embeddings_df_csv)
 
-    # Verify that dcid and sentence are in the columns.
-    self.assertTrue('dcid' in embeddings_df.columns)
-    self.assertTrue('sentence' in embeddings_df.columns)
-
-    # Verify that there are 4 StatVars and check them all.
-    self.assertEqual(len(embeddings_df['dcid'].unique()), 4)
-
-    # Verify the number of sentence alternatives.
-    # The total should be 20. Details:
-    #   1 override (override for SV_3 means that for SV_3 the only alternate comes from the override)
-    #   3 names (4 without override)
-    #   3 descriptions (4 without override)
-    #   6 curated alternatives (SV_2 has a duplicate which should be ignored; 8 without override)
-    #   5 other alternatives (8 without override)
-    #   2 palm alternatives (5 without override)
-    sentences = embeddings_df['sentence'].to_list()
-    self.assertEqual(len(embeddings_df), 20)
-    self.assertEqual(len(sentences), 20)
-
-    # Check that each sentence (alternative) exists without any spaces at the start and at the end.
-    for sent in sentences:
-      self.assertEqual(sent, sent.strip())
-
-    # Check that a couple of the alternatives exist.
-    self.assertTrue('abc1' in sentences)  # from get_test_sv_data().
-    self.assertTrue('SV1 palm text sentence'
-                    in sentences)  # from testdata/input/palm_alternatives.csv
-    self.assertTrue('even more text for SV2'
-                    in sentences)  # from testdata/input/other_alternatives.csv
+      # Compare the output files.
+      _compare_files(self, tmp_local_sheets_csv_filepath,
+                     expected_local_sheets_csv_filepath)
+      _compare_files(self, tmp_local_merged_filepath,
+                     expected_local_merged_filepath)
+      _compare_files(self, tmp_embeddings_df_csv,
+                     expected_embeddings_csv_filepath)
