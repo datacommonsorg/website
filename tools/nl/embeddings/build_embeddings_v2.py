@@ -73,7 +73,7 @@ def _add_sv(name: str, sv: str, text2sv: Dict[str, Set[str]]) -> None:
 
   if name not in text2sv:
     text2sv[name] = set()
-  
+
   text2sv[name].add(sv)
 
 
@@ -94,7 +94,7 @@ def _get_texts_dcids(df: pd.DataFrame) -> Tuple[List[str], List[str]]:
 
   texts = sorted(list(text2sv_dict.keys()))
   dcids = [','.join(sorted(text2sv_dict[k])) for k in texts]
-  
+
   return (texts, dcids)
 
 
@@ -119,22 +119,25 @@ def _make_gcs_embeddings_filename(filename_prefix: str) -> str:
   return f"{filename_prefix}_curated_merged_alternatives_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.csv"
 
 
-def _merge_dataframes(df_1: pd.DataFrame, df_2: pd.DataFrame, concat_delimited=";") -> pd.DataFrame:
+def _merge_dataframes(df_1: pd.DataFrame,
+                      df_2: pd.DataFrame,
+                      concat_delimited=";") -> pd.DataFrame:
   # In case there is a column (besides DCID_COL) which is common, the merged copy
   # will contain two columns (one with a postfix _x and one with a postfix _y.
   # Concatenate the two to produce a final version.
-  df_1 = df_1.merge(df_2, how='left', on=DCID_COL, suffixes=("_x", "_y")).fillna("")
-  
+  df_1 = df_1.merge(df_2, how='left', on=DCID_COL,
+                    suffixes=("_x", "_y")).fillna("")
+
   # Determine the columns which were common.
   common_cols = set()
   for col in df_1.columns:
     if col.endswith("_x") or col.endswith("_y"):
       common_cols.add(col.replace("_x", "").replace("_y", ""))
-  
+
   # Replace the common columns with their concatenation.
   for col in common_cols:
-    df_1[col] = df_1[f"{col}_x"].str.cat(df_1[f"{col}_y"], sep =";")
-    df_1[col] = df_1[col].replace(to_replace ="^;", value = "", regex = True)
+    df_1[col] = df_1[f"{col}_x"].str.cat(df_1[f"{col}_y"], sep=";")
+    df_1[col] = df_1[col].replace(to_replace="^;", value="", regex=True)
     df_1 = df_1.drop(columns=[f"{col}_x", f"{col}_y"])
 
   return df_1
@@ -207,7 +210,8 @@ def get_embeddings(ctx, df_svs: pd.DataFrame,
   print(
       f"Writing the concatenated dataframe after merging alternates to local file: {local_merged_filepath}"
   )
-  df_svs[[DCID_COL, COL_ALTERNATIVES]].to_csv(local_merged_filepath, index=False)
+  df_svs[[DCID_COL, COL_ALTERNATIVES]].to_csv(local_merged_filepath,
+                                              index=False)
 
   # Build embeddings.
   print("Getting texts, dcids and embeddings.")
@@ -216,6 +220,30 @@ def get_embeddings(ctx, df_svs: pd.DataFrame,
 
   print("Building embeddings")
   return _build_embeddings(ctx, texts, dcids)
+
+
+def build(ctx, sheets_url: str, worksheet_name: str,
+          local_sheets_csv_filepath: str, local_merged_filepath: str,
+          alternative_filepaths: List[str]) -> pd.DataFrame:
+  # First download the latest file from sheets.
+  print(
+      f"Downloading the latest sheets data from: {sheets_url} (worksheet: {worksheet_name})"
+  )
+  df_svs = get_sheets_data(ctx, sheets_url, worksheet_name)
+  print(f"Downloaded {len(df_svs)} rows and {len(df_svs.columns)} columns.")
+
+  # Write this downloaded file to local.
+  print(
+      f"Writing the downloaded dataframe to local at: {local_sheets_csv_filepath}"
+  )
+  df_svs.to_csv(local_sheets_csv_filepath, index=False)
+
+  # Get alternatives and add to the dataframe.
+  for alt_fp in alternative_filepaths:
+    df_alts = get_local_alternatives(alt_fp, [DCID_COL, CSV_ALTERNATIVES_COL])
+    df_svs = _merge_dataframes(df_svs, df_alts)
+
+  return get_embeddings(ctx, df_svs, local_merged_filepath)
 
 
 @dataclass
@@ -250,29 +278,14 @@ def main(_):
       FLAGS.merged_output_filename_prefix)
   gcs_tmp_out_path = os.path.join(ctx.tmp, gcs_embeddings_filename)
 
-  # First download the latest file from sheets.
-  print(
-      f"Downloading the latest sheets data from: {FLAGS.sheets_url} (worksheet: {FLAGS.worksheet_name})"
-  )
-  df_svs = get_sheets_data(ctx, FLAGS.sheets_url, FLAGS.worksheet_name)
-  print(f"Downloaded {len(df_svs)} rows and {len(df_svs.columns)} columns.")
+  # Process all the data, produce the final dataframes, build the embeddings and return the embeddings dataframe.
+  # During this process, the downloaded latest SVs and Descriptions data and the
+  # final dataframe with SVs and Alternates are also written to local_merged_filepath.
+  embeddings_df = build(
+      ctx, FLAGS.sheets_url, FLAGS.worksheet_name,
+      FLAGS.local_sheets_csv_filepath, local_merged_filepath,
+      [FLAGS.other_alternatives_filepath, FLAGS.palm_alternatives_filepath])
 
-  # Write this downloaded file to local.
-  print(
-      f"Writing the downloaded dataframe to local at: {FLAGS.local_sheets_csv_filepath}")
-  df_svs.to_csv(FLAGS.local_sheets_csv_filepath, index=False)
-  
-  # Get other alternatives and add to the dataframe.
-  df_other = get_local_alternatives(FLAGS.other_alternatives_filepath,
-                                    [DCID_COL, CSV_ALTERNATIVES_COL])
-  df_svs = _merge_dataframes(df_svs, df_other)
-                             
-  # Get the PaLM-based alternatives and add to the dataframe.
-  df_palm = get_local_alternatives(FLAGS.palm_alternatives_filepath,
-                                   [DCID_COL, CSV_ALTERNATIVES_COL])
-  df_svs = _merge_dataframes(df_svs, df_palm)
-
-  embeddings_df = get_embeddings(ctx, df_svs, local_merged_filepath)
   print(f"Saving locally to {gcs_tmp_out_path}")
   embeddings_df.to_csv(gcs_tmp_out_path, index=False)
 
