@@ -1,0 +1,21 @@
+,dcid,sentence
+0,SV_1,SV1 more text
+1,SV_1,SV1 palm text sentence
+2,SV_2,SV2 more text
+3,SV_1,abc1
+4,SV_2,abc2
+5,SV_4,abc4
+6,SV_1,desc1
+7,SV_2,desc2
+8,SV_4,desc4
+9,SV_2,even more text for SV2
+10,SV_1,name1
+11,SV_2,name2
+12,SV_4,name4
+13,SV_3,override3
+14,SV_1,palm text for SV1
+15,SV_1,some text for SV1
+16,SV_2,some text for SV2
+17,SV_1,xyz1
+18,SV_2,xyz2
+19,SV_4,xyz4

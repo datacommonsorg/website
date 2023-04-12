@@ -113,26 +113,26 @@ class TestEndToEnd(unittest.TestCase):
                                                       "sheets_data.csv")
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
-    expected_embeddings_csv_filepath = os.path.join(expected_dir,
-                                                    "embeddings_df_csv.csv")
+    expected_dcid_sentence_csv_filepath = os.path.join(expected_dir,
+                                                    "final_dcid_sentences_csv.csv")
 
     with tempfile.TemporaryDirectory() as tmp_dir:
       tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
-      tmp_embeddings_df_csv = os.path.join(tmp_dir, "embeddings_df_csv.csv")
+      tmp_dcid_sentence_csv = os.path.join(tmp_dir, "final_dcid_sentences_csv.csv")
 
       embeddings_df = be.build(
           ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
           tmp_local_merged_filepath,
           [input_other_alternatives_filepath, input_palm_alternatives_filepath])
 
-      # Write embddings_df to temp directory.
-      embeddings_df.to_csv(tmp_embeddings_df_csv)
+      # Write dcids, sentences to temp directory.
+      embeddings_df[['dcid', 'sentence']].to_csv(tmp_dcid_sentence_csv)
 
       # Compare the output files.
       _compare_files(self, tmp_local_sheets_csv_filepath,
                      expected_local_sheets_csv_filepath)
       _compare_files(self, tmp_local_merged_filepath,
                      expected_local_merged_filepath)
-      _compare_files(self, tmp_embeddings_df_csv,
-                     expected_embeddings_csv_filepath)
+      _compare_files(self, tmp_dcid_sentence_csv,
+                     expected_dcid_sentence_csv_filepath)
