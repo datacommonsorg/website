@@ -20,7 +20,6 @@ source .env/bin/activate
 
 PORT=8080
 ENABLE_MODEL=false
-PROTOC_VERSION=3.21.9
 
 function help {
   echo "Usage: $0 -epm"
@@ -54,11 +53,6 @@ while getopts ":e:p?m?d?l" OPTION; do
       ;;
   esac
 done
-
-if [[ "$(protoc --version)" != "libprotoc ${PROTOC_VERSION}" ]]; then
-  echo "ERROR: Please use protoc version: ${PROTOC_VERSION}" 1>&2
-  exit 1
-fi
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 

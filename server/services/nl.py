@@ -18,6 +18,8 @@ import logging
 import re
 from typing import Dict, List, Union
 
+from server.lib.nl import quantity_parser
+from server.lib.nl.counters import Counters
 from server.lib.nl.detection import BinaryClassificationResultType
 from server.lib.nl.detection import ClassificationType
 from server.lib.nl.detection import ComparisonClassificationAttributes
@@ -389,6 +391,14 @@ class Model:
         correlation_trigger_words=matches)
     return NLClassifier(type=ClassificationType.CORRELATION,
                         attributes=attributes)
+
+  def heuristic_quantity_classification(
+      self, query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
+    attributes = quantity_parser.parse_quantity(query_orig, ctr)
+    if attributes:
+      return NLClassifier(type=ClassificationType.QUANTITY,
+                          attributes=attributes)
+    return None
 
   def detect_svs(self, query: str,
                  debug_logs: Dict) -> Dict[str, Union[Dict, List]]:

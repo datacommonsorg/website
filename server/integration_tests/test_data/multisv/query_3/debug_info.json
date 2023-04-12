@@ -1,0 +1,1055 @@
+{
+  "clustering_classification": "<None>",
+  "comparison_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.CITY",
+  "correlation_classification": "<None>",
+  "counters": {
+    "ERROR": {
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_NotHispanicOrLatino"
+          ],
+          "type": "City"
+        },
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_HispanicOrLatino_WhiteAlone"
+          ],
+          "type": "City"
+        },
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
+          ],
+          "type": "City"
+        },
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_HispanicOrLatino_ResidesInGroupQuarters"
+          ],
+          "type": "City"
+        },
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_Female_NotHispanicOrLatino"
+          ],
+          "type": "City"
+        },
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
+          ],
+          "type": "City"
+        },
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_Producer_HispanicOrLatino"
+          ],
+          "type": "City"
+        },
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters"
+          ],
+          "type": "City"
+        },
+        {
+          "places": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212",
+            "geoId/0600296",
+            "geoId/0600310",
+            "geoId/0600394",
+            "geoId/0600450",
+            "geoId/0600464",
+            "geoId/0600478",
+            "geoId/0600535",
+            "geoId/0600562",
+            "geoId/0600618",
+            "geoId/0600674",
+            "geoId/0600716",
+            "geoId/0600786"
+          ],
+          "svs": [
+            "Count_Person_HispanicOrLatino_ResidesInNoninstitutionalizedGroupQuarters"
+          ],
+          "type": "City"
+        }
+      ]
+    },
+    "INFO": {
+      "child_places_result": [
+        {
+          "place": "geoId/06",
+          "result": [
+            "geoId/0600135",
+            "geoId/0600156",
+            "geoId/0600212"
+          ],
+          "type": "City"
+        }
+      ],
+      "filter-with-single-var_ranked_places": [
+        {
+          "places": [
+            "Los Angeles",
+            "San Diego",
+            "San Jose",
+            "Fresno",
+            "Santa Ana",
+            "Long Beach",
+            "Bakersfield"
+          ],
+          "show_lowest": false,
+          "sv": "Count_Person_HispanicOrLatino"
+        }
+      ],
+      "filtered_svs": [
+        [
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_NotHispanicOrLatino",
+          "Count_Person_HispanicOrLatino_WhiteAlone",
+          "Count_Person_Female_HispanicOrLatino",
+          "Count_Person_Male_HispanicOrLatino",
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_HispanicOrLatino_ResidesInGroupQuarters",
+          "Count_Person_Female_NotHispanicOrLatino",
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_Producer_HispanicOrLatino",
+          "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters",
+          "Count_Person_HispanicOrLatino_ResidesInNoninstitutionalizedGroupQuarters"
+        ]
+      ],
+      "num_chart_candidates": 1,
+      "processed_fulfillment_types": [
+        "filter_with_single_var"
+      ]
+    },
+    "TIMING": {
+      "build_page_config": 0.23,
+      "fulfillment": 0.7,
+      "get_sample_child_places": 0.15,
+      "get_sv_details": 0.23,
+      "query_detection": 0.18,
+      "sv_existence_for_places": 0.14
+    }
+  },
+  "data_spec": [
+    {
+      "classifications": [
+        {
+          "contained_in_place_type": "City",
+          "type": 4
+        },
+        {
+          "type": 3
+        }
+      ],
+      "places": [
+        {
+          "country": "country/USA",
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "California cities with hispanic population over 10000",
+      "query_type": 12,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "City",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": "",
+            "title_suffix": "Top 7 of 289"
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "geoId/0644000",
+              "name": "Los Angeles",
+              "place_type": "City"
+            },
+            {
+              "country": null,
+              "dcid": "geoId/0666000",
+              "name": "San Diego",
+              "place_type": "City"
+            },
+            {
+              "country": null,
+              "dcid": "geoId/0668000",
+              "name": "San Jose",
+              "place_type": "City"
+            },
+            {
+              "country": null,
+              "dcid": "geoId/0627000",
+              "name": "Fresno",
+              "place_type": "City"
+            },
+            {
+              "country": null,
+              "dcid": "geoId/0669000",
+              "name": "Santa Ana",
+              "place_type": "City"
+            },
+            {
+              "country": null,
+              "dcid": "geoId/0643000",
+              "name": "Long Beach",
+              "place_type": "City"
+            },
+            {
+              "country": null,
+              "dcid": "geoId/0603526",
+              "name": "Bakersfield",
+              "place_type": "City"
+            }
+          ],
+          "svs": [
+            "Count_Person_HispanicOrLatino"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person_HispanicOrLatino",
+        "Count_Person_NotHispanicOrLatino",
+        "Count_Person_HispanicOrLatino_WhiteAlone",
+        "Count_Person_Female_HispanicOrLatino",
+        "Count_Person_Male_HispanicOrLatino",
+        "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+        "Count_Person_HispanicOrLatino_ResidesInGroupQuarters",
+        "Count_Person_Female_NotHispanicOrLatino",
+        "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+        "Count_Person_Producer_HispanicOrLatino",
+        "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters",
+        "Count_Person_HispanicOrLatino_ResidesInNoninstitutionalizedGroupQuarters"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 7
+        },
+        {
+          "type": 5
+        }
+      ],
+      "places": [
+        {
+          "country": "country/USA",
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        },
+        {
+          "country": "country/USA",
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "place_type": "State"
+        }
+      ],
+      "query": "Poverty vs. Obesity in California and Florida",
+      "query_type": 6,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 8,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 9,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 10,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_AbovePovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 11,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 12,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 13,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 14,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 15,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 16,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 17,
+            "chart_type": "comparison chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": true,
+            "place_type": null,
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 3,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            },
+            {
+              "country": "country/USA",
+              "dcid": "geoId/12",
+              "name": "Florida",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person_BelowPovertyLevelInThePast12Months",
+        "dc/topic/SDG_1",
+        "Percent_Person_Obesity",
+        "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+        "Count_Person_AbovePovertyLevelInThePast12Months",
+        "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+        "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+        "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+        "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined",
+        "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+      ]
+    },
+    {
+      "classifications": [
+        {
+          "type": 7
+        },
+        {
+          "type": 5
+        }
+      ],
+      "places": [
+        {
+          "country": "country/USA",
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ],
+      "query": "Poverty vs. Obesity in California",
+      "query_type": 5,
+      "ranked_charts": [
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "scatter chart",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "County",
+            "ranking_types": [],
+            "source_topic": "",
+            "title": ""
+          },
+          "chart_type": 5,
+          "event": null,
+          "places": [
+            {
+              "country": "country/USA",
+              "dcid": "geoId/06",
+              "name": "California",
+              "place_type": "State"
+            }
+          ],
+          "svs": [
+            "Count_Person_BelowPovertyLevelInThePast12Months",
+            "Percent_Person_Obesity"
+          ]
+        }
+      ],
+      "session_id": "007_999999999",
+      "svs": [
+        "Count_Person_BelowPovertyLevelInThePast12Months",
+        "dc/topic/SDG_1",
+        "Percent_Person_Obesity",
+        "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+        "Count_Person_AbovePovertyLevelInThePast12Months",
+        "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+        "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+        "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+        "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined",
+        "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+      ]
+    }
+  ],
+  "event_classification": "<None>",
+  "main_place_dcid": "geoId/06",
+  "main_place_name": "California",
+  "original_query": "California cities with hispanic population over 10000",
+  "overview_classification": "<None>",
+  "places_detected": [
+    "california"
+  ],
+  "places_resolved": "(name: California, dcid: geoId/06); ",
+  "quantity_classification": "((GT 10000.0) idx:31)",
+  "query_detection_debug_logs": {
+    "main_place_inferred": {
+      "country": "country/USA",
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "original_query": "California cities with hispanic population over 10000",
+    "place_dcid_inference": {
+      "dcid_not_found_for_place_ids": [],
+      "dcid_overrides_found": [],
+      "dcids_resolved": {
+        "california": "geoId/06"
+      },
+      "maps_api_failures": []
+    },
+    "place_resolution": {
+      "dc_resolution_failure": [],
+      "dc_resolved_places": [
+        {
+          "country": "country/USA",
+          "dcid": "geoId/06",
+          "name": "California",
+          "place_type": "State"
+        }
+      ]
+    },
+    "places_found_str": [
+      "california"
+    ],
+    "query_transformations": {
+      "place_detection_input": "california cities with hispanic population over 10000",
+      "place_detection_with_places_removed": "cities with hispanic population over 10000",
+      "sv_detection_query_input": "cities with hispanic population over 10000",
+      "sv_detection_query_stop_words_removal": "hispanic population 10000"
+    }
+  },
+  "query_with_places_removed": "cities with hispanic population over 10000",
+  "ranking_classification": "<None>",
+  "size_type_classification": "<None>",
+  "status": "",
+  "sv_matching": {
+    "CosineScore": [
+      0.7877157926559448,
+      0.7264510989189148,
+      0.6983215808868408,
+      0.6820369958877563,
+      0.656324028968811,
+      0.6521104574203491,
+      0.6423673629760742,
+      0.6407288312911987,
+      0.6309701204299927,
+      0.629531979560852,
+      0.628703773021698,
+      0.6281245946884155
+    ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.6297,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.6376994252204895,
+                0.6115032434463501
+              ],
+              "QueryPart": "cities hispanic",
+              "SV": [
+                "Count_Person_HispanicOrLatino",
+                "Count_Person_Producer_HispanicOrLatino"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.6217727065086365,
+                0.6135376691818237,
+                0.6093833446502686,
+                0.599563717842102,
+                0.5912516117095947,
+                0.5797774791717529,
+                0.5726490616798401
+              ],
+              "QueryPart": "population 10000",
+              "SV": [
+                "Count_Person",
+                "Count_Household_IncomeOf100000To124999USDollar",
+                "Count_Household_IncomeOf150000To199999USDollar",
+                "Count_Household_IncomeOf125000To149999USDollar",
+                "Count_Person_IncomeOfUpto9999USDollar",
+                "Count_Person_IncomeOf10000To14999USDollar",
+                "Count_Death_AsAFractionOfCount_Person"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "SV": [
+      "Count_Person_HispanicOrLatino",
+      "Count_Person_NotHispanicOrLatino",
+      "Count_Person_HispanicOrLatino_WhiteAlone",
+      "Count_Person_Female_HispanicOrLatino",
+      "Count_Person_Male_HispanicOrLatino",
+      "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+      "Count_Person_HispanicOrLatino_ResidesInGroupQuarters",
+      "Count_Person_Female_NotHispanicOrLatino",
+      "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+      "Count_Person_Producer_HispanicOrLatino",
+      "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters",
+      "Count_Person_HispanicOrLatino_ResidesInNoninstitutionalizedGroupQuarters"
+    ],
+    "SV_to_Sentences": {
+      "Count_Person_Female_HispanicOrLatino": [
+        "Number of Hispanic Females (0.682)",
+        "Population: Female, Hispanic or Latino (0.6519)",
+        "Number of people who are Female and who are Hispanic or Latino (0.6461)"
+      ],
+      "Count_Person_Female_NotHispanicOrLatino": [
+        "Number of Non Hispanic Females (0.6407)"
+      ],
+      "Count_Person_HispanicOrLatino": [
+        "Number of Hispanic People (0.7877)",
+        "Population: Hispanic or Latino (0.7251)",
+        "Number of people who are Hispanic or Latino (0.716)"
+      ],
+      "Count_Person_HispanicOrLatino_ResidesInGroupQuarters": [
+        "Population: Hispanic or Latino, Group Quarters (0.6424)"
+      ],
+      "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters": [
+        "Number of Hispanics Institutionalized in Group Quarters (0.6287)"
+      ],
+      "Count_Person_HispanicOrLatino_ResidesInNoninstitutionalizedGroupQuarters": [
+        "Number of Hispanics in Non-Institutionalized Group Quarters (0.6281)"
+      ],
+      "Count_Person_HispanicOrLatino_TwoOrMoreRaces": [
+        "Number of people who are Hispanic or Latino & Two or More Races (0.6521)",
+        "Population: Hispanic or Latino & Two or More Races (0.6368)"
+      ],
+      "Count_Person_HispanicOrLatino_WhiteAlone": [
+        "Number of Hispanics Who Are White (0.6983)"
+      ],
+      "Count_Person_Male_HispanicOrLatino": [
+        "Number of Hispanic Males (0.6563)"
+      ],
+      "Count_Person_NotHispanicOrLatino": [
+        "Number of Non Hispanic People (0.7265)",
+        "Number of people who are Not Hispanic or Latino (0.6786)",
+        "Population: Not Hispanic or Latino (0.668)"
+      ],
+      "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces": [
+        "Number of people who are Not Hispanic or Latino & Two or More Races (0.631)"
+      ],
+      "Count_Person_Producer_HispanicOrLatino": [
+        "Number of Hispanic Farmers (0.6295)",
+        "Number of hispanic farmers (0.6295)"
+      ]
+    }
+  },
+  "svs_to_sentences": {
+    "Count_Person_Female_HispanicOrLatino": [
+      "Number of Hispanic Females (0.682)",
+      "Population: Female, Hispanic or Latino (0.6519)",
+      "Number of people who are Female and who are Hispanic or Latino (0.6461)"
+    ],
+    "Count_Person_Female_NotHispanicOrLatino": [
+      "Number of Non Hispanic Females (0.6407)"
+    ],
+    "Count_Person_HispanicOrLatino": [
+      "Number of Hispanic People (0.7877)",
+      "Population: Hispanic or Latino (0.7251)",
+      "Number of people who are Hispanic or Latino (0.716)"
+    ],
+    "Count_Person_HispanicOrLatino_ResidesInGroupQuarters": [
+      "Population: Hispanic or Latino, Group Quarters (0.6424)"
+    ],
+    "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters": [
+      "Number of Hispanics Institutionalized in Group Quarters (0.6287)"
+    ],
+    "Count_Person_HispanicOrLatino_ResidesInNoninstitutionalizedGroupQuarters": [
+      "Number of Hispanics in Non-Institutionalized Group Quarters (0.6281)"
+    ],
+    "Count_Person_HispanicOrLatino_TwoOrMoreRaces": [
+      "Number of people who are Hispanic or Latino & Two or More Races (0.6521)",
+      "Population: Hispanic or Latino & Two or More Races (0.6368)"
+    ],
+    "Count_Person_HispanicOrLatino_WhiteAlone": [
+      "Number of Hispanics Who Are White (0.6983)"
+    ],
+    "Count_Person_Male_HispanicOrLatino": [
+      "Number of Hispanic Males (0.6563)"
+    ],
+    "Count_Person_NotHispanicOrLatino": [
+      "Number of Non Hispanic People (0.7265)",
+      "Number of people who are Not Hispanic or Latino (0.6786)",
+      "Population: Not Hispanic or Latino (0.668)"
+    ],
+    "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces": [
+      "Number of people who are Not Hispanic or Latino & Two or More Races (0.631)"
+    ],
+    "Count_Person_Producer_HispanicOrLatino": [
+      "Number of Hispanic Farmers (0.6295)",
+      "Number of hispanic farmers (0.6295)"
+    ]
+  },
+  "time_delta_classification": "<None>"
+}
