@@ -258,12 +258,12 @@ function useContextStore(): ContextType {
       setRegression: (showRegression) => setRegression(showRegression),
     },
     isLoading: {
+      areDataLoading,
       arePlacesLoading,
       areStatVarsLoading,
-      areDataLoading,
+      setAreDataLoading,
       setArePlacesLoading,
       setAreStatVarsLoading,
-      setAreDataLoading,
     },
   };
 }

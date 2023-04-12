@@ -425,6 +425,28 @@ function addDensity(
 }
 
 /**
+ * Calculates scatter plot point size using the specified axis and scale
+ * @param point
+ * @param showPopulationX
+ * @param pointSizeScale
+ */
+function calculatePointSize(
+  point: Point,
+  showPopulationX: boolean,
+  pointSizeScale:
+    | d3.ScaleLogarithmic<number, number, never>
+    | d3.ScaleLinear<number, number, never>
+): number {
+  if (showPopulationX && point.xPop) {
+    return pointSizeScale(point.xPop);
+  }
+  if (!showPopulationX && point.yPop) {
+    return pointSizeScale(point.yPop);
+  }
+  return DEFAULT_POINT_SIZE;
+}
+
+/**
  * Sizes points by population using a linear or log scale
  * @param dots
  * @param points
@@ -446,15 +468,9 @@ function addSizeByPopulation(
   pointSizeScale
     .domain([populationMin, populationMax])
     .range([DEFAULT_POINT_SIZE, DEFAULT_MAX_POINT_SIZE]);
-  dots.attr("r", (point) => {
-    if (showPopulationX && point.xPop) {
-      return pointSizeScale(point.xPop);
-    }
-    if (!showPopulationX && point.yPop) {
-      return pointSizeScale(point.yPop);
-    }
-    return DEFAULT_POINT_SIZE;
-  });
+  dots.attr("r", (point) =>
+    calculatePointSize(point, showPopulationX, pointSizeScale)
+  );
 }
 
 /**
