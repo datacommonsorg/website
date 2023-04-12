@@ -426,33 +426,35 @@ function addDensity(
 
 /**
  * Sizes points by population using a linear or log scale
- * @param options
- * @param points
  * @param dots
+ * @param points
+ * @param showPopulationX
+ * @param showPopulationLog
  */
 function addSizeByPopulation(
-  options: ScatterPlotOptions,
+  dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
   points: { [placeDcid: string]: Point },
-  dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>
-) {
+  showPopulationX: boolean,
+  showPopulationLog: boolean
+): void {
   const populationValues = Object.values(points).map((point) =>
-    options.showPopulationX ? point.xPop : point.yPop
+    showPopulationX ? point.xPop : point.yPop
   );
   const populationMin = Math.min(...populationValues);
   const populationMax = Math.max(...populationValues);
-  const pointSizeScale = options.showPopulationLog
-    ? d3.scaleLog()
-    : d3.scaleLinear();
+  const pointSizeScale = showPopulationLog ? d3.scaleLog() : d3.scaleLinear();
   pointSizeScale
     .domain([populationMin, populationMax])
     .range([DEFAULT_POINT_SIZE, DEFAULT_MAX_POINT_SIZE]);
-  dots.attr("r", (point) =>
-    options.showPopulationX && point.xPop
-      ? pointSizeScale(point.xPop)
-      : !options.showPopulationX && point.yPop
-      ? pointSizeScale(point.yPop)
-      : DEFAULT_POINT_SIZE
-  );
+  dots.attr("r", (point) => {
+    if (showPopulationX && point.xPop) {
+      return pointSizeScale(point.xPop);
+    }
+    if (!showPopulationX && point.yPop) {
+      return pointSizeScale(point.yPop);
+    }
+    return DEFAULT_POINT_SIZE;
+  });
 }
 
 /**
@@ -891,7 +893,12 @@ export function drawScatter(
   }
 
   if (options.showPopulation) {
-    addSizeByPopulation(options, points, dots);
+    addSizeByPopulation(
+      dots,
+      points,
+      options.showPopulationX,
+      options.showPopulationLog
+    );
   } else {
     dots.attr("r", DEFAULT_POINT_SIZE);
   }

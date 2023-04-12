@@ -145,45 +145,6 @@ export async function getStatAllWithinPlace(
 }
 
 /**
- * Parses the hash and updates the context accordingly.
- * @param context
- */
-export function applyHash(context: ContextType): void {
-  const params = new URLSearchParams(
-    decodeURIComponent(location.hash).replace("#", "?")
-  );
-  context.x.set(applyHashAxis(params, true));
-  context.y.set(applyHashAxis(params, false));
-  context.place.set(applyHashPlace(params));
-  context.display.setQuadrants(
-    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
-  );
-  context.display.setLabels(
-    applyHashBoolean(params, FieldToAbbreviation.showLabels)
-  );
-  const chartType =
-    params.get(FieldToAbbreviation.chartType) === "1"
-      ? ScatterChartType.MAP
-      : ScatterChartType.SCATTER;
-  context.display.setChartType(chartType);
-  context.display.setDensity(
-    applyHashBoolean(params, FieldToAbbreviation.showDensity)
-  );
-  context.display.setRegression(
-    applyHashBoolean(params, FieldToAbbreviation.showRegression)
-  );
-  context.display.setPopulation(
-    applyHashBoolean(params, FieldToAbbreviation.showPopulation)
-  );
-  context.display.setPopulationLog(
-    applyHashBoolean(params, FieldToAbbreviation.showPopulationLog)
-  );
-  context.display.setPopulationX(
-    applyHashBoolean(params, FieldToAbbreviation.showPopulationX)
-  );
-}
-
-/**
  * Appends "x" or "y" to the key based on `isX`.
  * @param key
  * @param isX
@@ -266,6 +227,44 @@ export function updateHashBoolean(
   return hash;
 }
 
+/**
+ * Parses the hash and updates the context accordingly.
+ * @param context
+ */
+export function applyHash(context: ContextType): void {
+  const params = new URLSearchParams(
+    decodeURIComponent(location.hash).replace("#", "?")
+  );
+  context.x.set(applyHashAxis(params, true));
+  context.y.set(applyHashAxis(params, false));
+  context.place.set(applyHashPlace(params));
+  context.display.setQuadrants(
+    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
+  );
+  context.display.setLabels(
+    applyHashBoolean(params, FieldToAbbreviation.showLabels)
+  );
+  const chartType =
+    params.get(FieldToAbbreviation.chartType) === "1"
+      ? ScatterChartType.MAP
+      : ScatterChartType.SCATTER;
+  context.display.setChartType(chartType);
+  context.display.setDensity(
+    applyHashBoolean(params, FieldToAbbreviation.showDensity)
+  );
+  context.display.setRegression(
+    applyHashBoolean(params, FieldToAbbreviation.showRegression)
+  );
+  context.display.setPopulation(
+    applyHashBoolean(params, FieldToAbbreviation.showPopulation)
+  );
+  context.display.setPopulationLog(
+    applyHashBoolean(params, FieldToAbbreviation.showPopulationLog)
+  );
+  context.display.setPopulationX(
+    applyHashBoolean(params, FieldToAbbreviation.showPopulationX)
+  );
+}
 /**
  * Updates the hash based on the context and returns the new hash.
  * If there are multiple denominators for a statvar, only the first

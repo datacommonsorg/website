@@ -52,6 +52,133 @@ import { ScatterChartType } from "./util";
 const MIN_WIDTH_LABEL_LENGTH = 20;
 const MAX_WIDTH_LABEL_LENGTH = 40;
 
+/**
+ * Swaps the axes.
+ * @param x
+ * @param y
+ */
+function swapAxes(x: AxisWrapper, y: AxisWrapper): void {
+  const [xValue, yValue] = [x.value, y.value];
+  x.set(yValue);
+  y.set(xValue);
+}
+
+/**
+ * Toggles whether to plot per capita values for an axis.
+ * @param axis
+ * @param event
+ */
+function checkPerCapita(
+  axis: AxisWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  axis.setPerCapita(event.target.checked);
+}
+
+/**
+ * Toggles whether to plot an axis on log scale.
+ * @param axis
+ * @param event
+ */
+function checkLog(
+  axis: AxisWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  axis.setLog(event.target.checked);
+}
+
+/**
+ * Toggles whether to show quadrant lines.
+ */
+function checkQuadrants(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setQuadrants(event.target.checked);
+}
+
+/**
+ * Toggles whether to show text labels for every dot.
+ */
+function checkLabels(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setLabels(event.target.checked);
+}
+
+/**
+ * Toggles whether to color dots by density of dots in that area.
+ */
+function checkDensity(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setDensity(event.target.checked);
+}
+
+/**
+ * Toggles whether to size dots by place population.
+ */
+function checkPopulation(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setPopulation(event.target.checked);
+}
+
+/**
+ * Toggles whether to size points using a log scale.
+ */
+function checkPopulationLog(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setPopulationLog(event.target.checked);
+}
+
+/**
+ * Toggles whether to use population values based on x or y axis observations
+ */
+function selectPopulationX(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setPopulationX(event.target.value === "x");
+}
+
+/**
+ * Sets the lower bound for populations.
+ * @param place
+ * @param event
+ */
+function selectLowerBound(
+  place: PlaceInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>,
+  setLowerBound: (lowerBound: string) => void
+): void {
+  if (event.target.value) {
+    place.setLowerBound(parseInt(event.target.value));
+  }
+  setLowerBound(event.target.value);
+}
+
+/**
+ * Sets the upper bound for populations.
+ * @param place
+ * @param event
+ */
+function selectUpperBound(
+  place: PlaceInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>,
+  setUpperBound: (upperBound: string) => void
+): void {
+  if (event.target.value) {
+    place.setUpperBound(parseInt(event.target.value));
+  }
+  setUpperBound(event.target.value);
+}
+
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
 // returns the available dates for the statvar. Then, fill the datapicker with
 // the dates.
@@ -410,133 +537,6 @@ function PlotOptions(): JSX.Element {
       </Container>
     </Card>
   );
-}
-
-/**
- * Swaps the axes.
- * @param x
- * @param y
- */
-function swapAxes(x: AxisWrapper, y: AxisWrapper): void {
-  const [xValue, yValue] = [x.value, y.value];
-  x.set(yValue);
-  y.set(xValue);
-}
-
-/**
- * Toggles whether to plot per capita values for an axis.
- * @param axis
- * @param event
- */
-function checkPerCapita(
-  axis: AxisWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  axis.setPerCapita(event.target.checked);
-}
-
-/**
- * Toggles whether to plot an axis on log scale.
- * @param axis
- * @param event
- */
-function checkLog(
-  axis: AxisWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  axis.setLog(event.target.checked);
-}
-
-/**
- * Toggles whether to show quadrant lines.
- */
-function checkQuadrants(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setQuadrants(event.target.checked);
-}
-
-/**
- * Toggles whether to show text labels for every dot.
- */
-function checkLabels(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setLabels(event.target.checked);
-}
-
-/**
- * Toggles whether to color dots by density of dots in that area.
- */
-function checkDensity(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setDensity(event.target.checked);
-}
-
-/**
- * Toggles whether to size dots by place population.
- */
-function checkPopulation(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setPopulation(event.target.checked);
-}
-
-/**
- * Toggles whether to size points using a log scale.
- */
-function checkPopulationLog(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setPopulationLog(event.target.checked);
-}
-
-/**
- * Toggles whether to use population values based on x or y axis observations
- */
-function selectPopulationX(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setPopulationX(event.target.value == "x");
-}
-
-/**
- * Sets the lower bound for populations.
- * @param place
- * @param event
- */
-function selectLowerBound(
-  place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>,
-  setLowerBound: (lowerBound: string) => void
-): void {
-  if (event.target.value) {
-    place.setLowerBound(parseInt(event.target.value));
-  }
-  setLowerBound(event.target.value);
-}
-
-/**
- * Sets the upper bound for populations.
- * @param place
- * @param event
- */
-function selectUpperBound(
-  place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>,
-  setUpperBound: (upperBound: string) => void
-): void {
-  if (event.target.value) {
-    place.setUpperBound(parseInt(event.target.value));
-  }
-  setUpperBound(event.target.value);
 }
 
 export { PlotOptions };
