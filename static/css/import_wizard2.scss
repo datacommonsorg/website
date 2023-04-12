@@ -255,16 +255,57 @@ tr th:last-child {
   text-decoration: underline;
 }
 
-#mapping-section section {
-  margin-bottom: 2em;
+#mapping-section {
+  @include media-breakpoint-up(md) {
+    max-height: 75vh;
+    overflow-y: auto;
+    padding-right: 1.5rem;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    margin-right: 1.5rem;
+  }
+
+  section {
+    margin-bottom: 2em;
+  }
 }
 
-#mapping-section td {
-  text-align: left;
+.mapping-page-content {
+  display: flex;
+
+  @include media-breakpoint-down(sm) {
+    flex-wrap: wrap-reverse;
+  }
 }
 
-#mapping-section td:first-child {
-  max-width: 12%;
+.mapping-page-section {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.mapping-page-split {
+  margin: 0rem 1rem;
+  border-right-style: solid;
+}
+
+.mapping-input-section {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: var(--light);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+
+  .form-control {
+    font-size: 1rem;
+  }
+}
+
+.mapping-input-label {
+  padding-bottom: 0.5rem;
+}
+
+.mapping-page-file-preview .file-preview-name {
+  margin-bottom: 1rem;
 }
 
 .place-type-property-option {
@@ -278,6 +319,8 @@ tr th:last-child {
 }
 
 .mapping-headers {
+  padding-left: 1rem;
+
   .header-item {
     display: flex;
     align-items: center;

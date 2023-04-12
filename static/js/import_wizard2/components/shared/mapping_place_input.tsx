@@ -27,6 +27,7 @@ import {
   Column,
   DCProperty,
   DCType,
+  MappedThing,
   MappingType,
   MappingVal,
   TypeProperty,
@@ -59,12 +60,13 @@ export function MappingPlaceInput(props: MappingPlaceInputProps): JSX.Element {
   }
 
   return (
-    <>
-      <MappingColumnInput
-        mappingVal={props.mappingVal}
-        onMappingValUpdate={onPlaceUpdate}
-        orderedColumns={props.orderedColumns}
-      />
+    <MappingColumnInput
+      mappedThing={MappedThing.PLACE}
+      mappingVal={props.mappingVal}
+      onMappingValUpdate={onPlaceUpdate}
+      orderedColumns={props.orderedColumns}
+      isRequired={true}
+    >
       {!_.isEmpty(props.mappingVal) && (
         <div className="place-type-property-section">
           <div className="place-type-property-option">
@@ -123,7 +125,7 @@ export function MappingPlaceInput(props: MappingPlaceInputProps): JSX.Element {
           </div>
         </div>
       )}
-    </>
+    </MappingColumnInput>
   );
 
   function fetchPlaceTypeProperties(): void {
