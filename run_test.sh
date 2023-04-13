@@ -129,7 +129,6 @@ function run_py_test {
     echo "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
-
 }
 
 # Run test for webdriver automation test codes.
@@ -154,6 +153,12 @@ function run_integration_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
   python3 -m pytest -vv server/integration_tests/
+
+  # Tests within tools/nl/embeddings
+  echo "Running tests within tools/nl/embeddings:"
+  cd tools/nl/embeddings
+  pip3 install -r requirements.txt
+  python3 -m pytest *_test.py -s
 }
 
 function update_integration_test_golden {
