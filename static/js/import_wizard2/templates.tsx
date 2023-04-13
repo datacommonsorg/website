@@ -20,7 +20,7 @@ import { ConstantVar } from "./components/mapping_templates/constant_var";
 import { MultiVarCol } from "./components/mapping_templates/multi_var_col";
 import { MultiVarMultiDateCol } from "./components/mapping_templates/multi_var_mulit_date_col";
 import { SingleVarMultiDateCol } from "./components/mapping_templates/single_var_multi_date_col";
-import { CsvData, MappedThing, Mapping } from "./types";
+import { CsvData, MappedThing, Mapping, MappingVal } from "./types";
 
 // information about a template
 export interface TemplateInfo {
@@ -204,7 +204,10 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
 export interface MappingTemplateProps {
   csvData: CsvData;
   userMapping: Mapping;
-  onChangeUserMapping: (mapping: Mapping) => void;
+  onMappingValUpdated: (
+    mappedThing: MappedThing,
+    mappingVal: MappingVal
+  ) => void;
 }
 
 // Map of templateId to the mapping component to render for that templateId.

@@ -25,10 +25,16 @@ import { Button } from "reactstrap";
 
 import {
   TEMPLATE_MAPPING_COMPONENTS,
-  TEMPLATE_OPTIONS,
   TEMPLATE_PREDICTION_VALIDATION,
 } from "../templates";
-import { CsvData, Mapping, ValueMap } from "../types";
+import {
+  Column,
+  CsvData,
+  MappedThing,
+  Mapping,
+  MappingVal,
+  ValueMap,
+} from "../types";
 import { shouldGenerateCsv } from "../utils/file_generation";
 import { checkMappings } from "../utils/validation";
 import { MappingPreviewSection } from "./mapping_preview_section";
@@ -66,16 +72,117 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
     setUserMapping(userMappingFn(predictedMapping));
   }, [props.csvData, props.selectedTemplate]);
 
+  // Function to run when mapping value is updated for a mapped thing.
+  function onMappingValUpdated(
+    mappedThing: MappedThing,
+    mappingVal: MappingVal
+  ): void {
+    const newUserMapping = _.clone(userMapping);
+    if (_.isEmpty(mappingVal)) {
+      newUserMapping.delete(mappedThing);
+    } else {
+      newUserMapping.set(mappedThing, mappingVal);
+    }
+    setUserMapping(newUserMapping);
+    setShowPreview(false);
+  }
+
   const MappingSectionComponent =
     TEMPLATE_MAPPING_COMPONENTS[props.selectedTemplate];
+  const mappedColumnIndices = new Set();
+  userMapping &&
+    userMapping.forEach((mappingVal) => {
+      if (mappingVal.column) {
+        mappedColumnIndices.add(mappingVal.column.columnIdx);
+      }
+      if (mappingVal.headers) {
+        mappingVal.headers.forEach((col) => {
+          if (col) {
+            mappedColumnIndices.add(col.columnIdx);
+          }
+        });
+      }
+    });
+  const unmappedColumns = props.csvData.orderedColumns.filter(
+    (col) => !mappedColumnIndices.has(col.columnIdx)
+  );
   return (
-    <div id="mapping-section">
-      {/* TODO: update page heading to something more intuitive to users */}
-      <h2>Step 3: Refine table format</h2>
-      <section>
-        <div className="mapping-page-navigation-section">
-          <div className="mapping-page-navigation-option">
-            <span>File: {fileName}</span>
+    <>
+      <h2>Label your file</h2>
+      <div className="mapping-page-content">
+        <div id="mapping-section" className="mapping-page-section">
+          <div>
+            Please add labels to help us map your dataset to the Data Commons
+            database.
+          </div>
+          <div>*=required</div>
+          {/* TODO: update page heading to something more intuitive to users */}
+          <section>
+            <MappingSectionComponent
+              csvData={props.csvData}
+              userMapping={userMapping}
+              onMappingValUpdated={onMappingValUpdated}
+            />
+            <div className="mapping-input-section">
+              <div>Ignored columns:</div>
+              <div>
+                {_.isEmpty(unmappedColumns)
+                  ? "None"
+                  : unmappedColumns.map((col: Column, idx) => {
+                      return `${idx > 0 ? ", " : ""}${col.header}`;
+                    })}
+              </div>
+            </div>
+          </section>
+          <section>
+            {/* TODO: Disable button if template mapping is incomplete */}
+            <Button
+              className="nav-btn"
+              onClick={() => {
+                const mappingErrors = checkMappings(userMapping);
+                setErrorList(mappingErrors);
+                if (_.isEmpty(mappingErrors)) {
+                  setShowPreview(true);
+                }
+              }}
+            >
+              Generate Preview
+            </Button>
+          </section>
+          {!_.isEmpty(errorList) && (
+            <div className="mapping-errors section-container">
+              <span>
+                There are errors in the mapping, please fix them before
+                continuing.
+              </span>
+              <ul>
+                {errorList.map((error, idx) => {
+                  return <li key={`error-${idx}`}>{error}</li>;
+                })}
+              </ul>
+            </div>
+          )}
+          {showPreview && (
+            <section>
+              {/* TODO: Each template should generate and return row observations. */}
+              <MappingPreviewSection
+                predictedMapping={predictedMapping}
+                correctedMapping={userMapping}
+                csvData={props.csvData}
+                shouldGenerateCsv={shouldGenerateCsv(
+                  props.csvData,
+                  props.csvData /* TODO: Update to a smaller data structure of updates */,
+                  valueMap
+                )}
+                valueMap={valueMap}
+              />
+            </section>
+          )}
+        </div>
+        <div className="mapping-page-section mapping-page-file-preview">
+          <div className="file-preview-name">
+            <b>Your File: </b>
+            {fileName}
             <span
               onClick={props.onChangeFile}
               className="mapping-page-navigation-button"
@@ -83,78 +190,9 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
               Change file
             </span>
           </div>
-          <div className="mapping-page-navigation-option">
-            <span>
-              Selected template:{" "}
-              {`${TEMPLATE_OPTIONS[props.selectedTemplate].title} (${
-                TEMPLATE_OPTIONS[props.selectedTemplate].subtitle
-              })`}
-            </span>
-            <span
-              onClick={props.onChangeTemplate}
-              className="mapping-page-navigation-button"
-            >
-              Change template
-            </span>
-          </div>
+          <PreviewTable csvData={props.csvData} />
         </div>
-      </section>
-      <section>
-        <PreviewTable csvData={props.csvData} />
-      </section>
-      <section>
-        <MappingSectionComponent
-          csvData={props.csvData}
-          userMapping={userMapping}
-          onChangeUserMapping={(userMapping) => {
-            setUserMapping(userMapping);
-            setShowPreview(false);
-          }}
-        />
-      </section>
-      <section>
-        {/* TODO: Disable button if template mapping is incomplete */}
-        <Button
-          className="nav-btn"
-          onClick={() => {
-            const mappingErrors = checkMappings(userMapping);
-            setErrorList(mappingErrors);
-            if (_.isEmpty(mappingErrors)) {
-              setShowPreview(true);
-            }
-          }}
-        >
-          Generate Preview
-        </Button>
-      </section>
-      {!_.isEmpty(errorList) && (
-        <div className="mapping-errors section-container">
-          <span>
-            There are errors in the mapping, please fix them before continuing.
-          </span>
-          <ul>
-            {errorList.map((error, idx) => {
-              return <li key={`error-${idx}`}>{error}</li>;
-            })}
-          </ul>
-        </div>
-      )}
-      {showPreview && (
-        <section>
-          {/* TODO: Each template should generate and return row observations. */}
-          <MappingPreviewSection
-            predictedMapping={predictedMapping}
-            correctedMapping={userMapping}
-            csvData={props.csvData}
-            shouldGenerateCsv={shouldGenerateCsv(
-              props.csvData,
-              props.csvData /* TODO: Update to a smaller data structure of updates */,
-              valueMap
-            )}
-            valueMap={valueMap}
-          />
-        </section>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
