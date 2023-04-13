@@ -21,13 +21,6 @@ website:
   secretGCPProjectID:
   enableModel: false
 
-  # IAP(Identity Aware Proxy) config.
-  # iap can be enabled independently of ingress.
-  iap:
-    enabled: false
-    clientID:
-    secret:
-
   replicas:
     default: 1
 
@@ -78,8 +71,6 @@ esp:
     tag: "1"
     pullPolicy: Always
 
-
-
 kgStoreConfig:
   bigqueryVersion:
   baseBigtableInfo:
@@ -90,12 +81,14 @@ memdbJSON: ""
 # END Config for Mixer helm chart
 ###############################################################################
 
-
 ###############################################################################
 # Config for NL
 ###############################################################################
 nl:
   enabled: false
+  embeddings: |
+    embeddings_file: embeddings_us_filtered_2023_02_24_08_32_22.csv
+
 ###############################################################################
 # END Config for NL
 ###############################################################################

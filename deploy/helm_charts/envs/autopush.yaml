@@ -13,9 +13,9 @@
 # limitations under the License.
 
 # Helm config
-project: "datcom-website-dev"
+project: "datcom-website-autopush"
 cluster_prefix: "website"
-resourceSuffix: "-dev"
+resourceSuffix: "-autopush"
 
 namespace:
   name: "website"
@@ -25,9 +25,9 @@ website:
     project: "datcom-ci"
     tag:
   githash:
-  flaskEnv: dev
+  flaskEnv: autopush
   replicas:
-    default: 5
+    default: 10
   enableModel: true
 
 mixer:
@@ -62,9 +62,9 @@ serviceGroups:
       urlPaths:
         - "/*"
       replicas:
-        default: 5
-        min: 5
-        max: 5
+        default: 10
+        min: 10
+        max: 10
       resources:
         memoryRequest: "4G"
         memoryLimit: "4G"
