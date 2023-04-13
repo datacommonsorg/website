@@ -16,6 +16,8 @@ website:
   replicas:
     default: 2
 
+  enableModel: true
+
 mixer:
   gcpProjectID:
   serviceName:
