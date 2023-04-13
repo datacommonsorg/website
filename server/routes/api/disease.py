@@ -51,7 +51,7 @@ def get_node(dcid):
   return dc.bio(dcid)
 
 
-@bp.route('/diseaseParent/<path:dcid>')
+@bp.route('/disease-parent/<path:dcid>')
 def get_disease_parents(dcid):
   """Returns a list of parent nodes for a given disease node."""
   # list to store parent node

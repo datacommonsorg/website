@@ -33,9 +33,11 @@ _COL_SESSION = 'session_info'
 
 _SPAN_IN_DAYS = 3
 
-client = bigtable.Client(project=_PROJECT_ID)
-instance = client.instance(_INSTANCE_ID)
-table = instance.table(_TABLE_ID)
+
+def get_nl_table():
+  client = bigtable.Client(project=_PROJECT_ID)
+  instance = client.instance(_INSTANCE_ID)
+  return instance.table(_TABLE_ID)
 
 
 def get_project_id():
@@ -49,6 +51,9 @@ def get_project_id():
 async def write_row(session_info):
   if not session_info.get('id', None):
     return
+  table = current_app.config['NL_TABLE']
+  if not table:
+    return
   project_id = get_project_id()
   # The session_id starts with a rand to avoid hotspots.
   row_key = '{}#{}'.format(session_info['id'], project_id).encode()
@@ -61,6 +66,9 @@ async def write_row(session_info):
 
 def read_success_rows():
   project_id = get_project_id()
+  table = current_app.config['NL_TABLE']
+  if not table:
+    return []
   # Fetch recent queries
   start = datetime.now() - timedelta(days=_SPAN_IN_DAYS)
   rows = table.read_rows(filter_=row_filters.TimestampRangeFilter(

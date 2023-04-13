@@ -26,6 +26,7 @@ import server.lib.nl.counters as ctr
 from server.lib.nl.detection import ContainedInPlaceType
 from server.lib.nl.detection import EventType
 from server.lib.nl.detection import Place
+from server.lib.nl.detection import QuantityClassificationAttributes
 from server.lib.nl.detection import RankingType
 from server.lib.nl.detection import TimeDeltaType
 from server.lib.nl.fulfillment import context
@@ -48,6 +49,7 @@ class PopulateState:
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
+  quantity: QuantityClassificationAttributes = None
   block_id: int = 0
 
 
@@ -61,6 +63,7 @@ class ChartVars:
   include_percapita: bool = True
   title: str = ""
   description: str = ""
+  title_suffix: str = ""
   # Represents a peer-group of SVs from a Topic.
   is_topic_peer_group: bool = False
   # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
@@ -104,6 +107,8 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
     attr['growth_direction'] = chart_vars.growth_direction
   if chart_vars.growth_ranking_type != None:
     attr['growth_ranking_type'] = chart_vars.growth_ranking_type
+  if chart_vars.title_suffix:
+    attr['title_suffix'] = chart_vars.title_suffix
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  event=chart_vars.event,

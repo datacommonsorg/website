@@ -27,6 +27,8 @@ from server.lib.nl.fulfillment import containedin
 from server.lib.nl.fulfillment import context
 from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import event
+from server.lib.nl.fulfillment import filter_with_dual_vars
+from server.lib.nl.fulfillment import filter_with_single_var
 from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import ranking_across_places
 from server.lib.nl.fulfillment import ranking_across_vars
@@ -91,12 +93,20 @@ QUERY_HANDLERS = {
         QueryHandlerConfig(module=size_across_entities,
                            rank=10,
                            direct_fallback=QueryType.CONTAINED_IN),
+    QueryType.FILTER_WITH_SINGLE_VAR:
+        QueryHandlerConfig(module=filter_with_single_var,
+                           rank=11,
+                           direct_fallback=QueryType.CONTAINED_IN),
+    QueryType.FILTER_WITH_DUAL_VARS:
+        QueryHandlerConfig(module=filter_with_dual_vars,
+                           rank=12,
+                           direct_fallback=QueryType.CONTAINED_IN),
 
     # Overview trumps everything else ("tell us about"), and
     # has no fallback.
     QueryType.OVERVIEW:
         QueryHandlerConfig(module=overview,
-                           rank=11,
+                           rank=100,
                            direct_fallback=QueryType.OVERVIEW),
 }
 
@@ -177,6 +187,11 @@ def _classification_to_query_type(cl: NLClassifier,
   elif (cl.type == ClassificationType.COMPARISON or
         cl.type == ClassificationType.CORRELATION):
     query_type = _route_comparison_or_correlation(cl, uttr)
+  elif cl.type == ClassificationType.QUANTITY:
+    if utils.has_dual_sv(uttr):
+      query_type = QueryType.FILTER_WITH_DUAL_VARS
+    else:
+      query_type = QueryType.FILTER_WITH_SINGLE_VAR
   else:
     # For any unsupported type, fallback to SIMPLE
     # TODO: Handle this better.
