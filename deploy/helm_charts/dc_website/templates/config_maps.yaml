@@ -30,7 +30,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   ai.yaml: |
-{{- range $region, $params := .Values.serviceGroups }}
+{{- range $region, $params := .Values.website.ai }}
     {{ $region }}:
       protocol: {{ $params.protocol }}
       endpoint_id: {{ $params.endpoint_id }}
