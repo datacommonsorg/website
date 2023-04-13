@@ -23,6 +23,8 @@ website:
 
   replicas:
     default: 1
+  iap:
+    enabled: false
 
 nameOverride: ""
 fullnameOverride: ""

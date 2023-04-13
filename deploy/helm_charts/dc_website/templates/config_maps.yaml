@@ -30,10 +30,12 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   ai.yaml: |
-    us-central1:
-      protocol: rest
-      endpoint_id: "2621578768245850112"
-      deployed_model_id: "1265982086267797504"
+{{- range $region, $params := .Values.serviceGroups }}
+    {{ $region }}:
+      protocol: {{ $params.protocol }}
+      endpoint_id: {{ $params.endpoint_id }}
+      deployed_model_id: {{ $params.deployed_model_id }}
+{{- end }}
 
 ---
 
