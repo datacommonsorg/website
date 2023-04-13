@@ -26,18 +26,6 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: store-config{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  bigquery.version: {{ required "bigqueryVersion is required." .Values.kgStoreConfig.bigqueryVersion }}
-  base_bigtable_info.yaml: {{  required "baseBigtableInfo is required." .Values.kgStoreConfig.baseBigtableInfo | quote }}
-  custom_bigtable_info.yaml: {{ .Values.kgStoreConfig.customBigtableInfo | quote }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
   name: ai-config{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
@@ -57,41 +45,34 @@ metadata:
 data:
   flaskEnv: {{ required "Flask env is required." .Values.website.flaskEnv }}
   enableModel: {{ .Values.website.enableModel | quote }}
-  secret_project: {{ required "GCP project id for secrets is required." | .Values.website.secretGCPProjectID }}
-
----
-
-# Below are mixer only configs.
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: memdb-config{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  memdb.json: {{ .Values.memdbJSON | quote }}
-
+  bigquery.version: {{ required "bigqueryVersion is required." .Values.kgStoreConfig.bigqueryVersion }}
 
 ---
 
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: mixer-configmap{{ .Values.resourceSuffix }}
+  name: ingress-config{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
-  mixerProject: {{ required "Mixer GCP project is required." .Values.mixer.gcpProjectID }}
-  serviceName:  {{ required "Mixer service name is required." .Values.mixer.serviceName }}
+  rules: |
+{{- range $index, $serviceGroup := .Values.serviceGroups }}
+{{- range $serviceName, $svgParams := $serviceGroup }}
+    dc-mixer-{{ $serviceName }}:
+{{- range $index, $urlPath := $svgParams.urlPaths }}
+    - {{ $urlPath }}
+{{- end }}
+{{- end }}
+{{- end }}
 
+{{- if .Values.nl.enabled }}
 ---
 
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: schema-mapping{{ .Values.resourceSuffix }}
+  name: model-config{{ .Values.resourceSuffix }}
   namespace: {{ .Values.namespace.name }}
 data:
-  {{- range $key, $val := .Values.mixer.schemaConfigs }}
-  {{ $key }}: |
-    {{- $val | nindent 4 }}
-  {{- end }}
+  model.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
+{{- end }}

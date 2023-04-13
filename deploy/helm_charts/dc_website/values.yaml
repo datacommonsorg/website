@@ -28,6 +28,9 @@ website:
     clientID:
     secret:
 
+  replicas:
+    default: 1
+
 nameOverride: ""
 fullnameOverride: ""
 
@@ -44,7 +47,9 @@ serviceAccount:
 
 ingress:
   name: website-ingress
-  enabled:
+  ipName: dc-website-ip
+  certName: dc-website-cert
+  enabled: true
 
 ###############################################################################
 # Config for Mixer helm chart
@@ -73,8 +78,7 @@ esp:
     tag: "1"
     pullPolicy: Always
 
-replicas:
-  default: 1
+
 
 kgStoreConfig:
   bigqueryVersion:
@@ -84,4 +88,14 @@ kgStoreConfig:
 memdbJSON: ""
 ###############################################################################
 # END Config for Mixer helm chart
+###############################################################################
+
+
+###############################################################################
+# Config for NL
+###############################################################################
+nl:
+  enabled: false
+###############################################################################
+# END Config for NL
 ###############################################################################
