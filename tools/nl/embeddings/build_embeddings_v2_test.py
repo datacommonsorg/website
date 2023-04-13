@@ -113,13 +113,14 @@ class TestEndToEnd(unittest.TestCase):
                                                       "sheets_data.csv")
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
-    expected_dcid_sentence_csv_filepath = os.path.join(expected_dir,
-                                                    "final_dcid_sentences_csv.csv")
+    expected_dcid_sentence_csv_filepath = os.path.join(
+        expected_dir, "final_dcid_sentences_csv.csv")
 
     with tempfile.TemporaryDirectory() as tmp_dir:
       tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
-      tmp_dcid_sentence_csv = os.path.join(tmp_dir, "final_dcid_sentences_csv.csv")
+      tmp_dcid_sentence_csv = os.path.join(tmp_dir,
+                                           "final_dcid_sentences_csv.csv")
 
       embeddings_df = be.build(
           ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
