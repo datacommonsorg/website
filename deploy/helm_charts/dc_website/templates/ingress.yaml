@@ -22,8 +22,8 @@ metadata:
   name: {{ .Values.ingress.name }}
   namespace: {{ .Values.namespace.name }}
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: dc-website-ip
-    ingress.gcp.kubernetes.io/pre-shared-cert: dc-website-cert
+    kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ipName }}
+    ingress.gcp.kubernetes.io/pre-shared-cert: {{ .Values.ingress.certName }}
 spec:
   rules:
     - http:

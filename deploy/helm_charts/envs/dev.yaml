@@ -1,0 +1,63 @@
+# Helm config
+project: "datcom-website-dev"
+cluster_prefix: "website"
+resourceSuffix: "-dev"
+
+namespace:
+  name: "website"
+
+website:
+  image:
+    project: "datcom-ci"
+    tag:
+  githash:
+  flaskEnv: dev
+
+  replicas:
+    default: 2
+
+  enableModel: true
+
+mixer:
+  gcpProjectID:
+  serviceName:
+
+ingress:
+  enabled: false
+
+serviceAccount:
+  name: website-ksa
+  gsaName: website-reobot
+
+serviceGroups:
+  - svg:
+      urlPaths:
+        - "/place/stat-var-group/*"
+        - "/stat-var/*"
+        - "/v1/info/variable-group/*"
+        - "/v1/variable/*"
+        - "/v1/bulk/info/variable-group"
+        - "/v1/bulk/info/variable"
+      replicas:
+        default: 1
+        min: 1
+        max: 1
+      resources:
+        memoryRequest: "8G"
+        memoryLimit: "8G"
+      useSearch: true
+  - default:
+      urlPaths:
+        - "/*"
+      replicas:
+        default: 1
+        min: 1
+        max: 1
+      resources:
+        memoryRequest: "4G"
+        memoryLimit: "4G"
+
+nl:
+  enabled: true
+  embeddings: |
+    embeddings_file: embeddings_us_filtered_2023_02_24_08_32_22.csv

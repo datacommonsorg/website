@@ -1,0 +1,43 @@
+# Helm config
+project:
+# Should match the value of the variable cluster_name_prefix from
+# deploy/terraform-datacommons-website/examples/website_v1/variables.tf
+cluster_prefix: "datacommons"
+resourceSuffix: ""
+
+namespace:
+  name: "website"
+
+website:
+  image:
+    project:
+    tag:
+  githash:
+  flaskEnv: custom
+
+mixer:
+  gcpProjectID:
+  serviceName:
+
+ingress:
+  enabled: false
+
+serviceAccount:
+  name: website-ksa
+  gsaName: website-reobot
+
+serviceGroups:
+  - default:
+      urlPaths:
+        - "/*"
+      replicas:
+        default: 1
+        min: 1
+        max: 1
+      resources:
+        memoryRequest: "8G"
+        memoryLimit: "8G"
+      useSearch: true
+
+nl:
+  enabled: false
