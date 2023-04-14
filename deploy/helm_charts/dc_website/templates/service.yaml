@@ -12,20 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-{{ if .Values.website.iap.enabled -}}
-apiVersion: v1
-kind: Secret
-metadata:
-  name: iap-secret{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-type: Opaque
-data:
-  client_id: {{ required "iap client id is required." .Values.website.iap.clientID | b64enc }}
-  client_secret: {{ required "iap secret is required." .Values.website.iap.secret | b64enc }}
-
----
-{{- end }}
-
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:

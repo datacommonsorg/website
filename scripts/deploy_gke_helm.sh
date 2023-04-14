@@ -180,5 +180,5 @@ ESP_SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
 cd $ROOT
 get_gke_credentials
 deploy_mixer
-deploy_cloud_esp
 deploy_website
+deploy_cloud_esp
