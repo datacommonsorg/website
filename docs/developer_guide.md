@@ -143,7 +143,7 @@ Then run
 gcloud auth login
 gcloud auth configure-docker
 ./scripts/push_image.sh
-./scripts/deploy_gke.sh dev us-central1
+./scripts/deploy_gke_helm.sh dev us-central1
 ```
 
 The script builds docker image locally and tags it with the local git commit
