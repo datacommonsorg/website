@@ -440,7 +440,7 @@ function PlotOptions(): JSX.Element {
                       type="radio"
                       value={SHOW_POPULATION_LINEAR}
                     />
-                    Linear
+                    Linear scale
                   </Label>
                   <Label>
                     <Input
@@ -458,7 +458,7 @@ function PlotOptions(): JSX.Element {
                       type="radio"
                       value={SHOW_POPULATION_LOG}
                     />
-                    Log
+                    Log scale
                   </Label>
                 </FormGroup>
               </div>
