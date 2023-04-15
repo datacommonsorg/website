@@ -25,8 +25,8 @@ import ReactDOM from "react-dom";
 import { ChartQuadrant } from "../constants/scatter_chart_constants";
 import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
-import { wrap } from "./base";
 import { SHOW_POPULATION_LOG } from "../tools/scatter/context";
+import { wrap } from "./base";
 
 /**
  * Represents a point in the scatter plot.

@@ -31,6 +31,7 @@ import {
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
@@ -41,7 +42,6 @@ import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
-import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 
 interface ScatterTilePropType {
   id: string;

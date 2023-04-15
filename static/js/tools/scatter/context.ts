@@ -436,8 +436,8 @@ export {
   PlaceInfo,
   PlaceInfoWrapper,
   PointScaleState,
-  useContextStore,
   SHOW_POPULATION_LINEAR,
   SHOW_POPULATION_LOG,
   SHOW_POPULATION_OFF,
+  useContextStore,
 };
