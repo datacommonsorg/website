@@ -33,8 +33,9 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
-  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION,
-  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG_SCALE,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_OFF,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LINEAR,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_X_AXIS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_Y_AXIS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
@@ -46,6 +47,9 @@ import {
   Context,
   DisplayOptionsWrapper,
   PlaceInfoWrapper,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  SHOW_POPULATION_OFF,
 } from "./context";
 import { ScatterChartType } from "./util";
 
@@ -118,23 +122,19 @@ function checkDensity(
 }
 
 /**
- * Toggles whether to size dots by place population.
+ * Selects whether to size dots by place population using a log or linear scale
  */
-function checkPopulation(
+function selectShowPopulation(
   display: DisplayOptionsWrapper,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
-  display.setPopulation(event.target.checked);
-}
-
-/**
- * Toggles whether to size points using a log scale.
- */
-function checkPopulationLog(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setPopulationLog(event.target.checked);
+  if (event.target.value === SHOW_POPULATION_LINEAR) {
+    display.setPopulation(SHOW_POPULATION_LINEAR);
+  } else if (event.target.value === SHOW_POPULATION_LOG) {
+    display.setPopulation(SHOW_POPULATION_LOG);
+  } else {
+    display.setPopulation(SHOW_POPULATION_OFF);
+  }
 }
 
 /**
@@ -399,93 +399,114 @@ function PlotOptions(): JSX.Element {
               </div>
             </div>
             <div className="plot-options-row">
-              <div className="plot-options-label">Point size:</div>
-              <div className="plot-options-input-section pop-display">
-                <div className="plot-options-input">
-                  <FormGroup check>
-                    <Label check>
-                      <Input
-                        checked={display.showPopulation}
-                        id="population"
-                        onChange={(e) => {
-                          checkPopulation(display, e);
-                          if (!display.showPopulation) {
-                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                              [GA_PARAM_TOOL_CHART_OPTION]:
-                                GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION,
-                            });
-                          }
-                        }}
-                        type="checkbox"
-                      />
-                      By population
-                    </Label>
-                  </FormGroup>
-                </div>
-                <div className="plot-options-input-radio">
-                  <FormGroup>
-                    <Label>
-                      <Input
-                        checked={display.showPopulationX}
-                        disabled={!display.showPopulation}
-                        id="population-x"
-                        onChange={(e) => {
-                          selectPopulationX(display, e);
-                          if (!display.showPopulationX) {
-                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                              [GA_PARAM_TOOL_CHART_OPTION]:
-                                GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_X_AXIS,
-                            });
-                          }
-                        }}
-                        type="radio"
-                        value="x"
-                      />
-                      From X-axis
-                    </Label>
-                    <Label>
-                      <Input
-                        checked={!display.showPopulationX}
-                        disabled={!display.showPopulation}
-                        id="population-y"
-                        onChange={(e) => {
-                          selectPopulationX(display, e);
-                          if (display.showPopulationX) {
-                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                              [GA_PARAM_TOOL_CHART_OPTION]:
-                                GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_Y_AXIS,
-                            });
-                          }
-                        }}
-                        type="radio"
-                        value="y"
-                      />
-                      From Y-axis
-                    </Label>
-                  </FormGroup>
-                </div>
-                <div className="plot-options-input">
-                  <FormGroup check>
-                    <Label check>
-                      <Input
-                        id="population-log"
-                        type="checkbox"
-                        checked={display.showPopulationLog}
-                        disabled={!display.showPopulation}
-                        onChange={(e) => {
-                          checkPopulationLog(display, e);
-                          if (!display.showPopulationLog) {
-                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                              [GA_PARAM_TOOL_CHART_OPTION]:
-                                GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG_SCALE,
-                            });
-                          }
-                        }}
-                      />
-                      Log scale
-                    </Label>
-                  </FormGroup>
-                </div>
+              <div className="plot-options-label">
+                Scale points by population:
+              </div>
+              <div className="plot-options-input-radio">
+                <FormGroup>
+                  <Label>
+                    <Input
+                      checked={display.showPopulation === SHOW_POPULATION_OFF}
+                      id="show-population-off"
+                      onChange={(e) => {
+                        selectShowPopulation(display, e);
+                        if (display.showPopulation !== SHOW_POPULATION_OFF) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_OFF,
+                          });
+                        }
+                      }}
+                      type="radio"
+                      value={SHOW_POPULATION_OFF}
+                    />
+                    Off
+                  </Label>
+                  <Label>
+                    <Input
+                      checked={
+                        display.showPopulation === SHOW_POPULATION_LINEAR
+                      }
+                      id="show-population-linear"
+                      onChange={(e) => {
+                        selectShowPopulation(display, e);
+                        if (display.showPopulation !== SHOW_POPULATION_LINEAR) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LINEAR,
+                          });
+                        }
+                      }}
+                      type="radio"
+                      value={SHOW_POPULATION_LINEAR}
+                    />
+                    Linear
+                  </Label>
+                  <Label>
+                    <Input
+                      checked={display.showPopulation === SHOW_POPULATION_LOG}
+                      id="show-population-log"
+                      onChange={(e) => {
+                        selectShowPopulation(display, e);
+                        if (display.showPopulation !== SHOW_POPULATION_LOG) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG,
+                          });
+                        }
+                      }}
+                      type="radio"
+                      value={SHOW_POPULATION_LOG}
+                    />
+                    Log
+                  </Label>
+                </FormGroup>
+              </div>
+            </div>
+            <div className="plot-options-row">
+              <div className="plot-options-label"></div>
+              <div>Using:</div>
+              <div className="plot-options-input-radio">
+                <FormGroup>
+                  <Label>
+                    <Input
+                      checked={!display.showPopulationX}
+                      disabled={!display.showPopulation}
+                      id="population-y"
+                      onChange={(e) => {
+                        selectPopulationX(display, e);
+                        if (display.showPopulationX) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_Y_AXIS,
+                          });
+                        }
+                      }}
+                      type="radio"
+                      value="y"
+                    />
+                    Y-axis
+                  </Label>
+                  <Label>
+                    <Input
+                      checked={display.showPopulationX}
+                      disabled={!display.showPopulation}
+                      id="population-x"
+                      onChange={(e) => {
+                        selectPopulationX(display, e);
+                        if (!display.showPopulationX) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_X_AXIS,
+                          });
+                        }
+                      }}
+                      type="radio"
+                      value="x"
+                    />
+                    X-axis
+                  </Label>
+                </FormGroup>
               </div>
             </div>
             <div className="plot-options-row">

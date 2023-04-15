@@ -33,6 +33,10 @@ import {
   EmptyPlace,
   FieldToAbbreviation,
   PlaceInfo,
+  PointScaleState,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  SHOW_POPULATION_OFF,
 } from "./context";
 
 export enum ScatterChartType {
@@ -216,6 +220,19 @@ export function applyHashBoolean(
   return val === "1";
 }
 
+export function applyHashPopulation(
+  params: URLSearchParams,
+  key: string
+): PointScaleState {
+  const val = params.get(key);
+  if (val.toLowerCase() == SHOW_POPULATION_LINEAR) {
+    return SHOW_POPULATION_LINEAR;
+  } else if (val.toLowerCase() === SHOW_POPULATION_LOG) {
+    return SHOW_POPULATION_LOG;
+  }
+  return SHOW_POPULATION_OFF;
+}
+
 export function updateHashBoolean(
   hash: string,
   key: string,
@@ -256,10 +273,7 @@ export function applyHash(context: ContextType): void {
     applyHashBoolean(params, FieldToAbbreviation.showRegression)
   );
   context.display.setPopulation(
-    applyHashBoolean(params, FieldToAbbreviation.showPopulation)
-  );
-  context.display.setPopulationLog(
-    applyHashBoolean(params, FieldToAbbreviation.showPopulationLog)
+    applyHashPopulation(params, FieldToAbbreviation.showPopulation)
   );
   context.display.setPopulationX(
     applyHashBoolean(params, FieldToAbbreviation.showPopulationX)
@@ -386,15 +400,10 @@ function updateHashDisplayOptions(
     FieldToAbbreviation.chartType,
     display.chartType === ScatterChartType.MAP
   );
-  hash = updateHashBoolean(
+  hash = appendEntry(
     hash,
     FieldToAbbreviation.showPopulation,
     display.showPopulation
-  );
-  hash = updateHashBoolean(
-    hash,
-    FieldToAbbreviation.showPopulationLog,
-    display.showPopulationLog
   );
   hash = updateHashBoolean(
     hash,

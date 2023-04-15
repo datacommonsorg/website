@@ -224,7 +224,6 @@ function plot(
     showQuadrants: props.display.showQuadrants,
     showDensity: props.display.showDensity,
     showPopulation: props.display.showPopulation,
-    showPopulationLog: props.display.showPopulationLog,
     showPopulationX: props.display.showPopulationX,
     showLabels: props.display.showLabels,
     showRegression: props.display.showRegression,

@@ -61,6 +61,7 @@ import {
   DisplayOptionsWrapper as ScatterDisplayOptionsWrapper,
   IsLoadingWrapper as ScatterIsLoadingWrapper,
   PlaceInfoWrapper as ScatterPlaceInfoWrapper,
+  SHOW_POPULATION_OFF,
 } from "../tools/scatter/context";
 import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
@@ -216,7 +217,7 @@ const SCATTER_PROPS = {
     showLabels: false,
     chartType: ScatterChartType.SCATTER,
     showDensity: false,
-    showPopulation: false,
+    showPopulation: SHOW_POPULATION_OFF,
     showRegression: false,
   } as ScatterDisplayOptionsWrapper,
   sources: new Set<string>([""]),
@@ -343,8 +344,7 @@ const SCATTER_CONTEXT = {
     showLabels: false,
     chartType: ScatterChartType.SCATTER,
     showDensity: false,
-    showPopulation: false,
-    showPopulationLog: false,
+    showPopulation: SHOW_POPULATION_OFF,
     showPopulationX: false,
     showRegression: false,
     setQuadrants: () => null,
@@ -352,7 +352,6 @@ const SCATTER_CONTEXT = {
     setChartType: () => null,
     setDensity: () => null,
     setPopulation: () => null,
-    setPopulationLog: () => null,
     setPopulationX: () => null,
     setRegression: () => null,
   } as ScatterDisplayOptionsWrapper,

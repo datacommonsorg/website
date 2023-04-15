@@ -41,6 +41,7 @@ import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
+import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 
 interface ScatterTilePropType {
   id: string;
@@ -340,8 +341,7 @@ function draw(
     yLog: chartData.yStatVar.log,
     showQuadrants: false,
     showDensity: true,
-    showPopulation: false,
-    showPopulationLog: false,
+    showPopulation: SHOW_POPULATION_OFF,
     showPopulationX: false,
     showLabels: false,
     showRegression: false,

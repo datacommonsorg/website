@@ -26,7 +26,13 @@ import React, { useEffect } from "react";
 
 import { stringifyFn } from "../../utils/axios";
 import { App } from "./app";
-import { Context, EmptyPlace, useContextStore } from "./context";
+import {
+  Context,
+  EmptyPlace,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  useContextStore,
+} from "./context";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -663,7 +669,7 @@ function expectCircleSizes(values: string[], app: Enzyme.ReactWrapper): void {
   $tags.each((i, tag) => {
     actualValues.push($(tag).attr("r"));
   });
-  expect(values.join(",")).toEqual(actualValues.join(","));
+  expect(actualValues.join(",")).toEqual(values.join(","));
 }
 
 test("all functionalities", async () => {
@@ -787,18 +793,18 @@ test("all functionalities", async () => {
   expectCircleSizes(["3.5", "3.5", "3.5"], app);
   await act(async () => {
     app
-      .find("#population")
+      .find("#show-population-linear")
       .at(0)
-      .simulate("change", { target: { checked: true } });
+      .simulate("change", { target: { value: SHOW_POPULATION_LINEAR } });
   });
   expectCircleSizes(["3.5", "20", "5.8328584241481405"], app);
 
   // Changing to log scale should resize points
   await act(async () => {
     app
-      .find("#population-log")
+      .find("#show-population-log")
       .at(0)
-      .simulate("change", { target: { checked: true } });
+      .simulate("change", { target: { value: SHOW_POPULATION_LOG } });
   });
   expectCircleSizes(["3.5", "20", "7.286777364719656"], app);
 });

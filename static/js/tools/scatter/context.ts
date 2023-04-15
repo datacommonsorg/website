@@ -25,6 +25,11 @@ import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { Setter } from "../../shared/util";
 import { ScatterChartType } from "./util";
 
+type PointScaleState = "linear" | "log" | "";
+const SHOW_POPULATION_LINEAR: PointScaleState = "linear";
+const SHOW_POPULATION_LOG: PointScaleState = "log";
+const SHOW_POPULATION_OFF: PointScaleState = "";
+
 interface Axis {
   // Additional info about the StatVar to plot for this axis
   statVarInfo: StatVarInfo;
@@ -112,8 +117,7 @@ interface DisplayOptionsWrapper {
   showLabels: boolean;
   chartType: ScatterChartType;
   showDensity: boolean;
-  showPopulation: boolean;
-  showPopulationLog: boolean;
+  showPopulation: PointScaleState;
   showPopulationX: boolean;
   showRegression: boolean;
 
@@ -122,8 +126,7 @@ interface DisplayOptionsWrapper {
   setLabels: Setter<boolean>;
   setChartType: Setter<ScatterChartType>;
   setDensity: Setter<boolean>;
-  setPopulation: Setter<boolean>;
-  setPopulationLog: Setter<boolean>;
+  setPopulation: Setter<PointScaleState>;
   setPopulationX: Setter<boolean>;
   setRegression: Setter<boolean>;
 }
@@ -180,7 +183,6 @@ const FieldToAbbreviation = {
   chartType: "ct",
   showDensity: "dd",
   showPopulation: "pp",
-  showPopulationLog: "pl",
   showPopulationX: "px",
   showRegression: "rg",
 };
@@ -195,8 +197,7 @@ function useContextStore(): ContextType {
   const [showQuadrants, setQuadrants] = useState(false);
   const [showLabels, setLabels] = useState(false);
   const [showDensity, setDensity] = useState(false);
-  const [showPopulation, setPopulation] = useState(false);
-  const [showPopulationLog, setPopulationLog] = useState(false);
+  const [showPopulation, setPopulation] = useState(SHOW_POPULATION_OFF);
   const [showPopulationX, setPopulationX] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
@@ -249,9 +250,6 @@ function useContextStore(): ContextType {
       setDensity: (showDensity) => setDensity(showDensity),
       showPopulation,
       setPopulation: (showPopulation) => setPopulation(showPopulation),
-      showPopulationLog,
-      setPopulationLog: (showPopulationLog) =>
-        setPopulationLog(showPopulationLog),
       showPopulationX,
       setPopulationX: (showPopulationX) => setPopulationX(showPopulationX),
       showRegression,
@@ -437,5 +435,9 @@ export {
   IsLoadingWrapper,
   PlaceInfo,
   PlaceInfoWrapper,
+  PointScaleState,
   useContextStore,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  SHOW_POPULATION_OFF,
 };
