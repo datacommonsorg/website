@@ -362,6 +362,23 @@ function addDensityLegend(
 }
 
 /**
+ * Calculates scatter plot point size using the specified axis and scale
+ * @param point
+ * @param showPopulationX
+ * @param pointSizeScale
+ */
+function calculatePointSize(
+  point: Point,
+  showPopulationX: boolean,
+  pointSizeScale: ScatterScale
+): number {
+  const pointSize = showPopulationX
+    ? pointSizeScale(point.xPop)
+    : pointSizeScale(point.yPop);
+  return pointSize || DEFAULT_POINT_SIZE;
+}
+
+/**
  * Adds visualization of density of points in each area
  * @param svg svg with the chart to show density for
  * @param dots the dot elements to color according to density of the area
@@ -444,7 +461,7 @@ function getPointSizeScale(
   points: { [placeDcid: string]: Point },
   showPopulationX: boolean,
   logScale: boolean
-) {
+): ScatterScale {
   const populationValues = Object.values(points).map((point) =>
     showPopulationX ? point.xPop : point.yPop
   );
@@ -455,23 +472,6 @@ function getPointSizeScale(
     .domain([populationMin, populationMax])
     .range([DEFAULT_POINT_SIZE, DEFAULT_MAX_POINT_SIZE]);
   return pointSizeScale;
-}
-
-/**
- * Calculates scatter plot point size using the specified axis and scale
- * @param point
- * @param showPopulationX
- * @param pointSizeScale
- */
-function calculatePointSize(
-  point: Point,
-  showPopulationX: boolean,
-  pointSizeScale: ScatterScale
-): number {
-  const pointSize = showPopulationX
-    ? pointSizeScale(point.xPop)
-    : pointSizeScale(point.yPop);
-  return pointSize || DEFAULT_POINT_SIZE;
 }
 
 /**

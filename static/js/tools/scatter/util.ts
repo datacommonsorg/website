@@ -225,7 +225,7 @@ export function applyHashPopulation(
   key: string
 ): PointScaleState {
   const val = params.get(key);
-  if (val.toLowerCase() == SHOW_POPULATION_LINEAR) {
+  if (val.toLowerCase() === SHOW_POPULATION_LINEAR) {
     return SHOW_POPULATION_LINEAR;
   } else if (val.toLowerCase() === SHOW_POPULATION_LOG) {
     return SHOW_POPULATION_LOG;
