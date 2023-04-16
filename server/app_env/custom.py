@@ -18,9 +18,9 @@ from server.app_env import local
 
 class Config(_base.Config):
   CUSTOM = True
-  NAME = "Custom Data Commons"
+  NAME = "Data Commons for Nonprofits"
   OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
-  LOGO_PATH = "/custom_dc/custom/logo.png"
+  LOGO_PATH = "/custom_dc/custom/techsoup-logo.svg"
 
 
 class LocalConfig(Config, local.Config):
@@ -32,4 +32,4 @@ class LocalConfig(Config, local.Config):
   # 2. In the custom GCP project, store the API key in secret manager
   #    `printf "<API_KEY>" | gcloud secrets create mixer-api-key --data-file=-`
   # 3. Update SECRET_PROJECT to be the custom GCP project id.
-  SECRET_PROJECT = ''
+  SECRET_PROJECT = 'techsoup-data-commons'
