@@ -20,7 +20,11 @@ import server.services.datacommons as dc
 
 bp = Blueprint("variable-group", __name__, url_prefix='/api/variable-group')
 
-BLOCKLISTED_STAT_VAR_GROUPS = {"dc/g/Uncategorized"}
+BLOCKLISTED_STAT_VAR_GROUPS = {
+    "dc/g/Uncategorized",
+    # TODO: Remove after partial hierarchy is ready.
+    "dc/g/SDG",
+}
 
 
 @bp.route('/info', methods=['GET', 'POST'])
