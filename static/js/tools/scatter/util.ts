@@ -224,7 +224,7 @@ export function applyHashPopulation(
   params: URLSearchParams,
   key: string
 ): PointScaleState {
-  const val = params.get(key);
+  const val = params.get(key) || "";
   if (val.toLowerCase() === SHOW_POPULATION_LINEAR) {
     return SHOW_POPULATION_LINEAR;
   } else if (val.toLowerCase() === SHOW_POPULATION_LOG) {
