@@ -281,7 +281,7 @@ def create_app():
   if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-  # Nseed to fetch the API key for non gcp environment.
+  # Need to fetch the API key for non gcp environment.
   if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
     # Get the API key from environment first.
     if os.environ.get('MIXER_API_KEY'):
