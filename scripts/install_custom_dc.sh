@@ -14,7 +14,7 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=custom-dc-v0.3.0
+CUSTOM_DC_RELEASE_TAG=custom-dc-v0.3.2
 
 # In some environments (such as Cloud Shell), IPv6 is not enabled on the OS.
 # This causes problems during terraform runs. Fix is from the issue below.
