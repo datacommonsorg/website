@@ -247,12 +247,18 @@ def create_app():
   app.config['RANKED_STAT_VARS'] = ranked_statvars
   app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
 
-  if not cfg.TEST and not cfg.LITE:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'maps-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  if cfg.TEST or cfg.LITE:
+    app.config['MAPS_API_KEY'] = ''
+  else:
+    # Get the API key from environment first.
+    if os.environ.get('MAPS_API_KEY'):
+      app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'maps-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   if cfg.ADMIN:
     secret_client = secretmanager.SecretManagerServiceClient()
@@ -277,13 +283,17 @@ def create_app():
   if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-  if cfg.NEED_API_KEY:
-    # Only need to fetch the API key for local development.
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'mixer-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  # Need to fetch the API key for non gcp environment.
+  if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
+    # Get the API key from environment first.
+    if os.environ.get('MIXER_API_KEY'):
+      app.config['MIXER_API_KEY'] = os.environ.get('MIXER_API_KEY')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'mixer-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['MIXER_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
