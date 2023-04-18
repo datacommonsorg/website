@@ -28,7 +28,7 @@ class TestDetection(unittest.TestCase):
     self.assertEqual(response.status_code, 200)
 
     response_type_prop_list = json.loads(response.data.decode("utf-8"))
-    self.assertEqual(len(response_type_prop_list), 8)
+    self.assertEqual(len(response_type_prop_list), 6)
 
     # Check that two of the elements below are in the response.
     expected_element_1 = {
@@ -37,8 +37,8 @@ class TestDetection(unittest.TestCase):
             "display_name": "Country"
         },
         "dc_property": {
-            "dcid": "name",
-            "display_name": "Name"
+            "dcid": "isoCode",
+            "display_name": "ISO Code"
         },
     }
     self.assertTrue(expected_element_1 in response_type_prop_list)
