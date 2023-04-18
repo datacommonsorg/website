@@ -53,7 +53,7 @@ const FILE_KEYS = {
 
 // Map of file type key to the label to use to describe the file.
 const FILE_TYPE_LABEL = {
-  [FILE_KEYS.TMCF]: "Generated tMCF file",
+  [FILE_KEYS.TMCF]: "Generated TMCF file",
   [FILE_KEYS.METADATA]: "Mapping metadata file",
   [FILE_KEYS.CLEANED_CSV]: "Cleaned CSV file",
   [FILE_KEYS.USER_CSV]: "Your file",
