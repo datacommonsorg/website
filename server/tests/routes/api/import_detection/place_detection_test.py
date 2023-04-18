@@ -67,7 +67,6 @@ class TestPlaceDetection(unittest.TestCase):
                      DCProperty("countryNumericCode", "Numeric Code")),
         TypeProperty(DCType("Country", "Country"),
                      DCProperty("countryAlpha3Code", "Alpha 3 Code")),
-        TypeProperty(DCType("Country", "Country"), DCProperty("name", "Name")),
         # State properties.
         TypeProperty(DCType("State", "State"),
                      DCProperty("isoCode", "ISO Code")),
@@ -75,7 +74,6 @@ class TestPlaceDetection(unittest.TestCase):
                      DCProperty("fips52AlphaCode", "US State Alpha Code")),
         TypeProperty(DCType("State", "State"), DCProperty("geoId",
                                                           "FIPS Code")),
-        TypeProperty(DCType("State", "State"), DCProperty("name", "Name")),
     ]
 
     self.assertCountEqual(got, expected)
@@ -89,14 +87,6 @@ class TestPlaceDetection(unittest.TestCase):
       expected: TypeProperty
 
     test_cases: List[TestHelper] = [
-        TestHelper(name="country-name-detection",
-                   input_vals=[
-                       "United states", "Norway", "sri lanka", "new zealand",
-                       "south africa", "australia", "Pakistan", "India",
-                       "bangladesh", "french Afars and Issas"
-                   ],
-                   expected=TypeProperty(DCType("Country", "Country"),
-                                         DCProperty("name", "Name"))),
         TestHelper(name="country-iso-detection",
                    input_vals=[
                        "us", "no", "lk", "nz", "sa", "au", "pk", "in", "bd",
@@ -233,21 +223,6 @@ class TestPlaceDetection(unittest.TestCase):
       expected: TypeProperty
 
     test_cases: List[TestHelper] = [
-        TestHelper(name="state-name-detection",
-                   input_vals=[
-                       "california",
-                       "new york",
-                       "massahusetts",
-                       "new hampshire",
-                       "south dakota",
-                       "north dakota",
-                       "washington",
-                       "puerto rico",
-                       "michigan",
-                       "idaho",
-                   ],
-                   expected=TypeProperty(DCType("State", "State"),
-                                         DCProperty("name", "Name"))),
         TestHelper(name="state-iso-detection",
                    input_vals=[
                        "US-CA",

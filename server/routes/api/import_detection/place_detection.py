@@ -26,11 +26,9 @@ import server.routes.api.import_detection.utils as utils
 _MIN_HIGH_CONF_DETECT: float = 0.4
 
 # Place detection property preference orders.
-COUNTRY_PROP_PREF_ORDER: List[str] = [
-    c.P_ISO, c.P_ALPHA3, c.P_NUMERIC, c.P_NAME
-]
+COUNTRY_PROP_PREF_ORDER: List[str] = [c.P_ISO, c.P_ALPHA3, c.P_NUMERIC]
 
-STATE_PROP_PREF_ORDER: List[str] = [c.P_ISO, c.P_FIPS52, c.P_FIPS, c.P_NAME]
+STATE_PROP_PREF_ORDER: List[str] = [c.P_ISO, c.P_FIPS52, c.P_FIPS]
 
 # Tuple of supported Place detectors.
 PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
