@@ -442,11 +442,7 @@ export function drawD3Map(
     })
     .attr("fill", (d: GeoJsonFeature) => {
       const value = getValue(d, dataValues);
-      if (value) {
-        return colorScale(value);
-      } else {
-        return MISSING_DATA_COLOR;
-      }
+      return value === undefined ? MISSING_DATA_COLOR : colorScale(value);
     })
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);
