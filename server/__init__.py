@@ -247,7 +247,9 @@ def create_app():
   app.config['RANKED_STAT_VARS'] = ranked_statvars
   app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
 
-  if not cfg.TEST and not cfg.LITE:
+  if cfg.TEST or cfg.LITE:
+    app.config['MAPS_API_KEY'] = ''
+  else:
     # Get the API key from environment first.
     if os.environ.get('MAPS_API_KEY'):
       app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
