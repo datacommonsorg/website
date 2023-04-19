@@ -69,7 +69,7 @@ class TestMap(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     chart_title = self.driver.find_element_by_xpath(
         '//*[@id="map-chart"]/div/div[1]/h3')
-    self.assertEqual(chart_title.text, "Median Age (2020)")
+    self.assertEqual(chart_title.text, "Median Age of Population (2020)")
     chart_map = self.driver.find_element_by_id('map-items')
     map_regions = chart_map.find_elements_by_tag_name('path')
     self.assertEqual(len(map_regions), 58)
@@ -103,7 +103,7 @@ class TestMap(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     chart_title = self.driver.find_element_by_xpath(
         '//*[@id="map-chart"]/div/div[1]/h3')
-    self.assertEqual(chart_title.text, "Median Age (2020)")
+    self.assertEqual(chart_title.text, "Median Age of Population (2020)")
     chart_map = self.driver.find_element_by_id('map-items')
     map_regions = chart_map.find_elements_by_tag_name('path')
     self.assertEqual(len(map_regions), 52)
@@ -157,7 +157,7 @@ class TestMap(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     chart_title = self.driver.find_element_by_xpath(
         '//*[@id="map-chart"]/div/div[1]/h3')
-    self.assertEqual(chart_title.text, "Median Age (2020)")
+    self.assertEqual(chart_title.text, "Median Age of Population (2020)")
     chart_map = self.driver.find_element_by_id('map-items')
     map_regions = chart_map.find_elements_by_tag_name('path')
     self.assertEqual(len(map_regions), 58)
