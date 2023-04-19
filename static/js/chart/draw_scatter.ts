@@ -364,7 +364,7 @@ function addDensityLegend(
 /**
  * Gets the most recent population value for the given point.
  * Returns undefined if no population is set
- * @param point
+ * @param point scatter plot Point object
  */
 function getPointPopulation(point: Point): number | undefined {
   const xPopDate = point.xPopDate || 0;
@@ -374,8 +374,8 @@ function getPointPopulation(point: Point): number | undefined {
 
 /**
  * Calculates scatter plot point size
- * @param point
- * @param pointSizeScale
+ * @param point scatter plot Point object
+ * @param pointSizeScale d3 scale for sizing point based on population
  */
 function calculatePointSize(
   point: Point,

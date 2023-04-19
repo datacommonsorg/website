@@ -661,6 +661,11 @@ function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
   expect($("circle").length).toEqual(n);
 }
 
+/**
+ * Asserts all <circle> tags in the app have the specified radius values
+ * @param values array of radius values encoded as strings. Example: ["3.5", "3.5"]
+ * @param app react app wrapper
+ */
 function expectCircleSizes(values: string[], app: Enzyme.ReactWrapper): void {
   const $ = Cheerio.load(app.html());
   const $tags = $("circle");
