@@ -41,6 +41,7 @@ class Consts:
   P_NUMERIC: str = "countryNumericCode"
   P_FIPS52: str = "fips52AlphaCode"
   P_FIPS: str = "geoId"
+  P_DCID: str = "dcid"
 
   # Mapping helper constants.
   M_DATE: str = "Date"
@@ -69,6 +70,7 @@ PLACE_PROPERTIES = frozendict.frozendict({
     Consts.P_NUMERIC: "Numeric Code",
     Consts.P_FIPS52: "US State Alpha Code",
     Consts.P_FIPS: "FIPS Code",
+    Consts.P_DCID: "Dcid"
 })
 
 
