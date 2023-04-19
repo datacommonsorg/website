@@ -107,10 +107,10 @@ class TestCharts(WebdriverBaseTest):
 
     # Uncheck median age statvar, and the number of charts will become two.
     element_present = EC.text_to_be_present_in_element(
-        (By.ID, 'hierarchy-section'), "Median Age")
+        (By.ID, 'hierarchy-section'), "Median Age of Population")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     median_age_checkbox = self.driver.find_element_by_xpath(
-        '//*[text()="Median Age"]')
+        '//*[text()="Median Age of Population"]')
     median_age_checkbox.click()
     # Check if there is a way to find the chart region refreshed.
     time.sleep(2)
