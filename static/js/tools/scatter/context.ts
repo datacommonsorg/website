@@ -118,7 +118,6 @@ interface DisplayOptionsWrapper {
   chartType: ScatterChartType;
   showDensity: boolean;
   showPopulation: PointScaleState;
-  showPopulationX: boolean;
   showRegression: boolean;
 
   // Setters
@@ -127,7 +126,6 @@ interface DisplayOptionsWrapper {
   setChartType: Setter<ScatterChartType>;
   setDensity: Setter<boolean>;
   setPopulation: Setter<PointScaleState>;
-  setPopulationX: Setter<boolean>;
   setRegression: Setter<boolean>;
 }
 
@@ -183,7 +181,6 @@ const FieldToAbbreviation = {
   chartType: "ct",
   showDensity: "dd",
   showPopulation: "pp",
-  showPopulationX: "px",
   showRegression: "rg",
 };
 
@@ -198,7 +195,6 @@ function useContextStore(): ContextType {
   const [showLabels, setLabels] = useState(false);
   const [showDensity, setDensity] = useState(false);
   const [showPopulation, setPopulation] = useState(SHOW_POPULATION_OFF);
-  const [showPopulationX, setPopulationX] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -250,8 +246,6 @@ function useContextStore(): ContextType {
       setDensity: (showDensity) => setDensity(showDensity),
       showPopulation,
       setPopulation: (showPopulation) => setPopulation(showPopulation),
-      showPopulationX,
-      setPopulationX: (showPopulationX) => setPopulationX(showPopulationX),
       showRegression,
       setRegression: (showRegression) => setRegression(showRegression),
     },

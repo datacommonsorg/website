@@ -345,7 +345,6 @@ const SCATTER_CONTEXT = {
     chartType: ScatterChartType.SCATTER,
     showDensity: false,
     showPopulation: SHOW_POPULATION_OFF,
-    showPopulationX: false,
     showRegression: false,
     setQuadrants: () => null,
     setLabels: () => null,

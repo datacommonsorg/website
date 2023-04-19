@@ -36,8 +36,6 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LINEAR,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_OFF,
-  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_X_AXIS,
-  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_Y_AXIS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
   GA_VALUE_TOOL_CHART_OPTION_SWAP,
   triggerGAEvent,
@@ -135,16 +133,6 @@ function selectShowPopulation(
   } else {
     display.setPopulation(SHOW_POPULATION_OFF);
   }
-}
-
-/**
- * Toggles whether to use population values based on x or y axis observations
- */
-function selectPopulationX(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setPopulationX(event.target.value === "x");
 }
 
 /**
@@ -459,52 +447,6 @@ function PlotOptions(): JSX.Element {
                       value={SHOW_POPULATION_LOG}
                     />
                     Log scale
-                  </Label>
-                </FormGroup>
-              </div>
-            </div>
-            <div className="plot-options-row">
-              <div className="plot-options-label"></div>
-              <div>Using:</div>
-              <div className="plot-options-input-radio">
-                <FormGroup>
-                  <Label>
-                    <Input
-                      checked={!display.showPopulationX}
-                      disabled={!display.showPopulation}
-                      id="population-y"
-                      onChange={(e) => {
-                        selectPopulationX(display, e);
-                        if (display.showPopulationX) {
-                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                            [GA_PARAM_TOOL_CHART_OPTION]:
-                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_Y_AXIS,
-                          });
-                        }
-                      }}
-                      type="radio"
-                      value="y"
-                    />
-                    Y-axis
-                  </Label>
-                  <Label>
-                    <Input
-                      checked={display.showPopulationX}
-                      disabled={!display.showPopulation}
-                      id="population-x"
-                      onChange={(e) => {
-                        selectPopulationX(display, e);
-                        if (!display.showPopulationX) {
-                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                            [GA_PARAM_TOOL_CHART_OPTION]:
-                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_X_AXIS,
-                          });
-                        }
-                      }}
-                      type="radio"
-                      value="x"
-                    />
-                    X-axis
                   </Label>
                 </FormGroup>
               </div>

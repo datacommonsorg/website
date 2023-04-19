@@ -362,19 +362,27 @@ function addDensityLegend(
 }
 
 /**
- * Calculates scatter plot point size using the specified axis and scale
+ * Gets the most recent population value for the given point.
+ * Returns undefined if no population is set
  * @param point
- * @param showPopulationX
+ */
+function getPointPopulation(point: Point): number | undefined {
+  const xPopDate = point.xPopDate || 0;
+  const yPopDate = point.yPopDate || 0;
+  return xPopDate > yPopDate ? point.xPop : point.yPop;
+}
+
+/**
+ * Calculates scatter plot point size
+ * @param point
  * @param pointSizeScale
  */
 function calculatePointSize(
   point: Point,
-  showPopulationX: boolean,
   pointSizeScale: ScatterScale
 ): number {
-  const pointSize = showPopulationX
-    ? pointSizeScale(point.xPop)
-    : pointSizeScale(point.yPop);
+  const population = getPointPopulation(point);
+  const pointSize = pointSizeScale(population);
   return pointSize || DEFAULT_POINT_SIZE;
 }
 
@@ -388,8 +396,7 @@ function calculatePointSize(
  * @param chartWidth the width of the chart area
  * @param chartHeight the height of the chart area
  * @param marginTop margin between top of the chart area and the top of the container
- * @param showPopulationX factor population into density calculation
- * @param pointSizeScale d3 scale for
+ * @param pointSizeScale d3 scale for sizing points based on population values
  */
 function addDensity(
   svg: d3.Selection<SVGElement, any, any, any>,
@@ -400,7 +407,6 @@ function addDensity(
   chartWidth: number,
   chartHeight: number,
   marginTop: number,
-  showPopulationX: boolean,
   pointSizeScale?: ScatterScale
 ): void {
   // Generate the multipolygons (contours) to group the dots into areas of
@@ -408,11 +414,7 @@ function addDensity(
   const contours = d3
     .contourDensity<Point>()
     .size([chartWidth, chartHeight])
-    .weight((p) =>
-      pointSizeScale
-        ? calculatePointSize(p, showPopulationX, pointSizeScale)
-        : 1
-    )
+    .weight((p) => (pointSizeScale ? calculatePointSize(p, pointSizeScale) : 1))
     .x((d) => {
       return xScale(d.xVal);
     })
@@ -453,17 +455,15 @@ function addDensity(
 
 /**
  * Gets a d3 scale to size a list of points based on population
- * @param points
- * @param showPopulationX
- * @param logScale
+ * @param points Object mapping dcids to scatter plot point values
+ * @param logScale set to true to return a log scale, otherwise defaults to linear scale
  */
 function getPointSizeScale(
   points: { [placeDcid: string]: Point },
-  showPopulationX: boolean,
   logScale: boolean
 ): ScatterScale {
   const populationValues = Object.values(points).map((point) =>
-    showPopulationX ? point.xPop : point.yPop
+    getPointPopulation(point)
   );
   const populationMin = Math.min(...populationValues);
   const populationMax = Math.max(...populationValues);
@@ -477,17 +477,13 @@ function getPointSizeScale(
 /**
  * Sizes points by population using a linear or log scale
  * @param dots
- * @param showPopulationX
  * @param pointSizeScale
  */
 function addSizeByPopulation(
   dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
-  showPopulationX: boolean,
   pointSizeScale: ScatterScale
 ): void {
-  dots.attr("r", (point) =>
-    calculatePointSize(point, showPopulationX, pointSizeScale)
-  );
+  dots.attr("r", (point) => calculatePointSize(point, pointSizeScale));
 }
 
 /**
@@ -784,7 +780,6 @@ export interface ScatterPlotOptions {
   showQuadrants: boolean;
   showDensity: boolean;
   showPopulation: string;
-  showPopulationX: boolean;
   showLabels: boolean;
   showRegression: boolean;
   highlightPoints: ChartQuadrant[];
@@ -907,11 +902,7 @@ export function drawScatter(
     .on("click", (point: Point) => redirectAction(point.place.dcid));
 
   const pointSizeScale = options.showPopulation
-    ? getPointSizeScale(
-        points,
-        options.showPopulationX,
-        options.showPopulation === SHOW_POPULATION_LOG
-      )
+    ? getPointSizeScale(points, options.showPopulation === SHOW_POPULATION_LOG)
     : null;
 
   if (options.showDensity) {
@@ -924,7 +915,6 @@ export function drawScatter(
       width,
       height,
       MARGINS.top,
-      options.showPopulationX,
       pointSizeScale
     );
   } else {
@@ -935,7 +925,7 @@ export function drawScatter(
   }
 
   if (options.showPopulation) {
-    addSizeByPopulation(dots, options.showPopulationX, pointSizeScale);
+    addSizeByPopulation(dots, pointSizeScale);
   } else {
     dots.attr("r", DEFAULT_POINT_SIZE);
   }

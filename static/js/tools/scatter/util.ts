@@ -220,6 +220,12 @@ export function applyHashBoolean(
   return val === "1";
 }
 
+/**
+ * Fetches a population point scale state from the given url query params
+ * @param params url query parameters
+ * @param key query parameter key containing population point scale state
+ * @returns PointScaleState value
+ */
 export function applyHashPopulation(
   params: URLSearchParams,
   key: string
@@ -274,9 +280,6 @@ export function applyHash(context: ContextType): void {
   );
   context.display.setPopulation(
     applyHashPopulation(params, FieldToAbbreviation.showPopulation)
-  );
-  context.display.setPopulationX(
-    applyHashBoolean(params, FieldToAbbreviation.showPopulationX)
   );
 }
 /**
@@ -405,12 +408,6 @@ function updateHashDisplayOptions(
     FieldToAbbreviation.showPopulation,
     display.showPopulation
   );
-  hash = updateHashBoolean(
-    hash,
-    FieldToAbbreviation.showPopulationX,
-    display.showPopulationX
-  );
-
   return hash;
 }
 

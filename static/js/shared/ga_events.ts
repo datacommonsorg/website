@@ -115,10 +115,6 @@ export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LINEAR =
   "show population linear";
 export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG =
   "show population log";
-export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_X_AXIS =
-  "show population from x axis";
-export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_Y_AXIS =
-  "show population from y axis";
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";

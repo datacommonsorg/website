@@ -342,7 +342,6 @@ function draw(
     showQuadrants: false,
     showDensity: true,
     showPopulation: SHOW_POPULATION_OFF,
-    showPopulationX: false,
     showLabels: false,
     showRegression: false,
     highlightPoints,
