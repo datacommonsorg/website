@@ -14,7 +14,12 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=custom-dc-v0.3.2
+CUSTOM_DC_RELEASE_TAG=$1
+
+if [[ -z "$CUSTOM_DC_RELEASE_TAG" ]]; then
+    echo "Should run this script with first argument being the custom dc version tag found from https://github.com/datacommonsorg/website/tags"
+    exit 1
+fi
 
 # In some environments (such as Cloud Shell), IPv6 is not enabled on the OS.
 # This causes problems during terraform runs. Fix is from the issue below.
