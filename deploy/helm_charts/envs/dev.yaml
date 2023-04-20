@@ -27,7 +27,7 @@ website:
   githash:
   flaskEnv: dev
   replicas:
-    default: 5
+    default: 2
   enableModel: true
   ai:
     - us-central1:
@@ -44,35 +44,14 @@ ingress:
 
 serviceAccount:
   name: website-ksa
-  gsaName: website-reobot
 
 serviceGroups:
-  - svg:
-      urlPaths:
-        - "/place/stat-var-group/*"
-        - "/stat-var/*"
-        - "/v1/info/variable-group/*"
-        - "/v1/variable/*"
-        - "/v1/bulk/info/variable-group"
-        - "/v1/bulk/info/variable"
-      replicas:
-        default: 5
-        min: 5
-        max: 5
-      resources:
-        memoryRequest: "8G"
-        memoryLimit: "8G"
-      useSearch: true
-  - default:
-      urlPaths:
-        - "/*"
-      replicas:
-        default: 5
-        min: 5
-        max: 5
-      resources:
-        memoryRequest: "4G"
-        memoryLimit: "4G"
+  observation: null
+  recon: null
+  svg:
+    replicas: 2
+  default:
+    replicas: 2
 
 nl:
   enabled: true
