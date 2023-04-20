@@ -28,8 +28,6 @@ website:
 
   replicas:
     default: 1
-  iap:
-    enabled: false
 
 nameOverride: ""
 fullnameOverride: ""
@@ -67,7 +65,7 @@ mixer:
     tmcfCSVBucket: ""
     tmcfCSVFolder: ""
 
-    gcpProjectID:
+    hostProject:
     serviceName:
 
     schemaConfigs:

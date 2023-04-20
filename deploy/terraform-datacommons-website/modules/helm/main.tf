@@ -81,7 +81,7 @@ resource "helm_release" "datcom_website" {
   }
 
   set {
-    name  = "mixer.gcpProjectID"
+    name  = "mixer.hostProject"
     value = var.project_id
   }
 

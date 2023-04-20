@@ -35,7 +35,7 @@ configMapGenerator:
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=datcom-website-staging
+      - hostProject=datcom-website-staging
       - serviceName=website-esp.endpoints.datcom-website-staging.cloud.goog
 
 patchesStrategicMerge:

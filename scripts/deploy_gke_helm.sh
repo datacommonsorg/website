@@ -129,7 +129,7 @@ function deploy_mixer() {
   --set mixer.image.tag="$MIXER_HASH" \
   --set mixer.githash="$MIXER_HASH" \
   --set mixer.serviceName="$ESP_SERVICE_NAME" \
-  --set mixer.gcpProjectID="$PROJECT_ID" \
+  --set mixer.hostProject="$PROJECT_ID" \
   --set-file mixer.schemaConfigs."base\.mcf"=mixer/deploy/mapping/base.mcf \
   --set-file mixer.schemaConfigs."encode\.mcf"=mixer/deploy/mapping/encode.mcf \
   --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
