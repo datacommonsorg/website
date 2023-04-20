@@ -351,7 +351,6 @@ const SCATTER_CONTEXT = {
     setChartType: () => null,
     setDensity: () => null,
     setPopulation: () => null,
-    setPopulationX: () => null,
     setRegression: () => null,
   } as ScatterDisplayOptionsWrapper,
   isLoading: {} as ScatterIsLoadingWrapper,

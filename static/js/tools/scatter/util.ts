@@ -223,14 +223,10 @@ export function applyHashBoolean(
 /**
  * Fetches a population point scale state from the given url query params
  * @param params url query parameters
- * @param key query parameter key containing population point scale state
  * @returns PointScaleState value
  */
-export function applyHashPopulation(
-  params: URLSearchParams,
-  key: string
-): PointScaleState {
-  const val = params.get(key) || "";
+export function applyHashPopulation(params: URLSearchParams): PointScaleState {
+  const val = params.get(FieldToAbbreviation.showPopulation) || "";
   if (val.toLowerCase() === SHOW_POPULATION_LINEAR) {
     return SHOW_POPULATION_LINEAR;
   } else if (val.toLowerCase() === SHOW_POPULATION_LOG) {
@@ -278,9 +274,7 @@ export function applyHash(context: ContextType): void {
   context.display.setRegression(
     applyHashBoolean(params, FieldToAbbreviation.showRegression)
   );
-  context.display.setPopulation(
-    applyHashPopulation(params, FieldToAbbreviation.showPopulation)
-  );
+  context.display.setPopulation(applyHashPopulation(params));
 }
 /**
  * Updates the hash based on the context and returns the new hash.

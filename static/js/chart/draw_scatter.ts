@@ -373,7 +373,8 @@ function getPointPopulation(point: Point): number | undefined {
 }
 
 /**
- * Calculates scatter plot point size
+ * Calculates scatter plot point size based on population.
+ * Returns DEFAULT_POINT_SIZE if population is undefined
  * @param point scatter plot Point object
  * @param pointSizeScale d3 scale for sizing point based on population
  */
