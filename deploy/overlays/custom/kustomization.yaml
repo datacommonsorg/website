@@ -28,7 +28,7 @@ configMapGenerator:
     name: website-configmap
   - behavior: create
     literals:
-      - mixerProject=datcom-karnataka
+      - hostProject=datcom-karnataka
       - serviceName=website-esp.endpoints.datcom-karnataka.cloud.goog
     name: mixer-configmap
 

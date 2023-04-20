@@ -40,7 +40,7 @@ website:
         deployed_model_id: "3469851989075034112"
 
 mixer:
-  gcpProjectID:
+  hostProject:
   serviceName:
 
 ingress:

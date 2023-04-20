@@ -30,7 +30,7 @@ configMapGenerator:
     name: website-configmap
   - behavior: create
     literals:
-      - mixerProject=datcom-feedingamerica
+      - hostProject=datcom-feedingamerica
       - serviceName=website-esp.endpoints.datcom-feedingamerica.cloud.goog
     name: mixer-configmap
   - name: memdb-config

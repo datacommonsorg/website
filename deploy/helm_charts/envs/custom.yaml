@@ -30,7 +30,7 @@ website:
   flaskEnv: custom
 
 mixer:
-  gcpProjectID:
+  hostProject:
   serviceName:
 
 ingress:

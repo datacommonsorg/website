@@ -113,7 +113,7 @@ spec:
             requests:
               memory: "8G"
           args:
-            - --mixer_project=$(MIXER_PROJECT)
+            - --host_project=$(HOST_PROJECT)
             - --bq_dataset=$(BIG_QUERY)
             - --schema_path=/datacommons/mapping
             - --base_bigtable_info=$(BASE_BIGTABLE_INFO)
@@ -125,11 +125,11 @@ spec:
             - name: memdb-config
               mountPath: /datacommons/memdb
           env:
-            - name: MIXER_PROJECT
+            - name: HOST_PROJECT
               valueFrom:
                 configMapKeyRef:
                   name: mixer-configmap
-                  key: mixerProject
+                  key: hostProject
             - name: BIG_QUERY
               valueFrom:
                 configMapKeyRef:

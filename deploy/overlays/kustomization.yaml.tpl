@@ -31,7 +31,7 @@ configMapGenerator:
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=
+      - hostProject=
       - serviceName=
 
 patchesStrategicMerge:

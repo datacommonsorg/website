@@ -29,7 +29,7 @@ configMapGenerator:
     name: website-configmap
   - behavior: create
     literals:
-      - mixerProject=datcom-magiceye-dev
+      - hostProject=datcom-magiceye-dev
       - serviceName=website-esp.endpoints.datcom-magiceye-dev.cloud.goog
     name: mixer-configmap
   - behavior: merge

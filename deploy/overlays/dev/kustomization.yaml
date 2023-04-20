@@ -32,7 +32,7 @@ configMapGenerator:
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=datcom-website-dev
+      - hostProject=datcom-website-dev
       - serviceName=website-esp.endpoints.datcom-website-dev.cloud.goog
   - name: ai-config
     behavior: replace
