@@ -18,6 +18,11 @@ variable "mixer_githash" {
   description = "Determines which DC Mixer image to use."
 }
 
+variable "website_githash" {
+  type = string
+  description = "website image hash."
+}
+
 variable "project_id" {
   type        = string
   description = "This is the same GCP project id from the setup step."
