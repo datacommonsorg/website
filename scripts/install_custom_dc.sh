@@ -161,8 +161,18 @@ if [[ -z "$MIXER_IMAGE_PROJECT_ID" ]]; then
   MIXER_IMAGE_PROJECT_ID="datcom-ci"
 fi
 
+cd $ROOT
+if [[ ! -d yq ]];then
+ mkdir -p yq
+ cd yq
+ wget https://github.com/mikefarah/yq/releases/download/v4.33.3/yq_linux_amd64.tar.gz -O yq.tar.gz
+ tar xvf yq.tar.gz
+ sudo mv yq_linux_amd64 /usr/local/bin/yq
+ cd ..
+fi
+
 sh $WEBSITE_ROOT/scripts/deploy_gke_helm.sh \
-  -l CLUSTER_LOCATION \
+  -l $CLUSTER_LOCATION \
   -p $PROJECT_ID \
   -h $WEBSITE_GITHASH
 

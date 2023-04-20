@@ -47,6 +47,7 @@ while getopts ":e:l:p:h:t:i:" OPTION; do
       ;;
     p)
       PROJECT_ID=$OPTARG
+      ENV=custom
       ;;
     h)
       WEBSITE_HASH=$OPTARG
