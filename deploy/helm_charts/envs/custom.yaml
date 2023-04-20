@@ -40,6 +40,8 @@ serviceAccount:
   name: website-ksa
 
 serviceGroups:
+  recon: null
+  observation: null
   svg: null
   default:
     replicas: 1

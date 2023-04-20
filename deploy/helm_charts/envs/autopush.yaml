@@ -53,6 +53,8 @@ nl:
   enabled: true
 
 serviceGroups:
+  recon: null
+  observation: null
   svg:
     replicas: 5
   default:
