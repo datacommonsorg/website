@@ -42,6 +42,8 @@ serviceAccount:
 
 serviceGroups:
   svg: null
+  observation: null
+  recon: null
   default:
     replicas: 1
 
