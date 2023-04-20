@@ -38,7 +38,6 @@ ingress:
 
 serviceAccount:
   name: website-ksa
-  gsaName: website-robot
 
 serviceGroups:
   svg: null

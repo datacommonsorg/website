@@ -48,7 +48,6 @@ ingress:
 
 serviceAccount:
   name: website-ksa
-  gsaName: website-robot
 
 nl:
   enabled: true
