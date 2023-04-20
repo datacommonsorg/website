@@ -18,8 +18,14 @@
 # and set user_project_override to true within "google" provider block
 # See below for details.
 # https://github.com/hashicorp/terraform-provider-google/issues/11865
+
+resource "random_id" "rnd" {
+  byte_length = 4
+}
+
 resource "google_apikeys_key" "maps_api_key" {
- name         = "maps-api-key"
+ # https://github.com/hashicorp/terraform-provider-google/pull/11725/files#diff-f4cadef65b8acf093064680f9bd43801fb438485584c0e6d89878da792dcaaf7
+ name         = "maps-api-key-${random_id.rnd.hex}"
  display_name = "maps-api-key"
  project      =  var.project_id
 

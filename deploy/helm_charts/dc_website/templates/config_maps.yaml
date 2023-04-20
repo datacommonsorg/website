@@ -60,13 +60,13 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   rules: |
-{{- range $index, $serviceGroup := .Values.serviceGroups }}
-{{- range $serviceName, $svgParams := $serviceGroup }}
+{{- range $serviceName, $group := .Values.serviceGroups }}
+  {{- if $group }}
     dc-mixer-{{ $serviceName }}:
-{{- range $index, $urlPath := $svgParams.urlPaths }}
-    - {{ $urlPath }}
-{{- end }}
-{{- end }}
+    {{- range $index, $urlPath := $group.urlPaths }}
+      - {{ $urlPath }}
+    {{- end }}
+  {{- end }}
 {{- end }}
 
 {{- if .Values.nl.enabled }}
