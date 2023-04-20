@@ -27,7 +27,7 @@ website:
   githash:
   flaskEnv: dev
   replicas:
-    default: 5
+    default: 2
   enableModel: true
   ai:
     - us-central1:
@@ -47,10 +47,12 @@ serviceAccount:
   gsaName: website-robot
 
 serviceGroups:
+  observation: null
+  recon: null
   svg:
-    replicas: 3
+    replicas: 2
   default:
-    replicas: 3
+    replicas: 2
 
 nl:
   enabled: true

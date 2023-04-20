@@ -61,10 +61,12 @@ metadata:
 data:
   rules: |
 {{- range $serviceName, $group := .Values.serviceGroups }}
+  {{- if ne $group nil }}
     dc-mixer-{{ $serviceName }}:
-{{- range $index, $urlPath := $group.urlPaths }}
-    - {{ $urlPath }}
-{{- end }}
+    {{- range $index, $urlPath := $group.urlPaths }}
+      - {{ $urlPath }}
+    {{- end }}
+  {{- end }}
 {{- end }}
 
 {{- if .Values.nl.enabled }}
