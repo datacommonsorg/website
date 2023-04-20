@@ -204,9 +204,10 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
 export interface MappingTemplateProps {
   csvData: CsvData;
   userMapping: Mapping;
-  onMappingValUpdated: (
+  onMappingValUpdate: (
     mappedThing: MappedThing,
-    mappingVal: MappingVal
+    mappingVal: MappingVal,
+    hasInputErrors: boolean
   ) => void;
 }
 
