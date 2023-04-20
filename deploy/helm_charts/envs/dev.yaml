@@ -44,35 +44,13 @@ ingress:
 
 serviceAccount:
   name: website-ksa
-  gsaName: website-reobot
+  gsaName: website-robot
 
 serviceGroups:
-  - svg:
-      urlPaths:
-        - "/place/stat-var-group/*"
-        - "/stat-var/*"
-        - "/v1/info/variable-group/*"
-        - "/v1/variable/*"
-        - "/v1/bulk/info/variable-group"
-        - "/v1/bulk/info/variable"
-      replicas:
-        default: 5
-        min: 5
-        max: 5
-      resources:
-        memoryRequest: "8G"
-        memoryLimit: "8G"
-      useSearch: true
-  - default:
-      urlPaths:
-        - "/*"
-      replicas:
-        default: 5
-        min: 5
-        max: 5
-      resources:
-        memoryRequest: "4G"
-        memoryLimit: "4G"
+  svg:
+    replicas: 3
+  default:
+    replicas: 3
 
 nl:
   enabled: true

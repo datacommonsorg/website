@@ -82,6 +82,29 @@ kgStoreConfig:
   customBigtableInfo: ""
 
 memdbJSON: ""
+
+serviceGroups:
+  svg:
+    urlPaths:
+      - "/place/stat-var-group/*"
+      - "/stat-var/*"
+      - "/v1/info/variable-group/*"
+      - "/v1/variable/*"
+      - "/v1/bulk/info/variable-group"
+      - "/v1/bulk/info/variable"
+    replicas: 1
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
+    useSearch: true
+  default:
+    urlPaths:
+      - "/*"
+    replicas: 1
+    resources:
+      memoryRequest: "4G"
+      memoryLimit: "4G"
+
 ###############################################################################
 # END Config for Mixer helm chart
 ###############################################################################
