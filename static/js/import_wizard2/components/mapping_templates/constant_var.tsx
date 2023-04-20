@@ -21,8 +21,10 @@
 import _ from "lodash";
 import React from "react";
 
+import { INVALID_VARIABLE_MSG } from "../../constants";
 import { MappingTemplateProps } from "../../templates";
 import { MappedThing, MappingType, MappingVal } from "../../types";
+import { isValidVariable } from "../../utils/validation";
 import { MappingColumnInput } from "../shared/mapping_column_input";
 import { MappingConstantInput } from "../shared/mapping_constant_input";
 import { MappingPlaceInput } from "../shared/mapping_place_input";
@@ -33,16 +35,22 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
       <MappingConstantInput
         mappedThing={MappedThing.STAT_VAR}
         mappingVal={props.userMapping.get(MappedThing.STAT_VAR)}
-        onMappingValUpdate={(mappingVal: MappingVal) =>
-          props.onMappingValUpdated(MappedThing.STAT_VAR, mappingVal)
+        onMappingValUpdate={(mappingVal: MappingVal, hasInputErrors: boolean) =>
+          props.onMappingValUpdate(
+            MappedThing.STAT_VAR,
+            mappingVal,
+            hasInputErrors
+          )
         }
         isRequired={true}
+        isValidValue={isValidVariable}
+        invalidValueMsg={INVALID_VARIABLE_MSG}
       />
       <MappingColumnInput
         mappedThing={MappedThing.DATE}
         mappingVal={props.userMapping.get(MappedThing.DATE)}
         onMappingValUpdate={(mappingVal: MappingVal) =>
-          props.onMappingValUpdated(MappedThing.DATE, mappingVal)
+          props.onMappingValUpdate(MappedThing.DATE, mappingVal, false)
         }
         orderedColumns={props.csvData.orderedColumns}
         isRequired={true}
@@ -51,7 +59,7 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
         mappingType={MappingType.COLUMN}
         mappingVal={props.userMapping.get(MappedThing.PLACE)}
         onMappingValUpdate={(mappingVal: MappingVal) =>
-          props.onMappingValUpdated(MappedThing.PLACE, mappingVal)
+          props.onMappingValUpdate(MappedThing.PLACE, mappingVal, false)
         }
         orderedColumns={props.csvData.orderedColumns}
       />
@@ -59,7 +67,7 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
         mappedThing={MappedThing.VALUE}
         mappingVal={props.userMapping.get(MappedThing.VALUE)}
         onMappingValUpdate={(mappingVal: MappingVal) =>
-          props.onMappingValUpdated(MappedThing.VALUE, mappingVal)
+          props.onMappingValUpdate(MappedThing.VALUE, mappingVal, false)
         }
         orderedColumns={props.csvData.orderedColumns}
         isRequired={true}
@@ -68,7 +76,7 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
         mappedThing={MappedThing.UNIT}
         mappingVal={props.userMapping.get(MappedThing.UNIT)}
         onMappingValUpdate={(mappingVal: MappingVal) =>
-          props.onMappingValUpdated(MappedThing.UNIT, mappingVal)
+          props.onMappingValUpdate(MappedThing.UNIT, mappingVal, false)
         }
         orderedColumns={props.csvData.orderedColumns}
         isRequired={false}

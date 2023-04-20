@@ -322,11 +322,21 @@ tr th:last-child {
 
     .header-input-subitem {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       padding: 0.2rem 0;
+      flex-wrap: wrap;
 
-      span {
+      .header-input-label {
         width: 6rem;
+        flex-shrink: 0;
+        /* use same calculation for height of input boxes from bootstrap */
+        height: calc(1.5em + 0.75rem + 2px);
+        display: flex;
+        align-items: center;
+      }
+
+      .header-input-subitem-input {
+        flex-grow: 1;
       }
     }
 
@@ -354,6 +364,17 @@ tr th:last-child {
     background-color: #ccc;
     border-radius: 1rem;
   }
+}
+
+.column-header-value-error,
+.constant-value-input-error {
+  border-color: var(--dc-error);
+}
+
+.error-message {
+  width: fit-content;
+  font-size: 0.9rem;
+  color: var(--dc-error);
 }
 
 .file-upload-section {

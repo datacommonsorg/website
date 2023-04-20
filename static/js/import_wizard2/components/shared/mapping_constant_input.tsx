@@ -32,8 +32,10 @@ import {
 interface MappingConstantInputPropType {
   mappedThing: MappedThing;
   mappingVal: MappingVal;
-  onMappingValUpdate: (mappingVal: MappingVal) => void;
+  onMappingValUpdate: (mappingVal: MappingVal, hasInputError: boolean) => void;
   isRequired: boolean;
+  isValidValue: (value: string) => boolean;
+  invalidValueMsg: string;
 }
 
 export function MappingConstantInput(
@@ -44,11 +46,17 @@ export function MappingConstantInput(
   const label = `${
     props.isRequired ? "* " : ""
   }What is the ${mappedThingString.toLowerCase()} for this dataset?`;
+  const placeholder = `Enter the ${mappedThingString.toLowerCase()} for this dataset`;
+  const isInvalidInput =
+    props.mappingVal &&
+    props.mappingVal.fileConstant &&
+    !props.isValidValue(props.mappingVal.fileConstant);
+
   return (
     <div className="mapping-input-section">
       <div className="mapping-input-label">{label}</div>
       <Input
-        className="constant-value-input"
+        className={`constant-value-input${isInvalidInput ? "-error" : ""}`}
         type="text"
         onChange={(e) => {
           const fileConstant = e.target.value;
@@ -56,11 +64,17 @@ export function MappingConstantInput(
             type: MappingType.FILE_CONSTANT,
             fileConstant,
           };
-          props.onMappingValUpdate(mappingVal);
+          props.onMappingValUpdate(
+            mappingVal,
+            fileConstant && !props.isValidValue(fileConstant)
+          );
         }}
-        placeholder="Enter the variable for this dataset"
+        placeholder={placeholder}
         value={props.mappingVal ? props.mappingVal.fileConstant || "" : ""}
       />
+      {isInvalidInput && (
+        <span className="error-message">{props.invalidValueMsg}</span>
+      )}
     </div>
   );
 }
