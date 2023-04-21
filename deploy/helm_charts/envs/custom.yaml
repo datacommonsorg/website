@@ -45,6 +45,12 @@ serviceGroups:
   svg: null
   default:
     replicas: 1
-
+    useSearch: true # No svg service, this needs to use search
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
 nl:
   enabled: false
+
+customDC:
+  enabled: true
