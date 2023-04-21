@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "reactstrap";
 
 import { ValueMap } from "../../import_wizard/types";
@@ -34,6 +34,7 @@ interface MappingPreviewSectionProps {
   correctedMapping: Mapping;
   csvData: CsvData;
   valueMap: ValueMap;
+  hasInputErrors: boolean;
   onBackClicked: () => void;
   onContinueClicked: () => void;
 }
@@ -43,30 +44,18 @@ const MAX_ROW_SAMPLES = 3;
 export function MappingPreviewSection(
   props: MappingPreviewSectionProps
 ): JSX.Element {
-  const [sampleObs, setSampleObs] = useState(
-    generateRowObservations(
+  const errorList = checkMappings(props.correctedMapping);
+  if (props.hasInputErrors) {
+    errorList.unshift("There are invalid input values.");
+  }
+  let sampleObs = null;
+  if (_.isEmpty(errorList)) {
+    sampleObs = generateRowObservations(
       props.correctedMapping,
       props.csvData,
       props.valueMap
-    )
-  );
-  const [errorList, setErrorList] = useState(
-    checkMappings(props.correctedMapping)
-  );
-
-  useEffect(() => {
-    setSampleObs(
-      generateRowObservations(
-        props.correctedMapping,
-        props.csvData,
-        props.valueMap
-      )
     );
-  }, [props.correctedMapping, props.csvData, props.valueMap]);
-
-  useEffect(() => {
-    setErrorList(checkMappings(props.correctedMapping));
-  }, [props.correctedMapping]);
+  }
 
   return (
     <>

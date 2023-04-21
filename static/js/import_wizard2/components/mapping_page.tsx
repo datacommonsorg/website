@@ -48,6 +48,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   // TODO: get valueMap from MappingSectionComponent
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
+  const [inputErrors, setInputErrors] = useState(new Set());
 
   let fileName = "";
   if (props.csvData && props.csvData.rawCsvFile) {
@@ -57,10 +58,20 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   }
 
   // Function to run when mapping value is updated for a mapped thing.
-  function onMappingValUpdated(
+  function onMappingValUpdate(
     mappedThing: MappedThing,
-    mappingVal: MappingVal
+    mappingVal: MappingVal,
+    hasInputErrors: boolean
   ): void {
+    setInputErrors((prev) => {
+      const newInputErrors = _.cloneDeep(prev);
+      if (hasInputErrors) {
+        newInputErrors.add(mappedThing);
+      } else {
+        newInputErrors.delete(mappedThing);
+      }
+      return newInputErrors;
+    });
     const newUserMapping = _.cloneDeep(props.userMapping);
     if (_.isEmpty(mappingVal)) {
       newUserMapping.delete(mappedThing);
@@ -104,7 +115,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
             <MappingSectionComponent
               csvData={props.csvData}
               userMapping={props.userMapping}
-              onMappingValUpdated={onMappingValUpdated}
+              onMappingValUpdate={onMappingValUpdate}
             />
             <div className="mapping-input-section">
               <div>Ignored columns:</div>
@@ -126,6 +137,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
                 valueMap={valueMap}
                 onBackClicked={props.onBackClicked}
                 onContinueClicked={props.onContinueClicked}
+                hasInputErrors={!_.isEmpty(inputErrors)}
               />
             </section>
           ) : (
