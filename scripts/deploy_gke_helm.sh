@@ -126,6 +126,7 @@ function deploy_mixer() {
   --timeout 10m \
   --force  \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
+  --set ingress.enabled="false" \
   --set mixer.image.tag="$MIXER_HASH" \
   --set mixer.githash="$MIXER_HASH" \
   --set mixer.serviceName="$ESP_SERVICE_NAME" \
@@ -158,6 +159,7 @@ function deploy_website() {
   --debug \
   --timeout 10m \
   --set ingress.enabled=$ENABLE_INGRESS \
+  --set website.image.project="$PROJECT_ID" \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
   --set mixer.githash="$MIXER_HASH" \
