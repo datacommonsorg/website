@@ -160,7 +160,7 @@ function deploy_website() {
   --debug \
   --timeout 10m \
   --set ingress.enabled=$ENABLE_INGRESS \
-  --set website.image.project="$PROJECT_ID" \
+  --set website.image.project="$IMAGE_PROJECT" \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
   --set mixer.githash="$MIXER_HASH" \
