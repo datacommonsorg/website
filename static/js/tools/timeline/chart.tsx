@@ -333,8 +333,12 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     for (const statVar in statData.data) {
       for (const place in statData.data[statVar]) {
         const series = statData.data[statVar][place];
-        if (series && series.facet && statData.facets[series.facet].unit) {
-          units.add(statData.facets[series.facet].unit);
+        if (!series || !series.facet || !statData.facets[series.facet]) {
+          continue;
+        }
+        const unit = statData.facets[series.facet].unit;
+        if (unit) {
+          units.add(unit);
         }
       }
       this.units = Array.from(units).sort();
