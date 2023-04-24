@@ -41,13 +41,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.35,
+      "build_page_config": 0.49,
       "extend_svs": 0.0,
-      "fulfillment": 0.35,
-      "get_sv_details": 0.35,
-      "query_detection": 0.18,
+      "fulfillment": 0.31,
+      "get_sv_details": 0.49,
+      "query_detection": 0.23,
       "sv_existence_for_places": 0.15,
-      "topic_calls": 0.2
+      "topic_calls": 0.16
     }
   },
   "data_spec": [

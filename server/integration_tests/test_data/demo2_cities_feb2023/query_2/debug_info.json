@@ -105,13 +105,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.36,
-      "extend_svs": 1.92,
-      "fulfillment": 2.85,
-      "get_sv_details": 0.36,
-      "has_series_with_single_datapoint": 0.7200000000000001,
-      "query_detection": 0.19,
-      "sv_existence_for_places": 0.2
+      "build_page_config": 0.45,
+      "extend_svs": 2.23,
+      "fulfillment": 3.26,
+      "get_sv_details": 0.45,
+      "has_series_with_single_datapoint": 0.85,
+      "query_detection": 0.23,
+      "sv_existence_for_places": 0.17
     }
   },
   "data_spec": [

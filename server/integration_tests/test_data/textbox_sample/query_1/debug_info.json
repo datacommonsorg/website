@@ -69,14 +69,14 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.2,
-      "extend_svs": 1.57,
-      "fulfillment": 3.23,
-      "get_sv_details": 0.2,
-      "has_series_with_single_datapoint": 1.3200000000000003,
-      "query_detection": 0.55,
-      "sv_existence_for_places": 0.14,
-      "topic_calls": 0.19
+      "build_page_config": 0.31,
+      "extend_svs": 1.65,
+      "fulfillment": 3.47,
+      "get_sv_details": 0.31,
+      "has_series_with_single_datapoint": 1.49,
+      "query_detection": 0.65,
+      "sv_existence_for_places": 0.11,
+      "topic_calls": 0.21
     }
   },
   "data_spec": [

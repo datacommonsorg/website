@@ -11,9 +11,9 @@
             "geoId/06"
           ],
           "svs": [
-            "Percent_Person_Obesity",
+            "Percent_Person_PhysicalInactivity",
             "Percent_Person_SleepLessThan7Hours",
-            "Percent_Person_Smoking"
+            "Percent_Person_BingeDrinking"
           ],
           "type": null
         }
@@ -58,14 +58,14 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.27,
-      "extend_svs": 0.67,
-      "fulfillment": 1.35,
-      "get_immediate_parent_places": 0.11,
-      "get_sv_details": 0.27,
-      "has_series_with_single_datapoint": 0.29000000000000004,
-      "query_detection": 0.26,
-      "sv_existence_for_places": 0.27
+      "build_page_config": 0.34,
+      "extend_svs": 0.66,
+      "fulfillment": 1.39,
+      "get_immediate_parent_places": 0.13,
+      "get_sv_details": 0.34,
+      "has_series_with_single_datapoint": 0.32,
+      "query_detection": 0.33,
+      "sv_existence_for_places": 0.28
     }
   },
   "data_spec": [

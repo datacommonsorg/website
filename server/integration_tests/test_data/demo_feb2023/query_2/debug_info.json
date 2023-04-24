@@ -15,10 +15,10 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.2,
+      "build_page_config": 0.18,
       "event_existence_for_place": 0.13,
-      "fulfillment": 0.14,
-      "get_sv_details": 0.2,
+      "fulfillment": 0.13,
+      "get_sv_details": 0.18,
       "query_detection": 0.2
     }
   },

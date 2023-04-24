@@ -627,14 +627,14 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.36,
-      "fulfillment": 1.58,
-      "get_all_child_places": 0.25,
-      "get_sample_child_places": 0.18,
-      "get_sv_details": 0.35,
-      "query_detection": 0.35,
-      "rank_places_by_series_growth": 1.0,
-      "sv_existence_for_places": 0.15
+      "build_page_config": 0.31,
+      "fulfillment": 1.72,
+      "get_all_child_places": 0.17,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.31,
+      "query_detection": 0.37,
+      "rank_places_by_series_growth": 1.23,
+      "sv_existence_for_places": 0.18
     }
   },
   "data_spec": [
@@ -2178,7 +2178,7 @@
             },
             {
               "CosineScore": [
-                0.5702657699584961
+                0.5702660083770752
               ],
               "QueryPart": "life",
               "SV": [
@@ -2202,7 +2202,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.5138831734657288
+                0.5138832330703735
               ],
               "QueryPart": "countries greatest increase life",
               "SV": [

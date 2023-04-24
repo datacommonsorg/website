@@ -29,9 +29,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_HispanicOrLatino_AsianAlone",
-            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_NonWhite"
+            "Count_Person_WhiteAloneNotHispanicOrLatino",
+            "Count_Person_BrazilPardo",
+            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
           ],
           "type": null
         },
@@ -40,9 +40,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_HispanicOrLatino_AsianAlone",
-            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-            "Count_Person_NonWhite"
+            "Count_Person_WhiteAloneNotHispanicOrLatino",
+            "Count_Person_BrazilPardo",
+            "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
           ],
           "type": null
         },
@@ -51,8 +51,8 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Female",
-            "Count_Person_Male"
+            "Count_Person_Male",
+            "Count_Person_Female"
           ],
           "type": null
         },
@@ -62,8 +62,8 @@
           ],
           "svs": [
             "Count_Person_Producer_BlackOrAfricanAmericanAlone",
-            "Count_Person_Producer_AsianAlone",
-            "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone"
+            "Count_Person_Producer_WhiteAlone",
+            "Count_Person_Producer_AsianAlone"
           ],
           "type": null
         },
@@ -72,8 +72,8 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Female",
-            "Count_Person_Male"
+            "Count_Person_Male",
+            "Count_Person_Female"
           ],
           "type": null
         }
@@ -302,12 +302,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.21,
-      "extend_svs": 1.56,
-      "fulfillment": 1.87,
-      "get_sv_details": 0.21,
-      "has_series_with_single_datapoint": 0.17,
-      "query_detection": 0.5,
+      "build_page_config": 0.22,
+      "extend_svs": 1.7,
+      "fulfillment": 2.02,
+      "get_sv_details": 0.22,
+      "has_series_with_single_datapoint": 0.18,
+      "query_detection": 0.61,
       "sv_existence_for_places": 0.14,
       "topic_calls": 0.0
     }

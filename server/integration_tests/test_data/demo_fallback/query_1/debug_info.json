@@ -58,11 +58,11 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.21,
-      "fulfillment": 0.82,
-      "get_sample_child_places": 0.8200000000000001,
-      "get_sv_details": 0.21,
-      "query_detection": 0.89
+      "build_page_config": 0.24,
+      "fulfillment": 0.9,
+      "get_sample_child_places": 0.9,
+      "get_sv_details": 0.24,
+      "query_detection": 1.12
     }
   },
   "data_spec": [

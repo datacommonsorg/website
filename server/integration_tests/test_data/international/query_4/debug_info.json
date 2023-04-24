@@ -62,11 +62,11 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.21,
-      "fulfillment": 0.21,
-      "get_sample_child_places": 0.1,
-      "get_sv_details": 0.21,
-      "query_detection": 0.5,
+      "build_page_config": 0.38,
+      "fulfillment": 0.28,
+      "get_sample_child_places": 0.17,
+      "get_sv_details": 0.38,
+      "query_detection": 0.63,
       "sv_existence_for_places": 0.11
     }
   },
@@ -528,9 +528,9 @@
             },
             {
               "CosineScore": [
-                0.5409530401229858,
-                0.5186955332756042,
-                0.5068146586418152
+                0.5409529209136963,
+                0.5186954736709595,
+                0.50681471824646
               ],
               "QueryPart": "rate",
               "SV": [
@@ -547,7 +547,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.5830167531967163,
+                0.5830166935920715,
                 0.5531350374221802
               ],
               "QueryPart": "districts highest fertility",
@@ -558,9 +558,9 @@
             },
             {
               "CosineScore": [
-                0.5409530401229858,
-                0.5186955332756042,
-                0.5068146586418152
+                0.5409529209136963,
+                0.5186954736709595,
+                0.50681471824646
               ],
               "QueryPart": "rate",
               "SV": [

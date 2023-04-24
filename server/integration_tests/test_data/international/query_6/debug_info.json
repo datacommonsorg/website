@@ -16,10 +16,10 @@
     },
     "TIMING": {
       "build_page_config": 0.0,
-      "event_existence_for_place": 0.18,
-      "fulfillment": 0.18,
+      "event_existence_for_place": 0.32,
+      "fulfillment": 0.32,
       "get_sv_details": 0.0,
-      "query_detection": 0.27
+      "query_detection": 0.35
     }
   },
   "data_spec": [

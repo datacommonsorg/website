@@ -145,12 +145,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.39,
-      "fulfillment": 0.29,
-      "get_sample_child_places": 0.14,
-      "get_sv_details": 0.38,
-      "query_detection": 0.26,
-      "sv_existence_for_places": 0.14,
+      "build_page_config": 0.28,
+      "fulfillment": 0.35,
+      "get_sample_child_places": 0.19,
+      "get_sv_details": 0.28,
+      "query_detection": 0.35,
+      "sv_existence_for_places": 0.16,
       "topic_calls": 0.0
     }
   },
@@ -307,8 +307,8 @@
             {
               "CosineScore": [
                 0.5780428647994995,
-                0.577176570892334,
-                0.5280827283859253
+                0.5771763324737549,
+                0.5280826091766357
               ],
               "QueryPart": "gases",
               "SV": [

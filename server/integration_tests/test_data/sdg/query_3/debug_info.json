@@ -25,9 +25,9 @@
             "country/ATG"
           ],
           "svs": [
-            "Percent_Person_WithStroke",
+            "Percent_Person_WithMentalHealthNotGood",
             "Percent_Person_WithArthritis",
-            "Percent_Person_WithChronicKidneyDisease"
+            "Percent_Person_WithDiabetes"
           ],
           "type": "Country"
         },
@@ -181,13 +181,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.24,
-      "fulfillment": 0.87,
-      "get_sample_child_places": 0.1,
-      "get_sv_details": 0.23,
-      "query_detection": 0.27,
-      "sv_existence_for_places": 0.11,
-      "topic_calls": 0.64
+      "build_page_config": 0.28,
+      "fulfillment": 1.0,
+      "get_sample_child_places": 0.12,
+      "get_sv_details": 0.28,
+      "query_detection": 0.35,
+      "sv_existence_for_places": 0.12,
+      "topic_calls": 0.75
     }
   },
   "data_spec": [
