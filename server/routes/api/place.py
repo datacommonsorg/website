@@ -883,14 +883,14 @@ def api_ranking_chart(dcid):
   if POPULATION_DCID not in stat_vars:
     stat_vars.add(POPULATION_DCID)
   points_response = dc.obs_point_within(parent_place_dcid, place_type,
-                                        list(stat_vars), "")
-  obs_by_var = points_response.get('byVariable', {})
-  if not points_response or not obs_by_var:
+                                        list(stat_vars), "LATEST")
+  obs_by_sv = points_response.get('byVariable', {})
+  if not points_response or not obs_by_sv:
     return Response(json.dumps(result), 200, mimetype='application/json')
   sv_facets = points_response.get('facets', {})
   places_to_rank = set()
   # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
-  population_obs = obs_by_var.get(POPULATION_DCID, {})
+  population_obs = obs_by_sv.get(POPULATION_DCID, {})
   if population_obs:
     for place_dcid, place_obs in population_obs.get('byEntity', {}).items():
       place_data_points = place_obs.get('orderedFacets', [])
@@ -901,13 +901,13 @@ def api_ranking_chart(dcid):
   # Get all the place names
   place_names = get_i18n_name(list(places_to_rank))
   # Loop through var_obs to build the result data.
-  for var, var_obs in obs_by_var.items():
-    if var not in config_sv_to_info:
+  for sv, sv_obs in obs_by_sv.items():
+    if sv not in config_sv_to_info:
       continue
     sources = set()
     dates = set()
     data_points = []
-    for place_dcid, place_data in var_obs.get("byEntity", {}).items():
+    for place_dcid, place_data in sv_obs.get("byEntity", {}).items():
       if place_dcid not in places_to_rank:
         continue
       # Example of place_data_points:

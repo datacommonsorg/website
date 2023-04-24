@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import os
+import time
 import tempfile
-import urllib
 import urllib.request
 
 from selenium.webdriver.common.by import By
@@ -154,6 +154,7 @@ class TestDownload(WebdriverBaseTest):
     first_row_cells = table_rows[0].find_elements_by_tag_name('td')
     for idx, cell in enumerate(first_row_cells):
       self.assertEqual(cell.text, TABLE_ROW_1[idx])
+    time.sleep(0.1)
 
     # Click download
     self.driver.find_element_by_xpath(

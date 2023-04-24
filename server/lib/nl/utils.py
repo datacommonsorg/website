@@ -133,7 +133,7 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
   start = time.time()
   points_data = util.point_core(entities=[place],
                                 variables=svs,
-                                date='',
+                                date='LATEST',
                                 all_facets=False)
   counters.timeit('rank_svs_by_latest_value', start)
 
@@ -335,7 +335,7 @@ def _compute_place_to_denom(sv: str, places: List[str]):
   if sv != constants.DEFAULT_DENOMINATOR and is_percapita_relevant(sv):
     denom_data = util.point_core(entities=places,
                                  variables=[constants.DEFAULT_DENOMINATOR],
-                                 date='',
+                                 date='LATEST',
                                  all_facets=False)
     for _, sv_data in denom_data['data'].items():
       for place, point in sv_data.items():
@@ -413,7 +413,7 @@ def filter_and_rank_places(
   api_resp = util.point_within_core(parent_entity=parent_place.dcid,
                                     child_type=child_type.value,
                                     variables=[sv],
-                                    date='',
+                                    date='LATEST',
                                     all_facets=False)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
