@@ -64,20 +64,20 @@ def get_point_within_csv_rows(parent_place,
       if not place in data_by_place:
         data_by_place[place] = {}
       points_by_facet = place_data.get("orderedFacets", [])
-      latest = None
+      best = None
       for point in points_by_facet:
         # if no facet selected for this variable, choose the first
         # point in the list because orderedFacets is sorted by best
         # facet first
         if target_facet == "":
-          if not latest or point['observations'][0]['date'] > latest[
+          if not best or point['observations'][0]['date'] > best[
               'observations'][0]['date']:
-            latest = point
+            best = point
         elif point.get("facetId") == target_facet:
           data_by_place[place][sv] = point
           break
-      if latest:
-        data_by_place[place][sv] = latest
+      if best:
+        data_by_place[place][sv] = best
 
   facet_info = points_response.get("facets", {})
   place_list = sorted(list(data_by_place.keys()))
