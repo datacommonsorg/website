@@ -56,13 +56,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.28,
-      "fulfillment": 0.39,
-      "get_sample_child_places": 0.15,
-      "get_sv_details": 0.28,
+      "build_page_config": 4.79,
+      "fulfillment": 2.75,
+      "get_sample_child_places": 1.9,
+      "get_sv_details": 4.79,
       "open_top_topics_ordered": 0.0,
-      "query_detection": 0.28,
-      "sv_existence_for_places": 0.22
+      "query_detection": 0.33,
+      "sv_existence_for_places": 0.8400000000000001
     }
   },
   "data_spec": [
@@ -804,7 +804,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.9887781739234924
+                0.9887781143188477
               ],
               "QueryPart": "prevalence asthma",
               "SV": [
@@ -852,7 +852,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.9887781739234924
+                0.9887781143188477
               ],
               "QueryPart": "prevalence asthma",
               "SV": [
@@ -945,8 +945,8 @@
             },
             {
               "CosineScore": [
-                0.7211970090866089,
-                0.6961376070976257
+                0.7211971282958984,
+                0.6961374878883362
               ],
               "QueryPart": "hispanic",
               "SV": [
@@ -1095,8 +1095,8 @@
             },
             {
               "CosineScore": [
-                0.7211970090866089,
-                0.6961376070976257
+                0.7211971282958984,
+                0.6961374878883362
               ],
               "QueryPart": "hispanic",
               "SV": [

@@ -16,9 +16,9 @@
             "geoId/06005"
           ],
           "svs": [
-            "Count_CriminalActivities_Burglary",
-            "Count_CriminalActivities_LarcenyTheft",
-            "Count_CriminalActivities_MotorVehicleTheft"
+            "Count_CriminalActivities_Robbery",
+            "Count_CriminalActivities_ViolentCrime",
+            "Count_CriminalActivities_ForcibleRape"
           ],
           "type": "County"
         },
@@ -29,9 +29,9 @@
             "geoId/06005"
           ],
           "svs": [
-            "Count_CriminalActivities_Burglary",
-            "Count_CriminalActivities_LarcenyTheft",
-            "Count_CriminalActivities_MotorVehicleTheft"
+            "Count_CriminalActivities_Robbery",
+            "Count_CriminalActivities_ViolentCrime",
+            "Count_CriminalActivities_ForcibleRape"
           ],
           "type": "County"
         }
@@ -268,13 +268,13 @@
     },
     "TIMING": {
       "build_page_config": 0.26,
-      "extend_svs": 0.66,
-      "fulfillment": 2.41,
-      "get_sample_child_places": 0.24000000000000002,
+      "extend_svs": 0.85,
+      "fulfillment": 2.98,
+      "get_sample_child_places": 0.27,
       "get_sv_details": 0.26,
-      "has_series_with_single_datapoint": 1.25,
-      "query_detection": 0.44,
-      "sv_existence_for_places": 0.24
+      "has_series_with_single_datapoint": 1.5299999999999998,
+      "query_detection": 0.43,
+      "sv_existence_for_places": 0.31
     }
   },
   "data_spec": [

@@ -17,8 +17,8 @@
     "TIMING": {
       "build_page_config": 0.22,
       "fulfillment": 0.0,
-      "get_sv_details": 0.21,
-      "query_detection": 0.62
+      "get_sv_details": 0.22,
+      "query_detection": 0.67
     }
   },
   "data_spec": [
