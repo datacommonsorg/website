@@ -66,10 +66,7 @@ class IntegrationTest(LiveServerTestCase):
     return create_web_app()
 
   # TODO: Validate contexts as well eventually.
-  def run_sequence(self,
-                   test_dir,
-                   queries,
-                   check_place_detection=False):
+  def run_sequence(self, test_dir, queries, check_place_detection=False):
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
@@ -95,10 +92,10 @@ class IntegrationTest(LiveServerTestCase):
           dbg_file = os.path.join(json_dir, 'debug_info.json')
           with open(dbg_file, 'w') as infile:
             dbg_to_write = {
-              "places_detected": dbg["places_detected"],
-              "places_resolved": dbg["places_resolved"],
-              "main_place_dcid": dbg["main_place_dcid"],
-              "main_place_name": dbg["main_place_name"]
+                "places_detected": dbg["places_detected"],
+                "places_resolved": dbg["places_resolved"],
+                "main_place_dcid": dbg["main_place_dcid"],
+                "main_place_name": dbg["main_place_name"]
             }
             infile.write(json.dumps(dbg_to_write, indent=2))
       else:
@@ -207,7 +204,8 @@ class IntegrationTest(LiveServerTestCase):
         'compare with california and new york state and washington state',
         'show me the population of mexico city',
         'counties in the US with the most poverty',
-    ], check_place_detection=True)
+    ],
+                      check_place_detection=True)
 
   def test_international(self):
     self.run_sequence('international', [
