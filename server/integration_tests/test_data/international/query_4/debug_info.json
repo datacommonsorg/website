@@ -4,7 +4,33 @@
   "contained_in_classification": "ContainedInPlaceType.DISTRICT",
   "correlation_classification": "<None>",
   "counters": {
-    "ERROR": {},
+    "ERROR": {
+      "failed_partial_existence_check": [
+        {
+          "places": [
+            "nuts/TR100",
+            "nuts/TR211",
+            "nuts/TR212",
+            "nuts/TR213",
+            "nuts/TR221",
+            "nuts/TR222",
+            "nuts/TR310",
+            "nuts/TR321",
+            "nuts/TR322",
+            "nuts/TR323",
+            "nuts/TR331",
+            "nuts/TR332",
+            "nuts/TR333",
+            "nuts/TR334",
+            "nuts/TR411"
+          ],
+          "svs": [
+            "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          ],
+          "type": "EurostatNUTS3"
+        }
+      ]
+    },
     "INFO": {
       "child_places_result": [
         {
@@ -26,6 +52,7 @@
       "filtered_svs": [
         [
           "FertilityRate_Person_Female",
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person",
           "GrowthRate_Count_Person"
         ]
       ],
@@ -35,12 +62,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.33,
-      "fulfillment": 0.27,
-      "get_sample_child_places": 0.11,
-      "get_sv_details": 0.33,
-      "query_detection": 0.47,
-      "sv_existence_for_places": 0.16
+      "build_page_config": 0.21,
+      "fulfillment": 0.21,
+      "get_sample_child_places": 0.1,
+      "get_sv_details": 0.21,
+      "query_detection": 0.5,
+      "sv_existence_for_places": 0.11
     }
   },
   "data_spec": [
@@ -98,7 +125,7 @@
         },
         {
           "attr": {
-            "block_id": 2,
+            "block_id": 3,
             "chart_type": "ranking table",
             "class": 0,
             "description": "",
@@ -128,6 +155,7 @@
       "session_id": "007_999999999",
       "svs": [
         "FertilityRate_Person_Female",
+        "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person",
         "GrowthRate_Count_Person"
       ]
     },
@@ -179,7 +207,6 @@
       "session_id": "007_999999999",
       "svs": [
         "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-        "dc/g/EconomicActivity_Industry",
         "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
         "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
         "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
@@ -319,9 +346,7 @@
         "LifeExpectancy_Person",
         "LifeExpectancy_Person_Male",
         "LifeExpectancy_Person_Female",
-        "Count_Death_AsAFractionOfCount_Person",
-        "Median_Age_Person",
-        "Count_Death"
+        "Count_Death_AsAFractionOfCount_Person"
       ]
     },
     {
@@ -394,6 +419,7 @@
     "turkey"
   ],
   "places_resolved": "(name: Turkey, dcid: country/TUR); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/TUR",
@@ -437,18 +463,121 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7500920295715332,
-      0.5522911548614502,
-      0.47341689467430115,
+      0.7500917911529541,
+      0.568291425704956,
+      0.5522914528846741,
+      0.49596697092056274,
+      0.47341692447662354,
       0.4727942943572998,
-      0.47152405977249146,
-      0.46825528144836426,
-      0.4668121337890625,
-      0.46678483486175537
+      0.4715239405632019,
+      0.46825525164604187,
+      0.4668118953704834,
+      0.4667847156524658
     ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.776,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5519304871559143,
+                0.527734637260437
+              ],
+              "QueryPart": "districts highest",
+              "SV": [
+                "Count_Person_DetailedPrimarySchool",
+                "Count_Person_DetailedHighSchool"
+              ]
+            },
+            {
+              "CosineScore": [
+                1.0000004768371582
+              ],
+              "QueryPart": "fertility rate",
+              "SV": [
+                "FertilityRate_Person_Female"
+              ]
+            }
+          ]
+        },
+        {
+          "AggCosineScore": 0.6394,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5519304871559143,
+                0.527734637260437
+              ],
+              "QueryPart": "districts highest",
+              "SV": [
+                "Count_Person_DetailedPrimarySchool",
+                "Count_Person_DetailedHighSchool"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.8252068161964417
+              ],
+              "QueryPart": "fertility",
+              "SV": [
+                "FertilityRate_Person_Female"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.5409530401229858,
+                0.5186955332756042,
+                0.5068146586418152
+              ],
+              "QueryPart": "rate",
+              "SV": [
+                "Count_CriminalActivities_CombinedCrime",
+                "Count_Death_AsAFractionOfCount_Person",
+                "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+              ]
+            }
+          ]
+        },
+        {
+          "AggCosineScore": 0.562,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5830167531967163,
+                0.5531350374221802
+              ],
+              "QueryPart": "districts highest fertility",
+              "SV": [
+                "Count_Person_DetailedPrimarySchool",
+                "FertilityRate_Person_Female"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.5409530401229858,
+                0.5186955332756042,
+                0.5068146586418152
+              ],
+              "QueryPart": "rate",
+              "SV": [
+                "Count_CriminalActivities_CombinedCrime",
+                "Count_Death_AsAFractionOfCount_Person",
+                "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "SV": [
       "FertilityRate_Person_Female",
+      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person",
       "GrowthRate_Count_Person",
+      "dc/topic/RacialBreakdown",
       "Count_Person_TwoOrMoreRaces_ResidesInJuvenileFacilities",
       "Count_Person_NotInLaborForce_Male_MarriedInThePast12Months",
       "Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities",
@@ -457,80 +586,88 @@
       "UnemploymentRate_Person_Male"
     ],
     "SV_to_Sentences": {
+      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": [
+        "Birth rate (0.5683)",
+        "rate at which children are born (0.5554)"
+      ],
       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
-        "Infant Mortality Rate (0.46825528144836426)"
+        "Infant Mortality Rate (0.4683)"
       ],
       "Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities": [
-        "Population: Male, Foreign Born, Juvenile Facilities (0.47152405977249146)"
+        "Population: Male, Foreign Born, Juvenile Facilities (0.4715)"
       ],
       "Count_Person_NotInLaborForce_Female_MarriedInThePast12Months": [
-        "Population: Not in Labor Force, Female, Married in The Past 12 Months (0.4668121337890625)"
+        "Population: Not in Labor Force, Female, Married in The Past 12 Months (0.4668)"
       ],
       "Count_Person_NotInLaborForce_Male_MarriedInThePast12Months": [
-        "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.4727942943572998)"
+        "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.4728)"
       ],
       "Count_Person_TwoOrMoreRaces_ResidesInJuvenileFacilities": [
-        "Population: Two or More Races, Juvenile Facilities (0.47341689467430115)"
+        "Population: Two or More Races, Juvenile Facilities (0.4734)"
       ],
       "FertilityRate_Person_Female": [
-        "Fertility Rate (0.7500920295715332)",
-        "Fertility of the population (0.6975283622741699)",
-        "Birth rate of the population (0.6018930077552795)",
-        "Birth rate per woman (0.5418903827667236)",
-        "Number of offspring per woman (0.5105675458908081)",
-        "Number of children born per woman (0.5047275424003601)",
-        "Number of babies born per woman (0.46968746185302734)"
+        "Fertility Rate (0.7501)",
+        "Fertility of the population (0.6975)",
+        "Birth rate of the population (0.6019)",
+        "Birth rate per woman (0.5419)",
+        "Number of children born per woman (0.5047)"
       ],
       "GrowthRate_Count_Person": [
-        "Rate of population growth (0.5522911548614502)",
-        "Rate of Population Growth (0.5522911548614502)",
-        "Population growth rate (0.5479618906974792)",
-        "Population Growth Rate (0.5479618906974792)",
-        "Rate of increase in population (0.5281088948249817)",
-        "Population increase rate (0.5204558372497559)"
+        "Rate of Population Growth (0.5523)",
+        "Rate of population growth (0.5523)",
+        "Population growth rate (0.548)",
+        "Population Growth Rate (0.548)",
+        "Rate of increase in population (0.5281)",
+        "Population increase rate (0.5205)"
       ],
       "UnemploymentRate_Person_Male": [
-        "Unemployment Rate of the male population (0.46678483486175537)",
-        "Unemployment Rate of the Male Population (0.46678483486175537)"
+        "Unemployment Rate of the male population (0.4668)"
+      ],
+      "dc/topic/RacialBreakdown": [
+        "demographic distribution (0.496)"
       ]
     }
   },
   "svs_to_sentences": {
+    "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": [
+      "Birth rate (0.5683)",
+      "rate at which children are born (0.5554)"
+    ],
     "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": [
-      "Infant Mortality Rate (0.46825528144836426)"
+      "Infant Mortality Rate (0.4683)"
     ],
     "Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities": [
-      "Population: Male, Foreign Born, Juvenile Facilities (0.47152405977249146)"
+      "Population: Male, Foreign Born, Juvenile Facilities (0.4715)"
     ],
     "Count_Person_NotInLaborForce_Female_MarriedInThePast12Months": [
-      "Population: Not in Labor Force, Female, Married in The Past 12 Months (0.4668121337890625)"
+      "Population: Not in Labor Force, Female, Married in The Past 12 Months (0.4668)"
     ],
     "Count_Person_NotInLaborForce_Male_MarriedInThePast12Months": [
-      "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.4727942943572998)"
+      "Population: Not in Labor Force, Male, Married in The Past 12 Months (0.4728)"
     ],
     "Count_Person_TwoOrMoreRaces_ResidesInJuvenileFacilities": [
-      "Population: Two or More Races, Juvenile Facilities (0.47341689467430115)"
+      "Population: Two or More Races, Juvenile Facilities (0.4734)"
     ],
     "FertilityRate_Person_Female": [
-      "Fertility Rate (0.7500920295715332)",
-      "Fertility of the population (0.6975283622741699)",
-      "Birth rate of the population (0.6018930077552795)",
-      "Birth rate per woman (0.5418903827667236)",
-      "Number of offspring per woman (0.5105675458908081)",
-      "Number of children born per woman (0.5047275424003601)",
-      "Number of babies born per woman (0.46968746185302734)"
+      "Fertility Rate (0.7501)",
+      "Fertility of the population (0.6975)",
+      "Birth rate of the population (0.6019)",
+      "Birth rate per woman (0.5419)",
+      "Number of children born per woman (0.5047)"
     ],
     "GrowthRate_Count_Person": [
-      "Rate of population growth (0.5522911548614502)",
-      "Rate of Population Growth (0.5522911548614502)",
-      "Population growth rate (0.5479618906974792)",
-      "Population Growth Rate (0.5479618906974792)",
-      "Rate of increase in population (0.5281088948249817)",
-      "Population increase rate (0.5204558372497559)"
+      "Rate of Population Growth (0.5523)",
+      "Rate of population growth (0.5523)",
+      "Population growth rate (0.548)",
+      "Population Growth Rate (0.548)",
+      "Rate of increase in population (0.5281)",
+      "Population increase rate (0.5205)"
     ],
     "UnemploymentRate_Person_Male": [
-      "Unemployment Rate of the male population (0.46678483486175537)",
-      "Unemployment Rate of the Male Population (0.46678483486175537)"
+      "Unemployment Rate of the male population (0.4668)"
+    ],
+    "dc/topic/RacialBreakdown": [
+      "demographic distribution (0.496)"
     ]
   },
   "time_delta_classification": "<None>"

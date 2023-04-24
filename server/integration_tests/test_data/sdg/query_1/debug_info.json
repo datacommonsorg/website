@@ -1,7 +1,7 @@
 {
   "clustering_classification": "<None>",
   "comparison_classification": "<None>",
-  "contained_in_classification": "ContainedInPlaceType.ACROSS",
+  "contained_in_classification": "ContainedInPlaceType.DEFAULT_TYPE",
   "correlation_classification": "<None>",
   "counters": {
     "ERROR": {
@@ -26,29 +26,6 @@
           ],
           "svs": [
             "Count_Person_BelowPovertyLevelInThePast12Months"
-          ],
-          "type": "Country"
-        },
-        {
-          "places": [
-            "country/AGO",
-            "country/ATF",
-            "country/BDI",
-            "country/BEN",
-            "country/BFA",
-            "country/BWA",
-            "country/CAF",
-            "country/CIV",
-            "country/CMR",
-            "country/COD",
-            "country/COG",
-            "country/COM",
-            "country/CPV",
-            "country/DJI",
-            "country/DZA"
-          ],
-          "svs": [
-            "Count_Person_PovertyStatusDetermined"
           ],
           "type": "Country"
         },
@@ -304,29 +281,6 @@
             "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
           ],
           "type": "Country"
-        },
-        {
-          "places": [
-            "country/AGO",
-            "country/ATF",
-            "country/BDI",
-            "country/BEN",
-            "country/BFA",
-            "country/BWA",
-            "country/CAF",
-            "country/CIV",
-            "country/CMR",
-            "country/COD",
-            "country/COG",
-            "country/COM",
-            "country/CPV",
-            "country/DJI",
-            "country/DZA"
-          ],
-          "svs": [
-            "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          ],
-          "type": "Country"
         }
       ]
     },
@@ -349,7 +303,6 @@
         [
           "dc/topic/SDG_1",
           "Count_Person_BelowPovertyLevelInThePast12Months",
-          "Count_Person_PovertyStatusDetermined",
           "Count_Person_AbovePovertyLevelInThePast12Months",
           "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
           "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
@@ -360,8 +313,7 @@
           "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
           "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
           "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
         ]
       ],
       "num_chart_candidates": 8,
@@ -408,33 +360,33 @@
             ],
             "svs": [
               "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX",
-              "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX",
               "sdg/SP_ACS_BSRVH2O_ALLAREA_E",
-              "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+              "sdg/SP_ACS_BSRVSAN_ALLAREA_E",
+              "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
             ]
           }
         }
       ]
     },
     "TIMING": {
-      "build_page_config": 0.35,
-      "fulfillment": 1.05,
-      "get_sample_child_places": 0.18,
-      "get_sv_details": 0.35,
-      "query_detection": 0.25,
-      "sv_existence_for_places": 0.22,
-      "topic_calls": 0.64
+      "build_page_config": 0.27,
+      "fulfillment": 0.69,
+      "get_sample_child_places": 0.1,
+      "get_sv_details": 0.27,
+      "query_detection": 0.31,
+      "sv_existence_for_places": 0.12,
+      "topic_calls": 0.46
     }
   },
   "data_spec": [
     {
       "classifications": [
         {
-          "contained_in_place_type": "Across",
-          "type": 4
+          "type": 10
         },
         {
-          "type": 10
+          "contained_in_place_type": "DefaultType",
+          "type": 4
         }
       ],
       "places": [
@@ -445,7 +397,7 @@
           "place_type": "Continent"
         }
       ],
-      "query": "tell me about poverty across africa",
+      "query": "tell me about poverty in africa",
       "query_type": 4,
       "ranked_charts": [
         {
@@ -472,32 +424,6 @@
           ],
           "svs": [
             "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "comparison map",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 1,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "africa",
-              "name": "Africa",
-              "place_type": "Continent"
-            }
-          ],
-          "svs": [
-            "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
           ]
         },
         {
@@ -550,6 +476,32 @@
           ],
           "svs": [
             "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "africa",
+              "name": "Africa",
+              "place_type": "Continent"
+            }
+          ],
+          "svs": [
+            "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
           ]
         },
         {
@@ -666,7 +618,6 @@
       "svs": [
         "dc/topic/SDG_1",
         "Count_Person_BelowPovertyLevelInThePast12Months",
-        "Count_Person_PovertyStatusDetermined",
         "Count_Person_AbovePovertyLevelInThePast12Months",
         "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
         "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
@@ -677,20 +628,20 @@
         "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
         "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
         "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-        "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
       ]
     }
   ],
   "event_classification": "<None>",
   "main_place_dcid": "africa",
   "main_place_name": "Africa",
-  "original_query": "tell me about poverty across africa",
+  "original_query": "tell me about poverty in africa",
   "overview_classification": "ClassificationType.OVERVIEW",
   "places_detected": [
     "africa"
   ],
   "places_resolved": "(name: Africa, dcid: africa); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": null,
@@ -698,7 +649,7 @@
       "name": "Africa",
       "place_type": "Continent"
     },
-    "original_query": "tell me about poverty across africa",
+    "original_query": "tell me about poverty in africa",
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [
@@ -727,38 +678,38 @@
       "africa"
     ],
     "query_transformations": {
-      "place_detection_input": "tell me about poverty across africa",
-      "place_detection_with_places_removed": "tell me about poverty across",
-      "sv_detection_query_input": "tell me about poverty across",
+      "place_detection_input": "tell me about poverty in africa",
+      "place_detection_with_places_removed": "tell me about poverty",
+      "sv_detection_query_input": "tell me about poverty",
       "sv_detection_query_stop_words_removal": "poverty"
     }
   },
-  "query_with_places_removed": "tell me about poverty across",
+  "query_with_places_removed": "tell me about poverty",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.8146068453788757,
-      0.7128115296363831,
-      0.7120997309684753,
-      0.6903679370880127,
-      0.6868857741355896,
-      0.6809426546096802,
-      0.673106849193573,
-      0.6727957725524902,
-      0.6680919528007507,
-      0.6667654514312744,
-      0.6660555601119995,
-      0.6626517176628113,
+      0.8146070837974548,
+      0.7726284265518188,
+      0.6903677582740784,
+      0.6868860721588135,
+      0.6809425354003906,
+      0.6731066107749939,
+      0.6727953553199768,
+      0.6680921316146851,
+      0.6667651534080505,
+      0.6660559773445129,
+      0.6626518368721008,
       0.6542604565620422,
-      0.645599365234375,
-      0.6453516483306885
+      0.6455997228622437
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/topic/SDG_1",
       "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Count_Person_PovertyStatusDetermined",
       "Count_Person_AbovePovertyLevelInThePast12Months",
       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
@@ -769,112 +720,103 @@
       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
     ],
     "SV_to_Sentences": {
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-        "Number of families in poverty in the past year (0.673106849193573)",
-        "Number of households below poverty line in the past year (0.6552075147628784)"
+        "Number of families in poverty in the past year (0.6731)",
+        "Number of households below poverty line in the past year (0.6552)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months": [
-        "Population: Above Poverty Level in The Past 12 Months (0.6903679370880127)",
-        "Quantity of individuals who were not living in poverty (0.6846542358398438)",
-        "Number of people who haven't been living in poverty in the past year (0.658514142036438)"
+        "Population: Above Poverty Level in The Past 12 Months (0.6904)",
+        "Quantity of individuals who were not living in poverty (0.6847)",
+        "Number of people who haven't been living in poverty in the past year (0.6585)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.645599365234375)"
+        "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6456)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660555601119995)"
+        "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6661)"
       ],
       "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
-        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542604565620422)"
+        "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6543)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months": [
-        "Population: Below Poverty Level in The Past 12 Months (0.7128115296363831)"
+        "Population who are in poverty (0.7726)",
+        "Population: Below Poverty Level in The Past 12 Months (0.7128)",
+        "Population confirmed to be Living in Poverty in the past year\\ (0.6811)",
+        "how many people are determined to be living in poverty (0.6726)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667654514312744)"
+        "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6668)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868857741355896)"
+        "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6869)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
-        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809426546096802)"
+        "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809)"
       ],
       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
-        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626517176628113)"
+        "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6627)"
       ],
       "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
-        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680919528007507)"
-      ],
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
-        "Population: Male, Below Poverty Level in The Past 12 Months (0.6453516483306885)"
+        "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6681)"
       ],
       "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
-        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727957725524902)"
-      ],
-      "Count_Person_PovertyStatusDetermined": [
-        "Number of People Living in Poverty (0.7120997309684753)",
-        "Population: Poverty Status Determined (0.7043510675430298)"
+        "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6728)"
       ],
       "dc/topic/SDG_1": [
-        "End poverty (0.8146068453788757)",
-        "End poverty in all its forms (0.717375636100769)"
+        "End poverty (0.8146)",
+        "End poverty in all its forms (0.7174)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-      "Number of families in poverty in the past year (0.673106849193573)",
-      "Number of households below poverty line in the past year (0.6552075147628784)"
+      "Number of families in poverty in the past year (0.6731)",
+      "Number of households below poverty line in the past year (0.6552)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months": [
-      "Population: Above Poverty Level in The Past 12 Months (0.6903679370880127)",
-      "Quantity of individuals who were not living in poverty (0.6846542358398438)",
-      "Number of people who haven't been living in poverty in the past year (0.658514142036438)"
+      "Population: Above Poverty Level in The Past 12 Months (0.6904)",
+      "Quantity of individuals who were not living in poverty (0.6847)",
+      "Number of people who haven't been living in poverty in the past year (0.6585)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.645599365234375)"
+      "Population: Above Poverty Level in The Past 12 Months, Black or African American Alone (0.6456)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6660555601119995)"
+      "Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone (0.6661)"
     ],
     "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces": [
-      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6542604565620422)"
+      "Population: Above Poverty Level in The Past 12 Months, Two or More Races (0.6543)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months": [
-      "Population: Below Poverty Level in The Past 12 Months (0.7128115296363831)"
+      "Population who are in poverty (0.7726)",
+      "Population: Below Poverty Level in The Past 12 Months (0.7128)",
+      "Population confirmed to be Living in Poverty in the past year\\ (0.6811)",
+      "how many people are determined to be living in poverty (0.6726)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6667654514312744)"
+      "Population: Below Poverty Level in The Past 12 Months, Black or African American Alone (0.6668)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6868857741355896)"
+      "Population: Below Poverty Level in The Past 12 Months, Some Other Race Alone (0.6869)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": [
-      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809426546096802)"
+      "Population: Below Poverty Level in The Past 12 Months, Two or More Races (0.6809)"
     ],
     "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": [
-      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6626517176628113)"
+      "Population: Below Poverty Level in The Past 12 Months, White Alone (0.6627)"
     ],
     "Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined": [
-      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6680919528007507)"
-    ],
-    "Count_Person_Male_BelowPovertyLevelInThePast12Months": [
-      "Population: Male, Below Poverty Level in The Past 12 Months (0.6453516483306885)"
+      "Population: Female, Married in The Past 12 Months, Poverty Status Determined (0.6681)"
     ],
     "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined": [
-      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6727957725524902)"
-    ],
-    "Count_Person_PovertyStatusDetermined": [
-      "Number of People Living in Poverty (0.7120997309684753)",
-      "Population: Poverty Status Determined (0.7043510675430298)"
+      "Population: Male, Married in The Past 12 Months, Poverty Status Determined (0.6728)"
     ],
     "dc/topic/SDG_1": [
-      "End poverty (0.8146068453788757)",
-      "End poverty in all its forms (0.717375636100769)"
+      "End poverty (0.8146)",
+      "End poverty in all its forms (0.7174)"
     ]
   },
   "time_delta_classification": "<None>"

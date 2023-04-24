@@ -41,20 +41,20 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.39,
+      "build_page_config": 0.35,
       "extend_svs": 0.0,
-      "fulfillment": 0.33,
-      "get_sv_details": 0.39,
-      "query_detection": 0.07,
-      "sv_existence_for_places": 0.16,
-      "topic_calls": 0.16
+      "fulfillment": 0.35,
+      "get_sv_details": 0.35,
+      "query_detection": 0.18,
+      "sv_existence_for_places": 0.15,
+      "topic_calls": 0.2
     }
   },
   "data_spec": [
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [],
@@ -101,7 +101,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [],
@@ -285,7 +285,6 @@
       "svs": [
         "Percent_Person_WithAsthma",
         "Percent_Person_Children_WithAsthma",
-        "dc/g/Person_MedicalCondition-Asthma",
         "Percent_Person_Smoking",
         "Percent_Person_WithArthritis",
         "Percent_Person_WithChronicObstructivePulmonaryDisease"
@@ -415,6 +414,7 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": null,
     "original_query": "What is the commute pattern there",
@@ -434,100 +434,103 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6729342937469482,
-      0.21922601759433746,
-      0.2128017246723175,
-      0.21179987490177155,
-      0.20494815707206726,
-      0.19941185414791107,
-      0.19819375872612,
-      0.18487505614757538
+      0.6729344129562378,
+      0.21922604739665985,
+      0.20494811236858368,
+      0.19941182434558868,
+      0.1981937736272812,
+      0.18487513065338135,
+      0.1792144626379013,
+      0.17868325114250183
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/topic/WorkCommute",
       "dc/topic/Jobs",
-      "dc/g/Person_Industry-NAICS/492",
-      "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease",
       "Count_CriminalActivities_MotorVehicleTheft",
       "Count_CriminalActivities_PropertyCrime",
       "Count_CriminalIncidents_IsHateCrime",
-      "dc/n87t9dkckzxc8"
+      "dc/n87t9dkckzxc8",
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+      "Count_Household_NonfamilyHousehold"
     ],
     "SV_to_Sentences": {
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+        "Farm inventory sorted by type (0.1792)"
+      ],
       "Count_CriminalActivities_MotorVehicleTheft": [
-        "Number of vehicles stolen (0.20494815707206726)",
-        "Count of Criminal Activities: Motor Vehicle Theft (0.20094165205955505)",
-        "Number of motor vehicles taken (0.19183620810508728)",
-        "Number of thefts of motor vehicles (0.1885349303483963)",
-        "Total number of vehicles stolen (0.18824565410614014)",
-        "Number of motor vehicle heists (0.18401509523391724)"
+        "Number of vehicles stolen (0.2049)",
+        "Count of Criminal Activities: Motor Vehicle Theft (0.2009)",
+        "Number of motor vehicles taken (0.1918)",
+        "Number of thefts of motor vehicles (0.1885)",
+        "Total number of vehicles stolen (0.1882)",
+        "Number of motor vehicle heists (0.184)",
+        "Total number of motor vehicle theft cases (0.1809)",
+        "Number of Motor Vehicle Thefts (0.1789)"
       ],
       "Count_CriminalActivities_PropertyCrime": [
-        "Number of property cases (0.19941185414791107)"
+        "Number of property cases (0.1994)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Number of discriminatory crimes (0.19819375872612)"
+        "Number of discriminatory crimes (0.1982)"
       ],
-      "dc/g/Person_Industry-NAICS/492": [
-        "People working as couriers and messengers (0.2128017246723175)",
-        "People Working as Couriers and Messengers (0.2128017246723175)",
-        "Person With Industry = Couriers And Messengers (NAICS/492) (0.1928309202194214)"
-      ],
-      "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease": [
-        "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179987490177155)"
+      "Count_Household_NonfamilyHousehold": [
+        "Number of households where the person shares the home only with non-relatives (0.1787)"
       ],
       "dc/n87t9dkckzxc8": [
-        "number of couriers and messengers workers (0.18487505614757538)",
-        "Population of Person: Couriers And Messengers (NAICS/492) (0.18129098415374756)"
+        "number of couriers and messengers workers (0.1849)",
+        "Population of Person: Couriers And Messengers (NAICS/492) (0.1813)"
       ],
       "dc/topic/Jobs": [
-        "Work Occupations (0.21922601759433746)",
-        "distribution of jobs (0.19010554254055023)"
+        "Work Occupations (0.2192)",
+        "distribution of jobs (0.1901)"
       ],
       "dc/topic/WorkCommute": [
-        "commute mode (0.6729342937469482)",
-        "Work commute (0.5764997601509094)",
-        "Work Commute (0.5764997601509094)",
-        "travel to work (0.19010871648788452)"
+        "commute mode (0.6729)",
+        "Work Commute (0.5765)",
+        "Work commute (0.5765)",
+        "travel to work (0.1901)"
       ]
     }
   },
   "svs_to_sentences": {
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal": [
+      "Farm inventory sorted by type (0.1792)"
+    ],
     "Count_CriminalActivities_MotorVehicleTheft": [
-      "Number of vehicles stolen (0.20494815707206726)",
-      "Count of Criminal Activities: Motor Vehicle Theft (0.20094165205955505)",
-      "Number of motor vehicles taken (0.19183620810508728)",
-      "Number of thefts of motor vehicles (0.1885349303483963)",
-      "Total number of vehicles stolen (0.18824565410614014)",
-      "Number of motor vehicle heists (0.18401509523391724)"
+      "Number of vehicles stolen (0.2049)",
+      "Count of Criminal Activities: Motor Vehicle Theft (0.2009)",
+      "Number of motor vehicles taken (0.1918)",
+      "Number of thefts of motor vehicles (0.1885)",
+      "Total number of vehicles stolen (0.1882)",
+      "Number of motor vehicle heists (0.184)",
+      "Total number of motor vehicle theft cases (0.1809)",
+      "Number of Motor Vehicle Thefts (0.1789)"
     ],
     "Count_CriminalActivities_PropertyCrime": [
-      "Number of property cases (0.19941185414791107)"
+      "Number of property cases (0.1994)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Number of discriminatory crimes (0.19819375872612)"
+      "Number of discriminatory crimes (0.1982)"
     ],
-    "dc/g/Person_Industry-NAICS/492": [
-      "People working as couriers and messengers (0.2128017246723175)",
-      "People Working as Couriers and Messengers (0.2128017246723175)",
-      "Person With Industry = Couriers And Messengers (NAICS/492) (0.1928309202194214)"
-    ],
-    "dc/g/Person_MedicalCondition-ChronicObstructivePulmonaryDisease": [
-      "Person With Medical Condition = Chronic Obstructive Pulmonary Disease (0.21179987490177155)"
+    "Count_Household_NonfamilyHousehold": [
+      "Number of households where the person shares the home only with non-relatives (0.1787)"
     ],
     "dc/n87t9dkckzxc8": [
-      "number of couriers and messengers workers (0.18487505614757538)",
-      "Population of Person: Couriers And Messengers (NAICS/492) (0.18129098415374756)"
+      "number of couriers and messengers workers (0.1849)",
+      "Population of Person: Couriers And Messengers (NAICS/492) (0.1813)"
     ],
     "dc/topic/Jobs": [
-      "Work Occupations (0.21922601759433746)",
-      "distribution of jobs (0.19010554254055023)"
+      "Work Occupations (0.2192)",
+      "distribution of jobs (0.1901)"
     ],
     "dc/topic/WorkCommute": [
-      "commute mode (0.6729342937469482)",
-      "Work commute (0.5764997601509094)",
-      "Work Commute (0.5764997601509094)",
-      "travel to work (0.19010871648788452)"
+      "commute mode (0.6729)",
+      "Work Commute (0.5765)",
+      "Work commute (0.5765)",
+      "travel to work (0.1901)"
     ]
   },
   "time_delta_classification": "<None>"

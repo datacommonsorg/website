@@ -48,29 +48,6 @@
             "country/DZA"
           ],
           "svs": [
-            "Count_Person_PovertyStatusDetermined"
-          ],
-          "type": "Country"
-        },
-        {
-          "places": [
-            "country/AGO",
-            "country/ATF",
-            "country/BDI",
-            "country/BEN",
-            "country/BFA",
-            "country/BWA",
-            "country/CAF",
-            "country/CIV",
-            "country/CMR",
-            "country/COD",
-            "country/COG",
-            "country/COM",
-            "country/CPV",
-            "country/DJI",
-            "country/DZA"
-          ],
-          "svs": [
             "Count_Person_AbovePovertyLevelInThePast12Months"
           ],
           "type": "Country"
@@ -302,29 +279,6 @@
           ],
           "svs": [
             "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-          ],
-          "type": "Country"
-        },
-        {
-          "places": [
-            "country/AGO",
-            "country/ATF",
-            "country/BDI",
-            "country/BEN",
-            "country/BFA",
-            "country/BWA",
-            "country/CAF",
-            "country/CIV",
-            "country/CMR",
-            "country/COD",
-            "country/COG",
-            "country/COM",
-            "country/CPV",
-            "country/DJI",
-            "country/DZA"
-          ],
-          "svs": [
-            "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           ],
           "type": "Country"
         }
@@ -582,6 +536,166 @@
             "country/ZWE"
           ],
           "ranked_abs": [
+            "country/CAF",
+            "country/COM",
+            "country/BFA",
+            "country/ZWE",
+            "country/MYT",
+            "country/CIV",
+            "country/REU",
+            "country/SHN",
+            "country/SSD"
+          ],
+          "ranked_pct": [
+            "country/CAF",
+            "country/BFA",
+            "country/COM",
+            "country/ZWE",
+            "country/MYT",
+            "country/CIV",
+            "country/REU",
+            "country/SHN",
+            "country/SSD"
+          ]
+        },
+        {
+          "orig": [
+            "country/AGO",
+            "country/ATF",
+            "country/BDI",
+            "country/BEN",
+            "country/BFA",
+            "country/BWA",
+            "country/CAF",
+            "country/CIV",
+            "country/CMR",
+            "country/COD",
+            "country/COG",
+            "country/COM",
+            "country/CPV",
+            "country/DJI",
+            "country/DZA",
+            "country/EGY",
+            "country/ERI",
+            "country/ESH",
+            "country/ETH",
+            "country/GAB",
+            "country/GHA",
+            "country/GIN",
+            "country/GMB",
+            "country/GNB",
+            "country/GNQ",
+            "country/KEN",
+            "country/LBR",
+            "country/LBY",
+            "country/LSO",
+            "country/MAR",
+            "country/MDG",
+            "country/MLI",
+            "country/MOZ",
+            "country/MRT",
+            "country/MUS",
+            "country/MWI",
+            "country/MYT",
+            "country/NAM",
+            "country/NER",
+            "country/NGA",
+            "country/REU",
+            "country/RWA",
+            "country/SDN",
+            "country/SEN",
+            "country/SHN",
+            "country/SLE",
+            "country/SOM",
+            "country/SSD",
+            "country/STP",
+            "country/SWZ",
+            "country/SYC",
+            "country/TCD",
+            "country/TGO",
+            "country/TUN",
+            "country/TZA",
+            "country/UGA",
+            "country/ZAF",
+            "country/ZMB",
+            "country/ZWE"
+          ],
+          "ranked_abs": [
+            "country/ZWE",
+            "country/COD",
+            "country/CAF",
+            "country/GMB"
+          ],
+          "ranked_pct": [
+            "country/COD",
+            "country/CAF",
+            "country/ZWE",
+            "country/GMB"
+          ]
+        },
+        {
+          "orig": [
+            "country/AGO",
+            "country/ATF",
+            "country/BDI",
+            "country/BEN",
+            "country/BFA",
+            "country/BWA",
+            "country/CAF",
+            "country/CIV",
+            "country/CMR",
+            "country/COD",
+            "country/COG",
+            "country/COM",
+            "country/CPV",
+            "country/DJI",
+            "country/DZA",
+            "country/EGY",
+            "country/ERI",
+            "country/ESH",
+            "country/ETH",
+            "country/GAB",
+            "country/GHA",
+            "country/GIN",
+            "country/GMB",
+            "country/GNB",
+            "country/GNQ",
+            "country/KEN",
+            "country/LBR",
+            "country/LBY",
+            "country/LSO",
+            "country/MAR",
+            "country/MDG",
+            "country/MLI",
+            "country/MOZ",
+            "country/MRT",
+            "country/MUS",
+            "country/MWI",
+            "country/MYT",
+            "country/NAM",
+            "country/NER",
+            "country/NGA",
+            "country/REU",
+            "country/RWA",
+            "country/SDN",
+            "country/SEN",
+            "country/SHN",
+            "country/SLE",
+            "country/SOM",
+            "country/SSD",
+            "country/STP",
+            "country/SWZ",
+            "country/SYC",
+            "country/TCD",
+            "country/TGO",
+            "country/TUN",
+            "country/TZA",
+            "country/UGA",
+            "country/ZAF",
+            "country/ZMB",
+            "country/ZWE"
+          ],
+          "ranked_abs": [
             "country/GMB",
             "country/BFA",
             "country/TZA",
@@ -665,166 +779,6 @@
             "country/ERI",
             "country/SOM"
           ]
-        },
-        {
-          "orig": [
-            "country/AGO",
-            "country/ATF",
-            "country/BDI",
-            "country/BEN",
-            "country/BFA",
-            "country/BWA",
-            "country/CAF",
-            "country/CIV",
-            "country/CMR",
-            "country/COD",
-            "country/COG",
-            "country/COM",
-            "country/CPV",
-            "country/DJI",
-            "country/DZA",
-            "country/EGY",
-            "country/ERI",
-            "country/ESH",
-            "country/ETH",
-            "country/GAB",
-            "country/GHA",
-            "country/GIN",
-            "country/GMB",
-            "country/GNB",
-            "country/GNQ",
-            "country/KEN",
-            "country/LBR",
-            "country/LBY",
-            "country/LSO",
-            "country/MAR",
-            "country/MDG",
-            "country/MLI",
-            "country/MOZ",
-            "country/MRT",
-            "country/MUS",
-            "country/MWI",
-            "country/MYT",
-            "country/NAM",
-            "country/NER",
-            "country/NGA",
-            "country/REU",
-            "country/RWA",
-            "country/SDN",
-            "country/SEN",
-            "country/SHN",
-            "country/SLE",
-            "country/SOM",
-            "country/SSD",
-            "country/STP",
-            "country/SWZ",
-            "country/SYC",
-            "country/TCD",
-            "country/TGO",
-            "country/TUN",
-            "country/TZA",
-            "country/UGA",
-            "country/ZAF",
-            "country/ZMB",
-            "country/ZWE"
-          ],
-          "ranked_abs": [
-            "country/CAF",
-            "country/COM",
-            "country/BFA",
-            "country/ZWE",
-            "country/MYT",
-            "country/CIV",
-            "country/REU",
-            "country/SHN",
-            "country/SSD"
-          ],
-          "ranked_pct": [
-            "country/CAF",
-            "country/BFA",
-            "country/COM",
-            "country/ZWE",
-            "country/MYT",
-            "country/CIV",
-            "country/REU",
-            "country/SHN",
-            "country/SSD"
-          ]
-        },
-        {
-          "orig": [
-            "country/AGO",
-            "country/ATF",
-            "country/BDI",
-            "country/BEN",
-            "country/BFA",
-            "country/BWA",
-            "country/CAF",
-            "country/CIV",
-            "country/CMR",
-            "country/COD",
-            "country/COG",
-            "country/COM",
-            "country/CPV",
-            "country/DJI",
-            "country/DZA",
-            "country/EGY",
-            "country/ERI",
-            "country/ESH",
-            "country/ETH",
-            "country/GAB",
-            "country/GHA",
-            "country/GIN",
-            "country/GMB",
-            "country/GNB",
-            "country/GNQ",
-            "country/KEN",
-            "country/LBR",
-            "country/LBY",
-            "country/LSO",
-            "country/MAR",
-            "country/MDG",
-            "country/MLI",
-            "country/MOZ",
-            "country/MRT",
-            "country/MUS",
-            "country/MWI",
-            "country/MYT",
-            "country/NAM",
-            "country/NER",
-            "country/NGA",
-            "country/REU",
-            "country/RWA",
-            "country/SDN",
-            "country/SEN",
-            "country/SHN",
-            "country/SLE",
-            "country/SOM",
-            "country/SSD",
-            "country/STP",
-            "country/SWZ",
-            "country/SYC",
-            "country/TCD",
-            "country/TGO",
-            "country/TUN",
-            "country/TZA",
-            "country/UGA",
-            "country/ZAF",
-            "country/ZMB",
-            "country/ZWE"
-          ],
-          "ranked_abs": [
-            "country/ZWE",
-            "country/COD",
-            "country/CAF",
-            "country/GMB"
-          ],
-          "ranked_pct": [
-            "country/COD",
-            "country/CAF",
-            "country/ZWE",
-            "country/GMB"
-          ]
         }
       ],
       "topics_processed": [
@@ -867,22 +821,22 @@
             ],
             "svs": [
               "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX",
-              "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX",
               "sdg/SP_ACS_BSRVH2O_ALLAREA_E",
-              "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+              "sdg/SP_ACS_BSRVSAN_ALLAREA_E",
+              "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
             ]
           }
         }
       ]
     },
     "TIMING": {
-      "build_page_config": 0.35,
-      "fulfillment": 1.24,
-      "get_all_child_places": 0.17,
-      "get_sample_child_places": 0.12,
-      "get_sv_details": 0.34,
-      "query_detection": 0.05,
-      "rank_places_by_series_growth": 0.9299999999999999,
+      "build_page_config": 0.22,
+      "fulfillment": 1.0,
+      "get_all_child_places": 0.14,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.21,
+      "query_detection": 0.15,
+      "rank_places_by_series_growth": 0.74,
       "sv_existence_for_places": 0.0,
       "topic_calls": 0.0
     }
@@ -1220,6 +1174,258 @@
           "places": [
             {
               "country": null,
+              "dcid": "country/CAF",
+              "name": "Central African Republic",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/COM",
+              "name": "Comoros",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/ZWE",
+              "name": "Zimbabwe",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/MYT",
+              "name": "Mayotte",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/CIV",
+              "name": "C\u00f4te d'Ivoire",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/REU",
+              "name": "R\u00e9union",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/SHN",
+              "name": "Saint Helena",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 1,
+            "growth_ranking_type": "pct",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "country/CAF",
+              "name": "Central African Republic",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/COM",
+              "name": "Comoros",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/ZWE",
+              "name": "Zimbabwe",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/MYT",
+              "name": "Mayotte",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/CIV",
+              "name": "C\u00f4te d'Ivoire",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/REU",
+              "name": "R\u00e9union",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/SHN",
+              "name": "Saint Helena",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 1,
+            "growth_ranking_type": "abs",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "country/ZWE",
+              "name": "Zimbabwe",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/COD",
+              "name": "Congo [DRC]",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/CAF",
+              "name": "Central African Republic",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 1,
+            "growth_ranking_type": "pct",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "country/COD",
+              "name": "Congo [DRC]",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/CAF",
+              "name": "Central African Republic",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/ZWE",
+              "name": "Zimbabwe",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 1,
+            "growth_ranking_type": "abs",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "country": null,
               "dcid": "country/GMB",
               "name": "Gambia",
               "place_type": "Country"
@@ -1486,258 +1692,6 @@
           "svs": [
             "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
           ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "growth_direction": 1,
-            "growth_ranking_type": "abs",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 7,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "country/CAF",
-              "name": "Central African Republic",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/COM",
-              "name": "Comoros",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/BFA",
-              "name": "Burkina Faso",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/ZWE",
-              "name": "Zimbabwe",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/MYT",
-              "name": "Mayotte",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/CIV",
-              "name": "C\u00f4te d'Ivoire",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/REU",
-              "name": "R\u00e9union",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/SHN",
-              "name": "Saint Helena",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/SSD",
-              "name": "South Sudan",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "growth_direction": 1,
-            "growth_ranking_type": "pct",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 7,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "country/CAF",
-              "name": "Central African Republic",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/BFA",
-              "name": "Burkina Faso",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/COM",
-              "name": "Comoros",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/ZWE",
-              "name": "Zimbabwe",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/MYT",
-              "name": "Mayotte",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/CIV",
-              "name": "C\u00f4te d'Ivoire",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/REU",
-              "name": "R\u00e9union",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/SHN",
-              "name": "Saint Helena",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/SSD",
-              "name": "South Sudan",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "growth_direction": 1,
-            "growth_ranking_type": "abs",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 7,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "country/ZWE",
-              "name": "Zimbabwe",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/COD",
-              "name": "Congo [DRC]",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/CAF",
-              "name": "Central African Republic",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/GMB",
-              "name": "Gambia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "growth_direction": 1,
-            "growth_ranking_type": "pct",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 7,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "country/COD",
-              "name": "Congo [DRC]",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/CAF",
-              "name": "Central African Republic",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/ZWE",
-              "name": "Zimbabwe",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/GMB",
-              "name": "Gambia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
-          ]
         }
       ],
       "session_id": "007_999999999",
@@ -1746,11 +1700,11 @@
     {
       "classifications": [
         {
-          "contained_in_place_type": "Across",
-          "type": 4
+          "type": 10
         },
         {
-          "type": 10
+          "contained_in_place_type": "DefaultType",
+          "type": 4
         }
       ],
       "places": [
@@ -1761,7 +1715,7 @@
           "place_type": "Continent"
         }
       ],
-      "query": "tell me about poverty across africa",
+      "query": "tell me about poverty in africa",
       "query_type": 4,
       "ranked_charts": [
         {
@@ -1813,32 +1767,6 @@
             }
           ],
           "svs": [
-            "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "comparison map",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 1,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "africa",
-              "name": "Africa",
-              "place_type": "Continent"
-            }
-          ],
-          "svs": [
             "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
           ]
         },
@@ -1866,6 +1794,32 @@
           ],
           "svs": [
             "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "africa",
+              "name": "Africa",
+              "place_type": "Continent"
+            }
+          ],
+          "svs": [
+            "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
           ]
         },
         {
@@ -1982,7 +1936,6 @@
       "svs": [
         "dc/topic/SDG_1",
         "Count_Person_BelowPovertyLevelInThePast12Months",
-        "Count_Person_PovertyStatusDetermined",
         "Count_Person_AbovePovertyLevelInThePast12Months",
         "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
         "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
@@ -1993,8 +1946,7 @@
         "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
         "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
         "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-        "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
       ]
     }
   ],
@@ -2005,6 +1957,7 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": null,
     "original_query": "which countries have show the greatest reduction",
@@ -2024,26 +1977,30 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3354516625404358,
-      0.3187749981880188,
-      0.28355491161346436,
-      0.2600732147693634,
-      0.23148170113563538,
-      0.2305675446987152,
-      0.22832512855529785,
-      0.22739243507385254,
-      0.2262921780347824,
-      0.21368339657783508,
-      0.20248617231845856,
-      0.19674479961395264,
-      0.19471214711666107,
-      0.19335290789604187
+      0.33545154333114624,
+      0.3187750577926636,
+      0.2835548520088196,
+      0.2600732445716858,
+      0.25041717290878296,
+      0.23148171603679657,
+      0.23056739568710327,
+      0.22832535207271576,
+      0.22739239037036896,
+      0.22629202902317047,
+      0.21368329226970673,
+      0.202486053109169,
+      0.19921720027923584,
+      0.1967446208000183
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/topic/Income",
       "dc/topic/Jobs",
       "GiniIndex_EconomicActivity",
       "Amount_FarmInventory_PeanutsForNuts",
+      "Count_CriminalActivities_CombinedCrime",
       "Count_Teacher",
       "dc/topic/SDG_4",
       "Count_Person_BlackOrAfricanAmericanAlone",
@@ -2051,109 +2008,108 @@
       "dc/topic/Economy",
       "dc/topic/WorkCommute",
       "Amount_FarmInventory_DryEdibleBeans",
-      "dc/topic/MedicalConditions",
-      "dc/topic/SDG_3",
-      "dc/c58mvty4nhxdb"
+      "dc/topic/HomeValue",
+      "dc/topic/MedicalConditions"
     ],
     "SV_to_Sentences": {
       "Amount_FarmInventory_DryEdibleBeans": [
-        "Bean output (0.20248617231845856)"
+        "Bean output (0.2025)"
       ],
       "Amount_FarmInventory_OatsForGrain": [
-        "Oat output (0.22739243507385254)"
+        "Oat output (0.2274)"
       ],
       "Amount_FarmInventory_PeanutsForNuts": [
-        "Peanut output (0.2600732147693634)"
+        "Peanut output (0.2601)"
+      ],
+      "Count_CriminalActivities_CombinedCrime": [
+        "crime in (0.2504)"
       ],
       "Count_Person_BlackOrAfricanAmericanAlone": [
-        "black people (0.22832512855529785)"
+        "black people (0.2283)"
       ],
       "Count_Teacher": [
-        "Teachers (0.23148170113563538)"
+        "Teachers (0.2315)"
       ],
       "GiniIndex_EconomicActivity": [
-        "Inequality (0.28355491161346436)"
-      ],
-      "dc/c58mvty4nhxdb": [
-        "best school performance (0.19335290789604187)"
+        "Inequality (0.2836)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.2262921780347824)"
+        "Economy (0.2263)"
+      ],
+      "dc/topic/HomeValue": [
+        "Home Value (0.1992)"
       ],
       "dc/topic/Income": [
-        "pay (0.3354516625404358)",
-        "Earnings (0.24975180625915527)",
-        "compensation (0.22691334784030914)",
-        "Income (0.21251296997070312)"
+        "pay (0.3355)",
+        "wealth (0.3108)",
+        "Earnings (0.2498)",
+        "compensation (0.2269)",
+        "Income (0.2125)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.3187749981880188)",
-        "Careers (0.24885886907577515)",
-        "Professions (0.21598854660987854)"
+        "Jobs (0.3188)",
+        "Careers (0.2489)",
+        "Professions (0.216)"
       ],
       "dc/topic/MedicalConditions": [
-        "Medical infirmities (0.19674479961395264)",
-        "Maladies (0.19331419467926025)"
-      ],
-      "dc/topic/SDG_3": [
-        "Good health and well being (0.19471214711666107)"
+        "Medical infirmities (0.1967)"
       ],
       "dc/topic/SDG_4": [
-        "life long learning (0.2305675446987152)"
+        "life long learning (0.2306)"
       ],
       "dc/topic/WorkCommute": [
-        "journey to work (0.21368339657783508)"
+        "journey to work (0.2137)"
       ]
     }
   },
   "svs_to_sentences": {
     "Amount_FarmInventory_DryEdibleBeans": [
-      "Bean output (0.20248617231845856)"
+      "Bean output (0.2025)"
     ],
     "Amount_FarmInventory_OatsForGrain": [
-      "Oat output (0.22739243507385254)"
+      "Oat output (0.2274)"
     ],
     "Amount_FarmInventory_PeanutsForNuts": [
-      "Peanut output (0.2600732147693634)"
+      "Peanut output (0.2601)"
+    ],
+    "Count_CriminalActivities_CombinedCrime": [
+      "crime in (0.2504)"
     ],
     "Count_Person_BlackOrAfricanAmericanAlone": [
-      "black people (0.22832512855529785)"
+      "black people (0.2283)"
     ],
     "Count_Teacher": [
-      "Teachers (0.23148170113563538)"
+      "Teachers (0.2315)"
     ],
     "GiniIndex_EconomicActivity": [
-      "Inequality (0.28355491161346436)"
-    ],
-    "dc/c58mvty4nhxdb": [
-      "best school performance (0.19335290789604187)"
+      "Inequality (0.2836)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.2262921780347824)"
+      "Economy (0.2263)"
+    ],
+    "dc/topic/HomeValue": [
+      "Home Value (0.1992)"
     ],
     "dc/topic/Income": [
-      "pay (0.3354516625404358)",
-      "Earnings (0.24975180625915527)",
-      "compensation (0.22691334784030914)",
-      "Income (0.21251296997070312)"
+      "pay (0.3355)",
+      "wealth (0.3108)",
+      "Earnings (0.2498)",
+      "compensation (0.2269)",
+      "Income (0.2125)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.3187749981880188)",
-      "Careers (0.24885886907577515)",
-      "Professions (0.21598854660987854)"
+      "Jobs (0.3188)",
+      "Careers (0.2489)",
+      "Professions (0.216)"
     ],
     "dc/topic/MedicalConditions": [
-      "Medical infirmities (0.19674479961395264)",
-      "Maladies (0.19331419467926025)"
-    ],
-    "dc/topic/SDG_3": [
-      "Good health and well being (0.19471214711666107)"
+      "Medical infirmities (0.1967)"
     ],
     "dc/topic/SDG_4": [
-      "life long learning (0.2305675446987152)"
+      "life long learning (0.2306)"
     ],
     "dc/topic/WorkCommute": [
-      "journey to work (0.21368339657783508)"
+      "journey to work (0.2137)"
     ]
   },
   "time_delta_classification": "[<TimeDeltaType.DECREASE: 1>]"

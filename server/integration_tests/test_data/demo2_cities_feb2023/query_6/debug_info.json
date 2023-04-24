@@ -4,56 +4,7 @@
   "contained_in_classification": "ContainedInPlaceType.COUNTRY",
   "correlation_classification": "<None>",
   "counters": {
-    "ERROR": {
-      "failed_partial_existence_check": [
-        {
-          "places": [
-            "country/AGO",
-            "country/ATF",
-            "country/BDI",
-            "country/BEN",
-            "country/BFA",
-            "country/BWA",
-            "country/CAF",
-            "country/CIV",
-            "country/CMR",
-            "country/COD",
-            "country/COG",
-            "country/COM",
-            "country/CPV",
-            "country/DJI",
-            "country/DZA"
-          ],
-          "svs": [
-            "Median_Age_Person"
-          ],
-          "type": "Country"
-        },
-        {
-          "places": [
-            "country/AGO",
-            "country/ATF",
-            "country/BDI",
-            "country/BEN",
-            "country/BFA",
-            "country/BWA",
-            "country/CAF",
-            "country/CIV",
-            "country/CMR",
-            "country/COD",
-            "country/COG",
-            "country/COM",
-            "country/CPV",
-            "country/DJI",
-            "country/DZA"
-          ],
-          "svs": [
-            "Count_Death"
-          ],
-          "type": "Country"
-        }
-      ]
-    },
+    "ERROR": {},
     "INFO": {
       "child_places_result": [
         {
@@ -71,9 +22,7 @@
           "LifeExpectancy_Person",
           "LifeExpectancy_Person_Male",
           "LifeExpectancy_Person_Female",
-          "Count_Death_AsAFractionOfCount_Person",
-          "Median_Age_Person",
-          "Count_Death"
+          "Count_Death_AsAFractionOfCount_Person"
         ]
       ],
       "num_chart_candidates": 8,
@@ -678,14 +627,14 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.42,
-      "fulfillment": 1.66,
-      "get_all_child_places": 0.24,
-      "get_sample_child_places": 0.11,
-      "get_sv_details": 0.4,
-      "query_detection": 0.23,
-      "rank_places_by_series_growth": 1.13,
-      "sv_existence_for_places": 0.16
+      "build_page_config": 0.36,
+      "fulfillment": 1.58,
+      "get_all_child_places": 0.25,
+      "get_sample_child_places": 0.18,
+      "get_sv_details": 0.35,
+      "query_detection": 0.35,
+      "rank_places_by_series_growth": 1.0,
+      "sv_existence_for_places": 0.15
     }
   },
   "data_spec": [
@@ -1649,9 +1598,7 @@
         "LifeExpectancy_Person",
         "LifeExpectancy_Person_Male",
         "LifeExpectancy_Person_Female",
-        "Count_Death_AsAFractionOfCount_Person",
-        "Median_Age_Person",
-        "Count_Death"
+        "Count_Death_AsAFractionOfCount_Person"
       ]
     },
     {
@@ -1774,7 +1721,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [],
@@ -1821,7 +1768,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [],
@@ -2005,7 +1952,6 @@
       "svs": [
         "Percent_Person_WithAsthma",
         "Percent_Person_Children_WithAsthma",
-        "dc/g/Person_MedicalCondition-Asthma",
         "Percent_Person_Smoking",
         "Percent_Person_WithArthritis",
         "Percent_Person_WithChronicObstructivePulmonaryDisease"
@@ -2137,6 +2083,7 @@
     "africa"
   ],
   "places_resolved": "(name: Africa, dcid: africa); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": null,
@@ -2185,88 +2132,161 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.9999998807907104,
-      0.818101704120636,
-      0.8119910955429077,
-      0.5961609482765198,
-      0.5053415894508362,
-      0.5053173303604126
+      1.0000001192092896,
+      0.8181014657020569,
+      0.8139366507530212,
+      0.596160888671875
     ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.793,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5859779119491577
+              ],
+              "QueryPart": "countries greatest increase",
+              "SV": [
+                "GrowthRate_Count_Person"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.9999995827674866
+              ],
+              "QueryPart": "life expectancy",
+              "SV": [
+                "LifeExpectancy_Person"
+              ]
+            }
+          ]
+        },
+        {
+          "AggCosineScore": 0.6284,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5859779119491577
+              ],
+              "QueryPart": "countries greatest increase",
+              "SV": [
+                "GrowthRate_Count_Person"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.5702657699584961
+              ],
+              "QueryPart": "life",
+              "SV": [
+                "dc/topic/SDG_3"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.7288339138031006
+              ],
+              "QueryPart": "expectancy",
+              "SV": [
+                "LifeExpectancy_Person"
+              ]
+            }
+          ]
+        },
+        {
+          "AggCosineScore": 0.6214,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5138831734657288
+              ],
+              "QueryPart": "countries greatest increase life",
+              "SV": [
+                "GrowthRate_Count_Person"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.7288339138031006
+              ],
+              "QueryPart": "expectancy",
+              "SV": [
+                "LifeExpectancy_Person"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "SV": [
       "LifeExpectancy_Person",
       "LifeExpectancy_Person_Male",
       "LifeExpectancy_Person_Female",
-      "Count_Death_AsAFractionOfCount_Person",
-      "Median_Age_Person",
-      "Count_Death"
+      "Count_Death_AsAFractionOfCount_Person"
     ],
     "SV_to_Sentences": {
-      "Count_Death": [
-        "Count of Mortality Event (0.5053173303604126)"
-      ],
       "Count_Death_AsAFractionOfCount_Person": [
-        "Mortality rate (0.5961609482765198)",
-        "Death rate (0.5275478959083557)"
+        "Mortality rate (0.5962)"
       ],
       "LifeExpectancy_Person": [
-        "Life Expectancy (0.9999998807907104)",
-        "Average life expectancy of the population (0.8563627600669861)",
-        "Typical lifespan of the population (0.7687245607376099)",
-        "Mean lifespan of the population (0.7668242454528809)",
-        "Average lifespan of the population (0.73939448595047)",
-        "Average lifespan of a population (0.7195129990577698)",
-        "Average Lifespan of a Population (0.7195129990577698)",
-        "Median lifespan of the population (0.6611571311950684)"
+        "Life Expectancy (1.0)",
+        "Average life expectancy of the population (0.8564)",
+        "Typical lifespan of the population (0.7687)",
+        "Mean lifespan of the population (0.7668)",
+        "Average lifespan of the population (0.7394)",
+        "Average lifespan of a population (0.7195)",
+        "Average Lifespan of a Population (0.7195)",
+        "how long do people live (0.682)",
+        "Median lifespan of the population (0.6612)"
       ],
       "LifeExpectancy_Person_Female": [
-        "Life expectancy at birth, female (years) (0.8119910955429077)",
-        "Female life expectancy (0.8110573291778564)",
-        "Female Life Expectancy (0.8110573291778564)",
-        "Life expectancy of females at birth (0.6985270380973816)"
+        "life expectancy of women (0.8139)",
+        "Life expectancy at birth, female (years) (0.812)",
+        "Female life expectancy (0.8111)",
+        "Female Life Expectancy (0.8111)",
+        "Life expectancy of females at birth (0.6985)"
       ],
       "LifeExpectancy_Person_Male": [
-        "Life Expectancy: Male (0.818101704120636)",
-        "Male life expectancy (0.79051274061203)",
-        "Male Life Expectancy (0.79051274061203)",
-        "Life Expectancy of Males at birth (0.6862162351608276)"
-      ],
-      "Median_Age_Person": [
-        "Mean age of the population (0.5053415894508362)"
+        "Life Expectancy: Male (0.8181)",
+        "life expectancy of men (0.8135)",
+        "Male Life Expectancy (0.7905)",
+        "Male life expectancy (0.7905)",
+        "Life Expectancy of Males at birth (0.6862)"
       ]
     }
   },
   "svs_to_sentences": {
-    "Count_Death": [
-      "Count of Mortality Event (0.5053173303604126)"
-    ],
     "Count_Death_AsAFractionOfCount_Person": [
-      "Mortality rate (0.5961609482765198)",
-      "Death rate (0.5275478959083557)"
+      "Mortality rate (0.5962)"
     ],
     "LifeExpectancy_Person": [
-      "Life Expectancy (0.9999998807907104)",
-      "Average life expectancy of the population (0.8563627600669861)",
-      "Typical lifespan of the population (0.7687245607376099)",
-      "Mean lifespan of the population (0.7668242454528809)",
-      "Average lifespan of the population (0.73939448595047)",
-      "Average lifespan of a population (0.7195129990577698)",
-      "Average Lifespan of a Population (0.7195129990577698)",
-      "Median lifespan of the population (0.6611571311950684)"
+      "Life Expectancy (1.0)",
+      "Average life expectancy of the population (0.8564)",
+      "Typical lifespan of the population (0.7687)",
+      "Mean lifespan of the population (0.7668)",
+      "Average lifespan of the population (0.7394)",
+      "Average lifespan of a population (0.7195)",
+      "Average Lifespan of a Population (0.7195)",
+      "how long do people live (0.682)",
+      "Median lifespan of the population (0.6612)"
     ],
     "LifeExpectancy_Person_Female": [
-      "Life expectancy at birth, female (years) (0.8119910955429077)",
-      "Female life expectancy (0.8110573291778564)",
-      "Female Life Expectancy (0.8110573291778564)",
-      "Life expectancy of females at birth (0.6985270380973816)"
+      "life expectancy of women (0.8139)",
+      "Life expectancy at birth, female (years) (0.812)",
+      "Female life expectancy (0.8111)",
+      "Female Life Expectancy (0.8111)",
+      "Life expectancy of females at birth (0.6985)"
     ],
     "LifeExpectancy_Person_Male": [
-      "Life Expectancy: Male (0.818101704120636)",
-      "Male life expectancy (0.79051274061203)",
-      "Male Life Expectancy (0.79051274061203)",
-      "Life Expectancy of Males at birth (0.6862162351608276)"
-    ],
-    "Median_Age_Person": [
-      "Mean age of the population (0.5053415894508362)"
+      "Life Expectancy: Male (0.8181)",
+      "life expectancy of men (0.8135)",
+      "Male Life Expectancy (0.7905)",
+      "Male life expectancy (0.7905)",
+      "Life Expectancy of Males at birth (0.6862)"
     ]
   },
   "time_delta_classification": "[<TimeDeltaType.INCREASE: 0>]"

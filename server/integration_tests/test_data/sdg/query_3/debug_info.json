@@ -1,7 +1,7 @@
 {
   "clustering_classification": "<None>",
   "comparison_classification": "<None>",
-  "contained_in_classification": "ContainedInPlaceType.ACROSS",
+  "contained_in_classification": "ContainedInPlaceType.DEFAULT_TYPE",
   "correlation_classification": "<None>",
   "counters": {
     "ERROR": {
@@ -26,8 +26,8 @@
           ],
           "svs": [
             "Percent_Person_WithStroke",
-            "Percent_Person_WithAsthma",
-            "Percent_Person_WithHighCholesterol"
+            "Percent_Person_WithArthritis",
+            "Percent_Person_WithChronicKidneyDisease"
           ],
           "type": "Country"
         },
@@ -75,7 +75,7 @@
         [
           "dc/topic/MedicalConditions",
           "dc/topic/SDG_3",
-          "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
+          "dc/topic/MaternalHealth",
           "Percent_Person_WithPhysicalHealthNotGood"
         ]
       ],
@@ -171,24 +171,33 @@
             ],
             "svs": []
           }
+        },
+        {
+          "dc/topic/MaternalHealth": {
+            "peer_groups": [],
+            "svs": []
+          }
         }
       ]
     },
     "TIMING": {
-      "build_page_config": 0.33,
-      "fulfillment": 1.3,
-      "get_sample_child_places": 0.17,
-      "get_sv_details": 0.33,
-      "query_detection": 0.23,
-      "sv_existence_for_places": 0.17,
-      "topic_calls": 0.95
+      "build_page_config": 0.24,
+      "fulfillment": 0.87,
+      "get_sample_child_places": 0.1,
+      "get_sv_details": 0.23,
+      "query_detection": 0.27,
+      "sv_existence_for_places": 0.11,
+      "topic_calls": 0.64
     }
   },
   "data_spec": [
     {
       "classifications": [
         {
-          "contained_in_place_type": "Across",
+          "type": 13
+        },
+        {
+          "contained_in_place_type": "DefaultType",
           "type": 4
         }
       ],
@@ -200,7 +209,7 @@
           "place_type": "Place"
         }
       ],
-      "query": "show me about health across the world",
+      "query": "health in the world",
       "query_type": 4,
       "ranked_charts": [
         {
@@ -378,7 +387,7 @@
       "svs": [
         "dc/topic/MedicalConditions",
         "dc/topic/SDG_3",
-        "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
+        "dc/topic/MaternalHealth",
         "Percent_Person_WithPhysicalHealthNotGood"
       ]
     },
@@ -714,6 +723,258 @@
           "places": [
             {
               "country": null,
+              "dcid": "country/CAF",
+              "name": "Central African Republic",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/COM",
+              "name": "Comoros",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/ZWE",
+              "name": "Zimbabwe",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/MYT",
+              "name": "Mayotte",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/CIV",
+              "name": "C\u00f4te d'Ivoire",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/REU",
+              "name": "R\u00e9union",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/SHN",
+              "name": "Saint Helena",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 1,
+            "growth_ranking_type": "pct",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "country/CAF",
+              "name": "Central African Republic",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/BFA",
+              "name": "Burkina Faso",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/COM",
+              "name": "Comoros",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/ZWE",
+              "name": "Zimbabwe",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/MYT",
+              "name": "Mayotte",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/CIV",
+              "name": "C\u00f4te d'Ivoire",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/REU",
+              "name": "R\u00e9union",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/SHN",
+              "name": "Saint Helena",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/SSD",
+              "name": "South Sudan",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 1,
+            "growth_ranking_type": "abs",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "country/ZWE",
+              "name": "Zimbabwe",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/COD",
+              "name": "Congo [DRC]",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/CAF",
+              "name": "Central African Republic",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 1,
+            "growth_ranking_type": "pct",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "country/COD",
+              "name": "Congo [DRC]",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/CAF",
+              "name": "Central African Republic",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/ZWE",
+              "name": "Zimbabwe",
+              "place_type": "Country"
+            },
+            {
+              "country": null,
+              "dcid": "country/GMB",
+              "name": "Gambia",
+              "place_type": "Country"
+            }
+          ],
+          "svs": [
+            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "",
+            "class": 0,
+            "description": "",
+            "growth_direction": 1,
+            "growth_ranking_type": "abs",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [
+              1
+            ],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 7,
+          "event": null,
+          "places": [
+            {
+              "country": null,
               "dcid": "country/GMB",
               "name": "Gambia",
               "place_type": "Country"
@@ -980,258 +1241,6 @@
           "svs": [
             "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
           ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "growth_direction": 1,
-            "growth_ranking_type": "abs",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 7,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "country/CAF",
-              "name": "Central African Republic",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/COM",
-              "name": "Comoros",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/BFA",
-              "name": "Burkina Faso",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/ZWE",
-              "name": "Zimbabwe",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/MYT",
-              "name": "Mayotte",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/CIV",
-              "name": "C\u00f4te d'Ivoire",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/REU",
-              "name": "R\u00e9union",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/SHN",
-              "name": "Saint Helena",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/SSD",
-              "name": "South Sudan",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "growth_direction": 1,
-            "growth_ranking_type": "pct",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 7,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "country/CAF",
-              "name": "Central African Republic",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/BFA",
-              "name": "Burkina Faso",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/COM",
-              "name": "Comoros",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/ZWE",
-              "name": "Zimbabwe",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/MYT",
-              "name": "Mayotte",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/CIV",
-              "name": "C\u00f4te d'Ivoire",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/REU",
-              "name": "R\u00e9union",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/SHN",
-              "name": "Saint Helena",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/SSD",
-              "name": "South Sudan",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "growth_direction": 1,
-            "growth_ranking_type": "abs",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 7,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "country/ZWE",
-              "name": "Zimbabwe",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/COD",
-              "name": "Congo [DRC]",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/CAF",
-              "name": "Central African Republic",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/GMB",
-              "name": "Gambia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "",
-            "class": 0,
-            "description": "",
-            "growth_direction": 1,
-            "growth_ranking_type": "pct",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [
-              1
-            ],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 7,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "country/COD",
-              "name": "Congo [DRC]",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/CAF",
-              "name": "Central African Republic",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/ZWE",
-              "name": "Zimbabwe",
-              "place_type": "Country"
-            },
-            {
-              "country": null,
-              "dcid": "country/GMB",
-              "name": "Gambia",
-              "place_type": "Country"
-            }
-          ],
-          "svs": [
-            "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
-          ]
         }
       ],
       "session_id": "007_999999999",
@@ -1240,11 +1249,11 @@
     {
       "classifications": [
         {
-          "contained_in_place_type": "Across",
-          "type": 4
+          "type": 10
         },
         {
-          "type": 10
+          "contained_in_place_type": "DefaultType",
+          "type": 4
         }
       ],
       "places": [
@@ -1255,7 +1264,7 @@
           "place_type": "Continent"
         }
       ],
-      "query": "tell me about poverty across africa",
+      "query": "tell me about poverty in africa",
       "query_type": 4,
       "ranked_charts": [
         {
@@ -1307,32 +1316,6 @@
             }
           ],
           "svs": [
-            "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
-          ]
-        },
-        {
-          "attr": {
-            "block_id": 1,
-            "chart_type": "comparison map",
-            "class": 0,
-            "description": "",
-            "include_percapita": false,
-            "place_type": "Country",
-            "ranking_types": [],
-            "source_topic": "dc/topic/SDG_1",
-            "title": ""
-          },
-          "chart_type": 1,
-          "event": null,
-          "places": [
-            {
-              "country": null,
-              "dcid": "africa",
-              "name": "Africa",
-              "place_type": "Continent"
-            }
-          ],
-          "svs": [
             "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
           ]
         },
@@ -1360,6 +1343,32 @@
           ],
           "svs": [
             "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          ]
+        },
+        {
+          "attr": {
+            "block_id": 1,
+            "chart_type": "comparison map",
+            "class": 0,
+            "description": "",
+            "include_percapita": false,
+            "place_type": "Country",
+            "ranking_types": [],
+            "source_topic": "dc/topic/SDG_1",
+            "title": ""
+          },
+          "chart_type": 1,
+          "event": null,
+          "places": [
+            {
+              "country": null,
+              "dcid": "africa",
+              "name": "Africa",
+              "place_type": "Continent"
+            }
+          ],
+          "svs": [
+            "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
           ]
         },
         {
@@ -1476,7 +1485,6 @@
       "svs": [
         "dc/topic/SDG_1",
         "Count_Person_BelowPovertyLevelInThePast12Months",
-        "Count_Person_PovertyStatusDetermined",
         "Count_Person_AbovePovertyLevelInThePast12Months",
         "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
         "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
@@ -1487,20 +1495,20 @@
         "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
         "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
         "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-        "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
       ]
     }
   ],
   "event_classification": "<None>",
   "main_place_dcid": "Earth",
   "main_place_name": "Earth",
-  "original_query": "show me about health across the world",
+  "original_query": "health in the world",
   "overview_classification": "<None>",
   "places_detected": [
     "world"
   ],
   "places_resolved": "(name: Earth, dcid: Earth); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": null,
@@ -1508,7 +1516,7 @@
       "name": "Earth",
       "place_type": "Place"
     },
-    "original_query": "show me about health across the world",
+    "original_query": "health in the world",
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [
@@ -1537,100 +1545,109 @@
       "world"
     ],
     "query_transformations": {
-      "place_detection_input": "show me about health across the world",
-      "place_detection_with_places_removed": "show me about health across the",
-      "sv_detection_query_input": "show me about health across the",
-      "sv_detection_query_stop_words_removal": "show health"
+      "place_detection_input": "health in the world",
+      "place_detection_with_places_removed": "health in the",
+      "sv_detection_query_input": "health in the",
+      "sv_detection_query_stop_words_removal": "health"
     }
   },
-  "query_with_places_removed": "show me about health across the",
+  "query_with_places_removed": "health in the",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6339749097824097,
-      0.6193036437034607,
-      0.6049542427062988,
-      0.5445594787597656,
-      0.467811644077301,
-      0.4439404010772705
+      0.7501372694969177,
+      0.7462630867958069,
+      0.6265719532966614,
+      0.5703560709953308,
+      0.4994656443595886,
+      0.4920256435871124,
+      0.4846627414226532
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/topic/MedicalConditions",
       "dc/topic/SDG_3",
-      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
+      "dc/topic/MaternalHealth",
       "Percent_Person_WithPhysicalHealthNotGood",
-      "dc/g/Person_MedicalCondition-Wasting",
+      "dc/topic/Income",
+      "Percent_Person_ReceivedAnnualCheckup",
       "Count_Person_WithVAHealthCare"
     ],
     "SV_to_Sentences": {
       "Count_Person_WithVAHealthCare": [
-        "Population: With VAHealth Care (0.4439404010772705)"
+        "Population: With VAHealth Care (0.4847)"
+      ],
+      "Percent_Person_ReceivedAnnualCheckup": [
+        "Percentage of population that keeps up with their health (0.492)"
       ],
       "Percent_Person_WithPhysicalHealthNotGood": [
-        "Prevalence: Physical Health Not Good (0.5445594787597656)",
-        "percent of people whose physical health is not good (0.47803616523742676)",
-        "Percentage of the population with poor physical health (0.4610629677772522)",
-        "Percentage of people with poor health (0.4494464099407196)",
-        "Percentage of Population With Poor Physical Health (0.4489802122116089)",
-        "Percentage of population with poor physical health (0.4489802122116089)",
-        "Percentage of people who have physical health issues (0.44836780428886414)"
+        "Prevalence: Physical Health Not Good (0.5704)",
+        "percent of people whose physical health is not good (0.5181)",
+        "Percentage of the population with poor physical health (0.5116)",
+        "Percentage of people with poor health (0.5068)",
+        "Percentage of Population With Poor Physical Health (0.4956)",
+        "Percentage of population with poor physical health (0.4956)",
+        "Percentage of people who have physical health issues (0.4903)"
       ],
-      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-        "people with physical health not good (0.6049542427062988)",
-        "Person With Medical Condition = Physical Health Not Good (0.5630549192428589)",
-        "Number of People With Poor Physical Health (0.5202398300170898)"
+      "dc/topic/Income": [
+        "wealth (0.4995)"
       ],
-      "dc/g/Person_MedicalCondition-Wasting": [
-        "Person With Medical Condition = Wasting (0.467811644077301)"
+      "dc/topic/MaternalHealth": [
+        "womens health (0.6266)",
+        "health of mothers (0.5815)",
+        "Maternal health (0.5263)"
       ],
       "dc/topic/MedicalConditions": [
-        "Health problems (0.6339749097824097)",
-        "Health conditions (0.6276931762695312)",
-        "health issues (0.6043043732643127)",
-        "Medical Conditions (0.4950520098209381)",
-        "Medical ailments (0.4431648254394531)",
-        "Medical infirmities (0.4238221049308777)"
+        "Health problems (0.7501)",
+        "Health conditions (0.7486)",
+        "health issues (0.7325)",
+        "Medical Conditions (0.6061)",
+        "Medical ailments (0.5268)"
       ],
       "dc/topic/SDG_3": [
-        "healthy lives (0.6193036437034607)",
-        "Good health and well being (0.49714192748069763)"
+        "healthy lives (0.7463)",
+        "Good health and well being (0.6703)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Person_WithVAHealthCare": [
-      "Population: With VAHealth Care (0.4439404010772705)"
+      "Population: With VAHealth Care (0.4847)"
+    ],
+    "Percent_Person_ReceivedAnnualCheckup": [
+      "Percentage of population that keeps up with their health (0.492)"
     ],
     "Percent_Person_WithPhysicalHealthNotGood": [
-      "Prevalence: Physical Health Not Good (0.5445594787597656)",
-      "percent of people whose physical health is not good (0.47803616523742676)",
-      "Percentage of the population with poor physical health (0.4610629677772522)",
-      "Percentage of people with poor health (0.4494464099407196)",
-      "Percentage of Population With Poor Physical Health (0.4489802122116089)",
-      "Percentage of population with poor physical health (0.4489802122116089)",
-      "Percentage of people who have physical health issues (0.44836780428886414)"
+      "Prevalence: Physical Health Not Good (0.5704)",
+      "percent of people whose physical health is not good (0.5181)",
+      "Percentage of the population with poor physical health (0.5116)",
+      "Percentage of people with poor health (0.5068)",
+      "Percentage of Population With Poor Physical Health (0.4956)",
+      "Percentage of population with poor physical health (0.4956)",
+      "Percentage of people who have physical health issues (0.4903)"
     ],
-    "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-      "people with physical health not good (0.6049542427062988)",
-      "Person With Medical Condition = Physical Health Not Good (0.5630549192428589)",
-      "Number of People With Poor Physical Health (0.5202398300170898)"
+    "dc/topic/Income": [
+      "wealth (0.4995)"
     ],
-    "dc/g/Person_MedicalCondition-Wasting": [
-      "Person With Medical Condition = Wasting (0.467811644077301)"
+    "dc/topic/MaternalHealth": [
+      "womens health (0.6266)",
+      "health of mothers (0.5815)",
+      "Maternal health (0.5263)"
     ],
     "dc/topic/MedicalConditions": [
-      "Health problems (0.6339749097824097)",
-      "Health conditions (0.6276931762695312)",
-      "health issues (0.6043043732643127)",
-      "Medical Conditions (0.4950520098209381)",
-      "Medical ailments (0.4431648254394531)",
-      "Medical infirmities (0.4238221049308777)"
+      "Health problems (0.7501)",
+      "Health conditions (0.7486)",
+      "health issues (0.7325)",
+      "Medical Conditions (0.6061)",
+      "Medical ailments (0.5268)"
     ],
     "dc/topic/SDG_3": [
-      "healthy lives (0.6193036437034607)",
-      "Good health and well being (0.49714192748069763)"
+      "healthy lives (0.7463)",
+      "Good health and well being (0.6703)"
     ]
   },
   "time_delta_classification": "<None>"

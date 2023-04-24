@@ -1,11 +1,15 @@
 {
   "clustering_classification": "<None>",
   "comparison_classification": "<None>",
-  "contained_in_classification": "ContainedInPlaceType.ACROSS",
+  "contained_in_classification": "ContainedInPlaceType.DEFAULT_TYPE",
   "correlation_classification": "<None>",
   "counters": {
     "ERROR": {},
     "INFO": {
+      "blocked_vars": [
+        "dc/topic/Temperature",
+        "dc/topic/WetBulbTemperature"
+      ],
       "child_places_result": [
         {
           "place": "geoId/06",
@@ -58,12 +62,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.3,
-      "fulfillment": 0.28,
+      "build_page_config": 0.25,
+      "fulfillment": 0.24,
       "get_sample_child_places": 0.11,
-      "get_sv_details": 0.3,
-      "query_detection": 0.51,
-      "sv_existence_for_places": 0.17,
+      "get_sv_details": 0.25,
+      "query_detection": 0.69,
+      "sv_existence_for_places": 0.13,
       "topic_calls": 0.0
     }
   },
@@ -77,7 +81,7 @@
           "type": 2
         },
         {
-          "contained_in_place_type": "Across",
+          "contained_in_place_type": "DefaultType",
           "type": 4
         }
       ],
@@ -168,6 +172,7 @@
     "california"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -211,82 +216,173 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      1.000000238418579,
-      0.4247170686721802,
-      0.40863364934921265,
-      0.37995433807373047,
-      0.35139694809913635
+      0.9999999403953552,
+      0.7473681569099426,
+      0.5733788013458252,
+      0.4247171878814697,
+      0.40863344073295593,
+      0.3799542784690857
     ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.8616,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                1.0000001192092896
+              ],
+              "QueryPart": "projected temperature",
+              "SV": [
+                "dc/topic/ProjectedClimateExtremes"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.7231994271278381
+              ],
+              "QueryPart": "extremes",
+              "SV": [
+                "dc/topic/ProjectedClimateExtremes"
+              ]
+            }
+          ]
+        },
+        {
+          "AggCosineScore": 0.7557,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5439189672470093
+              ],
+              "QueryPart": "projected",
+              "SV": [
+                "dc/topic/ProjectedClimateExtremes"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.9999999403953552
+              ],
+              "QueryPart": "temperature",
+              "SV": [
+                "dc/topic/Temperature"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.7231994271278381
+              ],
+              "QueryPart": "extremes",
+              "SV": [
+                "dc/topic/ProjectedClimateExtremes"
+              ]
+            }
+          ]
+        },
+        {
+          "AggCosineScore": 0.7161,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5439189672470093
+              ],
+              "QueryPart": "projected",
+              "SV": [
+                "dc/topic/ProjectedClimateExtremes"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.888323187828064
+              ],
+              "QueryPart": "temperature extremes",
+              "SV": [
+                "dc/topic/ProjectedClimateExtremes"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "SV": [
       "dc/topic/ProjectedClimateExtremes",
+      "dc/topic/Temperature",
+      "dc/topic/WetBulbTemperature",
       "Count_HeatEvent",
       "dc/topic/HeatIllnesses",
-      "dc/topic/ClimateChange",
-      "Annual_Generation_Electricity"
+      "dc/topic/ClimateChange"
     ],
     "SV_to_Sentences": {
-      "Annual_Generation_Electricity": [
-        "The yearly energy output (0.35139694809913635)"
-      ],
       "Count_HeatEvent": [
-        "Number of heat events (0.4247170686721802)",
-        "Count of Heat Event (0.41193887591362)",
-        "Number of extreme heat events (0.40532487630844116)",
-        "Number of heat crises (0.3411565124988556)",
-        "Number of heat emergencies (0.33508822321891785)",
-        "Number of heat waves (0.3255012631416321)",
-        "Number of Heat Waves (0.3255012631416321)"
+        "Number of heat events (0.4247)",
+        "Count of Heat Event (0.4119)",
+        "Number of extreme heat events (0.4053)"
       ],
       "dc/topic/ClimateChange": [
-        "Global warming (0.37995433807373047)",
-        "Climate Change (0.3599741458892822)"
+        "Global warming (0.38)"
       ],
       "dc/topic/HeatIllnesses": [
-        "Heat related health conditions (0.40863364934921265)",
-        "Heat related maladies (0.35062676668167114)",
-        "Heat Illnesses (0.33102425932884216)",
-        "Heat-related health problems (0.3292243778705597)"
+        "Heat related health conditions (0.4086)"
       ],
       "dc/topic/ProjectedClimateExtremes": [
-        "projected temperature (1.000000238418579)",
-        "projected temperature extremes (0.793378472328186)",
-        "What are the projected temperature extremes across (0.6669301390647888)",
-        "tell me about projecte temperature extremes for (0.6020510792732239)",
-        "what are predicted extreme temperatures for (0.5935335159301758)",
-        "Projected Climate Extremes (0.51848304271698)"
+        "projected temperature (1.0)",
+        "projected temperature extremes (0.7934)",
+        "What are the projected temperature extremes across (0.6669)",
+        "tell me about projecte temperature extremes for (0.6021)",
+        "what are predicted extreme temperatures for (0.5935)",
+        "Projected Climate Extremes (0.5185)"
+      ],
+      "dc/topic/Temperature": [
+        "Temperature (0.7474)",
+        "what's the temperature like (0.5426)",
+        "what's the climate here (0.428)"
+      ],
+      "dc/topic/WetBulbTemperature": [
+        "wet bulb temperature prediction range (0.5734)",
+        "how high or low is the wet bulb temperature predicted to be (0.5224)",
+        "give me the degree of the wetbulb temperature (0.5191)",
+        "what is the wet bulb temperature (0.487)",
+        "Wet Bulb Temperature (0.4713)",
+        "for this area what is the temperature at which the human body can't cool itself anymore (0.3948)"
       ]
     }
   },
   "svs_to_sentences": {
-    "Annual_Generation_Electricity": [
-      "The yearly energy output (0.35139694809913635)"
-    ],
     "Count_HeatEvent": [
-      "Number of heat events (0.4247170686721802)",
-      "Count of Heat Event (0.41193887591362)",
-      "Number of extreme heat events (0.40532487630844116)",
-      "Number of heat crises (0.3411565124988556)",
-      "Number of heat emergencies (0.33508822321891785)",
-      "Number of heat waves (0.3255012631416321)",
-      "Number of Heat Waves (0.3255012631416321)"
+      "Number of heat events (0.4247)",
+      "Count of Heat Event (0.4119)",
+      "Number of extreme heat events (0.4053)"
     ],
     "dc/topic/ClimateChange": [
-      "Global warming (0.37995433807373047)",
-      "Climate Change (0.3599741458892822)"
+      "Global warming (0.38)"
     ],
     "dc/topic/HeatIllnesses": [
-      "Heat related health conditions (0.40863364934921265)",
-      "Heat related maladies (0.35062676668167114)",
-      "Heat Illnesses (0.33102425932884216)",
-      "Heat-related health problems (0.3292243778705597)"
+      "Heat related health conditions (0.4086)"
     ],
     "dc/topic/ProjectedClimateExtremes": [
-      "projected temperature (1.000000238418579)",
-      "projected temperature extremes (0.793378472328186)",
-      "What are the projected temperature extremes across (0.6669301390647888)",
-      "tell me about projecte temperature extremes for (0.6020510792732239)",
-      "what are predicted extreme temperatures for (0.5935335159301758)",
-      "Projected Climate Extremes (0.51848304271698)"
+      "projected temperature (1.0)",
+      "projected temperature extremes (0.7934)",
+      "What are the projected temperature extremes across (0.6669)",
+      "tell me about projecte temperature extremes for (0.6021)",
+      "what are predicted extreme temperatures for (0.5935)",
+      "Projected Climate Extremes (0.5185)"
+    ],
+    "dc/topic/Temperature": [
+      "Temperature (0.7474)",
+      "what's the temperature like (0.5426)",
+      "what's the climate here (0.428)"
+    ],
+    "dc/topic/WetBulbTemperature": [
+      "wet bulb temperature prediction range (0.5734)",
+      "how high or low is the wet bulb temperature predicted to be (0.5224)",
+      "give me the degree of the wetbulb temperature (0.5191)",
+      "what is the wet bulb temperature (0.487)",
+      "Wet Bulb Temperature (0.4713)",
+      "for this area what is the temperature at which the human body can't cool itself anymore (0.3948)"
     ]
   },
   "time_delta_classification": "<None>"

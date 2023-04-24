@@ -1,7 +1,7 @@
 {
   "clustering_classification": "<None>",
   "comparison_classification": "<None>",
-  "contained_in_classification": "<None>",
+  "contained_in_classification": "ContainedInPlaceType.DEFAULT_TYPE",
   "correlation_classification": "<None>",
   "counters": {
     "ERROR": {},
@@ -15,11 +15,11 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.21,
-      "event_existence_for_place": 0.12,
-      "fulfillment": 0.12,
-      "get_sv_details": 0.21,
-      "query_detection": 0.08
+      "build_page_config": 0.2,
+      "event_existence_for_place": 0.13,
+      "fulfillment": 0.14,
+      "get_sv_details": 0.2,
+      "query_detection": 0.2
     }
   },
   "data_spec": [
@@ -30,6 +30,10 @@
             1
           ],
           "type": 2
+        },
+        {
+          "contained_in_place_type": "DefaultType",
+          "type": 4
         },
         {
           "event_type": [
@@ -81,7 +85,7 @@
           "type": 2
         },
         {
-          "contained_in_place_type": "Across",
+          "contained_in_place_type": "DefaultType",
           "type": 4
         }
       ],
@@ -170,6 +174,7 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": null,
     "original_query": "Where were the major fires in the last year",
@@ -190,14 +195,17 @@
   "sv_matching": {
     "CosineScore": [
       0.3154594302177429,
-      0.2984566390514374,
-      0.2979540228843689,
-      0.29298684000968933,
-      0.2886386513710022,
-      0.2765377163887024,
-      0.2730201780796051,
-      0.26648247241973877
+      0.2984565794467926,
+      0.29795411229133606,
+      0.29298678040504456,
+      0.2886386811733246,
+      0.27653762698173523,
+      0.2730202078819275,
+      0.2664823830127716
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/c58mvty4nhxdb",
       "Annual_Count_ElectricityConsumer",
@@ -210,79 +218,79 @@
     ],
     "SV_to_Sentences": {
       "Annual_Consumption_Electricity": [
-        "The total amount of electricity used in a year (0.2979540228843689)",
-        "The yearly energy usage (0.2840510606765747)",
-        "The amount of electricity used each year (0.282636821269989)",
-        "Amount of electricity consumed in a year (0.2728409469127655)",
-        "amount of electricity consumed in a year (0.2728408873081207)"
+        "The total amount of electricity used in a year (0.298)",
+        "The yearly energy usage (0.2841)",
+        "The amount of electricity used each year (0.2826)",
+        "amount of electricity consumed in a year (0.2728)",
+        "Amount of electricity consumed in a year (0.2728)"
       ],
       "Annual_Count_ElectricityConsumer": [
-        "The amount of electricity used in a year (0.2984566390514374)",
-        "Total Electricity Consumers in a Year (0.27004796266555786)",
-        "Total electricity consumers in a year (0.2700478434562683)"
+        "The amount of electricity used in a year (0.2985)",
+        "Total electricity consumers in a year (0.27)",
+        "Total Electricity Consumers in a Year (0.27)"
       ],
       "Annual_Generation_Electricity": [
-        "The yearly energy output (0.29298684000968933)",
-        "The annual electricity production (0.2753797173500061)",
-        "Amount of electricity generated in a year (0.27522507309913635)"
+        "The yearly energy output (0.293)",
+        "The annual electricity production (0.2754)",
+        "Amount of electricity generated in a year (0.2752)"
       ],
       "Annual_Generation_Energy_Coal": [
-        "The yearly coal power production (0.26648247241973877)"
+        "The yearly coal power production (0.2665)"
       ],
       "Annual_Generation_Fuel_CrudeOil": [
-        "Amount of crude oil generated in a year (0.2886386513710022)",
-        "The annual crude oil supply (0.2876005470752716)",
-        "The yearly total of crude oil production (0.2681601047515869)"
+        "Amount of crude oil generated in a year (0.2886)",
+        "The annual crude oil supply (0.2876)",
+        "The yearly total of crude oil production (0.2682)"
       ],
       "Annual_Generation_Fuel_DieselOil": [
-        "The annual diesel fuel supply (0.2765377163887024)",
-        "amount of diesel oil generated in a year (0.262130469083786)",
-        "Amount of diesel oil generated in a year (0.2621304392814636)"
+        "The annual diesel fuel supply (0.2765)",
+        "amount of diesel oil generated in a year (0.2621)",
+        "Amount of diesel oil generated in a year (0.2621)"
       ],
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-        "Number of households with low income in the past year (0.2730201780796051)"
+        "Number of households with low income in the past year (0.273)"
       ],
       "dc/c58mvty4nhxdb": [
-        "best school performance (0.3154594302177429)"
+        "best school performance (0.3155)"
       ]
     }
   },
   "svs_to_sentences": {
     "Annual_Consumption_Electricity": [
-      "The total amount of electricity used in a year (0.2979540228843689)",
-      "The yearly energy usage (0.2840510606765747)",
-      "The amount of electricity used each year (0.282636821269989)",
-      "Amount of electricity consumed in a year (0.2728409469127655)",
-      "amount of electricity consumed in a year (0.2728408873081207)"
+      "The total amount of electricity used in a year (0.298)",
+      "The yearly energy usage (0.2841)",
+      "The amount of electricity used each year (0.2826)",
+      "amount of electricity consumed in a year (0.2728)",
+      "Amount of electricity consumed in a year (0.2728)"
     ],
     "Annual_Count_ElectricityConsumer": [
-      "The amount of electricity used in a year (0.2984566390514374)",
-      "Total Electricity Consumers in a Year (0.27004796266555786)",
-      "Total electricity consumers in a year (0.2700478434562683)"
+      "The amount of electricity used in a year (0.2985)",
+      "Total electricity consumers in a year (0.27)",
+      "Total Electricity Consumers in a Year (0.27)"
     ],
     "Annual_Generation_Electricity": [
-      "The yearly energy output (0.29298684000968933)",
-      "The annual electricity production (0.2753797173500061)",
-      "Amount of electricity generated in a year (0.27522507309913635)"
+      "The yearly energy output (0.293)",
+      "The annual electricity production (0.2754)",
+      "Amount of electricity generated in a year (0.2752)"
     ],
     "Annual_Generation_Energy_Coal": [
-      "The yearly coal power production (0.26648247241973877)"
+      "The yearly coal power production (0.2665)"
     ],
     "Annual_Generation_Fuel_CrudeOil": [
-      "Amount of crude oil generated in a year (0.2886386513710022)",
-      "The annual crude oil supply (0.2876005470752716)",
-      "The yearly total of crude oil production (0.2681601047515869)"
+      "Amount of crude oil generated in a year (0.2886)",
+      "The annual crude oil supply (0.2876)",
+      "The yearly total of crude oil production (0.2682)"
     ],
     "Annual_Generation_Fuel_DieselOil": [
-      "The annual diesel fuel supply (0.2765377163887024)",
-      "amount of diesel oil generated in a year (0.262130469083786)",
-      "Amount of diesel oil generated in a year (0.2621304392814636)"
+      "The annual diesel fuel supply (0.2765)",
+      "amount of diesel oil generated in a year (0.2621)",
+      "Amount of diesel oil generated in a year (0.2621)"
     ],
     "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": [
-      "Number of households with low income in the past year (0.2730201780796051)"
+      "Number of households with low income in the past year (0.273)"
     ],
     "dc/c58mvty4nhxdb": [
-      "best school performance (0.3154594302177429)"
+      "best school performance (0.3155)"
     ]
   },
   "time_delta_classification": "<None>"

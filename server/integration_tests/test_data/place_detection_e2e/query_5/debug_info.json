@@ -29,9 +29,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_SomeOtherRaceAlone",
-            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+            "Count_Person_HispanicOrLatino_AsianAlone",
+            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_NonWhite"
           ],
           "type": null
         },
@@ -40,9 +40,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_SomeOtherRaceAlone",
-            "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
-            "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+            "Count_Person_HispanicOrLatino_AsianAlone",
+            "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+            "Count_Person_NonWhite"
           ],
           "type": null
         },
@@ -51,8 +51,8 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Male",
-            "Count_Person_Female"
+            "Count_Person_Female",
+            "Count_Person_Male"
           ],
           "type": null
         },
@@ -61,9 +61,9 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Producer_AsianAlone",
             "Count_Person_Producer_BlackOrAfricanAmericanAlone",
-            "Count_Person_Producer_TwoOrMoreRaces"
+            "Count_Person_Producer_AsianAlone",
+            "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone"
           ],
           "type": null
         },
@@ -72,8 +72,8 @@
             "wikidataId/Q1489"
           ],
           "svs": [
-            "Count_Person_Male",
-            "Count_Person_Female"
+            "Count_Person_Female",
+            "Count_Person_Male"
           ],
           "type": null
         }
@@ -182,8 +182,13 @@
             "Count_Person_AsianAlone",
             "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
             "Count_Person_AsianOrPacificIslander",
+            "Count_Person_Black",
             "Count_Person_BlackOrAfricanAmericanAlone",
             "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_BrazilAmarela",
+            "Count_Person_BrazilBranca",
+            "Count_Person_BrazilIndigneous",
+            "Count_Person_BrazilPardo",
             "Count_Person_HispanicOrLatino",
             "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
             "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
@@ -224,12 +229,12 @@
             "Count_Person_PerArea"
           ],
           "Count_Person_Producer_TwoOrMoreRaces": [
+            "Count_Person_Producer_BlackOrAfricanAmericanAlone",
             "Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone",
             "Count_Person_Producer_AsianAlone",
-            "Count_Person_Producer_BlackOrAfricanAmericanAlone",
             "Count_Person_Producer_HispanicOrLatino",
-            "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
             "Count_Person_Producer_TwoOrMoreRaces",
+            "Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone",
             "Count_Person_Producer_WhiteAlone"
           ],
           "Count_Person_TwoOrMoreRaces": [
@@ -239,8 +244,13 @@
             "Count_Person_AsianAlone",
             "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
             "Count_Person_AsianOrPacificIslander",
+            "Count_Person_Black",
             "Count_Person_BlackOrAfricanAmericanAlone",
             "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+            "Count_Person_BrazilAmarela",
+            "Count_Person_BrazilBranca",
+            "Count_Person_BrazilIndigneous",
+            "Count_Person_BrazilPardo",
             "Count_Person_HispanicOrLatino",
             "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
             "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
@@ -292,12 +302,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.25,
-      "extend_svs": 1.8,
-      "fulfillment": 2.09,
-      "get_sv_details": 0.25,
-      "has_series_with_single_datapoint": 0.14,
-      "query_detection": 0.57,
+      "build_page_config": 0.21,
+      "extend_svs": 1.56,
+      "fulfillment": 1.87,
+      "get_sv_details": 0.21,
+      "has_series_with_single_datapoint": 0.17,
+      "query_detection": 0.5,
       "sv_existence_for_places": 0.14,
       "topic_calls": 0.0
     }
@@ -306,7 +316,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -764,7 +774,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -906,32 +916,32 @@
           ],
           "svs": [
             "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
             "Count_HousingUnit_HomeValue1500000To1999999USDollar",
             "Count_HousingUnit_HomeValue10000To14999USDollar",
-            "Count_HousingUnit_HomeValueUpto10000USDollar",
             "Count_HousingUnit_HomeValue100000To124999USDollar",
             "Count_HousingUnit_HomeValue125000To149999USDollar",
             "Count_HousingUnit_HomeValue15000To19999USDollar",
             "Count_HousingUnit_HomeValue150000To174999USDollar",
             "Count_HousingUnit_HomeValue175000To199999USDollar",
-            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
             "Count_HousingUnit_HomeValue20000To24999USDollar",
             "Count_HousingUnit_HomeValue200000To249999USDollar",
             "Count_HousingUnit_HomeValue25000To29999USDollar",
             "Count_HousingUnit_HomeValue250000To299999USDollar",
             "Count_HousingUnit_HomeValue30000To34999USDollar",
-            "Count_HousingUnit_HomeValue300000To399999USDollar",
             "Count_HousingUnit_HomeValue35000To39999USDollar",
             "Count_HousingUnit_HomeValue40000To49999USDollar",
-            "Count_HousingUnit_HomeValue400000To499999USDollar",
             "Count_HousingUnit_HomeValue50000To59999USDollar",
-            "Count_HousingUnit_HomeValue500000To749999USDollar",
             "Count_HousingUnit_HomeValue60000To69999USDollar",
             "Count_HousingUnit_HomeValue70000To79999USDollar",
-            "Count_HousingUnit_HomeValue750000To999999USDollar",
             "Count_HousingUnit_HomeValue80000To89999USDollar",
-            "Count_HousingUnit_HomeValue90000To99999USDollar"
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -1094,7 +1104,6 @@
             "Count_HousingUnit_WithRent_Upto100USDollar",
             "Count_HousingUnit_WithRent_150To199USDollar",
             "Count_HousingUnit_WithRent_2000To2499USDollar",
-            "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
             "Count_HousingUnit_WithRent_2500To2999USDollar",
             "Count_HousingUnit_WithRent_200To249USDollar",
             "Count_HousingUnit_WithRent_250To299USDollar",
@@ -1111,7 +1120,8 @@
             "Count_HousingUnit_WithRent_700To749USDollar",
             "Count_HousingUnit_WithRent_750To799USDollar",
             "Count_HousingUnit_WithRent_800To899USDollar",
-            "Count_HousingUnit_WithRent_900To999USDollar"
+            "Count_HousingUnit_WithRent_900To999USDollar",
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
           ]
         },
         {
@@ -1490,6 +1500,7 @@
     "mexico city"
   ],
   "places_resolved": "(name: Mexico City, dcid: wikidataId/Q1489); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/MEX",
@@ -1533,15 +1544,15 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7989296913146973,
-      0.670673668384552,
+      0.7989298701286316,
+      0.6706736087799072,
       0.6289510130882263,
-      0.6240816712379456,
-      0.6197832226753235,
-      0.619201123714447,
-      0.6103934645652771,
-      0.5928092002868652,
-      0.591192364692688
+      0.6240819096565247,
+      0.6197831630706787,
+      0.6192013025283813,
+      0.6103933453559875,
+      0.5928090214729309,
+      0.5911923050880432
     ],
     "MultiSV": {
       "Candidates": []

@@ -79,13 +79,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.33,
-      "fulfillment": 0.84,
-      "get_sample_child_places": 0.1,
-      "get_sv_details": 0.32,
-      "query_detection": 0.47,
-      "sv_existence_for_places": 0.18,
-      "topic_calls": 0.55
+      "build_page_config": 0.24,
+      "fulfillment": 0.73,
+      "get_sample_child_places": 0.13,
+      "get_sv_details": 0.23,
+      "query_detection": 0.54,
+      "sv_existence_for_places": 0.15,
+      "topic_calls": 0.45
     }
   },
   "data_spec": [
@@ -435,6 +435,7 @@
     "us"
   ],
   "places_resolved": "(name: United States, dcid: country/USA); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -478,15 +479,15 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7095198035240173,
-      0.6297450065612793,
-      0.622887372970581,
-      0.612828254699707,
-      0.6071182489395142,
-      0.5951743125915527,
-      0.5864367485046387,
-      0.501216471195221,
-      0.49910038709640503
+      0.7095202207565308,
+      0.6297446489334106,
+      0.6228875517845154,
+      0.6128285527229309,
+      0.6071184873580933,
+      0.5951743721961975,
+      0.5864369869232178,
+      0.5012168884277344,
+      0.4991004765033722
     ],
     "MultiSV": {
       "Candidates": [
@@ -496,7 +497,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.6588
+                0.6588478684425354
               ],
               "QueryPart": "states",
               "SV": [
@@ -505,7 +506,7 @@
             },
             {
               "CosineScore": [
-                0.7095
+                0.7095199823379517
               ],
               "QueryPart": "cheapest houses",
               "SV": [
@@ -533,8 +534,8 @@
         "Number of houses priced at $1,000,000 or more (0.5718)"
       ],
       "Count_HousingUnit_HomeValue175000To199999USDollar": [
-        "Number of homes valued between $175,000 to $199,999 (0.5012)",
-        "Number of Homes Valued Between $175,000 to $199,999 (0.5012)"
+        "Number of Homes Valued Between $175,000 to $199,999 (0.5012)",
+        "Number of homes valued between $175,000 to $199,999 (0.5012)"
       ],
       "Count_HousingUnit_HomeValue300000To399999USDollar": [
         "Number of houses that cost between 300k and 400k (0.6229)",
@@ -574,8 +575,8 @@
       "Number of houses priced at $1,000,000 or more (0.5718)"
     ],
     "Count_HousingUnit_HomeValue175000To199999USDollar": [
-      "Number of homes valued between $175,000 to $199,999 (0.5012)",
-      "Number of Homes Valued Between $175,000 to $199,999 (0.5012)"
+      "Number of Homes Valued Between $175,000 to $199,999 (0.5012)",
+      "Number of homes valued between $175,000 to $199,999 (0.5012)"
     ],
     "Count_HousingUnit_HomeValue300000To399999USDollar": [
       "Number of houses that cost between 300k and 400k (0.6229)",

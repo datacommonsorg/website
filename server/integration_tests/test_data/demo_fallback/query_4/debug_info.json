@@ -12,7 +12,7 @@
           ],
           "svs": [
             "Percent_Person_Obesity",
-            "Percent_Person_BingeDrinking",
+            "Percent_Person_SleepLessThan7Hours",
             "Percent_Person_Smoking"
           ],
           "type": null
@@ -58,21 +58,21 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.29,
-      "extend_svs": 0.65,
-      "fulfillment": 1.43,
-      "get_immediate_parent_places": 0.17,
-      "get_sv_details": 0.28,
-      "has_series_with_single_datapoint": 0.3,
-      "query_detection": 0.17,
-      "sv_existence_for_places": 0.29000000000000004
+      "build_page_config": 0.27,
+      "extend_svs": 0.67,
+      "fulfillment": 1.35,
+      "get_immediate_parent_places": 0.11,
+      "get_sv_details": 0.27,
+      "has_series_with_single_datapoint": 0.29000000000000004,
+      "query_detection": 0.26,
+      "sv_existence_for_places": 0.27
     }
   },
   "data_spec": [
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -226,7 +226,7 @@
         },
         {
           "attr": {
-            "block_id": 11,
+            "block_id": 10,
             "chart_type": "bar chart",
             "class": 1,
             "description": "",
@@ -450,14 +450,13 @@
         "Count_CriminalActivities_ViolentCrime",
         "Count_CriminalActivities_ForcibleRape",
         "Count_CriminalActivities_PropertyCrime",
-        "Count_CriminalActivities_Burglary",
-        "Count_CriminalActivities_Arson"
+        "Count_CriminalActivities_Burglary"
       ]
     },
     {
       "classifications": [
         {
-          "type": 7
+          "type": 13
         }
       ],
       "places": [
@@ -474,7 +473,7 @@
           "place_type": "State"
         }
       ],
-      "query": "Compare crime in California and Florida",
+      "query": "Crime in California and Florida",
       "query_type": 6,
       "ranked_charts": [
         {
@@ -776,14 +775,13 @@
         "Count_CriminalActivities_ViolentCrime",
         "Count_CriminalActivities_ForcibleRape",
         "Count_CriminalActivities_PropertyCrime",
-        "Count_CriminalActivities_Burglary",
-        "Count_CriminalActivities_Arson"
+        "Count_CriminalActivities_Burglary"
       ]
     },
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -841,6 +839,7 @@
     "california"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -884,100 +883,91 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.7435535192489624,
-      0.4429701566696167,
-      0.42727240920066833,
-      0.42358648777008057,
-      0.414377361536026,
-      0.4143412411212921,
-      0.395723432302475,
-      0.3883754312992096
+      0.7435535788536072,
+      0.4434634745121002,
+      0.44070836901664734,
+      0.42727234959602356,
+      0.4143773019313812,
+      0.38032907247543335
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "Percent_Person_Obesity",
-      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
+      "dc/topic/SDG_2",
+      "dc/topic/SDG_3",
       "dc/topic/MedicalConditions",
-      "dc/g/Person_MedicalCondition-Diabetes",
       "Percent_Person_WithPhysicalHealthNotGood",
-      "dc/g/Person_MedicalCondition-SevereWasting",
-      "dc/g/Person_MedicalCondition-Wasting",
-      "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting"
+      "dc/topic/MaternalHealth"
     ],
     "SV_to_Sentences": {
       "Percent_Person_Obesity": [
-        "Prevalence: Obesity (0.7435535192489624)",
-        "Percentage of the population that is obese (0.6531265377998352)",
-        "Percentage of people who are classified as obese (0.6383181810379028)",
-        "Percentage of Population That Is Obese (0.6360387206077576)",
-        "Percentage of population that is obese (0.6360387206077576)",
-        "Percentage of overweight people (0.5690838098526001)",
-        "Percent of fat people (0.5576061010360718)",
-        "Percentage of people who are overweight (0.5477600693702698)",
-        "Percentage of people who have a BMI over 30 (0.38389912247657776)"
+        "Prevalence: Obesity (0.7436)",
+        "Percentage of the population that is obese (0.6531)",
+        "Percentage of people who are classified as obese (0.6383)",
+        "Percentage of Population That Is Obese (0.636)",
+        "Percentage of population that is obese (0.636)",
+        "Percentage of overweight people (0.5691)",
+        "Percent of fat people (0.5576)",
+        "Percentage of people who are overweight (0.5478)",
+        "Percentage of people who have a BMI over 30 (0.3839)"
       ],
       "Percent_Person_WithPhysicalHealthNotGood": [
-        "Prevalence: Physical Health Not Good (0.414377361536026)",
-        "Percentage of the population with poor physical health (0.38355129957199097)",
-        "Percentage of Population With Poor Physical Health (0.37608346343040466)"
+        "Prevalence: Physical Health Not Good (0.4144)",
+        "Percentage of the population with poor physical health (0.3836)",
+        "Percentage of population with poor physical health (0.3761)",
+        "Percentage of Population With Poor Physical Health (0.3761)"
       ],
-      "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting": [
-        "People who are 4 years or younger and have severe wasting (0.3883754312992096)"
-      ],
-      "dc/g/Person_MedicalCondition-Diabetes": [
-        "people with diabetes (0.42358648777008057)"
-      ],
-      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-        "people with physical health not good (0.4429701566696167)",
-        "Number of People With Poor Physical Health (0.4120839536190033)"
-      ],
-      "dc/g/Person_MedicalCondition-SevereWasting": [
-        "people with severe wasting (0.4143412411212921)"
-      ],
-      "dc/g/Person_MedicalCondition-Wasting": [
-        "people with wasting (0.395723432302475)"
+      "dc/topic/MaternalHealth": [
+        "womens health (0.3803)"
       ],
       "dc/topic/MedicalConditions": [
-        "Health problems (0.42727240920066833)",
-        "health issues (0.41941505670547485)"
+        "Health problems (0.4273)",
+        "health issues (0.4194)"
+      ],
+      "dc/topic/SDG_2": [
+        "Eradicate hunger (0.4435)",
+        "End hunger (0.3761)",
+        "Zero hunger (0.3723)"
+      ],
+      "dc/topic/SDG_3": [
+        "healthy lives (0.4407)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_Obesity": [
-      "Prevalence: Obesity (0.7435535192489624)",
-      "Percentage of the population that is obese (0.6531265377998352)",
-      "Percentage of people who are classified as obese (0.6383181810379028)",
-      "Percentage of Population That Is Obese (0.6360387206077576)",
-      "Percentage of population that is obese (0.6360387206077576)",
-      "Percentage of overweight people (0.5690838098526001)",
-      "Percent of fat people (0.5576061010360718)",
-      "Percentage of people who are overweight (0.5477600693702698)",
-      "Percentage of people who have a BMI over 30 (0.38389912247657776)"
+      "Prevalence: Obesity (0.7436)",
+      "Percentage of the population that is obese (0.6531)",
+      "Percentage of people who are classified as obese (0.6383)",
+      "Percentage of Population That Is Obese (0.636)",
+      "Percentage of population that is obese (0.636)",
+      "Percentage of overweight people (0.5691)",
+      "Percent of fat people (0.5576)",
+      "Percentage of people who are overweight (0.5478)",
+      "Percentage of people who have a BMI over 30 (0.3839)"
     ],
     "Percent_Person_WithPhysicalHealthNotGood": [
-      "Prevalence: Physical Health Not Good (0.414377361536026)",
-      "Percentage of the population with poor physical health (0.38355129957199097)",
-      "Percentage of Population With Poor Physical Health (0.37608346343040466)"
+      "Prevalence: Physical Health Not Good (0.4144)",
+      "Percentage of the population with poor physical health (0.3836)",
+      "Percentage of population with poor physical health (0.3761)",
+      "Percentage of Population With Poor Physical Health (0.3761)"
     ],
-    "dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting": [
-      "People who are 4 years or younger and have severe wasting (0.3883754312992096)"
-    ],
-    "dc/g/Person_MedicalCondition-Diabetes": [
-      "people with diabetes (0.42358648777008057)"
-    ],
-    "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-      "people with physical health not good (0.4429701566696167)",
-      "Number of People With Poor Physical Health (0.4120839536190033)"
-    ],
-    "dc/g/Person_MedicalCondition-SevereWasting": [
-      "people with severe wasting (0.4143412411212921)"
-    ],
-    "dc/g/Person_MedicalCondition-Wasting": [
-      "people with wasting (0.395723432302475)"
+    "dc/topic/MaternalHealth": [
+      "womens health (0.3803)"
     ],
     "dc/topic/MedicalConditions": [
-      "Health problems (0.42727240920066833)",
-      "health issues (0.41941505670547485)"
+      "Health problems (0.4273)",
+      "health issues (0.4194)"
+    ],
+    "dc/topic/SDG_2": [
+      "Eradicate hunger (0.4435)",
+      "End hunger (0.3761)",
+      "Zero hunger (0.3723)"
+    ],
+    "dc/topic/SDG_3": [
+      "healthy lives (0.4407)"
     ]
   },
   "time_delta_classification": "<None>"

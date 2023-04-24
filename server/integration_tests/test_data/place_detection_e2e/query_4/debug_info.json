@@ -35,6 +35,9 @@
       "processed_fulfillment_types": [
         "comparison"
       ],
+      "route_comparison_correlation": [
+        "multi-place-comparison"
+      ],
       "topics_processed": [
         {
           "dc/topic/HomeValue": {
@@ -82,10 +85,10 @@
     },
     "TIMING": {
       "build_page_config": 0.01,
-      "fulfillment": 0.18,
+      "fulfillment": 0.14,
       "get_sv_details": 0.0,
-      "query_detection": 4.06,
-      "sv_existence_for_places": 0.17,
+      "query_detection": 0.98,
+      "sv_existence_for_places": 0.13,
       "topic_calls": 0.0
     }
   },
@@ -494,7 +497,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -636,32 +639,32 @@
           ],
           "svs": [
             "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
             "Count_HousingUnit_HomeValue1500000To1999999USDollar",
             "Count_HousingUnit_HomeValue10000To14999USDollar",
-            "Count_HousingUnit_HomeValueUpto10000USDollar",
             "Count_HousingUnit_HomeValue100000To124999USDollar",
             "Count_HousingUnit_HomeValue125000To149999USDollar",
             "Count_HousingUnit_HomeValue15000To19999USDollar",
             "Count_HousingUnit_HomeValue150000To174999USDollar",
             "Count_HousingUnit_HomeValue175000To199999USDollar",
-            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
             "Count_HousingUnit_HomeValue20000To24999USDollar",
             "Count_HousingUnit_HomeValue200000To249999USDollar",
             "Count_HousingUnit_HomeValue25000To29999USDollar",
             "Count_HousingUnit_HomeValue250000To299999USDollar",
             "Count_HousingUnit_HomeValue30000To34999USDollar",
-            "Count_HousingUnit_HomeValue300000To399999USDollar",
             "Count_HousingUnit_HomeValue35000To39999USDollar",
             "Count_HousingUnit_HomeValue40000To49999USDollar",
-            "Count_HousingUnit_HomeValue400000To499999USDollar",
             "Count_HousingUnit_HomeValue50000To59999USDollar",
-            "Count_HousingUnit_HomeValue500000To749999USDollar",
             "Count_HousingUnit_HomeValue60000To69999USDollar",
             "Count_HousingUnit_HomeValue70000To79999USDollar",
-            "Count_HousingUnit_HomeValue750000To999999USDollar",
             "Count_HousingUnit_HomeValue80000To89999USDollar",
-            "Count_HousingUnit_HomeValue90000To99999USDollar"
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -824,7 +827,6 @@
             "Count_HousingUnit_WithRent_Upto100USDollar",
             "Count_HousingUnit_WithRent_150To199USDollar",
             "Count_HousingUnit_WithRent_2000To2499USDollar",
-            "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
             "Count_HousingUnit_WithRent_2500To2999USDollar",
             "Count_HousingUnit_WithRent_200To249USDollar",
             "Count_HousingUnit_WithRent_250To299USDollar",
@@ -841,7 +843,8 @@
             "Count_HousingUnit_WithRent_700To749USDollar",
             "Count_HousingUnit_WithRent_750To799USDollar",
             "Count_HousingUnit_WithRent_800To899USDollar",
-            "Count_HousingUnit_WithRent_900To999USDollar"
+            "Count_HousingUnit_WithRent_900To999USDollar",
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
           ]
         },
         {
@@ -1222,6 +1225,7 @@
     "washington state"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); (name: Staten Island, dcid: geoId/3608570915); (name: Washington, dcid: geoId/53); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -1281,19 +1285,19 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.37027618288993835,
-      0.31598708033561707,
-      0.2831985652446747,
-      0.2767173647880554,
-      0.27669620513916016,
+      0.37027600407600403,
+      0.3159869313240051,
+      0.2831985056400299,
+      0.27671733498573303,
+      0.27669617533683777,
       0.2665468156337738,
-      0.25576895475387573,
-      0.24891072511672974,
-      0.23379194736480713,
-      0.22020837664604187,
-      0.21446257829666138,
-      0.2134648561477661,
-      0.21002650260925293
+      0.25576892495155334,
+      0.2489107996225357,
+      0.23379187285900116,
+      0.2202082872390747,
+      0.21446260809898376,
+      0.21346478164196014,
+      0.2100265920162201
     ],
     "MultiSV": {
       "Candidates": []

@@ -5,36 +5,71 @@
   "correlation_classification": "<None>",
   "counters": {
     "ERROR": {
+      "comparison_failed_populate_places": [
+        [
+          "geoId/0667000",
+          "geoId/1714000"
+        ]
+      ],
+      "correlation_failed_populate_main_place": [
+        "geoId/0667000",
+        "geoId/1714000"
+      ],
       "failed_populate_main_places": [
         [
           "geoId/0667000",
           "geoId/1714000"
         ]
       ],
-      "num_populate_fallbacks": 1
+      "num_populate_fallbacks": 2
     },
     "INFO": {
+      "child_places_result": [
+        {
+          "place": "geoId/0667000",
+          "result": [],
+          "type": "County"
+        },
+        {
+          "place": "geoId/1714000",
+          "result": [],
+          "type": "County"
+        }
+      ],
+      "comparison_place_candidates": [
+        [
+          "geoId/0667000",
+          "geoId/1714000"
+        ]
+      ],
+      "contained_in_across_fallback": [
+        "County"
+      ],
       "filtered_svs": [
         []
       ],
       "num_chart_candidates": 1,
       "processed_fulfillment_types": [
+        "comparison",
+        "correlation",
+        "containedin",
         "simple",
         "overview"
       ]
     },
     "TIMING": {
-      "build_page_config": 0.23,
-      "fulfillment": 0.0,
-      "get_sv_details": 0.23,
-      "query_detection": 0.8
+      "build_page_config": 0.21,
+      "fulfillment": 0.82,
+      "get_sample_child_places": 0.8200000000000001,
+      "get_sv_details": 0.21,
+      "query_detection": 0.89
     }
   },
   "data_spec": [
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -93,6 +128,7 @@
     "chicago"
   ],
   "places_resolved": "(name: San Francisco, dcid: geoId/0667000); (name: Chicago, dcid: geoId/1714000); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -144,17 +180,20 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.3691323697566986,
-      0.2903655469417572,
-      0.28945469856262207,
-      0.2783314287662506,
-      0.27292031049728394,
-      0.2691500782966614,
+      0.36913251876831055,
+      0.29036539793014526,
+      0.2894545793533325,
+      0.27833133935928345,
+      0.2729203402996063,
+      0.2691499590873718,
       0.2653329074382782,
-      0.26523512601852417,
-      0.26108288764953613,
-      0.2539288401603699
+      0.26523515582084656,
+      0.2610831558704376,
+      0.2539288103580475
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "Count_HeavySnowEvent",
       "Count_Person_Male",
@@ -169,87 +208,87 @@
     ],
     "SV_to_Sentences": {
       "Count_CriminalActivities_Robbery": [
-        "Number of heists (0.2691500782966614)"
+        "Number of heists (0.2691)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Number of hate crimes (0.28945469856262207)",
-        "Number of hate crime incidents (0.25507882237434387)",
-        "Number of Hate Crime Incidents (0.25507882237434387)"
+        "Number of hate crimes (0.2895)",
+        "Number of Hate Crime Incidents (0.2551)",
+        "Number of hate crime incidents (0.2551)"
       ],
       "Count_DroughtEvent": [
-        "Number of droughts (0.26108288764953613)",
-        "Number of Droughts (0.26108288764953613)"
+        "Number of Droughts (0.2611)",
+        "Number of droughts (0.2611)"
       ],
       "Count_EarthquakeEvent": [
-        "Number of tremors (0.2783314287662506)",
-        "Number of temblors (0.27476662397384644)",
-        "Number of quakes (0.27175652980804443)",
-        "Number of earthquakes (0.2537490725517273)"
+        "Number of tremors (0.2783)",
+        "Number of temblors (0.2748)",
+        "Number of quakes (0.2718)",
+        "Number of earthquakes (0.2537)"
       ],
       "Count_FloodEvent": [
-        "Number of floods (0.2539288401603699)",
-        "Number of Floods (0.2539287805557251)"
+        "Number of Floods (0.2539)",
+        "Number of floods (0.2539)"
       ],
       "Count_HeavyRainEvent": [
-        "Number of Heavy Rains (0.2653329074382782)",
-        "Number of heavy rains (0.26533281803131104)"
+        "Number of Heavy Rains (0.2653)",
+        "Number of heavy rains (0.2653)"
       ],
       "Count_HeavySnowEvent": [
-        "Number of blizzards (0.3691323697566986)"
+        "Number of blizzards (0.3691)"
       ],
       "Count_Person_5To9Years": [
-        "Number of 5 to 9 year old people (0.27292031049728394)"
+        "Number of 5 to 9 year old people (0.2729)"
       ],
       "Count_Person_Male": [
-        "Number of Males (0.2903655469417572)"
+        "Number of Males (0.2904)"
       ],
       "Count_Worker_NAICSArtsEntertainmentRecreation": [
-        "Employment numbers in entertainment and recreation (0.26523512601852417)",
-        "number of arts, entertainment, and recreation workers (0.2555401623249054)",
-        "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.2542625069618225)"
+        "Employment numbers in entertainment and recreation (0.2652)",
+        "number of arts, entertainment, and recreation workers (0.2555)",
+        "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.2543)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_CriminalActivities_Robbery": [
-      "Number of heists (0.2691500782966614)"
+      "Number of heists (0.2691)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Number of hate crimes (0.28945469856262207)",
-      "Number of hate crime incidents (0.25507882237434387)",
-      "Number of Hate Crime Incidents (0.25507882237434387)"
+      "Number of hate crimes (0.2895)",
+      "Number of Hate Crime Incidents (0.2551)",
+      "Number of hate crime incidents (0.2551)"
     ],
     "Count_DroughtEvent": [
-      "Number of droughts (0.26108288764953613)",
-      "Number of Droughts (0.26108288764953613)"
+      "Number of Droughts (0.2611)",
+      "Number of droughts (0.2611)"
     ],
     "Count_EarthquakeEvent": [
-      "Number of tremors (0.2783314287662506)",
-      "Number of temblors (0.27476662397384644)",
-      "Number of quakes (0.27175652980804443)",
-      "Number of earthquakes (0.2537490725517273)"
+      "Number of tremors (0.2783)",
+      "Number of temblors (0.2748)",
+      "Number of quakes (0.2718)",
+      "Number of earthquakes (0.2537)"
     ],
     "Count_FloodEvent": [
-      "Number of floods (0.2539288401603699)",
-      "Number of Floods (0.2539287805557251)"
+      "Number of Floods (0.2539)",
+      "Number of floods (0.2539)"
     ],
     "Count_HeavyRainEvent": [
-      "Number of Heavy Rains (0.2653329074382782)",
-      "Number of heavy rains (0.26533281803131104)"
+      "Number of Heavy Rains (0.2653)",
+      "Number of heavy rains (0.2653)"
     ],
     "Count_HeavySnowEvent": [
-      "Number of blizzards (0.3691323697566986)"
+      "Number of blizzards (0.3691)"
     ],
     "Count_Person_5To9Years": [
-      "Number of 5 to 9 year old people (0.27292031049728394)"
+      "Number of 5 to 9 year old people (0.2729)"
     ],
     "Count_Person_Male": [
-      "Number of Males (0.2903655469417572)"
+      "Number of Males (0.2904)"
     ],
     "Count_Worker_NAICSArtsEntertainmentRecreation": [
-      "Employment numbers in entertainment and recreation (0.26523512601852417)",
-      "number of arts, entertainment, and recreation workers (0.2555401623249054)",
-      "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.2542625069618225)"
+      "Employment numbers in entertainment and recreation (0.2652)",
+      "number of arts, entertainment, and recreation workers (0.2555)",
+      "Population of Person: Arts, Entertainment, And Recreation (NAICS/71) (0.2543)"
     ]
   },
   "time_delta_classification": "<None>"
