@@ -74,7 +74,7 @@ def post_wrapper(url, req_str: str):
   return response.json()
 
 
-def obs_point(entities, variables, date='', all_facets=False):
+def obs_point(entities, variables, date='LATEST'):
   """Gets the observation point for the given entities of the given variable.
 
   Args:
@@ -82,23 +82,22 @@ def obs_point(entities, variables, date='', all_facets=False):
       variables: A list of statistical variables.
       date (optional): The date of the observation. If not set, the latest
           observation is returned.
-      all_facets (optional): Whether or not to get data for all facets.
   """
-  url = get_service_url('/v1/bulk/observations/point')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'entities': sorted(entities),
-          'variables': sorted(variables),
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'dcids': sorted(entities)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
           'date': date,
-          'all_facets': all_facets,
       })
 
 
-def obs_point_within(parent_entity,
-                     child_type,
-                     variables,
-                     date='',
-                     all_facets=False):
+def obs_point_within(parent_entity, child_type, variables, date='LATEST'):
   """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -107,25 +106,27 @@ def obs_point_within(parent_entity,
       child_type: Type of child places as a string.
       variables: List of statistical variable DCIDs each as a string.
       date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
-      all_facets (optional): Whether or not to get data for all facets
 
   Returns:
-      Dict with a key "facets" and a key "observationsByVariable".
+      Dict with a key "facets" and a key "byVariable".
       The value for "facets" is a dict keyed by facet ids, with dicts as values
       (See "StatMetadata" in https://github.com/datacommonsorg/mixer/blob/master/proto/stat.proto for the definition of the inner dicts)
-      The value for "observationsByVariable" is a list of dicts (See "VariableObservations"
-      in https://github.com/datacommonsorg/mixer/blob/master/proto/v1/observations.proto for the definition of these dicts)
+      The value for "byVariable" is a list of dicts containing observations.
 
   """
-  url = get_service_url('/v1/bulk/observations/point/linked')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'linked_entity': parent_entity,
-          'linked_property': 'containedInPlace',
-          'entity_type': child_type,
-          'variables': sorted(variables),
-          'date': date,
-          'all_facets': all_facets,
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'expression':
+                  '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
+                      parent_entity, child_type)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
+          'date': date
       })
 
 

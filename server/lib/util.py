@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -267,15 +267,22 @@ def _get_processed_facets(facets):
   return result
 
 
+def _convert_v2_obs_point(facet):
+  return {
+      'facet': facet['facetId'],
+      'date': facet['observations'][0]['date'],
+      'value': facet['observations'][0]['value']
+  }
+
+
 def point_core(entities, variables, date, all_facets):
-  resp = dc.obs_point(entities, variables, date, all_facets)
+  resp = dc.obs_point(entities, variables, date)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
 def point_within_core(parent_entity, child_type, variables, date, all_facets):
-  resp = dc.obs_point_within(parent_entity, child_type, variables, date,
-                             all_facets)
+  resp = dc.obs_point_within(parent_entity, child_type, variables, date)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
@@ -283,25 +290,30 @@ def point_within_core(parent_entity, child_type, variables, date, all_facets):
 # Returns a compact version of observation point API results
 def _compact_point(point_resp, all_facets):
   result = {
-      'facets': point_resp.get('facets', {}),
+      'facets': {},
   }
+  if all_facets:
+    result['facets'] = point_resp['facets']
   data = {}
-  for obs_by_variable in point_resp.get('observationsByVariable', []):
-    if 'variable' not in obs_by_variable:
-      continue
-    var = obs_by_variable['variable']
+  for var, var_obs in point_resp.get('byVariable', {}).items():
     data[var] = {}
-    for obs_by_entity in obs_by_variable.get('observationsByEntity', []):
-      if 'entity' not in obs_by_entity:
-        continue
-      entity = obs_by_entity['entity']
+    for entity, entity_obs in var_obs.get('byEntity', {}).items():
       data[var][entity] = None
-      if 'pointsByFacet' in obs_by_entity:
+      if 'orderedFacets' in entity_obs:
         if all_facets:
-          data[var][entity] = obs_by_entity['pointsByFacet']
+          data[var][entity] = [
+              _convert_v2_obs_point(x) for x in entity_obs['orderedFacets']
+          ]
         else:
-          # There should be only one point.
-          data[var][entity] = obs_by_entity['pointsByFacet'][0]
+          # There should be only one point. Find the facet with the latest date
+          best = None
+          for x in entity_obs['orderedFacets']:
+            point = _convert_v2_obs_point(x)
+            if not best or point['date'] > best['date']:
+              best = point
+          data[var][entity] = best
+          facet_id = best['facet']
+          result['facets'][facet_id] = point_resp['facets'][facet_id]
       else:
         if all_facets:
           data[var][entity] = []
