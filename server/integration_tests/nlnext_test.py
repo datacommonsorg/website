@@ -66,11 +66,7 @@ class IntegrationTest(LiveServerTestCase):
     return create_web_app()
 
   # TODO: Validate contexts as well eventually.
-  def run_sequence(self,
-                   test_dir,
-                   queries,
-                   check_chart_config=True,
-                   check_debug_info=True):
+  def run_sequence(self, test_dir, queries, check_place_detection=False):
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
@@ -92,11 +88,18 @@ class IntegrationTest(LiveServerTestCase):
         with open(json_file, 'w') as infile:
           infile.write(json.dumps(resp, indent=2))
 
-        dbg_file = os.path.join(json_dir, 'debug_info.json')
-        with open(dbg_file, 'w') as infile:
-          infile.write(json.dumps(dbg, indent=2))
+        if check_place_detection:
+          dbg_file = os.path.join(json_dir, 'debug_info.json')
+          with open(dbg_file, 'w') as infile:
+            dbg_to_write = {
+                "places_detected": dbg["places_detected"],
+                "places_resolved": dbg["places_resolved"],
+                "main_place_dcid": dbg["main_place_dcid"],
+                "main_place_name": dbg["main_place_name"]
+            }
+            infile.write(json.dumps(dbg_to_write, indent=2))
       else:
-        if check_chart_config:
+        if not check_place_detection:
           with open(json_file, 'r') as infile:
             expected = json.load(infile)
             expected['debug'] = {}
@@ -107,8 +110,7 @@ class IntegrationTest(LiveServerTestCase):
             )
             self.maxDiff = None
             self.assertEqual(a, b)
-
-        if check_debug_info:
+        else:
           # Look in the debugInfo file to match places detected.
           dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
                                   'debug_info.json')
@@ -203,7 +205,7 @@ class IntegrationTest(LiveServerTestCase):
         'show me the population of mexico city',
         'counties in the US with the most poverty',
     ],
-                      check_chart_config=False)
+                      check_place_detection=True)
 
   def test_international(self):
     self.run_sequence('international', [
