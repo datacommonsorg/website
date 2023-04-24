@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -53,57 +53,33 @@ def get_point_within_csv_rows(parent_place,
       represented as an array where each item is the value of a cell in the
       row.
   """
-  points_response_all = dc.obs_point_within(parent_place, child_type, sv_list,
-                                            date, True)
-  points_response_best = {}
-  # Set of stat vars where we need to make a separate call to
-  # dc.obs_point_within to get the data points of the latest date and best facet
-  sv_latest_best_point = set()
-  if date == "":
-    for sv in sv_list:
-      if facet_map.get(sv, "") == "":
-        sv_latest_best_point.add(sv)
-    if len(sv_latest_best_point) > 0:
-      points_response_best = dc.obs_point_within(parent_place, child_type,
-                                                 list(sv_latest_best_point),
-                                                 date, False)
+  points_response = dc.obs_point_within(parent_place, child_type, sv_list, date)
+
   # dict of place dcid to dict of sv dcid to chosen data point.
   data_by_place = {}
-  # go through the data in points_response_best and add to data_by_place
-  for sv_data in points_response_best.get("observationsByVariable", []):
-    sv = sv_data.get("variable")
-    for place_data in sv_data.get("observationsByEntity", []):
-      place = place_data.get("entity")
-      if place not in data_by_place:
-        data_by_place[place] = {}
-      # points_response_best should just have a single best (latest date
-      # and best facet) data point for each stat var and place
-      if place_data.get("pointsByFacet"):
-        data_by_place[place][sv] = place_data.get("pointsByFacet")[0]
   # go through the data in points_response_all and add to data_by_place
-  for sv_data in points_response_all.get("observationsByVariable", []):
-    sv = sv_data.get("variable")
-    # points_response_all has data for all stat vars, but we want to skip
-    # the stat vars that are included in points_response_best
-    if sv in sv_latest_best_point:
-      continue
+  for sv, sv_data in points_response.get("byVariable", {}).items():
     target_facet = facet_map.get(sv, "")
-    for place_data in sv_data.get("observationsByEntity", []):
-      place = place_data.get("entity")
+    for place, place_data in sv_data.get("byEntity", {}).items():
       if not place in data_by_place:
         data_by_place[place] = {}
-      points_by_facet = place_data.get("pointsByFacet", [])
+      points_by_facet = place_data.get("orderedFacets", [])
+      latest = None
       for point in points_by_facet:
         # if no facet selected for this variable, choose the first
-        # point in the list because pointsByFacet is sorted by best
+        # point in the list because orderedFacets is sorted by best
         # facet first
         if target_facet == "":
+          if not latest or point['observations'][0]['date'] > latest[
+              'observations'][0]['date']:
+            latest = point
+        elif point.get("facetId") == target_facet:
           data_by_place[place][sv] = point
           break
-        if str(point.get("facet")) == target_facet:
-          data_by_place[place][sv] = point
-          break
-  facet_info = points_response_all.get("facets", {})
+      if latest:
+        data_by_place[place][sv] = latest
+
+  facet_info = points_response.get("facets", {})
   place_list = sorted(list(data_by_place.keys()))
   place_names = names(place_list)
   result = []
@@ -113,11 +89,14 @@ def get_point_within_csv_rows(parent_place,
     place_row = [place, place_name]
     for sv in sv_list:
       data = data_by_place.get(place, {}).get(sv, {})
-      date = data.get("date", "")
-      value = data.get("value", "")
-      facetId = data.get("facet", "")
-      facet = facet_info.get(str(facetId), {}).get("provenanceUrl", "")
-      place_row.extend([date, value, facet])
+      if data:
+        date = data['observations'][0].get("date", "")
+        value = data['observations'][0].get("value", "")
+        facetId = data.get("facetId", "")
+        url = facet_info.get(facetId, {}).get("provenanceUrl", "")
+        place_row.extend([date, value, url])
+      else:
+        place_row.extend(['', '', ''])
     result.append(place_row)
   return result
 
@@ -195,7 +174,7 @@ def get_series_csv_rows(series_response,
       want_data_points.sort(key=lambda x: x["date"])
       sv_data_points[sv] = want_data_points
       facetId = sv_series.get("facet", "")
-      sv_source[sv] = facets.get(str(facetId), {}).get("provenanceUrl", "")
+      sv_source[sv] = facets.get(facetId, {}).get("provenanceUrl", "")
       sv_curr_index[sv] = 0
       have_data = have_data or len(want_data_points) > 0
     while have_data:
@@ -283,7 +262,7 @@ def get_stats_within_place_csv():
   if min_date and max_date and min_date == max_date:
     date = min_date
     if min_date == "latest":
-      date = ""
+      date = "LATEST"
     result_csv.extend(
         get_point_within_csv_rows(parent_place, child_type, sv_list, facet_map,
                                   date, row_limit))

@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,14 +44,14 @@ def get_variable_facets_from_series(series_response):
   """
   facets_by_variable = {}
   facets = series_response.get("facets", {})
-  for sv_obs in series_response.get("observationsByVariable", []):
-    sv = sv_obs.get("variable")
+  for var_obs in series_response.get("observationsByVariable", []):
+    sv = var_obs.get("variable")
     facets_by_variable[sv] = {}
-    for place_obs in sv_obs.get("observationsByEntity", []):
+    for place_obs in var_obs.get("observationsByEntity", []):
       for facet_obs in place_obs.get("seriesByFacet", []):
-        facet = str(facet_obs.get("facet", ""))
-        if facet and not facet in facets_by_variable[sv]:
-          facets_by_variable[sv][facet] = facets.get(facet, {})
+        facet_id = facet_obs.get("facet", "")
+        if facet_id and facet_id not in facets_by_variable[sv]:
+          facets_by_variable[sv][facet_id] = facets.get(facet_id, {})
   return facets_by_variable
 
 
@@ -77,14 +77,13 @@ def get_variable_facets_from_points(point_response):
   """
   facets_by_variable = {}
   facets = point_response.get("facets", {})
-  for sv_obs in point_response.get("observationsByVariable", []):
-    sv = sv_obs.get("variable")
+  for sv, var_obs in point_response.get("byVariable", {}).items():
     facets_by_variable[sv] = {}
-    for place_obs in sv_obs.get("observationsByEntity", []):
-      for facet_obs in place_obs.get("pointsByFacet", []):
-        facet = str(facet_obs.get("facet", ""))
-        if not facet in facets_by_variable[sv]:
-          facets_by_variable[sv][facet] = facets.get(facet, {})
+    for _, entity_obs in var_obs.get("byEntity", {}).items():
+      for facet_obs in entity_obs.get("orderedFacets", []):
+        facet_id = facet_obs.get("facetId", "")
+        if facet_id not in facets_by_variable[sv]:
+          facets_by_variable[sv][facet_id] = facets.get(facet_id, {})
   return facets_by_variable
 
 
@@ -147,9 +146,9 @@ def get_facets_within():
   if min_date and max_date and min_date == max_date:
     date = min_date
     if min_date == "latest":
-      date = ""
+      date = "LATEST"
     point_response = dc.obs_point_within(parent_place, child_type, stat_vars,
-                                         date, True)
+                                         date)
     return get_variable_facets_from_points(point_response), 200
   else:
     series_response = dc.obs_series_within(parent_place, child_type, stat_vars,
