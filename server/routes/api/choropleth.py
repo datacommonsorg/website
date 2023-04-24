@@ -380,7 +380,7 @@ def choropleth_data(dcid):
     return Response(json.dumps({}), 200, mimetype='application/json')
   # Get data for all the stat vars for every place we will need and process the data
   numerator_resp = lib_util.point_within_core(display_dcid, display_level,
-                                              list(stat_vars), '', False)
+                                              list(stat_vars), 'LATEST', False)
   denominator_resp = lib_util.series_core(list(geos), list(denoms), False)
 
   result = {}

@@ -14,7 +14,6 @@
 
 import os
 import tempfile
-import urllib
 import urllib.request
 
 from selenium.webdriver.common.by import By

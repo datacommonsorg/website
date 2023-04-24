@@ -170,6 +170,8 @@ endpoints = Endpoints([
     '/v1/internal/page/place',
     '/v1/events',
     '/v1/events/dates',
+    # V2
+    '/v2/observation'
 ])
 
 
