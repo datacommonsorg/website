@@ -264,12 +264,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.22,
-      "fulfillment": 0.65,
-      "get_sample_child_places": 0.16,
-      "get_sv_details": 0.22,
-      "query_detection": 0.28,
-      "sv_existence_for_places": 0.11
+      "build_page_config": 1.78,
+      "fulfillment": 1.36,
+      "get_sample_child_places": 0.24,
+      "get_sv_details": 1.78,
+      "query_detection": 0.36,
+      "sv_existence_for_places": 0.16
     }
   },
   "data_spec": [
@@ -911,7 +911,7 @@
             {
               "CosineScore": [
                 0.637699544429779,
-                0.6115033626556396
+                0.6115034818649292
               ],
               "QueryPart": "cities hispanic",
               "SV": [
@@ -921,13 +921,13 @@
             },
             {
               "CosineScore": [
-                0.6217721700668335,
-                0.6135373711585999,
-                0.6093834638595581,
+                0.621772289276123,
+                0.6135373115539551,
+                0.6093835234642029,
                 0.599563479423523,
                 0.5912513732910156,
-                0.5797773599624634,
-                0.5726491212844849
+                0.5797772407531738,
+                0.5726490616798401
               ],
               "QueryPart": "population 10000",
               "SV": [

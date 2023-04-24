@@ -118,8 +118,8 @@
           ],
           "svs": [
             "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX",
-            "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX",
-            "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX"
+            "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX",
+            "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX"
           ],
           "type": "County"
         },
@@ -142,8 +142,8 @@
             "geoId/01029"
           ],
           "svs": [
-            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE",
-            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE"
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE",
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE"
           ],
           "type": "County"
         },
@@ -190,8 +190,8 @@
             "geoId/01029"
           ],
           "svs": [
-            "sdg/SI_POV_EMP1_15gte_M_A_FEMALE",
-            "sdg/SI_POV_EMP1_15gte_M_A_MALE"
+            "sdg/SI_POV_EMP1_15gte_M_A_MALE",
+            "sdg/SI_POV_EMP1_15gte_M_A_FEMALE"
           ],
           "type": "County"
         },
@@ -325,13 +325,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.22,
-      "fulfillment": 0.74,
-      "get_sample_child_places": 0.2,
-      "get_sv_details": 0.21,
-      "query_detection": 0.27,
-      "sv_existence_for_places": 0.13,
-      "topic_calls": 0.41
+      "build_page_config": 0.24,
+      "fulfillment": 1.21,
+      "get_sample_child_places": 0.52,
+      "get_sv_details": 0.23,
+      "query_detection": 0.3,
+      "sv_existence_for_places": 0.15,
+      "topic_calls": 0.53
     }
   },
   "data_spec": [

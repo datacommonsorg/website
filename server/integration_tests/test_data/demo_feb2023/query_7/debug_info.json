@@ -28,12 +28,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.2,
-      "fulfillment": 0.33,
-      "get_sample_child_places": 0.14,
-      "get_sv_details": 0.2,
-      "query_detection": 0.29,
-      "sv_existence_for_places": 0.19
+      "build_page_config": 0.22,
+      "fulfillment": 0.32,
+      "get_sample_child_places": 0.11,
+      "get_sv_details": 0.22,
+      "query_detection": 0.36,
+      "sv_existence_for_places": 0.21
     }
   },
   "data_spec": [
@@ -136,13 +136,13 @@
             "Percent_Person_WithHighCholesterol",
             "Percent_Person_WithHighBloodPressure",
             "Percent_Person_WithArthritis",
-            "Percent_Person_WithPhysicalHealthNotGood",
             "Percent_Person_WithMentalHealthNotGood",
+            "Percent_Person_WithPhysicalHealthNotGood",
             "Percent_Person_WithAsthma",
             "Percent_Person_WithDiabetes",
             "Percent_Person_WithCancerExcludingSkinCancer",
-            "Percent_Person_WithCoronaryHeartDisease",
             "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "Percent_Person_WithCoronaryHeartDisease",
             "Percent_Person_WithStroke",
             "Percent_Person_WithChronicKidneyDisease"
           ]
@@ -364,20 +364,20 @@
             "dc/p69tpsldf99h7",
             "Count_Worker_NAICSAccommodationFoodServices",
             "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSEducationalServices",
             "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
             "Count_Worker_NAICSProfessionalScientificTechnicalServices",
             "Count_Worker_NAICSFinanceInsurance",
             "Count_Worker_NAICSOtherServices",
-            "dc/ndg1xk1e9frc2",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
             "Count_Worker_NAICSPublicAdministration",
+            "dc/ndg1xk1e9frc2",
             "Count_Worker_NAICSRealEstateRentalLeasing",
             "Count_Worker_NAICSWholesaleTrade",
-            "Count_Worker_NAICSArtsEntertainmentRecreation",
-            "dc/8p97n7l96lgg8",
             "Count_Worker_NAICSInformation",
-            "Count_Worker_NAICSEducationalServices",
-            "Count_Worker_NAICSUtilities",
+            "dc/8p97n7l96lgg8",
             "Count_Worker_NAICSAgricultureForestryFishingHunting",
+            "Count_Worker_NAICSUtilities",
             "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           ]
         }
@@ -676,7 +676,7 @@
             },
             {
               "CosineScore": [
-                0.639345645904541
+                0.6393457651138306
               ],
               "QueryPart": "levels blood pressure",
               "SV": [

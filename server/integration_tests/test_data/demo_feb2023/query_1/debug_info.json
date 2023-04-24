@@ -62,12 +62,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.25,
-      "fulfillment": 0.24,
-      "get_sample_child_places": 0.11,
-      "get_sv_details": 0.25,
-      "query_detection": 0.69,
-      "sv_existence_for_places": 0.13,
+      "build_page_config": 0.38,
+      "fulfillment": 0.29,
+      "get_sample_child_places": 0.13,
+      "get_sv_details": 0.38,
+      "query_detection": 0.71,
+      "sv_existence_for_places": 0.15,
       "topic_calls": 0.0
     }
   },

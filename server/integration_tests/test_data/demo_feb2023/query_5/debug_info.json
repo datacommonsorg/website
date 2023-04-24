@@ -173,12 +173,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.3,
-      "fulfillment": 0.54,
-      "get_sv_details": 0.3,
-      "query_detection": 0.17,
-      "rank_svs_by_series_growth": 0.38,
-      "sv_existence_for_places": 0.14,
+      "build_page_config": 0.34,
+      "fulfillment": 0.55,
+      "get_sv_details": 0.33,
+      "query_detection": 0.19,
+      "rank_svs_by_series_growth": 0.4,
+      "sv_existence_for_places": 0.13,
       "topic_calls": 0.0
     }
   },
@@ -392,20 +392,20 @@
             "dc/p69tpsldf99h7",
             "Count_Worker_NAICSAccommodationFoodServices",
             "Count_Worker_NAICSConstruction",
+            "Count_Worker_NAICSEducationalServices",
             "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
             "Count_Worker_NAICSProfessionalScientificTechnicalServices",
             "Count_Worker_NAICSFinanceInsurance",
             "Count_Worker_NAICSOtherServices",
-            "dc/ndg1xk1e9frc2",
+            "Count_Worker_NAICSArtsEntertainmentRecreation",
             "Count_Worker_NAICSPublicAdministration",
+            "dc/ndg1xk1e9frc2",
             "Count_Worker_NAICSRealEstateRentalLeasing",
             "Count_Worker_NAICSWholesaleTrade",
-            "Count_Worker_NAICSArtsEntertainmentRecreation",
-            "dc/8p97n7l96lgg8",
             "Count_Worker_NAICSInformation",
-            "Count_Worker_NAICSEducationalServices",
-            "Count_Worker_NAICSUtilities",
+            "dc/8p97n7l96lgg8",
             "Count_Worker_NAICSAgricultureForestryFishingHunting",
+            "Count_Worker_NAICSUtilities",
             "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           ]
         }

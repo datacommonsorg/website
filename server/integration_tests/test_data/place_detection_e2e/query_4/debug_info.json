@@ -85,10 +85,10 @@
     },
     "TIMING": {
       "build_page_config": 0.01,
-      "fulfillment": 0.14,
+      "fulfillment": 0.19,
       "get_sv_details": 0.0,
-      "query_detection": 0.98,
-      "sv_existence_for_places": 0.13,
+      "query_detection": 1.07,
+      "sv_existence_for_places": 0.18,
       "topic_calls": 0.0
     }
   },

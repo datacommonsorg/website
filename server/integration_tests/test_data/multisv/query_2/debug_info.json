@@ -53,8 +53,8 @@
           ],
           "svs": [
             "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX",
-            "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX",
-            "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX"
+            "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX",
+            "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX"
           ],
           "type": null
         },
@@ -64,8 +64,8 @@
             "geoId/12"
           ],
           "svs": [
-            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE",
-            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE"
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE",
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE"
           ],
           "type": null
         },
@@ -86,8 +86,8 @@
             "geoId/12"
           ],
           "svs": [
-            "sdg/SI_POV_EMP1_15gte_M_A_FEMALE",
-            "sdg/SI_POV_EMP1_15gte_M_A_MALE"
+            "sdg/SI_POV_EMP1_15gte_M_A_MALE",
+            "sdg/SI_POV_EMP1_15gte_M_A_FEMALE"
           ],
           "type": null
         },
@@ -184,12 +184,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.24,
-      "fulfillment": 0.61,
-      "get_sv_details": 0.24,
-      "query_detection": 0.75,
-      "sv_existence_for_places": 0.1,
-      "topic_calls": 0.5
+      "build_page_config": 0.89,
+      "fulfillment": 0.82,
+      "get_sv_details": 0.88,
+      "query_detection": 1.35,
+      "sv_existence_for_places": 0.13,
+      "topic_calls": 0.69
     }
   },
   "data_spec": [
