@@ -16,13 +16,25 @@
           "type": null
         }
       ],
-      "failed_populate_callback_primary": 2,
+      "failed_populate_callback_primary": 6,
       "time-delta-across-vars_failed_cb_toofewsvs": [
         [
           "Count_Worker_NAICSProfessionalScientificTechnicalServices"
         ],
         [
           "Count_Worker_NAICSTotalAllIndustries"
+        ],
+        [
+          "dc/hlxvn1t8b9bhh"
+        ],
+        [
+          "Count_Worker_NAICSAgricultureForestryFishingHunting"
+        ],
+        [
+          "Count_Worker_NAICSArtsEntertainmentRecreation"
+        ],
+        [
+          "dc/p69tpsldf99h7"
         ]
       ]
     },
@@ -30,15 +42,16 @@
       "filtered_svs": [
         [
           "dc/topic/Jobs",
-          "dc/g/Person_Industry-NAICS/451",
-          "dc/g/Person_Industry-NAICS/54",
           "Count_Teacher",
           "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-          "dc/g/Person_Industry-NAICS/11",
-          "dc/g/Person_Industry-NAICS/61",
-          "dc/g/Person_Industry-NAICS/7172",
           "Count_Worker_NAICSTotalAllIndustries",
-          "dc/topic/Economy"
+          "dc/topic/Economy",
+          "dc/topic/WorkCommute",
+          "dc/hlxvn1t8b9bhh",
+          "Count_Worker_NAICSAgricultureForestryFishingHunting",
+          "dc/topic/Income",
+          "Count_Worker_NAICSArtsEntertainmentRecreation",
+          "dc/p69tpsldf99h7"
         ]
       ],
       "num_chart_candidates": 3,
@@ -144,16 +157,28 @@
             "peer_groups": [],
             "svs": []
           }
+        },
+        {
+          "dc/topic/WorkCommute": {
+            "peer_groups": [],
+            "svs": []
+          }
+        },
+        {
+          "dc/topic/Income": {
+            "peer_groups": [],
+            "svs": []
+          }
         }
       ]
     },
     "TIMING": {
-      "build_page_config": 0.34,
-      "fulfillment": 0.56,
-      "get_sv_details": 0.33,
-      "query_detection": 0.07,
-      "rank_svs_by_series_growth": 0.45,
-      "sv_existence_for_places": 0.1,
+      "build_page_config": 0.3,
+      "fulfillment": 0.54,
+      "get_sv_details": 0.3,
+      "query_detection": 0.17,
+      "rank_svs_by_series_growth": 0.38,
+      "sv_existence_for_places": 0.14,
       "topic_calls": 0.0
     }
   },
@@ -313,15 +338,16 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "dc/g/Person_Industry-NAICS/451",
-        "dc/g/Person_Industry-NAICS/54",
         "Count_Teacher",
         "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/61",
-        "dc/g/Person_Industry-NAICS/7172",
         "Count_Worker_NAICSTotalAllIndustries",
-        "dc/topic/Economy"
+        "dc/topic/Economy",
+        "dc/topic/WorkCommute",
+        "dc/hlxvn1t8b9bhh",
+        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        "dc/topic/Income",
+        "Count_Worker_NAICSArtsEntertainmentRecreation",
+        "dc/p69tpsldf99h7"
       ]
     },
     {
@@ -387,10 +413,7 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "Count_Worker_NAICSTotalAllIndustries",
-        "dc/g/Person_Industry-NAICS/10",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/451"
+        "Count_Worker_NAICSTotalAllIndustries"
       ]
     },
     {
@@ -447,6 +470,10 @@
           "type": 2
         },
         {
+          "contained_in_place_type": "DefaultType",
+          "type": 4
+        },
+        {
           "event_type": [
             4
           ],
@@ -496,7 +523,7 @@
           "type": 2
         },
         {
-          "contained_in_place_type": "Across",
+          "contained_in_place_type": "DefaultType",
           "type": 4
         }
       ],
@@ -585,6 +612,7 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": null,
     "original_query": "Which jobs have grown the most",
@@ -604,112 +632,148 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      1.0000001192092896,
-      0.5788648724555969,
-      0.5738630294799805,
-      0.5702524185180664,
-      0.5676053762435913,
-      0.5567134618759155,
-      0.552095890045166,
-      0.5458865761756897,
-      0.5451705455780029,
-      0.5446445941925049
+      1.0,
+      0.5702525973320007,
+      0.567605197429657,
+      0.5451706051826477,
+      0.5446448922157288,
+      0.5414541363716125,
+      0.533058762550354,
+      0.5327978730201721,
+      0.5120187997817993,
+      0.5117514133453369,
+      0.506250262260437
     ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.7679,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                1.000000238418579
+              ],
+              "QueryPart": "jobs",
+              "SV": [
+                "dc/topic/Jobs"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.5358866453170776,
+                0.5083691477775574
+              ],
+              "QueryPart": "grown",
+              "SV": [
+                "Amount_FarmInventory_DryEdibleBeans",
+                "Amount_FarmInventory_BarleyForGrain"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "SV": [
       "dc/topic/Jobs",
-      "dc/g/Person_Industry-NAICS/451",
-      "dc/g/Person_Industry-NAICS/54",
       "Count_Teacher",
       "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-      "dc/g/Person_Industry-NAICS/11",
-      "dc/g/Person_Industry-NAICS/61",
-      "dc/g/Person_Industry-NAICS/7172",
       "Count_Worker_NAICSTotalAllIndustries",
-      "dc/topic/Economy"
+      "dc/topic/Economy",
+      "dc/topic/WorkCommute",
+      "dc/hlxvn1t8b9bhh",
+      "Count_Worker_NAICSAgricultureForestryFishingHunting",
+      "dc/topic/Income",
+      "Count_Worker_NAICSArtsEntertainmentRecreation",
+      "dc/p69tpsldf99h7"
     ],
     "SV_to_Sentences": {
       "Count_Teacher": [
-        "Teachers (0.5702524185180664)"
+        "Teachers (0.5703)"
+      ],
+      "Count_Worker_NAICSAgricultureForestryFishingHunting": [
+        "People working in agriculture, forestry, fishing, and hunting field. (0.5328)"
+      ],
+      "Count_Worker_NAICSArtsEntertainmentRecreation": [
+        "People working in arts, entertainment, and recreation field. (0.5118)"
       ],
       "Count_Worker_NAICSProfessionalScientificTechnicalServices": [
-        "People working in the professional, scientific, and technical services field (0.5676053762435913)"
+        "People working in the professional, scientific, and technical services field (0.5676)"
       ],
       "Count_Worker_NAICSTotalAllIndustries": [
-        "People working in all fields (0.5451705455780029)"
+        "People working in all fields (0.5452)"
       ],
-      "dc/g/Person_Industry-NAICS/11": [
-        "People working in the agriculture, forestry, fishing, and hunting industry (0.5567134618759155)",
-        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5567134618759155)",
-        "workers in agriculture, forestry, fishing and hunting industry (0.5436566472053528)"
+      "dc/hlxvn1t8b9bhh": [
+        "agriculture workers (0.5331)",
+        "workers in agriculture (0.5127)"
       ],
-      "dc/g/Person_Industry-NAICS/451": [
-        "workers in sports, hobby, music instrument, book stores industry (0.5788648724555969)"
-      ],
-      "dc/g/Person_Industry-NAICS/54": [
-        "workers in professional, scientific, and technical services industry (0.5738630294799805)"
-      ],
-      "dc/g/Person_Industry-NAICS/61": [
-        "workers in educational services industry (0.552095890045166)"
-      ],
-      "dc/g/Person_Industry-NAICS/7172": [
-        "People Working in the Arts, Entertainment, and Recreation and Accommodation and Food Services Industries (0.5458865761756897)",
-        "People working in the arts, entertainment, and recreation and accommodation and food services industries (0.5458865761756897)"
+      "dc/p69tpsldf99h7": [
+        "People working in the retail trade field (0.5063)"
       ],
       "dc/topic/Economy": [
-        "Economy (0.5446445941925049)"
+        "Economy (0.5446)"
+      ],
+      "dc/topic/Income": [
+        "pay (0.512)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (1.0000001192092896)",
-        "Careers (0.8129150867462158)",
-        "Employment Positions (0.712806224822998)",
-        "Job Roles (0.6906681656837463)",
-        "Work Occupations (0.672441303730011)",
-        "Professions (0.6682442426681519)",
-        "Occupational professions (0.6139254570007324)",
-        "distribution of jobs (0.6039228439331055)"
+        "Jobs (1.0)",
+        "Careers (0.8129)",
+        "Employment Positions (0.7128)",
+        "Job Roles (0.6907)",
+        "Work Occupations (0.6724)",
+        "Professions (0.6682)",
+        "Occupational professions (0.6139)",
+        "distribution of jobs (0.6039)"
+      ],
+      "dc/topic/WorkCommute": [
+        "journey to work (0.5415)",
+        "travel to work (0.5088)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_Teacher": [
-      "Teachers (0.5702524185180664)"
+      "Teachers (0.5703)"
+    ],
+    "Count_Worker_NAICSAgricultureForestryFishingHunting": [
+      "People working in agriculture, forestry, fishing, and hunting field. (0.5328)"
+    ],
+    "Count_Worker_NAICSArtsEntertainmentRecreation": [
+      "People working in arts, entertainment, and recreation field. (0.5118)"
     ],
     "Count_Worker_NAICSProfessionalScientificTechnicalServices": [
-      "People working in the professional, scientific, and technical services field (0.5676053762435913)"
+      "People working in the professional, scientific, and technical services field (0.5676)"
     ],
     "Count_Worker_NAICSTotalAllIndustries": [
-      "People working in all fields (0.5451705455780029)"
+      "People working in all fields (0.5452)"
     ],
-    "dc/g/Person_Industry-NAICS/11": [
-      "People working in the agriculture, forestry, fishing, and hunting industry (0.5567134618759155)",
-      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.5567134618759155)",
-      "workers in agriculture, forestry, fishing and hunting industry (0.5436566472053528)"
+    "dc/hlxvn1t8b9bhh": [
+      "agriculture workers (0.5331)",
+      "workers in agriculture (0.5127)"
     ],
-    "dc/g/Person_Industry-NAICS/451": [
-      "workers in sports, hobby, music instrument, book stores industry (0.5788648724555969)"
-    ],
-    "dc/g/Person_Industry-NAICS/54": [
-      "workers in professional, scientific, and technical services industry (0.5738630294799805)"
-    ],
-    "dc/g/Person_Industry-NAICS/61": [
-      "workers in educational services industry (0.552095890045166)"
-    ],
-    "dc/g/Person_Industry-NAICS/7172": [
-      "People Working in the Arts, Entertainment, and Recreation and Accommodation and Food Services Industries (0.5458865761756897)",
-      "People working in the arts, entertainment, and recreation and accommodation and food services industries (0.5458865761756897)"
+    "dc/p69tpsldf99h7": [
+      "People working in the retail trade field (0.5063)"
     ],
     "dc/topic/Economy": [
-      "Economy (0.5446445941925049)"
+      "Economy (0.5446)"
+    ],
+    "dc/topic/Income": [
+      "pay (0.512)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (1.0000001192092896)",
-      "Careers (0.8129150867462158)",
-      "Employment Positions (0.712806224822998)",
-      "Job Roles (0.6906681656837463)",
-      "Work Occupations (0.672441303730011)",
-      "Professions (0.6682442426681519)",
-      "Occupational professions (0.6139254570007324)",
-      "distribution of jobs (0.6039228439331055)"
+      "Jobs (1.0)",
+      "Careers (0.8129)",
+      "Employment Positions (0.7128)",
+      "Job Roles (0.6907)",
+      "Work Occupations (0.6724)",
+      "Professions (0.6682)",
+      "Occupational professions (0.6139)",
+      "distribution of jobs (0.6039)"
+    ],
+    "dc/topic/WorkCommute": [
+      "journey to work (0.5415)",
+      "travel to work (0.5088)"
     ]
   },
   "time_delta_classification": "[<TimeDeltaType.INCREASE: 0>]"

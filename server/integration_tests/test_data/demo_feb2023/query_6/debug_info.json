@@ -20,7 +20,6 @@
         [
           "dc/topic/MedicalConditions",
           "Percent_Person_WithPhysicalHealthNotGood",
-          "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
           "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
         ]
       ],
@@ -89,12 +88,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.28,
-      "fulfillment": 0.38,
-      "get_sv_details": 0.27,
-      "query_detection": 0.07,
-      "rank_svs_by_latest_value": 0.25,
-      "sv_existence_for_places": 0.12,
+      "build_page_config": 0.23,
+      "fulfillment": 0.41,
+      "get_sv_details": 0.23,
+      "query_detection": 0.18,
+      "rank_svs_by_latest_value": 0.3,
+      "sv_existence_for_places": 0.11,
       "topic_calls": 0.0
     }
   },
@@ -156,7 +155,6 @@
       "svs": [
         "dc/topic/MedicalConditions",
         "Percent_Person_WithPhysicalHealthNotGood",
-        "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
         "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
       ]
     },
@@ -315,15 +313,16 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "dc/g/Person_Industry-NAICS/451",
-        "dc/g/Person_Industry-NAICS/54",
         "Count_Teacher",
         "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/61",
-        "dc/g/Person_Industry-NAICS/7172",
         "Count_Worker_NAICSTotalAllIndustries",
-        "dc/topic/Economy"
+        "dc/topic/Economy",
+        "dc/topic/WorkCommute",
+        "dc/hlxvn1t8b9bhh",
+        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        "dc/topic/Income",
+        "Count_Worker_NAICSArtsEntertainmentRecreation",
+        "dc/p69tpsldf99h7"
       ]
     },
     {
@@ -389,10 +388,7 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "Count_Worker_NAICSTotalAllIndustries",
-        "dc/g/Person_Industry-NAICS/10",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/451"
+        "Count_Worker_NAICSTotalAllIndustries"
       ]
     },
     {
@@ -449,6 +445,10 @@
           "type": 2
         },
         {
+          "contained_in_place_type": "DefaultType",
+          "type": 4
+        },
+        {
           "event_type": [
             4
           ],
@@ -498,7 +498,7 @@
           "type": 2
         },
         {
-          "contained_in_place_type": "Across",
+          "contained_in_place_type": "DefaultType",
           "type": 4
         }
       ],
@@ -587,6 +587,7 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": null,
     "original_query": "What are the most common health issues there",
@@ -606,88 +607,124 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.8526666760444641,
-      0.6370555758476257,
-      0.5472053289413452,
-      0.5040634274482727,
-      0.48270195722579956,
-      0.4510791301727295
+      0.852666437625885,
+      0.6370556950569153,
+      0.5040631890296936,
+      0.4827020764350891,
+      0.4631195664405823,
+      0.4628268778324127,
+      0.4510793387889862
     ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.5957,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.5973052978515625,
+                0.571264386177063
+              ],
+              "QueryPart": "common health",
+              "SV": [
+                "dc/topic/MedicalConditions",
+                "dc/topic/SDG_3"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.5940545797348022
+              ],
+              "QueryPart": "issues",
+              "SV": [
+                "dc/topic/MedicalConditions"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "SV": [
       "dc/topic/MedicalConditions",
       "Percent_Person_WithPhysicalHealthNotGood",
-      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
       "Percent_Person_18To64Years_ReceivedNoHealthInsurance",
       "Percent_Person_WithMentalHealthNotGood",
+      "dc/topic/MaternalHealth",
+      "dc/topic/SDG_3",
       "Percent_Person_Obesity"
     ],
     "SV_to_Sentences": {
       "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-        "Prevalence: 18 - 64 Years, No Health Insurance (0.5040634274482727)"
+        "Prevalence: 18 - 64 Years, No Health Insurance (0.5041)"
       ],
       "Percent_Person_Obesity": [
-        "Prevalence: Obesity (0.4510791301727295)"
+        "Prevalence: Obesity (0.4511)"
       ],
       "Percent_Person_WithMentalHealthNotGood": [
-        "Prevalence: Mental Health Not Good (0.48270195722579956)"
+        "Prevalence: Mental Health Not Good (0.4827)"
       ],
       "Percent_Person_WithPhysicalHealthNotGood": [
-        "Prevalence: Physical Health Not Good (0.6370555758476257)",
-        "Percentage of people who have physical health issues (0.5516789555549622)",
-        "Percentage of people with chronic health issues (0.4949120283126831)",
-        "Percentage of people with poor health (0.4822315573692322)",
-        "Percentage of the population with poor physical health (0.4606519341468811)",
-        "Percentage of Population With Poor Physical Health (0.4545813202857971)",
-        "Percentage of population with poor physical health (0.4545813202857971)",
-        "percent of people whose physical health is not good (0.4421774744987488)"
+        "Prevalence: Physical Health Not Good (0.6371)",
+        "Percentage of people who have physical health issues (0.5517)",
+        "Percentage of people with chronic health issues (0.4949)",
+        "Percentage of people with poor health (0.4822)",
+        "Percentage of the population with poor physical health (0.4607)",
+        "Percentage of population with poor physical health (0.4546)",
+        "Percentage of Population With Poor Physical Health (0.4546)",
+        "percent of people whose physical health is not good (0.4422)"
       ],
-      "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-        "people with physical health not good (0.5472053289413452)",
-        "Number of People With Poor Physical Health (0.5154426097869873)",
-        "Person With Medical Condition = Physical Health Not Good (0.4871799945831299)"
+      "dc/topic/MaternalHealth": [
+        "womens health (0.4631)",
+        "health of mothers (0.4415)"
       ],
       "dc/topic/MedicalConditions": [
-        "health issues (0.8526666760444641)",
-        "Health problems (0.7848365306854248)",
-        "Health conditions (0.6729574203491211)",
-        "Medical Conditions (0.5714634656906128)",
-        "Medical ailments (0.49890977144241333)",
-        "Diseases: Medical disorders (0.45270341634750366)"
+        "health issues (0.8527)",
+        "Health problems (0.7848)",
+        "Health conditions (0.673)",
+        "Medical Conditions (0.5715)",
+        "Medical ailments (0.4989)",
+        "Diseases: Medical disorders (0.4527)"
+      ],
+      "dc/topic/SDG_3": [
+        "healthy lives (0.4628)"
       ]
     }
   },
   "svs_to_sentences": {
     "Percent_Person_18To64Years_ReceivedNoHealthInsurance": [
-      "Prevalence: 18 - 64 Years, No Health Insurance (0.5040634274482727)"
+      "Prevalence: 18 - 64 Years, No Health Insurance (0.5041)"
     ],
     "Percent_Person_Obesity": [
-      "Prevalence: Obesity (0.4510791301727295)"
+      "Prevalence: Obesity (0.4511)"
     ],
     "Percent_Person_WithMentalHealthNotGood": [
-      "Prevalence: Mental Health Not Good (0.48270195722579956)"
+      "Prevalence: Mental Health Not Good (0.4827)"
     ],
     "Percent_Person_WithPhysicalHealthNotGood": [
-      "Prevalence: Physical Health Not Good (0.6370555758476257)",
-      "Percentage of people who have physical health issues (0.5516789555549622)",
-      "Percentage of people with chronic health issues (0.4949120283126831)",
-      "Percentage of people with poor health (0.4822315573692322)",
-      "Percentage of the population with poor physical health (0.4606519341468811)",
-      "Percentage of Population With Poor Physical Health (0.4545813202857971)",
-      "Percentage of population with poor physical health (0.4545813202857971)",
-      "percent of people whose physical health is not good (0.4421774744987488)"
+      "Prevalence: Physical Health Not Good (0.6371)",
+      "Percentage of people who have physical health issues (0.5517)",
+      "Percentage of people with chronic health issues (0.4949)",
+      "Percentage of people with poor health (0.4822)",
+      "Percentage of the population with poor physical health (0.4607)",
+      "Percentage of population with poor physical health (0.4546)",
+      "Percentage of Population With Poor Physical Health (0.4546)",
+      "percent of people whose physical health is not good (0.4422)"
     ],
-    "dc/g/Person_MedicalCondition-PhysicalHealthNotGood": [
-      "people with physical health not good (0.5472053289413452)",
-      "Number of People With Poor Physical Health (0.5154426097869873)",
-      "Person With Medical Condition = Physical Health Not Good (0.4871799945831299)"
+    "dc/topic/MaternalHealth": [
+      "womens health (0.4631)",
+      "health of mothers (0.4415)"
     ],
     "dc/topic/MedicalConditions": [
-      "health issues (0.8526666760444641)",
-      "Health problems (0.7848365306854248)",
-      "Health conditions (0.6729574203491211)",
-      "Medical Conditions (0.5714634656906128)",
-      "Medical ailments (0.49890977144241333)",
-      "Diseases: Medical disorders (0.45270341634750366)"
+      "health issues (0.8527)",
+      "Health problems (0.7848)",
+      "Health conditions (0.673)",
+      "Medical Conditions (0.5715)",
+      "Medical ailments (0.4989)",
+      "Diseases: Medical disorders (0.4527)"
+    ],
+    "dc/topic/SDG_3": [
+      "healthy lives (0.4628)"
     ]
   },
   "time_delta_classification": "<None>"

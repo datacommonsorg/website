@@ -1,23 +1,10 @@
 {
   "clustering_classification": "<None>",
-  "comparison_classification": "ClassificationType.COMPARISON",
+  "comparison_classification": "<None>",
   "contained_in_classification": "<None>",
   "correlation_classification": "<None>",
   "counters": {
-    "ERROR": {
-      "failed_partial_existence_check": [
-        {
-          "places": [
-            "geoId/06",
-            "geoId/12"
-          ],
-          "svs": [
-            "Count_CriminalActivities_Arson"
-          ],
-          "type": null
-        }
-      ]
-    },
+    "ERROR": {},
     "INFO": {
       "comparison_place_candidates": [
         [
@@ -35,8 +22,7 @@
           "Count_CriminalActivities_ViolentCrime",
           "Count_CriminalActivities_ForcibleRape",
           "Count_CriminalActivities_PropertyCrime",
-          "Count_CriminalActivities_Burglary",
-          "Count_CriminalActivities_Arson"
+          "Count_CriminalActivities_Burglary"
         ]
       ],
       "num_chart_candidates": 9,
@@ -45,18 +31,18 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.31,
-      "fulfillment": 0.18,
-      "get_sv_details": 0.31,
-      "query_detection": 0.77,
-      "sv_existence_for_places": 0.17
+      "build_page_config": 0.33,
+      "fulfillment": 0.21,
+      "get_sv_details": 0.33,
+      "query_detection": 0.72,
+      "sv_existence_for_places": 0.2
     }
   },
   "data_spec": [
     {
       "classifications": [
         {
-          "type": 7
+          "type": 13
         }
       ],
       "places": [
@@ -73,7 +59,7 @@
           "place_type": "State"
         }
       ],
-      "query": "Compare crime in California and Florida",
+      "query": "Crime in California and Florida",
       "query_type": 6,
       "ranked_charts": [
         {
@@ -375,14 +361,13 @@
         "Count_CriminalActivities_ViolentCrime",
         "Count_CriminalActivities_ForcibleRape",
         "Count_CriminalActivities_PropertyCrime",
-        "Count_CriminalActivities_Burglary",
-        "Count_CriminalActivities_Arson"
+        "Count_CriminalActivities_Burglary"
       ]
     },
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -434,13 +419,14 @@
   "event_classification": "<None>",
   "main_place_dcid": "geoId/06",
   "main_place_name": "California",
-  "original_query": "Compare crime in California and Florida",
+  "original_query": "Crime in California and Florida",
   "overview_classification": "<None>",
   "places_detected": [
     "california",
     "florida"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); (name: Florida, dcid: geoId/12); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -448,7 +434,7 @@
       "name": "California",
       "place_type": "State"
     },
-    "original_query": "Compare crime in California and Florida",
+    "original_query": "Crime in California and Florida",
     "place_dcid_inference": {
       "dcid_not_found_for_place_ids": [],
       "dcid_overrides_found": [],
@@ -480,29 +466,31 @@
       "florida"
     ],
     "query_transformations": {
-      "place_detection_input": "compare crime in california and florida",
-      "place_detection_with_places_removed": "compare crime and",
-      "sv_detection_query_input": "compare crime and",
+      "place_detection_input": "crime in california and florida",
+      "place_detection_with_places_removed": "crime and",
+      "sv_detection_query_input": "crime and",
       "sv_detection_query_stop_words_removal": "crime"
     }
   },
-  "query_with_places_removed": "compare crime and",
+  "query_with_places_removed": "crime and",
   "ranking_classification": "<None>",
   "size_type_classification": "<None>",
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6829185485839844,
-      0.6189738512039185,
-      0.5930737257003784,
-      0.5889496803283691,
-      0.5793908834457397,
-      0.5570402145385742,
-      0.5402758717536926,
-      0.5143426060676575,
-      0.5142108201980591,
-      0.5070269107818604
+      0.8651907444000244,
+      0.6189741492271423,
+      0.5930739045143127,
+      0.5889499187469482,
+      0.5793907642364502,
+      0.5570403337478638,
+      0.5402756929397583,
+      0.5143425464630127,
+      0.5142107009887695
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "Count_CriminalActivities_CombinedCrime",
       "Count_CriminalActivities_LarcenyTheft",
@@ -512,92 +500,87 @@
       "Count_CriminalActivities_ViolentCrime",
       "Count_CriminalActivities_ForcibleRape",
       "Count_CriminalActivities_PropertyCrime",
-      "Count_CriminalActivities_Burglary",
-      "Count_CriminalActivities_Arson"
+      "Count_CriminalActivities_Burglary"
     ],
     "SV_to_Sentences": {
-      "Count_CriminalActivities_Arson": [
-        "Count of Criminal Activities: Arson (0.5070269107818604)"
-      ],
       "Count_CriminalActivities_Burglary": [
-        "Count of Criminal Activities: Burglary (0.5142108201980591)"
+        "Count of Criminal Activities: Burglary (0.5142)"
       ],
       "Count_CriminalActivities_CombinedCrime": [
-        "Crime statistics (0.6829185485839844)",
-        "Crime rate (0.6390458345413208)",
-        "Rate of crime (0.6103023290634155)",
-        "Number of crime cases (0.5476557612419128)",
-        "Number of Criminal Activities (0.5262966752052307)",
-        "Number of criminal activities (0.5262966752052307)"
+        "crime in (0.8652)",
+        "Crime statistics (0.6829)",
+        "Crime rate (0.639)",
+        "how much crime happens in (0.6192)",
+        "Rate of crime (0.6103)",
+        "Number of crime cases (0.5477)",
+        "Number of criminal activities (0.5263)",
+        "Number of Criminal Activities (0.5263)"
       ],
       "Count_CriminalActivities_ForcibleRape": [
-        "Count of Criminal Activities: Forcible Rape (0.5402758717536926)"
+        "Count of Criminal Activities: Forcible Rape (0.5403)"
       ],
       "Count_CriminalActivities_LarcenyTheft": [
-        "Count of Criminal Activities: Larceny Theft (0.6189738512039185)",
-        "Number of crimes counted as Larceny Theft (0.539699375629425)",
-        "Number of larceny theft crimes (0.5368750095367432)"
+        "Count of Criminal Activities: Larceny Theft (0.619)",
+        "Number of crimes counted as Larceny Theft (0.5397)",
+        "Number of larceny theft crimes (0.5369)"
       ],
       "Count_CriminalActivities_MotorVehicleTheft": [
-        "Count of Criminal Activities: Motor Vehicle Theft (0.5930737257003784)"
+        "Count of Criminal Activities: Motor Vehicle Theft (0.5931)"
       ],
       "Count_CriminalActivities_PropertyCrime": [
-        "Number of property crimes (0.5143426060676575)",
-        "Number of Property Related Crimes (0.5140830874443054)"
+        "Number of property crimes (0.5143)"
       ],
       "Count_CriminalActivities_Robbery": [
-        "Count of Criminal Activities: Robbery (0.5793908834457397)"
+        "Count of Criminal Activities: Robbery (0.5794)"
       ],
       "Count_CriminalActivities_ViolentCrime": [
-        "Count of Criminal Activities: Violent (0.5570402145385742)",
-        "Number of violent crimes (0.5358310341835022)",
-        "Number of Violent Crimes (0.5358310341835022)"
+        "Count of Criminal Activities: Violent (0.557)",
+        "Number of violent crimes (0.5358)",
+        "Number of Violent Crimes (0.5358)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Hate crime incidents (0.5889496803283691)"
+        "Hate crime incidents (0.5889)"
       ]
     }
   },
   "svs_to_sentences": {
-    "Count_CriminalActivities_Arson": [
-      "Count of Criminal Activities: Arson (0.5070269107818604)"
-    ],
     "Count_CriminalActivities_Burglary": [
-      "Count of Criminal Activities: Burglary (0.5142108201980591)"
+      "Count of Criminal Activities: Burglary (0.5142)"
     ],
     "Count_CriminalActivities_CombinedCrime": [
-      "Crime statistics (0.6829185485839844)",
-      "Crime rate (0.6390458345413208)",
-      "Rate of crime (0.6103023290634155)",
-      "Number of crime cases (0.5476557612419128)",
-      "Number of Criminal Activities (0.5262966752052307)",
-      "Number of criminal activities (0.5262966752052307)"
+      "crime in (0.8652)",
+      "Crime statistics (0.6829)",
+      "Crime rate (0.639)",
+      "how much crime happens in (0.6192)",
+      "Rate of crime (0.6103)",
+      "Number of crime cases (0.5477)",
+      "Number of criminal activities (0.5263)",
+      "Number of Criminal Activities (0.5263)"
     ],
     "Count_CriminalActivities_ForcibleRape": [
-      "Count of Criminal Activities: Forcible Rape (0.5402758717536926)"
+      "Count of Criminal Activities: Forcible Rape (0.5403)"
     ],
     "Count_CriminalActivities_LarcenyTheft": [
-      "Count of Criminal Activities: Larceny Theft (0.6189738512039185)",
-      "Number of crimes counted as Larceny Theft (0.539699375629425)",
-      "Number of larceny theft crimes (0.5368750095367432)"
+      "Count of Criminal Activities: Larceny Theft (0.619)",
+      "Number of crimes counted as Larceny Theft (0.5397)",
+      "Number of larceny theft crimes (0.5369)"
     ],
     "Count_CriminalActivities_MotorVehicleTheft": [
-      "Count of Criminal Activities: Motor Vehicle Theft (0.5930737257003784)"
+      "Count of Criminal Activities: Motor Vehicle Theft (0.5931)"
     ],
     "Count_CriminalActivities_PropertyCrime": [
-      "Number of property crimes (0.5143426060676575)",
-      "Number of Property Related Crimes (0.5140830874443054)"
+      "Number of property crimes (0.5143)"
     ],
     "Count_CriminalActivities_Robbery": [
-      "Count of Criminal Activities: Robbery (0.5793908834457397)"
+      "Count of Criminal Activities: Robbery (0.5794)"
     ],
     "Count_CriminalActivities_ViolentCrime": [
-      "Count of Criminal Activities: Violent (0.5570402145385742)",
-      "Number of violent crimes (0.5358310341835022)",
-      "Number of Violent Crimes (0.5358310341835022)"
+      "Count of Criminal Activities: Violent (0.557)",
+      "Number of violent crimes (0.5358)",
+      "Number of Violent Crimes (0.5358)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Hate crime incidents (0.5889496803283691)"
+      "Hate crime incidents (0.5889)"
     ]
   },
   "time_delta_classification": "<None>"

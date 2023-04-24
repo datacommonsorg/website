@@ -264,12 +264,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.23,
-      "fulfillment": 0.7,
-      "get_sample_child_places": 0.15,
-      "get_sv_details": 0.23,
-      "query_detection": 0.18,
-      "sv_existence_for_places": 0.14
+      "build_page_config": 0.22,
+      "fulfillment": 0.65,
+      "get_sample_child_places": 0.16,
+      "get_sv_details": 0.22,
+      "query_detection": 0.28,
+      "sv_existence_for_places": 0.11
     }
   },
   "data_spec": [
@@ -890,17 +890,17 @@
   "sv_matching": {
     "CosineScore": [
       0.7877157926559448,
-      0.7264510989189148,
-      0.6983215808868408,
-      0.6820369958877563,
+      0.7264509201049805,
+      0.6983213424682617,
+      0.6820365786552429,
       0.656324028968811,
-      0.6521104574203491,
-      0.6423673629760742,
-      0.6407288312911987,
-      0.6309701204299927,
+      0.65211021900177,
+      0.6423673033714294,
+      0.6407287120819092,
+      0.6309700012207031,
       0.629531979560852,
-      0.628703773021698,
-      0.6281245946884155
+      0.6287040710449219,
+      0.6281248331069946
     ],
     "MultiSV": {
       "Candidates": [
@@ -910,8 +910,8 @@
           "Parts": [
             {
               "CosineScore": [
-                0.6376994252204895,
-                0.6115032434463501
+                0.637699544429779,
+                0.6115033626556396
               ],
               "QueryPart": "cities hispanic",
               "SV": [
@@ -921,13 +921,13 @@
             },
             {
               "CosineScore": [
-                0.6217727065086365,
-                0.6135376691818237,
-                0.6093833446502686,
-                0.599563717842102,
-                0.5912516117095947,
-                0.5797774791717529,
-                0.5726490616798401
+                0.6217721700668335,
+                0.6135373711585999,
+                0.6093834638595581,
+                0.599563479423523,
+                0.5912513732910156,
+                0.5797773599624634,
+                0.5726491212844849
               ],
               "QueryPart": "population 10000",
               "SV": [
@@ -1000,8 +1000,8 @@
         "Number of people who are Not Hispanic or Latino & Two or More Races (0.631)"
       ],
       "Count_Person_Producer_HispanicOrLatino": [
-        "Number of Hispanic Farmers (0.6295)",
-        "Number of hispanic farmers (0.6295)"
+        "Number of hispanic farmers (0.6295)",
+        "Number of Hispanic Farmers (0.6295)"
       ]
     }
   },
@@ -1047,8 +1047,8 @@
       "Number of people who are Not Hispanic or Latino & Two or More Races (0.631)"
     ],
     "Count_Person_Producer_HispanicOrLatino": [
-      "Number of Hispanic Farmers (0.6295)",
-      "Number of hispanic farmers (0.6295)"
+      "Number of hispanic farmers (0.6295)",
+      "Number of Hispanic Farmers (0.6295)"
     ]
   },
   "time_delta_classification": "<None>"

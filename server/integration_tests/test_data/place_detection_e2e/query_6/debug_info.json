@@ -325,13 +325,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.28,
-      "fulfillment": 0.84,
-      "get_sample_child_places": 0.18,
-      "get_sv_details": 0.27,
-      "query_detection": 0.2,
-      "sv_existence_for_places": 0.17,
-      "topic_calls": 0.48
+      "build_page_config": 0.22,
+      "fulfillment": 0.74,
+      "get_sample_child_places": 0.2,
+      "get_sv_details": 0.21,
+      "query_detection": 0.27,
+      "sv_existence_for_places": 0.13,
+      "topic_calls": 0.41
     }
   },
   "data_spec": [
@@ -660,7 +660,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -1118,7 +1118,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -1260,32 +1260,32 @@
           ],
           "svs": [
             "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
             "Count_HousingUnit_HomeValue1500000To1999999USDollar",
             "Count_HousingUnit_HomeValue10000To14999USDollar",
-            "Count_HousingUnit_HomeValueUpto10000USDollar",
             "Count_HousingUnit_HomeValue100000To124999USDollar",
             "Count_HousingUnit_HomeValue125000To149999USDollar",
             "Count_HousingUnit_HomeValue15000To19999USDollar",
             "Count_HousingUnit_HomeValue150000To174999USDollar",
             "Count_HousingUnit_HomeValue175000To199999USDollar",
-            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
             "Count_HousingUnit_HomeValue20000To24999USDollar",
             "Count_HousingUnit_HomeValue200000To249999USDollar",
             "Count_HousingUnit_HomeValue25000To29999USDollar",
             "Count_HousingUnit_HomeValue250000To299999USDollar",
             "Count_HousingUnit_HomeValue30000To34999USDollar",
-            "Count_HousingUnit_HomeValue300000To399999USDollar",
             "Count_HousingUnit_HomeValue35000To39999USDollar",
             "Count_HousingUnit_HomeValue40000To49999USDollar",
-            "Count_HousingUnit_HomeValue400000To499999USDollar",
             "Count_HousingUnit_HomeValue50000To59999USDollar",
-            "Count_HousingUnit_HomeValue500000To749999USDollar",
             "Count_HousingUnit_HomeValue60000To69999USDollar",
             "Count_HousingUnit_HomeValue70000To79999USDollar",
-            "Count_HousingUnit_HomeValue750000To999999USDollar",
             "Count_HousingUnit_HomeValue80000To89999USDollar",
-            "Count_HousingUnit_HomeValue90000To99999USDollar"
+            "Count_HousingUnit_HomeValue90000To99999USDollar",
+            "Count_HousingUnit_HomeValueUpto10000USDollar",
+            "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+            "Count_HousingUnit_HomeValue300000To399999USDollar",
+            "Count_HousingUnit_HomeValue400000To499999USDollar",
+            "Count_HousingUnit_HomeValue500000To749999USDollar",
+            "Count_HousingUnit_HomeValue750000To999999USDollar"
           ]
         },
         {
@@ -1448,7 +1448,6 @@
             "Count_HousingUnit_WithRent_Upto100USDollar",
             "Count_HousingUnit_WithRent_150To199USDollar",
             "Count_HousingUnit_WithRent_2000To2499USDollar",
-            "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
             "Count_HousingUnit_WithRent_2500To2999USDollar",
             "Count_HousingUnit_WithRent_200To249USDollar",
             "Count_HousingUnit_WithRent_250To299USDollar",
@@ -1465,7 +1464,8 @@
             "Count_HousingUnit_WithRent_700To749USDollar",
             "Count_HousingUnit_WithRent_750To799USDollar",
             "Count_HousingUnit_WithRent_800To899USDollar",
-            "Count_HousingUnit_WithRent_900To999USDollar"
+            "Count_HousingUnit_WithRent_900To999USDollar",
+            "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
           ]
         },
         {
@@ -1844,6 +1844,7 @@
     "us"
   ],
   "places_resolved": "(name: United States, dcid: country/USA); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -1889,17 +1890,17 @@
     "CosineScore": [
       0.8146070837974548,
       0.7726284265518188,
-      0.6903679370880127,
-      0.6868860125541687,
-      0.6809425950050354,
-      0.6731067299842834,
-      0.6727956533432007,
-      0.6680923104286194,
-      0.6667653322219849,
-      0.6660558581352234,
-      0.6626517176628113,
-      0.6542607545852661,
-      0.645599365234375
+      0.6903677582740784,
+      0.6868860721588135,
+      0.6809425354003906,
+      0.6731066107749939,
+      0.6727953553199768,
+      0.6680921316146851,
+      0.6667651534080505,
+      0.6660559773445129,
+      0.6626518368721008,
+      0.6542604565620422,
+      0.6455997228622437
     ],
     "MultiSV": {
       "Candidates": []

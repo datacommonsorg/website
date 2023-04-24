@@ -28,12 +28,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.34,
-      "fulfillment": 0.28,
-      "get_sample_child_places": 0.15,
-      "get_sv_details": 0.34,
-      "query_detection": 0.26,
-      "sv_existence_for_places": 0.13
+      "build_page_config": 0.22,
+      "fulfillment": 0.39,
+      "get_sample_child_places": 0.16,
+      "get_sv_details": 0.22,
+      "query_detection": 0.38,
+      "sv_existence_for_places": 0.23
     }
   },
   "data_spec": [
@@ -157,7 +157,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [],
@@ -204,7 +204,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [],
@@ -388,7 +388,6 @@
       "svs": [
         "Percent_Person_WithAsthma",
         "Percent_Person_Children_WithAsthma",
-        "dc/g/Person_MedicalCondition-Asthma",
         "Percent_Person_Smoking",
         "Percent_Person_WithArthritis",
         "Percent_Person_WithChronicObstructivePulmonaryDisease"
@@ -520,6 +519,7 @@
     "sf bay area"
   ],
   "places_resolved": "(name: San Francisco Bay Area, dcid: wikidataId/Q213205); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -568,124 +568,121 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6994096040725708,
-      0.4177573323249817,
-      0.3727898895740509,
-      0.3595603406429291,
-      0.34636518359184265,
-      0.34487470984458923,
-      0.3411339223384857,
+      0.6994098424911499,
+      0.4615711271762848,
+      0.4177573025226593,
+      0.37278982996940613,
+      0.35956060886383057,
+      0.3463656008243561,
+      0.3411341607570648,
       0.3387206792831421,
-      0.3326481580734253,
-      0.33171385526657104,
-      0.33129674196243286,
-      0.322151780128479
+      0.3326483964920044,
+      0.33171403408050537,
+      0.3312966823577881
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "Count_CriminalActivities_LarcenyTheft",
+      "Count_CriminalActivities_CombinedCrime",
       "Count_CriminalActivities_ForcibleRape",
       "dc/3jr0p7yjw06z9",
       "Count_CriminalActivities_Robbery",
       "Count_CriminalIncidents_IsHateCrime",
-      "Count_CriminalActivities_CombinedCrime",
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female",
       "Count_CriminalActivities_Arson",
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter",
       "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime",
-      "Count_CriminalActivities_Burglary",
-      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male"
+      "Count_CriminalActivities_Burglary"
     ],
     "SV_to_Sentences": {
       "Count_CriminalActivities_Arson": [
-        "Count of Criminal Activities: Arson (0.3387206792831421)"
+        "Count of Criminal Activities: Arson (0.3387)"
       ],
       "Count_CriminalActivities_Burglary": [
-        "Count of Criminal Activities: Burglary (0.33129674196243286)"
+        "Count of Criminal Activities: Burglary (0.3313)"
       ],
       "Count_CriminalActivities_CombinedCrime": [
-        "Crime statistics (0.34487470984458923)"
+        "crime in (0.4616)",
+        "Crime statistics (0.3449)"
       ],
       "Count_CriminalActivities_ForcibleRape": [
-        "Count of Criminal Activities: Forcible Rape (0.4177573323249817)",
-        "Number of forcible rape crimes (0.347360223531723)"
+        "Count of Criminal Activities: Forcible Rape (0.4178)",
+        "Number of forcible rape crimes (0.3474)"
       ],
       "Count_CriminalActivities_LarcenyTheft": [
-        "Count of Criminal Activities: Larceny Theft (0.6994096040725708)",
-        "Number of crimes counted as Larceny Theft (0.6456339359283447)",
-        "Number of larceny theft crimes (0.6368502974510193)",
-        "Number of larceny theft incidents (0.6242316961288452)",
-        "Number of Larceny Theft Cases (0.6214360594749451)",
-        "Total number of larceny theft cases (0.5930147171020508)",
-        "Number of larceny theft charges (0.5891730785369873)",
-        "Total number of larceny theft offenses (0.5783951282501221)"
+        "Count of Criminal Activities: Larceny Theft (0.6994)",
+        "Number of crimes counted as Larceny Theft (0.6456)",
+        "Number of larceny theft crimes (0.6369)",
+        "Number of larceny theft incidents (0.6242)",
+        "Number of Larceny Theft Cases (0.6214)",
+        "Total number of larceny theft cases (0.593)",
+        "Number of larceny theft charges (0.5892)",
+        "Total number of larceny theft offenses (0.5784)"
       ],
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326481580734253)"
+        "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326)"
       ],
       "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.3411339223384857)"
-      ],
-      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male": [
-        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.322151780128479)"
+        "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.3411)"
       ],
       "Count_CriminalActivities_Robbery": [
-        "Count of Criminal Activities: Robbery (0.3595603406429291)"
+        "Count of Criminal Activities: Robbery (0.3596)"
       ],
       "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
-        "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.33171385526657104)"
+        "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.3317)"
       ],
       "Count_CriminalIncidents_IsHateCrime": [
-        "Hate crime incidents (0.34636518359184265)"
+        "Hate crime incidents (0.3464)"
       ],
       "dc/3jr0p7yjw06z9": [
-        "Gambling Establishments (0.3727898895740509)"
+        "Gambling Establishments (0.3728)"
       ]
     }
   },
   "svs_to_sentences": {
     "Count_CriminalActivities_Arson": [
-      "Count of Criminal Activities: Arson (0.3387206792831421)"
+      "Count of Criminal Activities: Arson (0.3387)"
     ],
     "Count_CriminalActivities_Burglary": [
-      "Count of Criminal Activities: Burglary (0.33129674196243286)"
+      "Count of Criminal Activities: Burglary (0.3313)"
     ],
     "Count_CriminalActivities_CombinedCrime": [
-      "Crime statistics (0.34487470984458923)"
+      "crime in (0.4616)",
+      "Crime statistics (0.3449)"
     ],
     "Count_CriminalActivities_ForcibleRape": [
-      "Count of Criminal Activities: Forcible Rape (0.4177573323249817)",
-      "Number of forcible rape crimes (0.347360223531723)"
+      "Count of Criminal Activities: Forcible Rape (0.4178)",
+      "Number of forcible rape crimes (0.3474)"
     ],
     "Count_CriminalActivities_LarcenyTheft": [
-      "Count of Criminal Activities: Larceny Theft (0.6994096040725708)",
-      "Number of crimes counted as Larceny Theft (0.6456339359283447)",
-      "Number of larceny theft crimes (0.6368502974510193)",
-      "Number of larceny theft incidents (0.6242316961288452)",
-      "Number of Larceny Theft Cases (0.6214360594749451)",
-      "Total number of larceny theft cases (0.5930147171020508)",
-      "Number of larceny theft charges (0.5891730785369873)",
-      "Total number of larceny theft offenses (0.5783951282501221)"
+      "Count of Criminal Activities: Larceny Theft (0.6994)",
+      "Number of crimes counted as Larceny Theft (0.6456)",
+      "Number of larceny theft crimes (0.6369)",
+      "Number of larceny theft incidents (0.6242)",
+      "Number of Larceny Theft Cases (0.6214)",
+      "Total number of larceny theft cases (0.593)",
+      "Number of larceny theft charges (0.5892)",
+      "Total number of larceny theft offenses (0.5784)"
     ],
     "Count_CriminalActivities_MurderAndNonNegligentManslaughter": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326481580734253)"
+      "Count of Criminal Activities: Murder And Non Negligent Manslaughter (0.3326)"
     ],
     "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.3411339223384857)"
-    ],
-    "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male": [
-      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Male (As Fraction of Count Person Male) (0.322151780128479)"
+      "Count of Criminal Activities: Murder And Non Negligent Manslaughter, Female (As Fraction of Count Person Female) (0.3411)"
     ],
     "Count_CriminalActivities_Robbery": [
-      "Count of Criminal Activities: Robbery (0.3595603406429291)"
+      "Count of Criminal Activities: Robbery (0.3596)"
     ],
     "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
-      "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.33171385526657104)"
+      "Number of criminal incidents motivated by bias against sexual orientation, classified as hate crimes (0.3317)"
     ],
     "Count_CriminalIncidents_IsHateCrime": [
-      "Hate crime incidents (0.34636518359184265)"
+      "Hate crime incidents (0.3464)"
     ],
     "dc/3jr0p7yjw06z9": [
-      "Gambling Establishments (0.3727898895740509)"
+      "Gambling Establishments (0.3728)"
     ]
   },
   "time_delta_classification": "<None>"

@@ -52,9 +52,9 @@
             "geoId/12"
           ],
           "svs": [
+            "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX",
             "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX",
-            "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX",
-            "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX"
+            "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX"
           ],
           "type": null
         },
@@ -64,8 +64,8 @@
             "geoId/12"
           ],
           "svs": [
-            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE",
-            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE"
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE",
+            "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE"
           ],
           "type": null
         },
@@ -75,8 +75,8 @@
             "geoId/12"
           ],
           "svs": [
-            "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX",
-            "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX"
+            "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX",
+            "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX"
           ],
           "type": null
         },
@@ -86,8 +86,8 @@
             "geoId/12"
           ],
           "svs": [
-            "sdg/SI_POV_EMP1_15gte_M_A_MALE",
-            "sdg/SI_POV_EMP1_15gte_M_A_FEMALE"
+            "sdg/SI_POV_EMP1_15gte_M_A_FEMALE",
+            "sdg/SI_POV_EMP1_15gte_M_A_MALE"
           ],
           "type": null
         },
@@ -184,12 +184,12 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 1.16,
-      "fulfillment": 2.24,
-      "get_sv_details": 1.15,
-      "query_detection": 0.76,
-      "sv_existence_for_places": 1.39,
-      "topic_calls": 0.83
+      "build_page_config": 0.24,
+      "fulfillment": 0.61,
+      "get_sv_details": 0.24,
+      "query_detection": 0.75,
+      "sv_existence_for_places": 0.1,
+      "topic_calls": 0.5
     }
   },
   "data_spec": [
@@ -665,6 +665,7 @@
     "florida"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); (name: Florida, dcid: geoId/12); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -716,19 +717,19 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6357743740081787,
-      0.626970648765564,
-      0.6159742474555969,
-      0.5579924583435059,
+      0.6357741355895996,
+      0.6269709467887878,
+      0.6159741282463074,
+      0.5579921007156372,
       0.5567610263824463,
       0.5561280846595764,
       0.5554269552230835,
-      0.5520536303520203,
-      0.5520462989807129,
-      0.5495842695236206,
-      0.5485372543334961,
-      0.5478919744491577,
-      0.5477702617645264
+      0.5520532131195068,
+      0.5520464181900024,
+      0.5495843291282654,
+      0.5485371351242065,
+      0.5478917360305786,
+      0.5477703809738159
     ],
     "MultiSV": {
       "Candidates": [
@@ -738,8 +739,8 @@
           "Parts": [
             {
               "CosineScore": [
-                0.8146,
-                0.7726
+                0.8146069645881653,
+                0.7726283073425293
               ],
               "QueryPart": "poverty",
               "SV": [
@@ -749,7 +750,7 @@
             },
             {
               "CosineScore": [
-                0.7436
+                0.7435535192489624
               ],
               "QueryPart": "obesity",
               "SV": [

@@ -130,10 +130,10 @@
     "TIMING": {
       "build_page_config": 0.26,
       "fulfillment": 0.3,
-      "get_sample_child_places": 0.17,
-      "get_sv_details": 0.26,
-      "query_detection": 0.45,
-      "sv_existence_for_places": 0.13,
+      "get_sample_child_places": 0.18,
+      "get_sv_details": 0.25,
+      "query_detection": 0.51,
+      "sv_existence_for_places": 0.12,
       "topic_calls": 0.0
     }
   },
@@ -330,7 +330,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -714,7 +714,7 @@
     {
       "classifications": [
         {
-          "type": 7
+          "type": 13
         }
       ],
       "places": [
@@ -731,7 +731,7 @@
           "place_type": "State"
         }
       ],
-      "query": "Compare crime in California and Florida",
+      "query": "Crime in California and Florida",
       "query_type": 6,
       "ranked_charts": [
         {
@@ -1039,7 +1039,7 @@
     {
       "classifications": [
         {
-          "type": 12
+          "type": 13
         }
       ],
       "places": [
@@ -1097,6 +1097,7 @@
     "us"
   ],
   "places_resolved": "(name: United States, dcid: country/USA); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -1140,16 +1141,16 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.784820556640625,
-      0.6779434680938721,
-      0.6746388673782349,
-      0.6742424964904785,
-      0.6736500859260559,
-      0.6669632792472839,
-      0.6655663847923279,
-      0.6592215895652771,
-      0.6516273021697998,
-      0.6323908567428589
+      0.7848209142684937,
+      0.6779436469078064,
+      0.6746387481689453,
+      0.6742427349090576,
+      0.6736503839492798,
+      0.6669632196426392,
+      0.6655663251876831,
+      0.6592212915420532,
+      0.6516274809837341,
+      0.6323913335800171
     ],
     "MultiSV": {
       "Candidates": []

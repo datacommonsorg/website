@@ -16,10 +16,7 @@
       "filtered_svs": [
         [
           "dc/topic/Jobs",
-          "Count_Worker_NAICSTotalAllIndustries",
-          "dc/g/Person_Industry-NAICS/10",
-          "dc/g/Person_Industry-NAICS/11",
-          "dc/g/Person_Industry-NAICS/451"
+          "Count_Worker_NAICSTotalAllIndustries"
         ]
       ],
       "num_chart_candidates": 1,
@@ -110,13 +107,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.29,
-      "fulfillment": 0.59,
-      "get_sv_details": 0.28,
-      "query_detection": 0.06,
-      "rank_svs_by_latest_value": 0.29,
+      "build_page_config": 0.24,
+      "fulfillment": 0.4,
+      "get_sv_details": 0.24,
+      "query_detection": 0.22,
+      "rank_svs_by_latest_value": 0.16,
       "sv_existence_for_places": 0.14,
-      "topic_calls": 0.15
+      "topic_calls": 0.11
     }
   },
   "data_spec": [
@@ -183,10 +180,7 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "Count_Worker_NAICSTotalAllIndustries",
-        "dc/g/Person_Industry-NAICS/10",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/451"
+        "Count_Worker_NAICSTotalAllIndustries"
       ]
     },
     {
@@ -243,6 +237,10 @@
           "type": 2
         },
         {
+          "contained_in_place_type": "DefaultType",
+          "type": 4
+        },
+        {
           "event_type": [
             4
           ],
@@ -292,7 +290,7 @@
           "type": 2
         },
         {
-          "contained_in_place_type": "Across",
+          "contained_in_place_type": "DefaultType",
           "type": 4
         }
       ],
@@ -381,6 +379,7 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": null,
     "original_query": "What were the most common jobs there",
@@ -400,106 +399,115 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.663091778755188,
-      0.5311392545700073,
-      0.515657365322113,
-      0.504181981086731,
-      0.5037508010864258,
-      0.49817124009132385,
-      0.49578022956848145,
-      0.4867853820323944,
-      0.4793616235256195
+      0.6630918979644775,
+      0.5311391353607178,
+      0.48678523302078247,
+      0.4793616533279419,
+      0.4772413969039917,
+      0.471140593290329,
+      0.4690729081630707,
+      0.4543858468532562,
+      0.44861865043640137,
+      0.4398100972175598
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/topic/Jobs",
       "Count_Worker_NAICSTotalAllIndustries",
-      "dc/g/Person_Industry-NAICS/10",
-      "dc/g/Person_Industry-NAICS/11",
-      "dc/g/Person_Industry-NAICS/451",
-      "dc/g/Person_Industry-NAICS/1121",
-      "dc/g/Person_Industry-NAICS/54",
       "Count_Worker_NAICSAgricultureForestryFishingHunting",
-      "dc/hlxvn1t8b9bhh"
+      "dc/hlxvn1t8b9bhh",
+      "Count_Teacher",
+      "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+      "dc/p69tpsldf99h7",
+      "Count_Worker_NAICSOtherServices",
+      "dc/ndg1xk1e9frc2",
+      "Count_Worker_NAICSArtsEntertainmentRecreation"
     ],
     "SV_to_Sentences": {
+      "Count_Teacher": [
+        "Teachers (0.4772)"
+      ],
       "Count_Worker_NAICSAgricultureForestryFishingHunting": [
-        "People working in agriculture, forestry, fishing, and hunting field. (0.4867853820323944)"
+        "People working in agriculture, forestry, fishing, and hunting field. (0.4868)"
+      ],
+      "Count_Worker_NAICSArtsEntertainmentRecreation": [
+        "People working in arts, entertainment, and recreation field. (0.4398)"
+      ],
+      "Count_Worker_NAICSOtherServices": [
+        "People working in the other services field (0.4544)"
+      ],
+      "Count_Worker_NAICSProfessionalScientificTechnicalServices": [
+        "People working in the professional, scientific, and technical services field (0.4711)"
       ],
       "Count_Worker_NAICSTotalAllIndustries": [
-        "People working in all fields (0.5311392545700073)"
-      ],
-      "dc/g/Person_Industry-NAICS/10": [
-        "workers in total, all industries industry (0.515657365322113)"
-      ],
-      "dc/g/Person_Industry-NAICS/11": [
-        "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.504181981086731)",
-        "People working in the agriculture, forestry, fishing, and hunting industry (0.504181981086731)",
-        "workers in agriculture, forestry, fishing and hunting industry (0.4891487956047058)"
-      ],
-      "dc/g/Person_Industry-NAICS/1121": [
-        "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.49817124009132385)",
-        "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.49817124009132385)",
-        "workers in agriculture, forestry, fishing and hunting, and mining industry (0.48515570163726807)"
-      ],
-      "dc/g/Person_Industry-NAICS/451": [
-        "workers in sports, hobby, music instrument, book stores industry (0.5037508010864258)"
-      ],
-      "dc/g/Person_Industry-NAICS/54": [
-        "workers in professional, scientific, and technical services industry (0.49578022956848145)"
+        "People working in all fields (0.5311)",
+        "Individuals employed in all sectors (0.4505)"
       ],
       "dc/hlxvn1t8b9bhh": [
-        "agriculture workers (0.4793616235256195)"
+        "agriculture workers (0.4794)",
+        "workers in agriculture (0.4529)",
+        "agricultural workers (0.4522)"
+      ],
+      "dc/ndg1xk1e9frc2": [
+        "People working in the manufacturing field (0.4486)"
+      ],
+      "dc/p69tpsldf99h7": [
+        "People working in the retail trade field (0.4691)"
       ],
       "dc/topic/Jobs": [
-        "Jobs (0.663091778755188)",
-        "Careers (0.5856789350509644)",
-        "Work Occupations (0.5732882022857666)",
-        "Occupational professions (0.5660203695297241)",
-        "distribution of jobs (0.5515886545181274)",
-        "Professions (0.5471441149711609)",
-        "Employment Positions (0.5181440711021423)",
-        "Job Roles (0.5173631310462952)"
+        "Jobs (0.6631)",
+        "Careers (0.5857)",
+        "Work Occupations (0.5733)",
+        "Occupational professions (0.566)",
+        "distribution of jobs (0.5516)",
+        "Professions (0.5471)",
+        "Employment Positions (0.5181)",
+        "Job Roles (0.5174)"
       ]
     }
   },
   "svs_to_sentences": {
+    "Count_Teacher": [
+      "Teachers (0.4772)"
+    ],
     "Count_Worker_NAICSAgricultureForestryFishingHunting": [
-      "People working in agriculture, forestry, fishing, and hunting field. (0.4867853820323944)"
+      "People working in agriculture, forestry, fishing, and hunting field. (0.4868)"
+    ],
+    "Count_Worker_NAICSArtsEntertainmentRecreation": [
+      "People working in arts, entertainment, and recreation field. (0.4398)"
+    ],
+    "Count_Worker_NAICSOtherServices": [
+      "People working in the other services field (0.4544)"
+    ],
+    "Count_Worker_NAICSProfessionalScientificTechnicalServices": [
+      "People working in the professional, scientific, and technical services field (0.4711)"
     ],
     "Count_Worker_NAICSTotalAllIndustries": [
-      "People working in all fields (0.5311392545700073)"
-    ],
-    "dc/g/Person_Industry-NAICS/10": [
-      "workers in total, all industries industry (0.515657365322113)"
-    ],
-    "dc/g/Person_Industry-NAICS/11": [
-      "People Working in the Agriculture, Forestry, Fishing, and Hunting Industry (0.504181981086731)",
-      "People working in the agriculture, forestry, fishing, and hunting industry (0.504181981086731)",
-      "workers in agriculture, forestry, fishing and hunting industry (0.4891487956047058)"
-    ],
-    "dc/g/Person_Industry-NAICS/1121": [
-      "People working in the agriculture, forestry, fishing, hunting, and mining industries (0.49817124009132385)",
-      "People Working in the Agriculture, Forestry, Fishing, Hunting, and Mining Industries (0.49817124009132385)",
-      "workers in agriculture, forestry, fishing and hunting, and mining industry (0.48515570163726807)"
-    ],
-    "dc/g/Person_Industry-NAICS/451": [
-      "workers in sports, hobby, music instrument, book stores industry (0.5037508010864258)"
-    ],
-    "dc/g/Person_Industry-NAICS/54": [
-      "workers in professional, scientific, and technical services industry (0.49578022956848145)"
+      "People working in all fields (0.5311)",
+      "Individuals employed in all sectors (0.4505)"
     ],
     "dc/hlxvn1t8b9bhh": [
-      "agriculture workers (0.4793616235256195)"
+      "agriculture workers (0.4794)",
+      "workers in agriculture (0.4529)",
+      "agricultural workers (0.4522)"
+    ],
+    "dc/ndg1xk1e9frc2": [
+      "People working in the manufacturing field (0.4486)"
+    ],
+    "dc/p69tpsldf99h7": [
+      "People working in the retail trade field (0.4691)"
     ],
     "dc/topic/Jobs": [
-      "Jobs (0.663091778755188)",
-      "Careers (0.5856789350509644)",
-      "Work Occupations (0.5732882022857666)",
-      "Occupational professions (0.5660203695297241)",
-      "distribution of jobs (0.5515886545181274)",
-      "Professions (0.5471441149711609)",
-      "Employment Positions (0.5181440711021423)",
-      "Job Roles (0.5173631310462952)"
+      "Jobs (0.6631)",
+      "Careers (0.5857)",
+      "Work Occupations (0.5733)",
+      "Occupational professions (0.566)",
+      "distribution of jobs (0.5516)",
+      "Professions (0.5471)",
+      "Employment Positions (0.5181)",
+      "Job Roles (0.5174)"
     ]
   },
   "time_delta_classification": "<None>"

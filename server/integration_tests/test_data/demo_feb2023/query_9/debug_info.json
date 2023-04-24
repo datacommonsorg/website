@@ -55,6 +55,9 @@
       "processed_fulfillment_types": [
         "correlation"
       ],
+      "route_comparison_correlation": [
+        "context-sv-correlation"
+      ],
       "topics_processed": [
         {
           "dc/topic/Income": {
@@ -83,13 +86,13 @@
       ]
     },
     "TIMING": {
-      "build_page_config": 0.3,
-      "fulfillment": 0.37,
+      "build_page_config": 0.28,
+      "fulfillment": 0.39,
       "get_sample_child_places": 0.17,
-      "get_sv_details": 0.29,
+      "get_sv_details": 0.28,
       "open_top_topics_ordered": 0.0,
-      "query_detection": 0.07,
-      "sv_existence_for_places": 0.19
+      "query_detection": 0.17,
+      "sv_existence_for_places": 0.21
     }
   },
   "data_spec": [
@@ -314,9 +317,7 @@
       ],
       "session_id": "007_999999999",
       "svs": [
-        "Percent_Person_WithHighBloodPressure",
-        "dc/g/Person_MedicalCondition-HighBloodPressure",
-        "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
+        "Percent_Person_WithHighBloodPressure"
       ]
     },
     {
@@ -374,9 +375,7 @@
       ],
       "session_id": "007_999999999",
       "svs": [
-        "Percent_Person_WithHighBloodPressure",
-        "dc/g/Person_MedicalCondition-HighBloodPressure",
-        "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
+        "Percent_Person_WithHighBloodPressure"
       ]
     },
     {
@@ -436,7 +435,6 @@
       "svs": [
         "dc/topic/MedicalConditions",
         "Percent_Person_WithPhysicalHealthNotGood",
-        "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
         "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
       ]
     },
@@ -595,15 +593,16 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "dc/g/Person_Industry-NAICS/451",
-        "dc/g/Person_Industry-NAICS/54",
         "Count_Teacher",
         "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/61",
-        "dc/g/Person_Industry-NAICS/7172",
         "Count_Worker_NAICSTotalAllIndustries",
-        "dc/topic/Economy"
+        "dc/topic/Economy",
+        "dc/topic/WorkCommute",
+        "dc/hlxvn1t8b9bhh",
+        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        "dc/topic/Income",
+        "Count_Worker_NAICSArtsEntertainmentRecreation",
+        "dc/p69tpsldf99h7"
       ]
     },
     {
@@ -669,10 +668,7 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "Count_Worker_NAICSTotalAllIndustries",
-        "dc/g/Person_Industry-NAICS/10",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/451"
+        "Count_Worker_NAICSTotalAllIndustries"
       ]
     },
     {
@@ -729,6 +725,10 @@
           "type": 2
         },
         {
+          "contained_in_place_type": "DefaultType",
+          "type": 4
+        },
+        {
           "event_type": [
             4
           ],
@@ -778,7 +778,7 @@
           "type": 2
         },
         {
-          "contained_in_place_type": "Across",
+          "contained_in_place_type": "DefaultType",
           "type": 4
         }
       ],
@@ -867,6 +867,7 @@
   "overview_classification": "<None>",
   "places_detected": [],
   "places_resolved": "",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": null,
     "original_query": "How does this correlate with income",
@@ -886,23 +887,26 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.9999998807907104,
-      0.6791033744812012,
-      0.6765092611312866,
+      1.0000001192092896,
+      0.6791034936904907,
+      0.6765090823173523,
       0.6606360673904419,
-      0.6594827771186829,
+      0.659482479095459,
       0.658210039138794,
-      0.6566452980041504,
-      0.6428040862083435,
-      0.6428040862083435,
-      0.6427716612815857,
-      0.6424229741096497,
-      0.6410238742828369,
-      0.6408997178077698,
-      0.6330272555351257,
-      0.6328793168067932,
-      0.6279056668281555
+      0.6566446423530579,
+      0.6428041458129883,
+      0.6428041458129883,
+      0.6427717804908752,
+      0.6424232721328735,
+      0.6410236954689026,
+      0.6408999562263489,
+      0.6330274939537048,
+      0.6328791379928589,
+      0.627905547618866
     ],
+    "MultiSV": {
+      "Candidates": []
+    },
     "SV": [
       "dc/topic/Income",
       "Mean_Income_Household",
@@ -923,113 +927,113 @@
     ],
     "SV_to_Sentences": {
       "Mean_Income_Household": [
-        "Mean Income of Household: With Income (0.6791033744812012)"
+        "Mean Income of Household: With Income (0.6791)"
       ],
       "Mean_Income_Household_FamilyHousehold": [
-        "Mean Income of Household: Family Household, With Income (0.6427716612815857)"
+        "Mean Income of Household: Family Household, With Income (0.6428)"
       ],
       "Mean_Income_Household_NonfamilyHousehold": [
-        "Mean Income of Household: a Nonfamily Household, With Income (0.6424229741096497)",
-        "Mean Income of Household: Nonfamily Household, With Income (0.6282118558883667)"
+        "Mean Income of Household: a Nonfamily Household, With Income (0.6424)",
+        "Mean Income of Household: Nonfamily Household, With Income (0.6282)"
       ],
       "Median_Income_Household": [
-        "Middle household income (0.6765092611312866)",
-        "Mean household income (0.6622447371482849)",
-        "Typical household income (0.6534322500228882)"
+        "Middle household income (0.6765)",
+        "Mean household income (0.6622)",
+        "Typical household income (0.6534)"
       ],
       "WagesTotal_Worker_NAICSEducationalServices": [
-        "Income for workers in the educational services sector (0.6428040862083435)"
+        "Income for workers in the educational services sector (0.6428)"
       ],
       "WagesTotal_Worker_NAICSFinanceInsurance": [
-        "Income for workers in the finance and insurance sector (0.6566452980041504)"
+        "Income for workers in the finance and insurance sector (0.6566)"
       ],
       "WagesTotal_Worker_NAICSInformation": [
-        "Income for workers in the information sector (0.6594827771186829)"
+        "Income for workers in the information sector (0.6595)"
       ],
       "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises": [
-        "Income for workers in the management of companies and enterprises sector (0.6328793168067932)"
+        "Income for workers in the management of companies and enterprises sector (0.6329)"
       ],
       "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices": [
-        "Income for workers in the professional, scientific, and technical services sector (0.6606360673904419)"
+        "Income for workers in the professional, scientific, and technical services sector (0.6606)"
       ],
       "WagesTotal_Worker_NAICSTotalAllIndustries": [
-        "Income for workers in all sectors (0.658210039138794)"
+        "Income for workers in all sectors (0.6582)"
       ],
       "WagesTotal_Worker_NAICSUtilities": [
-        "Income for workers in the utilities sector (0.6279056668281555)"
+        "Income for workers in the utilities sector (0.6279)"
       ],
       "dc/5hv2p802zmh03": [
-        "Income in the middle for the professional, scientific, and technical services sector (0.6330272555351257)"
+        "Income in the middle for the professional, scientific, and technical services sector (0.633)"
       ],
       "dc/jefhcs9qxc971": [
-        "Income for workers in the educational services sector (0.6428040862083435)"
+        "Income for workers in the educational services sector (0.6428)"
       ],
       "dc/topic/Income": [
-        "Income (0.9999998807907104)",
-        "Earnings (0.6541888117790222)",
-        "Salary (0.6506460309028625)"
+        "Income (1.0)",
+        "Earnings (0.6542)",
+        "Salary (0.6506)"
       ],
       "dc/wzz9t818m1gk8": [
-        "Income for workers in the manufacturing sector (0.6408997178077698)"
+        "Income for workers in the manufacturing sector (0.6409)"
       ],
       "dc/xj2nk2bg60fg": [
-        "Middle income for those working in the information sector (0.6410238742828369)"
+        "Middle income for those working in the information sector (0.641)"
       ]
     }
   },
   "svs_to_sentences": {
     "Mean_Income_Household": [
-      "Mean Income of Household: With Income (0.6791033744812012)"
+      "Mean Income of Household: With Income (0.6791)"
     ],
     "Mean_Income_Household_FamilyHousehold": [
-      "Mean Income of Household: Family Household, With Income (0.6427716612815857)"
+      "Mean Income of Household: Family Household, With Income (0.6428)"
     ],
     "Mean_Income_Household_NonfamilyHousehold": [
-      "Mean Income of Household: a Nonfamily Household, With Income (0.6424229741096497)",
-      "Mean Income of Household: Nonfamily Household, With Income (0.6282118558883667)"
+      "Mean Income of Household: a Nonfamily Household, With Income (0.6424)",
+      "Mean Income of Household: Nonfamily Household, With Income (0.6282)"
     ],
     "Median_Income_Household": [
-      "Middle household income (0.6765092611312866)",
-      "Mean household income (0.6622447371482849)",
-      "Typical household income (0.6534322500228882)"
+      "Middle household income (0.6765)",
+      "Mean household income (0.6622)",
+      "Typical household income (0.6534)"
     ],
     "WagesTotal_Worker_NAICSEducationalServices": [
-      "Income for workers in the educational services sector (0.6428040862083435)"
+      "Income for workers in the educational services sector (0.6428)"
     ],
     "WagesTotal_Worker_NAICSFinanceInsurance": [
-      "Income for workers in the finance and insurance sector (0.6566452980041504)"
+      "Income for workers in the finance and insurance sector (0.6566)"
     ],
     "WagesTotal_Worker_NAICSInformation": [
-      "Income for workers in the information sector (0.6594827771186829)"
+      "Income for workers in the information sector (0.6595)"
     ],
     "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises": [
-      "Income for workers in the management of companies and enterprises sector (0.6328793168067932)"
+      "Income for workers in the management of companies and enterprises sector (0.6329)"
     ],
     "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices": [
-      "Income for workers in the professional, scientific, and technical services sector (0.6606360673904419)"
+      "Income for workers in the professional, scientific, and technical services sector (0.6606)"
     ],
     "WagesTotal_Worker_NAICSTotalAllIndustries": [
-      "Income for workers in all sectors (0.658210039138794)"
+      "Income for workers in all sectors (0.6582)"
     ],
     "WagesTotal_Worker_NAICSUtilities": [
-      "Income for workers in the utilities sector (0.6279056668281555)"
+      "Income for workers in the utilities sector (0.6279)"
     ],
     "dc/5hv2p802zmh03": [
-      "Income in the middle for the professional, scientific, and technical services sector (0.6330272555351257)"
+      "Income in the middle for the professional, scientific, and technical services sector (0.633)"
     ],
     "dc/jefhcs9qxc971": [
-      "Income for workers in the educational services sector (0.6428040862083435)"
+      "Income for workers in the educational services sector (0.6428)"
     ],
     "dc/topic/Income": [
-      "Income (0.9999998807907104)",
-      "Earnings (0.6541888117790222)",
-      "Salary (0.6506460309028625)"
+      "Income (1.0)",
+      "Earnings (0.6542)",
+      "Salary (0.6506)"
     ],
     "dc/wzz9t818m1gk8": [
-      "Income for workers in the manufacturing sector (0.6408997178077698)"
+      "Income for workers in the manufacturing sector (0.6409)"
     ],
     "dc/xj2nk2bg60fg": [
-      "Middle income for those working in the information sector (0.6410238742828369)"
+      "Middle income for those working in the information sector (0.641)"
     ]
   },
   "time_delta_classification": "<None>"

@@ -19,9 +19,7 @@
       ],
       "filtered_svs": [
         [
-          "Percent_Person_WithHighBloodPressure",
-          "dc/g/Person_MedicalCondition-HighBloodPressure",
-          "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
+          "Percent_Person_WithHighBloodPressure"
         ]
       ],
       "num_chart_candidates": 1,
@@ -32,10 +30,10 @@
     "TIMING": {
       "build_page_config": 0.0,
       "fulfillment": 0.31,
-      "get_sample_child_places": 0.19,
+      "get_sample_child_places": 0.17,
       "get_sv_details": 0.0,
-      "query_detection": 0.51,
-      "sv_existence_for_places": 0.12
+      "query_detection": 0.52,
+      "sv_existence_for_places": 0.14
     }
   },
   "data_spec": [
@@ -94,9 +92,7 @@
       ],
       "session_id": "007_999999999",
       "svs": [
-        "Percent_Person_WithHighBloodPressure",
-        "dc/g/Person_MedicalCondition-HighBloodPressure",
-        "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
+        "Percent_Person_WithHighBloodPressure"
       ]
     },
     {
@@ -154,9 +150,7 @@
       ],
       "session_id": "007_999999999",
       "svs": [
-        "Percent_Person_WithHighBloodPressure",
-        "dc/g/Person_MedicalCondition-HighBloodPressure",
-        "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication"
+        "Percent_Person_WithHighBloodPressure"
       ]
     },
     {
@@ -216,7 +210,6 @@
       "svs": [
         "dc/topic/MedicalConditions",
         "Percent_Person_WithPhysicalHealthNotGood",
-        "dc/g/Person_MedicalCondition-PhysicalHealthNotGood",
         "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
       ]
     },
@@ -375,15 +368,16 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "dc/g/Person_Industry-NAICS/451",
-        "dc/g/Person_Industry-NAICS/54",
         "Count_Teacher",
         "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/61",
-        "dc/g/Person_Industry-NAICS/7172",
         "Count_Worker_NAICSTotalAllIndustries",
-        "dc/topic/Economy"
+        "dc/topic/Economy",
+        "dc/topic/WorkCommute",
+        "dc/hlxvn1t8b9bhh",
+        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        "dc/topic/Income",
+        "Count_Worker_NAICSArtsEntertainmentRecreation",
+        "dc/p69tpsldf99h7"
       ]
     },
     {
@@ -449,10 +443,7 @@
       "session_id": "007_999999999",
       "svs": [
         "dc/topic/Jobs",
-        "Count_Worker_NAICSTotalAllIndustries",
-        "dc/g/Person_Industry-NAICS/10",
-        "dc/g/Person_Industry-NAICS/11",
-        "dc/g/Person_Industry-NAICS/451"
+        "Count_Worker_NAICSTotalAllIndustries"
       ]
     },
     {
@@ -509,6 +500,10 @@
           "type": 2
         },
         {
+          "contained_in_place_type": "DefaultType",
+          "type": 4
+        },
+        {
           "event_type": [
             4
           ],
@@ -558,7 +553,7 @@
           "type": 2
         },
         {
-          "contained_in_place_type": "Across",
+          "contained_in_place_type": "DefaultType",
           "type": 4
         }
       ],
@@ -649,6 +644,7 @@
     "usa"
   ],
   "places_resolved": "(name: United States, dcid: country/USA); ",
+  "quantity_classification": "<None>",
   "query_detection_debug_logs": {
     "main_place_inferred": {
       "country": "country/USA",
@@ -692,82 +688,128 @@
   "status": "",
   "sv_matching": {
     "CosineScore": [
-      0.6393455862998962,
-      0.5648801326751709,
-      0.5272606611251831,
-      0.49340182542800903,
-      0.48477068543434143
+      0.639345645904541,
+      0.4847707450389862,
+      0.3091934621334076,
+      0.3091121017932892
     ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.6664,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.654198169708252
+              ],
+              "QueryPart": "counties highest levels",
+              "SV": [
+                "Count_Person_DetailedPrimarySchool"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.6785509586334229
+              ],
+              "QueryPart": "blood pressure",
+              "SV": [
+                "Percent_Person_WithHighBloodPressure"
+              ]
+            }
+          ]
+        },
+        {
+          "AggCosineScore": 0.6626,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.6857641339302063
+              ],
+              "QueryPart": "counties highest",
+              "SV": [
+                "Count_Person_DetailedPrimarySchool"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.639345645904541
+              ],
+              "QueryPart": "levels blood pressure",
+              "SV": [
+                "Percent_Person_WithHighBloodPressure"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "SV": [
       "Percent_Person_WithHighBloodPressure",
-      "dc/g/Person_MedicalCondition-HighBloodPressure",
-      "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication",
-      "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication",
-      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
+      "Mean_Concentration_AirPollutant_PM2.5",
+      "AirQualityIndex_AirPollutant"
     ],
     "SV_to_Sentences": {
+      "AirQualityIndex_AirPollutant": [
+        "Air pollution level (0.3091)"
+      ],
+      "Mean_Concentration_AirPollutant_PM2.5": [
+        "PM2.5 air pollution level (0.3092)"
+      ],
       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-        "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.48477068543434143)"
+        "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.4848)",
+        "percent of  people with high blood pressure who are taking blood pressure medication  among people who are 18 years or older in age (0.4399)",
+        "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age (0.4399)"
       ],
       "Percent_Person_WithHighBloodPressure": [
-        "Prevalence: High Blood Pressure (0.6393455862998962)",
-        "Proportion of people with high blood pressure (0.5782811641693115)",
-        "Percentage of individuals with high blood pressure (0.5560433864593506)",
-        "Percentage of the population that has high blood pressure (0.539158284664154)",
-        "Percentage of people who have high blood pressure (0.5356097221374512)",
-        "Percent of people with high blood pressure (0.5325266718864441)",
-        "Percentage of people with high blood pressure (0.530988335609436)",
-        "percent of people that have high blood pressure (0.5249310731887817)",
-        "Percentage of the population with high blood pressure (0.5236257314682007)",
-        "Percentage of population with high blood pressure (0.5058220028877258)",
-        "Percentage of Population With High Blood Pressure (0.5058220028877258)",
-        "Percentage of people with uncontrolled hypertension (0.501070499420166)"
-      ],
-      "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-        "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340182542800903)",
-        "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.4841213524341583)"
-      ],
-      "dc/g/Person_MedicalCondition-HighBloodPressure": [
-        "Person With Medical Condition = High Blood Pressure (0.5648801326751709)",
-        "Number of People With High Blood Pressure (0.5599534511566162)",
-        "people with high blood pressure (0.5592368841171265)"
-      ],
-      "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-        "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.5272606611251831)",
-        "high blood pressure patients who are taking blood pressure medication (0.5227408409118652)"
+        "Prevalence: High Blood Pressure (0.6393)",
+        "Proportion of people with high blood pressure (0.5783)",
+        "Percentage of individuals with high blood pressure (0.556)",
+        "Percentage of the population that has high blood pressure (0.5392)",
+        "Percentage of people who have high blood pressure (0.5356)",
+        "Percent of people with high blood pressure (0.5325)",
+        "Percentage of people with high blood pressure (0.531)",
+        "percent of people that have high blood pressure (0.5249)",
+        "Percentage of the population with high blood pressure (0.5236)",
+        "Percentage of population with high blood pressure (0.5058)",
+        "Percentage of Population With High Blood Pressure (0.5058)",
+        "Percentage of people with uncontrolled hypertension (0.5011)",
+        "Percentage of the population with hypertension (0.4835)",
+        "Percentage of people with hypertension (0.4833)",
+        "Percentage of people with high BP (0.4785)"
       ]
     }
   },
   "svs_to_sentences": {
+    "AirQualityIndex_AirPollutant": [
+      "Air pollution level (0.3091)"
+    ],
+    "Mean_Concentration_AirPollutant_PM2.5": [
+      "PM2.5 air pollution level (0.3092)"
+    ],
     "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": [
-      "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.48477068543434143)"
+      "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication (0.4848)",
+      "percent of  people with high blood pressure who are taking blood pressure medication  among people who are 18 years or older in age (0.4399)",
+      "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age (0.4399)"
     ],
     "Percent_Person_WithHighBloodPressure": [
-      "Prevalence: High Blood Pressure (0.6393455862998962)",
-      "Proportion of people with high blood pressure (0.5782811641693115)",
-      "Percentage of individuals with high blood pressure (0.5560433864593506)",
-      "Percentage of the population that has high blood pressure (0.539158284664154)",
-      "Percentage of people who have high blood pressure (0.5356097221374512)",
-      "Percent of people with high blood pressure (0.5325266718864441)",
-      "Percentage of people with high blood pressure (0.530988335609436)",
-      "percent of people that have high blood pressure (0.5249310731887817)",
-      "Percentage of the population with high blood pressure (0.5236257314682007)",
-      "Percentage of population with high blood pressure (0.5058220028877258)",
-      "Percentage of Population With High Blood Pressure (0.5058220028877258)",
-      "Percentage of people with uncontrolled hypertension (0.501070499420166)"
-    ],
-    "dc/g/Person_Age-Years18Onwards_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-      "Number of High Blood Pressure Patients Who Are 18 Years or Older and Are Taking Blood Pressure Medication (0.49340182542800903)",
-      "high blood pressure patients who are 18 years or older and are taking blood pressure medication (0.4841213524341583)"
-    ],
-    "dc/g/Person_MedicalCondition-HighBloodPressure": [
-      "Person With Medical Condition = High Blood Pressure (0.5648801326751709)",
-      "Number of People With High Blood Pressure (0.5599534511566162)",
-      "people with high blood pressure (0.5592368841171265)"
-    ],
-    "dc/g/Person_MedicalCondition-HighBloodPressure_PreventiveHealth-TakingBloodPressureMedication": [
-      "Number of High Blood Pressure Patients Who Are Taking Blood Pressure Medication (0.5272606611251831)",
-      "high blood pressure patients who are taking blood pressure medication (0.5227408409118652)"
+      "Prevalence: High Blood Pressure (0.6393)",
+      "Proportion of people with high blood pressure (0.5783)",
+      "Percentage of individuals with high blood pressure (0.556)",
+      "Percentage of the population that has high blood pressure (0.5392)",
+      "Percentage of people who have high blood pressure (0.5356)",
+      "Percent of people with high blood pressure (0.5325)",
+      "Percentage of people with high blood pressure (0.531)",
+      "percent of people that have high blood pressure (0.5249)",
+      "Percentage of the population with high blood pressure (0.5236)",
+      "Percentage of population with high blood pressure (0.5058)",
+      "Percentage of Population With High Blood Pressure (0.5058)",
+      "Percentage of people with uncontrolled hypertension (0.5011)",
+      "Percentage of the population with hypertension (0.4835)",
+      "Percentage of people with hypertension (0.4833)",
+      "Percentage of people with high BP (0.4785)"
     ]
   },
   "time_delta_classification": "<None>"
