@@ -26,7 +26,7 @@ pytest-rerunfailures==10.2
 pytest-xdist==2.4.0
 redis==4.5.4
 requests==2.26.0
-selenium==3.141.0
+selenium==4.9.0
 six==1.16.0
 typing_extensions==3.10.0.0
 Werkzeug==2.0.0

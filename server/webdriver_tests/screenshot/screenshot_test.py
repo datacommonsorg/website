@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -139,7 +139,7 @@ class TestScreenShot(WebdriverBaseTest):
                                   windowHandle='current')
 
       # Get the element to test.
-      charts = self.driver.find_elements_by_class_name(test_class_name)
+      charts = self.driver.find_elements(By.CLASS_NAME, test_class_name)
 
       # Assert there is at least one chart.
       self.assertGreater(len(charts), 0, test_info['url'])

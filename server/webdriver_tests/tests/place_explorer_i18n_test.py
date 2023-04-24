@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,44 +39,45 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     # TODO(beets): Re-enable this test after fixing flakiness in finding
     # the chart
     # # Test strings in GDP comparison chart
-    # gdp_chart = self.driver.find_element_by_xpath(
+    # gdp_chart = self.driver.find_element(By.XPATH,
     #     '//*[@id="main-pane"]/section[1]/div/div[5]/div')
     # self.assertEqual(
-    #     gdp_chart.find_element_by_xpath('h4').text, '日本 の 1 人あたりの国内総生産')
+    #     gdp_chart.find_element(By.XPATH, 'h4').text, '日本 の 1 人あたりの国内総生産')
 
     # # Test that chart tick values are translated
-    # y_text = gdp_chart.find_elements_by_class_name(
-    #     'y')[0].find_elements_by_tag_name('text')
+    # y_text = gdp_chart.find_elements(By. CLASS_NAME,
+    #     'y')[0].find_elements(By.TAG_NAME, 'text')
     # self.assertEqual(y_text[0].text, 'USD 0')
     # self.assertEqual(y_text[1].text, 'USD 1万')
 
-    # x_text = gdp_chart.find_elements_by_class_name(
-    #     'x')[0].find_elements_by_tag_name('text')
+    # x_text = gdp_chart.find_elements(By. CLASS_NAME,
+    #     'x')[0].find_elements(By.TAG_NAME, 'text')
     # self.assertEqual(x_text[0].text, '1960')
 
     # # Test that sv labels are translated
-    # sv_legend = gdp_chart.find_elements_by_class_name('legend')[0]
-    # sv_label = sv_legend.find_elements_by_tag_name('a')[0]
+    # sv_legend = gdp_chart.find_elements(By. CLASS_NAME, 'legend')[0]
+    # sv_label = sv_legend.find_elements(By.TAG_NAME, 'a')[0]
     # self.assertEqual(sv_label.text, '1 人あたりの GDP')
 
     # Test that topics are translated
-    health_topic = self.driver.find_element_by_xpath(
-        '//*[@id="nav-topics"]/li[3]/a')
+    health_topic = self.driver.find_element(By.XPATH,
+                                            '//*[@id="nav-topics"]/li[3]/a')
     self.assertEqual(health_topic.text, '健康')
 
     # Test strings in places-in component
-    places_in = self.driver.find_element_by_xpath('//*[@id="child-place-head"]')
+    places_in = self.driver.find_element(By.XPATH,
+                                         '//*[@id="child-place-head"]')
     self.assertEqual(places_in.text, '日本 の地域')
-    aa_children_label = self.driver.find_element_by_xpath(
-        '//*[@id="child-place"]/div/div')
+    aa_children_label = self.driver.find_element(
+        By.XPATH, '//*[@id="child-place"]/div/div')
     self.assertEqual(aa_children_label.text, '行政区域 1 の地域')
-    aichi_prefecture = self.driver.find_element_by_xpath(
-        '//*[@id="child-place"]/div/a[1]')
+    aichi_prefecture = self.driver.find_element(
+        By.XPATH, '//*[@id="child-place"]/div/a[1]')
     self.assertEqual(aichi_prefecture.text, '三重県,')
 
     # Test that timeline links are removed
     self.assertListEqual(
-        self.driver.find_elements_by_class_name('explore-more'), [])
+        self.driver.find_elements(By.CLASS_NAME, 'explore-more'), [])
 
   def test_demographics_link_in_fr(self):
     """Test the demographics link in FR propagates."""
@@ -90,8 +91,8 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Find and click on the Demographics URL.
-    demographics = self.driver.find_element_by_xpath(
-        '//*[@id="Demographics"]/a')
+    demographics = self.driver.find_element(By.XPATH,
+                                            '//*[@id="Demographics"]/a')
     self.assertEqual(demographics.text, 'DONNÉES DÉMOGRAPHIQUES')
     demographics.click()
 
@@ -105,13 +106,14 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     self.assertTrue("&hl=fr" in self.driver.current_url)
 
     # Assert chart title is correct.
-    chart_title = self.driver.find_element_by_xpath(
-        '//*[@id="main-pane"]/section[5]/div/div[2]/div/h4')
+    chart_title = self.driver.find_element(
+        By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[2]/div/h4')
     self.assertEqual(chart_title.text,
                      'Population urbaine et rurale : autres pays(2019)')
 
     # Click through to ranking
-    pop_growth_rate_chip = self.driver.find_element_by_xpath(
+    pop_growth_rate_chip = self.driver.find_element(
+        By.XPATH,
         '//*[@id="main-pane"]/section[6]/div/div[1]/div/div/div/div/a')
     self.assertEqual(pop_growth_rate_chip.text,
                      'Taux de croissance de la population')
@@ -129,5 +131,5 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     self.assertTrue('unit=%25' in url)
     self.assertTrue('hl=fr' in url)
     self.assertEqual(
-        self.driver.find_element_by_tag_name('h1').text,
+        self.driver.find_element(By.TAG_NAME, 'h1').text,
         'Classement par Taux de croissance de la population')

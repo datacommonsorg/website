@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ class TestDownload(WebdriverBaseTest):
     # Wait until search box is present.
     element_present = EC.presence_of_element_located((By.ID, 'ac'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element_by_id('ac')
+    search_box_input = self.driver.find_element(By.ID, 'ac')
 
     # Type california into the search box.
     search_box_input.send_keys(PLACE_SEARCH_CA)
@@ -99,8 +99,8 @@ class TestDownload(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Click on the first result.
-    first_result = self.driver.find_element_by_css_selector(
-        '.pac-item:nth-child(1)')
+    first_result = self.driver.find_element(By.CSS_SELECTOR,
+                                            '.pac-item:nth-child(1)')
     first_result.click()
     element_present = EC.presence_of_element_located((By.CLASS_NAME, 'chip'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
@@ -111,7 +111,7 @@ class TestDownload(WebdriverBaseTest):
         (By.ID, 'place-selector-place-type'), "County")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     selects = Select(
-        self.driver.find_element_by_id('place-selector-place-type'))
+        self.driver.find_element(By.ID, 'place-selector-place-type'))
     selects.select_by_value('County')
 
     # Choose stat var
@@ -120,8 +120,8 @@ class TestDownload(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_id(
-        'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
+    self.driver.find_element(
+        By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Choose another stat var
     shared.wait_for_loading(self.driver)
@@ -129,13 +129,13 @@ class TestDownload(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_id(
-        'Count_Persondc/g/Demographics-Count_Person').click()
+    self.driver.find_element(
+        By.ID, 'Count_Persondc/g/Demographics-Count_Person').click()
 
     # Click preview
     shared.wait_for_loading(self.driver)
-    self.driver.find_element_by_xpath(
-        '//*[@id="plot-container"]/div[1]/div/div/button').click()
+    self.driver.find_element(
+        By.XPATH, '//*[@id="plot-container"]/div[1]/div/div/button').click()
 
     # Assert preview table is correct
     shared.wait_for_loading(self.driver)
@@ -143,20 +143,20 @@ class TestDownload(WebdriverBaseTest):
         (By.XPATH, '//*[@id="preview-section"]/table'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     # Assert table headers are correct
-    table_headers = self.driver.find_elements_by_tag_name('th')
+    table_headers = self.driver.find_elements(By.TAG_NAME, 'th')
     for idx, header in enumerate(table_headers):
       self.assertEqual(header.text, TABLE_HEADERS[idx])
     # Assert table body is correct
-    table_body = self.driver.find_elements_by_tag_name('tbody')[0]
-    table_rows = table_body.find_elements_by_tag_name('tr')
+    table_body = self.driver.find_elements(By.TAG_NAME, 'tbody')[0]
+    table_rows = table_body.find_elements(By.TAG_NAME, 'tr')
     self.assertGreater(len(table_rows), 1)
-    first_row_cells = table_rows[0].find_elements_by_tag_name('td')
+    first_row_cells = table_rows[0].find_elements(By.TAG_NAME, 'td')
     for idx, cell in enumerate(first_row_cells):
       self.assertEqual(cell.text, TABLE_ROW_1[idx])
 
     # Click download
-    self.driver.find_element_by_xpath(
-        '//*[@id="preview-section"]/button').click()
+    self.driver.find_element(By.XPATH,
+                             '//*[@id="preview-section"]/button').click()
 
     # Assert file downloaded
     num_tries = 0
