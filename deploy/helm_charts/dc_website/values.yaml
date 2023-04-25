@@ -2,14 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-resourceSuffix: ""
-
-# Website service config.
+###############################################################################
+# Config for Website
+###############################################################################
 website:
-  # Domain is a the domain that the installer owns.
-  # The installer is responsible for adding an "A" record in
-  # the DNS that points to the global static ip referred in this file.
-  domain:
   githash:
 
   image:
@@ -18,16 +14,20 @@ website:
     tag:
 
   flaskEnv: "custom"
-  secretGCPProjectID:
-  enableModel: false
+
+  ai: ""
 
   # IAP(Identity Aware Proxy) config.
-  # iap can be enabled independently of ingress.
+  # IAP can be enabled independently of ingress.
   iap:
     enabled: false
 
   replicas:
     default: 1
+
+  redis:
+    enabled: false
+    configFile:
 
 nameOverride: ""
 fullnameOverride: ""
@@ -43,16 +43,15 @@ namespace:
 serviceAccount:
   name: website-ksa
 
-ingress:
+singleClusterMode:
   name: website-ingress
   ipName: dc-website-ip
   certName: dc-website-cert
-  enabled: true
+  enabled: false
 
 ###############################################################################
 # Config for Mixer helm chart
 ###############################################################################
-
 mixer:
   githash:
 
@@ -105,19 +104,9 @@ serviceGroups:
       memoryRequest: "4G"
       memoryLimit: "4G"
 
-
-###############################################################################
-# END Config for Mixer helm chart
-###############################################################################
-
 ###############################################################################
 # Config for NL
 ###############################################################################
 nl:
   enabled: false
-  embeddings: |
-    embeddings_file: embeddings_us_filtered_2023_02_24_08_32_22.csv
-
-###############################################################################
-# END Config for NL
-###############################################################################
+  embeddings:

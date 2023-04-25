@@ -17,7 +17,6 @@ project:
 # Should match the value of the variable cluster_name_prefix from
 # deploy/terraform-datacommons-website/examples/website_v1/variables.tf
 cluster_prefix: "datacommons"
-resourceSuffix: ""
 
 namespace:
   name: "website"
@@ -33,7 +32,7 @@ mixer:
   hostProject:
   serviceName:
 
-ingress:
+singleClusterMode:
   enabled: true
 
 serviceAccount:
