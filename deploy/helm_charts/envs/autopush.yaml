@@ -29,7 +29,7 @@ website:
   replicas:
     default: 10
   enableModel: true
-  ai:
+  ai: |
     - us-central1:
         protocol: rest
         endpoint_id: "2621578768245850112"

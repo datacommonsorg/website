@@ -13,8 +13,9 @@
 # limitations under the License.
 
 # Helm config
-project: "datcom-website-dev"
+project: "datcom-website-prod"
 cluster_prefix: "website"
+resourceSuffix: "-prod"
 
 namespace:
   name: "website"
@@ -24,15 +25,32 @@ website:
     project: "datcom-ci"
     tag:
   githash:
-  flaskEnv: dev
+  flaskEnv: production
   replicas:
-    default: 2
+    default: 6
   enableModel: true
   ai: |
     us-central1:
       protocol: rest
-      endpoint_id: "2621578768245850112"
-      deployed_model_id: "1265982086267797504"
+      endpoint_id: "487435494825656320"
+      deployed_model_id: "9069937388221890560"
+    us-west1:
+      protocol: rest
+      endpoint_id: "8297899905616183296"
+      deployed_model_id: "7540028530822742016"
+  redis:
+    enabled: false
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.167.58.139",
+          "port": "6379"
+        },
+        "us-west1": {
+          "host": "10.158.101.59",
+          "port": "6379"
+        }
+      }
 
 mixer:
   hostProject:
@@ -44,13 +62,13 @@ ingress:
 serviceAccount:
   name: website-ksa
 
+nl:
+  enabled: true
+
 serviceGroups:
   recon: null
   observation: null
   svg:
-    replicas: 2
+    replicas: 30
   default:
-    replicas: 2
-
-nl:
-  enabled: true
+    replicas: 60

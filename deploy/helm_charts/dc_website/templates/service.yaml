@@ -1,17 +1,3 @@
-# Copyright 2022 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
@@ -30,7 +16,7 @@ spec:
   iap:
     enabled: true
     oauthclientCredentials:
-      secretName: iap-secret{{ .Values.resourceSuffix }}
+      secretName: iap-secret
   {{- end }}
 
 ---
@@ -38,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: website-service{{ .Values.resourceSuffix }}
+  name: website-service
   namespace: {{ .Values.namespace.name }}
   annotations:
     cloud.google.com/backend-config: '{"ports": {"8081":"backendconfig"}}'

@@ -45,9 +45,9 @@ spec:
         - name: ai-config
           configMap:
             name: ai-config
-        - name: model-config
+        - name: nl-config
           configMap:
-            name: model-config
+            name: nl-config
         - name: memdb-config
           configMap:
             name: memdb-config
@@ -177,8 +177,8 @@ spec:
                   name: website-configmap
                   key: flaskEnv
           volumeMounts:
-            - name: model-config
-              mountPath: /datacommons/model
+            - name: nl-config
+              mountPath: /datacommons/nl
           startupProbe:
             httpGet:
               path: /healthz
