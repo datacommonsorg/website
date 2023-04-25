@@ -386,6 +386,22 @@
                     "type": "LINE"
                   },
                   {
+                    "placeDcidOverride": "country/CIV",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                    ],
+                    "title": "C\u00f4te d'Ivoire",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/REU",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                    ],
+                    "title": "R\u00e9union",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/SHN",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
@@ -399,22 +415,6 @@
                       "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
                     ],
                     "title": "South Sudan",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/REU",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
-                    ],
-                    "title": "R\u00e9union",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/CIV",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
-                    ],
-                    "title": "C\u00f4te d'Ivoire",
                     "type": "LINE"
                   }
                 ]
@@ -467,6 +467,22 @@
                     "type": "LINE"
                   },
                   {
+                    "placeDcidOverride": "country/CIV",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                    ],
+                    "title": "C\u00f4te d'Ivoire",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/REU",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                    ],
+                    "title": "R\u00e9union",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/SHN",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
@@ -480,22 +496,6 @@
                       "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
                     ],
                     "title": "South Sudan",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/REU",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
-                    ],
-                    "title": "R\u00e9union",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/CIV",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
-                    ],
-                    "title": "C\u00f4te d'Ivoire",
                     "type": "LINE"
                   }
                 ]
