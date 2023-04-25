@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -92,9 +92,10 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
     expected_min_date_year = "2015"
     expected_max_date_year = "2018"
 
-    def series_within_side_effect(parent_place, child_type, stat_vars,
-                                  all_facets):
-      if parent_place == expected_parent_place and child_type == expected_child_type and stat_vars == expected_stat_vars and all_facets:
+    def series_within_side_effect(parent_place, child_type, stat_vars):
+      if (parent_place == expected_parent_place and
+          child_type == expected_child_type and
+          stat_vars == expected_stat_vars):
         return mock_data.SERIES_WITHIN_ALL_FACETS
       else:
         return {}

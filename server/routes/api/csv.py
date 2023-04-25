@@ -126,17 +126,14 @@ def get_series_csv_rows(series_response,
       row.
   """
   facets = series_response.get("facets", {})
-  obs_by_sv = series_response.get("observationsByVariable", [])
   # dict of place dcid to dict of sv dcid to chosen series.
   data_by_place = {}
-  for sv_data in obs_by_sv:
-    sv = sv_data.get("variable")
+  for sv, sv_data in series_response.get("byVariable", {}).items():
     target_facet = facet_map.get(sv, "")
-    for place_data in sv_data.get("observationsByEntity", []):
-      place = place_data.get("entity")
-      series_by_facet = place_data.get("seriesByFacet", [])
+    for place, place_data in sv_data.get("byEntity", {}).items():
       if not place in data_by_place:
         data_by_place[place] = {}
+      series_by_facet = place_data.get("orderedFacets", [])
       for series in series_by_facet:
         # if no facet selected for this variable, choose the first
         # series in the list because seriesByFacet is sorted by best
@@ -144,9 +141,10 @@ def get_series_csv_rows(series_response,
         if target_facet == "":
           data_by_place[place][sv] = series
           break
-        if str(series.get("facet")) == target_facet:
+        if series.get("facetId") == target_facet:
           data_by_place[place][sv] = series
           break
+
   place_list = sorted(list(data_by_place.keys()))
   place_names = names(place_list)
   result = []
@@ -165,7 +163,7 @@ def get_series_csv_rows(series_response,
       want_data_points = []
       # Go through the series and keep data points that are within the
       # date range
-      for data_point in sv_series.get("series", []):
+      for data_point in sv_series.get("observations", []):
         date = data_point.get("date")
         is_greater_than_min = date_greater_equal_min(date, min_date)
         is_less_than_max = date_lesser_equal_max(date, max_date)
@@ -173,7 +171,7 @@ def get_series_csv_rows(series_response,
           want_data_points.append(data_point)
       want_data_points.sort(key=lambda x: x["date"])
       sv_data_points[sv] = want_data_points
-      facetId = sv_series.get("facet", "")
+      facetId = sv_series.get("facetId", "")
       sv_source[sv] = facets.get(facetId, {}).get("provenanceUrl", "")
       sv_curr_index[sv] = 0
       have_data = have_data or len(want_data_points) > 0
@@ -267,8 +265,7 @@ def get_stats_within_place_csv():
         get_point_within_csv_rows(parent_place, child_type, sv_list, facet_map,
                                   date, row_limit))
   else:
-    series_response = dc.obs_series_within(parent_place, child_type, sv_list,
-                                           True)
+    series_response = dc.obs_series_within(parent_place, child_type, sv_list)
     result_csv.extend(
         get_series_csv_rows(series_response, sv_list, facet_map, min_date,
                             max_date, row_limit))

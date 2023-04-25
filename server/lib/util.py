@@ -275,6 +275,13 @@ def _convert_v2_obs_point(facet):
   }
 
 
+def _convert_v2_obs_series(facet):
+  return {
+      'facet': facet['facetId'],
+      'series': facet['observations'],
+  }
+
+
 def point_core(entities, variables, date, all_facets):
   resp = dc.obs_point(entities, variables, date)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
@@ -324,38 +331,39 @@ def _compact_point(point_resp, all_facets):
 
 
 def series_core(entities, variables, all_facets):
-  resp = dc.obs_series(entities, variables, all_facets)
+  resp = dc.obs_series(entities, variables)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
 def series_within_core(parent_entity, child_type, variables, all_facets):
-  resp = dc.obs_series_within(parent_entity, child_type, variables, all_facets)
+  resp = dc.obs_series_within(parent_entity, child_type, variables)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
 def _compact_series(series_resp, all_facets):
   result = {
-      'facets': series_resp.get('facets', {}),
+      'facets': {},
   }
+  if all_facets:
+    result['facets'] = series_resp['facets']
   data = {}
-  for obs_by_variable in series_resp.get('observationsByVariable', []):
-    if 'variable' not in obs_by_variable:
-      continue
-    var = obs_by_variable['variable']
+  for var, var_obs in series_resp.get('byVariable', {}).items():
     data[var] = {}
-    for obs_by_entity in obs_by_variable.get('observationsByEntity', []):
-      if 'entity' not in obs_by_entity:
-        continue
-      entity = obs_by_entity['entity']
+    for entity, entity_obs in var_obs.get('byEntity', {}).items():
       data[var][entity] = None
-      if 'seriesByFacet' in obs_by_entity:
+      if 'orderedFacets' in entity_obs:
         if all_facets:
-          data[var][entity] = obs_by_entity['seriesByFacet']
+          data[var][entity] = [
+              _convert_v2_obs_series(x) for x in entity_obs['orderedFacets']
+          ]
         else:
           # There should be only one series
-          data[var][entity] = obs_by_entity['seriesByFacet'][0]
+          data[var][entity] = _convert_v2_obs_series(
+              entity_obs['orderedFacets'][0])
+          facet_id = data[var][entity]['facet']
+          result['facets'][facet_id] = series_resp['facets'][facet_id]
       else:
         if all_facets:
           data[var][entity] = []

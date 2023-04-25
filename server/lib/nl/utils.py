@@ -146,7 +146,7 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
 
   reverse = False if order == detection.RankingType.LOW else True
   svs_with_vals = sorted(svs_with_vals,
-                         key=lambda pair: pair[1],
+                         key=lambda pair: (pair[1], pair[0]),
                          reverse=reverse)
   return [sv for sv, _ in svs_with_vals]
 
@@ -350,13 +350,13 @@ def _compute_growth_ranked_lists(
     rank_order: detection.RankingType) -> GrowthRankedLists:
   # Rank by abs
   things_by_abs = sorted(things_with_vals,
-                         key=lambda pair: pair[1].abs,
+                         key=lambda pair: (pair[1].abs, pair[0]),
                          reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                        rank_order)])
 
   # Rank by pct
   things_by_pct = sorted(things_with_vals,
-                         key=lambda pair: pair[1].pct,
+                         key=lambda pair: (pair[1].pct, pair[0]),
                          reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                        rank_order)])
 
@@ -366,7 +366,7 @@ def _compute_growth_ranked_lists(
     if growth.pc != None:
       things_by_pc.append((place, growth))
   things_by_pc = sorted(things_by_pc,
-                        key=lambda pair: pair[1].pc,
+                        key=lambda pair: (pair[1].pc, pair[0]),
                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                       rank_order)])
 
@@ -426,7 +426,7 @@ def filter_and_rank_places(
 
   # Sort place_and_value by value
   child_and_value = sorted(child_and_value,
-                           key=lambda pair: pair[1],
+                           key=lambda pair: (pair[1], pair[0]),
                            reverse=True)
   child_ids = [id for id, _ in child_and_value]
   id2names = dc.property_values(child_ids, 'name')
