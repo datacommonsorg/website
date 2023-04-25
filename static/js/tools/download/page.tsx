@@ -114,6 +114,10 @@ export function Page(props: PagePropType): JSX.Element {
     } else if (selectedOptions.dateType === DownloadDateTypes.LATEST) {
       minDate = DATE_LATEST;
       maxDate = DATE_LATEST;
+    } else {
+      if (!isValidDateInput(minDate) || !isValidDateInput(maxDate)) {
+        return;
+      }
     }
     const reqObj = {
       statVars: Object.keys(selectedOptions.selectedStatVars),
@@ -507,8 +511,12 @@ export function Page(props: PagePropType): JSX.Element {
     window.location.hash = urlParams.toString();
   }
 
+  function isValidDateInput(date: string): boolean {
+    return _.isEmpty(date) || isValidDate(date);
+  }
+
   function validateDate(date: string, isMinDate: boolean): void {
-    const dateError = !_.isEmpty(date) && !isValidDate(date);
+    const dateError = !isValidDateInput(date);
     setValidationErrors((prev) => {
       return {
         ...prev,
