@@ -32,7 +32,7 @@ mixer:
   hostProject:
   serviceName:
 
-ingress:
+singleClusterMode:
   enabled: true
 
 serviceAccount:

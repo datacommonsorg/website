@@ -159,7 +159,7 @@ function deploy_website() {
   --atomic \
   --debug \
   --timeout 10m \
-  --set ingress.enabled=$ENABLE_INGRESS \
+  --set singleClusterMode.enabled=$SINGLE_CLUSTER_MODE \
   --set website.image.project="$IMAGE_PROJECT" \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
@@ -168,13 +168,13 @@ function deploy_website() {
 
 cd $ROOT
 if [[ $PROJECT_ID != "" ]]; then
-  ENABLE_INGRESS="true"
+  SINGLE_CLUSTER_MODE="true"
   # This is a pure custom project hosted and deployed by third party
   CLUSTER_PREFIX=datacommons
   create_custom_bigtable_info_yaml
 else
   touch mixer/deploy/storage/custom_bigtable_info.yaml
-  ENABLE_INGRESS="false"
+  SINGLE_CLUSTER_MODE="false"
   PROJECT_ID=$(yq eval '.project' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
   CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
 fi

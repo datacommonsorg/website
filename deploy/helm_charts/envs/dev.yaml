@@ -27,7 +27,6 @@ website:
   flaskEnv: dev
   replicas:
     default: 2
-  enableModel: true
   ai: |
     us-central1:
       protocol: rest
@@ -37,9 +36,6 @@ website:
 mixer:
   hostProject:
   serviceName:
-
-ingress:
-  enabled: false
 
 serviceAccount:
   name: website-ksa

@@ -15,7 +15,6 @@
 # Helm config
 project: "datcom-website-prod"
 cluster_prefix: "website"
-resourceSuffix: "-prod"
 
 namespace:
   name: "website"
@@ -28,7 +27,6 @@ website:
   flaskEnv: production
   replicas:
     default: 6
-  enableModel: true
   ai: |
     us-central1:
       protocol: rest
@@ -39,7 +37,7 @@ website:
       endpoint_id: "8297899905616183296"
       deployed_model_id: "7540028530822742016"
   redis:
-    enabled: false
+    enabled: true
     configFile: |
       {
         "us-central1": {
@@ -56,14 +54,11 @@ mixer:
   hostProject:
   serviceName:
 
-ingress:
-  enabled: false
-
 serviceAccount:
   name: website-ksa
 
 nl:
-  enabled: true
+  enabled: false
 
 serviceGroups:
   recon: null

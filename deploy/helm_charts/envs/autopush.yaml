@@ -15,7 +15,6 @@
 # Helm config
 project: "datcom-website-autopush"
 cluster_prefix: "website"
-resourceSuffix: "-autopush"
 
 namespace:
   name: "website"
@@ -28,23 +27,19 @@ website:
   flaskEnv: autopush
   replicas:
     default: 10
-  enableModel: true
   ai: |
-    - us-central1:
-        protocol: rest
-        endpoint_id: "2621578768245850112"
-        deployed_model_id: "3469851989075034112"
-    - europe-west2:
-        protocol: rest
-        endpoint_id: "2621578768245850112"
-        deployed_model_id: "3469851989075034112"
+    us-central1:
+      protocol: rest
+      endpoint_id: "2621578768245850112"
+      deployed_model_id: "3469851989075034112"
+    europe-west2:
+      protocol: rest
+      endpoint_id: "2621578768245850112"
+      deployed_model_id: "3469851989075034112"
 
 mixer:
   hostProject:
   serviceName:
-
-ingress:
-  enabled: false
 
 serviceAccount:
   name: website-ksa

@@ -15,7 +15,7 @@ website:
 
   flaskEnv: "custom"
 
-  ai:
+  ai: ""
 
   # IAP(Identity Aware Proxy) config.
   # IAP can be enabled independently of ingress.
@@ -43,11 +43,11 @@ namespace:
 serviceAccount:
   name: website-ksa
 
-ingress:
+singleClusterMode:
   name: website-ingress
   ipName: dc-website-ip
   certName: dc-website-cert
-  enabled: true
+  enabled: false
 
 ###############################################################################
 # Config for Mixer helm chart

@@ -22,8 +22,7 @@ metadata:
   name: ai-config
   namespace: {{ .Values.namespace.name }}
 data:
-  ai.yaml: |
-   {{ required "Website ai file is required" .Values.website.ai | quote }}
+  ai.yaml: {{ .Values.website.ai | quote }}
 
 
 {{- if .Values.nl.enabled }}

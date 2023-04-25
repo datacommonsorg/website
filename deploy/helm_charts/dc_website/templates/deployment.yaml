@@ -84,8 +84,7 @@ spec:
               mountPath: /datacommons/ingress
             {{- if .Values.website.redis.enabled }}
             - name: redis-config
-              configMap:
-                name: redis-config
+              mountPath: /datacommons/redis
             {{- end }}
           env:
             - name: FLASK_ENV
