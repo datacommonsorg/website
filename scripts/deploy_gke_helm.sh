@@ -164,7 +164,8 @@ function deploy_website() {
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
   --set mixer.githash="$MIXER_HASH" \
-  --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version
+  --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
+  --set-file nl.embeddings=deploy/base/model.yaml
 }
 
 cd $ROOT
