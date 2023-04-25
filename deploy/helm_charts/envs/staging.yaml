@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Helm config
-project: "datcom-website-autopush"
+project: "datcom-website-staging"
 cluster_prefix: "website"
 
 namespace:
@@ -24,22 +24,17 @@ website:
     project: "datcom-ci"
     tag:
   githash:
-  flaskEnv: autopush
+  flaskEnv: staging
   replicas:
-    default: 10
-  ai: |
-    us-central1:
-      protocol: rest
-      endpoint_id: "2621578768245850112"
-      deployed_model_id: "3469851989075034112"
-    europe-west2:
-      protocol: rest
-      endpoint_id: "2621578768245850112"
-      deployed_model_id: "3469851989075034112"
+    default: 6
+  enableModel: true
 
 mixer:
   hostProject:
   serviceName:
+
+ingress:
+  enabled: false
 
 serviceAccount:
   name: website-ksa
@@ -51,6 +46,6 @@ serviceGroups:
   recon: null
   observation: null
   svg:
-    replicas: 5
+    replicas: 6
   default:
-    replicas: 10
+    replicas: 6
