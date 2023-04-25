@@ -37,27 +37,27 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 
     # TODO(beets): Re-enable this test after fixing flakiness in finding
-    # the chart
-    # # Test strings in GDP comparison chart
-    # gdp_chart = self.driver.find_element(By.XPATH,
-    #     '//*[@id="main-pane"]/section[1]/div/div[5]/div')
-    # self.assertEqual(
-    #     gdp_chart.find_element(By.XPATH, 'h4').text, '日本 の 1 人あたりの国内総生産')
+    # the chart.
+    # Test strings in GDP comparison chart
+    gdp_chart = self.driver.find_element(
+        By.XPATH, '//*[@id="main-pane"]/section[1]/div/div[1]/div')
+    self.assertEqual(
+        gdp_chart.find_element(By.XPATH, 'h4').text, '日本 の 1 人あたりの国内総生産')
 
-    # # Test that chart tick values are translated
-    # y_text = gdp_chart.find_elements(By. CLASS_NAME,
-    #     'y')[0].find_elements(By.TAG_NAME, 'text')
-    # self.assertEqual(y_text[0].text, 'USD 0')
-    # self.assertEqual(y_text[1].text, 'USD 1万')
+    # Test that chart tick values are translated
+    y_text = gdp_chart.find_elements(By.CLASS_NAME,
+                                     'y')[0].find_elements(By.TAG_NAME, 'text')
+    self.assertEqual(y_text[0].text, 'USD 0')
+    self.assertEqual(y_text[1].text, 'USD 1万')
 
-    # x_text = gdp_chart.find_elements(By. CLASS_NAME,
-    #     'x')[0].find_elements(By.TAG_NAME, 'text')
-    # self.assertEqual(x_text[0].text, '1960')
+    x_text = gdp_chart.find_elements(By.CLASS_NAME,
+                                     'x')[0].find_elements(By.TAG_NAME, 'text')
+    self.assertEqual(x_text[0].text, '1960')
 
-    # # Test that sv labels are translated
-    # sv_legend = gdp_chart.find_elements(By. CLASS_NAME, 'legend')[0]
-    # sv_label = sv_legend.find_elements(By.TAG_NAME, 'a')[0]
-    # self.assertEqual(sv_label.text, '1 人あたりの GDP')
+    # Test that sv labels are translated
+    sv_legend = gdp_chart.find_elements(By.CLASS_NAME, 'legend')[0]
+    sv_label = sv_legend.find_elements(By.TAG_NAME, 'a')[0]
+    self.assertEqual(sv_label.text, '1 人あたりの GDP')
 
     # Test that topics are translated
     health_topic = self.driver.find_element(By.XPATH,
