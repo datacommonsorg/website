@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -60,56 +60,56 @@ class TestMap(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place name is correct.
-    place_name = self.driver.find_element_by_xpath(
-        '//*[@id="place-list"]/div/span')
+    place_name = self.driver.find_element(By.XPATH,
+                                          '//*[@id="place-list"]/div/span')
     self.assertEqual(place_name.text, 'California')
 
     # Assert chart is correct.
     element_present = EC.presence_of_element_located((By.ID, 'map-items'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_title = self.driver.find_element_by_xpath(
-        '//*[@id="map-chart"]/div/div[1]/h3')
+    chart_title = self.driver.find_element(
+        By.XPATH, '//*[@id="map-chart"]/div/div[1]/h3')
     self.assertEqual(chart_title.text, "Median Age of Population (2020)")
-    chart_map = self.driver.find_element_by_id('map-items')
-    map_regions = chart_map.find_elements_by_tag_name('path')
+    chart_map = self.driver.find_element(By.ID, 'map-items')
+    map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
-    chart_legend = self.driver.find_element_by_id('choropleth-legend')
-    legend_ticks = chart_legend.find_elements_by_class_name('tick')
+    chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
+    legend_ticks = chart_legend.find_elements(By.CLASS_NAME, 'tick')
     self.assertGreater(len(legend_ticks), 5)
 
     # Click United States breadcrumb
-    self.driver.find_element_by_xpath(
-        '//*[@id="chart-row"]/div/div/div/div[3]/div[3]/a').click()
+    self.driver.find_element(
+        By.XPATH, '//*[@id="chart-row"]/div/div/div/div[3]/div[3]/a').click()
 
     # Assert redirect was correct
     element_present = EC.text_to_be_present_in_element(
         (By.XPATH, '//*[@id="place-list"]/div/span'),
         'United States of America')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    place_name = self.driver.find_element_by_xpath(
-        '//*[@id="place-list"]/div/span')
+    place_name = self.driver.find_element(By.XPATH,
+                                          '//*[@id="place-list"]/div/span')
     self.assertEqual(place_name.text, 'United States of America')
 
     # Select State place type
     element_present = EC.text_to_be_present_in_element(
         (By.ID, 'place-selector-place-type'), "State")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_id('place-selector-place-type').click()
-    self.driver.find_element_by_xpath(
-        '//*[@id="place-selector-place-type"]/option[2]').click()
+    self.driver.find_element(By.ID, 'place-selector-place-type').click()
+    self.driver.find_element(
+        By.XPATH, '//*[@id="place-selector-place-type"]/option[2]').click()
 
     # Assert that a map chart is loaded
     element_present = EC.presence_of_element_located((By.ID, 'map-items'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_title = self.driver.find_element_by_xpath(
-        '//*[@id="map-chart"]/div/div[1]/h3')
+    chart_title = self.driver.find_element(
+        By.XPATH, '//*[@id="map-chart"]/div/div[1]/h3')
     self.assertEqual(chart_title.text, "Median Age of Population (2020)")
-    chart_map = self.driver.find_element_by_id('map-items')
-    map_regions = chart_map.find_elements_by_tag_name('path')
+    chart_map = self.driver.find_element(By.ID, 'map-items')
+    map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 52)
 
     # Click explore timeline
-    self.driver.find_element_by_class_name('explore-timeline-text').click()
+    self.driver.find_element(By.CLASS_NAME, 'explore-timeline-text').click()
 
     # Assert rankings page loaded
     NEW_PAGE_TITLE = 'Ranking by Median Age - States in United States of America - Place Rankings - Data Commons'
@@ -126,7 +126,7 @@ class TestMap(WebdriverBaseTest):
     # Wait until search box is present.
     element_present = EC.presence_of_element_located((By.ID, 'ac'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element_by_id('ac')
+    search_box_input = self.driver.find_element(By.ID, 'ac')
 
     # Type california into the search box.
     search_box_input.send_keys(PLACE_SEARCH_CA)
@@ -137,8 +137,8 @@ class TestMap(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Click on the first result.
-    first_result = self.driver.find_element_by_css_selector(
-        '.pac-item:nth-child(1)')
+    first_result = self.driver.find_element(By.CSS_SELECTOR,
+                                            '.pac-item:nth-child(1)')
     first_result.click()
     element_present = EC.presence_of_element_located((By.CLASS_NAME, 'chip'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
@@ -149,20 +149,20 @@ class TestMap(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_id(
-        'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
+    self.driver.find_element(
+        By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Assert chart is correct.
     element_present = EC.presence_of_element_located((By.ID, 'map-items'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_title = self.driver.find_element_by_xpath(
-        '//*[@id="map-chart"]/div/div[1]/h3')
+    chart_title = self.driver.find_element(
+        By.XPATH, '//*[@id="map-chart"]/div/div[1]/h3')
     self.assertEqual(chart_title.text, "Median Age of Population (2020)")
-    chart_map = self.driver.find_element_by_id('map-items')
-    map_regions = chart_map.find_elements_by_tag_name('path')
+    chart_map = self.driver.find_element(By.ID, 'map-items')
+    map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
-    chart_legend = self.driver.find_element_by_id('choropleth-legend')
-    legend_ticks = chart_legend.find_elements_by_class_name('tick')
+    chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
+    legend_ticks = chart_legend.find_elements(By.CLASS_NAME, 'tick')
     self.assertGreater(len(legend_ticks), 5)
 
   def test_landing_page_link(self):
@@ -172,13 +172,13 @@ class TestMap(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.ID, 'placeholder-container'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_xpath(
-        '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
+    self.driver.find_element(
+        By.XPATH, '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
 
     # Assert chart loads
     shared.wait_for_loading(self.driver)
     element_present = EC.presence_of_element_located((By.ID, 'map-items'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_map = self.driver.find_element_by_id('map-items')
-    map_regions = chart_map.find_elements_by_tag_name('path')
+    chart_map = self.driver.find_element(By.ID, 'map-items')
+    map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertGreater(len(map_regions), 1)

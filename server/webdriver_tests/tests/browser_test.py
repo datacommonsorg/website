@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -55,8 +55,8 @@ class TestBrowser(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     # Assert intro is correct
-    intro = self.driver.find_element_by_xpath(
-        '//*[@id="browser_landing"]/div/p[1]')
+    intro = self.driver.find_element(By.XPATH,
+                                     '//*[@id="browser_landing"]/div/p[1]')
     self.assertTrue(
         intro.text.startswith('The Data Commons Graph is constructed'))
 
@@ -85,11 +85,12 @@ class TestBrowser(WebdriverBaseTest):
     # Assert header is correct.
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
+    title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1')
     self.assertEqual(title.text, 'About: Mountain View')
-    dcid_subtitle = self.driver.find_element_by_xpath('//*[@id="node"]/h2[1]')
+    dcid_subtitle = self.driver.find_element(By.XPATH, '//*[@id="node"]/h2[1]')
     self.assertEqual(dcid_subtitle.text, 'dcid: geoId/0649670')
-    typeOf_subtitle = self.driver.find_element_by_xpath('//*[@id="node"]/h2[2]')
+    typeOf_subtitle = self.driver.find_element(By.XPATH,
+                                               '//*[@id="node"]/h2[2]')
     self.assertEqual(typeOf_subtitle.text, 'typeOf: City')
 
     # Assert properties contains correct dcid and typeOf
@@ -97,12 +98,12 @@ class TestBrowser(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    table = self.driver.find_element_by_xpath(
-        '//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = table.find_elements_by_xpath('.//tbody/tr[2]/td')
+    table = self.driver.find_element(
+        By.XPATH, '//*[@id="node-content"]/div[1]/div/table')
+    dcid_row = table.find_elements(By.XPATH, './/tbody/tr[2]/td')
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'geoId/0649670')
-    typeOf_row = table.find_elements_by_xpath('.//tbody/tr[3]/td')
+    typeOf_row = table.find_elements(By.XPATH, './/tbody/tr[3]/td')
     self.assertEqual(typeOf_row[0].text, 'typeOf')
     self.assertEqual(typeOf_row[1].text, 'City')
     self.assertEqual(typeOf_row[2].text, 'www.wikidata.org')
@@ -111,18 +112,18 @@ class TestBrowser(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.ID, 'stat-var-hierarchy-section'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    sv_hierarchy_section = self.driver.find_element_by_id(
-        'stat-var-hierarchy-section')
-    sv_hierarchy_container = sv_hierarchy_section.find_elements_by_xpath(
-        '//*[@id="stat-var-hierarchy-section"]/div')
+    sv_hierarchy_section = self.driver.find_element(
+        By.ID, 'stat-var-hierarchy-section')
+    sv_hierarchy_container = sv_hierarchy_section.find_elements(
+        By.XPATH, '//*[@id="stat-var-hierarchy-section"]/div')
     self.assertTrue(len(sv_hierarchy_container) > 0)
 
     # Assert in arcs loaded
     element_present = EC.presence_of_element_located(
         (By.XPATH, '//*[@id="browser-in-arc-section"]/div[@class="card p-0"]'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    in_arc_section = self.driver.find_element_by_id('browser-in-arc-section')
-    in_arc_cards = in_arc_section.find_elements_by_class_name('card')
+    in_arc_section = self.driver.find_element(By.ID, 'browser-in-arc-section')
+    in_arc_cards = in_arc_section.find_elements(By.CLASS_NAME, 'card')
     self.assertTrue(len(in_arc_cards) > 0)
 
   def test_page_serve_ca_population(self):
@@ -150,21 +151,21 @@ class TestBrowser(WebdriverBaseTest):
     # Assert header is correct.
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    statvar_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1[1]')
+    statvar_title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1[1]')
     self.assertEqual(statvar_title.text, 'Statistical Variable: Count_Person')
-    about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1[2]')
+    about_title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1[2]')
     self.assertEqual(about_title.text, 'About: California')
 
     # Assert properties section shows dcid and typeOf values for the statistical variable Count_Person.
     element_present = EC.presence_of_element_located(
         (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    table = self.driver.find_element_by_xpath(
-        '//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = table.find_elements_by_xpath('.//tbody/tr[2]/td')
+    table = self.driver.find_element(
+        By.XPATH, '//*[@id="node-content"]/div[1]/div/table')
+    dcid_row = table.find_elements(By.XPATH, './/tbody/tr[2]/td')
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'Count_Person')
-    typeOf_row = table.find_elements_by_xpath('.//tbody/tr[3]/td')
+    typeOf_row = table.find_elements(By.XPATH, './/tbody/tr[3]/td')
     self.assertEqual(typeOf_row[0].text, 'typeOf')
     self.assertEqual(typeOf_row[1].text, 'StatisticalVariable')
     self.assertEqual(typeOf_row[2].text, 'datacommons.org')
@@ -173,9 +174,9 @@ class TestBrowser(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'observation-chart'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    observations_section = self.driver.find_element_by_xpath(
-        '//*[@id="node-content"]/div[2]')
-    observations = observations_section.find_elements_by_class_name('card')
+    observations_section = self.driver.find_element(
+        By.XPATH, '//*[@id="node-content"]/div[2]')
+    observations = observations_section.find_elements(By.CLASS_NAME, 'card')
     self.assertTrue(len(observations) > 0)
 
   def test_page_serve_austrobaileya(self):
@@ -203,23 +204,24 @@ class TestBrowser(WebdriverBaseTest):
     # Assert header is correct.
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
+    title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1')
     self.assertEqual(title.text, 'About: Austrobaileya scandens C.T.White')
-    dcid_subtitle = self.driver.find_element_by_xpath('//*[@id="node"]/h2[1]')
+    dcid_subtitle = self.driver.find_element(By.XPATH, '//*[@id="node"]/h2[1]')
     self.assertEqual(dcid_subtitle.text, 'dcid: dc/bsmvthtq89217')
-    typeOf_subtitle = self.driver.find_element_by_xpath('//*[@id="node"]/h2[2]')
+    typeOf_subtitle = self.driver.find_element(By.XPATH,
+                                               '//*[@id="node"]/h2[2]')
     self.assertEqual(typeOf_subtitle.text, 'typeOf: BiologicalSpecimen')
 
     # Assert properties contains correct dcid and typeOf
     element_present = EC.presence_of_element_located(
         (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    table = self.driver.find_element_by_xpath(
-        '//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = table.find_elements_by_xpath('.//tbody/tr[2]/td')
+    table = self.driver.find_element(
+        By.XPATH, '//*[@id="node-content"]/div[1]/div/table')
+    dcid_row = table.find_elements(By.XPATH, './/tbody/tr[2]/td')
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'dc/bsmvthtq89217')
-    typeOf_row = table.find_elements_by_xpath('.//tbody/tr[3]/td')
+    typeOf_row = table.find_elements(By.XPATH, './/tbody/tr[3]/td')
     self.assertEqual(typeOf_row[0].text, 'typeOf')
     self.assertEqual(typeOf_row[1].text, 'BiologicalSpecimen')
     self.assertEqual(typeOf_row[2].text, 'nybg.org')
@@ -228,8 +230,8 @@ class TestBrowser(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.ID, 'browser-image-section'))
     WebDriverWait(self.driver, 2 * self.TIMEOUT_SEC).until(element_present)
-    image_section = self.driver.find_element_by_id('browser-image-section')
-    image = image_section.find_element_by_tag_name('img')
+    image_section = self.driver.find_element(By.ID, 'browser-image-section')
+    image = image_section.find_element(By.TAG_NAME, 'img')
     self.assertTrue(image)
 
   def test_stat_var_hierarchy(self):
@@ -242,15 +244,16 @@ class TestBrowser(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.XPATH, STAT_VAR_SEARCH_INPUT_XPATH))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_input = self.driver.find_element_by_xpath(
-        STAT_VAR_SEARCH_INPUT_XPATH)
+    search_input = self.driver.find_element(By.XPATH,
+                                            STAT_VAR_SEARCH_INPUT_XPATH)
 
     # Search for "male asian " and select the first result
     search_input.send_keys(SEARCH_INPUT)
     loading_finished = EC.invisibility_of_element_located(
         (By.ID, 'sv-search-spinner'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(loading_finished)
-    first_result = self.driver.find_element_by_xpath(
+    first_result = self.driver.find_element(
+        By.XPATH,
         '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[2]/div/div[1]')
     first_result.click()
 
@@ -260,16 +263,16 @@ class TestBrowser(WebdriverBaseTest):
         '//div[@class="highlighted-stat-var"]/div/div/div/div/div[@class="card"]/div[@class="observation-chart"]'
     ))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_title = self.driver.find_element_by_xpath(
-        '//div[@class="highlighted-stat-var"]/div/div/div/h5/a')
+    chart_title = self.driver.find_element(
+        By.XPATH, '//div[@class="highlighted-stat-var"]/div/div/div/h5/a')
     self.assertEqual(
         chart_title.text,
         'Count_Person_Male_AsianAlone for Mountain Viewopen_in_new')
     self.assertTrue(chart_title.text.startswith('Count_Person_Male_AsianAlone'))
-    charts_section = self.driver.find_element_by_class_name(
-        'statvars-charts-section')
-    observation_charts = charts_section.find_elements_by_class_name(
-        'observation-chart')
+    charts_section = self.driver.find_element(By.CLASS_NAME,
+                                              'statvars-charts-section')
+    observation_charts = charts_section.find_elements(By.CLASS_NAME,
+                                                      'observation-chart')
     self.assertTrue(len(observation_charts) > 0)
 
   def test_observation_table_redirect(self):
@@ -281,19 +284,19 @@ class TestBrowser(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'observation-chart'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    observations_section = self.driver.find_element_by_xpath(
-        '//*[@id="node-content"]/div[2]')
+    observations_section = self.driver.find_element(
+        By.XPATH, '//*[@id="node-content"]/div[2]')
 
     # Switch to table view for the first chart
-    observation_section_chart_1 = observations_section.find_elements_by_class_name(
-        'card')[0]
-    table_view_button = observation_section_chart_1.find_element_by_tag_name(
-        'button')
+    observation_section_chart_1 = observations_section.find_elements(
+        By.CLASS_NAME, 'card')[0]
+    table_view_button = observation_section_chart_1.find_element(
+        By.TAG_NAME, 'button')
     table_view_button.click()
 
     # Click the first row in the table view to open the browser page for that observation
-    table = observation_section_chart_1.find_element_by_tag_name('table')
-    first_row = table.find_element_by_xpath('.//tbody/tr[2]/td')
+    table = observation_section_chart_1.find_element(By.TAG_NAME, 'table')
+    first_row = table.find_element(By.XPATH, './/tbody/tr[2]/td')
     first_row.click()
 
     # Wait for the new page to open in a new tab
@@ -313,11 +316,12 @@ class TestBrowser(WebdriverBaseTest):
     # Assert header of the new page is correct.
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
+    about_title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1')
     self.assertEqual(about_title.text, 'About: dc/o/y54f4zvqrzf67')
-    dcid_subtitle = self.driver.find_element_by_xpath('//*[@id="node"]/h2[1]')
+    dcid_subtitle = self.driver.find_element(By.XPATH, '//*[@id="node"]/h2[1]')
     self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y54f4zvqrzf67')
-    typeOf_subtitle = self.driver.find_element_by_xpath('//*[@id="node"]/h2[2]')
+    typeOf_subtitle = self.driver.find_element(By.XPATH,
+                                               '//*[@id="node"]/h2[2]')
     self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
 
   def test_observation_chart_redirect(self):
@@ -334,7 +338,8 @@ class TestBrowser(WebdriverBaseTest):
         '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
     ))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    point = self.driver.find_element_by_xpath(
+    point = self.driver.find_element(
+        By.XPATH,
         '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
     )
     point.click()
@@ -356,9 +361,10 @@ class TestBrowser(WebdriverBaseTest):
     # Assert header of the new page is correct.
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
+    about_title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1')
     self.assertEqual(about_title.text, 'About: dc/o/y54f4zvqrzf67')
-    dcid_subtitle = self.driver.find_element_by_xpath('//*[@id="node"]/h2[1]')
+    dcid_subtitle = self.driver.find_element(By.XPATH, '//*[@id="node"]/h2[1]')
     self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y54f4zvqrzf67')
-    typeOf_subtitle = self.driver.find_element_by_xpath('//*[@id="node"]/h2[2]')
+    typeOf_subtitle = self.driver.find_element(By.XPATH,
+                                               '//*[@id="node"]/h2[2]')
     self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
