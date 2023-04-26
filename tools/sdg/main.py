@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import logging
-import os
 
 from google.protobuf import text_format
 import requests
@@ -22,7 +21,7 @@ from subject_page_pb2 import Tile
 
 logging.getLogger().setLevel(logging.INFO)
 
-_SDG_ROOT = "sdg/g/SDG"
+_SDG_ROOT = "dc/g/SDG"
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 _MAX_BLOCKS = 20
@@ -38,9 +37,7 @@ def write_page_config(page_config):
 
 def post(url, req):
   headers = {'Content-Type': 'application/json'}
-  mixer_api_key = os.environ.get('MIXER_API_KEY', '')
-  if mixer_api_key:
-    headers['x-api-key'] = mixer_api_key
+  headers['x-api-key'] = 'AIzaSyBCybF1COkc05kj5n5FHpXOnH3EdGBnUz0'
   # Send the request and verify the request succeeded
   response = requests.post(url, json=req, headers=headers)
   if response.status_code != 200:
