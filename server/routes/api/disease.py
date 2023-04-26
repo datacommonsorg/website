@@ -21,6 +21,7 @@ import flask
 from flask import Response
 
 from server.cache import cache
+from server.lib import util
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_disease', __name__, url_prefix='/api/disease')
@@ -59,12 +60,12 @@ def get_disease_parents(dcid):
   curr_dcid = dcid
   # dcid of the biggest parent node where iteration stops
   while (curr_dcid != FINAL_PARENT_DISEASE_DCID):
-    node_dcids = dc.property_values([curr_dcid],
-                                    "specializationOf").get(curr_dcid, [])
+    node_dcids = util.property_values([curr_dcid],
+                                      "specializationOf").get(curr_dcid, [])
     if not node_dcids:
       break
     node_dcid = node_dcids[0]
-    node_names = dc.property_values([node_dcid], "name").get(node_dcid, [])
+    node_names = util.property_values([node_dcid], "name").get(node_dcid, [])
     node_name = node_dcid
     if node_names:
       node_name = node_names[0]

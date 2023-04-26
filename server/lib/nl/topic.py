@@ -15,6 +15,7 @@
 
 from typing import List
 
+from server.lib import util
 from server.lib.nl import utils
 import server.services.datacommons as dc
 
@@ -434,7 +435,7 @@ def get_topic_vars(topic: str, rank: int):
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
     # Lookup KG
-    svs = dc.property_values(nodes=[topic], prop='relevantVariable')[topic]
+    svs = util.property_values(nodes=[topic], prop='relevantVariable')[topic]
   return svs
 
 
@@ -452,7 +453,7 @@ def get_topic_peers(sv_dcids: List[str]):
 def get_topic_name(topic_dcid: str) -> str:
   if topic_dcid in _TOPIC_NAMES_OVERRIDE:
     return _TOPIC_NAMES_OVERRIDE[topic_dcid]
-  resp = dc.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
+  resp = util.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
   if resp:
     return resp[0]
   return topic_dcid.split('/')[-1]
@@ -461,7 +462,7 @@ def get_topic_name(topic_dcid: str) -> str:
 def svpg_name(sv: str):
   name = _SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
-    resp = dc.property_values(nodes=[sv], prop='name')[sv]
+    resp = util.property_values(nodes=[sv], prop='name')[sv]
     if resp:
       name = resp[0]
   return name
@@ -470,7 +471,7 @@ def svpg_name(sv: str):
 def svpg_description(sv: str):
   name = _SVPG_DESC_OVERRIDE.get(sv, '')
   if not name:
-    resp = dc.property_values(nodes=[sv], prop='description')[sv]
+    resp = util.property_values(nodes=[sv], prop='description')[sv]
     if resp:
       name = resp[0]
   return name
@@ -479,5 +480,5 @@ def svpg_description(sv: str):
 def _get_svpg_vars(svpg: str) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
-    svs = dc.property_values(nodes=[svpg], prop='member')[svpg]
+    svs = util.property_values(nodes=[svpg], prop='member')[svpg]
   return svs

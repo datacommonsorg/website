@@ -420,3 +420,16 @@ def gzip_compress_response(raw_content, is_json):
   if is_json:
     response.headers['Content-Type'] = 'application/json'
   return response
+
+
+def property_values(nodes, prop, out=True):
+  resp = dc.property_values(nodes, prop, out)
+  result = {}
+  for node, node_arcs in resp.get('data', {}).items():
+    result[node] = []
+    for v in node_arcs.get('arcs', {}).get(prop, {}).get('nodes', []):
+      if 'dcid' in v:
+        result[node].append(v['dcid'])
+      else:
+        result[node].append(v['value'])
+  return result

@@ -171,7 +171,8 @@ endpoints = Endpoints([
     '/v1/events',
     '/v1/events/dates',
     # V2
-    '/v2/observation'
+    '/v2/observation',
+    '/v2/node'
 ])
 
 

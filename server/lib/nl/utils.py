@@ -429,7 +429,7 @@ def filter_and_rank_places(
                            key=lambda pair: (pair[1], pair[0]),
                            reverse=True)
   child_ids = [id for id, _ in child_and_value]
-  id2names = dc.property_values(child_ids, 'name')
+  id2names = util.property_values(child_ids, 'name')
   result = []
   for id in child_ids:
     names = id2names.get(id, [])
@@ -525,28 +525,26 @@ def get_immediate_parent_places(
     main_place_dcid: str, parent_place_type: str,
     counters: ctr.Counters) -> List[detection.Place]:
   start = time.time()
-  resp = dc.property_values_v1([main_place_dcid], 'containedInPlace')
+  resp = util.property_values([main_place_dcid], 'containedInPlace')
   counters.timeit('get_immediate_parent_places', start)
   results = []
-  for item in resp.get('data', []):
-    if item.get('node', '') != main_place_dcid:
+  for value in resp['data'][main_place_dcid].get('arcs', {}).get(
+      'containedInPlace', {}).get('nodes', []):
+    if 'dcid' not in value or 'name' not in value or 'types' not in value:
       continue
-    for value in item.get('values', []):
-      if 'dcid' not in value or 'name' not in value or 'types' not in value:
-        continue
-      if parent_place_type not in value['types']:
-        continue
-      results.append(
-          detection.Place(dcid=value['dcid'],
-                          name=value['name'],
-                          place_type=parent_place_type))
+    if parent_place_type not in value['types']:
+      continue
+    results.append(
+        detection.Place(dcid=value['dcid'],
+                        name=value['name'],
+                        place_type=parent_place_type))
   # Sort results for determinism.
   results.sort(key=lambda p: p.dcid)
   return results
 
 
 def get_sv_name(all_svs: List[str]) -> Dict:
-  sv2name_raw = dc.property_values(all_svs, 'name')
+  sv2name_raw = util.property_values(all_svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
   }
@@ -613,7 +611,7 @@ def clean_sv_name(name: str) -> str:
 
 
 def get_sv_footnote(all_svs: List[str]) -> Dict:
-  sv2footnote_raw = dc.property_values(all_svs, 'footnote')
+  sv2footnote_raw = util.property_values(all_svs, 'footnote')
   uncurated_footnotes = {
       sv: footnotes[0] if footnotes else ''
       for sv, footnotes in sv2footnote_raw.items()
@@ -637,9 +635,10 @@ def get_only_svs(svs: List[str]) -> List[str]:
 
 # Returns a list of parent place names for a dcid.
 def parent_place_names(dcid: str) -> List[str]:
-  parent_dcids = dc.property_values(nodes=[dcid], prop='containedInPlace')[dcid]
+  parent_dcids = util.property_values(nodes=[dcid],
+                                      prop='containedInPlace')[dcid]
   if parent_dcids:
-    names = dc.property_values(nodes=parent_dcids, prop='name')
+    names = util.property_values(nodes=parent_dcids, prop='name')
     ret = [names[p][0] for p in parent_dcids]
     return ret
   return None
