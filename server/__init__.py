@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -205,7 +205,7 @@ def create_app():
   if app.config['USE_MEMCACHE']:
     cache.init_app(app)
   else:
-    cache.init_app(app, {'CACHE_TYPE': 'null'})
+    cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
 
   # Configure ingress
   ingress_config_path = os.environ.get(

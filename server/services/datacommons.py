@@ -197,26 +197,18 @@ def bulk_triples(nodes, direction):
   return post(f'{url}/{direction}', {'nodes': nodes})
 
 
-def properties(node, direction):
-  """Retrieves the properties for a node.
-
-  Args:
-      node: Node DCID.
-      direction: Predicate direction, either be 'in' or 'out'.
-  """
-  url = get_service_url('/v1/properties')
-  return get(f'{url}/{direction}/{node}').get('properties', [])
-
-
-def properties_v1(nodes, direction):
+def properties(nodes, direction):
   """Retrieves the properties for a list of nodes.
 
   Args:
       nodes: List of node DCIDs.
       direction: Predicate direction, either be 'in' or 'out'.
   """
-  url = get_service_url('/v1/bulk/properties')
-  return post(f'{url}/{direction}', {'nodes': nodes}).get('data', [])
+  url = get_service_url('/v2/node')
+  return post(url, {
+      'nodes': nodes,
+      'property': '->' if direction == 'out' else '<-'
+  }).get('data', {})
 
 
 def property_values_v1(nodes, prop, out=True):
