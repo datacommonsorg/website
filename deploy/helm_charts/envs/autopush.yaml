@@ -27,15 +27,6 @@ website:
   flaskEnv: autopush
   replicas:
     default: 10
-  ai: |
-    us-central1:
-      protocol: rest
-      endpoint_id: "2621578768245850112"
-      deployed_model_id: "3469851989075034112"
-    europe-west2:
-      protocol: rest
-      endpoint_id: "2621578768245850112"
-      deployed_model_id: "3469851989075034112"
 
 mixer:
   hostProject:

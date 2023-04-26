@@ -31,9 +31,6 @@ configMapGenerator:
     behavior: create
     literals:
       - enableModel=false
-  - name: ai-config
-    files:
-      - ai.yaml
   - name: nl-config
     files:
       - model.yaml
