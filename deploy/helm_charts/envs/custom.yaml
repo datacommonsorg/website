@@ -40,8 +40,9 @@ serviceAccount:
 
 serviceGroups:
   recon: null
-  observation: null
   svg: null
+  observation: null
+  node: null
   default:
     replicas: 1
     useSearch: true # No svg service, this needs to use search

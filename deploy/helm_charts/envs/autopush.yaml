@@ -25,8 +25,7 @@ website:
     tag:
   githash:
   flaskEnv: autopush
-  replicas:
-    default: 10
+  replicas: 10
 
 mixer:
   hostProject:
@@ -40,8 +39,11 @@ nl:
 
 serviceGroups:
   recon: null
-  observation: null
   svg:
     replicas: 5
+  node:
+    replicas: 10
+  observation:
+    replicas: 10
   default:
     replicas: 10
