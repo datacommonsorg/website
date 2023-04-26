@@ -73,7 +73,11 @@ export function TemplateSelectionPage(
                   {TEMPLATE_OPTIONS[templateId].table}
                   <span
                     className={"material-icons-outlined info-button"}
-                    onClick={(e) => {
+                    onMouseEnter={(e) => {
+                      onInfoToggled(templateId);
+                      e.stopPropagation();
+                    }}
+                    onMouseLeave={(e) => {
                       onInfoToggled(templateId);
                       e.stopPropagation();
                     }}

@@ -79,7 +79,7 @@ export function MappingHeaderInput(
     props.mappingVal && props.mappingVal.headers
       ? props.mappingVal.headers
       : [null];
-  const label = `* The observation value columns are`;
+  const label = `Observation Value Columns*`;
   return (
     <div className="mapping-input-section">
       <div className="mapping-input-label">{label}</div>
