@@ -14,16 +14,6 @@ data:
     {{- end }}
   {{- end }}
 
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: ai-config
-  namespace: {{ .Values.namespace.name }}
-data:
-  ai.yaml: {{ .Values.website.ai | quote }}
-
 
 {{- if .Values.nl.enabled }}
 ---

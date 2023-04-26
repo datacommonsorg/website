@@ -37,9 +37,6 @@ spec:
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
-        - name: ai-config
-          configMap:
-            name: ai-config
         - name: ingress-config
           configMap:
             name: ingress-config
@@ -78,8 +75,6 @@ spec:
             requests:
               memory: "3G"
           volumeMounts:
-            - name: ai-config
-              mountPath: /datacommons/ai
             - name: ingress-config
               mountPath: /datacommons/ingress
             {{- if .Values.website.redis.enabled }}

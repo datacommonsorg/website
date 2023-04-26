@@ -15,8 +15,6 @@ website:
 
   flaskEnv: "custom"
 
-  ai: ""
-
   # IAP(Identity Aware Proxy) config.
   # IAP can be enabled independently of ingress.
   iap:

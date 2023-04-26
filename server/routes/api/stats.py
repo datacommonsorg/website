@@ -20,7 +20,6 @@ from flask import request
 from flask import Response
 
 from server.cache import cache
-import server.services.ai as ai
 import server.services.datacommons as dc
 
 # TODO(shifucun): add unittest for this module
@@ -103,13 +102,4 @@ def search_statvar():
   places = request.args.getlist("places")
   sv_only = request.args.get("svOnly", False)
   result = dc.search_statvar(query, places, sv_only)
-  return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-@bp.route('/stat-var-search-ai')
-@cache.cached(timeout=3600 * 24, query_string=True)
-def search_statvar_ai():
-  """Gets the statvars and statvar groups that match the tokens in the query."""
-  query = request.args.get("query")
-  result = ai.search(current_app.config["AI_CONTEXT"], query)
   return Response(json.dumps(result), 200, mimetype='application/json')
