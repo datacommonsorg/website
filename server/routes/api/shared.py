@@ -15,7 +15,7 @@
 
 import re
 
-import server.services.datacommons as dc
+import server.lib.util as util
 
 
 def names(dcids):
@@ -27,7 +27,7 @@ def names(dcids):
   Returns:
       A dictionary of display place names, keyed by dcid.
   """
-  response = dc.property_values(dcids, 'name')
+  response = util.property_values(dcids, 'name')
   result = {}
   for dcid in dcids:
     result[dcid] = ''

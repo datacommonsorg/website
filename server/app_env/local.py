@@ -21,8 +21,6 @@ class Config(_base.Config):
   LOCAL = True
   API_ROOT = 'https://autopush.api.datacommons.org'
   SECRET_PROJECT = 'datcom-website-dev'
-  AI_CONFIG_PATH = os.path.abspath(
-      os.path.join(os.path.curdir, 'deploy/overlays/local/ai.yaml'))
   SCHEME = 'http'
   GCS_BUCKET = 'datcom-website-autopush-resources'
   LOG_QUERY = True

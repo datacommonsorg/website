@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,140 +42,136 @@ SERIES_WITHIN_ALL_FACETS = {
                 'testUnit'
         },
     },
-    'observationsByVariable': [{
-        'observationsByEntity': [{
-            'entity':
-                'geoId/01',
-            'seriesByFacet': [
-                {
-                    'facet':
-                        '2517965213',
-                    'series': [{
-                        'date': '2014',
-                        'value': 1021869
-                    }, {
-                        'date': '2015',
-                        'value': 1030475
-                    }, {
-                        'date': '2017',
-                        'value': 1052482
-                    }, {
-                        'date': '2018',
-                        'value': 1060665
-                    }, {
-                        'date': '2019',
-                        'value': 1068778
-                    }]
+    'byVariable': {
+        'Count_Person': {
+            'byEntity': {
+                'geoId/01': {
+                    'orderedFacets': [
+                        {
+                            'facetId':
+                                '2517965213',
+                            'observations': [{
+                                'date': '2014',
+                                'value': 1021869
+                            }, {
+                                'date': '2015',
+                                'value': 1030475
+                            }, {
+                                'date': '2017',
+                                'value': 1052482
+                            }, {
+                                'date': '2018',
+                                'value': 1060665
+                            }, {
+                                'date': '2019',
+                                'value': 1068778
+                            }]
+                        },
+                        {
+                            'facetId':
+                                '1145703171',
+                            'observations': [{
+                                'date': '2011',
+                                'value': 4747424
+                            }, {
+                                'date': '2012',
+                                'value': 4777326
+                            }]
+                        },
+                    ],
                 },
-                {
-                    'facet':
-                        '1145703171',
-                    'series': [{
-                        'date': '2011',
-                        'value': 4747424
-                    }, {
-                        'date': '2012',
-                        'value': 4777326
-                    }]
+                'geoId/06': {
+                    'orderedFacets': [{
+                        'facetId':
+                            '2517965213',
+                        'observations': [{
+                            'date': '2014',
+                            'value': 2817628
+                        }, {
+                            'date': '2015',
+                            'value': 2866939
+                        }, {
+                            'date': '2016',
+                            'value': 2917563
+                        }, {
+                            'date': '2017',
+                            'value': 2969905
+                        }]
+                    }],
                 },
-            ]
-        }, {
-            'entity':
-                'geoId/06',
-            'seriesByFacet': [{
-                'facet':
-                    '2517965213',
-                'series': [{
-                    'date': '2014',
-                    'value': 2817628
-                }, {
-                    'date': '2015',
-                    'value': 2866939
-                }, {
-                    'date': '2016',
-                    'value': 2917563
-                }, {
-                    'date': '2017',
-                    'value': 2969905
-                }]
-            }],
-        }],
-        'variable': 'Count_Person'
-    }, {
-        'observationsByEntity': [
-            {
-                'entity':
-                    'geoId/01',
-                'seriesByFacet': [
-                    {
-                        'facet':
+            },
+        },
+        'UnemploymentRate_Person': {
+            'byEntity': {
+                'geoId/01': {
+                    'orderedFacets': [
+                        {
+                            'facetId':
+                                '324358135',
+                            'observations': [{
+                                'date': '1979-01',
+                                'value': 6.6
+                            }, {
+                                'date': '2018-01',
+                                'value': 4.5
+                            }, {
+                                'date': '2015-05',
+                                'value': 4.2
+                            }, {
+                                'date': '2018-07',
+                                'value': 3.9
+                            }, {
+                                'date': '2017-11',
+                                'value': 4
+                            }, {
+                                'date': '2019-05',
+                                'value': 3.6
+                            }]
+                        },
+                        {
+                            'facetId':
+                                '1249140336',
+                            'observations': [{
+                                'date': '2019',
+                                'value': 3.2
+                            }, {
+                                'date': '2020',
+                                'value': 6.5
+                            }, {
+                                'date': '2021',
+                                'value': 3.4
+                            }]
+                        },
+                    ],
+                },
+                'geoId/06': {
+                    'orderedFacets': [{
+                        'facetId':
                             '324358135',
-                        'series': [{
-                            'date': '1979-01',
-                            'value': 6.6
+                        'observations': [{
+                            'date': '2015-10',
+                            'value': 6.4
                         }, {
-                            'date': '2018-01',
-                            'value': 4.5
+                            'date': '2017-05',
+                            'value': 4.8
                         }, {
-                            'date': '2015-05',
-                            'value': 4.2
+                            'date': '1991-08',
+                            'value': 5.6
                         }, {
-                            'date': '2018-07',
-                            'value': 3.9
+                            'date': '2018-08',
+                            'value': 4.3
                         }, {
-                            'date': '2017-11',
-                            'value': 4
+                            'date': '2018-03',
+                            'value': 4.6
                         }, {
-                            'date': '2019-05',
-                            'value': 3.6
+                            'date': '2020-04',
+                            'value': 1.2
                         }]
-                    },
-                    {
-                        'facet':
-                            '1249140336',
-                        'series': [{
-                            'date': '2019',
-                            'value': 3.2
-                        }, {
-                            'date': '2020',
-                            'value': 6.5
-                        }, {
-                            'date': '2021',
-                            'value': 3.4
-                        }]
-                    },
-                ]
-            },
-            {
-                'entity':
-                    'geoId/06',
-                'seriesByFacet': [{
-                    'facet':
-                        '324358135',
-                    'series': [{
-                        'date': '2015-10',
-                        'value': 6.4
-                    }, {
-                        'date': '2017-05',
-                        'value': 4.8
-                    }, {
-                        'date': '1991-08',
-                        'value': 5.6
-                    }, {
-                        'date': '2018-08',
-                        'value': 4.3
-                    }, {
-                        'date': '2018-03',
-                        'value': 4.6
-                    }, {
-                        'date': '2020-04',
-                        'value': 1.2
                     }]
-                }]
+                },
             },
-        ],
-        'variable': 'UnemploymentRate_Person'
-    }]
+        },
+    },
 }
 
 POINT_WITHIN_LATEST_ALL_FACETS = {

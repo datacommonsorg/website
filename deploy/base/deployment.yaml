@@ -42,12 +42,9 @@ spec:
         - name: schema-mapping
           configMap:
             name: schema-mapping
-        - name: ai-config
+        - name: nl-config
           configMap:
-            name: ai-config
-        - name: model-config
-          configMap:
-            name: model-config
+            name: nl-config
         - name: memdb-config
           configMap:
             name: memdb-config
@@ -76,9 +73,6 @@ spec:
               memory: "3G"
             requests:
               memory: "3G"
-          volumeMounts:
-            - name: ai-config
-              mountPath: /datacommons/ai
           env:
             - name: FLASK_ENV
               valueFrom:
@@ -177,8 +171,8 @@ spec:
                   name: website-configmap
                   key: flaskEnv
           volumeMounts:
-            - name: model-config
-              mountPath: /datacommons/model
+            - name: nl-config
+              mountPath: /datacommons/nl
           startupProbe:
             httpGet:
               path: /healthz

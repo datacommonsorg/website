@@ -1,82 +1,39 @@
-# Copyright 2022 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: githash-configmap{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  website_hash.txt: {{ required "website githash is required" .Values.website.githash | quote }}
-  mixer_hash.txt: {{ required "mixer githash is required" .Values.mixer.githash | quote }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: ai-config{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  ai.yaml: |
-{{- range $index, $regions := .Values.website.ai }}
-{{- range $region, $regionParams := $regions }}
-    {{ $region }}:
-      protocol: {{ $regionParams.protocol }}
-      endpoint_id: {{ $regionParams.endpoint_id | quote  }}
-      deployed_model_id: {{ $regionParams.deployed_model_id | quote }}
-{{- end }}
-{{- end }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: website-configmap{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  flaskEnv: {{ required "Flask env is required." .Values.website.flaskEnv }}
-  enableModel: {{ .Values.website.enableModel | quote }}
-  bigquery.version: {{ required "bigqueryVersion is required." .Values.kgStoreConfig.bigqueryVersion }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: ingress-config{{ .Values.resourceSuffix }}
+  name: ingress-config
   namespace: {{ .Values.namespace.name }}
 data:
   rules: |
-{{- range $serviceName, $group := .Values.serviceGroups }}
-  {{- if $group }}
-    dc-mixer-{{ $serviceName }}:
-    {{- range $index, $urlPath := $group.urlPaths }}
-      - {{ $urlPath }}
+  {{- range $serviceName, $group := .Values.serviceGroups }}
+    {{- if $group }}
+      dc-mixer-{{ $serviceName }}:
+      {{- range $index, $urlPath := $group.urlPaths }}
+        - {{ $urlPath }}
+      {{- end }}
     {{- end }}
   {{- end }}
-{{- end }}
+
 
 {{- if .Values.nl.enabled }}
 ---
-
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: model-config{{ .Values.resourceSuffix }}
+  name: nl-config
   namespace: {{ .Values.namespace.name }}
 data:
   model.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
+{{- end }}
+
+
+{{- if .Values.website.redis.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: redis-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  redis.json: {{ required "Redis config file is required" .Values.website.redis.configFile | quote }}
 {{- end }}

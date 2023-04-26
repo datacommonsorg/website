@@ -44,14 +44,13 @@ def get_variable_facets_from_series(series_response):
   """
   facets_by_variable = {}
   facets = series_response.get("facets", {})
-  for var_obs in series_response.get("observationsByVariable", []):
-    sv = var_obs.get("variable")
-    facets_by_variable[sv] = {}
-    for place_obs in var_obs.get("observationsByEntity", []):
-      for facet_obs in place_obs.get("seriesByFacet", []):
-        facet_id = facet_obs.get("facet", "")
-        if facet_id and facet_id not in facets_by_variable[sv]:
-          facets_by_variable[sv][facet_id] = facets.get(facet_id, {})
+  for var, var_obs in series_response.get("byVariable", {}).items():
+    facets_by_variable[var] = {}
+    for _, entity_obs in var_obs.get("byEntity", {}).items():
+      for facet_obs in entity_obs.get("orderedFacets", []):
+        facet_id = facet_obs.get("facetId", "")
+        if facet_id and facet_id not in facets_by_variable[var]:
+          facets_by_variable[var][facet_id] = facets.get(facet_id, {})
   return facets_by_variable
 
 
@@ -77,13 +76,13 @@ def get_variable_facets_from_points(point_response):
   """
   facets_by_variable = {}
   facets = point_response.get("facets", {})
-  for sv, var_obs in point_response.get("byVariable", {}).items():
-    facets_by_variable[sv] = {}
+  for var, var_obs in point_response.get("byVariable", {}).items():
+    facets_by_variable[var] = {}
     for _, entity_obs in var_obs.get("byEntity", {}).items():
       for facet_obs in entity_obs.get("orderedFacets", []):
         facet_id = facet_obs.get("facetId", "")
-        if facet_id not in facets_by_variable[sv]:
-          facets_by_variable[sv][facet_id] = facets.get(facet_id, {})
+        if facet_id not in facets_by_variable[var]:
+          facets_by_variable[var][facet_id] = facets.get(facet_id, {})
   return facets_by_variable
 
 
@@ -151,6 +150,5 @@ def get_facets_within():
                                          date)
     return get_variable_facets_from_points(point_response), 200
   else:
-    series_response = dc.obs_series_within(parent_place, child_type, stat_vars,
-                                           True)
+    series_response = dc.obs_series_within(parent_place, child_type, stat_vars)
     return get_variable_facets_from_series(series_response), 200

@@ -31,10 +31,7 @@ configMapGenerator:
     behavior: create
     literals:
       - enableModel=false
-  - name: ai-config
-    files:
-      - ai.yaml
-  - name: model-config
+  - name: nl-config
     files:
       - model.yaml
   - name: memdb-config

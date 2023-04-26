@@ -112,7 +112,7 @@ class TestRemoveEmptyCharts(unittest.TestCase):
     }
     assert result == expect
 
-  @mock.patch('server.services.datacommons.properties_v1')
+  @mock.patch('server.services.datacommons.properties')
   @mock.patch('server.lib.nl.utils.get_sample_child_places')
   @mock.patch('server.services.datacommons.observation_existence')
   def test_remove_empty_charts(self, mock_observation_existence,
@@ -120,7 +120,7 @@ class TestRemoveEmptyCharts(unittest.TestCase):
                                mock_geojson_properties):
 
     def properties_side_effect(nodes, dir):
-      return [{'node': 'child_id', 'properties': ['prop1', 'prop2']}]
+      return {'child_id': {'properties': ['prop1', 'prop2']}}
 
     def sample_child_places_side_effect(place_dcid, contained_place_type, _):
       return ['child_id']

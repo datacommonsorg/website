@@ -34,10 +34,6 @@ configMapGenerator:
     literals:
       - hostProject=datcom-website-dev
       - serviceName=website-esp.endpoints.datcom-website-dev.cloud.goog
-  - name: ai-config
-    behavior: replace
-    files:
-      - ai.yaml
 
 patchesStrategicMerge:
   - |-
