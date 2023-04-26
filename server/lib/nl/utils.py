@@ -528,8 +528,8 @@ def get_immediate_parent_places(
   resp = dc.property_values([main_place_dcid], 'containedInPlace')
   counters.timeit('get_immediate_parent_places', start)
   results = []
-  for value in resp['data'][main_place_dcid].get('arcs', {}).get(
-      'containedInPlace', {}).get('nodes', []):
+  arcs = resp.get('data', {}).get(main_place_dcid, {}).get('arcs', {})
+  for value in arcs.get('containedInPlace', {}).get('nodes', []):
     if 'dcid' not in value or 'name' not in value or 'types' not in value:
       continue
     if parent_place_type not in value['types']:
@@ -845,8 +845,8 @@ def is_multi_sv(uttr: nl_uttr.Utterance) -> bool:
 
   # Prefer multi-sv when the scores are higher or up to a score differential.
   if (top_multi_sv_score > top_sv_score or
-      (top_sv_score - top_multi_sv_score <=
-       shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
+      (top_sv_score - top_multi_sv_score
+       <= shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
     return True
   return False
 
