@@ -82,7 +82,7 @@
 }
 
 .plot-options-label {
-  min-width: 10rem;
+  min-width: 11rem;
 }
 
 .scatter-dot:hover {
@@ -98,10 +98,6 @@
   stroke: var(--dc-gray);
   stroke-width: 1.5;
   cursor: pointer;
-}
-
-circle {
-  r: 3.5;
 }
 
 .search-icon {
@@ -141,7 +137,7 @@ circle {
 }
 
 #btn-sv-widget-modal {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .chart-type-toggle {
@@ -152,7 +148,8 @@ circle {
   height: fit-content;
 }
 
-.chart-type-option, .selected-chart-option {
+.chart-type-option,
+.selected-chart-option {
   display: flex;
   align-items: center;
   min-width: 3.5rem;
@@ -170,7 +167,7 @@ circle {
   }
 }
 
-.chart-type-option i{
+.chart-type-option i {
   color: var(--dc-primary);
 }
 
@@ -227,6 +224,27 @@ circle {
 
 .plot-options-input {
   padding: 0.1rem 1rem;
+}
+
+.plot-options-input-radio {
+  display: flex;
+  padding: 0.1rem 1rem;
+}
+
+.plot-options-input-radio .form-group {
+  display: flex;
+  margin-bottom: 0;
+}
+
+.plot-options-input-radio .form-group label {
+  display: flex;
+  margin-bottom: 0;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.plot-options-input-radio .form-group label:last-child {
+  padding-right: 10px;
 }
 
 .pop-filter-input {

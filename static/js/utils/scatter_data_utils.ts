@@ -32,8 +32,8 @@ interface PlaceAxisChartData {
   value: number;
   statDate: string;
   sources: string[];
-  denomValue?: number;
-  denomDate?: string;
+  pop?: number;
+  popDate?: string;
   unit?: string;
 }
 
@@ -78,19 +78,26 @@ function getPlaceAxisChartData(
   if (scaling) {
     value *= scaling;
   }
-  if (popBounds) {
-    const popSeries = populationData.data[DEFAULT_POPULATION_DCID][placeDcid];
-    if (popSeries && popSeries.series) {
-      const popObs = getMatchingObservation(popSeries.series, obs.date);
-      if (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1])) {
-        return null;
-      }
-    } else {
-      console.log(`No population data for ${placeDcid}`);
+  const popSeries = populationData.data[DEFAULT_POPULATION_DCID][placeDcid];
+  let pop = null;
+  let popDate = null;
+  if (popSeries && popSeries.series) {
+    const popObs = getMatchingObservation(popSeries.series, obs.date);
+    if (
+      popBounds &&
+      (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
+    ) {
+      return null;
     }
+    // If this axis is using a population denominator, use that for the population value as well
+    // Otherwise, use the default "Count_Person" variable.
+    pop = denomValue || popObs.value;
+    popDate = denomDate || popObs.date;
+  } else {
+    console.log(`No population data for ${placeDcid}`);
   }
   const unit = getUnit(metadataMap[metaHash]);
-  return { value, statDate, sources, denomDate, denomValue, unit };
+  return { value, statDate, sources, pop, popDate, unit };
 }
 
 interface PlaceScatterData {
@@ -155,10 +162,10 @@ export function getPlaceScatterData(
     yVal: yChartData.value,
     xDate: xChartData.statDate,
     yDate: yChartData.statDate,
-    xPop: xChartData.denomValue,
-    yPop: yChartData.denomValue,
-    xPopDate: xChartData.denomDate,
-    yPopDate: yChartData.denomDate,
+    xPop: xChartData.pop,
+    yPop: yChartData.pop,
+    xPopDate: xChartData.popDate,
+    yPopDate: yChartData.popDate,
   };
   const sources = xChartData.sources.concat(yChartData.sources);
   return { point, sources, xUnit: xChartData.unit, yUnit: yChartData.unit };

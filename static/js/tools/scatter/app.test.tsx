@@ -26,7 +26,13 @@ import React, { useEffect } from "react";
 
 import { stringifyFn } from "../../utils/axios";
 import { App } from "./app";
-import { Context, EmptyPlace, useContextStore } from "./context";
+import {
+  Context,
+  EmptyPlace,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  useContextStore,
+} from "./context";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -655,6 +661,22 @@ function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
   expect($("circle").length).toEqual(n);
 }
 
+/**
+ * Asserts all <circle> tags in the app have the specified radius values
+ * @param values array of radius values encoded as strings. Example: ["3.5", "3.5"]
+ * @param app react app wrapper
+ */
+function expectCircleSizes(values: string[], app: Enzyme.ReactWrapper): void {
+  const $ = Cheerio.load(app.html());
+  const $tags = $("circle");
+  expect($tags.length).toEqual(values.length);
+  const actualValues = [];
+  $tags.each((i, tag) => {
+    actualValues.push($(tag).attr("r"));
+  });
+  expect(actualValues.join(",")).toEqual(values.join(","));
+}
+
 test("all functionalities", async () => {
   mockAxios();
   const app = mount(<TestApp />);
@@ -771,4 +793,23 @@ test("all functionalities", async () => {
     "Establishments Per Capita (2016)vsHousing Units Per Capita (2016)"
   );
   expectCircles(3, app);
+
+  // Selecting point size by population should resize points using a linear scale
+  expectCircleSizes(["3.5", "3.5", "3.5"], app);
+  await act(async () => {
+    app
+      .find("#show-population-linear")
+      .at(0)
+      .simulate("change", { target: { value: SHOW_POPULATION_LINEAR } });
+  });
+  expectCircleSizes(["3.5", "20", "5.8328584241481405"], app);
+
+  // Changing to log scale should resize points
+  await act(async () => {
+    app
+      .find("#show-population-log")
+      .at(0)
+      .simulate("change", { target: { value: SHOW_POPULATION_LOG } });
+  });
+  expectCircleSizes(["3.5", "20", "7.286777364719656"], app);
 });

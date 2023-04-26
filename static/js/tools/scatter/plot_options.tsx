@@ -33,6 +33,9 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LINEAR,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_OFF,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
   GA_VALUE_TOOL_CHART_OPTION_SWAP,
   triggerGAEvent,
@@ -42,11 +45,127 @@ import {
   Context,
   DisplayOptionsWrapper,
   PlaceInfoWrapper,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  SHOW_POPULATION_OFF,
 } from "./context";
 import { ScatterChartType } from "./util";
 
 const MIN_WIDTH_LABEL_LENGTH = 20;
 const MAX_WIDTH_LABEL_LENGTH = 40;
+
+/**
+ * Swaps the axes.
+ * @param x
+ * @param y
+ */
+function swapAxes(x: AxisWrapper, y: AxisWrapper): void {
+  const [xValue, yValue] = [x.value, y.value];
+  x.set(yValue);
+  y.set(xValue);
+}
+
+/**
+ * Toggles whether to plot per capita values for an axis.
+ * @param axis
+ * @param event
+ */
+function checkPerCapita(
+  axis: AxisWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  axis.setPerCapita(event.target.checked);
+}
+
+/**
+ * Toggles whether to plot an axis on log scale.
+ * @param axis
+ * @param event
+ */
+function checkLog(
+  axis: AxisWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  axis.setLog(event.target.checked);
+}
+
+/**
+ * Toggles whether to show quadrant lines.
+ */
+function checkQuadrants(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setQuadrants(event.target.checked);
+}
+
+/**
+ * Toggles whether to show text labels for every dot.
+ */
+function checkLabels(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setLabels(event.target.checked);
+}
+
+/**
+ * Toggles whether to color dots by density of dots in that area.
+ */
+function checkDensity(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  display.setDensity(event.target.checked);
+}
+
+/**
+ * Selects whether to size dots by place population using a log or linear scale
+ */
+function selectShowPopulation(
+  display: DisplayOptionsWrapper,
+  event: React.ChangeEvent<HTMLInputElement>
+): void {
+  if (event.target.value === SHOW_POPULATION_LINEAR) {
+    display.setPopulation(SHOW_POPULATION_LINEAR);
+  } else if (event.target.value === SHOW_POPULATION_LOG) {
+    display.setPopulation(SHOW_POPULATION_LOG);
+  } else {
+    display.setPopulation(SHOW_POPULATION_OFF);
+  }
+}
+
+/**
+ * Sets the lower bound for populations.
+ * @param place
+ * @param event
+ */
+function selectLowerBound(
+  place: PlaceInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>,
+  setLowerBound: (lowerBound: string) => void
+): void {
+  if (event.target.value) {
+    place.setLowerBound(parseInt(event.target.value));
+  }
+  setLowerBound(event.target.value);
+}
+
+/**
+ * Sets the upper bound for populations.
+ * @param place
+ * @param event
+ */
+function selectUpperBound(
+  place: PlaceInfoWrapper,
+  event: React.ChangeEvent<HTMLInputElement>,
+  setUpperBound: (upperBound: string) => void
+): void {
+  if (event.target.value) {
+    place.setUpperBound(parseInt(event.target.value));
+  }
+  setUpperBound(event.target.value);
+}
 
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
 // returns the available dates for the statvar. Then, fill the datapicker with
@@ -268,6 +387,71 @@ function PlotOptions(): JSX.Element {
               </div>
             </div>
             <div className="plot-options-row">
+              <div className="plot-options-label">
+                Scale points by population:
+              </div>
+              <div className="plot-options-input-radio">
+                <FormGroup>
+                  <Label>
+                    <Input
+                      checked={display.showPopulation === SHOW_POPULATION_OFF}
+                      id="show-population-off"
+                      onChange={(e) => {
+                        selectShowPopulation(display, e);
+                        if (display.showPopulation !== SHOW_POPULATION_OFF) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_OFF,
+                          });
+                        }
+                      }}
+                      type="radio"
+                      value={SHOW_POPULATION_OFF}
+                    />
+                    Off
+                  </Label>
+                  <Label>
+                    <Input
+                      checked={
+                        display.showPopulation === SHOW_POPULATION_LINEAR
+                      }
+                      id="show-population-linear"
+                      onChange={(e) => {
+                        selectShowPopulation(display, e);
+                        if (display.showPopulation !== SHOW_POPULATION_LINEAR) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LINEAR,
+                          });
+                        }
+                      }}
+                      type="radio"
+                      value={SHOW_POPULATION_LINEAR}
+                    />
+                    Linear scale
+                  </Label>
+                  <Label>
+                    <Input
+                      checked={display.showPopulation === SHOW_POPULATION_LOG}
+                      id="show-population-log"
+                      onChange={(e) => {
+                        selectShowPopulation(display, e);
+                        if (display.showPopulation !== SHOW_POPULATION_LOG) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]:
+                              GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG,
+                          });
+                        }
+                      }}
+                      type="radio"
+                      value={SHOW_POPULATION_LOG}
+                    />
+                    Log scale
+                  </Label>
+                </FormGroup>
+              </div>
+            </div>
+            <div className="plot-options-row">
               <div className="plot-options-label">Filter by population:</div>
               <div className="plot-options-input-section pop-filter">
                 <div className="plot-options-input">
@@ -316,103 +500,6 @@ function PlotOptions(): JSX.Element {
       </Container>
     </Card>
   );
-}
-
-/**
- * Swaps the axes.
- * @param x
- * @param y
- */
-function swapAxes(x: AxisWrapper, y: AxisWrapper): void {
-  const [xValue, yValue] = [x.value, y.value];
-  x.set(yValue);
-  y.set(xValue);
-}
-
-/**
- * Toggles whether to plot per capita values for an axis.
- * @param axis
- * @param event
- */
-function checkPerCapita(
-  axis: AxisWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  axis.setPerCapita(event.target.checked);
-}
-
-/**
- * Toggles whether to plot an axis on log scale.
- * @param axis
- * @param event
- */
-function checkLog(
-  axis: AxisWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  axis.setLog(event.target.checked);
-}
-
-/**
- * Toggles whether to show quadrant lines.
- */
-function checkQuadrants(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setQuadrants(event.target.checked);
-}
-
-/**
- * Toggles whether to show text labels for every dot.
- */
-function checkLabels(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setLabels(event.target.checked);
-}
-
-/**
- * Toggles whether to color dots by density of dots in that area.
- */
-function checkDensity(
-  display: DisplayOptionsWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  display.setDensity(event.target.checked);
-}
-
-/**
- * Sets the lower bound for populations.
- * @param place
- * @param event
- */
-function selectLowerBound(
-  place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>,
-  setLowerBound: (lowerBound: string) => void
-): void {
-  if (event.target.value) {
-    place.setLowerBound(parseInt(event.target.value));
-  }
-  setLowerBound(event.target.value);
-}
-
-/**
- * Sets the upper bound for populations.
- * @param place
- * @param event
- */
-function selectUpperBound(
-  place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>,
-  setUpperBound: (upperBound: string) => void
-): void {
-  if (event.target.value) {
-    place.setUpperBound(parseInt(event.target.value));
-  }
-  setUpperBound(event.target.value);
 }
 
 export { PlotOptions };

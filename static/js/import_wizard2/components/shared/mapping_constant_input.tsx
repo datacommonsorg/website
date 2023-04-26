@@ -43,38 +43,38 @@ export function MappingConstantInput(
 ): JSX.Element {
   const mappedThingString =
     MAPPED_THING_NAMES[props.mappedThing] || props.mappedThing;
-  const label = `${
-    props.isRequired ? "* " : ""
-  }What is the ${mappedThingString.toLowerCase()} for this dataset?`;
-  const placeholder = `Enter the ${mappedThingString.toLowerCase()} for this dataset`;
+  const label = `${mappedThingString}${props.isRequired ? "* " : ""}`;
+  const placeholder = `Enter the ${mappedThingString.toLowerCase()}`;
   const isInvalidInput =
     props.mappingVal &&
     props.mappingVal.fileConstant &&
     !props.isValidValue(props.mappingVal.fileConstant);
 
   return (
-    <div className="mapping-input-section">
+    <div className="mapping-input-section mapping-constant-input">
       <div className="mapping-input-label">{label}</div>
-      <Input
-        className={`constant-value-input${isInvalidInput ? "-error" : ""}`}
-        type="text"
-        onChange={(e) => {
-          const fileConstant = e.target.value;
-          const mappingVal = {
-            type: MappingType.FILE_CONSTANT,
-            fileConstant,
-          };
-          props.onMappingValUpdate(
-            mappingVal,
-            fileConstant && !props.isValidValue(fileConstant)
-          );
-        }}
-        placeholder={placeholder}
-        value={props.mappingVal ? props.mappingVal.fileConstant || "" : ""}
-      />
-      {isInvalidInput && (
-        <span className="error-message">{props.invalidValueMsg}</span>
-      )}
+      <div className="mapping-input-form">
+        <Input
+          className={`constant-value-input${isInvalidInput ? "-error" : ""}`}
+          type="text"
+          onChange={(e) => {
+            const fileConstant = e.target.value;
+            const mappingVal = {
+              type: MappingType.FILE_CONSTANT,
+              fileConstant,
+            };
+            props.onMappingValUpdate(
+              mappingVal,
+              fileConstant && !props.isValidValue(fileConstant)
+            );
+          }}
+          placeholder={placeholder}
+          value={props.mappingVal ? props.mappingVal.fileConstant || "" : ""}
+        />
+        {isInvalidInput && (
+          <span className="error-message">{props.invalidValueMsg}</span>
+        )}
+      </div>
     </div>
   );
 }
