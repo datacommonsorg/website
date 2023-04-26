@@ -36,7 +36,7 @@ interface MappingPreviewSectionProps {
   valueMap: ValueMap;
   hasInputErrors: boolean;
   onBackClicked: () => void;
-  onContinueClicked: () => void;
+  onContinueClicked: (hasError: boolean) => void;
 }
 
 const MAX_ROW_SAMPLES = 3;
@@ -94,17 +94,19 @@ export function MappingPreviewSection(
           </div>
         </div>
       )}
-      <div className="navigation-section">
-        <Button className="nav-btn" onClick={props.onBackClicked}>
-          Back
-        </Button>
-        <Button
-          className="nav-btn"
-          onClick={!_.isEmpty(errorList) ? null : props.onContinueClicked}
-        >
-          Continue
-        </Button>
-      </div>
+      {
+        <div className="navigation-section">
+          <Button className="nav-btn" onClick={props.onBackClicked}>
+            Back
+          </Button>
+          <Button
+            className="nav-btn"
+            onClick={() => props.onContinueClicked(!_.isEmpty(errorList))}
+          >
+            Continue
+          </Button>
+        </div>
+      }
     </>
   );
 }

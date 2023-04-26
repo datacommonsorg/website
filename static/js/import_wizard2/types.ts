@@ -33,7 +33,7 @@ export enum MappedThing {
 
 export const MAPPED_THING_NAMES = {
   [MappedThing.VALUE]: "Observation Value",
-  [MappedThing.STAT_VAR]: "Name of Variable",
+  [MappedThing.STAT_VAR]: "Dcid of Variable",
 };
 
 // Types used for Detection.

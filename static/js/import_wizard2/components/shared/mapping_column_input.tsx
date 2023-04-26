@@ -55,32 +55,32 @@ export function MappingColumnInput(
   }
   const mappedThingString =
     MAPPED_THING_NAMES[props.mappedThing] || props.mappedThing;
-  const label = `${
-    props.isRequired ? "* " : ""
-  }The ${mappedThingString.toLowerCase()} column is`;
+  const label = `${mappedThingString}${props.isRequired ? "* " : ""}`;
   return (
-    <div className="mapping-input-section">
+    <div className="mapping-input-section mapping-column-input">
       <div className="mapping-input-label">{label}</div>
-      <Input
-        className="column-option-dropdown"
-        type="select"
-        value={
-          !_.isEmpty(props.mappingVal) && !_.isEmpty(props.mappingVal.column)
-            ? props.mappingVal.column.columnIdx
-            : ""
-        }
-        onChange={(e) => onSelectionChange(e.target.value)}
-      >
-        <option value="" key="">
-          Select a column title
-        </option>
-        {props.orderedColumns.map((column, i) => (
-          <option value={i} key={column.id}>
-            Column: &ldquo;{column.header}&rdquo;
+      <div className="mapping-input-form">
+        <Input
+          className="column-option-dropdown"
+          type="select"
+          value={
+            !_.isEmpty(props.mappingVal) && !_.isEmpty(props.mappingVal.column)
+              ? props.mappingVal.column.columnIdx
+              : ""
+          }
+          onChange={(e) => onSelectionChange(e.target.value)}
+        >
+          <option value="" key="">
+            Select a column title
           </option>
-        ))}
-      </Input>
-      {props.children}
+          {props.orderedColumns.map((column, i) => (
+            <option value={i} key={column.id}>
+              Column: &ldquo;{column.header}&rdquo;
+            </option>
+          ))}
+        </Input>
+        {props.children}
+      </div>
     </div>
   );
 }
