@@ -525,7 +525,7 @@ def get_immediate_parent_places(
     main_place_dcid: str, parent_place_type: str,
     counters: ctr.Counters) -> List[detection.Place]:
   start = time.time()
-  resp = util.property_values([main_place_dcid], 'containedInPlace')
+  resp = dc.property_values([main_place_dcid], 'containedInPlace')
   counters.timeit('get_immediate_parent_places', start)
   results = []
   for value in resp['data'][main_place_dcid].get('arcs', {}).get(
@@ -845,8 +845,8 @@ def is_multi_sv(uttr: nl_uttr.Utterance) -> bool:
 
   # Prefer multi-sv when the scores are higher or up to a score differential.
   if (top_multi_sv_score > top_sv_score or
-      (top_sv_score - top_multi_sv_score <=
-       shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
+      (top_sv_score - top_multi_sv_score
+       <= shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
     return True
   return False
 

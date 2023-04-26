@@ -423,6 +423,7 @@ def gzip_compress_response(raw_content, is_json):
 
 
 def property_values(nodes, prop, out=True):
+  """Returns a compact property values data out of REST API response."""
   resp = dc.property_values(nodes, prop, out)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
