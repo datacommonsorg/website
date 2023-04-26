@@ -50,7 +50,7 @@ test("Fail_MalformedMappingVal", () => {
   const expected = [
     "Place: missing value for COLUMN type ",
     "Place mapping is missing placeProperty",
-    "Name of Variable: missing value for COLUMN_HEADER type",
+    "Dcid of Variable: missing value for COLUMN_HEADER type",
     "Date: missing value for FILE_CONSTANT type",
     "Unit: missing value for COLUMN_CONSTANT type",
   ];
@@ -76,7 +76,7 @@ test("Fail_MissingRequiredPropsAndMultipleColumnHeaders", () => {
   ]);
   const expected = [
     "Missing required mapping for Place",
-    "Missing required mapping for Name of Variable",
+    "Missing required mapping for Dcid of Variable",
     "Missing required mapping for Date",
     "Observation Value: must be a COLUMN type",
     "Multiple columnHeader mappings found: Unit, Value",

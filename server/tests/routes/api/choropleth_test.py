@@ -122,7 +122,7 @@ class TestGetGeoJson(unittest.TestCase):
 
   @patch('server.routes.api.choropleth.dc.get_places_in')
   @patch('server.routes.api.choropleth.rewind')
-  @patch('server.routes.api.choropleth.dc.property_values')
+  @patch('server.routes.api.choropleth.lib_util.property_values')
   @patch('server.routes.api.choropleth.place_api.get_display_name')
   @patch('server.routes.api.choropleth.get_choropleth_display_level')
   def test_get_geojson(self, mock_display_level, mock_display_name,
@@ -188,7 +188,7 @@ class TestGetGeoJson(unittest.TestCase):
 
   @patch('server.routes.api.choropleth.dc.get_places_in')
   @patch('server.routes.api.choropleth.rewind')
-  @patch('server.routes.api.choropleth.dc.property_values')
+  @patch('server.routes.api.choropleth.lib_util.property_values')
   @patch('server.routes.api.choropleth.place_api.get_display_name')
   def test_get_geojson_with_place_type(self, mock_display_name,
                                        mock_geojson_values, mock_rewind_geojson,
@@ -559,7 +559,7 @@ class TestChoroplethData(unittest.TestCase):
 class TestGetNodeGeoJson(unittest.TestCase):
 
   @patch('server.routes.api.choropleth.rewind')
-  @patch('server.routes.api.choropleth.dc.property_values')
+  @patch('server.routes.api.choropleth.lib_util.property_values')
   def test_get_geojson(self, mock_geojson_values, mock_geojson_rewind):
     dcid1 = "dcid1"
     dcid2 = "dcid2"

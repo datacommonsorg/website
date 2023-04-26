@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -63,8 +63,8 @@ class TestCharts(WebdriverBaseTest):
     self.driver.get(self.url_ + TIMELINE_URL)
 
     # Find the group of charts.
-    charts = self.driver.find_elements_by_xpath(
-        '//*[@id="chart-region"]/div[@class="chart"]')
+    charts = self.driver.find_elements(
+        By.XPATH, '//*[@id="chart-region"]/div[@class="chart"]')
 
     # Assert there is no chart.
     self.assertEqual(len(charts), 0)
@@ -84,8 +84,8 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Store a list of all the charts.
-    chart_region = self.driver.find_element_by_xpath('//*[@id="chart-region"]')
-    charts = chart_region.find_elements_by_class_name('card')
+    chart_region = self.driver.find_element(By.XPATH, '//*[@id="chart-region"]')
+    charts = chart_region.find_elements(By.CLASS_NAME, 'card')
     # Assert there are three charts.
     self.assertEqual(len(charts), 3)
     # Wait until the charts are drawn.
@@ -93,13 +93,13 @@ class TestCharts(WebdriverBaseTest):
         (By.CLASS_NAME, 'legend-text'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     # Assert first chart has 4 lines (ie. has data)
-    chart_lines = charts[0].find_elements_by_class_name('line')
+    chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 4)
     # Assert second chart has 2 lines (ie. has data)
-    chart_lines = charts[1].find_elements_by_class_name('line')
+    chart_lines = charts[1].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 2)
     # Assert third chart has 2 lines (ie. has data)
-    chart_lines = charts[2].find_elements_by_class_name('line')
+    chart_lines = charts[2].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 2)
 
     # Click on Demographics section to expand it.
@@ -107,16 +107,16 @@ class TestCharts(WebdriverBaseTest):
 
     # Uncheck median age statvar, and the number of charts will become two.
     element_present = EC.text_to_be_present_in_element(
-        (By.ID, 'hierarchy-section'), "Median Age")
+        (By.ID, 'hierarchy-section'), "Median Age of Population")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    median_age_checkbox = self.driver.find_element_by_xpath(
-        '//*[text()="Median Age"]')
+    median_age_checkbox = self.driver.find_element(
+        By.XPATH, '//*[text()="Median Age of Population"]')
     median_age_checkbox.click()
     # Check if there is a way to find the chart region refreshed.
     time.sleep(2)
 
     # Re-store a list of all the charts.
-    charts = chart_region.find_elements_by_class_name('card')
+    charts = chart_region.find_elements(By.CLASS_NAME, 'card')
     # Assert there are two charts.
     self.assertEqual(len(charts), 2)
 
@@ -129,8 +129,8 @@ class TestCharts(WebdriverBaseTest):
         (By.ID, 'hierarchy-section'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    charts = self.driver.find_elements_by_xpath(
-        '//*[@id="chart-region"]/div[@class="chart-container"]')
+    charts = self.driver.find_elements(
+        By.XPATH, '//*[@id="chart-region"]/div[@class="chart-container"]')
 
     # Assert there is no chart.
     self.assertEqual(len(charts), 0)
@@ -143,8 +143,8 @@ class TestCharts(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, "svg-node-child"))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_id(
-        "Count_Persondc/g/Demographics-Count_Person").click()
+    self.driver.find_element(
+        By.ID, "Count_Persondc/g/Demographics-Count_Person").click()
 
     # Wait until there is a card present.
     shared.wait_for_loading(self.driver)
@@ -153,18 +153,18 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert there is one chart.
-    charts = self.driver.find_elements_by_xpath(
-        '//*[@id="chart-region"]/div[@class="chart-container"]')
+    charts = self.driver.find_elements(
+        By.XPATH, '//*[@id="chart-region"]/div[@class="chart-container"]')
     self.assertEqual(len(charts), 1)
 
     # Uncheck the checked stat var.
-    self.driver.find_element_by_id(
-        "Count_Persondc/g/Demographics-Count_Person").click()
+    self.driver.find_element(
+        By.ID, "Count_Persondc/g/Demographics-Count_Person").click()
 
     # Assert there are no charts.
     shared.wait_for_loading(self.driver)
-    charts = self.driver.find_elements_by_xpath(
-        '//*[@id="chart-region"]/div[@class="chart-container"]')
+    charts = self.driver.find_elements(
+        By.XPATH, '//*[@id="chart-region"]/div[@class="chart-container"]')
     self.assertEqual(len(charts), 0)
 
   def test_place_search_box_and_remove_place(self):
@@ -175,7 +175,7 @@ class TestCharts(WebdriverBaseTest):
     # Wait until search box is present.
     element_present = EC.presence_of_element_located((By.ID, 'ac'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element_by_id('ac')
+    search_box_input = self.driver.find_element(By.ID, 'ac')
 
     # Type California into the search box.
     search_box_input.send_keys(PLACE_SEARCH_CA)
@@ -186,8 +186,8 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Click on the first result.
-    first_result = self.driver.find_element_by_css_selector(
-        ".pac-item:nth-child(1)")
+    first_result = self.driver.find_element(By.CSS_SELECTOR,
+                                            ".pac-item:nth-child(1)")
     first_result.click()
     # Wait until the first line element within the card is present.
     element_present = EC.presence_of_element_located(
@@ -204,8 +204,8 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Click on the first result.
-    first_result = self.driver.find_element_by_css_selector(
-        ".pac-item:nth-child(1)")
+    first_result = self.driver.find_element(By.CSS_SELECTOR,
+                                            ".pac-item:nth-child(1)")
     first_result.click()
 
     # Wait until the second line element within the card is present.
@@ -214,8 +214,8 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Store a list of all the charts and lines.
-    charts = self.driver.find_elements_by_xpath('//*[@id="chart-region"]/div')
-    lines = charts[0].find_elements_by_class_name("line")
+    charts = self.driver.find_elements(By.XPATH, '//*[@id="chart-region"]/div')
+    lines = charts[0].find_elements(By.CLASS_NAME, "line")
 
     # Assert number of charts and lines is correct.
     self.assertEqual(len(charts), 1)
@@ -227,8 +227,8 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Click on the delete button and remove California.
-    delete_button = self.driver.find_element_by_xpath(
-        '//*[@id="place-list"]/div[1]/button')
+    delete_button = self.driver.find_element(
+        By.XPATH, '//*[@id="place-list"]/div[1]/button')
     delete_button.click()
 
     # Wait until the second line element within the card disappears.
@@ -238,8 +238,8 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Store a list of all the charts and lines.
-    charts = self.driver.find_elements_by_xpath('//*[@id="chart-region"]/div')
-    lines = charts[0].find_elements_by_class_name("line")
+    charts = self.driver.find_elements(By.XPATH, '//*[@id="chart-region"]/div')
+    lines = charts[0].find_elements(By.CLASS_NAME, "line")
 
     # Assert number of charts and lines is correct.
     self.assertEqual(len(charts), 1)

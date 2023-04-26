@@ -27,6 +27,7 @@ from flask import url_for
 from flask_babel import gettext
 
 from server.cache import cache
+from server.lib import util
 import server.lib.i18n as i18n
 from server.routes.api.shared import names
 import server.routes.api.shared as shared_api
@@ -121,7 +122,7 @@ bp = Blueprint("api_place", __name__, url_prefix='/api/place')
 
 
 def get_place_types(place_dcids):
-  place_types = dc.property_values(place_dcids, 'typeOf')
+  place_types = util.property_values(place_dcids, 'typeOf')
   ret = {}
   for dcid in place_dcids:
     # We prefer to use specific type like "State", "County" over
@@ -322,18 +323,18 @@ def child(dcid):
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(parent_dcid):
   # Get contained places
-  contained_response = dc.property_values([parent_dcid], 'containedInPlace',
-                                          False)
+  contained_response = util.property_values([parent_dcid], 'containedInPlace',
+                                            False)
   place_dcids = contained_response.get(parent_dcid, [])
 
-  overlaps_response = dc.property_values([parent_dcid], 'geoOverlaps', False)
+  overlaps_response = util.property_values([parent_dcid], 'geoOverlaps', False)
   place_dcids = place_dcids + overlaps_response.get(parent_dcid, [])
 
   # Filter by wanted place types
   place_type = get_place_type(parent_dcid)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
 
-  place_types = dc.property_values(place_dcids, 'typeOf', True)
+  place_types = util.property_values(place_dcids, 'typeOf', True)
   wanted_dcids = set()
   for dcid, types in place_types.items():
     for t in types:
@@ -354,7 +355,7 @@ def child_fetch(parent_dcid):
         pop[p['entity']] = v[0]['value']
 
   # Build return object
-  place_names = dc.property_values(wanted_dcids, 'name', True)
+  place_names = util.property_values(wanted_dcids, 'name', True)
   result = collections.defaultdict(list)
   for place_dcid in wanted_dcids:
     for place_type in place_types[place_dcid]:
@@ -484,7 +485,7 @@ def api_mapinfo(dcid):
   up = -90
   down = 90
   coordinate_sequence_set = []
-  kmlCoordinates = dc.property_values([dcid], 'kmlCoordinates')[dcid]
+  kmlCoordinates = util.property_values([dcid], 'kmlCoordinates')[dcid]
   if not kmlCoordinates:
     return {}
 
@@ -648,7 +649,7 @@ def get_state_code(dcids):
   if not dcids:
     return result
   dcids = dcids.split('^')
-  iso_codes = dc.property_values(dcids, 'isoCode')
+  iso_codes = util.property_values(dcids, 'isoCode')
 
   for dcid in dcids:
     state_code = None
@@ -795,7 +796,7 @@ def coords2places():
   dcids_to_get_type = set()
   for place_coord in place_coordinates:
     dcids_to_get_type.update(place_coord.get('placeDcids', []))
-  place_types = dc.property_values(list(dcids_to_get_type), 'typeOf')
+  place_types = util.property_values(list(dcids_to_get_type), 'typeOf')
   # Get the place names for the places that are of the requested place type
   dcids_to_get_name = filter(
       lambda place: place_type in place_types.get(place, []),
@@ -882,46 +883,48 @@ def api_ranking_chart(dcid):
   # Make sure POPULATION_DCID is included in stat vars.
   if POPULATION_DCID not in stat_vars:
     stat_vars.add(POPULATION_DCID)
-  points_response_best = dc.obs_point_within(parent_place_dcid, place_type,
-                                             list(stat_vars), "", False)
-  sv_data = points_response_best.get("observationsByVariable")
-  sv_facets = points_response_best.get("facets")
-  if not points_response_best or not sv_data:
+  points_response = dc.obs_point_within(parent_place_dcid, place_type,
+                                        list(stat_vars), "LATEST")
+  obs_by_sv = points_response.get('byVariable', {})
+  if not points_response or not obs_by_sv:
     return Response(json.dumps(result), 200, mimetype='application/json')
-  # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
+  sv_facets = points_response.get('facets', {})
   places_to_rank = set()
-  for sv_data_points in sv_data:
-    if sv_data_points.get("variable") != POPULATION_DCID:
-      continue
-    for place_data in sv_data_points.get("observationsByEntity", []):
-      place_dcid = place_data.get("entity")
-      place_data_points = place_data.get("pointsByFacet")
+  # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
+  population_obs = obs_by_sv.get(POPULATION_DCID, {})
+  if population_obs:
+    for place_dcid, place_obs in population_obs.get('byEntity', {}).items():
+      place_data_points = place_obs.get('orderedFacets', [])
       if place_data_points:
-        value = place_data_points[0].get("value", 0)
+        value = place_data_points[0]['observations'][0].get('value', 0)
         if value > PERSON_COUNT_LIMIT:
           places_to_rank.add(place_dcid)
   # Get all the place names
   place_names = get_i18n_name(list(places_to_rank))
-  # Loop through sv_data to build the result data.
-  for sv_data_points in sv_data:
-    sv = sv_data_points.get("variable")
+  # Loop through var_obs to build the result data.
+  for sv, sv_obs in obs_by_sv.items():
     if sv not in config_sv_to_info:
       continue
     sources = set()
     dates = set()
     data_points = []
-    for place_data in sv_data_points.get("observationsByEntity", []):
-      place_dcid = place_data.get("entity")
+    for place_dcid, place_data in sv_obs.get("byEntity", {}).items():
       if place_dcid not in places_to_rank:
         continue
-      # Example of place_data_points: [{"date": "2022", "value": 123, "facet": 123456}].
-      place_data_points = place_data.get("pointsByFacet")
+      # Example of place_data_points:
+      # [
+      #   {
+      #     "facetId": "12345",
+      #     "observations": [{"date": "2022", "value": 123}]
+      #   }
+      # ]
+      place_data_points = place_data.get("orderedFacets")
       value, date, facet = None, None, None
       if place_data_points:
         place_data_point = place_data_points[0]
-        value = place_data_point.get("value")
-        date = place_data_point.get("date")
-        facet = place_data_point.get("facet")
+        value = place_data_point['observations'][0].get("value")
+        date = place_data_point['observations'][0].get("date")
+        facet = place_data_point.get("facetId")
       # Value is required for the calculation of ranking.
       if value is None:
         continue

@@ -20,6 +20,7 @@ from flask import request
 from flask import Response
 
 from server.cache import cache
+from server.lib import util
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_browser', __name__, url_prefix='/api/browser')
@@ -34,7 +35,7 @@ def provenance():
   resp = dc.triples("Provenance", "in")
   prov_list = resp.get("triples", {}).get("typeOf", {}).get("nodes", [])
   dcids = list(map(lambda item: item["dcid"], prov_list))
-  resp = dc.property_values(dcids, "url", True)
+  resp = util.property_values(dcids, "url", True)
   result = {}
   for dcid, urls in resp.items():
     if len(urls) > 0:

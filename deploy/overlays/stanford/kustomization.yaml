@@ -28,7 +28,7 @@ configMapGenerator:
     name: website-configmap
   - behavior: create
     literals:
-      - mixerProject=datcom-stanford
+      - hostProject=datcom-stanford
       - serviceName=website-esp.endpoints.datcom-stanford.cloud.goog
     name: mixer-configmap
   - behavior: merge

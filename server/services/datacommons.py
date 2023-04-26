@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ def post_wrapper(url, req_str: str):
   return response.json()
 
 
-def obs_point(entities, variables, date='', all_facets=False):
+def obs_point(entities, variables, date='LATEST'):
   """Gets the observation point for the given entities of the given variable.
 
   Args:
@@ -82,23 +82,22 @@ def obs_point(entities, variables, date='', all_facets=False):
       variables: A list of statistical variables.
       date (optional): The date of the observation. If not set, the latest
           observation is returned.
-      all_facets (optional): Whether or not to get data for all facets.
   """
-  url = get_service_url('/v1/bulk/observations/point')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'entities': sorted(entities),
-          'variables': sorted(variables),
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'dcids': sorted(entities)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
           'date': date,
-          'all_facets': all_facets,
       })
 
 
-def obs_point_within(parent_entity,
-                     child_type,
-                     variables,
-                     date='',
-                     all_facets=False):
+def obs_point_within(parent_entity, child_type, variables, date='LATEST'):
   """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -107,47 +106,52 @@ def obs_point_within(parent_entity,
       child_type: Type of child places as a string.
       variables: List of statistical variable DCIDs each as a string.
       date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
-      all_facets (optional): Whether or not to get data for all facets
 
   Returns:
-      Dict with a key "facets" and a key "observationsByVariable".
+      Dict with a key "facets" and a key "byVariable".
       The value for "facets" is a dict keyed by facet ids, with dicts as values
       (See "StatMetadata" in https://github.com/datacommonsorg/mixer/blob/master/proto/stat.proto for the definition of the inner dicts)
-      The value for "observationsByVariable" is a list of dicts (See "VariableObservations"
-      in https://github.com/datacommonsorg/mixer/blob/master/proto/v1/observations.proto for the definition of these dicts)
+      The value for "byVariable" is a list of dicts containing observations.
 
   """
-  url = get_service_url('/v1/bulk/observations/point/linked')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'linked_entity': parent_entity,
-          'linked_property': 'containedInPlace',
-          'entity_type': child_type,
-          'variables': sorted(variables),
-          'date': date,
-          'all_facets': all_facets,
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'expression':
+                  '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
+                      parent_entity, child_type)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
+          'date': date
       })
 
 
-def obs_series(entities, variables, all_facets=False):
+def obs_series(entities, variables):
   """Gets the observation time series for the given entities of the given
   variable.
 
   Args:
       entities: A list of entities DCIDs.
       variables: A list of statistical variables.
-      all_facets (optional): Whether or not to get data for all facets.
   """
-  url = get_service_url('/v1/bulk/observations/series')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'entities': sorted(entities),
-          'variables': sorted(variables),
-          'all_facets': all_facets,
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'dcids': sorted(entities)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
       })
 
 
-def obs_series_within(parent_entity, child_type, variables, all_facets=False):
+def obs_series_within(parent_entity, child_type, variables):
   """Gets the statistical variable series for child places of a certain place
     type contained in a parent place.
 
@@ -155,16 +159,19 @@ def obs_series_within(parent_entity, child_type, variables, all_facets=False):
       parent_entity: Parent entity DCID as a string.
       child_type: Type of child places as a string.
       variables: List of statistical variable DCIDs each as a string.
-      all_facets (optional): Whether or not to get data for all facets
   """
-  url = get_service_url('/v1/bulk/observations/series/linked')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'linked_entity': parent_entity,
-          'linked_property': "containedInPlace",
-          'entity_type': child_type,
-          'variables': sorted(variables),
-          'all_facets': all_facets,
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'expression':
+                  '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
+                      parent_entity, child_type)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
       })
 
 
@@ -190,36 +197,18 @@ def bulk_triples(nodes, direction):
   return post(f'{url}/{direction}', {'nodes': nodes})
 
 
-def properties(node, direction):
-  """Retrieves the properties for a node.
-
-  Args:
-      node: Node DCID.
-      direction: Predicate direction, either be 'in' or 'out'.
-  """
-  url = get_service_url('/v1/properties')
-  return get(f'{url}/{direction}/{node}').get('properties', [])
-
-
-def properties_v1(nodes, direction):
+def properties(nodes, direction):
   """Retrieves the properties for a list of nodes.
 
   Args:
       nodes: List of node DCIDs.
       direction: Predicate direction, either be 'in' or 'out'.
   """
-  url = get_service_url('/v1/bulk/properties')
-  return post(f'{url}/{direction}', {'nodes': nodes}).get('data', [])
-
-
-def property_values_v1(nodes, prop, out=True):
-  """Retrieves the property values with V1 response."""
-  direction = 'out' if out else 'in'
-  url = get_service_url('/v1/bulk/property/values')
-  return post(f'{url}/{direction}', {
-      'nodes': sorted(set(nodes)),
-      'property': prop,
-  })
+  url = get_service_url('/v2/node')
+  return post(url, {
+      'nodes': nodes,
+      'property': '->' if direction == 'out' else '<-'
+  }).get('data', {})
 
 
 def property_values(nodes, prop, out=True):
@@ -230,17 +219,12 @@ def property_values(nodes, prop, out=True):
       prop: The property label to query for.
       out: Whether the property direction is 'out'.
   """
-  resp = property_values_v1(nodes, prop, out)
-  result = {}
-  for item in resp.get('data', []):
-    node, values = item['node'], item.get('values', [])
-    result[node] = []
-    for v in values:
-      if 'dcid' in v:
-        result[node].append(v['dcid'])
-      else:
-        result[node].append(v['value'])
-  return result
+  direction = '->' if out else '<-'
+  url = get_service_url('/v2/node')
+  return post(url, {
+      'nodes': sorted(set(nodes)),
+      'property': direction + prop,
+  })
 
 
 def get_place_info(dcids: List[str]) -> Dict:

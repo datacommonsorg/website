@@ -33,7 +33,7 @@ steps:
 
   # Run the webdriver tests
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2022-08-10
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-04-18
     entrypoint: /bin/sh
     waitFor:
       - package_js

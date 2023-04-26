@@ -78,7 +78,7 @@ def get_properties(dcid):
 
 
 def get_property_value(dcid: str, prop: str) -> str:
-  result = dc.property_values([dcid], prop)
+  result = lib_util.property_values([dcid], prop)
   if result[dcid]:
     return result[dcid][0]
   return None
@@ -143,7 +143,7 @@ def get_places(properties) -> Dict[str, List[str]]:
       dcids_to_get_type = set()
       for place_coord in place_coordinates:
         dcids_to_get_type.update(place_coord.get('placeDcids', []))
-      place_types = dc.property_values(list(dcids_to_get_type), 'typeOf')
+      place_types = lib_util.property_values(list(dcids_to_get_type), 'typeOf')
       return place_types
 
 

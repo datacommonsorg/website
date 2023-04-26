@@ -23,7 +23,7 @@ class TestCoords2Places(unittest.TestCase):
 
   @patch('server.routes.api.place.dc.resolve_coordinates')
   @patch('server.routes.api.place.names')
-  @patch('server.routes.api.place.dc.property_values')
+  @patch('server.routes.api.place.util.property_values')
   def test_get_places_for_coords(self, mock_property_values, mock_place_names,
                                  mock_resolve_coordinates):
     test_coordinates = [{
@@ -60,9 +60,8 @@ class TestCoords2Places(unittest.TestCase):
 
     mock_resolve_coordinates.side_effect = resolve_coordinates_side_effect
 
-    def property_values_side_effect(dcids, property):
-      if set(dcids) == set(['place1', 'place2', 'place3'
-                           ]) and property == "typeOf":
+    def property_values_side_effect(dcids, prop):
+      if set(dcids) == set(['place1', 'place2', 'place3']) and prop == "typeOf":
         return {
             'place1': [place_type, 'AA1'],
             'place2': [place_type],

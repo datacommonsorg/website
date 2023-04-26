@@ -32,7 +32,7 @@ def point():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date', '')
+  date = request.args.get('date') or 'LATEST'
   return util.point_core(entities, variables, date, False)
 
 
@@ -68,7 +68,7 @@ def point_within():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date', '')
+  date = request.args.get('date') or 'LATEST'
   return util.point_within_core(parent_entity, child_type, variables, date,
                                 False)
 
@@ -91,6 +91,6 @@ def point_within_all():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date', '')
+  date = request.args.get('date') or 'LATEST'
   return util.point_within_core(parent_entity, child_type, variables, date,
                                 True)

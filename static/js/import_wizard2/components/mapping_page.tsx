@@ -20,8 +20,9 @@
  */
 
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
+import { container } from "webpack";
 
 import { TEMPLATE_MAPPING_COMPONENTS } from "../templates";
 import {
@@ -48,6 +49,9 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   // TODO: get valueMap from MappingSectionComponent
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
+  const [inputErrors, setInputErrors] = useState(new Set());
+  const previewRef = useRef(null);
+  const containerRef = useRef(null);
 
   let fileName = "";
   if (props.csvData && props.csvData.rawCsvFile) {
@@ -56,11 +60,33 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
     fileName = props.csvData.rawCsvUrl;
   }
 
+  function scrollToPreview(): void {
+    if (showPreview && containerRef.current && previewRef.current) {
+      containerRef.current.scrollTop = previewRef.current.offsetTop;
+    }
+  }
+
+  useEffect(() => {
+    // When show preview is clicked for the first time, scroll the preview
+    // section into view
+    scrollToPreview();
+  }, [showPreview]);
+
   // Function to run when mapping value is updated for a mapped thing.
-  function onMappingValUpdated(
+  function onMappingValUpdate(
     mappedThing: MappedThing,
-    mappingVal: MappingVal
+    mappingVal: MappingVal,
+    hasInputErrors: boolean
   ): void {
+    setInputErrors((prev) => {
+      const newInputErrors = _.cloneDeep(prev);
+      if (hasInputErrors) {
+        newInputErrors.add(mappedThing);
+      } else {
+        newInputErrors.delete(mappedThing);
+      }
+      return newInputErrors;
+    });
     const newUserMapping = _.cloneDeep(props.userMapping);
     if (_.isEmpty(mappingVal)) {
       newUserMapping.delete(mappedThing);
@@ -93,51 +119,65 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
     <>
       <h2>Label your file</h2>
       <div className="mapping-page-content">
-        <div id="mapping-section" className="mapping-page-section">
-          <div>
-            Please add labels to help us map your dataset to the Data Commons
-            database.
-          </div>
-          <div>*=required</div>
-          {/* TODO: update page heading to something more intuitive to users */}
-          <section>
-            <MappingSectionComponent
-              csvData={props.csvData}
-              userMapping={props.userMapping}
-              onMappingValUpdated={onMappingValUpdated}
-            />
-            <div className="mapping-input-section">
-              <div>Ignored columns:</div>
-              <div>
-                {_.isEmpty(unmappedColumns)
-                  ? "None"
-                  : unmappedColumns.map((col: Column, idx) => {
-                      return `${idx > 0 ? ", " : ""}${col.header}`;
-                    })}
-              </div>
+        <div className="mapping-page-section mapping-input-container">
+          <div id="mapping-section" ref={containerRef}>
+            <div>
+              {
+                "Please add labels to help us map your dataset to the Data Commons database. (*=required)"
+              }
             </div>
-          </section>
-          {showPreview ? (
+            {/* TODO: update page heading to something more intuitive to users */}
             <section>
-              {/* TODO: Each template should generate and return row observations. */}
-              <MappingPreviewSection
-                correctedMapping={props.userMapping}
+              <MappingSectionComponent
                 csvData={props.csvData}
-                valueMap={valueMap}
-                onBackClicked={props.onBackClicked}
-                onContinueClicked={props.onContinueClicked}
+                userMapping={props.userMapping}
+                onMappingValUpdate={onMappingValUpdate}
               />
+              <div className="mapping-input-section">
+                <div>Columns not included:</div>
+                <div>
+                  {_.isEmpty(unmappedColumns)
+                    ? "None"
+                    : unmappedColumns.map((col: Column, idx) => {
+                        return `${idx > 0 ? ", " : ""}${col.header}`;
+                      })}
+                </div>
+              </div>
             </section>
-          ) : (
-            <div className="navigation-section">
-              <Button className="nav-btn" onClick={props.onBackClicked}>
-                Back
-              </Button>
-              <Button className="nav-btn" onClick={() => setShowPreview(true)}>
-                Show Preview
-              </Button>
-            </div>
-          )}
+            {showPreview ? (
+              <section ref={previewRef}>
+                {/* TODO: Each template should generate and return row observations. */}
+                <MappingPreviewSection
+                  correctedMapping={props.userMapping}
+                  csvData={props.csvData}
+                  valueMap={valueMap}
+                  onBackClicked={props.onBackClicked}
+                  onContinueClicked={(hasError: boolean) => {
+                    if (hasError) {
+                      scrollToPreview();
+                    } else {
+                      props.onContinueClicked();
+                    }
+                  }}
+                  hasInputErrors={!_.isEmpty(inputErrors)}
+                />
+              </section>
+            ) : (
+              <div className="navigation-section">
+                <Button className="nav-btn" onClick={props.onBackClicked}>
+                  Back
+                </Button>
+                <Button
+                  className="nav-btn"
+                  onClick={() => {
+                    setShowPreview(true);
+                  }}
+                >
+                  Show Preview
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
         <div className="mapping-page-section">
           <PreviewTable csvData={props.csvData} />

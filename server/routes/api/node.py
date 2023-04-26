@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ from flask import request
 from flask import Response
 
 from server.cache import cache
+from server.lib import util
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
@@ -28,7 +29,8 @@ bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
 @bp.route('/properties/<path:direction>/<path:dcid>')
 def get_properties(dcid, direction):
   """Returns all properties given a node dcid."""
-  return json.dumps(dc.properties(dcid, direction))
+  return json.dumps(
+      dc.properties([dcid], direction)[dcid].get('properties', []))
 
 
 @bp.route('/triples/<path:direction>/<path:dcid>')
@@ -49,5 +51,5 @@ def get_property_value():
   prop = request.args.get('prop')
   if not prop:
     prop = request.json['prop']
-  response = dc.property_values(dcids, prop)
+  response = util.property_values(dcids, prop)
   return Response(json.dumps(response), 200, mimetype='application/json')

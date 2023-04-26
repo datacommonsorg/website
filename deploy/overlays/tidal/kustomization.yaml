@@ -31,7 +31,7 @@ configMapGenerator:
     name: website-configmap
   - behavior: create
     literals:
-      - mixerProject=tidal-dc-poc
+      - hostProject=tidal-dc-poc
       - serviceName=website-esp.endpoints.tidal-dc-poc.cloud.goog
     name: mixer-configmap
 

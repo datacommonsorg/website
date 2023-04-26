@@ -47,6 +47,7 @@ while getopts ":e:l:p:h:t:i:" OPTION; do
       ;;
     p)
       PROJECT_ID=$OPTARG
+      ENV=custom
       ;;
     h)
       WEBSITE_HASH=$OPTARG
@@ -91,6 +92,7 @@ MIXER_HASH=$(git rev-parse --short=7 HEAD)
 function create_custom_bigtable_info_yaml() {
   cd $ROOT/mixer
   export PROJECT_ID=$PROJECT_ID
+  yq eval -i '.instance = "dc-graph"' deploy/storage/custom_bigtable_info.yaml
   yq eval -i '.project = env(PROJECT_ID)' deploy/storage/custom_bigtable_info.yaml
   yq eval -i 'del(.tables)' deploy/storage/custom_bigtable_info.yaml
   yq eval -i '.tables = []' deploy/storage/custom_bigtable_info.yaml
@@ -125,10 +127,11 @@ function deploy_mixer() {
   --timeout 10m \
   --force  \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
+  --set ingress.enabled="false" \
   --set mixer.image.tag="$MIXER_HASH" \
   --set mixer.githash="$MIXER_HASH" \
   --set mixer.serviceName="$ESP_SERVICE_NAME" \
-  --set mixer.gcpProjectID="$PROJECT_ID" \
+  --set mixer.hostProject="$PROJECT_ID" \
   --set-file mixer.schemaConfigs."base\.mcf"=mixer/deploy/mapping/base.mcf \
   --set-file mixer.schemaConfigs."encode\.mcf"=mixer/deploy/mapping/encode.mcf \
   --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
@@ -156,22 +159,22 @@ function deploy_website() {
   --atomic \
   --debug \
   --timeout 10m \
-  --set ingress.enabled=$ENABLE_INGRESS \
+  --set singleClusterMode.enabled=$SINGLE_CLUSTER_MODE \
+  --set website.image.project="$IMAGE_PROJECT" \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
-  --set mixer.githash="$MIXER_HASH" \
-  --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version
+  --set-file nl.embeddings=deploy/base/model.yaml
 }
 
 cd $ROOT
 if [[ $PROJECT_ID != "" ]]; then
-  ENABLE_INGRESS="true"
+  SINGLE_CLUSTER_MODE="true"
   # This is a pure custom project hosted and deployed by third party
   CLUSTER_PREFIX=datacommons
   create_custom_bigtable_info_yaml
 else
   touch mixer/deploy/storage/custom_bigtable_info.yaml
-  ENABLE_INGRESS="false"
+  SINGLE_CLUSTER_MODE="false"
   PROJECT_ID=$(yq eval '.project' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
   CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
 fi

@@ -133,7 +133,7 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
   start = time.time()
   points_data = util.point_core(entities=[place],
                                 variables=svs,
-                                date='',
+                                date='LATEST',
                                 all_facets=False)
   counters.timeit('rank_svs_by_latest_value', start)
 
@@ -146,7 +146,7 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
 
   reverse = False if order == detection.RankingType.LOW else True
   svs_with_vals = sorted(svs_with_vals,
-                         key=lambda pair: pair[1],
+                         key=lambda pair: (pair[1], pair[0]),
                          reverse=reverse)
   return [sv for sv, _ in svs_with_vals]
 
@@ -335,7 +335,7 @@ def _compute_place_to_denom(sv: str, places: List[str]):
   if sv != constants.DEFAULT_DENOMINATOR and is_percapita_relevant(sv):
     denom_data = util.point_core(entities=places,
                                  variables=[constants.DEFAULT_DENOMINATOR],
-                                 date='',
+                                 date='LATEST',
                                  all_facets=False)
     for _, sv_data in denom_data['data'].items():
       for place, point in sv_data.items():
@@ -350,13 +350,13 @@ def _compute_growth_ranked_lists(
     rank_order: detection.RankingType) -> GrowthRankedLists:
   # Rank by abs
   things_by_abs = sorted(things_with_vals,
-                         key=lambda pair: pair[1].abs,
+                         key=lambda pair: (pair[1].abs, pair[0]),
                          reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                        rank_order)])
 
   # Rank by pct
   things_by_pct = sorted(things_with_vals,
-                         key=lambda pair: pair[1].pct,
+                         key=lambda pair: (pair[1].pct, pair[0]),
                          reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                        rank_order)])
 
@@ -366,7 +366,7 @@ def _compute_growth_ranked_lists(
     if growth.pc != None:
       things_by_pc.append((place, growth))
   things_by_pc = sorted(things_by_pc,
-                        key=lambda pair: pair[1].pc,
+                        key=lambda pair: (pair[1].pc, pair[0]),
                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                       rank_order)])
 
@@ -413,7 +413,7 @@ def filter_and_rank_places(
   api_resp = util.point_within_core(parent_entity=parent_place.dcid,
                                     child_type=child_type.value,
                                     variables=[sv],
-                                    date='',
+                                    date='LATEST',
                                     all_facets=False)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
@@ -426,10 +426,10 @@ def filter_and_rank_places(
 
   # Sort place_and_value by value
   child_and_value = sorted(child_and_value,
-                           key=lambda pair: pair[1],
+                           key=lambda pair: (pair[1], pair[0]),
                            reverse=True)
   child_ids = [id for id, _ in child_and_value]
-  id2names = dc.property_values(child_ids, 'name')
+  id2names = util.property_values(child_ids, 'name')
   result = []
   for id in child_ids:
     names = id2names.get(id, [])
@@ -525,28 +525,26 @@ def get_immediate_parent_places(
     main_place_dcid: str, parent_place_type: str,
     counters: ctr.Counters) -> List[detection.Place]:
   start = time.time()
-  resp = dc.property_values_v1([main_place_dcid], 'containedInPlace')
+  resp = dc.property_values([main_place_dcid], 'containedInPlace')
   counters.timeit('get_immediate_parent_places', start)
   results = []
-  for item in resp.get('data', []):
-    if item.get('node', '') != main_place_dcid:
+  arcs = resp.get('data', {}).get(main_place_dcid, {}).get('arcs', {})
+  for value in arcs.get('containedInPlace', {}).get('nodes', []):
+    if 'dcid' not in value or 'name' not in value or 'types' not in value:
       continue
-    for value in item.get('values', []):
-      if 'dcid' not in value or 'name' not in value or 'types' not in value:
-        continue
-      if parent_place_type not in value['types']:
-        continue
-      results.append(
-          detection.Place(dcid=value['dcid'],
-                          name=value['name'],
-                          place_type=parent_place_type))
+    if parent_place_type not in value['types']:
+      continue
+    results.append(
+        detection.Place(dcid=value['dcid'],
+                        name=value['name'],
+                        place_type=parent_place_type))
   # Sort results for determinism.
   results.sort(key=lambda p: p.dcid)
   return results
 
 
 def get_sv_name(all_svs: List[str]) -> Dict:
-  sv2name_raw = dc.property_values(all_svs, 'name')
+  sv2name_raw = util.property_values(all_svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
   }
@@ -613,7 +611,7 @@ def clean_sv_name(name: str) -> str:
 
 
 def get_sv_footnote(all_svs: List[str]) -> Dict:
-  sv2footnote_raw = dc.property_values(all_svs, 'footnote')
+  sv2footnote_raw = util.property_values(all_svs, 'footnote')
   uncurated_footnotes = {
       sv: footnotes[0] if footnotes else ''
       for sv, footnotes in sv2footnote_raw.items()
@@ -637,9 +635,10 @@ def get_only_svs(svs: List[str]) -> List[str]:
 
 # Returns a list of parent place names for a dcid.
 def parent_place_names(dcid: str) -> List[str]:
-  parent_dcids = dc.property_values(nodes=[dcid], prop='containedInPlace')[dcid]
+  parent_dcids = util.property_values(nodes=[dcid],
+                                      prop='containedInPlace')[dcid]
   if parent_dcids:
-    names = dc.property_values(nodes=parent_dcids, prop='name')
+    names = util.property_values(nodes=parent_dcids, prop='name')
     ret = [names[p][0] for p in parent_dcids]
     return ret
   return None
@@ -845,9 +844,8 @@ def is_multi_sv(uttr: nl_uttr.Utterance) -> bool:
   top_multi_sv_score = uttr.multi_svs.candidates[0].aggregate_score
 
   # Prefer multi-sv when the scores are higher or up to a score differential.
-  if (top_multi_sv_score > top_sv_score or
-      (top_sv_score - top_multi_sv_score <=
-       shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
+  if (top_multi_sv_score > top_sv_score or top_sv_score - top_multi_sv_score
+      <= shared_constants.MULTI_SV_SCORE_DIFFERENTIAL):
     return True
   return False
 

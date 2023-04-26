@@ -226,11 +226,11 @@ def geojson():
   names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
   features = []
   if geojson_prop:
-    geojson_by_geo = dc.property_values(geos, geojson_prop)
+    geojson_by_geo = lib_util.property_values(geos, geojson_prop)
     # geoId/46102 is known to only have unsimplified geojson so need to use
     # geoJsonCoordinates as the prop for this one place
     if 'geoId/46102' in geojson_by_geo:
-      geojson_by_geo['geoId/46102'] = dc.property_values(
+      geojson_by_geo['geoId/46102'] = lib_util.property_values(
           ['geoId/46102'], 'geoJsonCoordinates').get('geoId/46102', '')
     for geo_id, json_text in geojson_by_geo.items():
       if json_text and geo_id in names_by_geo:
@@ -257,7 +257,7 @@ def node_geojson():
   if not geojson_prop:
     return "error: must provide a geoJsonProp field", 400
   features = []
-  geojson_by_node = dc.property_values(nodes, geojson_prop)
+  geojson_by_node = lib_util.property_values(nodes, geojson_prop)
   for node_id, json_text in geojson_by_node.items():
     if json_text:
       geo_feature = get_geojson_feature(node_id, node_id, json_text)
@@ -380,7 +380,7 @@ def choropleth_data(dcid):
     return Response(json.dumps({}), 200, mimetype='application/json')
   # Get data for all the stat vars for every place we will need and process the data
   numerator_resp = lib_util.point_within_core(display_dcid, display_level,
-                                              list(stat_vars), '', False)
+                                              list(stat_vars), 'LATEST', False)
   denominator_resp = lib_util.series_core(list(geos), list(denoms), False)
 
   result = {}
@@ -474,7 +474,7 @@ def get_map_points():
   # eg. epaGhgrpFacilityId/1003010 has latitude and longitude but no location
   # epa/120814013 which is an AirQualitySite has a location, but no latitude
   # or longitude
-  location_by_geo = dc.property_values(geos, "location")
+  location_by_geo = lib_util.property_values(geos, "location")
   # dict of <dcid used to get latlon>: <dcid of the place>
   geo_by_latlon_subject = {}
   for geo_dcid in geos:
@@ -483,10 +483,10 @@ def get_map_points():
       geo_by_latlon_subject[location_dcid] = geo_dcid
     else:
       geo_by_latlon_subject[geo_dcid] = geo_dcid
-  lat_by_subject = dc.property_values(list(geo_by_latlon_subject.keys()),
-                                      "latitude")
-  lon_by_subject = dc.property_values(list(geo_by_latlon_subject.keys()),
-                                      "longitude")
+  lat_by_subject = lib_util.property_values(list(geo_by_latlon_subject.keys()),
+                                            "latitude")
+  lon_by_subject = lib_util.property_values(list(geo_by_latlon_subject.keys()),
+                                            "longitude")
 
   map_points_list = []
   for subject_dcid, latitude in lat_by_subject.items():

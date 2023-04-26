@@ -80,6 +80,7 @@ export function FacetSelector(props: FacetSelectorPropType): JSX.Element {
     props.facetListPromise
       .then((resp) => {
         setFacetList(resp);
+        setErrorMessage("");
         setLoading(false);
       })
       .catch(() => {

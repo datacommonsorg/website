@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ function run_lint_fix {
   source .env/bin/activate
   if ! command -v yapf &> /dev/null
   then
-    pip3 install yapf isort -q
+    pip3 install yapf==0.33.0 -q
   fi
   if ! command -v isort &> /dev/null
   then
@@ -119,6 +119,14 @@ function run_py_test {
   cd ..
   python3 -m pytest nl_server/tests/ -s
 
+  if ! command -v yapf &> /dev/null
+  then
+    pip3 install yapf==0.33.0 -q
+  fi
+  if ! command -v isort &> /dev/null
+  then
+    pip3 install isort -q
+  fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py; then
     echo "Fix Python lint errors by running ./run_test.sh -f"
@@ -142,7 +150,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 10 --reruns 3 server/webdriver_tests/tests/
+  python3 -m pytest -n 10 --reruns 2 server/webdriver_tests/tests/
 }
 
 # Run integration test for NL interface

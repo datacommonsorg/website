@@ -28,7 +28,7 @@ def create_app():
 
   flask_env = os.environ.get('FLASK_ENV')
 
-  model_config_path = '/datacommons/model/model.yaml'
+  model_config_path = '/datacommons/nl/model.yaml'
   if flask_env == 'local' or flask_env == 'test' or flask_env == 'integration_test':
     model_config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),

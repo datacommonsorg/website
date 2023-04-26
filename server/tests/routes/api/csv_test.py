@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -61,19 +61,15 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
 
     mock_place_names.side_effect = place_side_effect
 
-    def point_within_side_effect(parent_place, child_type, stat_vars, date,
-                                 all_facets):
-      if parent_place != expected_parent_place or child_type != expected_child_type or set(
-          stat_vars) != set(expected_stat_vars):
+    def point_within_side_effect(parent_place, child_type, stat_vars, date):
+      if (parent_place != expected_parent_place or
+          child_type != expected_child_type or
+          set(stat_vars) != set(expected_stat_vars)):
         return {}
-      if all_facets:
-        if date == "":
-          return mock_data.POINT_WITHIN_LATEST_ALL_FACETS
-        if date == expected_date:
-          return mock_data.POINT_WITHIN_2015_ALL_FACETS
-      else:
-        if date == "":
-          return mock_data.POINT_WITHIN_LATEST
+      if date == "LATEST":
+        return mock_data.POINT_WITHIN_LATEST_ALL_FACETS
+      if date == expected_date:
+        return mock_data.POINT_WITHIN_2015_ALL_FACETS
 
     mock_point_within.side_effect = point_within_side_effect
     endpoint_url = "api/csv/within"
@@ -92,11 +88,11 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     assert latest_date.data.decode("utf-8") == (
         "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
         +
-        "geoId/01,Alabama,2020,6696893,https://www.census.gov/,2022-03,4.2,https://www.bls.gov/lau/\r\n"
+        "geoId/01,Alabama,2020,4893186,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
         +
-        "geoId/02,,2020,581348,https://www.census.gov/,2022-03,3.2,https://www.bls.gov/lau/\r\n"
+        "geoId/02,,2020,736990,https://www.census.gov/,2022-04,4.9,https://www.bls.gov/lau/\r\n"
         +
-        "geoId/06,California,2020,1923826,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
+        "geoId/06,California,2020,836990,https://www.census.gov/,2022-03,6.4,https://www.bls.gov/lau/\r\n"
     )
 
     single_date_req_json = base_req_json.copy()
@@ -173,9 +169,10 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
 
     mock_place_names.side_effect = place_side_effect
 
-    def series_within_side_effect(parent_place, child_type, stat_vars,
-                                  all_facets):
-      if parent_place == expected_parent_place and child_type == expected_child_type and stat_vars == expected_stat_vars and all_facets:
+    def series_within_side_effect(parent_place, child_type, stat_vars):
+      if (parent_place == expected_parent_place and
+          child_type == expected_child_type and
+          stat_vars == expected_stat_vars):
         return mock_data.SERIES_WITHIN_ALL_FACETS
       else:
         return {}

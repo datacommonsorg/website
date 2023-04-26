@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
+/**
+ * constants used by the import wizard
+ */
 
-import { AppWithContext } from "./app";
-
-window.onload = () => {
-  ReactDOM.render(
-    React.createElement(AppWithContext),
-    document.getElementById("main-pane")
-  );
-};
+export const INVALID_VARIABLE_MSG = "Variable can not contain whitespace";
+export const INVALID_DATE_MSG = "Date must be in ISO-8601 format";
