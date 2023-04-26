@@ -205,10 +205,10 @@ def properties(nodes, direction):
       direction: Predicate direction, either be 'in' or 'out'.
   """
   url = get_service_url('/v2/node')
-  property = '->'
-  if direction == 'in':
-    property = '<-'
-  return post(url, {'nodes': nodes, 'property': property}).get('data', {})
+  return post(url, {
+      'nodes': nodes,
+      'property': '->' if direction == 'out' else '<-'
+  }).get('data', {})
 
 
 def property_values_v1(nodes, prop, out=True):
