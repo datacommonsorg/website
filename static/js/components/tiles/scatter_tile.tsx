@@ -31,6 +31,7 @@ import {
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
@@ -340,6 +341,7 @@ function draw(
     yLog: chartData.yStatVar.log,
     showQuadrants: false,
     showDensity: true,
+    showPopulation: SHOW_POPULATION_OFF,
     showLabels: false,
     showRegression: false,
     highlightPoints,
