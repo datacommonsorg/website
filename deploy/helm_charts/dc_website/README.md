@@ -38,7 +38,7 @@ website:
   secretGCPProjectID: <GCP project>
 
 mixer:
-  gcpProjectID: <GCP project>
+  hostProject: <GCP project>
   serviceName: <Cloud Endpoints service name>
 
 serviceAccount:
@@ -59,7 +59,7 @@ ingress:
 
 The GCP project id where the website is to be deployed.
 
-Same value will apply for website.gcpProjectID, website.secretGCPProjectID, mixer.gcpProjectID.
+Same value will apply for website.gcpProjectID, website.secretGCPProjectID, mixer.hostProject.
 
 #### website.domain
 

@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,11 +58,11 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.assertEqual(TITLE_TEXT, self.driver.title)
 
     # Assert place title is correct.
-    title = self.driver.find_element_by_id("place-name")
+    title = self.driver.find_element(By.ID, "place-name")
     self.assertEqual("United States of America", title.text)
 
     # Assert place type is correct.
-    subtitle = self.driver.find_element_by_id("place-type")
+    subtitle = self.driver.find_element(By.ID, "place-type")
     self.assertEqual("Country in North America", subtitle.text)
 
   def test_page_serve_mtv(self):
@@ -84,7 +84,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     element_present = EC.text_to_be_present_in_element((By.ID, 'place-name'),
                                                        "Mountain View")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    place_name = self.driver.find_element_by_id("place-name").text
+    place_name = self.driver.find_element(By.ID, "place-name").text
 
     # Assert place name is correct.
     self.assertEqual("Mountain View", place_name)
@@ -95,7 +95,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place type is correct.
-    place_type = self.driver.find_element_by_id("place-type").text
+    place_type = self.driver.find_element(By.ID, "place-type").text
     self.assertEqual(PLACE_TYPE_TITLE, place_type)
 
   def test_place_search(self):
@@ -109,7 +109,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         (By.CLASS_NAME, 'pac-target-input'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    search_box = self.driver.find_element_by_class_name("pac-target-input")
+    search_box = self.driver.find_element(By.CLASS_NAME, "pac-target-input")
 
     search_box.send_keys(PLACE_SEARCH)
 
@@ -119,8 +119,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Select the first result from the list and click on it.
-    first_result = self.driver.find_element_by_css_selector(
-        '.pac-item:nth-child(1)')
+    first_result = self.driver.find_element(By.CSS_SELECTOR,
+                                            '.pac-item:nth-child(1)')
     first_result.click()
 
     # Wait until the page loads and the title is correct.
@@ -142,8 +142,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Find and click on the Demographics URL.
-    demographics = self.driver.find_element_by_xpath(
-        '//*[@id="Demographics"]/a')
+    demographics = self.driver.find_element(By.XPATH,
+                                            '//*[@id="Demographics"]/a')
     demographics.click()
 
     # Wait until the new page has loaded.
@@ -155,8 +155,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.assertTrue("Demographics" in self.driver.current_url)
 
     # Get the chart_title text.
-    chart_title = self.driver.find_element_by_xpath(
-        '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
+    chart_title = self.driver.find_element(
+        By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
     # Assert chart title is correct.
     self.assertEqual(CHART_TITLE, chart_title)
@@ -178,8 +178,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
         (By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC * 2).until(element_present)
 
-    chart_title = self.driver.find_element_by_xpath(
-        '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
+    chart_title = self.driver.find_element(
+        By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
     # Assert chart title is correct.
     self.assertEqual("Median age by gender: states near California(2020)",
@@ -204,8 +204,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(chart_title_present)
 
     # Check the chart title text.
-    chart_title = self.driver.find_element_by_xpath(
-        '//*[@id="main-pane"]/section[5]/div/div[6]/div/h4').text
+    chart_title = self.driver.find_element(
+        By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[6]/div/h4').text
     self.assertTrue = (CHART_TITLE_MUST_INCLUDE in chart_title)
 
     # Wait for the presence of the chart subtitle element.
@@ -214,7 +214,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(chart_subtitle_present)
 
     # Check the chart subtitle text.
-    chart_subtitle = self.driver.find_element_by_xpath(
+    chart_subtitle = self.driver.find_element(
+        By.XPATH,
         '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/h4').text
     self.assertTrue = (CHART_SUBTITLE_MUST_INCLUDE in chart_subtitle)
 
@@ -229,12 +230,14 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(chart_unit_lowest)
 
     # Check the title text.
-    chart_unit_highest_title = self.driver.find_element_by_xpath(
+    chart_unit_highest_title = self.driver.find_element(
+        By.XPATH,
         '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/h4'
     ).text
     self.assertTrue = (CHART_UNIT_HIGHEST_TITLE in chart_unit_highest_title)
 
-    chart_unit_lowest_title = self.driver.find_element_by_xpath(
+    chart_unit_lowest_title = self.driver.find_element(
+        By.XPATH,
         '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/h4'
     ).text
     self.assertTrue = (CHART_UNIT_LOWEST_TITLE in chart_unit_lowest_title)
@@ -252,12 +255,14 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(chart_unit_lowest_row)
 
     # Check the rank.
-    chart_unit_highest_row_rank = self.driver.find_elements_by_xpath(
+    chart_unit_highest_row_rank = self.driver.find_elements(
+        By.XPATH,
         '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/table/tbody/tr[1]/td'
     )
     self.assertEqual(chart_unit_highest_row_rank[0].text, FIRST_RANK)
 
-    chart_unit_lowest_row_rank = self.driver.find_elements_by_xpath(
+    chart_unit_lowest_row_rank = self.driver.find_elements(
+        By.XPATH,
         '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/table/tbody/tr[1]/td'
     )
     self.assertEqual(chart_unit_lowest_row_rank[0].text, LAST_RANK)
@@ -275,7 +280,8 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
     # Click the place name.
-    place_name = self.driver.find_element_by_xpath(
+    place_name = self.driver.find_element(
+        By.XPATH,
         '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/table/tbody/tr[1]/td[2]/a'
     )
     place_name_text = place_name.text
@@ -286,5 +292,5 @@ class TestPlaceExplorer(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     # Check the title text
-    page_title = self.driver.find_element_by_id('place-name').text
+    page_title = self.driver.find_element(By.ID, 'place-name').text
     self.assertEqual(page_title, place_name_text)

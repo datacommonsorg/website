@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React from "react";
 
+import { INVALID_VARIABLE_MSG } from "../../constants";
 import { MappingTemplateProps } from "../../templates";
 import {
   Column,
@@ -29,113 +30,56 @@ import {
   MappingType,
   MappingVal,
 } from "../../types";
+import { isValidVariable } from "../../utils/validation";
 import { MappingColumnInput } from "../shared/mapping_column_input";
 import { MappingHeaderInput } from "../shared/mapping_header_input";
 import { MappingPlaceInput } from "../shared/mapping_place_input";
 
 export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
-  // Set of column indices that have been mapped.
-  const mappedColumnIndices = new Set();
-  props.userMapping &&
-    props.userMapping.forEach((mappingVal) => {
-      if (mappingVal.column) {
-        mappedColumnIndices.add(mappingVal.column.columnIdx);
-      }
-      if (mappingVal.headers) {
-        mappingVal.headers.forEach((col) => {
-          if (col) {
-            mappedColumnIndices.add(col.columnIdx);
-          }
-        });
-      }
-    });
-
-  // Function to run when mapping value is updated.
-  function onMappingValUpdate(
-    mappedThing: MappedThing,
-    mappingVal: MappingVal
-  ): void {
-    const newUserMapping = _.clone(props.userMapping);
-    if (_.isEmpty(mappingVal)) {
-      newUserMapping.delete(mappedThing);
-    } else {
-      newUserMapping.set(mappedThing, mappingVal);
-    }
-    props.onChangeUserMapping(newUserMapping);
-  }
-
   return (
-    <div id="single-var-multi-date">
-      <h3>Choose column titles containing data about these fields:</h3>
-      <table className="table">
-        <tbody>
-          <tr>
-            <td className="col-2">Place*:</td>
-            <td className="col-10">
-              <MappingPlaceInput
-                mappingType={MappingType.COLUMN}
-                mappingVal={props.userMapping.get(MappedThing.PLACE)}
-                onMappingValUpdate={(mappingVal: MappingVal) =>
-                  onMappingValUpdate(MappedThing.PLACE, mappingVal)
-                }
-                orderedColumns={props.csvData.orderedColumns}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Date*:</td>
-            <td>
-              <MappingPlaceInput
-                mappingType={MappingType.COLUMN}
-                mappingVal={props.userMapping.get(MappedThing.DATE)}
-                onMappingValUpdate={(mappingVal: MappingVal) =>
-                  onMappingValUpdate(MappedThing.DATE, mappingVal)
-                }
-                orderedColumns={props.csvData.orderedColumns}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Observation Value*:</td>
-            <td>
-              <MappingHeaderInput
-                mappedThingName={
-                  MAPPED_THING_NAMES[MappedThing.STAT_VAR] ||
-                  MappedThing.STAT_VAR
-                }
-                mappingVal={props.userMapping.get(MappedThing.STAT_VAR)}
-                onMappingValUpdate={(mappingVal: MappingVal) =>
-                  onMappingValUpdate(MappedThing.STAT_VAR, mappingVal)
-                }
-                orderedColumns={props.csvData.orderedColumns}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Unit:</td>
-            <td>
-              <MappingColumnInput
-                mappingVal={props.userMapping.get(MappedThing.UNIT)}
-                onMappingValUpdate={(mappingVal) =>
-                  onMappingValUpdate(MappedThing.UNIT, mappingVal)
-                }
-                orderedColumns={props.csvData.orderedColumns}
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Ignored columns:</td>
-            <td>
-              {props.csvData.orderedColumns.map((col: Column) => {
-                if (mappedColumnIndices.has(col.columnIdx)) {
-                  return "";
-                }
-                return col.header;
-              })}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="multi-var-col">
+      <MappingPlaceInput
+        mappingType={MappingType.COLUMN}
+        mappingVal={props.userMapping.get(MappedThing.PLACE)}
+        onMappingValUpdate={(mappingVal: MappingVal) =>
+          props.onMappingValUpdate(MappedThing.PLACE, mappingVal, false)
+        }
+        orderedColumns={props.csvData.orderedColumns}
+      />
+      <MappingColumnInput
+        mappedThing={MappedThing.DATE}
+        mappingVal={props.userMapping.get(MappedThing.DATE)}
+        onMappingValUpdate={(mappingVal: MappingVal) =>
+          props.onMappingValUpdate(MappedThing.DATE, mappingVal, false)
+        }
+        orderedColumns={props.csvData.orderedColumns}
+        isRequired={true}
+      />
+      <MappingHeaderInput
+        mappedThingName={
+          MAPPED_THING_NAMES[MappedThing.STAT_VAR] || MappedThing.STAT_VAR
+        }
+        mappingVal={props.userMapping.get(MappedThing.STAT_VAR)}
+        onMappingValUpdate={(mappingVal: MappingVal, hasInputErrors: boolean) =>
+          props.onMappingValUpdate(
+            MappedThing.STAT_VAR,
+            mappingVal,
+            hasInputErrors
+          )
+        }
+        orderedColumns={props.csvData.orderedColumns}
+        isValidHeader={isValidVariable}
+        invalidHeaderMsg={INVALID_VARIABLE_MSG}
+      />
+      <MappingColumnInput
+        mappedThing={MappedThing.UNIT}
+        mappingVal={props.userMapping.get(MappedThing.UNIT)}
+        onMappingValUpdate={(mappingVal) =>
+          props.onMappingValUpdate(MappedThing.UNIT, mappingVal, false)
+        }
+        orderedColumns={props.csvData.orderedColumns}
+        isRequired={false}
+      />
     </div>
   );
 }

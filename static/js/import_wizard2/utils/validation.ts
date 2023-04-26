@@ -154,3 +154,12 @@ export function checkMappings(mappings: Mapping): Array<string> {
 
   return errors;
 }
+
+/**
+ * Returns whether a variable is valid.
+ * @param variable the variable to check
+ */
+export function isValidVariable(variable: string): boolean {
+  // checks that there are no spaces within the string.
+  return !/\s/.test(variable.trim());
+}

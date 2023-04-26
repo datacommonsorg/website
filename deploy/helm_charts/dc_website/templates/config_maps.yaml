@@ -1,97 +1,39 @@
-# Copyright 2022 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: githash-configmap{{ .Values.resourceSuffix }}
+  name: ingress-config
   namespace: {{ .Values.namespace.name }}
 data:
-  website_hash.txt: {{ required "website githash is required" .Values.website.githash | quote }}
-  mixer_hash.txt: {{ required "mixer githash is required" .Values.mixer.githash | quote }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: store-config{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  bigquery.version: {{ required "bigqueryVersion is required." .Values.kgStoreConfig.bigqueryVersion }}
-  base_bigtable_info.yaml: {{  required "baseBigtableInfo is required." .Values.kgStoreConfig.baseBigtableInfo | quote }}
-  custom_bigtable_info.yaml: {{ .Values.kgStoreConfig.customBigtableInfo | quote }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: ai-config{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  ai.yaml: |
-    us-central1:
-      protocol: rest
-      endpoint_id: "2621578768245850112"
-      deployed_model_id: "1265982086267797504"
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: website-configmap{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  flaskEnv: {{ required "Flask env is required." .Values.website.flaskEnv }}
-  enableModel: {{ .Values.website.enableModel | quote }}
-  secret_project: {{ required "GCP project id for secrets is required." | .Values.website.secretGCPProjectID }}
-
----
-
-# Below are mixer only configs.
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: memdb-config{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  memdb.json: {{ .Values.memdbJSON | quote }}
-
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: mixer-configmap{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  mixerProject: {{ required "Mixer GCP project is required." .Values.mixer.gcpProjectID }}
-  serviceName:  {{ required "Mixer service name is required." .Values.mixer.serviceName }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: schema-mapping{{ .Values.resourceSuffix }}
-  namespace: {{ .Values.namespace.name }}
-data:
-  {{- range $key, $val := .Values.mixer.schemaConfigs }}
-  {{ $key }}: |
-    {{- $val | nindent 4 }}
+  rules: |
+  {{- range $serviceName, $group := .Values.serviceGroups }}
+    {{- if $group }}
+      dc-mixer-{{ $serviceName }}:
+      {{- range $index, $urlPath := $group.urlPaths }}
+        - {{ $urlPath }}
+      {{- end }}
+    {{- end }}
   {{- end }}
+
+
+{{- if .Values.nl.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nl-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  model.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
+{{- end }}
+
+
+{{- if .Values.website.redis.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: redis-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  redis.json: {{ required "Redis config file is required" .Values.website.redis.configFile | quote }}
+{{- end }}

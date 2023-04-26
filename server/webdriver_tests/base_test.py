@@ -50,7 +50,7 @@ class WebdriverBaseTest(LiveServerTestCase):
     """Runs at the beginning of every individual test."""
     # These options are needed to run ChromeDriver inside a Docker without a UI.
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless=new')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     if preferences:

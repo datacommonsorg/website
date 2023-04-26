@@ -27,14 +27,27 @@ import { Column, MappingType, MappingVal } from "../../types";
 interface MappingHeaderInputPropType {
   mappedThingName: string;
   mappingVal: MappingVal;
-  onMappingValUpdate: (mappingVal: MappingVal) => void;
+  onMappingValUpdate: (mappingVal: MappingVal, hasInputErrors: boolean) => void;
   orderedColumns: Array<Column>;
+  isValidHeader: (header: string) => boolean;
+  invalidHeaderMsg: string;
 }
 
 export function MappingHeaderInput(
   props: MappingHeaderInputPropType
 ): JSX.Element {
-  // handles when column selection changes for one of the header columns
+  // Handles when mapping value is updated
+  function onMappingValUpdate(mappingVal: MappingVal): void {
+    // Check if the mapping val has any header errors
+    const hasHeaderError =
+      mappingVal.headers &&
+      mappingVal.headers.findIndex(
+        (header) => header && !props.isValidHeader(header.header)
+      ) >= 0;
+    props.onMappingValUpdate(mappingVal, hasHeaderError);
+  }
+
+  // Handles when column selection changes for one of the header columns
   function onColumnSelectionChange(selection: string, headerIdx: number): void {
     const updatedMappingVal = props.mappingVal
       ? _.cloneDeep(props.mappingVal)
@@ -45,10 +58,10 @@ export function MappingHeaderInput(
       updatedMappingVal.headers.push(null);
     }
     updatedMappingVal.headers[headerIdx] = column;
-    props.onMappingValUpdate(updatedMappingVal);
+    onMappingValUpdate(updatedMappingVal);
   }
 
-  // handles when the name to use changes for one of the header columns
+  // Handles when the name to use changes for one of the header columns
   function onHeaderNameChange(name: string, headerIdx: number): void {
     const updatedMappingVal = props.mappingVal
       ? _.cloneDeep(props.mappingVal)
@@ -59,75 +72,94 @@ export function MappingHeaderInput(
     ) {
       updatedMappingVal.headers[headerIdx].header = name;
     }
-    props.onMappingValUpdate(updatedMappingVal);
+    onMappingValUpdate(updatedMappingVal);
   }
 
   const headers =
     props.mappingVal && props.mappingVal.headers
       ? props.mappingVal.headers
       : [null];
-
+  const label = `* The observation value columns are`;
   return (
-    <div className="mapping-headers">
-      {headers.map((col, idx) => {
-        return (
-          <div className="header-item" key={"header-item-" + idx}>
-            <div className="header-item-input-section">
-              <div className="header-input-subitem">
-                <span>Values*:</span>
-                <Input
-                  className="column-option-dropdown"
-                  type="select"
-                  value={col ? col.columnIdx : ""}
-                  onChange={(e) => onColumnSelectionChange(e.target.value, idx)}
-                >
-                  <option value="" key="">
-                    Select a column title
-                  </option>
-                  {props.orderedColumns.map((column, i) => (
-                    <option value={i} key={column.id}>
-                      Column: &ldquo;{column.header}&rdquo;
-                    </option>
-                  ))}
-                </Input>
+    <div className="mapping-input-section">
+      <div className="mapping-input-label">{label}</div>
+      <div className="mapping-headers">
+        {headers.map((col, idx) => {
+          const hasHeaderError = col && !props.isValidHeader(col.header);
+          return (
+            <div className="header-item" key={"header-item-" + idx}>
+              <div className="header-item-input-section">
+                <div className="header-input-subitem">
+                  <span className="header-input-label">Values*:</span>
+                  <div className="header-input-subitem-input">
+                    <Input
+                      className="column-option-dropdown"
+                      type="select"
+                      value={col ? col.columnIdx : ""}
+                      onChange={(e) =>
+                        onColumnSelectionChange(e.target.value, idx)
+                      }
+                    >
+                      <option value="" key="">
+                        Select a column title
+                      </option>
+                      {props.orderedColumns.map((column, i) => (
+                        <option value={i} key={column.id}>
+                          Column: &ldquo;{column.header}&rdquo;
+                        </option>
+                      ))}
+                    </Input>
+                  </div>
+                </div>
+                <div className="header-input-subitem">
+                  <span className="header-input-label">
+                    {props.mappedThingName}*:{" "}
+                  </span>
+                  <div className="header-input-subitem-input">
+                    <Input
+                      className={`column-header-value${
+                        hasHeaderError ? "-error" : ""
+                      }`}
+                      type="text"
+                      onChange={(e) => {
+                        onHeaderNameChange(e.target.value, idx);
+                      }}
+                      placeholder=""
+                      value={col ? col.header : ""}
+                      disabled={_.isEmpty(col)}
+                    />
+                    {hasHeaderError && (
+                      <span className="error-message">
+                        {props.invalidHeaderMsg}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="header-input-subitem">
-                <span>{props.mappedThingName}*: </span>
-                <Input
-                  className="column-header-value"
-                  type="text"
-                  onChange={(e) => {
-                    onHeaderNameChange(e.target.value, idx);
+              {headers.length > 1 && (
+                <span
+                  onClick={() => {
+                    const updatedMappingVal = _.cloneDeep(props.mappingVal);
+                    updatedMappingVal.headers.splice(idx, 1);
+                    onMappingValUpdate(updatedMappingVal);
                   }}
-                  placeholder=""
-                  value={col ? col.header : ""}
-                  disabled={_.isEmpty(col)}
-                />
-              </div>
+                  className="material-icons-outlined"
+                  title="Remove mapping"
+                >
+                  delete
+                </span>
+              )}
             </div>
-            {headers.length > 1 && (
-              <span
-                onClick={() => {
-                  const updatedMappingVal = _.cloneDeep(props.mappingVal);
-                  updatedMappingVal.headers.splice(idx, 1);
-                  props.onMappingValUpdate(updatedMappingVal);
-                }}
-                className="material-icons-outlined"
-                title="Remove mapping"
-              >
-                delete
-              </span>
-            )}
-          </div>
-        );
-      })}
-      <div
-        onClick={() => {
-          onColumnSelectionChange("", headers.length);
-        }}
-        className="mapping-header-input-add"
-      >
-        + Add mapping
+          );
+        })}
+        <div
+          onClick={() => {
+            onColumnSelectionChange("", headers.length);
+          }}
+          className="mapping-header-input-add"
+        >
+          + Add mapping
+        </div>
       </div>
     </div>
   );

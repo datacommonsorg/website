@@ -35,7 +35,7 @@ class TestPlaceDetection(unittest.TestCase):
 
     # Find some entry and verify it is correct.
     for country in country_mappings:
-      if country["id"] == "country/TON":
+      if country["dcid"] == "country/TON":
         self.assertEqual(country["name"], "Tonga")
         self.assertEqual(country["isoCode"], "TO")
         self.assertEqual(country["countryAlpha3Code"], "TON")
@@ -67,7 +67,7 @@ class TestPlaceDetection(unittest.TestCase):
                      DCProperty("countryNumericCode", "Numeric Code")),
         TypeProperty(DCType("Country", "Country"),
                      DCProperty("countryAlpha3Code", "Alpha 3 Code")),
-        TypeProperty(DCType("Country", "Country"), DCProperty("name", "Name")),
+        TypeProperty(DCType("Country", "Country"), DCProperty("dcid", "Dcid")),
         # State properties.
         TypeProperty(DCType("State", "State"),
                      DCProperty("isoCode", "ISO Code")),
@@ -75,7 +75,7 @@ class TestPlaceDetection(unittest.TestCase):
                      DCProperty("fips52AlphaCode", "US State Alpha Code")),
         TypeProperty(DCType("State", "State"), DCProperty("geoId",
                                                           "FIPS Code")),
-        TypeProperty(DCType("State", "State"), DCProperty("name", "Name")),
+        TypeProperty(DCType("State", "State"), DCProperty("dcid", "Dcid")),
     ]
 
     self.assertCountEqual(got, expected)
@@ -89,14 +89,15 @@ class TestPlaceDetection(unittest.TestCase):
       expected: TypeProperty
 
     test_cases: List[TestHelper] = [
-        TestHelper(name="country-name-detection",
+        TestHelper(name="country-dcid-detection",
                    input_vals=[
-                       "United states", "Norway", "sri lanka", "new zealand",
-                       "south africa", "australia", "Pakistan", "India",
-                       "bangladesh", "french Afars and Issas"
+                       "country/USA", "country/NOR", "country/LKA",
+                       "country/NZL", "country/ZAF", "country/AUS",
+                       "country/PAK", "country/IND", "country/BGD",
+                       "country/AFI"
                    ],
                    expected=TypeProperty(DCType("Country", "Country"),
-                                         DCProperty("name", "Name"))),
+                                         DCProperty("dcid", "Dcid"))),
         TestHelper(name="country-iso-detection",
                    input_vals=[
                        "us", "no", "lk", "nz", "sa", "au", "pk", "in", "bd",
@@ -233,21 +234,21 @@ class TestPlaceDetection(unittest.TestCase):
       expected: TypeProperty
 
     test_cases: List[TestHelper] = [
-        TestHelper(name="state-name-detection",
+        TestHelper(name="state-dcid-detection",
                    input_vals=[
-                       "california",
-                       "new york",
-                       "massahusetts",
-                       "new hampshire",
-                       "south dakota",
-                       "north dakota",
-                       "washington",
-                       "puerto rico",
-                       "michigan",
-                       "idaho",
+                       "geoId/06",
+                       "geoId/36",
+                       "geoId/25",
+                       "geoId/33",
+                       "geoId/46",
+                       "geoId/38",
+                       "geoId/53",
+                       "geoId/72",
+                       "geoId/26",
+                       "geoId/16",
                    ],
                    expected=TypeProperty(DCType("State", "State"),
-                                         DCProperty("name", "Name"))),
+                                         DCProperty("dcid", "Dcid"))),
         TestHelper(name="state-iso-detection",
                    input_vals=[
                        "US-CA",

@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -199,12 +199,14 @@ class TestApiSeriesWithin(unittest.TestCase):
     }
 
     def side_effect(url, data):
-      if url.endswith('/v1/bulk/observations/series/linked') and data == {
-          'linked_entity': 'country/USA',
-          'linked_property': 'containedInPlace',
-          'entity_type': 'State',
-          'variables': ['Count_Person', 'UnemploymentRate_Person'],
-          'all_facets': True
+      if url.endswith('/v2/observation') and data == {
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'expression': 'country/USA<-containedInPlace+{typeOf:State}'
+          },
+          'variable': {
+              'dcids': ['Count_Person', 'UnemploymentRate_Person']
+          },
       }:
         return mock_data.SERIES_WITHIN_ALL_FACETS
       if url.endswith('/v1/bulk/triples/out') and data == {

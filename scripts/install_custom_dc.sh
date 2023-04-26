@@ -14,7 +14,12 @@
 # limitations under the License.
 set -e
 
-CUSTOM_DC_RELEASE_TAG=custom-dc-v0.3.0
+CUSTOM_DC_RELEASE_TAG=$1
+
+if [[ -z "$CUSTOM_DC_RELEASE_TAG" ]]; then
+    echo "Should run this script with first argument being the custom dc version tag found from https://github.com/datacommonsorg/website/tags"
+    exit 1
+fi
 
 # In some environments (such as Cloud Shell), IPv6 is not enabled on the OS.
 # This causes problems during terraform runs. Fix is from the issue below.
@@ -156,27 +161,20 @@ if [[ -z "$MIXER_IMAGE_PROJECT_ID" ]]; then
   MIXER_IMAGE_PROJECT_ID="datcom-ci"
 fi
 
-helm upgrade --install \
-  dc-website deploy/helm_charts/dc_website \
-  --atomic \
-  --debug \
-  --timeout 10m \
-  --set website.image.project="$WEBSITE_IMAGE_PROJECT_ID" \
-  --set website.image.tag="$WEBSITE_GITHASH" \
-  --set website.githash="$WEBSITE_GITHASH" \
-  --set mixer.image.project="$MIXER_IMAGE_PROJECT_ID" \
-  --set mixer.image.tag="$MIXER_GITHASH" \
-  --set mixer.githash="$MIXER_GITHASH" \
-  --set website.gcpProjectID="$PROJECT_ID" \
-  --set website.domain="$DOMAIN" \
-  --set website.secretGCPProjectID="$PROJECT_ID" \
-  --set mixer.gcpProjectID="$PROJECT_ID" \
-  --set mixer.serviceName="website-esp.endpoints.$PROJECT_ID.cloud.goog" \
-  --set ingress.enabled=true \
-  --set-file mixer.schemaConfigs."base\.mcf"=mixer/deploy/mapping/base.mcf \
-  --set-file mixer.schemaConfigs."encode\.mcf"=mixer/deploy/mapping/encode.mcf \
-  --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
-  --set-file kgStoreConfig.baseBigtableInfo=mixer/deploy/storage/base_bigtable_info.yaml
+cd $ROOT
+if [[ ! -d yq ]];then
+ mkdir -p yq
+ cd yq
+ wget https://github.com/mikefarah/yq/releases/download/v4.33.3/yq_linux_amd64.tar.gz -O yq.tar.gz
+ tar xvf yq.tar.gz
+ sudo mv yq_linux_amd64 /usr/local/bin/yq
+ cd ..
+fi
+
+sh $WEBSITE_ROOT/scripts/deploy_gke_helm.sh \
+  -l $CLUSTER_LOCATION \
+  -p $PROJECT_ID \
+  -h $WEBSITE_GITHASH
 
 # Run the BT automation Terraform script to set up BT loader.
 cd $ROOT

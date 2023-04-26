@@ -34,7 +34,6 @@ class Consts:
   T_MUNICIPALITY: str = "Municipality"
 
   # DC Property DCIDs.
-  P_NAME: str = "name"
   P_LONG: str = "longitude"
   P_LAT: str = "latitude"
   P_ISO: str = "isoCode"
@@ -42,6 +41,7 @@ class Consts:
   P_NUMERIC: str = "countryNumericCode"
   P_FIPS52: str = "fips52AlphaCode"
   P_FIPS: str = "geoId"
+  P_DCID: str = "dcid"
 
   # Mapping helper constants.
   M_DATE: str = "Date"
@@ -63,7 +63,6 @@ PLACE_TYPES = frozendict.frozendict({
 # Possible Place properties must be encoded below.
 # Mapping from DC Property dcid to display name.
 PLACE_PROPERTIES = frozendict.frozendict({
-    Consts.P_NAME: "Name",
     Consts.P_LONG: "Longitude",
     Consts.P_LAT: "Latitude",
     Consts.P_ISO: "ISO Code",
@@ -71,6 +70,7 @@ PLACE_PROPERTIES = frozendict.frozendict({
     Consts.P_NUMERIC: "Numeric Code",
     Consts.P_FIPS52: "US State Alpha Code",
     Consts.P_FIPS: "FIPS Code",
+    Consts.P_DCID: "Dcid"
 })
 
 

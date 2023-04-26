@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 import server.lib.util as libutil
-import server.services.ai as ai
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
@@ -205,7 +204,7 @@ def create_app():
   if app.config['USE_MEMCACHE']:
     cache.init_app(app)
   else:
-    cache.init_app(app, {'CACHE_TYPE': 'null'})
+    cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
 
   # Configure ingress
   ingress_config_path = os.environ.get(
@@ -247,12 +246,18 @@ def create_app():
   app.config['RANKED_STAT_VARS'] = ranked_statvars
   app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
 
-  if not cfg.TEST and not cfg.LITE:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'maps-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  if cfg.TEST or cfg.LITE:
+    app.config['MAPS_API_KEY'] = ''
+  else:
+    # Get the API key from environment first.
+    if os.environ.get('MAPS_API_KEY'):
+      app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'maps-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   if cfg.ADMIN:
     secret_client = secretmanager.SecretManagerServiceClient()
@@ -277,22 +282,22 @@ def create_app():
   if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-  if cfg.NEED_API_KEY:
-    # Only need to fetch the API key for local development.
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'mixer-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  # Need to fetch the API key for non gcp environment.
+  if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
+    # Get the API key from environment first.
+    if os.environ.get('MIXER_API_KEY'):
+      app.config['MIXER_API_KEY'] = os.environ.get('MIXER_API_KEY')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'mixer-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['MIXER_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
-
-  # Enable the AI module.
-  if cfg.ENABLE_AI:
-    app.config['AI_CONTEXT'] = ai.Context()
 
   #   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':

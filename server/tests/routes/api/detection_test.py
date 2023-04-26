@@ -37,8 +37,8 @@ class TestDetection(unittest.TestCase):
             "display_name": "Country"
         },
         "dc_property": {
-            "dcid": "name",
-            "display_name": "Name"
+            "dcid": "isoCode",
+            "display_name": "ISO Code"
         },
     }
     self.assertTrue(expected_element_1 in response_type_prop_list)

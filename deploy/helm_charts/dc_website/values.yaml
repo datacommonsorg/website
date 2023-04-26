@@ -2,14 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-resourceSuffix: ""
-
-# Website service config.
+###############################################################################
+# Config for Website
+###############################################################################
 website:
-  # Domain is a the domain that the installer owns.
-  # The installer is responsible for adding an "A" record in
-  # the DNS that points to the global static ip referred in this file.
-  domain:
   githash:
 
   image:
@@ -18,15 +14,18 @@ website:
     tag:
 
   flaskEnv: "custom"
-  secretGCPProjectID:
-  enableModel: false
 
   # IAP(Identity Aware Proxy) config.
-  # iap can be enabled independently of ingress.
+  # IAP can be enabled independently of ingress.
   iap:
     enabled: false
-    clientID:
-    secret:
+
+  replicas:
+    default: 1
+
+  redis:
+    enabled: false
+    configFile:
 
 nameOverride: ""
 fullnameOverride: ""
@@ -42,14 +41,15 @@ namespace:
 serviceAccount:
   name: website-ksa
 
-ingress:
+singleClusterMode:
   name: website-ingress
-  enabled:
+  ipName: dc-website-ip
+  certName: dc-website-cert
+  enabled: false
 
 ###############################################################################
 # Config for Mixer helm chart
 ###############################################################################
-
 mixer:
   githash:
 
@@ -62,7 +62,7 @@ mixer:
     tmcfCSVBucket: ""
     tmcfCSVFolder: ""
 
-    gcpProjectID:
+    hostProject:
     serviceName:
 
     schemaConfigs:
@@ -73,15 +73,38 @@ esp:
     tag: "1"
     pullPolicy: Always
 
-replicas:
-  default: 1
-
 kgStoreConfig:
   bigqueryVersion:
   baseBigtableInfo:
   customBigtableInfo: ""
 
 memdbJSON: ""
+
+serviceGroups:
+  svg:
+    urlPaths:
+      - "/place/stat-var-group/*"
+      - "/stat-var/*"
+      - "/v1/info/variable-group/*"
+      - "/v1/variable/*"
+      - "/v1/bulk/info/variable-group"
+      - "/v1/bulk/info/variable"
+    replicas: 1
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
+    useSearch: true
+  default:
+    urlPaths:
+      - "/*"
+    replicas: 1
+    resources:
+      memoryRequest: "4G"
+      memoryLimit: "4G"
+
 ###############################################################################
-# END Config for Mixer helm chart
+# Config for NL
 ###############################################################################
+nl:
+  enabled: false
+  embeddings:

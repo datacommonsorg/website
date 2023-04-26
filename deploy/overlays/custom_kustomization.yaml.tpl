@@ -33,7 +33,7 @@ configMapGenerator:
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=<PROJECT_ID>
+      - hostProject=<PROJECT_ID>
       - serviceName=website-esp.endpoints.<PROJECT_ID>.cloud.goog
 
 patchesStrategicMerge:

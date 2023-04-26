@@ -133,7 +133,7 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
   start = time.time()
   points_data = util.point_core(entities=[place],
                                 variables=svs,
-                                date='',
+                                date='LATEST',
                                 all_facets=False)
   counters.timeit('rank_svs_by_latest_value', start)
 
@@ -146,7 +146,7 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
 
   reverse = False if order == detection.RankingType.LOW else True
   svs_with_vals = sorted(svs_with_vals,
-                         key=lambda pair: pair[1],
+                         key=lambda pair: (pair[1], pair[0]),
                          reverse=reverse)
   return [sv for sv, _ in svs_with_vals]
 
@@ -335,7 +335,7 @@ def _compute_place_to_denom(sv: str, places: List[str]):
   if sv != constants.DEFAULT_DENOMINATOR and is_percapita_relevant(sv):
     denom_data = util.point_core(entities=places,
                                  variables=[constants.DEFAULT_DENOMINATOR],
-                                 date='',
+                                 date='LATEST',
                                  all_facets=False)
     for _, sv_data in denom_data['data'].items():
       for place, point in sv_data.items():
@@ -350,13 +350,13 @@ def _compute_growth_ranked_lists(
     rank_order: detection.RankingType) -> GrowthRankedLists:
   # Rank by abs
   things_by_abs = sorted(things_with_vals,
-                         key=lambda pair: pair[1].abs,
+                         key=lambda pair: (pair[1].abs, pair[0]),
                          reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                        rank_order)])
 
   # Rank by pct
   things_by_pct = sorted(things_with_vals,
-                         key=lambda pair: pair[1].pct,
+                         key=lambda pair: (pair[1].pct, pair[0]),
                          reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                        rank_order)])
 
@@ -366,7 +366,7 @@ def _compute_growth_ranked_lists(
     if growth.pc != None:
       things_by_pc.append((place, growth))
   things_by_pc = sorted(things_by_pc,
-                        key=lambda pair: pair[1].pc,
+                        key=lambda pair: (pair[1].pc, pair[0]),
                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
                                                       rank_order)])
 
@@ -413,7 +413,7 @@ def filter_and_rank_places(
   api_resp = util.point_within_core(parent_entity=parent_place.dcid,
                                     child_type=child_type.value,
                                     variables=[sv],
-                                    date='',
+                                    date='LATEST',
                                     all_facets=False)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
@@ -426,7 +426,7 @@ def filter_and_rank_places(
 
   # Sort place_and_value by value
   child_and_value = sorted(child_and_value,
-                           key=lambda pair: pair[1],
+                           key=lambda pair: (pair[1], pair[0]),
                            reverse=True)
   child_ids = [id for id, _ in child_and_value]
   id2names = dc.property_values(child_ids, 'name')

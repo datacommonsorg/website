@@ -25,7 +25,6 @@ class Config:
   WEBDRIVER = False
   LOCAL = False
   LITE = False
-  ENABLE_AI = False
   ENABLE_BLOCKLIST = False
   # If the deployment is a custom instance.
   CUSTOM = False
@@ -37,8 +36,6 @@ class Config:
   # Eanbling this to "True" requires adding "bigtable/user" acccess for the
   # service account in datcom-store IAM settings
   LOG_QUERY = False
-  # Whether to use mixer api key
-  NEED_API_KEY = False
 
   # Environment name of the config.
   ENV = ''
@@ -48,9 +45,7 @@ class Config:
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   NL_ROOT = 'http://127.0.0.1:6060'  # Port for Kubernetes ESP.
-  AI_CONFIG_PATH = '/datacommons/ai/ai.yaml'
-  SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
-  MAPS_API_KEY = os.environ.get('MAPS_API_KEY') or ''
+  SECRET_PROJECT = ''
   GA_ACCOUNT = ''
   SCHEME = 'https'
   # Additional stat vars that need to be fetched for place page data.

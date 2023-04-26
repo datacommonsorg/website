@@ -34,15 +34,11 @@ configMapGenerator:
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=datcom-website-prod
+      - hostProject=datcom-website-prod
       - serviceName=website-esp.endpoints.datcom-website-prod.cloud.goog
   - name: redis-config
     files:
       - redis.json
-  - name: ai-config
-    behavior: replace
-    files:
-      - ai.yaml
 
 patchesStrategicMerge:
   - patch_deployment.yaml

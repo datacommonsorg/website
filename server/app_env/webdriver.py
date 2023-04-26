@@ -19,6 +19,4 @@ class Config(_base.Config):
   WEBDRIVER = True
   API_ROOT = 'https://autopush.api.datacommons.org'
   SECRET_PROJECT = 'datcom-website-dev'
-  AI_CONFIG_PATH = None  # No models in this configuration.
   SCHEME = 'http'
-  NEED_API_KEY = True

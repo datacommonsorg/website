@@ -1,0 +1,55 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Helm config
+project:
+# Should match the value of the variable cluster_name_prefix from
+# deploy/terraform-datacommons-website/examples/website_v1/variables.tf
+cluster_prefix: "datacommons"
+
+namespace:
+  name: "website"
+
+website:
+  image:
+    project:
+    tag:
+  githash:
+  flaskEnv: custom
+
+mixer:
+  hostProject:
+  serviceName:
+
+singleClusterMode:
+  enabled: true
+
+serviceAccount:
+  name: website-ksa
+
+serviceGroups:
+  recon: null
+  observation: null
+  svg: null
+  default:
+    replicas: 1
+    useSearch: true # No svg service, this needs to use search
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
+nl:
+  enabled: false
+
+customDC:
+  enabled: true

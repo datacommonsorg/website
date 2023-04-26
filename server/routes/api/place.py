@@ -882,46 +882,48 @@ def api_ranking_chart(dcid):
   # Make sure POPULATION_DCID is included in stat vars.
   if POPULATION_DCID not in stat_vars:
     stat_vars.add(POPULATION_DCID)
-  points_response_best = dc.obs_point_within(parent_place_dcid, place_type,
-                                             list(stat_vars), "", False)
-  sv_data = points_response_best.get("observationsByVariable")
-  sv_facets = points_response_best.get("facets")
-  if not points_response_best or not sv_data:
+  points_response = dc.obs_point_within(parent_place_dcid, place_type,
+                                        list(stat_vars), "LATEST")
+  obs_by_sv = points_response.get('byVariable', {})
+  if not points_response or not obs_by_sv:
     return Response(json.dumps(result), 200, mimetype='application/json')
-  # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
+  sv_facets = points_response.get('facets', {})
   places_to_rank = set()
-  for sv_data_points in sv_data:
-    if sv_data_points.get("variable") != POPULATION_DCID:
-      continue
-    for place_data in sv_data_points.get("observationsByEntity", []):
-      place_dcid = place_data.get("entity")
-      place_data_points = place_data.get("pointsByFacet")
+  # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
+  population_obs = obs_by_sv.get(POPULATION_DCID, {})
+  if population_obs:
+    for place_dcid, place_obs in population_obs.get('byEntity', {}).items():
+      place_data_points = place_obs.get('orderedFacets', [])
       if place_data_points:
-        value = place_data_points[0].get("value", 0)
+        value = place_data_points[0]['observations'][0].get('value', 0)
         if value > PERSON_COUNT_LIMIT:
           places_to_rank.add(place_dcid)
   # Get all the place names
   place_names = get_i18n_name(list(places_to_rank))
-  # Loop through sv_data to build the result data.
-  for sv_data_points in sv_data:
-    sv = sv_data_points.get("variable")
+  # Loop through var_obs to build the result data.
+  for sv, sv_obs in obs_by_sv.items():
     if sv not in config_sv_to_info:
       continue
     sources = set()
     dates = set()
     data_points = []
-    for place_data in sv_data_points.get("observationsByEntity", []):
-      place_dcid = place_data.get("entity")
+    for place_dcid, place_data in sv_obs.get("byEntity", {}).items():
       if place_dcid not in places_to_rank:
         continue
-      # Example of place_data_points: [{"date": "2022", "value": 123, "facet": 123456}].
-      place_data_points = place_data.get("pointsByFacet")
+      # Example of place_data_points:
+      # [
+      #   {
+      #     "facetId": "12345",
+      #     "observations": [{"date": "2022", "value": 123}]
+      #   }
+      # ]
+      place_data_points = place_data.get("orderedFacets")
       value, date, facet = None, None, None
       if place_data_points:
         place_data_point = place_data_points[0]
-        value = place_data_point.get("value")
-        date = place_data_point.get("date")
-        facet = place_data_point.get("facet")
+        value = place_data_point['observations'][0].get("value")
+        date = place_data_point['observations'][0].get("date")
+        facet = place_data_point.get("facetId")
       # Value is required for the calculation of ranking.
       if value is None:
         continue

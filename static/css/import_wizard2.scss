@@ -16,6 +16,8 @@
 
 @import "base";
 
+/* TODO: split into smaller scss files. */
+
 #main-body {
   padding-bottom: 6rem;
   padding-top: 3rem;
@@ -36,30 +38,10 @@ body {
   font-size: 1rem;
 }
 
-.form-control:focus {
-  border: 1.5px solid rgba(0, 0, 0, 0.5);
-  border-radius: 0.25rem;
-  box-shadow: none;
-  outline: none;
-}
-
 .nav-btn {
   background: #660000;
   border-color: none;
   font-size: 1rem;
-}
-
-.cont-btn {
-  margin-left: 0.5rem;
-}
-
-.upload-section-container {
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  position: relative;
 }
 
 .file-options-section {
@@ -135,10 +117,11 @@ tr th:last-child {
 .navigation-section {
   display: flex;
   margin-top: 1.5rem;
+  gap: 0.5rem;
 }
 
 .template-options-container {
-  margin: 1rem 0;
+  margin: 0 -0.5rem;
   max-height: 70vh;
   overflow-y: auto;
   display: flex;
@@ -255,22 +238,70 @@ tr th:last-child {
   text-decoration: underline;
 }
 
-#mapping-section section {
-  margin-bottom: 2em;
+#mapping-section {
+  @include media-breakpoint-up(md) {
+    max-height: 75vh;
+    overflow-y: auto;
+    padding-right: 2rem;
+  }
+
+  section {
+    margin-bottom: 2em;
+  }
 }
 
-#mapping-section td {
-  text-align: left;
+.file-details-page-content,
+.mapping-page-content {
+  display: flex;
+
+  @include media-breakpoint-down(sm) {
+    flex-wrap: wrap-reverse;
+  }
 }
 
-#mapping-section td:first-child {
-  max-width: 12%;
+.mapping-page-section,
+.file-details-page-section {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  position: relative;
+  max-width: 60%;
+}
+
+.mapping-input-section {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: var(--light);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+
+  .form-control {
+    font-size: 1rem;
+  }
+}
+
+.mapping-input-label {
+  padding-bottom: 0.5rem;
+}
+
+.file-preview-section {
+  height: 100%;
+  
+  @include media-breakpoint-up(md) {
+    padding-left: 2rem;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .file-preview-name {
+    margin-bottom: 1rem;
+    word-break: break-all;
+  }
 }
 
 .place-type-property-option {
   display: flex;
   align-items: center;
   padding: 0.7rem 0 0 0.5rem;
+  gap: 0.5rem;
 }
 
 .place-type-property-option span {
@@ -278,6 +309,8 @@ tr th:last-child {
 }
 
 .mapping-headers {
+  padding-left: 1rem;
+
   .header-item {
     display: flex;
     align-items: center;
@@ -289,11 +322,21 @@ tr th:last-child {
 
     .header-input-subitem {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       padding: 0.2rem 0;
+      flex-wrap: wrap;
 
-      span {
+      .header-input-label {
         width: 6rem;
+        flex-shrink: 0;
+        /* use same calculation for height of input boxes from bootstrap */
+        height: calc(1.5em + 0.75rem + 2px);
+        display: flex;
+        align-items: center;
+      }
+
+      .header-input-subitem-input {
+        flex-grow: 1;
       }
     }
 
@@ -321,4 +364,80 @@ tr th:last-child {
     background-color: #ccc;
     border-radius: 1rem;
   }
+}
+
+.column-header-value-error,
+.constant-value-input-error {
+  border-color: var(--dc-error);
+}
+
+.error-message {
+  width: fit-content;
+  font-size: 0.9rem;
+  color: var(--dc-error);
+}
+
+.file-upload-section {
+  margin: 1.5rem 0 2rem 0;
+
+  label {
+    padding: 0.5rem 1rem;
+    border: 1.5px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.25rem;
+    background-color: var(--light);
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  label:hover {
+    background-color: var(--dc-gray-lite);
+  }
+}
+
+.download-page-content {
+  width: fit-content;
+
+  .file-download-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 1rem 0;
+    justify-content: space-between;
+
+    span {
+      margin-right: 1rem;
+    }
+  }
+
+  .file-download-button {
+    padding: 0.25rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
+    background: var(--light);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      margin-right: 0;
+    }
+
+    #spinner::after {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      border-top: 3px solid var(--dc-primary);
+    }
+  }
+
+  .file-download-button:hover {
+    background-color: var(--dc-gray-lite);
+  }
+}
+
+.file-details-inputs {
+  padding-right: 2rem;
 }

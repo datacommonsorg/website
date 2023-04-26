@@ -407,8 +407,26 @@ export function statDataFromModels(
     }
   }
   mainStatData.sources = modelData.sources;
-  mainStatData.measurementMethods.add("Mean across models");
-  // Main stat data is mean of multiple facets, so unset facets here.
+  mainStatData.measurementMethods = new Set(["Mean across models"]);
+  // mainStatData only has sources, measurementMethods, and facets relevant for
+  // model stat vars. Go through all the data in mainStatData to add information
+  // for the non model stat vars.
+  for (const svData of Object.values(mainStatData.data)) {
+    for (const series of Object.values(svData)) {
+      const facetId = series.facet;
+      const metadata = allFacets[facetId];
+      if (!metadata) {
+        continue;
+      }
+      mainStatData.facets[facetId] = metadata;
+      if (metadata.provenanceUrl) {
+        mainStatData.sources.add(metadata.provenanceUrl);
+      }
+      if (metadata.measurementMethod) {
+        mainStatData.measurementMethods.add(metadata.measurementMethod);
+      }
+    }
+  }
   modelData.statVars = Array.from(new Set(modelData.statVars));
   modelData.dates = mainStatData.dates;
   return [mainStatData, modelData];
