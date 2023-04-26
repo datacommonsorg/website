@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,8 @@ bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
 @bp.route('/properties/<path:direction>/<path:dcid>')
 def get_properties(dcid, direction):
   """Returns all properties given a node dcid."""
-  return json.dumps(dc.properties(dcid, direction))
+  return json.dumps(
+      dc.properties([dcid], direction)[dcid].get('properties', []))
 
 
 @bp.route('/triples/<path:direction>/<path:dcid>')
