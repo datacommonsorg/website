@@ -55,8 +55,8 @@ serviceGroups:
   svg:
     replicas: 5
   observation:
-    replicas: 40
+    replicas: 50
   node:
-    replicas: 40
+    replicas: 50
   default:
-    replicas: 40
+    replicas: 20

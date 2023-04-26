@@ -52,12 +52,14 @@ nl:
 
 serviceGroups:
   recon: null
-  observation: null
-  node: null
+  observation:
+    replicas: 4
+  node:
+    replicas: 4
   svg:
     replicas: 2
   default:
-    replicas: 6
+    replicas: 2
 
 memdbJSON: |
   {
