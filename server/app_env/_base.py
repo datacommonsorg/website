@@ -25,7 +25,6 @@ class Config:
   WEBDRIVER = False
   LOCAL = False
   LITE = False
-  ENABLE_AI = False
   ENABLE_BLOCKLIST = False
   # If the deployment is a custom instance.
   CUSTOM = False
@@ -46,7 +45,6 @@ class Config:
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   NL_ROOT = 'http://127.0.0.1:6060'  # Port for Kubernetes ESP.
-  AI_CONFIG_PATH = '/datacommons/ai/ai.yaml'
   SECRET_PROJECT = ''
   GA_ACCOUNT = ''
   SCHEME = 'https'

@@ -47,10 +47,6 @@ const config = {
       __dirname + "/css/place/place.scss",
     ],
     place_landing: [__dirname + "/js/place/place_landing.ts"],
-    rich_search: [
-      __dirname + "/js/rich_search/rich_search.ts",
-      __dirname + "/css/rich_search.scss",
-    ],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",

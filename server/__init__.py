@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 import server.lib.util as libutil
-import server.services.ai as ai
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
@@ -205,7 +204,7 @@ def create_app():
   if app.config['USE_MEMCACHE']:
     cache.init_app(app)
   else:
-    cache.init_app(app, {'CACHE_TYPE': 'null'})
+    cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
 
   # Configure ingress
   ingress_config_path = os.environ.get(
@@ -299,10 +298,6 @@ def create_app():
   babel = Babel(app, default_domain='all')
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
-
-  # Enable the AI module.
-  if cfg.ENABLE_AI:
-    app.config['AI_CONTEXT'] = ai.Context()
 
   #   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':

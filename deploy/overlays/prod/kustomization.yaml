@@ -39,10 +39,6 @@ configMapGenerator:
   - name: redis-config
     files:
       - redis.json
-  - name: ai-config
-    behavior: replace
-    files:
-      - ai.yaml
 
 patchesStrategicMerge:
   - patch_deployment.yaml

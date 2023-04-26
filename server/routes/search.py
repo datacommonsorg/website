@@ -18,7 +18,6 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
-import server.services.ai as ai
 import server.services.datacommons as dc
 
 bp = Blueprint('search', __name__)
@@ -73,20 +72,3 @@ def search_dc():
   return flask.render_template('search_dc.html',
                                query_text=query_text,
                                results=results)
-
-
-@bp.route('/search_ai')
-def search_ai():
-  """Add DC API powered search for non-place searches temporarily"""
-  query_text = request.args.get('q', '')
-  results = [ai.search(current_app.config["AI_CONTEXT"], query_text)]
-  # TODO: Change the contents of the template as well
-  return flask.render_template('search_dc.html',
-                               query_text=query_text,
-                               results=results)
-
-
-@bp.route('/rich_search')
-def rich_search():
-  return flask.render_template('rich_search.html',
-                               maps_api_key=current_app.config['MAPS_API_KEY'])
