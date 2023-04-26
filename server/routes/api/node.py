@@ -20,6 +20,7 @@ from flask import request
 from flask import Response
 
 from server.cache import cache
+from server.lib import util
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
@@ -50,5 +51,5 @@ def get_property_value():
   prop = request.args.get('prop')
   if not prop:
     prop = request.json['prop']
-  response = dc.property_values(dcids, prop)
+  response = util.property_values(dcids, prop)
   return Response(json.dumps(response), 200, mimetype='application/json')

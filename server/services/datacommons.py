@@ -211,16 +211,6 @@ def properties(nodes, direction):
   }).get('data', {})
 
 
-def property_values_v1(nodes, prop, out=True):
-  """Retrieves the property values with V1 response."""
-  direction = 'out' if out else 'in'
-  url = get_service_url('/v1/bulk/property/values')
-  return post(f'{url}/{direction}', {
-      'nodes': sorted(set(nodes)),
-      'property': prop,
-  })
-
-
 def property_values(nodes, prop, out=True):
   """Retrieves the property values for a list of nodes.
 
@@ -229,17 +219,12 @@ def property_values(nodes, prop, out=True):
       prop: The property label to query for.
       out: Whether the property direction is 'out'.
   """
-  resp = property_values_v1(nodes, prop, out)
-  result = {}
-  for item in resp.get('data', []):
-    node, values = item['node'], item.get('values', [])
-    result[node] = []
-    for v in values:
-      if 'dcid' in v:
-        result[node].append(v['dcid'])
-      else:
-        result[node].append(v['value'])
-  return result
+  direction = '->' if out else '<-'
+  url = get_service_url('/v2/node')
+  return post(url, {
+      'nodes': sorted(set(nodes)),
+      'property': direction + prop,
+  })
 
 
 def get_place_info(dcids: List[str]) -> Dict:
