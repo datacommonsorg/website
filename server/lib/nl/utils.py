@@ -845,8 +845,8 @@ def is_multi_sv(uttr: nl_uttr.Utterance) -> bool:
 
   # Prefer multi-sv when the scores are higher or up to a score differential.
   if (top_multi_sv_score > top_sv_score or
-      (top_sv_score - top_multi_sv_score
-       <= shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
+      (top_sv_score - top_multi_sv_score <=
+       shared_constants.MULTI_SV_SCORE_DIFFERENTIAL)):
     return True
   return False
 
