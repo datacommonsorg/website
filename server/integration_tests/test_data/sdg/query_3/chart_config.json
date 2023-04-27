@@ -20,6 +20,20 @@
                     ],
                     "title": "Proportion of women of reproductive age who have their need for family planning satisfied with modern methods: 15 to 49 years old, Female in the World (${date})",
                     "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SP_DYN_ADKL_15-19_FEMALE"
+                    ],
+                    "title": "Adolescent birth rate: 15 to 19 years old, Female in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM_15-49_FEMALE"
+                    ],
+                    "title": "Proportion of women aged 15-49 years with anaemia: 15 to 49 years old, Female in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
@@ -226,6 +240,10 @@
             "name": "Age-standardized prevalence of current tobacco use among persons aged 15 years and older: 15 years old and over",
             "statVar": "sdg/SH_PRV_SMOK_15GEQ"
           },
+          "sdg/SH_STA_ANEM_15-49_FEMALE": {
+            "name": "Proportion of women aged 15-49 years with anaemia: 15 to 49 years old, Female",
+            "statVar": "sdg/SH_STA_ANEM_15-49_FEMALE"
+          },
           "sdg/SH_STA_MORT_FEMALE": {
             "name": "Maternal mortality ratio: Female",
             "statVar": "sdg/SH_STA_MORT_FEMALE"
@@ -245,6 +263,10 @@
           "sdg/SH_XPD_EARN25": {
             "name": "Proportion of population with large household expenditures on health as a share of total household expenditure or income",
             "statVar": "sdg/SH_XPD_EARN25"
+          },
+          "sdg/SP_DYN_ADKL_15-19_FEMALE": {
+            "name": "Adolescent birth rate: 15 to 19 years old, Female",
+            "statVar": "sdg/SP_DYN_ADKL_15-19_FEMALE"
           }
         }
       }

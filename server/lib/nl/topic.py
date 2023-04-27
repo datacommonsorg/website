@@ -309,8 +309,8 @@ _PEER_GROUP_TO_OVERRIDE = {
     "dc/svpg/SDG_3_WomensHealth": [
         "sdg/SH_STA_MORT_FEMALE",
         "sdg/SH_FPL_MTMM_15-49_FEMALE",
-        "sdg/sdg/SP_DYN_ADKL_15-19_FEMALE",
-        "sdg/sdg/SH_STA_ANEM_15-49_FEMALE",
+        "sdg/SP_DYN_ADKL_15-19_FEMALE",
+        "sdg/SH_STA_ANEM_15-49_FEMALE",
     ],
     "dc/svpg/SDG_3_PreventableChildDeaths": [
         "sdg/SH_DYN_IMRT_LT1Y",
@@ -319,6 +319,7 @@ _PEER_GROUP_TO_OVERRIDE = {
     ],
     "dc/svpg/SDG_3_EpidemicEradication": [
         "sdg/SH_HIV_INCD",
+        "SH_TBS_INCD",
         "sdg/SH_HAP_HBSAG_LT5Y",
         "sdg/SH_TRP_INTVN",
     ],
