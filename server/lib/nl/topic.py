@@ -81,17 +81,17 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/TransportationEmissionsByGas"
     ],
     "dc/topic/SDG_1": [
-        "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX",
-        "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByAge",
-        "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByGender",
-        "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByResidence",
-        "sdg/SP_ACS_BSRVH2O_ALLAREA_E",
-        "sdg/SP_ACS_BSRVSAN_ALLAREA_E",
-        "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX",
-        "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender",
+        "sdg/SI_POV_DAY1",
+        "dc/svpg/SI_POV_DAY1_ByAge",
+        "dc/svpg/SI_POV_DAY1_ByGender",
+        "dc/svpg/SI_POV_DAY1_ByResidence",
+        "sdg/SP_ACS_BSRVH2O",
+        "sdg/SP_ACS_BSRVSAN",
+        "sdg/SI_POV_EMP1_15GEQ",
+        "dc/svpg/SI_POV_EMP1_15GEQ_ByGender",
     ],
     "dc/topic/SDG_2": [
-        "sdg/SN_ITK_DEFC_E", "sdg/SH_STA_STNT_lt5Y_M", "sdg/SH_STA_WAST_lt5Y_CA"
+        "sdg/SN_ITK_DEFC", "sdg/SH_STA_STNT_LT5Y", "sdg/SH_STA_WAST_LT5Y"
     ],
     "dc/topic/SDG_3": [
         "dc/svpg/SDG_3_WomensHealth",
@@ -102,10 +102,10 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/SDG_3_HealthWorkerDensity",
     ],
     "dc/topic/MaternalHealth": [
-        "sdg/SH_STA_MORT_E_FEMALE",
-        "sdg/SH_FPL_MTMM_15-49_CA_FEMALE",
-        "sdg/SP_DYN_ADKL_15-19_C_FEMALE",
-        "sdg/SH_STA_ANEM_15-49_E_FEMALE",
+        "sdg/SH_STA_MORT_FEMALE",
+        "sdg/SH_FPL_MTMM_15-49_FEMALE",
+        "sdg/SP_DYN_ADKL_15-19_FEMALE",
+        "sdg/SH_STA_ANEM_15-49_FEMALE",
     ]
 }
 
@@ -289,54 +289,54 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Transportation",
         "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Transportation"
     ],
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByAge": [
-        "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX",
-        "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX",
-        "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX",
+    "dc/svpg/SI_POV_DAY1_ByAge": [
+        "sdg/SI_POV_DAY1_LT15Y",
+        "sdg/SI_POV_DAY1_15-64",
+        "sdg/SI_POV_DAY1_65GEQ",
     ],
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByGender": [
-        "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE",
-        "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE",
+    "dc/svpg/SI_POV_DAY1_ByGender": [
+        "sdg/SI_POV_DAY1_FEMALE",
+        "sdg/SI_POV_DAY1_MALE",
     ],
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByResidence": [
-        "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX",
-        "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX",
+    "dc/svpg/SI_POV_DAY1_ByResidence": [
+        "sdg/SI_POV_DAY1_URBAN",
+        "sdg/SI_POV_DAY1_RURAL",
     ],
-    "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender": [
-        "sdg/SI_POV_EMP1_15gte_M_A_FEMALE",
-        "sdg/SI_POV_EMP1_15gte_M_A_MALE",
+    "dc/svpg/SI_POV_EMP1_15GEQ_ByGender": [
+        "sdg/SI_POV_EMP1_15GEQ_FEMALE",
+        "sdg/SI_POV_EMP1_15GEQ_MALE",
     ],
     "dc/svpg/SDG_3_WomensHealth": [
-        "sdg/SH_STA_MORT_E_FEMALE",
-        "sdg/SH_FPL_MTMM_15-49_CA_FEMALE",
-        "sdg/SP_DYN_ADKL_15-19_C_FEMALE",
-        "sdg/SH_STA_ANEM_15-49_E_FEMALE",
+        "sdg/SH_STA_MORT_FEMALE",
+        "sdg/SH_FPL_MTMM_15-49_FEMALE",
+        "sdg/SP_DYN_ADKL_15-19_FEMALE",
+        "sdg/SH_STA_ANEM_15-49_FEMALE",
     ],
     "dc/svpg/SDG_3_PreventableChildDeaths": [
-        "sdg/SH_DYN_IMRT_lt1Y_E_BOTHSEX",
-        "sdg/SH_DYN_MORT_lt5Y_E_BOTHSEX",
-        "sdg/SH_DYN_NMRT_lt1M_E_BOTHSEX",
+        "sdg/SH_DYN_IMRT_LT1Y",
+        "sdg/SH_DYN_MORT_LT5Y",
+        "sdg/SH_DYN_NMRT_LT1M",
     ],
     "dc/svpg/SDG_3_EpidemicEradication": [
-        "sdg/SH_HIV_INCD_ALLAGE_E_BOTHSEX",
-        "sdg/SH_TBS_INCD_E",
-        "sdg/SH_HAP_HBSAG_lt5Y_E",
-        "sdg/SH_TRP_INTVN_CA",
+        "sdg/SH_HIV_INCD",
+        "sdg/SH_TBS_INCD",
+        "sdg/SH_HAP_HBSAG_LT5Y",
+        "sdg/SH_TRP_INTVN",
     ],
     "dc/svpg/SDG_3_HealthInsurance": [
-        "sdg/SH_ACS_UNHC_E",
-        "sdg/SH_XPD_EARN10_G",
-        "sdg/SH_XPD_EARN25_G",
+        "sdg/SH_ACS_UNHC",
+        "sdg/SH_XPD_EARN10",
+        "sdg/SH_XPD_EARN25",
     ],
     "dc/svpg/SDG_3_HealthWorkerDensity": [
-        "sdg/SH_MED_DEN_C_PHYS",
-        "sdg/SH_MED_DEN_C_NURSMID",
-        "sdg/SH_MED_DEN_C_PHAR",
-        "sdg/SH_MED_DEN_C_DENT",
+        "sdg/SH_MED_DEN_PHYS",
+        "sdg/SH_MED_DEN_NURSMID",
+        "sdg/SH_MED_DEN_PHAR",
+        "sdg/SH_MED_DEN_DENT",
     ],
     "dc/svpg/SDG_3_TobaccoAndAlcohol": [
-        "sdg/SH_PRV_SMOK_15gte_E_BOTHSEX",
-        "sdg/SH_SUD_ALCOL_15gte_NA_BOTHSEX",
+        "sdg/SH_PRV_SMOK_15GEQ",
+        "sdg/SH_SUD_ALCOL_15GEQ",
     ],
 }
 
@@ -375,14 +375,14 @@ _SVPG_NAMES_OVERRIDE = {
         "Emissions from Power Sector",
     "dc/svpg/TransportationEmissionsByGas":
         "Emissions from Transportation Sector",
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByAge":
+    "dc/svpg/SI_POV_DAY1_ByAge":
         "Population below international poverty line by age",
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByGender":
+    "dc/svpg/SI_POV_DAY1_ByGender":
         "Population below international poverty line by gender",
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByResidence":
+    "dc/svpg/SI_POV_DAY1_ByResidence":
         ""
         "Population below international poverty line in rural vs. urban areas",
-    "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender":
+    "dc/svpg/SI_POV_EMP1_15GEQ_ByGender":
         "Employed population below international poverty line by gender",
     "dc/svpg/SDG_3_WomensHealth":
         "Women's health",
