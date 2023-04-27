@@ -11,28 +11,28 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Proportion of population below international poverty line in Countries of Africa (${date})",
+                    "title": "Population living below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Proportion of population using basic drinking water services in Countries of Africa (${date})",
+                    "title": "Access to basic drinking water services in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": "Proportion of population using basic sanitation services in Countries of Africa (${date})",
+                    "title": "Access to basic sanitation services in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_EMP1_15GEQ"
                     ],
-                    "title": "Employed population below international poverty line: 15 years old and over in Countries of Africa (${date})",
+                    "title": "Employed population below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -47,26 +47,27 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_LT15Y"
                     ],
-                    "title": "Proportion of population below international poverty line: under 15 years old in Countries of Africa (${date})",
+                    "title": "Population under 15 years old below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_15-64"
                     ],
-                    "title": "Proportion of population below international poverty line: 15 to 64 years old in Countries of Africa (${date})",
+                    "title": "Population 15 to 64 years old below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_65GEQ"
                     ],
-                    "title": "Proportion of population below international poverty line: 65 years old and over in Countries of Africa (${date})",
+                    "title": "Population 65 years and over below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population below international poverty line by age"
           },
           {
             "columns": [
@@ -76,19 +77,20 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_FEMALE"
                     ],
-                    "title": "Proportion of population below international poverty line: Female in Countries of Africa (${date})",
+                    "title": "Female population below poverty international line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_MALE"
                     ],
-                    "title": "Proportion of population below international poverty line: Male in Countries of Africa (${date})",
+                    "title": "Male population below poverty international line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population below international poverty line by gender"
           },
           {
             "columns": [
@@ -98,19 +100,20 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_URBAN"
                     ],
-                    "title": "Proportion of population below international poverty line: Urban in Countries of Africa (${date})",
+                    "title": "Urban population below poverty international line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_RURAL"
                     ],
-                    "title": "Proportion of population below international poverty line: Rural in Countries of Africa (${date})",
+                    "title": "Rural population below poverty international line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population below international poverty line in rural vs. urban areas"
           },
           {
             "columns": [
@@ -120,72 +123,73 @@
                     "statVarKey": [
                       "sdg/SI_POV_EMP1_15GEQ_FEMALE"
                     ],
-                    "title": "Employed population below international poverty line: 15 years old and over, Female in Countries of Africa (${date})",
+                    "title": "Employed female population below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_EMP1_15GEQ_MALE"
                     ],
-                    "title": "Employed population below international poverty line: 15 years old and over, Male in Countries of Africa (${date})",
+                    "title": "Employed male population below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Employed population below international poverty line by gender"
           }
         ],
         "statVarSpec": {
           "sdg/SI_POV_DAY1": {
-            "name": "Proportion of population below international poverty line",
+            "name": "Population living below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_DAY1_15-64": {
-            "name": "Proportion of population below international poverty line: 15 to 64 years old",
+            "name": "Population 15 to 64 years old below international poverty line",
             "statVar": "sdg/SI_POV_DAY1_15-64"
           },
           "sdg/SI_POV_DAY1_65GEQ": {
-            "name": "Proportion of population below international poverty line: 65 years old and over",
+            "name": "Population 65 years and over below international poverty line",
             "statVar": "sdg/SI_POV_DAY1_65GEQ"
           },
           "sdg/SI_POV_DAY1_FEMALE": {
-            "name": "Proportion of population below international poverty line: Female",
+            "name": "Female population below poverty international line",
             "statVar": "sdg/SI_POV_DAY1_FEMALE"
           },
           "sdg/SI_POV_DAY1_LT15Y": {
-            "name": "Proportion of population below international poverty line: under 15 years old",
+            "name": "Population under 15 years old below international poverty line",
             "statVar": "sdg/SI_POV_DAY1_LT15Y"
           },
           "sdg/SI_POV_DAY1_MALE": {
-            "name": "Proportion of population below international poverty line: Male",
+            "name": "Male population below poverty international line",
             "statVar": "sdg/SI_POV_DAY1_MALE"
           },
           "sdg/SI_POV_DAY1_RURAL": {
-            "name": "Proportion of population below international poverty line: Rural",
+            "name": "Rural population below poverty international line",
             "statVar": "sdg/SI_POV_DAY1_RURAL"
           },
           "sdg/SI_POV_DAY1_URBAN": {
-            "name": "Proportion of population below international poverty line: Urban",
+            "name": "Urban population below poverty international line",
             "statVar": "sdg/SI_POV_DAY1_URBAN"
           },
           "sdg/SI_POV_EMP1_15GEQ": {
-            "name": "Employed population below international poverty line: 15 years old and over",
+            "name": "Employed population below international poverty line",
             "statVar": "sdg/SI_POV_EMP1_15GEQ"
           },
           "sdg/SI_POV_EMP1_15GEQ_FEMALE": {
-            "name": "Employed population below international poverty line: 15 years old and over, Female",
+            "name": "Employed female population below international poverty line",
             "statVar": "sdg/SI_POV_EMP1_15GEQ_FEMALE"
           },
           "sdg/SI_POV_EMP1_15GEQ_MALE": {
-            "name": "Employed population below international poverty line: 15 years old and over, Male",
+            "name": "Employed male population below international poverty line",
             "statVar": "sdg/SI_POV_EMP1_15GEQ_MALE"
           },
           "sdg/SP_ACS_BSRVH2O": {
-            "name": "Proportion of population using basic drinking water services",
+            "name": "Access to basic drinking water services",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
           "sdg/SP_ACS_BSRVSAN": {
-            "name": "Proportion of population using basic sanitation services",
+            "name": "Access to basic sanitation services",
             "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }

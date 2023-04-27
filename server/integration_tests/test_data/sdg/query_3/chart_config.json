@@ -11,28 +11,28 @@
                     "statVarKey": [
                       "sdg/SH_STA_MORT_FEMALE"
                     ],
-                    "title": "Maternal mortality ratio: Female in the World (${date})",
+                    "title": "Maternal mortality ratio in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_FPL_MTMM_15-49_FEMALE"
                     ],
-                    "title": "Proportion of women of reproductive age who have their need for family planning satisfied with modern methods: 15 to 49 years old, Female in the World (${date})",
+                    "title": "Access to modern family planning for women in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SP_DYN_ADKL_15-19_FEMALE"
                     ],
-                    "title": "Adolescent birth rate: 15 to 19 years old, Female in the World (${date})",
+                    "title": "Birth rate for adolescent women in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_STA_ANEM_15-49_FEMALE"
                     ],
-                    "title": "Proportion of women aged 15-49 years with anaemia: 15 to 49 years old, Female in the World (${date})",
+                    "title": "Prevalence on anaemia in women in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -48,21 +48,21 @@
                     "statVarKey": [
                       "sdg/SH_DYN_IMRT_LT1Y"
                     ],
-                    "title": "Infant mortality rate: under 1 year old in the World (${date})",
+                    "title": "Infant mortality rate in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_DYN_MORT_LT5Y"
                     ],
-                    "title": "Under-five mortality rate: under 5 years old in the World (${date})",
+                    "title": "Mortality rate for children under 5 years in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT_LT1M"
                     ],
-                    "title": "Neonatal mortality rate: under 1 month old in the World (${date})",
+                    "title": "Neonatal mortality rate in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -78,21 +78,28 @@
                     "statVarKey": [
                       "sdg/SH_HIV_INCD"
                     ],
-                    "title": "new HIV infections per 1,000 uninfected population in the World (${date})",
+                    "title": "Incidence of HIV infections in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_TBS_INCD"
+                    ],
+                    "title": "Incidence of Tuberculosis in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_HAP_HBSAG_LT5Y"
                     ],
-                    "title": "Prevalence of hepatitis B surface antigen: under 5 years old in the World (${date})",
+                    "title": "Prevalence of hepatitis B in children under 5 years in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_TRP_INTVN"
                     ],
-                    "title": "people requiring interventions against neglected tropical diseases in the World (${date})",
+                    "title": "Need for intervention against neglected tropical diseases in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -108,21 +115,21 @@
                     "statVarKey": [
                       "sdg/SH_ACS_UNHC"
                     ],
-                    "title": "Universal health coverage service coverage index in the World (${date})",
+                    "title": "Universal health coverage index in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_XPD_EARN10"
                     ],
-                    "title": "Proportion of population with large household expenditures on health as a share of total household expenditure or income in the World (${date})",
+                    "title": "Population with health spending over 10% of household expenditure or income in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_XPD_EARN25"
                     ],
-                    "title": "Proportion of population with large household expenditures on health as a share of total household expenditure or income in the World (${date})",
+                    "title": "Population with health spending over 25% of household expenditure or income in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -138,14 +145,14 @@
                     "statVarKey": [
                       "sdg/SH_PRV_SMOK_15GEQ"
                     ],
-                    "title": "Age-standardized prevalence of current tobacco use among persons aged 15 years and older: 15 years old and over in the World (${date})",
+                    "title": "Prevalence of tobacco use in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_SUD_ALCOL_15GEQ"
                     ],
-                    "title": "Alcohol use disorders, 12-month prevalence: 15 years old and over in the World (${date})",
+                    "title": "Prevalence of alcohol use disorder in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -161,28 +168,28 @@
                     "statVarKey": [
                       "sdg/SH_MED_DEN_PHYS"
                     ],
-                    "title": "Health worker density: Medical doctors in the World (${date})",
+                    "title": "Density of medical doctors in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_MED_DEN_NURSMID"
                     ],
-                    "title": "Health worker density: Nursing and midwifery personnel in the World (${date})",
+                    "title": "Density of nurses and midwives in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_MED_DEN_PHAR"
                     ],
-                    "title": "Health worker density: Pharmacists in the World (${date})",
+                    "title": "Density of pharmacists in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_MED_DEN_DENT"
                     ],
-                    "title": "Health worker density: Dentists in the World (${date})",
+                    "title": "Density of dentists in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -193,79 +200,83 @@
         ],
         "statVarSpec": {
           "sdg/SH_ACS_UNHC": {
-            "name": "Universal health coverage service coverage index",
+            "name": "Universal health coverage index",
             "statVar": "sdg/SH_ACS_UNHC"
           },
           "sdg/SH_DYN_IMRT_LT1Y": {
-            "name": "Infant mortality rate: under 1 year old",
+            "name": "Infant mortality rate",
             "statVar": "sdg/SH_DYN_IMRT_LT1Y"
           },
           "sdg/SH_DYN_MORT_LT5Y": {
-            "name": "Under-five mortality rate: under 5 years old",
+            "name": "Mortality rate for children under 5 years",
             "statVar": "sdg/SH_DYN_MORT_LT5Y"
           },
           "sdg/SH_DYN_NMRT_LT1M": {
-            "name": "Neonatal mortality rate: under 1 month old",
+            "name": "Neonatal mortality rate",
             "statVar": "sdg/SH_DYN_NMRT_LT1M"
           },
           "sdg/SH_FPL_MTMM_15-49_FEMALE": {
-            "name": "Proportion of women of reproductive age who have their need for family planning satisfied with modern methods: 15 to 49 years old, Female",
+            "name": "Access to modern family planning for women",
             "statVar": "sdg/SH_FPL_MTMM_15-49_FEMALE"
           },
           "sdg/SH_HAP_HBSAG_LT5Y": {
-            "name": "Prevalence of hepatitis B surface antigen: under 5 years old",
+            "name": "Prevalence of hepatitis B in children under 5 years",
             "statVar": "sdg/SH_HAP_HBSAG_LT5Y"
           },
           "sdg/SH_HIV_INCD": {
-            "name": "new HIV infections per 1,000 uninfected population",
+            "name": "Incidence of HIV infections",
             "statVar": "sdg/SH_HIV_INCD"
           },
           "sdg/SH_MED_DEN_DENT": {
-            "name": "Health worker density: Dentists",
+            "name": "Density of dentists",
             "statVar": "sdg/SH_MED_DEN_DENT"
           },
           "sdg/SH_MED_DEN_NURSMID": {
-            "name": "Health worker density: Nursing and midwifery personnel",
+            "name": "Density of nurses and midwives",
             "statVar": "sdg/SH_MED_DEN_NURSMID"
           },
           "sdg/SH_MED_DEN_PHAR": {
-            "name": "Health worker density: Pharmacists",
+            "name": "Density of pharmacists",
             "statVar": "sdg/SH_MED_DEN_PHAR"
           },
           "sdg/SH_MED_DEN_PHYS": {
-            "name": "Health worker density: Medical doctors",
+            "name": "Density of medical doctors",
             "statVar": "sdg/SH_MED_DEN_PHYS"
           },
           "sdg/SH_PRV_SMOK_15GEQ": {
-            "name": "Age-standardized prevalence of current tobacco use among persons aged 15 years and older: 15 years old and over",
+            "name": "Prevalence of tobacco use",
             "statVar": "sdg/SH_PRV_SMOK_15GEQ"
           },
           "sdg/SH_STA_ANEM_15-49_FEMALE": {
-            "name": "Proportion of women aged 15-49 years with anaemia: 15 to 49 years old, Female",
+            "name": "Prevalence on anaemia in women",
             "statVar": "sdg/SH_STA_ANEM_15-49_FEMALE"
           },
           "sdg/SH_STA_MORT_FEMALE": {
-            "name": "Maternal mortality ratio: Female",
+            "name": "Maternal mortality ratio",
             "statVar": "sdg/SH_STA_MORT_FEMALE"
           },
           "sdg/SH_SUD_ALCOL_15GEQ": {
-            "name": "Alcohol use disorders, 12-month prevalence: 15 years old and over",
+            "name": "Prevalence of alcohol use disorder",
             "statVar": "sdg/SH_SUD_ALCOL_15GEQ"
           },
+          "sdg/SH_TBS_INCD": {
+            "name": "Incidence of Tuberculosis",
+            "statVar": "sdg/SH_TBS_INCD"
+          },
           "sdg/SH_TRP_INTVN": {
-            "name": "people requiring interventions against neglected tropical diseases",
+            "name": "Need for intervention against neglected tropical diseases",
             "statVar": "sdg/SH_TRP_INTVN"
           },
           "sdg/SH_XPD_EARN10": {
-            "name": "Proportion of population with large household expenditures on health as a share of total household expenditure or income",
+            "name": "Population with health spending over 10% of household expenditure or income",
             "statVar": "sdg/SH_XPD_EARN10"
           },
           "sdg/SH_XPD_EARN25": {
-            "name": "Proportion of population with large household expenditures on health as a share of total household expenditure or income",
+            "name": "Population with health spending over 25% of household expenditure or income",
             "statVar": "sdg/SH_XPD_EARN25"
           },
           "sdg/SP_DYN_ADKL_15-19_FEMALE": {
-            "name": "Adolescent birth rate: 15 to 19 years old, Female",
+            "name": "Birth rate for adolescent women",
             "statVar": "sdg/SP_DYN_ADKL_15-19_FEMALE"
           }
         }

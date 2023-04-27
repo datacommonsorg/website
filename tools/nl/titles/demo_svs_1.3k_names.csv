@@ -1065,7 +1065,7 @@ Prevalence: Asthma in Children,Percent_Person_Children_WithAsthma,Percent of Chi
 "Prevalence of 65 Or More Years, All Teeth Loss",Percent_Person_65OrMoreYears_WithAllTeethLoss,Percentage of Population Over 65 Years Old Who Have Complete Tooth Loss,Percentage of Population Over 65 Years Old Who Have Complete Tooth Loss,percent of Population that have all teeth loss among Population who are 65 years or older in age;Percentage of Population Over 65 Years Old Who Have Complete Tooth Loss;
 "Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication",Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication,Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;,Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;,percent of  Population with high blood pressure who are taking blood pressure medication  among Population who are 18 years or older in age;Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;;
 Gender Income Inequality,GenderIncomeInequality_Person_15OrMoreYears_WithIncome,Income Inequality Between Men and Women of Working Age,Income Inequality Between Men and Women of Working Age,Pay gap between men and women;Income inequality between men and women;Income Inequality Between Men and Women of Working Age;Inequality in income between men and women of working age; Disparity in earnings between men and women of working age; Difference in income between men and women of working age; Gap in pay between men and women of working age; Variance in income between men and women of working age
-Median Income,Median_Income_Person,Median Income of a Population,Median Income of a Population,Median pay; Median income;Middle income in a population;Median Income of a Population;Median income of the population; Middle income of the population; Average income of the population; Mean income of the population; Typical income of the population
+Median Income,Median_Income_Person,Median Income of a Population,Individual Median Income,Median pay; Median income;Middle income in a population;Median Income of a Population;Median income of the population; Middle income of the population; Average income of the population; Mean income of the population; Typical income of the population
 Population: Divorced,Count_Person_Divorced,Number of Divorced People in a Population,Divorced Population,divorced Population;divorced Population in a population;Divorced Population in a Population;divorced Population in the population; Divorced population count; divorced individuals in the population; Divorce rate; Percentage of divorced Population in the population
 Population: Car Truck or Van Carpooled,dc/wc8q05drd74bd,Number of People Who Carpool to Work,Population Who Carpool to Work,"Population that carpools to work;Population who carpooled in a car, truck, or van in a population;Population Who Carpool to Work;Population who carpool to work; individuals who share a ride to work; Population who carpool; Population who share a ride to work; individuals who carpool to work"
 Population: Car Truck or Van Drove Alone,dc/0gettc3bc60cb,Number of People Who Commute to Work Solo,Population Who Commute to Work Solo,"Population that drives to work;Population who drove alone in a car, truck, or van in a population;Population Who Commute to Work Solo;Population who commute to work alone; Population who travel to work alone; individuals who commute solo; Population who drive alone to work; Population who take public transportation alone to work"
@@ -1073,7 +1073,7 @@ Population: Public Transportation Excluding Taxicab,dc/hbkh95kc7pkb6,Number of P
 Population: Walked,dc/vp8cbt6k79t94,Number of People Who Walk as Their Primary Mode of Transportation in a Population,Population Who Walk as Their Primary Mode of Transportation in a Population,Population walked to work; Commute by walking;Population who walked as their primary mode of transportation in a population;Population Who Walk as Their Primary Mode of Transportation in a Population;Population who walk as their primary mode of transportation; individuals who walk to work; Population who walk to get around; Population who walk as their main mode of getting around; Population who walk as a means of transportation
 Population: Worked At Home,dc/6rltk4kf75612,Number of People Who Work From Home in a Population,Population Who Work From Home in a Population,Population working from home;Population who worked from home in a population;Population Who Work From Home in a Population;Population who work from home; individuals who telecommute; Population who don't commute to an office; Population who have a home office; Population who work remotely
 Mobile Subscriptions Per Capita,Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person,Number of Mobile Phone Subscriptions Per Person in a Population,Mobile Phone Subscriptions Per Person in a Population,Phones per capita; cellphone posession rate;mobile phone subscriptions per person in a population;Mobile Phone Subscriptions Per Person in a Population;mobile phone subscriptions per person; cell phone plans per person; mobile phones per person; Population with cell phone service; Population with mobile phone coverage
-Count of Mortality Event,Count_Death,Number of Deaths,Deaths,Population dead; deaths;deaths in a population;Deaths;deaths in the population; fatalities in the population; Population who have died; mortalities in the population; deceases
+Count of Mortality Event,Count_Death,Number of Deaths,Number of Deaths,Population dead; deaths;deaths in a population;Deaths;deaths in the population; fatalities in the population; Population who have died; mortalities in the population; deceases
 Count of Mortality Event (Per Capita),Count_Death_AsAFractionOfCount_Person,Number of Deaths Per Capita,Deaths Per Capita,"Death rate; Mortality rate;deaths per person in a population;Deaths Per Capita;deaths per person in the population; Mortality rate; Death rate; fatalities per capita; deaths per 100,000 Population"
 Population: Enrolled in School,Count_Person_EnrolledInSchool,Number of People Currently Enrolled in School,Population Currently Enrolled in School,Population in school;Population enrolled in school;Population Currently Enrolled in School;Population currently enrolled in school; students in school; Population in education; children in school; Population in higher education
 Population: Not Enrolled in School,Count_Person_NotEnrolledInSchool,Number of People Not Currently Enrolled in School,Population Not Currently Enrolled in School,Population not in school;Population not enrolled in school;Population Not Currently Enrolled in School;Population not currently enrolled in school; individuals not in school; Population not in education; Non students; Population not in higher education
@@ -1293,9 +1293,9 @@ Annual Generation of Fuel: Diesel Oil,Annual_Generation_Fuel_DieselOil,Annual En
 ,DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60,Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 6.0 Scenario,Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 6.0 Scenario,Difference in maximum temperature relative to the base date 2006 for RCP 6.0 scenario;Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 6.0 Scenario;
 ,DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85,Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 8.5 Scenario,Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 8.5 Scenario,Difference in maximum temperature relative to the base date 2006 for RCP 8.5 scenario;Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 8.5 Scenario;
 ,Mean_Concentration_AirPollutant_PM2.5,Mean Concentration of PM2.5 Air Pollutant,Mean Concentration of PM2.5 Air Pollutant,Mean concentration of PM2.5 air pollutant;Mean Concentration of PM2.5 Air Pollutant;
-,PalmerDroughtSeverityIndex_Atmosphere,Palmer Drought Severity Index for the Atmosphere,Palmer Drought Severity Index for the Atmosphere,Palmer Drought Severity Index for the atmosphere;Palmer Drought Severity Index for the Atmosphere;
+,PalmerDroughtSeverityIndex_Atmosphere,Palmer Drought Severity Index for the Atmosphere,Palmer Drought Severity Index,Palmer Drought Severity Index for the atmosphere;Palmer Drought Severity Index for the Atmosphere;
 ,Annual_Emissions_GreenhouseGas_NonBiogenic,Annual Emissions of Non Biogenic Greenhouse Gases,Annual Emissions of Non Biogenic Greenhouse Gases,Annual emissions of Non biogenic greenhouse gases;Annual Emissions of Non Biogenic Greenhouse Gases;
-,AirPollutant_Cancer_Risk,Cancer Risk From Air Pollutants,Cancer Risk From Air Pollutants,Cancer risk from air pollutants;Cancer Risk From Air Pollutants;
+,AirPollutant_Cancer_Risk,Cancer Risk From Air Pollutants,Lifetime Cancer Risk,Cancer risk from air pollutants;Cancer Risk From Air Pollutants;
 ,Annual_Average_RetailPrice_Electricity,Annual Average Retail Price of Electricity,Annual Average Retail Price of Electricity,Annual average retail price of electricity;Annual Average Retail Price of Electricity;
 ,Annual_Emissions_Methane_NonBiogenic,Annual Emissions of Non Biogenic Methane,Annual Emissions of Non Biogenic Methane,Annual emissions of Non biogenic methane;Annual Emissions of Non Biogenic Methane;
 ,Mean_Concentration_AirPollutant_Ozone,Mean Concentration of Ozone Air Pollutant,Mean Concentration of Ozone Air Pollutant,Mean concentration of ozone air pollutant;Mean Concentration of Ozone Air Pollutant;
@@ -1359,39 +1359,39 @@ Population of Person: Gambling Industries,dc/5br285q68be6,,Employees in Gambling
 ,NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MeanRelativeHumidity,,Number of Months Reaching Wet Bulb Temperature based on RCP 4.5 Mean Relative Humidity,
 ,NumberOfMonths_WetBulbTemperature_35COrMore_RCP60_MeanRelativeHumidity,,Number of Months Reaching Wet Bulb Temperature based on RCP 6.0 Mean Relative Humidity,
 ,NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MeanRelativeHumidity,,Number of Months Reaching Wet Bulb Temperature based on RCP 8.5 Mean Relative Humidity,
-,sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX,,Population living below international poverty line,
-,sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX,,Population 65 years and over below international poverty line,
-,sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX,,Population 15 to 64 years old below international poverty line,
-,sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX,,Population under 15 years old below international poverty line,
-,sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE,,Female population below poverty international line,
-,sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE,,Male population below poverty international line,
-,sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX,,Urban population below poverty international line,
-,sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX,,Rural population below poverty international line,
-,sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX,,Employed population below international poverty line,
-,sdg/SI_POV_EMP1_15gte_M_A_FEMALE,,Employed female population below international poverty line,
-,sdg/SI_POV_EMP1_15gte_M_A_MALE,,Employed male population below international poverty line,
-,sdg/SP_ACS_BSRVH2O_ALLAREA_E,,Access to basic drinking water services,
-,sdg/SP_ACS_BSRVSAN_ALLAREA_E,,Access to basic sanitation services,
-,sdg/SH_STA_MORT_E_FEMALE,,Maternal mortality ratio,
-,sdg/SH_FPL_MTMM_15-49_CA_FEMALE,,Access to modern family planning for women,
-,sdg/SP_DYN_ADKL_15-19_C_FEMALE,,Birth rate for adolescent women,
-,sdg/SH_STA_ANEM_15-49_E_FEMALE,,Prevalence on anaemia in women,
-,sdg/SH_DYN_IMRT_lt1Y_E_BOTHSEX,,Infant mortality rate,
-,sdg/SH_DYN_MORT_lt5Y_E_BOTHSEX,,Mortality rate for children under 5 years,
-,sdg/SH_DYN_NMRT_lt1M_E_BOTHSEX,,Neonatal mortality rate,
-,sdg/SH_HIV_INCD_ALLAGE_E_BOTHSEX,,Incidence of HIV infections,
-,sdg/SH_TBS_INCD_E,,Incidence of Tuberculosis,
-,sdg/SH_HAP_HBSAG_lt5Y_E,,Prevalence of hepatitis B in children under 5 years,
-,sdg/SH_TRP_INTVN_CA,,Need for intervention against neglected tropical diseases,
-,sdg/SH_ACS_UNHC_E,,Universal health coverage index,
-,sdg/SH_XPD_EARN10_G,,Population with health spending over 10% of household expenditure or income,
-,sdg/SH_XPD_EARN25_G,,Population with health spending over 25% of household expenditure or income,
-,sdg/SH_MED_DEN_C_PHYS,,Density of medical doctors,
-,sdg/SH_MED_DEN_C_NURSMID,,Density of nurses and midwives,
-,sdg/SH_MED_DEN_C_PHAR,,Density of pharmacists,
-,sdg/SH_MED_DEN_C_DENT,,Density of dentists,
-,sdg/SH_PRV_SMOK_15gte_E_BOTHSEX,,Prevalence of tobacco use,
-,sdg/SH_SUD_ALCOL_15gte_NA_BOTHSEX,,Prevalence of alcohol use disorder,
-,sdg/SN_ITK_DEFC_E,,Prevalence of undernourishment,
-,sdg/SH_STA_STNT_lt5Y_M,,Proportion of children moderately or severely stunted,
-,sdg/SH_STA_WAST_lt5Y_CA,,Proportion of children moderately or severely wasted,
+,sdg/SI_POV_DAY1,Population living below international poverty line,Population living below international poverty line,
+,sdg/SI_POV_DAY1_65GEQ,Population 65 years and over below international poverty line,Population 65 years and over below international poverty line,
+,sdg/SI_POV_DAY1_15-64,Population 15 to 64 years old below international poverty line,Population 15 to 64 years old below international poverty line,
+,sdg/SI_POV_DAY1_LT15Y,Population under 15 years old below international poverty line,Population under 15 years old below international poverty line,
+,sdg/SI_POV_DAY1_FEMALE,Female population below poverty international line,Female population below poverty international line,
+,sdg/SI_POV_DAY1_MALE,Male population below poverty international line,Male population below poverty international line,
+,sdg/SI_POV_DAY1_URBAN,Urban population below poverty international line,Urban population below poverty international line,
+,sdg/SI_POV_DAY1_RURAL,Rural population below poverty international line,Rural population below poverty international line,
+,sdg/SI_POV_EMP1_15GEQ,Employed population below international poverty line,Employed population below international poverty line,
+,sdg/SI_POV_EMP1_15GEQ_FEMALE,Employed female population below international poverty line,Employed female population below international poverty line,
+,sdg/SI_POV_EMP1_15GEQ_MALE,Employed male population below international poverty line,Employed male population below international poverty line,
+,sdg/SP_ACS_BSRVH2O,Access to basic drinking water services,Access to basic drinking water services,
+,sdg/SP_ACS_BSRVSAN,Access to basic sanitation services,Access to basic sanitation services,
+,sdg/SH_STA_MORT_FEMALE,Maternal mortality ratio,Maternal mortality ratio,
+,sdg/SH_FPL_MTMM_15-49_FEMALE,Access to modern family planning for women,Access to modern family planning for women,
+,sdg/SP_DYN_ADKL_15-19_FEMALE,Birth rate for adolescent women,Birth rate for adolescent women,
+,sdg/SH_STA_ANEM_15-49_FEMALE,Prevalence on anaemia in women,Prevalence on anaemia in women,
+,sdg/SH_DYN_IMRT_LT1Y,Infant mortality rate,Infant mortality rate,
+,sdg/SH_DYN_MORT_LT5Y,Mortality rate for children under 5 years,Mortality rate for children under 5 years,
+,sdg/SH_DYN_NMRT_LT1M,Neonatal mortality rate,Neonatal mortality rate,
+,sdg/SH_HIV_INCD,Incidence of HIV infections,Incidence of HIV infections,
+,sdg/SH_TBS_INCD,Incidence of Tuberculosis,Incidence of Tuberculosis,
+,sdg/SH_HAP_HBSAG_LT5Y,Prevalence of hepatitis B in children under 5 years,Prevalence of hepatitis B in children under 5 years,
+,sdg/SH_TRP_INTVN,Need for intervention against neglected tropical diseases,Need for intervention against neglected tropical diseases,
+,sdg/SH_ACS_UNHC,Universal health coverage index,Universal health coverage index,
+,sdg/SH_XPD_EARN10,Population with health spending over 10% of household expenditure or income,Population with health spending over 10% of household expenditure or income,
+,sdg/SH_XPD_EARN25,Population with health spending over 25% of household expenditure or income,Population with health spending over 25% of household expenditure or income,
+,sdg/SH_MED_DEN_PHYS,Density of medical doctors,Density of medical doctors,
+,sdg/SH_MED_DEN_NURSMID,Density of nurses and midwives,Density of nurses and midwives,
+,sdg/SH_MED_DEN_PHAR,Density of pharmacists,Density of pharmacists,
+,sdg/SH_MED_DEN_DENT,Density of dentists,Density of dentists,
+,sdg/SH_PRV_SMOK_15GEQ,Prevalence of tobacco use,Prevalence of tobacco use,
+,sdg/SH_SUD_ALCOL_15GEQ,Prevalence of alcohol use disorder,Prevalence of alcohol use disorder,
+,sdg/SN_ITK_DEFC_E,Prevalence of undernourishment,Prevalence of undernourishment,
+,sdg/SH_STA_STNT_LT5Y,,Proportion of children moderately or severely stunted,
+,sdg/SH_STA_WAST_LT5Y,,Proportion of children moderately or severely wasted,

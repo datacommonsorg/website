@@ -170,7 +170,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Proportion of population below international poverty line over time (Absolute change)"
+            "title": "Decrease in Population living below international poverty line over time (Absolute change)"
           },
           {
             "columns": [
@@ -339,7 +339,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Proportion of population below international poverty line over time (Percent change)"
+            "title": "Decrease in Population living below international poverty line over time (Percent change)"
           },
           {
             "columns": [
@@ -420,7 +420,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Proportion of population using basic drinking water services over time (Absolute change)"
+            "title": "Decrease in Access to basic drinking water services over time (Absolute change)"
           },
           {
             "columns": [
@@ -501,7 +501,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Proportion of population using basic drinking water services over time (Percent change)"
+            "title": "Decrease in Access to basic drinking water services over time (Percent change)"
           },
           {
             "columns": [
@@ -542,7 +542,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Proportion of population using basic sanitation services over time (Absolute change)"
+            "title": "Decrease in Access to basic sanitation services over time (Absolute change)"
           },
           {
             "columns": [
@@ -583,7 +583,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Proportion of population using basic sanitation services over time (Percent change)"
+            "title": "Decrease in Access to basic sanitation services over time (Percent change)"
           },
           {
             "columns": [
@@ -752,7 +752,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Employed population below international poverty line: 15 years old and over over time (Absolute change)"
+            "title": "Decrease in Employed population below international poverty line over time (Absolute change)"
           },
           {
             "columns": [
@@ -921,24 +921,24 @@
                 ]
               }
             ],
-            "title": "Decrease in Employed population below international poverty line: 15 years old and over over time (Percent change)"
+            "title": "Decrease in Employed population below international poverty line over time (Percent change)"
           }
         ],
         "statVarSpec": {
           "sdg/SI_POV_DAY1": {
-            "name": "Proportion of population below international poverty line",
+            "name": "Population living below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_EMP1_15GEQ": {
-            "name": "Employed population below international poverty line: 15 years old and over",
+            "name": "Employed population below international poverty line",
             "statVar": "sdg/SI_POV_EMP1_15GEQ"
           },
           "sdg/SP_ACS_BSRVH2O": {
-            "name": "Proportion of population using basic drinking water services",
+            "name": "Access to basic drinking water services",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
           "sdg/SP_ACS_BSRVSAN": {
-            "name": "Proportion of population using basic sanitation services",
+            "name": "Access to basic sanitation services",
             "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }

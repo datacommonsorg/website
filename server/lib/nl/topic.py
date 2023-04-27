@@ -319,7 +319,7 @@ _PEER_GROUP_TO_OVERRIDE = {
     ],
     "dc/svpg/SDG_3_EpidemicEradication": [
         "sdg/SH_HIV_INCD",
-        "SH_TBS_INCD",
+        "sdg/SH_TBS_INCD",
         "sdg/SH_HAP_HBSAG_LT5Y",
         "sdg/SH_TRP_INTVN",
     ],
@@ -375,14 +375,14 @@ _SVPG_NAMES_OVERRIDE = {
         "Emissions from Power Sector",
     "dc/svpg/TransportationEmissionsByGas":
         "Emissions from Transportation Sector",
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByAge":
+    "dc/svpg/SI_POV_DAY1_ByAge":
         "Population below international poverty line by age",
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByGender":
+    "dc/svpg/SI_POV_DAY1_ByGender":
         "Population below international poverty line by gender",
-    "dc/svpg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX_ByResidence":
+    "dc/svpg/SI_POV_DAY1_ByResidence":
         ""
         "Population below international poverty line in rural vs. urban areas",
-    "dc/svpg/SI_POV_EMP1_15gte_M_A_ByGender":
+    "dc/svpg/SI_POV_EMP1_15GEQ_ByGender":
         "Employed population below international poverty line by gender",
     "dc/svpg/SDG_3_WomensHealth":
         "Women's health",
