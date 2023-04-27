@@ -25,8 +25,7 @@ website:
     tag:
   githash:
   flaskEnv: dev
-  replicas:
-    default: 2
+  replicas: 2
 
 mixer:
   hostProject:
@@ -37,8 +36,11 @@ serviceAccount:
 
 serviceGroups:
   recon: null
-  observation: null
   svg:
+    replicas: 1
+  observation:
+    replicas: 2
+  node:
     replicas: 2
   default:
     replicas: 2

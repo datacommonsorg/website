@@ -25,8 +25,7 @@ website:
     tag:
   githash:
   flaskEnv: production
-  replicas:
-    default: 6
+  replicas: 60
   redis:
     enabled: true
     configFile: |
@@ -53,8 +52,11 @@ nl:
 
 serviceGroups:
   recon: null
-  observation: null
   svg:
-    replicas: 30
+    replicas: 5
+  observation:
+    replicas: 50
+  node:
+    replicas: 50
   default:
-    replicas: 60
+    replicas: 20
