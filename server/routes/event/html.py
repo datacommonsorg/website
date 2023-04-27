@@ -27,10 +27,10 @@ from flask import render_template
 from google.protobuf.json_format import MessageToJson
 
 from server.cache import cache
+import server.lib.shared as shared_api
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
-import server.routes.api.node as node_api
-import server.routes.api.shared as shared_api
+import server.routes.shared_api.node as node_api
 import server.services.datacommons as dc
 
 DEFAULT_EVENT_DCID = ""

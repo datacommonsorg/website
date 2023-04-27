@@ -20,7 +20,7 @@ from flask import Flask
 from flask_babel import Babel
 
 import server.lib.util as libutil
-import server.routes.api.landing_page as landing_page
+import server.routes.place.api as api
 from web_app import app
 
 # TODO(shifucun): add test for api endpoint.
@@ -69,14 +69,14 @@ class TestBuildSpec(unittest.TestCase):
         }
     }]
     with self.context:
-      result = landing_page.build_spec(chart_config, target_category="Overview")
+      result = api.build_spec(chart_config, target_category="Overview")
       with open('server/tests/test_data/golden_config.json') as f:
         expected = json.load(f)
         assert expected == result
 
   def test_menu_hierarchy(self):
     chart_config = libutil.get_chart_config()
-    spec = landing_page.build_spec(chart_config, "Overview", False)
+    spec = api.build_spec(chart_config, "Overview", False)
     got = {}
     for category, topic_data in spec.items():
       got[category] = {}
@@ -122,7 +122,7 @@ class TestI18n(unittest.TestCase):
         "geoId/0684536": {}
     }
 
-  @patch('server.routes.api.place.fetch_data')
+  @patch('server.routes.shared_api.place.fetch_data')
   def test_child_places_i18n(self, mock_fetch_data):
     mock_fetch_data.side_effect = self.side_effect
 
@@ -164,5 +164,5 @@ class TestI18n(unittest.TestCase):
 
     with self.context:
       app.preprocess_request()
-      all_child_places = landing_page.get_i18n_all_child_places(raw_page_data)
+      all_child_places = api.get_i18n_all_child_places(raw_page_data)
       assert expected == all_child_places

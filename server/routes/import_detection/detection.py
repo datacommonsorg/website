@@ -20,14 +20,14 @@ from flask import Blueprint
 from flask import request
 from flask import Response
 
-import server.routes.api.import_detection.date_detection as date_detector
-from server.routes.api.import_detection.detection_types import Column
-from server.routes.api.import_detection.detection_types import MappedThing
-from server.routes.api.import_detection.detection_types import MappingType
-from server.routes.api.import_detection.detection_types import MappingVal
-from server.routes.api.import_detection.detection_types import TypeProperty
-import server.routes.api.import_detection.place_detection as place_detector
-import server.routes.api.import_detection.utils as utils
+import server.routes.import_detection.date_detection as date_detector
+from server.routes.import_detection.detection_types import Column
+from server.routes.import_detection.detection_types import MappedThing
+from server.routes.import_detection.detection_types import MappingType
+from server.routes.import_detection.detection_types import MappingVal
+from server.routes.import_detection.detection_types import TypeProperty
+import server.routes.import_detection.place_detection as place_detector
+import server.routes.import_detection.utils as utils
 
 SUCCESS_CODE: int = 200
 BAD_REQUEST_CODE: int = 400

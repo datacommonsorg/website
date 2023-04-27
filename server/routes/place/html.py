@@ -20,7 +20,7 @@ import flask
 from flask import current_app
 from flask import g
 
-import server.routes.api.place as place_api
+import server.routes.shared_api.place as place_api
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 

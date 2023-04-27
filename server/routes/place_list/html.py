@@ -18,7 +18,7 @@ from flask import Blueprint
 from flask import render_template
 
 from server.cache import cache
-from server.routes.api.place import child_fetch
+from server.routes.shared_api.place import child_fetch
 from server.services.datacommons import fetch_data
 
 # Define blueprint
