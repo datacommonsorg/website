@@ -32,7 +32,7 @@ interface PlaceAxisChartData {
   value: number;
   statDate: string;
   sources: string[];
-  pop?: number;
+  popValue?: number;
   popDate?: string;
   unit?: string;
 }
@@ -78,7 +78,7 @@ function getPlaceAxisChartData(
   if (scaling) {
     value *= scaling;
   }
-  let pop = denomValue;
+  let popValue = denomValue;
   let popDate = denomDate;
   if (!_.isNull(populationData)) {
     const popSeries = populationData.data[DEFAULT_POPULATION_DCID]
@@ -94,14 +94,14 @@ function getPlaceAxisChartData(
       }
       // If this axis is using a population denominator, use that for the population value as well
       // Otherwise, use the default "Count_Person" variable.
-      pop = pop || popObs.value;
-      popDate = pop || popObs.date;
+      popValue = popValue || popObs.value;
+      popDate = popDate || popObs.date;
     } else {
       console.log(`No population data for ${placeDcid}`);
     }
   }
   const unit = getUnit(metadataMap[metaHash]);
-  return { value, statDate, sources, pop, popDate, unit };
+  return { value, statDate, sources, popValue, popDate, unit };
 }
 
 interface PlaceScatterData {
@@ -166,8 +166,8 @@ export function getPlaceScatterData(
     yVal: yChartData.value,
     xDate: xChartData.statDate,
     yDate: yChartData.statDate,
-    xPop: xChartData.pop,
-    yPop: yChartData.pop,
+    xPopVal: xChartData.popValue,
+    yPopVal: yChartData.popValue,
     xPopDate: xChartData.popDate,
     yPopDate: yChartData.popDate,
   };
