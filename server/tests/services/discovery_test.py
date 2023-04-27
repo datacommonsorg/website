@@ -35,17 +35,6 @@ class TestServiceDiscovery(unittest.TestCase):
         'server/tests/test_data/ingress/test1.yaml')
 
     assert get_service_url('/query') == 'http://query-host:8080/query'
-    assert get_service_url(
-        '/stat-var/match') == 'http://stat-var-host:8080/stat-var/match'
-
-    assert get_service_url(
-        '/v1/bulk/observations/series'
-    ) == 'http://bulk-observation-host:8080/v1/bulk/observations/series'
-    # Test prefix match overriding wildcard.
-    assert get_service_url(
-        '/v1/bulk/observations/series/linked'
-    ) == 'http://observation-series-linked-host:8080/v1/bulk/observations/series/linked'
-
     assert get_service_url('/node/related-locations'
                           ) == 'http://default-host:8080/node/related-locations'
 
@@ -55,17 +44,11 @@ class TestServiceDiscovery(unittest.TestCase):
         'server/tests/test_data/ingress/test2.yaml')
 
     assert get_service_url(
-        '/v1/bulk/observation-dates/linked'
-    ) == 'http://observations-api:5000/v1/bulk/observation-dates/linked'
-
-    assert get_service_url(
-        '/v1/bulk/observations/series/linked'
-    ) == 'http://observations-api:5000/v1/bulk/observations/series/linked'
+        '/v2/observation') == 'http://observations-api:5000/v2/observation'
 
     assert get_service_url(
         '/v1/variables') == 'http://stat-var-svc/v1/variables'
 
-    assert get_service_url('/v1/bulk/property/values'
-                          ) == 'http://stat-var-svc/v1/bulk/property/values'
+    assert get_service_url('/v2/node') == 'http://default/v2/node'
 
     assert get_service_url('/query') == 'http://bq-service/query'

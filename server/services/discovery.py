@@ -136,10 +136,6 @@ endpoints = Endpoints([
     '/v1/bulk/info/place',
     '/v1/bulk/info/variable',
     '/v1/bulk/info/variable-group',
-    '/v1/bulk/observations/point',
-    '/v1/bulk/observations/point/linked',
-    '/v1/bulk/observations/series',
-    '/v1/bulk/observations/series/linked',
     '/v1/bulk/observation-dates/linked',
     '/v1/bulk/observation-existence',
     '/v1/bulk/triples',
@@ -147,9 +143,6 @@ endpoints = Endpoints([
     '/v1/variables',
     '/v1/variable/ancestors',
     '/node/triples',
-    '/v1/properties',
-    '/v1/bulk/properties',
-    '/v1/bulk/property/values',
     '/v1/bulk/property/values/in/linked',
     '/node/property-values',
     '/node/places-in',
@@ -158,7 +151,6 @@ endpoints = Endpoints([
     # TODO(shifucun): switch back to /node/related-places after data switch.
     '/node/related-locations',
     '/stat-var/search',
-    '/stat-var/match',
     '/stat-var/summary',
     '/v1/info/variable-group',
     # Recon APIs

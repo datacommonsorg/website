@@ -25,8 +25,7 @@ website:
     tag:
   githash:
   flaskEnv: feedingamerica
-  replicas:
-    default: 4
+  replicas: 4
 
   redis:
     enabled: true
@@ -53,11 +52,14 @@ nl:
 
 serviceGroups:
   recon: null
-  observation: null
+  observation:
+    replicas: 4
+  node:
+    replicas: 4
   svg:
-    replicas: 4
+    replicas: 2
   default:
-    replicas: 4
+    replicas: 2
 
 memdbJSON: |
   {

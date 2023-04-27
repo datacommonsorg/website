@@ -20,8 +20,7 @@ website:
   iap:
     enabled: false
 
-  replicas:
-    default: 1
+  replicas: 1
 
   redis:
     enabled: false
@@ -91,16 +90,30 @@ serviceGroups:
       - "/v1/bulk/info/variable"
     replicas: 1
     resources:
-      memoryRequest: "8G"
-      memoryLimit: "8G"
+      memoryRequest: "6G"
+      memoryLimit: "6G"
     useSearch: true
+  observation:
+    urlPaths:
+      - "/v2/observation"
+    replicas: 1
+    resources:
+      memoryRequest: "2G"
+      memoryLimit: "2G"
+  node:
+    urlPaths:
+      - "/v2/node"
+    replicas: 1
+    resources:
+      memoryRequest: "2G"
+      memoryLimit: "2G"
   default:
     urlPaths:
       - "/*"
     replicas: 1
     resources:
-      memoryRequest: "4G"
-      memoryLimit: "4G"
+      memoryRequest: "2G"
+      memoryLimit: "2G"
 
 ###############################################################################
 # Config for NL
