@@ -10,7 +10,7 @@
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
@@ -18,7 +18,7 @@
                   {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Mali",
                     "type": "LINE"
@@ -26,7 +26,7 @@
                   {
                     "placeDcidOverride": "country/LBR",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Liberia",
                     "type": "LINE"
@@ -34,7 +34,7 @@
                   {
                     "placeDcidOverride": "country/GIN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Guinea",
                     "type": "LINE"
@@ -42,7 +42,7 @@
                   {
                     "placeDcidOverride": "country/TGO",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Togo",
                     "type": "LINE"
@@ -50,7 +50,7 @@
                   {
                     "placeDcidOverride": "country/COD",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Congo [DRC]",
                     "type": "LINE"
@@ -58,7 +58,7 @@
                   {
                     "placeDcidOverride": "country/COG",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Congo [Republic]",
                     "type": "LINE"
@@ -66,7 +66,7 @@
                   {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Senegal",
                     "type": "LINE"
@@ -74,7 +74,7 @@
                   {
                     "placeDcidOverride": "country/SWZ",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Eswatini",
                     "type": "LINE"
@@ -82,7 +82,7 @@
                   {
                     "placeDcidOverride": "country/BEN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Benin",
                     "type": "LINE"
@@ -90,7 +90,7 @@
                   {
                     "placeDcidOverride": "country/BFA",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Burkina Faso",
                     "type": "LINE"
@@ -98,7 +98,7 @@
                   {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Ethiopia",
                     "type": "LINE"
@@ -106,7 +106,7 @@
                   {
                     "placeDcidOverride": "country/TCD",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Chad",
                     "type": "LINE"
@@ -114,7 +114,7 @@
                   {
                     "placeDcidOverride": "country/NAM",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Namibia",
                     "type": "LINE"
@@ -122,7 +122,7 @@
                   {
                     "placeDcidOverride": "country/GHA",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Ghana",
                     "type": "LINE"
@@ -130,7 +130,7 @@
                   {
                     "placeDcidOverride": "country/RWA",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Rwanda",
                     "type": "LINE"
@@ -138,7 +138,7 @@
                   {
                     "placeDcidOverride": "country/SLE",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Sierra Leone",
                     "type": "LINE"
@@ -146,7 +146,7 @@
                   {
                     "placeDcidOverride": "country/CMR",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Cameroon",
                     "type": "LINE"
@@ -154,7 +154,7 @@
                   {
                     "placeDcidOverride": "country/NER",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Niger",
                     "type": "LINE"
@@ -162,7 +162,7 @@
                   {
                     "placeDcidOverride": "country/MRT",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Mauritania",
                     "type": "LINE"
@@ -170,7 +170,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Population living below international poverty line over time (Absolute change)"
+            "title": "Decrease in Proportion of population below international poverty line over time (Absolute change)"
           },
           {
             "columns": [
@@ -179,7 +179,7 @@
                   {
                     "placeDcidOverride": "country/SYC",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Seychelles",
                     "type": "LINE"
@@ -187,7 +187,7 @@
                   {
                     "placeDcidOverride": "country/MUS",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Mauritius",
                     "type": "LINE"
@@ -195,7 +195,7 @@
                   {
                     "placeDcidOverride": "country/CPV",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Cape Verde",
                     "type": "LINE"
@@ -203,7 +203,7 @@
                   {
                     "placeDcidOverride": "country/LBR",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Liberia",
                     "type": "LINE"
@@ -211,7 +211,7 @@
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
@@ -219,7 +219,7 @@
                   {
                     "placeDcidOverride": "country/COG",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Congo [Republic]",
                     "type": "LINE"
@@ -227,7 +227,7 @@
                   {
                     "placeDcidOverride": "country/NAM",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Namibia",
                     "type": "LINE"
@@ -235,7 +235,7 @@
                   {
                     "placeDcidOverride": "country/GAB",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Gabon",
                     "type": "LINE"
@@ -243,7 +243,7 @@
                   {
                     "placeDcidOverride": "country/TGO",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Togo",
                     "type": "LINE"
@@ -251,7 +251,7 @@
                   {
                     "placeDcidOverride": "country/BEN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Benin",
                     "type": "LINE"
@@ -259,7 +259,7 @@
                   {
                     "placeDcidOverride": "country/DZA",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Algeria",
                     "type": "LINE"
@@ -267,7 +267,7 @@
                   {
                     "placeDcidOverride": "country/SDN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Sudan",
                     "type": "LINE"
@@ -275,7 +275,7 @@
                   {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Mali",
                     "type": "LINE"
@@ -283,7 +283,7 @@
                   {
                     "placeDcidOverride": "country/TUN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Tunisia",
                     "type": "LINE"
@@ -291,7 +291,7 @@
                   {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Senegal",
                     "type": "LINE"
@@ -299,7 +299,7 @@
                   {
                     "placeDcidOverride": "country/GIN",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Guinea",
                     "type": "LINE"
@@ -307,7 +307,7 @@
                   {
                     "placeDcidOverride": "country/MRT",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Mauritania",
                     "type": "LINE"
@@ -315,7 +315,7 @@
                   {
                     "placeDcidOverride": "country/TCD",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Chad",
                     "type": "LINE"
@@ -323,7 +323,7 @@
                   {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Morocco",
                     "type": "LINE"
@@ -331,7 +331,7 @@
                   {
                     "placeDcidOverride": "country/COD",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Congo [DRC]",
                     "type": "LINE"
@@ -339,7 +339,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Population living below international poverty line over time (Percent change)"
+            "title": "Decrease in Proportion of population below international poverty line over time (Percent change)"
           },
           {
             "columns": [
@@ -348,7 +348,7 @@
                   {
                     "placeDcidOverride": "country/CAF",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Central African Republic",
                     "type": "LINE"
@@ -356,7 +356,7 @@
                   {
                     "placeDcidOverride": "country/COM",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Comoros",
                     "type": "LINE"
@@ -364,7 +364,7 @@
                   {
                     "placeDcidOverride": "country/BFA",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Burkina Faso",
                     "type": "LINE"
@@ -372,7 +372,7 @@
                   {
                     "placeDcidOverride": "country/ZWE",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Zimbabwe",
                     "type": "LINE"
@@ -380,7 +380,7 @@
                   {
                     "placeDcidOverride": "country/MYT",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Mayotte",
                     "type": "LINE"
@@ -388,7 +388,7 @@
                   {
                     "placeDcidOverride": "country/CIV",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "C\u00f4te d'Ivoire",
                     "type": "LINE"
@@ -396,7 +396,7 @@
                   {
                     "placeDcidOverride": "country/REU",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "R\u00e9union",
                     "type": "LINE"
@@ -404,7 +404,7 @@
                   {
                     "placeDcidOverride": "country/SHN",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Saint Helena",
                     "type": "LINE"
@@ -412,7 +412,7 @@
                   {
                     "placeDcidOverride": "country/SSD",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "South Sudan",
                     "type": "LINE"
@@ -420,7 +420,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Access to basic drinking water services over time (Absolute change)"
+            "title": "Decrease in Proportion of population using basic drinking water services over time (Absolute change)"
           },
           {
             "columns": [
@@ -429,7 +429,7 @@
                   {
                     "placeDcidOverride": "country/CAF",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Central African Republic",
                     "type": "LINE"
@@ -437,7 +437,7 @@
                   {
                     "placeDcidOverride": "country/BFA",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Burkina Faso",
                     "type": "LINE"
@@ -445,7 +445,7 @@
                   {
                     "placeDcidOverride": "country/COM",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Comoros",
                     "type": "LINE"
@@ -453,7 +453,7 @@
                   {
                     "placeDcidOverride": "country/ZWE",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Zimbabwe",
                     "type": "LINE"
@@ -461,7 +461,7 @@
                   {
                     "placeDcidOverride": "country/MYT",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Mayotte",
                     "type": "LINE"
@@ -469,7 +469,7 @@
                   {
                     "placeDcidOverride": "country/CIV",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "C\u00f4te d'Ivoire",
                     "type": "LINE"
@@ -477,7 +477,7 @@
                   {
                     "placeDcidOverride": "country/REU",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "R\u00e9union",
                     "type": "LINE"
@@ -485,7 +485,7 @@
                   {
                     "placeDcidOverride": "country/SHN",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Saint Helena",
                     "type": "LINE"
@@ -493,7 +493,7 @@
                   {
                     "placeDcidOverride": "country/SSD",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "South Sudan",
                     "type": "LINE"
@@ -501,7 +501,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Access to basic drinking water services over time (Percent change)"
+            "title": "Decrease in Proportion of population using basic drinking water services over time (Percent change)"
           },
           {
             "columns": [
@@ -510,7 +510,7 @@
                   {
                     "placeDcidOverride": "country/ZWE",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Zimbabwe",
                     "type": "LINE"
@@ -518,7 +518,7 @@
                   {
                     "placeDcidOverride": "country/COD",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Congo [DRC]",
                     "type": "LINE"
@@ -526,7 +526,7 @@
                   {
                     "placeDcidOverride": "country/CAF",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Central African Republic",
                     "type": "LINE"
@@ -534,7 +534,7 @@
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
@@ -542,7 +542,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Access to basic sanitation services over time (Absolute change)"
+            "title": "Decrease in Proportion of population using basic sanitation services over time (Absolute change)"
           },
           {
             "columns": [
@@ -551,7 +551,7 @@
                   {
                     "placeDcidOverride": "country/COD",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Congo [DRC]",
                     "type": "LINE"
@@ -559,7 +559,7 @@
                   {
                     "placeDcidOverride": "country/CAF",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Central African Republic",
                     "type": "LINE"
@@ -567,7 +567,7 @@
                   {
                     "placeDcidOverride": "country/ZWE",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Zimbabwe",
                     "type": "LINE"
@@ -575,7 +575,7 @@
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
@@ -583,7 +583,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Access to basic sanitation services over time (Percent change)"
+            "title": "Decrease in Proportion of population using basic sanitation services over time (Percent change)"
           },
           {
             "columns": [
@@ -592,7 +592,7 @@
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
@@ -600,7 +600,7 @@
                   {
                     "placeDcidOverride": "country/BFA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Burkina Faso",
                     "type": "LINE"
@@ -608,7 +608,7 @@
                   {
                     "placeDcidOverride": "country/TZA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Tanzania",
                     "type": "LINE"
@@ -616,7 +616,7 @@
                   {
                     "placeDcidOverride": "country/GIN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Guinea",
                     "type": "LINE"
@@ -624,7 +624,7 @@
                   {
                     "placeDcidOverride": "country/NER",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Niger",
                     "type": "LINE"
@@ -632,7 +632,7 @@
                   {
                     "placeDcidOverride": "country/SLE",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Sierra Leone",
                     "type": "LINE"
@@ -640,7 +640,7 @@
                   {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Ethiopia",
                     "type": "LINE"
@@ -648,7 +648,7 @@
                   {
                     "placeDcidOverride": "country/RWA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Rwanda",
                     "type": "LINE"
@@ -656,7 +656,7 @@
                   {
                     "placeDcidOverride": "country/UGA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Uganda",
                     "type": "LINE"
@@ -664,7 +664,7 @@
                   {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Mali",
                     "type": "LINE"
@@ -672,7 +672,7 @@
                   {
                     "placeDcidOverride": "country/LSO",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Lesotho",
                     "type": "LINE"
@@ -680,7 +680,7 @@
                   {
                     "placeDcidOverride": "country/TCD",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Chad",
                     "type": "LINE"
@@ -688,7 +688,7 @@
                   {
                     "placeDcidOverride": "country/COD",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Congo [DRC]",
                     "type": "LINE"
@@ -696,7 +696,7 @@
                   {
                     "placeDcidOverride": "country/NGA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Nigeria",
                     "type": "LINE"
@@ -704,7 +704,7 @@
                   {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Senegal",
                     "type": "LINE"
@@ -712,7 +712,7 @@
                   {
                     "placeDcidOverride": "country/GHA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Ghana",
                     "type": "LINE"
@@ -720,7 +720,7 @@
                   {
                     "placeDcidOverride": "country/MOZ",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Mozambique",
                     "type": "LINE"
@@ -728,7 +728,7 @@
                   {
                     "placeDcidOverride": "country/SWZ",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Eswatini",
                     "type": "LINE"
@@ -736,7 +736,7 @@
                   {
                     "placeDcidOverride": "country/NAM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Namibia",
                     "type": "LINE"
@@ -744,7 +744,7 @@
                   {
                     "placeDcidOverride": "country/SDN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Sudan",
                     "type": "LINE"
@@ -752,7 +752,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Employed population below international poverty line over time (Absolute change)"
+            "title": "Decrease in Employed population below international poverty line: 15 years old and over over time (Absolute change)"
           },
           {
             "columns": [
@@ -761,7 +761,7 @@
                   {
                     "placeDcidOverride": "country/CPV",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Cape Verde",
                     "type": "LINE"
@@ -769,7 +769,7 @@
                   {
                     "placeDcidOverride": "country/TUN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Tunisia",
                     "type": "LINE"
@@ -777,7 +777,7 @@
                   {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Morocco",
                     "type": "LINE"
@@ -785,7 +785,7 @@
                   {
                     "placeDcidOverride": "country/DZA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Algeria",
                     "type": "LINE"
@@ -793,7 +793,7 @@
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
@@ -801,7 +801,7 @@
                   {
                     "placeDcidOverride": "country/MRT",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Mauritania",
                     "type": "LINE"
@@ -809,7 +809,7 @@
                   {
                     "placeDcidOverride": "country/GHA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Ghana",
                     "type": "LINE"
@@ -817,7 +817,7 @@
                   {
                     "placeDcidOverride": "country/GAB",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Gabon",
                     "type": "LINE"
@@ -825,7 +825,7 @@
                   {
                     "placeDcidOverride": "country/MUS",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Mauritius",
                     "type": "LINE"
@@ -833,7 +833,7 @@
                   {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Ethiopia",
                     "type": "LINE"
@@ -841,7 +841,7 @@
                   {
                     "placeDcidOverride": "country/GIN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Guinea",
                     "type": "LINE"
@@ -849,7 +849,7 @@
                   {
                     "placeDcidOverride": "country/LSO",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Lesotho",
                     "type": "LINE"
@@ -857,7 +857,7 @@
                   {
                     "placeDcidOverride": "country/NAM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Namibia",
                     "type": "LINE"
@@ -865,7 +865,7 @@
                   {
                     "placeDcidOverride": "country/BFA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Burkina Faso",
                     "type": "LINE"
@@ -873,7 +873,7 @@
                   {
                     "placeDcidOverride": "country/ZAF",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "South Africa",
                     "type": "LINE"
@@ -881,7 +881,7 @@
                   {
                     "placeDcidOverride": "country/SDN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Sudan",
                     "type": "LINE"
@@ -889,7 +889,7 @@
                   {
                     "placeDcidOverride": "country/BWA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Botswana",
                     "type": "LINE"
@@ -897,7 +897,7 @@
                   {
                     "placeDcidOverride": "country/NER",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Niger",
                     "type": "LINE"
@@ -905,7 +905,7 @@
                   {
                     "placeDcidOverride": "country/UGA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Uganda",
                     "type": "LINE"
@@ -913,7 +913,7 @@
                   {
                     "placeDcidOverride": "country/SWZ",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Eswatini",
                     "type": "LINE"
@@ -921,25 +921,25 @@
                 ]
               }
             ],
-            "title": "Decrease in Employed population below international poverty line over time (Percent change)"
+            "title": "Decrease in Employed population below international poverty line: 15 years old and over over time (Percent change)"
           }
         ],
         "statVarSpec": {
-          "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX": {
-            "name": "Population living below international poverty line",
-            "statVar": "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+          "sdg/SI_POV_DAY1": {
+            "name": "Proportion of population below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX": {
-            "name": "Employed population below international poverty line",
-            "statVar": "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+          "sdg/SI_POV_EMP1_15GEQ": {
+            "name": "Employed population below international poverty line: 15 years old and over",
+            "statVar": "sdg/SI_POV_EMP1_15GEQ"
           },
-          "sdg/SP_ACS_BSRVH2O_ALLAREA_E": {
-            "name": "Access to basic drinking water services",
-            "statVar": "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+          "sdg/SP_ACS_BSRVH2O": {
+            "name": "Proportion of population using basic drinking water services",
+            "statVar": "sdg/SP_ACS_BSRVH2O"
           },
-          "sdg/SP_ACS_BSRVSAN_ALLAREA_E": {
-            "name": "Access to basic sanitation services",
-            "statVar": "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+          "sdg/SP_ACS_BSRVSAN": {
+            "name": "Proportion of population using basic sanitation services",
+            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }
