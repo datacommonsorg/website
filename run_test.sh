@@ -73,10 +73,7 @@ function run_lint_fix {
   echo -e "#### Fixing Python code"
   python3 -m venv .env
   source .env/bin/activate
-  if ! command -v yapf &> /dev/null
-  then
-    pip3 install yapf==0.33.0 -q
-  fi
+  pip3 install yapf==0.33.0 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q
@@ -119,10 +116,7 @@ function run_py_test {
   cd ..
   python3 -m pytest nl_server/tests/ -s
 
-  if ! command -v yapf &> /dev/null
-  then
-    pip3 install yapf==0.33.0 -q
-  fi
+  pip3 install yapf==0.33.0 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q
