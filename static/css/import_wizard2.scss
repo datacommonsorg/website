@@ -121,8 +121,6 @@ tr th:last-child {
 
 .template-options-container {
   margin: 0 -0.5rem;
-  max-height: 60vh;
-  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   padding: 0.5rem;
@@ -131,6 +129,10 @@ tr th:last-child {
   .card {
     padding: 0;
     border-color: rgba(0, 0, 0, 0.25);
+  }
+
+  .card-body {
+    padding: 0.75rem;
   }
 }
 
@@ -176,7 +178,7 @@ tr th:last-child {
   padding: 1rem;
   align-items: center;
   position: relative;
-  height: 9rem;
+  height: 8rem;
 
   table, th, td {
     background: white;
@@ -221,8 +223,8 @@ tr th:last-child {
   border-radius: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 0.5rem;
-  font-size: 0.9rem;
-  min-width: 15rem;
+  font-size: 0.8rem;
+  min-width: 10rem;
 }
 
 .mapping-page-navigation-section {
