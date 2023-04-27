@@ -37,8 +37,8 @@ export interface Point {
   yVal: number;
   xDate: string;
   yDate: string;
-  xPop?: number;
-  yPop?: number;
+  xPopVal?: number;
+  yPopVal?: number;
   xPopDate?: string;
   yPopDate?: string;
 }
@@ -369,7 +369,7 @@ function addDensityLegend(
 function getPointPopulation(point: Point): number | undefined {
   const xPopDate = point.xPopDate || 0;
   const yPopDate = point.yPopDate || 0;
-  return xPopDate > yPopDate ? point.xPop : point.yPop;
+  return xPopDate > yPopDate ? point.xPopVal : point.yPopVal;
 }
 
 /**

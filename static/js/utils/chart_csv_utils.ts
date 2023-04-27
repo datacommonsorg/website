@@ -119,10 +119,10 @@ export function scatterDataToCsv(
     const point = scatterPoints[place];
     let dataRow = `${point.place.name},${point.place.dcid},${point.xDate},${point.xVal},${point.yDate},${point.yVal}`;
     if (xDenom) {
-      dataRow += `,${point.xPop || "N/A"}`;
+      dataRow += `,${point.xPopVal || "N/A"}`;
     }
     if (yDenom) {
-      dataRow += `,${point.yPop || "N/A"}`;
+      dataRow += `,${point.yPopVal || "N/A"}`;
     }
     rows.push(dataRow);
   }
