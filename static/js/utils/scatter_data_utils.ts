@@ -32,7 +32,7 @@ interface PlaceAxisChartData {
   value: number;
   statDate: string;
   sources: string[];
-  pop?: number;
+  popValue?: number;
   popDate?: string;
   unit?: string;
 }
@@ -78,26 +78,30 @@ function getPlaceAxisChartData(
   if (scaling) {
     value *= scaling;
   }
-  const popSeries = populationData.data[DEFAULT_POPULATION_DCID][placeDcid];
-  let pop = null;
-  let popDate = null;
-  if (popSeries && popSeries.series) {
-    const popObs = getMatchingObservation(popSeries.series, obs.date);
-    if (
-      popBounds &&
-      (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
-    ) {
-      return null;
+  let popValue = denomValue;
+  let popDate = denomDate;
+  if (!_.isNull(populationData)) {
+    const popSeries = populationData.data[DEFAULT_POPULATION_DCID]
+      ? populationData.data[DEFAULT_POPULATION_DCID][placeDcid]
+      : null;
+    if (popSeries && popSeries.series) {
+      const popObs = getMatchingObservation(popSeries.series, obs.date);
+      if (
+        popBounds &&
+        (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
+      ) {
+        return null;
+      }
+      // If this axis is using a population denominator, use that for the population value as well
+      // Otherwise, use the default "Count_Person" variable.
+      popValue = popValue || popObs.value;
+      popDate = popDate || popObs.date;
+    } else {
+      console.log(`No population data for ${placeDcid}`);
     }
-    // If this axis is using a population denominator, use that for the population value as well
-    // Otherwise, use the default "Count_Person" variable.
-    pop = denomValue || popObs.value;
-    popDate = denomDate || popObs.date;
-  } else {
-    console.log(`No population data for ${placeDcid}`);
   }
   const unit = getUnit(metadataMap[metaHash]);
-  return { value, statDate, sources, pop, popDate, unit };
+  return { value, statDate, sources, popValue, popDate, unit };
 }
 
 interface PlaceScatterData {
@@ -162,8 +166,8 @@ export function getPlaceScatterData(
     yVal: yChartData.value,
     xDate: xChartData.statDate,
     yDate: yChartData.statDate,
-    xPop: xChartData.pop,
-    yPop: yChartData.pop,
+    xPopVal: xChartData.popValue,
+    yPopVal: yChartData.popValue,
     xPopDate: xChartData.popDate,
     yPopDate: yChartData.popDate,
   };
