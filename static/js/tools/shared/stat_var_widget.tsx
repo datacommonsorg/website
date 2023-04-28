@@ -82,16 +82,20 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
           const availableSVs = [];
           const unavailableSVs = [];
           for (const sv in props.selectedSVs) {
-            let available = true;
+            // sv is used if there is even one entity(place) has observations.
+            // This is apparently very loose and can be tightened by making this
+            // a percentage of all entities.
+            let available = false;
             for (const entity in resp.data[sv]) {
-              if (!resp.data[sv][entity]) {
-                unavailableSVs.push(sv);
-                available = false;
+              if (resp.data[sv][entity]) {
+                available = true;
                 break;
               }
             }
             if (available) {
               availableSVs.push(sv);
+            } else {
+              unavailableSVs.push(sv);
             }
           }
           if (!_.isEmpty(unavailableSVs)) {
