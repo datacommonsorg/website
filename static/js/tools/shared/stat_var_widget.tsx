@@ -74,16 +74,24 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
       axios
-        .post("/api/place/stat-vars/union", {
-          dcids: props.sampleEntities.map((place) => place.dcid),
-          statVars: Object.keys(props.selectedSVs),
+        .post("/api/place/stat-vars/existence", {
+          entities: props.sampleEntities.map((place) => place.dcid),
+          variables: Object.keys(props.selectedSVs),
         })
         .then((resp) => {
-          const availableSVs = resp.data;
+          const availableSVs = [];
           const unavailableSVs = [];
           for (const sv in props.selectedSVs) {
-            if (availableSVs.indexOf(sv) === -1) {
-              unavailableSVs.push(sv);
+            let available = true;
+            for (const entity in resp.data[sv]) {
+              if (!resp.data[sv][entity]) {
+                unavailableSVs.push(sv);
+                available = false;
+                break;
+              }
+            }
+            if (available) {
+              availableSVs.push(sv);
             }
           }
           if (!_.isEmpty(unavailableSVs)) {

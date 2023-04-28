@@ -223,7 +223,7 @@ def geojson():
   # too fragmented
   if place_dcid == 'geoId/72':
     geojson_prop = 'geoJsonCoordinatesDP1'
-  names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
+  names_by_geo = place_api.get_display_name(geos)
   features = []
   if geojson_prop:
     geojson_by_geo = lib_util.property_values(geos, geojson_prop)
@@ -466,7 +466,7 @@ def get_map_points():
   geos = dc.get_places_in([place_dcid], place_type).get(place_dcid, [])
   if not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
-  names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
+  names_by_geo = place_api.get_display_name(geos)
   # For some places, lat long is attached to the place node, but for other
   # places, the lat long is attached to the location value of the place node.
   # If a place has location, we will use the location value to find the lat

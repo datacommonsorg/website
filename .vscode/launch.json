@@ -2,6 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Jest Tests",
+            "type": "node",
+            "request": "launch",
+            "args": [
+            ],
+            "cwd": "${workspaceFolder}/static",
+            "console": "integratedTerminal",
+            "program": "${workspaceFolder}/static/node_modules/jest/bin/jest",
+        },
+        {
             "name": "Flask",
             "type": "python",
             "request": "launch",

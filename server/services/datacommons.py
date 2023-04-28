@@ -175,6 +175,41 @@ def obs_series_within(parent_entity, child_type, variables):
       })
 
 
+def entity_variables(entities):
+  """Gets the statistical variables that have obserations for given entities.
+
+  Args:
+      entities: List of entity dcids.
+  """
+  url = get_service_url('/v2/observation')
+  return post(url, {
+      'select': ['variable', 'entity'],
+      'entity': {
+          'dcids': entities,
+      },
+  })
+
+
+def entity_variables_existence(variables, entities):
+  """Check if statistical variables have observations for given entities.
+
+  Args:
+      variables: List of variable dcids.
+      entities: List of entity dcids.
+  """
+  url = get_service_url('/v2/observation')
+  return post(
+      url, {
+          'select': ['variable', 'entity'],
+          'entity': {
+              'dcids': entities,
+          },
+          'variable': {
+              'dcids': variables,
+          },
+      })
+
+
 def triples(node, direction):
   """Retrieves the triples for a node.
 
