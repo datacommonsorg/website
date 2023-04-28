@@ -750,7 +750,7 @@ def api_ranking_chart(dcid):
     parent_place_list = parent_places([dcid]).get(dcid, [])
     for parent in parent_place_list:
       parent_place_dcid = parent.get("dcid", "")
-      parent_type = parent.get('type', '')
+      parent_type = parent.get("type", "")
       # All wanted place types plus continent except CensusZipCodeTabulationArea.
       if parent_type == "Continent" or (
           parent_type in ALL_WANTED_PLACE_TYPES and
