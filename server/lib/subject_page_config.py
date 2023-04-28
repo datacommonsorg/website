@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-import logging
 from typing import Dict, List, Union
 
 from flask import escape
@@ -21,7 +20,8 @@ from flask import escape
 from server.config import subject_page_pb2
 import server.lib.nl.counters as nl_ctr
 import server.lib.nl.utils as nl_utils
-import server.routes.api.place as place_api
+import server.lib.util as util
+import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
 
 DEFAULT_PLACE_DCID = "Earth"
@@ -245,7 +245,7 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
   place_types = [DEFAULT_PLACE_TYPE]
   parent_places = []
   if place_dcid != DEFAULT_PLACE_DCID:
-    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
+    place_types = util.property_values([place_dcid], 'typeOf')[place_dcid]
     if not place_types:
       return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
     wanted_place_types = [

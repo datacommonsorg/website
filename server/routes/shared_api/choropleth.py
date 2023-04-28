@@ -28,12 +28,12 @@ from flask import url_for
 from geojson_rewind import rewind
 
 from server.cache import cache
+from server.lib.shared import is_float
+import server.lib.shared as shared
 import server.lib.util as lib_util
-import server.routes.api.landing_page as landing_page_api
-from server.routes.api.place import EQUIVALENT_PLACE_TYPES
-import server.routes.api.place as place_api
-from server.routes.api.shared import is_float
-import server.routes.api.shared as shared_api
+import server.routes.place.api as landing_page_api
+from server.routes.shared_api.place import EQUIVALENT_PLACE_TYPES
+import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
 
 # Define blueprint
@@ -371,7 +371,7 @@ def choropleth_data(dcid):
       }
   """
   configs = get_choropleth_configs()
-  stat_vars, denoms = shared_api.get_stat_vars(configs)
+  stat_vars, denoms = shared.get_stat_vars(configs)
   display_dcid, display_level = get_choropleth_display_level(dcid)
   geos = []
   if display_dcid and display_level:
@@ -433,7 +433,7 @@ def choropleth_data(dcid):
     # process the set of sources and set of dates collected for this chart
     # config
     sources = filter(lambda x: x != "", sources)
-    date_range = shared_api.get_date_range(dates)
+    date_range = shared.get_date_range(dates)
     # build the result for this chart config and add it to the result
     cc_result = {
         'date': date_range,

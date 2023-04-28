@@ -30,7 +30,7 @@ from google.oauth2 import id_token
 import requests
 
 import server.lib.util as libutil
-import server.routes.api.user as user_api
+import server.routes.user.api as user_api
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 

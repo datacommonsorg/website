@@ -158,7 +158,7 @@ EVENT_DATA_2 = {
 
 class TestGetDateRange(unittest.TestCase):
 
-  @mock.patch('server.routes.api.disaster_api.dc.get_event_collection_date')
+  @mock.patch('server.routes.disaster.api.dc.get_event_collection_date')
   def test_has_dates(self, mock_event_collection_date):
 
     def date_side_effect(event_type, affected_place):
@@ -177,7 +177,7 @@ class TestGetDateRange(unittest.TestCase):
     assert (response_data.get("maxDate") == DATE_LIST[-1])
     assert (response_data.get("minDate") == DATE_LIST[0])
 
-  @mock.patch('server.routes.api.disaster_api.dc.get_event_collection_date')
+  @mock.patch('server.routes.disaster.api.dc.get_event_collection_date')
   def test_no_dates(self, mock_event_collection_date):
 
     def date_side_effect(event_type, affected_place):
@@ -223,7 +223,7 @@ class TestGetDateRange(unittest.TestCase):
 
 class TestGetData(unittest.TestCase):
 
-  @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
+  @mock.patch('server.routes.disaster.api.dc.get_event_collection')
   def test_yyyy(self, mock_event_collection):
 
     def event_side_effect(event_type, affected_place, date, filter_prop,
@@ -252,7 +252,7 @@ class TestGetData(unittest.TestCase):
         }
     }
 
-  @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
+  @mock.patch('server.routes.disaster.api.dc.get_event_collection')
   def test_yyyy_no_data(self, mock_event_collection):
 
     def event_side_effect(event_type, affected_place, date, filter_prop,
@@ -272,7 +272,7 @@ class TestGetData(unittest.TestCase):
     assert response.status_code == 200
     assert json.loads(gzip.decompress(response.data)) == {}
 
-  @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
+  @mock.patch('server.routes.disaster.api.dc.get_event_collection')
   def test_yyyymm(self, mock_event_collection):
 
     def event_side_effect(event_type, affected_place, date, filter_prop,
@@ -293,7 +293,7 @@ class TestGetData(unittest.TestCase):
     assert response.status_code == 200
     assert json.loads(gzip.decompress(response.data)) == EVENT_DATA
 
-  @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
+  @mock.patch('server.routes.disaster.api.dc.get_event_collection')
   def test_yyyymm_no_data(self, mock_event_collection):
 
     def event_side_effect(event_type, affected_place, date, filter_prop,
@@ -312,7 +312,7 @@ class TestGetData(unittest.TestCase):
     assert response.status_code == 200
     assert json.loads(gzip.decompress(response.data)) == {}
 
-  @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
+  @mock.patch('server.routes.disaster.api.dc.get_event_collection')
   def test_date_range(self, mock_event_collection):
 
     def event_side_effect(event_type, affected_place, date, filter_prop,
@@ -340,7 +340,7 @@ class TestGetData(unittest.TestCase):
         }
     }
 
-  @mock.patch('server.routes.api.disaster_api.dc.get_event_collection')
+  @mock.patch('server.routes.disaster.api.dc.get_event_collection')
   def test_with_filter(self, mock_event_collection):
 
     def event_side_effect(event_type, affected_place, date, filter_prop,

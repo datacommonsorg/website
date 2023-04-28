@@ -21,10 +21,10 @@ from flask import Blueprint
 from flask import make_response
 from flask import request
 
-from server.routes.api.shared import date_greater_equal_min
-from server.routes.api.shared import date_lesser_equal_max
-from server.routes.api.shared import is_valid_date
-from server.routes.api.shared import names
+from server.lib.shared import date_greater_equal_min
+from server.lib.shared import date_lesser_equal_max
+from server.lib.shared import is_valid_date
+from server.lib.shared import names
 import server.services.datacommons as dc
 
 # Define blueprint

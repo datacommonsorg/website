@@ -17,10 +17,10 @@ from abc import ABC
 from abc import abstractmethod
 from typing import List, Optional, Set
 
-from server.routes.api.import_detection.detection_types import DCProperty
-from server.routes.api.import_detection.detection_types import DCType
-from server.routes.api.import_detection.detection_types import TypeProperty
-import server.routes.api.import_detection.utils as utils
+from server.routes.import_detection.detection_types import DCProperty
+from server.routes.import_detection.detection_types import DCType
+from server.routes.import_detection.detection_types import TypeProperty
+import server.routes.import_detection.utils as utils
 
 
 class PlaceDetectorInterface(ABC):

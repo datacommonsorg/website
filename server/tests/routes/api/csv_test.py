@@ -44,8 +44,8 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                           })
     assert no_stat_vars.status_code == 400
 
-  @mock.patch('server.routes.api.csv.dc.obs_point_within')
-  @mock.patch('server.routes.api.csv.names')
+  @mock.patch('server.routes.shared_api.csv.dc.obs_point_within')
+  @mock.patch('server.routes.shared_api.csv.names')
   def test_single_date(self, mock_place_names, mock_point_within):
     expected_parent_place = "country/USA"
     expected_child_type = "State"
@@ -149,8 +149,8 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         "geoId/06,California,2015,9931715,https://www.census.gov/programs-surveys/popest.html,2015,3.7,https://www.bls.gov/lau/\r\n"
     )
 
-  @mock.patch('server.routes.api.csv.dc.obs_series_within')
-  @mock.patch('server.routes.api.csv.names')
+  @mock.patch('server.routes.shared_api.csv.dc.obs_series_within')
+  @mock.patch('server.routes.shared_api.csv.names')
   def test_date_range(self, mock_place_names, mock_series_within):
     expected_parent_place = "country/USA"
     expected_child_type = "State"

@@ -15,7 +15,7 @@
 
 import flask
 
-import server.routes.api.place as place_api
+import server.routes.shared_api.place as place_api
 
 bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 

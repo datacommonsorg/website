@@ -23,7 +23,7 @@ from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as libutil
-import server.routes.api.place as place_api
+import server.routes.shared_api.place as place_api
 
 _NL_DISASTER_TOPIC = 'nl_disasters'
 _SDG_TOPIC = 'sdg'

@@ -17,7 +17,7 @@ import json
 
 import flask
 
-import server.routes.api.place as place_api
+import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_ranking', __name__, url_prefix='/api/ranking')
