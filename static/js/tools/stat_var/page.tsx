@@ -206,7 +206,7 @@ class Page extends Component<unknown, PageStateType> {
             })
             .then((resp) => {
               const sources = [];
-              for (const dcid in resp.data) {
+              for (const dcid of Object.keys(resp.data).sort()) {
                 sources.push({
                   dcid,
                   name: resp.data[dcid][0],
