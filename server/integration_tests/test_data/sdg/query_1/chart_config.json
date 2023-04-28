@@ -9,28 +9,28 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1"
                     ],
                     "title": "Population living below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Access to basic drinking water services in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+                      "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Access to basic sanitation services in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+                      "sdg/SI_POV_EMP1_15GEQ"
                     ],
                     "title": "Employed population below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
@@ -45,21 +45,21 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1_LT15Y"
                     ],
                     "title": "Population under 15 years old below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1_15-64"
                     ],
                     "title": "Population 15 to 64 years old below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1_65GEQ"
                     ],
                     "title": "Population 65 years and over below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
@@ -75,14 +75,14 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE"
+                      "sdg/SI_POV_DAY1_FEMALE"
                     ],
                     "title": "Female population below poverty international line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE"
+                      "sdg/SI_POV_DAY1_MALE"
                     ],
                     "title": "Male population below poverty international line in Countries of Africa (${date})",
                     "type": "MAP"
@@ -98,14 +98,14 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1_URBAN"
                     ],
                     "title": "Urban population below poverty international line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX"
+                      "sdg/SI_POV_DAY1_RURAL"
                     ],
                     "title": "Rural population below poverty international line in Countries of Africa (${date})",
                     "type": "MAP"
@@ -121,14 +121,14 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_FEMALE"
+                      "sdg/SI_POV_EMP1_15GEQ_FEMALE"
                     ],
                     "title": "Employed female population below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15gte_M_A_MALE"
+                      "sdg/SI_POV_EMP1_15GEQ_MALE"
                     ],
                     "title": "Employed male population below international poverty line in Countries of Africa (${date})",
                     "type": "MAP"
@@ -140,57 +140,57 @@
           }
         ],
         "statVarSpec": {
-          "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX": {
-            "name": "Population 15 to 64 years old below international poverty line",
-            "statVar": "sdg/SI_POV_DAY1_15-64_ALLAREA_G_BOTHSEX"
-          },
-          "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX": {
-            "name": "Population 65 years and over below international poverty line",
-            "statVar": "sdg/SI_POV_DAY1_65gte_ALLAREA_G_BOTHSEX"
-          },
-          "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX": {
+          "sdg/SI_POV_DAY1": {
             "name": "Population living below international poverty line",
-            "statVar": "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_BOTHSEX"
+            "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE": {
+          "sdg/SI_POV_DAY1_15-64": {
+            "name": "Population 15 to 64 years old below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1_15-64"
+          },
+          "sdg/SI_POV_DAY1_65GEQ": {
+            "name": "Population 65 years and over below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1_65GEQ"
+          },
+          "sdg/SI_POV_DAY1_FEMALE": {
             "name": "Female population below poverty international line",
-            "statVar": "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_FEMALE"
+            "statVar": "sdg/SI_POV_DAY1_FEMALE"
           },
-          "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE": {
-            "name": "Male population below poverty international line",
-            "statVar": "sdg/SI_POV_DAY1_ALLAGE_ALLAREA_G_MALE"
-          },
-          "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX": {
-            "name": "Rural population below poverty international line",
-            "statVar": "sdg/SI_POV_DAY1_ALLAGE_RURAL_G_BOTHSEX"
-          },
-          "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX": {
-            "name": "Urban population below poverty international line",
-            "statVar": "sdg/SI_POV_DAY1_ALLAGE_URBAN_G_BOTHSEX"
-          },
-          "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX": {
+          "sdg/SI_POV_DAY1_LT15Y": {
             "name": "Population under 15 years old below international poverty line",
-            "statVar": "sdg/SI_POV_DAY1_lt15Y_ALLAREA_G_BOTHSEX"
+            "statVar": "sdg/SI_POV_DAY1_LT15Y"
           },
-          "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX": {
+          "sdg/SI_POV_DAY1_MALE": {
+            "name": "Male population below poverty international line",
+            "statVar": "sdg/SI_POV_DAY1_MALE"
+          },
+          "sdg/SI_POV_DAY1_RURAL": {
+            "name": "Rural population below poverty international line",
+            "statVar": "sdg/SI_POV_DAY1_RURAL"
+          },
+          "sdg/SI_POV_DAY1_URBAN": {
+            "name": "Urban population below poverty international line",
+            "statVar": "sdg/SI_POV_DAY1_URBAN"
+          },
+          "sdg/SI_POV_EMP1_15GEQ": {
             "name": "Employed population below international poverty line",
-            "statVar": "sdg/SI_POV_EMP1_15gte_M_A_BOTHSEX"
+            "statVar": "sdg/SI_POV_EMP1_15GEQ"
           },
-          "sdg/SI_POV_EMP1_15gte_M_A_FEMALE": {
+          "sdg/SI_POV_EMP1_15GEQ_FEMALE": {
             "name": "Employed female population below international poverty line",
-            "statVar": "sdg/SI_POV_EMP1_15gte_M_A_FEMALE"
+            "statVar": "sdg/SI_POV_EMP1_15GEQ_FEMALE"
           },
-          "sdg/SI_POV_EMP1_15gte_M_A_MALE": {
+          "sdg/SI_POV_EMP1_15GEQ_MALE": {
             "name": "Employed male population below international poverty line",
-            "statVar": "sdg/SI_POV_EMP1_15gte_M_A_MALE"
+            "statVar": "sdg/SI_POV_EMP1_15GEQ_MALE"
           },
-          "sdg/SP_ACS_BSRVH2O_ALLAREA_E": {
+          "sdg/SP_ACS_BSRVH2O": {
             "name": "Access to basic drinking water services",
-            "statVar": "sdg/SP_ACS_BSRVH2O_ALLAREA_E"
+            "statVar": "sdg/SP_ACS_BSRVH2O"
           },
-          "sdg/SP_ACS_BSRVSAN_ALLAREA_E": {
+          "sdg/SP_ACS_BSRVSAN": {
             "name": "Access to basic sanitation services",
-            "statVar": "sdg/SP_ACS_BSRVSAN_ALLAREA_E"
+            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }

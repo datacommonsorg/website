@@ -90,7 +90,7 @@ test("scatterDataToCsv", () => {
     yVal: 2,
     xDate: "2022-01-01",
     yDate: "2022-01-02",
-    xPop: 3,
+    xPopVal: 3,
     xPopDate: "2021-01",
   };
   const testPoints = {

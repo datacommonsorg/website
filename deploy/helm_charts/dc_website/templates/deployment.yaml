@@ -8,7 +8,7 @@ metadata:
   name: website-app
   namespace: {{ .Values.namespace.name }}
 spec:
-  replicas: {{ .Values.website.replicas.default }}
+  replicas: {{ .Values.website.replicas }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -22,10 +22,10 @@ spec:
       {{ else }}
       # maximum number of Pods that can be created over the desired number of Pods
       # 25% of default pods (+1 in case default < 4)
-      maxSurge: {{ div .Values.website.replicas.default 4 | add 1 }}
+      maxSurge: {{ div .Values.website.replicas 4 | add 1 }}
       # Maximum number of pods that can be unavailable during the update process
       # 25% of default pods (+1 in case default < 4)
-      maxUnavailable: {{ div .Values.website.replicas.default 4 | add 1 }}
+      maxUnavailable: {{ div .Values.website.replicas 4 | add 1 }}
       {{- end }}
   selector:
     matchLabels:

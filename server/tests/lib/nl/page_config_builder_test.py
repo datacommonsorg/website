@@ -780,15 +780,18 @@ class TestPageConfigNext(unittest.TestCase):
                 mock_parent_place_names, mock_topic_name, mock_sv_footnote,
                 mock_sv_unit):
     random.seed(1)
-    mock_sv_name.side_effect = (
-        lambda svs: {sv: "{}-name".format(sv) for sv in svs})
+    mock_sv_name.side_effect = (lambda svs: {
+        sv: "{}-name".format(sv) for sv in svs
+    })
     mock_parent_place_names.side_effect = (
         lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
     mock_topic_name.side_effect = (lambda dcid: dcid.split('/')[-1])
-    mock_sv_footnote.side_effect = (
-        lambda svs: {sv: "{}-footnote".format(sv) for sv in svs})
-    mock_sv_unit.side_effect = (
-        lambda svs: {sv: "{}-unit".format(sv) for sv in svs})
+    mock_sv_footnote.side_effect = (lambda svs: {
+        sv: "{}-footnote".format(sv) for sv in svs
+    })
+    mock_sv_unit.side_effect = (lambda svs: {
+        sv: "{}-unit".format(sv) for sv in svs
+    })
 
     got = _run(uttr_dict)
     self.maxDiff = None

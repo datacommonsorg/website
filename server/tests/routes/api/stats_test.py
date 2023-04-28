@@ -204,7 +204,7 @@ class TestApiStatsProperty(unittest.TestCase):
 
 class TestSearchStatVar(unittest.TestCase):
 
-  @mock.patch('server.routes.api.stats.dc.search_statvar')
+  @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   def test_search_statvar_single_token(self, mock_search_result):
     expected_query = 'person'
     expected_places = ["geoId/06"]

@@ -13,6 +13,7 @@
     "semi": ["error", "always"],
     "@typescript-eslint/no-empty-interface": "warn",
     "@typescript-eslint/no-explicit-any": "off",
+    "camelcase": "warn",
     "no-fallthrough": "off",
     "simple-import-sort/exports": "error",
     "simple-import-sort/imports": "error",

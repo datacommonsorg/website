@@ -1,6 +1,5 @@
 observations-api:5000:
-  - /v1/bulk/observations/*
-  - /v1/bulk/observation-dates/linked
+  - /v2/observation
 bq-service:
   - /query
 v0-node-service:8888:

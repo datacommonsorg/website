@@ -17,9 +17,9 @@ import json
 from typing import Dict, List, Optional
 import unittest
 
-import server.routes.api.import_detection.detection as detection
-from server.routes.api.import_detection.detection_types import Column
-from server.routes.api.import_detection.detection_types import DCProperty
+import server.routes.import_detection.detection as detection
+from server.routes.import_detection.detection_types import Column
+from server.routes.import_detection.detection_types import DCProperty
 
 
 class TestDetection(unittest.TestCase):

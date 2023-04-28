@@ -21,7 +21,7 @@ from web_app import app
 
 class TestVariablePath(unittest.TestCase):
 
-  @mock.patch('server.routes.api.variable.dc.get_variable_ancestors')
+  @mock.patch('server.routes.shared_api.variable.dc.get_variable_ancestors')
   def test_variable_path(self, mock_result):
 
     def side_effect(dcid):

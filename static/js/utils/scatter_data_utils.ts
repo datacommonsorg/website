@@ -32,8 +32,8 @@ interface PlaceAxisChartData {
   value: number;
   statDate: string;
   sources: string[];
-  denomValue?: number;
-  denomDate?: string;
+  popValue?: number;
+  popDate?: string;
   unit?: string;
 }
 
@@ -78,19 +78,30 @@ function getPlaceAxisChartData(
   if (scaling) {
     value *= scaling;
   }
-  if (popBounds) {
-    const popSeries = populationData.data[DEFAULT_POPULATION_DCID][placeDcid];
+  let popValue = denomValue;
+  let popDate = denomDate;
+  if (!_.isNull(populationData)) {
+    const popSeries = populationData.data[DEFAULT_POPULATION_DCID]
+      ? populationData.data[DEFAULT_POPULATION_DCID][placeDcid]
+      : null;
     if (popSeries && popSeries.series) {
       const popObs = getMatchingObservation(popSeries.series, obs.date);
-      if (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1])) {
+      if (
+        popBounds &&
+        (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1]))
+      ) {
         return null;
       }
+      // If this axis is using a population denominator, use that for the population value as well
+      // Otherwise, use the default "Count_Person" variable.
+      popValue = popValue || popObs.value;
+      popDate = popDate || popObs.date;
     } else {
       console.log(`No population data for ${placeDcid}`);
     }
   }
   const unit = getUnit(metadataMap[metaHash]);
-  return { value, statDate, sources, denomDate, denomValue, unit };
+  return { value, statDate, sources, popValue, popDate, unit };
 }
 
 interface PlaceScatterData {
@@ -155,10 +166,10 @@ export function getPlaceScatterData(
     yVal: yChartData.value,
     xDate: xChartData.statDate,
     yDate: yChartData.statDate,
-    xPop: xChartData.denomValue,
-    yPop: yChartData.denomValue,
-    xPopDate: xChartData.denomDate,
-    yPopDate: yChartData.denomDate,
+    xPopVal: xChartData.popValue,
+    yPopVal: yChartData.popValue,
+    xPopDate: xChartData.popDate,
+    yPopDate: yChartData.popDate,
   };
   const sources = xChartData.sources.concat(yChartData.sources);
   return { point, sources, xUnit: xChartData.unit, yUnit: yChartData.unit };
