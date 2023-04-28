@@ -21,9 +21,9 @@ from web_app import app
 
 class TestCoords2Places(unittest.TestCase):
 
-  @patch('server.routes.api.place.dc.resolve_coordinates')
-  @patch('server.routes.api.place.names')
-  @patch('server.routes.api.place.util.property_values')
+  @patch('server.routes.shared_api.place.dc.resolve_coordinates')
+  @patch('server.routes.shared_api.place.names')
+  @patch('server.routes.shared_api.place.util.property_values')
   def test_get_places_for_coords(self, mock_property_values, mock_place_names,
                                  mock_resolve_coordinates):
     test_coordinates = [{

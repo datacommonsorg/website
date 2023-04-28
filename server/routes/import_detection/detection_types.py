@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List, Optional
 
-from server.routes.api.import_detection.utils import Consts as c
+from server.routes.import_detection.utils import Consts as c
 
 
 # Helper Enums and Data Classes for Detection.

@@ -35,7 +35,7 @@ class TestObservationId(unittest.TestCase):
         '/api/browser/observation-id?statVar=testStatVar&place=country/USA')
     assert no_date.status_code == 400
 
-  @patch('server.routes.api.browser.dc.query')
+  @patch('server.routes.browser.api.dc.query')
   def test_observation_node_dcid_returned(self, mock_query):
     expected_query = '''
 SELECT ?dcid ?mmethod ?obsPeriod
@@ -74,7 +74,7 @@ WHERE {
     assert response.status_code == 200
     assert json.loads(response.data) == expected_obs_id
 
-  @patch('server.routes.api.browser.dc.query')
+  @patch('server.routes.browser.api.dc.query')
   def test_with_optional_predicates(self, mock_query):
     expected_query = '''
 SELECT ?dcid ?mmethod ?obsPeriod

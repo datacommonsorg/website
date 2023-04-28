@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,21 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Data Commons translator page."""
 
-import unittest
-from unittest.mock import patch
+from flask import Blueprint
+from flask import render_template
 
-from web_app import app
+bp = Blueprint('static', __name__)
 
 
-class TestRoute(unittest.TestCase):
-
-  def test_dev(self):
-    response = app.test_client().get('/dev/')
-    assert response.status_code == 200
-
-  @patch('server.routes.dev.html.list_png')
-  def test_screenshot(self, mock_list_png):
-    mock_list_png.side_effect = (lambda bucket, prefix: [])
-    response = app.test_client().get('/dev/screenshot/folder')
-    assert response.status_code == 200
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
+@bp.route('/translator')
+def translator():
+  return render_template('translator.html')

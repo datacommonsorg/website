@@ -34,7 +34,7 @@ from flask_babel import gettext
 
 from server.cache import cache
 import server.lib.range as lib_range
-import server.routes.api.place as place_api
+import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
 
 # Define blueprint

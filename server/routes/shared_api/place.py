@@ -29,8 +29,8 @@ from flask_babel import gettext
 from server.cache import cache
 from server.lib import util
 import server.lib.i18n as i18n
-from server.routes.api.shared import names
-import server.routes.api.shared as shared_api
+from server.lib.shared import names
+import server.lib.shared as shared_api
 from server.services.datacommons import fetch_data
 import server.services.datacommons as dc
 
