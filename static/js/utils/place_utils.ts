@@ -77,15 +77,10 @@ export function getParentPlacesPromise(
     .then((resp) => {
       const parentsData = resp.data;
       const filteredParentsData = parentsData.filter((parent) => {
-        for (const type of parent.types) {
-          if (type in ALL_MAP_PLACE_TYPES) {
-            return true;
-          }
-        }
-        return false;
+        return parent.type in ALL_MAP_PLACE_TYPES;
       });
       const parentPlaces = filteredParentsData.map((parent) => {
-        return { dcid: parent.dcid, name: parent.name, types: parent.types };
+        return { dcid: parent.dcid, name: parent.name, types: [parent.type] };
       });
       if (placeDcid !== EARTH_NAMED_TYPED_PLACE.dcid) {
         parentPlaces.push(EARTH_NAMED_TYPED_PLACE);
@@ -253,8 +248,8 @@ export function getPlaceIdsFromNames(
   }
   return Promise.all(names.map(getPlaceId)).then((places) => {
     const result = {};
-    for (const [name, place_id] of places) {
-      result[name] = place_id;
+    for (const [name, placeId] of places) {
+      result[name] = placeId;
     }
     return result;
   });

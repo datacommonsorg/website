@@ -156,34 +156,25 @@ def api_name():
     return 'error fetching names for the given places', 400
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def cached_i18n_name(dcids, locale, should_resolve_all):
+def get_i18n_name(dcids, should_resolve_all=True):
   """Returns localization names for set of dcids.
 
   Args:
-      dcids: ^ separated string of dcids. It must be a single string for the cache.
-      locale: the desired localization language code.
+      dcids: A list of dcids.
       should_resolve_all: True if every dcid should be returned with a
-                          name, False if only i18n names should be filled
+                          name, False if only i18n names should be filled.
 
   Returns:
       A dictionary of place names, keyed by dcid (potentially sparse if should_resolve_all=False)
   """
   if not dcids:
     return {}
-  dcids = dcids.split('^')
-  response = fetch_data('/node/property-values', {
-      'dcids': dcids,
-      'property': 'nameWithLanguage',
-      'direction': 'out'
-  },
-                        compress=False,
-                        post=True)
+  response = util.property_values(dcids, 'nameWithLanguage')
   result = {}
   dcids_default_name = []
-  locales = i18n.locale_choices(locale)
+  locales = i18n.locale_choices(g.locale)
   for dcid in dcids:
-    values = response[dcid].get('out')
+    values = response.get(dcid, [])
     # If there is no nameWithLanguage for this dcid, fall back to name.
     if not values:
       dcids_default_name.append(dcid)
@@ -207,30 +198,15 @@ def cached_i18n_name(dcids, locale, should_resolve_all):
 
 
 def has_locale_name(entry, locale):
-  return entry['value'].endswith('@' + locale.lower())
+  return entry.endswith('@' + locale.lower())
 
 
 def extract_locale_name(entry, locale):
-  if entry['value'].endswith('@' + locale.lower()):
-    locale_index = len(entry['value']) - len(locale) - 1
-    return entry['value'][:locale_index]
+  if entry.endswith('@' + locale.lower()):
+    locale_index = len(entry) - len(locale) - 1
+    return entry[:locale_index]
   else:
     return ''
-
-
-def get_i18n_name(dcids, should_resolve_all=True):
-  """Returns localization names for set of dcids.
-
-  Args:
-      dcids: A list of place dcids.
-      should_resolve_all: True if every dcid should be returned with a
-                          name, False if only i18n names should be filled
-
-  Returns:
-      A dictionary of place names, keyed by dcid (potentially sparse if should_resolve_all=False)
-  """
-  return cached_i18n_name('^'.join((sorted(dcids))), g.locale,
-                          should_resolve_all)
 
 
 @bp.route('/name/i18n')
@@ -258,55 +234,43 @@ def get_named_typed_place():
   return Response(json.dumps(ret), 200, mimetype='application/json')
 
 
-@bp.route('/statsvars/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def statsvars_route(dcid):
-  """Get all the statistical variables that exist for a give place.
-  Args:
-    dcid: Place dcid.
-  Returns:
-    A list of statistical variable dcids.
-  """
-  return Response(json.dumps(dc.get_variables(dcid)),
-                  200,
-                  mimetype='application/json')
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_stat_vars_union(places, stat_vars):
-  """Get all the statistical variable dcids for some places.
-
-  Args:
-      places: Place DCIDs separated by "^" as a single string.
-      stat_vars: list of stat var dcids.
-
-  Returns:
-      List of unique statistical variable dcids each as a string.
-  """
-  places = places.split("^")
-  # The two indexings are due to how protobuf fields are converted to json
-  return fetch_data('/v1/place/stat-vars/union', {
-      'dcids': places,
-      'statVars': stat_vars,
-  },
-                    compress=False,
-                    post=True,
-                    has_payload=False).get('statVars', [])
-
-
 @bp.route('/stat-vars/union', methods=['POST'])
-def get_stat_vars_union_route():
+def get_stat_vars_union():
   """Get all the statistical variables that exist for some places.
 
   Returns:
       List of unique statistical variable dcids each as a string.
   """
-  dcids = sorted(request.json.get('dcids', []))
-  stat_vars = (request.json.get('statVars', []))
+  result = []
+  entities = sorted(request.json.get('dcids', []))
+  resp = dc.entity_variables(entities)
+  for var, entity_obs in resp['byVariable'].items():
+    if len(entity_obs.get('byEntity'), {}) == len(entities):
+      result.append(var)
+  return Response(json.dumps(result), 200, mimetype='application/json')
 
-  return Response(json.dumps(get_stat_vars_union("^".join(dcids), stat_vars)),
-                  200,
-                  mimetype='application/json')
+
+@bp.route('/stat-vars/existence', methods=['POST'])
+def get_stat_vars_existence():
+  """Check if statistical variables that exist for some places.
+
+  Returns:
+      Map from variable to place to a boolean of whether there is observation.
+  """
+  result = {}
+  variables = request.json.get('variables', [])
+  entities = request.json.get('entities', [])
+  # Populate result
+  for var in variables:
+    result[var] = {}
+    for e in entities:
+      result[var][e] = False
+  # Fetch existence check data
+  resp = dc.entity_variables_existence(variables, entities)
+  for var, entity_obs in resp.get('byVariable', {}).items():
+    for e in entity_obs.get('byEntity', {}):
+      result[var][e] = True
+  return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @bp.route('/child/<path:dcid>')
@@ -345,14 +309,11 @@ def child_fetch(parent_dcid):
 
   # Fetch population of child places
   pop = {}
-  obs = dc.obs_point(wanted_dcids, [POPULATION_DCID])
-  obs = obs.get('observationsByVariable', [])
-  if obs and obs[0]['variable'] == POPULATION_DCID:
-    obs = obs[0].get('observationsByEntity', [])
-    for p in obs:
-      v = p.get('pointsByFacet', [])
-      if v:
-        pop[p['entity']] = v[0]['value']
+  obs_response = util.point_core(wanted_dcids, [POPULATION_DCID],
+                                 date='LATEST',
+                                 all_facets=False)
+  for entity, points in obs_response['data'].get(POPULATION_DCID, {}).items():
+    pop[entity] = points[0]['value']
 
   # Build return object
   place_names = util.property_values(wanted_dcids, 'name', True)
@@ -383,90 +344,31 @@ def child_fetch(parent_dcid):
 
 
 @bp.route('/parent/<path:dcid>')
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def api_parent_places(dcid):
-  result = parent_places(dcid)[dcid]
+  result = parent_places([dcid])[dcid]
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def parent_places(dcids):
   """ Get the parent place chain for a list of places.
 
   Args:
-      dcids: ^ separated string of dcids. It must be a single string for the cache.
-
-  Returns:
-      A dictionary of lists of parent places, keyed by dcid.
-  """
-  # In DataCommons knowledge graph, places has multiple containedInPlace
-  # relation with parent places, but it might not be comprehensive. For
-  # example, "Mountain View" is containedInPlace for "Santa Clara County" and
-  # "California" but not "United States":
-  # https://datacommons.org/browser/geoId/0649670
-  # Here calling get_parent_place twice to get to the top parents.
-  if not dcids:
-    return {}
-
-  result = {}
-  parents1 = get_parent_place(dcids)
-  dcids = dcids.split('^')
-  dcid_parents1_mapping = {}
-  for dcid in dcids:
-    first_parents = parents1[dcid]
-    result[dcid] = first_parents
-    if first_parents:
-      dcid_parents1_mapping[dcid] = first_parents[-1]['dcid']
-  if not dcid_parents1_mapping:
-    return result
-
-  parents2 = get_parent_place('^'.join(dcid_parents1_mapping.values()))
-  dcid_parents2_mapping = {}
-  for dcid in dcid_parents1_mapping.keys():
-    second_parents = parents2[dcid_parents1_mapping[dcid]]
-    result[dcid].extend(second_parents)
-    if second_parents:
-      dcid_parents2_mapping[dcid] = second_parents[-1]['dcid']
-  if not dcid_parents2_mapping:
-    return result
-
-  parents3 = get_parent_place('^'.join(dcid_parents2_mapping.values()))
-  for dcid in dcid_parents2_mapping.keys():
-    result[dcid].extend(parents3[dcid_parents2_mapping[dcid]])
-    result[dcid] = [x for x in result[dcid] if x['dcid'] != 'Earth']
-  return result
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_parent_place(dcids):
-  """ Get containedInPlace for each place in a list of places
-
-  Args:
-      dcids: ^ separated string of dcids. It must be a single string for the cache.
+      dcids: A list of place dids.
 
   Returns:
       A dictionary of lists of containedInPlace, keyed by dcid.
   """
-  if dcids:
-    dcids = dcids.split('^')
-  else:
-    dcids = []
-  response = fetch_data('/node/property-values', {
-      'dcids': dcids,
-      'property': 'containedInPlace',
-      'direction': 'out'
-  },
-                        compress=False,
-                        post=True)
-  result = {}
-  for dcid in dcids:
-    parents = response[dcid].get('out', [])
-    parents.sort(key=lambda x: x['dcid'], reverse=True)
-    for i in range(len(parents)):
-      if len(parents[i]['types']) > 1:
-        parents[i]['types'] = [
-            x for x in parents[i]['types']
-            if not x.startswith('AdministrativeArea')
-        ]
+  result = {dcid: {} for dcid in dcids}
+  place_info = dc.get_place_info(dcids)
+  for item in place_info.get('data', []):
+    if 'node' not in item or 'info' not in item:
+      continue
+    dcid = item['node']
+    parents = item['info'].get('parents', [])
+    parents = [
+        x for x in parents if not x['type'].startswith('AdministrativeArea')
+    ]
     result[dcid] = parents
   return result
 
@@ -554,15 +456,14 @@ def get_ranking_url(containing_dcid,
 def api_ranking(dcid):
   """Get the ranking information for a given place."""
   current_place_type = get_place_type(dcid)
-  parents = parent_places(dcid)[dcid]
-  parents_str = '^'.join(sorted(map(lambda x: x['dcid'], parents)))
-  parent_i18n_names = cached_i18n_name(parents_str, g.locale, False)
+  parents = parent_places([dcid])[dcid]
+  parent_i18n_names = get_i18n_name([x['dcid'] for x in parents], False)
 
   selected_parents = []
   parent_names = {}
   for parent in parents:
     parent_dcid = parent['dcid']
-    parent_type = parent['types'][0]
+    parent_type = parent['type']
     if parent_type not in WANTED_PLACE_TYPES:
       continue
     if parent_dcid.startswith('zip'):
@@ -635,12 +536,11 @@ def api_ranking(dcid):
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_state_code(dcids):
   """Get state codes for a list of places that are state equivalents
 
   Args:
-      dcids: ^ separated string of dcids of places that are state equivalents
+      dcids: A list of dcids.
 
   Returns:
       A dictionary of state codes, keyed by dcid
@@ -648,7 +548,6 @@ def get_state_code(dcids):
   result = {}
   if not dcids:
     return result
-  dcids = dcids.split('^')
   iso_codes = util.property_values(dcids, 'isoCode')
 
   for dcid in dcids:
@@ -663,22 +562,19 @@ def get_state_code(dcids):
   return result
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_display_name(dcids, locale="en"):
+def get_display_name(dcids):
   """ Get display names for a list of places.
 
   Display name is place name with state code if it has a parent place that is a state.
 
   Args:
-      dcids: ^ separated string of dcids. It must be a single string for the cache.
-      locale: the desired localization language code.
+      dcids: A list of dcids.
 
   Returns:
       A dictionary of display names, keyed by dcid.
   """
-  place_names = cached_i18n_name(dcids, locale, True)
+  place_names = get_i18n_name(dcids)
   parents = parent_places(dcids)
-  dcids = dcids.split('^')
   result = {}
   dcid_state_mapping = {}
   for dcid in dcids:
@@ -686,18 +582,16 @@ def get_display_name(dcids, locale="en"):
       continue
     for parent_place in parents[dcid]:
       parent_dcid = parent_place['dcid']
-      place_types = parent_place['types']
-      for place_type in place_types:
-        if place_type in STATE_EQUIVALENTS:
-          dcid_state_mapping[dcid] = parent_dcid
-          break
+      place_type = parent_place['type']
+      if place_type in STATE_EQUIVALENTS:
+        dcid_state_mapping[dcid] = parent_dcid
     result[dcid] = place_names[dcid]
 
-  states_lookup = '^'.join(sorted(set(dcid_state_mapping.values())))
-  if locale == "en":
+  states_lookup = set(dcid_state_mapping.values())
+  if g.locale == "en":
     state_codes = get_state_code(states_lookup)
   else:
-    state_codes = cached_i18n_name(states_lookup, locale, True)
+    state_codes = get_i18n_name(list(states_lookup), True)
   for dcid in dcid_state_mapping.keys():
     state_code = state_codes[dcid_state_mapping[dcid]]
     if state_code:
@@ -711,7 +605,7 @@ def api_display_name():
   dcids = request.args.getlist('dcids')
   if not dcids:
     dcids = request.json.get('dcids', [])
-  result = get_display_name('^'.join((sorted(dcids))), g.locale)
+  result = get_display_name(dcids)
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
@@ -744,7 +638,7 @@ def get_places_in_names():
   dcid = request.args.get("dcid")
   place_type = request.args.get("placeType")
   child_places = dc.get_places_in([dcid], place_type)[dcid]
-  return Response(json.dumps(get_display_name('^'.join(child_places))),
+  return Response(json.dumps(get_display_name(child_places)),
                   200,
                   mimetype='application/json')
 
@@ -853,17 +747,15 @@ def api_ranking_chart(dcid):
     place_type = "Country"
   else:
     place_type = get_place_type(dcid)
-    parent_place_list = parent_places(dcid).get(dcid, [])
+    parent_place_list = parent_places([dcid]).get(dcid, [])
     for parent in parent_place_list:
-      parent_type_list = parent.get("types", [])
       parent_place_dcid = parent.get("dcid", "")
-      if parent_type_list:
-        parent_type = parent_type_list[0]
-        # All wanted place types plus continent except CensusZipCodeTabulationArea.
-        if parent_type == "Continent" or (
-            parent_type in ALL_WANTED_PLACE_TYPES and
-            parent_type != "CensusZipCodeTabulationArea"):
-          break
+      parent_type = parent.get("type", "")
+      # All wanted place types plus continent except CensusZipCodeTabulationArea.
+      if parent_type == "Continent" or (
+          parent_type in ALL_WANTED_PLACE_TYPES and
+          parent_type != "CensusZipCodeTabulationArea"):
+        break
     # If break is not encountered, return empty result.
     else:
       return Response(json.dumps(result), 200, mimetype='application/json')

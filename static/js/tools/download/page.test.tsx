@@ -26,7 +26,7 @@ import React from "react";
 
 import * as SharedUtil from "../../shared/util";
 import { InfoPlace } from "./info";
-import { axios_mock } from "./mock_functions";
+import { axiosMock } from "./mock_functions";
 import { Page } from "./page";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -60,7 +60,7 @@ test("Loading options from URL", async () => {
     },
   });
   // Mock all the async axios calls
-  axios_mock();
+  axiosMock();
   // Render the component
   const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
   await waitForComponentUpdates(wrapper);
@@ -104,7 +104,7 @@ test("Manually updating options", async () => {
     },
   });
   // Mock all the async axios calls
-  axios_mock();
+  axiosMock();
   // Render the component
   const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
   await waitForComponentUpdates(wrapper);
