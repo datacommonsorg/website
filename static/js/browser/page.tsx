@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
 import React from "react";
 
 import { GoogleMap } from "../components/google_map";
@@ -48,8 +47,6 @@ interface BrowserPagePropType {
 interface BrowserPageStateType {
   provDomain: { [key: string]: URL };
   dataFetched: boolean;
-  inLabels: string[];
-  outLabels: string[];
 }
 
 export class BrowserPage extends React.Component<
@@ -60,8 +57,6 @@ export class BrowserPage extends React.Component<
     super(props);
     this.state = {
       dataFetched: false,
-      inLabels: [],
-      outLabels: [],
       provDomain: {},
     };
   }
@@ -75,8 +70,8 @@ export class BrowserPage extends React.Component<
       return null;
     }
     const showInArcSection =
-      this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR &&
-      !_.isEmpty(this.state.inLabels);
+      this.props.pageDisplayType != PageDisplayType.PLACE_STAT_VAR &&
+      this.props.pageDisplayType != PageDisplayType.STAT_VAR_OBSERVATION;
     const outArcHeader =
       this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
         ? PLACE_STAT_VAR_PROPERTIES_HEADER
@@ -123,7 +118,6 @@ export class BrowserPage extends React.Component<
             <h3>{outArcHeader}</h3>
             <OutArcSection
               dcid={arcDcid}
-              labels={this.state.outLabels}
               provDomain={this.state.provDomain}
               nodeTypes={this.props.nodeTypes}
               showAllProperties={showAllProperties}
@@ -149,7 +143,6 @@ export class BrowserPage extends React.Component<
               <InArcSection
                 nodeName={this.props.nodeName}
                 dcid={this.props.dcid}
-                labels={this.state.inLabels}
                 provDomain={this.state.provDomain}
               />
             </div>
@@ -183,20 +176,13 @@ export class BrowserPage extends React.Component<
   }
 
   private fetchData(): void {
-    const provenancePromise = axios
+    axios
       .get("/api/browser/provenance")
-      .then((resp) => resp.data);
-    const outLabelsPromise = axios
-      .get(`/api/node/properties/out/${this.getArcDcid()}`)
-      .then((resp) => resp.data);
-    const inLabelsPromise = axios
-      .get(`/api/node/properties/in/${this.getArcDcid()}`)
-      .then((resp) => resp.data);
-    Promise.all([outLabelsPromise, inLabelsPromise, provenancePromise])
-      .then(([outLabels, inLabels, provenanceData]) => {
+      .then((resp) => {
+        const provenance = resp.data;
         const provDomain = {};
-        for (const provId in provenanceData) {
-          const url = provenanceData[provId];
+        for (const provId in provenance) {
+          const url = provenance[provId];
           try {
             provDomain[provId] = new URL(url).host;
           } catch (err) {
@@ -205,8 +191,6 @@ export class BrowserPage extends React.Component<
         }
         this.setState({
           dataFetched: true,
-          inLabels,
-          outLabels,
           provDomain,
         });
       })

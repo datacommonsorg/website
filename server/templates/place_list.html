@@ -1,5 +1,5 @@
 {#
- Copyright 2020 Google LLC
+ Copyright 2023 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 #}
 {%- extends BASE_HTML -%}
 
-{% set main_id = 'placelist' %}
-{% set page_id = 'page-placelist' %}
+{% set main_id = 'place_list' %}
+{% set page_id = 'page-place_list' %}
 {% set title = 'Places' %}
 
 {% block head %}
@@ -31,7 +31,7 @@
         <h3>{{ key }}</h3> <div style="column-count: 3">
           {% for place in place_by_type[key] %}
             <div>
-              <a href="{{url_for('placelist.node', dcid=place['dcid'])}}">{{place['name']}}</a>
+              <a href="{{url_for('place_list.node', dcid=place['dcid'])}}">{{place['name']}}</a>
               <span>: (</span>
               <a href="{{url_for('browser.browser_node', dcid=place['dcid'])}}">KG</a>
               <span>)</span>

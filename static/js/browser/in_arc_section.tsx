@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import React from "react";
 
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { InArcSubsection } from "./in_arc_subsection";
-import { InArcValue } from "./types";
+import { InArcValue, TriplesResponse } from "./types";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 const LOADING_CONTAINER_ID = "browser-in-arc-section";
@@ -32,7 +32,6 @@ const LOADING_CONTAINER_ID = "browser-in-arc-section";
 interface InArcSectionsPropType {
   nodeName: string;
   dcid: string;
-  labels: string[];
   provDomain: { [key: string]: URL };
 }
 interface InArcSectionStateType {
@@ -87,36 +86,26 @@ export class InArcSection extends React.Component<
   }
 
   private fetchData(): void {
-    if (_.isEmpty(this.props.labels)) {
-      return;
-    }
-    const propValuesPromises = this.props.labels.map((label) => {
-      return axios
-        .get(`/api/browser/propvals/${label}/${this.props.dcid}`)
-        .then((resp) => resp.data);
-    });
     loadSpinner(LOADING_CONTAINER_ID);
-    Promise.all(propValuesPromises)
-      .then((propValuesData) => {
+    axios
+      .get(`/api/node/triples/in/${this.props.dcid}`)
+      .then((resp) => {
+        const triplesData: TriplesResponse = resp.data;
         const inArcsByTypeAndPredicate = {};
-        propValuesData.forEach((valuesData) => {
-          if (!valuesData) {
-            return;
-          }
-          const predicate = valuesData.property;
-          const values = valuesData.values["in"];
-          for (const value of values) {
+        for (const pred in triplesData) {
+          const values = triplesData[pred];
+          for (const value of values.nodes) {
             for (const type of value.types) {
               if (!(type in inArcsByTypeAndPredicate)) {
                 inArcsByTypeAndPredicate[type] = {};
               }
-              if (!(predicate in inArcsByTypeAndPredicate[type])) {
-                inArcsByTypeAndPredicate[type][predicate] = [];
+              if (!(pred in inArcsByTypeAndPredicate[type])) {
+                inArcsByTypeAndPredicate[type][pred] = [];
               }
-              inArcsByTypeAndPredicate[type][predicate].push(value);
+              inArcsByTypeAndPredicate[type][pred].push(value);
             }
           }
-        });
+        }
         const parentTypes = Object.keys(inArcsByTypeAndPredicate).filter(
           (type) => !IGNORED_PARENT_TYPES.has(type)
         );

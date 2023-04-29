@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@
  * Top-level wrapper component for Stat Var Explorer page.
  */
 
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 
 import {
   NamedNode,
+  PropertyValue,
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
@@ -172,13 +173,15 @@ class Page extends Component<unknown, PageStateType> {
    */
   private fetchSources(): void {
     axios
-      .get("/api/browser/propvals/typeOf/Source")
+      .get<{ [key: string]: PropertyValue[] }>(
+        "/api/node/propvals/in?prop=typeOf&dcids=Source"
+      )
       .then((resp) => {
         const sourcePromises = [];
-        if (!resp.data.values.in) {
+        if (!resp.data["Source"]) {
           return;
         }
-        for (const source of resp.data.values.in) {
+        for (const source of resp.data["Source"]) {
           const url = SVG_URL_PREFIX + source.dcid;
           sourcePromises.push(axios.get(url).then((resp) => resp));
         }
@@ -200,16 +203,16 @@ class Page extends Component<unknown, PageStateType> {
             return;
           }
           axios
-            .get("/api/node/propvals", {
+            .get<{ [key: string]: PropertyValue[] }>("/api/node/propvals/out", {
               params: { dcids: sourceDcids, prop: "name" },
               paramsSerializer: stringifyFn,
             })
-            .then((resp) => {
+            .then((resp: AxiosResponse<Record<string, PropertyValue[]>>) => {
               const sources = [];
               for (const dcid of Object.keys(resp.data).sort()) {
                 sources.push({
                   dcid,
-                  name: resp.data[dcid][0],
+                  name: resp.data[dcid][0]["value"],
                 });
               }
               this.setState({ sources });
@@ -237,23 +240,25 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     axios
-      .get(`/api/browser/propvals/isPartOf/${source}`)
-      .then((resp) => {
+      .get<{ [key: string]: PropertyValue[] }>(
+        `/api/node/propvals/in?prop=isPartOf&dcids=${source}`
+      )
+      .then((resp: AxiosResponse<Record<string, PropertyValue[]>>) => {
         const currentDatasets = [];
         const datasetSet = new Set();
-        if (!resp.data.values.in) {
+        if (!resp[source]) {
           return;
         }
-        for (const dataset of resp.data.values.in) {
+        for (const dataset of resp[source]) {
           // Remove duplicates.
-          if (datasetSet.has(dataset.dcid)) {
+          if (datasetSet.has(dataset[0].dcid)) {
             continue;
           }
           currentDatasets.push({
-            dcid: dataset.dcid,
-            name: dataset.name,
+            dcid: dataset[0].dcid,
+            name: dataset[0].name,
           });
-          datasetSet.add(dataset.dcid);
+          datasetSet.add(dataset[0].dcid);
         }
         currentDatasets.sort((a, b): number => {
           return a.name.localeCompare(b.name);
@@ -263,12 +268,12 @@ class Page extends Component<unknown, PageStateType> {
           dcid = dataset;
         }
         axios
-          .get("/api/node/propvals", {
+          .get<{ [key: string]: PropertyValue[] }>("/api/node/propvals/out", {
             params: { dcids: [dcid], prop: "name" },
             paramsSerializer: stringifyFn,
           })
           .then((resp) => {
-            const name = resp.data[dcid][0];
+            const name = resp.data[dcid][0]["value"];
             this.setState({
               dataset,
               datasets: currentDatasets,
@@ -315,13 +320,13 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     const descriptionPromise = axios
-      .get("/api/node/propvals", {
+      .get<{ [key: string]: PropertyValue[] }>("/api/node/propvals/out", {
         params: { dcids: [sv], prop: "description" },
         paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
     const displayNamePromise = axios
-      .get("/api/node/propvals", {
+      .get<{ [key: string]: PropertyValue[] }>("/api/node/propvals/out", {
         params: { dcids: [sv], prop: "name" },
         paramsSerializer: stringifyFn,
       })
@@ -344,21 +349,26 @@ class Page extends Component<unknown, PageStateType> {
           return;
         }
         axios
-          .get("/api/node/propvals", {
+          .get<{ [key: string]: PropertyValue[] }>("/api/node/propvals/out", {
             params: { dcids: provIds, prop: "url" },
             paramsSerializer: stringifyFn,
           })
           .then((resp) => {
+            const urlData = resp.data["url"];
+            const urlMap = {};
+            for (const dcid in urlData) {
+              urlMap[dcid] = urlData[dcid][0].value;
+            }
             this.setState({
               description:
                 descriptionResult[sv].length > 0
-                  ? descriptionResult[sv][0]
+                  ? descriptionResult[sv][0]["value"]
                   : "",
-              displayName: displayNameResult[sv][0],
+              displayName: displayNameResult[sv][0]["value"],
               error: false,
               statVar: sv,
               summary: summaryResult[sv],
-              urls: resp.data,
+              urls: urlMap,
             });
           });
       })

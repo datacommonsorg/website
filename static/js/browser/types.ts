@@ -16,6 +16,14 @@
 
 import _ from "lodash";
 
+import { PropertyValue } from "../shared/types";
+
+export interface TriplesResponse {
+  [property: string]: {
+    nodes: PropertyValue[];
+  };
+}
+
 /**
  * Types shared across different components of graph browser.
  */
@@ -35,6 +43,7 @@ export enum PageDisplayType {
   PLACE_STAT_VAR,
   GENERAL,
   BIOLOGICAL_SPECIMEN,
+  STAT_VAR_OBSERVATION,
 }
 
 /**
@@ -43,6 +52,7 @@ export enum PageDisplayType {
  */
 const NODE_TYPE_TO_PAGE_DISPLAY_TYPE = {
   BiologicalSpecimen: PageDisplayType.BIOLOGICAL_SPECIMEN,
+  StatVarObservation: PageDisplayType.STAT_VAR_OBSERVATION,
 };
 
 /**

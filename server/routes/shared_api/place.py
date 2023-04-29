@@ -313,7 +313,8 @@ def child_fetch(parent_dcid):
                                  date='LATEST',
                                  all_facets=False)
   for entity, points in obs_response['data'].get(POPULATION_DCID, {}).items():
-    pop[entity] = points[0]['value']
+    if points:
+      pop[entity] = points[0]['value']
 
   # Build return object
   place_names = util.property_values(wanted_dcids, 'name', True)

@@ -138,13 +138,9 @@ endpoints = Endpoints([
     '/v1/bulk/info/variable-group',
     '/v1/bulk/observation-dates/linked',
     '/v1/bulk/observation-existence',
-    '/v1/bulk/triples',
-    '/v1/triples',
     '/v1/variables',
     '/v1/variable/ancestors',
-    '/node/triples',
     '/v1/bulk/property/values/in/linked',
-    '/node/property-values',
     '/node/places-in',
     '/node/ranking-locations',
     # TODO(shifucun): switch back to /node/related-places after data switch.

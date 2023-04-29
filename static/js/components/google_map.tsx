@@ -33,6 +33,8 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { PropertyValue } from "../shared/types";
+
 const DEFAULT_MAP_ZOOM = 4;
 const MAP_BOUNDS_PADDING = 0;
 
@@ -257,12 +259,16 @@ export class GoogleMap extends React.Component<
 
     // Get lat/long from properties
     const latitudePromise = axios
-      .get(`/api/browser/propvals/latitude/${this.props.dcid}`)
-      .then((resp) => resp.data)
+      .get<{ [key: string]: PropertyValue[] }>(
+        `/api/node/propvals/out?prop=latitude&dcids=${this.props.dcid}`
+      )
+      .then((resp) => resp.data[this.props.dcid])
       .catch((error) => console.log(error));
     const longitudePromise = axios
-      .get(`/api/browser/propvals/longitude/${this.props.dcid}`)
-      .then((resp) => resp.data)
+      .get<{ [key: string]: PropertyValue[] }>(
+        `/api/node/propvals/out?prop=longitude&dcids=${this.props.dcid}`
+      )
+      .then((resp) => resp.data[this.props.dcid])
       .catch((error) => console.log(error));
 
     Promise.all([polygonPromise, latitudePromise, longitudePromise])
@@ -276,17 +282,12 @@ export class GoogleMap extends React.Component<
         }
 
         // Update state with lat/long if both are present
-        if (
-          latitudes.values &&
-          longitudes.values &&
-          !_.isEmpty(latitudes.values.out) &&
-          !_.isEmpty(longitudes.values.out)
-        ) {
+        if (latitudes && longitudes) {
           // TODO (juliawu): Update logic to use highest precision lat/long if
           //                multiple values are provided
           const coordinates = {
-            lat: parseFloat(latitudes.values.out[0].value),
-            lng: parseFloat(longitudes.values.out[0].value),
+            lat: parseFloat(latitudes[0].value),
+            lng: parseFloat(longitudes[0].value),
           };
           this.setState({
             markerLocation: coordinates,

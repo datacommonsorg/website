@@ -22,7 +22,6 @@ import _ from "lodash";
 import React from "react";
 import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
-import { JsxElement } from "typescript";
 
 import { ArcTableRow } from "../../browser/arc_table_row";
 import { GoogleMap } from "../../components/google_map";
