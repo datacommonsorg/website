@@ -309,7 +309,7 @@
       }
       columns {
         tiles {
-          title: "Number of deaths and missing persons attributed to disasters per 100,000 population"
+          title: "Number of deaths and missing persons attributed to disasters per 100K population"
           type: BAR
           stat_var_key: "sdg/VC_DSR_MTMP"
           bar_tile_spec {
@@ -699,7 +699,7 @@
       key: "sdg/VC_DSR_MTMP"
       value {
         stat_var: "sdg/VC_DSR_MTMP"
-        name: "Number of deaths and missing persons attributed to disasters per 100,000 population"
+        name: "Number of deaths and missing persons attributed to disasters per 100K population"
       }
     }
   }
@@ -4498,7 +4498,7 @@
       title: "8.10.1: (a) Number of commercial bank branches per 100,000 adults and (b) number of automated teller machines (ATMs) per 100,000 adults"
       columns {
         tiles {
-          title: "Number of automated teller machines per 100,000 adults: 15 years old and over"
+          title: "Number of automated teller machines per 100K adults: 15 years old and over"
           type: BAR
           stat_var_key: "sdg/FB_ATM_TOTL_15GEQ"
           bar_tile_spec {
@@ -4508,7 +4508,7 @@
       }
       columns {
         tiles {
-          title: "Number of commercial bank branches per 100,000 adults: 15 years old and over"
+          title: "Number of commercial bank branches per 100K adults: 15 years old and over"
           type: BAR
           stat_var_key: "sdg/FB_CBK_BRCH_15GEQ"
           bar_tile_spec {
@@ -5211,7 +5211,7 @@
       key: "sdg/FB_ATM_TOTL_15GEQ"
       value {
         stat_var: "sdg/FB_ATM_TOTL_15GEQ"
-        name: "Number of automated teller machines per 100,000 adults: 15 years old and over"
+        name: "Number of automated teller machines per 100K adults: 15 years old and over"
       }
     }
     stat_var_spec {
@@ -5232,7 +5232,7 @@
       key: "sdg/FB_CBK_BRCH_15GEQ"
       value {
         stat_var: "sdg/FB_CBK_BRCH_15GEQ"
-        name: "Number of commercial bank branches per 100,000 adults: 15 years old and over"
+        name: "Number of commercial bank branches per 100K adults: 15 years old and over"
       }
     }
     stat_var_spec {
@@ -6172,7 +6172,7 @@
       title: "10.7.4: Proportion of the population who are refugees, by country of origin"
       columns {
         tiles {
-          title: "Number of refugees per 100,000 population"
+          title: "Number of refugees per 100K population"
           type: BAR
           stat_var_key: "sdg/SM_POP_REFG_OR"
           bar_tile_spec {
@@ -6419,7 +6419,7 @@
       key: "sdg/SM_POP_REFG_OR"
       value {
         stat_var: "sdg/SM_POP_REFG_OR"
-        name: "Number of refugees per 100,000 population"
+        name: "Number of refugees per 100K population"
       }
     }
     stat_var_spec {
@@ -6512,7 +6512,7 @@
       }
       columns {
         tiles {
-          title: "Number of deaths and missing persons attributed to disasters per 100,000 population"
+          title: "Number of deaths and missing persons attributed to disasters per 100K population"
           type: BAR
           stat_var_key: "sdg/VC_DSR_MTMP"
           bar_tile_spec {
@@ -6846,7 +6846,7 @@
       key: "sdg/VC_DSR_MTMP"
       value {
         stat_var: "sdg/VC_DSR_MTMP"
-        name: "Number of deaths and missing persons attributed to disasters per 100,000 population"
+        name: "Number of deaths and missing persons attributed to disasters per 100K population"
       }
     }
   }
@@ -7700,7 +7700,7 @@
       }
       columns {
         tiles {
-          title: "Number of deaths and missing persons attributed to disasters per 100,000 population"
+          title: "Number of deaths and missing persons attributed to disasters per 100K population"
           type: BAR
           stat_var_key: "sdg/VC_DSR_MTMP"
           bar_tile_spec {
@@ -7902,7 +7902,7 @@
       key: "sdg/VC_DSR_MTMP"
       value {
         stat_var: "sdg/VC_DSR_MTMP"
-        name: "Number of deaths and missing persons attributed to disasters per 100,000 population"
+        name: "Number of deaths and missing persons attributed to disasters per 100K population"
       }
     }
   }
@@ -8701,10 +8701,10 @@
   categories {
     title: "16: Peace and Justice Strong Institutions"
     blocks {
-      title: "Number of Victims of Intentional Homicide Per 100,000 Population"
+      title: "Number of Victims of Intentional Homicide Per 100K Population"
       columns {
         tiles {
-          title: "Number of victims of intentional homicide per 100,000 population"
+          title: "Number of victims of intentional homicide per 100K population"
           type: BAR
           stat_var_key: "sdg/VC_IHR_PSRC"
           bar_tile_spec {
@@ -13026,7 +13026,7 @@
       key: "sdg/VC_IHR_PSRC"
       value {
         stat_var: "sdg/VC_IHR_PSRC"
-        name: "Number of victims of intentional homicide per 100,000 population"
+        name: "Number of victims of intentional homicide per 100K population"
       }
     }
     stat_var_spec {
