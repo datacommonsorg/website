@@ -33,7 +33,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-import { PropertyValue } from "../shared/types";
+import { PropertyValueGroup } from "../shared/types";
 
 const DEFAULT_MAP_ZOOM = 4;
 const MAP_BOUNDS_PADDING = 0;
@@ -259,13 +259,13 @@ export class GoogleMap extends React.Component<
 
     // Get lat/long from properties
     const latitudePromise = axios
-      .get<{ [key: string]: PropertyValue[] }>(
+      .get<PropertyValueGroup>(
         `/api/node/propvals/out?prop=latitude&dcids=${this.props.dcid}`
       )
       .then((resp) => resp.data[this.props.dcid])
       .catch((error) => console.log(error));
     const longitudePromise = axios
-      .get<{ [key: string]: PropertyValue[] }>(
+      .get<PropertyValueGroup>(
         `/api/node/propvals/out?prop=longitude&dcids=${this.props.dcid}`
       )
       .then((resp) => resp.data[this.props.dcid])

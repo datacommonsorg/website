@@ -70,8 +70,8 @@ export class BrowserPage extends React.Component<
       return null;
     }
     const showInArcSection =
-      this.props.pageDisplayType != PageDisplayType.PLACE_STAT_VAR &&
-      this.props.pageDisplayType != PageDisplayType.STAT_VAR_OBSERVATION;
+      this.props.pageDisplayType !== PageDisplayType.PLACE_STAT_VAR &&
+      this.props.pageDisplayType !== PageDisplayType.STAT_VAR_OBSERVATION;
     const outArcHeader =
       this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR
         ? PLACE_STAT_VAR_PROPERTIES_HEADER

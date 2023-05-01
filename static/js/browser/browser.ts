@@ -19,7 +19,7 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { PropertyValue } from "../shared/types";
+import { PropertyValueGroup } from "../shared/types";
 import { BrowserPage } from "./page";
 import { getPageDisplayType, PageDisplayType } from "./types";
 
@@ -36,9 +36,7 @@ window.onload = () => {
     document.title = `${statVarId} - ${document.title}`;
   }
   const typesPromise = axios
-    .get<{ [key: string]: PropertyValue[] }>(
-      `/api/node/propvals/out?prop=typeOf&dcids=${dcid}`
-    )
+    .get<PropertyValueGroup>(`/api/node/propvals/out?prop=typeOf&dcids=${dcid}`)
     .then((resp) => resp.data);
   const numStatVarsPromise = axios
     .get(`/api/browser/num_stat_vars/${dcid}`)

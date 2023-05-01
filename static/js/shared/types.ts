@@ -226,3 +226,7 @@ export interface PropertyValue {
   value?: string;
   types?: Array<string>;
 }
+
+export interface PropertyValueGroup {
+  [key: string]: PropertyValue[];
+}

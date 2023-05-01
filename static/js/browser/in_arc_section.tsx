@@ -85,27 +85,33 @@ export class InArcSection extends React.Component<
     );
   }
 
+  private processTriplesResponse(
+    triplesData: TriplesResponse
+  ): Record<string, Record<string, InArcValue[]>> {
+    const inArcsByTypeAndPredicate = {};
+    for (const pred in triplesData) {
+      const values = triplesData[pred];
+      for (const value of values.nodes) {
+        for (const type of value.types) {
+          if (!(type in inArcsByTypeAndPredicate)) {
+            inArcsByTypeAndPredicate[type] = {};
+          }
+          if (!(pred in inArcsByTypeAndPredicate[type])) {
+            inArcsByTypeAndPredicate[type][pred] = [];
+          }
+          inArcsByTypeAndPredicate[type][pred].push(value);
+        }
+      }
+    }
+    return inArcsByTypeAndPredicate;
+  }
+
   private fetchData(): void {
     loadSpinner(LOADING_CONTAINER_ID);
     axios
       .get(`/api/node/triples/in/${this.props.dcid}`)
       .then((resp) => {
-        const triplesData: TriplesResponse = resp.data;
-        const inArcsByTypeAndPredicate = {};
-        for (const pred in triplesData) {
-          const values = triplesData[pred];
-          for (const value of values.nodes) {
-            for (const type of value.types) {
-              if (!(type in inArcsByTypeAndPredicate)) {
-                inArcsByTypeAndPredicate[type] = {};
-              }
-              if (!(pred in inArcsByTypeAndPredicate[type])) {
-                inArcsByTypeAndPredicate[type][pred] = [];
-              }
-              inArcsByTypeAndPredicate[type][pred].push(value);
-            }
-          }
-        }
+        const inArcsByTypeAndPredicate = this.processTriplesResponse(resp.data);
         const parentTypes = Object.keys(inArcsByTypeAndPredicate).filter(
           (type) => !IGNORED_PARENT_TYPES.has(type)
         );
