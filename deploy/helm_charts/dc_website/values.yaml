@@ -121,3 +121,9 @@ serviceGroups:
 nl:
   enabled: false
   embeddings:
+
+###############################################################################
+# Config for Stat Var Groups which is shared between Website and Mixer
+###############################################################################
+svg:
+  blocklistFile: []
