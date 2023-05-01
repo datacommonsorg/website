@@ -93,6 +93,9 @@ export class InArcSection extends React.Component<
     for (const pred in triplesData) {
       const values = triplesData[pred];
       for (const value of values) {
+        if (_.isEmpty(value.types)) {
+          continue;
+        }
         for (const type of value.types) {
           if (!(type in inArcsByTypeAndPredicate)) {
             inArcsByTypeAndPredicate[type] = {};
