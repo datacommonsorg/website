@@ -22,9 +22,9 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 
+import { PropertyValues } from "../../shared/api_response_types";
 import {
   NamedNode,
-  PropertyValueGroup,
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
@@ -173,7 +173,7 @@ class Page extends Component<unknown, PageStateType> {
    */
   private fetchSources(): void {
     axios
-      .get<PropertyValueGroup>("/api/node/propvals/in?prop=typeOf&dcids=Source")
+      .get<PropertyValues>("/api/node/propvals/in?prop=typeOf&dcids=Source")
       .then((resp) => {
         const sourcePromises = [];
         if (!resp.data["Source"]) {
@@ -201,7 +201,7 @@ class Page extends Component<unknown, PageStateType> {
             return;
           }
           axios
-            .get<PropertyValueGroup>("/api/node/propvals/out", {
+            .get<PropertyValues>("/api/node/propvals/out", {
               params: { dcids: sourceDcids, prop: "name" },
               paramsSerializer: stringifyFn,
             })
@@ -238,7 +238,7 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     axios
-      .get<PropertyValueGroup>(
+      .get<PropertyValues>(
         `/api/node/propvals/in?prop=isPartOf&dcids=${source}`
       )
       .then((resp) => {
@@ -266,7 +266,7 @@ class Page extends Component<unknown, PageStateType> {
           dcid = dataset;
         }
         axios
-          .get<PropertyValueGroup>("/api/node/propvals/out", {
+          .get<PropertyValues>("/api/node/propvals/out", {
             params: { dcids: [dcid], prop: "name" },
             paramsSerializer: stringifyFn,
           })
@@ -318,13 +318,13 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     const descriptionPromise = axios
-      .get<PropertyValueGroup>("/api/node/propvals/out", {
+      .get<PropertyValues>("/api/node/propvals/out", {
         params: { dcids: [sv], prop: "description" },
         paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
     const displayNamePromise = axios
-      .get<PropertyValueGroup>("/api/node/propvals/out", {
+      .get<PropertyValues>("/api/node/propvals/out", {
         params: { dcids: [sv], prop: "name" },
         paramsSerializer: stringifyFn,
       })
@@ -347,7 +347,7 @@ class Page extends Component<unknown, PageStateType> {
           return;
         }
         axios
-          .get<PropertyValueGroup>("/api/node/propvals/out", {
+          .get<PropertyValues>("/api/node/propvals/out", {
             params: { dcids: provIds, prop: "url" },
             paramsSerializer: stringifyFn,
           })

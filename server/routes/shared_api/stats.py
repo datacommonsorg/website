@@ -45,7 +45,8 @@ def stat_var_property():
     pvs = {}
     for pred, arc in triples['arcs'].items():
       if pred == 'constraintProperties':
-        pvs[arc['nodes'][0]['dcid']] = ''
+        for node in arc['nodes']:
+          pvs[node['dcid']] = ''
     pt = ''
     md = ''
     mprop = ''

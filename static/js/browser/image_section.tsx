@@ -22,7 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-import { PropertyValueGroup } from "../shared/types";
+import { PropertyValues } from "../shared/api_response_types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 
 const IMAGE_URL_PROPERTY_LABEL = "imageUrl";
@@ -75,7 +75,7 @@ export class ImageSection extends React.Component<
   private fetchData(): void {
     loadSpinner(LOADING_CONTAINER_ID);
     axios
-      .get<PropertyValueGroup>(
+      .get<PropertyValues>(
         `/api/node/propvals/out?prop=${IMAGE_URL_PROPERTY_LABEL}&dcids=${this.props.dcid}`
       )
       .then((resp) => {

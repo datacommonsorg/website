@@ -22,9 +22,10 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { PropertyValues } from "../shared/api_response_types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { ArcTableRow } from "./arc_table_row";
-import { ArcValue, TriplesResponse } from "./types";
+import { ArcValue } from "./types";
 
 const DCID_PREDICATE = "dcid";
 const TYPEOF_PREDICATE = "typeOf";
@@ -153,14 +154,14 @@ export class OutArcSection extends React.Component<
     axios
       .get(`/api/node/triples/out/${this.props.dcid}`)
       .then((resp) => {
-        const triplesData: TriplesResponse = resp.data;
+        const triplesData: PropertyValues = resp.data;
         const outArcsByPredProv: OutArcData = {};
         for (const pred in triplesData) {
           if (IGNORED_OUT_ARC_PROPERTIES.has(pred)) {
             continue;
           }
           const predData = {};
-          for (const node of triplesData[pred].nodes) {
+          for (const node of triplesData[pred]) {
             const provId = node.provenanceId;
             if (!(provId in predData)) {
               predData[provId] = [];

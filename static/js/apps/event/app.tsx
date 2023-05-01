@@ -27,7 +27,8 @@ import { ArcTableRow } from "../../browser/arc_table_row";
 import { GoogleMap } from "../../components/google_map";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { formatNumber, intl } from "../../i18n/i18n";
-import { NamedTypedPlace, PropertyValue } from "../../shared/types";
+import { Node, PropertyValues } from "../../shared/api_response_types";
+import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
 const _START_DATE_PROPERTIES = ["startDate", "discoveryDate"];
@@ -59,8 +60,6 @@ interface Provenance {
   sourceName: string;
 }
 
-type PropVals = Array<PropertyValue>;
-type PropertyDict = Record<string, PropVals>;
 const PAGE_ID = "event";
 
 /**
@@ -69,7 +68,7 @@ const PAGE_ID = "event";
 interface AppPropsType {
   dcid: string;
   name: string;
-  properties: PropertyDict;
+  properties: PropertyValues;
   provenance: Array<Provenance>;
   // For subject page
   place: NamedTypedPlace;
@@ -186,7 +185,7 @@ export function App(props: AppPropsType): JSX.Element {
 /**
  * Returns the first property in the list with any of the given dcids.
  */
-function findProperty(dcids: string[], properties: PropertyDict): PropVals {
+function findProperty(dcids: string[], properties: PropertyValues): Node[] {
   for (const k of dcids) {
     if (k in properties) {
       return properties[k];
@@ -198,7 +197,7 @@ function findProperty(dcids: string[], properties: PropertyDict): PropVals {
 /**
  * Returns the first display value of the property.
  */
-function getValue(property: PropVals): string {
+function getValue(property: Node[]): string {
   if (!property || !property.length) {
     return "";
   }
@@ -208,7 +207,7 @@ function getValue(property: PropVals): string {
 /**
  * Formats the first display value of the property as a number with unit.
  */
-function formatNumericValue(property: PropVals): string {
+function formatNumericValue(property: Node[]): string {
   const val = getValue(property);
   if (!val) {
     return "";
@@ -228,7 +227,7 @@ function formatNumericValue(property: PropVals): string {
 /**
  * Formats the date range for the event.
  */
-function getDateDisplay(properties: PropertyDict): string {
+function getDateDisplay(properties: PropertyValues): string {
   const startDate = getValue(findProperty(_START_DATE_PROPERTIES, properties));
   const endDate = getValue(findProperty(_END_DATE_PROPERTIES, properties));
 
@@ -248,7 +247,7 @@ function getDateDisplay(properties: PropertyDict): string {
 /**
  * Parses a lat,long pair from the first value of the property.
  */
-function parseLatLong(property: PropVals): [number, number] {
+function parseLatLong(property: Node[]): [number, number] {
   if (!property || !property.length) return null;
   const val = property[0];
   if (val.name) {

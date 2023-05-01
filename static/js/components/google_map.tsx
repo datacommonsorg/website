@@ -33,7 +33,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-import { PropertyValueGroup } from "../shared/types";
+import { PropertyValues } from "../shared/api_response_types";
 
 const DEFAULT_MAP_ZOOM = 4;
 const MAP_BOUNDS_PADDING = 0;
@@ -259,13 +259,13 @@ export class GoogleMap extends React.Component<
 
     // Get lat/long from properties
     const latitudePromise = axios
-      .get<PropertyValueGroup>(
+      .get<PropertyValues>(
         `/api/node/propvals/out?prop=latitude&dcids=${this.props.dcid}`
       )
       .then((resp) => resp.data[this.props.dcid])
       .catch((error) => console.log(error));
     const longitudePromise = axios
-      .get<PropertyValueGroup>(
+      .get<PropertyValues>(
         `/api/node/propvals/out?prop=longitude&dcids=${this.props.dcid}`
       )
       .then((resp) => resp.data[this.props.dcid])
@@ -282,7 +282,12 @@ export class GoogleMap extends React.Component<
         }
 
         // Update state with lat/long if both are present
-        if (latitudes && longitudes) {
+        if (
+          !_.isEmpty(latitudes) &&
+          !_.isEmpty(longitudes) &&
+          _.isNumber(latitudes[0].value) &&
+          _.isNumber(longitudes[0].value)
+        ) {
           // TODO (juliawu): Update logic to use highest precision lat/long if
           //                multiple values are provided
           const coordinates = {

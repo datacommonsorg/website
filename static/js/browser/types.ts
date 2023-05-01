@@ -16,14 +16,6 @@
 
 import _ from "lodash";
 
-import { PropertyValue } from "../shared/types";
-
-export interface TriplesResponse {
-  [property: string]: {
-    nodes: PropertyValue[];
-  };
-}
-
 /**
  * Types shared across different components of graph browser.
  */

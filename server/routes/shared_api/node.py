@@ -30,7 +30,10 @@ def triples(direction, dcid):
   """Returns all the triples given a node dcid."""
   if direction != "in" and direction != "out":
     return "Invalid direction provided, please use 'in' or 'out'", 400
-  return dc.triples([dcid], direction).get(dcid, {}).get('arcs', {})
+  arcs = dc.triples([dcid], direction).get(dcid, {}).get('arcs', {})
+  for prop, val in arcs.items():
+    arcs[prop] = val.get('nodes', [])
+  return arcs
 
 
 @bp.route('/propvals/<path:direction>', methods=['GET', 'POST'])

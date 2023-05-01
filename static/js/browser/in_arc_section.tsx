@@ -22,9 +22,10 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { PropertyValues } from "../shared/api_response_types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { InArcSubsection } from "./in_arc_subsection";
-import { InArcValue, TriplesResponse } from "./types";
+import { InArcValue } from "./types";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 const LOADING_CONTAINER_ID = "browser-in-arc-section";
@@ -86,12 +87,12 @@ export class InArcSection extends React.Component<
   }
 
   private processTriplesResponse(
-    triplesData: TriplesResponse
+    triplesData: PropertyValues
   ): Record<string, Record<string, InArcValue[]>> {
     const inArcsByTypeAndPredicate = {};
     for (const pred in triplesData) {
       const values = triplesData[pred];
-      for (const value of values.nodes) {
+      for (const value of values) {
         for (const type of value.types) {
           if (!(type in inArcsByTypeAndPredicate)) {
             inArcsByTypeAndPredicate[type] = {};
