@@ -240,14 +240,14 @@ def properties(nodes, out=True):
   }
 
   """
-  resp = dc.properties(nodes, 'out' if out else 'in')
+  resp = dc.v2node(nodes, '->' if out else '<-')
   result = {node: [] for node in nodes}
   for node, val in resp.get('data', {}):
     result[node] = val.get('properties', [])
   return result
 
 
-def property_values(nodes, prop, out=True):
+def property_values(nodes, prop, out=True, constraints=''):
   """Returns a compact property values data out of REST API response.
 
   The response is the following format:
@@ -255,7 +255,8 @@ def property_values(nodes, prop, out=True):
     <node_dcid>: [value list]
   }
   """
-  resp = dc.property_values(nodes, prop, out)
+  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
+                                          constraints))
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -267,7 +268,7 @@ def property_values(nodes, prop, out=True):
   return result
 
 
-def raw_property_values(nodes, prop, out=True):
+def raw_property_values(nodes, prop, out=True, constraints=''):
   """Returns full property values data out of REST API response.
 
   The response is the following format:
@@ -284,7 +285,8 @@ def raw_property_values(nodes, prop, out=True):
   }
 
   """
-  resp = dc.property_values(nodes, prop, out)
+  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
+                                          constraints))
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
@@ -310,10 +312,25 @@ def triples(nodes, out=True):
   }
 
   """
-  resp = dc.triples(nodes, 'out' if out else 'in')
+  resp = dc.v2node(nodes, '->*' if out else '<-*')
   result = {}
   for node, arcs in resp['data'].items():
     result[node] = {}
     for prop, val in arcs.get('arcs', {}).items():
       result[node][prop] = val.get('nodes', [])
   return result
+
+
+def descendent_places(nodes, descendent_type):
+  return property_values(nodes,
+                         'containedInPlace+',
+                         out=False,
+                         constraints='{{typeOf:{}}}'.format(descendent_type))
+
+
+def raw_descendent_places(nodes, descendent_type):
+  return raw_property_values(
+      nodes,
+      'containedInPlace+',
+      out=False,
+      constraints='{{typeOf:{}}}'.format(descendent_type))
