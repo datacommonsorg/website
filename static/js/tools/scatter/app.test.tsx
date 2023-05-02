@@ -83,7 +83,7 @@ function mockAxios(): void {
   // Counties in Delaware
   when(axios.get)
     .calledWith(
-      `/api/place/descendent/name?dcid=geoId/10&descendentType=County`
+      "/api/place/descendent/name?dcid=geoId/10&descendentType=County"
     )
     .mockResolvedValue({
       data: {

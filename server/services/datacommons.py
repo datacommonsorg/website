@@ -210,17 +210,17 @@ def entity_variables_existence(variables, entities):
       })
 
 
-def v2node(nodes, property):
+def v2node(nodes, prop):
   """Wrapper to call V2 Node REST API.
 
   Args:
       nodes: A list of node dcids.
-      property: The property to query for.
+      prop: The property to query for.
   """
   url = get_service_url('/v2/node')
   return post(url, {
       'nodes': sorted(nodes),
-      'property': property,
+      'property': prop,
   })
 
 

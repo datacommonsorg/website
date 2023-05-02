@@ -247,7 +247,7 @@ def properties(nodes, out=True):
   return result
 
 
-def property_values(nodes, prop, out=True, filter=''):
+def property_values(nodes, prop, out=True, constraints=''):
   """Returns a compact property values data out of REST API response.
 
   The response is the following format:
@@ -255,7 +255,8 @@ def property_values(nodes, prop, out=True, filter=''):
     <node_dcid>: [value list]
   }
   """
-  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop, filter))
+  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
+                                          constraints))
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -267,7 +268,7 @@ def property_values(nodes, prop, out=True, filter=''):
   return result
 
 
-def raw_property_values(nodes, prop, out=True, filter=''):
+def raw_property_values(nodes, prop, out=True, constraints=''):
   """Returns full property values data out of REST API response.
 
   The response is the following format:
@@ -284,7 +285,8 @@ def raw_property_values(nodes, prop, out=True, filter=''):
   }
 
   """
-  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop, filter))
+  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
+                                          constraints))
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
@@ -323,11 +325,12 @@ def descendent_places(nodes, descendent_type):
   return property_values(nodes,
                          'containedInPlace+',
                          out=False,
-                         filter='{{typeOf:{}}}'.format(descendent_type))
+                         constraints='{{typeOf:{}}}'.format(descendent_type))
 
 
 def raw_descendent_places(nodes, descendent_type):
-  return raw_property_values(nodes,
-                             'containedInPlace+',
-                             out=False,
-                             filter='{{typeOf:{}}}'.format(descendent_type))
+  return raw_property_values(
+      nodes,
+      'containedInPlace+',
+      out=False,
+      constraints='{{typeOf:{}}}'.format(descendent_type))
