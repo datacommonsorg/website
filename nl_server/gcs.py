@@ -26,5 +26,10 @@ def download_embeddings(embeddings_file: str) -> str:
   bucket = storage_client.bucket(bucket_name=BUCKET)
   blob = bucket.get_blob(embeddings_file)
   # Download
-  local_embeddings_path = os.path.join(TEMP_DIR, embeddings_file)
+  local_embeddings_path = local_path(embeddings_file)
   blob.download_to_filename(local_embeddings_path)
+  return local_embeddings_path
+
+
+def local_path(embeddings_file: str) -> str:
+  return os.path.join(TEMP_DIR, embeddings_file)

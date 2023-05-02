@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import csv
+import difflib
 import os
-import csv, difflib
+import re
 from jinja2 import Environment, FileSystemLoader
 from nl_server.embeddings import Embeddings
+from nl_server import gcs
 from absl import app
 from absl import flags
 
@@ -23,12 +26,17 @@ _SV_THRESHOLD = 0.5
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('base', '', 'Full path to base SV index CSV')
-flags.DEFINE_string('test', '', 'Full path to test SV index CSV')
+flags.DEFINE_string('base', '',
+                    'Base index. Can be a versioned embeddings file name on GCS '
+                    'or a local file with absolute path')
+flags.DEFINE_string('test', '',
+                    'Test index. Can be a versioned embeddings file name on GCS '
+                    'or a local file with absolute path')
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
-_REPORT = 'tools/nl/svindex_differ/diff_report.html'
+_REPORT = '/tmp/diff_report.html'
+_FILE_PATTERN = r'embeddings_us_filtered_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv'
 
 
 def _prune(res):
@@ -37,6 +45,17 @@ def _prune(res):
     if i < 5 and res['CosineScore'][i] >= _SV_THRESHOLD:
       result.append(res['SV'][i])
   return result
+
+
+def _maybe_copy(file):
+  if re.match(_FILE_PATTERN, file):
+    lpath = gcs.local_path(file)
+    if os.path.exists(lpath):
+      return lpath
+    return gcs.download_embeddings(file)
+  assert file.startswith('/'), \
+    f'File should either be {_FILE_PATTERN} or an absolute local path'
+  return file
 
 
 def _diff_table(base, test):
@@ -54,22 +73,29 @@ def run_diff(base_file, test_file, query_file, output_file):
   diffs = []
   with open(query_file) as f:
     for row in csv.reader(f):
-      query = row[0]
+      if not row:
+        continue
+      query = row[0].strip()
+      if not query or query.startswith('#') or query.startswith('//'):
+        continue
       assert ';' not in query, 'Multiple query not yet supported'
       base_result = _prune(base.detect_svs(query))
       test_result = _prune(test.detect_svs(query))
       if base_result != test_result:
-        print(f'{query}: {base_result} vs. {test_result}')
         diffs.append((query, base_result, test_result))
-      else:
-        print(f'{query}: matches - {test_result}')
+
   with open(output_file, 'w') as f:
     f.write(template.render(diff_table=_diff_table, diffs=diffs))
+  print('')
+  print(f'Output written to {output_file}')
+  print('')
 
 
 def main(_):
   assert FLAGS.base and FLAGS.test and FLAGS.queryset
-  run_diff(FLAGS.base, FLAGS.test, FLAGS.queryset, _REPORT)
+  base_file = _maybe_copy(FLAGS.base)
+  test_file = _maybe_copy(FLAGS.test)
+  run_diff(base_file, test_file, FLAGS.queryset, _REPORT)
 
 
 if __name__ == "__main__":
