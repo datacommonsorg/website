@@ -170,7 +170,7 @@ Count_Person_AbovePovertyLevelInThePast12Months_WhiteAlone,The number of white p
 Count_Person_AbovePovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino,The number of non-Hispanic white people who were not poor in the past year;The number of non-Hispanic white people who had an income above the poverty line in the past year;The number of non-Hispanic white people who were not living in poverty in the past year;
 Count_Person_AmbulatoryDifficulty,The number of people who have difficulty walking or moving around;The number of people who have mobility issues;The number of people who have difficulty getting around;
 Count_Person_AmericanIndianAndAlaskaNativeAlone,
-Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces,"The number of people who identify as American Indian or Alaska Native alone or in combination with one or more other races;The number of people who identify as American Indian or Alaska Native alone or in combination with one or more other races;The number of people who identify as American Indian or Alaska Native, either alone or in combination with one or more other races;"
+Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces,"The number of people who identify as American Indian and Alaska Native alone or in combination with one or more other races;The number of people who identify as American Indian and Alaska Native alone or in combination with one or more other races;The number of people who identify as American Indian and Alaska Native, either alone or in combination with one or more other races;"
 Count_Person_AmericanIndianOrAlaskaNativeAlone,
 Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities,The number of American Indian or Alaska Native people living in adult correctional facilities;The number of American Indian or Alaska Native people who are incarcerated in adult correctional facilities;The number of American Indian or Alaska Native people who are in prison or jail;
 Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInCollegeOrUniversityStudentHousing,The number of American Indian or Alaska Native students living in college or university student housing;The number of American Indian or Alaska Native students who live in college or university dormitories;The number of American Indian or Alaska Native students who live in college or university residence halls;
@@ -978,7 +978,6 @@ Count_FloodEvent,
 Annual_ExpectedLoss_NaturalHazardImpact,
 ConsecutiveDryDays,
 Count_Household_InternetWithoutSubscription,
-Count_SolarInstallation,
 Annual_Generation_Energy_Coal,
 Annual_Count_ElectricityConsumer,
 Monthly_Count_ElectricityConsumer,
@@ -1101,7 +1100,6 @@ Count_Person_75OrMoreYears,
 Count_Person_75To79Years,
 Count_Person_80OrMoreYears,
 Count_Person_Upto4Years,
-Count_Person_EducationalAttainmentBachelorsDegree,
 Count_Person_EducationalAttainmentMastersDegree,
 Count_Person_EducationalAttainmentNoSchoolingCompleted,
 Count_Person_EducationalAttainmentRegularHighSchoolDiploma,
