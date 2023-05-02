@@ -610,35 +610,29 @@ def api_display_name():
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@bp.route('/places-in')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-def get_places_in():
-  """Gets DCIDs of places of a certain type contained in some places.
-
-  Sends the request to the Data Commons "/node/places-in" API.
-  See https://docs.datacommons.org/api/rest/place_in.html.
+@bp.route('/descendent')
+def descendent():
+  """Gets DCIDs of descendent places of a certain type.
 
   Returns:
-      Dict keyed by parent DCIDs with lists of child place DCIDs as values.
+      Dict keyed by ancestor DCIDs with lists of descendent place DCIDs as values.
   """
-  dcids = request.args.getlist("dcid")
-  place_type = request.args.get("placeType")
-  return Response(json.dumps(dc.get_places_in(dcids, place_type)),
-                  200,
-                  mimetype='application/json')
+  dcids = request.args.getlist("dcids")
+  descendent_type = request.args.get("descendentType")
+  return fetch.descendent_places(dcids, descendent_type)
 
 
-@bp.route('/places-in-names')
+@bp.route('/descendent/name')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-def get_places_in_names():
+def descendent_names():
   """Gets names of places of a certain type contained in a place.
 
   Returns:
       Dicts keyed by child place DCIDs with their names as values.
   """
   dcid = request.args.get("dcid")
-  place_type = request.args.get("placeType")
-  child_places = dc.get_places_in([dcid], place_type)[dcid]
+  descendent_type = request.args.get("descendentType")
+  child_places = fetch.descendent_places([dcid], descendent_type).get(dcid, [])
   return Response(json.dumps(get_display_name(child_places)),
                   200,
                   mimetype='application/json')

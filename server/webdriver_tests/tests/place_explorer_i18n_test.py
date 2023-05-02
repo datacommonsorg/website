@@ -64,10 +64,10 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
                                             '//*[@id="nav-topics"]/li[3]/a')
     self.assertEqual(health_topic.text, '健康')
 
-    # Test strings in places-in component
-    places_in = self.driver.find_element(By.XPATH,
-                                         '//*[@id="child-place-head"]')
-    self.assertEqual(places_in.text, '日本 の地域')
+    # Test strings in descendent place component
+    descendent_places = self.driver.find_element(By.XPATH,
+                                                 '//*[@id="child-place-head"]')
+    self.assertEqual(descendent_places.text, '日本 の地域')
     aa_children_label = self.driver.find_element(
         By.XPATH, '//*[@id="child-place"]/div/div')
     self.assertEqual(aa_children_label.text, '行政区域 1 の地域')

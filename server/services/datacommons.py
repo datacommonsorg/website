@@ -210,47 +210,17 @@ def entity_variables_existence(variables, entities):
       })
 
 
-def triples(nodes, direction):
-  """Retrieves the triples for a node.
+def v2node(nodes, property):
+  """Wrapper to call V2 Node REST API.
 
   Args:
-      node: Node DCID.
-      direction: Predicate direction, either be 'in' or 'out'.
+      nodes: A list of node dcids.
+      property: The property to query for.
   """
   url = get_service_url('/v2/node')
   return post(url, {
-      'nodes': nodes,
-      'property': '->*' if direction == 'out' else '<-*'
-  })
-
-
-def properties(nodes, direction):
-  """Retrieves the properties for a list of nodes.
-
-  Args:
-      nodes: List of node DCIDs.
-      direction: Predicate direction, either be 'in' or 'out'.
-  """
-  url = get_service_url('/v2/node')
-  return post(url, {
-      'nodes': nodes,
-      'property': '->' if direction == 'out' else '<-'
-  })
-
-
-def property_values(nodes, prop, out=True):
-  """Retrieves the property values for a list of nodes.
-
-  Args:
-      nodes: A list of node DCIDs.
-      prop: The property label to query for.
-      out: Whether the property direction is 'out'.
-  """
-  direction = '->' if out else '<-'
-  url = get_service_url('/v2/node')
-  return post(url, {
-      'nodes': sorted(set(nodes)),
-      'property': direction + prop,
+      'nodes': sorted(nodes),
+      'property': property,
   })
 
 
@@ -455,32 +425,6 @@ def get_place_ranking(stat_vars,
       'is_per_capita': is_per_capita,
   }
   return send_request(url, req_json=req_json, post=False, has_payload=False)
-
-
-def get_places_in_v1(dcids, place_type):
-  # Convert the dcids field and format the request to GetPlacesIn
-  url = get_service_url('/v1/bulk/property/values/in/linked')
-  return post(
-      url, {
-          'nodes': dcids,
-          'property': 'containedInPlace',
-          'value_node_type': place_type,
-      })
-
-
-def get_places_in(dcids, place_type):
-  # Convert the dcids field and format the request to GetPlacesIn
-  url = get_service_url('/node/places-in')
-  payload = send_request(url,
-                         req_json={
-                             'dcids': dcids,
-                             'place_type': place_type,
-                         },
-                         post=False)
-
-  # Create the results and format it appropriately
-  result = _format_expand_payload(payload, 'place', must_exist=dcids)
-  return result
 
 
 def query(query_string):

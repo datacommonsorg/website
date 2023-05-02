@@ -115,7 +115,7 @@ test("Manually updating options", async () => {
     .simulate("change", { target: { value: "County" } });
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/place/places-in?dcid=geoId/06&placeType=County"
+      "/api/place/descendent?dcids=geoId/06&descendentType=County"
     );
   });
   await waitForComponentUpdates(wrapper);

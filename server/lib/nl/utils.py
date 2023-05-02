@@ -459,7 +459,8 @@ def _get_sample_child_places(main_place_dcid: str,
                contained_place_type)
   if not contained_place_type:
     return []
-  child_places = dc.get_places_in([main_place_dcid], contained_place_type)
+  child_places = fetch.descendent_places([main_place_dcid],
+                                         contained_place_type)
   if child_places.get(main_place_dcid):
     logging.info(
         '_sample_child_place returning %s', ', '.join(
@@ -501,19 +502,15 @@ def get_sample_child_places(main_place_dcid: str, contained_place_type: str,
 def get_all_child_places(main_place_dcid: str, contained_place_type: str,
                          counters: ctr.Counters) -> List[detection.Place]:
   start = time.time()
-  payload = dc.get_places_in_v1([main_place_dcid], contained_place_type)
+  resp = fetch.raw_descendent_places([main_place_dcid], contained_place_type)
   counters.timeit('get_all_child_places', start)
 
   results = []
-  for entry in payload.get('data', []):
-    if 'node' not in entry:
-      continue
-    for value in entry.get('values', []):
-      if 'dcid' not in value or 'name' not in value:
-        continue
+  for _, nodes in resp.items():
+    for node in nodes:
       results.append(
-          detection.Place(dcid=value['dcid'],
-                          name=value['name'],
+          detection.Place(dcid=node['dcid'],
+                          name=node['name'],
                           place_type=contained_place_type))
   return results
 
@@ -522,11 +519,11 @@ def get_immediate_parent_places(
     main_place_dcid: str, parent_place_type: str,
     counters: ctr.Counters) -> List[detection.Place]:
   start = time.time()
-  resp = dc.property_values([main_place_dcid], 'containedInPlace')
+  resp = fetch.raw_property_values([main_place_dcid], 'containedInPlace')
   counters.timeit('get_immediate_parent_places', start)
   results = []
-  arcs = resp.get('data', {}).get(main_place_dcid, {}).get('arcs', {})
-  for value in arcs.get('containedInPlace', {}).get('nodes', []):
+  arcs = resp.get(main_place_dcid, {})
+  for value in arcs.get('containedInPlace', []):
     if 'dcid' not in value or 'name' not in value or 'types' not in value:
       continue
     if parent_place_type not in value['types']:

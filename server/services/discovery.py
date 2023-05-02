@@ -141,7 +141,6 @@ endpoints = Endpoints([
     '/v1/variables',
     '/v1/variable/ancestors',
     '/v1/bulk/property/values/in/linked',
-    '/node/places-in',
     '/node/ranking-locations',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     '/node/related-locations',

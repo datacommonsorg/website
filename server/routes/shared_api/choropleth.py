@@ -216,7 +216,7 @@ def geojson():
     return lib_util.gzip_compress_response(cached_geojson, is_json=True)
   geos = []
   if place_dcid and place_type:
-    geos = dc.get_places_in([place_dcid], place_type).get(place_dcid, [])
+    geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
   if not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   geojson_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP.get(place_type, "")
@@ -376,7 +376,8 @@ def choropleth_data(dcid):
   display_dcid, display_level = get_choropleth_display_level(dcid)
   geos = []
   if display_dcid and display_level:
-    geos = dc.get_places_in([display_dcid], display_level).get(display_dcid, [])
+    geos = fetch.descendent_places([display_dcid],
+                                   display_level).get(display_dcid, [])
   if not stat_vars or not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   # Get data for all the stat vars for every place we will need and process the data
@@ -464,7 +465,7 @@ def get_map_points():
                     400,
                     mimetype='application/json')
   geos = []
-  geos = dc.get_places_in([place_dcid], place_type).get(place_dcid, [])
+  geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
   if not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   names_by_geo = place_api.get_display_name(geos)
