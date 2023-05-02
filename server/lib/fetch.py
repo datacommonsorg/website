@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This module defines functions to fetch data from Data Commons Mixer API.
+# The fetch functions call REST wrappers in datacommons module.
+
 import copy
 from typing import Dict, List
 
@@ -140,31 +143,118 @@ def _compact_series(series_resp, all_facets):
 
 
 def point_core(entities, variables, date, all_facets):
+  """Fetchs observation point for given entities, variables and date.
+
+  The response is in the following format:
+  {
+    "facets": {
+      <facet_id>: {<facet object>}
+    },
+    "data": {
+      <var_dcid>: {
+        <entity_dcid>: {
+          <observation point(s)>
+        }
+      }
+    }
+  }
+  """
   resp = dc.obs_point(entities, variables, date)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
-def point_within_core(parent_entity, child_type, variables, date, all_facets):
-  resp = dc.obs_point_within(parent_entity, child_type, variables, date)
+def point_within_core(ancestor_entity, descendent_type, variables, date,
+                      all_facets):
+  """Fetchs observation point for descendent entities of certain type.
+
+  The response is in the following format:
+  {
+    "facets": {
+      <facet_id>: {<facet object>}
+    },
+    "data": {
+      <var_dcid>: {
+        <entity_dcid>: {
+          <observation point(s)>
+        }
+      }
+    }
+  }
+  """
+  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
 def series_core(entities, variables, all_facets):
+  """Fetchs observation series for given entities and variables.
+
+  The response is in the following format:
+  {
+    "facets": {
+      <facet_id>: {<facet object>}
+    },
+    "data": {
+      <var_dcid>: {
+        <entity_dcid>: {
+          <observation series>
+        }
+      }
+    }
+  }
+  """
   resp = dc.obs_series(entities, variables)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
-def series_within_core(parent_entity, child_type, variables, all_facets):
-  resp = dc.obs_series_within(parent_entity, child_type, variables)
+def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
+  """Fetchs observation series for for descendent entities of certain type.
+
+  The response is in the following format:
+  {
+    "facets": {
+      <facet_id>: {<facet object>}
+    },
+    "data": {
+      <var_dcid>: {
+        <entity_dcid>: {
+          <observation series>
+        }
+      }
+    }
+  }
+  """
+  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
+def properties(nodes, out=True):
+  """Returns the properties for a list of nodes.
+
+  The response is the following format:
+  {
+    <node_dcid>: [property list]
+  }
+
+  """
+  resp = dc.properties(nodes, 'out' if out else 'in')
+  result = {node: [] for node in nodes}
+  for node, val in resp.get('data', {}):
+    result[node] = val.get('properties', [])
+  return result
+
+
 def property_values(nodes, prop, out=True):
-  """Returns a compact property values data out of REST API response."""
+  """Returns a compact property values data out of REST API response.
+
+  The response is the following format:
+  {
+    <node_dcid>: [value list]
+  }
+  """
   resp = dc.property_values(nodes, prop, out)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
@@ -178,7 +268,22 @@ def property_values(nodes, prop, out=True):
 
 
 def raw_property_values(nodes, prop, out=True):
-  """Returns full property values data out of REST API response."""
+  """Returns full property values data out of REST API response.
+
+  The response is the following format:
+  {
+    <node_dcid>: [
+      {
+        'dcid':
+        'value':
+        'name':
+        'types': []
+      },
+      ...
+    ]
+  }
+
+  """
   resp = dc.property_values(nodes, prop, out)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
@@ -187,7 +292,24 @@ def raw_property_values(nodes, prop, out=True):
 
 
 def triples(nodes, out=True):
-  """Fetch triples for given nodes"""
+  """Fetch triples for given nodes.
+
+  The response is the following format:
+  {
+    <node_dcid>: {
+      <prop>: [
+        {
+          'dcid':
+          'value':
+          'name':
+          'types': []
+        },
+        ...
+      ]
+    }
+  }
+
+  """
   resp = dc.triples(nodes, 'out' if out else 'in')
   result = {}
   for node, arcs in resp['data'].items():

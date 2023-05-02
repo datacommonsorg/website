@@ -156,9 +156,9 @@ def _places_with_geojson(places):
   property.
   """
   result = []
-  resp = dc.properties(places, 'out')
+  resp = fetch.properties(places)
   for place, place_props in resp.items():
-    if 'geoJsonCoordinates' in place_props.get('properties', []):
+    if 'geoJsonCoordinates' in place_props:
       result.append(place)
   return result
 
