@@ -186,7 +186,7 @@ def _validateEmbeddings(embeddings_df: pd.DataFrame,
   embeddings_sentences_unique = set()
   for s in embeddings_sentences:
     assert s in sentences, f"Embeddings sentence not found in processed output file. Sentence: {s}"
-    assert s in embeddings_sentences_unique, f"Found multiple instances of sentence in embeddings. Sentence: {s}."
+    assert s not in embeddings_sentences_unique, f"Found multiple instances of sentence in embeddings. Sentence: {s}."
     embeddings_sentences_unique.add(s)
 
   for s in sentences:
