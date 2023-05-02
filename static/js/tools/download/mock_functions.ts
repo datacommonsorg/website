@@ -22,7 +22,7 @@ import { when } from "jest-when";
 
 import { stringifyFn } from "../../utils/axios";
 
-export function axios_mock(): void {
+export function axiosMock(): void {
   // Mock all the async axios call.
   axios.get = jest.fn();
   axios.post = jest.fn();
@@ -71,7 +71,7 @@ export function axios_mock(): void {
 
   // get statvar properties Count_Person
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_Person")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_Person")
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -86,7 +86,7 @@ export function axios_mock(): void {
 
   // get statvar properties Median_Age_Person
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person")
+    .calledWith("/api/stats/stat-var-property?dcids=Median_Age_Person")
     .mockResolvedValue({
       data: {
         Median_Age_Person: {
@@ -208,7 +208,7 @@ export function axios_mock(): void {
   when(axios.get)
     .calledWith("/api/place/parent/geoId/06")
     .mockResolvedValue({
-      data: ["country/USA"],
+      data: [{ dcid: "country/USA", type: "Country", name: "United States" }],
     });
 
   // get facets within place for Count_Person
@@ -275,21 +275,31 @@ export function axios_mock(): void {
 
   // get place stats vars for places in geoId/06
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/06001", "geoId/06002"],
-      statVars: ["Count_Person"],
+    .calledWith("/api/place/stat-vars/existence", {
+      entities: ["geoId/06001", "geoId/06002"],
+      variables: ["Count_Person"],
     })
     .mockResolvedValue({
-      data: ["Count_Person"],
+      data: {
+        Count_Person: {
+          "geoId/06001": true,
+          "geoId/06002": true,
+        },
+      },
     });
 
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/06002", "geoId/06001"],
-      statVars: ["Count_Person"],
+    .calledWith("/api/place/stat-vars/existence", {
+      entities: ["geoId/06002", "geoId/06001"],
+      variables: ["Count_Person"],
     })
     .mockResolvedValue({
-      data: ["Count_Person"],
+      data: {
+        Count_Person: {
+          "geoId/06001": true,
+          "geoId/06002": true,
+        },
+      },
     });
 
   // get csv

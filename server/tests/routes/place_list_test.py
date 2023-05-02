@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,22 +20,19 @@ from web_app import app
 
 class TestRoute(unittest.TestCase):
 
-  @patch('server.routes.place_list.html.fetch_data')
-  def test_index(self, mock_fetch_data):
+  @patch('server.routes.place_list.html.raw_property_values')
+  def test_index(self, mock_property_values):
     mock_response = {
-        'Country': {
-            'in': [{
-                'dcid': 'country/USA',
-                'name': 'United States',
-            }, {
-                'dcid': 'country/test',
-                'name': 'test country',
-            }]
-        }
+        'Country': [{
+            'dcid': 'country/USA',
+            'name': 'United States',
+        }, {
+            'dcid': 'country/test',
+            'name': 'test country',
+        }]
     }
-    mock_fetch_data.side_effect = (
-        lambda url, req, compress, post: mock_response)
-    response = app.test_client().get('/placelist')
+    mock_property_values.side_effect = (lambda nodes, prop, out: mock_response)
+    response = app.test_client().get('/place-list')
     assert response.status_code == 200
     assert b'United States' in response.data
 
@@ -56,7 +53,7 @@ class TestRoute(unittest.TestCase):
     }
     mock_child_fetch.return_value = mock_response
 
-    response = app.test_client().get('/placelist/geoId/06')
+    response = app.test_client().get('/place-list/geoId/06')
     self.assertTrue(mock_child_fetch.assert_called_once)
     assert response.status_code == 200
     assert b'county 1' in response.data
@@ -64,12 +61,12 @@ class TestRoute(unittest.TestCase):
     assert b'city 1' in response.data
 
     # Test the child_fetch() cache
-    response = app.test_client().get('/placelist/geoId/06')
+    response = app.test_client().get('/place-list/geoId/06')
     self.assertTrue(mock_child_fetch.assert_called_once)
 
   @patch('server.routes.place_list.html.child_fetch')
   def test_no_child(self, mock_child_fetch):
     mock_child_fetch.return_value = {}
-    response = app.test_client().get('/placelist/geoId/07')
+    response = app.test_client().get('/place-list/geoId/07')
     assert response.status_code == 200
     assert b'There are no sub-places in our knowledge' in response.data

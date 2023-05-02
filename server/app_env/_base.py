@@ -25,7 +25,6 @@ class Config:
   WEBDRIVER = False
   LOCAL = False
   LITE = False
-  ENABLE_BLOCKLIST = False
   # If the deployment is a custom instance.
   CUSTOM = False
   # Whether to have account management page

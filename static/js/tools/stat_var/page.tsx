@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 
+import { PropertyValues } from "../../shared/api_response_types";
 import {
   NamedNode,
   StatVarHierarchyType,
@@ -172,13 +173,13 @@ class Page extends Component<unknown, PageStateType> {
    */
   private fetchSources(): void {
     axios
-      .get("/api/browser/propvals/typeOf/Source")
+      .get<PropertyValues>("/api/node/propvals/in?prop=typeOf&dcids=Source")
       .then((resp) => {
         const sourcePromises = [];
-        if (!resp.data.values.in) {
+        if (!resp.data["Source"]) {
           return;
         }
-        for (const source of resp.data.values.in) {
+        for (const source of resp.data["Source"]) {
           const url = SVG_URL_PREFIX + source.dcid;
           sourcePromises.push(axios.get(url).then((resp) => resp));
         }
@@ -200,16 +201,16 @@ class Page extends Component<unknown, PageStateType> {
             return;
           }
           axios
-            .get("/api/node/propvals", {
+            .get<PropertyValues>("/api/node/propvals/out", {
               params: { dcids: sourceDcids, prop: "name" },
               paramsSerializer: stringifyFn,
             })
             .then((resp) => {
               const sources = [];
-              for (const dcid in resp.data) {
+              for (const dcid of Object.keys(resp.data).sort()) {
                 sources.push({
                   dcid,
-                  name: resp.data[dcid][0],
+                  name: resp.data[dcid][0]["value"],
                 });
               }
               this.setState({ sources });
@@ -237,14 +238,16 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     axios
-      .get(`/api/browser/propvals/isPartOf/${source}`)
+      .get<PropertyValues>(
+        `/api/node/propvals/in?prop=isPartOf&dcids=${source}`
+      )
       .then((resp) => {
         const currentDatasets = [];
         const datasetSet = new Set();
-        if (!resp.data.values.in) {
+        if (!resp.data[source]) {
           return;
         }
-        for (const dataset of resp.data.values.in) {
+        for (const dataset of resp.data[source]) {
           // Remove duplicates.
           if (datasetSet.has(dataset.dcid)) {
             continue;
@@ -263,12 +266,12 @@ class Page extends Component<unknown, PageStateType> {
           dcid = dataset;
         }
         axios
-          .get("/api/node/propvals", {
+          .get<PropertyValues>("/api/node/propvals/out", {
             params: { dcids: [dcid], prop: "name" },
             paramsSerializer: stringifyFn,
           })
           .then((resp) => {
-            const name = resp.data[dcid][0];
+            const name = resp.data[dcid][0]["value"];
             this.setState({
               dataset,
               datasets: currentDatasets,
@@ -315,13 +318,13 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     const descriptionPromise = axios
-      .get("/api/node/propvals", {
+      .get<PropertyValues>("/api/node/propvals/out", {
         params: { dcids: [sv], prop: "description" },
         paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
     const displayNamePromise = axios
-      .get("/api/node/propvals", {
+      .get<PropertyValues>("/api/node/propvals/out", {
         params: { dcids: [sv], prop: "name" },
         paramsSerializer: stringifyFn,
       })
@@ -344,21 +347,26 @@ class Page extends Component<unknown, PageStateType> {
           return;
         }
         axios
-          .get("/api/node/propvals", {
+          .get<PropertyValues>("/api/node/propvals/out", {
             params: { dcids: provIds, prop: "url" },
             paramsSerializer: stringifyFn,
           })
           .then((resp) => {
+            const urlData = resp.data["url"];
+            const urlMap = {};
+            for (const dcid in urlData) {
+              urlMap[dcid] = urlData[dcid][0].value;
+            }
             this.setState({
               description:
                 descriptionResult[sv].length > 0
-                  ? descriptionResult[sv][0]
+                  ? descriptionResult[sv][0]["value"]
                   : "",
-              displayName: displayNameResult[sv][0],
+              displayName: displayNameResult[sv][0]["value"],
               error: false,
               statVar: sv,
               summary: summaryResult[sv],
-              urls: resp.data,
+              urls: urlMap,
             });
           });
       })

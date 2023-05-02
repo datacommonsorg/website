@@ -2,7 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flask",
+            "name": "Jest Tests",
+            "type": "node",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder}/static",
+            "console": "integratedTerminal",
+            "program": "${workspaceFolder}/static/node_modules/jest/bin/jest",
+        },
+        {
+            "name": "Flask (with NL)",
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,
@@ -24,7 +33,7 @@
             "console": "internalConsole",
         },
         {
-            "name": "Flask - without NL",
+            "name": "Flask (without NL)",
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,

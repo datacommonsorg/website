@@ -33,7 +33,7 @@ export interface GcsFile {
 
 export interface Import {
   status: number;
-  gcs_files: GcsFile[];
+  gcsFiles: GcsFile[];
 }
 
 export interface PagePropType {
@@ -100,7 +100,7 @@ export function Page(props: PagePropType): JSX.Element {
                   {id}: {statusText[im.status]}
                 </div>
                 <ul>
-                  {im.gcs_files.map((f) => {
+                  {im.gcsFiles.map((f) => {
                     const parts = f.object.split("/");
                     return <li key={f.object}>{parts[parts.length - 1]}</li>;
                   })}

@@ -30,33 +30,16 @@ NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
 
 @bp.route('/provenance')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def provenance():
   """Returns all the provenance information."""
-  resp = dc.triples("Provenance", "in")
-  prov_list = resp.get("triples", {}).get("typeOf", {}).get("nodes", [])
-  dcids = list(map(lambda item: item["dcid"], prov_list))
-  resp = util.property_values(dcids, "url", True)
+  prov_resp = util.property_values(['Provenance'], 'typeOf', False)
+  url_resp = util.property_values(prov_resp['Provenance'], "url", True)
   result = {}
-  for dcid, urls in resp.items():
+  for dcid, urls in url_resp.items():
     if len(urls) > 0:
       result[dcid] = urls[0]
   return result
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/propvals/<path:prop>/<path:dcid>')
-def get_property_value(dcid, prop):
-  """Returns the property values for a given node dcid and property label."""
-  response = dc.fetch_data('/node/property-values', {
-      'dcids': [dcid],
-      'property': prop,
-  },
-                           compress=False,
-                           post=False)
-  result = {}
-  result["property"] = prop
-  result["values"] = response.get(dcid, {})
-  return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 def get_sparql_query(place_id, stat_var_id, date):

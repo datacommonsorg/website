@@ -175,26 +175,53 @@ def obs_series_within(parent_entity, child_type, variables):
       })
 
 
-def triples(node, direction):
+def entity_variables(entities):
+  """Gets the statistical variables that have obserations for given entities.
+
+  Args:
+      entities: List of entity dcids.
+  """
+  url = get_service_url('/v2/observation')
+  return post(url, {
+      'select': ['variable', 'entity'],
+      'entity': {
+          'dcids': entities,
+      },
+  })
+
+
+def entity_variables_existence(variables, entities):
+  """Check if statistical variables have observations for given entities.
+
+  Args:
+      variables: List of variable dcids.
+      entities: List of entity dcids.
+  """
+  url = get_service_url('/v2/observation')
+  return post(
+      url, {
+          'select': ['variable', 'entity'],
+          'entity': {
+              'dcids': entities,
+          },
+          'variable': {
+              'dcids': variables,
+          },
+      })
+
+
+def triples(nodes, direction):
   """Retrieves the triples for a node.
 
   Args:
       node: Node DCID.
       direction: Predicate direction, either be 'in' or 'out'.
   """
-  url = get_service_url('/v1/triples')
-  return get(f'{url}/{direction}/{node}')
-
-
-def bulk_triples(nodes, direction):
-  """Retrieves the triples for multiple nodes.
-
-  Args:
-      nodes: DCIDs of nodes.
-      direction: Predicate direction, either be 'in' or 'out'.
-  """
-  url = get_service_url('/v1/bulk/triples')
-  return post(f'{url}/{direction}', {'nodes': nodes})
+  url = get_service_url('/v2/node')
+  return post(url, {
+      'nodes': nodes,
+      'property': '->*' if direction == 'out' else '<-*'
+  }).get('data', {})
 
 
 def properties(nodes, direction):

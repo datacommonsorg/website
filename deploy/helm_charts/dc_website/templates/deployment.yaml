@@ -50,6 +50,9 @@ spec:
           configMap:
             name: redis-config
         {{- end }}
+        - name: blocklist-svg
+          configMap:
+            name: blocklist-svg
       containers:
         - name: website
           image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-website:{{ .Values.website.image.tag }}"
@@ -81,6 +84,8 @@ spec:
             - name: redis-config
               mountPath: /datacommons/redis
             {{- end }}
+            - name: blocklist-svg
+              mountPath: /datacommons/svg
           env:
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}

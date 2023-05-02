@@ -231,13 +231,10 @@ def _get_unit_names(units: List[str]) -> Dict:
     return {}
 
   dcid2name = {}
-  resp = dc.bulk_triples(nodes=units, direction='out')
+  resp = dc.triples(nodes=units, direction='out')
 
-  for node in resp.get('data', []):
-    if 'node' not in node or 'triples' not in node:
-      continue
-    dcid = node['node']
-    triples = node['triples']
+  for dcid in resp:
+    triples = resp[dcid].get('arcs', {})
     short_name = triples.get('shortDisplayName', None)
     name = triples.get('name', None)
     if short_name and short_name.get('nodes', []):
@@ -433,4 +430,13 @@ def property_values(nodes, prop, out=True):
         result[node].append(v['dcid'])
       else:
         result[node].append(v['value'])
+  return result
+
+
+def raw_property_values(nodes, prop, out=True):
+  """Returns full property values data out of REST API response."""
+  resp = dc.property_values(nodes, prop, out)
+  result = {}
+  for node, node_arcs in resp.get('data', {}).items():
+    result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
   return result
