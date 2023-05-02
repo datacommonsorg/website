@@ -20,6 +20,7 @@ from flask import request
 from flask import Response
 
 from server.cache import cache
+from server.lib import fetch
 import server.services.datacommons as dc
 
 # TODO(shifucun): add unittest for this module
@@ -39,13 +40,13 @@ def stat_var_property():
   dcids = request.args.getlist('dcids')
   ranked_statvars = current_app.config['RANKED_STAT_VARS']
   result = {}
-  resp = dc.triples(dcids, 'out')
+  resp = fetch.triples(dcids)
   # Get all the constraint properties
-  for dcid, triples in resp.items():
+  for dcid, arcs in resp.items():
     pvs = {}
-    for pred, arc in triples['arcs'].items():
+    for pred, nodes in arcs.items():
       if pred == 'constraintProperties':
-        for node in arc['nodes']:
+        for node in nodes:
           pvs[node['dcid']] = ''
     pt = ''
     md = ''
@@ -53,9 +54,9 @@ def stat_var_property():
     st = ''
     mq = ''
     name = dcid
-    for pred, arc in triples['arcs'].items():
-      objId = arc['nodes'][0].get('dcid', '')
-      objVal = arc['nodes'][0].get('value', '')
+    for pred, nodes in arcs.items():
+      objId = nodes[0].get('dcid', '')
+      objVal = nodes[0].get('value', '')
       if pred == 'measuredProperty':
         mprop = objId
       if pred == 'populationType':

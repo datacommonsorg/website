@@ -19,14 +19,14 @@ import logging
 import os
 import random
 import time
-from typing import Dict, List, NamedTuple, Set, Tuple
+from typing import Dict, List, NamedTuple, Tuple
 
+import server.lib.fetch as fetch
 import server.lib.nl.constants as constants
 import server.lib.nl.counters as ctr
 import server.lib.nl.detection as detection
 import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.utterance as nl_uttr
-import server.lib.util as util
 import server.services.datacommons as dc
 import shared.lib.constants as shared_constants
 
@@ -131,10 +131,10 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
                              order: detection.RankingType,
                              counters: ctr.Counters) -> List[str]:
   start = time.time()
-  points_data = util.point_core(entities=[place],
-                                variables=svs,
-                                date='LATEST',
-                                all_facets=False)
+  points_data = fetch.point_core(entities=[place],
+                                 variables=svs,
+                                 date='LATEST',
+                                 all_facets=False)
   counters.timeit('rank_svs_by_latest_value', start)
 
   svs_with_vals = []
@@ -154,9 +154,9 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
 def has_series_with_single_datapoint(place: str, svs: List[str],
                                      counters: ctr.Counters):
   start = time.time()
-  series_data = util.series_core(entities=[place],
-                                 variables=svs,
-                                 all_facets=False)
+  series_data = fetch.series_core(entities=[place],
+                                  variables=svs,
+                                  all_facets=False)
   counters.timeit('has_series_with_single_datapoint', start)
   for _, place_data in series_data['data'].items():
     if place not in place_data:
@@ -191,9 +191,9 @@ def rank_places_by_series_growth(places: List[str], sv: str,
                                  rank_order: detection.RankingType,
                                  counters: ctr.Counters) -> GrowthRankedLists:
   start = time.time()
-  series_data = util.series_core(entities=places,
-                                 variables=[sv],
-                                 all_facets=False)
+  series_data = fetch.series_core(entities=places,
+                                  variables=[sv],
+                                  all_facets=False)
   place2denom = _compute_place_to_denom(sv, places)
   # Count the RPC section (since we have multiple exit points)
   counters.timeit('rank_places_by_series_growth', start)
@@ -231,9 +231,9 @@ def rank_svs_by_series_growth(place: str, svs: List[str],
                               rank_order: detection.RankingType,
                               counters: ctr.Counters) -> GrowthRankedLists:
   start = time.time()
-  series_data = util.series_core(entities=[place],
-                                 variables=svs,
-                                 all_facets=False)
+  series_data = fetch.series_core(entities=[place],
+                                  variables=svs,
+                                  all_facets=False)
   place2denom = _compute_place_to_denom(svs[0], [place])
   counters.timeit('rank_svs_by_series_growth', start)
 
@@ -333,10 +333,10 @@ def _datestr_to_date(datestr: str) -> datetime.date:
 def _compute_place_to_denom(sv: str, places: List[str]):
   place2denom = {}
   if sv != constants.DEFAULT_DENOMINATOR and is_percapita_relevant(sv):
-    denom_data = util.point_core(entities=places,
-                                 variables=[constants.DEFAULT_DENOMINATOR],
-                                 date='LATEST',
-                                 all_facets=False)
+    denom_data = fetch.point_core(entities=places,
+                                  variables=[constants.DEFAULT_DENOMINATOR],
+                                  date='LATEST',
+                                  all_facets=False)
     for _, sv_data in denom_data['data'].items():
       for place, point in sv_data.items():
         if 'value' in point:
@@ -410,11 +410,8 @@ def filter_and_rank_places(
     parent_place: detection.Place, child_type: detection.ContainedInPlaceType,
     sv: str, filter: detection.QuantityClassificationAttributes
 ) -> List[detection.Place]:
-  api_resp = util.point_within_core(parent_entity=parent_place.dcid,
-                                    child_type=child_type.value,
-                                    variables=[sv],
-                                    date='LATEST',
-                                    all_facets=False)
+  api_resp = fetch.point_within_core(parent_place.dcid, child_type.value, [sv],
+                                     'LATEST', False)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
   for child_place, value_data in sv_data.items():
@@ -429,7 +426,7 @@ def filter_and_rank_places(
                            key=lambda pair: (pair[1], pair[0]),
                            reverse=True)
   child_ids = [id for id, _ in child_and_value]
-  id2names = util.property_values(child_ids, 'name')
+  id2names = fetch.property_values(child_ids, 'name')
   result = []
   for id in child_ids:
     names = id2names.get(id, [])
@@ -469,13 +466,13 @@ def _get_sample_child_places(main_place_dcid: str,
             child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
     return child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]
   else:
-    triples = dc.triples(main_place_dcid, 'in').get('triples')
-    if triples:
-      for prop, nodes in triples.items():
+    arcs = fetch.triples([main_place_dcid], False).get(main_place_dcid)
+    if arcs:
+      for prop, nodes in arcs.items():
         if prop != 'containedInPlace' and prop != 'geoOverlaps':
           continue
         child_places = []
-        for node in nodes['nodes']:
+        for node in nodes:
           if contained_place_type in node['types']:
             child_places.append(node['dcid'])
         if child_places:
@@ -544,7 +541,7 @@ def get_immediate_parent_places(
 
 
 def get_sv_name(all_svs: List[str]) -> Dict:
-  sv2name_raw = util.property_values(all_svs, 'name')
+  sv2name_raw = fetch.property_values(all_svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
   }
@@ -611,7 +608,7 @@ def clean_sv_name(name: str) -> str:
 
 
 def get_sv_footnote(all_svs: List[str]) -> Dict:
-  sv2footnote_raw = util.property_values(all_svs, 'footnote')
+  sv2footnote_raw = fetch.property_values(all_svs, 'footnote')
   uncurated_footnotes = {
       sv: footnotes[0] if footnotes else ''
       for sv, footnotes in sv2footnote_raw.items()
@@ -635,10 +632,10 @@ def get_only_svs(svs: List[str]) -> List[str]:
 
 # Returns a list of parent place names for a dcid.
 def parent_place_names(dcid: str) -> List[str]:
-  parent_dcids = util.property_values(nodes=[dcid],
-                                      prop='containedInPlace')[dcid]
+  parent_dcids = fetch.property_values(nodes=[dcid],
+                                       prop='containedInPlace')[dcid]
   if parent_dcids:
-    names = util.property_values(nodes=parent_dcids, prop='name')
+    names = fetch.property_values(nodes=parent_dcids, prop='name')
     ret = [names[p][0] for p in parent_dcids]
     return ret
   return None

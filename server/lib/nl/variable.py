@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import Dict, List
 
-import server.lib.util as util
+import server.lib.fetch as fetch
 import server.services.datacommons as dc
 
 
@@ -116,7 +116,7 @@ def extend_svs(svs: Dict[str, List[str]]):
   """
   if not svs:
     return {}
-  sv2svgs = util.property_values(svs, "memberOf", True)
+  sv2svgs = fetch.property_values(svs, "memberOf", True)
   sv2svg = {sv: svg[0] for sv, svg in sv2svgs.items() if svg}
   svg2childsvs = {}
   if not sv2svg:
@@ -142,12 +142,12 @@ def extend_svs(svs: Dict[str, List[str]]):
     if len(svg_obj.pvs) == len(sv_obj.pvs):
       # There are no direct siblings of this sv in the current svg.
       # need to look for in-direct siblings
-      svg_parents = util.property_values([svg], "specializationOf", True)[svg]
+      svg_parents = fetch.property_values([svg], "specializationOf", True)[svg]
       if not svg_parents:
         continue
       svg_parent = svg_parents[0]
-      svg_siblings = util.property_values([svg_parent], "specializationOf",
-                                          False)[svg_parent]
+      svg_siblings = fetch.property_values([svg_parent], "specializationOf",
+                                           False)[svg_parent]
       if not svg_siblings:
         continue
       svg_siblings_info = dc.get_variable_group_info(svg_siblings, [])

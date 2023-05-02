@@ -19,8 +19,7 @@ import flask
 from flask import request
 from flask import Response
 
-from server.lib import util
-import server.services.datacommons as dc
+from server.lib import fetch
 
 bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
 
@@ -28,12 +27,9 @@ bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
 @bp.route('/triples/<path:direction>/<path:dcid>')
 def triples(direction, dcid):
   """Returns all the triples given a node dcid."""
-  if direction != "in" and direction != "out":
+  if direction != 'in' and direction != 'out':
     return "Invalid direction provided, please use 'in' or 'out'", 400
-  arcs = dc.triples([dcid], direction).get(dcid, {}).get('arcs', {})
-  for prop, val in arcs.items():
-    arcs[prop] = val.get('nodes', [])
-  return arcs
+  return fetch.triples([dcid], direction == 'out').get(dcid, {})
 
 
 @bp.route('/propvals/<path:direction>', methods=['GET', 'POST'])
@@ -47,5 +43,5 @@ def get_property_value(direction):
   prop = request.args.get('prop')
   if not prop:
     prop = request.json['prop']
-  response = util.raw_property_values(dcids, prop, direction == 'out')
+  response = fetch.raw_property_values(dcids, prop, direction == 'out')
   return Response(json.dumps(response), 200, mimetype='application/json')

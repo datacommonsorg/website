@@ -20,7 +20,7 @@ from flask import request
 from flask import Response
 
 from server.cache import cache
-from server.lib import util
+from server.lib import fetch
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_browser', __name__, url_prefix='/api/browser')
@@ -33,8 +33,8 @@ NO_OBSPERIOD_KEY = 'no_obsPeriod'
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def provenance():
   """Returns all the provenance information."""
-  prov_resp = util.property_values(['Provenance'], 'typeOf', False)
-  url_resp = util.property_values(prov_resp['Provenance'], "url", True)
+  prov_resp = fetch.property_values(['Provenance'], 'typeOf', False)
+  url_resp = fetch.property_values(prov_resp['Provenance'], "url", True)
   result = {}
   for dcid, urls in url_resp.items():
     if len(urls) > 0:
