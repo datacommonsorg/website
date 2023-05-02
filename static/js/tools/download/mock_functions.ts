@@ -71,7 +71,7 @@ export function axiosMock(): void {
 
   // get statvar properties Count_Person
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_Person")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_Person")
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -86,7 +86,7 @@ export function axiosMock(): void {
 
   // get statvar properties Median_Age_Person
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person")
+    .calledWith("/api/stats/stat-var-property?dcids=Median_Age_Person")
     .mockResolvedValue({
       data: {
         Median_Age_Person: {

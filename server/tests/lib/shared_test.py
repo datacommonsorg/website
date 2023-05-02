@@ -20,7 +20,7 @@ import server.lib.shared as shared
 
 class TestNames(unittest.TestCase):
 
-  @patch('server.lib.shared.util.property_values')
+  @patch('server.lib.shared.fetch.property_values')
   def test_names(self, mock_property_values_func):
     dcid1 = 'geoId/06'
     dcid2 = 'geoId/07'

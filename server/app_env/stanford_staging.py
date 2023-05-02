@@ -18,5 +18,4 @@ from server.app_env import _base
 class Config(_base.Config):
   CUSTOM = True
   NAME = "Google Stanford Data Commons (Staging)"
-  ENABLE_BLOCKLIST = True
   GCS_BUCKET = 'datcom-stanford-staging-resources'

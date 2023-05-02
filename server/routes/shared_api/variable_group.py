@@ -20,12 +20,6 @@ import server.services.datacommons as dc
 
 bp = Blueprint("variable-group", __name__, url_prefix='/api/variable-group')
 
-BLOCKLISTED_STAT_VAR_GROUPS = {
-    "dc/g/Uncategorized",
-    # TODO: Remove after partial hierarchy is ready.
-    "dc/g/SDG",
-}
-
 
 @bp.route('/info', methods=['GET', 'POST'])
 def get_variable_group_info():
@@ -44,12 +38,13 @@ def get_variable_group_info():
     numEntitiesExistence = request.json.get("numEntitiesExistence", 1)
   resp = dc.get_variable_group_info([dcid], entities, numEntitiesExistence)
   result = resp.get("data", [{}])[0].get("info", {})
-  if current_app.config["ENABLE_BLOCKLIST"]:
+  if current_app.config["BLOCKLIST_SVG"]:
+    blocklist_svgs = set(current_app.config["BLOCKLIST_SVG"])
     childSVG = result.get("childStatVarGroups", [])
     filteredChildSVG = []
     for svg in childSVG:
       svg_id = svg.get("id", "")
-      if svg_id in BLOCKLISTED_STAT_VAR_GROUPS:
+      if svg_id in blocklist_svgs:
         continue
       filteredChildSVG.append(svg)
     result["childStatVarGroups"] = filteredChildSVG

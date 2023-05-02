@@ -16,7 +16,7 @@ from flask import Blueprint
 from flask import request
 
 from server.cache import cache
-import server.lib.util as util
+from server.lib import fetch
 
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
@@ -33,7 +33,7 @@ def point():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or 'LATEST'
-  return util.point_core(entities, variables, date, False)
+  return fetch.point_core(entities, variables, date, False)
 
 
 @bp.route('/all')
@@ -47,7 +47,7 @@ def point_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return util.point_core(entities, variables, date, True)
+  return fetch.point_core(entities, variables, date, True)
 
 
 @bp.route('/within')
@@ -69,8 +69,8 @@ def point_within():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or 'LATEST'
-  return util.point_within_core(parent_entity, child_type, variables, date,
-                                False)
+  return fetch.point_within_core(parent_entity, child_type, variables, date,
+                                 False)
 
 
 @bp.route('/within/all')
@@ -92,5 +92,5 @@ def point_within_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or 'LATEST'
-  return util.point_within_core(parent_entity, child_type, variables, date,
-                                True)
+  return fetch.point_within_core(parent_entity, child_type, variables, date,
+                                 True)

@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import copy
 from datetime import datetime
 import gzip
 import hashlib
@@ -20,14 +19,13 @@ import json
 import logging
 import os
 import time
-from typing import Dict, List
+from typing import List
 import urllib
 
 from flask import make_response
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
-import server.services.datacommons as dc
 
 _ready_check_timeout = 120  # seconds
 _ready_check_sleep_seconds = 5
@@ -226,155 +224,6 @@ def parse_date(date_string):
     raise ValueError("Invalid date: %s", date_string)
 
 
-def _get_unit_names(units: List[str]) -> Dict:
-  if not units:
-    return {}
-
-  dcid2name = {}
-  resp = dc.bulk_triples(nodes=units, direction='out')
-
-  for node in resp.get('data', []):
-    if 'node' not in node or 'triples' not in node:
-      continue
-    dcid = node['node']
-    triples = node['triples']
-    short_name = triples.get('shortDisplayName', None)
-    name = triples.get('name', None)
-    if short_name and short_name.get('nodes', []):
-      # Prefer short names
-      dcid2name[dcid] = short_name['nodes'][0].get('value', '')
-    elif name and name.get('nodes', []):
-      # Otherwise use name
-      dcid2name[dcid] = name['nodes'][0].get('value', '')
-
-  return dcid2name
-
-
-# For all facets that have a unit with a shortDisplayName, adds a
-# unitDisplayName property to the facet with the short display name as the value
-def _get_processed_facets(facets):
-  units = set()
-  for facet in facets.values():
-    facet_unit = facet.get('unit')
-    if facet_unit:
-      units.add(facet_unit)
-  unit2name = _get_unit_names(list(units))
-  result = copy.deepcopy(facets)
-  for facet_id, facet in facets.items():
-    facet_unit = facet.get('unit')
-    if facet_unit and unit2name.get(facet_unit, ''):
-      result[facet_id]['unitDisplayName'] = unit2name[facet_unit]
-  return result
-
-
-def _convert_v2_obs_point(facet):
-  return {
-      'facet': facet['facetId'],
-      'date': facet['observations'][0]['date'],
-      'value': facet['observations'][0]['value']
-  }
-
-
-def _convert_v2_obs_series(facet):
-  return {
-      'facet': facet['facetId'],
-      'series': facet['observations'],
-  }
-
-
-def point_core(entities, variables, date, all_facets):
-  resp = dc.obs_point(entities, variables, date)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
-  return _compact_point(resp, all_facets)
-
-
-def point_within_core(parent_entity, child_type, variables, date, all_facets):
-  resp = dc.obs_point_within(parent_entity, child_type, variables, date)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
-  return _compact_point(resp, all_facets)
-
-
-# Returns a compact version of observation point API results
-def _compact_point(point_resp, all_facets):
-  result = {
-      'facets': {},
-  }
-  if all_facets:
-    result['facets'] = point_resp['facets']
-  data = {}
-  for var, var_obs in point_resp.get('byVariable', {}).items():
-    data[var] = {}
-    for entity, entity_obs in var_obs.get('byEntity', {}).items():
-      data[var][entity] = None
-      if 'orderedFacets' in entity_obs:
-        if all_facets:
-          data[var][entity] = [
-              _convert_v2_obs_point(x) for x in entity_obs['orderedFacets']
-          ]
-        else:
-          # There should be only one point. Find the facet with the latest date
-          best = None
-          for x in entity_obs['orderedFacets']:
-            point = _convert_v2_obs_point(x)
-            if not best or point['date'] > best['date']:
-              best = point
-          data[var][entity] = best
-          facet_id = best['facet']
-          result['facets'][facet_id] = point_resp['facets'][facet_id]
-      else:
-        if all_facets:
-          data[var][entity] = []
-        else:
-          data[var][entity] = {}
-  result['data'] = data
-  return result
-
-
-def series_core(entities, variables, all_facets):
-  resp = dc.obs_series(entities, variables)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
-  return _compact_series(resp, all_facets)
-
-
-def series_within_core(parent_entity, child_type, variables, all_facets):
-  resp = dc.obs_series_within(parent_entity, child_type, variables)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
-  return _compact_series(resp, all_facets)
-
-
-def _compact_series(series_resp, all_facets):
-  result = {
-      'facets': {},
-  }
-  if all_facets:
-    result['facets'] = series_resp['facets']
-  data = {}
-  for var, var_obs in series_resp.get('byVariable', {}).items():
-    data[var] = {}
-    for entity, entity_obs in var_obs.get('byEntity', {}).items():
-      data[var][entity] = None
-      if 'orderedFacets' in entity_obs:
-        if all_facets:
-          data[var][entity] = [
-              _convert_v2_obs_series(x) for x in entity_obs['orderedFacets']
-          ]
-        else:
-          # There should be only one series
-          data[var][entity] = _convert_v2_obs_series(
-              entity_obs['orderedFacets'][0])
-          facet_id = data[var][entity]['facet']
-          result['facets'][facet_id] = series_resp['facets'][facet_id]
-      else:
-        if all_facets:
-          data[var][entity] = []
-        else:
-          data[var][entity] = {
-              'series': [],
-          }
-  result['data'] = data
-  return result
-
-
 def is_up(url: str):
   if not url.lower().startswith('http'):
     raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
@@ -420,17 +269,3 @@ def gzip_compress_response(raw_content, is_json):
   if is_json:
     response.headers['Content-Type'] = 'application/json'
   return response
-
-
-def property_values(nodes, prop, out=True):
-  """Returns a compact property values data out of REST API response."""
-  resp = dc.property_values(nodes, prop, out)
-  result = {}
-  for node, node_arcs in resp.get('data', {}).items():
-    result[node] = []
-    for v in node_arcs.get('arcs', {}).get(prop, {}).get('nodes', []):
-      if 'dcid' in v:
-        result[node].append(v['dcid'])
-      else:
-        result[node].append(v['value'])
-  return result

@@ -19,37 +19,29 @@ import flask
 from flask import request
 from flask import Response
 
-from server.cache import cache
-from server.lib import util
-import server.services.datacommons as dc
+from server.lib import fetch
 
 bp = flask.Blueprint('api_node', __name__, url_prefix='/api/node')
-
-
-@bp.route('/properties/<path:direction>/<path:dcid>')
-def get_properties(dcid, direction):
-  """Returns all properties given a node dcid."""
-  return json.dumps(
-      dc.properties([dcid], direction)[dcid].get('properties', []))
 
 
 @bp.route('/triples/<path:direction>/<path:dcid>')
 def triples(direction, dcid):
   """Returns all the triples given a node dcid."""
+  if direction != 'in' and direction != 'out':
+    return "Invalid direction provided, please use 'in' or 'out'", 400
+  return fetch.triples([dcid], direction == 'out').get(dcid, {})
+
+
+@bp.route('/propvals/<path:direction>', methods=['GET', 'POST'])
+def get_property_value(direction):
+  """Returns the property values for given node dcids and property label."""
   if direction != "in" and direction != "out":
     return "Invalid direction provided, please use 'in' or 'out'", 400
-  return dc.triples(dcid, direction).get("triples", {})
-
-
-@bp.route('/propvals', methods=['GET', 'POST'])
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-def get_property_value():
-  """Returns the property values for given node dcids and property label."""
   dcids = request.args.getlist('dcids')
   if not dcids:
     dcids = request.json['dcids']
   prop = request.args.get('prop')
   if not prop:
     prop = request.json['prop']
-  response = util.property_values(dcids, prop)
+  response = fetch.raw_property_values(dcids, prop, direction == 'out')
   return Response(json.dumps(response), 200, mimetype='application/json')

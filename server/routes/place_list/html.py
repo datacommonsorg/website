@@ -18,37 +18,26 @@ from flask import Blueprint
 from flask import render_template
 
 from server.cache import cache
+from server.lib.fetch import raw_property_values
 from server.routes.shared_api.place import child_fetch
-from server.services.datacommons import fetch_data
 
 # Define blueprint
 bp = Blueprint(
-    "placelist",
+    "place_list",
     __name__,
 )
 
 
 @bp.route('/placelist')
+@bp.route('/place-list')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def index():
-  response = fetch_data('/node/property-values', {
-      'dcids': ['Country'],
-      'property': 'typeOf',
-      'direction': 'in'
-  },
-                        compress=False,
-                        post=True)
-  countries = {'Country': []}
-  for place in response['Country']['in']:
-    countries['Country'].append({
-        'dcid': place['dcid'],
-        'name': place.get('name', place['dcid'])
-    })
-    countries['Country'].sort(key=lambda x: x['name'])
-  return render_template('placelist.html', place_by_type=countries)
+  resp = raw_property_values(['Country'], 'typeOf', False)
+  resp['Country'].sort(key=lambda x: x['name'])
+  return render_template('place_list.html', place_by_type=resp)
 
 
-@bp.route('/placelist/<path:dcid>')
+@bp.route('/place-list/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def node(dcid):
   child_places = child_fetch(dcid)
@@ -65,6 +54,6 @@ def node(dcid):
   for place_type in place_by_type:
     place_by_type[place_type].sort(key=lambda x: x['name'])
 
-  return render_template('placelist.html',
+  return render_template('place_list.html',
                          place_by_type=place_by_type,
                          dcid=dcid)
