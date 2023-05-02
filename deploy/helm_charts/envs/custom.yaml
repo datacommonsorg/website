@@ -54,3 +54,6 @@ nl:
 
 customDC:
   enabled: true
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]

@@ -51,3 +51,6 @@ serviceGroups:
     replicas: 4
   default:
     replicas: 4
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG"]

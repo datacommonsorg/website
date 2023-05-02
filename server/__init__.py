@@ -42,6 +42,8 @@ from server.services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
+BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
+
 
 def createMiddleWare(app, exporter):
   # Configure a flask middleware that listens for each request and applies
@@ -336,7 +338,7 @@ def create_app():
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  #   # Enable the NL model.
+  # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
@@ -350,6 +352,13 @@ def create_app():
       app.config['NL_TABLE'] = bt.get_nl_table()
     else:
       app.config['NL_TABLE'] = None
+
+  # Get and save the blocklisted svgs.
+  blocklist_svg = []
+  if os.path.isfile(BLOCKLIST_SVG_FILE):
+    with open(BLOCKLIST_SVG_FILE) as f:
+      blocklist_svg = json.load(f) or []
+  app.config['BLOCKLIST_SVG'] = blocklist_svg
 
   if not cfg.TEST:
     urls = get_health_check_urls()

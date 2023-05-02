@@ -19,7 +19,6 @@ from server.app_env import local
 class Config(_base.Config):
   CUSTOM = True
   NAME = "Google Stanford Data Commons"
-  ENABLE_BLOCKLIST = True
   GCS_BUCKET = 'datcom-stanford-resources'
 
 

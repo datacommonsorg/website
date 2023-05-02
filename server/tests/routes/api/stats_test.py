@@ -21,183 +21,128 @@ from web_app import app
 
 class TestApiStatsProperty(unittest.TestCase):
 
-  @mock.patch('server.services.datacommons.send_request')
-  def test_api_get_stats_property(self, send_request):
+  @mock.patch('server.services.datacommons.post')
+  def test_api_get_stats_property(self, mock_post):
 
-    def side_effect(req_url,
-                    req_json={},
-                    compress=False,
-                    post=True,
-                    has_payload=True):
+    def side_effect(url, req_json):
       if req_json == {
-          'dcids': [
-              'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-          ]
+          'nodes': ['DifferenceRelativeToBaseDate1990_Temperature'],
+          'property': '->*'
       }:
         return {
-            'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26': [{
-                'objectId':
-                    'StatisticalVariable',
-                'objectName':
-                    'StatisticalVariable',
-                'objectTypes': ['Class'],
-                'predicate':
-                    'typeOf',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectId':
-                    'minValue',
-                'objectName':
-                    'minValue',
-                'objectTypes': ['Property'],
-                'predicate':
-                    'statType',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectId':
-                    'dc/d7tbsb1',
-                'objectName':
-                    'https://datacommons.org',
-                'objectTypes': ['Provenance'],
-                'predicate':
-                    'provenance',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectId':
-                    'Place',
-                'objectName':
-                    'Place',
-                'objectTypes': ['Class'],
-                'predicate':
-                    'populationType',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectValue':
-                    'Min Temperature of 2006-01, RCP 2.6 (Difference '
-                    'Relative To Base Date & Daily)',
-                'predicate':
-                    'name',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectId':
-                    'dc/g/Place_BaseDate-200601_EmissionsScenario-RCP2.6',
-                'objectName':
-                    'Place With Base Date = 2006-01, Emissions Scenario = '
-                    'RCP 2.6',
-                'objectTypes': ['StatVarGroup'],
-                'predicate':
-                    'memberOf',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectId':
-                    'DifferenceRelativeToBaseDate&Daily',
-                'objectTypes': ['Thing'],
-                'predicate':
-                    'measurementQualifier',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectId':
-                    'temperature',
-                'objectName':
-                    'temperature',
-                'objectTypes': ['Property'],
-                'predicate':
-                    'measuredProperty',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectId':
-                    'RCP2.6',
-                'objectName':
-                    'RCP2.6',
-                'objectTypes': ['RepresentativeConcentrationPathwayEnum'],
-                'predicate':
-                    'emissionsScenario',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectValue':
-                    'Daily minimum near-surface air temperature under '
-                    'RCP2.6 emissions scenario',
-                'predicate':
-                    'description',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectId':
-                    'emissionsScenario',
-                'objectName':
-                    'emissionsScenario',
-                'objectTypes': ['Property'],
-                'predicate':
-                    'constraintProperties',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }, {
-                'objectValue':
-                    '2006-01',
-                'predicate':
-                    'baseDate',
-                'provenanceId':
-                    'dc/d7tbsb1',
-                'subjectId':
-                    'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
-            }]
+            'data': {
+                'DifferenceRelativeToBaseDate1990_Temperature': {
+                    'arcs': {
+                        "baseDate": {
+                            "nodes": [{
+                                "provenanceId": "dc/base/HumanReadableStatVars",
+                                "value": "1990"
+                            }]
+                        },
+                        "constraintProperties": {
+                            "nodes": [{
+                                "dcid": "baseDate",
+                                "name": "baseDate",
+                                "provenanceId": "dc/base/HumanReadableStatVars",
+                                "types": ["Property"]
+                            }]
+                        },
+                        "measuredProperty": {
+                            "nodes": [{
+                                "dcid": "temperature",
+                                "name": "temperature",
+                                "provenanceId": "dc/base/HumanReadableStatVars",
+                                "types": ["Property"]
+                            }]
+                        },
+                        "measurementQualifier": {
+                            "nodes": [{
+                                "dcid": "DifferenceRelativeToBaseDate",
+                                "name": "DifferenceRelativeToBaseDate",
+                                "provenanceId": "dc/base/HumanReadableStatVars",
+                                "types": ["BinaryOperatorEnum"]
+                            }]
+                        },
+                        "memberOf": {
+                            "nodes": [{
+                                "dcid":
+                                    "dc/g/Place_DeltaFromReferenceDate-1990",
+                                "name":
+                                    "Place With Delta From Reference Date = 1990",
+                                "provenanceId":
+                                    "dc/base/HumanReadableStatVars",
+                                "types": ["StatVarGroup"]
+                            }]
+                        },
+                        "name": {
+                            "nodes": [{
+                                "provenanceId":
+                                    "dc/base/HumanReadableStatVars",
+                                "value":
+                                    "Temperature (Difference Relative To Base Date): Relative To 1990"
+                            }]
+                        },
+                        "populationType": {
+                            "nodes": [{
+                                "dcid": "Place",
+                                "name": "Place",
+                                "provenanceId": "dc/base/HumanReadableStatVars",
+                                "types": ["Class"]
+                            }]
+                        },
+                        "provenance": {
+                            "nodes": [{
+                                "dcid": "dc/base/HumanReadableStatVars",
+                                "name": "HumanReadableStatVars",
+                                "provenanceId": "dc/base/HumanReadableStatVars",
+                                "types": ["Provenance"]
+                            }]
+                        },
+                        "statType": {
+                            "nodes": [{
+                                "dcid": "measuredValue",
+                                "name": "measuredValue",
+                                "provenanceId": "dc/base/HumanReadableStatVars",
+                                "types": ["Property"]
+                            }]
+                        },
+                        "typeOf": {
+                            "nodes": [{
+                                "dcid": "StatisticalVariable",
+                                "name": "StatisticalVariable",
+                                "provenanceId": "dc/base/HumanReadableStatVars",
+                                "types": ["Class"]
+                            }]
+                        }
+                    },
+                },
+            }
         }
 
-    send_request.side_effect = side_effect
+    mock_post.side_effect = side_effect
     response = app.test_client().get(
-        '/api/stats/stats-var-property?dcid=DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
+        '/api/stats/stat-var-property?dcids=DifferenceRelativeToBaseDate1990_Temperature'
     )
     assert response.status_code == 200
     assert json.loads(response.data) == {
-        'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26': {
-            'mprop':
-                'temperature',
-            'pt':
-                'Place',
-            'md':
-                '',
-            'st':
-                'minValue',
-            'mq':
-                'DifferenceRelativeToBaseDate&Daily',
-            'pvs': {
-                'emissionsScenario': 'RCP2.6'
+        'DifferenceRelativeToBaseDate1990_Temperature': {
+            "md":
+                "",
+            "mprop":
+                "temperature",
+            "mq":
+                "DifferenceRelativeToBaseDate",
+            "pt":
+                "Place",
+            "pvs": {
+                "baseDate": "1990"
             },
-            'title':
-                'Min Temperature of 2006-01, RCP 2.6 (Difference Relative To Base Date & Daily)',
-            'ranked':
-                False
+            "ranked":
+                False,
+            "st":
+                "measuredValue",
+            "title":
+                "Temperature (Difference Relative To Base Date): Relative To 1990"
         }
     }
 

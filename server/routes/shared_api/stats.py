@@ -28,58 +28,48 @@ import server.services.datacommons as dc
 bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 
 
-@bp.route('/stats-var-property')
-def stats_var_property():
+@bp.route('/stat-var-property')
+def stat_var_property():
   """Handler to get the properties of give statistical variables.
 
   Returns:
       A dictionary keyed by stats var dcid with value being a dictionary of
       all the properties of each stats var.
   """
-  dcids = request.args.getlist('dcid')
-  result = stats_var_property_wrapper(dcids)
-  return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-def stats_var_property_wrapper(dcids):
-  """Function to get properties for given statistical variables."""
-  data = dc.fetch_data('/node/triples', {
-      'dcids': dcids,
-  },
-                       compress=False,
-                       post=True)
+  dcids = request.args.getlist('dcids')
   ranked_statvars = current_app.config['RANKED_STAT_VARS']
   result = {}
+  resp = dc.triples(dcids, 'out')
   # Get all the constraint properties
-  for dcid, triples in data.items():
+  for dcid, triples in resp.items():
     pvs = {}
-    for triple in triples:
-      if triple['predicate'] == 'constraintProperties':
-        pvs[triple["objectId"]] = ''
+    for pred, arc in triples['arcs'].items():
+      if pred == 'constraintProperties':
+        for node in arc['nodes']:
+          pvs[node['dcid']] = ''
     pt = ''
     md = ''
     mprop = ''
     st = ''
     mq = ''
     name = dcid
-    for triple in triples:
-      predicate = triple['predicate']
-      objId = triple.get('objectId', '')
-      objVal = triple.get('objectValue', '')
-      if predicate == 'measuredProperty':
+    for pred, arc in triples['arcs'].items():
+      objId = arc['nodes'][0].get('dcid', '')
+      objVal = arc['nodes'][0].get('value', '')
+      if pred == 'measuredProperty':
         mprop = objId
-      if predicate == 'populationType':
+      if pred == 'populationType':
         pt = objId
-      if predicate == 'measurementDenominator':
+      if pred == 'measurementDenominator':
         md = objId
-      if predicate == 'statType':
+      if pred == 'statType':
         st = objId
-      if predicate == 'name':
+      if pred == 'name':
         name = objVal
-      if predicate == 'measurementQualifier':
+      if pred == 'measurementQualifier':
         mq = objId
-      if predicate in pvs:
-        pvs[predicate] = objId if objId else objVal
+      if pred in pvs:
+        pvs[pred] = objId if objId else objVal
 
     result[dcid] = {
         'mprop': mprop,

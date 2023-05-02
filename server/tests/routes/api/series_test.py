@@ -209,25 +209,27 @@ class TestApiSeriesWithin(unittest.TestCase):
           },
       }:
         return mock_data.SERIES_WITHIN_ALL_FACETS
-      if url.endswith('/v1/bulk/triples/out') and data == {
+      if url.endswith('/v2/node') and data == {
           'nodes': ['testUnit'],
+          'property': '->*'
       }:
         return {
-            'data': [{
-                'node': 'testUnit',
-                'triples': {
-                    'name': {
-                        'nodes': [{
-                            'value': 'longUnitName'
-                        }]
-                    },
-                    'shortDisplayName': {
-                        'nodes': [{
-                            'value': 'shortUnit'
-                        }]
-                    },
+            'data': {
+                'testUnit': {
+                    'arcs': {
+                        'name': {
+                            'nodes': [{
+                                'value': 'longUnitName'
+                            }]
+                        },
+                        'shortDisplayName': {
+                            'nodes': [{
+                                'value': 'shortUnit'
+                            }]
+                        },
+                    }
                 }
-            }]
+            }
         }
 
     post.side_effect = side_effect

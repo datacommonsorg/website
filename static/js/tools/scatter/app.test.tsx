@@ -585,15 +585,15 @@ function mockAxios(): void {
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_Establishment")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_Establishment")
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_HousingUnit")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_HousingUnit")
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_Person_Employed")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_Person_Employed")
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
