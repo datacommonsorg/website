@@ -13,13 +13,10 @@
 # limitations under the License.
 """Copy of Data Commons Python Client API Core without pandas dependency."""
 
-import base64
-import collections
 import json
 import logging
 from typing import Dict, List
 import urllib.parse
-import zlib
 
 from flask import current_app
 import requests
@@ -400,8 +397,7 @@ def search(query_text, max_results):
 
 def translate(sparql, mapping):
   url = get_service_url('/translate')
-  req_json = {'schema_mapping': mapping, 'sparql': sparql}
-  return send_request(url, req_json=req_json, has_payload=False)
+  return post(url, {'schema_mapping': mapping, 'sparql': sparql})
 
 
 def version():
@@ -410,7 +406,7 @@ def version():
   Currently all service groups must have the same version.
   """
   url = get_health_check_urls()[0]
-  return send_request(url, req_json={}, post=False, has_payload=False)
+  return get(url)
 
 
 def get_place_ranking(stat_vars,
@@ -418,13 +414,13 @@ def get_place_ranking(stat_vars,
                       within_place=None,
                       is_per_capita=False):
   url = get_service_url('/node/ranking-locations')
-  req_json = {
-      'stat_var_dcids': stat_vars,
-      'place_type': place_type,
-      'within_place': within_place,
-      'is_per_capita': is_per_capita,
-  }
-  return send_request(url, req_json=req_json, post=False, has_payload=False)
+  return post(
+      url, {
+          'stat_var_dcids': stat_vars,
+          'place_type': place_type,
+          'within_place': within_place,
+          'is_per_capita': is_per_capita,
+      })
 
 
 def query(query_string):
@@ -451,27 +447,16 @@ def get_related_place(dcid, stat_vars, within_place=None, is_per_capita=None):
     req_json['within_place'] = within_place
   if is_per_capita:
     req_json['is_per_capita'] = is_per_capita
-  return send_request(url, req_json, has_payload=False)
+  return post(url, req_json)
 
 
 def search_statvar(query, places, sv_only):
   url = get_service_url('/stat-var/search')
-  req_json = {
+  return post(url, {
       'query': query,
       'places': places,
       "sv_only": sv_only,
-  }
-  return send_request(url, req_json, has_payload=False)
-
-
-def match_statvar(query: str, limit: int, debug: bool):
-  url = get_service_url('/stat-var/match')
-  req_json = {
-      'query': query,
-      'limit': limit,
-      'debug': debug,
-  }
-  return send_request(url, req_json, has_payload=False)
+  })
 
 
 def get_landing_page_data(dcid, category: str, new_stat_vars: List):
@@ -480,65 +465,3 @@ def get_landing_page_data(dcid, category: str, new_stat_vars: List):
     req['newStatVars'] = new_stat_vars
   url = get_service_url('/v1/internal/page/place')
   return post(url, req)
-
-
-# ------------------------- INTERNAL HELPER FUNCTIONS -------------------------
-
-
-def send_request(req_url,
-                 req_json={},
-                 compress=False,
-                 post=True,
-                 has_payload=True):
-  """ Sends a POST/GET request to req_url with req_json, default to POST.
-
-  Returns:
-    The payload returned by sending the POST/GET request formatted as a dict.
-  """
-  headers = {'Content-Type': 'application/json'}
-
-  # Send the request and verify the request succeeded
-  if post:
-    response = requests.post(req_url, json=req_json, headers=headers)
-  else:
-    response = requests.get(req_url, params=req_json, headers=headers)
-
-  if response.status_code != 200:
-    raise ValueError(
-        'Response error: An HTTP {} code ({}) was returned by the mixer. '
-        'Printing response:\n{}'.format(response.status_code, response.reason,
-                                        response.json()['message']))
-  # Get the JSON
-  res_json = response.json()
-  # If the payload is compressed, decompress and decode it
-  if has_payload:
-    res_json = res_json['payload']
-    if compress:
-      res_json = zlib.decompress(base64.b64decode(res_json),
-                                 zlib.MAX_WBITS | 32)
-    res_json = json.loads(res_json)
-  return res_json
-
-
-def fetch_data(endpoint_name: str,
-               req_json: Dict,
-               compress,
-               post,
-               has_payload=True):
-  url = get_service_url(endpoint_name)
-  return send_request(url, req_json, compress, post, has_payload)
-
-
-def _format_expand_payload(payload, new_key, must_exist=[]):
-  """ Formats expand payloads into dicts from dcids to lists of values."""
-  # Create the results dictionary from payload
-  results = collections.defaultdict(set)
-  for entry in payload:
-    if 'dcid' in entry and new_key in entry:
-      dcid = entry['dcid']
-      results[dcid].add(entry[new_key])
-
-  # Ensure all dcids in must_exist have some entry in results.
-  for dcid in must_exist:
-    results[dcid]
-  return {k: sorted(list(v)) for k, v in results.items()}

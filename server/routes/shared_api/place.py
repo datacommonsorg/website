@@ -31,7 +31,6 @@ from server.lib import fetch
 import server.lib.i18n as i18n
 from server.lib.shared import names
 import server.lib.shared as shared_api
-from server.services.datacommons import fetch_data
 import server.services.datacommons as dc
 
 CHILD_PLACE_LIMIT = 50

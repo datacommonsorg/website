@@ -240,7 +240,7 @@ def properties(nodes, out=True):
   }
 
   """
-  resp = dc.properties(nodes, '->' if out else '<-')
+  resp = dc.v2node(nodes, '->' if out else '<-')
   result = {node: [] for node in nodes}
   for node, val in resp.get('data', {}):
     result[node] = val.get('properties', [])
