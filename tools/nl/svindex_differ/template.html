@@ -35,8 +35,10 @@
     }
   </style>
   <body>
+    <h1>Queries with Diffs</h1>
+    <pre>Test: {{test_file}}</pre>
+    <pre>Base: {{base_file}}</pre>
     {% if diffs %}
-      <h1>Queries with Diffs</h1>
       <ul>
       {% for query, base, test in diffs %}
         <li><a href="#{{ loop.index }}">{{ loop.index }}. {{query}}</a></li>

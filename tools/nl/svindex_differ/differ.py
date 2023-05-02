@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TODO: Consider including cosine scores in the comparison.
+
 import csv
 import difflib
 import os
@@ -89,7 +91,11 @@ def run_diff(base_file, test_file, query_file, output_file):
         diffs.append((query, base_result, test_result))
 
   with open(output_file, 'w') as f:
-    f.write(template.render(diff_table=_diff_table, diffs=diffs))
+    f.write(
+        template.render(base_file=FLAGS.base,
+                        test_file=FLAGS.test,
+                        diff_table=_diff_table,
+                        diffs=diffs))
   print('')
   print(f'Output written to {output_file}')
   print('')

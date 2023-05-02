@@ -15,3 +15,6 @@ currently checked-in:
 This will produce an html file with diffs (if any) in `/tmp/differ_report.html`.
 Please ensure any diffs are expected/understood, and attach the report to
 the PR updating the SV index.
+
+NOTE: The tool assumes that the base and prod has embeddings generated from the
+same ML model.
