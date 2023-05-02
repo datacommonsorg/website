@@ -267,7 +267,7 @@ def property_values(nodes, prop, out=True, filter=''):
   return result
 
 
-def raw_property_values(nodes, prop, out=True):
+def raw_property_values(nodes, prop, out=True, filter=''):
   """Returns full property values data out of REST API response.
 
   The response is the following format:
@@ -284,7 +284,7 @@ def raw_property_values(nodes, prop, out=True):
   }
 
   """
-  resp = dc.v2node(nodes, '{}{}'.format('->' if out else '<-', prop))
+  resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop, filter))
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])

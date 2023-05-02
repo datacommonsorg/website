@@ -522,15 +522,15 @@ def get_immediate_parent_places(
   resp = fetch.raw_property_values([main_place_dcid], 'containedInPlace')
   counters.timeit('get_immediate_parent_places', start)
   results = []
-  arcs = resp.get(main_place_dcid, {})
-  for value in arcs.get('containedInPlace', []):
-    if 'dcid' not in value or 'name' not in value or 'types' not in value:
+  nodes = resp.get(main_place_dcid, [])
+  for node in nodes:
+    if 'dcid' not in node or 'name' not in node or 'types' not in node:
       continue
-    if parent_place_type not in value['types']:
+    if parent_place_type not in node['types']:
       continue
     results.append(
-        detection.Place(dcid=value['dcid'],
-                        name=value['name'],
+        detection.Place(dcid=node['dcid'],
+                        name=node['name'],
                         place_type=parent_place_type))
   # Sort results for determinism.
   results.sort(key=lambda p: p.dcid)
