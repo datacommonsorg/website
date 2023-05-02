@@ -109,7 +109,7 @@ class TestI18n(unittest.TestCase):
         "geoId/0684536": []
     }
 
-  @patch('server.routes.shared_api.place.util.property_values')
+  @patch('server.routes.shared_api.place.fetch.property_values')
   def test_child_places_i18n(self, mock_property_values):
     mock_property_values.side_effect = self.side_effect
 
