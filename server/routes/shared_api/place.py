@@ -627,7 +627,7 @@ def descendent_names():
   """Gets names of places of a certain type contained in a place.
 
   Returns:
-      Dicts keyed by child place DCIDs with their names as values.
+      Dicts keyed by desccendent place DCIDs with their names as values.
   """
   dcid = request.args.get("dcid")
   descendent_type = request.args.get("descendentType")
