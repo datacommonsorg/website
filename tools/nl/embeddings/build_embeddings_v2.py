@@ -30,8 +30,8 @@ from sentence_transformers import SentenceTransformer
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('model_name', 'all-MiniLM-L6-v2', 'Model name')
-flags.DEFINE_string('bucket_name', 'datcom-nl-models', 'Storage bucket')
+flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
+flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 
 flags.DEFINE_string('local_sheets_csv_filepath', 'sheets/dc_nl_svs_curated.csv',
                     'Local Sheets csv (relative) file path')
@@ -259,7 +259,7 @@ class Context:
 
 
 def main(_):
-  assert FLAGS.model_name and FLAGS.bucket_name and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
+  assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
 
   assert os.path.exists(os.path.join('sheets'))
   assert os.path.exists(os.path.join('csv'))
@@ -269,8 +269,8 @@ def main(_):
 
   gs = gspread.oauth()
   sc = storage.Client()
-  bucket = sc.bucket(FLAGS.bucket_name)
-  model = SentenceTransformer(FLAGS.model_name)
+  bucket = sc.bucket(FLAGS.bucket_name_v2)
+  model = SentenceTransformer(FLAGS.model_name_v2)
 
   ctx = Context(gs=gs, model=model, bucket=bucket, tmp='/tmp')
 
@@ -291,7 +291,7 @@ def main(_):
 
   # Finally, upload to the NL embeddings server's GCS bucket
   print("Attempting to write to GCS")
-  print(f"\t GCS Path: gs://{FLAGS.bucket_name}/{gcs_embeddings_filename}")
+  print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
   blob = ctx.bucket.blob(gcs_embeddings_filename)
   blob.upload_from_filename(gcs_tmp_out_path)
   print("Done uploading to gcs.")

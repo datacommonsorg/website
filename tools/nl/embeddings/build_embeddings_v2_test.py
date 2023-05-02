@@ -278,6 +278,19 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
 
       self.assertEqual(len(sentences), len(embeddings_df))
 
+      # Verify that each of the texts in the embeddings_df is in the sentences set
+      # and that all the sentences in the set are in the embeddings_df. Finally, also
+      # verify that embeddings_df has no duplicate sentences.
+      embeddings_sentences = embeddings_df['sentence'].values
+      embeddings_sentences_unique = set()
+      for s in embeddings_sentences:
+        self.assertTrue(s in sentences, f"Embeddings sentence not found in processed output file. Sentence: {s}")
+        self.assertFalse(s in embeddings_sentences_unique, f"Found multiple instances of sentence in embeddings. Sentence: {s}.")
+        embeddings_sentences_unique.add(s)
+      
+      for s in sentences:
+        self.assertTrue(s in embeddings_sentences_unique, f"Output File sentence not found in Embeddings. Sentence: {s}")
+
       # Verify that the number of columns = length of the embeddings vector + one each for the
       # dcid and sentence columns.
       self.assertEqual(len(embeddings_df.columns), 384 + 2)
