@@ -15,7 +15,7 @@
 
 import re
 
-import server.lib.util as util
+import server.lib.fetch as fetch
 
 
 def names(dcids):
@@ -27,13 +27,12 @@ def names(dcids):
   Returns:
       A dictionary of display place names, keyed by dcid.
   """
-  response = util.property_values(dcids, 'name')
+  response = fetch.property_values(dcids, 'name')
   result = {}
   for dcid in dcids:
     result[dcid] = ''
-    if dcid in response:
-      values = response[dcid]
-      if values and len(values) > 0:
+    for dcid, values in response.items():
+      if values:
         result[dcid] = values[0]
   return result
 

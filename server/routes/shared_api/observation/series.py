@@ -16,7 +16,7 @@ from flask import Blueprint
 from flask import request
 
 from server.cache import cache
-from server.lib import util
+from server.lib import fetch
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
@@ -32,7 +32,7 @@ def series():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return util.series_core(entities, variables, False)
+  return fetch.series_core(entities, variables, False)
 
 
 @bp.route('/all')
@@ -45,7 +45,7 @@ def series_all():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return util.series_core(entities, variables, True)
+  return fetch.series_core(entities, variables, True)
 
 
 @bp.route('/within')
@@ -64,7 +64,7 @@ def series_within():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return util.series_within_core(parent_entity, child_type, variables, False)
+  return fetch.series_within_core(parent_entity, child_type, variables, False)
 
 
 @bp.route('/within/all')
@@ -83,4 +83,4 @@ def series_within_all():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return util.series_within_core(parent_entity, child_type, variables, True)
+  return fetch.series_within_core(parent_entity, child_type, variables, True)

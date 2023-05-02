@@ -221,7 +221,7 @@ def triples(nodes, direction):
   return post(url, {
       'nodes': nodes,
       'property': '->*' if direction == 'out' else '<-*'
-  }).get('data', {})
+  })
 
 
 def properties(nodes, direction):
