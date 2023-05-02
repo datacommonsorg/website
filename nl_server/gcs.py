@@ -16,6 +16,7 @@ BUCKET = 'datcom-nl-models'
 TEMP_DIR = '/tmp/'
 
 import os
+
 from google.cloud import storage
 
 

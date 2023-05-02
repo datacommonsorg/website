@@ -22,8 +22,8 @@ from parameterized import parameterized
 from sklearn.metrics.pairwise import cosine_similarity
 import yaml
 
-from nl_server.embeddings import Embeddings
 from nl_server import gcs
+from nl_server.embeddings import Embeddings
 from nl_server.loader import nl_cache_path
 from nl_server.loader import nl_embeddings_cache_key
 

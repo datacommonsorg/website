@@ -19,11 +19,17 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
+# Install all the requirements. Need `nl_server` too since the tool uses it.
 cd ../../..
 python3 -m venv .env
 source .env/bin/activate
 cd nl_server
 ./requirements_install.sh
 cd ..
+pip3 install -r tools/nl/svindex_differ/requirements.txt
+
+# Get the production embeddings.
 PROD=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '{ print $2; }')
+
+# Diff production embeddings against test.
 python3 -m tools.nl.svindex_differ.differ --base="$PROD" --test="$1" --queryset=tools/nl/svindex_differ/queryset.csv

@@ -16,22 +16,26 @@ import csv
 import difflib
 import os
 import re
-from jinja2 import Environment, FileSystemLoader
-from nl_server.embeddings import Embeddings
-from nl_server import gcs
+
 from absl import app
 from absl import flags
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
+
+from nl_server import gcs
+from nl_server.embeddings import Embeddings
 
 _SV_THRESHOLD = 0.5
+_NUM_SVS = 10
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('base', '',
-                    'Base index. Can be a versioned embeddings file name on GCS '
-                    'or a local file with absolute path')
-flags.DEFINE_string('test', '',
-                    'Test index. Can be a versioned embeddings file name on GCS '
-                    'or a local file with absolute path')
+flags.DEFINE_string(
+    'base', '', 'Base index. Can be a versioned embeddings file name on GCS '
+    'or a local file with absolute path')
+flags.DEFINE_string(
+    'test', '', 'Test index. Can be a versioned embeddings file name on GCS '
+    'or a local file with absolute path')
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
@@ -42,7 +46,7 @@ _FILE_PATTERN = r'embeddings_us_filtered_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.cs
 def _prune(res):
   result = []
   for i in range(len(res['SV'])):
-    if i < 5 and res['CosineScore'][i] >= _SV_THRESHOLD:
+    if i < _NUM_SVS and res['CosineScore'][i] >= _SV_THRESHOLD:
       result.append(res['SV'][i])
   return result
 
