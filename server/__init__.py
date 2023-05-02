@@ -42,7 +42,7 @@ from server.services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
-BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
+BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg_website.json"
 
 
 def createMiddleWare(app, exporter):

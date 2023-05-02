@@ -43,7 +43,7 @@ data:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: blocklist-svg
+  name: blocklist-svg-website
   namespace: {{ .Values.namespace.name }}
 data:
-  blocklist_svg.json: {{ toJson .Values.svg.blocklistFile | quote }}
+  blocklist_svg_website.json: {{ toJson .Values.svg.blocklistFile | quote }}
