@@ -13,54 +13,57 @@
 # limitations under the License.
 
 # Helm config
-project:
-# Should match the value of the variable cluster_name_prefix from
-# deploy/terraform-datacommons-website/examples/website_v1/variables.tf
-cluster_prefix: "datacommons"
+project: "datcom-stanford"
+cluster_prefix: "website"
 
 namespace:
   name: "website"
 
 website:
   image:
-    project:
+    project: "datcom-ci"
     tag:
   githash:
-  flaskEnv: custom
+  flaskEnv: stanford
+  replicas: 6
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.59.4.219",
+          "port": "6379"
+        }
+      }
 
 mixer:
   hostProject:
   serviceName:
 
-ingress:
-  enabled: true
-
 serviceAccount:
   name: website-ksa
 
-serviceGroups:
-  recon: null
-  svg: null
-  observation: null
-  node: null
-  default:
-    replicas: 1
-    useSearch: true # No svg service, this needs to use search
-    resources:
-      memoryRequest: "8G"
-      memoryLimit: "8G"
 nl:
   enabled: false
 
-customDC:
-  enabled: true
+serviceGroups:
+  recon: null
+  observation:
+    replicas: 6
+  node:
+    replicas: 6
+  svg:
+    replicas: 3
+  default:
+    replicas: 3
 
 kgStoreConfig:
   customBigtableInfo: |
-    project:
+    project: datcom-stanford
     instance: dc-graph
     tables:
-      -
+      - magic-lab_2023_04_12_22_22_43
+      - cepa_2023_04_12_10_18_50
 
 svg:
-  blocklistFile: ["dc/g/Uncategorized"]
+  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]
