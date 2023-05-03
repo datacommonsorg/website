@@ -33,8 +33,8 @@ website and mixer changes.
 
 - Python 3.11
 
-  Confirm the Python3 version is 3.11.x. Otherwise please try
-  [pyenv](https://github.com/pyenv/pyenv) to switch the Python3 versioin.
+  Confirm the Python3 version is 3.11.x. Otherwise install/upgrade your Python
+  and confirm the version:
 
   ```bash
   python3 --version
