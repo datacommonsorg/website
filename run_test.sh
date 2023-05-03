@@ -90,8 +90,6 @@ function run_py_test {
   # export FLASK_ENV=test-sustainability
   # python3 -m pytest tests/sustainability/**.py
   python3 -m pytest shared/tests/ -s
-
-  cd nl_server
   python3 -m pytest nl_server/tests/ -s
 
   pip3 install yapf==0.33.0 -q

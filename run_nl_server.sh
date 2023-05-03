@@ -26,7 +26,7 @@ echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 cd nl_server/
 python3 -m pip install --upgrade pip setuptools  light-the-torch
 ltt install torch --cpuonly
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt -q
 cd ..
 
 python3 nl_app.py $PORT
