@@ -1,83 +1,75 @@
 {
-    "SV": [
-      "dc/topic/ClimateChange",
-      "dc/topic/ProjectedClimateExtremes",
-      "Annual_Emissions_GreenhouseGas",
-      "dc/topic/GreenhouseGasEmissionsBySource",
-      "Annual_Generation_Electricity",
-      "Count_DroughtEvent",
-      "Count_HeatEvent",
-      "Annual_Consumption_Electricity",
-      "Count_HeavyRainEvent",
-      "dc/topic/CarbonDioxideEmissionsBySource",
-      "dc/topic/AgricultureEmissionsByGas",
-      "Annual_ExpectedLoss_NaturalHazardImpact"
-    ],
-    "CosineScore": [
-      0.8262420892715454,
-      0.5475385189056396,
-      0.48141297698020935,
-      0.41852420568466187,
-      0.37782663106918335,
-      0.37141096591949463,
-      0.350502610206604,
-      0.34617504477500916,
-      0.3422034978866577,
-      0.33296579122543335,
-      0.33168768882751465,
-      0.3311363756656647
-    ],
-    "SV_to_Sentences": {},
-    "MultiSV": {
-      "Candidates": [
-        {
-          "Parts": [
-            {
-              "QueryPart": "show impact climate change",
-              "SV": [
-                "dc/topic/ClimateChange"
-              ],
-              "CosineScore": [
-                0.7973
-              ]
-            },
-            {
-              "QueryPart": "drought",
-              "SV": [
-                "Count_DroughtEvent"
-              ],
-              "CosineScore": [
-                0.7639
-              ]
-            }
-          ],
-          "AggCosineScore": 0.7806,
-          "DelimBased": false
-        },
-        {
-          "Parts": [
-            {
-              "QueryPart": "show impact climate",
-              "SV": [
-                "dc/topic/ClimateChange"
-              ],
-              "CosineScore": [
-                0.6864
-              ]
-            },
-            {
-              "QueryPart": "change drought",
-              "SV": [
-                "Count_DroughtEvent"
-              ],
-              "CosineScore": [
-                0.7281
-              ]
-            }
-          ],
-          "AggCosineScore": 0.7073,
-          "DelimBased": false
-        }
-      ]
-    }
+  "SV": [
+    "dc/topic/ClimateChange",
+    "dc/topic/SDG_13",
+    "dc/topic/ProjectedClimateExtremes",
+    "dc/topic/Temperature",
+    "Annual_Emissions_GreenhouseGas",
+    "dc/topic/GreenhouseGasEmissionsBySource",
+    "Annual_Emissions_GreenhouseGas_NonBiogenic"
+  ],
+  "CosineScore": [
+    0.8262417316436768,
+    0.7564444541931152,
+    0.6017229557037354,
+    0.5855978727340698,
+    0.48141252994537354,
+    0.4185241460800171,
+    0.40563395619392395
+  ],
+  "SV_to_Sentences": {},
+  "MultiSV": {
+    "Candidates": [
+      {
+        "Parts": [
+          {
+            "QueryPart": "show impact climate change",
+            "SV": [
+              "dc/topic/ClimateChange"
+            ],
+            "CosineScore": [
+              0.7973262071609497
+            ]
+          },
+          {
+            "QueryPart": "drought",
+            "SV": [
+              "Count_DroughtEvent"
+            ],
+            "CosineScore": [
+              0.8646671772003174
+            ]
+          }
+        ],
+        "AggCosineScore": 0.831,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "show impact climate",
+            "SV": [
+              "dc/topic/ClimateChange",
+              "dc/topic/SDG_13"
+            ],
+            "CosineScore": [
+              0.6864207983016968,
+              0.6824195384979248
+            ]
+          },
+          {
+            "QueryPart": "change drought",
+            "SV": [
+              "Count_DroughtEvent"
+            ],
+            "CosineScore": [
+              0.7811713218688965
+            ]
+          }
+        ],
+        "AggCosineScore": 0.7338,
+        "DelimBased": false
+      }
+    ]
   }
+}

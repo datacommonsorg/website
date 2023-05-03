@@ -42,7 +42,7 @@ flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
 _REPORT = '/tmp/diff_report.html'
-_FILE_PATTERN = r'embeddings_us_filtered_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv'
+_FILE_PATTERN = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv'
 
 
 def _prune(res):
