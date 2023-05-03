@@ -1,0 +1,60 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Helm config
+project: "datcom-stanford-staging"
+cluster_prefix: "website"
+
+namespace:
+  name: "website"
+
+website:
+  image:
+    project: "datcom-ci"
+    tag:
+  githash:
+  flaskEnv: stanford_staging
+  replicas: 2
+
+mixer:
+  hostProject:
+  serviceName:
+
+serviceAccount:
+  name: website-ksa
+
+nl:
+  enabled: false
+
+serviceGroups:
+  recon: null
+  observation:
+    replicas: 4
+  node:
+    replicas: 4
+  svg:
+    replicas: 2
+  default:
+    replicas: 2
+
+kgStoreConfig:
+  customBigtableInfo: |
+    project: datcom-stanford
+    instance: dc-graph
+    tables:
+      - magic-lab_2023_04_12_22_22_43
+      - cepa_2023_04_12_10_18_50
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]

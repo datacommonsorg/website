@@ -19,7 +19,8 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { BrowserPage } from "./browser_page";
+import { PropertyValues } from "../shared/api_response_types";
+import { BrowserPage } from "./app";
 import { getPageDisplayType, PageDisplayType } from "./types";
 
 const TYPE_OF_UNKNOWN = "Unknown";
@@ -35,7 +36,7 @@ window.onload = () => {
     document.title = `${statVarId} - ${document.title}`;
   }
   const typesPromise = axios
-    .get(`/api/browser/propvals/typeOf/${dcid}`)
+    .get<PropertyValues>(`/api/node/propvals/out?prop=typeOf&dcids=${dcid}`)
     .then((resp) => resp.data);
   const numStatVarsPromise = axios
     .get(`/api/browser/num_stat_vars/${dcid}`)
@@ -45,7 +46,7 @@ window.onload = () => {
     });
   Promise.all([typesPromise, numStatVarsPromise])
     .then(([typesData, numStatVars]) => {
-      const types = typesData.values.out || [];
+      const types = typesData[dcid] || [];
       const listOfTypes = types.map((type) => type.dcid);
       const nodeTypes = getNodeTypes(dcid, listOfTypes, statVarId);
       const pageDisplayType = getPageDisplayType(listOfTypes, statVarId);

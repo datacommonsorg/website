@@ -84,8 +84,7 @@ def ranking_api(stat_var, place_type, place=None):
         dcids.add(r['placeDcid'])
       data[stat_var][k]['info'] = info
       # payload[stat_var][k]['count'] = count
-  place_names = place_api.get_display_name('^'.join(sorted(list(dcids))),
-                                           flask.g.locale)
+  place_names = place_api.get_display_name(list(dcids))
   for k in rank_keys:
     if k in data[stat_var] and 'info' in data[stat_var][k]:
       for r in data[stat_var][k]['info']:

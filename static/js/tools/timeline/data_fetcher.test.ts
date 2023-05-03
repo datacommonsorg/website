@@ -30,7 +30,7 @@ import {
   TimelineRawData,
 } from "./data_fetcher";
 
-function axios_mock(): void {
+function axiosMock(): void {
   axios.get = jest.fn();
   axios.post = jest.fn();
   when(axios.get)
@@ -236,7 +236,7 @@ beforeAll(() => {
 });
 
 test("fetch raw data", () => {
-  axios_mock();
+  axiosMock();
   return fetchRawData(
     ["geoId/05", "geoId/06"],
     ["Count_Person", "Count_Person_Male"],

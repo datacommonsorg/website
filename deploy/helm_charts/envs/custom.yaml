@@ -32,7 +32,7 @@ mixer:
   hostProject:
   serviceName:
 
-singleClusterMode:
+ingress:
   enabled: true
 
 serviceAccount:
@@ -54,3 +54,13 @@ nl:
 
 customDC:
   enabled: true
+
+kgStoreConfig:
+  customBigtableInfo: |
+    project:
+    instance: dc-graph
+    tables:
+      -
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized"]

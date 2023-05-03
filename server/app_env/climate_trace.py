@@ -19,7 +19,6 @@ from server.app_env import local
 class Config(_base.Config):
   CUSTOM = True
   NAME = "Climate TRACE Data Commons"
-  ENABLE_BLOCKLIST = True
   LOGO_PATH = "/custom_dc/climate_trace/logo.svg"
   OVERRIDE_CSS_PATH = '/custom_dc/climate_trace/overrides.css'
 

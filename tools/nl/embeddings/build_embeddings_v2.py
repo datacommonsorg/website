@@ -15,6 +15,8 @@
 
 # TODO: This file should be renamed build_embeddings.py once it is ready to
 # replace the existing build_embeddings.py file.
+# TODO: Consider adding the model name to the embeddings file for downstream
+# validation.
 
 from dataclasses import dataclass
 import datetime as datetime
@@ -30,8 +32,8 @@ from sentence_transformers import SentenceTransformer
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('model_name', 'all-MiniLM-L6-v2', 'Model name')
-flags.DEFINE_string('bucket_name', 'datcom-nl-models', 'Storage bucket')
+flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
+flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 
 flags.DEFINE_string('local_sheets_csv_filepath', 'sheets/dc_nl_svs_curated.csv',
                     'Local Sheets csv (relative) file path')
@@ -168,6 +170,35 @@ def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
   return embeddings
 
 
+def _validateEmbeddings(embeddings_df: pd.DataFrame,
+                        output_dcid_sentences_filepath: str) -> None:
+  # Verify that embeddings were created for all DCIDs and Sentences.
+  dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
+  sentences = set()
+  for alts in dcid_sentence_df["sentence"].values:
+    for s in alts.split(";"):
+      if not s:
+        continue
+      sentences.add(s)
+
+  # Verify that each of the texts in the embeddings_df is in the sentences set
+  # and that all the sentences in the set are in the embeddings_df. Finally, also
+  # verify that embeddings_df has no duplicate sentences.
+  embeddings_sentences = embeddings_df['sentence'].values
+  embeddings_sentences_unique = set()
+  for s in embeddings_sentences:
+    assert s in sentences, f"Embeddings sentence not found in processed output file. Sentence: {s}"
+    assert s not in embeddings_sentences_unique, f"Found multiple instances of sentence in embeddings. Sentence: {s}."
+    embeddings_sentences_unique.add(s)
+
+  for s in sentences:
+    assert s in embeddings_sentences_unique, f"Output File sentence not found in Embeddings. Sentence: {s}"
+
+  # Verify that the number of columns = length of the embeddings vector + one each for the
+  # dcid and sentence columns.
+  assert len(embeddings_df.columns), 384 + 2
+
+
 def get_sheets_data(ctx, sheets_url: str, worksheet_name: str) -> pd.DataFrame:
   sheet = ctx.gs.open_by_url(sheets_url).worksheet(worksheet_name)
   df = pd.DataFrame(sheet.get_all_records()).fillna("")
@@ -259,7 +290,7 @@ class Context:
 
 
 def main(_):
-  assert FLAGS.model_name and FLAGS.bucket_name and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
+  assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
 
   assert os.path.exists(os.path.join('sheets'))
   assert os.path.exists(os.path.join('csv'))
@@ -269,8 +300,8 @@ def main(_):
 
   gs = gspread.oauth()
   sc = storage.Client()
-  bucket = sc.bucket(FLAGS.bucket_name)
-  model = SentenceTransformer(FLAGS.model_name)
+  bucket = sc.bucket(FLAGS.bucket_name_v2)
+  model = SentenceTransformer(FLAGS.model_name_v2)
 
   ctx = Context(gs=gs, model=model, bucket=bucket, tmp='/tmp')
 
@@ -289,9 +320,14 @@ def main(_):
   print(f"Saving locally to {gcs_tmp_out_path}")
   embeddings_df.to_csv(gcs_tmp_out_path, index=False)
 
+  # Before uploading embeddings to GCS, validate them.
+  print("Validating the built embeddings.")
+  _validateEmbeddings(embeddings_df, local_merged_filepath)
+  print("Embeddings DataFrame is validated.")
+
   # Finally, upload to the NL embeddings server's GCS bucket
   print("Attempting to write to GCS")
-  print(f"\t GCS Path: gs://{FLAGS.bucket_name}/{gcs_embeddings_filename}")
+  print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
   blob = ctx.bucket.blob(gcs_embeddings_filename)
   blob.upload_from_filename(gcs_tmp_out_path)
   print("Done uploading to gcs.")

@@ -91,7 +91,7 @@ def place_landing():
   with open(os.path.join(current_app.root_path, 'templates', dcid_json)) as f:
     landing_dcids = json.load(f)
     # Use display names (including state, if applicable) for the static page
-    place_names = place_api.get_display_name('^'.join(landing_dcids), g.locale)
+    place_names = place_api.get_display_name(landing_dcids)
     return flask.render_template(
         template_file,
         place_names=place_names,

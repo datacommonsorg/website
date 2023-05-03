@@ -18,9 +18,9 @@ from typing import Dict, List, Union
 from flask import escape
 
 from server.config import subject_page_pb2
+import server.lib.fetch as fetch
 import server.lib.nl.counters as nl_ctr
 import server.lib.nl.utils as nl_utils
-import server.lib.util as util
 import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
 
@@ -156,9 +156,9 @@ def _places_with_geojson(places):
   property.
   """
   result = []
-  resp = dc.properties(places, 'out')
+  resp = fetch.properties(places)
   for place, place_props in resp.items():
-    if 'geoJsonCoordinates' in place_props.get('properties', []):
+    if 'geoJsonCoordinates' in place_props:
       result.append(place)
   return result
 
@@ -245,7 +245,7 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
   place_types = [DEFAULT_PLACE_TYPE]
   parent_places = []
   if place_dcid != DEFAULT_PLACE_DCID:
-    place_types = util.property_values([place_dcid], 'typeOf')[place_dcid]
+    place_types = fetch.property_values([place_dcid], 'typeOf')[place_dcid]
     if not place_types:
       return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
     wanted_place_types = [

@@ -215,14 +215,3 @@ export interface DataPointMetadata {
   statVarSource: string;
   errorMessage?: string;
 }
-
-// Stores a single property value.
-// Parameters match output of "nodes" from the triples API or "values" from the property values API.
-// You can think of this as representing a single node in the KG.
-export interface PropertyValue {
-  provenanceId: string;
-  dcid?: string;
-  name?: string;
-  value?: string;
-  types?: Array<string>;
-}

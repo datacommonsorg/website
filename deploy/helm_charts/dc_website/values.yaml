@@ -40,7 +40,7 @@ namespace:
 serviceAccount:
   name: website-ksa
 
-singleClusterMode:
+ingress:
   name: website-ingress
   ipName: dc-website-ip
   certName: dc-website-cert
@@ -84,7 +84,6 @@ serviceGroups:
     urlPaths:
       - "/place/stat-var-group/*"
       - "/stat-var/*"
-      - "/v1/info/variable-group/*"
       - "/v1/variable/*"
       - "/v1/bulk/info/variable-group"
       - "/v1/bulk/info/variable"
@@ -121,3 +120,9 @@ serviceGroups:
 nl:
   enabled: false
   embeddings:
+
+###############################################################################
+# Config for Stat Var Groups which is shared between Website and Mixer
+###############################################################################
+svg:
+  blocklistFile: []

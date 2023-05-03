@@ -23,14 +23,14 @@ import { when } from "jest-when";
 import { drawGroupLineChart } from "../../chart/draw";
 import { stringifyFn } from "../../utils/axios";
 
-export function axios_mock(): void {
+export function axiosMock(): void {
   // Mock all the async axios call.
   axios.get = jest.fn();
   axios.post = jest.fn();
 
   // get statsvar properties Median_Age_Person
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person")
+    .calledWith("/api/stats/stat-var-property?dcids=Median_Age_Person")
     .mockResolvedValue({
       data: {
         Median_Age_Person: {
@@ -45,7 +45,7 @@ export function axios_mock(): void {
 
   // get statsvar properties Count_Person
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_Person")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_Person")
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -61,7 +61,7 @@ export function axios_mock(): void {
   // get statsVar info of Median_Age_Person and Count_Person
   when(axios.get)
     .calledWith(
-      "/api/stats/stats-var-property?dcid=Median_Age_Person&dcid=Count_Person"
+      "/api/stats/stat-var-property?dcids=Median_Age_Person&dcids=Count_Person"
     )
     .mockResolvedValue({
       data: {
@@ -83,7 +83,7 @@ export function axios_mock(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=NotInTheTree")
+    .calledWith("/api/stats/stat-var-property?dcids=NotInTheTree")
     .mockResolvedValue({
       data: {
         NotInTheTree: {
@@ -98,42 +98,61 @@ export function axios_mock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/05"],
-      statVars: ["Median_Age_Person"],
+    .calledWith("/api/place/stat-vars/existence", {
+      entities: ["geoId/05"],
+      variables: ["Median_Age_Person"],
     })
     .mockResolvedValue({
-      data: ["Median_Age_Person"],
+      data: {
+        Median_Age_Person: {
+          "geoId/05": true,
+        },
+      },
     });
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/05"],
-      statVars: ["Median_Age_Person", "Count_Person"],
+    .calledWith("/api/place/stat-vars/existence", {
+      entities: ["geoId/05"],
+      variables: ["Median_Age_Person", "Count_Person"],
     })
     .mockResolvedValue({
-      data: ["Count_Person", "Median_Age_Person"],
+      data: {
+        Count_Person: {
+          "geoId/05": true,
+        },
+        Median_Age_Person: {
+          "geoId/05": true,
+        },
+      },
     });
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/05"],
-      statVars: ["NotInTheTree"],
+    .calledWith("/api/place/stat-vars/existence", {
+      entities: ["geoId/05"],
+      variables: ["NotInTheTree"],
     })
     .mockResolvedValue({
-      data: ["NotInTheTree"],
+      data: {
+        NotInTheTree: {
+          "geoId/05": true,
+        },
+      },
     });
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/05"],
-      statVars: ["Count_Person"],
+    .calledWith("/api/place/stat-vars/existence", {
+      entities: ["geoId/05"],
+      variables: ["Count_Person"],
     })
     .mockResolvedValue({
-      data: ["Count_Person"],
+      data: {
+        Count_Person: {
+          "geoId/05": true,
+        },
+      },
     });
 
   // get place names, geoId/05
@@ -475,7 +494,7 @@ export function axios_mock(): void {
 
 // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
 // and jsdom.
-export function drawGroupLineChart_mock(): void {
+export function drawGroupLineChartMock(): void {
   (drawGroupLineChart as jest.Mock).mockImplementation(
     (selector: string | HTMLDivElement) => {
       let container: d3.Selection<any, any, any, any>;

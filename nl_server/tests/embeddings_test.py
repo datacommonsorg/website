@@ -22,6 +22,7 @@ from parameterized import parameterized
 from sklearn.metrics.pairwise import cosine_similarity
 import yaml
 
+from nl_server import gcs
 from nl_server.embeddings import Embeddings
 from nl_server.loader import nl_cache_path
 from nl_server.loader import nl_embeddings_cache_key
@@ -33,11 +34,12 @@ _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                           'test_data')
 
 
-def _get_embeddings_file_name() -> str:
+def _get_embeddings_file_path() -> str:
   model_config_path = os.path.join(_root_dir, 'deploy/base/model.yaml')
   with open(model_config_path) as f:
     model = yaml.full_load(f)
-    return model['embeddings_file']
+    embeddings_file = model['embeddings_file']
+    return gcs.download_embeddings(embeddings_file)
 
 
 class TestEmbeddings(unittest.TestCase):
@@ -54,7 +56,7 @@ class TestEmbeddings(unittest.TestCase):
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
       )
       # Using the default NER model.
-      cls.nl_embeddings = Embeddings(_get_embeddings_file_name())
+      cls.nl_embeddings = Embeddings(_get_embeddings_file_path())
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.

@@ -28,6 +28,7 @@ from flask import url_for
 from geojson_rewind import rewind
 
 from server.cache import cache
+import server.lib.fetch as fetch
 from server.lib.shared import is_float
 import server.lib.shared as shared
 import server.lib.util as lib_util
@@ -215,7 +216,7 @@ def geojson():
     return lib_util.gzip_compress_response(cached_geojson, is_json=True)
   geos = []
   if place_dcid and place_type:
-    geos = dc.get_places_in([place_dcid], place_type).get(place_dcid, [])
+    geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
   if not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   geojson_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP.get(place_type, "")
@@ -223,14 +224,14 @@ def geojson():
   # too fragmented
   if place_dcid == 'geoId/72':
     geojson_prop = 'geoJsonCoordinatesDP1'
-  names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
+  names_by_geo = place_api.get_display_name(geos)
   features = []
   if geojson_prop:
-    geojson_by_geo = lib_util.property_values(geos, geojson_prop)
+    geojson_by_geo = fetch.property_values(geos, geojson_prop)
     # geoId/46102 is known to only have unsimplified geojson so need to use
     # geoJsonCoordinates as the prop for this one place
     if 'geoId/46102' in geojson_by_geo:
-      geojson_by_geo['geoId/46102'] = lib_util.property_values(
+      geojson_by_geo['geoId/46102'] = fetch.property_values(
           ['geoId/46102'], 'geoJsonCoordinates').get('geoId/46102', '')
     for geo_id, json_text in geojson_by_geo.items():
       if json_text and geo_id in names_by_geo:
@@ -257,7 +258,7 @@ def node_geojson():
   if not geojson_prop:
     return "error: must provide a geoJsonProp field", 400
   features = []
-  geojson_by_node = lib_util.property_values(nodes, geojson_prop)
+  geojson_by_node = fetch.property_values(nodes, geojson_prop)
   for node_id, json_text in geojson_by_node.items():
     if json_text:
       geo_feature = get_geojson_feature(node_id, node_id, json_text)
@@ -375,13 +376,14 @@ def choropleth_data(dcid):
   display_dcid, display_level = get_choropleth_display_level(dcid)
   geos = []
   if display_dcid and display_level:
-    geos = dc.get_places_in([display_dcid], display_level).get(display_dcid, [])
+    geos = fetch.descendent_places([display_dcid],
+                                   display_level).get(display_dcid, [])
   if not stat_vars or not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   # Get data for all the stat vars for every place we will need and process the data
-  numerator_resp = lib_util.point_within_core(display_dcid, display_level,
-                                              list(stat_vars), 'LATEST', False)
-  denominator_resp = lib_util.series_core(list(geos), list(denoms), False)
+  numerator_resp = fetch.point_within_core(display_dcid, display_level,
+                                           list(stat_vars), 'LATEST', False)
+  denominator_resp = fetch.series_core(list(geos), list(denoms), False)
 
   result = {}
   # Process the data for each config
@@ -463,10 +465,10 @@ def get_map_points():
                     400,
                     mimetype='application/json')
   geos = []
-  geos = dc.get_places_in([place_dcid], place_type).get(place_dcid, [])
+  geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
   if not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
-  names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
+  names_by_geo = place_api.get_display_name(geos)
   # For some places, lat long is attached to the place node, but for other
   # places, the lat long is attached to the location value of the place node.
   # If a place has location, we will use the location value to find the lat
@@ -474,7 +476,7 @@ def get_map_points():
   # eg. epaGhgrpFacilityId/1003010 has latitude and longitude but no location
   # epa/120814013 which is an AirQualitySite has a location, but no latitude
   # or longitude
-  location_by_geo = lib_util.property_values(geos, "location")
+  location_by_geo = fetch.property_values(geos, "location")
   # dict of <dcid used to get latlon>: <dcid of the place>
   geo_by_latlon_subject = {}
   for geo_dcid in geos:
@@ -483,10 +485,10 @@ def get_map_points():
       geo_by_latlon_subject[location_dcid] = geo_dcid
     else:
       geo_by_latlon_subject[geo_dcid] = geo_dcid
-  lat_by_subject = lib_util.property_values(list(geo_by_latlon_subject.keys()),
-                                            "latitude")
-  lon_by_subject = lib_util.property_values(list(geo_by_latlon_subject.keys()),
-                                            "longitude")
+  lat_by_subject = fetch.property_values(list(geo_by_latlon_subject.keys()),
+                                         "latitude")
+  lon_by_subject = fetch.property_values(list(geo_by_latlon_subject.keys()),
+                                         "longitude")
 
   map_points_list = []
   for subject_dcid, latitude in lat_by_subject.items():
