@@ -29,7 +29,6 @@ function help {
   echo "-l       GKE location(zone or region) Default: us-central1"
   echo "-p       GCP project to deploy the project to, when specified, docker image is also read from this project"
   echo "-h       Website hash used for deployment"
-  echo "-t       Comma separated list of custom BigTable names."
   echo "-i       GCP project id where the website/nl images are stored."
   exit 1
 }
@@ -51,9 +50,6 @@ while getopts ":e:l:p:h:t:i:" OPTION; do
       ;;
     h)
       WEBSITE_HASH=$OPTARG
-      ;;
-    t)
-      CUSTOM_BT_CSV=$OPTARG
       ;;
     i)
       IMAGE_PROJECT=$OPTARG
@@ -89,22 +85,6 @@ fi
 cd $ROOT/mixer
 MIXER_HASH=$(git rev-parse --short=7 HEAD)
 
-function create_custom_bigtable_info_yaml() {
-  cd $ROOT/mixer
-  export PROJECT_ID=$PROJECT_ID
-  yq eval -i '.instance = "dc-graph"' deploy/storage/custom_bigtable_info.yaml
-  yq eval -i '.project = env(PROJECT_ID)' deploy/storage/custom_bigtable_info.yaml
-  yq eval -i 'del(.tables)' deploy/storage/custom_bigtable_info.yaml
-  yq eval -i '.tables = []' deploy/storage/custom_bigtable_info.yaml
-  IFS=","
-  for TABLE in $CUSTOM_BT_CSV
-  do
-    echo "Adding custom BigTable: $TABLE"
-    export TABLE=$TABLE
-    yq eval -i '.tables += [ env(TABLE) ]' deploy/storage/custom_bigtable_info.yaml
-  done
-}
-
 # Get gke credentials
 function get_gke_credentials() {
   if [[ $LOCATION =~ ^[a-z]+-[a-z0-9]+$ ]]; then
@@ -135,8 +115,7 @@ function deploy_mixer() {
   --set-file mixer.schemaConfigs."base\.mcf"=mixer/deploy/mapping/base.mcf \
   --set-file mixer.schemaConfigs."encode\.mcf"=mixer/deploy/mapping/encode.mcf \
   --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
-  --set-file kgStoreConfig.baseBigtableInfo=mixer/deploy/storage/base_bigtable_info.yaml \
-  --set-file kgStoreConfig.customBigtableInfo=mixer/deploy/storage/custom_bigtable_info.yaml
+  --set-file kgStoreConfig.baseBigtableInfo=mixer/deploy/storage/base_bigtable_info.yaml
 }
 
 # Deploy Cloud Endpoints
@@ -159,7 +138,7 @@ function deploy_website() {
   --atomic \
   --debug \
   --timeout 10m \
-  --set singleClusterMode.enabled=$SINGLE_CLUSTER_MODE \
+  --set ingress.enabled=$SINGLE_CLUSTER \
   --set website.image.project="$IMAGE_PROJECT" \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
@@ -168,13 +147,12 @@ function deploy_website() {
 
 cd $ROOT
 if [[ $PROJECT_ID != "" ]]; then
-  SINGLE_CLUSTER_MODE="true"
+  SINGLE_CLUSTER="true"
   # This is a pure custom project hosted and deployed by third party
   CLUSTER_PREFIX=datacommons
-  create_custom_bigtable_info_yaml
 else
   touch mixer/deploy/storage/custom_bigtable_info.yaml
-  SINGLE_CLUSTER_MODE="false"
+  SINGLE_CLUSTER="false"
   PROJECT_ID=$(yq eval '.project' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
   CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
 fi

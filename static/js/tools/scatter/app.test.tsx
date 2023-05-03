@@ -82,7 +82,9 @@ function mockAxios(): void {
 
   // Counties in Delaware
   when(axios.get)
-    .calledWith(`/api/place/places-in-names?dcid=geoId/10&placeType=County`)
+    .calledWith(
+      "/api/place/descendent/name?dcid=geoId/10&descendentType=County"
+    )
     .mockResolvedValue({
       data: {
         "geoId/10001": "Kent County",
@@ -473,7 +475,7 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/place/places-in?dcid=geoId/10&placeType=County")
+    .calledWith("/api/place/descendent?dcids=geoId/10&descendentType=County")
     .mockResolvedValue({
       data: {
         "geoId/10": ["geoId/10001", "geoId/10003", "geoId/10005"],
@@ -698,7 +700,7 @@ test("all functionalities", async () => {
   });
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/place/places-in?dcid=geoId/10&placeType=County"
+      "/api/place/descendent?dcids=geoId/10&descendentType=County"
     );
   });
 

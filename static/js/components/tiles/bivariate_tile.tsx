@@ -202,7 +202,7 @@ function fetchData(
   );
   const placeNamesPromise = axios
     .get(
-      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const parentPlacesPromise = axios
