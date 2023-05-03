@@ -21,10 +21,10 @@ rm requirements_filtered.txt
 
 # Downloading the named-entity recognition (NER) library spacy and the large EN model
 # using the guidelines here: https://spacy.io/usage/models#production
-# Unfortunately, pip is not able to recognize this data (as a library) as part of 
+# Unfortunately, pip is not able to recognize this data (as a library) as part of
 # requirements.txt and will try to download a new version every single time.
 # Reason for doing this here is that if the library is already installed, no need
-# to download > 560Mb file. 
+# to download > 560Mb file.
 if python3 -c "import en_core_web_lg" &> /dev/null; then
     echo 'NER model (en_core_web_lg) already installed.'
 else

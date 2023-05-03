@@ -24,11 +24,11 @@ from typing import Dict, List
 import flask
 from flask import Blueprint
 from flask import current_app
-from flask import escape
 from flask import g
 from flask import render_template
 from flask import request
 from google.protobuf.json_format import MessageToJson
+from markupsafe import escape
 import requests
 
 import server.lib.nl.constants as constants

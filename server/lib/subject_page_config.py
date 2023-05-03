@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 from typing import Dict, List, Union
 
-from flask import escape
+from markupsafe import escape
 
 from server.config import subject_page_pb2
 import server.lib.fetch as fetch

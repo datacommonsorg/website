@@ -130,5 +130,5 @@ class TestPlacePage(unittest.TestCase):
       response = test_client.get(
           '/place?dcid=geoId/06&utm_medium=explore&mprop=count&popt=Person&hl=fr',
           follow_redirects=True)
-      assert '/place/geoId/06?utm_medium=explore&mprop=count&popt=Person&hl=fr' in request.url
+      assert '/place?dcid=geoId/06&utm_medium=explore&mprop=count&popt=Person&hl=fr' in request.url
       assert response.status_code == 200
