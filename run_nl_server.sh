@@ -25,6 +25,8 @@ echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 cd nl_server/
 python3 -m pip install --upgrade pip
+pip3 install --upgrade pip
+pip3 install --upgrade setuptools
 
 # Custom packages installation for nl_server.
 echo "nl_server custom requirements installation: starting."

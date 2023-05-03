@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM nikolaik/python-nodejs:python3.7-nodejs14
+FROM nikolaik/python-nodejs:python3.11-nodejs18
 
 ARG ENV
 ENV ENV=${ENV}
@@ -22,6 +22,8 @@ WORKDIR /workspace
 COPY web_app.py /workspace/web_app.py
 COPY server/requirements.txt /workspace/server/requirements.txt
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
 RUN pip3 install --no-cache-dir \
     -r /workspace/server/requirements.txt
 
