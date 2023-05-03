@@ -6,27 +6,10 @@ is loaded into the NL Server in Website.
 
 ## Latest Embeddings Google Sheet
 
-Latest sheet as of Feb 2023 is
-[`Combined_Filtered_US`](https://docs.google.com/spreadsheets/d/1evJAt0iaPWt5pcw3B7xeAtnp_mneDkUrTL_KMyyS-RQ/edit#gid=212787095).
-It includes ~1.3K curated variables.
+Latest sheet as of May 2023 is
+[`DC_NL_SVs_Curated`](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU)).
 
 ## Making a change to the embeddings.
-
-1. Make edits to the latest sheet above.
-
-2. Run the command below which will both generate a new embeddings csv in
-   `gs://datcom-nl-models`, as well as update the corresponding csv under
-   [sheets/](sheets/).  Note down the embeddings file version printed at
-   the end of the run.
-
-    ```bash
-    ./run.sh
-    ```
-3. Validate the CSV diffs, update [`model.yaml`](../../../deploy/base/model.yaml) with the generated embeddings version and test out locally.
-
-4. If everything looks good, send out a PR with the `model.yaml` and CSV changes.
-
-Note: This process will change once `build_embeddings_v2.py` becomes the primary updating script. Instructions for `build_embeddings_v2.py` are as follows:
 
 1. Make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). Note that if the sheets file has a valid string entry for the `Override_Alternatives` column, then all other alternatives are ignored. The column `Curated_Alternatives` is supposed to be used to provide `;` (semi-colon) delimited human curated alternatives. The `Description` field can also be a manually curated best description string for the StatVar and it can be expected to be used as part of any automated alternative generation processed, e.g. using an LLM. The `Name` field is legacy and will eventually be removed once the new process and embeddings are established to lead to no regressions based on the current state.
 
@@ -42,7 +25,9 @@ Note: This process will change once `build_embeddings_v2.py` becomes the primary
     ```
 4. Validate the CSV diffs, update [`model.yaml`](../../../deploy/base/model.yaml) with the generated embeddings version and test out locally.
 
-5. If everything looks good, send out a PR with the `model.yaml` and CSV changes.
+5. Generate an SV embeddings differ report by following the process under the [`sv_index_differ`](../svindex_differ/README.md) folder (one level up). Look at the diffs and evaluate whether they make sense.
+
+5. If everything looks good, send out a PR with the `model.yaml`, the differ_html file (as a linked attachement) and CSV changes.
 
 ## One time setup
 
