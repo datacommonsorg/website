@@ -15,6 +15,7 @@
 import logging
 import os
 
+from nl_server import gcs
 from nl_server.embeddings import Embeddings
 from nl_server.ner_place_model import NERPlaces
 
@@ -41,7 +42,8 @@ def load_model(app, embeddings_file):
                    cache.directory)
       return
 
-  nl_embeddings = Embeddings(embeddings_file)
+  # Download the model from GCS
+  nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_file))
   app.config['NL_EMBEDDINGS'] = nl_embeddings
   nl_ner_places = NERPlaces()
   app.config["NL_NER_PLACES"] = nl_ner_places
