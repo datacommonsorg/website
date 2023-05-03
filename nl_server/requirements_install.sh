@@ -15,10 +15,12 @@
 
 # For the local server, filter out the en_code_web* packages which are simply
 # the NER models bundled as packages. They are conditionally installed below.
+
+pip3 install light-the-torch
+ltt install torch --cpuonly
 V=`cat requirements.txt | grep -v en_core_web > requirements_filtered.txt`
 pip3 install -r requirements_filtered.txt
 rm requirements_filtered.txt
-ltt install torch --cpuonly
 
 # Downloading the named-entity recognition (NER) library spacy and the large EN model
 # using the guidelines here: https://spacy.io/usage/models#production
