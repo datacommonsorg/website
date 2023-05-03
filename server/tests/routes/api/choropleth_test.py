@@ -120,7 +120,7 @@ class TestGetGeoJson(unittest.TestCase):
   def side_effect(*args):
     return args[0]
 
-  @patch('server.routes.shared_api.choropleth.dc.get_places_in')
+  @patch('server.routes.shared_api.choropleth.fetch.descendent_places')
   @patch('server.routes.shared_api.choropleth.rewind')
   @patch('server.routes.shared_api.choropleth.fetch.property_values')
   @patch('server.routes.shared_api.choropleth.place_api.get_display_name')
@@ -132,13 +132,13 @@ class TestGetGeoJson(unittest.TestCase):
     parentDcid = "parentDcid"
     mock_display_level.return_value = (parentDcid, "State")
 
-    def get_places_in_(*args):
+    def descendent_places_(*args):
       if args[0] == [parentDcid] and args[1] == "State":
         return {parentDcid: [dcid1, dcid2]}
       else:
         return None
 
-    mock_places.side_effect = get_places_in_
+    mock_places.side_effect = descendent_places_
     mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
     mock_geojson_values.return_value = {
         dcid1: [json.dumps(GEOJSON_POLYGON_GEOMETRY)],
@@ -186,7 +186,7 @@ class TestGetGeoJson(unittest.TestCase):
         }
     }
 
-  @patch('server.routes.shared_api.choropleth.dc.get_places_in')
+  @patch('server.routes.shared_api.choropleth.fetch.descendent_places')
   @patch('server.routes.shared_api.choropleth.rewind')
   @patch('server.routes.shared_api.choropleth.fetch.property_values')
   @patch('server.routes.shared_api.choropleth.place_api.get_display_name')
@@ -197,13 +197,13 @@ class TestGetGeoJson(unittest.TestCase):
     dcid2 = "dcid2"
     parentDcid = "parentDcid"
 
-    def get_places_in_(*args):
+    def descendent_places_(*args):
       if args[0] == [parentDcid] and args[1] == "State":
         return {parentDcid: [dcid1, dcid2]}
       else:
         return None
 
-    mock_places.side_effect = get_places_in_
+    mock_places.side_effect = descendent_places_
     mock_display_name.return_value = {dcid1: dcid1, dcid2: dcid2}
     mock_geojson_values.return_value = {
         dcid1: [json.dumps(GEOJSON_POLYGON_GEOMETRY)],
@@ -380,14 +380,14 @@ class TestChoroplethDataHelpers(unittest.TestCase):
 
 class TestChoroplethData(unittest.TestCase):
 
-  @patch('server.routes.shared_api.choropleth.dc.get_places_in')
+  @patch('server.routes.shared_api.choropleth.fetch.descendent_places')
   @patch('server.routes.shared_api.choropleth.fetch.point_within_core')
   @patch('server.routes.shared_api.choropleth.fetch.series_core')
   @patch('server.routes.shared_api.choropleth.get_choropleth_display_level')
   @patch('server.routes.shared_api.choropleth.get_choropleth_configs')
   @patch('server.routes.shared_api.choropleth.shared.get_stat_vars')
   def testRoute(self, mock_stat_vars, mock_configs, mock_display_level,
-                mock_denom_data, mock_num_data, mock_places_in):
+                mock_denom_data, mock_num_data, mock_descendent_places):
     test_dcid = 'test_dcid'
     geo1 = 'dcid1'
     geo2 = 'dcid2'
@@ -431,13 +431,13 @@ class TestChoroplethData(unittest.TestCase):
     mock_configs.return_value = [cc1, cc2]
     mock_display_level.return_value = test_dcid, display_level
 
-    def places_in_side_effect(*args):
+    def descendent_places_side_effect(*args):
       if args[0] == [test_dcid] and args[1] == display_level:
         return {test_dcid: geos}
       else:
         return {}
 
-    mock_places_in.side_effect = places_in_side_effect
+    mock_descendent_places.side_effect = descendent_places_side_effect
 
     def stat_vars_side_effect(*args):
       if args[0] == chart_configs:

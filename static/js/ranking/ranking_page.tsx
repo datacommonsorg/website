@@ -358,7 +358,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       .then((resp) => resp.data);
     const placeNamesPromise: Promise<Record<string, string>> = axios
       .get(
-        `/api/place/places-in-names?dcid=${this.props.withinPlace}&placeType=${this.props.placeType}`
+        `/api/place/descendent/name?dcid=${this.props.withinPlace}&descendentType=${this.props.placeType}`
       )
       .then((resp) => resp.data);
     Promise.all([popPromise, statPromise, placeNamesPromise]).then(

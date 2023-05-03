@@ -135,7 +135,7 @@ function loadEnclosedPlaces(
   let placeNamesRetrieved = false;
   axios
     .get(
-      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`
     )
     .then((resp) => {
       const enclosedPlacesToNames = resp.data;

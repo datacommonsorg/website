@@ -84,7 +84,6 @@ serviceGroups:
     urlPaths:
       - "/place/stat-var-group/*"
       - "/stat-var/*"
-      - "/v1/info/variable-group/*"
       - "/v1/variable/*"
       - "/v1/bulk/info/variable-group"
       - "/v1/bulk/info/variable"
