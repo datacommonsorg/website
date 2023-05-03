@@ -296,7 +296,7 @@
       }
     }
     blocks {
-      title: "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100,000 population"
+      title: "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population"
       columns {
         tiles {
           title: "Number of deaths and missing persons attributed to disasters"
@@ -1445,7 +1445,7 @@
       }
     }
     blocks {
-      title: "3.3.2: Tuberculosis incidence per 100,000 population"
+      title: "3.3.2: Tuberculosis incidence per 100K population"
       columns {
         tiles {
           title: "Tuberculosis incidence"
@@ -1471,7 +1471,7 @@
       }
     }
     blocks {
-      title: "3.3.4: Hepatitis B incidence per 100,000 population"
+      title: "3.3.4: Hepatitis B incidence per 100K population"
       columns {
         tiles {
           title: "Prevalence of hepatitis B surface antigen: under 5 years old"
@@ -4495,7 +4495,7 @@
       }
     }
     blocks {
-      title: "8.10.1: (a) Number of commercial bank branches per 100,000 adults and (b) number of automated teller machines (ATMs) per 100,000 adults"
+      title: "8.10.1: (a) Number of commercial bank branches per 100K adults and (b) number of automated teller machines (ATMs) per 100K adults"
       columns {
         tiles {
           title: "Number of automated teller machines per 100K adults: 15 years old and over"
@@ -6499,7 +6499,7 @@
       }
     }
     blocks {
-      title: "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100,000 population"
+      title: "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population"
       columns {
         tiles {
           title: "Number of deaths and missing persons attributed to disasters"
@@ -7687,7 +7687,7 @@
   categories {
     title: "13: Climate Action"
     blocks {
-      title: "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100,000 population"
+      title: "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population"
       columns {
         tiles {
           title: "Number of deaths and missing persons attributed to disasters"
@@ -8825,7 +8825,7 @@
       }
     }
     blocks {
-      title: "16.2.2: Number of victims of human trafficking per 100,000 population, by sex, age and form of exploitation"
+      title: "16.2.2: Number of victims of human trafficking per 100K population, by sex, age and form of exploitation"
       columns {
         tiles {
           title: "Detected victims of human trafficking"
