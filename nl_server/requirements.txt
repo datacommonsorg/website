@@ -14,4 +14,5 @@ Werkzeug==2.3.3
 scikit-learn==1.2.2
 # Downloading the named-entity recognition (NER) library spacy and the large EN model
 # using the guidelines here: https://spacy.io/usage/models#production
-en_core_web_lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.5.0/en_core_web_lg-3.5.0-py3-none-any.whl
+-f https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.5.0/en_core_web_lg-3.5.0-py3-none-any.whl
+en_core_web_lg==3.5.0

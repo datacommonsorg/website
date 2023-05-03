@@ -24,13 +24,9 @@ export FLASK_ENV=local
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 cd nl_server/
-python3 -m pip install --upgrade pip
-pip3 install --upgrade setuptools
-
-# Custom packages installation for nl_server.
-echo "nl_server custom requirements installation: starting."
-./requirements_install.sh
-echo "nl_server custom requirements installation: done."
+python3 -m pip install --upgrade pip setuptools  light-the-torch
+ltt install torch --cpuonly
+pip3 install -r requirements.txt
 cd ..
 
 python3 nl_app.py $PORT

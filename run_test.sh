@@ -21,10 +21,10 @@ export NODE_OPTIONS=--openssl-legacy-provider
 function setup_python {
   python3 -m venv .env
   source .env/bin/activate
-  python3 -m pip install --upgrade pip
-  pip3 install --upgrade setuptools
+  python3 -m pip install --upgrade pip setuptools light-the-torch
+  ltt install torch --cpuonly
   pip3 install -r server/requirements.txt -q
-  ./nl_server/requirements_install.sh
+  pip3 install -r nl_server/requirements.txt -q
 }
 
 # Run test for client side code.
@@ -92,11 +92,6 @@ function run_py_test {
   python3 -m pytest shared/tests/ -s
 
   cd nl_server
-  # Custom packages installation for nl_server.
-  echo "nl_server custom requirements installation: starting."
-  ./requirements_install.sh
-  echo "nl_server custom requirements installation: done."
-  cd ..
   python3 -m pytest nl_server/tests/ -s
 
   pip3 install yapf==0.33.0 -q

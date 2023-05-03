@@ -22,8 +22,8 @@ WORKDIR /workspace
 COPY nl_app.py /workspace/nl_app.py
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
-RUN pip install --upgrade pip
-RUN pip3 install --upgrade setuptools
+RUN pip install --upgrade pip setuptools light-the-torch
+RUN ltt install torch --cpuonly
 RUN pip3 install --no-cache-dir \
     -r /workspace/nl_server/requirements.txt
 # Flask
