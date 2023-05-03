@@ -22,26 +22,9 @@ function setup_python {
   python3 -m venv .env
   source .env/bin/activate
   python3 -m pip install --upgrade pip
+  pip3 install --upgrade setuptools
   pip3 install -r server/requirements.txt -q
-
-  # For the local server, filter out the en_code_web* packages which are simply
-  # the NER models bundled as packages. They are conditionally installed below.
-  V=`cat nl_server/requirements.txt | grep -v en_core_web > requirements_filtered.txt`
-  pip3 install -r requirements_filtered.txt -q
-  rm requirements_filtered.txt
-
-  # Downloading the named-entity recognition (NER) library spacy and the large EN model
-  # using the guidelines here: https://spacy.io/usage/models#production
-  # Unfortunately, pip is not able to recognize this data (as a library) as part of
-  # requirements.txt and will try to download a new version every single time.
-  # Reason for doing this here is that if the library is already installed, no need
-  # to download > 560Mb file.
-  if python3 -c "import en_core_web_lg" &> /dev/null; then
-      echo 'NER model (en_core_web_lg) already installed.'
-  else
-      echo 'Installing the NER model: en_core_web_lg'
-      pip3 install $(spacy info en_core_web_lg --url)
-fi
+  ./nl_server/requirements_install.sh
 }
 
 # Run test for client side code.
