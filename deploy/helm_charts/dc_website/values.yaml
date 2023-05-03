@@ -40,7 +40,7 @@ namespace:
 serviceAccount:
   name: website-ksa
 
-singleClusterMode:
+ingress:
   name: website-ingress
   ipName: dc-website-ip
   certName: dc-website-cert
