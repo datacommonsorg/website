@@ -28,8 +28,16 @@ from flask import escape
 from flask import g
 from flask import render_template
 from flask import request
+from flask import make_response
 from google.protobuf.json_format import MessageToJson
 import requests
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 import server.lib.nl.constants as constants
 import server.lib.nl.counters as ctr
@@ -604,3 +612,27 @@ def history():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
   return json.dumps(bt.read_success_rows())
+
+@bp.route('/screenshot')
+def screenshot():
+  query_text = request.args.get('q', '')
+
+  options = Options()
+  options.add_argument("--headless=new")
+  options.add_argument("--disable-gpu")
+  options.add_argument("--no-sandbox")
+  options.add_argument("enable-automation")
+  options.add_argument("--disable-infobars")
+  options.add_argument("--disable-dev-shm-usage")
+  driver = webdriver.Chrome(options=options)
+  driver.get('https://dev.datacommons.org/#q=' + query_text + '&a=True')
+
+  # Wait until the test_class_name has loaded.
+  element_present = EC.presence_of_element_located(
+    (By.CLASS_NAME, 'chart-container'))
+  WebDriverWait(driver, 20).until(element_present)
+
+  screenshot = driver.get_screenshot_as_png()
+  response = make_response(screenshot)
+  response.headers.set('Content-Type', 'image/png')
+  return response
