@@ -35,6 +35,8 @@ _ERR_TOO_MANY_PVS = 'Too many PVs'
 _ERR_TOO_MANY_CVALS = 'Too many cvals'
 _ERR_QUANTITY_VALS = 'Quantity range cvals'
 _ERR_CURATED_DUP = 'Auto-generated / curated duplicate'
+# This is current naics and floodZoneType
+_ERR_FILTERED_CPROPS = 'Filtered cprops'
 
 
 def _get_key(row, i):
@@ -98,11 +100,14 @@ def _admit_sv(row, dbg_info):
             # same peer group (i.e., SVs minus this cval).
             dbg_info[_ERR_QUANTITY_VALS].append(sv)
             return False
+        if ((row[cp] == 'naics' and sv.startswith('dc/')) or
+            row[cp] == 'floodZoneType'):
+            dbg_info[_ERR_FILTERED_CPROPS].append(sv)
+            return False
         if nv > 50:
             msg = f'{row[cp]} ({sv})'
             dbg_info[_ERR_TOO_MANY_CVALS].append(msg)
             _flagged_cprops[row[cp]] = _flagged_cprops.get(row[cp], 0) + 1
-            # return False
         distinct_nvals.append(nv)
     if len(list(filter(lambda x: x > 1, distinct_nvals))) > 3:
         # There are more than 3 PVs here and none of them is a DPV.
@@ -118,7 +123,8 @@ def main(_):
         _ERR_TOO_MANY_CVALS: [],
         _ERR_QUANTITY_VALS: [],
         _ERR_TOO_MANY_PVS: [],
-        _ERR_CURATED_DUP: []
+        _ERR_CURATED_DUP: [],
+        _ERR_FILTERED_CPROPS: []
     }
     with open(FLAGS.input_sv_csv) as fin:
         with open(FLAGS.output_sv_csv, 'w') as fout:
