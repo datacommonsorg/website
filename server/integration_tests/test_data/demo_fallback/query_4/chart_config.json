@@ -42,6 +42,53 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block"
+                    ],
+                    "title": "Physical Health Issues in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_WithArthritis_multiple_place_bar_block",
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
+                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
+                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
+                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
+                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
+                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block"
+                    ],
+                    "title": "Compared with Other Variables in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
@@ -68,6 +115,66 @@
           "Percent_Person_Smoking_multiple_place_bar_block": {
             "name": "Percentage of Population That Smokes",
             "statVar": "Percent_Person_Smoking",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis_multiple_place_bar_block": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma_multiple_place_bar_block": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block": {
+            "name": "Cancer (excluding skin cancer)",
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block": {
+            "name": "Chronic Kidney Disease",
+            "statVar": "Percent_Person_WithChronicKidneyDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
+            "name": "Coronary Heart Disease",
+            "statVar": "Percent_Person_WithCoronaryHeartDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithDiabetes_multiple_place_bar_block": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
+            "name": "High Bood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighCholesterol_multiple_place_bar_block": {
+            "name": "High Cholesterol",
+            "statVar": "Percent_Person_WithHighCholesterol",
+            "unit": "%"
+          },
+          "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
+            "name": "Mental Health Issues",
+            "statVar": "Percent_Person_WithMentalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
+            "name": "Physical Health Issues",
+            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithStroke_multiple_place_bar_block": {
+            "name": "Stroke",
+            "statVar": "Percent_Person_WithStroke",
             "unit": "%"
           }
         }

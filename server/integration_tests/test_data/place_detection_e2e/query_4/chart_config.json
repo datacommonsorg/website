@@ -311,9 +311,9 @@
                       "geoId/53"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block"
+                      "Count_HousingUnit_HomeValue30000To34999USDollar_multiple_place_bar_block"
                     ],
-                    "title": "Homes Valued Between $175,000 to $199,999 (${date})",
+                    "title": "Homes Valued Between $30,000 to $34,999 (${date})",
                     "type": "BAR"
                   },
                   {
@@ -323,9 +323,73 @@
                       "geoId/53"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block_pc"
+                      "Count_HousingUnit_HomeValue30000To34999USDollar_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Homes Valued Between $175,000 to $199,999 (${date})",
+                    "title": "Per Capita Homes Valued Between $30,000 to $34,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/3608570915",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/3608570915",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $90,000 to $99,999 (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/3608570915",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Homes Valued Between $15,000 to $19,999 (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/3608570915",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $15,000 to $19,999 (${date})",
                     "type": "BAR"
                   }
                 ]

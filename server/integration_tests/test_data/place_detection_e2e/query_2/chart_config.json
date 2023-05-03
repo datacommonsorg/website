@@ -354,16 +354,60 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
+                      "Count_HousingUnit_HomeValue30000To34999USDollar"
                     ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in States of United States (${date})",
+                    "title": "Homes Valued Between $30,000 to $34,999 in States of United States (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_pc"
+                      "Count_HousingUnit_HomeValue30000To34999USDollar_pc"
                     ],
-                    "title": "Per Capita Homes Valued Between $175,000 to $199,999 in States of United States (${date})",
+                    "title": "Per Capita Homes Valued Between $30,000 to $34,999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $90,000 to $99,999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue15000To19999USDollar"
+                    ],
+                    "title": "Homes Valued Between $15,000 to $19,999 in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue15000To19999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $15,000 to $19,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -409,12 +453,12 @@
             "name": "Homes Valued Between $15,000 to $19,999",
             "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
           },
-          "Count_HousingUnit_HomeValue175000To199999USDollar": {
-            "name": "Homes Valued Between $175,000 to $199,999",
-            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue175000To199999USDollar_pc": {
+          "Count_HousingUnit_HomeValue15000To19999USDollar_pc": {
             "denom": "Count_Person",
+            "name": "Homes Valued Between $15,000 to $19,999",
+            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
+          },
+          "Count_HousingUnit_HomeValue175000To199999USDollar": {
             "name": "Homes Valued Between $175,000 to $199,999",
             "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
           },
@@ -448,6 +492,11 @@
             "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
           },
           "Count_HousingUnit_HomeValue30000To34999USDollar": {
+            "name": "Homes Valued Between $30,000 to $34,999",
+            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
+          },
+          "Count_HousingUnit_HomeValue30000To34999USDollar_pc": {
+            "denom": "Count_Person",
             "name": "Homes Valued Between $30,000 to $34,999",
             "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
           },
@@ -503,6 +552,11 @@
             "statVar": "Count_HousingUnit_HomeValue80000To89999USDollar"
           },
           "Count_HousingUnit_HomeValue90000To99999USDollar": {
+            "name": "Homes Valued Between $90,000 to $99,999",
+            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValue90000To99999USDollar_pc": {
+            "denom": "Count_Person",
             "name": "Homes Valued Between $90,000 to $99,999",
             "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
           },
