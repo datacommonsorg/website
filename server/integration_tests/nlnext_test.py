@@ -49,16 +49,18 @@ class IntegrationTest(LiveServerTestCase):
     def start_nl_server(app):
       app.run(port=6060, debug=False, use_reloader=False, threaded=True)
 
-    nl_app = create_nl_app()
+    cls.nl_app = create_nl_app()
     # Create a thread that will contain our running server
     cls.proc = multiprocessing.Process(target=start_nl_server,
-                                       args=(nl_app,),
+                                       args=(cls.nl_app,),
                                        daemon=True)
     cls.proc.start()
     libutil.check_backend_ready([_NL_SERVER_URL + '/healthz'])
 
   @classmethod
   def tearDownClass(cls):
+    if cls.nl_app.config['SELENIUM']:
+      cls.nl_app.config['SELENIUM'].quit()
     cls.proc.terminate()
 
   def create_app(self):
