@@ -31,6 +31,7 @@ from flask import request
 from google.protobuf.json_format import MessageToJson
 import requests
 
+from server.lib.nl import scraper
 import server.lib.nl.constants as constants
 import server.lib.nl.counters as ctr
 from server.lib.nl.detection import ClassificationType
@@ -46,7 +47,6 @@ import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_nl_disaster_config
-from server.lib.nl import scraper
 import server.services.bigtable as bt
 import server.services.datacommons as dc
 import shared.lib.utils as shared_utils

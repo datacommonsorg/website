@@ -15,11 +15,11 @@
 import base64
 import logging
 import time
+
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
 
 _URL = 'https://dev.datacommons.org/nl#a=True&q='
 
@@ -28,15 +28,14 @@ def _to_svg(svg):
   svg_str = str(svg)
   if ' xmlns=' not in svg_str:
     # This makes the SVG not render when opened on chrome.
-    svg_str = svg_str.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ')
+    svg_str = svg_str.replace('<svg ',
+                              '<svg xmlns="http://www.w3.org/2000/svg" ')
   if ' xlink:href' in svg_str:
     # This throws an error
     svg_str = svg_str.replace(' xlink:href', ' href')
   svg_bytes = svg_str.encode('utf-8')
-  return {
-    'data': base64.b64encode(svg_bytes).decode('utf-8'),
-    'type': 'image/svg+xml'
-  }
+  svg_b64 = base64.b64encode(svg_bytes).decode('utf-8')
+  return 'data:image/svg+xml;base64,' + svg_b64
 
 
 def scrape(query, driver):
@@ -45,10 +44,9 @@ def scrape(query, driver):
 
   # Wait until the test_class_name has loaded.
   wait = WebDriverWait(driver, 30)
-  wait.until(EC.presence_of_element_located(
-    (By.CLASS_NAME, 'chart-container')))
-  wait.until(EC.invisibility_of_element_located(
-    (By.CLASS_NAME, 'dot-loading-stage')))
+  wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'chart-container')))
+  wait.until(
+      EC.invisibility_of_element_located((By.CLASS_NAME, 'dot-loading-stage')))
   time.sleep(5)
 
   html = driver.page_source
@@ -64,10 +62,7 @@ def scrape(query, driver):
       chart['title'] = chart_container.find('h4').text
       for src in chart_container.find_all('div', {'class': 'sources'}):
         anchor = src.find('a')
-        chart['srcs'].append({
-            'name': anchor.text,
-              'url': anchor.get('href')
-            })
+        chart['srcs'].append({'name': anchor.text, 'url': anchor.get('href')})
       classes = chart_container['class']
       if 'line-chart' in classes:
         chart['type'] = 'LINE'
@@ -117,7 +112,8 @@ def scrape(query, driver):
       elif 'disaster-event-map-tile' in classes:
         chart['type'] = 'EVENT_MAP'
         chart['svg'] = _to_svg(chart_container.find('svg'))
-        legend = chart_container.find('div', {'class': 'disaster-event-map-legend'})
+        legend = chart_container.find('div',
+                                      {'class': 'disaster-event-map-legend'})
         chart['legend'] = []
         for l in legend.find_all('span'):
           # TODO: maybe convert rbg to color name.
