@@ -370,6 +370,7 @@ export const TopEventTile = memo(function TopEventTile(
       0,
       "",
       "",
+      "",
       []
     );
   }

@@ -452,6 +452,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       this.dataCsv(),
       this.svgContainerElement.current.offsetWidth,
       CHART_HEIGHT,
+      "",
       this.props.title,
       this.getDateString(),
       this.getSources()

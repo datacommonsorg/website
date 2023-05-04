@@ -97,6 +97,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       props.getDataCsv ? props.getDataCsv() : "",
       svgWidth || containerRef.current.offsetWidth,
       svgHeight,
+      "",
       chartTitle,
       "",
       Array.from(props.sources)
