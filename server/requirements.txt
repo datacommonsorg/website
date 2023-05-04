@@ -1,5 +1,5 @@
 CacheControl==0.12.11
-Flask==2.0.0
+Flask==2.2.5
 Flask-Babel==2.0.0
 Flask-Caching==2.0.1
 beautifulsoup4
