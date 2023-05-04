@@ -26,6 +26,12 @@ _URL = 'https://dev.datacommons.org/nl#a=True&q='
 
 def _to_svg(svg):
   svg_str = str(svg)
+  if ' xmlns=' not in svg_str:
+    # This makes the SVG not render when opened on chrome.
+    svg_str = svg_str.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ')
+  if ' xlink:href' in svg_str:
+    # This throws an error
+    svg_str = svg_str.replace(' xlink:href', ' href')
   svg_bytes = svg_str.encode('utf-8')
   return {
     'data': base64.b64encode(svg_bytes).decode('utf-8'),

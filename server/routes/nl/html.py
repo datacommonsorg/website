@@ -28,14 +28,8 @@ from flask import escape
 from flask import g
 from flask import render_template
 from flask import request
-from flask import make_response
 from google.protobuf.json_format import MessageToJson
 import requests
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-
 
 import server.lib.nl.constants as constants
 import server.lib.nl.counters as ctr
