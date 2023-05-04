@@ -31,7 +31,7 @@ def _to_svg(svg):
     svg_str = svg_str.replace('<svg ',
                               '<svg xmlns="http://www.w3.org/2000/svg" ')
   if ' xlink:href' in svg_str:
-    # This throws an error
+    # This happens for SVGs with legend and causes an error when opened.
     svg_str = svg_str.replace(' xlink:href', ' href')
   svg_bytes = svg_str.encode('utf-8')
   svg_b64 = base64.b64encode(svg_bytes).decode('utf-8')
@@ -73,7 +73,7 @@ def scrape(query, driver):
           # TODO: maybe convert rbg to color name.
           chart['legend'].append(l.text)
       elif 'map-chart' in classes:
-        chart['type'] = 'LINE'
+        chart['type'] = 'MAP'
         map_area = chart_container.find('div', {'class': 'map'})
         chart['svg'] = _to_svg(map_area.find('svg'))
         legend_area = chart_container.find('div', {'class': 'legend'})
@@ -93,17 +93,19 @@ def scrape(query, driver):
         chart['type'] = 'TABLE'
         chart['rows'] = []
         table = chart_container.find('table')
+        header_cols = []
+        if table.find('thead'):
+          header_cols = table.find('thead').find_all('td')
         # Loop through the rows of the table
         for row in table.find('tbody').find_all('tr'):
           # Create an empty dictionary to hold the row data
           row_data = {}
-          header = table.find('thead')
           # Loop through the cells of the row
           for i, cell in enumerate(row.find_all('td')):
             # Use the text content of the cell as the value
             col = None
-            if header:
-              col = header.find_all('td')[i].text
+            if i < len(header_cols):
+              col = header_cols[i].text
             if not col:
               col = str(i)
             row_data[col] = cell.text
