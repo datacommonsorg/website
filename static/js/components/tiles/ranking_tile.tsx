@@ -20,13 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, {
-  MutableRefObject,
-  RefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
@@ -96,6 +90,35 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
   const placeHolderArray = Array(numRankingLists).fill("");
+
+  /**
+   * Opens export modal window
+   */
+  function handleEmbed(
+    rankingPoints: RankingPoint[],
+    sources: Set<string>
+  ): void {
+    let chartHtml = "";
+    let chartHeight = 0;
+    if (rankingUnitHighestContainer.current) {
+      chartHtml = rankingUnitHighestContainer.current.outerHTML;
+      chartHeight = rankingUnitHighestContainer.current.offsetHeight;
+    } else if (rankingUnitLowestContainer.current) {
+      chartHtml = rankingUnitLowestContainer.current.outerHTML;
+      chartHeight = rankingUnitHighestContainer.current.offsetHeight;
+    }
+    embedModalElement.current.show(
+      "",
+      rankingPointsToCsv(rankingPoints),
+      chartContainer.current.offsetWidth,
+      chartHeight,
+      chartHtml,
+      "",
+      "",
+      Array.from(sources)
+    );
+  }
+
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -191,31 +214,6 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
-
-  function handleEmbed(
-    rankingPoints: RankingPoint[],
-    sources: Set<string>
-  ): void {
-    let chartHtml = "";
-    let chartHeight = 0;
-    if (rankingUnitHighestContainer.current) {
-      chartHtml = rankingUnitHighestContainer.current.outerHTML;
-      chartHeight = rankingUnitHighestContainer.current.offsetHeight;
-    } else if (rankingUnitLowestContainer.current) {
-      chartHtml = rankingUnitLowestContainer.current.outerHTML;
-      chartHeight = rankingUnitHighestContainer.current.offsetHeight;
-    }
-    embedModalElement.current.show(
-      "",
-      rankingPointsToCsv(rankingPoints),
-      chartContainer.current.offsetWidth,
-      chartHeight,
-      chartHtml,
-      "",
-      "",
-      Array.from(sources)
-    );
-  }
 }
 function fetchData(
   props: RankingTilePropType,

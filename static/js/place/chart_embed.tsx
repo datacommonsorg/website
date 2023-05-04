@@ -100,15 +100,15 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     sources: string[]
   ): void {
     this.setState({
-      modal: true,
-      svgXml,
-      dataCsv,
       chartWidth,
       chartHeight,
       chartHtml,
       chartTitle,
       chartDate,
+      dataCsv,
+      modal: true,
       sources,
+      svgXml,
     });
   }
 
