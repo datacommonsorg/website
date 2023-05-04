@@ -15,7 +15,7 @@
 # Run integration tests for NL
 steps:
   - id: flask_test
-    name: python:3.7
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-04-18
     entrypoint: /bin/sh
     args:
       - -c

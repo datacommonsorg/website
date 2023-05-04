@@ -49,23 +49,20 @@ class IntegrationTest(LiveServerTestCase):
     def start_nl_server(app):
       app.run(port=6060, debug=False, use_reloader=False, threaded=True)
 
-    cls.nl_app = create_nl_app()
+    nl_app = create_nl_app()
     # Create a thread that will contain our running server
     cls.proc = multiprocessing.Process(target=start_nl_server,
-                                       args=(cls.nl_app,),
+                                       args=(nl_app,),
                                        daemon=True)
     cls.proc.start()
     libutil.check_backend_ready([_NL_SERVER_URL + '/healthz'])
 
   @classmethod
   def tearDownClass(cls):
-    if cls.nl_app.config['SELENIUM']:
-      cls.nl_app.config['SELENIUM'].quit()
     cls.proc.terminate()
 
   def create_app(self):
     """Returns the Flask Server running Data Commons."""
-    return create_web_app()
 
   # TODO: Validate contexts as well eventually.
   def run_sequence(self, test_dir, queries, check_place_detection=False):
