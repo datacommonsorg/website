@@ -11,7 +11,7 @@ sentence_transformers==2.2.2
 spacy==3.5.0
 pydantic==1.9.2
 torch==1.12.1 # torch 1.13 or higher brings in nvidia lib, which  is 1.5GB.
-Werkzeug==2.0.0
+Werkzeug==2.2.3
 scikit-learn==1.0.2
 # Downloading the named-entity recognition (NER) library spacy and the large EN model
 # using the guidelines here: https://spacy.io/usage/models#production
