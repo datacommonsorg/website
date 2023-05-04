@@ -3,4 +3,4 @@ datasets
 google-cloud-storage
 gspread
 sentence-transformers
-torch==1.12.1 # torch 1.13 or higher brings in nvidia lib, which  is 1.5GB.
+torch==1.13.1 # torch 1.13 or higher brings in nvidia lib, which  is 1.5GB.
