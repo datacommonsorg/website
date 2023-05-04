@@ -35,7 +35,7 @@ import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { StatVarInfo } from "../timeline/chart_region";
 import { Context } from "./context";
 import { D3Map } from "./d3_map";
-import { LeafletMap } from "./leaflet_map";
+// import { LeafletMap } from "./leaflet_map";
 import { getTitle } from "./util";
 
 export enum MAP_TYPE {
@@ -116,24 +116,25 @@ export function Chart(props: ChartProps): JSX.Element {
                 map.
               </div>
             </div>
-            {props.mapType === MAP_TYPE.LEAFLET ? (
+            {/* Disable LEAFLET as georaster-layer-for-leaflet can not be compiled server side in commonjs mode, see tsconfing.json "module": "CommonJS" */}
+            {/* {props.mapType === MAP_TYPE.LEAFLET ? (
               <LeafletMap
                 geoJsonData={props.geoJsonData}
                 geoRaster={props.geoRaster}
                 metadata={props.metadata}
                 unit={props.unit}
               />
-            ) : (
-              <D3Map
-                geoJsonData={props.geoJsonData}
-                mapDataValues={props.mapDataValues}
-                metadata={props.metadata}
-                unit={props.unit}
-                mapPointValues={props.mapPointValues}
-                mapPoints={props.mapPoints}
-                europeanCountries={props.europeanCountries}
-              />
-            )}
+            ) : ( */}
+            <D3Map
+              geoJsonData={props.geoJsonData}
+              mapDataValues={props.mapDataValues}
+              metadata={props.metadata}
+              unit={props.unit}
+              mapPointValues={props.mapPointValues}
+              mapPoints={props.mapPoints}
+              europeanCountries={props.europeanCountries}
+            />
+            {/* )} */}
             {props.children}
             <div className="map-links">
               {mainSvInfo.ranked && (
