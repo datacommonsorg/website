@@ -41,7 +41,10 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   );
 
   useEffect(() => {
-    fetchData(props, setHighlightData);
+    (async () => {
+      const data = await fetchData(props);
+      setHighlightData(data);
+    })();
   }, [props]);
 
   if (!highlightData) {
@@ -69,10 +72,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   );
 }
 
-function fetchData(
-  props: HighlightTilePropType,
-  setHighlightData: (data: Observation) => void
-): void {
+export const fetchData = async (props: HighlightTilePropType) => {
   // Now assume highlight only talks about one stat var.
   const mainStatVar = props.statVarSpec.statVar;
   const denomStatVar = props.statVarSpec.denom;
@@ -80,28 +80,27 @@ function fetchData(
   if (denomStatVar) {
     statVars.push(denomStatVar);
   }
-  axios
-    .get<PointApiResponse>("/api/observations/point", {
+  try {
+    const resp = await axios.get<PointApiResponse>("/api/observations/point", {
       params: {
         entities: [props.place.dcid],
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      const statData = resp.data.data;
-      const mainStatData = statData[mainStatVar][props.place.dcid];
-      let value = mainStatData.value;
-      if (denomStatVar) {
-        value /= statData[denomStatVar][props.place.dcid].value;
-      }
-      if (props.statVarSpec.scaling) {
-        value *= props.statVarSpec.scaling;
-      }
-      setHighlightData({ value, date: mainStatData.date });
-    })
-    .catch(() => {
-      // TODO: add error message
-      setHighlightData(null);
     });
-}
+
+    const statData = resp.data.data;
+    const mainStatData = statData[mainStatVar][props.place.dcid];
+    let value = mainStatData.value;
+    if (denomStatVar) {
+      value /= statData[denomStatVar][props.place.dcid].value;
+    }
+    if (props.statVarSpec.scaling) {
+      value *= props.statVarSpec.scaling;
+    }
+    return { value, date: mainStatData.date };
+  } catch (error) {
+    // TODO: add error message
+    return null;
+  }
+};
