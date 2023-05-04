@@ -58,11 +58,11 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       modal: false,
       svgXml: "",
       dataCsv: "",
-      chartWidth: 0,
+      chartDate: "",
       chartHeight: 0,
       chartHtml: "",
       chartTitle: "",
-      chartDate: "",
+      chartWidth: 0,
       sources: [],
       chartDownloadXml: "",
     };

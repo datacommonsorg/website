@@ -17,7 +17,6 @@
 /**
  * Component for rendering a ranking tile.
  */
-import _ from "lodash";
 import React, { useRef } from "react";
 
 import { formatNumber } from "../../i18n/i18n";
