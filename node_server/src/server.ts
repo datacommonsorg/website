@@ -15,6 +15,7 @@
  */
 
 import express, { Request, Response } from "express";
+import axios from "axios";
 
 import { USA_PLACE_DCID } from "../../static/js/shared/constants";
 
@@ -22,7 +23,16 @@ const app = express();
 const port = process.env.PORT || 3030;
 
 app.get("/", (req: Request, res: Response) => {
-  res.send(USA_PLACE_DCID);
+  const query = req.query.q;
+  axios
+    .post(`http://127.0.0.1:8080/nl/data?q=${query}`)
+    .then((resp) => {
+      res.send(resp.data);
+    })
+    .catch((error) => {
+      console.error("Error making request:\n", error.message);
+      res.status(500).send("Failed to make a request to the target service.");
+    });
 });
 
 app.listen(port, () => {
