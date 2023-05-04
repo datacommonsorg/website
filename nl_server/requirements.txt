@@ -6,7 +6,7 @@ google-cloud-pubsub==2.14.0
 google-cloud-storage==2.4.0
 gunicorn==20.1.0
 markupsafe==2.1.2
-pandas==1.3.5
+pandas>=1.3.5
 sentence_transformers==2.2.2
 spacy==3.5.0
 pydantic==1.9.2
@@ -16,3 +16,4 @@ scikit-learn==1.0.2
 # Downloading the named-entity recognition (NER) library spacy and the large EN model
 # using the guidelines here: https://spacy.io/usage/models#production
 en_core_web_lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.5.0/en_core_web_lg-3.5.0-py3-none-any.whl
+
