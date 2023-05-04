@@ -32,8 +32,6 @@ from flask import make_response
 from google.protobuf.json_format import MessageToJson
 import requests
 
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -54,6 +52,7 @@ import server.lib.nl.page_config_builder as nl_page_config
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_nl_disaster_config
+from server.lib.nl import scraper
 import server.services.bigtable as bt
 import server.services.datacommons as dc
 import shared.lib.utils as shared_utils
@@ -613,26 +612,10 @@ def history():
     flask.abort(404)
   return json.dumps(bt.read_success_rows())
 
+
 @bp.route('/screenshot')
 def screenshot():
   query_text = request.args.get('q', '')
-
-  options = Options()
-  options.add_argument("--headless=new")
-  options.add_argument("--disable-gpu")
-  options.add_argument("--no-sandbox")
-  options.add_argument("enable-automation")
-  options.add_argument("--disable-infobars")
-  options.add_argument("--disable-dev-shm-usage")
-  driver = webdriver.Chrome(options=options)
-  driver.get('https://dev.datacommons.org/#q=' + query_text + '&a=True')
-
-  # Wait until the test_class_name has loaded.
-  element_present = EC.presence_of_element_located(
-    (By.CLASS_NAME, 'chart-container'))
-  WebDriverWait(driver, 20).until(element_present)
-
-  screenshot = driver.get_screenshot_as_png()
-  response = make_response(screenshot)
-  response.headers.set('Content-Type', 'image/png')
-  return response
+  driver = current_app.config['SELENIUM']
+  charts = scraper.scrape(query_text, driver)
+  return {'charts': charts}

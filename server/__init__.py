@@ -17,6 +17,7 @@ import logging
 import os
 import tempfile
 
+from selenium import webdriver
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -352,6 +353,15 @@ def create_app():
       app.config['NL_TABLE'] = bt.get_nl_table()
     else:
       app.config['NL_TABLE'] = None
+    
+    options = webdriver.chrome.options.Options()
+    options.add_argument("--headless=new")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("enable-automation")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--disable-dev-shm-usage")
+    app.config['SELENIUM'] = webdriver.Chrome(options=options)
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []
