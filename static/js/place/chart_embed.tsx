@@ -117,6 +117,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
    * SVG node. Returns the SVG contents as a string.
    */
   private decorateChartHtml(): string {
+    // TODO: Merge this function with decorateSvgChart for less code duplication
     const container = this.svgContainerElement.current;
     container.innerHTML = "";
     const chartWidth = this.state.chartWidth + 2 * CHART_PADDING;
