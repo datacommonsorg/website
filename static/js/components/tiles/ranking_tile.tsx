@@ -87,7 +87,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartHtml: string,
     rankingPoints: RankingPoint[],
     sources: string[]
-  ) {
+  ): void {
     embedModalElement.current.show(
       "",
       rankingPointsToCsv(rankingPoints),

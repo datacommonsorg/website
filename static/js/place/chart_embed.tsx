@@ -34,11 +34,11 @@ interface ChartEmbedStateType {
   modal: boolean;
   svgXml: string;
   dataCsv: string;
-  chartWidth: number;
+  chartDate: string;
   chartHeight: number;
   chartHtml: string;
   chartTitle: string;
-  chartDate: string;
+  chartWidth: number;
   sources: string[];
   chartDownloadXml: string;
 }
