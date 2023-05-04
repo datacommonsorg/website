@@ -1,4 +1,4 @@
-datasets==2.8.0
+datasets==2.11
 diskcache==5.4.0
 Flask==2.0.0
 google-cloud-language==2.5.1
