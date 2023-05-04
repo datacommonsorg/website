@@ -120,7 +120,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 10 --reruns 2 server/webdriver_tests/tests/place_landing_test.py
+  python3 -m pytest -n 10 --reruns 2 server/webdriver_tests/tests/
 }
 
 # Run integration test for NL interface
