@@ -7,7 +7,6 @@
     ],
     "lib": ["ES2021"],
     "outDir": "./dist/",
-    "rootDir": "src",
     "sourceMap": true,
     "noImplicitAny": false,
     "module": "ESNext",
