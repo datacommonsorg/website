@@ -23,179 +23,29 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
-import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { RankingPoint } from "../../types/ranking_unit_types";
+import {
+  RankingData,
+  RankingGroup,
+  RankingPoint,
+} from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { formatString, getStatVarName } from "../../utils/tile_utils";
-import { RankingUnit } from "../ranking_unit";
-import { ChartFooter } from "./chart_footer";
+import { getStatVarName } from "../../utils/tile_utils";
+import { SvRankingUnits } from "./sv_ranking_units";
 
 const RANKING_COUNT = 5;
 const HEADING_HEIGHT = 36;
 const PER_RANKING_HEIGHT = 24;
 const FOOTER_HEIGHT = 26;
-interface RankingGroup {
-  points: RankingPoint[];
-  // If only value is used in RankingPoint - then there will only be one unit &
-  // scaling set. Otherwise, will match the order of values[].
-  unit: string[];
-  scaling: number[];
-  sources: Set<string>;
-  numDataPoints?: number;
-  dateRange: string;
-}
 
-interface SvRankingUnitsProps {
-  dateRange: string;
-  numDataPoints: number;
-  highestTitle?: string;
-  isMultiColumn?: boolean;
-  lowestTitle?: string;
-  points: RankingPoint[];
-  scaling: number[];
-  showHighest: boolean;
-  showLowest: boolean;
-  rankingCount: number;
-  showChart: (
-    chartWidth: number,
-    chartHeight: number,
-    chartHtml: string,
-    rankingPoints: RankingPoint[],
-    sources: string[]
-  ) => void;
-  sources: Set<string>;
-  statVar: string;
-  svName: string;
-  svNames?: string[];
-  title?: string;
-  unit: string[];
-}
-
-/**
- * Ranking unit tables for a stat var.
- */
-function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
-  const {
-    dateRange,
-    numDataPoints,
-    highestTitle,
-    isMultiColumn,
-    lowestTitle,
-    points,
-    rankingCount,
-    scaling,
-    showChart,
-    showHighest,
-    showLowest,
-    sources,
-    statVar,
-    svName,
-    svNames,
-    title,
-    unit,
-  } = props;
-  const highestRankingUnitRef = useRef<HTMLDivElement>();
-  const lowestRankingUnitRef = useRef<HTMLDivElement>();
-
-  /**
-   * Build content and triggers export modal window
-   */
-  function handleEmbed(
-    rankingPoints: RankingPoint[],
-    sources: Set<string>,
-    isHighest: boolean
-  ): void {
-    let chartHtml = "";
-    let chartHeight = 0;
-    let chartWidth = 0;
-    const divEl = isHighest
-      ? highestRankingUnitRef.current
-      : lowestRankingUnitRef.current;
-    if (divEl) {
-      chartHtml = divEl.outerHTML;
-      chartHeight = divEl.offsetHeight;
-      chartWidth = divEl.offsetWidth;
-    }
-    showChart(
-      chartWidth,
-      chartHeight,
-      chartHtml,
-      rankingPoints,
-      Array.from(sources)
-    );
-  }
-
-  return (
-    <React.Fragment>
-      {showHighest && (
-        <div className="ranking-unit-container">
-          <RankingUnit
-            key={`${statVar}-highest`}
-            unit={unit}
-            forwardRef={highestRankingUnitRef}
-            scaling={scaling}
-            title={formatString(
-              title || (highestTitle ? highestTitle : "Highest ${statVar}"),
-              {
-                date: dateRange,
-                placeName: "",
-                statVar: svName,
-              }
-            )}
-            points={points.slice(-rankingCount).reverse()}
-            isHighest={true}
-            svNames={isMultiColumn ? svNames : undefined}
-            formatNumberFn={formatNumber}
-          />
-          <ChartFooter
-            sources={sources}
-            handleEmbed={() => handleEmbed(points.reverse(), sources, true)}
-          />
-        </div>
-      )}
-      {showLowest && (
-        <div>
-          <RankingUnit
-            key={`${statVar}-lowest`}
-            unit={unit}
-            forwardRef={lowestRankingUnitRef}
-            scaling={scaling}
-            title={formatString(
-              title || (lowestTitle ? lowestTitle : "Lowest ${statVar}"),
-              {
-                date: dateRange,
-                placeName: "",
-                statVar: svName,
-              }
-            )}
-            numDataPoints={numDataPoints}
-            points={points.slice(0, rankingCount)}
-            isHighest={false}
-            svNames={isMultiColumn ? svNames : undefined}
-            formatNumberFn={formatNumber}
-          />
-          <ChartFooter
-            sources={sources}
-            handleEmbed={() => handleEmbed(points, sources, false)}
-          />
-        </div>
-      )}
-    </React.Fragment>
-  );
-}
-
-interface RankingData {
-  [key: string]: RankingGroup; // Key is main statVarDcid.
-}
 interface RankingTilePropType {
   id: string;
   place: NamedTypedPlace;
@@ -231,7 +81,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   /**
    * Opens export modal window
    */
-  function showChart(
+  function showChartEmbed(
     chartWidth: number,
     chartHeight: number,
     chartHtml: string,
@@ -273,24 +123,16 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
         Object.keys(rankingData).map((statVar) => {
           return (
             <SvRankingUnits
-              dateRange={rankingData[statVar].dateRange}
-              numDataPoints={rankingData[statVar].numDataPoints}
-              highestTitle={props.rankingMetadata.highestTitle}
               isMultiColumn={isMultiColumn}
               key={statVar}
-              lowestTitle={props.rankingMetadata.lowestTitle}
-              points={rankingData[statVar].points}
-              scaling={rankingData[statVar].scaling}
-              showHighest={props.rankingMetadata.showHighest}
-              showLowest={props.rankingMetadata.showLowest}
               rankingCount={rankingCount}
-              showChart={showChart}
-              sources={rankingData[statVar].sources}
+              rankingData={rankingData}
+              rankingMetadata={props.rankingMetadata}
+              showChartEmbed={showChartEmbed}
               statVar={statVar}
               svName={getStatVarName(statVar, props.statVarSpec)}
               svNames={svNames}
               title={props.title}
-              unit={rankingData[statVar].unit}
             />
           );
         })}
