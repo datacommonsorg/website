@@ -20,7 +20,13 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
@@ -71,6 +77,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
+  const rankingUnitHighestContainer = useRef<HTMLDivElement>(null);
+  const rankingUnitLowestContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetchData(props, setRankingData);
@@ -123,6 +131,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   <RankingUnit
                     key={`${statVar}-highest`}
                     unit={unit}
+                    forwardRef={rankingUnitHighestContainer}
                     scaling={scaling}
                     title={formatString(
                       props.title ||
@@ -142,7 +151,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   />
                   <ChartFooter
                     sources={sources}
-                    handleEmbed={() => handleEmbed(points.reverse())}
+                    handleEmbed={() => handleEmbed(points.reverse(), sources)}
                   />
                 </div>
               )}
@@ -151,6 +160,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   <RankingUnit
                     key={`${statVar}-lowest`}
                     unit={unit}
+                    forwardRef={rankingUnitLowestContainer}
                     scaling={scaling}
                     title={formatString(
                       props.title ||
@@ -171,7 +181,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   />
                   <ChartFooter
                     sources={sources}
-                    handleEmbed={() => handleEmbed(points)}
+                    handleEmbed={() => handleEmbed(points, sources)}
                   />
                 </div>
               )}
@@ -182,15 +192,28 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     </div>
   );
 
-  function handleEmbed(rankingPoints: RankingPoint[]): void {
+  function handleEmbed(
+    rankingPoints: RankingPoint[],
+    sources: Set<string>
+  ): void {
+    let chartHtml = "";
+    let chartHeight = 0;
+    if (rankingUnitHighestContainer.current) {
+      chartHtml = rankingUnitHighestContainer.current.outerHTML;
+      chartHeight = rankingUnitHighestContainer.current.offsetHeight;
+    } else if (rankingUnitLowestContainer.current) {
+      chartHtml = rankingUnitLowestContainer.current.outerHTML;
+      chartHeight = rankingUnitHighestContainer.current.offsetHeight;
+    }
     embedModalElement.current.show(
       "",
       rankingPointsToCsv(rankingPoints),
       chartContainer.current.offsetWidth,
-      0,
+      chartHeight,
+      chartHtml,
       "",
       "",
-      []
+      Array.from(sources)
     );
   }
 }

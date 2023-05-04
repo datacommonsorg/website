@@ -36,6 +36,7 @@ interface ChartEmbedStateType {
   dataCsv: string;
   chartWidth: number;
   chartHeight: number;
+  chartHtml: string;
   chartTitle: string;
   chartDate: string;
   sources: string[];
@@ -59,6 +60,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       dataCsv: "",
       chartWidth: 0,
       chartHeight: 0,
+      chartHtml: "",
       chartTitle: "",
       chartDate: "",
       sources: [],
@@ -92,20 +94,108 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     dataCsv: string,
     chartWidth: number,
     chartHeight: number,
+    chartHtml: string,
     chartTitle: string,
     chartDate: string,
     sources: string[]
   ): void {
     this.setState({
       modal: true,
-      svgXml: svgXml,
-      dataCsv: dataCsv,
-      chartWidth: chartWidth,
-      chartHeight: chartHeight,
-      chartTitle: chartTitle,
-      chartDate: chartDate,
-      sources: sources,
+      svgXml,
+      dataCsv,
+      chartWidth,
+      chartHeight,
+      chartHtml,
+      chartTitle,
+      chartDate,
+      sources,
     });
+  }
+
+  /**
+   * Decorates chartHtml with title and provenance information embeded in an enclosing
+   * SVG node. Returns the SVG contents as a string.
+   */
+  private decorateChartHtml(): string {
+    const container = this.svgContainerElement.current;
+    container.innerHTML = "";
+    const chartWidth = this.state.chartWidth + 2 * CHART_PADDING;
+
+    // Decorate a hidden chart svg with title and provenance
+    const svg = d3
+      .select(container)
+      .append("svg")
+      .attr("xmlns", SVGNS)
+      .attr("xmlns:xlink", XLINKNS)
+      .attr("width", chartWidth);
+
+    const title = svg
+      .append("g")
+      .append("text")
+      .style("font-family", "sans-serif")
+      .style("fill", "#3b3b3b")
+      .style("font-size", ".85rem")
+      .style("font-weight", "bold")
+      .style("text-anchor", "middle")
+      .text(`${this.state.chartTitle} ${this.state.chartDate}`)
+      .call(wrap, this.state.chartWidth);
+    const titleHeight = title.node().getBBox().height;
+    title.attr("transform", `translate(${chartWidth / 2}, ${TITLE_Y})`);
+
+    svg
+      .append("g")
+      .attr(
+        "transform",
+        `translate(${CHART_PADDING}, ${titleHeight + TITLE_MARGIN})`
+      )
+      .append("svg")
+      .append("foreignObject")
+      .attr("width", chartWidth)
+      .attr("height", 500)
+      .append("xhtml:div")
+      .style("font", "14px 'Helvetica Neue'")
+      .html(this.state.chartHtml);
+
+    const sources = svg
+      .append("g")
+      .attr(
+        "transform",
+        `translate(${CHART_PADDING}, ${
+          titleHeight + TITLE_MARGIN + this.state.chartHeight + SOURCES_MARGIN
+        })`
+      )
+      .append("text")
+      .style("fill", "#3b3b3b")
+      .style("font-family", "sans-serif")
+      .style("font-size", ".7rem")
+      .text(
+        intl.formatMessage(
+          {
+            id: "embed_citation",
+            defaultMessage: "Data from {sources} via Data Commons",
+            description:
+              'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
+          },
+          { sources: this.state.sources.map((s) => urlToDomain(s)).join(", ") }
+        )
+      )
+      .call(wrap, this.state.chartWidth);
+
+    const sourcesHeight = sources.node().getBBox().height;
+    svg.attr(
+      "height",
+      this.state.chartHeight +
+        titleHeight +
+        TITLE_MARGIN +
+        sourcesHeight +
+        SOURCES_MARGIN
+    );
+
+    const s = new XMLSerializer();
+    const svgXml = s.serializeToString(svg.node());
+    container.innerHTML = "";
+
+    return svgXml;
   }
 
   /**
@@ -199,6 +289,16 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     if (this.textareaElement.current) {
       this.textareaElement.current.style.width =
         this.state.chartWidth + CHART_PADDING * 2 + "px";
+    }
+
+    if (this.state.chartHtml) {
+      const chartDownloadXml = this.decorateChartHtml();
+      const imageElement = document.createElement("img");
+      const chartBase64 =
+        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
+      imageElement.src = chartBase64;
+      this.svgContainerElement.current.append(imageElement);
+      this.setState({ chartDownloadXml });
     }
 
     if (this.state.svgXml) {
