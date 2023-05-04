@@ -143,7 +143,7 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
             </span>
           </div>
         );
-        container.prepend(ReactDOM.render(result, container));
+        ReactDOM.render(result, container);
       }
       // It's unreliable to listen to the ENTER event here. Handling of
       // these manually added results are done in getPlaceAndRender.

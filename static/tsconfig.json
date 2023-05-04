@@ -9,7 +9,7 @@
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "ESNext",
+    "module": "CommonJS",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
