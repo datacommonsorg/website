@@ -63,6 +63,7 @@ class IntegrationTest(LiveServerTestCase):
 
   def create_app(self):
     """Returns the Flask Server running Data Commons."""
+    return create_web_app()
 
   # TODO: Validate contexts as well eventually.
   def run_sequence(self, test_dir, queries, check_place_detection=False):
