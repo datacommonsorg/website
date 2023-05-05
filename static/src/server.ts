@@ -34,23 +34,34 @@ const dom = new JSDOM(
 const window = dom.window;
 global.document = dom.window.document;
 
-(window.Text as any).prototype.getComputedTextLength = function () {
+(window.Text as any).prototype.getComputedTextLength = function (): number {
   return this.textContent.length;
 };
 
-(window.SVGElement as any).prototype.getComputedTextLength = function () {
-  return this.textContent.length;
-};
+(window.SVGElement as any).prototype.getComputedTextLength =
+  function (): number {
+    return this.textContent.length;
+  };
 
 // JSDom does not define SVGTSpanElements, and use SVGElement instead. Defines
 // a shim for getBBox (only returns width) where each character is 1 px wide.
-(window.Element as any).prototype.getBBox = function () {
+(window.Element as any).prototype.getBBox = function (): DOMRect {
   let maxWidth = 0;
   const children = this.childNodes;
-  for (let i = 0; i < children.length; i++) {
-    maxWidth = Math.max(children[i].getComputedTextLength(), maxWidth);
+  for (const child of children) {
+    maxWidth = Math.max(child.getComputedTextLength(), maxWidth);
   }
-  return { width: maxWidth };
+  return {
+    width: maxWidth,
+    height: maxWidth,
+    x: 0,
+    y: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    toJSON: { ...this },
+  };
 };
 
 app.get("/", (req: Request, res: Response) => {
@@ -77,13 +88,13 @@ app.get("/", (req: Request, res: Response) => {
       // const tile = tiles[0];
       const id = "dom-id";
       const lineTileProp = {
-        id: id,
-        title: id,
+        apiRoot,
+        id,
         place: { name: "California", dcid: "geoId/06", types: ["State"] },
         statVarSpec: svSpec,
         svgChartHeight: 500,
         svgChartWidth: 500,
-        apiRoot: apiRoot,
+        title: id,
       };
 
       fetchData(lineTileProp).then((chartData) => {
