@@ -97,10 +97,9 @@ function drawMapLegend(
   xUnit?: string,
   yUnit?: string
 ): void {
-  const legendSvg = d3
-    .select(legendRef.current)
-    .append("svg")
-    .attr("width", svgWidth);
+  const container = d3.select(legendRef.current)
+  container.selectAll("*").remove();
+  const legendSvg = container.append("svg").attr("width", svgWidth);
   const legendContainer = legendSvg.append("g");
   const legendLabels = legendContainer
     .append("text")

@@ -81,22 +81,37 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)
       : "";
-    const svgElemList = containerRef.current.getElementsByTagName("svg");
-    const svgElem = svgElemList.length ? svgElemList.item(0) : null;
-    let svgXml = "";
-    let svgWidth = 0;
-    let svgHeight = 0;
-    if (svgElem) {
-      svgXml = svgElem.outerHTML;
-      const svgBBox = svgElem.getBBox();
-      svgWidth = svgBBox.width;
-      svgHeight = svgBBox.height;
+    const svgElemList = containerRef.current.getElementsByTagName("svg") as SVGElement[];
+    // Create new svg element to return which will hold all the svgs coming from
+    // containerRef
+    const embedSvg = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+    let embedSvgWidth = 0;
+    let embedSvgHeight = 0;
+    // Set embedSvgHeight as the max height of all svgs
+    Array.from(svgElemList).forEach((svg) => {
+      embedSvgHeight = Math.max(svg.getBBox().height, embedSvgHeight);
+    })
+    // Add each svg from svgElemList to embedSvg
+    for (const svg of svgElemList) {
+      const svgBBox = svg.getBBox();
+      const clonedSvg = svg.cloneNode(true) as SVGElement;
+      // Set height of current svg to the height of the embedSvg
+      clonedSvg.setAttribute("height", `${embedSvgHeight}`);
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      // Move current svg to the right of svgs that have already been added to
+      // embedSvg
+      g.setAttribute("transform", `translate(${embedSvgWidth})`)
+      g.appendChild(clonedSvg);
+      embedSvg.appendChild(g);
+      // Update width of embedSvg to include current svg width
+      embedSvgWidth += svgBBox.width + svgBBox.x;
     }
+    let svgXml = !_.isEmpty(svgElemList) && embedSvg ? embedSvg.outerHTML : "";
     embedModalElement.current.show(
       svgXml,
       props.getDataCsv ? props.getDataCsv() : "",
-      svgWidth || containerRef.current.offsetWidth,
-      svgHeight,
+      embedSvgWidth,
+      embedSvgHeight,
       "",
       chartTitle,
       "",
