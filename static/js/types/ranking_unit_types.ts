@@ -30,3 +30,18 @@ export interface RankingPoint {
    */
   rank?: number;
 }
+
+export interface RankingGroup {
+  points: RankingPoint[];
+  // If only value is used in RankingPoint - then there will only be one unit &
+  // scaling set. Otherwise, will match the order of values[].
+  unit: string[];
+  scaling: number[];
+  sources: Set<string>;
+  numDataPoints?: number;
+  dateRange: string;
+}
+
+export interface RankingData {
+  [key: string]: RankingGroup; // Key is main statVarDcid.
+}

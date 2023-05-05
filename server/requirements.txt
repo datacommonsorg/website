@@ -2,6 +2,7 @@ CacheControl==0.12.11
 Flask==2.3.2
 Flask-Babel==2.0.0
 Flask-Caching==2.0.1
+beautifulsoup4
 flask_testing==0.8.1
 firebase-admin==5.3.0
 frozendict==2.3.4

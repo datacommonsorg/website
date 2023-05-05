@@ -42,8 +42,12 @@ interface LineTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Width, in px, for the SVG chart.
+  svgChartWidth?: number;
   // Extra classes to add to the container.
   className?: string;
+  // API root
+  apiRoot?: string;
 }
 
 interface LineChartData {
@@ -54,27 +58,23 @@ interface LineChartData {
 
 export function LineTile(props: LineTilePropType): JSX.Element {
   const svgContainer = useRef(null);
-  const [rawData, setRawData] = useState<SeriesApiResponse | undefined>(null);
-  const [lineChartData, setLineChartData] = useState<LineChartData | undefined>(
-    null
-  );
+  const [chartData, setChartData] = useState<LineChartData | undefined>(null);
 
   useEffect(() => {
-    fetchData(props, setRawData);
-  }, [props]);
-
-  useEffect(() => {
-    if (rawData) {
-      processData(props, rawData, setLineChartData);
+    if (!chartData) {
+      (async () => {
+        const data = await fetchData(props);
+        setChartData(data);
+      })();
     }
-  }, [props, rawData]);
+  }, [props, chartData]);
 
   const drawFn = useCallback(() => {
-    if (_.isEmpty(lineChartData)) {
+    if (_.isEmpty(chartData)) {
       return;
     }
-    draw(props, lineChartData, svgContainer);
-  }, [props, lineChartData]);
+    draw(props, chartData, svgContainer.current);
+  }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
 
@@ -84,14 +84,12 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   return (
     <ChartTileContainer
       title={props.title}
-      sources={lineChartData && lineChartData.sources}
+      sources={chartData && chartData.sources}
       replacementStrings={rs}
       className={`${props.className} line-chart`}
       allowEmbed={true}
-      getDataCsv={
-        lineChartData ? () => dataGroupsToCsv(lineChartData.dataGroup) : null
-      }
-      isInitialLoading={_.isNull(lineChartData)}
+      getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
+      isInitialLoading={_.isNull(chartData)}
     >
       <div
         id={props.id}
@@ -103,10 +101,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   );
 }
 
-function fetchData(
-  props: LineTilePropType,
-  setRawData: (data: SeriesApiResponse) => void
-): void {
+export const fetchData = async (props: LineTilePropType) => {
   const statVars = [];
   for (const spec of props.statVarSpec) {
     statVars.push(spec.statVar);
@@ -114,44 +109,32 @@ function fetchData(
       statVars.push(spec.denom);
     }
   }
-  axios
-    .get("/api/observations/series", {
-      // Fetch both numerator stat vars and denominator stat vars
-      params: {
-        variables: statVars,
-        entities: [props.place.dcid],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      setRawData(resp.data);
-    })
-    .catch(() => {
-      // TODO: add error message
-      setRawData(null);
-    });
-}
+  let endpoint = "/api/observations/series";
+  if (props.apiRoot) {
+    endpoint = props.apiRoot + endpoint;
+  }
+  const resp = await axios.get(endpoint, {
+    // Fetch both numerator stat vars and denominator stat vars
+    params: {
+      variables: statVars,
+      entities: [props.place.dcid],
+    },
+    paramsSerializer: stringifyFn,
+  });
+  return rawToChart(resp.data, props);
+};
 
-function processData(
-  props: LineTilePropType,
-  rawData: SeriesApiResponse,
-  setChartData: (data: LineChartData) => void
-): void {
-  const chartData = rawToChart(rawData, props);
-  setChartData(chartData);
-}
-
-function draw(
+export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
-  svgContainer: React.RefObject<HTMLElement>
+  svgContainer: HTMLElement
 ): void {
   const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
   elem.innerHTML = "";
   const isCompleteLine = drawLineChart(
     props.id,
-    elem.offsetWidth,
+    props.svgChartWidth || elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     false,
@@ -160,7 +143,7 @@ function draw(
     chartData.unit
   );
   if (!isCompleteLine) {
-    svgContainer.current.querySelectorAll(".dotted-warning")[0].className +=
+    svgContainer.querySelectorAll(".dotted-warning")[0].className +=
       " d-inline";
   }
 }

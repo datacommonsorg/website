@@ -31,6 +31,7 @@ from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 import requests
 
+from server.lib.nl import scraper
 import server.lib.nl.constants as constants
 import server.lib.nl.counters as ctr
 from server.lib.nl.detection import ClassificationType
@@ -604,3 +605,11 @@ def history():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
   return json.dumps(bt.read_success_rows())
+
+
+@bp.route('/screenshot')
+def screenshot():
+  query_text = request.args.get('q', '')
+  driver = current_app.config['SELENIUM']
+  charts = scraper.scrape(query_text, driver)
+  return {'charts': charts}
