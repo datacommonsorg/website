@@ -25,7 +25,7 @@ website:
     tag:
   githash:
   flaskEnv: dev
-  replicas: 2
+  replicas: 6
 
 mixer:
   hostProject:
