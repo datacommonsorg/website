@@ -37,7 +37,40 @@ _OVERRIDE_CHART_MAP = {
         "title":
             "Average Income for Family Households in California",
         "type":
-            "LINE"
+            "LINE",
+        "data": {
+            "Average Income for Family Households": [{
+                "date": "2019",
+                "value": 119126
+            }, {
+                "date": "2018",
+                "value": 113046
+            }, {
+                "date": "2017",
+                "value": 106970
+            }, {
+                "date": "2016",
+                "value": 101373
+            }, {
+                "date": "2015",
+                "value": 97665
+            }, {
+                "date": "2014",
+                "value": 96357
+            }, {
+                "date": "2013",
+                "value": 94926
+            }, {
+                "date": "2012",
+                "value": 94829
+            }, {
+                "date": "2011",
+                "value": 94747
+            }, {
+                "date": "2010",
+                "value": 92942
+            }]
+        }
     }, {
         "legend": ["Individual Median Income", "Individual Median Earnings"],
         "srcs": [{
@@ -51,7 +84,62 @@ _OVERRIDE_CHART_MAP = {
         "title":
             "Individual Income in California",
         "type":
-            "LINE"
+            "LINE",
+        "data": {
+            "Individual Income in California": [{
+                "date": "2020",
+                "value": 33719
+            }, {
+                "date": "2019",
+                "value": 31960
+            }, {
+                "date": "2018",
+                "value": 30797
+            }, {
+                "date": "2017",
+                "value": 29454
+            }, {
+                "date": "2016",
+                "value": 27772
+            }, {
+                "date": "2015",
+                "value": 27035
+            }, {
+                "date": "2014",
+                "value": 26932
+            }, {
+                "date": "2013",
+                "value": 26893
+            }, {
+                "date": "2012",
+                "value": 27129
+            }, {
+                "date": "2011",
+                "value": 27355
+            }],
+            "Individual Median Earnings": [{
+                "date": "2016",
+                "value": 31736
+            }, {
+                "date": "2015",
+                "value": 31296
+            }, {
+                "date": "2014",
+                "value": 31345
+            }, {
+                "date": "2013",
+                "value": 31212
+            }, {
+                "date": "2012",
+                "value": 31272
+            }, {
+                "date": "2011",
+                "value": 31507
+            }, {
+                "date": "2010",
+                "value": 31245
+            }]
+        }
     }, {
         "legend": ["Household Median Income"],
         "srcs": [{
@@ -65,7 +153,40 @@ _OVERRIDE_CHART_MAP = {
         "title":
             "Household Median Income in California",
         "type":
-            "LINE"
+            "LINE",
+        "data": {
+            "Household Median Income": [{
+                "date": "2020",
+                "value": 78672
+            }, {
+                "date": "2019",
+                "value": 75235
+            }, {
+                "date": "2018",
+                "value": 71228
+            }, {
+                "date": "2017",
+                "value": 67169
+            }, {
+                "date": "2016",
+                "value": 63783
+            }, {
+                "date": "2015",
+                "value": 61818
+            }, {
+                "date": "2014",
+                "value": 61489
+            }, {
+                "date": "2013",
+                "value": 61094
+            }, {
+                "date": "2012",
+                "value": 61400
+            }, {
+                "date": "2011",
+                "value": 61632
+            }]
+        }
     }]
 }
 
