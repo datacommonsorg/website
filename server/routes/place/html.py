@@ -30,7 +30,7 @@ CATEGORY_REDIRECTS = {
 
 
 @bp.route('', strict_slashes=False)
-@bp.route('/<path:place_dcid>', strict_slashes=False)
+@bp.route('/<path:place_dcid>/', strict_slashes=False)
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
   should_redirect = False
