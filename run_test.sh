@@ -21,8 +21,8 @@ function setup_python {
   source .env/bin/activate
   python3 -m pip install --upgrade pip setuptools light-the-torch
   ltt install torch --cpuonly
-  pip3 install -r server/requirements.txt -q
-  pip3 install -r nl_server/requirements.txt -q
+  pip3 install -r server/requirements.txt
+  pip3 install -r nl_server/requirements.txt
 }
 
 # Run test for client side code.
