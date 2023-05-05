@@ -119,6 +119,7 @@ spec:
             - --base_bigtable_info=$(BASE_BIGTABLE_INFO)
             - --custom_bigtable_info=$(CUSTOM_BIGTABLE_INFO)
             - --memdb_path=/datacommons/memdb
+            - --use_branch_bt=false
           volumeMounts:
             - name: schema-mapping
               mountPath: /datacommons/mapping
