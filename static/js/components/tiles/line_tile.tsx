@@ -134,7 +134,7 @@ export function draw(
   elem.innerHTML = "";
   const isCompleteLine = drawLineChart(
     props.id,
-    elem.offsetWidth || props.svgChartWidth,
+    props.svgChartWidth || elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     false,
