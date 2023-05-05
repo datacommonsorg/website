@@ -42,8 +42,12 @@ interface LineTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Width, in px, for the SVG chart.
+  svgChartWidth?: number;
   // Extra classes to add to the container.
   className?: string;
+  // API root
+  apiRoot?: string;
 }
 
 interface LineChartData {
@@ -69,7 +73,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     if (_.isEmpty(chartData)) {
       return;
     }
-    draw(props, chartData, svgContainer);
+    draw(props, chartData, svgContainer.current);
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
@@ -105,7 +109,11 @@ export const fetchData = async (props: LineTilePropType) => {
       statVars.push(spec.denom);
     }
   }
-  const resp = await axios.get("/api/observations/series", {
+  let endpoint = "/api/observations/series";
+  if (props.apiRoot) {
+    endpoint = props.apiRoot + endpoint;
+  }
+  const resp = await axios.get(endpoint, {
     // Fetch both numerator stat vars and denominator stat vars
     params: {
       variables: statVars,
@@ -116,17 +124,17 @@ export const fetchData = async (props: LineTilePropType) => {
   return rawToChart(resp.data, props);
 };
 
-function draw(
+export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
-  svgContainer: React.RefObject<HTMLElement>
+  svgContainer: HTMLElement
 ): void {
   const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
   elem.innerHTML = "";
   const isCompleteLine = drawLineChart(
     props.id,
-    elem.offsetWidth,
+    props.svgChartWidth || elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     false,
@@ -135,7 +143,7 @@ function draw(
     chartData.unit
   );
   if (!isCompleteLine) {
-    svgContainer.current.querySelectorAll(".dotted-warning")[0].className +=
+    svgContainer.querySelectorAll(".dotted-warning")[0].className +=
       " d-inline";
   }
 }
