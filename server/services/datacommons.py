@@ -437,11 +437,11 @@ def query(query_string):
   return res_json['header'], res_json.get('rows', [])
 
 
-def related_place(dcid, variables, anestor=None, per_capita=False):
+def related_place(dcid, variables, ancestor=None, per_capita=False):
   url = get_service_url('/v1/place/related')
   req_json = {'dcid': dcid, 'stat_var_dcids': sorted(variables)}
-  if anestor:
-    req_json['within_place'] = anestor
+  if ancestor:
+    req_json['within_place'] = ancestor
   if per_capita:
     req_json['is_per_capita'] = per_capita
   return post(url, req_json)
