@@ -35,8 +35,8 @@ class TestServiceDiscovery(unittest.TestCase):
         'server/tests/test_data/ingress/test1.yaml')
 
     assert get_service_url('/query') == 'http://query-host:8080/query'
-    assert get_service_url('/node/related-locations'
-                          ) == 'http://default-host:8080/node/related-locations'
+    assert get_service_url(
+        '/place/related') == 'http://default-host:8080/place/related'
 
   def test_configure_endpoints_from_ingress_2(self):
     """Tests ingress configuration."""

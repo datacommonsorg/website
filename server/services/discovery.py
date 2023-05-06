@@ -140,9 +140,8 @@ endpoints = Endpoints([
     '/v1/bulk/observation-existence',
     '/v1/variables',
     '/v1/variable/ancestors',
-    '/node/ranking-locations',
-    # TODO(shifucun): switch back to /node/related-places after data switch.
-    '/node/related-locations',
+    '/v1/place/ranking',
+    '/v1/place/related',
     '/stat-var/search',
     # Recon APIs
     '/v1/recon/resolve/id',

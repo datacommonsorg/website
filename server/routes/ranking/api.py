@@ -47,8 +47,7 @@ def ranking_api(stat_var, place_type, place=None):
   rank_keys = BOTTOM_KEYS_KEEP if is_show_bottom else TOP_KEYS_KEEP
   delete_keys = BOTTOM_KEYS_DEL if is_show_bottom else TOP_KEYS_DEL
 
-  ranking_results = dc.get_place_ranking([stat_var], place_type, place,
-                                         is_per_capita)
+  ranking_results = dc.place_ranking(stat_var, place_type, place, is_per_capita)
   if 'data' not in ranking_results:
     flask.abort(500)
   data = ranking_results['data']
