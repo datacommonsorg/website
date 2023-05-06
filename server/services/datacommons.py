@@ -438,7 +438,7 @@ def query(query_string):
 
 
 def related_place(dcid, variables, anestor=None, per_capita=False):
-  url = get_service_url('/place/related')
+  url = get_service_url('/v1/place/related')
   req_json = {'dcid': dcid, 'stat_var_dcids': sorted(variables)}
   if anestor:
     req_json['within_place'] = anestor
