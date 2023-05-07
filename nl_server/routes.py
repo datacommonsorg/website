@@ -18,8 +18,8 @@ from typing import List, Tuple
 
 from flask import Blueprint
 from flask import current_app
-from flask import escape
 from flask import request
+from markupsafe import escape
 
 bp = Blueprint('main', __name__, url_prefix='/')
 

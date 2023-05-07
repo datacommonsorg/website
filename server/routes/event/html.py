@@ -22,9 +22,9 @@ from typing import Dict, List
 from flask import abort
 from flask import Blueprint
 from flask import current_app
-from flask import escape
 from flask import render_template
 from google.protobuf.json_format import MessageToJson
+from markupsafe import escape
 
 from server.cache import cache
 from server.lib import fetch

@@ -15,8 +15,8 @@
 import json
 
 from flask import Blueprint
-from flask import escape
 from flask import request
+from markupsafe import escape
 
 import server.services.datacommons as dc
 

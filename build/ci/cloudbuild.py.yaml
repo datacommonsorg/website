@@ -15,7 +15,7 @@
 # Run Python tests, lint, etc.
 steps:
   - id: flask_test
-    name: python:3.7
+    name: python:3.11.3
     entrypoint: /bin/sh
     args:
       - -c
