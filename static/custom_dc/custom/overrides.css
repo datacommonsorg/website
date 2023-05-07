@@ -58,7 +58,7 @@
   background-image: url("/custom_dc/custom/images/home_header.png");
   background-size: cover;
   background-position: center;
-  height: 400px;
+  height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,4 +69,28 @@
   color: #222;
   font-size: 3rem;
   margin: 0;
+}
+
+.homepage-callout {
+  border-style: solid;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+.foodsec-landing-header {
+  background-image: url("/custom_dc/custom/images/food-security.png");
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px;
 }

@@ -61,24 +61,18 @@ categories {
     description: "(description here)"
     columns {
       tiles {
-        type: HIGHLIGHT
-        description: "low income people with poor access to grocery stores in ${placeName} (${date})"
+        type: MAP
+        title: " in ${placeName}"
         stat_var_key: "count_lowincome_lowgroceryaccess"
       }
+    }
+    columns {
       tiles {
         type: RANKING
         ranking_tile_spec {
           show_highest: true
           show_lowest: true
         }
-        stat_var_key: "count_lowincome_lowgroceryaccess"
-      }
-      
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: " in ${placeName}"
         stat_var_key: "count_lowincome_lowgroceryaccess"
       }
     }
@@ -245,42 +239,7 @@ categories {
       }
     }
   }
-  blocks {
-    title: "TESTING"
-    description: "Testing"
-    columns {
-      tiles {
-        type: SCATTER
-        title: "TEST (${xDate}) vs. TEST (${yDate})"
-        stat_var_key: 'prevalence_diabetes'
-        stat_var_key: 'prevalence_chd'
-      }
-    }
-    columns {
-      tiles {
-        type: BIVARIATE
-        title: "Testing"
-        stat_var_key: 'prevalence_diabetes'
-        stat_var_key: 'prevalence_chd'
-      }
-    }
-  }
-  blocks {
-    title: "TESTING"
-    description: "Testing"
-    columns {
-      tiles {
-        type: BIVARIATE
-        title: "Testing"
-        stat_var_key: 'prevalence_diabetes'
-        stat_var_key: 'prevalence_chd'
-      }
-    }
-  }
-
   
-
-
   stat_var_spec {
     key: "prevalence_diabetes"
     value {
@@ -312,27 +271,183 @@ categories {
 }
 
 categories {
-  title: "Community food Assistance"
-  description: "(Description will go here)"
-
+  title: "Surplus Food Potential"
 
   blocks {
-    title: "TESTING"
-    description: "Testing"
+    title: "Sources of Surplus Food"
     columns {
       tiles {
-        type: LINE
-        title: "TEST in ${placeName}"
-        stat_var_key: "count_communityfoodservices"
+        type: MAP
+        title: "Farms in ${placeName}"
+        stat_var_key: "count_farm"
       }
+      
+      
+      tiles {
+        type: MAP
+        title: "Grocery Wholesalers in ${placeName}"
+        stat_var_key: "establishments_wholesalers"
+      }
+      tiles {
+        type: MAP
+        title: "Restaurants in ${placeName}"
+        stat_var_key: "establishments_restaurants"
+      }
+      tiles {
+        type: MAP
+        title: "Colleges and Universities in ${placeName}"
+        stat_var_key: "establishments_colleges"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Food Manufacturing in ${placeName}"
+        stat_var_key: "establishment_foodmanufacturing"
+      }
+      tiles {
+        type: MAP
+        title: "Grocery Stores in ${placeName}"
+        stat_var_key: "establishments_grocery"
+      }
+      tiles {
+        type: MAP
+        title: "Hotels in ${placeName}"
+        stat_var_key: "establishment_traveleraccommodations"
+      }
+      tiles {
+        type: MAP
+        title: "Primary and Secondary Schools in ${placeName}"
+        stat_var_key: "establishment_primarysecondaryschools"
+      }
+    }
+    
+  }
+  
+
+  stat_var_spec {
+    key: "establishments_restaurants"
+    value {
+      stat_var: "dc/redh1q644pn3b"
+      name: "# of restaurants"
+    }
+  }
+  stat_var_spec {
+    key: "establishments_grocery"
+    value {
+      stat_var: "dc/bdb0eypp5ek6h"
+      name: "# of grocery stores"
+    }
+  }
+  stat_var_spec {
+    key: "establishments_wholesalers"
+    value {
+      stat_var: "dc/tsye5m13dgm81"
+      name: "# of grocery wholesalers"
+    }
+  }
+  stat_var_spec {
+    key: "establishments_colleges"
+    value {
+      stat_var: "dc/ds35leh1tbb6d"
+      name: "# colleges and universities"
+    }
+  }
+  stat_var_spec {
+    key: "count_farm"
+    value {
+      stat_var: "Count_Farm"
+      name: "# farms"
+    }
+  }
+  stat_var_spec {
+    key: "establishment_foodmanufacturing"
+    value {
+      stat_var: "dc/ld7r82rlc7se6"
+      name: "# food manufacturing establishments"
+    }
+  }
+  stat_var_spec {
+    key: "establishment_traveleraccommodations"
+    value {
+      stat_var: "dc/mq2x2pzme3yfh"
+      name: "# hotels"
+    }
+  }
+  stat_var_spec {
+    key: "establishment_primarysecondaryschools"
+    value {
+      stat_var: "dc/1xbz8tzx9lhmg"
+      name: "# primary and secondary schools"
     }
   }
 
-  stat_var_spec {
-    key: "count_communityfoodservices"
-    value {
-      stat_var: "dc/j1kr0ft77ptb6"
-      name: "# of Community Food Services"
-    }
-  }
+  
 }
+
+
+#categories {
+#  title: "TESTING"
+#
+#  blocks {
+#    title: "TESTING"
+#    description: "Testing"
+#    columns {
+#      tiles {
+#        type: SCATTER
+#        title: "TEST (${xDate}) vs. TEST (${yDate})"
+#        stat_var_key: 'prevalence_diabetes'
+#        stat_var_key: 'prevalence_chd'
+#      }
+#    }
+#    columns {
+#      tiles {
+#        type: BIVARIATE
+#        title: "Testing"
+#        stat_var_key: 'prevalence_diabetes'
+#        stat_var_key: 'prevalence_chd'
+#      }
+#    }
+#  }
+#  blocks {
+#    title: "TESTING"
+#    description: "Testing"
+#    columns {
+#      tiles {
+#        type: BIVARIATE
+#        title: "Testing"
+#        stat_var_key: 'prevalence_diabetes'
+#        stat_var_key: 'prevalence_chd'
+#      }
+#    }
+#  }
+#
+#  stat_var_spec {
+#    key: "prevalence_diabetes"
+#    value {
+#      stat_var: "Percent_Person_WithDiabetes"
+#      name: "% population with Diabetes"
+#    }
+#  }
+#  stat_var_spec {
+#    key: "prevalence_chd"
+#    value {
+#      stat_var: "Percent_Person_WithCoronaryHeartDisease"
+#      name: "% population with Coronary Heart Disease"
+#    }
+#  }
+#  stat_var_spec {
+#    key: "prevalence_highbloodpressure"
+#    value {
+#      stat_var: "Percent_Person_WithHighBloodPressure"
+#      name: "% population with High Blood Pressure"
+#    }
+#  }
+#  stat_var_spec {
+#    key: "prevalence_highcholesterol"
+#    value {
+#      stat_var: "Percent_Person_WithHighCholesterol"
+#      name: "% population with High Cholesterol"
+#    }
+#  }
+#}

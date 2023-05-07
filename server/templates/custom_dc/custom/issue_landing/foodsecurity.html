@@ -22,33 +22,72 @@
  
  {% block content %}
   <section class="container">
-    <h1>Issue Area: Food Security</h1>
-    <p>We're working with Food Security Organizations to highlight data in Data Commons that can help answer the questions that matter the most to them. Here are some examples of we have heard:</p>
-    <h2>What health issues are the most prevalent among those under the poverty line in my state?</h2>
-    <h3>Why does this matter?</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae placerat elit, ut porttitor magna. Nam tincidunt at augue vitae viverra. Curabitur sed elit id lacus facilisis commodo tincidunt sit amet tortor. Maecenas tempus quam lacus, quis fermentum lacus condimentum ut. Morbi leo diam, feugiat vitae porta et, scelerisque at nunc. Donec pharetra eu urna vitae ultricies. Mauris auctor justo vel orci ornare, a venenatis lectus porta. Morbi quis convallis sem. In luctus lobortis purus a tristique. Vestibulum ac volutpat ipsum. Morbi sit amet semper velit.</p>
-    <h3>What data is available in Data Commons</h3>
-    Data Commons has statistics from the CDC about the prevalence of various health conditions that may be of interest to food security organizations. Some examples are:
-    <ul> 
-      <li><a href="tools/statvar#sv=Percent_Person_WithDiabetes">Diabetes</a></li>
-      <li><a href="tools/statvar#sv=Percent_Person_WithCoronaryHeartDisease">Coronary Heart Disease</a></li>
-      <li><a href="tools/statvar#sv=Percent_Person_WithHighCholesterol">High Cholesterol</a></li>
-      <li><a href="tools/statvar#sv=Percent_Person_WithHighBloodPressure">High Blood Pressure</a></li>
-    </ul>
-    These statistics are not broken down by poverty status, but they can be combined with other data about poverty in Data Commons, such as:
-    <ul> 
-      <li><a href="tools/statvar#sv=Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months">Number of Family Households Below the Poverty Level in the Past 12 Months</a></li>
-      <li><a href="tools/statvar#sv=Count_Person_BelowPovertyLevelInThePast12Months">Number of People Who Are Below Poverty Level Status in the Past 12 Months</a></li>
-    </ul>
-    For example, here is a map of Maine that uses different colors to show the relationship between the diabetes and poverty in each county. You can see that the darker blue colors indicate counties where there are higher levels of both diabetes and poverty. Click on the image to see the map in action, and put in the state and the medical condition that you're interested in.
+    <div class="foodsec-landing-header"></div>
+  </section>
+  <section class="container">
+    <h1>Data Commons for Food Security Organizations</h1>
+    <p>We're working with Food Security Organizations to help them get the most out of Data Commons, and to highlight data in Data Commons that matters most to them.</p>
+    <p><a href="/topic/foodsecurity/geoId/06">Explore Food Security data in your state</a></p>
+    <p>Here are some examples of questions that Data Commons can help to answer for your organization:</p>
+    
+    <article>
+      <h3>How prevalent are specific health issues among those in need of food assistance?</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcx%3D1%26dx%3DCount_Person%26svy%3DPercent_Person_WithDiabetes%26dy%3DCount_Person%26epd%3DgeoId%2F51%26ept%3DCounty%26ct%3D1' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/custom_dc/custom/images/diabetes_poverty-virginia.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link}}">Diabetes vs. Poverty in Virginia</a></small>
+        </span>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae placerat elit, ut porttitor magna. Nam tincidunt at augue vitae viverra. Curabitur sed elit id lacus facilisis commodo tincidunt sit amet tortor. Maecenas tempus quam lacus, quis fermentum lacus condimentum ut. Morbi leo diam, feugiat vitae porta et, scelerisque at nunc. Donec pharetra eu urna vitae ultricies. Mauris auctor justo vel orci ornare, a venenatis lectus porta. Morbi quis convallis sem. In luctus lobortis purus a tristique. Vestibulum ac volutpat ipsum. Morbi sit amet semper velit.
+      </p>
+      <p>
+        Data Commons has statistics from the CDC about the prevalence of various health conditions that may be of interest to food security organizations. Some examples are:
+        <ul> 
+          <li><a href="tools/statvar#sv=Percent_Person_WithDiabetes">Diabetes</a></li>
+          <li><a href="tools/statvar#sv=Percent_Person_WithCoronaryHeartDisease">Coronary Heart Disease</a></li>
+          <li><a href="tools/statvar#sv=Percent_Person_WithHighCholesterol">High Cholesterol</a></li>
+          <li><a href="tools/statvar#sv=Percent_Person_WithHighBloodPressure">High Blood Pressure</a></li>
+        </ul>
+        These statistics are not broken down by poverty status, but they can be combined with other data about poverty in Data Commons, such as:
+        <ul> 
+          <li><a href="tools/statvar#sv=Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months">Number of Family Households Below the Poverty Level in the Past 12 Months</a></li>
+          <li><a href="tools/statvar#sv=Count_Person_BelowPovertyLevelInThePast12Months">Number of People Who Are Below Poverty Level Status in the Past 12 Months</a></li>
+        </ul>
+      </p>
+    </article>    
+    
+    <article>
+      <h3>Are there areas with high rates of poverty where there are not enough food assistance organizations?</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcx%3D1%26dx%3DCount_Person%26svy%3Ddc%2Fvekpd9nlmyf0b%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F20%26ept%3DCounty%26ct%3D1' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/custom_dc/custom/images/commfoodservices_poverty_kansas.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link}}">Community food services vs. Poverty in Kansas</a></small>
+        </span>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae placerat elit, ut porttitor magna. Nam tincidunt at augue vitae viverra. Curabitur sed elit id lacus facilisis commodo tincidunt sit amet tortor. Maecenas tempus quam lacus, quis fermentum lacus condimentum ut. Morbi leo diam, feugiat vitae porta et, scelerisque at nunc. Donec pharetra eu urna vitae ultricies. Mauris auctor justo vel orci ornare, a venenatis lectus porta. Morbi quis convallis sem. In luctus lobortis purus a tristique. Vestibulum ac volutpat ipsum. Morbi sit amet semper velit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae placerat elit, ut porttitor magna. Nam tincidunt at augue vitae viverra. Curabitur sed elit id lacus facilisis commodo tincidunt sit amet tortor. Maecenas tempus quam lacus, quis fermentum lacus condimentum ut. Morbi leo diam, feugiat vitae porta et, scelerisque at nunc. Donec pharetra eu urna vitae ultricies. Mauris auctor justo vel orci ornare, a venenatis lectus porta. Morbi quis convallis sem. In luctus lobortis purus a tristique. Vestibulum ac volutpat ipsum. Morbi sit amet semper velit.
+      </p>
+    </article>  
 
-    <a href="tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcx%3D1%26dx%3DCount_Person%26svy%3DPercent_Person_WithDiabetes%26dy%3DCount_Person%26epd%3DgeoId%2F23%26ept%3DCounty%26ct%3D1">
-      <img class="img-thumbnail" src="/custom_dc/custom/images/diabetes_poverty-maine.png" />
-    </a>
-    <h3>Related Topic Pages</h3>
-    <ul>
-      <li><a href="/topic/foodsecurity/geoId/06">Health conditions in California</a></li>
-    </ul>
-
+    <article>
+      <h3>Which areas have a large number of people that have poor access to grocery stores?</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/map#%26sv%3DHouseholds_No_Car_Low_Access_To_Grocery_Store%26pc%3D1%26denom%3DCount_Person%26pd%3DgeoId%2F37%26ept%3DCounty' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/custom_dc/custom/images/lowgroceryaccess_nocar_nc.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link}}">Households with no car and low access to grocery stores in N. Carolina</a></small>
+        </span>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae placerat elit, ut porttitor magna. Nam tincidunt at augue vitae viverra. Curabitur sed elit id lacus facilisis commodo tincidunt sit amet tortor. Maecenas tempus quam lacus, quis fermentum lacus condimentum ut. Morbi leo diam, feugiat vitae porta et, scelerisque at nunc. Donec pharetra eu urna vitae ultricies. Mauris auctor justo vel orci ornare, a venenatis lectus porta. Morbi quis convallis sem. In luctus lobortis purus a tristique. Vestibulum ac volutpat ipsum. Morbi sit amet semper velit.
+      </p>
+    </article>  
+    
   </section>
  {% endblock %}
