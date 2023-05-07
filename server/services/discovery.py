@@ -144,18 +144,14 @@ endpoints = Endpoints([
     # TODO(shifucun): switch back to /node/related-places after data switch.
     '/node/related-locations',
     '/stat-var/search',
-    # Recon APIs
-    '/v1/recon/resolve/id',
-    '/v1/recon/resolve/coordinate',
-    # Bio APIs
     '/v1/internal/page/bio',
-    # Misc
     '/v1/internal/page/place',
     '/v1/events',
     '/v1/events/dates',
     # V2
     '/v2/observation',
-    '/v2/node'
+    '/v2/node',
+    '/v2/resolve'
 ])
 
 

@@ -31,6 +31,7 @@ from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 import requests
 
+from server.lib import fetch
 from server.lib.nl import scraper
 import server.lib.nl.constants as constants
 import server.lib.nl.counters as ctr
@@ -85,20 +86,6 @@ def _maps_place(place_str):
       f"Maps API did not find a result of type in: {constants.MAPS_GEO_TYPES}. Query URL: {url_formatted}. Response: {resp}"
   )
   return {}
-
-
-def _dc_recon(place_ids):
-  resp = dc.resolve_id(place_ids, "placeId", "dcid")
-  if "entities" not in resp:
-    return {}
-
-  d_return = {}
-  for ent in resp["entities"]:
-    for out in ent["outIds"]:
-      d_return[ent["inId"]] = out
-      break
-
-  return d_return
 
 
 def _remove_places(query, place_str_to_dcids: Dict[str, str]):
@@ -197,10 +184,10 @@ def _infer_place_dcids(places_str_found: List[str],
       logging.info(
           f"MAPS API found place with place_id: {place_id} for place string: {p_str}."
       )
-      place_ids_map = _dc_recon([place_id])
+      place_ids_map = fetch.resolve_id([place_id], 'placeId', 'dcid')
 
       if place_id in place_ids_map:
-        place_dcid = place_ids_map[place_id]
+        place_dcid = place_ids_map[place_id][0]
         logging.info(f"DC API found DCID: {place_dcid}")
         place_dcids[p_str] = place_dcid
       else:

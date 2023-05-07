@@ -334,3 +334,45 @@ def raw_descendent_places(nodes, descendent_type):
       'containedInPlace+',
       out=False,
       constraints='{{typeOf:{}}}'.format(descendent_type))
+
+
+def resolve_id(nodes, in_prop, out_prop):
+  """Resolves ids given nodes input and output property.
+
+  Args:
+      in_ids: A list of input ids.
+      in_prop: The input property.
+      out_prop: The output property.
+
+  The response is the following format:
+  {
+    <node_dcid>: [list of resolved ids]
+  }
+
+  """
+  resp = dc.resolve(nodes, '<-{}->{}'.format(in_prop, out_prop))
+  result = {}
+  for entity in resp.get('entities'):
+    result[entity['node']] = entity['resolvedIds']
+  return result
+
+
+def resolve_coordinates(coordinates):
+  """Resolves a list of coordinates.
+
+  Args:
+      coordinates: a list of { longitude: number, latitude: number }.
+  Returns:
+      {
+        <lat#long>: [list of resolved ids]
+      }
+
+  """
+  nodes = []
+  for coord in coordinates:
+    nodes.append('{}#{}'.format(coord['latitude'], coord['longitude']))
+  resp = dc.resolve(nodes, '<-geoCoordinate->dcid')
+  result = {}
+  for entity in resp.get('entities').items():
+    result[entity['node']] = entity['resolvedIds']
+  return result

@@ -645,17 +645,13 @@ def placeid2dcid():
   https://developers.google.com/places/web-service/autocomplete.
   """
   place_ids = request.args.getlist("placeIds")
-  resp = dc.resolve_id(place_ids, "placeId", "dcid")
-  entities = resp.get('entities', [])
+  resp = fetch.resolve_id(place_ids, "placeId", "dcid")
   result = {}
-  for entity in entities:
-    inId = entity.get('inId', "")
-    outIds = entity.get('outIds', [])
-    if outIds and inId:
-      dcid = outIds[0]
-      if dcid in PLACE_OVERRIDE:
-        dcid = PLACE_OVERRIDE[dcid]
-      result[inId] = dcid
+  for place_id, dcids in resp.items():
+    dcid = dcids[0]
+    if dcid in PLACE_OVERRIDE:
+      dcid = PLACE_OVERRIDE[dcid]
+    result[place_id] = dcid
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
@@ -678,12 +674,11 @@ def coords2places():
         'latitude': latitudes[idx],
         'longitude': longitudes[idx]
     })
-  place_coordinates = dc.resolve_coordinates(coordinates).get(
-      "placeCoordinates", [])
+  place_coordinates = fetch.resolve_coordinates(coordinates)
   # Get the place types for each place dcid in the resolved place coordinates
   dcids_to_get_type = set()
-  for place_coord in place_coordinates:
-    dcids_to_get_type.update(place_coord.get('placeDcids', []))
+  for _, place_dcids in place_coordinates.items():
+    dcids_to_get_type.update(place_dcids)
   place_types = fetch.property_values(list(dcids_to_get_type), 'typeOf')
   # Get the place names for the places that are of the requested place type
   dcids_to_get_name = filter(
@@ -693,15 +688,16 @@ def coords2places():
   # Populate results. For each resolved place coordinate, if there is an
   # attached place of the requested place type, add it to the result.
   result = []
-  for place_coord in place_coordinates:
-    for place in place_coord.get("placeDcids", []):
+  for place_coord, places in place_coordinates.items():
+    lat, lng = place_coord.split('#')
+    for place in places:
       if place in place_names:
         place_name = place_names[place]
         if not place_name:
           place_name = place
         result.append({
-            'longitude': place_coord.get("longitude"),
-            'latitude': place_coord.get("latitude"),
+            'latitude': float(lat),
+            'longitude': float(lng),
             'placeDcid': place,
             'placeName': place_name
         })
