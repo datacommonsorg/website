@@ -392,17 +392,14 @@ def version():
   return get(url)
 
 
-def get_place_ranking(stat_vars,
-                      place_type,
-                      within_place=None,
-                      is_per_capita=False):
-  url = get_service_url('/node/ranking-locations')
+def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
+  url = get_service_url('/v1/place/ranking')
   return post(
       url, {
-          'stat_var_dcids': stat_vars,
-          'place_type': place_type,
-          'within_place': within_place,
-          'is_per_capita': is_per_capita,
+          'stat_var_dcids': [variable],
+          'place_type': descendent_type,
+          'within_place': ancestor,
+          'is_per_capita': per_capita,
       })
 
 
@@ -423,13 +420,13 @@ def query(query_string):
   return res_json['header'], res_json.get('rows', [])
 
 
-def get_related_place(dcid, stat_vars, within_place=None, is_per_capita=None):
-  url = get_service_url('/node/related-locations')
-  req_json = {'dcid': dcid, 'stat_var_dcids': stat_vars}
-  if within_place:
-    req_json['within_place'] = within_place
-  if is_per_capita:
-    req_json['is_per_capita'] = is_per_capita
+def related_place(dcid, variables, ancestor=None, per_capita=False):
+  url = get_service_url('/v1/place/related')
+  req_json = {'dcid': dcid, 'stat_var_dcids': sorted(variables)}
+  if ancestor:
+    req_json['within_place'] = ancestor
+  if per_capita:
+    req_json['is_per_capita'] = per_capita
   return post(url, req_json)
 
 

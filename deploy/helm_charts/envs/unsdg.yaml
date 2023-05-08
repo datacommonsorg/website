@@ -12,27 +12,44 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Deployment patches that
-# - Set replica
-# - Mount redis config as volume
+# Helm config
+project: "datcom-recon-autopush"
+cluster_prefix: "datacommons"
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: website-app
-spec:
-  replicas: 6
-  selector:
-    matchLabels:
-      app: website-app
-  template:
-    spec:
-      volumes:
-        - name: redis-config
-          configMap:
-            name: redis-config
-      containers:
-        - name: website
-          volumeMounts:
-            - name: redis-config
-              mountPath: /datacommons/redis
+namespace:
+  name: "website"
+
+website:
+  image:
+    project: "datcom-ci"
+    tag:
+  githash:
+  flaskEnv: unsdg
+  replicas: 2
+
+mixer:
+  hostProject:
+  serviceName:
+
+serviceAccount:
+  name: website-ksa
+
+ingress:
+  enabled: true
+
+nl:
+  enabled: true
+
+serviceGroups:
+  recon: null
+  observation:
+    replicas: 3
+  node:
+    replicas: 3
+  svg:
+    replicas: 2
+  default:
+    replicas: 3
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized"]
