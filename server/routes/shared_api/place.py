@@ -422,18 +422,6 @@ def api_mapinfo(dcid):
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_related_place(dcid,
-                      stat_vars_string,
-                      within_place=None,
-                      is_per_capita=None):
-  stat_vars = stat_vars_string.split('^')
-  return dc.get_related_place(dcid,
-                              stat_vars,
-                              within_place=within_place,
-                              is_per_capita=is_per_capita)
-
-
 def get_ranking_url(containing_dcid,
                     place_type,
                     stat_var,
@@ -496,10 +484,9 @@ def api_ranking(dcid):
           gettext('Highest Crime Per Capita')
   }
   for parent_dcid in selected_parents:
-    stat_vars_string = '^'.join(ranking_stats.keys())
-    response = get_related_place(dcid,
-                                 stat_vars_string,
-                                 within_place=parent_dcid)
+    response = dc.related_place(dcid,
+                                ranking_stats.keys(),
+                                ancestor=parent_dcid)
     for stat_var, data in response.get('data', {}).items():
       result[ranking_stats[stat_var]].append({
           'name':
@@ -509,10 +496,10 @@ def api_ranking(dcid):
           'rankingUrl':
               get_ranking_url(parent_dcid, current_place_type, stat_var, dcid)
       })
-    response = get_related_place(dcid,
-                                 '^'.join(crime_statsvar.keys()),
-                                 within_place=parent_dcid,
-                                 is_per_capita=True)
+    response = dc.related_place(dcid,
+                                crime_statsvar.keys(),
+                                ancestor=parent_dcid,
+                                per_capita=True)
     for stat_var, data in response.get('data', {}).items():
       result[crime_statsvar[stat_var]].append({
           'name':

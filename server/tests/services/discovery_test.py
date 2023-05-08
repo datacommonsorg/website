@@ -35,8 +35,8 @@ class TestServiceDiscovery(unittest.TestCase):
         'server/tests/test_data/ingress/test1.yaml')
 
     assert get_service_url('/query') == 'http://query-host:8080/query'
-    assert get_service_url('/node/related-locations'
-                          ) == 'http://default-host:8080/node/related-locations'
+    assert get_service_url(
+        '/v1/place/related') == 'http://default-host:8080/v1/place/related'
 
   def test_configure_endpoints_from_ingress_2(self):
     """Tests ingress configuration."""
@@ -49,6 +49,6 @@ class TestServiceDiscovery(unittest.TestCase):
     assert get_service_url(
         '/v1/variables') == 'http://stat-var-svc/v1/variables'
 
-    assert get_service_url('/v2/node') == 'http://default/v2/node'
+    assert get_service_url('/v2/node') == 'http://v0-node-service:8888/v2/node'
 
     assert get_service_url('/query') == 'http://bq-service/query'
