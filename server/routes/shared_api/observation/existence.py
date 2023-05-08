@@ -16,22 +16,23 @@ import json
 
 from flask import Blueprint
 from flask import request
+from flask import Response
 
-import server.services.datacommons as dc
+from server.lib import fetch
 
 # Define blueprint
 bp = Blueprint("observation_existence", __name__)
 
 
-@bp.route('/api/observation-existence')
+@bp.route('/api/observation/existence', methods=['POST'])
 def observation_existence():
-  """Given a list of stat vars and entities, check whether observation exist for
-  all the (variable,entity) pairs.
+  """Check if statistical variables that exist for some places.
+
+  Returns:
+      Map from variable to place to a boolean of whether there is observation.
   """
-  entities = request.args.getlist('entities')
-  if not entities:
-    return 'error: must provide entities field', 400
-  variables = request.args.getlist('variables')
-  if not variables:
-    return 'error: must provide variables field', 400
-  return json.dumps(dc.observation_existence(variables, entities))
+  variables = request.json.get('variables', [])
+  entities = request.json.get('entities', [])
+  return Response(json.dumps(fetch.observation_existene(variables, entities)),
+                  200,
+                  mimetype='application/json')

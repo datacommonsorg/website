@@ -231,6 +231,33 @@ def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
   return _compact_series(resp, all_facets)
 
 
+def observation_existence(variables, entities):
+  """Check if observation exist for variable, entity paris.
+
+  Returns:
+      {
+        <variable_did>: {
+          <entity_dcid>: boolean
+        }
+      }
+
+  """
+  result = {}
+  # Populate result
+  for var in variables:
+    result[var] = {}
+    for e in entities:
+      result[var][e] = False
+  # Fetch existence check data
+  resp = dc.v2observation(['variable', 'entity'], {'dcids': entities}, {
+      'dcids': variables,
+  })
+  for var, entity_obs in resp.get('byVariable', {}).items():
+    for e in entity_obs.get('byEntity', {}):
+      result[var][e] = True
+  return result
+
+
 def properties(nodes, out=True):
   """Returns the properties for a list of nodes.
 
