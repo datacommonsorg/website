@@ -26,11 +26,9 @@ metadata {
 
 categories {
   title: "The Need"
-  description: "(Description will go here)"
 
   blocks {
     title: "Population below the poverty level"
-    description: "(description here)"
     columns {
       tiles {
         type: HIGHLIGHT
@@ -58,7 +56,6 @@ categories {
 
   blocks {
     title: "Low Access to Grocery Stores"
-    description: "(description here)"
     columns {
       tiles {
         type: MAP
@@ -99,11 +96,9 @@ categories {
 
 categories {
   title: "Food Assistance"
-  description: "(Description will go here)"
 
   blocks {
     title: "Supplemental Nutrition Assistance Program (SNAP) recipients"
-    description: "(description here)"
     columns {
       tiles {
         type: HIGHLIGHT
@@ -132,7 +127,6 @@ categories {
 
   blocks {
     title: "Community Food Services"
-    description: "(description here)"
 
     columns {
       tiles {
@@ -183,7 +177,6 @@ categories {
 
 categories {
   title: "Health Conditions"
-  description: "(Description of health conditions will go here)"
 
   blocks {
     title: "Summary"
@@ -213,7 +206,6 @@ categories {
   }
   blocks {
     title: "By County"
-    description: "(Prevalence of diabetes description will go here)"
     columns {
       tiles {
         type: MAP
