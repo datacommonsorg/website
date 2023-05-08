@@ -12,16 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-
 from server.app_env import _base
+from server.app_env import local
 
 
 class Config(_base.Config):
-  LOCAL = True
-  API_ROOT = 'https://autopush.api.datacommons.org'
-  SECRET_PROJECT = 'datcom-website-dev'
-  SCHEME = 'http'
-  GCS_BUCKET = 'datcom-website-autopush-resources'
-  LOG_QUERY = True
+  CUSTOM = True
   SHOW_TOPIC = True
+  NAME = "Data Commons"
+  LOGO_PATH = "/custom_dc/unsdg/logo.png"
+  OVERRIDE_CSS_PATH = '/custom_dc/unsdg/overrides.css'
+
+
+class LocalConfig(Config, local.Config):
+  pass
