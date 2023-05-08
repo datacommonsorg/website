@@ -186,7 +186,7 @@ def _infer_place_dcids(places_str_found: List[str],
       )
       place_ids_map = fetch.resolve_id([place_id], 'placeId', 'dcid')
 
-      if place_id in place_ids_map:
+      if place_id in place_ids_map and place_ids_map[place_id]:
         place_dcid = place_ids_map[place_id][0]
         logging.info(f"DC API found DCID: {place_dcid}")
         place_dcids[p_str] = place_dcid

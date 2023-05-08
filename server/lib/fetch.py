@@ -340,7 +340,7 @@ def resolve_id(nodes, in_prop, out_prop):
   """Resolves ids given nodes input and output property.
 
   Args:
-      in_ids: A list of input ids.
+      nodes: A list of input ids.
       in_prop: The input property.
       out_prop: The output property.
 
