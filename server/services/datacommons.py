@@ -290,32 +290,15 @@ def bio(entity):
   return get(url + "/" + entity)
 
 
-def resolve_id(in_ids, in_prop, out_prop):
-  """Resolves ids given nodes input and output property.
+def resolve(nodes, prop):
+  """Resolves nodes based on the given property.
 
   Args:
-      in_ids: A list of input ids.
-      in_prop: The input property.
-      out_prop: The output property.
+      nodes: A list of node dcids.
+      prop: Property expression indicating the property to resolve.
   """
-  url = get_service_url('/v1/recon/resolve/id')
-  return post(url, {
-      'ids': in_ids,
-      'in_prop': in_prop,
-      'out_prop': out_prop,
-  })
-
-
-def resolve_coordinates(coordinates):
-  """Resolves a list of coordinates.
-
-  Args:
-      coordinates: a list of { longitude: number, latitude: number }.
-  """
-  url = get_service_url('/v1/recon/resolve/coordinate')
-  return post(url, {
-      'coordinates': coordinates,
-  })
+  url = get_service_url('/v2/resolve')
+  return post(url, {'nodes': nodes, 'property': prop})
 
 
 def get_event_collection(event_type,

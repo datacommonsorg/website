@@ -21,7 +21,7 @@ from web_app import app
 
 class TestCoords2Places(unittest.TestCase):
 
-  @patch('server.routes.shared_api.place.dc.resolve_coordinates')
+  @patch('server.routes.shared_api.place.fetch.resolve_coordinates')
   @patch('server.routes.shared_api.place.names')
   @patch('server.routes.shared_api.place.fetch.property_values')
   def test_get_places_for_coords(self, mock_property_values, mock_place_names,
@@ -41,19 +41,9 @@ class TestCoords2Places(unittest.TestCase):
     def resolve_coordinates_side_effect(coordinates):
       if coordinates == test_coordinates:
         return {
-            'placeCoordinates': [{
-                'latitude': 1,
-                'longitude': -5,
-                'placeDcids': ['place2', 'place1']
-            }, {
-                'latitude': 2,
-                'longitude': 55,
-                'placeDcids': ['place3']
-            }, {
-                'latitude': 3.4,
-                'longitude': 48,
-                'placeDcids': ['place1', 'place3']
-            }]
+            '1#-5': ['place2', 'place1'],
+            '2#55': ['place3'],
+            '3.4#48': ['place1', 'place3']
         }
       else:
         return None
