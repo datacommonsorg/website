@@ -367,7 +367,8 @@ def parent_places(dcids):
     dcid = item['node']
     parents = item['info'].get('parents', [])
     parents = [
-        x for x in parents if not x['type'].startswith('AdministrativeArea')
+        x for x in parents
+        if ('type' in x and not x['type'].startswith('AdministrativeArea'))
     ]
     result[dcid] = parents
   return result
