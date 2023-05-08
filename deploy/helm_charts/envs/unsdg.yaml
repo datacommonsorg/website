@@ -14,7 +14,7 @@
 
 # Helm config
 project: "datcom-recon-autopush"
-cluster_prefix: "website"
+cluster_prefix: "datacommons"
 
 namespace:
   name: "website"
@@ -33,6 +33,9 @@ mixer:
 
 serviceAccount:
   name: website-ksa
+
+ingress:
+  enabled: true
 
 nl:
   enabled: true
