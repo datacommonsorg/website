@@ -1,9 +1,0 @@
-us-central1:
-  protocol: rest
-  endpoint_id: "487435494825656320"
-  deployed_model_id: "9069937388221890560"
-
-us-west1:
-  protocol: rest
-  endpoint_id: "8297899905616183296"
-  deployed_model_id: "7540028530822742016"
