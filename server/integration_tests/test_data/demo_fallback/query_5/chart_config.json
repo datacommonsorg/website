@@ -112,9 +112,84 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
+                    ],
+                    "title": "GDP of the Utilities Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_pc"
+                    ],
+                    "title": "Per Capita GDP of the Utilities Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
+                    ],
+                    "title": "GDP of the Agriculture, Forestry, Fishing and Hunting Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_pc"
+                    ],
+                    "title": "Per Capita GDP of the Agriculture, Forestry, Fishing and Hunting Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
+                    ],
+                    "title": "GDP of the Wholesale Trade Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_pc"
+                    ],
+                    "title": "Per Capita GDP of the Wholesale Trade Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue": {
+            "name": "GDP of the Agriculture, Forestry, Fishing and Hunting Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_pc": {
+            "denom": "Count_Person",
+            "name": "GDP of the Agriculture, Forestry, Fishing and Hunting Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
+          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue": {
             "name": "GDP of the Arts, Entertainment, and Recreation Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue"
@@ -159,6 +234,24 @@
             "denom": "Count_Person",
             "name": "GDP of the Professional, Scientific, and Technical Services Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue": {
+            "name": "GDP of the Utilities Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_pc": {
+            "denom": "Count_Person",
+            "name": "GDP of the Utilities Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue": {
+            "name": "GDP of the Wholesale Trade Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_pc": {
+            "denom": "Count_Person",
+            "name": "GDP of the Wholesale Trade Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
           }
         }
       }

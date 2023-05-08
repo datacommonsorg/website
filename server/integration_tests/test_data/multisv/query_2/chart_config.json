@@ -212,9 +212,237 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Population Above Poverty Level Status in Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Population Above Poverty Level Status in Past Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Female Population Above Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Female Population Above Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Female Population Below Poverty Level in the Past Year and Some Other Race Alone (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Female Population Below Poverty Level in the Past Year and Some Other Race Alone (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Male Population Above Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Male Population Above Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Female Population Below Poverty Level in the Last Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Female Population Below Poverty Level in the Last Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined_multiple_place_bar_block"
+                    ],
+                    "title": "Male Population With Determined Poverty Status in the Last Year Who Were Married in the Last Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Male Population With Determined Poverty Status in the Last Year Who Were Married in the Last Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Family Households Below the Poverty Level in the Past Year",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Family Households Below the Poverty Level in the Past Year",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Population Above Poverty Level Status in Past Year",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
+          },
+          "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Above Poverty Level Status in Past Year",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
+          },
           "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
             "name": "Population Below Poverty Level Status in Past Year and Black or African American Alone",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
@@ -251,6 +479,33 @@
             "name": "Population Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
+          "Count_Person_Female_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Female Population Above Poverty Level in the Past Year",
+            "statVar": "Count_Person_Female_AbovePovertyLevelInThePast12Months"
+          },
+          "Count_Person_Female_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Female Population Above Poverty Level in the Past Year",
+            "statVar": "Count_Person_Female_AbovePovertyLevelInThePast12Months"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Female Population Below Poverty Level in the Past Year and Some Other Race Alone",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Female Population Below Poverty Level in the Past Year and Some Other Race Alone",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Female Population Below Poverty Level in the Last Year",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Female Population Below Poverty Level in the Last Year",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          },
           "Count_Person_Male_AbovePovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
             "name": "White Male Population Above Poverty Level Status Over the Last Year",
             "statVar": "Count_Person_Male_AbovePovertyLevelInThePast12Months_WhiteAlone"
@@ -259,6 +514,15 @@
             "denom": "Count_Person",
             "name": "White Male Population Above Poverty Level Status Over the Last Year",
             "statVar": "Count_Person_Male_AbovePovertyLevelInThePast12Months_WhiteAlone"
+          },
+          "Count_Person_Male_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Male Population Above Poverty Level in the Past Year",
+            "statVar": "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+          },
+          "Count_Person_Male_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Male Population Above Poverty Level in the Past Year",
+            "statVar": "Count_Person_Male_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
             "name": "Male Population Below Poverty Level Status Over the Last Year and White Alone",
@@ -277,6 +541,15 @@
             "denom": "Count_Person",
             "name": "Male Population Below Poverty Status in the Last Year",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined_multiple_place_bar_block": {
+            "name": "Male Population With Determined Poverty Status in the Last Year Who Were Married in the Last Year",
+            "statVar": "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
+          },
+          "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Male Population With Determined Poverty Status in the Last Year Who Were Married in the Last Year",
+            "statVar": "Count_Person_Male_MarriedInThePast12Months_PovertyStatusDetermined"
           }
         }
       }

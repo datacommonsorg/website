@@ -212,9 +212,78 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block"
+                    ],
+                    "title": "Forcible Rapes (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Forcible Rapes (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_Burglary_multiple_place_bar_block"
+                    ],
+                    "title": "Burglaries (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Burglaries (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
+          "Count_CriminalActivities_Burglary_multiple_place_bar_block": {
+            "name": "Burglaries",
+            "statVar": "Count_CriminalActivities_Burglary"
+          },
+          "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Burglaries",
+            "statVar": "Count_CriminalActivities_Burglary"
+          },
           "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block": {
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
@@ -223,6 +292,15 @@
             "denom": "Count_Person",
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
+          },
+          "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
+          },
+          "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block": {
             "name": "Larceny Theft Cases",

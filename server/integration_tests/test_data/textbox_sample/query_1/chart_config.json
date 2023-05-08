@@ -140,9 +140,216 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar"
+                    ],
+                    "title": "Households Without Health Insurance and Income $100,000 or More in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar_pc"
+                    ],
+                    "title": "Per Capita Households Without Health Insurance and Income $100,000 or More in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_NoHealthInsurance_IncomeOf25000OrLessUSDollar",
+                      "Count_Household_NoHealthInsurance_IncomeOf25000To49999USDollar",
+                      "Count_Household_NoHealthInsurance_IncomeOf75000To99999USDollar",
+                      "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar"
+                    ],
+                    "title": "Compared with Other Variables in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_NoHealthInsurance_IncomeOf25000OrLessUSDollar_pc",
+                      "Count_Household_NoHealthInsurance_IncomeOf25000To49999USDollar_pc",
+                      "Count_Household_NoHealthInsurance_IncomeOf75000To99999USDollar_pc",
+                      "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar_pc"
+                    ],
+                    "title": "Per Capita Compared with Other Variables in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+                    ],
+                    "title": "Family Households Receiving Social Security Income in the Last Year in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc"
+                    ],
+                    "title": "Per Capita Family Households Receiving Social Security Income in the Last Year in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold",
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold",
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold"
+                    ],
+                    "title": "Compared with Other Variables in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc",
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_pc",
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_pc"
+                    ],
+                    "title": "Per Capita Compared with Other Variables in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Person_Male"
+                    ],
+                    "title": "Average Earnings for Male Population in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Person_Male_pc"
+                    ],
+                    "title": "Per Capita Average Earnings for Male Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
+          "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar": {
+            "name": "Households Without Health Insurance and Income $100,000 or More",
+            "statVar": "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar"
+          },
+          "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Households Without Health Insurance and Income $100,000 or More",
+            "statVar": "Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar"
+          },
+          "Count_Household_NoHealthInsurance_IncomeOf25000OrLessUSDollar": {
+            "name": "Households Without Health Insurance With Income 25,000 USD or Less",
+            "statVar": "Count_Household_NoHealthInsurance_IncomeOf25000OrLessUSDollar"
+          },
+          "Count_Household_NoHealthInsurance_IncomeOf25000OrLessUSDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Households Without Health Insurance With Income 25,000 USD or Less",
+            "statVar": "Count_Household_NoHealthInsurance_IncomeOf25000OrLessUSDollar"
+          },
+          "Count_Household_NoHealthInsurance_IncomeOf25000To49999USDollar": {
+            "name": "Households Without Health Insurance With Income 25,000-49,999 USD",
+            "statVar": "Count_Household_NoHealthInsurance_IncomeOf25000To49999USDollar"
+          },
+          "Count_Household_NoHealthInsurance_IncomeOf25000To49999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Households Without Health Insurance With Income 25,000-49,999 USD",
+            "statVar": "Count_Household_NoHealthInsurance_IncomeOf25000To49999USDollar"
+          },
+          "Count_Household_NoHealthInsurance_IncomeOf75000To99999USDollar": {
+            "name": "Households Without Health Insurance With Income 75,000-99,999 USD",
+            "statVar": "Count_Household_NoHealthInsurance_IncomeOf75000To99999USDollar"
+          },
+          "Count_Household_NoHealthInsurance_IncomeOf75000To99999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Households Without Health Insurance With Income 75,000-99,999 USD",
+            "statVar": "Count_Household_NoHealthInsurance_IncomeOf75000To99999USDollar"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold": {
+            "name": "Family Households Receiving Social Security Income in the Last Year",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Family Households Receiving Social Security Income in the Last Year",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold": {
+            "name": "Family Households Receiving Social Security Income With Married Couples",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Family Households Receiving Social Security Income With Married Couples",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold": {
+            "name": "Single Mother Family Households Receiving Social Security Income",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Single Mother Family Households Receiving Social Security Income",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold"
+          },
+          "Mean_Earnings_Person_Male": {
+            "name": "Average Earnings for Male Population",
+            "statVar": "Mean_Earnings_Person_Male"
+          },
+          "Mean_Earnings_Person_Male_pc": {
+            "denom": "Count_Person",
+            "name": "Average Earnings for Male Population",
+            "statVar": "Mean_Earnings_Person_Male"
+          },
           "Mean_Income_Household": {
             "name": "Average Income for Households",
             "statVar": "Mean_Income_Household"
