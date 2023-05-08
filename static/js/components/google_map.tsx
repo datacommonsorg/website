@@ -285,8 +285,8 @@ export class GoogleMap extends React.Component<
         if (
           !_.isEmpty(latitudes) &&
           !_.isEmpty(longitudes) &&
-          !_.isEmpty(latitudes[0].value) &&
-          !_.isEmpty(longitudes[0].value)
+          !_.isNumber(latitudes[0].value) &&
+          !_.isNumber(longitudes[0].value)
         ) {
           // TODO (juliawu): Update logic to use highest precision lat/long if
           //                multiple values are provided
