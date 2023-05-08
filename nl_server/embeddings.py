@@ -37,6 +37,9 @@ _SV_SCORE_THRESHOLD = 0.5
 
 _NUM_CANDIDATES_PER_NSPLIT = 3
 
+# Number of matches to find within the SV index.
+_NUM_SV_INDEX_MATCHES = 40
+
 
 class Embeddings:
   """Manages the embeddings."""
@@ -86,7 +89,9 @@ class Embeddings:
   def _search_embeddings(self,
                          queries: List[str]) -> Dict[str, vars.VarCandidates]:
     query_embeddings = self.model.encode(queries)
-    hits = semantic_search(query_embeddings, self.dataset_embeddings, top_k=20)
+    hits = semantic_search(query_embeddings,
+                           self.dataset_embeddings,
+                           top_k=_NUM_SV_INDEX_MATCHES)
 
     # A map from input query -> SV DCID -> matched sentence -> score for that match
     query2sv2sentence2score: Dict[str, Dict[str, Dict[str, float]]] = {}
