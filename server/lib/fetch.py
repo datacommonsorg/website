@@ -258,6 +258,21 @@ def observation_existence(variables, entities):
   return result
 
 
+def entity_variables(entities):
+  """Gets the statistical variables that have observations for given entities.
+
+  Args:
+      entities: List of entity dcids.
+  """
+  resp = dc.v2observation(['variable', 'entity'], {
+      'dcids': entities,
+  }, {})
+  result = {}
+  for var, entity_obs in resp['byVariable'].items():
+    result[var] = entity_obs.get('byEntity', {})
+  return result
+
+
 def properties(nodes, out=True):
   """Returns the properties for a list of nodes.
 

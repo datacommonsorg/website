@@ -39,8 +39,8 @@ window.onload = () => {
     .get<PropertyValues>(`/api/node/propvals/out?prop=typeOf&dcids=${dcid}`)
     .then((resp) => resp.data);
   const numStatVarsPromise = axios
-    .get(`/api/browser/num_stat_vars/${dcid}`)
-    .then((resp) => resp.data)
+    .get(`/api/place/variable/count?dcids=${dcid}`)
+    .then((resp) => resp.data[dcid])
     .catch(() => {
       return 0;
     });

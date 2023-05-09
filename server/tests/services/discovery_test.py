@@ -46,9 +46,6 @@ class TestServiceDiscovery(unittest.TestCase):
     assert get_service_url(
         '/v2/observation') == 'http://observations-api:5000/v2/observation'
 
-    assert get_service_url(
-        '/v1/variables') == 'http://stat-var-svc/v1/variables'
-
     assert get_service_url('/v2/node') == 'http://v0-node-service:8888/v2/node'
 
     assert get_service_url('/query') == 'http://bq-service/query'

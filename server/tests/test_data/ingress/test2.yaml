@@ -5,8 +5,6 @@ bq-service:
 v0-node-service:8888:
   - /v2/node
 stat-var-svc:
-  - /v1/variables/*
-  - /v1/variables
   - /v1/bulk/*
 default:
   - /*

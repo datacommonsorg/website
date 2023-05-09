@@ -172,21 +172,6 @@ def obs_series_within(parent_entity, child_type, variables):
       })
 
 
-def entity_variables(entities):
-  """Gets the statistical variables that have obserations for given entities.
-
-  Args:
-      entities: List of entity dcids.
-  """
-  url = get_service_url('/v2/observation')
-  return post(url, {
-      'select': ['variable', 'entity'],
-      'entity': {
-          'dcids': entities,
-      },
-  })
-
-
 def v2observation(select, entity, variable):
   """
   Args:
@@ -195,6 +180,10 @@ def v2observation(select, entity, variable):
     variable: A dict in the form of {'dcids':, 'expression':}
 
   """
+  if 'dcids' in entity:
+    entity['dcids'].sort()
+  if 'dcids' in variable:
+    variable['dcids'].sort()
   url = get_service_url('/v2/observation')
   return post(url, {
       'select': select,
@@ -243,13 +232,6 @@ def variable_info(nodes: List[str]) -> Dict:
   url = get_service_url('/v1/bulk/info/variable')
   req_dict = {"nodes": nodes}
   return post(url, req_dict)
-
-
-def get_variables(dcid: str):
-  """Get all the statistical variable dcids for a place."""
-  url = get_service_url('/v1/variables')
-  url = f'{url}/{dcid}'
-  return get(url).get('variables', [])
 
 
 def get_variable_ancestors(dcid: str):
@@ -418,7 +400,7 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 
 def search_statvar(query, places, sv_only):
-  url = get_service_url('/stat-var/search')
+  url = get_service_url('/v1/variable/search')
   return post(url, {
       'query': query,
       'places': places,
