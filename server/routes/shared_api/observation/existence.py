@@ -33,6 +33,6 @@ def observation_existence():
   """
   variables = request.json.get('variables', [])
   entities = request.json.get('entities', [])
-  return Response(json.dumps(fetch.observation_existene(variables, entities)),
+  return Response(json.dumps(fetch.observation_existence(variables, entities)),
                   200,
                   mimetype='application/json')

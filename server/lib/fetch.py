@@ -232,7 +232,7 @@ def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
 
 
 def observation_existence(variables, entities):
-  """Check if observation exist for variable, entity paris.
+  """Check if observation exist for variable, entity pairs.
 
   Returns:
       {

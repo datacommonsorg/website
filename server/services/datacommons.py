@@ -191,8 +191,8 @@ def v2observation(select, entity, variable):
   """
   Args:
     select: A list of select props.
-    entity: A dict in the form of {'dcis':, 'expression':}
-    variable: A dict in the form of {'dcis':, 'expression':}
+    entity: A dict in the form of {'dcids':, 'expression':}
+    variable: A dict in the form of {'dcids':, 'expression':}
 
   """
   url = get_service_url('/v2/observation')
