@@ -400,6 +400,6 @@ def resolve_coordinates(coordinates):
     nodes.append('{}#{}'.format(coord['latitude'], coord['longitude']))
   resp = dc.resolve(nodes, '<-geoCoordinate->dcid')
   result = {}
-  for entity in resp.get('entities').items():
-    result[entity['node']] = entity['resolvedIds']
+  for entity in resp.get('entities', []):
+    result[entity['node']] = entity.get('resolvedIds', [])
   return result
