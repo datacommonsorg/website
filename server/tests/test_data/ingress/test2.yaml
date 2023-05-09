@@ -1,7 +1,7 @@
 observations-api:5000:
   - /v2/observation
 bq-service:
-  - /query
+  - /v1/query
 v0-node-service:8888:
   - /v2/node
 stat-var-svc:

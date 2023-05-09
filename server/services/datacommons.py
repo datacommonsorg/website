@@ -376,7 +376,7 @@ def query(query_string):
   # Get the API Key and perform the POST request.
   logging.info("[ Mixer Request ]: \n" + query_string)
   headers = {'Content-Type': 'application/json'}
-  url = get_service_url('/query')
+  url = get_service_url('/v1/query')
   response = requests.post(url,
                            json={'sparql': query_string},
                            headers=headers,

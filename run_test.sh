@@ -110,7 +110,13 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
+  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   setup_python
+  if [ ! -d server/dist  ]
+  then
+    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    exit 1
+  fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   python3 -m pytest -n 10 --reruns 2 server/webdriver_tests/tests/
@@ -174,7 +180,6 @@ while getopts tpwigotblcsaf OPTION; do
         ;;
     w)
         echo -e "### Running webdriver tests"
-        run_npm_build
         run_webdriver_test
         ;;
     i)
