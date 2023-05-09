@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import urllib
 import urllib.request
 
 from selenium.webdriver.common.by import By
@@ -28,7 +27,7 @@ class TestCharts(WebdriverBaseTest):
   def test_server_and_page(self):
     """Test the server can run successfully."""
 
-    # Load Timeline Tool page.
+    # Load disaster page for Brazil.
     self.driver.get(self.url_ + "/disasters/country/BRA")
 
     # Assert 200 HTTP code: successful page load.
