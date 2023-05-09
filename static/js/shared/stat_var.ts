@@ -17,8 +17,6 @@
 import axios from "axios";
 import _ from "lodash";
 
-import { stringifyFn } from "../utils/axios";
-
 interface StatVarInfo {
   // measurementDenominator
   md?: string;
@@ -65,11 +63,8 @@ async function getStatVar(
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
-  const resp = await axios.get("/api/place/variable", {
-    params: {
-      dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
-    },
-    paramsSerializer: stringifyFn,
+  const resp = await axios.post("/api/place/variable", {
+    dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
   });
   return new Set<string>(resp.data);
 }

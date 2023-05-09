@@ -233,18 +233,20 @@ def get_named_typed_place():
   return Response(json.dumps(ret), 200, mimetype='application/json')
 
 
-@bp.route('/variable')
+@bp.route('/variable', methods=['GET', 'POST'])
 def get_place_variable():
   """Get all the statistical variables that exist for some places.
 
   Returns:
       List of unique statistical variable dcids each as a string.
   """
+  dcids = request.args.getlist('dcids')
+  if not dcids:
+    dcids = request.json['dcids']
+  resp = fetch.entity_variables(dcids)
   result = []
-  entities = request.args.getlist('dcids')
-  resp = fetch.entity_variables(entities)
   for var, entity_obs in resp.items():
-    if len(entity_obs) == len(entities):
+    if len(entity_obs) == len(dcids):
       result.append(var)
   return Response(json.dumps(result), 200, mimetype='application/json')
 
