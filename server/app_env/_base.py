@@ -37,6 +37,8 @@ class Config:
   LOG_QUERY = False
   # Whether to show topic page
   SHOW_TOPIC = False
+  # Whether to show disaster page
+  SHOW_DISASTER = False
 
   # Environment name of the config.
   ENV = ''

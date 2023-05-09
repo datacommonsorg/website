@@ -244,8 +244,7 @@ def create_app():
     register_routes_custom_dc(app)
 
   register_routes_base_dc(app)
-  if (cfg.ENV == 'stanford' or os.environ.get('ENABLE_MODEL') == 'true' or
-      cfg.TEST or cfg.INTEGRATION or cfg.LOCAL and not cfg.LITE):
+  if cfg.SHOW_DISASTER or os.environ.get('ENABLE_MODEL') == 'true':
     # disaster dashboard tests require stanford's routes to be registered.
     register_routes_disasters(app)
 
