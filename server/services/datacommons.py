@@ -187,24 +187,20 @@ def entity_variables(entities):
   })
 
 
-def entity_variables_existence(variables, entities):
-  """Check if statistical variables have observations for given entities.
-
+def v2observation(select, entity, variable):
+  """
   Args:
-      variables: List of variable dcids.
-      entities: List of entity dcids.
+    select: A list of select props.
+    entity: A dict in the form of {'dcids':, 'expression':}
+    variable: A dict in the form of {'dcids':, 'expression':}
+
   """
   url = get_service_url('/v2/observation')
-  return post(
-      url, {
-          'select': ['variable', 'entity'],
-          'entity': {
-              'dcids': entities,
-          },
-          'variable': {
-              'dcids': variables,
-          },
-      })
+  return post(url, {
+      'select': select,
+      'entity': entity,
+      'variable': variable,
+  })
 
 
 def v2node(nodes, prop):
@@ -273,15 +269,6 @@ def get_series_dates(parent_entity, child_type, variables):
           'entity_type': child_type,
           'variables': variables,
       })
-
-
-def observation_existence(variables, entities):
-  """Check if observation exist for <entity, variable> pairs"""
-  url = get_service_url('/v1/bulk/observation-existence')
-  return post(url, {
-      'entities': entities,
-      'variables': variables,
-  })
 
 
 def bio(entity):

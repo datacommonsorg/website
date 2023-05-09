@@ -104,7 +104,7 @@ def sv_existence_for_places(places: List[str], svs: List[str],
     return []
 
   start = time.time()
-  sv_existence = dc.observation_existence(svs, places)
+  sv_existence = fetch.observation_existence(svs, places)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
     logging.error("Existence checks for SVs failed.")
@@ -113,7 +113,7 @@ def sv_existence_for_places(places: List[str], svs: List[str],
   existing_svs = []
   for sv in svs:
     exists = False
-    for _, exist_bit in sv_existence['variable'][sv]['entity'].items():
+    for _, exist_bit in sv_existence.get(sv, {}).items():
       if not exist_bit:
         continue
       exists = True
