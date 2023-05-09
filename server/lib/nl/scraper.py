@@ -218,19 +218,19 @@ def _to_svg(svg):
 
 
 def _wait_for_svgs_drawn(driver):
-  '''Wait (max _MAX_SVG_WAIT_TRIES * 0.5 seconds) for all svgs on a subject page
-  to finish drawing'''
+  """Wait (max _MAX_SVG_WAIT_TRIES * 0.5 seconds) for all svgs on a subject page
+  to finish drawing"""
   svgs_loaded = False
   num_tries = 0
   while not svgs_loaded and num_tries < _MAX_SVG_WAIT_TRIES:
-    subject_page = driver.find_element(By.ID, "subject-page-main-pane")
+    subject_page = driver.find_element(By.ID, 'subject-page-main-pane')
     has_incomplete_svg = False
-    for block in subject_page.find_elements(By.CLASS_NAME, "block"):
+    for block in subject_page.find_elements(By.CLASS_NAME, 'block'):
       # Check each chart in the block for any incomplete svgs
       for chart_container in block.find_elements(By.CLASS_NAME,
-                                                 "chart-container"):
+                                                 'chart-container'):
         svg_tag_to_check = ""
-        for chart_type_class in chart_container.get_attribute("class").split():
+        for chart_type_class in chart_container.get_attribute('class').split():
           if chart_type_class in _CHART_TYPE_TO_DRAWN_SVG_TAG:
             svg_tag_to_check = _CHART_TYPE_TO_DRAWN_SVG_TAG[chart_type_class]
             break
