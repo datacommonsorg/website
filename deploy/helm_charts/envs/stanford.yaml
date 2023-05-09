@@ -25,7 +25,7 @@ website:
     tag:
   githash:
   flaskEnv: stanford
-  replicas: 6
+  replicas: 4
   redis:
     enabled: true
     configFile: |
@@ -53,7 +53,7 @@ serviceGroups:
   node:
     replicas: 6
   svg:
-    replicas: 3
+    replicas: 2
   default:
     replicas: 3
 
