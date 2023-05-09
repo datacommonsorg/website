@@ -50,20 +50,21 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Store a list of all the charts.
-    articles = self.driver.find_elements(By.TAG_NAME, 'article')
-    # Assert there are 5+ charts.
-    self.assertGreater(len(articles), 5)
+    event_maps = self.driver.find_elements(By.CLASS_NAME,
+                                           'disaster-event-map-tile')
+    # Assert there are 5+ maps.
+    self.assertGreater(len(event_maps), 5)
 
     # Wait until the svg loads in the first article.
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        lambda d: articles[0].find_element(By.TAG_NAME, 'svg'))
+        lambda d: event_maps[0].find_element(By.TAG_NAME, 'svg'))
 
     # Assert first article has svg with map geo region.
-    map_geo_region = articles[0].find_element(By.ID, 'map-geo-regions')
+    map_geo_region = event_maps[0].find_element(By.ID, 'map-geo-regions')
     path = map_geo_region.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(path), 1)
 
     # Assert first article has svg with points.
-    map_points_layers = articles[0].find_elements(By.CLASS_NAME,
-                                                  'map-points-layer')
+    map_points_layers = event_maps[0].find_elements(By.CLASS_NAME,
+                                                    'map-points-layer')
     self.assertGreater(len(map_points_layers), 2)

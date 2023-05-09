@@ -18,4 +18,3 @@ from server.app_env import local
 class LocalConfig(local.Config):
   SECRET_PROJECT = ''
   LITE = True
-  SHOW_DISASTER = True
