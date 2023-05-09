@@ -249,29 +249,6 @@ def get_stat_vars_union():
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@bp.route('/stat-vars/existence', methods=['POST'])
-def get_stat_vars_existence():
-  """Check if statistical variables that exist for some places.
-
-  Returns:
-      Map from variable to place to a boolean of whether there is observation.
-  """
-  result = {}
-  variables = request.json.get('variables', [])
-  entities = request.json.get('entities', [])
-  # Populate result
-  for var in variables:
-    result[var] = {}
-    for e in entities:
-      result[var][e] = False
-  # Fetch existence check data
-  resp = dc.entity_variables_existence(variables, entities)
-  for var, entity_obs in resp.get('byVariable', {}).items():
-    for e in entity_obs.get('byEntity', {}):
-      result[var][e] = True
-  return Response(json.dumps(result), 200, mimetype='application/json')
-
-
 @bp.route('/child/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child(dcid):
