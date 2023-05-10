@@ -189,9 +189,6 @@ _OVERRIDE_CHART_MAP = {
         }
     }]
 }
-
-# Max tries to wait for all svgs to be drawn on a subject page
-_MAX_SVG_WAIT_TRIES = 10
 # Key is classname of a chart type and value is a tag name that should be drawn
 # in the svgs for that chart type
 _CHART_TYPE_TO_DRAWN_SVG_TAG = {
@@ -217,41 +214,28 @@ def _to_svg(svg):
   return 'data:image/svg+xml;base64,' + svg_b64
 
 
-def _wait_for_svgs_drawn(driver):
-  """Wait (max _MAX_SVG_WAIT_TRIES * 0.5 seconds) for all svgs on a subject page
-  to finish drawing"""
-  svgs_loaded = False
-  num_tries = 0
-  while not svgs_loaded and num_tries < _MAX_SVG_WAIT_TRIES:
-    subject_page = driver.find_element(By.ID, 'subject-page-main-pane')
-    has_incomplete_svg = False
-    for block in subject_page.find_elements(By.CLASS_NAME, 'block'):
-      # Check each chart in the block for any incomplete svgs
-      for chart_container in block.find_elements(By.CLASS_NAME,
-                                                 'chart-container'):
-        svg_tag_to_check = ""
-        for chart_type_class in chart_container.get_attribute('class').split():
-          if chart_type_class in _CHART_TYPE_TO_DRAWN_SVG_TAG:
-            svg_tag_to_check = _CHART_TYPE_TO_DRAWN_SVG_TAG[chart_type_class]
-            break
-        # If there is no svg tag to check for, consider it complete
-        if not svg_tag_to_check:
-          continue
-        drawn_objects = chart_container.find_elements(By.TAG_NAME,
-                                                      svg_tag_to_check)
-        # If there is an svg tag to check for, but it is not found, consider the
-        # chart incomplete
-        if not drawn_objects:
-          has_incomplete_svg = True
+def _check_svgs_drawn(driver):
+  """Returns whether or not all svgs on a subject page are drawn"""
+  subject_page = driver.find_element(By.ID, "subject-page-main-pane")
+  for block in subject_page.find_elements(By.CLASS_NAME, "block"):
+    # Check each chart in the block for any incomplete svgs
+    for chart_container in block.find_elements(By.CLASS_NAME,
+                                               "chart-container"):
+      svg_tag_to_check = ""
+      for chart_type_class in chart_container.get_attribute("class").split():
+        if chart_type_class in _CHART_TYPE_TO_DRAWN_SVG_TAG:
+          svg_tag_to_check = _CHART_TYPE_TO_DRAWN_SVG_TAG[chart_type_class]
           break
-      # If any block finds an incomplete chart, break out of the loop to wait
-      # and re-check the charts
-      if has_incomplete_svg:
-        break
-    num_tries += 1
-    svgs_loaded = not has_incomplete_svg
-    if not svgs_loaded:
-      time.sleep(0.5)
+      # If there is no svg tag to check for, consider the svg complete
+      if not svg_tag_to_check:
+        continue
+      drawn_objects = chart_container.find_elements(By.TAG_NAME,
+                                                    svg_tag_to_check)
+      # If there is svg tag to check for but no elements found for that tag,
+      # return False
+      if not drawn_objects:
+        return False
+  return True
 
 
 def scrape(query, driver):
@@ -263,13 +247,8 @@ def scrape(query, driver):
 
   # Wait until the page has loaded.
   wait = WebDriverWait(driver, 30)
-  wait.until(
-      EC.invisibility_of_element_located((By.CLASS_NAME, 'dot-loading-stage')))
   wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'chart-container')))
-  wait.until(
-      EC.invisibility_of_element_located(
-          (By.CLASS_NAME, 'initial-loading-placeholder')))
-  _wait_for_svgs_drawn(driver)
+  wait.until(lambda d: _check_svgs_drawn(driver))
 
   html = driver.page_source
   soup = BeautifulSoup(html, 'html.parser')
