@@ -375,18 +375,9 @@ def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
 def query(query_string):
   # Get the API Key and perform the POST request.
   logging.info("[ Mixer Request ]: \n" + query_string)
-  headers = {'Content-Type': 'application/json'}
   url = get_service_url('/v1/query')
-  response = requests.post(url,
-                           json={'sparql': query_string},
-                           headers=headers,
-                           timeout=60)
-  if response.status_code != 200:
-    raise ValueError(
-        'Response error: An HTTP {} code was returned by the mixer. '
-        'Printing response\n{}'.format(response.status_code, response.reason))
-  res_json = response.json()
-  return res_json['header'], res_json.get('rows', [])
+  resp = post(url, {'sparql': query_string})
+  return resp['header'], resp.get('rows', [])
 
 
 def related_place(dcid, variables, ancestor=None, per_capita=False):
