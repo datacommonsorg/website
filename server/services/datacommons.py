@@ -172,21 +172,6 @@ def obs_series_within(parent_entity, child_type, variables):
       })
 
 
-def entity_variables(entities):
-  """Gets the statistical variables that have obserations for given entities.
-
-  Args:
-      entities: List of entity dcids.
-  """
-  url = get_service_url('/v2/observation')
-  return post(url, {
-      'select': ['variable', 'entity'],
-      'entity': {
-          'dcids': entities,
-      },
-  })
-
-
 def v2observation(select, entity, variable):
   """
   Args:
@@ -195,6 +180,10 @@ def v2observation(select, entity, variable):
     variable: A dict in the form of {'dcids':, 'expression':}
 
   """
+  if 'dcids' in entity:
+    entity['dcids'].sort()
+  if 'dcids' in variable:
+    variable['dcids'].sort()
   url = get_service_url('/v2/observation')
   return post(url, {
       'select': select,
@@ -243,13 +232,6 @@ def variable_info(nodes: List[str]) -> Dict:
   url = get_service_url('/v1/bulk/info/variable')
   req_dict = {"nodes": nodes}
   return post(url, req_dict)
-
-
-def get_variables(dcid: str):
-  """Get all the statistical variable dcids for a place."""
-  url = get_service_url('/v1/variables')
-  url = f'{url}/{dcid}'
-  return get(url).get('variables', [])
 
 
 def get_variable_ancestors(dcid: str):
@@ -393,18 +375,9 @@ def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
 def query(query_string):
   # Get the API Key and perform the POST request.
   logging.info("[ Mixer Request ]: \n" + query_string)
-  headers = {'Content-Type': 'application/json'}
-  url = get_service_url('/query')
-  response = requests.post(url,
-                           json={'sparql': query_string},
-                           headers=headers,
-                           timeout=60)
-  if response.status_code != 200:
-    raise ValueError(
-        'Response error: An HTTP {} code was returned by the mixer. '
-        'Printing response\n{}'.format(response.status_code, response.reason))
-  res_json = response.json()
-  return res_json['header'], res_json.get('rows', [])
+  url = get_service_url('/v1/query')
+  resp = post(url, {'sparql': query_string})
+  return resp['header'], resp.get('rows', [])
 
 
 def related_place(dcid, variables, ancestor=None, per_capita=False):
@@ -418,7 +391,7 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 
 def search_statvar(query, places, sv_only):
-  url = get_service_url('/stat-var/search')
+  url = get_service_url('/v1/variable/search')
   return post(url, {
       'query': query,
       'places': places,
