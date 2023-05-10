@@ -246,7 +246,7 @@ def scrape(query, driver):
   driver.get(_URL + query)
 
   # Wait until the page has loaded.
-  wait = WebDriverWait(driver, 30)
+  wait = WebDriverWait(driver, timeout=30, poll_frequency=0.25)
   wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'chart-container')))
   wait.until(lambda d: _check_svgs_drawn(driver))
 
