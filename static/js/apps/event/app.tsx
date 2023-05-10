@@ -98,20 +98,20 @@ export function App(props: AppPropsType): JSX.Element {
   if (props.place.dcid) {
     const allPlaces = [props.place, ...props.parentPlaces];
     placeBreadcrumbsJsx = allPlaces.map((place, i) => (
-      <>
+      <React.Fragment key={place.dcid}>
         <a className="place-links" href={`/disasters/${place.dcid}`}>
           {place.name}
         </a>
         {i < allPlaces.length - 1 ? ", " : ""}
-      </>
+      </React.Fragment>
     ));
   }
 
   const provenanceJsx = props.provenance.map((p, i) => (
-    <>
+    <React.Fragment key={p.url}>
       <a href={p.url}>{p.sourceName}</a>
       {i < props.provenance.length - 1 ? ", " : ""}
-    </>
+    </React.Fragment>
   ));
 
   return (

@@ -1,5 +1,5 @@
 query-host:8080:
-  - /query
+  - /v1/query
 stat-var-host:8080:
   - /stat-var/*
 default-host:8080:

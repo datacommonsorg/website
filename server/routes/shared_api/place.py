@@ -233,42 +233,41 @@ def get_named_typed_place():
   return Response(json.dumps(ret), 200, mimetype='application/json')
 
 
-@bp.route('/stat-vars/union', methods=['POST'])
-def get_stat_vars_union():
+@bp.route('/variable', methods=['GET', 'POST'])
+def get_place_variable():
   """Get all the statistical variables that exist for some places.
 
   Returns:
       List of unique statistical variable dcids each as a string.
   """
-  result = []
-  entities = sorted(request.json.get('dcids', []))
-  resp = dc.entity_variables(entities)
-  for var, entity_obs in resp['byVariable'].items():
-    if len(entity_obs.get('byEntity'), {}) == len(entities):
-      result.append(var)
-  return Response(json.dumps(result), 200, mimetype='application/json')
+  dcids = request.args.getlist('dcids')
+  if not dcids:
+    dcids = request.json['dcids']
+  resp = fetch.entity_variables(dcids)
+  # All the keys (stat var dcid) in resp are variables for at lease one of the
+  # places.
+  return Response(json.dumps(list(resp.keys())),
+                  200,
+                  mimetype='application/json')
 
 
-@bp.route('/stat-vars/existence', methods=['POST'])
-def get_stat_vars_existence():
-  """Check if statistical variables that exist for some places.
+@bp.route('/variable/count')
+def get_place_variable_count():
+  """Get count of statistical variables for places.
 
   Returns:
-      Map from variable to place to a boolean of whether there is observation.
+      A map from place dcid to the stat var count.
   """
+  dcids = request.args.getlist('dcids')
+  if not dcids:
+    return 'error: must provide `dcids` field', 400
   result = {}
-  variables = request.json.get('variables', [])
-  entities = request.json.get('entities', [])
-  # Populate result
-  for var in variables:
-    result[var] = {}
-    for e in entities:
-      result[var][e] = False
-  # Fetch existence check data
-  resp = dc.entity_variables_existence(variables, entities)
-  for var, entity_obs in resp.get('byVariable', {}).items():
-    for e in entity_obs.get('byEntity', {}):
-      result[var][e] = True
+  for dcid in dcids:
+    result[dcid] = 0
+  resp = fetch.entity_variables(dcids)
+  for _, entity_obs in resp.items():
+    for entity in entity_obs:
+      result[entity] += 1
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
@@ -313,7 +312,7 @@ def child_fetch(parent_dcid):
                                   all_facets=False)
   for entity, points in obs_response['data'].get(POPULATION_DCID, {}).items():
     if points:
-      pop[entity] = points[0]['value']
+      pop[entity] = points.get('value')
 
   # Build return object
   place_names = fetch.property_values(wanted_dcids, 'name')

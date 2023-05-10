@@ -71,10 +71,11 @@ function run_npm_build () {
   then
     echo -e "#### Only installing production dependencies"
     npm install --only=prod
+    npm run-script build
   else
     npm install
+    npm run-script dev-build
   fi
-  npm run-script build
   cd ..
 }
 
