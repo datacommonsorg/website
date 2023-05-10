@@ -263,6 +263,13 @@ def entity_variables(entities):
 
   Args:
       entities: List of entity dcids.
+
+  The response is in the following format:
+  {
+    <variable_dcid>: {
+      <entity_dcid>: {}  // Empty map
+    }
+  }
   """
   resp = dc.v2observation(['variable', 'entity'], {
       'dcids': entities,
@@ -276,7 +283,7 @@ def entity_variables(entities):
 def properties(nodes, out=True):
   """Returns the properties for a list of nodes.
 
-  The response is the following format:
+  The response is in the following format:
   {
     <node_dcid>: [property list]
   }

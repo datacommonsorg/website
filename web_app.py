@@ -64,4 +64,9 @@ if __name__ == '__main__':
   # a webserver process such as Gunicorn will serve the app.
   logging.info("Run web server in local mode")
   port = sys.argv[1] if len(sys.argv) >= 2 else 8080
-  app.run(host='127.0.0.1', port=port, debug=True)
+  try:
+    app.run(host='127.0.0.1', port=port, debug=True)
+  finally:
+    # Close the webdriver so hot reload would not create a lot of drivers.
+    if app.config['SELENIUM']:
+      app.config['SELENIUM'].close()

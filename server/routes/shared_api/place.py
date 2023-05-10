@@ -244,11 +244,11 @@ def get_place_variable():
   if not dcids:
     dcids = request.json['dcids']
   resp = fetch.entity_variables(dcids)
-  result = []
-  for var, entity_obs in resp.items():
-    if len(entity_obs) == len(dcids):
-      result.append(var)
-  return Response(json.dumps(result), 200, mimetype='application/json')
+  # All the keys (stat var dcid) in resp are variables for at lease one of the
+  # places.
+  return Response(json.dumps(list(resp.keys())),
+                  200,
+                  mimetype='application/json')
 
 
 @bp.route('/variable/count')
