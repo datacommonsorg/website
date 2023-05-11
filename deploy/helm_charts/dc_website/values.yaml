@@ -89,8 +89,8 @@ serviceGroups:
       - "/v1/bulk/info/variable"
     replicas: 1
     resources:
-      memoryRequest: "6G"
-      memoryLimit: "6G"
+      memoryRequest: "8G"
+      memoryLimit: "8G"
     useSearch: true
   observation:
     urlPaths:

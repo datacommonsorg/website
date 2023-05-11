@@ -98,7 +98,7 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/existence", {
+    .calledWith("/api/observation/existence", {
       entities: ["geoId/05"],
       variables: ["Median_Age_Person"],
     })
@@ -112,7 +112,7 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/existence", {
+    .calledWith("/api/observation/existence", {
       entities: ["geoId/05"],
       variables: ["Median_Age_Person", "Count_Person"],
     })
@@ -129,7 +129,7 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/existence", {
+    .calledWith("/api/observation/existence", {
       entities: ["geoId/05"],
       variables: ["NotInTheTree"],
     })
@@ -143,7 +143,7 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/existence", {
+    .calledWith("/api/observation/existence", {
       entities: ["geoId/05"],
       variables: ["Count_Person"],
     })

@@ -1,12 +1,10 @@
 observations-api:5000:
   - /v2/observation
 bq-service:
-  - /query
+  - /v1/query
 v0-node-service:8888:
-  - /node/*
+  - /v2/node
 stat-var-svc:
-  - /v1/variables/*
-  - /v1/variables
   - /v1/bulk/*
 default:
   - /*

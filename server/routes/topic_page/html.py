@@ -74,7 +74,7 @@ def topic_page(topic_id=None, place_dcid=None):
   topic_configs = all_configs.get(topic_id, [])
 
   if topic_id in _DEBUG_TOPICS:
-    if g.env in ['local', 'autopush', 'dev']:
+    if current_app.config['SHOW_TOPIC']:
       if topic_id == _NL_DISASTER_TOPIC:
         topic_configs = [libutil.get_nl_disaster_config()]
     else:

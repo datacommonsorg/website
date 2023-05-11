@@ -231,10 +231,59 @@ def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
   return _compact_series(resp, all_facets)
 
 
+def observation_existence(variables, entities):
+  """Check if observation exist for variable, entity pairs.
+
+  Returns:
+      {
+        <variable_did>: {
+          <entity_dcid>: boolean
+        }
+      }
+
+  """
+  result = {}
+  # Populate result
+  for var in variables:
+    result[var] = {}
+    for e in entities:
+      result[var][e] = False
+  # Fetch existence check data
+  resp = dc.v2observation(['variable', 'entity'], {'dcids': entities}, {
+      'dcids': variables,
+  })
+  for var, entity_obs in resp.get('byVariable', {}).items():
+    for e in entity_obs.get('byEntity', {}):
+      result[var][e] = True
+  return result
+
+
+def entity_variables(entities):
+  """Gets the statistical variables that have observations for given entities.
+
+  Args:
+      entities: List of entity dcids.
+
+  The response is in the following format:
+  {
+    <variable_dcid>: {
+      <entity_dcid>: {}  // Empty map
+    }
+  }
+  """
+  resp = dc.v2observation(['variable', 'entity'], {
+      'dcids': entities,
+  }, {})
+  result = {}
+  for var, entity_obs in resp['byVariable'].items():
+    result[var] = entity_obs.get('byEntity', {})
+  return result
+
+
 def properties(nodes, out=True):
   """Returns the properties for a list of nodes.
 
-  The response is the following format:
+  The response is in the following format:
   {
     <node_dcid>: [property list]
   }
@@ -334,3 +383,45 @@ def raw_descendent_places(nodes, descendent_type):
       'containedInPlace+',
       out=False,
       constraints='{{typeOf:{}}}'.format(descendent_type))
+
+
+def resolve_id(nodes, in_prop, out_prop):
+  """Resolves ids given nodes input and output property.
+
+  Args:
+      nodes: A list of input ids.
+      in_prop: The input property.
+      out_prop: The output property.
+
+  The response is the following format:
+  {
+    <node_dcid>: [list of resolved ids]
+  }
+
+  """
+  resp = dc.resolve(nodes, '<-{}->{}'.format(in_prop, out_prop))
+  result = {}
+  for entity in resp.get('entities'):
+    result[entity['node']] = entity['resolvedIds']
+  return result
+
+
+def resolve_coordinates(coordinates):
+  """Resolves a list of coordinates.
+
+  Args:
+      coordinates: a list of { longitude: number, latitude: number }.
+  Returns:
+      {
+        <lat#long>: [list of resolved ids]
+      }
+
+  """
+  nodes = []
+  for coord in coordinates:
+    nodes.append('{}#{}'.format(coord['latitude'], coord['longitude']))
+  resp = dc.resolve(nodes, '<-geoCoordinate->dcid')
+  result = {}
+  for entity in resp.get('entities', []):
+    result[entity['node']] = entity.get('resolvedIds', [])
+  return result

@@ -11,7 +11,13 @@ Latest sheet as of May 2023 is
 
 ## Making a change to the embeddings.
 
-1. Make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). Note that if the sheets file has a valid string entry for the `Override_Alternatives` column, then all other alternatives are ignored. The column `Curated_Alternatives` is supposed to be used to provide `;` (semi-colon) delimited human curated alternatives. The `Description` field can also be a manually curated best description string for the StatVar and it can be expected to be used as part of any automated alternative generation processed, e.g. using an LLM. The `Name` field is legacy and will eventually be removed once the new process and embeddings are established to lead to no regressions based on the current state.
+1. Make edits to the [latest sheet](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU). The columns in this sheet are:
+
+* `dcid`: the StatVar DCID.
+* `Name`: the name of the StatVar
+* `Description`: the description(s) of the StatVar. Multiple descriptions are acceptable. If multiple description strings are provided, they must be semi-colon delimited. This column can be expected to be used as part of any automated alternative generation processed, e.g. using an LLM.
+* `Override_Alternatives`: if this column has any value in a row, all other columns are ignored. Multiple strings are acceptable for this column. If multiple strings are provided, they must be semi-colon delimited.
+* `Curated_Alternatives`: a semi-colon delimited list of strings which can serve as alternative ways of referring to the StatVar.
 
 2. Ensure any updated alternatives, i.e. PaLM alternatives, Other alternatives, are available as csv files: [`palm_alternatives.csv`](csv/palm_alternatives.csv), [`other_alternatives.csv`](csv/other_alternatives.csv). The columns in these CSV files are: `Id`, `Alternatives`. These files are expected to be updated using (currently) separate processes.
 

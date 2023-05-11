@@ -130,32 +130,27 @@ class Endpoints:
 
 # Source of truth for all mixer endpoints.
 endpoints = Endpoints([
-    '/query',
+    # v0
     '/translate',
     '/search',
+    # v1
+    '/v1/query',
     '/v1/bulk/info/place',
     '/v1/bulk/info/variable',
     '/v1/bulk/info/variable-group',
     '/v1/bulk/observation-dates/linked',
-    '/v1/bulk/observation-existence',
-    '/v1/variables',
     '/v1/variable/ancestors',
-    '/node/ranking-locations',
-    # TODO(shifucun): switch back to /node/related-places after data switch.
-    '/node/related-locations',
-    '/stat-var/search',
-    # Recon APIs
-    '/v1/recon/resolve/id',
-    '/v1/recon/resolve/coordinate',
-    # Bio APIs
+    '/v1/place/ranking',
+    '/v1/place/related',
+    '/v1/variable/search',
     '/v1/internal/page/bio',
-    # Misc
     '/v1/internal/page/place',
     '/v1/events',
     '/v1/events/dates',
-    # V2
+    # v2
     '/v2/observation',
-    '/v2/node'
+    '/v2/node',
+    '/v2/resolve'
 ])
 
 

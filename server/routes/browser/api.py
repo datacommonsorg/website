@@ -100,10 +100,3 @@ def get_observation_id():
       result = dcid
       break
   return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/num_stat_vars/<path:dcid>')
-def get_num_stat_vars(dcid):
-  """Returns number of stat vars for a dcid"""
-  return json.dumps(len(dc.get_variables(dcid)))

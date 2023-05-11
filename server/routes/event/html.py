@@ -118,11 +118,10 @@ def get_places(properties) -> Dict[str, List[str]]:
           'latitude': latitude,
           'longitude': longitude,
       }]
-      place_coordinates = dc.resolve_coordinates(coordinates).get(
-          "placeCoordinates", coordinates)
+      place_coordinates = fetch.resolve_coordinates(coordinates)
       dcids_to_get_type = set()
-      for place_coord in place_coordinates:
-        dcids_to_get_type.update(place_coord.get('placeDcids', []))
+      for _, place_dcids in place_coordinates.items():
+        dcids_to_get_type.update(place_dcids)
       place_types = fetch.property_values(list(dcids_to_get_type), 'typeOf')
       return place_types
 

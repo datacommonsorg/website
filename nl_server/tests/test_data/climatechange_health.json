@@ -3,25 +3,37 @@
     "dc/topic/ClimateChange",
     "dc/topic/SDG_13",
     "dc/topic/ProjectedClimateExtremes",
+    "AirPollutant_Cancer_Risk",
+    "Annual_Emissions_GreenhouseGas",
     "dc/topic/Temperature",
     "dc/topic/HeatIllnesses",
     "Percent_Person_WithAsthma",
     "Mean_Concentration_AirPollutant_Ozone",
     "Mean_Concentration_AirPollutant_PM2.5",
     "AirQualityIndex_AirPollutant",
-    "dc/topic/MedicalConditions"
+    "dc/topic/MedicalConditions",
+    "Percent_Person_Obesity",
+    "Count_Death_DiseasesOfTheRespiratorySystem",
+    "Percent_Person_Children_WithAsthma",
+    "Percent_Person_WithHighBloodPressure"
   ],
   "CosineScore": [
-    0.6368621587753296,
-    0.519625186920166,
-    0.4729778468608856,
-    0.4247395098209381,
-    0.42005130648612976,
-    0.39174625277519226,
-    0.3786030113697052,
-    0.37693843245506287,
+    0.6368622779846191,
+    0.5196251273155212,
+    0.47297754883766174,
+    0.43958017230033875,
+    0.42653417587280273,
+    0.42473962903022766,
+    0.4200512766838074,
+    0.41305315494537354,
+    0.39470937848091125,
+    0.3769384026527405,
     0.3748908042907715,
-    0.36870017647743225
+    0.36869996786117554,
+    0.36539602279663086,
+    0.36451455950737,
+    0.36334702372550964,
+    0.3624771535396576
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -35,8 +47,8 @@
               "Percent_Person_Children_WithAsthma"
             ],
             "CosineScore": [
-              0.5791,
-              0.5369
+              0.5805703997612,
+              0.5368834137916565
             ]
           },
           {
@@ -45,11 +57,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              1.0
+              0.9999998211860657
             ]
           }
         ],
-        "AggCosineScore": 0.7896,
+        "AggCosineScore": 0.7903,
         "DelimBased": false
       },
       {
@@ -61,8 +73,8 @@
               "Percent_Person_Children_WithAsthma"
             ],
             "CosineScore": [
-              0.6266,
-              0.5909
+              0.6373848915100098,
+              0.59091717004776
             ]
           },
           {
@@ -71,11 +83,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.882
+              0.8820265531539917
             ]
           }
         ],
-        "AggCosineScore": 0.7543,
+        "AggCosineScore": 0.7597,
         "DelimBased": false
       },
       {
@@ -86,7 +98,7 @@
               "Percent_Person_Obesity"
             ],
             "CosineScore": [
-              0.6784
+              0.6803658604621887
             ]
           },
           {
@@ -95,7 +107,7 @@
               "Percent_Person_WithHighBloodPressure"
             ],
             "CosineScore": [
-              0.6786
+              0.6785509586334229
             ]
           },
           {
@@ -105,8 +117,8 @@
               "Percent_Person_Children_WithAsthma"
             ],
             "CosineScore": [
-              0.6243,
-              0.5819
+              0.6243009567260742,
+              0.5818498134613037
             ]
           },
           {
@@ -115,11 +127,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              1.0
+              0.9999998211860657
             ]
           }
         ],
-        "AggCosineScore": 0.7453,
+        "AggCosineScore": 0.7458,
         "DelimBased": false
       },
       {
@@ -130,7 +142,7 @@
               "Percent_Person_Obesity"
             ],
             "CosineScore": [
-              0.6784
+              0.6803658604621887
             ]
           },
           {
@@ -139,7 +151,7 @@
               "Percent_Person_WithHighBloodPressure"
             ],
             "CosineScore": [
-              0.6786
+              0.6785509586334229
             ]
           },
           {
@@ -149,8 +161,8 @@
               "Percent_Person_Children_WithAsthma"
             ],
             "CosineScore": [
-              0.7394,
-              0.7022
+              0.7394216656684875,
+              0.7021639347076416
             ]
           },
           {
@@ -159,11 +171,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.882
+              0.8820265531539917
             ]
           }
         ],
-        "AggCosineScore": 0.7446,
+        "AggCosineScore": 0.7451,
         "DelimBased": false
       },
       {
@@ -174,7 +186,7 @@
               "Percent_Person_Obesity"
             ],
             "CosineScore": [
-              0.6784
+              0.6803658604621887
             ]
           },
           {
@@ -183,7 +195,7 @@
               "Percent_Person_WithHighBloodPressure"
             ],
             "CosineScore": [
-              0.6786
+              0.6785509586334229
             ]
           },
           {
@@ -192,11 +204,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.6582
+              0.6582126617431641
             ]
           }
         ],
-        "AggCosineScore": 0.6717,
+        "AggCosineScore": 0.6724,
         "DelimBased": true
       },
       {
@@ -208,8 +220,8 @@
               "Percent_Person_WithHighBloodPressure"
             ],
             "CosineScore": [
-              0.6034,
-              0.5901
+              0.6228021383285522,
+              0.6013635396957397
             ]
           },
           {
@@ -218,11 +230,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.6582
+              0.6582126617431641
             ]
           }
         ],
-        "AggCosineScore": 0.6308,
+        "AggCosineScore": 0.6405,
         "DelimBased": false
       }
     ]

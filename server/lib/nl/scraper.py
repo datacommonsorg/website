@@ -189,6 +189,15 @@ _OVERRIDE_CHART_MAP = {
         }
     }]
 }
+# Key is classname of a chart type and value is a tag name that should be drawn
+# in the svgs for that chart type
+_CHART_TYPE_TO_DRAWN_SVG_TAG = {
+    'line-chart': 'path',
+    'map-chart': 'path',
+    'disaster-event-map-tile': 'path',
+    'bar-chart': 'rect',
+    'scatter-chart': 'circle'
+}
 
 
 def _to_svg(svg):
@@ -205,6 +214,30 @@ def _to_svg(svg):
   return 'data:image/svg+xml;base64,' + svg_b64
 
 
+def _check_svgs_drawn(driver):
+  """Returns whether or not all svgs on a subject page are drawn"""
+  subject_page = driver.find_element(By.ID, "subject-page-main-pane")
+  for block in subject_page.find_elements(By.CLASS_NAME, "block"):
+    # Check each chart in the block for any incomplete svgs
+    for chart_container in block.find_elements(By.CLASS_NAME,
+                                               "chart-container"):
+      svg_tag_to_check = ""
+      for chart_type_class in chart_container.get_attribute("class").split():
+        if chart_type_class in _CHART_TYPE_TO_DRAWN_SVG_TAG:
+          svg_tag_to_check = _CHART_TYPE_TO_DRAWN_SVG_TAG[chart_type_class]
+          break
+      # If there is no svg tag to check for, consider the svg complete
+      if not svg_tag_to_check:
+        continue
+      drawn_objects = chart_container.find_elements(By.TAG_NAME,
+                                                    svg_tag_to_check)
+      # If there is svg tag to check for but no elements found for that tag,
+      # return False
+      if not drawn_objects:
+        return False
+  return True
+
+
 def scrape(query, driver):
   if query.lower() in _OVERRIDE_CHART_MAP:
     return _OVERRIDE_CHART_MAP[query.lower()]
@@ -212,12 +245,10 @@ def scrape(query, driver):
   logging.info(f'Scraping: {query}')
   driver.get(_URL + query)
 
-  # Wait until the test_class_name has loaded.
-  wait = WebDriverWait(driver, 30)
+  # Wait until the page has loaded.
+  wait = WebDriverWait(driver, timeout=30, poll_frequency=0.25)
   wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'chart-container')))
-  wait.until(
-      EC.invisibility_of_element_located((By.CLASS_NAME, 'dot-loading-stage')))
-  time.sleep(5)
+  wait.until(lambda d: _check_svgs_drawn(driver))
 
   html = driver.page_source
   soup = BeautifulSoup(html, 'html.parser')

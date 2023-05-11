@@ -7,17 +7,29 @@
     "Count_Person_Female_HispanicOrLatino",
     "Count_Person_Male_AbovePovertyLevelInThePast12Months_HispanicOrLatino",
     "Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
-    "Count_Person_Female_WhiteAloneNotHispanicOrLatino"
+    "Count_Person_Female_WhiteAloneNotHispanicOrLatino",
+    "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+    "Count_Person_Female_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+    "Count_Person_Male_AbovePovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+    "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+    "Count_Person_AbovePovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+    "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female"
   ],
   "CosineScore": [
     0.8239516615867615,
     0.7344129085540771,
     0.716660737991333,
-    0.7120466828346252,
-    0.7088861465454102,
+    0.71204674243927,
+    0.7088860869407654,
     0.7034682035446167,
-    0.6926878690719604,
-    0.6885376572608948
+    0.6926877498626709,
+    0.6885376572608948,
+    0.6871253848075867,
+    0.6863942742347717,
+    0.6862049698829651,
+    0.6854953765869141,
+    0.6773698925971985,
+    0.6750938892364502
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -34,11 +46,11 @@
               "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
             ],
             "CosineScore": [
-              0.7871211171150208,
+              0.787121057510376,
               0.7559131383895874,
-              0.7497555017471313,
-              0.7491799592971802,
-              0.7444262504577637
+              0.7497557401657104,
+              0.7491800785064697,
+              0.744426429271698
             ]
           },
           {
@@ -47,7 +59,7 @@
               "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female"
             ],
             "CosineScore": [
-              0.9085115194320679
+              0.9085115790367126
             ]
           }
         ],
@@ -62,7 +74,7 @@
               "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
             ],
             "CosineScore": [
-              0.9096978902816772
+              0.9096978306770325
             ]
           },
           {
@@ -71,7 +83,7 @@
               "Count_Person_EducationalAttainmentDoctorateDegree"
             ],
             "CosineScore": [
-              0.7767065167427063
+              0.7767063975334167
             ]
           }
         ],
@@ -95,7 +107,7 @@
               "Count_Person_HispanicOrLatino"
             ],
             "CosineScore": [
-              0.765751302242279
+              0.7657513618469238
             ]
           },
           {
@@ -104,7 +116,7 @@
               "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female"
             ],
             "CosineScore": [
-              0.9085115194320679
+              0.9085115790367126
             ]
           }
         ],
@@ -123,11 +135,11 @@
               "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
             ],
             "CosineScore": [
-              0.7871211171150208,
+              0.787121057510376,
               0.7559131383895874,
-              0.7497555017471313,
-              0.7491799592971802,
-              0.7444262504577637
+              0.7497557401657104,
+              0.7491800785064697,
+              0.744426429271698
             ]
           },
           {
@@ -137,8 +149,8 @@
               "dc/topic/MaternalHealth"
             ],
             "CosineScore": [
-              0.6602186560630798,
-              0.6503081321716309
+              0.6602187156677246,
+              0.6503080129623413
             ]
           },
           {
@@ -147,7 +159,7 @@
               "Count_Person_EducationalAttainmentDoctorateDegree"
             ],
             "CosineScore": [
-              0.7767065167427063
+              0.7767063975334167
             ]
           }
         ],
@@ -172,7 +184,7 @@
               "Count_Person_Female_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
             ],
             "CosineScore": [
-              0.7841923236846924,
+              0.7841924428939819,
               0.7398131489753723
             ]
           },
@@ -182,7 +194,7 @@
               "Count_Person_EducationalAttainmentDoctorateDegree"
             ],
             "CosineScore": [
-              0.7767065167427063
+              0.7767063975334167
             ]
           }
         ],
@@ -206,7 +218,7 @@
               "Count_Person_HispanicOrLatino"
             ],
             "CosineScore": [
-              0.765751302242279
+              0.7657513618469238
             ]
           },
           {
@@ -216,8 +228,8 @@
               "dc/topic/MaternalHealth"
             ],
             "CosineScore": [
-              0.6602186560630798,
-              0.6503081321716309
+              0.6602187156677246,
+              0.6503080129623413
             ]
           },
           {
@@ -226,7 +238,7 @@
               "Count_Person_EducationalAttainmentDoctorateDegree"
             ],
             "CosineScore": [
-              0.7767065167427063
+              0.7767063975334167
             ]
           }
         ],
@@ -254,7 +266,7 @@
             "CosineScore": [
               0.6843661069869995,
               0.6592246294021606,
-              0.6377255916595459
+              0.6377257108688354
             ]
           }
         ],

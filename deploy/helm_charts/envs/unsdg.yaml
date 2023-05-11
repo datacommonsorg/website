@@ -13,8 +13,8 @@
 # limitations under the License.
 
 # Helm config
-project: "datcom-stanford"
-cluster_prefix: "website"
+project: "datcom-recon-autopush"
+cluster_prefix: "datacommons"
 
 namespace:
   name: "website"
@@ -24,17 +24,8 @@ website:
     project: "datcom-ci"
     tag:
   githash:
-  flaskEnv: stanford
-  replicas: 4
-  redis:
-    enabled: true
-    configFile: |
-      {
-        "us-central1": {
-          "host": "10.59.4.219",
-          "port": "6379"
-        }
-      }
+  flaskEnv: unsdg
+  replicas: 2
 
 mixer:
   hostProject:
@@ -43,27 +34,22 @@ mixer:
 serviceAccount:
   name: website-ksa
 
+ingress:
+  enabled: true
+
 nl:
-  enabled: false
+  enabled: true
 
 serviceGroups:
   recon: null
   observation:
-    replicas: 6
+    replicas: 3
   node:
-    replicas: 6
+    replicas: 3
   svg:
     replicas: 2
   default:
     replicas: 3
 
-kgStoreConfig:
-  customBigtableInfo: |
-    project: datcom-stanford
-    instance: dc-graph
-    tables:
-      - magic-lab_2023_04_12_22_22_43
-      - cepa_2023_04_12_10_18_50
-
 svg:
-  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]
+  blocklistFile: ["dc/g/Uncategorized"]

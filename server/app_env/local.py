@@ -24,3 +24,5 @@ class Config(_base.Config):
   SCHEME = 'http'
   GCS_BUCKET = 'datcom-website-autopush-resources'
   LOG_QUERY = True
+  SHOW_TOPIC = True
+  SHOW_DISASTER = True

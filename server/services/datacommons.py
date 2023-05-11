@@ -172,39 +172,24 @@ def obs_series_within(parent_entity, child_type, variables):
       })
 
 
-def entity_variables(entities):
-  """Gets the statistical variables that have obserations for given entities.
-
-  Args:
-      entities: List of entity dcids.
+def v2observation(select, entity, variable):
   """
+  Args:
+    select: A list of select props.
+    entity: A dict in the form of {'dcids':, 'expression':}
+    variable: A dict in the form of {'dcids':, 'expression':}
+
+  """
+  if 'dcids' in entity:
+    entity['dcids'].sort()
+  if 'dcids' in variable:
+    variable['dcids'].sort()
   url = get_service_url('/v2/observation')
   return post(url, {
-      'select': ['variable', 'entity'],
-      'entity': {
-          'dcids': entities,
-      },
+      'select': select,
+      'entity': entity,
+      'variable': variable,
   })
-
-
-def entity_variables_existence(variables, entities):
-  """Check if statistical variables have observations for given entities.
-
-  Args:
-      variables: List of variable dcids.
-      entities: List of entity dcids.
-  """
-  url = get_service_url('/v2/observation')
-  return post(
-      url, {
-          'select': ['variable', 'entity'],
-          'entity': {
-              'dcids': entities,
-          },
-          'variable': {
-              'dcids': variables,
-          },
-      })
 
 
 def v2node(nodes, prop):
@@ -249,13 +234,6 @@ def variable_info(nodes: List[str]) -> Dict:
   return post(url, req_dict)
 
 
-def get_variables(dcid: str):
-  """Get all the statistical variable dcids for a place."""
-  url = get_service_url('/v1/variables')
-  url = f'{url}/{dcid}'
-  return get(url).get('variables', [])
-
-
 def get_variable_ancestors(dcid: str):
   """Gets the path of a stat var to the root of the stat var hierarchy."""
   url = get_service_url('/v1/variable/ancestors')
@@ -275,47 +253,21 @@ def get_series_dates(parent_entity, child_type, variables):
       })
 
 
-def observation_existence(variables, entities):
-  """Check if observation exist for <entity, variable> pairs"""
-  url = get_service_url('/v1/bulk/observation-existence')
-  return post(url, {
-      'entities': entities,
-      'variables': variables,
-  })
-
-
 def bio(entity):
   """Fetch biology subgraph linking to the given entity"""
   url = get_service_url('/v1/internal/page/bio')
   return get(url + "/" + entity)
 
 
-def resolve_id(in_ids, in_prop, out_prop):
-  """Resolves ids given nodes input and output property.
+def resolve(nodes, prop):
+  """Resolves nodes based on the given property.
 
   Args:
-      in_ids: A list of input ids.
-      in_prop: The input property.
-      out_prop: The output property.
+      nodes: A list of node dcids.
+      prop: Property expression indicating the property to resolve.
   """
-  url = get_service_url('/v1/recon/resolve/id')
-  return post(url, {
-      'ids': in_ids,
-      'in_prop': in_prop,
-      'out_prop': out_prop,
-  })
-
-
-def resolve_coordinates(coordinates):
-  """Resolves a list of coordinates.
-
-  Args:
-      coordinates: a list of { longitude: number, latitude: number }.
-  """
-  url = get_service_url('/v1/recon/resolve/coordinate')
-  return post(url, {
-      'coordinates': coordinates,
-  })
+  url = get_service_url('/v2/resolve')
+  return post(url, {'nodes': nodes, 'property': prop})
 
 
 def get_event_collection(event_type,
@@ -409,49 +361,37 @@ def version():
   return get(url)
 
 
-def get_place_ranking(stat_vars,
-                      place_type,
-                      within_place=None,
-                      is_per_capita=False):
-  url = get_service_url('/node/ranking-locations')
+def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
+  url = get_service_url('/v1/place/ranking')
   return post(
       url, {
-          'stat_var_dcids': stat_vars,
-          'place_type': place_type,
-          'within_place': within_place,
-          'is_per_capita': is_per_capita,
+          'stat_var_dcids': [variable],
+          'place_type': descendent_type,
+          'within_place': ancestor,
+          'is_per_capita': per_capita,
       })
 
 
 def query(query_string):
   # Get the API Key and perform the POST request.
   logging.info("[ Mixer Request ]: \n" + query_string)
-  headers = {'Content-Type': 'application/json'}
-  url = get_service_url('/query')
-  response = requests.post(url,
-                           json={'sparql': query_string},
-                           headers=headers,
-                           timeout=60)
-  if response.status_code != 200:
-    raise ValueError(
-        'Response error: An HTTP {} code was returned by the mixer. '
-        'Printing response\n{}'.format(response.status_code, response.reason))
-  res_json = response.json()
-  return res_json['header'], res_json.get('rows', [])
+  url = get_service_url('/v1/query')
+  resp = post(url, {'sparql': query_string})
+  return resp['header'], resp.get('rows', [])
 
 
-def get_related_place(dcid, stat_vars, within_place=None, is_per_capita=None):
-  url = get_service_url('/node/related-locations')
-  req_json = {'dcid': dcid, 'stat_var_dcids': stat_vars}
-  if within_place:
-    req_json['within_place'] = within_place
-  if is_per_capita:
-    req_json['is_per_capita'] = is_per_capita
+def related_place(dcid, variables, ancestor=None, per_capita=False):
+  url = get_service_url('/v1/place/related')
+  req_json = {'dcid': dcid, 'stat_var_dcids': sorted(variables)}
+  if ancestor:
+    req_json['within_place'] = ancestor
+  if per_capita:
+    req_json['is_per_capita'] = per_capita
   return post(url, req_json)
 
 
 def search_statvar(query, places, sv_only):
-  url = get_service_url('/stat-var/search')
+  url = get_service_url('/v1/variable/search')
   return post(url, {
       'query': query,
       'places': places,

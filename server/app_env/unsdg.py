@@ -13,11 +13,16 @@
 # limitations under the License.
 
 from server.app_env import _base
+from server.app_env import local
 
 
 class Config(_base.Config):
-  TEST = True
-  API_ROOT = 'api-root'
-  SCHEME = 'http'
-  USE_MEMCACHE = False
-  SHOW_DISASTER = True
+  CUSTOM = True
+  SHOW_TOPIC = True
+  NAME = "Data Commons"
+  LOGO_PATH = "/custom_dc/unsdg/logo.png"
+  OVERRIDE_CSS_PATH = '/custom_dc/unsdg/overrides.css'
+
+
+class LocalConfig(Config, local.Config):
+  pass

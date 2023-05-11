@@ -68,6 +68,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   let enclosedPlaceType = "";
   for (const placeType of props.place.types) {
     if (
+      props.pageConfig.metadata &&
       props.pageConfig.metadata.containedPlaceTypes &&
       placeType in props.pageConfig.metadata.containedPlaceTypes
     ) {

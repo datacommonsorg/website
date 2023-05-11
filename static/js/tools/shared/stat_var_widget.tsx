@@ -74,7 +74,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
       axios
-        .post("/api/place/stat-vars/existence", {
+        .post("/api/observation/existence", {
           entities: props.sampleEntities.map((place) => place.dcid),
           variables: Object.keys(props.selectedSVs),
         })
