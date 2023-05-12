@@ -234,13 +234,6 @@ def variable_info(nodes: List[str]) -> Dict:
   return post(url, req_dict)
 
 
-def get_variable_ancestors(dcid: str):
-  """Gets the path of a stat var to the root of the stat var hierarchy."""
-  url = get_service_url('/v1/variable/ancestors')
-  url = f'{url}/{dcid}'
-  return get(url).get('ancestors', [])
-
-
 def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
   url = get_service_url('/v1/bulk/observation-dates/linked')

@@ -18,7 +18,9 @@ from flask import Blueprint
 from flask import request
 from markupsafe import escape
 
+import logging
 import server.services.datacommons as dc
+from server.lib import fetch
 
 bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 
@@ -26,8 +28,25 @@ bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 @bp.route('/path')
 def get_variable_path():
   """Gets the path of a stat var to the root of the stat var hierarchy."""
-  dcid = escape(request.args.get("dcid"))
-  return json.dumps([dcid] + dc.get_variable_ancestors(dcid)), 200
+  curr = escape(request.args.get("dcid"))
+  result = [curr]
+  prop = 'memberOf'
+  while True:
+    parents = fetch.property_values([curr], prop).get(curr, [])
+    logging.info(parents)
+    if not parents:
+      break
+    curr = parents[0]
+    if len(parents) > 1:
+      for parent in parents:
+        if 'dc/g/Custom_' in parent:
+          curr = parent
+          break
+    if curr == 'dc/g/Root':
+      break
+    result.append(curr)
+    prop = 'specializationOf'
+  return json.dumps(result), 200
 
 
 @bp.route('/info')
