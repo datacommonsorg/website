@@ -24,6 +24,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -58,6 +59,8 @@ interface BarTilePropType {
   className?: string;
   // Tile spec with additional information about what to show on this tile
   tileSpec?: BarTileSpec;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface BarChartData {
@@ -107,6 +110,12 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(barChartData)}
     >
+      {props.isDataTile && barChartData && (
+        <div
+          className={DATA_CSS_CLASS}
+          data-csv={dataGroupsToCsv(barChartData.dataGroup)}
+        />
+      )}
       <div
         id={props.id}
         className="svg-container"

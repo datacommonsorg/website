@@ -29,6 +29,7 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
@@ -54,6 +55,8 @@ interface ScatterTilePropType {
   scatterTileSpec: ScatterTileSpec;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface RawData {
@@ -142,6 +145,18 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
         </div>
       ) : (
         <>
+          {props.isDataTile && scatterChartData && (
+            <div
+              className={DATA_CSS_CLASS}
+              data-csv={scatterDataToCsv(
+                scatterChartData.xStatVar.statVar,
+                scatterChartData.xStatVar.denom,
+                scatterChartData.yStatVar.statVar,
+                scatterChartData.yStatVar.denom,
+                scatterChartData.points
+              )}
+            />
+          )}
           <div
             id={props.id}
             className="scatter-svg-container"

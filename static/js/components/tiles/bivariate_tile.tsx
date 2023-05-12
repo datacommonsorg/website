@@ -26,6 +26,7 @@ import ReactDOMServer from "react-dom/server";
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -52,6 +53,8 @@ interface BivariateTilePropType {
   svgChartHeight: number;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface RawData {
@@ -125,6 +128,18 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(bivariateChartData)}
     >
+      {props.isDataTile && bivariateChartData && (
+        <div
+          className={DATA_CSS_CLASS}
+          data-csv={scatterDataToCsv(
+            bivariateChartData.xStatVar.statVar,
+            bivariateChartData.xStatVar.denom,
+            bivariateChartData.yStatVar.statVar,
+            bivariateChartData.yStatVar.denom,
+            bivariateChartData.points
+          )}
+        />
+      )}
       <div
         id={props.id}
         className="bivariate-svg-container"

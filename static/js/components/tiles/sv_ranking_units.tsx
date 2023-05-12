@@ -17,14 +17,25 @@
 /**
  * Component for rendering a ranking tile.
  */
-import React, { useRef } from "react";
+import * as d3 from "d3";
+import _ from "lodash";
+import React, { useEffect, useRef } from "react";
 
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { RankingData, RankingPoint } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
+import {
+  dataPointsToCsv,
+  rankingPointsToCsv,
+} from "../../utils/chart_csv_utils";
 import { formatString } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const XLINKNS = "http://www.w3.org/1999/xlink";
+const CHART_PADDING = 10;
 
 interface SvRankingUnitsProps {
   isMultiColumn?: boolean;
@@ -42,6 +53,8 @@ interface SvRankingUnitsProps {
   svName: string;
   svNames?: string[];
   title?: string;
+  // Whether or not to render the data version of these units
+  isDataTile?: boolean;
 }
 
 /**
@@ -95,10 +108,70 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
     );
   }
 
+  // Generates an svg from an html div element and attaches it to the tile data
+  // as a data-svg attribute.
+  function addSvgDataAttribute(
+    chartDiv: HTMLDivElement,
+    dataContainerClass: string
+  ): void {
+    const svg = d3
+      .create("svg")
+      .attr("xmlns", SVGNS)
+      .attr("xmlns:xlink", XLINKNS)
+      .attr("width", chartDiv.offsetWidth);
+
+    svg
+      .append("g")
+      .attr("transform", `translate(${CHART_PADDING})`)
+      .append("svg")
+      .append("foreignObject")
+      .attr("width", chartDiv.offsetWidth)
+      .attr("height", chartDiv.offsetHeight)
+      .style("font-family", "sans-serif")
+      .append("xhtml:div")
+      .html(chartDiv.outerHTML);
+
+    const s = new XMLSerializer();
+    const svgXml = s.serializeToString(svg.node());
+    const dataContainer = document.getElementsByClassName(dataContainerClass);
+    if (_.isEmpty(dataContainer)) {
+      return;
+    }
+    const dataDiv = dataContainer[0].getElementsByClassName(DATA_CSS_CLASS);
+    if (_.isEmpty(dataDiv)) {
+      return;
+    }
+    dataDiv[0].setAttribute("data-svg", svgXml);
+  }
+
+  useEffect(() => {
+    if (!props.isDataTile) {
+      return;
+    }
+    if (highestRankingUnitRef.current) {
+      addSvgDataAttribute(
+        highestRankingUnitRef.current,
+        "highest-ranking-container"
+      );
+    }
+    if (lowestRankingUnitRef.current) {
+      addSvgDataAttribute(
+        lowestRankingUnitRef.current,
+        "lowest-ranking-container"
+      );
+    }
+  }, [props]);
+
   return (
     <React.Fragment>
       {showHighest && (
-        <div className="ranking-unit-container">
+        <div className="ranking-unit-container highest-ranking-container">
+          {props.isDataTile && (
+            <div
+              className={DATA_CSS_CLASS}
+              data-csv={rankingPointsToCsv(points)}
+            />
+          )}
           <RankingUnit
             key={`${statVar}-highest`}
             unit={unit}
@@ -124,7 +197,13 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
         </div>
       )}
       {showLowest && (
-        <div>
+        <div className="ranking-unit-container lowest-ranking-container">
+          {props.isDataTile && (
+            <div
+              className={DATA_CSS_CLASS}
+              data-csv={rankingPointsToCsv(points)}
+            />
+          )}
           <RankingUnit
             key={`${statVar}-lowest`}
             unit={unit}

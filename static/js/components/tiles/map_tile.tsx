@@ -26,6 +26,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import {
@@ -63,6 +64,8 @@ interface MapTilePropType {
   svgChartHeight: number;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface RawData {
@@ -141,6 +144,15 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         ref={svgContainer}
         style={{ minHeight: svgHeight }}
       >
+        {props.isDataTile && mapChartData && (
+          <div
+            className={DATA_CSS_CLASS}
+            data-csv={mapDataToCsv(
+              mapChartData.geoJson,
+              mapChartData.dataValues
+            )}
+          />
+        )}
         <div className="map" ref={mapContainer}></div>
         <div className="legend" ref={legendContainer}></div>
       </div>

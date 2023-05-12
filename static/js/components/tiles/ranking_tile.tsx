@@ -54,6 +54,8 @@ interface RankingTilePropType {
   statVarSpec: StatVarSpec[];
   rankingMetadata: RankingTileSpec;
   className?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
@@ -133,6 +135,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               svName={getStatVarName(statVar, props.statVarSpec)}
               svNames={svNames}
               title={props.title}
+              isDataTile={props.isDataTile}
             />
           );
         })}
