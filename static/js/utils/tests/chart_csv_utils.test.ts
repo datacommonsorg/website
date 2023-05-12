@@ -283,11 +283,13 @@ test("rankingPointsToCsv", () => {
   const cases: {
     name: string;
     rankingPoints: RankingPoint[];
+    dataHeadings: string[];
     expected: string;
   }[] = [
     {
       name: "empty ranking points",
       rankingPoints: [],
+      dataHeadings: ["data"],
       expected: "rank,place,data",
     },
     {
@@ -310,6 +312,7 @@ test("rankingPointsToCsv", () => {
           value: 3,
         },
       ],
+      dataHeadings: ["data"],
       expected: [
         "rank,place,data",
         "1,placeAName,1",
@@ -317,10 +320,38 @@ test("rankingPointsToCsv", () => {
         "3,placeCName,3",
       ].join("\n"),
     },
+    {
+      name: "multi column",
+      rankingPoints: [
+        {
+          placeDcid: "placeAId",
+          placeName: "placeAName",
+          values: [1, 2],
+          rank: 1,
+        },
+        {
+          placeDcid: "placeBId",
+          values: [2, 3],
+          rank: 2,
+        },
+        {
+          placeDcid: "placeCId",
+          placeName: "placeCName",
+          values: [3, 4],
+        },
+      ],
+      dataHeadings: ["data1", "data2"],
+      expected: [
+        "rank,place,data1,data2",
+        "1,placeAName,1,2",
+        "2,placeBId,2,3",
+        "3,placeCName,3,4",
+      ].join("\n"),
+    },
   ];
 
   for (const c of cases) {
-    const csv = rankingPointsToCsv(c.rankingPoints);
+    const csv = rankingPointsToCsv(c.rankingPoints, ["data"]);
     try {
       expect(csv).toEqual(c.expected);
     } catch (e) {
