@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,16 @@
  */
 
 /**
- * Main component for NL interface.
+ * Main component for the data version of the NL interface.
  */
 
 import React, { useEffect, useRef, useState } from "react";
 
-import { getUrlToken } from "../../tools/stat_var/util";
-import { QueryHistory } from "./query_history";
-import { QueryResult } from "./query_result";
-import { QuerySearch } from "./query_search";
+import { getUrlToken } from "../../../tools/stat_var/util";
+import { QueryHistory } from "../query_history";
+import { QueryResult } from "../query_result";
+import { QuerySearch } from "../query_search";
 
-const CHARACTER_INPUT_INTERVAL = 50;
-const PROMPT_SEARCH_DELAY = 1000;
 const NEXT_PROMPT_DELAY = 5000;
 
 export function App(): JSX.Element {
@@ -34,14 +32,8 @@ export function App(): JSX.Element {
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
   const urlPrompts = useRef(getUrlPrompts());
-  // Timer used to input characters from a single prompt with
-  // CHARACTER_INPUT_INTERVAL ms between each character.
-  const inputIntervalTimer = useRef(null);
   // Timer used to wait NEXT_PROMPT_DELAY ms before inputting a new prompt.
   const nextPromptDelayTimer = useRef(null);
-  // Timer used to wait PROMPT_SEARCH_DELAY ms before searching for an inputted
-  // prompt.
-  const searchDelayTimer = useRef(null);
 
   // Updates the query search input box value.
   function updateSearchInput(input: string) {
@@ -72,23 +64,16 @@ export function App(): JSX.Element {
     const nextPromptDelay = delayStart ? NEXT_PROMPT_DELAY : 0;
     nextPromptDelayTimer.current = setTimeout(() => {
       let inputLength = 1;
-      inputIntervalTimer.current = setInterval(() => {
-        if (inputLength <= prompt.length) {
-          updateSearchInput(prompt.substring(0, inputLength));
-        }
+      while (inputLength <= prompt.length) {
+        updateSearchInput(prompt.substring(0, inputLength));
         if (inputLength === prompt.length) {
-          clearInterval(inputIntervalTimer.current);
-          // If on autorun, search for the current input after
-          // PROMPT_SEARCH_DELAY ms.
           if (autoRun.current) {
-            searchDelayTimer.current = setTimeout(() => {
-              executeSearch();
-            }, PROMPT_SEARCH_DELAY);
+            executeSearch();
           }
           return;
         }
         inputLength++;
-      }, CHARACTER_INPUT_INTERVAL);
+      }
     }, nextPromptDelay);
   }
 
@@ -103,8 +88,6 @@ export function App(): JSX.Element {
     }
     return () => {
       // When component unmounts, clear all timers
-      clearInterval(inputIntervalTimer.current);
-      clearTimeout(searchDelayTimer.current);
       clearTimeout(nextPromptDelayTimer.current);
     };
   }, []);
@@ -162,7 +145,7 @@ export function App(): JSX.Element {
         query={q}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
-        showData={false}
+        showData={true}
       ></QueryResult>
     );
   });
