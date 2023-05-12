@@ -19,12 +19,7 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import {
-  CachedChoroplethData,
-  CachedRankingChartData,
-  GeoJsonData,
-  PageData,
-} from "../chart/types";
+import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
 import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
@@ -168,14 +163,6 @@ function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
   return isEarth || (isInUSA && USA_PLACE_TYPES_WITH_CHOROPLETH.has(placeType));
 }
 
-async function getRankingChartData(
-  dcid: string
-): Promise<CachedRankingChartData> {
-  return axios.get(`/api/place/ranking_chart/${dcid}`).then((resp) => {
-    return resp.data;
-  });
-}
-
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   const urlHash = window.location.hash;
@@ -188,7 +175,6 @@ function renderPage(): void {
   const landingPagePromise = getLandingPageData(dcid, category, locale);
   const chartGeoJsonPromise = getGeoJsonData(dcid, placeType, locale);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
-  const rankingChartPromise = getRankingChartData(dcid);
 
   Promise.all([
     landingPagePromise,
@@ -285,7 +271,6 @@ function renderPage(): void {
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,
-          rankingChartData: rankingChartPromise,
           locale,
         }),
         document.getElementById("main-pane")
