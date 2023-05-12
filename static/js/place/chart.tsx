@@ -653,24 +653,24 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         // fetch, hencing setting a dummy value here.
         fetchData({
           id: "",
-          place: { dcid: this.props.parentPlaceDcid, name: "", types: [] },
           enclosedPlaceType: this.props.rankingPlaceType,
-          title: "",
-          statVarSpec: this.props.statsVars.map((x) => {
-            return {
-              statVar: x,
-              unit: "",
-              denom: "",
-              scaling: 1,
-              log: false,
-            };
-          }),
+          place: { dcid: this.props.parentPlaceDcid, name: "", types: [] },
           rankingMetadata: {
-            showMultiColumn: false,
+            diffBaseDate: "",
             showHighest: true,
             showLowest: true,
-            diffBaseDate: "",
+            showMultiColumn: false,
           },
+          statVarSpec: this.props.statsVars.map((x) => {
+            return {
+              denom: "",
+              log: false,
+              scaling: 1,
+              statVar: x,
+              unit: "",
+            };
+          }),
+          title: "",
         })
           .then((rankingChartData) => {
             if (_.isEmpty(this.props.statsVars)) {

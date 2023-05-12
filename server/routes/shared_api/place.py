@@ -15,10 +15,8 @@
 import collections
 import json
 import logging
-import urllib.parse
 
 from flask import Blueprint
-from flask import current_app
 from flask import g
 from flask import request
 from flask import Response
@@ -30,7 +28,6 @@ from server.cache import cache
 from server.lib import fetch
 import server.lib.i18n as i18n
 from server.lib.shared import names
-import server.lib.shared as shared_api
 import server.services.datacommons as dc
 
 CHILD_PLACE_LIMIT = 50
