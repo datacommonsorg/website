@@ -12,10 +12,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_scatter",
+                      "Count_Person_15OrMoreYears_NoIncome_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Population of Working Age With No Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -31,10 +31,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold_scatter",
+                      "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Family Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Population With an Income Between $10,000 and $14,999 (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -50,10 +50,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold_scatter",
+                      "Count_Person_IncomeOf15000To24999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Nonfamily Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Population With an Income Between $15,000 and $24,999 (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -69,10 +69,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Earnings_Person_scatter",
+                      "Count_Person_IncomeOf35000To49999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Earnings (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Population With an Income Between $35,000 and $49,999 (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -88,10 +88,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_scatter",
+                      "Count_Person_IncomeOf50000To64999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Population With an Income Between $50,000 and $64,999 (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -100,25 +100,25 @@
           }
         ],
         "statVarSpec": {
-          "Mean_Income_Household_FamilyHousehold_scatter": {
-            "name": "Average Income for Family Households",
-            "statVar": "Mean_Income_Household_FamilyHousehold"
+          "Count_Person_15OrMoreYears_NoIncome_scatter": {
+            "name": "Population of Working Age With No Income",
+            "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
-          "Mean_Income_Household_NonfamilyHousehold_scatter": {
-            "name": "Average Income for Nonfamily Households",
-            "statVar": "Mean_Income_Household_NonfamilyHousehold"
+          "Count_Person_IncomeOf10000To14999USDollar_scatter": {
+            "name": "Population With an Income Between $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
           },
-          "Mean_Income_Household_scatter": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
+          "Count_Person_IncomeOf15000To24999USDollar_scatter": {
+            "name": "Population With an Income Between $15,000 and $24,999",
+            "statVar": "Count_Person_IncomeOf15000To24999USDollar"
           },
-          "Median_Earnings_Person_scatter": {
-            "name": "Individual Median Earnings",
-            "statVar": "Median_Earnings_Person"
+          "Count_Person_IncomeOf35000To49999USDollar_scatter": {
+            "name": "Population With an Income Between $35,000 and $49,999",
+            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
           },
-          "Median_Income_Household_scatter": {
-            "name": "Household Median Income",
-            "statVar": "Median_Income_Household"
+          "Count_Person_IncomeOf50000To64999USDollar_scatter": {
+            "name": "Population With an Income Between $50,000 and $64,999",
+            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
           },
           "Percent_Person_WithHighBloodPressure_scatter": {
             "name": "High Bood Pressure",
