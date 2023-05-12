@@ -19,4 +19,4 @@ source .env/bin/activate
 python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
-python3 build_embeddings.py
+python3 build_embeddings_v2.py
