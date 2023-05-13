@@ -169,7 +169,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           {props.isDataTile && (
             <div
               className={DATA_CSS_CLASS}
-              data-csv={rankingPointsToCsv(points)}
+              data-csv={rankingPointsToCsv(points, svNames || [svName])}
             />
           )}
           <RankingUnit
@@ -201,7 +201,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           {props.isDataTile && (
             <div
               className={DATA_CSS_CLASS}
-              data-csv={rankingPointsToCsv(points)}
+              data-csv={rankingPointsToCsv(points, svNames || [svName])}
             />
           )}
           <RankingUnit
