@@ -168,10 +168,10 @@ export const fetchData = async (
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get("/api/observations/point/within", {
       params: {
-        parentEntity: place.dcid,
         childType: enclosedPlaceType,
-        variables: [statVarSpec.statVar],
         date: dataDate,
+        parentEntity: place.dcid,
+        variables: [statVarSpec.statVar],
       },
       paramsSerializer: stringifyFn,
     })
@@ -180,8 +180,8 @@ export const fetchData = async (
     ? axios
         .get("/api/observations/series/within", {
           params: {
-            parentEntity: place.dcid,
             childType: enclosedPlaceType,
+            parentEntity: place.dcid,
             variables: [statVarSpec.denom],
           },
           paramsSerializer: stringifyFn,

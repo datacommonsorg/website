@@ -77,7 +77,7 @@ def series_within_all():
   parent_entity = request.args.get('parentEntity')
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
-  child_type = request.args.get('child_type')
+  child_type = request.args.get('childType')
   if not child_type:
     return 'error: must provide a `childType` field', 400
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
