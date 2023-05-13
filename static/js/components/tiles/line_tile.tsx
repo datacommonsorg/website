@@ -24,6 +24,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -48,6 +49,8 @@ interface LineTilePropType {
   className?: string;
   // API root
   apiRoot?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface LineChartData {
@@ -91,6 +94,12 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
     >
+      {props.isDataTile && chartData && (
+        <div
+          className={DATA_CSS_CLASS}
+          data-csv={dataGroupsToCsv(chartData.dataGroup)}
+        />
+      )}
       <div
         id={props.id}
         className="svg-container"

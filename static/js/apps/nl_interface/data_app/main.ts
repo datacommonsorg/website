@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,29 @@
  */
 
 /**
- * Constants used by tile components.
+ * Entrypoint for data version of the NL interface.
  */
 
-// Default height to use for charts in tile components
-export const SVG_CHART_HEIGHT = 200;
-// CSS class for initial loading treatment
-export const INITAL_LOADING_CLASS = "initial-loading-placeholder";
-// CSS class for the div holding data for a tile
-export const DATA_CSS_CLASS = "tile-data";
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { loadLocaleData } from "../../../i18n/i18n";
+import { App } from "./app";
+
+window.onload = () => {
+  loadLocaleData("en", [
+    import("../../../i18n/compiled-lang/en/units.json"),
+  ]).then(() => {
+    renderPage();
+  });
+};
+
+function renderPage(): void {
+  ReactDOM.render(
+    React.createElement(App, {
+      disableSearchDelay: true,
+      showData: true,
+    }),
+    document.getElementById("dc-nl-interface")
+  );
+}

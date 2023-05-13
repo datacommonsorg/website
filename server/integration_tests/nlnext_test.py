@@ -70,7 +70,7 @@ class IntegrationTest(LiveServerTestCase):
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
-      resp = requests.post(self.get_server_url() + f'/nl/data?q={q}',
+      resp = requests.post(self.get_server_url() + f'/api/nl/data?q={q}',
                            json={
                                'contextHistory': ctx
                            }).json()
