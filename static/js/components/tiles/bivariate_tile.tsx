@@ -170,7 +170,7 @@ function getPopulationPromise(
         params: {
           parentEntity: placeDcid,
           childType: enclosedPlaceType,
-          variables: variables,
+          variables,
         },
         paramsSerializer: stringifyFn,
       })

@@ -125,10 +125,10 @@ export async function getStatAllWithinPlace(
       axios
         .get<PointAllApiResponse>("/api/observations/point/within/all", {
           params: {
-            parentEntity: parentPlace,
-            childType: childType,
-            variables: [statVar.statVarDcid],
+            childType,
             date: dataDate,
+            parentEntity: parentPlace,
+            variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
         })
@@ -194,7 +194,7 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
   const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
   if (dcid) {
     place.enclosingPlace = {
-      dcid: dcid,
+      dcid,
       name: "",
       types: null,
     };
