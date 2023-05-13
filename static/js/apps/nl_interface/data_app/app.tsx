@@ -21,19 +21,14 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../../tools/stat_var/util";
-import { QueryHistory } from "../query_history";
 import { QueryResult } from "../query_result";
 import { QuerySearch } from "../query_search";
-
-const NEXT_PROMPT_DELAY = 5000;
 
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
   const urlPrompts = useRef(getUrlPrompts());
-  // Timer used to wait NEXT_PROMPT_DELAY ms before inputting a new prompt.
-  const nextPromptDelayTimer = useRef(null);
 
   // Updates the query search input box value.
   function updateSearchInput(input: string) {
@@ -51,30 +46,28 @@ export function App(): JSX.Element {
   function getUrlPrompts(): string[] {
     const urlPromptsVal = getUrlToken("q");
     if (urlPromptsVal) {
-      return urlPromptsVal.split(";");
+      // Assume one url prompt at a time
+      return [urlPromptsVal];
     }
     return [];
   }
 
-  function inputNextPrompt(delayStart: boolean): void {
+  function inputNextPrompt(): void {
     const prompt = urlPrompts.current.shift();
     if (!prompt) {
       return;
     }
-    const nextPromptDelay = delayStart ? NEXT_PROMPT_DELAY : 0;
-    nextPromptDelayTimer.current = setTimeout(() => {
-      let inputLength = 1;
-      while (inputLength <= prompt.length) {
-        updateSearchInput(prompt.substring(0, inputLength));
-        if (inputLength === prompt.length) {
-          if (autoRun.current) {
-            executeSearch();
-          }
-          return;
+    let inputLength = 1;
+    while (inputLength <= prompt.length) {
+      updateSearchInput(prompt.substring(0, inputLength));
+      if (inputLength === prompt.length) {
+        if (autoRun.current) {
+          executeSearch();
         }
-        inputLength++;
+        return;
       }
-    }, nextPromptDelay);
+      inputLength++;
+    }
   }
 
   useEffect(() => {
@@ -84,12 +77,8 @@ export function App(): JSX.Element {
     // TODO: Do this by going through state/props instead of directly
     // manipulating the DOM.
     if (urlPrompts.current.length) {
-      inputNextPrompt(false);
+      inputNextPrompt();
     }
-    return () => {
-      // When component unmounts, clear all timers
-      clearTimeout(nextPromptDelayTimer.current);
-    };
   }, []);
 
   useEffect(() => {
@@ -131,12 +120,6 @@ export function App(): JSX.Element {
     }
   }
 
-  function onHistoryItemClick(queries: string[]) {
-    urlPrompts.current.unshift(...queries);
-    autoRun.current = true;
-    inputNextPrompt(false /* delayStart */);
-  }
-
   const queryResults = queries.map((q, i) => {
     return (
       <QueryResult
@@ -165,11 +148,10 @@ export function App(): JSX.Element {
             setQueries([...queries, q]);
             // If there are prompts from the url, input the next one
             if (urlPrompts.current.length) {
-              inputNextPrompt(true);
+              inputNextPrompt();
             }
           }}
         />
-        {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
       </div>
     </>
   );
