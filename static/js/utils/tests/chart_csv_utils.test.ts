@@ -26,7 +26,7 @@ import {
 } from "../chart_csv_utils";
 
 test("dataGroupsToCsv", () => {
-  const dataGroupA = new DataGroup("dataGroupA", [
+  const dataGroupA = new DataGroup("dataGroup, A", [
     {
       label: "2020",
       value: 1,
@@ -59,12 +59,12 @@ test("dataGroupsToCsv", () => {
     {
       name: "single dataGroup",
       dataGroups: [dataGroupA],
-      expected: 'label,"dataGroupA"\n2020,1\n2021,2\n',
+      expected: 'label,"dataGroup, A"\r\n2020,1\r\n2021,2',
     },
     {
       name: "mulitple dataGroups",
       dataGroups: [dataGroupA, dataGroupB],
-      expected: 'label,"dataGroupA","dataGroupB"\n2020,1,3\n2021,2,4\n',
+      expected: 'label,"dataGroup, A",dataGroupB\r\n2020,1,3\r\n2021,2,4',
     },
   ];
 
@@ -81,7 +81,7 @@ test("dataGroupsToCsv", () => {
 
 test("scatterDataToCsv", () => {
   const testPlaceA = {
-    name: "testPlaceA",
+    name: "testPlace, A",
     dcid: "testPlaceAId",
   };
   const testPointA = {
@@ -116,8 +116,8 @@ test("scatterDataToCsv", () => {
       yDenom: yDenom,
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,xPopulation-xDenomId,yPopulation-yDenomId",
-        "testPlaceA,testPlaceAId,2022-01-01,1,2022-01-02,2,3,N/A",
-      ].join("\n"),
+        '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2,3,N/A',
+      ].join("\r\n"),
     },
     {
       name: "with x denom",
@@ -127,8 +127,8 @@ test("scatterDataToCsv", () => {
       yDenom: "",
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,xPopulation-xDenomId",
-        "testPlaceA,testPlaceAId,2022-01-01,1,2022-01-02,2,3",
-      ].join("\n"),
+        '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2,3',
+      ].join("\r\n"),
     },
     {
       name: "with y denom",
@@ -138,8 +138,8 @@ test("scatterDataToCsv", () => {
       yDenom: yDenom,
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,yPopulation-yDenomId",
-        "testPlaceA,testPlaceAId,2022-01-01,1,2022-01-02,2,N/A",
-      ].join("\n"),
+        '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2,N/A',
+      ].join("\r\n"),
     },
     {
       name: "no denom",
@@ -149,8 +149,8 @@ test("scatterDataToCsv", () => {
       yDenom: "",
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId",
-        "testPlaceA,testPlaceAId,2022-01-01,1,2022-01-02,2",
-      ].join("\n"),
+        '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2',
+      ].join("\r\n"),
     },
   ];
 
@@ -175,7 +175,7 @@ test("dataPointsToCsv", () => {
       name: "non empty data points",
       dataPoints: [
         {
-          label: "pointA",
+          label: "point, A",
           value: 1,
         },
         {
@@ -183,7 +183,7 @@ test("dataPointsToCsv", () => {
           value: 2,
         },
       ],
-      expected: "label,data\npointA,1\npointB,2",
+      expected: 'label,data\r\n"point, A",1\r\npointB,2',
     },
     {
       name: "empty datapoints",
@@ -213,7 +213,7 @@ test("mapDataToCsv", () => {
         type: "Feature",
         id: testPlaceA,
         properties: {
-          name: "Place A",
+          name: "Place, A",
           geoDcid: testPlaceA,
         },
         geometry: { type: "MultiPolygon", coordinates: [] },
@@ -246,7 +246,7 @@ test("mapDataToCsv", () => {
       name: "non empty geoJson and dataValues",
       geoJson: testGeoJson,
       dataValues: testDataValues,
-      expected: "label,data\nPlace A,1\nPlace B,2",
+      expected: 'label,data\r\n"Place, A",1\r\nPlace B,2',
     },
     {
       name: "empty geoJson",
@@ -264,7 +264,7 @@ test("mapDataToCsv", () => {
       name: "empty dataValues",
       geoJson: testGeoJson,
       dataValues: {},
-      expected: "label,data\nPlace A,N/A\nPlace B,N/A",
+      expected: 'label,data\r\n"Place, A",N/A\r\nPlace B,N/A',
     },
   ];
 
@@ -297,7 +297,7 @@ test("rankingPointsToCsv", () => {
       rankingPoints: [
         {
           placeDcid: "placeAId",
-          placeName: "placeAName",
+          placeName: "place, AName",
           value: 1,
           rank: 1,
         },
@@ -315,10 +315,10 @@ test("rankingPointsToCsv", () => {
       dataHeadings: ["data"],
       expected: [
         "rank,place,data",
-        "1,placeAName,1",
+        '1,"place, AName",1',
         "2,placeBId,2",
         "3,placeCName,3",
-      ].join("\n"),
+      ].join("\r\n"),
     },
     {
       name: "multi column",
@@ -340,18 +340,18 @@ test("rankingPointsToCsv", () => {
           values: [3, 4],
         },
       ],
-      dataHeadings: ["data1", "data2"],
+      dataHeadings: ["data, 1", "data2"],
       expected: [
-        "rank,place,data1,data2",
+        'rank,place,"data, 1",data2',
         "1,placeAName,1,2",
         "2,placeBId,2,3",
         "3,placeCName,3,4",
-      ].join("\n"),
+      ].join("\r\n"),
     },
   ];
 
   for (const c of cases) {
-    const csv = rankingPointsToCsv(c.rankingPoints, ["data"]);
+    const csv = rankingPointsToCsv(c.rankingPoints, c.dataHeadings);
     try {
       expect(csv).toEqual(c.expected);
     } catch (e) {

@@ -61,7 +61,7 @@ export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
   // Get the header row.
   const header = ["label"];
   for (const dg of dataGroups) {
-    header.push(`"${dg.label}"`);
+    header.push(dg.label);
   }
 
   // Iterate each year, group, place, stats var to populate data
@@ -142,11 +142,13 @@ export function scatterDataToCsv(
  * @param dataPoints data points to get the csv for
  */
 export function dataPointsToCsv(dataPoints: DataPoint[]): string {
-  const rows = ["label,data"];
+  const header = ["label", "data"];
+  const data = [];
   for (const datapoint of dataPoints) {
-    rows.push(`${datapoint.label},${datapoint.value}`);
+    data.push([datapoint.label, datapoint.value]);
   }
-  return rows.join("\n");
+  const rows = [header, ...data];
+  return Papa.unparse(rows);
 }
 
 /**
