@@ -429,7 +429,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
     if (this.state.rankingChartDataGroup) {
       const data = this.state.rankingChartDataGroup.data;
-      return rankingPointsToCsv(data);
+      return rankingPointsToCsv(data, ["data"]);
     }
     return dataGroupsToCsv(this.state.dataGroups);
   }
