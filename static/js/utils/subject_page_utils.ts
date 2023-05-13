@@ -128,7 +128,7 @@ export function fetchGeoJsonData(
         type: "FeatureCollection",
         features: [],
         properties: {
-          current_geo: enclosingPlace,
+          currentGeo: enclosingPlace,
         },
       };
     });

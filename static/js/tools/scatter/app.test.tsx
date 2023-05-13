@@ -269,8 +269,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person_Employed"],
         date: "",
       },
@@ -287,8 +287,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_HousingUnit"],
         date: "",
       },
@@ -305,8 +305,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Establishment"],
         date: "",
       },
@@ -323,8 +323,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person_Employed"],
         date: "",
       },
@@ -341,8 +341,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_HousingUnit"],
         date: "",
       },
@@ -359,8 +359,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Establishment"],
         date: "",
       },
@@ -407,8 +407,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/series/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,

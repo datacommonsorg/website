@@ -66,9 +66,9 @@ export function useFetchMapPointStat(
     axios
       .get<PointApiResponse>("/api/observations/point/within", {
         params: {
-          child_type: placeInfo.value.mapPointPlaceType,
+          childType: placeInfo.value.mapPointPlaceType,
           date: date,
-          parent_entity: placeInfo.value.enclosingPlace.dcid,
+          parentEntity: placeInfo.value.enclosingPlace.dcid,
           variables: [usedSV],
         },
         paramsSerializer: stringifyFn,

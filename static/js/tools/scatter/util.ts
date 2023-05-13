@@ -73,8 +73,8 @@ export async function getStatWithinPlace(
       axios
         .get<PointApiResponse>("/api/observations/point/within", {
           params: {
-            parent_entity: parentPlace,
-            child_type: childType,
+            parentEntity: parentPlace,
+            childType: childType,
             variables: [statVar.statVarDcid],
             date: dataDate,
           },
@@ -125,8 +125,8 @@ export async function getStatAllWithinPlace(
       axios
         .get<PointAllApiResponse>("/api/observations/point/within/all", {
           params: {
-            parent_entity: parentPlace,
-            child_type: childType,
+            parentEntity: parentPlace,
+            childType: childType,
             variables: [statVar.statVarDcid],
             date: dataDate,
           },

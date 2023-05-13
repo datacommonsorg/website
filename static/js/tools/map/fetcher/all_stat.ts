@@ -64,9 +64,9 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
     axios
       .get<PointAllApiResponse>("/api/observations/point/within/all", {
         params: {
-          child_type: placeInfo.value.enclosedPlaceType,
+          childType: placeInfo.value.enclosedPlaceType,
           date: date,
-          parent_entity: placeInfo.value.enclosingPlace.dcid,
+          parentEntity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,

@@ -229,7 +229,7 @@ test("mapDataToCsv", () => {
       },
     ],
     properties: {
-      current_geo: "test_geo",
+      currentGeo: "test_geo",
     },
   };
   const testDataValues = {
@@ -254,7 +254,7 @@ test("mapDataToCsv", () => {
         type: "FeatureCollection",
         features: [],
         properties: {
-          current_geo: "test_geo",
+          currentGeo: "test_geo",
         },
       },
       dataValues: testDataValues,

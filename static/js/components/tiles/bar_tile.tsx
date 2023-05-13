@@ -147,8 +147,8 @@ export const fetchData = async (props: BarTilePropType) => {
   } else {
     url = "/api/observations/point/within";
     params = {
-      parent_entity: props.place.dcid,
-      child_type: props.enclosedPlaceType,
+      parentEntity: props.place.dcid,
+      childType: props.enclosedPlaceType,
       variables: statVars,
     };
   }
