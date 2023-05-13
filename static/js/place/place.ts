@@ -134,7 +134,7 @@ export async function getChoroplethData(
 ): Promise<ChoroplethDataGroup> {
   return axios
     .post(`/api/choropleth/data/${dcid}`, {
-      spec: spec,
+      spec,
     })
     .then((resp) => {
       return resp.data;
