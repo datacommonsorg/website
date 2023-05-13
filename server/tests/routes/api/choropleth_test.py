@@ -254,32 +254,6 @@ class TestGetGeoJson(unittest.TestCase):
 
 class TestChoroplethDataHelpers(unittest.TestCase):
 
-  def test_get_choropleth_configs(self):
-    cc1 = {
-        'category': ['Test', 'Test1'],
-        'title': 'Test1',
-        'statsVars': ['StatVar1'],
-        'isOverview': True,
-    }
-    cc2 = {
-        'category': ['Test', 'Test2'],
-        'title': 'Test2',
-        'statsVars': ['StatVar2'],
-        'isChoropleth': False
-    }
-    cc3 = {
-        'category': ['Test', 'Test2'],
-        'title': 'Test2',
-        'statsVars': ['StatVar3'],
-        'isChoropleth': True
-    }
-
-    with app.app_context():
-      app.config['CHART_CONFIG'] = [cc1, cc2, cc3]
-      expected_chart_configs = [cc3]
-      actual_chart_configs = choropleth_api.get_choropleth_configs()
-      assert expected_chart_configs == actual_chart_configs
-
   def test_get_choropleth_sv(self):
     cc1 = {
         'category': ['Test', 'Test2'],
@@ -382,36 +356,116 @@ class TestChoroplethData(unittest.TestCase):
 
   @patch('server.routes.shared_api.choropleth.fetch.descendent_places')
   @patch('server.routes.shared_api.choropleth.fetch.point_within_core')
-  @patch('server.routes.shared_api.choropleth.fetch.series_core')
   @patch('server.routes.shared_api.choropleth.get_choropleth_display_level')
-  @patch('server.routes.shared_api.choropleth.get_choropleth_configs')
   @patch('server.routes.shared_api.choropleth.shared.get_stat_vars')
-  def testRoute(self, mock_stat_vars, mock_configs, mock_display_level,
-                mock_denom_data, mock_num_data, mock_descendent_places):
+  def testRoute1(self, mock_stat_vars, mock_display_level, mock_num_data,
+                 mock_descendent_places):
     test_dcid = 'test_dcid'
     geo1 = 'dcid1'
     geo2 = 'dcid2'
     display_level = "AdministrativeArea1"
     sv1 = 'StatVar1'
-    sv2 = 'StatVar2'
-    sv3 = 'StatVar3'
     sv1_date1 = '2018'
     sv1_date2 = '2019'
-    sv2_date = '2018'
     sv1_val = 2
-    sv2_val1 = 4
-    sv2_val2 = 6
     source1 = 'source1'
-    source2 = 'source2'
-    source3 = 'source3'
-    scaling_val = 100
-    denom_val = 2
     cc1 = {
         'category': ['Test', 'Test2'],
         'title': 'Test2',
         'statsVars': [sv1],
         'isChoropleth': True
     }
+    sv_set = {sv1}
+    chart_configs = [cc1]
+    geos = [geo1, geo2]
+    mock_display_level.return_value = test_dcid, display_level
+
+    def descendent_places_side_effect(*args):
+      if args[0] == [test_dcid] and args[1] == display_level:
+        return {test_dcid: geos}
+      else:
+        return {}
+
+    mock_descendent_places.side_effect = descendent_places_side_effect
+
+    def stat_vars_side_effect(*args):
+      if args[0] == chart_configs:
+        return sv_set, {}
+      else:
+        return {}, {}
+
+    mock_stat_vars.side_effect = stat_vars_side_effect
+
+    num_api_resp = {
+        'data': {
+            sv1: {
+                geo1: {
+                    'date': sv1_date1,
+                    'value': sv1_val,
+                    'facet': "facet1",
+                },
+                geo2: {
+                    'date': sv1_date2,
+                    'value': sv1_val,
+                    'facet': "facet1",
+                }
+            }
+        },
+        'facets': {
+            'facet1': {
+                'importName': 'importName1',
+                'provenanceUrl': source1
+            },
+        }
+    }
+
+    def num_data_side_effect(*args):
+      if args[0] == test_dcid and args[1] == display_level:
+        return num_api_resp
+      else:
+        return {}
+
+    mock_num_data.side_effect = num_data_side_effect
+
+    response = app.test_client().post('/api/choropleth/data/' + test_dcid,
+                                      json={'spec': cc1})
+    assert response.status_code == 200
+    response_data = json.loads(response.data)
+    expected_data = {
+        'date':
+            f'{sv1_date1} – {sv1_date2}',
+        'data': {
+            geo1: sv1_val,
+            geo2: sv1_val
+        },
+        'numDataPoints':
+            2,
+        'exploreUrl':
+            "/tools/map#&pd=test_dcid&ept=AdministrativeArea1&sv=StatVar1",
+        'sources': [source1]
+    }
+    assert response_data == expected_data
+
+  @patch('server.routes.shared_api.choropleth.fetch.descendent_places')
+  @patch('server.routes.shared_api.choropleth.fetch.point_within_core')
+  @patch('server.routes.shared_api.choropleth.fetch.series_core')
+  @patch('server.routes.shared_api.choropleth.get_choropleth_display_level')
+  @patch('server.routes.shared_api.choropleth.shared.get_stat_vars')
+  def testRoute2(self, mock_stat_vars, mock_display_level, mock_denom_data,
+                 mock_num_data, mock_descendent_places):
+    test_dcid = 'test_dcid'
+    geo1 = 'dcid1'
+    geo2 = 'dcid2'
+    display_level = "AdministrativeArea1"
+    sv2 = 'StatVar2'
+    sv3 = 'StatVar3'
+    sv2_date = '2018'
+    sv2_val1 = 4
+    sv2_val2 = 6
+    source2 = 'source2'
+    source3 = 'source3'
+    scaling_val = 100
+    denom_val = 2
     cc2 = {
         'category': ['Test', 'Test2'],
         'title': 'Test2',
@@ -424,11 +478,10 @@ class TestChoroplethData(unittest.TestCase):
         }
     }
 
-    sv_set = {sv1, sv2}
+    sv_set = {sv2}
     denoms_set = {sv3}
-    chart_configs = [cc1, cc2]
+    chart_configs = [cc2]
     geos = [geo1, geo2]
-    mock_configs.return_value = [cc1, cc2]
     mock_display_level.return_value = test_dcid, display_level
 
     def descendent_places_side_effect(*args):
@@ -449,18 +502,6 @@ class TestChoroplethData(unittest.TestCase):
 
     num_api_resp = {
         'data': {
-            sv1: {
-                geo1: {
-                    'date': sv1_date1,
-                    'value': sv1_val,
-                    'facet': "facet1",
-                },
-                geo2: {
-                    'date': sv1_date2,
-                    'value': sv1_val,
-                    'facet': "facet1",
-                }
-            },
             sv2: {
                 geo1: {
                     'date': sv2_date,
@@ -475,10 +516,6 @@ class TestChoroplethData(unittest.TestCase):
             }
         },
         'facets': {
-            'facet1': {
-                'importName': 'importName1',
-                'provenanceUrl': source1
-            },
             'facet2': {
                 'importName': 'importName2',
                 'provenanceUrl': source2
@@ -523,35 +560,21 @@ class TestChoroplethData(unittest.TestCase):
 
     mock_denom_data.side_effect = denom_data_side_effect
 
-    response = app.test_client().get('/api/choropleth/data/' + test_dcid)
+    response = app.test_client().post('/api/choropleth/data/' + test_dcid,
+                                      json={'spec': cc2})
     assert response.status_code == 200
     response_data = json.loads(response.data)
     expected_data = {
-        sv1: {
-            'date':
-                f'{sv1_date1} – {sv1_date2}',
-            'data': {
-                geo1: sv1_val,
-                geo2: sv1_val
-            },
-            'numDataPoints':
-                2,
-            'exploreUrl':
-                "/tools/map#&pd=test_dcid&ept=AdministrativeArea1&sv=StatVar1",
-            'sources': [source1]
+        'date':
+            sv2_date,
+        'data': {
+            geo1: (sv2_val1 / denom_val) * scaling_val
         },
-        sv2: {
-            'date':
-                sv2_date,
-            'data': {
-                geo1: (sv2_val1 / denom_val) * scaling_val
-            },
-            'numDataPoints':
-                1,
-            'exploreUrl':
-                "/tools/map#&pd=test_dcid&ept=AdministrativeArea1&sv=StatVar2&pc=1",
-            'sources': [source1, source3]
-        }
+        'numDataPoints':
+            1,
+        'exploreUrl':
+            "/tools/map#&pd=test_dcid&ept=AdministrativeArea1&sv=StatVar2&pc=1",
+        'sources': [source3]
     }
     assert response_data == expected_data
 

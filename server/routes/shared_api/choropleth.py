@@ -273,20 +273,6 @@ def node_geojson():
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-def get_choropleth_configs():
-  """ Gets all the chart configs that have choropleth charts
-
-  Returns:
-      list of chart configs that are choropleth chart configs
-  """
-  chart_config = current_app.config['CHART_CONFIG']
-  chart_configs = []
-  for config in chart_config:
-    if config.get('isChoropleth', False):
-      chart_configs.append(config)
-  return chart_configs
-
-
 def get_denom_val(stat_date, denom_data):
   """ Gets the best denominator value for a given date
 
@@ -380,7 +366,9 @@ def choropleth_data(dcid):
   # Get data for all the stat vars for every place we will need and process the data
   numerator_resp = fetch.point_within_core(display_dcid, display_level,
                                            list(stat_vars), 'LATEST', False)
-  denominator_resp = fetch.series_core(list(geos), list(denoms), False)
+  denominator_resp = {}
+  if denoms:
+    denominator_resp = fetch.series_core(list(geos), list(denoms), False)
 
   # we should only be making choropleths for the first stat var
   sv = cc['statsVars'][0]
