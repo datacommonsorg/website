@@ -19,7 +19,12 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
+import {
+  ChartBlockData,
+  ChoroplethDataGroup,
+  GeoJsonData,
+  PageData,
+} from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
 import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
@@ -109,36 +114,31 @@ function adjustMenuPosition(): void {
 /**
  * Get the geo json info for choropleth charts.
  */
-async function getGeoJsonData(
+export async function getGeoJsonData(
   dcid: string,
-  placeType: string,
   locale: string
 ): Promise<GeoJsonData> {
-  if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios
-      .get(`/api/choropleth/geojson?placeDcid=${dcid}&hl=${locale}`)
-      .then((resp) => {
-        return resp.data;
-      });
-  } else {
-    return Promise.resolve(null);
-  }
+  return axios
+    .get(`/api/choropleth/geojson?placeDcid=${dcid}&hl=${locale}`)
+    .then((resp) => {
+      return resp.data;
+    });
 }
 
 /**
  * Get the stat var data for choropleth charts.
  */
-async function getChoroplethData(
+export async function getChoroplethData(
   dcid: string,
-  placeType: string
-): Promise<CachedChoroplethData> {
-  if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios.get(`/api/choropleth/data/${dcid}`).then((resp) => {
+  spec: ChartBlockData
+): Promise<ChoroplethDataGroup> {
+  return axios
+    .post(`/api/choropleth/data/${dcid}`, {
+      spec: spec,
+    })
+    .then((resp) => {
       return resp.data;
     });
-  } else {
-    return Promise.resolve({});
-  }
 }
 
 /**
@@ -156,7 +156,10 @@ async function getLandingPageData(
     });
 }
 
-function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
+export function shouldMakeChoroplethCalls(
+  dcid: string,
+  placeType: string
+): boolean {
   const isEarth = dcid === EARTH_NAMED_TYPED_PLACE.dcid;
   const isInUSA: boolean =
     dcid.startsWith("geoId") || dcid.startsWith(USA_PLACE_DCID);
@@ -173,8 +176,6 @@ function renderPage(): void {
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
   const landingPagePromise = getLandingPageData(dcid, category, locale);
-  const chartGeoJsonPromise = getGeoJsonData(dcid, placeType, locale);
-  const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
   Promise.all([
     landingPagePromise,
@@ -266,8 +267,6 @@ function renderPage(): void {
           pageChart: data.pageChart,
           placeName,
           placeType,
-          geoJsonData: chartGeoJsonPromise,
-          choroplethData: choroplethDataPromise,
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,

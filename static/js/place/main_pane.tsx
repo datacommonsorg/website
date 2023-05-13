@@ -17,12 +17,7 @@
 import React from "react";
 import { RawIntlProvider } from "react-intl";
 
-import {
-  CachedChoroplethData,
-  ChartBlockData,
-  GeoJsonData,
-  PageChart,
-} from "../chart/types";
+import { ChartBlockData, PageChart } from "../chart/types";
 import { intl } from "../i18n/i18n";
 import { randDomId } from "../shared/util";
 import { ChartBlock } from "./chart_block";
@@ -59,14 +54,6 @@ interface MainPanePropType {
    * All place names
    */
   names: { [key: string]: string };
-  /**
-   * Promise for Geojson data for choropleth for current dcid.
-   */
-  geoJsonData: Promise<GeoJsonData>;
-  /**
-   * Promise for Values of statvar/denominator combinations for choropleth for current dcid
-   */
-  choroplethData: Promise<CachedChoroplethData>;
   /**
    * Place type for the list of child places used for contained charts
    */
@@ -110,8 +97,6 @@ class MainPane extends React.Component<MainPanePropType> {
         names={this.props.names}
         data={data}
         locale={this.props.locale}
-        geoJsonData={this.props.geoJsonData}
-        choroplethData={this.props.choroplethData}
         childPlaceType={this.props.childPlacesType}
         parentPlaces={this.props.parentPlaces}
         category={category}
