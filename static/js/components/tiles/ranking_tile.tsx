@@ -92,7 +92,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   ): void {
     embedModalElement.current.show(
       "",
-      rankingPointsToCsv(rankingPoints),
+      rankingPointsToCsv(rankingPoints, svNames),
       chartWidth,
       chartHeight,
       chartHtml,
@@ -186,7 +186,10 @@ function fetchData(
       }
       // We want the display name (gets name with state code if available) if
       // parent place is USA
-      const placeNamesPromise = _.isEqual(props.place, USA_NAMED_TYPED_PLACE)
+      const placeNamesPromise = _.isEqual(
+        props.place.dcid,
+        USA_NAMED_TYPED_PLACE.dcid
+      )
         ? getPlaceDisplayNames(Array.from(places))
         : getPlaceNames(Array.from(places));
       placeNamesPromise.then((placeNames) => {

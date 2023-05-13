@@ -44,6 +44,7 @@ interface SubjectPageMainPanePropType {
   svgChartHeight?: number;
   // parent places of the place to show the page for.
   parentPlaces?: NamedPlace[];
+  showData?: boolean;
 }
 
 const PLACE_TYPE_GEOJSON_PROP = {
@@ -144,6 +145,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
                         ? props.svgChartHeight
                         : SVG_CHART_HEIGHT
                     }
+                    showData={props.showData}
                   />
                 </ErrorBoundary>
               </DataContext.Provider>

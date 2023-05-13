@@ -60,7 +60,7 @@ export function QueryHistory(props: QueryHistoryProps): JSX.Element {
   );
 
   function fetchData(): void {
-    axios.get(`/nl/history`).then((resp) => {
+    axios.get(`/api/nl/history`).then((resp) => {
       const result = [];
       const seen = new Set();
       for (const item of resp.data) {

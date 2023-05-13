@@ -68,6 +68,7 @@ interface DisasterEventBlockPropType {
   columns: ColumnConfig[];
   eventTypeSpec: Record<string, EventTypeSpec>;
   footnote?: string;
+  showData?: boolean;
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;

@@ -46,6 +46,7 @@ export interface CategoryPropType {
   eventTypeSpec: Record<string, EventTypeSpec>;
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
+  showData?: boolean;
 }
 
 export const Category = memo(function Category(
@@ -91,6 +92,7 @@ function renderBlocks(
               footnote={block.footnote}
               columns={block.columns}
               eventTypeSpec={props.eventTypeSpec}
+              showData={props.showData}
             />
           </ErrorBoundary>
         );
@@ -107,6 +109,7 @@ function renderBlocks(
               columns={block.columns}
               statVarProvider={svProvider}
               svgChartHeight={props.svgChartHeight}
+              showData={props.showData}
             />
           </ErrorBoundary>
         );
