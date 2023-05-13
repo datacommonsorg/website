@@ -64,7 +64,9 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const chartContainer = useRef(null);
 
   useEffect(() => {
-    fetchData(props, setRankingData);
+    fetchData(props).then((rankingData) => {
+      setRankingData(rankingData);
+    });
   }, [props]);
 
   const numRankingLists = getNumRankingLists(
@@ -143,10 +145,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     </div>
   );
 }
-function fetchData(
-  props: RankingTilePropType,
-  setRankingData: (data: RankingData) => void
-): void {
+
+export async function fetchData(
+  props: RankingTilePropType
+): Promise<RankingData> {
   const variables = [];
   for (const spec of props.statVarSpec) {
     variables.push(spec.statVar);
@@ -154,7 +156,7 @@ function fetchData(
       variables.push(spec.denom);
     }
   }
-  axios
+  return axios
     .get<PointApiResponse>("/api/observations/point/within", {
       params: {
         parent_entity: props.place.dcid,
@@ -192,13 +194,13 @@ function fetchData(
       )
         ? getPlaceDisplayNames(Array.from(places))
         : getPlaceNames(Array.from(places));
-      placeNamesPromise.then((placeNames) => {
+      return placeNamesPromise.then((placeNames) => {
         for (const statVar in rankingData) {
           for (const point of rankingData[statVar].points) {
             point.placeName = placeNames[point.placeDcid] || point.placeDcid;
           }
         }
-        setRankingData(rankingData);
+        return rankingData;
       });
     });
 }

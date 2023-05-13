@@ -40,6 +40,8 @@ export interface RankingGroup {
   sources: Set<string>;
   numDataPoints?: number;
   dateRange: string;
+  // Optional for storing the processed rankingData
+  rankingData?: { lowest: RankingPoint[]; highest: RankingPoint[] };
 }
 
 export interface RankingData {

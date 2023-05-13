@@ -15,10 +15,8 @@
 import collections
 import json
 import logging
-import urllib.parse
 
 from flask import Blueprint
-from flask import current_app
 from flask import g
 from flask import request
 from flask import Response
@@ -30,7 +28,6 @@ from server.cache import cache
 from server.lib import fetch
 import server.lib.i18n as i18n
 from server.lib.shared import names
-import server.lib.shared as shared_api
 import server.services.datacommons as dc
 
 CHILD_PLACE_LIMIT = 50
@@ -691,166 +688,3 @@ def coords2places():
         })
         break
   return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
-@bp.route('/ranking_chart/<path:dcid>')
-def api_ranking_chart(dcid):
-  """Gets the ranking data (including ranks, placename, value, date, and source) for a given place.
-
-  Return value example:
-  {
-      "statvar":{
-          "date":"2022-03",
-          "data":[
-              {
-                  "rank":1,
-                  "value":0.1,
-                  "placeDcid":"geoId/06",
-                  "placename":"California"
-              }
-          ],
-          "numDataPoints":1,
-          "exploreUrl":"/ranking/UnemploymentRate_Person_Rural/State/country/USA?h=geoId/06&unit=%",
-          "sources":[
-              "https://www.bls.gov/lau/"
-          ]
-      }
-  }
-  """
-  result = {}
-  # Get the parent place.
-  if dcid == EARTH_DCID:
-    parent_place_dcid = EARTH_DCID
-    place_type = "Country"
-  else:
-    place_type = get_place_type(dcid)
-    parent_place_list = parent_places([dcid]).get(dcid, [])
-    for parent in parent_place_list:
-      parent_place_dcid = parent.get("dcid", "")
-      parent_type = parent.get("type", "")
-      # All wanted place types plus continent except CensusZipCodeTabulationArea.
-      if parent_type == "Continent" or (
-          parent_type in ALL_WANTED_PLACE_TYPES and
-          parent_type != "CensusZipCodeTabulationArea"):
-        break
-    # If break is not encountered, return empty result.
-    else:
-      return Response(json.dumps(result), 200, mimetype='application/json')
-  # Read configs and build a dict to map stat vars to dicts of unit and scaling.
-  # Consider the configs with single sv but ignore denominators.
-  configs = get_ranking_chart_configs()
-  config_sv_to_info = {}
-  for config in configs:
-    stat_vars = config.get("statsVars")
-    if not stat_vars:
-      continue
-    sv = stat_vars[0]
-    info = {"scaling": config.get("scaling"), "unit": config.get("unit")}
-    config_sv_to_info[sv] = info
-  # Get the first stat var of each config.
-  stat_vars, _ = shared_api.get_stat_vars(configs)
-  # Make sure POPULATION_DCID is included in stat vars.
-  if POPULATION_DCID not in stat_vars:
-    stat_vars.add(POPULATION_DCID)
-  points_response = dc.obs_point_within(parent_place_dcid, place_type,
-                                        list(stat_vars), "LATEST")
-  obs_by_sv = points_response.get('byVariable', {})
-  if not points_response or not obs_by_sv:
-    return Response(json.dumps(result), 200, mimetype='application/json')
-  sv_facets = points_response.get('facets', {})
-  places_to_rank = set()
-  # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
-  population_obs = obs_by_sv.get(POPULATION_DCID, {})
-  if population_obs:
-    for place_dcid, place_obs in population_obs.get('byEntity', {}).items():
-      place_data_points = place_obs.get('orderedFacets', [])
-      if place_data_points:
-        value = place_data_points[0]['observations'][0].get('value', 0)
-        if value > PERSON_COUNT_LIMIT:
-          places_to_rank.add(place_dcid)
-  # Get all the place names
-  place_names = get_i18n_name(list(places_to_rank))
-  # Loop through var_obs to build the result data.
-  for sv, sv_obs in obs_by_sv.items():
-    if sv not in config_sv_to_info:
-      continue
-    sources = set()
-    dates = set()
-    data_points = []
-    for place_dcid, place_data in sv_obs.get("byEntity", {}).items():
-      if place_dcid not in places_to_rank:
-        continue
-      # Example of place_data_points:
-      # [
-      #   {
-      #     "facetId": "12345",
-      #     "observations": [{"date": "2022", "value": 123}]
-      #   }
-      # ]
-      place_data_points = place_data.get("orderedFacets")
-      value, date, facet = None, None, None
-      if place_data_points:
-        place_data_point = place_data_points[0]
-        value = place_data_point['observations'][0].get("value")
-        date = place_data_point['observations'][0].get("date")
-        facet = place_data_point.get("facetId")
-      # Value is required for the calculation of ranking.
-      if value is None:
-        continue
-      place_name = place_names.get(place_dcid, "")
-      data_point = {
-          "placeDcid": place_dcid,
-          "value": value,
-          "placeName": place_name
-      }
-      data_points.append(data_point)
-      if date:
-        dates.add(date)
-      if facet:
-        provenanceUrl = sv_facets.get(str(facet), {}).get("provenanceUrl")
-        if provenanceUrl:
-          sources.add(provenanceUrl)
-    # Build URL for "explore more".
-    scaling = config_sv_to_info.get(sv, {}).get("scaling")
-    unit = config_sv_to_info.get(sv, {}).get("unit")
-    if dcid == EARTH_DCID:
-      parent_place_dcid = None
-    explore_url = urllib.parse.unquote(
-        url_for('ranking.ranking',
-                stat_var=sv,
-                place_type=place_type,
-                place_dcid=parent_place_dcid,
-                h=dcid,
-                scaling=scaling,
-                unit=unit))
-    # Calculate the ranking.
-    sorted_data_points = sorted(data_points,
-                                key=lambda x: x['value'],
-                                reverse=True)
-    for i, data_point in enumerate(sorted_data_points):
-      data_point['rank'] = i + 1
-    date_range = shared_api.get_date_range(dates)
-    sv_result = {
-        "date": date_range,
-        "data": sorted_data_points,
-        'numDataPoints': len(data_points),
-        'exploreUrl': explore_url,
-        'sources': sorted(list(sources))
-    }
-    result[sv] = sv_result
-  return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-def get_ranking_chart_configs():
-  """ Gets all the chart configs that have ranking charts.
-
-  Returns:
-      List of chart configs that are ranking chart configs.
-  """
-  chart_config = current_app.config['CHART_CONFIG']
-  chart_configs = []
-  for config in chart_config:
-    if config.get('isRankingChart', False):
-      chart_configs.append(config)
-  return chart_configs

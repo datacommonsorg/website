@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { RankingPoint } from "../types/ranking_unit_types";
-
 export const chartTypeEnum = {
   LINE: "LINE",
   STACK_BAR: "STACK_BAR",
@@ -141,23 +139,3 @@ export interface MapPoint {
   latitude: number;
   longitude: number;
 }
-
-// RankingChartDataGroup represents the rankings of several places based on a specific stat var.
-// It is used for the ranking chart.
-export interface RankingChartDataGroup {
-  date: string;
-  data: {
-    rank: number;
-    value: number;
-    placeDcid: string;
-    placeName: string;
-  }[];
-  numDataPoints: number;
-  exploreUrl: string;
-  sources: string[];
-  // Optional for storing the processed rankingData
-  rankingData?: { lowest: RankingPoint[]; highest: RankingPoint[] };
-}
-
-// A map from statvar dcid to RankingChartDataGroup
-export type CachedRankingChartData = Record<string, RankingChartDataGroup>;
