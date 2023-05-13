@@ -22,3 +22,5 @@
 export const SVG_CHART_HEIGHT = 200;
 // CSS class for initial loading treatment
 export const INITAL_LOADING_CLASS = "initial-loading-placeholder";
+// CSS class for the div holding data for a tile
+export const DATA_CSS_CLASS = "tile-data";
