@@ -65,7 +65,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
       .get<PointAllApiResponse>("/api/observations/point/within/all", {
         params: {
           childType: placeInfo.value.enclosedPlaceType,
-          date: date,
+          date,
           parentEntity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.dcid],
         },

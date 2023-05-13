@@ -153,9 +153,9 @@ export function loadSubjectPageMetadataFromPage(): SubjectPageMetadata {
   );
   const childPlaces = JSON.parse(placeEl.dataset.children);
   return {
-    pageConfig: pageConfig,
-    place: place,
+    pageConfig,
+    place,
     parentPlaces: getFilteredParentPlaces(parentPlaces, place),
-    childPlaces: childPlaces,
+    childPlaces,
   };
 }

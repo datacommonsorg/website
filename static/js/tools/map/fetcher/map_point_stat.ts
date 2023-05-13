@@ -67,7 +67,7 @@ export function useFetchMapPointStat(
       .get<PointApiResponse>("/api/observations/point/within", {
         params: {
           childType: placeInfo.value.mapPointPlaceType,
-          date: date,
+          date,
           parentEntity: placeInfo.value.enclosingPlace.dcid,
           variables: [usedSV],
         },

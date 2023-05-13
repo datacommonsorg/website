@@ -66,7 +66,7 @@ export function useFetchDefaultStat(
       .get<PointApiResponse>("/api/observations/point/within", {
         params: {
           childType: placeInfo.value.enclosedPlaceType,
-          date: date,
+          date,
           parentEntity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.dcid],
         },

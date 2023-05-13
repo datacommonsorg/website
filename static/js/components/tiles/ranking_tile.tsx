@@ -161,7 +161,7 @@ export async function fetchData(
       params: {
         parentEntity: props.place.dcid,
         childType: props.enclosedPlaceType,
-        variables: variables,
+        variables,
       },
       paramsSerializer: stringifyFn,
     })

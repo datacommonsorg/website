@@ -58,11 +58,11 @@ function renderPage(): void {
 
   ReactDOM.render(
     React.createElement(App, {
-      dcid: dcid,
+      dcid,
       name: nodeName,
-      properties: properties,
-      provenance: provenance,
-      place: place,
+      properties,
+      provenance,
+      place,
       subjectConfig,
       parentPlaces: getFilteredParentPlaces(parentPlaces, place),
     }),

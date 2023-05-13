@@ -154,7 +154,7 @@ export const fetchData = async (props: BarTilePropType) => {
   }
   try {
     const resp = await axios.get<PointApiResponse>(url, {
-      params: params,
+      params,
       paramsSerializer: stringifyFn,
     });
 
@@ -231,7 +231,7 @@ function rawToChart(
   }
   return {
     dataGroup: dataGroups,
-    sources: sources,
+    sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
   };

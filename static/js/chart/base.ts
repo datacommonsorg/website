@@ -291,13 +291,13 @@ export function computePlotParams(
     const tempColorFn = getTempColorFn(statVars);
     for (const statVar of statVars) {
       const color = tempColorFn(statVar) || colorFn(statVar);
-      lines[placeName + statVar] = { color: color, dash: "" };
+      lines[placeName + statVar] = { color, dash: "" };
       let legendLabel = `${statVar} (${placeName})`;
       if (statVar in statVarInfo) {
         legendLabel = `${statVarInfo[statVar].title || statVar} (${placeName})`;
       }
       const legendLink = `/browser/${placeDcids[0]}?statVar=${statVar}`;
-      legend[legendLabel] = { color: color, legendLink };
+      legend[legendLabel] = { color, legendLink };
     }
   } else if (statVars.length === 1) {
     const colorFn = getColorFn(Object.values(placeNames));
@@ -326,7 +326,7 @@ export function computePlotParams(
       for (const statVar of statVars) {
         const color = tempColorFn(statVar) || colorFn(statVar);
         lines[placeName + statVar] = {
-          color: color,
+          color,
           dash: dashFn[i],
         };
       }

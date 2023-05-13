@@ -281,7 +281,7 @@ function mockAxios(): void {
         data: {
           Count_Person_Employed: data.Count_Person_Employed,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
@@ -299,7 +299,7 @@ function mockAxios(): void {
         data: {
           Count_HousingUnit: data.Count_HousingUnit,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
@@ -317,7 +317,7 @@ function mockAxios(): void {
         data: {
           Count_Establishment: data.Count_Establishment,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
@@ -335,7 +335,7 @@ function mockAxios(): void {
         data: {
           Count_Person_Employed: dataAll.Count_Person_Employed, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
@@ -353,7 +353,7 @@ function mockAxios(): void {
         data: {
           Count_HousingUnit: dataAll.Count_HousingUnit, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
@@ -371,7 +371,7 @@ function mockAxios(): void {
         data: {
           Count_Establishment: dataAll.Count_Establishment, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
 

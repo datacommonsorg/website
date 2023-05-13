@@ -75,7 +75,7 @@ function translateVariableString(id: string): string {
   }
   return intl.formatMessage({
     // Matching ID as above
-    id: id,
+    id,
     // Default Message in English.
     // Can consider suppressing log error when translation not found.
     defaultMessage: id,
@@ -255,7 +255,7 @@ function formatNumber(
         id: unitKey,
         defaultMessage: `{0} {unit}`,
       },
-      { 0: returnText, unit: unit }
+      { 0: returnText, unit }
     );
   }
   return returnText;
