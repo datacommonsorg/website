@@ -61,6 +61,7 @@ export interface BlockPropType {
   statVarProvider: StatVarProvider;
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
+  showData?: boolean;
 }
 
 export function Block(props: BlockPropType): JSX.Element {

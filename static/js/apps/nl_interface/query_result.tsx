@@ -35,6 +35,7 @@ export interface QueryResultProps {
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
+  showData: boolean;
 }
 
 export const QueryResult = memo(function QueryResult(
@@ -68,7 +69,7 @@ export const QueryResult = memo(function QueryResult(
     console.log("context:", props.query, props.contextHistory);
 
     axios
-      .post(`/nl/data?q=${query}`, {
+      .post(`/api/nl/data?q=${query}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {
@@ -142,6 +143,7 @@ export const QueryResult = memo(function QueryResult(
               place={chartsData.place}
               pageConfig={chartsData.config}
               svgChartHeight={SVG_CHART_HEIGHT}
+              showData={props.showData}
             />
           )}
           {errorMsg && (

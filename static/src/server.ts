@@ -67,7 +67,7 @@ global.document = dom.window.document;
 app.get("/", (req: Request, res: Response) => {
   const query = req.query.q;
   axios
-    .post(`${apiRoot}/nl/data?q=${query}`)
+    .post(`${apiRoot}/api/nl/data?q=${query}`)
     .then((resp) => {
       const tiles = [];
       const svSpec = [];
