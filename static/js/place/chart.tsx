@@ -648,9 +648,14 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           );
         }
         break;
-      case chartTypeEnum.RANKING:
+      case chartTypeEnum.RANKING: {
+        if (_.isEmpty(this.props.statsVars)) {
+          this.setState({ display: false });
+          return;
+        }
+        const sv = this.props.statsVars[0];
         // Fields like unit, denom, scaling and etc. are not used for data
-        // fetch, hencing setting a dummy value here.
+        // fetch, hence setting a dummy value here.
         fetchData({
           id: "",
           enclosedPlaceType: this.props.rankingPlaceType,
@@ -661,23 +666,18 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             showLowest: true,
             showMultiColumn: false,
           },
-          statVarSpec: this.props.statsVars.map((x) => {
-            return {
+          statVarSpec: [
+            {
               denom: "",
               log: false,
               scaling: 1,
-              statVar: x,
+              statVar: sv,
               unit: "",
-            };
-          }),
+            },
+          ],
           title: "",
         })
           .then((rankingChartData) => {
-            if (_.isEmpty(this.props.statsVars)) {
-              this.setState({ display: false });
-              return;
-            }
-            const sv = this.props.statsVars[0];
             const svData = rankingChartData[sv];
             svData.points.reverse();
             // Do not display the ranking chart if total data points is less than the MIN_RANKING_DATAPOINTS
@@ -698,6 +698,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             this.setState({ display: false });
           });
         break;
+      }
       default:
         break;
     }
