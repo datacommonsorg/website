@@ -144,7 +144,7 @@ const MAP_PROPS = {
   geoJsonData: {
     features: [],
     properties: {
-      current_geo: PLACE_DCID,
+      currentGeo: PLACE_DCID,
     },
     type: "FeatureCollection",
   } as GeoJsonData,

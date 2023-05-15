@@ -147,14 +147,14 @@ export const fetchData = async (props: BarTilePropType) => {
   } else {
     url = "/api/observations/point/within";
     params = {
-      parent_entity: props.place.dcid,
-      child_type: props.enclosedPlaceType,
+      parentEntity: props.place.dcid,
+      childType: props.enclosedPlaceType,
       variables: statVars,
     };
   }
   try {
     const resp = await axios.get<PointApiResponse>(url, {
-      params: params,
+      params,
       paramsSerializer: stringifyFn,
     });
 
@@ -231,7 +231,7 @@ function rawToChart(
   }
   return {
     dataGroup: dataGroups,
-    sources: sources,
+    sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
   };

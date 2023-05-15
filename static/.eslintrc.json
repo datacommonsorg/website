@@ -18,7 +18,8 @@
     "simple-import-sort/exports": "error",
     "simple-import-sort/imports": "error",
     "react-hooks/rules-of-hooks": "warn",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "object-shorthand": ["error", "always", { "avoidQuotes": true }]
   },
   "settings": {
     "react": {

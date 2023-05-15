@@ -69,7 +69,6 @@ const MAP_PATH_LAYER_CLASS = "map-path-layer";
 const MAP_PATH_HIGHLIGHT_CLASS = "map-path-highlight";
 const MAP_PATH_STROKE_WIDTH = "1.5px";
 const MAP_PATH_OPACITY = "0.5";
-const CUSTOM_PROJECTIONS = {};
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -431,7 +430,7 @@ export function drawD3Map(
     .attr("class", (geo: GeoJsonFeature) => {
       // highlight the place of the current page
       if (
-        geo.properties.geoDcid === geoJson.properties.current_geo ||
+        geo.properties.geoDcid === geoJson.properties.currentGeo ||
         geo.properties.geoDcid === zoomDcid
       ) {
         return HIGHLIGHTED_CLASS_NAME;

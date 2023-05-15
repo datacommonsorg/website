@@ -250,7 +250,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           diseaseCommonName: getDiseaseCommonName(disease),
           diseasePrevalenceIDexists: doesDiseasePrevalenceIDexist(disease),
           dataFetched: true,
-          diseaseParent: diseaseParent,
+          diseaseParent,
         });
       }
     );

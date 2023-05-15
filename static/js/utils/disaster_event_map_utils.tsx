@@ -211,8 +211,8 @@ function fetchEventPoints(
   useCache?: boolean
 ): Promise<DisasterEventPointData> {
   const reqParams = {
-    eventType: eventType,
-    place: place,
+    eventType,
+    place,
     minDate: dateRange[0],
     maxDate: dateRange[1],
   };

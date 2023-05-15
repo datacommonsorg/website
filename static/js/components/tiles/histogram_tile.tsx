@@ -205,7 +205,7 @@ function binData(
   // Format binned data into DataPoint[]
   const histogramData = new Array<DataPoint>();
   bins.forEach((value, label) => {
-    histogramData.push({ label: label, value: value });
+    histogramData.push({ label, value });
   });
 
   return histogramData;

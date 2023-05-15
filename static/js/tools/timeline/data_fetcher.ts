@@ -233,8 +233,8 @@ export function getStatData(
   scaling = 1
 ): StatData {
   const result: StatData = {
-    places: places,
-    statVars: statVars,
+    places,
+    statVars,
     dates: [],
     data: {},
     sources: new Set(),
@@ -390,7 +390,7 @@ export function statDataFromModels(
       const means: Observation[] = [];
       for (const date in dateVals) {
         means.push({
-          date: date,
+          date,
           value: _.mean(dateVals[date]),
         });
       }

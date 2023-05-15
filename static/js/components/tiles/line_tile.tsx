@@ -206,7 +206,7 @@ function rawToChart(
   }
   return {
     dataGroup: dataGroups,
-    sources: sources,
+    sources,
     unit,
   };
 }

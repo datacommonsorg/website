@@ -127,7 +127,7 @@ export function getEnclosedPlacesPromise(
       }
       return enclosedPlaces.map((dcid) => {
         return {
-          dcid: dcid,
+          dcid,
           name: dcid,
         };
       });
@@ -175,7 +175,7 @@ export function getPlaceNames(
   }
   return axios
     .post("/api/place/name", {
-      dcids: dcids,
+      dcids,
     })
     .then((resp) => {
       return resp.data;
