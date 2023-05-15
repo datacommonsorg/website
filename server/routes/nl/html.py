@@ -13,6 +13,7 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
+import logging
 import os
 
 import flask
@@ -52,6 +53,7 @@ def screenshot():
 
 @bp.route('/data')
 def data_page():
+  logging.info('NL Data Page: Enter')
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
@@ -59,7 +61,9 @@ def data_page():
   # TODO: Make this more customizable for all custom DC's
   if g.env == 'climate_trace':
     placeholder_query = 'Greenhouse gas emissions in USA'
-  return render_template('/nl_interface_data.html',
-                         maps_api_key=current_app.config['MAPS_API_KEY'],
-                         placeholder_query=placeholder_query,
-                         website_hash=os.environ.get("WEBSITE_HASH"))
+  template = render_template('/nl_interface_data.html',
+                             maps_api_key=current_app.config['MAPS_API_KEY'],
+                             placeholder_query=placeholder_query,
+                             website_hash=os.environ.get("WEBSITE_HASH"))
+  logging.info('NL Data Page: Exit')
+  return template
