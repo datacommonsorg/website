@@ -94,10 +94,6 @@ export interface PageData {
   highlight: PageHighlight;
 }
 
-export interface CachedChoroplethData {
-  [statVar: string]: ChoroplethDataGroup;
-}
-
 export interface ChoroplethDataGroup {
   date: string;
   data: {

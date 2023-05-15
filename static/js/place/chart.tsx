@@ -28,7 +28,7 @@ import {
 import { drawD3Map, getProjection } from "../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
-  CachedChoroplethData,
+  ChartBlockData,
   chartTypeEnum,
   ChoroplethDataGroup,
   GeoJsonData,
@@ -62,6 +62,7 @@ import {
   rankingPointsToCsv,
 } from "../utils/chart_csv_utils";
 import { ChartEmbed } from "./chart_embed";
+import { getChoroplethData, getGeoJsonData } from "./fetch";
 import { updatePageLayoutState } from "./place";
 
 const CHART_HEIGHT = 194;
@@ -110,14 +111,6 @@ interface ChartPropType {
    */
   scaling?: number;
   /**
-   * Promise for Geojson data for choropleth for current dcid.
-   */
-  geoJsonData?: Promise<GeoJsonData>;
-  /**
-   * Promise for Values of statvar/denominator combinations for choropleth for current dcid
-   */
-  choroplethData?: Promise<CachedChoroplethData>;
-  /**
    * All stats vars for this chart
    */
   statsVars: string[];
@@ -141,6 +134,10 @@ interface ChartPropType {
    * The parent place dcid for ranking chart.
    */
   parentPlaceDcid?: string;
+  /**
+   * The chart spec.
+   */
+  spec?: ChartBlockData;
 }
 
 interface ChartStateType {
@@ -562,6 +559,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const allDates = new Set<string>();
     // TODO(datcom): handle i18n for scaled numbers
     const scaling = this.props.scaling ? this.props.scaling : 1;
+    const sv = !_.isEmpty(this.props.statsVars) ? this.props.statsVars[0] : "";
     switch (this.props.chartType) {
       case chartTypeEnum.LINE:
         for (const statVar in this.props.trend.series) {
@@ -623,37 +621,34 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         });
         break;
       case chartTypeEnum.CHOROPLETH:
-        if (this.props.geoJsonData && this.props.choroplethData) {
-          Promise.all([this.props.geoJsonData, this.props.choroplethData]).then(
-            ([geoJsonData, choroplethData]) => {
-              const sv = !_.isEmpty(this.props.statsVars)
-                ? this.props.statsVars[0]
-                : "";
-              const svData = choroplethData[sv];
-              if (
-                _.isEmpty(svData) ||
-                _.isEmpty(geoJsonData) ||
-                svData.numDataPoints < MIN_CHOROPLETH_DATAPOINTS
-              ) {
-                this.setState({
-                  display: false,
-                });
-              } else {
-                this.setState({
-                  choroplethDataGroup: svData,
-                  geoJson: geoJsonData,
-                });
-              }
-            }
-          );
-        }
+        Promise.all([
+          getGeoJsonData(
+            this.props.dcid,
+            document.getElementById("locale").dataset.lc
+          ),
+          getChoroplethData(this.props.dcid, this.props.spec),
+        ]).then(([geoJsonData, choroplethData]) => {
+          if (
+            _.isEmpty(choroplethData) ||
+            _.isEmpty(geoJsonData) ||
+            choroplethData.numDataPoints < MIN_CHOROPLETH_DATAPOINTS
+          ) {
+            this.setState({
+              display: false,
+            });
+          } else {
+            this.setState({
+              choroplethDataGroup: choroplethData,
+              geoJson: geoJsonData,
+            });
+          }
+        });
         break;
-      case chartTypeEnum.RANKING: {
-        if (_.isEmpty(this.props.statsVars)) {
+      case chartTypeEnum.RANKING:
+        if (_.isEmpty(sv)) {
           this.setState({ display: false });
           return;
         }
-        const sv = this.props.statsVars[0];
         // Fields like unit, denom, scaling and etc. are not used for data
         // fetch, hence setting a dummy value here.
         fetchData({
@@ -698,7 +693,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             this.setState({ display: false });
           });
         break;
-      }
       default:
         break;
     }
@@ -714,7 +708,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return (
         `/ranking/${this.statsVars[0]}` +
         `/${this.props.rankingPlaceType}/${this.props.parentPlaceDcid}` +
-        `?h=${this.props.dcid}&unit=${this.props.unit}&scaling=${this.props.scaling}`
+        `?h=${this.props.dcid}&unit=${this.props.unit || ""}&scaling=${
+          this.props.scaling || ""
+        }`
       );
     }
     return this.props.trend
