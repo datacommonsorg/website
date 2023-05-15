@@ -45,7 +45,7 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { ReplacementStrings } from "../../utils/tile_utils";
+import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface MapTilePropType {
@@ -89,6 +89,15 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   );
   const [svgHeight, setSvgHeight] = useState(null);
 
+  function addSvgDataAttribute(): void {
+    const { svgXml } = getMergedSvg(svgContainer.current);
+    const dataDiv = svgContainer.current.getElementsByClassName(DATA_CSS_CLASS);
+    if (_.isEmpty(dataDiv)) {
+      return;
+    }
+    dataDiv[0].setAttribute("data-svg", svgXml);
+  }
+
   useEffect(() => {
     if (!mapChartData) {
       (async () => {
@@ -101,6 +110,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       })();
     } else {
       draw(mapChartData, props, svgContainer, legendContainer, mapContainer);
+      if (props.isDataTile) {
+        addSvgDataAttribute();
+      }
     }
   }, [mapChartData, props]);
 
