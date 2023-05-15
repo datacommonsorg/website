@@ -93,7 +93,21 @@ test("scatterDataToCsv", () => {
     xPopVal: 3,
     xPopDate: "2021-01",
   };
+  const testPlaceB = {
+    name: "testPlace, B",
+    dcid: "testPlaceBId",
+  };
+  const testPointB = {
+    place: testPlaceB,
+    xVal: 1,
+    yVal: 2,
+    xDate: "2022-01-01",
+    yDate: "2022-01-02",
+    xPopVal: 3,
+    xPopDate: "2021-01",
+  };
   const testPoints = {
+    [testPlaceB.dcid]: testPointB,
     [testPlaceA.dcid]: testPointA,
   };
   const xSv = "xSvId";
@@ -117,6 +131,7 @@ test("scatterDataToCsv", () => {
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,xPopulation-xDenomId,yPopulation-yDenomId",
         '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2,3,N/A',
+        '"testPlace, B",testPlaceBId,2022-01-01,1,2022-01-02,2,3,N/A',
       ].join("\r\n"),
     },
     {
@@ -128,6 +143,7 @@ test("scatterDataToCsv", () => {
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,xPopulation-xDenomId",
         '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2,3',
+        '"testPlace, B",testPlaceBId,2022-01-01,1,2022-01-02,2,3',
       ].join("\r\n"),
     },
     {
@@ -139,6 +155,7 @@ test("scatterDataToCsv", () => {
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,yPopulation-yDenomId",
         '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2,N/A',
+        '"testPlace, B",testPlaceBId,2022-01-01,1,2022-01-02,2,N/A',
       ].join("\r\n"),
     },
     {
@@ -150,6 +167,7 @@ test("scatterDataToCsv", () => {
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId",
         '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2',
+        '"testPlace, B",testPlaceBId,2022-01-01,1,2022-01-02,2',
       ].join("\r\n"),
     },
   ];
@@ -211,19 +229,19 @@ test("mapDataToCsv", () => {
     features: [
       {
         type: "Feature",
-        id: testPlaceA,
+        id: testPlaceB,
         properties: {
-          name: "Place, A",
-          geoDcid: testPlaceA,
+          name: "PlaceB, test",
+          geoDcid: testPlaceB,
         },
         geometry: { type: "MultiPolygon", coordinates: [] },
       },
       {
         type: "Feature",
-        id: testPlaceB,
+        id: testPlaceA,
         properties: {
-          name: "Place B",
-          geoDcid: testPlaceB,
+          name: "PlaceA",
+          geoDcid: testPlaceA,
         },
         geometry: { type: "MultiPolygon", coordinates: [] },
       },
@@ -246,7 +264,7 @@ test("mapDataToCsv", () => {
       name: "non empty geoJson and dataValues",
       geoJson: testGeoJson,
       dataValues: testDataValues,
-      expected: 'label,data\r\n"Place, A",1\r\nPlace B,2',
+      expected: 'label,data\r\nPlaceA,1\r\n"PlaceB, test",2',
     },
     {
       name: "empty geoJson",
@@ -264,7 +282,7 @@ test("mapDataToCsv", () => {
       name: "empty dataValues",
       geoJson: testGeoJson,
       dataValues: {},
-      expected: 'label,data\r\n"Place, A",N/A\r\nPlace B,N/A',
+      expected: 'label,data\r\nPlaceA,N/A\r\n"PlaceB, test",N/A',
     },
   ];
 
