@@ -329,7 +329,7 @@ def scrape(query, driver):
       elif 'scatter-chart' in classes:
         chart['type'] = 'SCATTER'
         chart['svg'] = _get_inline_svg(chart_container)
-        # Map's legend is part of the SVG.
+        # Scatter's legend is part of the SVG.
       elif 'ranking-tile' in classes:
         chart['type'] = 'TABLE'
         chart['svg'] = _get_data_svg(tile_data)
