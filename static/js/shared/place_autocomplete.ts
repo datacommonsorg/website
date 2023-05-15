@@ -100,7 +100,7 @@ function placeNotFoundAlert(placeName): void {
         description:
           'Text for an alert that we show when user tries to navigate to a place with no data. For example, "Sorry, but we don\'t have any data about {Hong Kong Island, Hong Kong}".',
       },
-      { placeName: placeName }
+      { placeName }
     )
   );
   const acElem = document.getElementById(

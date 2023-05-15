@@ -143,7 +143,7 @@ function loadEnclosedPlaces(
         const enclosedPlaces = Object.keys(enclosedPlacesToNames).map(
           (dcid) => {
             return {
-              dcid: dcid,
+              dcid,
               name: enclosedPlacesToNames[dcid],
             };
           }

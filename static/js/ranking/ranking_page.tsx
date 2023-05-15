@@ -338,8 +338,8 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
     const popPromise: Promise<SeriesApiResponse> = axios
       .get("/api/observations/series/within", {
         params: {
-          parent_entity: this.props.withinPlace,
-          child_type: this.props.placeType,
+          parentEntity: this.props.withinPlace,
+          childType: this.props.placeType,
           variables: [DEFAULT_POPULATION_DCID],
         },
         paramsSerializer: stringifyFn,
@@ -348,8 +348,8 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
     const statPromise: Promise<PointApiResponse> = axios
       .get("/api/observations/point/within", {
         params: {
-          parent_entity: this.props.withinPlace,
-          child_type: this.props.placeType,
+          parentEntity: this.props.withinPlace,
+          childType: this.props.placeType,
           variables: [this.props.statVar],
           date: this.props.date,
         },

@@ -617,7 +617,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           );
         }
         this.setState({
-          dataGroups: dataGroups,
+          dataGroups,
         });
         break;
       case chartTypeEnum.CHOROPLETH:

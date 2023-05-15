@@ -212,7 +212,7 @@ export class GoogleMap extends React.Component<
       const geoJson = geoJsonFromGeometry(this.props.geoJsonGeometry);
       this.setState({
         shouldShowMap: true,
-        geoJson: geoJson,
+        geoJson,
       });
     } else if (this.props.latLong) {
       const coordinates = {
@@ -276,7 +276,7 @@ export class GoogleMap extends React.Component<
         // Update state with mapInfo
         if (!_.isEmpty(mapInfo)) {
           this.setState({
-            mapInfo: mapInfo,
+            mapInfo,
             shouldShowMap: true,
           });
         }

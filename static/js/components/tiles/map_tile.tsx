@@ -29,13 +29,7 @@ import { GeoJsonData } from "../../chart/types";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
-import {
-  EntityObservation,
-  EntitySeries,
-  PointApiResponse,
-  SeriesApiResponse,
-  StatMetadata,
-} from "../../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
   DataPointMetadata,
   NamedPlace,
@@ -164,7 +158,7 @@ export const fetchData = async (
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec
-) => {
+): Promise<MapChartData> => {
   const geoJsonPromise = axios
     .get(
       `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
@@ -174,10 +168,10 @@ export const fetchData = async (
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get("/api/observations/point/within", {
       params: {
-        parent_entity: place.dcid,
-        child_type: enclosedPlaceType,
-        variables: [statVarSpec.statVar],
+        childType: enclosedPlaceType,
         date: dataDate,
+        parentEntity: place.dcid,
+        variables: [statVarSpec.statVar],
       },
       paramsSerializer: stringifyFn,
     })
@@ -186,8 +180,8 @@ export const fetchData = async (
     ? axios
         .get("/api/observations/series/within", {
           params: {
-            parent_entity: place.dcid,
-            child_type: enclosedPlaceType,
+            childType: enclosedPlaceType,
+            parentEntity: place.dcid,
             variables: [statVarSpec.denom],
           },
           paramsSerializer: stringifyFn,

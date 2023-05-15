@@ -110,10 +110,10 @@ test("scatterDataToCsv", () => {
   }[] = [
     {
       name: "with both denoms",
-      xSv: xSv,
-      xDenom: xDenom,
-      ySv: ySv,
-      yDenom: yDenom,
+      xSv,
+      xDenom,
+      ySv,
+      yDenom,
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,xPopulation-xDenomId,yPopulation-yDenomId",
         '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2,3,N/A',
@@ -121,9 +121,9 @@ test("scatterDataToCsv", () => {
     },
     {
       name: "with x denom",
-      xSv: xSv,
-      xDenom: xDenom,
-      ySv: ySv,
+      xSv,
+      xDenom,
+      ySv,
       yDenom: "",
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,xPopulation-xDenomId",
@@ -132,10 +132,10 @@ test("scatterDataToCsv", () => {
     },
     {
       name: "with y denom",
-      xSv: xSv,
+      xSv,
       xDenom: "",
-      ySv: ySv,
-      yDenom: yDenom,
+      ySv,
+      yDenom,
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId,yPopulation-yDenomId",
         '"testPlace, A",testPlaceAId,2022-01-01,1,2022-01-02,2,N/A',
@@ -143,9 +143,9 @@ test("scatterDataToCsv", () => {
     },
     {
       name: "no denom",
-      xSv: xSv,
+      xSv,
       xDenom: "",
-      ySv: ySv,
+      ySv,
       yDenom: "",
       expected: [
         "placeName,placeDcid,xDate,xValue-xSvId,yDate,yValue-ySvId",
@@ -229,7 +229,7 @@ test("mapDataToCsv", () => {
       },
     ],
     properties: {
-      current_geo: "test_geo",
+      currentGeo: "test_geo",
     },
   };
   const testDataValues = {
@@ -254,7 +254,7 @@ test("mapDataToCsv", () => {
         type: "FeatureCollection",
         features: [],
         properties: {
-          current_geo: "test_geo",
+          currentGeo: "test_geo",
         },
       },
       dataValues: testDataValues,

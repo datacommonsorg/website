@@ -269,8 +269,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person_Employed"],
         date: "",
       },
@@ -281,14 +281,14 @@ function mockAxios(): void {
         data: {
           Count_Person_Employed: data.Count_Person_Employed,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_HousingUnit"],
         date: "",
       },
@@ -299,14 +299,14 @@ function mockAxios(): void {
         data: {
           Count_HousingUnit: data.Count_HousingUnit,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Establishment"],
         date: "",
       },
@@ -317,14 +317,14 @@ function mockAxios(): void {
         data: {
           Count_Establishment: data.Count_Establishment,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person_Employed"],
         date: "",
       },
@@ -335,14 +335,14 @@ function mockAxios(): void {
         data: {
           Count_Person_Employed: dataAll.Count_Person_Employed, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_HousingUnit"],
         date: "",
       },
@@ -353,14 +353,14 @@ function mockAxios(): void {
         data: {
           Count_HousingUnit: dataAll.Count_HousingUnit, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Establishment"],
         date: "",
       },
@@ -371,7 +371,7 @@ function mockAxios(): void {
         data: {
           Count_Establishment: dataAll.Count_Establishment, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
 
@@ -407,8 +407,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/series/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,

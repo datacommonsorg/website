@@ -123,8 +123,8 @@ export function Page(props: PagePropType): JSX.Element {
       statVars: Object.keys(selectedOptions.selectedStatVars),
       parentPlace: selectedOptions.selectedPlace.dcid,
       childType: selectedOptions.enclosedPlaceType,
-      minDate: minDate,
-      maxDate: maxDate,
+      minDate,
+      maxDate,
     };
     // if req object is the same as the one used for current
     // svSourceListPromise, then don't need to update svSourceListPromise

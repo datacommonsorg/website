@@ -191,8 +191,8 @@ function getPopulationPromise(
     return axios
       .get("/api/observations/series/within", {
         params: {
-          parent_entity: placeDcid,
-          child_type: enclosedPlaceType,
+          parentEntity: placeDcid,
+          childType: enclosedPlaceType,
           variables: statVars,
         },
         paramsSerializer: stringifyFn,

@@ -242,7 +242,7 @@ def geojson():
       "type": "FeatureCollection",
       "features": features,
       "properties": {
-          "current_geo": place_dcid
+          "currentGeo": place_dcid
       }
   }
   return lib_util.gzip_compress_response(result, is_json=True)
@@ -267,7 +267,7 @@ def node_geojson():
       "type": "FeatureCollection",
       "features": features,
       "properties": {
-          "current_geo": ""
+          "currentGeo": ""
       }
   }
   return Response(json.dumps(result), 200, mimetype='application/json')

@@ -119,7 +119,7 @@ export interface GeoJsonData extends GeoJSON.FeatureCollection {
   type: "FeatureCollection";
   features: Array<GeoJsonFeature>;
   properties: {
-    current_geo: string;
+    currentGeo: string;
   };
 }
 

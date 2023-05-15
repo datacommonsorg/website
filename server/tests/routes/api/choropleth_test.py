@@ -182,7 +182,7 @@ class TestGetGeoJson(unittest.TestCase):
             }
         }],
         'properties': {
-            'current_geo': 'parentDcid'
+            'currentGeo': 'parentDcid'
         }
     }
 
@@ -247,7 +247,7 @@ class TestGetGeoJson(unittest.TestCase):
             }
         }],
         'properties': {
-            'current_geo': 'parentDcid'
+            'currentGeo': 'parentDcid'
         }
     }
 
@@ -679,6 +679,6 @@ class TestGetNodeGeoJson(unittest.TestCase):
             }
         }],
         'properties': {
-            'current_geo': ''
+            'currentGeo': ''
         }
     }

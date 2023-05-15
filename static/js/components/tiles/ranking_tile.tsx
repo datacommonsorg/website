@@ -159,9 +159,9 @@ export async function fetchData(
   return axios
     .get<PointApiResponse>("/api/observations/point/within", {
       params: {
-        parent_entity: props.place.dcid,
-        child_type: props.enclosedPlaceType,
-        variables: variables,
+        parentEntity: props.place.dcid,
+        childType: props.enclosedPlaceType,
+        variables,
       },
       paramsSerializer: stringifyFn,
     })

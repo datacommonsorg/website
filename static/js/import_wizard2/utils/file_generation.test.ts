@@ -76,7 +76,7 @@ test("generateTranslationMetadataJson", () => {
     {
       name: "empty prediction",
       prediction: new Map(),
-      correctedMapping: correctedMapping,
+      correctedMapping,
       expected:
         '{"predictions":{},"correctedMapping":{"Place":{"type":"column","column":{"id":"d3","header":"d","columnIdx":3},"placeProperty":{"dcid":"countryAlpha3Code","displayName":"Alpha 3 Code"},"placeType":{"dcid":"Country","displayName":"Country"}},"Date":{"type":"columnHeader","headers":[{"id":"2022-100","header":"2022-10","columnIdx":0},{"id":"20211","header":"2021-10","columnIdx":1}]}}}',
     },
@@ -96,7 +96,7 @@ test("generateTranslationMetadataJson", () => {
     {
       name: "both non empty",
       prediction: predictedMapping,
-      correctedMapping: correctedMapping,
+      correctedMapping,
       expected:
         '{"predictions":{"Place":{"type":"column","column":{"id":"d3","header":"d","columnIdx":3},"placeProperty":{"dcid":"name","displayName":"name"},"placeType":{"dcid":"Country","displayName":"Country"}},"Date":{"type":"column","column":{"id":"c2","header":"c","columnIdx":2}}},"correctedMapping":{"Place":{"type":"column","column":{"id":"d3","header":"d","columnIdx":3},"placeProperty":{"dcid":"countryAlpha3Code","displayName":"Alpha 3 Code"},"placeType":{"dcid":"Country","displayName":"Country"}},"Date":{"type":"columnHeader","headers":[{"id":"2022-100","header":"2022-10","columnIdx":0},{"id":"20211","header":"2021-10","columnIdx":1}]}}}',
     },

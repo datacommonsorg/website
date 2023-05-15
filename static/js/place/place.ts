@@ -206,7 +206,7 @@ function renderPage(): void {
 
       ReactDOM.render(
         React.createElement(PageSubtitle, {
-          category: category,
+          category,
           categoryDisplayStr: data.categories[category],
           dcid,
         }),

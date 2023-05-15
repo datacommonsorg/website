@@ -212,15 +212,15 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
       // TODO: remove all the fields that already belong to spec.
       spec: this.props.data,
       dcid: this.props.dcid,
-      unit: unit,
+      unit,
       names: this.props.names,
-      scaling: scaling,
+      scaling,
       statsVars: this.props.data.statsVars,
       category: this.props.category,
       isUsaPlace: this.props.isUsaPlace,
     };
     const barChartSharedProps = {
-      chartType: chartType,
+      chartType,
       ...sharedProps,
     };
     const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
