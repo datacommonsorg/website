@@ -23,7 +23,7 @@ import { intl, localizeSearchParams } from "../i18n/i18n";
 import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
-import { shouldMakeChoroplethCalls } from "./place";
+import { shouldMakeChoroplethCalls } from "./fetch";
 import {
   displayNameForPlaceType,
   USA_PLACE_TYPES_WITH_CHOROPLETH,

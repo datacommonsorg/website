@@ -62,11 +62,8 @@ import {
   rankingPointsToCsv,
 } from "../utils/chart_csv_utils";
 import { ChartEmbed } from "./chart_embed";
-import {
-  getChoroplethData,
-  getGeoJsonData,
-  updatePageLayoutState,
-} from "./place";
+import { getChoroplethData, getGeoJsonData } from "./fetch";
+import { updatePageLayoutState } from "./place";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;

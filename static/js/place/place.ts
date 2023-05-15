@@ -19,14 +19,8 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import {
-  ChartBlockData,
-  ChoroplethDataGroup,
-  GeoJsonData,
-  PageData,
-} from "../chart/types";
+import { PageData } from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
-import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main_pane";
@@ -34,7 +28,7 @@ import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
-import { isPlaceInUsa, USA_PLACE_TYPES_WITH_CHOROPLETH } from "./util";
+import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
@@ -112,36 +106,6 @@ function adjustMenuPosition(): void {
 }
 
 /**
- * Get the geo json info for choropleth charts.
- */
-export async function getGeoJsonData(
-  dcid: string,
-  locale: string
-): Promise<GeoJsonData> {
-  return axios
-    .get(`/api/choropleth/geojson?placeDcid=${dcid}&hl=${locale}`)
-    .then((resp) => {
-      return resp.data;
-    });
-}
-
-/**
- * Get the stat var data for choropleth charts.
- */
-export async function getChoroplethData(
-  dcid: string,
-  spec: ChartBlockData
-): Promise<ChoroplethDataGroup> {
-  return axios
-    .post(`/api/choropleth/data/${dcid}`, {
-      spec,
-    })
-    .then((resp) => {
-      return resp.data;
-    });
-}
-
-/**
  * Get the landing page data
  */
 async function getLandingPageData(
@@ -154,16 +118,6 @@ async function getLandingPageData(
     .then((resp) => {
       return resp.data;
     });
-}
-
-export function shouldMakeChoroplethCalls(
-  dcid: string,
-  placeType: string
-): boolean {
-  const isEarth = dcid === EARTH_NAMED_TYPED_PLACE.dcid;
-  const isInUSA: boolean =
-    dcid.startsWith("geoId") || dcid.startsWith(USA_PLACE_DCID);
-  return isEarth || (isInUSA && USA_PLACE_TYPES_WITH_CHOROPLETH.has(placeType));
 }
 
 function renderPage(): void {
