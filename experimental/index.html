@@ -14,9 +14,10 @@
         background-color: #bbb;
       }
     </style>
-    <script src="https://storage.googleapis.com/datcom-public/library.js"></script>
+    <script src="../server/dist/library.js"></script>
     <script>
       window.onload = () => {
+        window.datacommons.root = "https://dev.datacommons.org";
         var element1 = document.getElementById("my-component-1");
         var element2 = document.getElementById("my-component-2");
         var props1 = {
@@ -39,14 +40,11 @@
           unit: "",
           date: "2018",
         };
-        window.renderRankingComponent(element1, props1);
-        window.renderRankingComponent(element2, props2);
+        window.datacommons.drawRanking(element1, props1);
+        window.datacommons.drawRanking(element2, props2);
       };
     </script>
-    <link
-      rel="stylesheet"
-      href="https://storage.googleapis.com/datcom-public/ranking.min.css"
-    />
+    <link rel="stylesheet" href="../server/dist/css/ranking.min.css" />
   </head>
   <body>
     <div>

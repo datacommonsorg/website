@@ -254,7 +254,6 @@ export class Page extends React.Component<
           />
           <RankingTable
             ranking={ranking}
-            id={"ranking-table"}
             isPerCapita={this.props.isPerCapita}
             placeType={this.props.placeType}
             scaling={this.props.scaling}
@@ -300,7 +299,7 @@ export class Page extends React.Component<
 
   private fetchDataFromRankingCache(): void {
     const url =
-      `https://dev.datacommons.org/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
+      `${window.datacommons.root}/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
       window.location.search;
     axios
       .get(url)
@@ -338,7 +337,7 @@ export class Page extends React.Component<
 
   private loadData(): void {
     const popPromise: Promise<SeriesApiResponse> = axios
-      .get("https://dev.datacommons.org/api/observations/series/within", {
+      .get(`${window.datacommons.root}/api/observations/series/within`, {
         params: {
           parentEntity: this.props.withinPlace,
           childType: this.props.placeType,
@@ -348,7 +347,7 @@ export class Page extends React.Component<
       })
       .then((resp) => resp.data);
     const statPromise: Promise<PointApiResponse> = axios
-      .get("https://dev.datacommons.org/api/observations/point/within", {
+      .get(`${window.datacommons.root}/api/observations/point/within`, {
         params: {
           parentEntity: this.props.withinPlace,
           childType: this.props.placeType,
@@ -359,9 +358,13 @@ export class Page extends React.Component<
       })
       .then((resp) => resp.data);
     const placeNamesPromise: Promise<Record<string, string>> = axios
-      .get(
-        `https://dev.datacommons.org/api/place/descendent/name?dcid=${this.props.withinPlace}&descendentType=${this.props.placeType}`
-      )
+      .get(`${window.datacommons.root}/api/place/descendent/name`, {
+        params: {
+          dcid: this.props.withinPlace,
+          descendentType: this.props.placeType,
+        },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
     Promise.all([popPromise, statPromise, placeNamesPromise]).then(
       ([population, stat, placeNames]) => {

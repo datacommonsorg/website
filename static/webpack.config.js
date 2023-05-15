@@ -106,7 +106,7 @@ const config = {
       __dirname + "/css/sustainability.scss",
     ],
     nl_interface_data: [__dirname + "/js/apps/nl_interface/data_app/main.ts"],
-    library: [__dirname + "/js/ranking/library.ts"],
+    library: [__dirname + "/library.ts"],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",

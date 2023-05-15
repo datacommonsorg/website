@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-/**
- * @fileoverview Entry point for Ranking pages
- */
+import { renderRankingComponent } from "./js/ranking/ranking";
 
-import { renderRankingComponent } from "./ranking";
-
-window.renderRankingComponent = renderRankingComponent;
+window.datacommons = {
+  root: "",
+  drawRanking: renderRankingComponent,
+};

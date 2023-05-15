@@ -9,7 +9,17 @@ declare module "google-analytics" {
         eventName: string,
         parameter: Record<string, string | string[]>
       ) => void;
-      renderRankingComponent: (element: HTMLElement, props: any) => void;
+    }
+  }
+}
+
+declare module "datacommons" {
+  global {
+    interface Window {
+      datacommons: {
+        root: string;
+        drawRanking: (element: HTMLElement, props: unknown) => void;
+      };
     }
   }
 }
