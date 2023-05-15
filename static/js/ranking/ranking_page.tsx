@@ -249,7 +249,6 @@ export class Page extends React.Component<
         <>
           <RankingHistogram
             ranking={ranking}
-            id={"ranking-chart"}
             scaling={this.props.scaling}
             unit={this.props.unit}
           />
@@ -301,7 +300,7 @@ export class Page extends React.Component<
 
   private fetchDataFromRankingCache(): void {
     const url =
-      `https://autopush.datacommons.org/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
+      `https://dev.datacommons.org/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
       window.location.search;
     axios
       .get(url)
@@ -339,7 +338,7 @@ export class Page extends React.Component<
 
   private loadData(): void {
     const popPromise: Promise<SeriesApiResponse> = axios
-      .get("https://autopush.datacommons.org/api/observations/series/within", {
+      .get("https://dev.datacommons.org/api/observations/series/within", {
         params: {
           parentEntity: this.props.withinPlace,
           childType: this.props.placeType,
@@ -349,7 +348,7 @@ export class Page extends React.Component<
       })
       .then((resp) => resp.data);
     const statPromise: Promise<PointApiResponse> = axios
-      .get("https://autopush.datacommons.org/api/observations/point/within", {
+      .get("https://dev.datacommons.org/api/observations/point/within", {
         params: {
           parentEntity: this.props.withinPlace,
           childType: this.props.placeType,
@@ -361,7 +360,7 @@ export class Page extends React.Component<
       .then((resp) => resp.data);
     const placeNamesPromise: Promise<Record<string, string>> = axios
       .get(
-        `https://autopush.datacommons.org/api/place/descendent/name?dcid=${this.props.withinPlace}&descendentType=${this.props.placeType}`
+        `https://dev.datacommons.org/api/place/descendent/name?dcid=${this.props.withinPlace}&descendentType=${this.props.placeType}`
       )
       .then((resp) => resp.data);
     Promise.all([popPromise, statPromise, placeNamesPromise]).then(
@@ -374,8 +373,8 @@ export class Page extends React.Component<
           if (_.isEmpty(statData[place])) {
             continue;
           }
-          const placeStat = Object.values(statData[place])[0];
-          let value = _.isUndefined(placeStat.value) ? 0 : placeStat.value;
+          const placeStat = statData[place];
+          let value = placeStat.value || 0;
           let popSeries: Series = null;
           if (DEFAULT_POPULATION_DCID in population.data) {
             if (place in population.data[DEFAULT_POPULATION_DCID]) {
