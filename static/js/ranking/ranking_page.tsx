@@ -38,7 +38,7 @@ const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;
 const MIN_POPULATION = 1000;
 
-interface RankingPagePropType {
+export interface RankingPagePropType {
   placeName: string;
   placeType: string;
   withinPlace: string;
@@ -53,7 +53,10 @@ interface RankingPageStateType {
   data: LocationRankData;
 }
 
-class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
+export class Page extends React.Component<
+  RankingPagePropType,
+  RankingPageStateType
+> {
   svTitle: string;
   pluralPlaceType: string;
   isBottom: boolean;
@@ -298,7 +301,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
   private fetchDataFromRankingCache(): void {
     const url =
-      `/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
+      `https://autopush.datacommons.org/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
       window.location.search;
     axios
       .get(url)
@@ -336,7 +339,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
   private loadData(): void {
     const popPromise: Promise<SeriesApiResponse> = axios
-      .get("/api/observations/series/within", {
+      .get("https://autopush.datacommons.org/api/observations/series/within", {
         params: {
           parentEntity: this.props.withinPlace,
           childType: this.props.placeType,
@@ -346,7 +349,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       })
       .then((resp) => resp.data);
     const statPromise: Promise<PointApiResponse> = axios
-      .get("/api/observations/point/within", {
+      .get("https://autopush.datacommons.org/api/observations/point/within", {
         params: {
           parentEntity: this.props.withinPlace,
           childType: this.props.placeType,
@@ -358,7 +361,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       .then((resp) => resp.data);
     const placeNamesPromise: Promise<Record<string, string>> = axios
       .get(
-        `/api/place/descendent/name?dcid=${this.props.withinPlace}&descendentType=${this.props.placeType}`
+        `https://autopush.datacommons.org/api/place/descendent/name?dcid=${this.props.withinPlace}&descendentType=${this.props.placeType}`
       )
       .then((resp) => resp.data);
     Promise.all([popPromise, statPromise, placeNamesPromise]).then(
@@ -425,5 +428,3 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
     );
   }
 }
-
-export { Page };

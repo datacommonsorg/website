@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script src="https://storage.googleapis.com/datcom-public/library.js"></script>
+    <script>
+      window.onload = () => {
+        var element = document.getElementById("my-component");
+        var props = {
+          placeName: "California",
+          placeType: "State",
+          withinPlace: "country/USA",
+          statVar: "Count_Person",
+          isPerCapita: false,
+          scaling: 1,
+          unit: "",
+          date: "2020",
+        };
+        window.renderRankingComponent(element, props);
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://storage.googleapis.com/datcom-public/ranking.min.css"
+    />
+  </head>
+  <body>
+    <div id="my-component"></div>
+  </body>
+</html>

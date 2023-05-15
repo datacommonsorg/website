@@ -24,6 +24,7 @@ from flask import Flask
 from flask import g
 from flask import redirect
 from flask import request
+import flask_cors
 from flask_babel import Babel
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
@@ -413,4 +414,5 @@ def create_app():
   else:
     app.jinja_env.globals['BASE_HTML'] = 'base.html'
 
+  flask_cors.CORS(app)
   return app

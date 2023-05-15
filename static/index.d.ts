@@ -9,6 +9,7 @@ declare module "google-analytics" {
         eventName: string,
         parameter: Record<string, string | string[]>
       ) => void;
+      renderRankingComponent: (element: HTMLElement, props: any) => void;
     }
   }
 }
