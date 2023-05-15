@@ -29,7 +29,7 @@ import {
 } from "../shared/stat_types";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { getMatchingObservation } from "../tools/shared_util";
-import { stringifyFn } from "../utils/axios";
+import { getRoot, stringifyFn } from "../utils/axios";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
 import { LocationRankData, RankInfo } from "./ranking_types";
@@ -299,8 +299,9 @@ export class Page extends React.Component<
 
   private fetchDataFromRankingCache(): void {
     const url =
-      `${window.datacommons.root}/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
-      window.location.search;
+      `${getRoot()}/api/ranking/${this.props.statVar}/${this.props.placeType}/${
+        this.props.withinPlace
+      }` + window.location.search;
     axios
       .get(url)
       .then((resp) => {
@@ -337,7 +338,7 @@ export class Page extends React.Component<
 
   private loadData(): void {
     const popPromise: Promise<SeriesApiResponse> = axios
-      .get(`${window.datacommons.root}/api/observations/series/within`, {
+      .get(`${getRoot()}/api/observations/series/within`, {
         params: {
           parentEntity: this.props.withinPlace,
           childType: this.props.placeType,
@@ -347,7 +348,7 @@ export class Page extends React.Component<
       })
       .then((resp) => resp.data);
     const statPromise: Promise<PointApiResponse> = axios
-      .get(`${window.datacommons.root}/api/observations/point/within`, {
+      .get(`${getRoot()}/api/observations/point/within`, {
         params: {
           parentEntity: this.props.withinPlace,
           childType: this.props.placeType,
@@ -358,7 +359,7 @@ export class Page extends React.Component<
       })
       .then((resp) => resp.data);
     const placeNamesPromise: Promise<Record<string, string>> = axios
-      .get(`${window.datacommons.root}/api/place/descendent/name`, {
+      .get(`${getRoot()}/api/place/descendent/name`, {
         params: {
           dcid: this.props.withinPlace,
           descendentType: this.props.placeType,

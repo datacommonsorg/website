@@ -19,3 +19,10 @@ import { stringify } from "qs";
 export const stringifyFn = (params) => {
   return stringify(params, { arrayFormat: "repeat" });
 };
+
+export const getRoot = () => {
+  if (window.datacommons) {
+    return window.datacommons.root || "";
+  }
+  return "";
+};
