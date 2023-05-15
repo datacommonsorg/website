@@ -17,6 +17,6 @@
 import { renderRankingComponent } from "./js/ranking/ranking";
 
 window.datacommons = {
-  root: "",
+  root: "https://dev.datacommons.org",
   drawRanking: renderRankingComponent,
 };
