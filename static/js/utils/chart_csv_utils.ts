@@ -115,7 +115,9 @@ export function scatterDataToCsv(
 
   // Data
   const data = [];
-  for (const place of Object.keys(scatterPoints)) {
+  // Sort places alphabetically
+  const sortedPlaces = Object.keys(scatterPoints).sort();
+  for (const place of sortedPlaces) {
     const point = scatterPoints[place];
     const dataRow = [
       point.place.name,
@@ -170,6 +172,16 @@ export function mapDataToCsv(
     const name = geo.properties.name || geo.id;
     data.push([name, value]);
   }
+  // sort data by label column (alphabetically)
+  data.sort((a, b) => {
+    if (_.isEmpty(a)) {
+      return -1;
+    } else if (_.isEmpty(b)) {
+      return 1;
+    } else {
+      return a[0] > b[0] ? 1 : -1;
+    }
+  });
   const rows = [header, ...data];
   return Papa.unparse(rows);
 }
