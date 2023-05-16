@@ -98,19 +98,25 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_disasters(app):
-  # Install blueprints specific to Stanford DC
+def register_routes_disasters(app, include_sustainability):
+  # Install blueprints specific to disasters
   from server.routes.disaster import html as disaster_html
   app.register_blueprint(disaster_html.bp)
 
   from server.routes.event import html as event_html
   app.register_blueprint(event_html.bp)
 
-  from server.routes.sustainability import html as sustainability_html
-  app.register_blueprint(sustainability_html.bp)
-
   from server.routes.disaster import api as disaster_api
   app.register_blueprint(disaster_api.bp)
+
+  # Install blueprint & load config for the sustainability page if included
+  if include_sustainability:
+    from server.routes.sustainability import html as sustainability_html
+    app.register_blueprint(sustainability_html.bp)
+    if not app.config['TEST']:
+      app.config[
+          'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+          )
 
   if app.config['TEST']:
     return
@@ -119,9 +125,6 @@ def register_routes_disasters(app):
   app.config[
       'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
   app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
-  app.config[
-      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
-      )
 
   if app.config['INTEGRATION']:
     return
@@ -249,7 +252,10 @@ def create_app():
   register_routes_base_dc(app)
   if cfg.SHOW_DISASTER or os.environ.get('ENABLE_MODEL') == 'true':
     # disaster dashboard tests require stanford's routes to be registered.
-    register_routes_disasters(app)
+    include_sustainability = not os.environ.get('FLASK_ENV') in [
+        'production', 'staging'
+    ]
+    register_routes_disasters(app, include_sustainability)
 
   if cfg.ADMIN:
     register_routes_admin(app)
