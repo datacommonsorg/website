@@ -48,7 +48,6 @@ class Config:
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   NL_ROOT = 'http://127.0.0.1:6060'  # Port for Kubernetes ESP.
-  WEBSITE_ROOT = 'http://127.0.0.1:8080'  # Port for Kubernetes ESP.
   SECRET_PROJECT = ''
   GA_ACCOUNT = ''
   SCHEME = 'https'

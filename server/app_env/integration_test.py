@@ -17,7 +17,6 @@ from server.app_env import _base
 
 class Config(_base.Config):
   INTEGRATION = True
-  WEBSITE_ROOT = 'http://127.0.0.1:5000'
   API_ROOT = 'https://autopush.api.datacommons.org'
   SECRET_PROJECT = 'datcom-website-dev'
   SCHEME = 'http'

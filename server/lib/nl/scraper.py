@@ -12,16 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import flask
 import logging
 import urllib.parse
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
-import server.lib.config as libconfig
-
-cfg = libconfig.get_config()
 
 # TODO: Remove this override after the API is strengthened.
 _OVERRIDE_CHART_MAP = {
@@ -282,7 +279,8 @@ def scrape(query, driver):
   if query.lower() in _OVERRIDE_CHART_MAP:
     return _OVERRIDE_CHART_MAP[query.lower()]
 
-  url = cfg.WEBSITE_ROOT + f'/nl/data#a=True&q={query}'
+  logging.info(flask.request.host_url)
+  url = f'{flask.request.host_url}/nl/data#a=True&q={query}'
   logging.info(f'Scraping: {url}')
   driver.get(url)
 
