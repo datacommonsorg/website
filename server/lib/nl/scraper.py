@@ -205,6 +205,11 @@ _CHART_TYPE_TO_DRAWN_SVG_TAG = {
 }
 
 
+def _local_url():
+  port = flask.request.environ.get('SERVER_PORT')
+  return f'http://127.0.0.1:{port}/'
+
+
 def _to_svg(svg_str):
   if ' xmlns=' not in svg_str:
     # This makes the SVG not render when opened on chrome.
@@ -279,7 +284,7 @@ def scrape(query, driver):
   if query.lower() in _OVERRIDE_CHART_MAP:
     return _OVERRIDE_CHART_MAP[query.lower()]
 
-  url = f'{flask.request.host_url}nl/data#a=True&q={query}'
+  url = f'{_local_url()}nl/data#a=True&q={query}'
   logging.info(f'Scraping: {url}')
   driver.get(url)
 
