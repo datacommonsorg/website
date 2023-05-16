@@ -21,6 +21,7 @@ class Config(_base.Config):
   NAME = "Custom Data Commons"
   OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
   LOGO_PATH = "/custom_dc/custom/logo.png"
+  SHOW_DISASTER = False
 
 
 class LocalConfig(Config, local.Config):

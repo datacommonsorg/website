@@ -118,13 +118,6 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
-      },
-      {
         test: /\.(ts|tsx)$/,
         loader: "ts-loader",
         exclude: /node_modules/,
@@ -173,7 +166,7 @@ module.exports = (env, argv) => {
   // If in development, disable optimization.minimize.
   // development and production are arguments.
   if (argv.mode === "development") {
-    config.devtool = "eval-cheap-module-source-map";
+    config.devtool = "source-map";
   }
 
   return argv.mode === "development" ? config : smp.wrap(config);

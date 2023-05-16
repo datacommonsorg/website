@@ -32,7 +32,6 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
-from selenium import webdriver
 
 import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
@@ -100,15 +99,12 @@ def register_routes_custom_dc(app):
 
 
 def register_routes_disasters(app):
-  # Install blueprints specific to Stanford DC
+  # Install blueprints specific to disasters
   from server.routes.disaster import html as disaster_html
   app.register_blueprint(disaster_html.bp)
 
   from server.routes.event import html as event_html
   app.register_blueprint(event_html.bp)
-
-  from server.routes.sustainability import html as sustainability_html
-  app.register_blueprint(sustainability_html.bp)
 
   from server.routes.disaster import api as disaster_api
   app.register_blueprint(disaster_api.bp)
@@ -120,9 +116,6 @@ def register_routes_disasters(app):
   app.config[
       'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
   app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
-  app.config[
-      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
-      )
 
   if app.config['INTEGRATION']:
     return
@@ -132,6 +125,18 @@ def register_routes_disasters(app):
     disaster_dashboard_data = get_disaster_dashboard_data(
         app.config['GCS_BUCKET'])
     app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+
+
+def register_routes_sustainability(app):
+  # Install blueprint for sustainability page
+  from server.routes.sustainability import html as sustainability_html
+  app.register_blueprint(sustainability_html.bp)
+  if app.config['TEST']:
+    return
+  # load sustainability config
+  app.config[
+      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+      )
 
 
 def register_routes_admin(app):
@@ -249,8 +254,10 @@ def create_app():
 
   register_routes_base_dc(app)
   if cfg.SHOW_DISASTER or os.environ.get('ENABLE_MODEL') == 'true':
-    # disaster dashboard tests require stanford's routes to be registered.
     register_routes_disasters(app)
+
+  if cfg.SHOW_SUSTAINABILITY:
+    register_routes_sustainability(app)
 
   if cfg.ADMIN:
     register_routes_admin(app)
@@ -343,15 +350,6 @@ def create_app():
       app.config['NL_TABLE'] = bt.get_nl_table()
     else:
       app.config['NL_TABLE'] = None
-
-    options = webdriver.chrome.options.Options()
-    options.add_argument("--headless=new")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("enable-automation")
-    options.add_argument("--disable-infobars")
-    options.add_argument("--disable-dev-shm-usage")
-    app.config['SELENIUM'] = webdriver.Chrome(options=options)
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []

@@ -25,7 +25,7 @@ COPY package.json /resources/package.json
 COPY package-lock.json /resources/package-lock.json
 
 # Install only the production dependencies using package.json.
-RUN npm install
+RUN npm install --omit=dev
 
 # Remove anything other than node_modules.
 RUN rm -rf package.json package-lock.json
