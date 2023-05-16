@@ -279,8 +279,7 @@ def scrape(query, driver):
   if query.lower() in _OVERRIDE_CHART_MAP:
     return _OVERRIDE_CHART_MAP[query.lower()]
 
-  logging.info(flask.request.host_url)
-  url = f'{flask.request.host_url}/nl/data#a=True&q={query}'
+  url = f'{flask.request.host_url}nl/data#a=True&q={query}'
   logging.info(f'Scraping: {url}')
   driver.get(url)
 

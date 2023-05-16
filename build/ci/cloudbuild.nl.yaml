@@ -14,9 +14,30 @@
 
 # Run integration tests for NL
 steps:
+  # Build the static files
+  - id: package_js
+    name: gcr.io/datcom-ci/node:2023-04-18
+    entrypoint: /bin/bash
+    waitFor: ["-"]
+    args:
+      - -c
+      - |
+        # The node docker image comes with a pre-installed node_modules directory.
+        # Copy node_modules onto the static folder and update the node_module packages instead of downloading from scratch.
+        # This step is done for speed, downloading the delta files is faster than downloading the entire dependencies.
+        rm -rf static/node_modules
+        cp -r /resources/node_modules -d static/
+
+        # ./run_test.sh -b will build client packages.
+        # These js files generated will be necessery for the flask_webdriver_test task.
+        ./run_test.sh -b
+
+  # Run the tests
   - id: flask_test
     name: gcr.io/datcom-ci/webdriver-chrome:2023-05-03
     entrypoint: /bin/sh
+    waitFor:
+      - package_js
     args:
       - -c
       - |
