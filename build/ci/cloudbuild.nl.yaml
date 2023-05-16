@@ -21,3 +21,7 @@ steps:
       - -c
       - |
         ./run_test.sh -i
+
+options:
+  machineType: "N1_HIGHCPU_8"
+
