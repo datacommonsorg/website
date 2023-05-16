@@ -23,6 +23,7 @@ import nl_server.routes as routes
 
 
 def create_app():
+  logging.info("========== CREATE NL APP!============")
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
 

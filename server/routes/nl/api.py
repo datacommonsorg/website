@@ -450,6 +450,7 @@ def _detection(orig_query: str, cleaned_query: str,
 @bp.route('/data', methods=['POST'])
 def data():
   """Data handler."""
+  logging.info('NL Data API: Enter')
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
@@ -486,8 +487,11 @@ def data():
   if not query:
     logging.info("Query was empty")
     query_detection = _detection("", "", query_detection_debug_logs, counters)
-    return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   query_detection, escaped_context_history, {})
+    data_dict = _result_with_debug_info(res, "Aborted: Query was Empty.",
+                                        query_detection,
+                                        escaped_context_history, {})
+    logging.info('NL Data API: Empty Exit')
+    return data_dict
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -558,6 +562,7 @@ def data():
                                       context_history, dbg_counters,
                                       query_detection_debug_logs)
 
+  logging.info('NL Data API: Exit')
   return data_dict
 
 

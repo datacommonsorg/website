@@ -28,9 +28,6 @@ import server.lib.util as libutil
 # python3.8+ on MacOS.
 # https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
 # This code must only be run once per execution.
-if sys.version_info >= (3, 8) and sys.platform == "darwin":
-  multiprocessing.set_start_method("fork")
-  os.environ['no_proxy'] = '*'
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -41,13 +38,18 @@ _TEST_MODE = os.environ['TEST_MODE']
 _TEST_DATA = 'test_data'
 
 
+def start_nl_server(app):
+  app.run(port=6060, debug=False, use_reloader=False, threaded=True)
+
+
 class IntegrationTest(LiveServerTestCase):
 
   @classmethod
   def setUpClass(cls):
 
-    def start_nl_server(app):
-      app.run(port=6060, debug=False, use_reloader=False, threaded=True)
+    if sys.version_info >= (3, 8) and sys.platform == "darwin":
+      multiprocessing.set_start_method("fork", force=True)
+      os.environ['no_proxy'] = '*'
 
     nl_app = create_nl_app()
     # Create a thread that will contain our running server
