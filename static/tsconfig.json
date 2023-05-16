@@ -5,7 +5,7 @@
         "name": "typescript-tslint-plugin",
       }
     ],
-    "lib": ["ES2021"],
+    "lib": ["dom", "ES2021"],
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
@@ -17,5 +17,5 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "./**/*.test.ts", "./**/*.test.tsx", "./**/mock_functions.ts", "./**/mock_functions.tsx"]
 }

@@ -105,9 +105,7 @@ const config = {
       __dirname + "/js/apps/sustainability/main.ts",
       __dirname + "/css/sustainability.scss",
     ],
-    nl_interface_data: [
-      __dirname + "/js/apps/nl_interface/data_app/main.ts"
-    ]
+    nl_interface_data: [__dirname + "/js/apps/nl_interface/data_app/main.ts"],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -118,13 +116,6 @@ const config = {
   },
   module: {
     rules: [
-      {
-        test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
-      },
       {
         test: /\.(ts|tsx)$/,
         loader: "ts-loader",
@@ -174,7 +165,7 @@ module.exports = (env, argv) => {
   // If in development, disable optimization.minimize.
   // development and production are arguments.
   if (argv.mode === "development") {
-    config.devtool = "eval-cheap-module-source-map";
+    config.devtool = "source-map";
   }
 
   return argv.mode === "development" ? config : smp.wrap(config);
