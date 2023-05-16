@@ -22,7 +22,6 @@ import requests
 
 from nl_server.__init__ import create_app as create_nl_app
 from server.__init__ import create_app as create_web_app
-import server.lib.config as libconfig
 import server.lib.util as libutil
 
 _dir = os.path.dirname(os.path.abspath(__file__))
@@ -59,8 +58,6 @@ class IntegrationTest(LiveServerTestCase):
     return create_web_app()
 
   def run_test(self, test_dir, query):
-    cfg = libconfig.get_config()
-    cfg.WEBSITE_ROOT = self.get_server_url()
     resp = requests.get(
         f'{self.get_server_url()}/nl/screenshot?q={query}').json()
     for chart in resp.get('charts', []):
