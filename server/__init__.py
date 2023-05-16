@@ -31,7 +31,6 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
-from selenium import webdriver
 
 import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
@@ -350,15 +349,6 @@ def create_app():
       app.config['NL_TABLE'] = bt.get_nl_table()
     else:
       app.config['NL_TABLE'] = None
-
-    options = webdriver.chrome.options.Options()
-    options.add_argument("--headless=new")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("enable-automation")
-    options.add_argument("--disable-infobars")
-    options.add_argument("--disable-dev-shm-usage")
-    app.config['SELENIUM'] = webdriver.Chrome(options=options)
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []
