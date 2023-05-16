@@ -22,6 +22,7 @@ from flask import current_app
 from flask import g
 from flask import render_template
 from flask import request
+from selenium import webdriver
 
 from server.lib.nl import scraper
 
@@ -43,11 +44,33 @@ def page():
                          website_hash=os.environ.get("WEBSITE_HASH"))
 
 
+def _get_selenium_driver():
+  options = webdriver.chrome.options.Options()
+  options.add_argument("--headless=new")
+  options.add_argument("--disable-gpu")
+  options.add_argument("--no-sandbox")
+  options.add_argument("enable-automation")
+  options.add_argument("--disable-infobars")
+  options.add_argument("--disable-dev-shm-usage")
+  return webdriver.Chrome(options=options)
+
+
 @bp.route('/screenshot')
 def screenshot():
   query_text = request.args.get('q', '')
-  driver = current_app.config['SELENIUM']
-  charts = scraper.scrape(query_text, driver)
+  #
+  # Create a new session every time for a couple of reasons:
+  # 1. Sessions are not thread-safe, so we need to use a pool / thread-local
+  # 2. Importantly, once we do a driver.get(), we cannot apparently not close the
+  #    page, other than running a script to clear out its content (seems hacky).
+  #    So we can end up scraping the old content for a new query incorrectly.
+  # So, this approach is simpler but evaluate and maybe revisit.
+  #
+  driver = _get_selenium_driver()
+  try:
+    charts = scraper.scrape(query_text, driver)
+  finally:
+    driver.quit()
   return {'charts': charts}
 
 

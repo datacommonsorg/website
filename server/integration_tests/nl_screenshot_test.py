@@ -80,17 +80,9 @@ class IntegrationTest(LiveServerTestCase):
         self.maxDiff = None
         self.assertEqual(a, b)
 
-  def test_timeline(self):
+  def test_main(self):
     self.run_test('timeline', 'family earnings in north dakota')
-
-  def test_bar(self):
     self.run_test('bar', 'top jobs in santa clara county')
-
-  def test_map_rank(self):
     self.run_test('map_rank', 'counties in california with highest obesity')
-
-  def test_scatter(self):
     self.run_test('scatter', 'obesity vs. poverty in counties of california')
-
-  def test_disaster(self):
     self.run_test('disaster', 'fires in california')
