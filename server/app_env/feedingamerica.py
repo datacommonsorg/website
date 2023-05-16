@@ -20,8 +20,10 @@ class Config(_base.Config):
   CUSTOM = True
   NAME = "Feeding America"
   GA_ACCOUNT = 'G-444S6716SQ'
+  SHOW_DISASTER = False
 
 
 class LocalConfig(local.Config):
   CUSTOM = True
   NAME = "Feeding America"
+  SHOW_DISASTER = False
