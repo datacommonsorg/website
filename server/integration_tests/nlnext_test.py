@@ -47,10 +47,6 @@ class IntegrationTest(LiveServerTestCase):
   @classmethod
   def setUpClass(cls):
 
-    if sys.version_info >= (3, 8) and sys.platform == "darwin":
-      multiprocessing.set_start_method("fork", force=True)
-      os.environ['no_proxy'] = '*'
-
     nl_app = create_nl_app()
     # Create a thread that will contain our running server
     cls.proc = multiprocessing.Process(target=start_nl_server,

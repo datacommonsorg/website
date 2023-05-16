@@ -221,6 +221,7 @@ def register_routes_common(app):
 
 
 def create_app():
+  logging.info("========== CREATE WEB APP!============")
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
   # Setup flask config
