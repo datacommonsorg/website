@@ -207,7 +207,7 @@ _CHART_TYPE_TO_DRAWN_SVG_TAG = {
 
 def _local_url():
   port = flask.request.environ.get('SERVER_PORT')
-  return f'https://127.0.0.1:{port}/'
+  return f'http://127.0.0.1:{port}/'
 
 
 def _to_svg(svg_str):
