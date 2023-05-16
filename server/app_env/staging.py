@@ -17,4 +17,3 @@ from server.app_env import _base
 
 class Config(_base.Config):
   GA_ACCOUNT = 'UA-117119267-2'
-  SHOW_DISASTER = True

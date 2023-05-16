@@ -38,7 +38,9 @@ class Config:
   # Whether to show topic page
   SHOW_TOPIC = False
   # Whether to show disaster page
-  SHOW_DISASTER = False
+  SHOW_DISASTER = True
+  # Whether to show sustainability page
+  SHOW_SUSTAINABILITY = False
 
   # Environment name of the config.
   ENV = ''

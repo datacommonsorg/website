@@ -98,7 +98,7 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_disasters(app, include_sustainability):
+def register_routes_disasters(app):
   # Install blueprints specific to disasters
   from server.routes.disaster import html as disaster_html
   app.register_blueprint(disaster_html.bp)
@@ -108,15 +108,6 @@ def register_routes_disasters(app, include_sustainability):
 
   from server.routes.disaster import api as disaster_api
   app.register_blueprint(disaster_api.bp)
-
-  # Install blueprint & load config for the sustainability page if included
-  if include_sustainability:
-    from server.routes.sustainability import html as sustainability_html
-    app.register_blueprint(sustainability_html.bp)
-    if not app.config['TEST']:
-      app.config[
-          'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
-          )
 
   if app.config['TEST']:
     return
@@ -134,6 +125,18 @@ def register_routes_disasters(app, include_sustainability):
     disaster_dashboard_data = get_disaster_dashboard_data(
         app.config['GCS_BUCKET'])
     app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+
+
+def register_routes_sustainability(app):
+  # Install blueprint for sustainability page
+  from server.routes.sustainability import html as sustainability_html
+  app.register_blueprint(sustainability_html.bp)
+  if app.config['TEST']:
+    return
+  # load sustainability config
+  app.config[
+      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+      )
 
 
 def register_routes_admin(app):
@@ -251,11 +254,10 @@ def create_app():
 
   register_routes_base_dc(app)
   if cfg.SHOW_DISASTER or os.environ.get('ENABLE_MODEL') == 'true':
-    # disaster dashboard tests require stanford's routes to be registered.
-    include_sustainability = not os.environ.get('FLASK_ENV') in [
-        'production', 'staging'
-    ]
-    register_routes_disasters(app, include_sustainability)
+    register_routes_disasters(app)
+
+  if cfg.SHOW_SUSTAINABILITY:
+    register_routes_sustainability(app)
 
   if cfg.ADMIN:
     register_routes_admin(app)
