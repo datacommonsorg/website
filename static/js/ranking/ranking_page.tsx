@@ -378,7 +378,7 @@ export class Page extends React.Component<
             continue;
           }
           const placeStat = statData[place];
-          let value = placeStat.value || 0;
+          let value = _.isUndefined(placeStat.value) ? 0 : placeStat.value;
           let popSeries: Series = null;
           if (DEFAULT_POPULATION_DCID in population.data) {
             if (place in population.data[DEFAULT_POPULATION_DCID]) {
