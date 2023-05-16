@@ -25,14 +25,6 @@ from server.__init__ import create_app as create_web_app
 import server.lib.config as libconfig
 import server.lib.util as libutil
 
-# Explicitly set multiprocessing start method to 'fork' so tests work with
-# python3.8+ on MacOS.
-# https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
-# This code must only be run once per execution.
-# if sys.version_info >= (3, 8) and sys.platform == "darwin":
-#   multiprocessing.set_start_method("fork")
-#   os.environ['no_proxy'] = '*'
-
 _dir = os.path.dirname(os.path.abspath(__file__))
 
 _NL_SERVER_URL = 'http://127.0.0.1:6060'
@@ -69,16 +61,11 @@ class IntegrationTest(LiveServerTestCase):
   def run_test(self, test_dir, query):
     cfg = libconfig.get_config()
     cfg.WEBSITE_ROOT = self.get_server_url()
-    logging.info(query)
-    logging.info(self.get_server_url())
     resp = requests.get(
         f'{self.get_server_url()}/nl/screenshot?q={query}').json()
     for chart in resp.get('charts', []):
+      self.assertNotEqual('', chart.get('svg', '')), chart
       chart['svg'] = ''
-      if 'data_csv' in chart:
-        lines = chart['data_csv'].splitlines()
-        sorted_lines = [lines[0]] + sorted(lines[1:])
-        chart['data_csv'] = '\r\n'.join(sorted_lines)
     json_file = os.path.join(_dir, _TEST_DATA, test_dir, 'screenshot.json')
     if _TEST_MODE == 'write':
       json_dir = os.path.dirname(json_file)

@@ -487,7 +487,7 @@ def data():
   if not query:
     logging.info("Query was empty")
     query_detection = _detection("", "", query_detection_debug_logs, counters)
-    data_dcit = _result_with_debug_info(res, "Aborted: Query was Empty.",
+    data_dict = _result_with_debug_info(res, "Aborted: Query was Empty.",
                                         query_detection,
                                         escaped_context_history, {})
     logging.info('NL Data API: Empty Exit')

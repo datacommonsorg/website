@@ -23,6 +23,7 @@ import server.lib.config as libconfig
 
 cfg = libconfig.get_config()
 
+# TODO: Remove this override after the API is strengthened.
 _OVERRIDE_CHART_MAP = {
     'family earnings in california': [{
         "data_csv":
@@ -219,17 +220,21 @@ def _to_svg(svg_str):
   return 'data:image/svg+xml;' + svg_str
 
 
+def _get_attr(elt, attr):
+  if elt:
+    val = elt.get_attribute(attr)
+    if val:
+      return str(val)
+  return ""
+
+
 def _get_inline_svg(container):
   svg = container.find_element(By.TAG_NAME, 'svg')
-  svg_str = str(svg.get_attribute('outerHTML'))
-  return _to_svg(svg_str)
+  return _to_svg(_get_attr(svg, 'outerHTML'))
 
 
 def _get_data_svg(div):
-  svg_str = div.get_attribute('data-svg')
-  if svg_str:
-    return _to_svg(svg_str)
-  return ""
+  return _to_svg(_get_attr(div, 'data-svg'))
 
 
 def _check_svgs_drawn(driver):
@@ -308,7 +313,7 @@ def scrape(query, driver):
       # Get data csv.
       tile_data = _get_tile_data(chart_container)
       if tile_data:
-        data_csv = tile_data.get_attribute('data-csv')
+        data_csv = _get_attr(tile_data, 'data-csv')
         if data_csv:
           chart['data_csv'] = data_csv
 
@@ -319,8 +324,7 @@ def scrape(query, driver):
         _get_legend_data(chart_container, 'div.legend', 'a', chart)
       elif 'map-chart' in classes:
         chart['type'] = 'MAP'
-        map_area = chart_container.find_element(By.CSS_SELECTOR, 'div.map')
-        chart['svg'] = _get_inline_svg(map_area)
+        chart['svg'] = _get_data_svg(tile_data)
         # Map's legend is part of the SVG.
       elif 'bar-chart' in classes:
         chart['type'] = 'BAR'

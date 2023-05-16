@@ -1,7 +1,7 @@
 {
   "charts": [
     {
-      "data_csv": "label,Average Income for Family Households\r\n2010,75645\r\n2011,79594\r\n2012,83141\r\n2013,86449\r\n2014,90140\r\n2015,93044\r\n2016,96309\r\n2017,99878\r\n2018,103731\r\n2019,105819",
+      "data_csv": "label,Average Income for Family Households\r\n2019,105819\r\n2018,103731\r\n2017,99878\r\n2016,96309\r\n2015,93044\r\n2014,90140\r\n2013,86449\r\n2012,83141\r\n2011,79594\r\n2010,75645",
       "legend": [
         "Average Income for Family Households"
       ],
@@ -16,7 +16,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Individual Median Income,Individual Median Earnings\r\n2010,,26117\r\n2011,25925,27194\r\n2012,27090,28923\r\n2013,28157,30289\r\n2014,29391,31198\r\n2015,30422,31907\r\n2016,31273,32791\r\n2017,32336,\r\n2018,34036,\r\n2019,35499,\r\n2020,36316,",
+      "data_csv": "label,Individual Median Income,Individual Median Earnings\r\n2020,36316,\r\n2019,35499,\r\n2018,34036,\r\n2017,32336,\r\n2016,31273,32791\r\n2015,30422,31907\r\n2014,29391,31198\r\n2013,28157,30289\r\n2012,27090,28923\r\n2011,25925,27194\r\n2010,,26117",
       "legend": [
         "Individual Median Income",
         "Individual Median Earnings"
@@ -32,7 +32,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Household Median Income\r\n2011,49415\r\n2012,51641\r\n2013,53741\r\n2014,55579\r\n2015,57181\r\n2016,59114\r\n2017,61285\r\n2018,63473\r\n2019,64894\r\n2020,65315",
+      "data_csv": "label,Household Median Income\r\n2020,65315\r\n2019,64894\r\n2018,63473\r\n2017,61285\r\n2016,59114\r\n2015,57181\r\n2014,55579\r\n2013,53741\r\n2012,51641\r\n2011,49415",
       "legend": [
         "Household Median Income"
       ],
@@ -47,7 +47,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Median Income for Family Households\r\n2010,62920\r\n2011,65871\r\n2012,68293\r\n2013,70767\r\n2014,72770\r\n2015,74708\r\n2016,77277\r\n2017,80091\r\n2018,83272\r\n2019,86249",
+      "data_csv": "label,Median Income for Family Households\r\n2019,86249\r\n2018,83272\r\n2017,80091\r\n2016,77277\r\n2015,74708\r\n2014,72770\r\n2013,70767\r\n2012,68293\r\n2011,65871\r\n2010,62920",
       "legend": [
         "Median Income for Family Households"
       ],
@@ -62,7 +62,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Average Income for Married Couple Family Households\r\n2010,83619\r\n2011,88071\r\n2012,92261\r\n2013,95868\r\n2014,100467\r\n2015,103913\r\n2016,107344\r\n2017,111105\r\n2018,115706\r\n2019,117934",
+      "data_csv": "label,Average Income for Married Couple Family Households\r\n2019,117934\r\n2018,115706\r\n2017,111105\r\n2016,107344\r\n2015,103913\r\n2014,100467\r\n2013,95868\r\n2012,92261\r\n2011,88071\r\n2010,83619",
       "legend": [
         "Average Income for Married Couple Family Households"
       ],
@@ -77,7 +77,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Average Income for Households\r\n2010,60581\r\n2011,64106\r\n2012,67426\r\n2013,70235\r\n2014,73272\r\n2015,76185\r\n2016,78828\r\n2017,81334\r\n2018,84043\r\n2019,85476",
+      "data_csv": "label,Average Income for Households\r\n2019,85476\r\n2018,84043\r\n2017,81334\r\n2016,78828\r\n2015,76185\r\n2014,73272\r\n2013,70235\r\n2012,67426\r\n2011,64106\r\n2010,60581",
       "legend": [
         "Average Income for Households"
       ],
@@ -92,7 +92,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Median Income for Married Couple Family Households\r\n2010,69952\r\n2011,73585\r\n2012,76946\r\n2013,79820\r\n2014,82236\r\n2015,84437\r\n2016,86919\r\n2017,89787\r\n2018,93643\r\n2019,96825",
+      "data_csv": "label,Median Income for Married Couple Family Households\r\n2019,96825\r\n2018,93643\r\n2017,89787\r\n2016,86919\r\n2015,84437\r\n2014,82236\r\n2013,79820\r\n2012,76946\r\n2011,73585\r\n2010,69952",
       "legend": [
         "Median Income for Married Couple Family Households"
       ],
@@ -107,7 +107,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Household Median Income\r\n2011,49415\r\n2012,51641\r\n2013,53741\r\n2014,55579\r\n2015,57181\r\n2016,59114\r\n2017,61285\r\n2018,63473\r\n2019,64894\r\n2020,65315",
+      "data_csv": "label,Household Median Income\r\n2020,65315\r\n2019,64894\r\n2018,63473\r\n2017,61285\r\n2016,59114\r\n2015,57181\r\n2014,55579\r\n2013,53741\r\n2012,51641\r\n2011,49415",
       "legend": [
         "Household Median Income"
       ],
@@ -122,7 +122,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,\"Households Without Health Insurance and Income $100,000 or More\"\r\n2013,7159.46\r\n2014,8391.467\r\n2015,9510.336\r\n2016,9875.844\r\n2017,9812.322\r\n2018,10062.888\r\n2019,11174.52",
+      "data_csv": "label,\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,11174.52\r\n2018,10062.888\r\n2017,9812.322\r\n2016,9875.844\r\n2015,9510.336\r\n2014,8391.467\r\n2013,7159.46",
       "legend": [
         "Households Without Health Insurance and Income $100,000 or More"
       ],
@@ -137,7 +137,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,\"Households Without Health Insurance and Income $100,000 or More\"\r\n2013,0.009238632785683685\r\n2014,0.010828425907286682\r\n2015,0.01227222471701327\r\n2016,0.012743879589340187\r\n2017,0.012661910218492079\r\n2018,0.01298524288081265\r\n2019,0.01441970299942706",
+      "data_csv": "label,\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,0.01441970299942706\r\n2018,0.01298524288081265\r\n2017,0.012661910218492079\r\n2016,0.012743879589340187\r\n2015,0.01227222471701327\r\n2014,0.010828425907286682\r\n2013,0.009238632785683685",
       "legend": [
         "Households Without Health Insurance and Income $100,000 or More"
       ],
@@ -152,7 +152,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,\"Households Without Health Insurance With Income 25,000 USD or Less\",\"Households Without Health Insurance With Income 25,000-49,999 USD\",\"Households Without Health Insurance With Income 75,000-99,999 USD\",\"Households Without Health Insurance and Income $100,000 or More\"\r\n2013,17768.478,20762.434,7094.374,7159.46\r\n2014,16526.706,19281.157,6982.213,8391.467\r\n2015,14640.912,18019.584,7132.752,9510.336\r\n2016,13389.948,16782.876,7149.384,9875.844\r\n2017,12394.512,15435.758,7287.514,9812.322\r\n2018,11133.408,13809.708,6744.276,10062.888\r\n2019,10908.46,13409.424,6545.076,11174.52",
+      "data_csv": "label,\"Households Without Health Insurance With Income 25,000 USD or Less\",\"Households Without Health Insurance With Income 25,000-49,999 USD\",\"Households Without Health Insurance With Income 75,000-99,999 USD\",\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,10908.46,13409.424,6545.076,11174.52\r\n2018,11133.408,13809.708,6744.276,10062.888\r\n2017,12394.512,15435.758,7287.514,9812.322\r\n2016,13389.948,16782.876,7149.384,9875.844\r\n2015,14640.912,18019.584,7132.752,9510.336\r\n2014,16526.706,19281.157,6982.213,8391.467\r\n2013,17768.478,20762.434,7094.374,7159.46",
       "legend": [
         "Households Without Health Insurance With Income 25,000 USD or Less",
         "Households Without Health Insurance With Income 25,000-49,999 USD",
@@ -170,7 +170,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,\"Households Without Health Insurance With Income 25,000 USD or Less\",\"Households Without Health Insurance With Income 25,000-49,999 USD\",\"Households Without Health Insurance With Income 75,000-99,999 USD\",\"Households Without Health Insurance and Income $100,000 or More\"\r\n2013,0.022928606822651326,0.026792035078482688,0.009154645214904741,0.009238632785683685\r\n2014,0.021326212855572242,0.024880581664834284,0.009009911632780521,0.010828425907286682\r\n2015,0.018892766998559903,0.02325263630591988,0.009204168537759953,0.01227222471701327\r\n2016,0.0172785115904551,0.021656776970841916,0.009225630622957927,0.012743879589340187\r\n2017,0.015993991854937363,0.019918443560084032,0.009403874840634468,0.012661910218492079\r\n2018,0.014366651697920375,0.0178201737406897,0.00870287554777869,0.01298524288081265\r\n2019,0.014076376737535937,0.01730364359931247,0.008445826042521563,0.01441970299942706",
+      "data_csv": "label,\"Households Without Health Insurance With Income 25,000 USD or Less\",\"Households Without Health Insurance With Income 25,000-49,999 USD\",\"Households Without Health Insurance With Income 75,000-99,999 USD\",\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,0.014076376737535937,0.01730364359931247,0.008445826042521563,0.01441970299942706\r\n2018,0.014366651697920375,0.0178201737406897,0.00870287554777869,0.01298524288081265\r\n2017,0.015993991854937363,0.019918443560084032,0.009403874840634468,0.012661910218492079\r\n2016,0.0172785115904551,0.021656776970841916,0.009225630622957927,0.012743879589340187\r\n2015,0.018892766998559903,0.02325263630591988,0.009204168537759953,0.01227222471701327\r\n2014,0.021326212855572242,0.024880581664834284,0.009009911632780521,0.010828425907286682\r\n2013,0.022928606822651326,0.026792035078482688,0.009154645214904741,0.009238632785683685",
       "legend": [
         "Households Without Health Insurance With Income 25,000 USD or Less",
         "Households Without Health Insurance With Income 25,000-49,999 USD",
@@ -188,7 +188,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Average Earnings for Male Population\r\n2010,42678\r\n2011,45093\r\n2012,47574\r\n2013,49352\r\n2014,51709\r\n2015,53604\r\n2016,55363\r\n2017,56721\r\n2018,58666\r\n2019,59343",
+      "data_csv": "label,Average Earnings for Male Population\r\n2019,59343\r\n2018,58666\r\n2017,56721\r\n2016,55363\r\n2015,53604\r\n2014,51709\r\n2013,49352\r\n2012,47574\r\n2011,45093\r\n2010,42678",
       "legend": [
         "Average Earnings for Male Population"
       ],
@@ -203,7 +203,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Average Earnings for Male Population\r\n2010,0.05507208225584168\r\n2011,0.058188420384335464\r\n2012,0.06138992551758311\r\n2013,0.06368427300928578\r\n2014,0.0667257674063292\r\n2015,0.06917109277009555\r\n2016,0.0714409224877024\r\n2017,0.07319329813097136\r\n2018,0.07570314395288458\r\n2019,0.07657675095619319",
+      "data_csv": "label,Average Earnings for Male Population\r\n2019,0.07657675095619319\r\n2018,0.07570314395288458\r\n2017,0.07319329813097136\r\n2016,0.0714409224877024\r\n2015,0.06917109277009555\r\n2014,0.0667257674063292\r\n2013,0.06368427300928578\r\n2012,0.06138992551758311\r\n2011,0.058188420384335464\r\n2010,0.05507208225584168",
       "legend": [
         "Average Earnings for Male Population"
       ],
@@ -218,7 +218,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Median Earnings for Male Population\r\n2010,32340\r\n2011,34078\r\n2012,35930\r\n2013,37415\r\n2014,39027\r\n2015,40496\r\n2016,41306\r\n2017,42039\r\n2018,43923\r\n2019,45562",
+      "data_csv": "label,Median Earnings for Male Population\r\n2019,45562\r\n2018,43923\r\n2017,42039\r\n2016,41306\r\n2015,40496\r\n2014,39027\r\n2013,37415\r\n2012,35930\r\n2011,34078\r\n2010,32340",
       "legend": [
         "Median Earnings for Male Population"
       ],
@@ -233,7 +233,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Individual Median Earnings\r\n2010,26117\r\n2011,27194\r\n2012,28923\r\n2013,30289\r\n2014,31198\r\n2015,31907\r\n2016,32791",
+      "data_csv": "label,Individual Median Earnings\r\n2016,32791\r\n2015,31907\r\n2014,31198\r\n2013,30289\r\n2012,28923\r\n2011,27194\r\n2010,26117",
       "legend": [
         "Individual Median Earnings"
       ],
@@ -248,7 +248,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Median Earnings for Male Population Living in Institutionalized Group Quarters\r\n2010,6972\r\n2011,7007\r\n2012,8255\r\n2013,7461\r\n2014,7856\r\n2015,11563\r\n2016,11151\r\n2017,12500\r\n2018,12554\r\n2019,9743",
+      "data_csv": "label,Median Earnings for Male Population Living in Institutionalized Group Quarters\r\n2019,9743\r\n2018,12554\r\n2017,12500\r\n2016,11151\r\n2015,11563\r\n2014,7856\r\n2013,7461\r\n2012,8255\r\n2011,7007\r\n2010,6972",
       "legend": [
         "Median Earnings for Male Population Living in Institutionalized Group Quarters"
       ],
@@ -283,7 +283,7 @@
       "type": "BAR"
     },
     {
-      "data_csv": "label,Households Containing a Married Couple\r\n2011,140714\r\n2012,140826\r\n2013,142300\r\n2014,143549\r\n2015,145767\r\n2016,147003\r\n2017,150485\r\n2018,151214\r\n2019,151907\r\n2020,152651",
+      "data_csv": "label,Households Containing a Married Couple\r\n2020,152651\r\n2019,151907\r\n2018,151214\r\n2017,150485\r\n2016,147003\r\n2015,145767\r\n2014,143549\r\n2013,142300\r\n2012,140826\r\n2011,140714",
       "legend": [
         "Households Containing a Married Couple"
       ],
@@ -298,7 +298,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Households Containing a Married Couple\r\n2011,0.18157863495357107\r\n2012,0.18172316077982006\r\n2013,0.18362522388598976\r\n2014,0.18523694493049855\r\n2015,0.18809907245389368\r\n2016,0.18969401817928427\r\n2017,0.19418722288463225\r\n2018,0.19512793116441363\r\n2019,0.19602218471432922\r\n2020,0.19698224913155463",
+      "data_csv": "label,Households Containing a Married Couple\r\n2020,0.19698224913155463\r\n2019,0.19602218471432922\r\n2018,0.19512793116441363\r\n2017,0.19418722288463225\r\n2016,0.18969401817928427\r\n2015,0.18809907245389368\r\n2014,0.18523694493049855\r\n2013,0.18362522388598976\r\n2012,0.18172316077982006\r\n2011,0.18157863495357107",
       "legend": [
         "Households Containing a Married Couple"
       ],
@@ -313,7 +313,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,North Dakota\r\nCount of Household: Family Household,189465\r\nCount of Household: Other Family Household,36814\r\nCount of Household: Single Father Family Household,12803\r\nCount of Household: Single Mother Family Household,24011\r\nHouseholds Containing a Married Couple,152651\r\nHouseholds Where a Person Lives Alone or Where the Householder Shares the Home Exclusively With Population to Whom They Are Not Related,131408",
+      "data_csv": "label,North Dakota\r\nCount of Household: Family Household,189465\r\nHouseholds Containing a Married Couple,152651\r\nHouseholds Where a Person Lives Alone or Where the Householder Shares the Home Exclusively With Population to Whom They Are Not Related,131408\r\nCount of Household: Other Family Household,36814\r\nCount of Household: Single Father Family Household,12803\r\nCount of Household: Single Mother Family Household,24011",
       "legend": [
         "Count of Household: Family Household",
         "Households Containing a Married Couple",
@@ -333,7 +333,7 @@
       "type": "BAR"
     },
     {
-      "data_csv": "label,North Dakota\r\nCount of Household: Family Household,0.2444873720559315\r\nCount of Household: Other Family Household,0.047505122924376864\r\nCount of Household: Single Father Family Household,0.01652110851308733\r\nCount of Household: Single Mother Family Household,0.03098401441128953\r\nHouseholds Containing a Married Couple,0.19698224913155463\r\nHouseholds Where a Person Lives Alone or Where the Householder Shares the Home Exclusively With Population to Whom They Are Not Related,0.16957008728327577",
+      "data_csv": "label,North Dakota\r\nCount of Household: Family Household,0.2444873720559315\r\nHouseholds Containing a Married Couple,0.19698224913155463\r\nHouseholds Where a Person Lives Alone or Where the Householder Shares the Home Exclusively With Population to Whom They Are Not Related,0.16957008728327577\r\nCount of Household: Other Family Household,0.047505122924376864\r\nCount of Household: Single Father Family Household,0.01652110851308733\r\nCount of Household: Single Mother Family Household,0.03098401441128953",
       "legend": [
         "Count of Household: Family Household",
         "Households Containing a Married Couple",
@@ -353,7 +353,7 @@
       "type": "BAR"
     },
     {
-      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year\r\n2010,40123\r\n2011,40247\r\n2012,40902\r\n2013,41359\r\n2014,41787\r\n2015,43103\r\n2016,43407\r\n2017,44062\r\n2018,44608\r\n2019,45093",
+      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year\r\n2019,45093\r\n2018,44608\r\n2017,44062\r\n2016,43407\r\n2015,43103\r\n2014,41787\r\n2013,41359\r\n2012,40902\r\n2011,40247\r\n2010,40123",
       "legend": [
         "Family Households Receiving Social Security Income in the Last Year"
       ],
@@ -368,7 +368,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year\r\n2010,0.05177508684453667\r\n2011,0.0519350975807409\r\n2012,0.05278031558246489\r\n2013,0.05337003256992727\r\n2014,0.053922327691664475\r\n2015,0.05562050615009007\r\n2016,0.05601279053562304\r\n2017,0.05685800853734702\r\n2018,0.057562571940310836\r\n2019,0.058188420384335464",
+      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year\r\n2019,0.058188420384335464\r\n2018,0.057562571940310836\r\n2017,0.05685800853734702\r\n2016,0.05601279053562304\r\n2015,0.05562050615009007\r\n2014,0.053922327691664475\r\n2013,0.05337003256992727\r\n2012,0.05278031558246489\r\n2011,0.0519350975807409\r\n2010,0.05177508684453667",
       "legend": [
         "Family Households Receiving Social Security Income in the Last Year"
       ],
@@ -383,7 +383,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year,Family Households Receiving Social Security Income With Married Couples,Single Mother Family Households Receiving Social Security Income\r\n2010,40123,34373,3743\r\n2011,40247,34667,3689\r\n2012,40902,35395,3682\r\n2013,41359,35924,3754\r\n2014,41787,36194,3848\r\n2015,43103,37210,4123\r\n2016,43407,37611,4034\r\n2017,44062,38225,4159\r\n2018,44608,38885,3962\r\n2019,45093,39375,3910",
+      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year,Family Households Receiving Social Security Income With Married Couples,Single Mother Family Households Receiving Social Security Income\r\n2019,45093,39375,3910\r\n2018,44608,38885,3962\r\n2017,44062,38225,4159\r\n2016,43407,37611,4034\r\n2015,43103,37210,4123\r\n2014,41787,36194,3848\r\n2013,41359,35924,3754\r\n2012,40902,35395,3682\r\n2011,40247,34667,3689\r\n2010,40123,34373,3743",
       "legend": [
         "Family Households Receiving Social Security Income in the Last Year",
         "Family Households Receiving Social Security Income With Married Couples",
@@ -400,7 +400,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year,Family Households Receiving Social Security Income With Married Couples,Single Mother Family Households Receiving Social Security Income\r\n2010,0.05177508684453667,0.04435523415764671,0.004830001496874629\r\n2011,0.0519350975807409,0.044734614451550296,0.00476031940207601\r\n2012,0.05278031558246489,0.04567403232216871,0.004751286537935448\r\n2013,0.05337003256992727,0.04635665876936259,0.00484419599766694\r\n2014,0.053922327691664475,0.046705069243355685,0.004965494458983055\r\n2015,0.05562050615009007,0.048016124952900065,0.005320356978790835\r\n2016,0.05601279053562304,0.048533579027237955,0.005205510563289408\r\n2017,0.05685800853734702,0.04932589025328151,0.0053668117086565804\r\n2018,0.057562571940310836,0.050177560300820184,0.005112601103557916\r\n2019,0.058188420384335464,0.0508098607906595,0.005045499827085172",
+      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year,Family Households Receiving Social Security Income With Married Couples,Single Mother Family Households Receiving Social Security Income\r\n2019,0.058188420384335464,0.0508098607906595,0.005045499827085172\r\n2018,0.057562571940310836,0.050177560300820184,0.005112601103557916\r\n2017,0.05685800853734702,0.04932589025328151,0.0053668117086565804\r\n2016,0.05601279053562304,0.048533579027237955,0.005205510563289408\r\n2015,0.05562050615009007,0.048016124952900065,0.005320356978790835\r\n2014,0.053922327691664475,0.046705069243355685,0.004965494458983055\r\n2013,0.05337003256992727,0.04635665876936259,0.00484419599766694\r\n2012,0.05278031558246489,0.04567403232216871,0.004751286537935448\r\n2011,0.0519350975807409,0.044734614451550296,0.00476031940207601\r\n2010,0.05177508684453667,0.04435523415764671,0.004830001496874629",
       "legend": [
         "Family Households Receiving Social Security Income in the Last Year",
         "Family Households Receiving Social Security Income With Married Couples",
@@ -417,7 +417,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Total Wages for Population Working in the Finance and Insurance Industry\r\n1990-03,57886001\r\n1990-06,55071167\r\n1990-09,55569948\r\n1990-12,65227783\r\n1991-03,60073201\r\n1991-06,57649733\r\n1991-09,57831208\r\n1991-12,67805872\r\n1992-03,64996982\r\n1992-06,61278358\r\n1992-09,62305895\r\n1992-12,75884085\r\n1993-03,68115466\r\n1993-06,66257241\r\n1993-09,67356169\r\n1993-12,80724832\r\n1994-03,74489637\r\n1994-06,68857197\r\n1994-09,70078008\r\n1994-12,80297966\r\n1995-03,81749620\r\n1995-06,70419267\r\n1995-09,75030985\r\n1995-12,84871453\r\n1996-03,83398959\r\n1996-06,77479182\r\n1996-09,76601573\r\n1996-12,88847025\r\n1997-03,85677273\r\n1997-06,77941714\r\n1997-09,83000175\r\n1997-12,97693379\r\n1998-03,95479271\r\n1998-06,86317040\r\n1998-09,90891097\r\n1998-12,105054986\r\n1999-03,100272429\r\n1999-06,93063004\r\n1999-09,98660665\r\n1999-12,110861630\r\n2000-03,111817103\r\n2000-06,102575067\r\n2000-09,105339203\r\n2000-12,117191128\r\n2001-03,118830023\r\n2001-06,107788365\r\n2001-09,109689618\r\n2001-12,124554936\r\n2002-03,132642661\r\n2002-06,116896894\r\n2002-09,118372207\r\n2002-12,138279301\r\n2003-03,141239227\r\n2003-06,125674085\r\n2003-09,128060955\r\n2003-12,149237995\r\n2004-03,150802507\r\n2004-06,131244769\r\n2004-09,130811930\r\n2004-12,168881853\r\n2005-03,154219366\r\n2005-06,137342569\r\n2005-09,138774980\r\n2005-12,158928029\r\n2006-03,159633705\r\n2006-06,146179423\r\n2006-09,149654861\r\n2006-12,172181370\r\n2007-03,176040718\r\n2007-06,156023770\r\n2007-09,159701306\r\n2007-12,187466250\r\n2008-03,192684855\r\n2008-06,165639352\r\n2008-09,170495815\r\n2008-12,201946199\r\n2009-03,195986617\r\n2009-06,171950085\r\n2009-09,173020449\r\n2009-12,203492586\r\n2010-03,195076864\r\n2010-06,181821363\r\n2010-09,182229721\r\n2010-12,209495557\r\n2011-03,225481775\r\n2011-06,190318337\r\n2011-09,197090917\r\n2011-12,216387032\r\n2012-03,234458884\r\n2012-06,202319720\r\n2012-09,202922434\r\n2012-12,240708661\r\n2013-03,248686878\r\n2013-06,215744808\r\n2013-09,216028954\r\n2013-12,249361559\r\n2014-03,264844042\r\n2014-06,228821930\r\n2014-09,233402535\r\n2014-12,269339775\r\n2015-03,285417357\r\n2015-06,246387183\r\n2015-09,250739649\r\n2015-12,288488950\r\n2016-03,289162315\r\n2016-06,260117898\r\n2016-09,263660725\r\n2016-12,288706477\r\n2017-03,307520199\r\n2017-06,263307786\r\n2017-09,262263726\r\n2017-12,301741559\r\n2018-03,328042716\r\n2018-06,277420059\r\n2018-09,272162822\r\n2018-12,313323247\r\n2019-03,340173101\r\n2019-06,286287764\r\n2019-09,283835255\r\n2019-12,329802639\r\n2020-03,354181896",
+      "data_csv": "label,Total Wages for Population Working in the Finance and Insurance Industry\r\n2020-03,354181896\r\n2019-12,329802639\r\n2019-09,283835255\r\n2019-06,286287764\r\n2019-03,340173101\r\n2018-12,313323247\r\n2018-09,272162822\r\n2018-06,277420059\r\n2018-03,328042716\r\n2017-12,301741559\r\n2017-09,262263726\r\n2017-06,263307786\r\n2017-03,307520199\r\n2016-12,288706477\r\n2016-09,263660725\r\n2016-06,260117898\r\n2016-03,289162315\r\n2015-12,288488950\r\n2015-09,250739649\r\n2015-06,246387183\r\n2015-03,285417357\r\n2014-12,269339775\r\n2014-09,233402535\r\n2014-06,228821930\r\n2014-03,264844042\r\n2013-12,249361559\r\n2013-09,216028954\r\n2013-06,215744808\r\n2013-03,248686878\r\n2012-12,240708661\r\n2012-09,202922434\r\n2012-06,202319720\r\n2012-03,234458884\r\n2011-12,216387032\r\n2011-09,197090917\r\n2011-06,190318337\r\n2011-03,225481775\r\n2010-12,209495557\r\n2010-09,182229721\r\n2010-06,181821363\r\n2010-03,195076864\r\n2009-12,203492586\r\n2009-09,173020449\r\n2009-06,171950085\r\n2009-03,195986617\r\n2008-12,201946199\r\n2008-09,170495815\r\n2008-06,165639352\r\n2008-03,192684855\r\n2007-12,187466250\r\n2007-09,159701306\r\n2007-06,156023770\r\n2007-03,176040718\r\n2006-12,172181370\r\n2006-09,149654861\r\n2006-06,146179423\r\n2006-03,159633705\r\n2005-12,158928029\r\n2005-09,138774980\r\n2005-06,137342569\r\n2005-03,154219366\r\n2004-12,168881853\r\n2004-09,130811930\r\n2004-06,131244769\r\n2004-03,150802507\r\n2003-12,149237995\r\n2003-09,128060955\r\n2003-06,125674085\r\n2003-03,141239227\r\n2002-12,138279301\r\n2002-09,118372207\r\n2002-06,116896894\r\n2002-03,132642661\r\n2001-12,124554936\r\n2001-09,109689618\r\n2001-06,107788365\r\n2001-03,118830023\r\n2000-12,117191128\r\n2000-09,105339203\r\n2000-06,102575067\r\n2000-03,111817103\r\n1999-12,110861630\r\n1999-09,98660665\r\n1999-06,93063004\r\n1999-03,100272429\r\n1998-12,105054986\r\n1998-09,90891097\r\n1998-06,86317040\r\n1998-03,95479271\r\n1997-12,97693379\r\n1997-09,83000175\r\n1997-06,77941714\r\n1997-03,85677273\r\n1996-12,88847025\r\n1996-09,76601573\r\n1996-06,77479182\r\n1996-03,83398959\r\n1995-12,84871453\r\n1995-09,75030985\r\n1995-06,70419267\r\n1995-03,81749620\r\n1994-12,80297966\r\n1994-09,70078008\r\n1994-06,68857197\r\n1994-03,74489637\r\n1993-12,80724832\r\n1993-09,67356169\r\n1993-06,66257241\r\n1993-03,68115466\r\n1992-12,75884085\r\n1992-09,62305895\r\n1992-06,61278358\r\n1992-03,64996982\r\n1991-12,67805872\r\n1991-09,57831208\r\n1991-06,57649733\r\n1991-03,60073201\r\n1990-12,65227783\r\n1990-09,55569948\r\n1990-06,55071167\r\n1990-03,57886001",
       "legend": [
         "Total Wages for Population Working in the Finance and Insurance Industry"
       ],
@@ -432,7 +432,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Total Wages for Population Working in the Finance and Insurance Industry\r\n1990-03,74.69662609620258\r\n1990-06,71.06433851045489\r\n1990-09,71.70797008315397\r\n1990-12,84.17052886129134\r\n1991-03,77.51900901737923\r\n1991-06,74.3917437040937\r\n1991-09,74.62592070693776\r\n1991-12,87.49731852975941\r\n1992-03,83.87270113607623\r\n1992-06,79.07415465295736\r\n1992-09,80.40009781301455\r\n1992-12,97.92151860511932\r\n1993-03,87.89682146414985\r\n1993-06,85.49895089735053\r\n1993-09,86.91701765795898\r\n1993-12,104.16806288938096\r\n1994-03,96.12211012867961\r\n1994-06,88.85395794298456\r\n1994-09,90.42930364359931\r\n1994-12,103.61723109163454\r\n1995-03,105.49045871464924\r\n1995-06,90.86966738413416\r\n1995-09,96.82067054821744\r\n1995-12,109.51890062300954\r\n1996-03,107.61878087303923\r\n1996-06,99.97984638969325\r\n1996-09,98.84737169461692\r\n1996-12,114.64901515972684\r\n1997-03,110.55873813468774\r\n1997-06,100.576701920645\r\n1997-09,107.1041863454064\r\n1997-12,126.06443141991463\r\n1998-03,123.20732616898167\r\n1998-06,111.38429933363271\r\n1998-09,117.2867043982306\r\n1998-12,135.56391654665862\r\n1999-03,129.39246117158828\r\n1999-06,120.08935309207844\r\n1999-09,127.31262613749568\r\n1999-12,143.056863170174\r\n2000-03,144.28981428431328\r\n2000-06,132.3638063457161\r\n2000-09,135.93067276772118\r\n2000-12,151.22450538616783\r\n2001-03,153.3393505112601\r\n2001-06,139.09109385403923\r\n2001-09,141.54448814630143\r\n2001-12,160.72683070347946\r\n2002-03,171.1633051507972\r\n2002-06,150.84482313652012\r\n2002-09,152.74858054992077\r\n2002-12,178.4368770549766\r\n2003-03,182.2563926869932\r\n2003-06,162.17099082777167\r\n2003-09,165.25102974651202\r\n2003-12,192.57807620640352\r\n2004-03,194.596936826729\r\n2004-06,169.35945250520035\r\n2004-09,168.8009130935237\r\n2004-12,217.92669056504437\r\n2005-03,199.00608298879408\r\n2005-06,177.22810949895992\r\n2005-09,179.07650577845223\r\n2005-12,205.08218486917832\r\n2006-03,205.99279564564333\r\n2006-06,188.63126687209981\r\n2006-09,193.11600391252057\r\n2006-12,222.18441753511203\r\n2007-03,227.1645555572761\r\n2007-06,201.33450244403497\r\n2007-09,206.08002859546704\r\n2007-12,241.9081667415104\r\n2008-03,248.64230245126126\r\n2008-06,213.74253756381074\r\n2008-09,220.0093619184771\r\n2008-12,260.5932256099764\r\n2009-03,252.9029263898997\r\n2009-06,221.88596525186205\r\n2009-09,223.26717276514037\r\n2009-12,262.58869756422365\r\n2010-03,251.72897278268994\r\n2010-06,234.62395283296428\r\n2010-09,235.15090173792305\r\n2010-12,270.33498634747104\r\n2011-03,290.9637485353856\r\n2011-06,245.58852593980498\r\n2011-09,254.32792522853146\r\n2011-12,279.227808833625\r\n2012-03,302.54789224567327\r\n2012-06,261.07522053092595\r\n2012-09,261.8529681991566\r\n2012-12,310.6126617527886\r\n2013-03,320.9078260734914\r\n2013-06,278.39907709936665\r\n2013-09,278.76574170137866\r\n2013-12,321.77844061795116\r\n2014-03,341.7571785461734\r\n2014-06,295.27391515301673\r\n2014-09,301.1847698168135\r\n2014-12,347.5585136034934\r\n2015-03,368.3051727341705\r\n2015-06,317.9402785735301\r\n2015-09,323.55674058130353\r\n2015-12,372.26878448618487\r\n2016-03,373.1377008521862\r\n2016-06,335.65851902321185\r\n2016-09,340.2302154467138\r\n2016-12,372.54948332017113\r\n2017-03,396.8268825779278\r\n2017-06,339.7747797271559\r\n2017-09,338.4275151364995\r\n2017-12,389.3700725726113\r\n2018-03,423.30932656126606\r\n2018-06,357.98538611622973\r\n2018-09,351.2013993196963\r\n2018-12,404.3151888900933\r\n2019-03,438.96248651522427\r\n2019-06,369.4283539024554\r\n2019-09,366.26361381666896\r\n2019-12,425.5803473265303\r\n2020-03,457.03956394493565",
+      "data_csv": "label,Total Wages for Population Working in the Finance and Insurance Industry\r\n2020-03,457.03956394493565\r\n2019-12,425.5803473265303\r\n2019-09,366.26361381666896\r\n2019-06,369.4283539024554\r\n2019-03,438.96248651522427\r\n2018-12,404.3151888900933\r\n2018-09,351.2013993196963\r\n2018-06,357.98538611622973\r\n2018-03,423.30932656126606\r\n2017-12,389.3700725726113\r\n2017-09,338.4275151364995\r\n2017-06,339.7747797271559\r\n2017-03,396.8268825779278\r\n2016-12,372.54948332017113\r\n2016-09,340.2302154467138\r\n2016-06,335.65851902321185\r\n2016-03,373.1377008521862\r\n2015-12,372.26878448618487\r\n2015-09,323.55674058130353\r\n2015-06,317.9402785735301\r\n2015-03,368.3051727341705\r\n2014-12,347.5585136034934\r\n2014-09,301.1847698168135\r\n2014-06,295.27391515301673\r\n2014-03,341.7571785461734\r\n2013-12,321.77844061795116\r\n2013-09,278.76574170137866\r\n2013-06,278.39907709936665\r\n2013-03,320.9078260734914\r\n2012-12,310.6126617527886\r\n2012-09,261.8529681991566\r\n2012-06,261.07522053092595\r\n2012-03,302.54789224567327\r\n2011-12,279.227808833625\r\n2011-09,254.32792522853146\r\n2011-06,245.58852593980498\r\n2011-03,290.9637485353856\r\n2010-12,270.33498634747104\r\n2010-09,235.15090173792305\r\n2010-06,234.62395283296428\r\n2010-03,251.72897278268994\r\n2009-12,262.58869756422365\r\n2009-09,223.26717276514037\r\n2009-06,221.88596525186205\r\n2009-03,252.9029263898997\r\n2008-12,260.5932256099764\r\n2008-09,220.0093619184771\r\n2008-06,213.74253756381074\r\n2008-03,248.64230245126126\r\n2007-12,241.9081667415104\r\n2007-09,206.08002859546704\r\n2007-06,201.33450244403497\r\n2007-03,227.1645555572761\r\n2006-12,222.18441753511203\r\n2006-09,193.11600391252057\r\n2006-06,188.63126687209981\r\n2006-03,205.99279564564333\r\n2005-12,205.08218486917832\r\n2005-09,179.07650577845223\r\n2005-06,177.22810949895992\r\n2005-03,199.00608298879408\r\n2004-12,217.92669056504437\r\n2004-09,168.8009130935237\r\n2004-06,169.35945250520035\r\n2004-03,194.596936826729\r\n2003-12,192.57807620640352\r\n2003-09,165.25102974651202\r\n2003-06,162.17099082777167\r\n2003-03,182.2563926869932\r\n2002-12,178.4368770549766\r\n2002-09,152.74858054992077\r\n2002-06,150.84482313652012\r\n2002-03,171.1633051507972\r\n2001-12,160.72683070347946\r\n2001-09,141.54448814630143\r\n2001-06,139.09109385403923\r\n2001-03,153.3393505112601\r\n2000-12,151.22450538616783\r\n2000-09,135.93067276772118\r\n2000-06,132.3638063457161\r\n2000-03,144.28981428431328\r\n1999-12,143.056863170174\r\n1999-09,127.31262613749568\r\n1999-06,120.08935309207844\r\n1999-03,129.39246117158828\r\n1998-12,135.56391654665862\r\n1998-09,117.2867043982306\r\n1998-06,111.38429933363271\r\n1998-03,123.20732616898167\r\n1997-12,126.06443141991463\r\n1997-09,107.1041863454064\r\n1997-06,100.576701920645\r\n1997-03,110.55873813468774\r\n1996-12,114.64901515972684\r\n1996-09,98.84737169461692\r\n1996-06,99.97984638969325\r\n1996-03,107.61878087303923\r\n1995-12,109.51890062300954\r\n1995-09,96.82067054821744\r\n1995-06,90.86966738413416\r\n1995-03,105.49045871464924\r\n1994-12,103.61723109163454\r\n1994-09,90.42930364359931\r\n1994-06,88.85395794298456\r\n1994-03,96.12211012867961\r\n1993-12,104.16806288938096\r\n1993-09,86.91701765795898\r\n1993-06,85.49895089735053\r\n1993-03,87.89682146414985\r\n1992-12,97.92151860511932\r\n1992-09,80.40009781301455\r\n1992-06,79.07415465295736\r\n1992-03,83.87270113607623\r\n1991-12,87.49731852975941\r\n1991-09,74.62592070693776\r\n1991-06,74.3917437040937\r\n1991-03,77.51900901737923\r\n1990-12,84.17052886129134\r\n1990-09,71.70797008315397\r\n1990-06,71.06433851045489\r\n1990-03,74.69662609620258",
       "legend": [
         "Total Wages for Population Working in the Finance and Insurance Industry"
       ],
@@ -447,7 +447,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,North Dakota\r\n\"Total Wages Earned by Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry\",42951334\r\n\"Total Wages Paid to Professional, Scientific, and Technical Services\",317608389\r\n\"Total Wages Paid to Sports, Hobby, Music Instrument, and Book Stores\",14531889\r\n\"Total Wages for Population Working in Other Services, Except Public Administration\",112849727\r\n\"Total Wages for Population Working in the Arts, Entertainment, and Recreation Industry\",24697959\r\n\"Total Wages for Population Working in the Mining, Quarrying, and Oil and Gas Extraction Industry\",589945942\r\nTotal Wages Earned by Population Working in Cattle Ranching and Farming,3782637\r\nTotal Wages Earned by Population Working in the Accommodation and Food Services Industry,156386024\r\nTotal Wages Earned by Population Working in the Administrative and Support and Waste Management Services Industry,117089524\r\nTotal Wages Earned by Population Working in the Air Transportation Industry,1419953\r\nTotal Wages Earned by Population Working in the Apparel Manufacturing Industry,111617\r\nTotal Wages Paid to Manufacturing,364078518\r\nTotal Wages Paid to Postal Service,21815048\r\nTotal Wages Paid to Printing and Related Support Activities,6851408\r\nTotal Wages Paid to Public Administration,313895881\r\nTotal Wages Paid to Real Estate and Rental and Leasing,77120738\r\nTotal Wages Paid to Retail Trade,363068435\r\nTotal Wages Paid to Support Activities for Transportation,29517402\r\nTotal Wages Paid to Textile Product Mills,2908953\r\nTotal Wages Paid to Transit and Ground Passenger Transportation,8102947\r\nTotal Wages Paid to Transportation and Warehousing,324274217\r\nTotal Wages Paid to Truck Transportation,171710553\r\nTotal Wages Paid to Utilities,98644460\r\nTotal Wages Paid to Warehousing and Storage,8826295\r\nTotal Wages Paid to Wholesale Trade,426563412\r\nTotal Wages Paid to Wood Product Manufacturing,21156616\r\nTotal Wages Paid to Workers in All Industries,6537416811\r\nTotal Wages for Population Working as Couriers and Messengers,20015940\r\nTotal Wages for Population Working in General Merchandise Stores,50138480\r\nTotal Wages for Population Working in Miscellaneous Retail Stores,14137695\r\nTotal Wages for Population Working in Pipeline Transportation,62051776\r\nTotal Wages for Population Working in Retail Outside of a Store,8939024\r\nTotal Wages for Population Working in the Beverage and Tobacco Product Manufacturing Industry,2893408\r\nTotal Wages for Population Working in the Chemical Manufacturing Industry,11339645\r\nTotal Wages for Population Working in the Construction Industry,366390492\r\nTotal Wages for Population Working in the Educational Services Industry,406295625\r\nTotal Wages for Population Working in the Finance and Insurance Industry,354181896\r\nTotal Wages for Population Working in the Food Manufacturing Industry,67135133\r\nTotal Wages for Population Working in the Health Care and Social Assistance Industry,885270623\r\nTotal Wages for Population Working in the Information Industry,110662002\r\nTotal Wages for Population Working in the Leather and Allied Product Manufacturing Industry,401333\r\nTotal Wages for Population Working in the Management of Companies and Enterprises Industry,113659603\r\nTotal Wages for Population Working in the Nonmetallic Mineral Product Manufacturing Industry,14833015\r\nTotal Wages for Population Working in the Paper Manufacturing Industry,1460209\r\nTotal Wages for Population Working in the Plastics and Rubber Products Manufacturing Industry,23998591",
+      "data_csv": "label,North Dakota\r\nTotal Wages Paid to Workers in All Industries,6537416811\r\n\"Total Wages Earned by Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry\",42951334\r\nTotal Wages Earned by Population Working in Cattle Ranching and Farming,3782637\r\n\"Total Wages for Population Working in the Mining, Quarrying, and Oil and Gas Extraction Industry\",589945942\r\nTotal Wages Paid to Utilities,98644460\r\nTotal Wages for Population Working in the Construction Industry,366390492\r\nTotal Wages for Population Working in the Food Manufacturing Industry,67135133\r\nTotal Wages for Population Working in the Beverage and Tobacco Product Manufacturing Industry,2893408\r\nTotal Wages Paid to Manufacturing,364078518\r\nTotal Wages Paid to Textile Product Mills,2908953\r\nTotal Wages Earned by Population Working in the Apparel Manufacturing Industry,111617\r\nTotal Wages for Population Working in the Leather and Allied Product Manufacturing Industry,401333\r\nTotal Wages Paid to Wood Product Manufacturing,21156616\r\nTotal Wages for Population Working in the Paper Manufacturing Industry,1460209\r\nTotal Wages Paid to Printing and Related Support Activities,6851408\r\nTotal Wages for Population Working in the Chemical Manufacturing Industry,11339645\r\nTotal Wages for Population Working in the Plastics and Rubber Products Manufacturing Industry,23998591\r\nTotal Wages for Population Working in the Nonmetallic Mineral Product Manufacturing Industry,14833015\r\nTotal Wages Paid to Wholesale Trade,426563412\r\nTotal Wages Paid to Retail Trade,363068435\r\n\"Total Wages Paid to Sports, Hobby, Music Instrument, and Book Stores\",14531889\r\nTotal Wages for Population Working in General Merchandise Stores,50138480\r\nTotal Wages for Population Working in Miscellaneous Retail Stores,14137695\r\nTotal Wages for Population Working in Retail Outside of a Store,8939024\r\nTotal Wages Earned by Population Working in the Air Transportation Industry,1419953\r\nTotal Wages Paid to Truck Transportation,171710553\r\nTotal Wages Paid to Transportation and Warehousing,324274217\r\nTotal Wages Paid to Transit and Ground Passenger Transportation,8102947\r\nTotal Wages for Population Working in Pipeline Transportation,62051776\r\nTotal Wages Paid to Support Activities for Transportation,29517402\r\nTotal Wages Paid to Postal Service,21815048\r\nTotal Wages for Population Working as Couriers and Messengers,20015940\r\nTotal Wages Paid to Warehousing and Storage,8826295\r\nTotal Wages for Population Working in the Information Industry,110662002\r\nTotal Wages for Population Working in the Finance and Insurance Industry,354181896\r\nTotal Wages Paid to Real Estate and Rental and Leasing,77120738\r\n\"Total Wages Paid to Professional, Scientific, and Technical Services\",317608389\r\nTotal Wages for Population Working in the Management of Companies and Enterprises Industry,113659603\r\nTotal Wages Earned by Population Working in the Administrative and Support and Waste Management Services Industry,117089524\r\nTotal Wages for Population Working in the Educational Services Industry,406295625\r\nTotal Wages for Population Working in the Health Care and Social Assistance Industry,885270623\r\n\"Total Wages for Population Working in the Arts, Entertainment, and Recreation Industry\",24697959\r\nTotal Wages Earned by Population Working in the Accommodation and Food Services Industry,156386024\r\n\"Total Wages for Population Working in Other Services, Except Public Administration\",112849727\r\nTotal Wages Paid to Public Administration,313895881",
       "legend": [
         "Total Wages Paid to Workers in All Industries",
         "Total Wages Earned by Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry",
@@ -506,7 +506,7 @@
       "type": "BAR"
     },
     {
-      "data_csv": "label,North Dakota\r\n\"Total Wages Earned by Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry\",55.42479495398401\r\n\"Total Wages Paid to Professional, Scientific, and Technical Services\",409.8447753913811\r\n\"Total Wages Paid to Sports, Hobby, Music Instrument, and Book Stores\",18.75208272038898\r\n\"Total Wages for Population Working in Other Services, Except Public Administration\",145.62232175578234\r\n\"Total Wages for Population Working in the Arts, Entertainment, and Recreation Industry\",31.870472599451833\r\n\"Total Wages for Population Working in the Mining, Quarrying, and Oil and Gas Extraction Industry\",761.2716491945266\r\nTotal Wages Earned by Population Working in Cattle Ranching and Farming,4.8811494448659785\r\nTotal Wages Earned by Population Working in the Accommodation and Food Services Industry,201.80195832494567\r\nTotal Wages Earned by Population Working in the Administrative and Support and Waste Management Services Industry,151.09339465357675\r\nTotal Wages Earned by Population Working in the Air Transportation Industry,1.8323203621404276\r\nTotal Wages Earned by Population Working in the Apparel Manufacturing Industry,0.144031599539582\r\nTotal Wages Paid to Manufacturing,469.8102556558634\r\nTotal Wages Paid to Postal Service,28.150337829118858\r\nTotal Wages Paid to Printing and Related Support Activities,8.841119662222498\r\nTotal Wages Paid to Public Administration,405.05412105070275\r\nTotal Wages Paid to Real Estate and Rental and Leasing,99.51730696769332\r\nTotal Wages Paid to Retail Trade,468.50683529733607\r\nTotal Wages Paid to Support Activities for Transportation,38.08952600690627\r\nTotal Wages Paid to Textile Product Mills,3.7537396057541925\r\nTotal Wages Paid to Transit and Ground Passenger Transportation,10.456117055595989\r\nTotal Wages Paid to Transportation and Warehousing,418.44642092114566\r\nTotal Wages Paid to Truck Transportation,221.57687096424533\r\nTotal Wages Paid to Utilities,127.29171505701028\r\nTotal Wages Paid to Warehousing and Storage,11.38953194278842\r\nTotal Wages Paid to Wholesale Trade,550.4413354186346\r\nTotal Wages Paid to Wood Product Manufacturing,27.30069114314767\r\nTotal Wages Paid to Workers in All Industries,8435.942554855294\r\nTotal Wages for Population Working as Couriers and Messengers,25.828752380804907\r\nTotal Wages for Population Working in General Merchandise Stores,64.69915400775278\r\nTotal Wages for Population Working in Miscellaneous Retail Stores,18.243411170814042\r\nTotal Wages for Population Working in Pipeline Transportation,80.07218032693807\r\nTotal Wages for Population Working in Retail Outside of a Store,11.534998477317188\r\nTotal Wages for Population Working in the Beverage and Tobacco Product Manufacturing Industry,3.7336801953163308\r\nTotal Wages for Population Working in the Chemical Manufacturing Industry,14.632781812457093\r\nTotal Wages for Population Working in the Construction Industry,472.79364808993637\r\nTotal Wages for Population Working in the Educational Services Industry,524.2875973613714\r\nTotal Wages for Population Working in the Finance and Insurance Industry,457.03956394493565\r\nTotal Wages for Population Working in the Food Manufacturing Industry,86.63179077821995\r\nTotal Wages for Population Working in the Health Care and Social Assistance Industry,1142.3613235984867\r\nTotal Wages for Population Working in the Information Industry,142.79926136979515\r\nTotal Wages for Population Working in the Leather and Allied Product Manufacturing Industry,0.5178837805891492\r\nTotal Wages for Population Working in the Management of Companies and Enterprises Industry,146.6673931670254\r\nTotal Wages for Population Working in the Nonmetallic Mineral Product Manufacturing Industry,19.140658469987663\r\nTotal Wages for Population Working in the Paper Manufacturing Industry,1.8842670734036349\r\nTotal Wages for Population Working in the Plastics and Rubber Products Manufacturing Industry,30.968001723986642",
+      "data_csv": "label,North Dakota\r\nTotal Wages Paid to Workers in All Industries,8435.942554855294\r\n\"Total Wages Earned by Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry\",55.42479495398401\r\nTotal Wages Earned by Population Working in Cattle Ranching and Farming,4.8811494448659785\r\n\"Total Wages for Population Working in the Mining, Quarrying, and Oil and Gas Extraction Industry\",761.2716491945266\r\nTotal Wages Paid to Utilities,127.29171505701028\r\nTotal Wages for Population Working in the Construction Industry,472.79364808993637\r\nTotal Wages for Population Working in the Food Manufacturing Industry,86.63179077821995\r\nTotal Wages for Population Working in the Beverage and Tobacco Product Manufacturing Industry,3.7336801953163308\r\nTotal Wages Paid to Manufacturing,469.8102556558634\r\nTotal Wages Paid to Textile Product Mills,3.7537396057541925\r\nTotal Wages Earned by Population Working in the Apparel Manufacturing Industry,0.144031599539582\r\nTotal Wages for Population Working in the Leather and Allied Product Manufacturing Industry,0.5178837805891492\r\nTotal Wages Paid to Wood Product Manufacturing,27.30069114314767\r\nTotal Wages for Population Working in the Paper Manufacturing Industry,1.8842670734036349\r\nTotal Wages Paid to Printing and Related Support Activities,8.841119662222498\r\nTotal Wages for Population Working in the Chemical Manufacturing Industry,14.632781812457093\r\nTotal Wages for Population Working in the Plastics and Rubber Products Manufacturing Industry,30.968001723986642\r\nTotal Wages for Population Working in the Nonmetallic Mineral Product Manufacturing Industry,19.140658469987663\r\nTotal Wages Paid to Wholesale Trade,550.4413354186346\r\nTotal Wages Paid to Retail Trade,468.50683529733607\r\n\"Total Wages Paid to Sports, Hobby, Music Instrument, and Book Stores\",18.75208272038898\r\nTotal Wages for Population Working in General Merchandise Stores,64.69915400775278\r\nTotal Wages for Population Working in Miscellaneous Retail Stores,18.243411170814042\r\nTotal Wages for Population Working in Retail Outside of a Store,11.534998477317188\r\nTotal Wages Earned by Population Working in the Air Transportation Industry,1.8323203621404276\r\nTotal Wages Paid to Truck Transportation,221.57687096424533\r\nTotal Wages Paid to Transportation and Warehousing,418.44642092114566\r\nTotal Wages Paid to Transit and Ground Passenger Transportation,10.456117055595989\r\nTotal Wages for Population Working in Pipeline Transportation,80.07218032693807\r\nTotal Wages Paid to Support Activities for Transportation,38.08952600690627\r\nTotal Wages Paid to Postal Service,28.150337829118858\r\nTotal Wages for Population Working as Couriers and Messengers,25.828752380804907\r\nTotal Wages Paid to Warehousing and Storage,11.38953194278842\r\nTotal Wages for Population Working in the Information Industry,142.79926136979515\r\nTotal Wages for Population Working in the Finance and Insurance Industry,457.03956394493565\r\nTotal Wages Paid to Real Estate and Rental and Leasing,99.51730696769332\r\n\"Total Wages Paid to Professional, Scientific, and Technical Services\",409.8447753913811\r\nTotal Wages for Population Working in the Management of Companies and Enterprises Industry,146.6673931670254\r\nTotal Wages Earned by Population Working in the Administrative and Support and Waste Management Services Industry,151.09339465357675\r\nTotal Wages for Population Working in the Educational Services Industry,524.2875973613714\r\nTotal Wages for Population Working in the Health Care and Social Assistance Industry,1142.3613235984867\r\n\"Total Wages for Population Working in the Arts, Entertainment, and Recreation Industry\",31.870472599451833\r\nTotal Wages Earned by Population Working in the Accommodation and Food Services Industry,201.80195832494567\r\n\"Total Wages for Population Working in Other Services, Except Public Administration\",145.62232175578234\r\nTotal Wages Paid to Public Administration,405.05412105070275",
       "legend": [
         "Total Wages Paid to Workers in All Industries",
         "Total Wages Earned by Population Working in the Agriculture, Forestry, Fishing, and Hunting Industry",
@@ -565,7 +565,7 @@
       "type": "BAR"
     },
     {
-      "data_csv": "label,Median Earnings for Male Population Living in Group Quarters\r\n2010,5675\r\n2011,5654\r\n2012,6142\r\n2013,6256\r\n2014,6478\r\n2015,6930\r\n2016,6717\r\n2017,6865\r\n2018,6775\r\n2019,6986",
+      "data_csv": "label,Median Earnings for Male Population Living in Group Quarters\r\n2019,6986\r\n2018,6775\r\n2017,6865\r\n2016,6717\r\n2015,6930\r\n2014,6478\r\n2013,6256\r\n2012,6142\r\n2011,5654\r\n2010,5675",
       "legend": [
         "Median Earnings for Male Population Living in Group Quarters"
       ],
@@ -580,7 +580,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Average Earnings for Female Population\r\n2010,24603\r\n2011,26018\r\n2012,27320\r\n2013,28444\r\n2014,29335\r\n2015,30113\r\n2016,31438\r\n2017,33344\r\n2018,35007\r\n2019,36347",
+      "data_csv": "label,Average Earnings for Female Population\r\n2019,36347\r\n2018,35007\r\n2017,33344\r\n2016,31438\r\n2015,30113\r\n2014,29335\r\n2013,28444\r\n2012,27320\r\n2011,26018\r\n2010,24603",
       "legend": [
         "Average Earnings for Female Population"
       ],
@@ -595,7 +595,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Average Earnings for Female Population\r\n2010,0.031747936635748465\r\n2011,0.03357386560130486\r\n2012,0.03525397833144934\r\n2013,0.036704398230590955\r\n2014,0.03785415279476816\r\n2015,0.03885809112353345\r\n2016,0.04056788326442549\r\n2017,0.04302740312898414\r\n2018,0.04517335356694901\r\n2019,0.046902501845285105",
+      "data_csv": "label,Average Earnings for Female Population\r\n2019,0.046902501845285105\r\n2018,0.04517335356694901\r\n2017,0.04302740312898414\r\n2016,0.04056788326442549\r\n2015,0.03885809112353345\r\n2014,0.03785415279476816\r\n2013,0.036704398230590955\r\n2012,0.03525397833144934\r\n2011,0.03357386560130486\r\n2010,0.031747936635748465",
       "legend": [
         "Average Earnings for Female Population"
       ],
@@ -610,7 +610,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Single Mother Family Households Receiving Social Security Income\r\n2010,3743\r\n2011,3689\r\n2012,3682\r\n2013,3754\r\n2014,3848\r\n2015,4123\r\n2016,4034\r\n2017,4159\r\n2018,3962\r\n2019,3910",
+      "data_csv": "label,Single Mother Family Households Receiving Social Security Income\r\n2019,3910\r\n2018,3962\r\n2017,4159\r\n2016,4034\r\n2015,4123\r\n2014,3848\r\n2013,3754\r\n2012,3682\r\n2011,3689\r\n2010,3743",
       "legend": [
         "Single Mother Family Households Receiving Social Security Income"
       ],
@@ -625,7 +625,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Single Mother Family Households Receiving Social Security Income\r\n2010,0.004830001496874629\r\n2011,0.00476031940207601\r\n2012,0.004751286537935448\r\n2013,0.00484419599766694\r\n2014,0.004965494458983055\r\n2015,0.005320356978790835\r\n2016,0.005205510563289408\r\n2017,0.0053668117086565804\r\n2018,0.005112601103557916\r\n2019,0.005045499827085172",
+      "data_csv": "label,Single Mother Family Households Receiving Social Security Income\r\n2019,0.005045499827085172\r\n2018,0.005112601103557916\r\n2017,0.0053668117086565804\r\n2016,0.005205510563289408\r\n2015,0.005320356978790835\r\n2014,0.004965494458983055\r\n2013,0.00484419599766694\r\n2012,0.004751286537935448\r\n2011,0.00476031940207601\r\n2010,0.004830001496874629",
       "legend": [
         "Single Mother Family Households Receiving Social Security Income"
       ],
@@ -640,7 +640,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Median Earnings for Female Population\r\n2010,20593\r\n2011,21497\r\n2012,22443\r\n2013,23627\r\n2014,24504\r\n2015,25300\r\n2016,26342\r\n2017,27702\r\n2018,29336\r\n2019,30532",
+      "data_csv": "label,Median Earnings for Female Population\r\n2019,30532\r\n2018,29336\r\n2017,27702\r\n2016,26342\r\n2015,25300\r\n2014,24504\r\n2013,23627\r\n2012,22443\r\n2011,21497\r\n2010,20593",
       "legend": [
         "Median Earnings for Female Population"
       ],
@@ -655,7 +655,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Households\r\n2011,278669\r\n2012,282667\r\n2013,287270\r\n2014,292616\r\n2015,299638\r\n2016,305163\r\n2017,311525\r\n2018,314903\r\n2019,318322\r\n2020,320873",
+      "data_csv": "label,Households\r\n2020,320873\r\n2019,318322\r\n2018,314903\r\n2017,311525\r\n2016,305163\r\n2015,299638\r\n2014,292616\r\n2013,287270\r\n2012,282667\r\n2011,278669",
       "legend": [
         "Households"
       ],
@@ -670,7 +670,7 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Households\r\n2011,0.3595970310265979\r\n2012,0.3647560868600216\r\n2013,0.37069584023702234\r\n2014,0.3775943676220856\r\n2015,0.38665562076423193\r\n2016,0.393785131389461\r\n2017,0.4019947144840686\r\n2018,0.4063537166364711\r\n2019,0.410765625564554\r\n2020,0.4140574593392073",
+      "data_csv": "label,Households\r\n2020,0.4140574593392073\r\n2019,0.410765625564554\r\n2018,0.4063537166364711\r\n2017,0.4019947144840686\r\n2016,0.393785131389461\r\n2015,0.38665562076423193\r\n2014,0.3775943676220856\r\n2013,0.37069584023702234\r\n2012,0.3647560868600216\r\n2011,0.3595970310265979",
       "legend": [
         "Households"
       ],
