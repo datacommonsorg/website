@@ -21,6 +21,7 @@ class Config(_base.Config):
   NAME = "Climate TRACE Data Commons"
   LOGO_PATH = "/custom_dc/climate_trace/logo.svg"
   OVERRIDE_CSS_PATH = '/custom_dc/climate_trace/overrides.css'
+  SHOW_DISASTER = False
 
 
 class LocalConfig(Config, local.Config):

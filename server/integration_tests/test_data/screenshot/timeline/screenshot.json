@@ -1,0 +1,315 @@
+{
+  "charts": [
+    {
+      "data_csv": "label,Average Income for Family Households\r\n2019,105819\r\n2018,103731\r\n2017,99878\r\n2016,96309\r\n2015,93044\r\n2014,90140\r\n2013,86449\r\n2012,83141\r\n2011,79594\r\n2010,75645",
+      "legend": [
+        "Average Income for Family Households"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "svg": "",
+      "title": "Average Income for Family Households in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Individual Median Income,Individual Median Earnings\r\n2020,36316,\r\n2019,35499,\r\n2018,34036,\r\n2017,32336,\r\n2016,31273,32791\r\n2015,30422,31907\r\n2014,29391,31198\r\n2013,28157,30289\r\n2012,27090,28923\r\n2011,25925,27194\r\n2010,,26117",
+      "legend": [
+        "Individual Median Income",
+        "Individual Median Earnings"
+      ],
+      "srcs": [
+        {
+          "name": "census.gov",
+          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
+        }
+      ],
+      "svg": "",
+      "title": "Individual Income in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Household Median Income\r\n2020,65315\r\n2019,64894\r\n2018,63473\r\n2017,61285\r\n2016,59114\r\n2015,57181\r\n2014,55579\r\n2013,53741\r\n2012,51641\r\n2011,49415",
+      "legend": [
+        "Household Median Income"
+      ],
+      "srcs": [
+        {
+          "name": "census.gov",
+          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
+        }
+      ],
+      "svg": "",
+      "title": "Household Median Income in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Median Income for Married Couple Family Households\r\n2019,96825\r\n2018,93643\r\n2017,89787\r\n2016,86919\r\n2015,84437\r\n2014,82236\r\n2013,79820\r\n2012,76946\r\n2011,73585\r\n2010,69952",
+      "legend": [
+        "Median Income for Married Couple Family Households"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "svg": "",
+      "title": "Median Income for Married Couple Family Households in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Household Median Income\r\n2020,65315\r\n2019,64894\r\n2018,63473\r\n2017,61285\r\n2016,59114\r\n2015,57181\r\n2014,55579\r\n2013,53741\r\n2012,51641\r\n2011,49415",
+      "legend": [
+        "Household Median Income"
+      ],
+      "srcs": [
+        {
+          "name": "census.gov",
+          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
+        }
+      ],
+      "svg": "",
+      "title": "Household Median Income in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Median Income for Family Households\r\n2019,86249\r\n2018,83272\r\n2017,80091\r\n2016,77277\r\n2015,74708\r\n2014,72770\r\n2013,70767\r\n2012,68293\r\n2011,65871\r\n2010,62920",
+      "legend": [
+        "Median Income for Family Households"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "svg": "",
+      "title": "Median Income for Family Households in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Average Income for Married Couple Family Households\r\n2019,117934\r\n2018,115706\r\n2017,111105\r\n2016,107344\r\n2015,103913\r\n2014,100467\r\n2013,95868\r\n2012,92261\r\n2011,88071\r\n2010,83619",
+      "legend": [
+        "Average Income for Married Couple Family Households"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "svg": "",
+      "title": "Average Income for Married Couple Family Households in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Average Income for Nonfamily Households\r\n2019,52462\r\n2018,51729\r\n2017,50416\r\n2016,49357\r\n2015,47072\r\n2014,44346\r\n2013,42235\r\n2012,40393\r\n2011,37461\r\n2010,34769",
+      "legend": [
+        "Average Income for Nonfamily Households"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "svg": "",
+      "title": "Average Income for Nonfamily Households in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Average Income for Households\r\n2019,85476\r\n2018,84043\r\n2017,81334\r\n2016,78828\r\n2015,76185\r\n2014,73272\r\n2013,70235\r\n2012,67426\r\n2011,64106\r\n2010,60581",
+      "legend": [
+        "Average Income for Households"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "svg": "",
+      "title": "Average Income for Households in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Individual Median Earnings\r\n2016,32791\r\n2015,31907\r\n2014,31198\r\n2013,30289\r\n2012,28923\r\n2011,27194\r\n2010,26117",
+      "legend": [
+        "Individual Median Earnings"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2001&tid=ACSST1Y2019.S2001"
+        }
+      ],
+      "svg": "",
+      "title": "Individual Median Earnings in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,11174.52\r\n2018,10062.888\r\n2017,9812.322\r\n2016,9875.844\r\n2015,9510.336\r\n2014,8391.467\r\n2013,7159.46",
+      "legend": [
+        "Households Without Health Insurance and Income $100,000 or More"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2702&tid=ACSST5Y2019.S2702"
+        }
+      ],
+      "svg": "",
+      "title": "Households Without Health Insurance and Income $100,000 or More in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,0.01441970299942706\r\n2018,0.01298524288081265\r\n2017,0.012661910218492079\r\n2016,0.012743879589340187\r\n2015,0.01227222471701327\r\n2014,0.010828425907286682\r\n2013,0.009238632785683685",
+      "legend": [
+        "Households Without Health Insurance and Income $100,000 or More"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2702&tid=ACSST5Y2019.S2702"
+        }
+      ],
+      "svg": "",
+      "title": "Per Capita Households Without Health Insurance and Income $100,000 or More in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,\"Households Without Health Insurance With Income 25,000 USD or Less\",\"Households Without Health Insurance With Income 25,000-49,999 USD\",\"Households Without Health Insurance With Income 75,000-99,999 USD\",\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,10908.46,13409.424,6545.076,11174.52\r\n2018,11133.408,13809.708,6744.276,10062.888\r\n2017,12394.512,15435.758,7287.514,9812.322\r\n2016,13389.948,16782.876,7149.384,9875.844\r\n2015,14640.912,18019.584,7132.752,9510.336\r\n2014,16526.706,19281.157,6982.213,8391.467\r\n2013,17768.478,20762.434,7094.374,7159.46",
+      "legend": [
+        "Households Without Health Insurance With Income 25,000 USD or Less",
+        "Households Without Health Insurance With Income 25,000-49,999 USD",
+        "Households Without Health Insurance With Income 75,000-99,999 USD",
+        "Households Without Health Insurance and Income $100,000 or More"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2702&tid=ACSST5Y2019.S2702"
+        }
+      ],
+      "svg": "",
+      "title": "Compared with Other Variables in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,\"Households Without Health Insurance With Income 25,000 USD or Less\",\"Households Without Health Insurance With Income 25,000-49,999 USD\",\"Households Without Health Insurance With Income 75,000-99,999 USD\",\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,0.014076376737535937,0.01730364359931247,0.008445826042521563,0.01441970299942706\r\n2018,0.014366651697920375,0.0178201737406897,0.00870287554777869,0.01298524288081265\r\n2017,0.015993991854937363,0.019918443560084032,0.009403874840634468,0.012661910218492079\r\n2016,0.0172785115904551,0.021656776970841916,0.009225630622957927,0.012743879589340187\r\n2015,0.018892766998559903,0.02325263630591988,0.009204168537759953,0.01227222471701327\r\n2014,0.021326212855572242,0.024880581664834284,0.009009911632780521,0.010828425907286682\r\n2013,0.022928606822651326,0.026792035078482688,0.009154645214904741,0.009238632785683685",
+      "legend": [
+        "Households Without Health Insurance With Income 25,000 USD or Less",
+        "Households Without Health Insurance With Income 25,000-49,999 USD",
+        "Households Without Health Insurance With Income 75,000-99,999 USD",
+        "Households Without Health Insurance and Income $100,000 or More"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2702&tid=ACSST5Y2019.S2702"
+        }
+      ],
+      "svg": "",
+      "title": "Per Capita Compared with Other Variables in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year\r\n2019,45093\r\n2018,44608\r\n2017,44062\r\n2016,43407\r\n2015,43103\r\n2014,41787\r\n2013,41359\r\n2012,40902\r\n2011,40247\r\n2010,40123",
+      "legend": [
+        "Family Households Receiving Social Security Income in the Last Year"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
+        }
+      ],
+      "svg": "",
+      "title": "Family Households Receiving Social Security Income in the Last Year in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year\r\n2019,0.058188420384335464\r\n2018,0.057562571940310836\r\n2017,0.05685800853734702\r\n2016,0.05601279053562304\r\n2015,0.05562050615009007\r\n2014,0.053922327691664475\r\n2013,0.05337003256992727\r\n2012,0.05278031558246489\r\n2011,0.0519350975807409\r\n2010,0.05177508684453667",
+      "legend": [
+        "Family Households Receiving Social Security Income in the Last Year"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
+        }
+      ],
+      "svg": "",
+      "title": "Per Capita Family Households Receiving Social Security Income in the Last Year in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year,Family Households Receiving Social Security Income With Married Couples,Single Mother Family Households Receiving Social Security Income\r\n2019,45093,39375,3910\r\n2018,44608,38885,3962\r\n2017,44062,38225,4159\r\n2016,43407,37611,4034\r\n2015,43103,37210,4123\r\n2014,41787,36194,3848\r\n2013,41359,35924,3754\r\n2012,40902,35395,3682\r\n2011,40247,34667,3689\r\n2010,40123,34373,3743",
+      "legend": [
+        "Family Households Receiving Social Security Income in the Last Year",
+        "Family Households Receiving Social Security Income With Married Couples",
+        "Single Mother Family Households Receiving Social Security Income"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
+        }
+      ],
+      "svg": "",
+      "title": "Compared with Other Variables in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year,Family Households Receiving Social Security Income With Married Couples,Single Mother Family Households Receiving Social Security Income\r\n2019,0.058188420384335464,0.0508098607906595,0.005045499827085172\r\n2018,0.057562571940310836,0.050177560300820184,0.005112601103557916\r\n2017,0.05685800853734702,0.04932589025328151,0.0053668117086565804\r\n2016,0.05601279053562304,0.048533579027237955,0.005205510563289408\r\n2015,0.05562050615009007,0.048016124952900065,0.005320356978790835\r\n2014,0.053922327691664475,0.046705069243355685,0.004965494458983055\r\n2013,0.05337003256992727,0.04635665876936259,0.00484419599766694\r\n2012,0.05278031558246489,0.04567403232216871,0.004751286537935448\r\n2011,0.0519350975807409,0.044734614451550296,0.00476031940207601\r\n2010,0.05177508684453667,0.04435523415764671,0.004830001496874629",
+      "legend": [
+        "Family Households Receiving Social Security Income in the Last Year",
+        "Family Households Receiving Social Security Income With Married Couples",
+        "Single Mother Family Households Receiving Social Security Income"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
+        }
+      ],
+      "svg": "",
+      "title": "Per Capita Compared with Other Variables in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Average Earnings for Male Population\r\n2019,59343\r\n2018,58666\r\n2017,56721\r\n2016,55363\r\n2015,53604\r\n2014,51709\r\n2013,49352\r\n2012,47574\r\n2011,45093\r\n2010,42678",
+      "legend": [
+        "Average Earnings for Male Population"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2601A&tid=ACSST5Y2019.S2601A"
+        }
+      ],
+      "svg": "",
+      "title": "Average Earnings for Male Population in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Average Earnings for Male Population\r\n2019,0.07657675095619319\r\n2018,0.07570314395288458\r\n2017,0.07319329813097136\r\n2016,0.0714409224877024\r\n2015,0.06917109277009555\r\n2014,0.0667257674063292\r\n2013,0.06368427300928578\r\n2012,0.06138992551758311\r\n2011,0.058188420384335464\r\n2010,0.05507208225584168",
+      "legend": [
+        "Average Earnings for Male Population"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2601A&tid=ACSST5Y2019.S2601A"
+        }
+      ],
+      "svg": "",
+      "title": "Per Capita Average Earnings for Male Population in North Dakota",
+      "type": "LINE"
+    }
+  ]
+}
