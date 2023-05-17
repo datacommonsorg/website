@@ -1,0 +1,43 @@
+Result,Query,Details
+SUCCESS,family earnings in california,"{""driver_init"": 0.81, ""scraping"": 0.06, ""total"": 0.87}"
+SUCCESS,What are the projected temperature extremes across California,"{""driver_init"": 0.92, ""scraping"": 3.6, ""total"": 4.52}"
+SUCCESS,Where were the major fires in the last year,"{""driver_init"": 0.9, ""scraping"": 2.82, ""total"": 3.73}"
+FAILURE,Tell me about Placer County,500
+SUCCESS,What were the most common jobs there,"{""driver_init"": 0.84, ""scraping"": 1.99, ""total"": 2.82}"
+SUCCESS,Which jobs have grown the most,"{""driver_init"": 0.79, ""scraping"": 10.63, ""total"": 11.43}"
+SUCCESS,What are the most common health issues there,"{""driver_init"": 0.79, ""scraping"": 1.44, ""total"": 2.23}"
+SUCCESS,Which counties in california have the highest levels of blood pressure,"{""driver_init"": 0.79, ""scraping"": 2.63, ""total"": 3.42}"
+SUCCESS,Which counties in the USA have the highest levels of blood pressure,"{""driver_init"": 0.95, ""scraping"": 9.02, ""total"": 9.97}"
+SUCCESS,How does this correlate with income,"{""driver_init"": 0.8, ""scraping"": 15.26, ""total"": 16.05}"
+FAILURE,What is the meaning of life,500
+SUCCESS,How big are the public schools in Sunnyvale,"{""driver_init"": 0.85, ""scraping"": 1.95, ""total"": 2.81}"
+SUCCESS,What is the prevalence of asthma there,"{""driver_init"": 0.88, ""scraping"": 3.12, ""total"": 3.99}"
+SUCCESS,What is the commute pattern there,"{""driver_init"": 0.83, ""scraping"": 1.74, ""total"": 2.57}"
+FAILURE,How does that compare with San Bruno,500
+SUCCESS,Which cities in the SF Bay Area have the highest larceny,"{""driver_init"": 0.81, ""scraping"": 1.55, ""total"": 2.36}"
+SUCCESS,What countries in Africa had the greatest increase in life expectancy,"{""driver_init"": 0.8, ""scraping"": 24.41, ""total"": 25.2}"
+FAILURE,Number of Shakespeare fans in San Francisco and Chicago.,500
+SUCCESS,Crime in California and Florida,"{""driver_init"": 0.8, ""scraping"": 5.05, ""total"": 5.85}"
+SUCCESS,counties in California with highest crime,"{""driver_init"": 0.9, ""scraping"": 5.6, ""total"": 6.51}"
+SUCCESS,obesity in California,"{""driver_init"": 0.79, ""scraping"": 2.15, ""total"": 2.94}"
+SUCCESS,GDP of countries in the US,"{""driver_init"": 0.79, ""scraping"": 6.33, ""total"": 7.12}"
+SUCCESS,Poverty vs. Obesity in California,"{""driver_init"": 0.8, ""scraping"": 1.55, ""total"": 2.35}"
+SUCCESS,Poverty vs. Obesity in California and Florida,"{""driver_init"": 0.8, ""scraping"": 8.05, ""total"": 8.86}"
+SUCCESS,California cities with hispanic population over 10000,"{""driver_init"": 0.84, ""scraping"": 1.85, ""total"": 2.69}"
+SUCCESS,Prevalence of Asthma in California cities with hispanic population over 10000,"{""driver_init"": 0.8, ""scraping"": 1.93, ""total"": 2.73}"
+SUCCESS,Where are the most rural districts in India,"{""driver_init"": 0.83, ""scraping"": 6.42, ""total"": 7.25}"
+FAILURE,Life expectancy across provinces of China,500
+SUCCESS,GDP of counties in the United Kingdom,"{""driver_init"": 0.86, ""scraping"": 2.26, ""total"": 3.12}"
+SUCCESS,Districts in Turkey with the highest fertility rate,"{""driver_init"": 0.79, ""scraping"": 1.98, ""total"": 2.77}"
+SUCCESS,Floods in Brazil,"{""driver_init"": 0.88, ""scraping"": 1.76, ""total"": 2.64}"
+SUCCESS,Drought in Africa,"{""driver_init"": 0.85, ""scraping"": 1.89, ""total"": 2.73}"
+SUCCESS,tell me about poverty in africa,"{""driver_init"": 0.9, ""scraping"": 4.93, ""total"": 5.84}"
+FAILURE,which countries have show the greatest reduction?,500
+SUCCESS,health in the world,"{""driver_init"": 0.81, ""scraping"": 11.4, ""total"": 12.22}"
+SUCCESS,Which countries emit the most greenhouse gases?,"{""driver_init"": 0.78, ""scraping"": 13.25, ""total"": 14.03}"
+FAILURE,tell me about palo alto,500
+SUCCESS,US states which have that the cheapest houses,"{""driver_init"": 0.8, ""scraping"": 30.91, ""total"": 31.71}"
+FAILURE,what about in florida,500
+FAILURE,compare with california and new york state and washington state,500
+SUCCESS,show me the population of mexico city,"{""driver_init"": 0.8, ""scraping"": 1.66, ""total"": 2.46}"
+FAILURE,counties in the US with the most poverty,502
