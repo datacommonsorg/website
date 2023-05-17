@@ -34,9 +34,6 @@ const dom = new JSDOM(
 
 globalThis.datacommons = {
   root: "",
-  drawRanking: (element, props) => {
-    console.log(element, props);
-  },
 };
 
 const window = dom.window;
