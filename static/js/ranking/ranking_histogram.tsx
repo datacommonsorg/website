@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import React from "react";
 import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw";
 import { formatNumber } from "../i18n/i18n";
+import { randDomId } from "../shared/util";
 import { RankInfo, Ranking } from "./ranking_types";
 
 interface RankingHistogramPropType {
   ranking: Ranking;
-  id: string;
   scaling: number;
   unit: string;
 }
@@ -38,6 +38,7 @@ class RankingHistogram extends React.Component<
 > {
   chartElementRef: React.RefObject<HTMLDivElement>;
   info: RankInfo[];
+  id: string;
 
   constructor(props: RankingHistogramPropType) {
     super(props);
@@ -54,13 +55,14 @@ class RankingHistogram extends React.Component<
     this._handleWindowResize = this._handleWindowResize.bind(this);
     this.drawChart = this.drawChart.bind(this);
     this.chartElementRef = React.createRef();
+    this.id = randDomId();
   }
 
   render(): JSX.Element {
     return (
       <div
-        key={this.props.id}
-        id={this.props.id}
+        key={this.id}
+        id={this.id}
         ref={this.chartElementRef}
         className="chart-container"
       ></div>
@@ -76,7 +78,7 @@ class RankingHistogram extends React.Component<
 
     this.chartElementRef.current.innerHTML = "";
     drawHistogram(
-      this.props.id,
+      this.id,
       this.chartElementRef.current.offsetWidth,
       this.chartElementRef.current.offsetHeight,
       dataPoints,
@@ -99,7 +101,7 @@ class RankingHistogram extends React.Component<
   }
 
   _handleWindowResize(): void {
-    const svgElement = document.getElementById(this.props.id);
+    const svgElement = document.getElementById(this.id);
     if (!svgElement) {
       return;
     }

@@ -106,6 +106,7 @@ const config = {
       __dirname + "/css/sustainability.scss",
     ],
     nl_interface_data: [__dirname + "/js/apps/nl_interface/data_app/main.ts"],
+    datacommons: [__dirname + "/library/index.ts"],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
