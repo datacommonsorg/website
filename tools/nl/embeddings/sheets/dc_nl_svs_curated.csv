@@ -40,22 +40,8 @@ Count_FarmInventory_MilkCows,Count of Farm Inventory: Milk Cows,Number of Milk C
 Count_FarmInventory_SheepAndLambs,Count of Farm Inventory: Sheep And Lambs,Number of Sheep and Lambs on a Farm,,Number of Sheep And Lambs in farm inventory;Number of sheep and lambs on a farm; Number of sheep and young on a farm; Number of sheep and ewes on a farm; Number of sheep and rams on a farm; Number of lambs and sheep on a farm;
 Count_Household,Count of Household,Number of Households,,Number of households;Number of households; Total number of homes; Total number of families; Number of family units; Number of residential units;
 Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months,"Count of Household: Family Household, Below Poverty Level in The Past 12 Months",Number of Family Households Below the Poverty Level in the Past 12 Months,,Number of Family Households who were Below Poverty Level over the last year;Number of family households below poverty level in the past year; Number of families in poverty in the past year; Number of households below poverty line in the past year; Number of families with low income in the past year; Number of households with low income in the past year;
-Count_Household_IncomeOf100000To149999InflationAdjustedUSDCurrentYear,"Count of Household: 100,000 - 149,999 Inflation Adjusted USD_Current Year, With Income","Number of Households With an Income Between $100,000-$149,999 in Current Year Inflation-Adjusted USD",,"Number of households that currently make between 100,000 - 149,999 Inflation Adjusted USD_ Current Year;"
-Count_Household_IncomeOf10000OrLessInflationAdjustedUSDCurrentYear,"Count of Household: 10,000 Inflation Adjusted USD_Current Year or Less, With Income","Number of Households With an Income of $10,000 or Less in Current Year Inflation-Adjusted USD",,"Number of households that currently make between 10,000 Inflation Adjusted USD_ Current Year or Less;"
-Count_Household_IncomeOf10000To14999InflationAdjustedUSDCurrentYear,"Count of Household: 10,000 - 14,999 Inflation Adjusted USD_Current Year, With Income","Number of Households With an Income Between $10,000-$14,999 in Current Year Inflation-Adjusted USD",,"Number of households that currently make between 10,000 - 14,999 Inflation Adjusted USD_ Current Year;"
-Count_Household_IncomeOf150000To199999InflationAdjustedUSDCurrentYear,"Count of Household: 150,000 - 199,999 Inflation Adjusted USD_Current Year, With Income","Number of Households With an Income Between $150,000-$199,999 in Current Year Inflation-Adjusted USD",,"Number of households that currently make between 150,000 - 199,999 Inflation Adjusted USD_ Current Year;"
-Count_Household_IncomeOf15000To24999InflationAdjustedUSDCurrentYear,"Count of Household: 15,000 - 24,999 Inflation Adjusted USD_Current Year, With Income","Number of Households With an Income Between $15,000-$24,999 in Current Year Inflation-Adjusted USD",,"Number of households that currently make between 15,000 - 24,999 Inflation Adjusted USD_ Current Year;"
-Count_Household_IncomeOf200000OrMoreInflationAdjustedUSDCurrentYear,"Count of Household: 200,000 Inflation Adjusted USD_Current Year or More, With Income","Number of Households With an Income of $200,000 or More in Current Year Inflation-Adjusted USD",,"Number of households that currently make between 200,000 Inflation Adjusted USD_ Current Year or More;"
-Count_Household_IncomeOf25000To34999InflationAdjustedUSDCurrentYear,"Count of Household: 25,000 - 34,999 Inflation Adjusted USD_Current Year, With Income","Number of Households With an Income Between $25,000 and $34,999 in Current Year Inflation-Adjusted Dollars",,"Number of households that currently make between 25,000 - 34,999 Inflation Adjusted USD_ Current Year;"
-Count_Household_IncomeOf35000To49999InflationAdjustedUSDCurrentYear,"Count of Household: 35,000 - 49,999 Inflation Adjusted USD_Current Year, With Income","Number of Households With an Income Between $35,000 and $49,999 in Current Year Inflation-Adjusted Dollars",,"Number of households that currently make between 35,000 - 49,999 Inflation Adjusted USD_ Current Year;"
-Count_Household_IncomeOf50000To74999InflationAdjustedUSDCurrentYear,"Count of Household: 50,000 - 74,999 Inflation Adjusted USD_Current Year, With Income","Number of Households With an Income Between $50,000 and $74,999 in Current Year Inflation-Adjusted Dollars",,"Number of households that currently make between 50,000 - 74,999 Inflation Adjusted USD_ Current Year;"
-Count_Household_IncomeOf75000To99999InflationAdjustedUSDCurrentYear,"Count of Household: 75,000 - 99,999 Inflation Adjusted USD_Current Year, With Income","Number of Households With an Income Between $75,000 and $99,999 in Current Year Inflation-Adjusted Dollars",,"Number of households that currently make between 75,000 - 99,999 Inflation Adjusted USD_ Current Year;"
 Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months,"Count of Household: Married Couple Family Household, Below Poverty Level in The Past 12 Months",Number of Married Couple Family Households Below Poverty Level in the Past 12 Months,,Number of Married Couple Family Households who were Below Poverty Level over the last year;
 Count_Household_NoHealthInsurance,Count of Household: No Health Insurance,Number of Households Without Health Insurance,,Number of households without health insurance;Number of households with no health insurance; Number of homes without coverage; Number of families with no insurance; Number of households without coverage; Number of families without insurance;
-Count_Household_NoHealthInsurance_IncomeOf100000OrMoreUSDollar,"Count of Household: No Health Insurance, 100,000 USD or More","Number of Households Without Health Insurance and an Income of $100,000 or More",,"Number of households without health insurance with an income of 100,000 USD or More;Number of households with no health insurance and an income of $100,000 or more; Number of homes without coverage and income above $100,000; Number of families with no insurance and income above $100,000; Number of households without insurance and earning over $100,000; Number of families without coverage and earning over $100,000;"
-Count_Household_NoHealthInsurance_IncomeOf25000OrLessUSDollar,"Count of Household: No Health Insurance, 25,000 USD or Less","Number of Households Without Health Insurance With an Income of 25,000 USD or Less",,"Number of households without health insurance with an income of 25,000 USD or Less;"
-Count_Household_NoHealthInsurance_IncomeOf25000To49999USDollar,"Count of Household: No Health Insurance, 25,000 - 49,999 USD","Number of Households Without Health Insurance With an Income of 25,000 - 49,999 USD",,"Number of households without health insurance with an income of 25,000 - 49,999 USD;"
-Count_Household_NoHealthInsurance_IncomeOf75000To99999USDollar,"Count of Household: No Health Insurance, 75,000 - 99,999 USD","Number of Households Without Health Insurance With an Income of 75,000 - 99,999 USD",,"Number of households without health insurance with an income of 75,000 - 99,999 USD;"
 Count_Household_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months,"Count of Household: Single Mother Family Household, Below Poverty Level in The Past 12 Months",Number of Single Mother Family Households Below Poverty Level in the Past 12 Months,,Count of Household: Single Mother Family Household with an income of Below Poverty Level in The Past 12 Months;
 Count_Household_WithFoodStampsInThePast12Months,Count of Household: With Food Stamps in The Past 12 Months,Number of Households Receiving Food Stamps in the Past 12 Months,,Number of households receiving Food Stamps in The Past 12 Months;
 Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months,"Count of Household: With Food Stamps in The Past 12 Months, Above Poverty Level in The Past 12 Months",Number of Households With Food Stamps in the Past 12 Months and Above Poverty Level in the Past 12 Months,,Number of households receiving Food Stamps over the last year who are Above Poverty Level in The Past 12 Months;
@@ -731,12 +717,6 @@ Count_Farm_SheepAndLambs,Count of Farm: Sheep And Lambs,Number of Farms With She
 MarketValue_Farm_Crops,Market Value of Farm: Crops,Market Value of Farms Growing Crops,,market value of farms growing crops;
 MarketValue_Farm_LivestockAndPoultry,Market Value of Farm: Livestock And Poultry,Market Value of Livestock and Poultry on a Farm,,market value of farms growing livestock and poultry;
 Mean_MarketValue_Farm_LandAndBuildings,Mean Market Value of Farm: Land And Buildings,Average Market Value of Land and Buildings on a Farm,,mean market value of land and buildings of farms;
-Count_Farm_1To9.9Acre,Count of Farm: 1 - 9.9 Acre,Number of Farms From 1 Acre to 10 Acres,,number of farms from 1 acre to 10 acres;
-Count_1000OnwardsAcre,"Count of Farm: 1,000 Acre or More",Number of Farms of More Than 1000 Acres,,number of farms of more than 1000 acres;
-Count_Farm_10To49.9Acre,Count of Farm: 10 - 49.9 Acre,Number of Farms From 10 to 50 Acres,,number of farms from 10 to 50 acres;
-Count_Farm_180To499Acre,Count of Farm: 180 - 499 Acre,Number of Farms From 180 to 500 Acres,,number of farms from 180 to 500 acres;
-Count_Farm_50To179Acre,Count of Farm: 50 - 179 Acre,Number of Farms From 50 to 180 Acres,,number of farms from 50 to 180 acres;
-Count_Farm_500To999Acre,Count of Farm: 500 - 999 Acre,Number of Farms From 500 to 1000 Acres,,number of farms from 500 to 1000 acres;
 MarketValue_Farm_AgriculturalProducts,Market Value of Farm: Agricultural Products,Total Market Value of Agricultural Farms,,total market value of agricultural farms;
 Mean_MarketValue_Farm_AgriculturalProducts,Mean Market Value of Farm: Agricultural Products,Mean Market Value of Agricultural Farms,,mean market value of agricultural farms;
 Area_Farm_BarleyForGrain,Area of Farm: Barley for Grain,Total Area of Barley Farms,,total area of barley farms;
@@ -952,12 +932,6 @@ Percent_Person_Obesity,Prevalence: Obesity,Percentage of Population That Is Obes
 Percent_Person_Smoking,Prevalence: Smoking,Percentage of Population That Smokes,,Percent of people that smoke;Percentage of the population that smokes; Percentage of smokers; Percentage of people who smoke; Percentage of people who use tobacco products; Percentage of people who smoke cigarettes;
 Percent_Person_18To64Years_ReceivedNoHealthInsurance,"Prevalence: 18 - 64 Years, No Health Insurance",Percentage of Population Aged 18-64 With No Health Insurance,,Percent of people without health insurance;Percentage of the population aged 18-64 with no health insurance; Percentage of people aged 18-64 who don't have health insurance; Percentage of people aged 18-64 who aren't covered; Percentage of young adults aged 18-64 who don't have insurance; Percentage of people aged 18-64 who are uninsured;
 Percent_Person_ReceivedAnnualCheckup,Prevalence: Annual Checkup,Percentage of Population That Has Received an Annual Checkup,,Percent of people with annual checkup;Percentage of people who have had a yearly check-up; Percentage of people who have had preventive care; Percentage of population that keeps up with their health; Percentage of people who go to the doctor regularly; Percentage of population that receives regular checkups;
-Count_HousingUnit_HomeValue300000To399999USDollar,"Count of Housing Unit: 300,000 - 399,999 USD","Number of Housing Units Valued at $300,000-$399,999",,"Number of houses that cost between 300k and 400k;Number of homes valued at $300,000-$399,999; Number of housing units in the $300,000-$399,999 range; Number of houses priced between $300,000-$399,999; Number of properties valued at $300,000-$399,999; Number of homes valued at between $300,000-$399,999;"
-Count_HousingUnit_HomeValue400000To499999USDollar,"Count of Housing Unit: 400,000 - 499,999 USD","Number of Housing Units Valued at $400,000-$499,999",,"Number of houses that cost between 400k and 600k;Number of homes valued at $400,000-$499,999; Number of housing units in the $400,000-$499,999 range; Number of houses priced between $400,000-$499,999; Number of properties valued at $400,000-$499,999; Number of homes valued at between $400,000-$499,999;"
-Count_HousingUnit_HomeValue750000To999999USDollar,"Count of Housing Unit: 750,000 - 999,999 USD","Number of Housing Units Valued at $750,000-$999,999",,"Number of houses that cost between 750k and 1million;Number of homes valued at $750,000-$999,999; Number of housing units in the $750,000-$999,999 range; Number of houses priced between $750,000-$999,999; Number of properties valued at $750,000-$999,999; Number of homes valued at between $750,000-$999,999;"
-Count_HousingUnit_HomeValue500000To749999USDollar,"Count of Housing Unit: 500,000 - 749,999 USD","Number of Housing Units Valued at $500,000-$749,999",,"Number of houses that cost between 500k and 750k;Number of homes valued between $500,000-$749,999; Number of housing units in the $500,000-$749,999 range; Number of houses priced between $500,000-$749,999; Number of properties valued at $500,000-$749,999; Number of homes valued at between $500,000-$749,999;"
-Count_HousingUnit_HomeValue1000000OrMoreUSDollar,"Count of Housing Unit: 1,000,000 USD or More","Number of Housing Units Valued at $1,000,000 or More",,"Number of houses that cost more than a million;Number of homes valued at $1,000,000 or more; Number of housing units worth $1,000,000 or more; Number of houses priced at $1,000,000 or more; Number of properties valued at $1,000,000 or more; Number of homes worth $1,000,000 or more;"
-Count_HousingUnit_WithRent_2000OrMoreUSDollar,"Count of Housing Unit: 2,000 USD or More","Number of Housing Units Valued at $2,000 or More",,"Rent price over 2000 dollars usd;Number of housing units valued at $2,000 or more; Number of homes valued at $2,000 or more; Number of houses priced at $2,000 or more; Number of properties valued at $2,000 or more; Number of homes worth $2,000 or more;"
 Count_HousingUnit_VacantHousingUnit,Count of Housing Unit: Vacant Housing Unit,Number of Vacant Housing Units,,Number of empty houses;Number of empty houses; Number of vacant homes; Number of unoccupied housing units; Number of empty properties; Number of unused living spaces;
 Count_Household_MarriedCoupleFamilyHousehold,Count of Household: Married Couple Family Household,Number of Households Containing a Married Couple,,Number of households that are married;Number of married couples households; Number of households with married couples; Number of homes with married couples; Number of families with married couples; Number of households with two partners;
 Count_Household_NonfamilyHousehold,Count_Household_NonfamilyHousehold,Number of Households Where a Person Lives Alone or Where the Householder Shares the Home Exclusively With People to Whom They Are Not Related,,Number of households where a person lives alone or where the householder shares the home exclusively with people to whom they are not related;Number of homes with only one person living; Number of households with one person; Number of homes where the person lives alone; Number of households where the person shares the home only with non-relatives; Number of one-person households;
@@ -1010,48 +984,6 @@ Count_Death_DiseasesOfTheNervousSystem,,Number of Deaths Due to Diseases of the 
 Count_Death_DiseasesOfTheRespiratorySystem,,Number of Deaths Due to Diseases of the Respiratory System,,
 Count_Death_ExternalCauses,,Number of Deaths Due to External Causes,,
 Count_Death_Neoplasms,,Number of Deaths Due to Neoplasms (Tumors or Abnormal Growths),,
-Count_Household_IncomeOf100000To124999USDollar,,"Number of Households With an Income Between $100,000 and $124,999",,
-Count_Household_IncomeOf10000To14999USDollar,,"Number of Households With an Income Between $10,000 and $14,999",,
-Count_Household_IncomeOf125000To149999USDollar,,"Number of Households With an Income Between $125,000 and $149,999",,
-Count_Household_IncomeOf150000To199999USDollar,,"Number of Households With an Income Between $150,000 and $199,999",,
-Count_Household_IncomeOf200000OrMoreUSDollar,,"Number of Households With an Income of $200,000 or More",,
-Count_Household_IncomeOf20000To24999USDollar,,"Number of Households With an Income Between $20,000 and $24,999",,
-Count_Household_IncomeOf40000To44999USDollar,,"Number of Households With an Income Between $40,000 and $44,999",,
-Count_Household_IncomeOf50000To59999USDollar,,"Number of Households With an Income Between $50,000 and $59,999",,
-Count_Household_IncomeOf60000To74999USDollar,,"Number of Households With an Income Between $60,000 and $74,999",,
-Count_Household_IncomeOf75000To99999USDollar,,"Number of Households With an Income Between $75,000 and $99,999",,
-Count_Household_IncomeOfUpto10000USDollar,,"Number of Households With an Income of $10,000 or Less",,
-Count_HousingUnit_1940To1949DateBuilt,,Number of Housing Units Built Between 1940 and 1949,,
-Count_HousingUnit_1950To1959DateBuilt,,Number of Housing Units Built Between 1950 and 1959,,
-Count_HousingUnit_1960To1969DateBuilt,,Number of Housing Units Built Between 1960 and 1969,,
-Count_HousingUnit_1970To1979DateBuilt,,Number of Housing Units Built Between 1970 and 1979,,
-Count_HousingUnit_1980To1989DateBuilt,,Number of Housing Units Built Between 1980 and 1989,,
-Count_HousingUnit_1990To1999DateBuilt,,Number of Housing Units Built Between 1990 and 1999,,
-Count_HousingUnit_2000To2009DateBuilt,,Number of Housing Units Built Between 2000 and 2009,,
-Count_HousingUnit_2010OrLaterDateBuilt,,Number of Housing Units Built in 2010 or Later,,
-Count_HousingUnit_Before1939DateBuilt,,Number of Housing Units Built Before 1939,,
-Count_HousingUnit_HomeValue1000000To1499999USDollar,,"Number of Homes Valued Between $1,000,000 and $1,499,999",,
-Count_HousingUnit_HomeValue100000To124999USDollar,,"Number of Homes Valued Between $100,000 and $124,999",,
-Count_HousingUnit_HomeValue10000To14999USDollar,,"Number of Homes Valued Between $10,000 and $14,999",,
-Count_HousingUnit_HomeValue125000To149999USDollar,,"Number of Homes Valued Between $125,000 and $149,999",,
-Count_HousingUnit_HomeValue1500000To1999999USDollar,,"Number of Homes Valued Between $1,500,000 and $1,999,999",,
-Count_HousingUnit_HomeValue150000To174999USDollar,,"Number of Homes Valued Between $150,000 and $174,999",,
-Count_HousingUnit_HomeValue15000To19999USDollar,,"Number of Homes Valued Between $15,000 to $19,999",,
-Count_HousingUnit_HomeValue175000To199999USDollar,,"Number of Homes Valued Between $175,000 to $199,999",,
-Count_HousingUnit_HomeValue2000000OrMoreUSDollar,,"Number of Homes Valued at $2,000,000 or More",,
-Count_HousingUnit_HomeValue200000To249999USDollar,,"Number of Homes Valued Between $200,000 to $249,999",,
-Count_HousingUnit_HomeValue20000To24999USDollar,,"Number of Homes Valued Between $20,000 to $24,999",,
-Count_HousingUnit_HomeValue250000To299999USDollar,,"Number of Homes Valued Between $250,000 to $299,999",,
-Count_HousingUnit_HomeValue25000To29999USDollar,,"Number of Homes Valued Between $25,000 to $29,999",,
-Count_HousingUnit_HomeValue30000To34999USDollar,,"Number of Homes Valued Between $30,000 to $34,999",,
-Count_HousingUnit_HomeValue35000To39999USDollar,,"Number of Homes Valued Between $35,000 to $39,999",,
-Count_HousingUnit_HomeValue40000To49999USDollar,,"Number of Homes Valued Between $40,000 to $49,999",,
-Count_HousingUnit_HomeValue50000To59999USDollar,,"Number of Homes Valued Between $50,000 to $59,999",,
-Count_HousingUnit_HomeValue60000To69999USDollar,,"Number of Homes Valued Between $60,000 to $69,999",,
-Count_HousingUnit_HomeValue70000To79999USDollar,,"Number of Homes Valued Between $70,000 to $79,999",,
-Count_HousingUnit_HomeValue80000To89999USDollar,,"Number of Homes Valued Between $80,000 to $89,999",,
-Count_HousingUnit_HomeValue90000To99999USDollar,,"Number of Homes Valued Between $90,000 to $99,999",,
-Count_HousingUnit_HomeValueUpto10000USDollar,,"Number of Homes Valued at $10,000 or Less",,"Number of Homes Valued at $10,000 or Less;"
 Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone,,Number of Homes Where the Householder Identifies as American Indian or Alaska Native Alone,,
 Count_HousingUnit_HouseholderRaceAsianAlone,,Number of Homes Where the Householder Identifies as Asian Alone,,
 Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone,,Number of Homes Where the Householder Identifies as Black or African American Alone,,
@@ -1062,58 +994,12 @@ Count_HousingUnit_HouseholderRaceTwoOrMoreRaces,,Number of Homes Where the House
 Count_HousingUnit_HouseholderRaceWhiteAlone,,Number of Homes Where the Householder Identifies as White Alone,,
 Count_HousingUnit_OwnerOccupied,,Number of Owner-Occupied Homes,,
 Count_HousingUnit_RenterOccupied,,Number of Renter-Occupied Homes,,
-Count_Person_10To14Years,,Number of People Aged 10 to 14 Years,,
-Count_Person_15To19Years,,Number of People Aged 15 to 19 Years,,
-Count_Person_15OrMoreYears,,Number of People Aged 15 Years or Older,,
-Count_Person_16OrMoreYears,,Number of People Aged 16 Years or Older,,
-Count_Person_18To24Years,,Number of People Aged 18 to 24 Years,,
-Count_Person_20To24Years,,Number of People Aged 20 to 24 Years,,
-Count_Person_25OrMoreYears,,Number of People Aged 25 Years or Older,,
-Count_Person_25To29Years,,Number of People Aged 25 to 29 Years,,
-Count_Person_25To34Years,,Number of People Aged 25 to 34 Years,,
-Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female,,Number of 25 to 34 Year Old Females With an Associates Degree,,
-Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male,,Number of 25 to 34 Year Old Males With an Associates Degree,,
-Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female,,Number of 25 to 34 Year Old Females With a Bachelor's Degree,,
-Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male,,Number of 25 to 34 Year Old Males With a Bachelor's Degree,,
-Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female,,Number of 25 to 34 Year Old Females With a Graduate or Professional Degree,,
-Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male,,Number 25 to 34 Year Old Males With a Graduate or Professional Degree,,
-Count_Person_25To34Years_Female,,Female Population Aged 25 to 34,,Female population aged 25 to 34;
-Count_Person_25To34Years_Male,,Male Population Aged 25 to 34,,Male population aged 25 to 34;
-Count_Person_30To34Years,,Population Aged 25 to 34,,Population aged 25 to 34;
-Count_Person_35To39Years,,Population Aged 35 to 39,,Population aged 35 to 39;
-Count_Person_35To44Years,,Population Aged 35 to 44,,Population aged 35 to 44;
-Count_Person_3OrMoreYears,,Population Aged 3 and Up,,Population aged 3 and up;
-Count_Person_40To44Years,,Population Aged 40 to 44,,Population aged 40 to 44;
-Count_Person_45To49Years,,Population Aged 45 to 49,,Population aged 45 to 49;
-Count_Person_45To54Years,,Population Aged 45 to 54,,Population aged 45 to 54;
-Count_Person_50To54Years,,Population Aged 50 to 54,,Population aged 50 to 54;
-Count_Person_55To59Years,,Population Aged 55 to 59,,Population aged 55 to 59;
-Count_Person_5To9Years,,Population Aged 5 to 9,,Population aged 5 to 9;
-Count_Person_5To17Years,,Population Aged 5 to 17,,Population aged 5 to 17;
-Count_Person_60To61Years,,Population Aged 60 to 61,,Population aged 60 to 61;
-Count_Person_60To64Years,,Population Aged 60 to 64,,Population aged 60 to 64;
-Count_Person_62To64Years,,Population Aged 62 to 64,,Population aged 62 to 64;
-Count_Person_65To69Years,,Population Aged 65 to 69,,Population aged 65 to 69;
-Count_Person_65To74Years,,Population Aged 65 to 74,,Population aged 65 to 74;
-Count_Person_70To74Years,,Population Aged 70 to 74,,Population aged 70 to 74;
-Count_Person_75OrMoreYears,,Population Aged 75 and Up,,Population aged 75 and up;
-Count_Person_75To79Years,,Population Aged 75 to 79,,Population aged 75 to 79;
-Count_Person_80OrMoreYears,,Population Aged 80 and Up,,Population aged 80 and up;
-Count_Person_Upto4Years,,Population Aged Below 4,,Population aged below 4;
 Count_Person_EducationalAttainmentMastersDegree,,Number of People With a Master's Degree,,Population with a master's degree;
 Count_Person_EducationalAttainmentNoSchoolingCompleted,,Number of People Who Completed No Schooling,,Population with no completed schooling;
 Count_Person_EducationalAttainmentRegularHighSchoolDiploma,,Number of People With a Regular High School Diploma,,Population with a high school diploma;
 Count_Person_Employed,,Population With Current Employment,,Population with current employment;
 Count_Person_InLaborForce,,Number of People in the Labor Force,,Population in the labor force;
 Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years,,Percent of Working Age People in the Labor Force,,
-Count_Person_IncomeOf10000To14999USDollar,,"Number of People With an Income Between $10,000 and $14,999",,
-Count_Person_IncomeOf15000To24999USDollar,,"Number of People With an Income Between $15,000 and $24,999",,
-Count_Person_IncomeOf25000To34999USDollar,,"Number of People With an Income Between $25,000 and $34,999",,
-Count_Person_IncomeOf35000To49999USDollar,,"Number of People With an Income Between $35,000 and $49,999",,
-Count_Person_IncomeOf50000To64999USDollar,,"Number of People With an Income Between $50,000 and $64,999",,
-Count_Person_IncomeOf65000To74999USDollar,,"Number of People With an Income Between $65,000 and $74,999",,
-Count_Person_IncomeOf75000OrMoreUSDollar,,"Number of People With an Income of $75,000 or More",,
-Count_Person_IncomeOfUpto9999USDollar,,"Number of People With an Income of Up to $9,999",,
 Count_Person_MarriedAndNotSeparated,,Number of Married People Who Are Not Separated,,
 Count_Person_NeverMarried,,Number of People Who Have Never Been Married,,
 Count_Person_NotAUSCitizen,,Number of People Who Are Not US Citizens,,

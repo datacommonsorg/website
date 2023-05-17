@@ -152,72 +152,6 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,11174.52\r\n2018,10062.888\r\n2017,9812.322\r\n2016,9875.844\r\n2015,9510.336\r\n2014,8391.467\r\n2013,7159.46",
-      "legend": [
-        "Households Without Health Insurance and Income $100,000 or More"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2702&tid=ACSST5Y2019.S2702"
-        }
-      ],
-      "svg": "",
-      "title": "Households Without Health Insurance and Income $100,000 or More in North Dakota",
-      "type": "LINE"
-    },
-    {
-      "data_csv": "label,\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,0.01441970299942706\r\n2018,0.01298524288081265\r\n2017,0.012661910218492079\r\n2016,0.012743879589340187\r\n2015,0.01227222471701327\r\n2014,0.010828425907286682\r\n2013,0.009238632785683685",
-      "legend": [
-        "Households Without Health Insurance and Income $100,000 or More"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2702&tid=ACSST5Y2019.S2702"
-        }
-      ],
-      "svg": "",
-      "title": "Per Capita Households Without Health Insurance and Income $100,000 or More in North Dakota",
-      "type": "LINE"
-    },
-    {
-      "data_csv": "label,\"Households Without Health Insurance With Income 25,000 USD or Less\",\"Households Without Health Insurance With Income 25,000-49,999 USD\",\"Households Without Health Insurance With Income 75,000-99,999 USD\",\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,10908.46,13409.424,6545.076,11174.52\r\n2018,11133.408,13809.708,6744.276,10062.888\r\n2017,12394.512,15435.758,7287.514,9812.322\r\n2016,13389.948,16782.876,7149.384,9875.844\r\n2015,14640.912,18019.584,7132.752,9510.336\r\n2014,16526.706,19281.157,6982.213,8391.467\r\n2013,17768.478,20762.434,7094.374,7159.46",
-      "legend": [
-        "Households Without Health Insurance With Income 25,000 USD or Less",
-        "Households Without Health Insurance With Income 25,000-49,999 USD",
-        "Households Without Health Insurance With Income 75,000-99,999 USD",
-        "Households Without Health Insurance and Income $100,000 or More"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2702&tid=ACSST5Y2019.S2702"
-        }
-      ],
-      "svg": "",
-      "title": "Compared with Other Variables in North Dakota",
-      "type": "LINE"
-    },
-    {
-      "data_csv": "label,\"Households Without Health Insurance With Income 25,000 USD or Less\",\"Households Without Health Insurance With Income 25,000-49,999 USD\",\"Households Without Health Insurance With Income 75,000-99,999 USD\",\"Households Without Health Insurance and Income $100,000 or More\"\r\n2019,0.014076376737535937,0.01730364359931247,0.008445826042521563,0.01441970299942706\r\n2018,0.014366651697920375,0.0178201737406897,0.00870287554777869,0.01298524288081265\r\n2017,0.015993991854937363,0.019918443560084032,0.009403874840634468,0.012661910218492079\r\n2016,0.0172785115904551,0.021656776970841916,0.009225630622957927,0.012743879589340187\r\n2015,0.018892766998559903,0.02325263630591988,0.009204168537759953,0.01227222471701327\r\n2014,0.021326212855572242,0.024880581664834284,0.009009911632780521,0.010828425907286682\r\n2013,0.022928606822651326,0.026792035078482688,0.009154645214904741,0.009238632785683685",
-      "legend": [
-        "Households Without Health Insurance With Income 25,000 USD or Less",
-        "Households Without Health Insurance With Income 25,000-49,999 USD",
-        "Households Without Health Insurance With Income 75,000-99,999 USD",
-        "Households Without Health Insurance and Income $100,000 or More"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2702&tid=ACSST5Y2019.S2702"
-        }
-      ],
-      "svg": "",
-      "title": "Per Capita Compared with Other Variables in North Dakota",
-      "type": "LINE"
-    },
-    {
       "data_csv": "label,Family Households Receiving Social Security Income in the Last Year\r\n2019,45093\r\n2018,44608\r\n2017,44062\r\n2016,43407\r\n2015,43103\r\n2014,41787\r\n2013,41359\r\n2012,40902\r\n2011,40247\r\n2010,40123",
       "legend": [
         "Family Households Receiving Social Security Income in the Last Year"
@@ -309,6 +243,21 @@
       ],
       "svg": "",
       "title": "Per Capita Average Earnings for Male Population in North Dakota",
+      "type": "LINE"
+    },
+    {
+      "data_csv": "label,Median Earnings for Male Population\r\n2019,45562\r\n2018,43923\r\n2017,42039\r\n2016,41306\r\n2015,40496\r\n2014,39027\r\n2013,37415\r\n2012,35930\r\n2011,34078\r\n2010,32340",
+      "legend": [
+        "Median Earnings for Male Population"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2601A&tid=ACSST5Y2019.S2601A"
+        }
+      ],
+      "svg": "",
+      "title": "Median Earnings for Male Population in North Dakota",
       "type": "LINE"
     }
   ]
