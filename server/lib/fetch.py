@@ -275,7 +275,7 @@ def entity_variables(entities):
       'dcids': entities,
   }, {})
   result = {}
-  for var, entity_obs in resp['byVariable'].items():
+  for var, entity_obs in resp.get('byVariable', {}).items():
     result[var] = entity_obs.get('byEntity', {})
   return result
 

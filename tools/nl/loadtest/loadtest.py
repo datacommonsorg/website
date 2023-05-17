@@ -30,7 +30,7 @@ _URL = 'https://dev.datacommons.org/nl/screenshot?format=json&q='
 def load_test(query_file, output_file):
   with open(output_file, 'w') as outf:
     writer = csv.writer(outf)
-    writer.writerow(['Result', 'Query', 'Details'])
+    writer.writerow(['Result', 'Query', 'NumCharts', 'ChartTypes', 'Details'])
     with open(query_file) as inf:
       for row in csv.reader(inf):
         if not row:
@@ -39,7 +39,7 @@ def load_test(query_file, output_file):
         if not query or query.startswith('#') or query.startswith('//'):
           continue
         assert ';' not in query, 'Multiple query not yet supported'
-        
+
         # Make the API request
         print(f'Query: {query}')
         response = requests.get(_URL + query)
@@ -48,11 +48,17 @@ def load_test(query_file, output_file):
         if response.status_code == 200:
           # Parse the JSON response
           data = response.json()
-          writer.writerow(['SUCCESS', query,
-                           json.dumps(data['debug']['timing'])])
+          chart_types = list(set([c['type'] for c in data['charts']]))
+          writer.writerow([
+              'SUCCESS', query,
+              str(len(data['charts'])), chart_types,
+              json.dumps(data['debug']['timing'])
+          ])
         else:
           print("Request failed with status code:", response.status_code)
-          writer.writerow(['FAILURE', query, str(response.status_code)])
+          writer.writerow(
+              ['FAILURE', query, "0", "",
+               str(response.status_code)])
   print('')
   print(f'Output written to {output_file}')
   print('')
