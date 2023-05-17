@@ -25,6 +25,7 @@ from flask import g
 from flask import redirect
 from flask import request
 from flask_babel import Babel
+import flask_cors
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
@@ -411,4 +412,5 @@ def create_app():
   else:
     app.jinja_env.globals['BASE_HTML'] = 'base.html'
 
+  flask_cors.CORS(app)
   return app

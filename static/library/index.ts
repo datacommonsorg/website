@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-import { stringify } from "qs";
+import { renderRankingComponent } from "../js/ranking/ranking";
 
-export const stringifyFn = (params) => {
-  return stringify(params, { arrayFormat: "repeat" });
-};
-
-export const getRoot = () => {
-  if (globalThis.datacommons) {
-    return globalThis.datacommons.root || "";
-  }
-  return "";
+globalThis.datacommons = {
+  drawRanking: renderRankingComponent,
+  root: "https://autopush.datacommons.org",
 };

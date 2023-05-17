@@ -2,7 +2,7 @@
   "compilerOptions": {
     "plugins": [
       {
-        "name": "typescript-tslint-plugin",
+        "name": "typescript-tslint-plugin"
       }
     ],
     "lib": ["dom", "ES2021"],
@@ -15,7 +15,13 @@
     "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   },
-  "exclude": ["node_modules", "./**/*.test.ts", "./**/*.test.tsx", "./**/mock_functions.ts", "./**/mock_functions.tsx"]
+  "exclude": [
+    "node_modules",
+    "./**/*.test.ts",
+    "./**/*.test.tsx",
+    "./**/mock_functions.ts",
+    "./**/mock_functions.tsx"
+  ]
 }
