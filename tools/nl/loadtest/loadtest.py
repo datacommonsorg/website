@@ -23,7 +23,7 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
-_OUTPUT_FILE = '/tmp/loadtest.out'
+_OUTPUT_FILE = 'loadtest_results.csv'
 _URL = 'https://dev.datacommons.org/nl/screenshot?format=json&q='
 
 
