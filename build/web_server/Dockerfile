@@ -55,4 +55,4 @@ RUN chmod +x /usr/bin/chromedriver
 
 # Run server
 WORKDIR /workspace
-CMD exec gunicorn --timeout 60 --bind :8080 web_app:app
+CMD exec gunicorn --timeout 60 --bind :8080 -w 4 web_app:app
