@@ -17,7 +17,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-import build_embeddings_v2 as be
+import build_embeddings as be
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 

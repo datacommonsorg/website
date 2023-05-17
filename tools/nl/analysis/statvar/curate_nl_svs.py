@@ -40,109 +40,110 @@ _ERR_FILTERED_CPROPS = 'Filtered cprops'
 
 
 def _get_key(row, i):
-    nc = int(row['num_constraints'])
-    key_list = [
-        row['population_type'], row['measured_prop'], row['stat_type'],
-        row['measurement_qualifier'], row['measurement_denominator']
-    ]
-    for j in range(1, nc + 1):
-        cp = 'p' + str(j)
-        cv = 'v' + str(j)
-        key_list.append(row[cp])
-        if i == j:
-            key_list.append('_')
-        else:
-            key_list.append(row[cv])
-    return ';'.join(key_list)
+  nc = int(row['num_constraints'])
+  key_list = [
+      row['population_type'], row['measured_prop'], row['stat_type'],
+      row['measurement_qualifier'], row['measurement_denominator']
+  ]
+  for j in range(1, nc + 1):
+    cp = 'p' + str(j)
+    cv = 'v' + str(j)
+    key_list.append(row[cp])
+    if i == j:
+      key_list.append('_')
+    else:
+      key_list.append(row[cv])
+  return ';'.join(key_list)
 
 
 def _load_maps(sv_csv, qty_csv):
-    with open(sv_csv) as f:
-        for row in csv.DictReader(f):
-            sv = row['id']
-            nc = int(row['num_constraints'])
-            for i in range(1, nc + 1):
-                key = _get_key(row, i)
-                _cval_count_map[key] = _cval_count_map.get(key, 0) + 1
+  with open(sv_csv) as f:
+    for row in csv.DictReader(f):
+      sv = row['id']
+      nc = int(row['num_constraints'])
+      for i in range(1, nc + 1):
+        key = _get_key(row, i)
+        _cval_count_map[key] = _cval_count_map.get(key, 0) + 1
 
-            if not sv.startswith('dc/'):
-                key = _get_key(row, -1)
-                assert key not in _curated_sv_map, f'{_curated_sv_map[key]} vs. {sv}'
-                _curated_sv_map[key] = sv
+      if not sv.startswith('dc/'):
+        key = _get_key(row, -1)
+        assert key not in _curated_sv_map, f'{_curated_sv_map[key]} vs. {sv}'
+        _curated_sv_map[key] = sv
 
-    with open(qty_csv) as f:
-        for row in csv.DictReader(f):
-            # NOTE: Special handle for povertyStatus!
-            if row['p'] == 'povertyStatus':
-                continue
-            _qty_cprops.add(row['p'])
-        print(f'Quantity cprops: {_qty_cprops}')
+  with open(qty_csv) as f:
+    for row in csv.DictReader(f):
+      # NOTE: Special handle for povertyStatus!
+      if row['p'] == 'povertyStatus':
+        continue
+      _qty_cprops.add(row['p'])
+    print(f'Quantity cprops: {_qty_cprops}')
+
 
 def _admit_sv(row, dbg_info):
-    nc = int(row['num_constraints'])
-    if nc == 0:
-        return True
-    sv = row['id']
-    if sv.startswith('dc/'):
-        key = _get_key(row, -1)
-        if key in _curated_sv_map:
-            dbg_info[_ERR_CURATED_DUP].append(sv)
-            return False
-
-    distinct_nvals = []
-    for i in range(1, nc + 1):
-        key = _get_key(row, i)
-        nv = _cval_count_map[key]
-        cp = 'p' + str(i)
-        if row[cp] in _qty_cprops and nv > 1:
-            # This is a quantity cprop and is not a DPV
-            # (since there are multiple values) for the
-            # same peer group (i.e., SVs minus this cval).
-            dbg_info[_ERR_QUANTITY_VALS].append(sv)
-            return False
-        if ((row[cp] == 'naics' and sv.startswith('dc/')) or
-            row[cp] == 'floodZoneType'):
-            dbg_info[_ERR_FILTERED_CPROPS].append(sv)
-            return False
-        if nv > 50:
-            msg = f'{row[cp]} ({sv})'
-            dbg_info[_ERR_TOO_MANY_CVALS].append(msg)
-            _flagged_cprops[row[cp]] = _flagged_cprops.get(row[cp], 0) + 1
-        distinct_nvals.append(nv)
-    if len(list(filter(lambda x: x > 1, distinct_nvals))) > 3:
-        # There are more than 3 PVs here and none of them is a DPV.
-        dbg_info[_ERR_TOO_MANY_PVS].append(sv)
-        return False
+  nc = int(row['num_constraints'])
+  if nc == 0:
     return True
+  sv = row['id']
+  if sv.startswith('dc/'):
+    key = _get_key(row, -1)
+    if key in _curated_sv_map:
+      dbg_info[_ERR_CURATED_DUP].append(sv)
+      return False
+
+  distinct_nvals = []
+  for i in range(1, nc + 1):
+    key = _get_key(row, i)
+    nv = _cval_count_map[key]
+    cp = 'p' + str(i)
+    if row[cp] in _qty_cprops and nv > 1:
+      # This is a quantity cprop and is not a DPV
+      # (since there are multiple values) for the
+      # same peer group (i.e., SVs minus this cval).
+      dbg_info[_ERR_QUANTITY_VALS].append(sv)
+      return False
+    if ((row[cp] == 'naics' and sv.startswith('dc/')) or
+        row[cp] == 'floodZoneType'):
+      dbg_info[_ERR_FILTERED_CPROPS].append(sv)
+      return False
+    if nv > 50:
+      msg = f'{row[cp]} ({sv})'
+      dbg_info[_ERR_TOO_MANY_CVALS].append(msg)
+      _flagged_cprops[row[cp]] = _flagged_cprops.get(row[cp], 0) + 1
+    distinct_nvals.append(nv)
+  if len(list(filter(lambda x: x > 1, distinct_nvals))) > 3:
+    # There are more than 3 PVs here and none of them is a DPV.
+    dbg_info[_ERR_TOO_MANY_PVS].append(sv)
+    return False
+  return True
 
 
 def main(_):
-    _load_maps(FLAGS.input_sv_csv, FLAGS.quantity_csv)
-    total = 0
-    dbg_info = {
-        _ERR_TOO_MANY_CVALS: [],
-        _ERR_QUANTITY_VALS: [],
-        _ERR_TOO_MANY_PVS: [],
-        _ERR_CURATED_DUP: [],
-        _ERR_FILTERED_CPROPS: []
-    }
-    with open(FLAGS.input_sv_csv) as fin:
-        with open(FLAGS.output_sv_csv, 'w') as fout:
-            fout.write('dcid\n')
-            for row in csv.DictReader(fin):
-                total += 1
-                if _admit_sv(row, dbg_info):
-                    fout.write(row['id'] + '\n')
+  _load_maps(FLAGS.input_sv_csv, FLAGS.quantity_csv)
+  total = 0
+  dbg_info = {
+      _ERR_TOO_MANY_CVALS: [],
+      _ERR_QUANTITY_VALS: [],
+      _ERR_TOO_MANY_PVS: [],
+      _ERR_CURATED_DUP: [],
+      _ERR_FILTERED_CPROPS: []
+  }
+  with open(FLAGS.input_sv_csv) as fin:
+    with open(FLAGS.output_sv_csv, 'w') as fout:
+      fout.write('dcid\n')
+      for row in csv.DictReader(fin):
+        total += 1
+        if _admit_sv(row, dbg_info):
+          fout.write(row['id'] + '\n')
 
-    print('')
-    print(f'Total: {total}')
-    for k, v in dbg_info.items():
-        print(f'Trimmed: {k} - {len(v)}')
-    print(_ERR_TOO_MANY_CVALS + f': {_flagged_cprops}')
-    print('')
-    with open(FLAGS.output_dbg, 'w') as f:
-        json.dump(dbg_info, f, indent=2)
+  print('')
+  print(f'Total: {total}')
+  for k, v in dbg_info.items():
+    print(f'Trimmed: {k} - {len(v)}')
+  print(_ERR_TOO_MANY_CVALS + f': {_flagged_cprops}')
+  print('')
+  with open(FLAGS.output_dbg, 'w') as f:
+    json.dump(dbg_info, f, indent=2)
 
 
 if __name__ == "__main__":
-    app.run(main)
+  app.run(main)
