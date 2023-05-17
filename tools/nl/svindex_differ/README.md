@@ -9,7 +9,7 @@ instructions [here](../embeddings)) to compare against the version
 currently checked-in:
 
 ```
-./run.sh <embeddings_us_filtered_YYYY_MM_DD_HH_MM_SS.csv>
+./run.sh <embeddings_curated_merged_alternatives_YYYY_MM_DD_HH_MM_SS.csv>
 ```
 
 This will produce an html file with diffs (if any) in `/tmp/differ_report.html`.
