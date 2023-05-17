@@ -13,8 +13,6 @@
 # limitations under the License.
 """Build the embeddings index by concatenating various inputs."""
 
-# TODO: This file should be renamed build_embeddings.py once it is ready to
-# replace the existing build_embeddings.py file.
 # TODO: Consider adding the model name to the embeddings file for downstream
 # validation.
 
