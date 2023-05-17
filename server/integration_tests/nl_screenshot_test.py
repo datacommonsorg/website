@@ -60,6 +60,7 @@ class IntegrationTest(LiveServerTestCase):
   def run_test(self, test_dir, query):
     resp = requests.get(
         f'{self.get_server_url()}/nl/screenshot?q={query}').json()
+    del resp['debug']
     for chart in resp.get('charts', []):
       self.assertNotEqual('', chart.get('svg', '')), chart
       chart['svg'] = ''

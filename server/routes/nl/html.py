@@ -15,6 +15,7 @@
 
 import logging
 import os
+import time
 
 import flask
 from flask import Blueprint
@@ -25,6 +26,7 @@ from flask import request
 from selenium import webdriver
 
 from server.lib.nl import scraper
+from server.lib.nl.counters import Counters
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -44,6 +46,14 @@ def page():
                          website_hash=os.environ.get("WEBSITE_HASH"))
 
 
+#
+# Create a new session every time for a couple of reasons:
+# 1. Sessions are not thread-safe, so we need to use a pool / thread-local
+# 2. Importantly, once we do a driver.get(), we cannot apparently not close the
+#    page, other than running a script to clear out its content (seems hacky).
+#    So we can end up scraping the old content for a new query incorrectly.
+# So, this approach is simpler but evaluate and maybe revisit.
+#
 def _get_selenium_driver():
   options = webdriver.chrome.options.Options()
   options.add_argument("--headless=new")
@@ -58,20 +68,25 @@ def _get_selenium_driver():
 @bp.route('/screenshot')
 def screenshot():
   query_text = request.args.get('q', '')
-  #
-  # Create a new session every time for a couple of reasons:
-  # 1. Sessions are not thread-safe, so we need to use a pool / thread-local
-  # 2. Importantly, once we do a driver.get(), we cannot apparently not close the
-  #    page, other than running a script to clear out its content (seems hacky).
-  #    So we can end up scraping the old content for a new query incorrectly.
-  # So, this approach is simpler but evaluate and maybe revisit.
-  #
+  ctr = Counters()
+
+  t1 = time.time()
   driver = _get_selenium_driver()
+  ctr.timeit("driver_init", t1)
+
+  t2 = time.time()
   try:
+    # TODO: Propagate debug-info and stats from nl/data API.
     charts = scraper.scrape(query_text, driver)
   finally:
     driver.quit()
-  return {'charts': charts}
+  ctr.timeit("scraping", t2)
+  ctr.timeit("total", t1)
+
+  timing = ctr.get().get('TIMING', {})
+  logging.info(f'TIMING: {timing}')
+
+  return {'charts': charts, 'debug': {'timing': timing}}
 
 
 @bp.route('/data')
