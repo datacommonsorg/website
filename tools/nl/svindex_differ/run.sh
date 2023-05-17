@@ -23,9 +23,9 @@ fi
 cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-cd nl_server
-./requirements_install.sh
-cd ..
+python3 -m pip install --upgrade pip setuptools light-the-torch
+ltt install torch --cpuonly
+pip3 install -r nl_server/requirements.txt
 pip3 install -r tools/nl/svindex_differ/requirements.txt
 
 # Get the production embeddings.
