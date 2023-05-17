@@ -15,11 +15,9 @@ declare module "google-analytics" {
 
 declare module "datacommons" {
   global {
-    interface Window {
-      datacommons: {
-        root: string;
-        drawRanking: (element: HTMLElement, props: unknown) => void;
-      };
+    interface datacommons {
+      root: string;
+      drawRanking: (element: HTMLElement, props: unknown) => void;
     }
   }
 }

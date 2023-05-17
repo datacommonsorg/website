@@ -21,8 +21,8 @@ export const stringifyFn = (params) => {
 };
 
 export const getRoot = () => {
-  if (window.datacommons) {
-    return window.datacommons.root || "";
+  if (globalThis.datacommons) {
+    return globalThis.datacommons.root || "";
   }
   return "";
 };

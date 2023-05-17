@@ -31,6 +31,14 @@ const dom = new JSDOM(
     pretendToBeVisual: true,
   }
 );
+
+globalThis.datacommons = {
+  root: "",
+  drawRanking: (element, props) => {
+    console.log(element, props);
+  },
+};
+
 const window = dom.window;
 global.document = dom.window.document;
 
@@ -67,7 +75,7 @@ global.document = dom.window.document;
 app.get("/", (req: Request, res: Response) => {
   const query = req.query.q;
   axios
-    .post(`${apiRoot}/api/nl/data?q=${query}`)
+    .post(`${apiRoot}/api/nl/data?q=${query}`, {})
     .then((resp) => {
       const tiles = [];
       const svSpec = [];
