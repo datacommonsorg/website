@@ -105,16 +105,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue400000To499999USDollar"
+                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
                     ],
-                    "title": "Housing Units Valued at $400,000-$499,999 in Florida",
+                    "title": "Homes Whose Householder Identifies as Two or More Races in Florida",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue400000To499999USDollar_pc"
+                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_pc"
                     ],
-                    "title": "Per Capita Housing Units Valued at $400,000-$499,999 in Florida",
+                    "title": "Per Capita Homes Whose Householder Identifies as Two or More Races in Florida",
                     "type": "LINE"
                   }
                 ]
@@ -130,33 +130,17 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue10000To14999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue100000To124999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue125000To149999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue150000To174999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue20000To24999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue200000To249999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue25000To29999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue250000To299999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue30000To34999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue35000To39999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue40000To49999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue50000To59999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue60000To69999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue70000To79999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue80000To89999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue90000To99999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValueUpto10000USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue300000To399999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue400000To499999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue500000To749999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue750000To999999USDollar_multiple_place_bar_block"
+                      "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceAsianAlone_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
                     "title": "Compared with Other Variables in Florida (${date})",
                     "type": "BAR"
@@ -166,508 +150,20 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue10000To14999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue100000To124999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue125000To149999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue150000To174999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue20000To24999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue200000To249999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue25000To29999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue250000To299999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue30000To34999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue35000To39999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue40000To49999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue50000To59999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue60000To69999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue70000To79999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue80000To89999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue90000To99999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValueUpto10000USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue300000To399999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue400000To499999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue500000To749999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue750000To999999USDollar_multiple_place_bar_block_pc"
+                      "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceAsianAlone_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceHispanicOrLatino_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Compared with Other Variables in Florida (${date})",
                     "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue300000To399999USDollar"
-                    ],
-                    "title": "Housing Units Valued at $300,000-$399,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue300000To399999USDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $300,000-$399,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue750000To999999USDollar"
-                    ],
-                    "title": "Housing Units Valued at $750,000-$999,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue750000To999999USDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $750,000-$999,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue500000To749999USDollar"
-                    ],
-                    "title": "Housing Units Valued at $500,000-$749,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue500000To749999USDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $500,000-$749,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-                    ],
-                    "title": "Housing Units Valued at $1,000,000 or More in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $1,000,000 or More in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
-                    ],
-                    "title": "Housing Units Valued at $2,000 or More in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_2000OrMoreUSDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $2,000 or More in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block"
-                    ],
-                    "title": "Compared with Other Variables in Florida (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Compared with Other Variables in Florida (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue30000To34999USDollar"
-                    ],
-                    "title": "Homes Valued Between $30,000 to $34,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue30000To34999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $30,000 to $34,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue90000To99999USDollar"
-                    ],
-                    "title": "Homes Valued Between $90,000 to $99,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue90000To99999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $90,000 to $99,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue15000To19999USDollar"
-                    ],
-                    "title": "Homes Valued Between $15,000 to $19,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue15000To19999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $15,000 to $19,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto10000USDollar"
-                    ],
-                    "title": "Homes Valued at $10,000 or Less in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto10000USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued at $10,000 or Less in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To249999USDollar"
-                    ],
-                    "title": "Homes Valued Between $200,000 to $249,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To249999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $200,000 to $249,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue40000To49999USDollar"
-                    ],
-                    "title": "Homes Valued Between $40,000 to $49,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue40000To49999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $40,000 to $49,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue100000To124999USDollar"
-                    ],
-                    "title": "Homes Valued Between $100,000 and $124,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue100000To124999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $100,000 and $124,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
-                    ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $175,000 to $199,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue250000To299999USDollar"
-                    ],
-                    "title": "Homes Valued Between $250,000 to $299,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue250000To299999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $250,000 to $299,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue35000To39999USDollar"
-                    ],
-                    "title": "Homes Valued Between $35,000 to $39,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue35000To39999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $35,000 to $39,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue25000To29999USDollar"
-                    ],
-                    "title": "Homes Valued Between $25,000 to $29,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue25000To29999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $25,000 to $29,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue20000To24999USDollar"
-                    ],
-                    "title": "Homes Valued Between $20,000 to $24,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue20000To24999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $20,000 to $24,999 in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue70000To79999USDollar"
-                    ],
-                    "title": "Homes Valued Between $70,000 to $79,999 in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue70000To79999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $70,000 to $79,999 in Florida",
-                    "type": "LINE"
                   }
                 ]
               }
@@ -675,20 +171,11 @@
           }
         ],
         "statVarSpec": {
-          "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": {
-            "name": "Housing Units Valued at $1,000,000 or More",
-            "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-          },
           "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_multiple_place_bar_block": {
             "name": "Housing Units Valued at $1,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
           },
           "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Housing Units Valued at $1,000,000 or More",
-            "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-          },
-          "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_pc": {
             "denom": "Count_Person",
             "name": "Housing Units Valued at $1,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
@@ -702,20 +189,11 @@
             "name": "Homes Valued Between $1,000,000 and $1,499,999",
             "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
           },
-          "Count_HousingUnit_HomeValue100000To124999USDollar": {
-            "name": "Homes Valued Between $100,000 and $124,999",
-            "statVar": "Count_HousingUnit_HomeValue100000To124999USDollar"
-          },
           "Count_HousingUnit_HomeValue100000To124999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $100,000 and $124,999",
             "statVar": "Count_HousingUnit_HomeValue100000To124999USDollar"
           },
           "Count_HousingUnit_HomeValue100000To124999USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $100,000 and $124,999",
-            "statVar": "Count_HousingUnit_HomeValue100000To124999USDollar"
-          },
-          "Count_HousingUnit_HomeValue100000To124999USDollar_pc": {
             "denom": "Count_Person",
             "name": "Homes Valued Between $100,000 and $124,999",
             "statVar": "Count_HousingUnit_HomeValue100000To124999USDollar"
@@ -756,10 +234,6 @@
             "name": "Homes Valued Between $150,000 and $174,999",
             "statVar": "Count_HousingUnit_HomeValue150000To174999USDollar"
           },
-          "Count_HousingUnit_HomeValue15000To19999USDollar": {
-            "name": "Homes Valued Between $15,000 to $19,999",
-            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
-          },
           "Count_HousingUnit_HomeValue15000To19999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $15,000 to $19,999",
             "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
@@ -769,25 +243,11 @@
             "name": "Homes Valued Between $15,000 to $19,999",
             "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
           },
-          "Count_HousingUnit_HomeValue15000To19999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $15,000 to $19,999",
-            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
-          },
-          "Count_HousingUnit_HomeValue175000To199999USDollar": {
-            "name": "Homes Valued Between $175,000 to $199,999",
-            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
           "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $175,000 to $199,999",
             "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $175,000 to $199,999",
-            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue175000To199999USDollar_pc": {
             "denom": "Count_Person",
             "name": "Homes Valued Between $175,000 to $199,999",
             "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
@@ -801,10 +261,6 @@
             "name": "Homes Valued at $2,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
           },
-          "Count_HousingUnit_HomeValue200000To249999USDollar": {
-            "name": "Homes Valued Between $200,000 to $249,999",
-            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
-          },
           "Count_HousingUnit_HomeValue200000To249999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $200,000 to $249,999",
             "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
@@ -813,15 +269,6 @@
             "denom": "Count_Person",
             "name": "Homes Valued Between $200,000 to $249,999",
             "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
-          },
-          "Count_HousingUnit_HomeValue200000To249999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $200,000 to $249,999",
-            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
-          },
-          "Count_HousingUnit_HomeValue20000To24999USDollar": {
-            "name": "Homes Valued Between $20,000 to $24,999",
-            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
           },
           "Count_HousingUnit_HomeValue20000To24999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $20,000 to $24,999",
@@ -832,15 +279,6 @@
             "name": "Homes Valued Between $20,000 to $24,999",
             "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
           },
-          "Count_HousingUnit_HomeValue20000To24999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $20,000 to $24,999",
-            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
-          },
-          "Count_HousingUnit_HomeValue250000To299999USDollar": {
-            "name": "Homes Valued Between $250,000 to $299,999",
-            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
-          },
           "Count_HousingUnit_HomeValue250000To299999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $250,000 to $299,999",
             "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
@@ -849,15 +287,6 @@
             "denom": "Count_Person",
             "name": "Homes Valued Between $250,000 to $299,999",
             "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
-          },
-          "Count_HousingUnit_HomeValue250000To299999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $250,000 to $299,999",
-            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
-          },
-          "Count_HousingUnit_HomeValue25000To29999USDollar": {
-            "name": "Homes Valued Between $25,000 to $29,999",
-            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
           },
           "Count_HousingUnit_HomeValue25000To29999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $25,000 to $29,999",
@@ -868,15 +297,6 @@
             "name": "Homes Valued Between $25,000 to $29,999",
             "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
           },
-          "Count_HousingUnit_HomeValue25000To29999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $25,000 to $29,999",
-            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
-          },
-          "Count_HousingUnit_HomeValue300000To399999USDollar": {
-            "name": "Housing Units Valued at $300,000-$399,999",
-            "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
-          },
           "Count_HousingUnit_HomeValue300000To399999USDollar_multiple_place_bar_block": {
             "name": "Housing Units Valued at $300,000-$399,999",
             "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
@@ -885,15 +305,6 @@
             "denom": "Count_Person",
             "name": "Housing Units Valued at $300,000-$399,999",
             "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
-          },
-          "Count_HousingUnit_HomeValue300000To399999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Housing Units Valued at $300,000-$399,999",
-            "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
-          },
-          "Count_HousingUnit_HomeValue30000To34999USDollar": {
-            "name": "Homes Valued Between $30,000 to $34,999",
-            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
           },
           "Count_HousingUnit_HomeValue30000To34999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $30,000 to $34,999",
@@ -904,15 +315,6 @@
             "name": "Homes Valued Between $30,000 to $34,999",
             "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
           },
-          "Count_HousingUnit_HomeValue30000To34999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $30,000 to $34,999",
-            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
-          },
-          "Count_HousingUnit_HomeValue35000To39999USDollar": {
-            "name": "Homes Valued Between $35,000 to $39,999",
-            "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
-          },
           "Count_HousingUnit_HomeValue35000To39999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $35,000 to $39,999",
             "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
@@ -921,15 +323,6 @@
             "denom": "Count_Person",
             "name": "Homes Valued Between $35,000 to $39,999",
             "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
-          },
-          "Count_HousingUnit_HomeValue35000To39999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $35,000 to $39,999",
-            "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
-          },
-          "Count_HousingUnit_HomeValue400000To499999USDollar": {
-            "name": "Housing Units Valued at $400,000-$499,999",
-            "statVar": "Count_HousingUnit_HomeValue400000To499999USDollar"
           },
           "Count_HousingUnit_HomeValue400000To499999USDollar_multiple_place_bar_block": {
             "name": "Housing Units Valued at $400,000-$499,999",
@@ -940,15 +333,6 @@
             "name": "Housing Units Valued at $400,000-$499,999",
             "statVar": "Count_HousingUnit_HomeValue400000To499999USDollar"
           },
-          "Count_HousingUnit_HomeValue400000To499999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Housing Units Valued at $400,000-$499,999",
-            "statVar": "Count_HousingUnit_HomeValue400000To499999USDollar"
-          },
-          "Count_HousingUnit_HomeValue40000To49999USDollar": {
-            "name": "Homes Valued Between $40,000 to $49,999",
-            "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
-          },
           "Count_HousingUnit_HomeValue40000To49999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $40,000 to $49,999",
             "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
@@ -958,25 +342,11 @@
             "name": "Homes Valued Between $40,000 to $49,999",
             "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
           },
-          "Count_HousingUnit_HomeValue40000To49999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $40,000 to $49,999",
-            "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
-          },
-          "Count_HousingUnit_HomeValue500000To749999USDollar": {
-            "name": "Housing Units Valued at $500,000-$749,999",
-            "statVar": "Count_HousingUnit_HomeValue500000To749999USDollar"
-          },
           "Count_HousingUnit_HomeValue500000To749999USDollar_multiple_place_bar_block": {
             "name": "Housing Units Valued at $500,000-$749,999",
             "statVar": "Count_HousingUnit_HomeValue500000To749999USDollar"
           },
           "Count_HousingUnit_HomeValue500000To749999USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Housing Units Valued at $500,000-$749,999",
-            "statVar": "Count_HousingUnit_HomeValue500000To749999USDollar"
-          },
-          "Count_HousingUnit_HomeValue500000To749999USDollar_pc": {
             "denom": "Count_Person",
             "name": "Housing Units Valued at $500,000-$749,999",
             "statVar": "Count_HousingUnit_HomeValue500000To749999USDollar"
@@ -999,10 +369,6 @@
             "name": "Homes Valued Between $60,000 to $69,999",
             "statVar": "Count_HousingUnit_HomeValue60000To69999USDollar"
           },
-          "Count_HousingUnit_HomeValue70000To79999USDollar": {
-            "name": "Homes Valued Between $70,000 to $79,999",
-            "statVar": "Count_HousingUnit_HomeValue70000To79999USDollar"
-          },
           "Count_HousingUnit_HomeValue70000To79999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $70,000 to $79,999",
             "statVar": "Count_HousingUnit_HomeValue70000To79999USDollar"
@@ -1012,25 +378,11 @@
             "name": "Homes Valued Between $70,000 to $79,999",
             "statVar": "Count_HousingUnit_HomeValue70000To79999USDollar"
           },
-          "Count_HousingUnit_HomeValue70000To79999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $70,000 to $79,999",
-            "statVar": "Count_HousingUnit_HomeValue70000To79999USDollar"
-          },
-          "Count_HousingUnit_HomeValue750000To999999USDollar": {
-            "name": "Housing Units Valued at $750,000-$999,999",
-            "statVar": "Count_HousingUnit_HomeValue750000To999999USDollar"
-          },
           "Count_HousingUnit_HomeValue750000To999999USDollar_multiple_place_bar_block": {
             "name": "Housing Units Valued at $750,000-$999,999",
             "statVar": "Count_HousingUnit_HomeValue750000To999999USDollar"
           },
           "Count_HousingUnit_HomeValue750000To999999USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Housing Units Valued at $750,000-$999,999",
-            "statVar": "Count_HousingUnit_HomeValue750000To999999USDollar"
-          },
-          "Count_HousingUnit_HomeValue750000To999999USDollar_pc": {
             "denom": "Count_Person",
             "name": "Housing Units Valued at $750,000-$999,999",
             "statVar": "Count_HousingUnit_HomeValue750000To999999USDollar"
@@ -1044,10 +396,6 @@
             "name": "Homes Valued Between $80,000 to $89,999",
             "statVar": "Count_HousingUnit_HomeValue80000To89999USDollar"
           },
-          "Count_HousingUnit_HomeValue90000To99999USDollar": {
-            "name": "Homes Valued Between $90,000 to $99,999",
-            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
-          },
           "Count_HousingUnit_HomeValue90000To99999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $90,000 to $99,999",
             "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
@@ -1056,15 +404,6 @@
             "denom": "Count_Person",
             "name": "Homes Valued Between $90,000 to $99,999",
             "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
-          },
-          "Count_HousingUnit_HomeValue90000To99999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $90,000 to $99,999",
-            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
-          },
-          "Count_HousingUnit_HomeValueUpto10000USDollar": {
-            "name": "Homes Valued at $10,000 or Less",
-            "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
           "Count_HousingUnit_HomeValueUpto10000USDollar_multiple_place_bar_block": {
             "name": "Homes Valued at $10,000 or Less",
@@ -1075,244 +414,113 @@
             "name": "Homes Valued at $10,000 or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
-          "Count_HousingUnit_HomeValueUpto10000USDollar_pc": {
+          "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: American Indian or Alaska Native Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone"
+          },
+          "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Homes Valued at $10,000 or Less",
-            "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
+            "name": "Count of Housing Unit: American Indian or Alaska Native Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone"
           },
-          "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 1,000 - 1,249 USD",
-            "statVar": "Count_HousingUnit_WithRent_1000To1249USDollar"
+          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Homes Whose Householder Identifies as American Indian or Alaska Native Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
           },
-          "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 1,000 - 1,249 USD",
-            "statVar": "Count_HousingUnit_WithRent_1000To1249USDollar"
+            "name": "Homes Whose Householder Identifies as American Indian or Alaska Native Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
           },
-          "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 100 - 149 USD",
-            "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
+          "Count_HousingUnit_HouseholderRaceAsianAlone_multiple_place_bar_block": {
+            "name": "Homes Whose Householder Identifies as Asian Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceAsianAlone"
           },
-          "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceAsianAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 100 - 149 USD",
-            "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
+            "name": "Homes Whose Householder Identifies as Asian Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceAsianAlone"
           },
-          "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 1,250 - 1,499 USD",
-            "statVar": "Count_HousingUnit_WithRent_1250To1499USDollar"
+          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Homes Whose Householder Identifies as Black or African American Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone"
           },
-          "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 1,250 - 1,499 USD",
-            "statVar": "Count_HousingUnit_WithRent_1250To1499USDollar"
+            "name": "Homes Whose Householder Identifies as Black or African American Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone"
           },
-          "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 1,500 - 1,999 USD",
-            "statVar": "Count_HousingUnit_WithRent_1500To1999USDollar"
+          "Count_HousingUnit_HouseholderRaceHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Homes Whose Householder Identifies as Hispanic or Latino",
+            "statVar": "Count_HousingUnit_HouseholderRaceHispanicOrLatino"
           },
-          "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceHispanicOrLatino_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 1,500 - 1,999 USD",
-            "statVar": "Count_HousingUnit_WithRent_1500To1999USDollar"
+            "name": "Homes Whose Householder Identifies as Hispanic or Latino",
+            "statVar": "Count_HousingUnit_HouseholderRaceHispanicOrLatino"
           },
-          "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 150 - 199 USD",
-            "statVar": "Count_HousingUnit_WithRent_150To199USDollar"
+          "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone"
           },
-          "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 150 - 199 USD",
-            "statVar": "Count_HousingUnit_WithRent_150To199USDollar"
+            "name": "Count of Housing Unit: Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone"
           },
-          "Count_HousingUnit_WithRent_2000OrMoreUSDollar": {
-            "name": "Housing Units Valued at $2,000 or More",
-            "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Homes Whose Householder Identifies as Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
           },
-          "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "Housing Units Valued at $2,000 or More",
-            "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
-          },
-          "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Housing Units Valued at $2,000 or More",
-            "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+            "name": "Homes Whose Householder Identifies as Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
           },
-          "Count_HousingUnit_WithRent_2000OrMoreUSDollar_pc": {
+          "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Homes Whose Householder Identifies as Some Other Race Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone"
+          },
+          "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Housing Units Valued at $2,000 or More",
-            "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+            "name": "Homes Whose Householder Identifies as Some Other Race Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone"
           },
-          "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 2,000 - 2,499 USD",
-            "statVar": "Count_HousingUnit_WithRent_2000To2499USDollar"
+          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+            "name": "Homes Whose Householder Identifies as Two or More Races",
+            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
           },
-          "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Homes Whose Householder Identifies as Two or More Races",
+            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
+          },
+          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 2,000 - 2,499 USD",
-            "statVar": "Count_HousingUnit_WithRent_2000To2499USDollar"
+            "name": "Homes Whose Householder Identifies as Two or More Races",
+            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
           },
-          "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 200 - 249 USD",
-            "statVar": "Count_HousingUnit_WithRent_200To249USDollar"
-          },
-          "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 200 - 249 USD",
-            "statVar": "Count_HousingUnit_WithRent_200To249USDollar"
+            "name": "Homes Whose Householder Identifies as Two or More Races",
+            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
           },
-          "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 2,500 - 2,999 USD",
-            "statVar": "Count_HousingUnit_WithRent_2500To2999USDollar"
+          "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: White Alone Not Hispanic or Latino",
+            "statVar": "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino"
           },
-          "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 2,500 - 2,999 USD",
-            "statVar": "Count_HousingUnit_WithRent_2500To2999USDollar"
+            "name": "Count of Housing Unit: White Alone Not Hispanic or Latino",
+            "statVar": "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino"
           },
-          "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 250 - 299 USD",
-            "statVar": "Count_HousingUnit_WithRent_250To299USDollar"
+          "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
+            "name": "Homes Whose Householder Identifies as White Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceWhiteAlone"
           },
-          "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: 250 - 299 USD",
-            "statVar": "Count_HousingUnit_WithRent_250To299USDollar"
-          },
-          "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 3,000 - 3,499 USD",
-            "statVar": "Count_HousingUnit_WithRent_3000To3499USDollar"
-          },
-          "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 3,000 - 3,499 USD",
-            "statVar": "Count_HousingUnit_WithRent_3000To3499USDollar"
-          },
-          "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 300 - 349 USD",
-            "statVar": "Count_HousingUnit_WithRent_300To349USDollar"
-          },
-          "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 300 - 349 USD",
-            "statVar": "Count_HousingUnit_WithRent_300To349USDollar"
-          },
-          "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 3,500 USD or More",
-            "statVar": "Count_HousingUnit_WithRent_3500OrMoreUSDollar"
-          },
-          "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 3,500 USD or More",
-            "statVar": "Count_HousingUnit_WithRent_3500OrMoreUSDollar"
-          },
-          "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 350 - 399 USD",
-            "statVar": "Count_HousingUnit_WithRent_350To399USDollar"
-          },
-          "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 350 - 399 USD",
-            "statVar": "Count_HousingUnit_WithRent_350To399USDollar"
-          },
-          "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 400 - 449 USD",
-            "statVar": "Count_HousingUnit_WithRent_400To449USDollar"
-          },
-          "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 400 - 449 USD",
-            "statVar": "Count_HousingUnit_WithRent_400To449USDollar"
-          },
-          "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 450 - 499 USD",
-            "statVar": "Count_HousingUnit_WithRent_450To499USDollar"
-          },
-          "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 450 - 499 USD",
-            "statVar": "Count_HousingUnit_WithRent_450To499USDollar"
-          },
-          "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 500 - 549 USD",
-            "statVar": "Count_HousingUnit_WithRent_500To549USDollar"
-          },
-          "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 500 - 549 USD",
-            "statVar": "Count_HousingUnit_WithRent_500To549USDollar"
-          },
-          "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 550 - 599 USD",
-            "statVar": "Count_HousingUnit_WithRent_550To599USDollar"
-          },
-          "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 550 - 599 USD",
-            "statVar": "Count_HousingUnit_WithRent_550To599USDollar"
-          },
-          "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 600 - 649 USD",
-            "statVar": "Count_HousingUnit_WithRent_600To649USDollar"
-          },
-          "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 600 - 649 USD",
-            "statVar": "Count_HousingUnit_WithRent_600To649USDollar"
-          },
-          "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 650 - 699 USD",
-            "statVar": "Count_HousingUnit_WithRent_650To699USDollar"
-          },
-          "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 650 - 699 USD",
-            "statVar": "Count_HousingUnit_WithRent_650To699USDollar"
-          },
-          "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 700 - 749 USD",
-            "statVar": "Count_HousingUnit_WithRent_700To749USDollar"
-          },
-          "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 700 - 749 USD",
-            "statVar": "Count_HousingUnit_WithRent_700To749USDollar"
-          },
-          "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 750 - 799 USD",
-            "statVar": "Count_HousingUnit_WithRent_750To799USDollar"
-          },
-          "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 750 - 799 USD",
-            "statVar": "Count_HousingUnit_WithRent_750To799USDollar"
-          },
-          "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 800 - 899 USD",
-            "statVar": "Count_HousingUnit_WithRent_800To899USDollar"
-          },
-          "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 800 - 899 USD",
-            "statVar": "Count_HousingUnit_WithRent_800To899USDollar"
-          },
-          "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 900 - 999 USD",
-            "statVar": "Count_HousingUnit_WithRent_900To999USDollar"
-          },
-          "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 900 - 999 USD",
-            "statVar": "Count_HousingUnit_WithRent_900To999USDollar"
-          },
-          "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 100 USD or Less",
-            "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
-          },
-          "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: 100 USD or Less",
-            "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
+            "name": "Homes Whose Householder Identifies as White Alone",
+            "statVar": "Count_HousingUnit_HouseholderRaceWhiteAlone"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
