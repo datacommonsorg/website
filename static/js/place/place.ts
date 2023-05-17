@@ -19,14 +19,8 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import {
-  CachedChoroplethData,
-  CachedRankingChartData,
-  GeoJsonData,
-  PageData,
-} from "../chart/types";
+import { PageData } from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
-import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main_pane";
@@ -34,7 +28,7 @@ import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
-import { isPlaceInUsa, USA_PLACE_TYPES_WITH_CHOROPLETH } from "./util";
+import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
@@ -112,41 +106,6 @@ function adjustMenuPosition(): void {
 }
 
 /**
- * Get the geo json info for choropleth charts.
- */
-async function getGeoJsonData(
-  dcid: string,
-  placeType: string,
-  locale: string
-): Promise<GeoJsonData> {
-  if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios
-      .get(`/api/choropleth/geojson?placeDcid=${dcid}&hl=${locale}`)
-      .then((resp) => {
-        return resp.data;
-      });
-  } else {
-    return Promise.resolve(null);
-  }
-}
-
-/**
- * Get the stat var data for choropleth charts.
- */
-async function getChoroplethData(
-  dcid: string,
-  placeType: string
-): Promise<CachedChoroplethData> {
-  if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios.get(`/api/choropleth/data/${dcid}`).then((resp) => {
-      return resp.data;
-    });
-  } else {
-    return Promise.resolve({});
-  }
-}
-
-/**
  * Get the landing page data
  */
 async function getLandingPageData(
@@ -161,21 +120,6 @@ async function getLandingPageData(
     });
 }
 
-function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
-  const isEarth = dcid === EARTH_NAMED_TYPED_PLACE.dcid;
-  const isInUSA: boolean =
-    dcid.startsWith("geoId") || dcid.startsWith(USA_PLACE_DCID);
-  return isEarth || (isInUSA && USA_PLACE_TYPES_WITH_CHOROPLETH.has(placeType));
-}
-
-async function getRankingChartData(
-  dcid: string
-): Promise<CachedRankingChartData> {
-  return axios.get(`/api/place/ranking_chart/${dcid}`).then((resp) => {
-    return resp.data;
-  });
-}
-
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   const urlHash = window.location.hash;
@@ -186,9 +130,6 @@ function renderPage(): void {
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
   const landingPagePromise = getLandingPageData(dcid, category, locale);
-  const chartGeoJsonPromise = getGeoJsonData(dcid, placeType, locale);
-  const choroplethDataPromise = getChoroplethData(dcid, placeType);
-  const rankingChartPromise = getRankingChartData(dcid);
 
   Promise.all([
     landingPagePromise,
@@ -265,7 +206,7 @@ function renderPage(): void {
 
       ReactDOM.render(
         React.createElement(PageSubtitle, {
-          category: category,
+          category,
           categoryDisplayStr: data.categories[category],
           dcid,
         }),
@@ -280,12 +221,9 @@ function renderPage(): void {
           pageChart: data.pageChart,
           placeName,
           placeType,
-          geoJsonData: chartGeoJsonPromise,
-          choroplethData: choroplethDataPromise,
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,
-          rankingChartData: rankingChartPromise,
           locale,
         }),
         document.getElementById("main-pane")

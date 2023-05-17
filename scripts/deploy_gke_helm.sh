@@ -138,7 +138,6 @@ function deploy_website() {
   --atomic \
   --debug \
   --timeout 10m \
-  --set ingress.enabled=$SINGLE_CLUSTER \
   --set website.image.project="$IMAGE_PROJECT" \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
@@ -147,12 +146,10 @@ function deploy_website() {
 
 cd $ROOT
 if [[ $PROJECT_ID != "" ]]; then
-  SINGLE_CLUSTER="true"
   # This is a pure custom project hosted and deployed by third party
   CLUSTER_PREFIX=datacommons
 else
   touch mixer/deploy/storage/custom_bigtable_info.yaml
-  SINGLE_CLUSTER="false"
   PROJECT_ID=$(yq eval '.project' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
   CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
 fi

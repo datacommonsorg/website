@@ -15,25 +15,41 @@
     "Count_Person_Male_ResidesInGroupQuarters",
     "Count_Person_Male_WithEarnings",
     "Count_Person_Male_HispanicOrLatino_TwoOrMoreRaces",
-    "Count_Person_Female_NotHispanicOrLatino"
+    "Count_Person_Female_NotHispanicOrLatino",
+    "Count_Person_Female_ResidesInGroupQuarters",
+    "Count_Person_Female_HispanicOrLatino_TwoOrMoreRaces",
+    "Count_Person_Male_HispanicOrLatino",
+    "Count_Person_Male_ForeignBorn_ResidesInGroupQuarters",
+    "Count_Person",
+    "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+    "Count_Person_Female_WithEarnings_ResidesInJuvenileFacilities",
+    "Count_Person_Male_ForeignBorn_PlaceOfBirthLatinAmerica"
   ],
   "CosineScore": [
-    0.8887199759483337,
-    0.8541340827941895,
-    0.7810853719711304,
-    0.7729058265686035,
-    0.7095950245857239,
-    0.7067370414733887,
-    0.6974986791610718,
-    0.6912292242050171,
-    0.6900774240493774,
-    0.6858758330345154,
-    0.6827239990234375,
-    0.6807833909988403,
-    0.6751968264579773,
-    0.6733241081237793,
+    0.8887198567390442,
+    0.8541341423988342,
+    0.781085193157196,
+    0.7729056477546692,
+    0.7095955610275269,
+    0.7067369222640991,
+    0.6974987387657166,
+    0.6912292838096619,
+    0.6900772452354431,
+    0.6858758926391602,
+    0.6827235221862793,
+    0.6807836294174194,
+    0.6751962304115295,
+    0.6733236908912659,
     0.6694575548171997,
-    0.665802538394928
+    0.6658025979995728,
+    0.6617951393127441,
+    0.6560960412025452,
+    0.6536385416984558,
+    0.650510311126709,
+    0.6461560130119324,
+    0.6460205316543579,
+    0.6444941759109497,
+    0.6423051357269287
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -46,7 +62,7 @@
               "Count_Person_Male"
             ],
             "CosineScore": [
-              0.9596
+              0.9699957966804504
             ]
           },
           {
@@ -55,11 +71,11 @@
               "Count_Person_Female"
             ],
             "CosineScore": [
-              1.0
+              1.0000001192092896
             ]
           }
         ],
-        "AggCosineScore": 0.9798,
+        "AggCosineScore": 0.985,
         "DelimBased": true
       },
       {
@@ -67,12 +83,10 @@
           {
             "QueryPart": "compare male",
             "SV": [
-              "Count_Person_Male",
-              "dc/topic/SDG_5"
+              "Count_Person_Male"
             ],
             "CosineScore": [
-              0.5508,
-              0.5161
+              0.575637698173523
             ]
           },
           {
@@ -81,7 +95,7 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0
+              0.9999997615814209
             ]
           },
           {
@@ -90,11 +104,11 @@
               "Count_Person_Female"
             ],
             "CosineScore": [
-              1.0
+              1.0000001192092896
             ]
           }
         ],
-        "AggCosineScore": 0.8503,
+        "AggCosineScore": 0.8585,
         "DelimBased": false
       },
       {
@@ -102,12 +116,10 @@
           {
             "QueryPart": "compare male",
             "SV": [
-              "Count_Person_Male",
-              "dc/topic/SDG_5"
+              "Count_Person_Male"
             ],
             "CosineScore": [
-              0.5508,
-              0.5161
+              0.575637698173523
             ]
           },
           {
@@ -116,7 +128,7 @@
               "Count_Person_Female"
             ],
             "CosineScore": [
-              0.9676
+              0.9675701856613159
             ]
           },
           {
@@ -125,11 +137,11 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0
+              0.9999997615814209
             ]
           }
         ],
-        "AggCosineScore": 0.8395,
+        "AggCosineScore": 0.8477,
         "DelimBased": false
       },
       {
@@ -140,7 +152,7 @@
               "Count_Person_Male"
             ],
             "CosineScore": [
-              0.8045
+              0.8188366889953613
             ]
           },
           {
@@ -149,7 +161,7 @@
               "Count_Person_Female"
             ],
             "CosineScore": [
-              0.5892
+              0.5912924408912659
             ]
           },
           {
@@ -158,11 +170,11 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0
+              0.9999997615814209
             ]
           }
         ],
-        "AggCosineScore": 0.7979,
+        "AggCosineScore": 0.8034,
         "DelimBased": false
       },
       {
@@ -170,12 +182,10 @@
           {
             "QueryPart": "compare male",
             "SV": [
-              "Count_Person_Male",
-              "dc/topic/SDG_5"
+              "Count_Person_Male"
             ],
             "CosineScore": [
-              0.5508,
-              0.5161
+              0.575637698173523
             ]
           },
           {
@@ -184,7 +194,7 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0
+              0.9999997615814209
             ]
           },
           {
@@ -193,7 +203,7 @@
               "Count_Person_Female"
             ],
             "CosineScore": [
-              0.5892
+              0.5912924408912659
             ]
           },
           {
@@ -202,11 +212,11 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0
+              0.9999997615814209
             ]
           }
         ],
-        "AggCosineScore": 0.785,
+        "AggCosineScore": 0.7917,
         "DelimBased": false
       }
     ]

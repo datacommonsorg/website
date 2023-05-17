@@ -44,7 +44,7 @@ class TestRanking(WebdriverBaseTest):
     self.assertEqual(row[0].text, '1')
     self.assertEqual(row[1].text, 'United States of America')
 
-    chart = self.driver.find_element(By.ID, 'ranking-chart')
+    chart = self.driver.find_element(By.CLASS_NAME, 'chart-container')
     y_text = chart.find_elements(By.CLASS_NAME,
                                  'y')[0].find_elements(By.TAG_NAME, 'text')
     self.assertEqual(y_text[0].text, '0')
@@ -91,7 +91,7 @@ class TestRanking(WebdriverBaseTest):
         row[1].find_element(By.TAG_NAME, 'a').get_attribute('href'),
         self.url_ + '/place/country/LSO?hl=hi')
 
-    chart = self.driver.find_element(By.ID, 'ranking-chart')
+    chart = self.driver.find_element(By.CLASS_NAME, 'chart-container')
     y_text = chart.find_elements(By.CLASS_NAME,
                                  'y')[0].find_elements(By.TAG_NAME, 'text')
     self.assertEqual(y_text[0].text, '0 कि॰ग्रा॰')
@@ -137,7 +137,7 @@ class TestRanking(WebdriverBaseTest):
         row[1].find_element(By.TAG_NAME, 'a').get_attribute('href'),
         self.url_ + '/place/country/QAT?hl=ko')
 
-    chart = self.driver.find_element(By.ID, 'ranking-chart')
+    chart = self.driver.find_element(By.CLASS_NAME, 'chart-container')
     y_text = chart.find_elements(By.CLASS_NAME,
                                  'y')[0].find_elements(By.TAG_NAME, 'text')
     self.assertEqual(y_text[0].text, '0kg')

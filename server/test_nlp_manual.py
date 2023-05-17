@@ -119,7 +119,7 @@ class QueryTestCase:
 
     Modifies the context_history using API call result.
     """
-    response = app.test_client().post(f'/nl/data?{_encoded_q(self.query)}',
+    response = app.test_client().post(f'/api/nl/data?{_encoded_q(self.query)}',
                                       json={'contextHistory': context_history},
                                       content_type='application/json')
 

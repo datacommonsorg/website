@@ -274,7 +274,7 @@ function getSetEnclosingPlace(
     setPlace({
       ...place,
       enclosedPlaces: [],
-      enclosingPlace: enclosingPlace,
+      enclosingPlace,
       parentPlaces: null,
       enclosedPlaceType: "",
     });
@@ -293,7 +293,7 @@ function getSetEnclosedPlaceType(
   return (enclosedPlaceType) =>
     setPlace({
       ...place,
-      enclosedPlaceType: enclosedPlaceType,
+      enclosedPlaceType,
       enclosedPlaces: [],
     });
 }
@@ -305,7 +305,7 @@ function getSetEnclosedPlaces(
   return (enclosedPlaces) =>
     setPlace({
       ...place,
-      enclosedPlaces: enclosedPlaces,
+      enclosedPlaces,
     });
 }
 
@@ -322,7 +322,7 @@ function getSetStatVarInfo(
   return (statVarInfo) => {
     setAxis({
       ...axis,
-      statVarInfo: statVarInfo,
+      statVarInfo,
     });
   };
 }
@@ -366,7 +366,7 @@ function getSetLog(
   return (log) => {
     setAxis({
       ...axis,
-      log: log,
+      log,
     });
   };
 }
@@ -378,7 +378,7 @@ function getSetPerCapita(
   return (perCapita) => {
     setAxis({
       ...axis,
-      perCapita: perCapita,
+      perCapita,
     });
   };
 }
@@ -402,7 +402,7 @@ function getSetLowerBound(
   return (lowerBound) =>
     setPlace({
       ...place,
-      lowerBound: lowerBound,
+      lowerBound,
     });
 }
 
@@ -413,7 +413,7 @@ function getSetUpperBound(
   return (upperBound) =>
     setPlace({
       ...place,
-      upperBound: upperBound,
+      upperBound,
     });
 }
 

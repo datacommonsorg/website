@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 from typing import Dict, List, Union
 
-from flask import escape
+from markupsafe import escape
 
 from server.config import subject_page_pb2
 import server.lib.fetch as fetch
@@ -104,7 +104,7 @@ def _sv_places_exist(places, stat_var, stat_vars_existence, place_dcid):
   Returns true if stat_var exists for all places in stat_vars_existence. Also
   supports "self" placeholder replacement.
   """
-  sv_entity = stat_vars_existence['variable'][stat_var]['entity']
+  sv_entity = stat_vars_existence.get(stat_var, {})
   for p in places:
     if p == SELF_PLACE_DCID_PLACEHOLDER:
       p = place_dcid
@@ -178,7 +178,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
       place_dcid, contained_place_type, ctr)[::SAMPLE_PLACE_STEP]
   bar_comparison_places = _bar_comparison_places(page_config, place_dcid)
   all_places = sample_child_places + bar_comparison_places + [place_dcid]
-  stat_vars_existence = dc.observation_existence(all_stat_vars, all_places)
+  stat_vars_existence = fetch.observation_existence(all_stat_vars, all_places)
 
   child_places_geojson = _places_with_geojson(sample_child_places)
 

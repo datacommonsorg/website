@@ -25,7 +25,7 @@ website:
     tag:
   githash:
   flaskEnv: stanford
-  replicas: 6
+  replicas: 4
   redis:
     enabled: true
     configFile: |
@@ -53,7 +53,7 @@ serviceGroups:
   node:
     replicas: 6
   svg:
-    replicas: 3
+    replicas: 2
   default:
     replicas: 3
 
@@ -63,7 +63,6 @@ kgStoreConfig:
     instance: dc-graph
     tables:
       - magic-lab_2023_04_12_22_22_43
-      - cepa_2023_04_12_10_18_50
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]

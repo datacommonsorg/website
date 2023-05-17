@@ -1,69 +1,73 @@
 {
-    "SV": [
-      "dc/topic/SDG_1",
-      "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Percent_Person_Obesity",
-      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-      "Count_Person_AbovePovertyLevelInThePast12Months",
-      "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months",
-      "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-      "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-      "Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-      "Count_Person_Male_AbovePovertyLevelInThePast12Months",
-      "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone"
-    ],
-    "CosineScore": [
-      0.6437398195266724,
-      0.6102464199066162,
-      0.6064739227294922,
-      0.5691823363304138,
-      0.5649963617324829,
-      0.5611600875854492,
-      0.5582886338233948,
-      0.5575058460235596,
-      0.5532658696174622,
-      0.552873432636261,
-      0.5493479371070862,
-      0.549104630947113,
-      0.5460891723632812,
-      0.5434890985488892,
-      0.5429623126983643,
-      0.54209303855896
-    ],
-    "SV_to_Sentences": {},
-    "MultiSV": {
-      "Candidates": [
-        {
-          "Parts": [
-            {
-              "QueryPart": "compare obesity",
-              "SV": [
-                "Percent_Person_Obesity"
-              ],
-              "CosineScore": [
-                0.6748
-              ]
-            },
-            {
-              "QueryPart": "poverty",
-              "SV": [
-                "dc/topic/SDG_1",
-                "Count_Person_BelowPovertyLevelInThePast12Months"
-              ],
-              "CosineScore": [
-                0.8146,
-                0.7726
-              ]
-            }
-          ],
-          "AggCosineScore": 0.7447,
-          "DelimBased": true
-        }
-      ]
-    }
+  "SV": [
+    "dc/topic/SDG_1",
+    "Count_Person_BelowPovertyLevelInThePast12Months",
+    "Percent_Person_Obesity",
+    "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+    "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+    "Count_Person_AbovePovertyLevelInThePast12Months",
+    "Count_Person_Male_AbovePovertyLevelInThePast12Months",
+    "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
+    "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+    "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+    "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+    "Count_Person_Female_AbovePovertyLevelInThePast12Months",
+    "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+    "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+    "Count_Person_Male_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+    "Count_Person_Male_AbovePovertyLevelInThePast12Months_WhiteAlone",
+    "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAlone",
+    "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+  ],
+  "CosineScore": [
+    0.6437395811080933,
+    0.6432796716690063,
+    0.6103522777557373,
+    0.569182276725769,
+    0.5655236840248108,
+    0.5649966597557068,
+    0.5634604096412659,
+    0.5611600875854492,
+    0.5605365037918091,
+    0.5582886934280396,
+    0.5575057864189148,
+    0.5569222569465637,
+    0.5542783141136169,
+    0.5528734922409058,
+    0.5500161647796631,
+    0.5498252511024475,
+    0.5498132109642029,
+    0.5491044521331787
+  ],
+  "SV_to_Sentences": {},
+  "MultiSV": {
+    "Candidates": [
+      {
+        "Parts": [
+          {
+            "QueryPart": "compare obesity",
+            "SV": [
+              "Percent_Person_Obesity"
+            ],
+            "CosineScore": [
+              0.7295880913734436
+            ]
+          },
+          {
+            "QueryPart": "poverty",
+            "SV": [
+              "Count_Person_BelowPovertyLevelInThePast12Months",
+              "dc/topic/SDG_1"
+            ],
+            "CosineScore": [
+              0.8156672716140747,
+              0.814606785774231
+            ]
+          }
+        ],
+        "AggCosineScore": 0.7726,
+        "DelimBased": true
+      }
+    ]
+  }
 }

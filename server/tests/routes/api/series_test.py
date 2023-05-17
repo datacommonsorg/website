@@ -25,22 +25,22 @@ class TestApiSeriesWithin(unittest.TestCase):
     """Failure if required fields are not present."""
     no_parent_entity = app.test_client().get('/api/observations/series/within',
                                              query_string={
-                                                 'child_type': 'City',
+                                                 'childType': 'City',
                                                  'variables': ['Count_Person']
                                              })
     assert no_parent_entity.status_code == 400
 
     no_child_type = app.test_client().get('/api/observations/series/within',
                                           query_string={
-                                              'parent_entity': 'country/USA',
+                                              'parentEntity': 'country/USA',
                                               'variables': ['Count_Person']
                                           })
     assert no_child_type.status_code == 400
 
     no_stat_var = app.test_client().get('/api/observations/series/within',
                                         query_string={
-                                            'parent_entity': 'country/USA',
-                                            'child_type': 'City'
+                                            'parentEntity': 'country/USA',
+                                            'childType': 'City'
                                         })
     assert no_stat_var.status_code == 400
 
@@ -236,8 +236,8 @@ class TestApiSeriesWithin(unittest.TestCase):
     response = app.test_client().get(
         '/api/observations/series/within/all',
         query_string={
-            'parent_entity': 'country/USA',
-            'child_type': 'State',
+            'parentEntity': 'country/USA',
+            'childType': 'State',
             'variables': ['Count_Person', 'UnemploymentRate_Person']
         })
     assert response.status_code == 200

@@ -59,8 +59,8 @@ export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
     axios
       .get<SeriesApiResponse>("/api/observations/series/within", {
         params: {
-          child_type: placeInfo.value.enclosedPlaceType,
-          parent_entity: placeInfo.value.enclosingPlace.dcid,
+          childType: placeInfo.value.enclosedPlaceType,
+          parentEntity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.denom],
         },
         paramsSerializer: stringifyFn,

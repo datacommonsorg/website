@@ -152,7 +152,7 @@ export class ObservationChartSection extends React.Component<
         }
         this.setState({
           seriesList: filteredSeries,
-          facets: facets,
+          facets,
           infoMessage: _.isEmpty(filteredSeries)
             ? `No charts for ${this.props.statVarId} in ${this.props.placeName}`
             : "",

@@ -29,7 +29,7 @@ import {
 } from "../shared/stat_types";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { getMatchingObservation } from "../tools/shared_util";
-import { stringifyFn } from "../utils/axios";
+import { getRoot, stringifyFn } from "../utils/axios";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
 import { LocationRankData, RankInfo } from "./ranking_types";
@@ -38,7 +38,7 @@ const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;
 const MIN_POPULATION = 1000;
 
-interface RankingPagePropType {
+export interface RankingPagePropType {
   placeName: string;
   placeType: string;
   withinPlace: string;
@@ -53,7 +53,10 @@ interface RankingPageStateType {
   data: LocationRankData;
 }
 
-class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
+export class Page extends React.Component<
+  RankingPagePropType,
+  RankingPageStateType
+> {
   svTitle: string;
   pluralPlaceType: string;
   isBottom: boolean;
@@ -246,13 +249,11 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
         <>
           <RankingHistogram
             ranking={ranking}
-            id={"ranking-chart"}
             scaling={this.props.scaling}
             unit={this.props.unit}
           />
           <RankingTable
             ranking={ranking}
-            id={"ranking-table"}
             isPerCapita={this.props.isPerCapita}
             placeType={this.props.placeType}
             scaling={this.props.scaling}
@@ -298,8 +299,9 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
   private fetchDataFromRankingCache(): void {
     const url =
-      `/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
-      window.location.search;
+      `${getRoot()}/api/ranking/${this.props.statVar}/${this.props.placeType}/${
+        this.props.withinPlace
+      }` + window.location.search;
     axios
       .get(url)
       .then((resp) => {
@@ -336,20 +338,20 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
   private loadData(): void {
     const popPromise: Promise<SeriesApiResponse> = axios
-      .get("/api/observations/series/within", {
+      .get(`${getRoot()}/api/observations/series/within`, {
         params: {
-          parent_entity: this.props.withinPlace,
-          child_type: this.props.placeType,
+          parentEntity: this.props.withinPlace,
+          childType: this.props.placeType,
           variables: [DEFAULT_POPULATION_DCID],
         },
         paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
     const statPromise: Promise<PointApiResponse> = axios
-      .get("/api/observations/point/within", {
+      .get(`${getRoot()}/api/observations/point/within`, {
         params: {
-          parent_entity: this.props.withinPlace,
-          child_type: this.props.placeType,
+          parentEntity: this.props.withinPlace,
+          childType: this.props.placeType,
           variables: [this.props.statVar],
           date: this.props.date,
         },
@@ -357,9 +359,13 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       })
       .then((resp) => resp.data);
     const placeNamesPromise: Promise<Record<string, string>> = axios
-      .get(
-        `/api/place/descendent/name?dcid=${this.props.withinPlace}&descendentType=${this.props.placeType}`
-      )
+      .get(`${getRoot()}/api/place/descendent/name`, {
+        params: {
+          dcid: this.props.withinPlace,
+          descendentType: this.props.placeType,
+        },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
     Promise.all([popPromise, statPromise, placeNamesPromise]).then(
       ([population, stat, placeNames]) => {
@@ -371,7 +377,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           if (_.isEmpty(statData[place])) {
             continue;
           }
-          const placeStat = Object.values(statData[place])[0];
+          const placeStat = statData[place];
           let value = _.isUndefined(placeStat.value) ? 0 : placeStat.value;
           let popSeries: Series = null;
           if (DEFAULT_POPULATION_DCID in population.data) {
@@ -425,5 +431,3 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
     );
   }
 }
-
-export { Page };

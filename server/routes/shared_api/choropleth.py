@@ -19,7 +19,6 @@ import urllib.parse
 
 from flask import Blueprint
 from flask import current_app
-from flask import g
 from flask import make_response
 from flask import request
 from flask import Response
@@ -243,7 +242,7 @@ def geojson():
       "type": "FeatureCollection",
       "features": features,
       "properties": {
-          "current_geo": place_dcid
+          "currentGeo": place_dcid
       }
   }
   return lib_util.gzip_compress_response(result, is_json=True)
@@ -268,24 +267,10 @@ def node_geojson():
       "type": "FeatureCollection",
       "features": features,
       "properties": {
-          "current_geo": ""
+          "currentGeo": ""
       }
   }
   return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-def get_choropleth_configs():
-  """ Gets all the chart configs that have choropleth charts
-
-  Returns:
-      list of chart configs that are choropleth chart configs
-  """
-  chart_config = current_app.config['CHART_CONFIG']
-  chart_configs = []
-  for config in chart_config:
-    if config.get('isChoropleth', False):
-      chart_configs.append(config)
-  return chart_configs
 
 
 def get_denom_val(stat_date, denom_data):
@@ -351,28 +336,26 @@ def get_value(sv_data, denom, denom_data, scaling):
   return val * scaling
 
 
-@bp.route('/data/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@bp.route('/data/<path:dcid>', methods=['POST'])
 def choropleth_data(dcid):
   """Get stats var data needed for choropleth charts for a given place
 
   API Returns:
       {
-          [stat var]: {
-              date: string,
-              data: {
-                  [dcid]: number,
-                  ...
-              },
-              numDataPoints: number,
-              exploreUrl: string,
-              sources: [],
-          },
-          ...
+        date: string,
+        data: {
+            [dcid]: number,
+            ...
+        },
+        numDataPoints: number,
+        exploreUrl: string,
+        sources: [],
       }
   """
-  configs = get_choropleth_configs()
-  stat_vars, denoms = shared.get_stat_vars(configs)
+  cc = request.json.get('spec', None)
+  if not cc:
+    return Response(json.dumps({}), 200, mimetype='application/json')
+  stat_vars, denoms = shared.get_stat_vars([cc])
   display_dcid, display_level = get_choropleth_display_level(dcid)
   geos = []
   if display_dcid and display_level:
@@ -383,69 +366,65 @@ def choropleth_data(dcid):
   # Get data for all the stat vars for every place we will need and process the data
   numerator_resp = fetch.point_within_core(display_dcid, display_level,
                                            list(stat_vars), 'LATEST', False)
-  denominator_resp = fetch.series_core(list(geos), list(denoms), False)
+  denominator_resp = {}
+  if denoms:
+    denominator_resp = fetch.series_core(list(geos), list(denoms), False)
 
-  result = {}
-  # Process the data for each config
-  for cc in configs:
-    # we should only be making choropleths for configs with a single stat var
-    sv = cc['statsVars'][0]
-    cc_sv_data_values = numerator_resp.get('data', {}).get(sv, {})
-    denom = landing_page_api.get_denom(cc, True)
-    cc_denom_data = denominator_resp.get('data', {}).get(denom, {})
-    scaling = cc.get('scaling', 1)
-    if 'relatedChart' in cc:
-      scaling = cc['relatedChart'].get('scaling', scaling)
-    sources = set()
-    dates = set()
-    data_dict = dict()
-    # Process the data for each place we have stat var data for
-    for place_dcid in cc_sv_data_values:
-      dcid_sv_data = cc_sv_data_values.get(place_dcid, {})
-      place_denom_data = cc_denom_data.get(place_dcid, {})
-      # process and then update data_dict with the value for this
-      # place_dcid
-      val = get_value(dcid_sv_data, denom, place_denom_data, scaling)
-      if not val:
-        continue
-      data_dict[place_dcid] = val
-      # add the date of the stat var value for this place_dcid to the set
-      # of dates
-      dates.add(dcid_sv_data.get('date', ''))
-      # add stat var source and denom source (if there is a denom) to the
-      # set of sources
-      facetId = dcid_sv_data.get('facet', '')
-      source = numerator_resp['facets'].get(facetId,
-                                            {}).get('provenanceUrl', '')
+  # we should only be making choropleths for the first stat var
+  sv = cc['statsVars'][0]
+  cc_sv_data_values = numerator_resp.get('data', {}).get(sv, {})
+  denom = landing_page_api.get_denom(cc, True)
+  cc_denom_data = denominator_resp.get('data', {}).get(denom, {})
+  scaling = cc.get('scaling', 1)
+  if 'relatedChart' in cc:
+    scaling = cc['relatedChart'].get('scaling', scaling)
+  sources = set()
+  dates = set()
+  data_dict = dict()
+  # Process the data for each place we have stat var data for
+  for place_dcid in cc_sv_data_values:
+    dcid_sv_data = cc_sv_data_values.get(place_dcid, {})
+    place_denom_data = cc_denom_data.get(place_dcid, {})
+    # process and then update data_dict with the value for this
+    # place_dcid
+    val = get_value(dcid_sv_data, denom, place_denom_data, scaling)
+    if not val:
+      continue
+    data_dict[place_dcid] = val
+    # add the date of the stat var value for this place_dcid to the set
+    # of dates
+    dates.add(dcid_sv_data.get('date', ''))
+    # add stat var source and denom source (if there is a denom) to the
+    # set of sources
+    facetId = dcid_sv_data.get('facet', '')
+    source = numerator_resp['facets'].get(facetId, {}).get('provenanceUrl', '')
+    sources.add(source)
+    if denom:
+      facetId = place_denom_data['facet']
+      source = denominator_resp['facets'].get(facetId,
+                                              {}).get('provenanceUrl', '')
       sources.add(source)
-      if denom:
-        facetId = place_denom_data['facet']
-        source = denominator_resp['facets'].get(facetId,
-                                                {}).get('provenanceUrl', '')
-        sources.add(source)
-    # build the exploreUrl
-    # TODO: webdriver test to test that the right choropleth loads
-    is_scaled = (('relatedChart' in cc and
-                  cc['relatedChart'].get('scale', False)) or
-                 ('denominator' in cc))
-    url_anchor = '&pd={}&ept={}&sv={}'.format(dcid, display_level, sv)
-    if is_scaled:
-      url_anchor += "&pc=1"
-    explore_url = urllib.parse.unquote(url_for('tools.map', _anchor=url_anchor))
-    # process the set of sources and set of dates collected for this chart
-    # config
-    sources = filter(lambda x: x != "", sources)
-    date_range = shared.get_date_range(dates)
-    # build the result for this chart config and add it to the result
-    cc_result = {
-        'date': date_range,
-        'data': data_dict,
-        'numDataPoints': len(data_dict.values()),
-        # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
-        'exploreUrl': explore_url,
-        'sources': sorted(list(sources))
-    }
-    result[sv] = cc_result
+  # build the exploreUrl
+  # TODO: webdriver test to test that the right choropleth loads
+  is_scaled = (('relatedChart' in cc and cc['relatedChart'].get('scale', False))
+               or ('denominator' in cc))
+  url_anchor = '&pd={}&ept={}&sv={}'.format(dcid, display_level, sv)
+  if is_scaled:
+    url_anchor += "&pc=1"
+  explore_url = urllib.parse.unquote(url_for('tools.map', _anchor=url_anchor))
+  # process the set of sources and set of dates collected for this chart
+  # config
+  sources = filter(lambda x: x != "", sources)
+  date_range = shared.get_date_range(dates)
+  # build the result for this chart config and add it to the result
+  result = {
+      'date': date_range,
+      'data': data_dict,
+      'numDataPoints': len(data_dict.values()),
+      # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
+      'exploreUrl': explore_url,
+      'sources': sorted(list(sources))
+  }
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 

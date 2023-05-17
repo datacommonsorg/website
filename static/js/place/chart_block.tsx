@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,12 @@ import _ from "lodash";
 import React from "react";
 import { defineMessages } from "react-intl";
 
-import {
-  CachedChoroplethData,
-  CachedRankingChartData,
-  ChartBlockData,
-  chartTypeEnum,
-  GeoJsonData,
-} from "../chart/types";
+import { ChartBlockData, chartTypeEnum } from "../chart/types";
 import { intl, localizeSearchParams } from "../i18n/i18n";
 import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
+import { shouldMakeChoroplethCalls } from "./fetch";
 import {
   displayNameForPlaceType,
   USA_PLACE_TYPES_WITH_CHOROPLETH,
@@ -60,14 +55,6 @@ interface ChartBlockPropType {
    */
   isUsaPlace: boolean;
   /**
-   * Promise for Geojson data for choropleth for current dcid.
-   */
-  geoJsonData: Promise<GeoJsonData>;
-  /**
-   * Promise for Values of statvar/denominator combinations for choropleth for current dcid
-   */
-  choroplethData: Promise<CachedChoroplethData>;
-  /**
    * Place type for the list of child places used for contained charts
    */
   childPlaceType: string;
@@ -80,16 +67,12 @@ interface ChartBlockPropType {
    */
   category: string;
   /**
-   * Promise for ranking chart data for current dcid.
-   */
-  rankingChartData: Promise<CachedRankingChartData>;
-  /**
    * The locale of the page
    */
   locale: string;
 }
 
-class ChartBlock extends React.Component<ChartBlockPropType> {
+export class ChartBlock extends React.Component<ChartBlockPropType> {
   parentPlaceDcid: string;
   parentCountry: string;
   displayPlaceName: string;
@@ -98,9 +81,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
   constructor(props: ChartBlockPropType) {
     super(props);
 
-    this.parentPlaceDcid = this.props.parentPlaces.length
-      ? this.props.parentPlaces[0]
-      : "";
     this.parentCountry = "";
     for (const place of this.props.parentPlaces) {
       if (place.startsWith("country/")) {
@@ -120,6 +100,11 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth.",
         })
       : this.props.placeName;
+    this.parentPlaceDcid = this.props.parentPlaces.length
+      ? this.props.parentPlaces[0]
+      : isEarth
+      ? "Earth"
+      : "";
     this.rankingPlaceType = isEarth ? "Country" : this.props.placeType;
     this.displayDataTitle = this.props.data.title;
   }
@@ -224,16 +209,18 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         : this.displayDataTitle;
 
     const sharedProps = {
+      // TODO: remove all the fields that already belong to spec.
+      spec: this.props.data,
       dcid: this.props.dcid,
-      unit: unit,
+      unit,
       names: this.props.names,
-      scaling: scaling,
+      scaling,
       statsVars: this.props.data.statsVars,
       category: this.props.category,
       isUsaPlace: this.props.isUsaPlace,
     };
     const barChartSharedProps = {
-      chartType: chartType,
+      chartType,
       ...sharedProps,
     };
     const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
@@ -275,8 +262,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             id={id}
             chartType={chartTypeEnum.CHOROPLETH}
             title={choroplethTitle}
-            geoJsonData={this.props.geoJsonData}
-            choroplethData={this.props.choroplethData}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.props.dcid}${rankingArg}`}
             {...sharedProps}
           ></Chart>
@@ -431,10 +416,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           );
         }
       }
-      if (
+      const drawChoropleth =
         !!this.props.data.isChoropleth &&
-        (this.props.isUsaPlace || isEarth)
-      ) {
+        shouldMakeChoroplethCalls(this.props.dcid, this.props.placeType);
+      if (drawChoropleth) {
         const id = randDomId();
         chartElements.push(
           <Chart
@@ -442,8 +427,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             id={id}
             chartType={chartTypeEnum.CHOROPLETH}
             title={choroplethTitle}
-            geoJsonData={this.props.geoJsonData}
-            choroplethData={this.props.choroplethData}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.props.dcid}${rankingArg}`}
             {...sharedProps}
           ></Chart>
@@ -472,7 +455,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
                 variable: this.displayDataTitle,
               }
             )}
-            rankingChartData={this.props.rankingChartData}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
             // Ranking chart ignores the related chart config for now.
             unit={this.props.data.unit}
@@ -481,6 +463,8 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             statsVars={this.props.data.statsVars}
             category={this.props.category}
             isUsaPlace={this.props.isUsaPlace}
+            rankingPlaceType={this.rankingPlaceType}
+            parentPlaceDcid={this.parentPlaceDcid}
           ></Chart>
         );
       }
@@ -488,5 +472,3 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     return <>{chartElements}</>;
   }
 }
-
-export { ChartBlock };

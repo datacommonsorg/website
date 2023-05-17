@@ -365,9 +365,10 @@ export const TopEventTile = memo(function TopEventTile(
     });
     embedModalElement.current.show(
       "",
-      rankingPointsToCsv(rankingPoints),
+      rankingPointsToCsv(rankingPoints, ["data"]),
       chartContainer.current.offsetWidth,
       0,
+      "",
       "",
       "",
       []

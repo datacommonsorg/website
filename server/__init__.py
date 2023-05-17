@@ -25,6 +25,7 @@ from flask import g
 from flask import redirect
 from flask import request
 from flask_babel import Babel
+import flask_cors
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
@@ -98,15 +99,12 @@ def register_routes_custom_dc(app):
 
 
 def register_routes_disasters(app):
-  # Install blueprints specific to Stanford DC
+  # Install blueprints specific to disasters
   from server.routes.disaster import html as disaster_html
   app.register_blueprint(disaster_html.bp)
 
   from server.routes.event import html as event_html
   app.register_blueprint(event_html.bp)
-
-  from server.routes.sustainability import html as sustainability_html
-  app.register_blueprint(sustainability_html.bp)
 
   from server.routes.disaster import api as disaster_api
   app.register_blueprint(disaster_api.bp)
@@ -118,9 +116,6 @@ def register_routes_disasters(app):
   app.config[
       'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
   app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
-  app.config[
-      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
-      )
 
   if app.config['INTEGRATION']:
     return
@@ -130,6 +125,18 @@ def register_routes_disasters(app):
     disaster_dashboard_data = get_disaster_dashboard_data(
         app.config['GCS_BUCKET'])
     app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+
+
+def register_routes_sustainability(app):
+  # Install blueprint for sustainability page
+  from server.routes.sustainability import html as sustainability_html
+  app.register_blueprint(sustainability_html.bp)
+  if app.config['TEST']:
+    return
+  # load sustainability config
+  app.config[
+      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+      )
 
 
 def register_routes_admin(app):
@@ -178,6 +185,9 @@ def register_routes_common(app):
   from server.routes.translator import api as translator_api
   app.register_blueprint(translator_api.bp)
 
+  from server.routes.nl import api as nl_api
+  app.register_blueprint(nl_api.bp)
+
   from server.routes.shared_api import choropleth as shared_choropleth
   app.register_blueprint(shared_choropleth.bp)
 
@@ -219,19 +229,6 @@ def register_routes_common(app):
 def create_app():
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
-  if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
-    createMiddleWare(app, StackdriverExporter())
-    import googlecloudprofiler
-
-    # Profiler initialization. It starts a daemon thread which continuously
-    # collects and uploads profiles. Best done as early as possible.
-    try:
-      # service and service_version can be automatically inferred when
-      # running on GCP.
-      googlecloudprofiler.start(verbose=3)
-    except (ValueError, NotImplementedError) as exc:
-      logging.error(exc)
-
   # Setup flask config
   cfg = libconfig.get_config()
   app.config.from_object(cfg)
@@ -256,10 +253,11 @@ def create_app():
     register_routes_custom_dc(app)
 
   register_routes_base_dc(app)
-  if (cfg.ENV == 'stanford' or os.environ.get('ENABLE_MODEL') == 'true' or
-      cfg.TEST or cfg.INTEGRATION or cfg.LOCAL and not cfg.LITE):
-    # disaster dashboard tests require stanford's routes to be registered.
+  if cfg.SHOW_DISASTER or os.environ.get('ENABLE_MODEL') == 'true':
     register_routes_disasters(app)
+
+  if cfg.SHOW_SUSTAINABILITY:
+    register_routes_sustainability(app)
 
   if cfg.ADMIN:
     register_routes_admin(app)
@@ -414,4 +412,5 @@ def create_app():
   else:
     app.jinja_env.globals['BASE_HTML'] = 'base.html'
 
+  flask_cors.CORS(app)
   return app

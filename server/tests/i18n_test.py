@@ -40,13 +40,6 @@ class TestHlParamSelection(unittest.TestCase):
       assert (g.locale == 'ru')
       assert (g.locale_choices == ['ru', 'en'])
 
-  @patch('server.lib.i18n.AVAILABLE_LANGUAGES', ['en', 'pt-br', 'pt'])
-  def test_complex_hl(self):
-    with app.test_client() as c:
-      c.get('/?hl=pt-BR')
-      assert (g.locale == 'pt-br')
-      assert (g.locale_choices == ['pt-br', 'pt', 'en'])
-
   def test_fallback_hl(self):
     with app.test_client() as c:
       c.get('/?hl=foobar')

@@ -9,16 +9,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
                     ],
-                    "title": "GDP of the Professional, Scientific, and Technical Services Industry in Counties of United States (${date})",
+                    "title": "GDP of Other Services, Except Public Administration Industry in Counties of United States (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_pc"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc"
                     ],
-                    "title": "Per Capita GDP of the Professional, Scientific, and Technical Services Industry in Counties of United States (${date})",
+                    "title": "Per Capita GDP of Other Services, Except Public Administration Industry in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -41,6 +41,28 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_pc"
                     ],
                     "title": "Per Capita GDP of the Information Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
+                    ],
+                    "title": "GDP of the Professional, Scientific, and Technical Services Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_pc"
+                    ],
+                    "title": "Per Capita GDP of the Professional, Scientific, and Technical Services Industry in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -134,6 +156,28 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
+                    ],
+                    "title": "GDP of the Wholesale Trade Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_pc"
+                    ],
+                    "title": "Per Capita GDP of the Wholesale Trade Industry in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
@@ -173,6 +217,15 @@
             "name": "GDP of the Information Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
           },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue": {
+            "name": "GDP of Other Services, Except Public Administration Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc": {
+            "denom": "Count_Person",
+            "name": "GDP of Other Services, Except Public Administration Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
+          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": {
             "name": "GDP of the Professional, Scientific, and Technical Services Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
@@ -190,6 +243,15 @@
             "denom": "Count_Person",
             "name": "GDP of the Utilities Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue": {
+            "name": "GDP of the Wholesale Trade Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_pc": {
+            "denom": "Count_Person",
+            "name": "GDP of the Wholesale Trade Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
           }
         }
       }

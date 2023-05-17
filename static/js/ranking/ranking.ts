@@ -22,7 +22,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../i18n/i18n";
-import { Page } from "./ranking_page";
+import { Page, RankingPagePropType } from "./ranking_page";
+
+export const renderRankingComponent = (
+  element: HTMLElement,
+  props: RankingPagePropType
+): void => {
+  ReactDOM.render(React.createElement(Page, props), element);
+};
 
 window.onload = () => {
   const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;
@@ -43,18 +50,15 @@ window.onload = () => {
     import(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
     import(`../i18n/compiled-lang/${locale}/units.json`),
   ]).then(() => {
-    ReactDOM.render(
-      React.createElement(Page, {
-        placeName,
-        placeType,
-        withinPlace,
-        statVar,
-        isPerCapita,
-        unit,
-        scaling,
-        date,
-      }),
-      document.getElementById("main-pane")
-    );
+    renderRankingComponent(document.getElementById("main-pane"), {
+      placeName,
+      placeType,
+      withinPlace,
+      statVar,
+      isPerCapita,
+      unit,
+      scaling,
+      date,
+    });
   });
 };

@@ -212,7 +212,7 @@ export class GoogleMap extends React.Component<
       const geoJson = geoJsonFromGeometry(this.props.geoJsonGeometry);
       this.setState({
         shouldShowMap: true,
-        geoJson: geoJson,
+        geoJson,
       });
     } else if (this.props.latLong) {
       const coordinates = {
@@ -276,24 +276,21 @@ export class GoogleMap extends React.Component<
         // Update state with mapInfo
         if (!_.isEmpty(mapInfo)) {
           this.setState({
-            mapInfo: mapInfo,
+            mapInfo,
             shouldShowMap: true,
           });
         }
 
         // Update state with lat/long if both are present
-        if (
-          !_.isEmpty(latitudes) &&
-          !_.isEmpty(longitudes) &&
-          _.isNumber(latitudes[0].value) &&
-          _.isNumber(longitudes[0].value)
-        ) {
+        if (!_.isEmpty(latitudes) && !_.isEmpty(longitudes)) {
+          const lat = parseFloat(latitudes[0].value);
+          const lng = parseFloat(longitudes[0].value);
+          if (Number.isNaN(lat) || Number.isNaN(lng)) {
+            return;
+          }
           // TODO (juliawu): Update logic to use highest precision lat/long if
           //                multiple values are provided
-          const coordinates = {
-            lat: parseFloat(latitudes[0].value),
-            lng: parseFloat(longitudes[0].value),
-          };
+          const coordinates = { lat, lng };
           this.setState({
             markerLocation: coordinates,
             shouldShowMap: true,

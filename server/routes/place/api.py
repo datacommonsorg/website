@@ -26,7 +26,6 @@ import urllib.parse
 
 from flask import Blueprint
 from flask import current_app
-from flask import g
 from flask import request
 from flask import Response
 from flask import url_for

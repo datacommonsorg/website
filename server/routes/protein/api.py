@@ -17,9 +17,9 @@ import json
 import logging
 
 from flask import Blueprint
-from flask import escape
 from flask import request
 from flask import Response
+from markupsafe import escape
 
 from server.cache import cache
 from server.lib import fetch

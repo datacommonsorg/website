@@ -31,16 +31,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
+                      "Count_CriminalActivities_PropertyCrime"
                     ],
-                    "title": "Larceny Theft Cases in California",
+                    "title": "Property Related Crimes in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft_pc"
+                      "Count_CriminalActivities_PropertyCrime_pc"
                     ],
-                    "title": "Per Capita Larceny Theft Cases in California",
+                    "title": "Per Capita Property Related Crimes in California",
                     "type": "LINE"
                   }
                 ]
@@ -84,6 +84,50 @@
                     ],
                     "title": "Per Capita Compared with Other Variables in California (${date})",
                     "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery_pc"
+                    ],
+                    "title": "Per Capita Robberies in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft_pc"
+                    ],
+                    "title": "Per Capita Larceny Theft Cases in California",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -139,28 +183,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_Robbery"
-                    ],
-                    "title": "Robberies in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_Robbery_pc"
-                    ],
-                    "title": "Per Capita Robberies in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime"
                     ],
                     "title": "Violent Crimes in California",
@@ -193,28 +215,6 @@
                       "Count_CriminalActivities_ForcibleRape_pc"
                     ],
                     "title": "Per Capita Forcible Rapes in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime"
-                    ],
-                    "title": "Property Related Crimes in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime_pc"
-                    ],
-                    "title": "Per Capita Property Related Crimes in California",
                     "type": "LINE"
                   }
                 ]

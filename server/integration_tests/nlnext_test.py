@@ -15,7 +15,6 @@ import json
 import logging
 import multiprocessing
 import os
-import sys
 
 from flask_testing import LiveServerTestCase
 import requests
@@ -23,14 +22,6 @@ import requests
 from nl_server.__init__ import create_app as create_nl_app
 from server.__init__ import create_app as create_web_app
 import server.lib.util as libutil
-
-# Explicitly set multiprocessing start method to 'fork' so tests work with
-# python3.8+ on MacOS.
-# https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
-# This code must only be run once per execution.
-if sys.version_info >= (3, 8) and sys.platform == "darwin":
-  multiprocessing.set_start_method("fork")
-  os.environ['no_proxy'] = '*'
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -70,7 +61,7 @@ class IntegrationTest(LiveServerTestCase):
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
-      resp = requests.post(self.get_server_url() + f'/nl/data?q={q}',
+      resp = requests.post(self.get_server_url() + f'/api/nl/data?q={q}',
                            json={
                                'contextHistory': ctx
                            }).json()

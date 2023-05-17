@@ -18,11 +18,11 @@ import React from "react";
 
 import { intl, LocalizedLink, translateUnit } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
+import { randDomId } from "../shared/util";
 import { RankInfo, Ranking } from "./ranking_types";
 
 interface RankingTablePropType {
   ranking: Ranking;
-  id: string;
   placeType: string;
   sortAscending: boolean;
   scaling: number;
@@ -85,7 +85,7 @@ class RankingTable extends React.Component<RankingTablePropType> {
 
   render(): JSX.Element {
     return (
-      <table key={this.props.id} className="table mt-3">
+      <table key={randDomId()} className="table mt-3">
         <thead>
           <tr>
             <th scope="col">

@@ -2,20 +2,26 @@
   "compilerOptions": {
     "plugins": [
       {
-        "name": "typescript-tslint-plugin",
+        "name": "typescript-tslint-plugin"
       }
     ],
-    "lib": ["ES2021"],
+    "lib": ["dom", "ES2021"],
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "ESNext",
+    "module": "CommonJS",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "./**/*.test.ts",
+    "./**/*.test.tsx",
+    "./**/mock_functions.ts",
+    "./**/mock_functions.tsx"
+  ]
 }

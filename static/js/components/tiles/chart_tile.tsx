@@ -23,7 +23,11 @@ import React, { useRef } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
-import { formatString, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  formatString,
+  getMergedSvg,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 import { ChartFooter } from "./chart_footer";
 
 interface ChartTileContainerProp {
@@ -81,22 +85,13 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)
       : "";
-    const svgElemList = containerRef.current.getElementsByTagName("svg");
-    const svgElem = svgElemList.length ? svgElemList.item(0) : null;
-    let svgXml = "";
-    let svgWidth = 0;
-    let svgHeight = 0;
-    if (svgElem) {
-      svgXml = svgElem.outerHTML;
-      const svgBBox = svgElem.getBBox();
-      svgWidth = svgBBox.width;
-      svgHeight = svgBBox.height;
-    }
+    const { svgXml, height, width } = getMergedSvg(containerRef.current);
     embedModalElement.current.show(
       svgXml,
       props.getDataCsv ? props.getDataCsv() : "",
-      svgWidth || containerRef.current.offsetWidth,
-      svgHeight,
+      width,
+      height,
+      "",
       chartTitle,
       "",
       Array.from(props.sources)

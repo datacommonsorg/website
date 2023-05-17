@@ -35,6 +35,12 @@ class Config:
   # Eanbling this to "True" requires adding "bigtable/user" acccess for the
   # service account in datcom-store IAM settings
   LOG_QUERY = False
+  # Whether to show topic page
+  SHOW_TOPIC = False
+  # Whether to show disaster page
+  SHOW_DISASTER = True
+  # Whether to show sustainability page
+  SHOW_SUSTAINABILITY = False
 
   # Environment name of the config.
   ENV = ''

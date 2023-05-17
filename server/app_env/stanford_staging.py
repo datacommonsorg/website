@@ -19,3 +19,4 @@ class Config(_base.Config):
   CUSTOM = True
   NAME = "Google Stanford Data Commons (Staging)"
   GCS_BUCKET = 'datcom-stanford-staging-resources'
+  SHOW_SUSTAINABILITY = True

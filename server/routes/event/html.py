@@ -22,9 +22,9 @@ from typing import Dict, List
 from flask import abort
 from flask import Blueprint
 from flask import current_app
-from flask import escape
 from flask import render_template
 from google.protobuf.json_format import MessageToJson
+from markupsafe import escape
 
 from server.cache import cache
 from server.lib import fetch
@@ -118,11 +118,10 @@ def get_places(properties) -> Dict[str, List[str]]:
           'latitude': latitude,
           'longitude': longitude,
       }]
-      place_coordinates = dc.resolve_coordinates(coordinates).get(
-          "placeCoordinates", coordinates)
+      place_coordinates = fetch.resolve_coordinates(coordinates)
       dcids_to_get_type = set()
-      for place_coord in place_coordinates:
-        dcids_to_get_type.update(place_coord.get('placeDcids', []))
+      for _, place_dcids in place_coordinates.items():
+        dcids_to_get_type.update(place_dcids)
       place_types = fetch.property_values(list(dcids_to_get_type), 'typeOf')
       return place_types
 
@@ -143,12 +142,6 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
 @bp.route('/<path:dcid>', strict_slashes=False)
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def event_node(dcid=DEFAULT_EVENT_DCID):
-  if not os.environ.get('FLASK_ENV') in [
-      'autopush', 'local', 'dev', 'stanford', 'local-stanford',
-      'stanford-staging'
-  ]:
-    abort(404)
-
   # Get node properties
   node_name = escape(dcid)
   properties = {}

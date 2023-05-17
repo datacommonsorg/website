@@ -162,6 +162,7 @@ export function App(): JSX.Element {
         query={q}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
+        showData={false}
       ></QueryResult>
     );
   });

@@ -59,12 +59,12 @@ def point_within():
 
   This returns the observation for the preferred facet.
   """
-  parent_entity = request.args.get('parent_entity')
+  parent_entity = request.args.get('parentEntity')
   if not parent_entity:
-    return 'error: must provide a `parent_entity` field', 400
-  child_type = request.args.get('child_type')
+    return 'error: must provide a `parentEntity` field', 400
+  child_type = request.args.get('childType')
   if not child_type:
-    return 'error: must provide a `child_type` field', 400
+    return 'error: must provide a `childType` field', 400
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
@@ -82,12 +82,12 @@ def point_within_all():
 
   This returns the observation for all facets.
   """
-  parent_entity = request.args.get('parent_entity')
+  parent_entity = request.args.get('parentEntity')
   if not parent_entity:
-    return 'error: must provide a `parent_entity` field', 400
-  child_type = request.args.get('child_type')
+    return 'error: must provide a `parentEntity` field', 400
+  child_type = request.args.get('childType')
   if not child_type:
-    return 'error: must provide a `child_type` field', 400
+    return 'error: must provide a `childType` field', 400
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400

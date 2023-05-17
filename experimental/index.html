@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <style>
+      .flex-container {
+        display: flex;
+      }
+      .flex-child {
+        flex: 1; /* This makes each child div take up an equal amount of space */
+      }
+      #my-component-1 {
+        background-color: #ddd;
+      }
+      #my-component-2 {
+        background-color: #bbb;
+      }
+    </style>
+    <script src="../server/dist/datacommons.js"></script>
+    <script>
+      window.onload = () => {
+        var element1 = document.getElementById("my-component-1");
+        var element2 = document.getElementById("my-component-2");
+        var props1 = {
+          placeName: "USA",
+          placeType: "State",
+          withinPlace: "country/USA",
+          statVar: "Count_Person",
+          isPerCapita: false,
+          scaling: 1,
+          unit: "",
+          date: "2020",
+        };
+        var props2 = {
+          placeName: "California",
+          placeType: "County",
+          withinPlace: "geoId/06",
+          statVar: "Count_Person",
+          isPerCapita: false,
+          scaling: 1,
+          unit: "",
+          date: "2018",
+        };
+        datacommons.drawRanking(element1, props1);
+        datacommons.drawRanking(element2, props2);
+      };
+    </script>
+    <link rel="stylesheet" href="../server/dist/css/ranking.min.css" />
+  </head>
+  <body>
+    <div>
+      <h1>Some Content!!</h1>
+    </div>
+    <div class="flex-container">
+      <div id="my-component-1" class="flex-child"></div>
+      <div id="my-component-2" class="flex-child"></div>
+    </div>
+  </body>
+</html>

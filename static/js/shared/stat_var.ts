@@ -63,7 +63,7 @@ async function getStatVar(
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
-  const resp = await axios.post("/api/place/stat-vars/union", {
+  const resp = await axios.post("/api/place/variable", {
     dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
   });
   return new Set<string>(resp.data);

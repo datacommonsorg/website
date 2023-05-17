@@ -149,7 +149,7 @@ function getMorePlaces(
     const res: NamedTypedPlace[] = [];
     for (const dcid in placeNames)
       res.push({
-        dcid: dcid,
+        dcid,
         name: placeNames[dcid],
         types: [],
       });
