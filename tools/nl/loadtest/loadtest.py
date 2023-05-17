@@ -14,10 +14,10 @@
 
 import csv
 import json
-import requests
 
 from absl import app
 from absl import flags
+import requests
 
 FLAGS = flags.FLAGS
 
