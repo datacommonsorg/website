@@ -301,7 +301,11 @@ def scrape(query, driver):
       chart = {}
 
       # Get title.
-      chart['title'] = chart_container.find_element(By.TAG_NAME, 'h4').text
+      headings = chart_container.find_elements(By.TAG_NAME, 'h4')
+      if not headings:
+        # Place overview won't have h4
+        continue
+      chart['title'] = headings[0].text
 
       # Get sources.
       chart['srcs'] = []
