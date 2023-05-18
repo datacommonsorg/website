@@ -92,6 +92,9 @@ def register_routes_base_dc(app):
   from server.routes.import_detection import detection as detection_api
   app.register_blueprint(detection_api.bp)
 
+  from server.routes.disaster import api as disaster_api
+  app.register_blueprint(disaster_api.bp)
+
 
 def register_routes_custom_dc(app):
   ## apply the blueprints for custom dc instances
@@ -105,9 +108,6 @@ def register_routes_disasters(app):
 
   from server.routes.event import html as event_html
   app.register_blueprint(event_html.bp)
-
-  from server.routes.disaster import api as disaster_api
-  app.register_blueprint(disaster_api.bp)
 
   if app.config['TEST']:
     return
@@ -253,7 +253,7 @@ def create_app():
     register_routes_custom_dc(app)
 
   register_routes_base_dc(app)
-  if cfg.SHOW_DISASTER or os.environ.get('ENABLE_MODEL') == 'true':
+  if cfg.SHOW_DISASTER:
     register_routes_disasters(app)
 
   if cfg.SHOW_SUSTAINABILITY:

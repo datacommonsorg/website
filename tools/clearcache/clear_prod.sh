@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
-
-
-class Config(_base.Config):
-  LOCAL = True
-  API_ROOT = 'https://autopush.api.datacommons.org'
-  SECRET_PROJECT = 'datcom-website-dev'
-  SCHEME = 'http'
-  GCS_BUCKET = 'datcom-website-autopush-resources'
-  LOG_QUERY = True
-  SHOW_TOPIC = True
-  SHOW_SUSTAINABILITY = True
+./run.sh datcom-website-prod website-us-central1 us-central1
+./run.sh datcom-website-prod website-us-west1 us-west1
