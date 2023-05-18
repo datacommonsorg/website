@@ -311,8 +311,7 @@ class Context:
 def main(_):
   assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
 
-  assert os.path.exists(os.path.join('sheets'))
-  assert os.path.exists(os.path.join('csv'))
+  assert os.path.exists(os.path.join('data'))
 
   local_merged_filepath = 'data/preindex/sv_descriptions.csv'
 
