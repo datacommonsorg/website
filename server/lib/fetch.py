@@ -401,7 +401,7 @@ def resolve_id(nodes, in_prop, out_prop):
   """
   resp = dc.resolve(nodes, '<-{}->{}'.format(in_prop, out_prop))
   result = {}
-  for entity in resp.get('entities'):
+  for entity in resp.get('entities', []):
     result[entity['node']] = entity['resolvedIds']
   return result
 
