@@ -7,7 +7,7 @@ is loaded into the NL Server in Website.
 ## Latest Embeddings Google Sheet
 
 Latest sheet as of May 2023 is
-[`DC_NL_SVs_Curated`](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU).
+[`DC_NL_SVs_Curated`](https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU)).
 
 ## Making a change to the embeddings.
 
@@ -19,12 +19,12 @@ Latest sheet as of May 2023 is
 * `Override_Alternatives`: if this column has any value in a row, all other columns are ignored. Multiple strings are acceptable for this column. If multiple strings are provided, they must be semi-colon delimited.
 * `Curated_Alternatives`: a semi-colon delimited list of strings which can serve as alternative ways of referring to the StatVar.
 
-2. Ensure any updated alternatives, i.e. PaLM alternatives, Other alternatives, are available as csv files: [`palm_alternatives.csv`](data/alternatives/palm_alternatives.csv), [`other_alternatives.csv`](data/alternatives/other_alternatives.csv). The columns in these CSV files are: `dcid`, `Alternatives`. These files are expected to be updated using (currently) separate processes.
+2. Ensure any updated alternatives, i.e. PaLM alternatives, Other alternatives, are available as csv files: [`palm_alternatives.csv`](csv/palm_alternatives.csv), [`other_alternatives.csv`](csv/other_alternatives.csv). The columns in these CSV files are: `dcid`, `Alternatives`. These files are expected to be updated using (currently) separate processes.
 
 3. Run the command below which will both generate a new embeddings csv in
    `gs://datcom-nl-models`, as well as update the corresponding csv under
-   [`data/curated_input/`](data/curated_input/).  Note down the embeddings
-   file version printed at the end of the run.
+   [sheets/](sheets/).  Note down the embeddings file version printed at
+   the end of the run.
 
     ```bash
     ./run.sh
