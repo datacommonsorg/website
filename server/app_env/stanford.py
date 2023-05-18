@@ -20,7 +20,6 @@ class Config(_base.Config):
   CUSTOM = True
   NAME = "Google Stanford Data Commons"
   GCS_BUCKET = 'datcom-stanford-resources'
-  SHOW_SUSTAINABILITY = True
 
 
 class LocalConfig(Config, local.Config):

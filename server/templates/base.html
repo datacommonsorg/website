@@ -105,7 +105,12 @@ content - main page content
                   <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+                  {% if config['SHOW_DISASTER'] %}
+                    <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+                  {% endif %}
+                  {% if config['SHOW_SUSTAINABILITY'] %}
+                    <a class="dropdown-item" href="{{ url_for('sustainability.sustainability_explorer') }}">Sustainability Explorer</a>
+                  {% endif %}
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -177,8 +182,14 @@ content - main page content
             <a href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool that allows users to download data. #}
             <a href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-            {# TRANSLATORS: The name of a dashboard that shows information about natural disasters. #}
-            <a href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+            {# TRANSLATORS: The name of a dashboard that shows information about
+            natural disasters. #}
+            {% if config['SHOW_DISASTER'] %}
+              <a href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+            {% endif %}
+            {% if config['SHOW_SUSTAINABILITY'] %}
+              <a href="{{ url_for('sustainability.sustainability_explorer') }}">{% trans %}Sustainability Explorer{% endtrans %}</a>
+            {% endif %}
           </section>
           <section class="col-12 col-sm-6 col-md-4">
             {# TRANSLATORS: The label for a list of documentation links. #}
