@@ -121,9 +121,6 @@ class ContainedInPlaceType(str, Enum):
   ELEMENTARY_SCHOOL = "ElementarySchool"
   MIDDLE_SCHOOL = "MiddleSchool"
   HIGH_SCHOOL = "HighSchool"
-  COUNTY_DIVISION = "CensusCountyDivision"
-
-  ADMIN_AREA = "AdministrativeArea"
 
   # NOTE: This is a type that State/Province may get remapped to.
   ADMIN_AREA_1 = "AdministrativeArea1"
@@ -132,7 +129,6 @@ class ContainedInPlaceType(str, Enum):
   ADMIN_AREA_3 = "AdministrativeArea3"
 
   # Typically corresponds to state equivalent
-  EU_NUTS_1 = "EurostatNUTS1"
   EU_NUTS_2 = "EurostatNUTS2"
   # Typically corresponds to county equivalent
   EU_NUTS_3 = "EurostatNUTS3"
