@@ -607,12 +607,16 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
   sv_key_pair = [sv_pair[0] + '_scatter', sv_pair[1] + '_scatter']
 
   change_to_pc = [False, False]
-  if _is_sv_percapita(sv_names[0]):
-    if not _is_sv_percapita(sv_names[1]):
+  is_sv_pc = [
+      _is_sv_percapita(sv_names[0], sv_pair[0]),
+      _is_sv_percapita(sv_names[1], sv_pair[1])
+  ]
+  if is_sv_pc[0]:
+    if not is_sv_pc[1]:
       change_to_pc[1] = True
       sv_names[1] += " Per Capita"
-  if _is_sv_percapita(sv_names[1]):
-    if not _is_sv_percapita(sv_names[0]):
+  if is_sv_pc[1]:
+    if not is_sv_pc[0]:
       change_to_pc[0] = True
       sv_names[0] += " Per Capita"
 
@@ -786,8 +790,11 @@ def _decorate_chart_title(title: str,
   return title
 
 
-def _is_sv_percapita(sv_name: str) -> bool:
-  # Use names for these since some old prevalence dcid's do not use the new naming scheme.
-  if "Percentage" in sv_name or "Prevalence" in sv_name:
-    return True
+def _is_sv_percapita(sv_name: str, sv_dcid: str) -> bool:
+  # Check both names and dcids because per capita indicating word may be in one
+  # or the other.
+  for per_capita_indicator in ["Percent", "Prevalence"]:
+    for sv_string in [sv_name, sv_dcid]:
+      if per_capita_indicator in sv_string:
+        return True
   return False
