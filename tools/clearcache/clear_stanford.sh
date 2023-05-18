@@ -1,4 +1,5 @@
-# Copyright 2021 Google LLC
+#!/bin/bash
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,13 +13,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import redis
-
-redis_hosts = ['10.167.58.139', '10.158.101.59']
-redis_port = 6379
-
-
-def clear_cache(request):
-  for host in redis_hosts:
-    redis_client = redis.StrictRedis(host=host, port=redis_port)
-    redis_client.flushall(asynchronous=True)
+./run.sh datcom-stanford website-us-central1 us-central1
