@@ -56,8 +56,6 @@ flags.DEFINE_string('alternatives_filepattern', 'data/alternatives/*.csv',
 # curated_input/ + autogen_input/ + alternatives/ => preindex/ => embeddings
 #
 
-_FILENAME_PREFIX = 'embeddings'
-
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'
 
@@ -189,7 +187,7 @@ def _validateEmbeddings(embeddings_df: pd.DataFrame,
   # Verify that embeddings were created for all DCIDs and Sentences.
   sentences = set()
   _extract_sentences(output_dcid_sentences_filepath, sentences)
-  for autogen_file in glob.glob(autogen_input_filepattern):
+  for autogen_file in sorted(glob.glob(autogen_input_filepattern)):
     _extract_sentences(autogen_file, sentences)
 
   # Verify that each of the texts in the embeddings_df is in the sentences set
@@ -283,7 +281,7 @@ def build(ctx, sheets_url: str, worksheet_name: str,
 
   # Append autogen CSVs if any.
   autogen_dfs = []
-  for autogen_csv in glob.glob(autogen_input_filepattern):
+  for autogen_csv in sorted(glob.glob(autogen_input_filepattern)):
     print(f'Processing autogen input file: {autogen_csv}')
     autogen_dfs.append(pd.read_csv(autogen_csv).fillna(""))
   if autogen_dfs:
@@ -291,7 +289,7 @@ def build(ctx, sheets_url: str, worksheet_name: str,
     df_svs = df_svs.drop_duplicates(subset=DCID_COL)
 
   # Get alternatives and add to the dataframe.
-  for alt_fp in glob.glob(alternative_filepattern):
+  for alt_fp in sorted(glob.glob(alternative_filepattern)):
     df_alts = get_local_alternatives(alt_fp, [DCID_COL, CSV_ALTERNATIVES_COL])
     df_svs = _merge_dataframes(df_svs, df_alts)
 
