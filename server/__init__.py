@@ -253,7 +253,7 @@ def create_app():
     register_routes_custom_dc(app)
 
   register_routes_base_dc(app)
-  if cfg.SHOW_DISASTER or os.environ.get('ENABLE_MODEL') == 'true':
+  if cfg.SHOW_DISASTER:
     register_routes_disasters(app)
 
   if cfg.SHOW_SUSTAINABILITY:
