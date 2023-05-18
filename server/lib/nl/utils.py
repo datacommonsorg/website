@@ -800,8 +800,7 @@ def get_parent_place_type(
     place: detection.Place) -> detection.ContainedInPlaceType:
   # Canonicalize the type.
   ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, place_type)
-  ptype = constants.PARENT_PLACE_TYPES.get(
-      ptype, detection.ContainedInPlaceType.COUNTRY)
+  ptype = constants.PARENT_PLACE_TYPES.get(ptype, None)
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
   return ptype
