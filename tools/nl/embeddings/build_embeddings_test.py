@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import glob
 import os
 import tempfile
 import unittest
@@ -23,16 +24,16 @@ from sentence_transformers import SentenceTransformer
 
 
 def get_test_sv_data():
-  dcids = ["SV_1", "SV_2", "SV_3", "SV_4"]
-  names = ["name1", "name2", "name3", "name4"]
-  decriptions = ["desc1", "desc2", "desc3", "desc4"]
+  dcids = ["SV_1", "SV_2", "SV_3"]
+  names = ["name1", "name2", "name3"]
+  decriptions = ["desc1", "desc2", "desc3"]
 
   # SV_3 has an override which means that all other fields for SV_3 will
   # be ignored and only the override alternative(s) will be used.
-  overrides = ["", "", "override3", ""]
+  overrides = ["", "", "override3"]
 
   # SV_2 has a duplicate (abc2) which should be de-duped during processing.
-  curated = ["abc1;xyz1", "abc2;xyz2; abc2", "abc3;xyz3", "abc4;xyz4"]
+  curated = ["abc1;xyz1", "abc2;xyz2; abc2", "abc3;xyz3"]
 
   return pd.DataFrame.from_dict({
       "dcid": dcids,
@@ -94,18 +95,16 @@ class TestEndToEnd(unittest.TestCase):
 
     # Filepaths all correspond to the testdata folder.
     input_dir = "testdata/input"
-    input_other_alternatives_filepath = os.path.join(input_dir,
-                                                     "other_alternatives.csv")
-    input_palm_alternatives_filepath = os.path.join(input_dir,
-                                                    "palm_alternatives.csv")
+    input_alternatives_filepattern = os.path.join(input_dir,
+                                                  "*_alternatives.csv")
+    input_autogen_filepattern = os.path.join(input_dir, 'unknown_*.csv')
 
     with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
       tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
-      be.build(
-          ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
-          tmp_local_merged_filepath,
-          [input_other_alternatives_filepath, input_palm_alternatives_filepath])
+      be.build(ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
+               tmp_local_merged_filepath, input_autogen_filepattern,
+               input_alternatives_filepattern)
 
   def testSuccess(self):
 
@@ -126,10 +125,9 @@ class TestEndToEnd(unittest.TestCase):
     # Filepaths all correspond to the testdata folder.
     input_dir = "testdata/input"
     expected_dir = "testdata/expected"
-    input_other_alternatives_filepath = os.path.join(input_dir,
-                                                     "other_alternatives.csv")
-    input_palm_alternatives_filepath = os.path.join(input_dir,
-                                                    "palm_alternatives.csv")
+    input_alternatives_filepattern = os.path.join(input_dir,
+                                                  "*_alternatives.csv")
+    input_autogen_filepattern = os.path.join(input_dir, "autogen_*.csv")
     expected_local_sheets_csv_filepath = os.path.join(expected_dir,
                                                       "sheets_data.csv")
     expected_local_merged_filepath = os.path.join(expected_dir,
@@ -143,10 +141,11 @@ class TestEndToEnd(unittest.TestCase):
       tmp_dcid_sentence_csv = os.path.join(tmp_dir,
                                            "final_dcid_sentences_csv.csv")
 
-      embeddings_df = be.build(
-          ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
-          tmp_local_merged_filepath,
-          [input_other_alternatives_filepath, input_palm_alternatives_filepath])
+      embeddings_df = be.build(ctx, sheets_url, worksheet_name,
+                               tmp_local_sheets_csv_filepath,
+                               tmp_local_merged_filepath,
+                               input_autogen_filepattern,
+                               input_alternatives_filepattern)
 
       # Write dcids, sentences to temp directory.
       embeddings_df[['dcid', 'sentence']].to_csv(tmp_dcid_sentence_csv)
@@ -164,18 +163,12 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
 
   def testInputFilesValidations(self):
     # Verify that the required files exist.
-    sheets_filepath = os.path.join("sheets", "dc_nl_svs_curated.csv")
-    input_other_alternatives_filepath = os.path.join("csv",
-                                                     "other_alternatives.csv")
-    input_palm_alternatives_filepath = os.path.join("csv",
-                                                    "palm_alternatives.csv")
-    output_dcid_sentences_filepath = os.path.join(
-        "csv", "embeddings_input_sv_descriptions.csv")
+    sheets_filepath = "data/curated_input/sheets_svs.csv"
+    input_alternatives_filepattern = "data/alternatives/*.csv"
+    output_dcid_sentences_filepath = "data/preindex/sv_descriptions.csv"
 
     # Check that all the files exist.
     self.assertTrue(os.path.exists(sheets_filepath))
-    self.assertTrue(os.path.exists(input_other_alternatives_filepath))
-    self.assertTrue(os.path.exists(input_palm_alternatives_filepath))
     self.assertTrue(os.path.exists(output_dcid_sentences_filepath))
 
     # Perform input file validations.
@@ -193,21 +186,16 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
     _validate_sentence_to_dcid_map(self, sheets_df, "dcid",
                                    sheets_sentence_cols)
 
-    palm_alts_df = pd.read_csv(input_palm_alternatives_filepath).fillna("")
-    other_alts_df = pd.read_csv(input_other_alternatives_filepath).fillna("")
     expected_cols = ["dcid", "Alternatives"]
     alt_sentence_cols = expected_cols[1:]
 
-    self.assertCountEqual(expected_cols, palm_alts_df.columns.values)
-    self.assertCountEqual(expected_cols, other_alts_df.columns.values)
-    _validate_sentence_to_dcid_map(self, palm_alts_df, "dcid",
-                                   alt_sentence_cols)
-    _validate_sentence_to_dcid_map(self, other_alts_df, "dcid",
-                                   alt_sentence_cols)
+    for alt_file in glob.glob(input_alternatives_filepattern):
+      alts_df = pd.read_csv(alt_file).fillna("")
+      self.assertCountEqual(expected_cols, alts_df.columns.values)
+      _validate_sentence_to_dcid_map(self, alts_df, "dcid", alt_sentence_cols)
 
   def testOutputFileValidations(self):
-    output_dcid_sentences_filepath = os.path.join(
-        "csv", "embeddings_input_sv_descriptions.csv")
+    output_dcid_sentences_filepath = "data/preindex/sv_descriptions.csv"
 
     dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
 
