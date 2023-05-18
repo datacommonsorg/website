@@ -508,6 +508,8 @@ def get_all_child_places(main_place_dcid: str, contained_place_type: str,
   results = []
   for _, nodes in resp.items():
     for node in nodes:
+      if not node.get('dcid') or not node.get('name'):
+        continue
       results.append(
           detection.Place(dcid=node['dcid'],
                           name=node['name'],
@@ -524,7 +526,7 @@ def get_immediate_parent_places(
   results = []
   nodes = resp.get(main_place_dcid, [])
   for node in nodes:
-    if 'dcid' not in node or 'name' not in node or 'types' not in node:
+    if not node.get('dcid') or not node.get('name') or not node.get('types'):
       continue
     if parent_place_type not in node['types']:
       continue

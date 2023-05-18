@@ -15,7 +15,7 @@
                       "Count_Person_15OrMoreYears_NoIncome_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Population of Working Age With No Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Population of Working Age With No Income Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -31,10 +31,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Person_IncomeOf10000To14999USDollar_scatter",
+                      "Income_Farm_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Population With an Income Between $10,000 and $14,999 (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Total Farm Income Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -50,10 +50,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Person_IncomeOf15000To24999USDollar_scatter",
+                      "Mean_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Population With an Income Between $15,000 and $24,999 (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Average Income for Households Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -69,10 +69,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Person_IncomeOf35000To49999USDollar_scatter",
+                      "Mean_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Population With an Income Between $35,000 and $49,999 (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Average Income for Family Households Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -88,10 +88,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Person_IncomeOf50000To64999USDollar_scatter",
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Population With an Income Between $50,000 and $64,999 (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Average Income for Married Couple Family Households Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -101,24 +101,34 @@
         ],
         "statVarSpec": {
           "Count_Person_15OrMoreYears_NoIncome_scatter": {
-            "name": "Population of Working Age With No Income",
-            "statVar": "Count_Person_15OrMoreYears_NoIncome"
+            "denom": "Count_Person",
+            "name": "Population of Working Age With No Income Per Capita",
+            "statVar": "Count_Person_15OrMoreYears_NoIncome",
+            "unit": "%"
           },
-          "Count_Person_IncomeOf10000To14999USDollar_scatter": {
-            "name": "Population With an Income Between $10,000 and $14,999",
-            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
+          "Income_Farm_scatter": {
+            "denom": "Count_Person",
+            "name": "Total Farm Income Per Capita",
+            "statVar": "Income_Farm",
+            "unit": "%"
           },
-          "Count_Person_IncomeOf15000To24999USDollar_scatter": {
-            "name": "Population With an Income Between $15,000 and $24,999",
-            "statVar": "Count_Person_IncomeOf15000To24999USDollar"
+          "Mean_Income_Household_FamilyHousehold_scatter": {
+            "denom": "Count_Person",
+            "name": "Average Income for Family Households Per Capita",
+            "statVar": "Mean_Income_Household_FamilyHousehold",
+            "unit": "%"
           },
-          "Count_Person_IncomeOf35000To49999USDollar_scatter": {
-            "name": "Population With an Income Between $35,000 and $49,999",
-            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold_scatter": {
+            "denom": "Count_Person",
+            "name": "Average Income for Married Couple Family Households Per Capita",
+            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+            "unit": "%"
           },
-          "Count_Person_IncomeOf50000To64999USDollar_scatter": {
-            "name": "Population With an Income Between $50,000 and $64,999",
-            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
+          "Mean_Income_Household_scatter": {
+            "denom": "Count_Person",
+            "name": "Average Income for Households Per Capita",
+            "statVar": "Mean_Income_Household",
+            "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_scatter": {
             "name": "High Bood Pressure",
