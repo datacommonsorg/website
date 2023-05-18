@@ -182,13 +182,15 @@ def _extract_sentences(filepath: str, sentences: set):
 
 
 def _validateEmbeddings(embeddings_df: pd.DataFrame,
-                        output_dcid_sentences_filepath: str,
-                        autogen_input_filepattern: str) -> None:
+                        output_dcid_sentences_filepath: str) -> None:
   # Verify that embeddings were created for all DCIDs and Sentences.
+  dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
   sentences = set()
-  _extract_sentences(output_dcid_sentences_filepath, sentences)
-  for autogen_file in sorted(glob.glob(autogen_input_filepattern)):
-    _extract_sentences(autogen_file, sentences)
+  for alts in dcid_sentence_df["sentence"].values:
+    for s in alts.split(";"):
+      if not s:
+        continue
+      sentences.add(s)
 
   # Verify that each of the texts in the embeddings_df is in the sentences set
   # and that all the sentences in the set are in the embeddings_df. Finally, also
@@ -338,8 +340,7 @@ def main(_):
 
   # Before uploading embeddings to GCS, validate them.
   print("Validating the built embeddings.")
-  _validateEmbeddings(embeddings_df, local_merged_filepath,
-                      FLAGS.autogen_input_filepattern)
+  _validateEmbeddings(embeddings_df, local_merged_filepath)
   print("Embeddings DataFrame is validated.")
 
   # Finally, upload to the NL embeddings server's GCS bucket
