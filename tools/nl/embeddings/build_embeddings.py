@@ -172,15 +172,6 @@ def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
   return embeddings
 
 
-def _extract_sentences(filepath: str, sentences: set):
-  dcid_sentence_df = pd.read_csv(filepath).fillna("")
-  for alts in dcid_sentence_df["sentence"].values:
-    for s in alts.split(";"):
-      if not s:
-        continue
-      sentences.add(s)
-
-
 def _validateEmbeddings(embeddings_df: pd.DataFrame,
                         output_dcid_sentences_filepath: str) -> None:
   # Verify that embeddings were created for all DCIDs and Sentences.
