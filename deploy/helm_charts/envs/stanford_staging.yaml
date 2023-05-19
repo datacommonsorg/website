@@ -28,8 +28,7 @@ website:
   replicas: 2
 
 mixer:
-  hostProject:
-  serviceName:
+  pinnedSvg: dc/g/Stanford
 
 serviceAccount:
   name: website-ksa

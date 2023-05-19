@@ -37,8 +37,7 @@ website:
       }
 
 mixer:
-  hostProject:
-  serviceName:
+  pinnedSvg: dc/g/Stanford
 
 serviceAccount:
   name: website-ksa
