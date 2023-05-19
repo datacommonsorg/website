@@ -20,13 +20,10 @@ from absl import flags
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('input_sv_csv', 'data/sv_schemaful.csv',
-                    'Input SV CSV file')
-flags.DEFINE_string('output_sv_csv', 'data/sv_trimmed.csv',
-                    'Output SV file')
-flags.DEFINE_string('output_dbg', 'data/sv_trimmed_dbg_info.json',
-                    'Debug json')
-flags.DEFINE_string('quantity_csv', 'data/sv_quantity_cvals.csv',
+flags.DEFINE_string('input_sv_csv', 'sv_schemaful.csv', 'Input SV CSV file')
+flags.DEFINE_string('output_sv_csv', 'sv_trimmed.csv', 'Output SV file')
+flags.DEFINE_string('output_dbg', 'sv_trimmed_dbg_info.json', 'Debug json')
+flags.DEFINE_string('quantity_csv', 'sv_quantity_cvals.csv',
                     'Quantity CSV file')
 
 _cval_count_map = {}
