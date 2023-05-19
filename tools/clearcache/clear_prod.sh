@@ -1,4 +1,5 @@
-# Copyright 2022 Google LLC
+#!/bin/bash
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,19 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
-from web_app import app
-
-
-class TestStaticPage(unittest.TestCase):
-
-  def test_import_wizard_static(self):
-    response = app.test_client().get('/import/')
-    assert response.status_code == 200
-    assert b"Import Wizard - Data Commons" in response.data
-
-  def test_import_wizard_static_new(self):
-    response = app.test_client().get('/import/old')
-    assert response.status_code == 200
-    assert b"Import Wizard - Data Commons" in response.data
+./run.sh datcom-website-prod website-us-central1 us-central1
+./run.sh datcom-website-prod website-us-west1 us-west1

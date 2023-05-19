@@ -22,14 +22,11 @@ from flask import render_template
 bp = Blueprint('import_wizard', __name__, url_prefix='/import')
 
 
-@bp.route('/')
+@bp.route('/old')
 def main():
   return render_template('/import_wizard.html')
 
 
-@bp.route('/new')
+@bp.route('/')
 def main_new():
-  if os.environ.get('FLASK_ENV') == 'production' or os.environ.get(
-      'FLASK_ENV') == 'staging':
-    flask.abort(404)
   return render_template('/import_wizard2.html')

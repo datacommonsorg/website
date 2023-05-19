@@ -1,12 +1,12 @@
 {#-
     Copyright 2022 Google LLC
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,21 +18,21 @@
     title: page title
     main_id: DOM Element ID for the main content block
     page_id: DOM Element ID for the html element
-    
+
     Optional variables:
     is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
     is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
     subpage_title: string, if specified, will be displayed in the header next to Data Commons
     locale: string, value for html lang attr
-    
+
     Blocks to override:
     head - additional head elements
     content - main page content
     -#}
     <!DOCTYPE html>
-    
+
     <html lang={{ locale }} id={{ page_id }}>
-    
+
     <head>
       {# Enable Google Analytics with cookieless tracking. #}
       {% if GA_ACCOUNT %}
@@ -42,9 +42,11 @@
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', '{{ GA_ACCOUNT }}', {
-          client_storage: 'none', anonymize_ip: true, {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
+          client_storage: 'none',
+          anonymize_ip: true,
+          {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
         });
-    
+
       </script>
       {% endif %}
       <title>{{ title }} - Data Commons</title>
@@ -56,7 +58,7 @@
       {% block head %}
       {% endblock %}
     </head>
-    
+
     <body>
       <div id="main">
         <header id="main-header">
@@ -85,7 +87,6 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
                       <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">Natural Disaster Dashboard</a>
-                      <a class="dropdown-item" href="{{ url_for('sustainability.sustainability_explorer') }}">Sustainability Explorer</a>
                       <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans
                         %}</a>
                       <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{%
@@ -145,12 +146,12 @@
             </div>
           </nav>
         </header>
-    
+
         <main id="{{ main_id }}" class="main-content">
           {% block content %}
           {% endblock %}
         </main>
-        
+
         <footer id="main-footer">
           <div class="container">
             {% if false %}
@@ -215,7 +216,7 @@
                 <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
                 {# TRANSLATORS: The label for a link to project homepage. #}
                 <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
-    
+
                 <div class="float-md-right mt-3 mt-md-0">
                   {% block subfooter_extra %}{% endblock %}
                   {# TRANSLATORS: The label for a link to site terms and conditions. #}
@@ -239,5 +240,5 @@
       {% block footer %}
       {% endblock %}
     </body>
-    
+
     </html>
