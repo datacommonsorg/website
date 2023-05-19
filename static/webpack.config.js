@@ -18,6 +18,7 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 const smp = new SpeedMeasurePlugin();
 
@@ -144,6 +145,7 @@ const config = {
     ],
   },
   plugins: [
+    new NodePolyfillPlugin(),
     new CopyPlugin({
       patterns: [
         { from: "css/**/*.css" },
