@@ -30,7 +30,6 @@ RUN pip3 install --no-cache-dir \
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 WORKDIR /workspace/static
-RUN npm update
 RUN npm install --omit=dev
 
 # Flask
