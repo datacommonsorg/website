@@ -80,38 +80,42 @@ def _load_maps(sv_csv, qty_csv):
 
 
 _BLOCKED_THINGS = {
-  'population_type': set([
-      'HateCrimeIncidents',
-      'LiveBirthPregnancyEvent',
-  ]),
-  'measured_prop': set([
-      'wagesWeekly',
-      'intervalSinceLastPregnancyOutcomeNotLiveBirth',
-  ]),
-  'measurement_qualifier': set([
-    'DifferenceRelativeToObservedData',
-    'DifferenceAcrossModels',
-    'DifferenceRelativeToBaseDate',
-    'Monthly',
-    'Quarterly',
-    'Weekly',
-  ])
+    'population_type':
+        set([
+            'HateCrimeIncidents',
+            'LiveBirthPregnancyEvent',
+        ]),
+    'measured_prop':
+        set([
+            'wagesWeekly',
+            'intervalSinceLastPregnancyOutcomeNotLiveBirth',
+        ]),
+    'measurement_qualifier':
+        set([
+            'DifferenceRelativeToObservedData',
+            'DifferenceAcrossModels',
+            'DifferenceRelativeToBaseDate',
+            'Monthly',
+            'Quarterly',
+            'Weekly',
+        ])
 }
 
 _BLOCKED_CPROPS = set([
-  'emissionsScenario',
-  'establishmentOwnership',
-  'etiology',
-  'floodZoneType',
-  'numberOfRooms',
-  'socioeconomicScenario',
+    'emissionsScenario',
+    'establishmentOwnership',
+    'etiology',
+    'floodZoneType',
+    'numberOfRooms',
+    'socioeconomicScenario',
 ])
 
 _BLOCKED_CVAL_PARTS = [
-  'SchoolGrade',
-  'CarbonDioxideEquivalent20YearGlobalWarmingPotential',
-  'CarbonDioxideEquivalent100YearGlobalWarmingPotential',
+    'SchoolGrade',
+    'CarbonDioxideEquivalent20YearGlobalWarmingPotential',
+    'CarbonDioxideEquivalent100YearGlobalWarmingPotential',
 ]
+
 
 def _skip_sv_by_schema_filters(row, dbg_info):
   sv = row['id']
@@ -183,11 +187,11 @@ def main(_):
   total = 0
   dbg_info = {
       _ERR_SCHEMA_FILTERED: {
-        'population_type': [],
-        'measured_prop': [],
-        'measurement_qualifier': [],
-        'cprops': [],
-        'cvals': [],
+          'population_type': [],
+          'measured_prop': [],
+          'measurement_qualifier': [],
+          'cprops': [],
+          'cvals': [],
       },
       _ERR_TOO_MANY_CVALS: [],
       _ERR_QUANTITY_VALS: [],
