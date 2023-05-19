@@ -16,8 +16,8 @@
 cd ../../../..
 python3 -m venv .env
 source .env/bin/activate
-pip3 install -r tools/nl/svindex_differ/clean/requirements.txt
+pip3 install -r tools/nl/svindex_differ/prep/requirements.txt
 
-python3 -m tools.nl.svindex_differ.clean.to_vars \
+python3 -m tools.nl.svindex_differ.prep.to_vars \
   --queryset=tools/nl/svindex_differ/queryset.csv \
   --queryset_vars=tools/nl/svindex_differ/queryset_vars.csv
