@@ -20,4 +20,4 @@ pip3 install -r tools/nl/svindex_differ/clean/requirements.txt
 
 python3 -m tools.nl.svindex_differ.clean.to_vars \
   --queryset=tools/nl/svindex_differ/queryset.csv \
-  --queryset_vars=tools/nl/svindex_differ/clean/queryset_vars.csv
+  --queryset_vars=tools/nl/svindex_differ/queryset_vars.csv
