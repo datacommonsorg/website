@@ -18,13 +18,6 @@ python3 -m venv .env
 source .env/bin/activate
 pip3 install -r tools/nl/svindex_differ/clean/requirements.txt
 
-if [ "$1" = "local" ]; then
-  python3 -m tools.nl.svindex_differ.clean.to_vars \
-    --queryset=tools/nl/svindex_differ/queryset.csv \
-    --queryset_vars=tools/nl/svindex_differ/clean/queryset_vars.csv \
-    --endpoint="http://127.0.0.1:8080"
-else
-  python3 -m tools.nl.svindex_differ.clean.to_vars \
-    --queryset=tools/nl/svindex_differ/queryset.csv \
-    --queryset_vars=tools/nl/svindex_differ/clean/queryset_vars.csv
-fi
+python3 -m tools.nl.svindex_differ.clean.to_vars \
+  --queryset=tools/nl/svindex_differ/queryset.csv \
+  --queryset_vars=tools/nl/svindex_differ/clean/queryset_vars.csv
