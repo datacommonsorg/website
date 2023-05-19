@@ -27,9 +27,12 @@ WITH T AS (
                              'skewnessValue',
                              'stdDeviationValue',
                              'stdError') AND
+        SV.stat_type NOT LIKE 'percentile%' AND
         SVO.prov_id NOT IN ('dc/base/SEDAScores',                 
                             'dc/base/OpportunityInsightsOutcomes',         
-                            'dc/base/OpportunityInsightsNeighborhoods')            
+                            'dc/base/OpportunityInsightsNeighborhoods') AND
+        -- Temporary hack due to buggy SV definition
+        SV.id NOT LIKE 'SampleSize_%'
   GROUP BY sv
   HAVING nplaces > 40
 )
