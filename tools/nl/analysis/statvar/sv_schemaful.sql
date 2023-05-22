@@ -1,4 +1,7 @@
 WITH T AS (
+  -- Get SV and number of associated distinct places for those SVs which
+  -- are schema-less, have <= 5 num-constraints and have useful stat-types,
+  -- from places with certain types and over 40 places.
   SELECT SV.id AS sv,                                                            
          COUNT(DISTINCT SVO.observation_about) AS nplaces                          
   FROM `datcom-store.dc_kg_latest.StatisticalVariable` AS SV                       

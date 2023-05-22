@@ -1,4 +1,8 @@
 WITH T AS (
+
+-- Generally, skip schema-less + biomed SVs and those with num-constraints > 5
+
+-- In V1, look for Quantity / Quantity range patterns.
 SELECT DISTINCT
        SV.population_type AS pt,
        SV.p1 AS p,
@@ -14,6 +18,7 @@ WHERE SV.id <> SV.measured_prop AND
 
 UNION ALL
 
+-- In V2, look for Quantity / Quantity range patterns.
 SELECT DISTINCT
        SV.population_type AS pt,
        SV.p2 AS p,
@@ -29,6 +34,7 @@ WHERE SV.id <> SV.measured_prop AND
 
 UNION ALL
 
+-- In V3, look for Quantity / Quantity range patterns.
 SELECT DISTINCT
        SV.population_type AS pt,
        SV.p3 AS p,
@@ -44,6 +50,7 @@ WHERE SV.id <> SV.measured_prop AND
 
 UNION ALL
 
+-- In V4, look for Quantity / Quantity range patterns.
 SELECT DISTINCT
        SV.population_type AS pt,
        SV.p4 AS p,
@@ -59,6 +66,7 @@ WHERE SV.id <> SV.measured_prop AND
 
 UNION ALL
 
+-- In V5, look for Quantity / Quantity range patterns.
 SELECT DISTINCT
        SV.population_type AS pt,
        SV.p5 AS p,

@@ -27,7 +27,8 @@ flags.DEFINE_string('output_sv_csv', 'data/sv_trimmed.csv',
 flags.DEFINE_string('output_dbg', 'data/sv_trimmed_dbg_info.json',
                     'Debug json')
 flags.DEFINE_string('quantity_csv', 'data/sv_quantity_cvals.csv',
-                    'Quantity CSV file')
+                    'CSV with StatVars that have quantity '
+                    '(eg [Years 20]) as constraint values.')
 
 _cval_count_map = {}
 _flagged_cprops = {}
@@ -40,6 +41,45 @@ _ERR_QUANTITY_VALS = 'Quantity range cvals'
 _ERR_CURATED_DUP = 'Auto-generated / curated duplicate'
 _ERR_FILTERED_NAICS = 'Filtered naics'
 _ERR_SCHEMA_FILTERED = 'Filtered by schema maps'
+
+_MAX_CVALS_PER_CPROP = 50
+
+_BLOCKED_THINGS = {
+    'population_type':
+        set([
+            'HateCrimeIncidents',
+            'LiveBirthPregnancyEvent',
+        ]),
+    'measured_prop':
+        set([
+            'wagesWeekly',
+            'intervalSinceLastPregnancyOutcomeNotLiveBirth',
+        ]),
+    'measurement_qualifier':
+        set([
+            'DifferenceRelativeToObservedData',
+            'DifferenceAcrossModels',
+            'DifferenceRelativeToBaseDate',
+            'Monthly',
+            'Quarterly',
+            'Weekly',
+        ])
+}
+
+_BLOCKED_CPROPS = set([
+    'emissionsScenario',
+    'establishmentOwnership',
+    'etiology',
+    'floodZoneType',
+    'numberOfRooms',
+    'socioeconomicScenario',
+])
+
+_BLOCKED_CVAL_PARTS = [
+    'SchoolGrade',
+    'CarbonDioxideEquivalent20YearGlobalWarmingPotential',
+    'CarbonDioxideEquivalent100YearGlobalWarmingPotential',
+]
 
 
 def _get_key(row, i):
@@ -82,44 +122,6 @@ def _load_maps(sv_csv, qty_csv):
     print(f'Quantity cprops: {_qty_cprops}')
 
 
-_BLOCKED_THINGS = {
-    'population_type':
-        set([
-            'HateCrimeIncidents',
-            'LiveBirthPregnancyEvent',
-        ]),
-    'measured_prop':
-        set([
-            'wagesWeekly',
-            'intervalSinceLastPregnancyOutcomeNotLiveBirth',
-        ]),
-    'measurement_qualifier':
-        set([
-            'DifferenceRelativeToObservedData',
-            'DifferenceAcrossModels',
-            'DifferenceRelativeToBaseDate',
-            'Monthly',
-            'Quarterly',
-            'Weekly',
-        ])
-}
-
-_BLOCKED_CPROPS = set([
-    'emissionsScenario',
-    'establishmentOwnership',
-    'etiology',
-    'floodZoneType',
-    'numberOfRooms',
-    'socioeconomicScenario',
-])
-
-_BLOCKED_CVAL_PARTS = [
-    'SchoolGrade',
-    'CarbonDioxideEquivalent20YearGlobalWarmingPotential',
-    'CarbonDioxideEquivalent100YearGlobalWarmingPotential',
-]
-
-
 def _skip_sv_by_schema_filters(row, dbg_info):
   sv = row['id']
   for field in sorted(_BLOCKED_THINGS):
@@ -149,6 +151,7 @@ def _admit_sv(row, dbg_info):
     return False
 
   sv = row['id']
+  # This is an auto-generated SV DCID.
   if sv.startswith('dc/'):
     key = _get_key(row, -1)
     if key in _curated_sv_map:
@@ -173,7 +176,7 @@ def _admit_sv(row, dbg_info):
     if row[cp] == 'naics' and sv.startswith('dc/'):
       dbg_info[_ERR_FILTERED_NAICS].append(sv)
       return False
-    if nv > 50:
+    if nv > _MAX_CVALS_PER_CPROP:
       msg = f'{row[cp]} ({sv})'
       dbg_info[_ERR_TOO_MANY_CVALS].append(msg)
       _flagged_cprops[row[cp]] = _flagged_cprops.get(row[cp], 0) + 1
