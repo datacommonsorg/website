@@ -50,6 +50,9 @@ serviceAccount:
 nl:
   enabled: false
 
+svg:
+  blocklistFile: ["oecd/g/OECD"]
+
 serviceGroups:
   recon: null
   observation:
