@@ -81,6 +81,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           {!_.isEmpty(props.sources) && (
             <div className={`${SELECTOR_PREFIX}-metadata`}>
               <span>Data from {getSourcesJsx(props.sources)}</span>
+              {globalThis.viaGoogle ? " via Google" : ""}
             </div>
           )}
           {!_.isEmpty(mMethods) && (

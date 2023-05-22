@@ -64,4 +64,4 @@ kgStoreConfig:
       - magic-lab_2023_04_12_22_22_43
 
 svg:
-  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]
+  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG", "oecd/g/OECD"]
