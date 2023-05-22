@@ -56,6 +56,7 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
       <span key={processedSource}>
         {index > 0 ? ", " : ""}
         <a href={processedSource}>{domain}</a>
+        {globalThis.viaGoogle ? " via Google" : ""}
       </span>
     );
   });
