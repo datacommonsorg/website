@@ -63,4 +63,4 @@ kgStoreConfig:
       -
 
 svg:
-  blocklistFile: ["dc/g/Uncategorized"]
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
