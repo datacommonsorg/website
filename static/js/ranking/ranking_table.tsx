@@ -19,8 +19,8 @@ import React from "react";
 import { intl, LocalizedLink, translateUnit } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
 import { randDomId } from "../shared/util";
-import { RankInfo, Ranking } from "./ranking_types";
 import { getRoot } from "../utils/axios";
+import { RankInfo, Ranking } from "./ranking_types";
 
 interface RankingTablePropType {
   ranking: Ranking;
