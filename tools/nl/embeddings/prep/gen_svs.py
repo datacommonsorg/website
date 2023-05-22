@@ -55,7 +55,7 @@ def get_names(dcids):
 
 
 def main(_):
-  # Get the 14k dcids.
+  # Get the SV list dcids.
   with open(FLAGS.sv_list_file) as f:
     sv_list = f.read().splitlines()
 
@@ -64,7 +64,7 @@ def main(_):
 
   input_df = pd.DataFrame.from_dict({'dcid': sv_list, "Name": names_list})
 
-  # Get the 101k dataframe.
+  # Get the DDD titles dataframe.
   ddd_df = pd.read_csv(FLAGS.ddd_titles_file).fillna("")
   cols_to_keep = ["Name", "StatVar ID", "Chart Title"]
   ddd_df = ddd_df[cols_to_keep]
@@ -80,10 +80,6 @@ def main(_):
     existing_dfs.append(pd.read_csv(svf).fillna(""))
   existing_df = pd.concat(existing_dfs)
 
-  print(len(input_df))
-  print(len(ddd_df))
-  print(len(existing_df))
-
   print(f"Before dedupe: {len(input_df)}")
 
   # Remove from input_df DCIDs that already exist.
@@ -92,7 +88,7 @@ def main(_):
   print(f"After dedupe: {len(df_joined)}")
   print(df_joined.shape)
 
-  # Left-Joining the 101k with the left being df_joined from the previous step.
+  # Left-Joining the titles with the left being df_joined from the previous step.
   df_joined = df_joined.merge(ddd_df, how="left", on=["dcid"]).fillna("")
   # Remove the duplicated columns.
   df_joined['Name_x'] = np.where(df_joined["Name_x"] != "", df_joined["Name_x"],
@@ -119,10 +115,9 @@ def main(_):
   df_joined = df_joined[cols_to_keep]
 
   # No need to include SVs were there is no Name or Description or Curated_Alternative.
-  df_joined.drop(
-      df_joined[(df_joined["Name"] == "") &
-                (df_joined["Description"] == "")].index,
-      inplace=True)
+  df_joined.drop(df_joined[(df_joined["Name"] == "") &
+                           (df_joined["Description"] == "")].index,
+                 inplace=True)
   df_joined.to_csv(FLAGS.output_file, index=False)
 
 
