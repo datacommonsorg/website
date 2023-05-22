@@ -82,7 +82,7 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
           {this.props.childrenStatVarCount > 0 &&
             this.props.nodeType !== StatVarHierarchyNodeType.STAT_VAR && (
               <span className="sv-count">
-                ({this.props.childrenStatVarCount})
+                ({this.props.childrenStatVarCount.toLocaleString()})
               </span>
             )}
         </span>
