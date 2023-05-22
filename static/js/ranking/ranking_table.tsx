@@ -20,6 +20,7 @@ import { intl, LocalizedLink, translateUnit } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
 import { randDomId } from "../shared/util";
 import { RankInfo, Ranking } from "./ranking_types";
+import { getRoot } from "../utils/axios";
 
 interface RankingTablePropType {
   ranking: Ranking;
@@ -67,7 +68,7 @@ class RankingTable extends React.Component<RankingTablePropType> {
         <td>{rankInfo.rank ? rankInfo.rank : 0}</td>
         <td>
           <LocalizedLink
-            href={`/place/${rankInfo.placeDcid}`}
+            href={`${getRoot()}/place/${rankInfo.placeDcid}`}
             text={rankInfo.placeName || rankInfo.placeDcid}
           />
         </td>
