@@ -453,6 +453,8 @@ def api_ranking(dcid):
       continue
     if parent_dcid.startswith('zip'):
       continue
+    if parent_dcid == 'Earth':
+      break
     selected_parents.append(parent_dcid)
     i18n_name = parent_i18n_names[parent_dcid]
     parent_names[parent_dcid] = i18n_name if i18n_name else parent.get(
