@@ -102,33 +102,27 @@
         "statVarSpec": {
           "Mean_Income_Household_scatter": {
             "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household",
-            "unit": "%"
+            "statVar": "Mean_Income_Household"
           },
           "Median_Earnings_Person_scatter": {
             "name": "Individual Median Earnings",
-            "statVar": "Median_Earnings_Person",
-            "unit": "%"
+            "statVar": "Median_Earnings_Person"
           },
           "Median_Income_Household_FamilyHousehold_scatter": {
             "name": "Median Income for Family Households",
-            "statVar": "Median_Income_Household_FamilyHousehold",
-            "unit": "%"
+            "statVar": "Median_Income_Household_FamilyHousehold"
           },
           "Median_Income_Household_scatter": {
             "name": "Household Median Income",
-            "statVar": "Median_Income_Household",
-            "unit": "%"
+            "statVar": "Median_Income_Household"
           },
           "Median_Income_Person_scatter": {
             "name": "Individual Median Income",
-            "statVar": "Median_Income_Person",
-            "unit": "%"
+            "statVar": "Median_Income_Person"
           },
           "Percent_Person_WithHighBloodPressure_scatter": {
             "name": "High Bood Pressure",
-            "statVar": "Percent_Person_WithHighBloodPressure",
-            "unit": "%"
+            "statVar": "Percent_Person_WithHighBloodPressure"
           }
         }
       }
