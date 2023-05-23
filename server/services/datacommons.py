@@ -180,13 +180,16 @@ def v2observation(select, entity, variable):
     variable: A dict in the form of {'dcids':, 'expression':}    
 
   """
-  req = {'select': select}
   if 'dcids' in entity:
-    req['entity'] = {'dcids': sorted(entity['dcids'])}
+    entity['dcids'] = sorted(entity['dcids'])
   if 'dcids' in variable:
-    req['variable'] = {'dcids': sorted(variable['dcids'])}
+    variable['dcids'] = sorted(variable['dcids'])
   url = get_service_url('/v2/observation')
-  return post(url, req)
+  return post(url, {
+      'select': select,
+      'entity': entity,
+      'variable': variable,
+  })
 
 
 def v2node(nodes, prop):
