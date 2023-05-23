@@ -29,6 +29,7 @@ interface ChartFooterPropType {
   // set of full urls of sources of the data in the chart
   sources: Set<string>;
   handleEmbed?: () => void;
+  exploreJsx?: JSX.Element;
 }
 
 /**
@@ -81,6 +82,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
             Export
           </a>
         )}
+        {props.exploreJsx}
       </div>
     </footer>
   );

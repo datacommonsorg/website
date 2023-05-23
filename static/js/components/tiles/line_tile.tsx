@@ -51,6 +51,10 @@ interface LineTilePropType {
   apiRoot?: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
+  // The link of the stat var legend
+  statVarLink?: Record<string, string>;
+  // The explore more component
+  exploreJsx?: JSX.Element;
 }
 
 interface LineChartData {
@@ -93,6 +97,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       allowEmbed={true}
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
+      exploreJsx={props.exploreJsx}
     >
       {props.isDataTile && chartData && (
         <div
@@ -190,7 +195,8 @@ function rawToChart(
       dataGroups.push(
         new DataGroup(
           getStatVarName(spec.statVar, props.statVarSpec),
-          dataPoints
+          dataPoints,
+          props.statVarLink ? props.statVarLink[spec.statVar] : ""
         )
       );
       const svUnit = getUnit(raw.facets[series.facet]);

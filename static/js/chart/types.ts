@@ -28,14 +28,6 @@ export interface Series {
   [key: string]: number;
 }
 
-// TrendData represents a set of time series to be used in a multi-line chart.
-export interface TrendData {
-  series: { [key: string]: Series };
-  sources: string[];
-  exploreUrl?: string;
-  statsVars?: string[];
-}
-
 export interface SnapshotData {
   date: string;
   data: {
@@ -53,7 +45,6 @@ export interface ChartBlockData {
   statsVars: string[];
   denominator?: string[];
   unit: string;
-  trend: TrendData;
   parent: SnapshotData;
   similar: SnapshotData;
   nearby: SnapshotData;

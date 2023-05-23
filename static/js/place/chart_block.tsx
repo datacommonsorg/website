@@ -142,45 +142,44 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
       },
     });
 
-    if (!_.isEmpty(this.props.data.trend)) {
-      const id = randDomId();
-      let rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
-      this.props.data.denominator && rankingParam.set("pc", "1");
-      this.props.data.scaling &&
-        rankingParam.set("scaling", String(this.props.data.scaling));
-      this.props.data.unit && rankingParam.set("unit", this.props.data.unit);
-      rankingParam = localizeSearchParams(rankingParam);
-      chartElements.push(
-        <Chart
-          key={id}
-          id={id}
-          dcid={this.props.dcid}
-          chartType={chartTypeEnum.LINE}
-          trend={this.props.data.trend}
-          title={intl.formatMessage(
-            {
-              id: "chart_clause-variable_in_place",
-              defaultMessage: "{variable} in {placeName}",
-              description:
-                'Used for chart titles like "{Unemployment rate} in {USA}" or "{Poverty rate} in {California}".',
-            },
-            {
-              variable: this.displayDataTitle,
-              placeName: this.displayPlaceName,
-            }
-          )}
-          unit={this.props.data.unit}
-          names={this.props.names}
-          scaling={this.props.data.scaling}
-          statsVars={this.props.data.statsVars}
-          rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${
-            this.parentPlaceDcid
-          }?${rankingParam.toString()}`}
-          category={this.props.category}
-          isUsaPlace={this.props.isUsaPlace}
-        ></Chart>
-      );
-    }
+    const id = randDomId();
+    let rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
+    this.props.data.denominator && rankingParam.set("pc", "1");
+    this.props.data.scaling &&
+      rankingParam.set("scaling", String(this.props.data.scaling));
+    this.props.data.unit && rankingParam.set("unit", this.props.data.unit);
+    rankingParam = localizeSearchParams(rankingParam);
+    chartElements.push(
+      <Chart
+        key={id}
+        id={id}
+        dcid={this.props.dcid}
+        chartType={chartTypeEnum.LINE}
+        title={intl.formatMessage(
+          {
+            id: "chart_clause-variable_in_place",
+            defaultMessage: "{variable} in {placeName}",
+            description:
+              'Used for chart titles like "{Unemployment rate} in {USA}" or "{Poverty rate} in {California}".',
+          },
+          {
+            variable: this.displayDataTitle,
+            placeName: this.displayPlaceName,
+          }
+        )}
+        unit={this.props.data.unit}
+        names={this.props.names}
+        scaling={this.props.data.scaling}
+        statsVars={this.props.data.statsVars}
+        rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${
+          this.parentPlaceDcid
+        }?${rankingParam.toString()}`}
+        category={this.props.category}
+        isUsaPlace={this.props.isUsaPlace}
+        spec={this.props.data}
+        denominators={this.props.data.denominator}
+      ></Chart>
+    );
     const relatedChart = this.props.data.relatedChart;
     if (!relatedChart) {
       return <>{chartElements}</>;
@@ -223,7 +222,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
       chartType,
       ...sharedProps,
     };
-    const rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
+    rankingParam = new URLSearchParams(`h=${this.props.dcid}`);
     if (
       this.props.data.denominator ||
       (!!this.props.data.relatedChart && this.props.data.relatedChart.scale)

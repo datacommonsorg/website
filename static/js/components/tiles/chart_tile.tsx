@@ -18,7 +18,6 @@
  * A container for any tile containing a chart.
  */
 
-import _ from "lodash";
 import React, { useRef } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
@@ -44,6 +43,8 @@ interface ChartTileContainerProp {
   className?: string;
   // Whether or not this is the initial loading state.
   isInitialLoading?: boolean;
+  // Optional explore link JSX.
+  exploreJsx?: JSX.Element;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -75,6 +76,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       <ChartFooter
         sources={props.sources}
         handleEmbed={showEmbed ? handleEmbed : null}
+        exploreJsx={props.exploreJsx}
       />
       {showEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>
