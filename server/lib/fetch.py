@@ -455,5 +455,5 @@ def event_collection_date(event_type, affected_place):
       event_type: type of event to get the dates for
       affected_place: affected place of events to include dates of
   """
-  dc.v2event(node=affected_place,
-             prop='<-location{{typeOf:{}}}->date'.format(event_type))
+  return dc.v2event(node=affected_place,
+                    prop='<-location{{typeOf:{}}}->date'.format(event_type))
