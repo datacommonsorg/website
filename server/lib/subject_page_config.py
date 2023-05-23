@@ -22,7 +22,6 @@ import server.lib.fetch as fetch
 import server.lib.nl.counters as nl_ctr
 import server.lib.nl.utils as nl_utils
 import server.routes.shared_api.place as place_api
-import server.services.datacommons as dc
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
