@@ -250,8 +250,8 @@ def observation_existence(variables, entities):
       result[var][e] = False
   # Fetch existence check data
   resp = dc.v2observation(select=['variable', 'entity'],
-                          entities=entities,
-                          variables=variables)
+                          entity={'dcids': entities},
+                          variable={'dcids': variables})
   for var, entity_obs in resp.get('byVariable', {}).items():
     for e in entity_obs.get('byEntity', {}):
       result[var][e] = True
@@ -271,9 +271,9 @@ def entity_variables(entities):
     }
   }
   """
-  resp = dc.v2observation(['variable', 'entity'],
-                          entities=entities,
-                          variables=[])
+  resp = dc.v2observation(select=['variable', 'entity'],
+                          entity={'dcids': entities},
+                          variable={})
   result = {}
   for var, entity_obs in resp.get('byVariable', {}).items():
     result[var] = entity_obs.get('byEntity', {})

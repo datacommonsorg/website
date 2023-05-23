@@ -172,19 +172,19 @@ def obs_series_within(parent_entity, child_type, variables):
       })
 
 
-def v2observation(select, entities, variables):
+def v2observation(select, entity, variable):
   """
   Args:
     select: A list of select props.
-    entities: A list of entities.
-    variables: A list of variables.
+    entity: A dict in the form of {'dcids':, 'expression':}
+    variable: A dict in the form of {'dcids':, 'expression':}    
 
   """
   req = {'select': select}
-  if entities:
-    req['entity'] = {'dcids': sorted(entities)}
-  if variables:
-    req['variable'] = {'dcids': sorted(variables)}
+  if 'dcids' in entity:
+    req['entity'] = {'dcids': sorted(entity['dcids'])}
+  if 'dcids' in variable:
+    req['variable'] = {'dcids': sorted(variable['dcids'])}
   url = get_service_url('/v2/observation')
   return post(url, req)
 
