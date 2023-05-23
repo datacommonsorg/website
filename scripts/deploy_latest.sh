@@ -46,7 +46,7 @@ yq eval -i '.tables = []' deploy/storage/base_bigtable_info.yaml
 for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.txt); do
   echo "Copying $src"
   export TABLE="$(gsutil cat "$src")"
-  if [[ $TABLE != '' ]]; then
+  if [[ $TABLE != "" ]]; then
     yq eval -i '.tables += [env(TABLE)]' deploy/storage/base_bigtable_info.yaml
   fi
 done
@@ -64,7 +64,7 @@ do
   export index=$index
   REGION=$(yq eval '.region.others[env(index)]' deploy/gke/"$ENV".yaml)
   echo $REGION
-  if [[ $REGION != '' ]]; then
+  if [[ $REGION != "" ]]; then
     $ROOT/scripts/deploy_gke_helm.sh -e $ENV -l $REGION
   fi
 done
