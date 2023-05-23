@@ -15,7 +15,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Income Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Individual Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -34,7 +34,7 @@
                       "Median_Earnings_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Earnings Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Individual Median Earnings (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -53,7 +53,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -72,7 +72,7 @@
                       "Median_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Median Income for Family Households Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Median Income for Family Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -91,7 +91,7 @@
                       "Mean_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Households Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -101,32 +101,27 @@
         ],
         "statVarSpec": {
           "Mean_Income_Household_scatter": {
-            "denom": "Count_Person",
-            "name": "Average Income for Households Per Capita",
+            "name": "Average Income for Households",
             "statVar": "Mean_Income_Household",
             "unit": "%"
           },
           "Median_Earnings_Person_scatter": {
-            "denom": "Count_Person",
-            "name": "Individual Median Earnings Per Capita",
+            "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person",
             "unit": "%"
           },
           "Median_Income_Household_FamilyHousehold_scatter": {
-            "denom": "Count_Person",
-            "name": "Median Income for Family Households Per Capita",
+            "name": "Median Income for Family Households",
             "statVar": "Median_Income_Household_FamilyHousehold",
             "unit": "%"
           },
           "Median_Income_Household_scatter": {
-            "denom": "Count_Person",
-            "name": "Household Median Income Per Capita",
+            "name": "Household Median Income",
             "statVar": "Median_Income_Household",
             "unit": "%"
           },
           "Median_Income_Person_scatter": {
-            "denom": "Count_Person",
-            "name": "Individual Median Income Per Capita",
+            "name": "Individual Median Income",
             "statVar": "Median_Income_Person",
             "unit": "%"
           },
