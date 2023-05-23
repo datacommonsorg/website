@@ -46,7 +46,9 @@ yq eval -i '.tables = []' deploy/storage/base_bigtable_info.yaml
 for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.txt); do
   echo "Copying $src"
   export TABLE="$(gsutil cat "$src")"
-  yq eval -i '.tables += [env(TABLE)]' deploy/storage/base_bigtable_info.yaml
+  if [[ $TABLE != '' ]]; then
+    yq eval -i '.tables += [env(TABLE)]' deploy/storage/base_bigtable_info.yaml
+  fi
 done
 
 cd $ROOT
