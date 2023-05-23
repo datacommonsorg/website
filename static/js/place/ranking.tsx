@@ -63,6 +63,11 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                     />
                   </th>
                   {data[data.label[0]].map((item, index: number) => {
+                    // Skip the "Earth" column, those rankings are incorrect.
+                    // TODO: Remove skip once Earth rankings are fixed.
+                    if (item.name == "Earth") {
+                      return <></>;
+                    }
                     return (
                       <th scope="col" key={index}>
                         {item.name}
@@ -77,6 +82,11 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                     <tr key={index}>
                       <th scope="row">{item}</th>
                       {data[item].map((rankingInfo, index: number) => {
+                        // Skip the "Earth" column, those rankings are incorrect.
+                        // TODO: Remove skip once Earth rankings are fixed.
+                        if (rankingInfo.name == "Earth") {
+                          return <></>;
+                        }
                         const top = rankingInfo.data.rankFromTop;
                         const bottom = rankingInfo.data.rankFromBottom;
                         let text = "";
