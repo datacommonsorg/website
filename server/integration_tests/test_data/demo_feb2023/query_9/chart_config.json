@@ -12,10 +12,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_NoIncome_scatter",
+                      "Median_Income_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Population of Working Age With No Income Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Individual Median Income Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -31,10 +31,48 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Income_Farm_scatter",
+                      "Median_Earnings_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Total Farm Income Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Individual Median Earnings Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Household Median Income Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Median Income for Family Households Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -59,75 +97,37 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
-                    ],
-                    "title": "Average Income for Family Households Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
-                    ],
-                    "title": "Average Income for Married Couple Family Households Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Count_Person_15OrMoreYears_NoIncome_scatter": {
-            "denom": "Count_Person",
-            "name": "Population of Working Age With No Income Per Capita",
-            "statVar": "Count_Person_15OrMoreYears_NoIncome",
-            "unit": "%"
-          },
-          "Income_Farm_scatter": {
-            "denom": "Count_Person",
-            "name": "Total Farm Income Per Capita",
-            "statVar": "Income_Farm",
-            "unit": "%"
-          },
-          "Mean_Income_Household_FamilyHousehold_scatter": {
-            "denom": "Count_Person",
-            "name": "Average Income for Family Households Per Capita",
-            "statVar": "Mean_Income_Household_FamilyHousehold",
-            "unit": "%"
-          },
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold_scatter": {
-            "denom": "Count_Person",
-            "name": "Average Income for Married Couple Family Households Per Capita",
-            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold",
-            "unit": "%"
-          },
           "Mean_Income_Household_scatter": {
             "denom": "Count_Person",
             "name": "Average Income for Households Per Capita",
             "statVar": "Mean_Income_Household",
+            "unit": "%"
+          },
+          "Median_Earnings_Person_scatter": {
+            "denom": "Count_Person",
+            "name": "Individual Median Earnings Per Capita",
+            "statVar": "Median_Earnings_Person",
+            "unit": "%"
+          },
+          "Median_Income_Household_FamilyHousehold_scatter": {
+            "denom": "Count_Person",
+            "name": "Median Income for Family Households Per Capita",
+            "statVar": "Median_Income_Household_FamilyHousehold",
+            "unit": "%"
+          },
+          "Median_Income_Household_scatter": {
+            "denom": "Count_Person",
+            "name": "Household Median Income Per Capita",
+            "statVar": "Median_Income_Household",
+            "unit": "%"
+          },
+          "Median_Income_Person_scatter": {
+            "denom": "Count_Person",
+            "name": "Individual Median Income Per Capita",
+            "statVar": "Median_Income_Person",
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_scatter": {

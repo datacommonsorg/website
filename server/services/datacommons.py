@@ -177,13 +177,13 @@ def v2observation(select, entity, variable):
   Args:
     select: A list of select props.
     entity: A dict in the form of {'dcids':, 'expression':}
-    variable: A dict in the form of {'dcids':, 'expression':}
+    variable: A dict in the form of {'dcids':, 'expression':}    
 
   """
   if 'dcids' in entity:
-    entity['dcids'].sort()
+    entity['dcids'] = sorted(entity['dcids'])
   if 'dcids' in variable:
-    variable['dcids'].sort()
+    variable['dcids'] = sorted(variable['dcids'])
   url = get_service_url('/v2/observation')
   return post(url, {
       'select': select,
