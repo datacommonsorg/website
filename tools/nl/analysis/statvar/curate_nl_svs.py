@@ -22,13 +22,12 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('input_sv_csv', 'data/sv_schemaful.csv',
                     'Input SV CSV file')
-flags.DEFINE_string('output_sv_csv', 'data/sv_trimmed.csv',
-                    'Output SV file')
-flags.DEFINE_string('output_dbg', 'data/sv_trimmed_dbg_info.json',
-                    'Debug json')
-flags.DEFINE_string('quantity_csv', 'data/sv_quantity_cvals.csv',
-                    'CSV with StatVars that have quantity '
-                    '(eg [Years 20]) as constraint values.')
+flags.DEFINE_string('output_sv_csv', 'data/sv_trimmed.csv', 'Output SV file')
+flags.DEFINE_string('output_dbg', 'data/sv_trimmed_dbg_info.json', 'Debug json')
+flags.DEFINE_string(
+    'quantity_csv', 'data/sv_quantity_cvals.csv',
+    'CSV with StatVars that have quantity '
+    '(eg [Years 20]) as constraint values.')
 
 _cval_count_map = {}
 _flagged_cprops = {}
