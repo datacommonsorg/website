@@ -57,7 +57,7 @@ def disaster_dashboard(place_dcid=None):
   place_metadata = lib_subject_page_config.place_metadata(place_dcid)
   if place_metadata.is_error:
     return flask.render_template(
-        'custom_dc/stanford/disaster_dashboard.html',
+        'disaster_dashboard.html',
         place_metadata=place_metadata,
         config=None,
         maps_api_key=current_app.config['MAPS_API_KEY'])
@@ -75,7 +75,7 @@ def disaster_dashboard(place_dcid=None):
                                                     place_metadata.place_type)
 
   return flask.render_template(
-      'custom_dc/stanford/disaster_dashboard.html',
+      'disaster_dashboard.html',
       place_metadata=dataclasses.asdict(place_metadata),
-      config=MessageToJson(dashboard_config),
+      subject_config=MessageToJson(dashboard_config),
       maps_api_key=current_app.config['MAPS_API_KEY'])

@@ -187,7 +187,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
           "place_name": place_metadata.place_name,
           "place_dcid": place_dcid,
           "parent_places": json.dumps(place_metadata.parent_places),
-          "config": MessageToJson(subject_config)
+          "subject_config": MessageToJson(subject_config)
       }
 
   template_args = {
@@ -198,4 +198,4 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
       "provenance": json.dumps(provenance),
   }
   template_args.update(subject_page_args)
-  return render_template('custom_dc/stanford/event.html', **template_args)
+  return render_template('event.html', **template_args)
