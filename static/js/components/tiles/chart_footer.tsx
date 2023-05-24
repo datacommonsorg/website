@@ -25,21 +25,21 @@ import { NL_SOURCE_REPLACEMENTS } from "../../constants/app/nl_interface_constan
 import { urlToDomain } from "../../shared/util";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 
-interface ChartFooterPropType {
-  // set of full urls of sources of the data in the chart
-  sources: Set<string>;
-  handleEmbed?: () => void;
-  exploreJsx?: JSX.Element;
+export interface ClickFnType {
+  source?: () => void;
+  export?: () => void;
 }
 
 /**
  * Gets the JSX element for displaying a list of sources.
  */
-function getSourcesJsx(sources: Set<string>): JSX.Element[] {
+function getSourcesJsx(
+  sources: Set<string>,
+  sourceClickFn: () => void
+): JSX.Element[] {
   if (!sources) {
     return null;
   }
-
   const sourceList: string[] = Array.from(sources);
   const seenSourceDomains = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
@@ -56,7 +56,9 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
     return (
       <span key={processedSource}>
         {index > 0 ? ", " : ""}
-        <a href={processedSource}>{domain}</a>
+        <a href={processedSource} onClick={sourceClickFn}>
+          {domain}
+        </a>
         {globalThis.viaGoogle ? " via Google" : ""}
       </span>
     );
@@ -64,11 +66,26 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
   return sourcesJsx;
 }
 
+interface ChartFooterPropType {
+  // set of full urls of sources of the data in the chart
+  sources: Set<string>;
+  handleEmbed?: () => void;
+  exploreJsx?: JSX.Element;
+  // Optional callback function when source link is clicked.
+  clickFn?: ClickFnType;
+}
+
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
   return (
     <footer id="chart-container-footer">
       {!_.isEmpty(props.sources) && (
-        <div className="sources">Data from {getSourcesJsx(props.sources)}</div>
+        <div className="sources">
+          Data from{" "}
+          {getSourcesJsx(
+            props.sources,
+            props.clickFn ? props.clickFn.source : undefined
+          )}
+        </div>
       )}
       <div className="outlinks">
         {props.handleEmbed && (
@@ -76,6 +93,9 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
             href="#"
             onClick={(event) => {
               event.preventDefault();
+              if (props.clickFn && props.clickFn.export) {
+                props.clickFn.export();
+              }
               props.handleEmbed();
             }}
           >

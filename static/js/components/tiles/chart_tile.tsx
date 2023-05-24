@@ -27,7 +27,7 @@ import {
   getMergedSvg,
   ReplacementStrings,
 } from "../../utils/tile_utils";
-import { ChartFooter } from "./chart_footer";
+import { ChartFooter, ClickFnType } from "./chart_footer";
 
 interface ChartTileContainerProp {
   title: string;
@@ -45,6 +45,8 @@ interface ChartTileContainerProp {
   isInitialLoading?: boolean;
   // Optional explore link JSX.
   exploreJsx?: JSX.Element;
+  // Optional callback function when source link is clicked.
+  clickFn?: ClickFnType;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -77,6 +79,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         sources={props.sources}
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreJsx={props.exploreJsx}
+        clickFn={props.clickFn}
       />
       {showEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>

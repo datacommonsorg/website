@@ -33,6 +33,7 @@ import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { ClickFnType } from "./chart_footer";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -51,10 +52,14 @@ interface LineTilePropType {
   apiRoot?: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
-  // The link of the stat var legend
+  // A map keyed by stat var dcid, with value being the link for that stat var.
   statVarLink?: Record<string, string>;
   // The explore more component
   exploreJsx?: JSX.Element;
+  // Optional callback function when source link is clicked.
+  clickFn?: ClickFnType;
+  // Optional callback function to hide the tile when it only has single dot.
+  hideTileFn?: () => void;
 }
 
 interface LineChartData {
@@ -80,7 +85,17 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     if (_.isEmpty(chartData)) {
       return;
     }
-    draw(props, chartData, svgContainer.current);
+    let isSingleDot = true;
+    for (const dg of chartData.dataGroup) {
+      if (dg.value.length > 1) {
+        isSingleDot = false;
+        break;
+      }
+    }
+    draw(props, chartData);
+    if (isSingleDot) {
+      props.hideTileFn();
+    }
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
@@ -98,6 +113,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
       exploreJsx={props.exploreJsx}
+      clickFn={props.clickFn}
     >
       {props.isDataTile && chartData && (
         <div
@@ -138,11 +154,7 @@ export const fetchData = async (props: LineTilePropType) => {
   return rawToChart(resp.data, props);
 };
 
-export function draw(
-  props: LineTilePropType,
-  chartData: LineChartData,
-  svgContainer: HTMLElement
-): void {
+export function draw(props: LineTilePropType, chartData: LineChartData): void {
   const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
   elem.innerHTML = "";
@@ -157,8 +169,7 @@ export function draw(
     chartData.unit
   );
   if (!isCompleteLine) {
-    svgContainer.querySelectorAll(".dotted-warning")[0].className +=
-      " d-inline";
+    elem.querySelectorAll(".dotted-warning")[0].className += " d-inline";
   }
 }
 

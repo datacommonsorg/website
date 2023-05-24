@@ -20,11 +20,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 
 import { DataGroup, DataPoint } from "../chart/base";
-import {
-  drawGroupBarChart,
-  drawLineChart,
-  drawStackBarChart,
-} from "../chart/draw";
+import { drawGroupBarChart, drawStackBarChart } from "../chart/draw";
 import { drawD3Map, getProjection } from "../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
@@ -72,6 +68,18 @@ const MIN_RANKING_DATAPOINTS = 6;
 const MAX_RANKING_DATAPOINTS = 10;
 const MIN_WIDTH_TO_SHOW_RANKING_VALUE = 450;
 const NUM_FRACTION_DIGITS = 2;
+
+const sourceClickFn = () => {
+  triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+    [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
+  });
+};
+
+const exportClickFn = () => {
+  triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+    [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+  });
+};
 
 interface ChartPropType {
   /**
@@ -224,15 +232,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const domain = urlToDomain(source);
       return (
         <span key={source}>
-          <a
-            href={source}
-            onClick={() =>
-              triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
-                [GA_PARAM_PLACE_CHART_CLICK]:
-                  GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
-              })
-            }
-          >
+          <a href={source} onClick={sourceClickFn}>
             {domain}
           </a>
           {index < sources.length - 1 ? ", " : ""}
@@ -241,7 +241,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     });
 
     const exploreJsx =
-      intl.locale != "en" ? null : (
+      intl.locale !== "en" ? null : (
         <a
           className="explore-more"
           href={exploreUrl}
@@ -269,8 +269,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             title={this.props.title}
             place={{
               dcid: this.props.dcid,
-              types: [],
               name: this.props.names[this.props.dcid],
+              types: [],
             }}
             statVarSpec={this.props.statsVars.map((x, i) => {
               let denom = "";
@@ -283,15 +283,20 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               return {
                 denom,
                 log: false,
-                statVar: x,
                 scaling: this.props.scaling,
+                statVar: x,
                 unit: this.props.unit,
               };
             })}
             svgChartHeight={CHART_HEIGHT}
-            className={"ranking-class"}
             exploreJsx={exploreJsx}
             statVarLink={this.rankingUrlByStatVar}
+            clickFn={{ source: sourceClickFn, export: exportClickFn }}
+            hideTileFn={() => {
+              this.setState({
+                display: false,
+              });
+            }}
           />
           <LocalizedLink
             className="feedback"
@@ -378,10 +383,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 href="#"
                 onClick={(event) => {
                   this._handleEmbed(event);
-                  triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
-                    [GA_PARAM_PLACE_CHART_CLICK]:
-                      GA_VALUE_PLACE_CHART_CLICK_EXPORT,
-                  });
+                  exportClickFn();
                 }}
               >
                 <FormattedMessage
@@ -505,23 +507,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (chartType !== chartTypeEnum.CHOROPLETH) {
       elem.innerHTML = "";
     }
-    if (chartType === chartTypeEnum.LINE) {
-      const isCompleteLine = drawLineChart(
-        this.props.id,
-        elem.offsetWidth,
-        CHART_HEIGHT,
-        this.state.dataGroups,
-        false,
-        false,
-        formatNumber,
-        this.props.unit
-      );
-      if (!isCompleteLine) {
-        this.chartElement.current.querySelectorAll(
-          ".dotted-warning"
-        )[0].className += " d-inline";
-      }
-    } else if (chartType === chartTypeEnum.STACK_BAR) {
+    if (chartType === chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
         this.props.id,
         elem.offsetWidth,
@@ -726,11 +712,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       );
     }
     if (this.props.chartType === chartTypeEnum.LINE) {
-      let anchor = `&place${this.props.dcid}`;
+      let anchor = `&place=${this.props.dcid}`;
       anchor += `&statsVar=${this.props.statsVars.join("__")}`;
-      if (this.props.spec.denominator) {
+      if (this.props.spec && this.props.spec.denominator) {
         let denom = "Count_Person";
-        if (this.props.spec.denominator.length == 1) {
+        if (this.props.spec.denominator.length === 1) {
           denom = this.props.spec.denominator[0];
         }
         anchor += `&pc&denom=${denom}`;
@@ -741,11 +727,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   private getSources(): string[] {
-    if (this.props.chartType == chartTypeEnum.LINE) {
+    if (this.props.chartType === chartTypeEnum.LINE) {
       // Sources is fetched in the line tile component already.
       return [];
     }
-    if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
+    if (this.props.chartType === chartTypeEnum.CHOROPLETH) {
       return this.state.choroplethDataGroup
         ? this.state.choroplethDataGroup.sources
         : [];
@@ -759,7 +745,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   private getDateString(): string {
-    if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
+    if (this.props.chartType === chartTypeEnum.CHOROPLETH) {
       return this.state.choroplethDataGroup
         ? "(" + this.state.choroplethDataGroup.date + ")"
         : "";

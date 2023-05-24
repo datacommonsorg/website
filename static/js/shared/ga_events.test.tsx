@@ -14,27 +14,12 @@
  * limitations under the License.
  */
 
-jest.mock("axios");
-jest.mock("../chart/draw_d3_map");
-jest.mock("../chart/draw_map_utils");
-jest.mock("../chart/draw_scatter");
-jest.mock("../chart/draw", () => {
-  const originalModule = jest.requireActual("../chart/draw");
-  return {
-    __esModule: true,
-    ...originalModule,
-    drawGroupBarChart: jest.fn(),
-    drawGroupLineChart: jest.fn(),
-    drawHistogram: jest.fn(),
-    drawLineChart: jest.fn(),
-    drawStackBarChart: jest.fn(),
-    wrap: jest.fn(),
-  };
-});
-
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import axios from "axios";
+import Enzyme, { mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { IntlProvider } from "react-intl";
 
 import { getColorFn } from "../chart/base";
@@ -67,6 +52,7 @@ import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
+import { stringifyFn } from "../utils/axios";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_EVENT_PLACE_CHART_CLICK,
@@ -103,6 +89,26 @@ import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
 import { NamedTypedPlace, StatVarHierarchyType, StatVarSummary } from "./types";
 
+Enzyme.configure({ adapter: new Adapter() });
+
+jest.mock("axios");
+jest.mock("../chart/draw_d3_map");
+jest.mock("../chart/draw_map_utils");
+jest.mock("../chart/draw_scatter");
+jest.mock("../chart/draw", () => {
+  const originalModule = jest.requireActual("../chart/draw");
+  return {
+    __esModule: true,
+    ...originalModule,
+    drawGroupBarChart: jest.fn(),
+    drawGroupLineChart: jest.fn(),
+    drawHistogram: jest.fn(),
+    drawLineChart: jest.fn(),
+    drawStackBarChart: jest.fn(),
+    wrap: jest.fn(),
+  };
+});
+
 const CATEGORY = "Economics";
 const PLACE_DCID = "geoId/05";
 const PLACE_NAME = "Arkansas";
@@ -125,7 +131,6 @@ const PLACE_CHART_PROPS = {
   rankingTemplateUrl: "",
   statsVars: [STAT_VAR_1],
   title: "",
-  trend: { exploreUrl: "", series: {}, sources: [SOURCES] },
   unit: "",
 };
 
@@ -338,6 +343,13 @@ const SCATTER_CONTEXT = {
       lowerBound: NUMBER,
       upperBound: NUMBER,
     },
+    set: () => null,
+    setEnclosingPlace: () => null,
+    setEnclosedPlaceType: () => null,
+    setEnclosedPlaces: () => null,
+    setParentPlaces: () => null,
+    setLowerBound: () => null,
+    setUpperBound: () => null,
   } as ScatterPlaceInfoWrapper,
   display: {
     showQuadrants: false,
@@ -376,9 +388,40 @@ const STAT_VAR_HIERARCHY_PROPS = {
   deselectSV: () => null,
 };
 
-beforeEach(() =>
-  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null))
-);
+beforeEach(() => {
+  jest.spyOn(axios, "get").mockImplementation((url) => {
+    switch (url) {
+      case "/api/observations/series":
+        return Promise.resolve({
+          data: {
+            data: {
+              [STAT_VAR_1]: {
+                [PLACE_DCID]: {
+                  facet: "2176550201",
+                  series: [
+                    {
+                      date: "1900",
+                      value: 1490000,
+                    },
+                  ],
+                },
+              },
+            },
+            facets: {
+              "2176550201": {
+                importName: "USCensusPEP_Annual_Population",
+                measurementMethod: "CensusPEPSurvey",
+                observationPeriod: "P1Y",
+                provenanceUrl: "https://www2.census.gov",
+              },
+            },
+          },
+        });
+      default:
+        return Promise.resolve(null);
+    }
+  });
+});
 
 // Unmount react trees that were mounted with render and clear all mocks.
 afterEach(() => {
@@ -508,20 +551,16 @@ describe("test ga event place chart click", () => {
     // Mock gtag and render the component.
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
-    const chart = render(
+    const wrapper = mount(
       <IntlProvider locale="en">
         <PlaceChart {...PLACE_CHART_PROPS} />
       </IntlProvider>
     );
+    await new Promise(process.nextTick);
+    wrapper.update();
     // Prevent window navigation.
-    const chartSource = chart.getByText(SOURCES);
-    chartSource.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click data sources.
-    fireEvent.click(chartSource);
+    const chartSource = wrapper.find(".sources a");
+    chartSource.simulate("click");
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -534,15 +573,9 @@ describe("test ga event place chart click", () => {
       // Check gtag is called once.
       expect(mockgtag.mock.calls.length).toEqual(1);
     });
-    // Prevent window navigation.
-    const chartExport = chart.getByText("Export");
-    chartExport.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
+    const chartExport = wrapper.find(".outlinks a").at(0);
     // Click export.
-    fireEvent.click(chartExport);
+    chartExport.simulate("click");
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -556,14 +589,8 @@ describe("test ga event place chart click", () => {
       expect(mockgtag.mock.calls.length).toEqual(2);
     });
     // Prevent window navigation.
-    const chartExplore = chart.getByText("Explore More ›");
-    chartExplore.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click exlore more.
-    fireEvent.click(chartExplore);
+    const chartExplore = wrapper.find(".outlinks a").at(1);
+    chartExplore.simulate("click");
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.calls).toContainEqual([
