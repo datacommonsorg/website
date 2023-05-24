@@ -72,21 +72,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household"
-                    ],
-                    "title": "Household Median Income in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
                     "title": "Median Income for Family Households in California",
@@ -147,21 +132,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Earnings_Person"
-                    ],
-                    "title": "Individual Median Earnings in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
                     ],
                     "title": "Family Households Receiving Social Security Income in the Last Year in California",
@@ -172,32 +142,6 @@
                       "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc"
                     ],
                     "title": "Per Capita Family Households Receiving Social Security Income in the Last Year in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold",
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold",
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold"
-                    ],
-                    "title": "Compared with Other Variables in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc",
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_pc",
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_pc"
-                    ],
-                    "title": "Per Capita Compared with Other Variables in California",
                     "type": "LINE"
                   }
                 ]
@@ -251,24 +195,6 @@
             "denom": "Count_Person",
             "name": "Family Households Receiving Social Security Income in the Last Year",
             "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
-          },
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold": {
-            "name": "Family Households Receiving Social Security Income With Married Couples",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold"
-          },
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_pc": {
-            "denom": "Count_Person",
-            "name": "Family Households Receiving Social Security Income With Married Couples",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold"
-          },
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold": {
-            "name": "Single Mother Family Households Receiving Social Security Income",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold"
-          },
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_pc": {
-            "denom": "Count_Person",
-            "name": "Single Mother Family Households Receiving Social Security Income",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold"
           },
           "Mean_Earnings_Person_Male": {
             "name": "Average Earnings for Male Population",

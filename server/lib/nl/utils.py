@@ -124,6 +124,32 @@ def sv_existence_for_places(places: List[str], svs: List[str],
   return existing_svs
 
 
+# Returns a map of existing SVs (as a union across places)
+# keyed by SV DCID with value set to True if the SV has any
+# single data point series (across all places).
+def sv_existence_for_places_check_single_point(
+    places: List[str], svs: List[str],
+    counters: ctr.Counters) -> Dict[str, bool]:
+  if not svs:
+    return {}
+
+  start = time.time()
+  series_data = fetch.series_core(entities=places,
+                                  variables=svs,
+                                  all_facets=False)
+  counters.timeit('sv_existence_for_places_check_single_point', start)
+
+  existing_svs = {}
+  for sv, sv_data in series_data.get('data', {}).items():
+    for _, place_data in sv_data.items():
+      if not place_data.get('series'):
+        continue
+      num_series = len(place_data['series'])
+      existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
+  print(existing_svs)
+  return existing_svs
+
+
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the ranking order.
 # TODO: The per-capita for this should be computed here.
@@ -149,24 +175,6 @@ def rank_svs_by_latest_value(place: str, svs: List[str],
                          key=lambda pair: (pair[1], pair[0]),
                          reverse=reverse)
   return [sv for sv, _ in svs_with_vals]
-
-
-def has_series_with_single_datapoint(place: str, svs: List[str],
-                                     counters: ctr.Counters):
-  start = time.time()
-  series_data = fetch.series_core(entities=[place],
-                                  variables=svs,
-                                  all_facets=False)
-  counters.timeit('has_series_with_single_datapoint', start)
-  for _, place_data in series_data['data'].items():
-    if place not in place_data:
-      continue
-    series = place_data[place]['series']
-    if len(series) < 2:
-      logging.info('Found single data point series in %s - %s', place,
-                   ', '.join(svs))
-      return True
-  return False
 
 
 # List of vars or places ranked by abs and pct growth.
