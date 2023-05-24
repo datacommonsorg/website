@@ -29,12 +29,13 @@ import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
-import { stringifyFn } from "../../utils/axios";
+import { getRoot, stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
+import ReactDOM from "react-dom";
 
 interface LineTilePropType {
   id: string;
@@ -118,7 +119,7 @@ export const fetchData = async (props: LineTilePropType) => {
       statVars.push(spec.denom);
     }
   }
-  let endpoint = "/api/observations/series";
+  let endpoint = `${getRoot()}/api/observations/series`;
   if (props.apiRoot) {
     endpoint = props.apiRoot + endpoint;
   }
@@ -210,3 +211,15 @@ function rawToChart(
     unit,
   };
 }
+
+/**
+ * Renders line chart tile component in the given HTML element
+ * @param element DOM element to render the chart
+ * @param props line chart tile component properties
+ */
+export const renderLineComponent = (
+  element: HTMLElement,
+  props: LineTilePropType
+): void => {
+  ReactDOM.render(React.createElement(LineTile, props), element);
+};
