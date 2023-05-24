@@ -46,9 +46,11 @@
           anonymize_ip: true,
           {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
         });
-
       </script>
       {% endif %}
+      <script>
+        globalThis.viaGoogle = true;
+      </script>
       <title>{{ title }} - Data Commons</title>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -215,8 +217,8 @@
               <div id="sub-footer" class="col-12">
                 <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
                 {# TRANSLATORS: The label for a link to project homepage. #}
-                <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
-
+                <img style="height: 1.2rem" src="/custom_dc/stanford/google.png" />
+                <span>{% trans project="Data Commons" %}<a href="https://datacommons.org">Data Commons</a> from Google{% endtrans %}</span>
                 <div class="float-md-right mt-3 mt-md-0">
                   {% block subfooter_extra %}{% endblock %}
                   {# TRANSLATORS: The label for a link to site terms and conditions. #}

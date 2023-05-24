@@ -22,8 +22,8 @@ from flask import request
 from flask import Response
 
 from server.cache import cache
+import server.lib.fetch as fetch
 import server.lib.util as lib_util
-import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')
@@ -55,9 +55,9 @@ def event_date_range():
   result = {'minDate': "", 'maxDate': ""}
   date_list = []
   if use_cache == '1':
-    date_list = dc.get_event_collection_date(event_type,
-                                             place).get('eventCollectionDate',
-                                                        {}).get('dates', [])
+    date_list = fetch.event_collection_date(event_type,
+                                            place).get('eventCollectionDate',
+                                                       {}).get('dates', [])
   else:
     disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
     date_list = sorted(list(disaster_data.get(event_type, {}).keys()))
@@ -254,7 +254,7 @@ def event_data():
   event_points = []
   provenance_info = {}
   for date in date_list:
-    event_collection = dc.get_event_collection(
+    event_collection = fetch.event_collection(
         event_type, place, date, filter_prop, filter_unit, filter_upper_limit,
         filter_lower_limit).get("eventCollection", {})
     event_points.extend(event_collection.get("events", []))

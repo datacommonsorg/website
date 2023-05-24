@@ -18,5 +18,5 @@ import { renderRankingComponent } from "../js/ranking/ranking";
 
 globalThis.datacommons = {
   drawRanking: renderRankingComponent,
-  root: "https://autopush.datacommons.org",
+  root: "https://datacommons.org",
 };
