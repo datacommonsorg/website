@@ -425,3 +425,35 @@ def resolve_coordinates(coordinates):
   for entity in resp.get('entities', []):
     result[entity['node']] = entity.get('resolvedIds', [])
   return result
+
+
+def event_collection(event_type,
+                     affected_place,
+                     date,
+                     filter_prop=None,
+                     filter_unit=None,
+                     filter_upper_limit=None,
+                     filter_lower_limit=None):
+  """Gets all the events for a specified event type, affected place, date, and
+      filter information (filter prop, unit, lower limit, and upper limit).
+
+  Args:
+      event_type: type of events to get
+      affected_place: affected place of events to get
+      date: date of events to get
+  """
+  return dc.v2event(node=affected_place,
+                    prop='<-location{{typeOf:{},date:{}, {}:{}#{}#{}}}'.format(
+                        event_type, date, filter_prop, filter_lower_limit,
+                        filter_upper_limit, filter_unit))
+
+
+def event_collection_date(event_type, affected_place):
+  """Gets all the dates of events for a specified event type and affected place
+
+  Args:
+      event_type: type of event to get the dates for
+      affected_place: affected place of events to include dates of
+  """
+  return dc.v2event(node=affected_place,
+                    prop='<-location{{typeOf:{}}}->date'.format(event_type))

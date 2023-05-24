@@ -623,11 +623,11 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
       _is_sv_percapita(sv_names[1], sv_pair[1])
   ]
   if is_sv_pc[0]:
-    if not is_sv_pc[1]:
+    if not is_sv_pc[1] and utils.is_percapita_relevant(sv_pair[1]):
       change_to_pc[1] = True
       sv_names[1] += " Per Capita"
   if is_sv_pc[1]:
-    if not is_sv_pc[0]:
+    if not is_sv_pc[0] and utils.is_percapita_relevant(sv_pair[0]):
       change_to_pc[0] = True
       sv_names[0] += " Per Capita"
 

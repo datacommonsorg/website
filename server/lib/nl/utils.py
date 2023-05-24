@@ -27,7 +27,6 @@ import server.lib.nl.counters as ctr
 import server.lib.nl.detection as detection
 import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.utterance as nl_uttr
-import server.services.datacommons as dc
 import shared.lib.constants as shared_constants
 
 # TODO: This is reading the file on every call.  Improve it!
@@ -80,9 +79,9 @@ def event_existence_for_place(place: str, event: detection.EventType,
                               counters: ctr.Counters) -> bool:
   for event_type in constants.EVENT_TYPE_TO_DC_TYPES[event]:
     start = time.time()
-    date_list = dc.get_event_collection_date(event_type,
-                                             place).get('eventCollectionDate',
-                                                        {}).get('dates', [])
+    date_list = fetch.event_collection_date(event_type,
+                                            place).get('eventCollectionDate',
+                                                       {}).get('dates', [])
     counters.timeit('event_existence_for_place', start)
     cur_year = datetime.datetime.now().year
     prev_year = str(cur_year - 1)

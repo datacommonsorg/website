@@ -18,7 +18,6 @@
  * Component for rendering a disaster type block.
  */
 
-import _ from "lodash";
 import React, { memo, useContext, useEffect, useRef, useState } from "react";
 
 import {
