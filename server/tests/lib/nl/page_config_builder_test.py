@@ -149,13 +149,13 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compared with Other Variables in Foo Place"
+         title: "Count_Person_Male-name compared with other variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Per Capita Compared with Other Variables in Foo Place"
+         title: "Per Capita Count_Person_Male-name compared with other variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
          stat_var_key: "Count_Person_Female_pc"
