@@ -72,6 +72,8 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "EurostatNUTS2": "geoJsonCoordinatesDP2",
     "EurostatNUTS3": "geoJsonCoordinatesDP1",
     "IPCCPlace_50": "geoJsonCoordinates",
+    "CensusTract": "geoJsonCoordinates",
+    "CensusZipCodeTabulationArea": "geoJsonCoordinates",
 }
 MULTILINE_GEOJSON_TYPE = "MultiLineString"
 MULTIPOLYGON_GEOJSON_TYPE = "MultiPolygon"
