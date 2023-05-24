@@ -41,7 +41,7 @@ _EVENT_PREFIX = 'event/'
 # Limit the number of charts.  With 3 per row max, allow up to 5 rows.
 _MAX_NUM_CHARTS = 15
 
-# Do do extension API calls for more than these many SVs
+# Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
 
 
@@ -286,6 +286,7 @@ class SVExistenceCheckState:
 
 #
 # This class helps batch existence checks.
+# TODO: Fork this into separate classes for main SVs and extensions.
 #
 class ExistenceCheckStateTracker:
 
