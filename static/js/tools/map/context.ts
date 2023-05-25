@@ -72,7 +72,7 @@ export interface PlaceInfo {
   // The parent places of the selected place
   parentPlaces?: Array<NamedTypedPlace>;
   // Place that encloses the places to plot
-  enclosingPlace?: NamedPlace;
+  enclosingPlace?: NamedTypedPlace;
   // The type of place to plot
   enclosedPlaceType?: string;
   // The type of place to show points on the map for
@@ -86,7 +86,7 @@ export interface PlaceInfoWrapper {
   set: Setter<PlaceInfo>;
   setSelectedPlace: Setter<NamedTypedPlace>;
   setParentPlaces: Setter<Array<NamedTypedPlace>>;
-  setEnclosingPlace: Setter<NamedPlace>;
+  setEnclosingPlace: Setter<NamedTypedPlace>;
   setEnclosedPlaceType: Setter<string>;
   setMapPointPlaceType: Setter<string>;
 }
@@ -186,7 +186,7 @@ export function useInitialContext(params: URLSearchParams): ContextType {
           selectedPlace,
           enclosedPlaceType: "",
           parentPlaces: null,
-          enclosingPlace: { dcid: "", name: "" },
+          enclosingPlace: { dcid: "", name: "", types: null },
         }),
       setEnclosingPlace: (enclosingPlace) =>
         setPlaceInfo({
@@ -196,7 +196,7 @@ export function useInitialContext(params: URLSearchParams): ContextType {
       setEnclosedPlaceType: (enclosedPlaceType) =>
         setPlaceInfo({
           ...placeInfo,
-          enclosingPlace: { dcid: "", name: "" },
+          enclosingPlace: { dcid: "", name: "", types: null },
           enclosedPlaceType,
         }),
       setParentPlaces: (parentPlaces) =>

@@ -106,8 +106,8 @@ export const ALL_PLACE_CHILD_TYPES = {
 
 export const USA_CHILD_PLACE_TYPES = {
   Country: ["State", "County"],
-  State: ["County"],
-  County: ["County", "CensusTract", "CensusZipCodeTabulationArea"],
+  State: ["County", "City", "CensusZipCodeTabulationArea"],
+  County: ["County", "City", "CensusTract", "CensusZipCodeTabulationArea"],
   CensusRegion: ["State", "County"],
   CensusDivision: ["State", "County"],
 };
@@ -151,6 +151,13 @@ export const ENCLOSED_PLACE_TYPE_NAMES = {
 export const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
 };
+
+// list of enclosed place types that don't cover enclosing places completely
+// used for determining if the enclosing place's borders should be drawn
+export const NO_FULL_COVERAGE_PLACE_TYPES = [
+  "City",
+  "CensusZipCodeTabulationArea",
+];
 
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
@@ -211,6 +218,7 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
     enclosingPlace: {
       dcid: "",
       name: "",
+      types: null,
     },
     enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
     parentPlaces: null,
@@ -358,7 +366,7 @@ export function getRedirectLink(
   hash = updateHashPlaceInfo(hash, {
     enclosedPlaceType:
       enclosedPlaceTypes.length == 1 ? enclosedPlaceTypes[0] : "",
-    enclosingPlace: { dcid: "", name: "" },
+    enclosingPlace: { dcid: "", name: "", types: null },
     mapPointPlaceType,
     parentPlaces: [],
     selectedPlace,

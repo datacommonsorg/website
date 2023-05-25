@@ -51,6 +51,8 @@ export interface MapZoomParams {
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
 const TOOLTIP_ID = "tooltip";
+const BORDER_STROKE_COLOR = "#C8C8C8";
+const BORDER_STROKE_WIDTH = "0.5px";
 const GEO_STROKE_COLOR = "#fff";
 const HIGHLIGHTED_STROKE_COLOR = "#202020";
 const STROKE_WIDTH = "0.5px";
@@ -60,6 +62,7 @@ export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME = "region-highlighted-no-click";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
+const MAP_REGION_BORDER_ID = "map-region-border-id";
 const MAP_ITEMS_GROUP_ID = "map-items";
 const MAP_GEO_REGIONS_ID = "map-geo-regions";
 const STARTING_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
@@ -392,6 +395,7 @@ function addGeoJsonLayer(
  * @param projection projection to use for the map
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
  * @param zoomParams the parameters needed to add zoom functionality for the map
+ * @param borderGeoJson the geojson data for drawing borders of containing place
  */
 export function drawD3Map(
   containerElement: HTMLDivElement,
@@ -408,7 +412,8 @@ export function drawD3Map(
   shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
   zoomDcid?: string,
-  zoomParams?: MapZoomParams
+  zoomParams?: MapZoomParams,
+  borderGeoJson?: GeoJsonData
 ): void {
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
@@ -461,7 +466,20 @@ export function drawD3Map(
     "click",
     onMapClick(canClickRegion, containerElement, redirectAction)
   );
-
+  // If provided, draw border of containing place
+  if (borderGeoJson && !_.isEmpty(borderGeoJson)) {
+    const borderObjects = addGeoJsonLayer(
+      containerElement,
+      borderGeoJson,
+      projection,
+      "",
+      MAP_REGION_BORDER_ID
+    );
+    borderObjects
+      .attr("stroke-width", BORDER_STROKE_WIDTH)
+      .attr("stroke", BORDER_STROKE_COLOR)
+      .style("fill", "none");
+  }
   // style highlighted region and bring to the front
   d3.select(containerElement)
     .select("." + HIGHLIGHTED_CLASS_NAME)

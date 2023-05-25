@@ -45,6 +45,7 @@ import { useGetSqlQuery } from "./compute/sql";
 import { Context } from "./context";
 import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchAllStat } from "./fetcher/all_stat";
+import { useFetchBorderGeoJson } from "./fetcher/border_geojson";
 import { useFetchBreadcrumbDenomStat } from "./fetcher/breadcrumb_denom_stat";
 import { useFetchBreadcrumbStat } from "./fetcher/breadcrumb_stat";
 import { useFetchDefaultStat } from "./fetcher/default_stat";
@@ -59,7 +60,12 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
+import {
+  CHART_LOADER_SCREEN,
+  getDate,
+  getRankingLink,
+  NO_FULL_COVERAGE_PLACE_TYPES,
+} from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -87,6 +93,7 @@ export function ChartLoader(): JSX.Element {
   useFetchGeoRaster(dispatchChartStore);
   useFetchAllDates(dispatchChartStore);
   useFetchStatVarSummary(dispatchChartStore);
+  useFetchBorderGeoJson(dispatchChartStore);
 
   // +++++++  Dispatcher for computations
   const [sources, dispatchSources] = useReducer(
@@ -216,6 +223,10 @@ export function ChartLoader(): JSX.Element {
       date,
       chartStore.mapValuesDates.data.unit
     );
+    // Only draw border if enclosed place type is small
+    const shouldDrawBorders = NO_FULL_COVERAGE_PLACE_TYPES.includes(
+      placeInfo.value.enclosedPlaceType
+    );
     return (
       <div className="chart-region">
         <Chart
@@ -233,6 +244,9 @@ export function ChartLoader(): JSX.Element {
           facetList={facetList}
           geoRaster={chartStore.geoRaster.data}
           mapType={mapType}
+          borderGeoJsonData={
+            shouldDrawBorders ? chartStore.borderGeoJson.data : undefined
+          }
         >
           {display.value.showTimeSlider &&
             sampleDates &&

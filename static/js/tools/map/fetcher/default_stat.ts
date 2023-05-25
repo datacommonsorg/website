@@ -53,6 +53,7 @@ export function useFetchDefaultStat(
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
             name: "",
+            types: null,
           },
           enclosedPlaceType: placeInfo.value.enclosedPlaceType,
         },

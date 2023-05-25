@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,77 +15,62 @@
  */
 
 /**
- * Fetch the stat data for denominator stat var
+ * Fetch Geo Json data for the border of the containing place.
  */
 
 import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import {
-  EntitySeriesWrapper,
-  SeriesApiResponse,
-} from "../../../shared/stat_types";
-import { stringifyFn } from "../../../utils/axios";
+import { GeoJsonData } from "../../../chart/types";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
-export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
-  const { placeInfo, statVar } = useContext(Context);
+export function useFetchBorderGeoJson(
+  dispatch: Dispatch<ChartStoreAction>
+): void {
+  const { placeInfo } = useContext(Context);
   useEffect(() => {
     const contextOk =
-      placeInfo.value.enclosingPlace.dcid &&
-      placeInfo.value.enclosedPlaceType &&
-      statVar.value.denom;
+      placeInfo.value.enclosingPlace && placeInfo.value.enclosingPlace.dcid;
     if (!contextOk) {
       return;
     }
     const action: ChartStoreAction = {
-      type: ChartDataType.DENOM_STAT,
+      type: ChartDataType.BORDER_GEO_JSON,
       error: null,
       context: {
         placeInfo: {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
             name: "",
-            types: null,
+            types: placeInfo.value.enclosingPlace.types,
           },
           enclosedPlaceType: placeInfo.value.enclosedPlaceType,
-        },
-        statVar: {
-          denom: statVar.value.denom,
         },
       },
     };
     axios
-      .get<SeriesApiResponse>("/api/observations/series/within", {
-        params: {
-          childType: placeInfo.value.enclosedPlaceType,
-          parentEntity: placeInfo.value.enclosingPlace.dcid,
-          variables: [statVar.value.denom],
-        },
-        paramsSerializer: stringifyFn,
+      .post("/api/choropleth/node-geojson", {
+          nodes: [placeInfo.value.enclosingPlace.dcid],
+          nodeType: placeInfo.value.enclosingPlace.types[0],
       })
       .then((resp) => {
-        if (_.isEmpty(resp.data.data[statVar.value.denom])) {
-          action.error = "error fetching denom stat data";
+        if (_.isEmpty(resp.data)) {
+          action.error = "error fetching border geo json data";
         } else {
-          action.payload = {
-            data: resp.data.data[statVar.value.denom],
-            facets: resp.data.facets,
-          } as EntitySeriesWrapper;
+          action.payload = resp.data as GeoJsonData;
         }
-        console.log("[Map Fetch] denom stat");
+        console.log("[Map Fetch] border geojson");
         dispatch(action);
       })
       .catch(() => {
-        action.error = "error fetching denom stat data";
+        action.error = "error fetching border geo json data";
         dispatch(action);
       });
   }, [
-    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosingPlace,
     placeInfo.value.enclosedPlaceType,
-    statVar.value.denom,
     dispatch,
   ]);
 }

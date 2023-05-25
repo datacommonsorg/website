@@ -42,6 +42,7 @@ export function useFetchGeoJson(dispatch: Dispatch<ChartStoreAction>): void {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
             name: "",
+            types: null,
           },
           enclosedPlaceType: placeInfo.value.enclosedPlaceType,
         },
