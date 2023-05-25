@@ -98,11 +98,7 @@ function loadEnclosingPlace(place: PlaceInfoWrapper): void {
           place.value.enclosedPlaceType
         ) > -1
       ) {
-        place.setEnclosingPlace({
-          dcid: parent.dcid,
-          name: parent.name,
-          types: parent.types,
-        });
+        place.setEnclosingPlace({ dcid: parent.dcid, name: parent.name });
         return;
       }
     }
@@ -110,6 +106,5 @@ function loadEnclosingPlace(place: PlaceInfoWrapper): void {
   place.setEnclosingPlace({
     dcid: selectedPlace.dcid,
     name: selectedPlace.name,
-    types: selectedPlace.types,
   });
 }

@@ -86,7 +86,7 @@ export interface PlaceInfoWrapper {
   set: Setter<PlaceInfo>;
   setSelectedPlace: Setter<NamedTypedPlace>;
   setParentPlaces: Setter<Array<NamedTypedPlace>>;
-  setEnclosingPlace: Setter<NamedTypedPlace>;
+  setEnclosingPlace: Setter<NamedPlace>;
   setEnclosedPlaceType: Setter<string>;
   setMapPointPlaceType: Setter<string>;
 }
