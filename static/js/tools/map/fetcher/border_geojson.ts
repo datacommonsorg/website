@@ -26,6 +26,8 @@ import { GeoJsonData } from "../../../chart/types";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
+// Use non-DP geojsons for drawing borders to avoid mismatched edges between
+// the border and enclosed places
 const BORDER_GEOJSON_PROPERTY = "geoJsonCoordinates";
 
 export function useFetchBorderGeoJson(
