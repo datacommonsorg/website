@@ -21,6 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
@@ -35,7 +36,6 @@ import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
-import ReactDOM from "react-dom";
 
 interface LineTilePropType {
   id: string;
