@@ -2,4 +2,5 @@ absl-py
 datasets
 google-cloud-storage
 gspread
+parameterized
 sentence-transformers
