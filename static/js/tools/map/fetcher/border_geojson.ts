@@ -53,8 +53,8 @@ export function useFetchBorderGeoJson(
     };
     axios
       .post("/api/choropleth/node-geojson", {
-          nodes: [placeInfo.value.enclosingPlace.dcid],
-          geoJsonProp: BORDER_GEOJSON_PROPERTY,
+        nodes: [placeInfo.value.enclosingPlace.dcid],
+        geoJsonProp: BORDER_GEOJSON_PROPERTY,
       })
       .then((resp) => {
         if (_.isEmpty(resp.data)) {

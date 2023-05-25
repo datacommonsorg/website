@@ -179,7 +179,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
       zoomParams,
       props.borderGeoJsonData
     );
-    if (display.value.showMapPoints) {
+    if (display.value.showMapPoints && props.mapPointValues) {
       let mapPointSvTitle = "";
       if (statVar.value.mapPointSv !== statVar.value.dcid) {
         mapPointSvTitle =
