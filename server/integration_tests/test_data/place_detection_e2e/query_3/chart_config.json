@@ -142,7 +142,7 @@
                       "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block",
                       "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Compared with Other Variables in Florida (${date})",
+                    "title": "Homes Whose Householder Identifies as Two or More Races compared with other variables in Florida (${date})",
                     "type": "BAR"
                   },
                   {
@@ -162,7 +162,7 @@
                       "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block_pc",
                       "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Compared with Other Variables in Florida (${date})",
+                    "title": "Per Capita Homes Whose Householder Identifies as Two or More Races compared with other variables in Florida (${date})",
                     "type": "BAR"
                   }
                 ]
