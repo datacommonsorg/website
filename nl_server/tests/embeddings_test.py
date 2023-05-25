@@ -23,9 +23,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 import yaml
 
 from nl_server import gcs
+from nl_server import loader
 from nl_server.embeddings import Embeddings
 from nl_server.loader import nl_cache_path
-from nl_server.loader import nl_embeddings_cache_key
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -34,11 +34,12 @@ _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                           'test_data')
 
 
+# TODO(pradh): Expand tests to other index sizes.
 def _get_embeddings_file_path() -> str:
   model_config_path = os.path.join(_root_dir, 'deploy/base/model.yaml')
   with open(model_config_path) as f:
     model = yaml.full_load(f)
-    embeddings_file = model['embeddings_file']
+    embeddings_file = model[loader.DEFAULT_INDEX_SIZE]
     return gcs.download_embeddings(embeddings_file)
 
 
@@ -50,7 +51,7 @@ class TestEmbeddings(unittest.TestCase):
     # Look for the Embeddings model in the cache if it exists.
     cache = Cache(nl_cache_path)
     cache.expire()
-    cls.nl_embeddings = cache.get(nl_embeddings_cache_key)
+    cls.nl_embeddings = cache.get(loader.nl_embeddings_cache_key())
     if not cls.nl_embeddings:
       print(
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
