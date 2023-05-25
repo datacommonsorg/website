@@ -143,6 +143,16 @@ class TestMap(WebdriverBaseTest):
     element_present = EC.presence_of_element_located((By.CLASS_NAME, 'chip'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
+    # Wait until place type selector populates with options
+    element_present = EC.presence_of_element_located(
+        (By.CSS_SELECTOR, "option[value='County']"))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+    # Click on 'County' place type option
+    place_type = self.driver.find_element(By.CSS_SELECTOR,
+                                          "option[value='County']")
+    place_type.click()
+
     # Choose stat var
     shared.wait_for_loading(self.driver)
     shared.click_sv_group(self.driver, "Demographics")

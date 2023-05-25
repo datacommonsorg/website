@@ -59,6 +59,16 @@ class TestMap(WebdriverBaseTest):
     element_present = EC.presence_of_element_located((By.CLASS_NAME, 'chip'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
+    # Wait until the place type selector populates with options
+    element_present = EC.presence_of_element_located(
+        (By.CSS_SELECTOR, "option[value='County']"))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+    # Select the 'County' place type option
+    place_type = self.driver.find_element(By.CSS_SELECTOR,
+                                          "option[value='County']")
+    place_type.click()
+
     # Get the count after filtering
     shared.wait_for_loading(self.driver)
     first_category = self.driver.find_element(By.CLASS_NAME, 'sv-count')
