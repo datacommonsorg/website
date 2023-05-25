@@ -259,12 +259,7 @@ def node_geojson():
   nodes = request.json.get("nodes", [])
   geojson_prop = request.json.get("geoJsonProp")
   if not geojson_prop:
-    # If no geojson_prop provided, attempt to lookup prop to use from config
-    node_type = request.json.get("nodeType")
-    if node_type in CHOROPLETH_GEOJSON_PROPERTY_MAP.keys():
-      geojson_prop = CHOROPLETH_GEOJSON_PROPERTY_MAP[node_type]
-    else:
-      return "error: must provide a geoJsonProp field", 400
+    return "error: must provide a geoJsonProp field", 400
   features = []
   geojson_by_node = fetch.property_values(nodes, geojson_prop)
   for node_id, json_text in geojson_by_node.items():

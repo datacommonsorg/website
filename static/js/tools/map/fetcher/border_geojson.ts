@@ -26,6 +26,8 @@ import { GeoJsonData } from "../../../chart/types";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
+const BORDER_GEOJSON_PROPERTY = "geoJsonCoordinates";
+
 export function useFetchBorderGeoJson(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
@@ -44,7 +46,6 @@ export function useFetchBorderGeoJson(
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
             name: "",
-            types: placeInfo.value.enclosingPlace.types,
           },
           enclosedPlaceType: placeInfo.value.enclosedPlaceType,
         },
@@ -53,7 +54,7 @@ export function useFetchBorderGeoJson(
     axios
       .post("/api/choropleth/node-geojson", {
           nodes: [placeInfo.value.enclosingPlace.dcid],
-          nodeType: placeInfo.value.enclosingPlace.types[0],
+          geoJsonProp: BORDER_GEOJSON_PROPERTY,
       })
       .then((resp) => {
         if (_.isEmpty(resp.data)) {

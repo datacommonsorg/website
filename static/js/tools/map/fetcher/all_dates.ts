@@ -49,7 +49,6 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
             name: "",
-            types: null,
           },
         },
       },

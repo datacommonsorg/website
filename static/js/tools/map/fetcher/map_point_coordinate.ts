@@ -45,7 +45,6 @@ export function useFetchMapPointCoordinate(
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
             name: "",
-            types: null,
           },
           mapPointPlaceType: placeInfo.value.mapPointPlaceType,
         },

@@ -218,7 +218,6 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
     enclosingPlace: {
       dcid: "",
       name: "",
-      types: null,
     },
     enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
     parentPlaces: null,
@@ -366,7 +365,7 @@ export function getRedirectLink(
   hash = updateHashPlaceInfo(hash, {
     enclosedPlaceType:
       enclosedPlaceTypes.length == 1 ? enclosedPlaceTypes[0] : "",
-    enclosingPlace: { dcid: "", name: "", types: null },
+    enclosingPlace: { dcid: "", name: "" },
     mapPointPlaceType,
     parentPlaces: [],
     selectedPlace,

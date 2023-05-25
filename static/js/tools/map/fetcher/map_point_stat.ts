@@ -52,7 +52,6 @@ export function useFetchMapPointStat(
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
             name: "",
-            types: null,
           },
           mapPointPlaceType: placeInfo.value.mapPointPlaceType,
         },
