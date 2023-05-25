@@ -52,48 +52,6 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
-                      "Count_CriminalActivities_Burglary_multiple_place_bar_block",
-                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
-                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
-                      "Count_CriminalActivities_Robbery_multiple_place_bar_block",
-                      "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
-                    ],
-                    "title": "Compared with Other Variables in California (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Compared with Other Variables in California (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Count_CriminalActivities_Robbery"
                     ],
@@ -238,6 +196,48 @@
                     ],
                     "title": "Per Capita Burglaries in California",
                     "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
+                      "Count_CriminalActivities_Burglary_multiple_place_bar_block",
+                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
+                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
+                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
+                      "Count_CriminalActivities_Robbery_multiple_place_bar_block",
+                      "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
+                    ],
+                    "title": "Property Related Crimes compared with other variables in California (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block_pc",
+                      "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc",
+                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc",
+                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc",
+                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc",
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc",
+                      "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc",
+                      "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Property Related Crimes compared with other variables in California (${date})",
+                    "type": "BAR"
                   }
                 ]
               }

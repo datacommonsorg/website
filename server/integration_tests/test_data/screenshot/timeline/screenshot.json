@@ -62,21 +62,6 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Household Median Income\r\n2020,65315\r\n2019,64894\r\n2018,63473\r\n2017,61285\r\n2016,59114\r\n2015,57181\r\n2014,55579\r\n2013,53741\r\n2012,51641\r\n2011,49415",
-      "legend": [
-        "Household Median Income"
-      ],
-      "srcs": [
-        {
-          "name": "census.gov",
-          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
-        }
-      ],
-      "svg": "",
-      "title": "Household Median Income in North Dakota",
-      "type": "LINE"
-    },
-    {
       "data_csv": "label,Median Income for Family Households\r\n2019,86249\r\n2018,83272\r\n2017,80091\r\n2016,77277\r\n2015,74708\r\n2014,72770\r\n2013,70767\r\n2012,68293\r\n2011,65871\r\n2010,62920",
       "legend": [
         "Median Income for Family Households"
@@ -137,21 +122,6 @@
       "type": "LINE"
     },
     {
-      "data_csv": "label,Individual Median Earnings\r\n2016,32791\r\n2015,31907\r\n2014,31198\r\n2013,30289\r\n2012,28923\r\n2011,27194\r\n2010,26117",
-      "legend": [
-        "Individual Median Earnings"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2001&tid=ACSST1Y2019.S2001"
-        }
-      ],
-      "svg": "",
-      "title": "Individual Median Earnings in North Dakota",
-      "type": "LINE"
-    },
-    {
       "data_csv": "label,Family Households Receiving Social Security Income in the Last Year\r\n2019,45093\r\n2018,44608\r\n2017,44062\r\n2016,43407\r\n2015,43103\r\n2014,41787\r\n2013,41359\r\n2012,40902\r\n2011,40247\r\n2010,40123",
       "legend": [
         "Family Households Receiving Social Security Income in the Last Year"
@@ -179,40 +149,6 @@
       ],
       "svg": "",
       "title": "Per Capita Family Households Receiving Social Security Income in the Last Year in North Dakota",
-      "type": "LINE"
-    },
-    {
-      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year,Family Households Receiving Social Security Income With Married Couples,Single Mother Family Households Receiving Social Security Income\r\n2019,45093,39375,3910\r\n2018,44608,38885,3962\r\n2017,44062,38225,4159\r\n2016,43407,37611,4034\r\n2015,43103,37210,4123\r\n2014,41787,36194,3848\r\n2013,41359,35924,3754\r\n2012,40902,35395,3682\r\n2011,40247,34667,3689\r\n2010,40123,34373,3743",
-      "legend": [
-        "Family Households Receiving Social Security Income in the Last Year",
-        "Family Households Receiving Social Security Income With Married Couples",
-        "Single Mother Family Households Receiving Social Security Income"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
-        }
-      ],
-      "svg": "",
-      "title": "Compared with Other Variables in North Dakota",
-      "type": "LINE"
-    },
-    {
-      "data_csv": "label,Family Households Receiving Social Security Income in the Last Year,Family Households Receiving Social Security Income With Married Couples,Single Mother Family Households Receiving Social Security Income\r\n2019,0.058188420384335464,0.0508098607906595,0.005045499827085172\r\n2018,0.057562571940310836,0.050177560300820184,0.005112601103557916\r\n2017,0.05685800853734702,0.04932589025328151,0.0053668117086565804\r\n2016,0.05601279053562304,0.048533579027237955,0.005205510563289408\r\n2015,0.05562050615009007,0.048016124952900065,0.005320356978790835\r\n2014,0.053922327691664475,0.046705069243355685,0.004965494458983055\r\n2013,0.05337003256992727,0.04635665876936259,0.00484419599766694\r\n2012,0.05278031558246489,0.04567403232216871,0.004751286537935448\r\n2011,0.0519350975807409,0.044734614451550296,0.00476031940207601\r\n2010,0.05177508684453667,0.04435523415764671,0.004830001496874629",
-      "legend": [
-        "Family Households Receiving Social Security Income in the Last Year",
-        "Family Households Receiving Social Security Income With Married Couples",
-        "Single Mother Family Households Receiving Social Security Income"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
-        }
-      ],
-      "svg": "",
-      "title": "Per Capita Compared with Other Variables in North Dakota",
       "type": "LINE"
     },
     {
