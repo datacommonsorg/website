@@ -37,7 +37,10 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { getPlaceChartData } from "../../tools/map/util";
+import {
+  getPlaceChartData,
+  NO_FULL_COVERAGE_PLACE_TYPES,
+} from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -67,6 +70,7 @@ interface RawData {
   placeStat: PointApiResponse;
   population: SeriesApiResponse;
   parentPlaces: NamedTypedPlace[];
+  borderGeoJson?: GeoJsonData;
 }
 
 interface MapChartData {
@@ -78,6 +82,7 @@ interface MapChartData {
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
   unit: string;
+  borderGeoJson?: GeoJsonData;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -176,6 +181,12 @@ export const fetchData = async (
       `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
+  const borderGeoJsonPromise = axios
+    .post(`/api/choropleth/node-geojson`, {
+      geoJsonProp: "geoJsonCoordinates",
+      nodes: [place.dcid],
+    })
+    .then((resp) => resp.data);
   const dataDate = getCappedStatVarDate(statVarSpec.statVar);
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get("/api/observations/point/within", {
@@ -204,13 +215,25 @@ export const fetchData = async (
     .get(`/api/place/parent/${place.dcid}`)
     .then((resp) => resp.data);
   try {
-    const [geoJson, placeStat, population, parentPlaces] = await Promise.all([
-      geoJsonPromise,
-      placeStatPromise,
-      populationPromise,
-      parentPlacesPromise,
-    ]);
-    const rawData = { geoJson, placeStat, population, parentPlaces };
+    const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
+      await Promise.all([
+        geoJsonPromise,
+        placeStatPromise,
+        populationPromise,
+        parentPlacesPromise,
+        borderGeoJsonPromise,
+      ]);
+    // Only draw borders for containing places without 'wall to wall' coverage
+    const shouldDrawBorders =
+      NO_FULL_COVERAGE_PLACE_TYPES.includes(enclosedPlaceType);
+    const borderGeoJson = shouldDrawBorders ? borderGeoJsonData : undefined;
+    const rawData = {
+      geoJson,
+      placeStat,
+      population,
+      parentPlaces,
+      borderGeoJson,
+    };
     return rawToChart(rawData, statVarSpec, place, enclosedPlaceType);
   } catch (error) {
     return null;
@@ -289,6 +312,7 @@ function rawToChart(
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
     unit: statVarSpec.unit || unit,
+    borderGeoJson: rawData.borderGeoJson,
   };
 }
 
@@ -359,6 +383,9 @@ function draw(
     getTooltipHtml,
     () => false,
     chartData.showMapBoundaries,
-    projection
+    projection,
+    undefined,
+    undefined,
+    chartData.borderGeoJson
   );
 }
