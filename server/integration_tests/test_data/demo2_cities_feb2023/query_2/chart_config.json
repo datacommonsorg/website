@@ -72,19 +72,19 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "Percent_Person_WithAllTeethLoss_multiple_place_bar_block",
-                      "Percent_Person_WithArthritis_multiple_place_bar_block",
-                      "Percent_Person_WithAsthma_multiple_place_bar_block",
-                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
                       "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block",
+                      "Percent_Person_WithAllTeethLoss_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
+                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
+                      "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
                       "Percent_Person_WithDiabetes_multiple_place_bar_block",
-                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
-                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
-                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithStroke_multiple_place_bar_block"
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
+                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
+                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block"
                     ],
                     "title": "Asthma compared with other variables in Sunnyvale (${date})",
                     "type": "BAR"
@@ -99,11 +99,11 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_BingeDrinking",
+                      "Percent_Person_Smoking",
                       "Percent_Person_Obesity",
-                      "Percent_Person_PhysicalInactivity",
+                      "Percent_Person_BingeDrinking",
                       "Percent_Person_SleepLessThan7Hours",
-                      "Percent_Person_Smoking"
+                      "Percent_Person_PhysicalInactivity"
                     ],
                     "title": "Percentage of Population That Smokes compared with other variables in Sunnyvale",
                     "type": "LINE"
