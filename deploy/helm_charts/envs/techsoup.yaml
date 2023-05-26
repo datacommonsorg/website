@@ -13,22 +13,29 @@
 # limitations under the License.
 
 # Helm config
-project: "datcom-stanford-staging"
-cluster_prefix: "website"
+project: "techsoup-data-commons"
+cluster_prefix: "datacommons"
 
 namespace:
-  name: "website"
+  name: website
 
 website:
   image:
-    project: "datcom-ci"
+    project:
     tag:
   githash:
-  flaskEnv: stanford_staging
-  replicas: 2
+  flaskEnv: custom
+  replicas: 1
+
+ingress:
+  enabled: true
 
 mixer:
-  foldRemoteRootSvg: true
+  useBranchBigtable: false
+  useCustomBigtable: true
+
+customDC:
+  enabled: true
 
 serviceAccount:
   name: website-ksa
@@ -38,21 +45,24 @@ nl:
 
 serviceGroups:
   recon: null
-  observation:
-    replicas: 4
-  node:
-    replicas: 4
-  svg:
-    replicas: 2
+  svg: null
+  observation: null
+  node: null
   default:
-    replicas: 2
+    replicas: 1
+    useSearch: true # No svg service, this needs to use search
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
 
 kgStoreConfig:
   customBigtableInfo: |
-    project: datcom-stanford
+    project: techsoup-data-commons
     instance: dc-graph
     tables:
-      - magic-lab_2023_04_12_22_22_43
+      - freemeals_2023_04_11_14_09_49
+      - mealsites_2023_05_25_20_51_17
+      - usda_grocery_access_2023_05_22_11_28_04
 
 svg:
-  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG", "oecd/g/OECD"]
+  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]

@@ -31,6 +31,8 @@ website:
 mixer:
   hostProject:
   serviceName:
+  useBranchBigtable: false
+  useCustomBigtable: true
 
 ingress:
   enabled: true

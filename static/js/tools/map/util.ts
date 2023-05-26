@@ -106,7 +106,7 @@ export const ALL_PLACE_CHILD_TYPES = {
 
 export const USA_CHILD_PLACE_TYPES = {
   Country: ["State", "County"],
-  State: ["County"],
+  State: ["County", "CensusZipCodeTabulationArea"],
   County: ["County", "CensusTract", "CensusZipCodeTabulationArea"],
   CensusRegion: ["State", "County"],
   CensusDivision: ["State", "County"],
