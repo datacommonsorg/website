@@ -28,7 +28,7 @@ website:
   replicas: 2
 
 mixer:
-  pinnedSvg: dc/g/Stanford
+  foldRemoteRootSvg: true
 
 serviceAccount:
   name: website-ksa

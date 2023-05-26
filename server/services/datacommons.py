@@ -177,7 +177,7 @@ def v2observation(select, entity, variable):
   Args:
     select: A list of select props.
     entity: A dict in the form of {'dcids':, 'expression':}
-    variable: A dict in the form of {'dcids':, 'expression':}    
+    variable: A dict in the form of {'dcids':, 'expression':}
 
   """
   if 'dcids' in entity:
