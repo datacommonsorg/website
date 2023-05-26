@@ -30,6 +30,11 @@ import { Context } from "../context";
 // the border and enclosed places
 const BORDER_GEOJSON_PROPERTY = "geoJsonCoordinates";
 
+/**
+ * Fetch geojson data for the border of the containing place and load into
+ * ChartStore.
+ * @param dispatch react redux dispatch for loading data into a ChartStore.
+ */
 export function useFetchBorderGeoJson(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
@@ -64,7 +69,6 @@ export function useFetchBorderGeoJson(
         } else {
           action.payload = resp.data as GeoJsonData;
         }
-        console.log("[Map Fetch] border geojson");
         dispatch(action);
       })
       .catch(() => {
