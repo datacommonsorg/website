@@ -179,4 +179,5 @@ def extend_svs(svs: List[str]):
       if sv2 == sv:
         continue
       reverse_map[sv2] = res[sv]
-  return res
+  res_ordered = {sv: sorted(ext_svs) for sv, ext_svs in res.items()}
+  return res_ordered
