@@ -350,7 +350,7 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
     orig_title = attr['title']
   elif len(svs) > 1:
     if attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
-        'orig_sv'):
+        'orig_sv') and sv2thing.name.get(attr.get('orig_sv', '')):
       # This suggests we are comparing against SV peers from SV extension
       orig_sv_name = sv2thing.name[attr['orig_sv']]
       orig_title = f'{orig_sv_name} compared with other variables'
