@@ -145,7 +145,6 @@ def sv_existence_for_places_check_single_point(
         continue
       num_series = len(place_data['series'])
       existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
-  print(existing_svs)
   return existing_svs
 
 
