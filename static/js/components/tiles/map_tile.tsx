@@ -23,9 +23,14 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
+import {
+  addPolygonLayer,
+  drawD3Map,
+  getProjection,
+} from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
@@ -37,10 +42,7 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
-import {
-  getPlaceChartData,
-  NO_FULL_COVERAGE_PLACE_TYPES,
-} from "../../tools/map/util";
+import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -224,9 +226,9 @@ export const fetchData = async (
         borderGeoJsonPromise,
       ]);
     // Only draw borders for containing places without 'wall to wall' coverage
-    const shouldDrawBorders =
-      NO_FULL_COVERAGE_PLACE_TYPES.includes(enclosedPlaceType);
-    const borderGeoJson = shouldDrawBorders ? borderGeoJsonData : undefined;
+    const borderGeoJson = shouldShowBorder(enclosedPlaceType)
+      ? borderGeoJsonData
+      : undefined;
     const rawData = {
       geoJson,
       placeStat,
@@ -383,9 +385,17 @@ function draw(
     getTooltipHtml,
     () => false,
     chartData.showMapBoundaries,
-    projection,
-    undefined,
-    undefined,
-    chartData.borderGeoJson
+    projection
   );
+  if (!_.isEmpty(chartData.borderGeoJson)) {
+    addPolygonLayer(
+      mapContainer.current,
+      chartData.borderGeoJson,
+      projection,
+      () => "none",
+      () => BORDER_STROKE_COLOR,
+      () => null,
+      false
+    );
+  }
 }

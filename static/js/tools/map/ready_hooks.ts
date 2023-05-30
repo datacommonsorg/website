@@ -24,23 +24,34 @@ import { useCallback, useContext } from "react";
 import { MAP_TYPE } from "./chart";
 import { ChartStore } from "./chart_store";
 import { Context } from "./context";
+import { shouldShowBorder } from "./util";
 
 export function useGeoJsonReady(chartStore: ChartStore) {
   const { placeInfo } = useContext(Context);
 
   return useCallback(() => {
     const c = chartStore.geoJson.context;
+    // if we should show border, check that border data is ready
+    let borderIsReady = true;
+    if (
+      shouldShowBorder(placeInfo.value.enclosedPlaceType) &&
+      _.isEmpty(chartStore.borderGeoJson.data)
+    ) {
+      borderIsReady = false;
+    }
     return (
       !chartStore.geoJson.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType
+      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+      borderIsReady
     );
   }, [
     chartStore.geoJson.context,
     chartStore.geoJson.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
+    chartStore.borderGeoJson.data,
   ]);
 }
 

@@ -28,6 +28,7 @@ import React, {
   useState,
 } from "react";
 
+import { NO_FULL_COVERAGE_PLACE_TYPES } from "../../constants/map_constants";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
@@ -60,12 +61,8 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import {
-  CHART_LOADER_SCREEN,
-  getDate,
-  getRankingLink,
-  NO_FULL_COVERAGE_PLACE_TYPES,
-} from "./util";
+import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
+import { shouldShowBorder } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -223,10 +220,6 @@ export function ChartLoader(): JSX.Element {
       date,
       chartStore.mapValuesDates.data.unit
     );
-    // Only draw border if enclosed place type is small
-    const shouldDrawBorders = NO_FULL_COVERAGE_PLACE_TYPES.includes(
-      placeInfo.value.enclosedPlaceType
-    );
     return (
       <div className="chart-region">
         <Chart
@@ -245,7 +238,9 @@ export function ChartLoader(): JSX.Element {
           geoRaster={chartStore.geoRaster.data}
           mapType={mapType}
           borderGeoJsonData={
-            shouldDrawBorders ? chartStore.borderGeoJson.data : undefined
+            shouldShowBorder(placeInfo.value.enclosedPlaceType)
+              ? chartStore.borderGeoJson.data
+              : undefined
           }
         >
           {display.value.showTimeSlider &&

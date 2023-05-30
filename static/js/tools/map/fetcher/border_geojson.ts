@@ -23,12 +23,10 @@ import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
 import { GeoJsonData } from "../../../chart/types";
+import { BORDER_GEOJSON_PROPERTY } from "../../../constants/map_constants";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
-
-// Use non-DP geojsons for drawing borders to avoid mismatched edges between
-// the border and enclosed places
-const BORDER_GEOJSON_PROPERTY = "geoJsonCoordinates";
+import { shouldShowBorder } from "../util";
 
 /**
  * Fetch geojson data for the border of the containing place and load into
@@ -41,8 +39,10 @@ export function useFetchBorderGeoJson(
   const { placeInfo } = useContext(Context);
   useEffect(() => {
     const contextOk =
-      placeInfo.value.enclosingPlace && placeInfo.value.enclosingPlace.dcid;
-    if (!contextOk) {
+      placeInfo.value.enclosingPlace &&
+      placeInfo.value.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType;
+    if (!contextOk || !shouldShowBorder(placeInfo.value.enclosedPlaceType)) {
       return;
     }
     const action: ChartStoreAction = {

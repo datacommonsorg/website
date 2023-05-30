@@ -51,8 +51,6 @@ export interface MapZoomParams {
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
 const TOOLTIP_ID = "tooltip";
-const BORDER_STROKE_COLOR = "#C8C8C8";
-const BORDER_STROKE_WIDTH = "0.5px";
 const GEO_STROKE_COLOR = "#fff";
 const HIGHLIGHTED_STROKE_COLOR = "#202020";
 const STROKE_WIDTH = "0.5px";
@@ -62,7 +60,6 @@ export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME = "region-highlighted-no-click";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
-const MAP_REGION_BORDER_ID = "map-region-border-id";
 const MAP_ITEMS_GROUP_ID = "map-items";
 const MAP_GEO_REGIONS_ID = "map-geo-regions";
 const STARTING_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
@@ -412,8 +409,7 @@ export function drawD3Map(
   shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
   zoomDcid?: string,
-  zoomParams?: MapZoomParams,
-  borderGeoJson?: GeoJsonData
+  zoomParams?: MapZoomParams
 ): void {
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
@@ -466,20 +462,6 @@ export function drawD3Map(
     "click",
     onMapClick(canClickRegion, containerElement, redirectAction)
   );
-  // If provided, draw border of containing place
-  if (borderGeoJson && !_.isEmpty(borderGeoJson)) {
-    const borderObjects = addGeoJsonLayer(
-      containerElement,
-      borderGeoJson,
-      projection,
-      "",
-      MAP_REGION_BORDER_ID
-    );
-    borderObjects
-      .attr("stroke-width", BORDER_STROKE_WIDTH)
-      .attr("stroke", BORDER_STROKE_COLOR)
-      .style("fill", "none");
-  }
   // style highlighted region and bring to the front
   d3.select(containerElement)
     .select("." + HIGHLIGHTED_CLASS_NAME)
@@ -632,18 +614,22 @@ export function addMapPoints(
 
 /**
  * Adds a layer of polygons on top of a map
- * @param containerElement
- * @param geoJson
- * @param projection
- * @param getRegionColor
- * @param onClick
+ * @param containerElement containing element of the map
+ * @param geoJson polygon data to draw
+ * @param projection projection to use for drawing geojsonss
+ * @param getRegionColor mapping of geojson feature to its fill color
+ * @param getRegionBorder mapping of geojson feature to its stroke color
+ * @param onClick function to use when clicking on a feature
+ * @param allowMouseover whether to highlight a feature when hovering over it
  */
 export function addPolygonLayer(
   containerElement: HTMLDivElement,
   geoJson: GeoJsonData,
   projection: d3.GeoProjection,
   getRegionColor: (geoDcid: string) => string,
-  onClick: (geoFeature: GeoJsonFeature) => void
+  getRegionBorder: (geoDcid: string) => string,
+  onClick: (geoFeature: GeoJsonFeature) => void,
+  allowMouseover = true
 ): void {
   // Build the map objects
   const mapObjects = addGeoJsonLayer(
@@ -656,22 +642,28 @@ export function addPolygonLayer(
     .attr("fill", (d: GeoJsonFeature) => {
       return getRegionColor(d.properties.geoDcid);
     })
+    .attr("stroke", (d: GeoJsonFeature) => {
+      return getRegionBorder(d.properties.geoDcid);
+    })
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);
     })
-    .on("mouseover", (d: GeoJsonFeature) => {
-      mouseHoverAction(
-        containerElement,
-        d.properties.geoDcid,
-        MAP_POLYGON_HIGHLIGHT_CLASS
-      );
-    })
-    .on("mouseout", (d: GeoJsonFeature) => {
-      mouseOutAction(containerElement, d.properties.geoDcid, [
-        MAP_POLYGON_HIGHLIGHT_CLASS,
-      ]);
-    })
     .on("click", onClick);
+  if (allowMouseover) {
+    mapObjects
+      .on("mouseover", (d: GeoJsonFeature) => {
+        mouseHoverAction(
+          containerElement,
+          d.properties.geoDcid,
+          MAP_POLYGON_HIGHLIGHT_CLASS
+        );
+      })
+      .on("mouseout", (d: GeoJsonFeature) => {
+        mouseOutAction(containerElement, d.properties.geoDcid, [
+          MAP_POLYGON_HIGHLIGHT_CLASS,
+        ]);
+      });
+  }
 }
 
 /**
