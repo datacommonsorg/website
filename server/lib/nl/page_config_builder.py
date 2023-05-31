@@ -304,8 +304,14 @@ def _single_place_multiple_var_timeline_block(column, place, svs, sv2thing,
   """A column with two chart, all stat vars and per capita"""
   stat_var_spec_map = {}
 
-  orig_title = attr['title'] if attr[
-      'title'] else "Compared with Other Variables"
+  if attr.get('title'):
+    orig_title = attr['title']
+  elif attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
+      'orig_sv'):
+    orig_sv_name = sv2thing.name[attr['orig_sv']]
+    orig_title = f'{orig_sv_name} compared with other variables'
+  else:
+    orig_title = "Compared with Other Variables"
   title = _decorate_chart_title(title=orig_title, place=place)
 
   # Line chart for the stat var
@@ -343,8 +349,13 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
     # This happens in the case of Topics
     orig_title = attr['title']
   elif len(svs) > 1:
-    # This suggests we are comparing against SV peers from SV extension
-    orig_title = 'Compared with Other Variables'
+    if attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
+        'orig_sv') and sv2thing.name.get(attr.get('orig_sv', '')):
+      # This suggests we are comparing against SV peers from SV extension
+      orig_sv_name = sv2thing.name[attr['orig_sv']]
+      orig_title = f'{orig_sv_name} compared with other variables'
+    else:
+      orig_title = "Compared with Other Variables"
   else:
     # This is the case of multiple places for a single SV
     orig_title = sv2thing.name[svs[0]]

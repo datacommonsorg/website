@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,33 +12,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Helm config
+project: datcom-iitm
+cluster_prefix: website
 
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+namespace:
+  name: website
 
-nameSuffix:
-namespace: website
+website:
+  flaskEnv: iitm
+  replicas: 2
 
-resources:
-  - ../../base
+mixer:
+  useBranchBigtable: false
 
-configMapGenerator:
-  - name: website-configmap
-    behavior: merge
-    literals:
-      - flaskEnv=
-      - enableModel=
-  - name: mixer-configmap
-    behavior: create
-    literals:
-      - hostProject=
-      - serviceName=
+serviceAccount:
+  name: website-ksa
 
-patchesStrategicMerge:
-  - |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: website-app
-    spec:
-      replicas:
+nl:
+  enabled: false
+
+serviceGroups:
+  recon: null
+  svg:
+    replicas: 2
+  observation:
+    replicas: 2
+  node:
+    replicas: 2
+  default:
+    replicas: 2
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

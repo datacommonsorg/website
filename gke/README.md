@@ -85,7 +85,7 @@ If new cluster is needed to scale, then run:
 
 ```bash
 ./create_cluster.sh <REGION>
-../scripts/deploy_gke.sh <ENV> <REGION>
+../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
 ```
 
 If the instance uses Redis as memcache, then should follow this [instruction](../docs/redis.md)

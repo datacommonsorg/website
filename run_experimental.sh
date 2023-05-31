@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,11 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
-
-
-class Config(_base.Config):
-  CUSTOM = True
-  NAME = "Google Stanford Data Commons (Staging)"
-  GCS_BUCKET = 'datcom-stanford-staging-resources'
-  SHOW_SUSTAINABILITY = True
+# Serves static content from experimental directory
+cd experimental
+python3 -m http.server 8081

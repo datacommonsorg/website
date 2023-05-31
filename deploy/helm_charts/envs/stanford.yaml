@@ -20,10 +20,6 @@ namespace:
   name: "website"
 
 website:
-  image:
-    project: "datcom-ci"
-    tag:
-  githash:
   flaskEnv: stanford
   replicas: 4
   redis:
@@ -37,7 +33,8 @@ website:
       }
 
 mixer:
-  pinnedSvg: dc/g/Stanford
+  foldRemoteRootSvg: true
+  useCustomBigtable: true
 
 serviceAccount:
   name: website-ksa

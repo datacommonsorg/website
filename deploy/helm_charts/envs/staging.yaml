@@ -20,10 +20,6 @@ namespace:
   name: "website"
 
 website:
-  image:
-    project: "datcom-ci"
-    tag:
-  githash:
   flaskEnv: staging
   replicas: 6
   enableModel: true

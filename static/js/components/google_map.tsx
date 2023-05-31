@@ -165,12 +165,18 @@ function drawGeoJson(geoJson: any, map: google.maps.Map) {
 function geoJsonFromGeometry(
   geoJsonGeometry: string
 ): GeoJSON.FeatureCollection {
+  let geoJson;
+  try {
+    geoJson = JSON.parse(geoJsonGeometry);
+  } catch (e) {
+    return null;
+  }
   return {
     type: "FeatureCollection",
     features: [
       {
         type: "Feature",
-        geometry: JSON.parse(geoJsonGeometry),
+        geometry: geoJson,
         properties: {}, // TODO: Fill in with a name or dcid.
       },
     ],
@@ -211,7 +217,7 @@ export class GoogleMap extends React.Component<
     if (this.props.geoJsonGeometry) {
       const geoJson = geoJsonFromGeometry(this.props.geoJsonGeometry);
       this.setState({
-        shouldShowMap: true,
+        shouldShowMap: geoJson !== null,
         geoJson,
       });
     } else if (this.props.latLong) {

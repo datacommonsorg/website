@@ -197,7 +197,8 @@ SIMPLE_WITH_SV_EXT_UTTR = {
             'place_type': None,
             'ranking_types': [],
             'source_topic': '',
-            'title': ''
+            'title': '',
+            'orig_sv': 'Count_Person_Male',
         },
         'chart_type': ChartType.TIMELINE_CHART,
         'places': [{
