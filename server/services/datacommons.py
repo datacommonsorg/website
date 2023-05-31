@@ -281,21 +281,9 @@ def resolve(nodes, prop):
   return post(url, {'nodes': nodes, 'property': prop})
 
 
-def nl_embeddings_vector_at_index(index: int):
-  """Embedding vector at index from the NL server."""
-  url = f'{cfg.NL_ROOT}/api/embedding?i={index}'
-  return get(url).get('embeddings_vector', [])
-
-
-def nl_embeddings_vector(query):
-  """Embedding vector from the NL server."""
-  url = f'{cfg.NL_ROOT}/api/embedding?q={query}'
-  return get(url).get('embeddings_vector', [])
-
-
-def nl_search_sv(query):
+def nl_search_sv(query, index_type):
   """Search sv from NL server."""
-  url = f'{cfg.NL_ROOT}/api/search_sv?q={query}'
+  url = f'{cfg.NL_ROOT}/api/search_sv?q={query}&sz={index_type}'
   return get(url)
 
 

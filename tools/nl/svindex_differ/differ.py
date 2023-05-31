@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # TODO: Consider including cosine scores in the comparison.
+# TODO: Support index size
 
 import csv
 import difflib

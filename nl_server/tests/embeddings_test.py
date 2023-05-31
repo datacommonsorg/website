@@ -23,9 +23,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 import yaml
 
 from nl_server import gcs
+from nl_server import loader
 from nl_server.embeddings import Embeddings
 from nl_server.loader import nl_cache_path
-from nl_server.loader import nl_embeddings_cache_key
 
 _root_dir = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -34,11 +34,12 @@ _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                           'test_data')
 
 
+# TODO(pradh): Expand tests to other index sizes.
 def _get_embeddings_file_path() -> str:
   model_config_path = os.path.join(_root_dir, 'deploy/base/model.yaml')
   with open(model_config_path) as f:
     model = yaml.full_load(f)
-    embeddings_file = model['embeddings_file']
+    embeddings_file = model[loader.DEFAULT_INDEX_TYPE]
     return gcs.download_embeddings(embeddings_file)
 
 
@@ -50,7 +51,7 @@ class TestEmbeddings(unittest.TestCase):
     # Look for the Embeddings model in the cache if it exists.
     cache = Cache(nl_cache_path)
     cache.expire()
-    cls.nl_embeddings = cache.get(nl_embeddings_cache_key)
+    cls.nl_embeddings = cache.get(loader.nl_embeddings_cache_key())
     if not cls.nl_embeddings:
       print(
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
@@ -149,41 +150,3 @@ class TestEmbeddings(unittest.TestCase):
     # Check all scores.
     for score in got['CosineScore']:
       self.assertLess(score, 0.4)
-
-  def test_embedding_vector_same_dimension(self):
-    q1 = ""  # empty string
-    q2 = "A sentence used to query"
-
-    q1_embedding = self.nl_embeddings.get_embedding(q1)
-    q2_embedding = self.nl_embeddings.get_embedding(q2)
-
-    self.assertEqual(len(q1_embedding), len(q2_embedding))
-
-  @parameterized.expand([
-      # q1 and q2 should be most similar to each other. q3 is different.
-      [
-          "number of people in australia", "population of australia",
-          "heart disease in australia"
-      ],
-      [
-          "life expectancy", "expected number of years to live",
-          "expected temperature rise"
-      ],
-      ["median income of women", "average income of girls", "income of males"],
-      [
-          "economy of USA", "economic indicators in the United States",
-          "number of graduates in the US"
-      ],
-      ["agriculture output", "farm produce", "banking and insurance"],
-  ])
-  def test_embedding_vector_similarity(self, q1, q2, q3):
-    q1_embedding = self.nl_embeddings.get_embedding(q1)
-    q2_embedding = self.nl_embeddings.get_embedding(q2)
-    q3_embedding = self.nl_embeddings.get_embedding(q3)
-
-    sim_1_2 = cosine_similarity([q1_embedding], [q2_embedding])
-    sim_1_3 = cosine_similarity([q1_embedding], [q3_embedding])
-    sim_2_3 = cosine_similarity([q2_embedding], [q3_embedding])
-
-    self.assertGreater(sim_1_2, sim_1_3)
-    self.assertGreater(sim_1_2, sim_2_3)

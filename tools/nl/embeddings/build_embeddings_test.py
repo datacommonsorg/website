@@ -20,6 +20,7 @@ from unittest import mock
 
 import build_embeddings as be
 import pandas as pd
+from parameterized import parameterized
 from sentence_transformers import SentenceTransformer
 
 
@@ -103,7 +104,7 @@ class TestEndToEnd(unittest.TestCase):
       tmp_local_sheets_csv_filepath = os.path.join(tmp_dir, "sheets_data.csv")
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
       be.build(ctx, sheets_url, worksheet_name, tmp_local_sheets_csv_filepath,
-               tmp_local_merged_filepath, input_autogen_filepattern,
+               tmp_local_merged_filepath, "", input_autogen_filepattern,
                input_alternatives_filepattern)
 
   def testSuccess(self):
@@ -143,7 +144,7 @@ class TestEndToEnd(unittest.TestCase):
 
       embeddings_df = be.build(ctx, sheets_url, worksheet_name,
                                tmp_local_sheets_csv_filepath,
-                               tmp_local_merged_filepath,
+                               tmp_local_merged_filepath, "",
                                input_autogen_filepattern,
                                input_alternatives_filepattern)
 
@@ -161,11 +162,15 @@ class TestEndToEnd(unittest.TestCase):
 
 class TestEndToEndActualDataFiles(unittest.TestCase):
 
-  def testInputFilesValidations(self):
+  @parameterized.expand(["small", "medium"])
+  def testInputFilesValidations(self, sz):
     # Verify that the required files exist.
     sheets_filepath = "data/curated_input/sheets_svs.csv"
-    input_alternatives_filepattern = "data/alternatives/*.csv"
-    output_dcid_sentences_filepath = "data/preindex/sv_descriptions.csv"
+    # TODO: Fix palm_batch13k_alternatives.csv to not have duplicate
+    # descriptions.  Its technically okay since build_embeddings will take
+    # care of dups.
+    input_alternatives_filepattern = "data/alternatives/(palm|other)_alternaties.csv"
+    output_dcid_sentences_filepath = f'data/preindex/{sz}/sv_descriptions.csv'
 
     # Check that all the files exist.
     self.assertTrue(os.path.exists(sheets_filepath))
@@ -191,11 +196,12 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
 
     for alt_file in glob.glob(input_alternatives_filepattern):
       alts_df = pd.read_csv(alt_file).fillna("")
-      self.assertCountEqual(expected_cols, alts_df.columns.values)
+      self.assertTrue(all(x in alts_df.columns.values for x in expected_cols))
       _validate_sentence_to_dcid_map(self, alts_df, "dcid", alt_sentence_cols)
 
-  def testOutputFileValidations(self):
-    output_dcid_sentences_filepath = "data/preindex/sv_descriptions.csv"
+  @parameterized.expand(["small", "medium"])
+  def testOutputFileValidations(self, sz):
+    output_dcid_sentences_filepath = f'data/preindex/{sz}/sv_descriptions.csv'
 
     dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
 

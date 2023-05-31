@@ -45,6 +45,7 @@ import { useGetSqlQuery } from "./compute/sql";
 import { Context } from "./context";
 import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchAllStat } from "./fetcher/all_stat";
+import { useFetchBorderGeoJson } from "./fetcher/border_geojson";
 import { useFetchBreadcrumbDenomStat } from "./fetcher/breadcrumb_denom_stat";
 import { useFetchBreadcrumbStat } from "./fetcher/breadcrumb_stat";
 import { useFetchDefaultStat } from "./fetcher/default_stat";
@@ -60,6 +61,7 @@ import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
 import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
+import { shouldShowBorder } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -87,6 +89,7 @@ export function ChartLoader(): JSX.Element {
   useFetchGeoRaster(dispatchChartStore);
   useFetchAllDates(dispatchChartStore);
   useFetchStatVarSummary(dispatchChartStore);
+  useFetchBorderGeoJson(dispatchChartStore);
 
   // +++++++  Dispatcher for computations
   const [sources, dispatchSources] = useReducer(
@@ -233,6 +236,11 @@ export function ChartLoader(): JSX.Element {
           facetList={facetList}
           geoRaster={chartStore.geoRaster.data}
           mapType={mapType}
+          borderGeoJsonData={
+            shouldShowBorder(placeInfo.value.enclosedPlaceType)
+              ? chartStore.borderGeoJson.data
+              : undefined
+          }
         >
           {display.value.showTimeSlider &&
             sampleDates &&

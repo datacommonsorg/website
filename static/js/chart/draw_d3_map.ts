@@ -461,7 +461,6 @@ export function drawD3Map(
     "click",
     onMapClick(canClickRegion, containerElement, redirectAction)
   );
-
   // style highlighted region and bring to the front
   d3.select(containerElement)
     .select("." + HIGHLIGHTED_CLASS_NAME)
@@ -589,10 +588,12 @@ export function addMapPoints(
       (point: MapPoint) => projection([point.longitude, point.latitude])[1]
     )
     .attr("r", (point: MapPoint) => {
-      if (_.isEmpty(pointSizeScale) || !mapPointValues[point.placeDcid]) {
-        return minDotSize;
+      if (_.isEmpty(pointSizeScale)) {
+        return minDotSize * 2;
       }
-      return pointSizeScale(mapPointValues[point.placeDcid]);
+      return mapPointValues[point.placeDcid]
+        ? pointSizeScale(mapPointValues[point.placeDcid])
+        : minDotSize;
     });
   if (getTooltipHtml) {
     mapPointsLayer
@@ -614,18 +615,22 @@ export function addMapPoints(
 
 /**
  * Adds a layer of polygons on top of a map
- * @param containerElement
- * @param geoJson
- * @param projection
- * @param getRegionColor
- * @param onClick
+ * @param containerElement containing element of the map
+ * @param geoJson polygon data to draw
+ * @param projection projection to use for drawing geojsonss
+ * @param getRegionColor mapping of geojson feature to its fill color
+ * @param getRegionBorder mapping of geojson feature to its stroke color
+ * @param onClick function to use when clicking on a feature
+ * @param allowMouseover whether to highlight a feature when hovering over it
  */
 export function addPolygonLayer(
   containerElement: HTMLDivElement,
   geoJson: GeoJsonData,
   projection: d3.GeoProjection,
   getRegionColor: (geoDcid: string) => string,
-  onClick: (geoFeature: GeoJsonFeature) => void
+  getRegionBorder: (geoDcid: string) => string,
+  onClick: (geoFeature: GeoJsonFeature) => void,
+  allowMouseover = true
 ): void {
   // Build the map objects
   const mapObjects = addGeoJsonLayer(
@@ -638,22 +643,28 @@ export function addPolygonLayer(
     .attr("fill", (d: GeoJsonFeature) => {
       return getRegionColor(d.properties.geoDcid);
     })
+    .attr("stroke", (d: GeoJsonFeature) => {
+      return getRegionBorder(d.properties.geoDcid);
+    })
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);
     })
-    .on("mouseover", (d: GeoJsonFeature) => {
-      mouseHoverAction(
-        containerElement,
-        d.properties.geoDcid,
-        MAP_POLYGON_HIGHLIGHT_CLASS
-      );
-    })
-    .on("mouseout", (d: GeoJsonFeature) => {
-      mouseOutAction(containerElement, d.properties.geoDcid, [
-        MAP_POLYGON_HIGHLIGHT_CLASS,
-      ]);
-    })
     .on("click", onClick);
+  if (allowMouseover) {
+    mapObjects
+      .on("mouseover", (d: GeoJsonFeature) => {
+        mouseHoverAction(
+          containerElement,
+          d.properties.geoDcid,
+          MAP_POLYGON_HIGHLIGHT_CLASS
+        );
+      })
+      .on("mouseout", (d: GeoJsonFeature) => {
+        mouseOutAction(containerElement, d.properties.geoDcid, [
+          MAP_POLYGON_HIGHLIGHT_CLASS,
+        ]);
+      });
+  }
 }
 
 /**
