@@ -176,7 +176,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
       zoomDcid,
       zoomParams
     );
-    if (display.value.showMapPoints && props.mapPointValues) {
+    if (display.value.showMapPoints) {
       let mapPointSvTitle = "";
       if (statVar.value.mapPointSv !== statVar.value.dcid) {
         mapPointSvTitle =
@@ -184,18 +184,18 @@ export function D3Map(props: D3MapProps): JSX.Element {
             ? statVar.value.info[statVar.value.mapPointSv].title
             : "";
       }
-      const filteredMapPoints = props.mapPoints.filter((point) => {
-        return point.placeDcid in props.mapPointValues;
-      });
       addMapPoints(
         mapContainerRef.current,
-        filteredMapPoints,
-        props.mapPointValues,
+        props.mapPoints,
+        props.mapPointValues || {},
         projection,
-        null,
+        props.mapPointValues
+          ? null
+          : () =>
+              "black" /* getPointColor: if there are mapPointValues, addMapPoints will color the points accordingly */,
         getTooltipHtml(
           props.metadata,
-          props.mapPointValues,
+          props.mapPointValues || {},
           false,
           mapPointSvTitle || statVar.value.mapPointSv
         )
