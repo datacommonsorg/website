@@ -7,6 +7,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="./datacommons/nl_interface.min.css" />
     <link rel="stylesheet" href="./datacommons/ranking.min.css" />
     <link rel="stylesheet" href="./styles/index.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
@@ -17,9 +18,9 @@
     <script></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="dc-navbar navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="#"
+        <a class="dc-navbar-brand navbar-brand" href="#"
           >Sustainable Development Goals Tracker</a
         >
         <div class="collapse navbar-collapse">
@@ -44,7 +45,10 @@
       <div class="row">
         <!-- Sidebar -->
         <div class="col-4">
-          <div class="sticky-top pt-4 pr-4" id="sidebar-container"></div>
+          <div
+            class="sticky-top pt-4 pr-4 sidebar-container"
+            id="sidebar-container"
+          ></div>
         </div>
 
         <!-- Main page content -->

@@ -21,6 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
@@ -257,3 +258,15 @@ export function draw(
     chartData.unit
   );
 }
+
+/**
+ * Renders bar chart tile component in the given HTML element
+ * @param element DOM element to render the chart
+ * @param props line chart tile component properties
+ */
+export const renderBarComponent = (
+  element: HTMLElement,
+  props: BarTilePropType
+): void => {
+  ReactDOM.render(React.createElement(BarTile, props), element);
+};

@@ -61,4 +61,4 @@ tools/sdg/subject_page_pb2.py
 # Experimental - ignore symbolic links
 experimental/sdg-static/datacommons/datacommons.js
 experimental/sdg-static/datacommons/ranking.min.css
-
+experimental/sdg-static/datacommons/nl_interface.min.css
