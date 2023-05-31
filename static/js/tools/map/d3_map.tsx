@@ -184,9 +184,14 @@ export function D3Map(props: D3MapProps): JSX.Element {
             ? statVar.value.info[statVar.value.mapPointSv].title
             : "";
       }
+      const filteredMapPoints = props.mapPointValues
+        ? props.mapPoints.filter((point) => {
+            return point.placeDcid in props.mapPointValues;
+          })
+        : props.mapPoints;
       addMapPoints(
         mapContainerRef.current,
-        props.mapPoints,
+        filteredMapPoints,
         props.mapPointValues || {},
         projection,
         props.mapPointValues
@@ -195,7 +200,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
               "black" /* getPointColor: if there are mapPointValues, addMapPoints will color the points accordingly */,
         getTooltipHtml(
           props.metadata,
-          props.mapPointValues,
+          props.mapPointValues || {},
           false,
           mapPointSvTitle || statVar.value.mapPointSv
         )
