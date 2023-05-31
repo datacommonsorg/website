@@ -28,6 +28,7 @@ export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
+  const indexType = useRef(getUrlToken("idx"));
   const urlPrompts = useRef(getUrlPrompts());
 
   // Updates the query search input box value.
@@ -126,6 +127,7 @@ export function App(): JSX.Element {
         key={i}
         queryIdx={i}
         query={q}
+        indexType={indexType.current}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={true}
