@@ -221,11 +221,13 @@ export const fetchData = async (props: ScatterTilePropType) => {
     props.apiRoot
   );
   const placeNamesPromise = axios
-    .get(
-      `${props.apiRoot || ""}/api/place/descendent/name?dcid=${
-        props.place.dcid
-      }&descendentType=${props.enclosedPlaceType}`
-    )
+    .get(`${props.apiRoot || ""}/api/place/descendent/name`, {
+      params: {
+        dcid: props.place.dcid,
+        descendentType: props.enclosedPlaceType,
+      },
+      paramsSerializer: stringifyFn,
+    })
     .then((resp) => resp.data);
   try {
     const [placeStats, population, placeNames] = await Promise.all([

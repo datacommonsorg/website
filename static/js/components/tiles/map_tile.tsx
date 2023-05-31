@@ -181,11 +181,13 @@ export const fetchData = async (
   props: MapTilePropType
 ): Promise<MapChartData> => {
   const geoJsonPromise = axios
-    .get(
-      `${props.apiRoot || ""}/api/choropleth/geojson?placeDcid=${
-        props.place.dcid
-      }&placeType=${props.enclosedPlaceType}`
-    )
+    .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
+      params: {
+        placeDcid: props.place.dcid,
+        placeType: props.enclosedPlaceType,
+      },
+      paramsSerializer: stringifyFn,
+    })
     .then((resp) => resp.data);
   const borderGeoJsonPromise = axios
     .post(`${props.apiRoot || ""}/api/choropleth/node-geojson`, {
@@ -240,7 +242,12 @@ export const fetchData = async (
       parentPlaces,
       borderGeoJson,
     };
-    return rawToChart(rawData, props.statVarSpec, props.place, props.enclosedPlaceType);
+    return rawToChart(
+      rawData,
+      props.statVarSpec,
+      props.place,
+      props.enclosedPlaceType
+    );
   } catch (error) {
     return null;
   }

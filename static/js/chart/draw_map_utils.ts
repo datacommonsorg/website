@@ -25,17 +25,17 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
 
+export const LEGEND_MARGIN_VERTICAL = 6;
+export const LEGEND_MARGIN_RIGHT = 5;
+export const LEGEND_IMG_WIDTH = 10;
+export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
+export const LEGEND_TICK_LABEL_MARGIN = 10;
 const MIN_COLOR = "#f0f0f0";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
 const TICK_SIZE = 6;
-export const LEGEND_MARGIN_VERTICAL = 6;
-export const LEGEND_MARGIN_RIGHT = 5;
-export const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 4;
-export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const LEGEND_CLASS_NAME = "legend";
-export const LEGEND_TICK_LABEL_MARGIN = 10;
 
 // Curated temperature domains.
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
