@@ -26,6 +26,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   addPolygonLayer,
   drawD3Map,
+  fitSize,
   getProjection,
 } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
@@ -374,6 +375,19 @@ function draw(
     height,
     chartData.geoJson
   );
+  // Re-fit projection to border data if border data is available.
+  // This prevents borders from getting cutoff if enclosed places don't
+  // stretch wall-to-wall.
+  if (!_.isEmpty(chartData.borderGeoJson)) {
+    fitSize(
+      chartWidth,
+      height,
+      chartData.borderGeoJson,
+      projection,
+      d3.geoPath().projection(projection),
+      1
+    );
+  }
   drawD3Map(
     mapContainer.current,
     chartData.geoJson,
