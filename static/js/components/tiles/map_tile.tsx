@@ -66,6 +66,8 @@ interface MapTilePropType {
   className?: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
+  // API root
+  apiRoot?: string;
 }
 
 interface RawData {
@@ -109,15 +111,17 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   useEffect(() => {
     if (!mapChartData) {
       (async () => {
-        const data = await fetchData(
-          props.place,
-          props.enclosedPlaceType,
-          props.statVarSpec
-        );
+        const data = await fetchData(props);
         setMapChartData(data);
       })();
     } else {
-      draw(mapChartData, props, svgContainer, legendContainer, mapContainer);
+      draw(
+        mapChartData,
+        props,
+        svgContainer.current,
+        legendContainer.current,
+        mapContainer.current
+      );
       if (props.isDataTile) {
         addSvgDataAttribute();
       }
@@ -175,47 +179,49 @@ export function MapTile(props: MapTilePropType): JSX.Element {
 }
 
 export const fetchData = async (
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec
+  props: MapTilePropType
 ): Promise<MapChartData> => {
   const geoJsonPromise = axios
-    .get(
-      `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
-    )
-    .then((resp) => resp.data);
-  const borderGeoJsonPromise = axios
-    .post(`/api/choropleth/node-geojson`, {
-      geoJsonProp: "geoJsonCoordinates",
-      nodes: [place.dcid],
-    })
-    .then((resp) => resp.data);
-  const dataDate = getCappedStatVarDate(statVarSpec.statVar);
-  const placeStatPromise: Promise<PointApiResponse> = axios
-    .get("/api/observations/point/within", {
+    .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
       params: {
-        childType: enclosedPlaceType,
-        date: dataDate,
-        parentEntity: place.dcid,
-        variables: [statVarSpec.statVar],
+        placeDcid: props.place.dcid,
+        placeType: props.enclosedPlaceType,
       },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
-  const populationPromise: Promise<SeriesApiResponse> = statVarSpec.denom
+  const borderGeoJsonPromise = axios
+    .post(`${props.apiRoot || ""}/api/choropleth/node-geojson`, {
+      geoJsonProp: "geoJsonCoordinates",
+      nodes: [props.place.dcid],
+    })
+    .then((resp) => resp.data);
+  const dataDate = getCappedStatVarDate(props.statVarSpec.statVar);
+  const placeStatPromise: Promise<PointApiResponse> = axios
+    .get(`${props.apiRoot || ""}/api/observations/point/within`, {
+      params: {
+        childType: props.enclosedPlaceType,
+        date: dataDate,
+        parentEntity: props.place.dcid,
+        variables: [props.statVarSpec.statVar],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => resp.data);
+  const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec.denom
     ? axios
-        .get("/api/observations/series/within", {
+        .get(`${props.apiRoot || ""}/api/observations/series/within`, {
           params: {
-            childType: enclosedPlaceType,
-            parentEntity: place.dcid,
-            variables: [statVarSpec.denom],
+            childType: props.enclosedPlaceType,
+            parentEntity: props.place.dcid,
+            variables: [props.statVarSpec.denom],
           },
           paramsSerializer: stringifyFn,
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
   const parentPlacesPromise = axios
-    .get(`/api/place/parent/${place.dcid}`)
+    .get(`${props.apiRoot || ""}/api/place/parent/${props.place.dcid}`)
     .then((resp) => resp.data);
   try {
     const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
@@ -227,7 +233,7 @@ export const fetchData = async (
         borderGeoJsonPromise,
       ]);
     // Only draw borders for containing places without 'wall to wall' coverage
-    const borderGeoJson = shouldShowBorder(enclosedPlaceType)
+    const borderGeoJson = shouldShowBorder(props.enclosedPlaceType)
       ? borderGeoJsonData
       : undefined;
     const rawData = {
@@ -237,7 +243,12 @@ export const fetchData = async (
       parentPlaces,
       borderGeoJson,
     };
-    return rawToChart(rawData, statVarSpec, place, enclosedPlaceType);
+    return rawToChart(
+      rawData,
+      props.statVarSpec,
+      props.place,
+      props.enclosedPlaceType
+    );
   } catch (error) {
     return null;
   }
@@ -319,15 +330,19 @@ function rawToChart(
   };
 }
 
-function draw(
+export function draw(
   chartData: MapChartData,
   props: MapTilePropType,
-  svgContainer: React.RefObject<HTMLDivElement>,
-  legendContainer: React.RefObject<HTMLDivElement>,
-  mapContainer: React.RefObject<HTMLDivElement>
+  svgContainer: HTMLDivElement,
+  legendContainer: HTMLDivElement,
+  mapContainer: HTMLDivElement,
+  svgWidth?: number
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
-  const height = svgContainer.current.offsetHeight;
+  let height = props.svgChartHeight;
+  if (svgContainer) {
+    height = Math.max(props.svgChartHeight, svgContainer.offsetHeight);
+  }
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,
@@ -360,14 +375,14 @@ function draw(
     return place.name + ": " + value;
   };
   const legendWidth = generateLegendSvg(
-    legendContainer.current,
+    legendContainer,
     height,
     colorScale,
     chartData.unit,
     0,
     formatNumber
   );
-  const chartWidth = svgContainer.current.offsetWidth - legendWidth;
+  const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
   const projection = getProjection(
     chartData.isUsaPlace,
     props.place.dcid,
@@ -389,7 +404,7 @@ function draw(
     );
   }
   drawD3Map(
-    mapContainer.current,
+    mapContainer,
     chartData.geoJson,
     height,
     chartWidth,
@@ -403,7 +418,7 @@ function draw(
   );
   if (!_.isEmpty(chartData.borderGeoJson)) {
     addPolygonLayer(
-      mapContainer.current,
+      mapContainer,
       chartData.borderGeoJson,
       projection,
       () => "none",
