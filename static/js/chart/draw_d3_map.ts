@@ -590,7 +590,7 @@ export function addMapPoints(
     )
     .attr("r", (point: MapPoint) => {
       if (_.isEmpty(pointSizeScale) || !mapPointValues[point.placeDcid]) {
-        return minDotSize;
+        return minDotSize * 2;
       }
       return pointSizeScale(mapPointValues[point.placeDcid]);
     });
