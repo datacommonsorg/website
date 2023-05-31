@@ -159,7 +159,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
       props.geoJsonData,
       zoomDcid
     );
-    // Re-fit projection to border data if we should draw borders.ß
+    // Re-fit projection to border data if we should draw borders.
     // This prevents borders from getting cutoff if enclosed places don't
     // stretch wall-to-wall.
     if (
