@@ -397,7 +397,7 @@ export function draw(
   );
   if (!_.isEmpty(chartData.borderGeoJson)) {
     addPolygonLayer(
-      mapContainer.current,
+      mapContainer,
       chartData.borderGeoJson,
       projection,
       () => "none",
