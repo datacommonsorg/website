@@ -23,9 +23,14 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
+import {
+  addPolygonLayer,
+  drawD3Map,
+  getProjection,
+} from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
@@ -37,7 +42,7 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { getPlaceChartData } from "../../tools/map/util";
+import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -67,6 +72,7 @@ interface RawData {
   placeStat: PointApiResponse;
   population: SeriesApiResponse;
   parentPlaces: NamedTypedPlace[];
+  borderGeoJson?: GeoJsonData;
 }
 
 interface MapChartData {
@@ -78,6 +84,7 @@ interface MapChartData {
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
   unit: string;
+  borderGeoJson?: GeoJsonData;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -176,6 +183,12 @@ export const fetchData = async (
       `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
+  const borderGeoJsonPromise = axios
+    .post(`/api/choropleth/node-geojson`, {
+      geoJsonProp: "geoJsonCoordinates",
+      nodes: [place.dcid],
+    })
+    .then((resp) => resp.data);
   const dataDate = getCappedStatVarDate(statVarSpec.statVar);
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get("/api/observations/point/within", {
@@ -204,13 +217,25 @@ export const fetchData = async (
     .get(`/api/place/parent/${place.dcid}`)
     .then((resp) => resp.data);
   try {
-    const [geoJson, placeStat, population, parentPlaces] = await Promise.all([
-      geoJsonPromise,
-      placeStatPromise,
-      populationPromise,
-      parentPlacesPromise,
-    ]);
-    const rawData = { geoJson, placeStat, population, parentPlaces };
+    const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
+      await Promise.all([
+        geoJsonPromise,
+        placeStatPromise,
+        populationPromise,
+        parentPlacesPromise,
+        borderGeoJsonPromise,
+      ]);
+    // Only draw borders for containing places without 'wall to wall' coverage
+    const borderGeoJson = shouldShowBorder(enclosedPlaceType)
+      ? borderGeoJsonData
+      : undefined;
+    const rawData = {
+      geoJson,
+      placeStat,
+      population,
+      parentPlaces,
+      borderGeoJson,
+    };
     return rawToChart(rawData, statVarSpec, place, enclosedPlaceType);
   } catch (error) {
     return null;
@@ -289,6 +314,7 @@ function rawToChart(
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
     unit: statVarSpec.unit || unit,
+    borderGeoJson: rawData.borderGeoJson,
   };
 }
 
@@ -361,4 +387,15 @@ function draw(
     chartData.showMapBoundaries,
     projection
   );
+  if (!_.isEmpty(chartData.borderGeoJson)) {
+    addPolygonLayer(
+      mapContainer.current,
+      chartData.borderGeoJson,
+      projection,
+      () => "none",
+      () => BORDER_STROKE_COLOR,
+      () => null,
+      false
+    );
+  }
 }
