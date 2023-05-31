@@ -184,14 +184,9 @@ export function D3Map(props: D3MapProps): JSX.Element {
             ? statVar.value.info[statVar.value.mapPointSv].title
             : "";
       }
-      const filteredMapPoints = props.mapPointValues
-        ? props.mapPoints.filter((point) => {
-            return point.placeDcid in props.mapPointValues;
-          })
-        : props.mapPoints;
       addMapPoints(
         mapContainerRef.current,
-        filteredMapPoints,
+        props.mapPoints,
         props.mapPointValues || {},
         projection,
         props.mapPointValues
