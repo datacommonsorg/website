@@ -400,7 +400,7 @@ class Model:
                           attributes=attributes)
     return None
 
-  def detect_svs(self, query: str,
+  def detect_svs(self, query: str, index_type: str,
                  debug_logs: Dict) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
     # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
@@ -408,12 +408,13 @@ class Model:
     # any words in ALL_STOP_WORDS which includes contained_in places and their
     # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
+    debug_logs["sv_detection_query_index_type"] = index_type
     debug_logs["sv_detection_query_input"] = query
     debug_logs["sv_detection_query_stop_words_removal"] = \
         shared_utils.remove_stop_words(query, ALL_STOP_WORDS)
 
     # Make API call to the NL models/embeddings server.
-    return dc.nl_search_sv(query)
+    return dc.nl_search_sv(query, index_type)
 
   def detect_place(self, query):
     return self.place_detector.detect_places_heuristics(query)

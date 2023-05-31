@@ -39,7 +39,7 @@ def _get_embeddings_file_path() -> str:
   model_config_path = os.path.join(_root_dir, 'deploy/base/model.yaml')
   with open(model_config_path) as f:
     model = yaml.full_load(f)
-    embeddings_file = model[loader.DEFAULT_INDEX_SIZE]
+    embeddings_file = model[loader.DEFAULT_INDEX_TYPE]
     return gcs.download_embeddings(embeddings_file)
 
 

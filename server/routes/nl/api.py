@@ -305,7 +305,7 @@ def _result_with_debug_info(data_dict: Dict, status: str,
   return data_dict
 
 
-def _detection(orig_query: str, cleaned_query: str,
+def _detection(orig_query: str, cleaned_query: str, index_type: str,
                query_detection_debug_logs: Dict,
                counters: ctr.Counters) -> Detection:
   model = current_app.config['NL_MODEL']
@@ -375,7 +375,7 @@ def _detection(orig_query: str, cleaned_query: str,
   svs_scores_dict = _empty_svs_score_dict()
   try:
     svs_scores_dict = model.detect_svs(
-        query, query_detection_debug_logs["query_transformations"])
+        query, index_type, query_detection_debug_logs["query_transformations"])
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
@@ -462,6 +462,7 @@ def data():
   else:
     logging.info('Unable to load event configs!')
 
+  embeddings_index_type = request.args.get('idx', '')
   original_query = request.args.get('q')
   context_history = []
   escaped_context_history = []
@@ -486,7 +487,8 @@ def data():
 
   if not query:
     logging.info("Query was empty")
-    query_detection = _detection("", "", query_detection_debug_logs, counters)
+    query_detection = _detection("", "", embeddings_index_type,
+                                 query_detection_debug_logs, counters)
     data_dict = _result_with_debug_info(
         data_dict=res,
         status="Aborted: Query was Empty.",
@@ -501,6 +503,7 @@ def data():
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
   query_detection = _detection(str(escape(original_query)), query,
+                               embeddings_index_type,
                                query_detection_debug_logs, counters)
   counters.timeit('query_detection', start)
 

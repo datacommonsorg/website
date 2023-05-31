@@ -21,65 +21,14 @@ from flask import current_app
 from flask import request
 from markupsafe import escape
 
+from nl_server import loader as ld
+
 bp = Blueprint('main', __name__, url_prefix='/')
-
-_DEFAULT_INDEX_SZ = 'small'
-
-
-def config_key(sz):
-  return f'NL_EMBEDDINGS_{sz.upper()}'
 
 
 @bp.route('/healthz')
 def healthz():
   return ""
-
-
-def _query_embedding(query: str, sz: str) -> Tuple[List[float], str]:
-  try:
-    nl_embeddings = current_app.config[config_key(sz)]
-    return nl_embeddings.get_embedding(query), ''
-  except Exception as e:
-    return [], f'Could not generate an embeddings vector. Failed with error: {e}'
-
-
-def _index_embedding(index: int, sz: str) -> Tuple[List[float], str]:
-  try:
-    nl_embeddings = current_app.config[config_key(sz)]
-    return nl_embeddings.get_embedding_at_index(index), ''
-  except Exception as e:
-    return [], f'Could not retrieve an embeddings vector. Failed with error: {e}'
-
-
-@bp.route('/api/embedding/', methods=['GET'])
-def embedding():
-  """Returns a dictionary with the following structure:
-  {
-    'embeddings_vector': List[float]
-  }
-
-  The query can have the following params:
-    'q': this is expected to be any string, e.g. a sentence. The embedding
-      returned is the query string's embedding vector.
-    'i': this is an index. If the index lies within the range of the
-      embeddings currently loaded, then the return value is the embedding
-      vector at that index. Otherwise, an empty array is returned.
-  """
-  query = str(escape(request.args.get('q', '')))
-  index: int = int(escape(request.args.get('i', -1)))
-  sz = str(escape(request.args.get('sz', _DEFAULT_INDEX_SZ)))
-
-  vector, err = [], ''
-  # If query string is present, then it is given preference.
-  if query:
-    vector, err = _query_embedding(query, sz)
-  elif index:
-    vector, err = _index_embedding(index, sz)
-
-  if err:
-    logging.error(err)
-
-  return json.dumps({'embeddings_vector': vector})
 
 
 @bp.route('/api/search_sv/', methods=['GET'])
@@ -93,9 +42,11 @@ def search_sv():
   }
   """
   query = str(escape(request.args.get('q')))
-  sz = str(escape(request.args.get('sz', _DEFAULT_INDEX_SZ)))
+  sz = str(escape(request.args.get('sz', ld.DEFAULT_INDEX_TYPE)))
+  if not sz:
+    sz = ld.DEFAULT_INDEX_TYPE
   try:
-    nl_embeddings = current_app.config[config_key(sz)]
+    nl_embeddings = current_app.config[ld.embeddings_config_key(sz)]
     return json.dumps(nl_embeddings.detect_svs(query))
   except Exception as e:
     logging.error(f'Embeddings-based SV detection failed with error: {e}')
