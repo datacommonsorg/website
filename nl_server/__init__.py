@@ -41,6 +41,6 @@ def create_app():
     if not model:
       logging.error("No configuration found for model")
       return
-    loader.load_model(app, model['embeddings_file'])
+    loader.load_model(app, model)
 
   return app

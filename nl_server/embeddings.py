@@ -70,18 +70,6 @@ class Embeddings:
     self.dataset_embeddings = torch.from_numpy(self.df.to_numpy()).to(
         torch.float)
 
-  def get_embedding_at_index(self, index: int) -> List[float]:
-    if index < 0 or index >= len(self.df):
-      logging.error(
-          f"get_embedding_at_index() got an index out of range. index = {index}. len(df) = {len(self.df)}"
-      )
-      return []
-
-    return self.df.iloc[index].values.tolist()
-
-  def get_embedding(self, query: str) -> List[float]:
-    return self.model.encode(query).tolist()
-
   #
   # Given a list of queries, searches the in-memory embeddings index
   # and returns a map of candidates keyed by input queries.

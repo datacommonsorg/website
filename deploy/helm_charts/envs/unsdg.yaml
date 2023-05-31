@@ -20,16 +20,8 @@ namespace:
   name: "website"
 
 website:
-  image:
-    project: "datcom-ci"
-    tag:
-  githash:
   flaskEnv: unsdg
   replicas: 2
-
-mixer:
-  hostProject:
-  serviceName:
 
 serviceAccount:
   name: website-ksa
