@@ -24,7 +24,9 @@ website:
   replicas: 2
 
 mixer:
+  useBaseBigtable: false
   useBranchBigtable: false
+  remoteMixerDomain: https://api.datacommons.org
 
 serviceAccount:
   name: website-ksa
