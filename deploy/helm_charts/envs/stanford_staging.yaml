@@ -20,15 +20,15 @@ namespace:
   name: "website"
 
 website:
-  image:
-    project: "datcom-ci"
-    tag:
-  githash:
-  flaskEnv: stanford_staging
+  flaskEnv: stanford
   replicas: 2
 
 mixer:
-  pinnedSvg: dc/g/Stanford
+  useBaseBigtable: false
+  useBranchBigtable: false
+  useCustomBigtable: true
+  foldRemoteRootSvg: true
+  remoteMixerDomain: https://autopush.api.datacommons.org
 
 serviceAccount:
   name: website-ksa

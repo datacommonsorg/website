@@ -59,8 +59,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     chart_type = ChartType.BAR_CHART
     chart_vars.response_type = "bar chart"
   if chart_type == ChartType.TIMELINE_CHART:
-    if utils.has_series_with_single_datapoint(places[0].dcid, chart_vars.svs,
-                                              state.uttr.counters):
+    if chart_vars.has_single_point:
       # Demote to bar chart if single point.
       # TODO: eventually for single SV case, make it a highlight chart
       chart_type = ChartType.BAR_CHART

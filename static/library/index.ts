@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
+import { renderLineComponent } from "../js/components/tiles/line_tile";
 import { renderRankingComponent } from "../js/ranking/ranking";
 
 globalThis.datacommons = {
+  drawLine: renderLineComponent,
   drawRanking: renderRankingComponent,
   root: "https://datacommons.org",
 };

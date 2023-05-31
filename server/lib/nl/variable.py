@@ -95,7 +95,7 @@ def parse_svg(svg_dcid: str) -> SVG:
   return res
 
 
-def extend_svs(svs: Dict[str, List[str]]):
+def extend_svs(svs: List[str]):
   """Extend stat vars by finding siblings.
 
     Each SV has a parent SVG associated. Extending an SV would need to trace to
@@ -128,7 +128,12 @@ def extend_svs(svs: Dict[str, List[str]]):
     svg2childsvs[item['node']] = item['info'].get('childStatVars', [])
 
   res = {}
+  # Extended SV member -> Extended SV list
+  reverse_map = {}
   for sv, svg in sv2svg.items():
+    if sv in reverse_map:
+      res[sv] = reverse_map[sv]
+      continue
     res[sv] = []
     svg_obj = parse_svg(svg)
     sv_obj = None
@@ -170,4 +175,9 @@ def extend_svs(svs: Dict[str, List[str]]):
     else:
       # Can use the direct siblings of this sv
       res[sv] = list(map(lambda x: x['id'], svg2childsvs[svg]))
-  return res
+    for sv2 in res[sv]:
+      if sv2 == sv:
+        continue
+      reverse_map[sv2] = res[sv]
+  res_ordered = {sv: sorted(ext_svs) for sv, ext_svs in res.items()}
+  return res_ordered

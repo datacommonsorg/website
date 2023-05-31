@@ -90,7 +90,7 @@ spec:
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
             - name: WEBSITE_HASH
-              value: {{ required "Missing: website.githash" .Values.website.githash | quote }}
+              value: {{ .Values.website.githash | quote }}
             - name: ENABLE_MODEL
               value: {{ .Values.nl.enabled | quote }}
             - name: INGRESS_CONFIG_PATH

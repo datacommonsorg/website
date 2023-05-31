@@ -13,31 +13,31 @@
 # limitations under the License.
 
 # Helm config
-
-project: datcom-karnataka
-
-cluster_prefix: "website"
+project: techsoup-data-commons
+cluster_prefix: datacommons
 
 namespace:
-  name: "website"
+  name: website
 
 website:
   image:
-    project: "datcom-ci"
-    tag:
+    project: techsoup-data-commons
+    tag: f5bad76
   flaskEnv: custom
+  replicas: 1
+
+ingress:
+  enabled: true
 
 mixer:
   useBranchBigtable: false
   useCustomBigtable: true
 
-ingress:
-  enabled: true
-  ipName: website-ip
-  certName: website-certificate
-
 serviceAccount:
   name: website-ksa
+
+nl:
+  enabled: false
 
 serviceGroups:
   recon: null
@@ -50,15 +50,15 @@ serviceGroups:
     resources:
       memoryRequest: "8G"
       memoryLimit: "8G"
-nl:
-  enabled: false
 
 kgStoreConfig:
   customBigtableInfo: |
-    project:
+    project: techsoup-data-commons
     instance: dc-graph
     tables:
-      -
+      - freemeals_2023_04_11_14_09_49
+      - mealsites_2023_05_25_20_51_17
+      - usda_grocery_access_2023_05_22_11_28_04
 
 svg:
-  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
+  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]
