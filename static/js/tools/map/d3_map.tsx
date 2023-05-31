@@ -32,6 +32,7 @@ import {
   addMapPoints,
   addPolygonLayer,
   drawD3Map,
+  fitSize,
   getProjection,
 } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
@@ -158,6 +159,23 @@ export function D3Map(props: D3MapProps): JSX.Element {
       props.geoJsonData,
       zoomDcid
     );
+    // Re-fit projection to border data if we should draw borders.ß
+    // This prevents borders from getting cutoff if enclosed places don't
+    // stretch wall-to-wall.
+    if (
+      placeInfo.value.enclosedPlaceType &&
+      shouldShowBorder(placeInfo.value.enclosedPlaceType) &&
+      props.borderGeoJsonData
+    ) {
+      fitSize(
+        width - legendWidth,
+        height,
+        props.borderGeoJsonData,
+        projection,
+        d3.geoPath().projection(projection),
+        1
+      );
+    }
     drawD3Map(
       mapContainerRef.current,
       props.geoJsonData,
