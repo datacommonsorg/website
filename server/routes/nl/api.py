@@ -462,6 +462,7 @@ def data():
   else:
     logging.info('Unable to load event configs!')
 
+  # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
   original_query = request.args.get('q')
   context_history = []
