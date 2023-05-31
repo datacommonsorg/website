@@ -78,6 +78,7 @@ const HIGHLIGHTING_DOT_R = 5;
 // if building a datagroup dictionary and the place for a datagroup is
 // unknown, use this as the place.
 const DATAGROUP_UNKNOWN_PLACE = "unknown";
+const TICK_SIZE = 6;
 
 function appendLegendElem(
   elem: string,
@@ -409,7 +410,11 @@ function addXAxis(
   labelToLink?: { [label: string]: string },
   singlePointLabel?: string
 ): number {
-  let d3Axis = d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0);
+  let d3Axis = d3
+    .axisBottom(xScale)
+    .ticks(NUM_X_TICKS)
+    .tickSize(TICK_SIZE)
+    .tickSizeOuter(0);
   if (singlePointLabel) {
     d3Axis = d3Axis.tickFormat(() => {
       return singlePointLabel;
@@ -448,8 +453,10 @@ function addXAxis(
       });
   }
 
+  let rotatedAngle = 0;
   if (shouldRotate) {
     heightFromBottom = ROTATE_MARGIN_BOTTOM;
+    rotatedAngle = -35;
     axis
       .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
       .selectAll("text")
@@ -457,7 +464,7 @@ function addXAxis(
       .style("text-rendering", "optimizedLegibility")
       .attr("dx", "-.8em")
       .attr("dy", ".15em")
-      .attr("transform", "rotate(-35)");
+      .attr("transform", `rotate(${rotatedAngle})`);
   } else if (typeof xScale.bandwidth === "function") {
     const text = axis.selectAll("text");
     text
@@ -468,18 +475,37 @@ function addXAxis(
 
     if (!text.filter("[wrap-overflow='1']").empty()) {
       // Rotate text if overflow occurs even after wrapping.
+      rotatedAngle = -45;
       text.style("text-anchor", "end").each(function () {
         const t = this as SVGTextElement;
         const bbox = t.getBBox();
         t.setAttribute(
           "transform",
-          `translate(-${bbox.height / 2 + 0}, 3) rotate(-45)`
+          `translate(-${bbox.height / 2 + 0}, 3) rotate(${rotatedAngle})`
         );
       });
     }
   }
 
-  let axisHeight = axis.node().getBBox().height;
+  let axisHeight = 0;
+  // Get the height of the text in the axis by finding the max height out of
+  // each individual axis label.
+  axis.selectAll("text").each(function () {
+    const currentNode = this as SVGTextElement;
+    const bbox = currentNode.getBBox();
+    let currentHeight = bbox.height;
+    // If the label has been rotated, calculate the height of the new bounding
+    // box of the rotated label.
+    // calculation from: https://stackoverflow.com/questions/3231176/how-to-get-size-of-a-rotated-rectangle
+    if (rotatedAngle !== 0) {
+      const rotationAngleRad = rotatedAngle * (Math.PI / 180);
+      currentHeight =
+        Math.abs(bbox.width * Math.sin(rotationAngleRad)) +
+        Math.abs(bbox.height * Math.cos(rotationAngleRad));
+    }
+    axisHeight = Math.max(currentHeight, axisHeight);
+  });
+  axisHeight += TICK_SIZE;
   if (axisHeight > MARGIN.bottom) {
     axis.attr("transform", `translate(0, ${chartHeight - axisHeight})`);
   } else {

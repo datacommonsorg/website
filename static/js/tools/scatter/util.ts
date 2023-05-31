@@ -51,12 +51,14 @@ export enum ScatterChartType {
  * @param parentPlace the place to get data within
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
+ * @param apiRoot API root
  *
  */
 export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
-  statVars: { statVarDcid: string; date?: string }[]
+  statVars: { statVarDcid: string; date?: string }[],
+  apiRoot?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -71,15 +73,18 @@ export async function getStatWithinPlace(
     }
     promises.push(
       axios
-        .get<PointApiResponse>("/api/observations/point/within", {
-          params: {
-            childType,
-            date: dataDate,
-            parentEntity: parentPlace,
-            variables: [statVar.statVarDcid],
-          },
-          paramsSerializer: stringifyFn,
-        })
+        .get<PointApiResponse>(
+          `${apiRoot || ""}/api/observations/point/within`,
+          {
+            params: {
+              childType,
+              date: dataDate,
+              parentEntity: parentPlace,
+              variables: [statVar.statVarDcid],
+            },
+            paramsSerializer: stringifyFn,
+          }
+        )
         .then((resp) => resp.data)
     );
   }

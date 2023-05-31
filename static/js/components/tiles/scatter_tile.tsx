@@ -57,6 +57,8 @@ interface ScatterTilePropType {
   className?: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
+  // API root
+  apiRoot?: string;
 }
 
 interface RawData {
@@ -87,11 +89,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   useEffect(() => {
     if (!scatterChartData) {
       (async () => {
-        const data = await fetchData(
-          props.place.dcid,
-          props.enclosedPlaceType,
-          props.statVarSpec
-        );
+        const data = await fetchData(props);
         setScatterChartData(data);
       })();
     }
@@ -103,9 +101,9 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     }
     draw(
       scatterChartData,
-      svgContainer,
+      svgContainer.current,
       props.svgChartHeight,
-      tooltip,
+      tooltip.current,
       props.scatterTileSpec || {}
     );
   }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
@@ -177,7 +175,8 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 function getPopulationPromise(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
+  statVarSpec: StatVarSpec[],
+  apiRoot?: string
 ): Promise<SeriesApiResponse> {
   const statVars = [];
   for (const sv of statVarSpec) {
@@ -189,7 +188,7 @@ function getPopulationPromise(
     return Promise.resolve(null);
   } else {
     return axios
-      .get("/api/observations/series/within", {
+      .get(`${apiRoot || ""}/api/observations/series/within`, {
         params: {
           parentEntity: placeDcid,
           childType: enclosedPlaceType,
@@ -201,27 +200,31 @@ function getPopulationPromise(
   }
 }
 
-export const fetchData = async (
-  placeDcid: string,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
-) => {
-  if (statVarSpec.length < 2) {
+export const fetchData = async (props: ScatterTilePropType) => {
+  if (props.statVarSpec.length < 2) {
     // TODO: add error message
     return;
   }
-  const placeStatsPromise = getStatWithinPlace(placeDcid, enclosedPlaceType, [
-    { statVarDcid: statVarSpec[0].statVar },
-    { statVarDcid: statVarSpec[1].statVar },
-  ]);
+  const placeStatsPromise = getStatWithinPlace(
+    props.place.dcid,
+    props.enclosedPlaceType,
+    [
+      { statVarDcid: props.statVarSpec[0].statVar },
+      { statVarDcid: props.statVarSpec[1].statVar },
+    ],
+    props.apiRoot
+  );
   const populationPromise = getPopulationPromise(
-    placeDcid,
-    enclosedPlaceType,
-    statVarSpec
+    props.place.dcid,
+    props.enclosedPlaceType,
+    props.statVarSpec,
+    props.apiRoot
   );
   const placeNamesPromise = axios
     .get(
-      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`
+      `${props.apiRoot || ""}/api/place/descendent/name?dcid=${
+        props.place.dcid
+      }&descendentType=${props.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   try {
@@ -231,7 +234,7 @@ export const fetchData = async (
       placeNamesPromise,
     ]);
     const rawData = { placeStats, population, placeNames };
-    return rawToChart(rawData, statVarSpec);
+    return rawToChart(rawData, props.statVarSpec);
   } catch (error) {
     return null;
   }
@@ -322,14 +325,15 @@ function getTooltipElement(
   );
 }
 
-function draw(
+export function draw(
   chartData: ScatterChartData,
-  svgContainer: React.RefObject<HTMLDivElement>,
+  svgContainer: HTMLDivElement,
   svgChartHeight: number,
-  tooltip: React.RefObject<HTMLDivElement>,
-  scatterTileSpec: ScatterTileSpec
+  tooltip: HTMLDivElement,
+  scatterTileSpec: ScatterTileSpec,
+  svgWidth?: number
 ): void {
-  const width = svgContainer.current.offsetWidth;
+  const width = svgWidth || svgContainer.offsetWidth;
   const shouldHighlightQuadrants = {
     [ChartQuadrant.TOP_LEFT]: scatterTileSpec.highlightTopLeft,
     [ChartQuadrant.TOP_RIGHT]: scatterTileSpec.highlightTopRight,
