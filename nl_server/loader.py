@@ -19,38 +19,69 @@ from nl_server import gcs
 from nl_server.embeddings import Embeddings
 from nl_server.ner_place_model import NERPlaces
 
-nl_embeddings_cache_key = 'nl_embeddings'
+nl_embeddings_cache_key_base = 'nl_embeddings'
 nl_ner_cache_key = 'nl_ner'
 nl_cache_path = '~/.datacommons/'
 nl_cache_expire = 3600 * 24  # Cache for 1 day
 
+DEFAULT_INDEX_TYPE = 'small'
 
-def load_model(app, embeddings_file):
+
+def nl_embeddings_cache_key(index_type=DEFAULT_INDEX_TYPE):
+  return f'{nl_embeddings_cache_key_base}_{index_type}'
+
+
+def embeddings_config_key(index_type):
+  return f'NL_EMBEDDINGS_{index_type.upper()}'
+
+
+def _use_cache(flask_env):
+  return flask_env == 'local' or flask_env == 'integration_test'
+
+
+def load_model(app, model_map):
   flask_env = os.environ.get('FLASK_ENV')
+
+  # Sanity check that file names aren't mispresented
+  for sz in model_map.keys():
+    assert sz in model_map[sz], f'{sz} not found in {model_map[sz]}'
+
   # In local dev, cache the model in disk so each hot reload won't download
   # the model again.
-  if flask_env == 'local' or flask_env == 'integration_test':
+  if _use_cache(flask_env):
     from diskcache import Cache
     cache = Cache(nl_cache_path)
     cache.expire()
-    nl_embeddings = cache.get(nl_embeddings_cache_key)
-    app.config['NL_EMBEDDINGS'] = nl_embeddings
+
     nl_ner_places = cache.get(nl_ner_cache_key)
     app.config['NL_NER_PLACES'] = nl_ner_places
-    if nl_embeddings and nl_ner_places:
-      logging.info("Use cached model for embeddings and NER in: " +
+
+    missing_embeddings = False
+    for sz in model_map.keys():
+      nl_embeddings = cache.get(nl_embeddings_cache_key(sz))
+      if not nl_embeddings:
+        missing_embeddings = True
+        break
+      app.config[embeddings_config_key(sz)] = nl_embeddings
+
+    if nl_ner_places and not missing_embeddings:
+      logging.info("Using cached model for embeddings and NER in: " +
                    cache.directory)
       return
 
   # Download the model from GCS
-  nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_file))
-  app.config['NL_EMBEDDINGS'] = nl_embeddings
+  for sz in sorted(model_map.keys()):
+    assert sz in model_map, f'{sz} missing from {model_map}'
+    nl_embeddings = Embeddings(gcs.download_embeddings(model_map[sz]))
+    app.config[embeddings_config_key(sz)] = nl_embeddings
+
   nl_ner_places = NERPlaces()
   app.config["NL_NER_PLACES"] = nl_ner_places
 
-  if flask_env == 'local' or flask_env == 'integration_test':
+  if _use_cache(flask_env):
     with Cache(cache.directory) as reference:
-      reference.set(nl_embeddings_cache_key,
-                    nl_embeddings,
-                    expire=nl_cache_expire)
+      for sz in model_map.keys():
+        reference.set(nl_embeddings_cache_key(sz),
+                      app.config[embeddings_config_key(sz)],
+                      expire=nl_cache_expire)
       reference.set(nl_ner_cache_key, nl_ner_places, expire=nl_cache_expire)

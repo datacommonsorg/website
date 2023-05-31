@@ -1,0 +1,101 @@
+{
+  "names": [
+    "No Poverty",
+    "Zero Hunger",
+    "Good Health and Well-being",
+    "Quality Education",
+    "Gender Equality",
+    "Clean Water and Sanitation",
+    "Affordable and Clean Energy",
+    "Decent Work and Economic Growth",
+    "Industry, Innovation and Infrastructure",
+    "Reduced Inequality",
+    "Sustainable Cities and Communities",
+    "Responsible Consumption and Production",
+    "Climate Action",
+    "Life Below Water",
+    "Life on Land",
+    "Peace and Justice Strong Institutions",
+    "Partnerships to achieve the Goal"
+  ],
+  "blocks": [
+    {
+      "name": "No Poverty",
+      "charts": [
+        {
+          "type": "LINE",
+          "config": {
+            "title": "Unemployment rate by sex",
+            "place": {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "types": ["Country"]
+            },
+            "statVarSpec": [
+              {
+                "statVar": "UnemploymentRate_Person_Female",
+                "unit": "%"
+              },
+              {
+                "statVar": "UnemploymentRate_Person_Male",
+                "unit": "%"
+              }
+            ]
+          }
+        },
+        {
+          "type": "LINE",
+          "config": {
+            "title": "Median income by sex",
+            "place": {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "types": ["Country"]
+            },
+            "statVarSpec": [
+              {
+                "statVar": "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+                "unit": "$"
+              },
+              {
+                "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome",
+                "unit": "$"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Zero Hunger",
+      "charts": [
+        {
+          "type": "RANKING",
+          "config": {
+            "placeName": "USA",
+            "placeType": "State",
+            "withinPlace": "country/USA",
+            "statVar": "Count_Person",
+            "isPerCapita": false,
+            "scaling": 1,
+            "unit": "",
+            "date": "2020"
+          }
+        },
+        {
+          "type": "RANKING",
+          "config": {
+            "placeName": "California",
+            "placeType": "County",
+            "withinPlace": "geoId/06",
+            "statVar": "Count_Person",
+            "isPerCapita": false,
+            "scaling": 1,
+            "unit": "",
+            "date": "2018"
+          }
+        }
+      ]
+    }
+  ]
+}

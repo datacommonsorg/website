@@ -34,7 +34,7 @@ flags.DEFINE_string('output_file', 'autogen_svs.csv', 'Output file path')
 
 # Use DC API to get names for SVs.
 def get_names(dcids):
-  names = []
+  dcid2name = {}
   index = 0
   batch_num = 200
   while index < len(dcids):
@@ -46,12 +46,10 @@ def get_names(dcids):
       if d in name_dict:
         name_list = name_dict[d]
         if name_list and name_list[0]:
-          names.append(name_list[0])
-        else:
-          names.append("")
+          dcid2name[d] = name_list[0]
 
     index += batch_num
-  return names
+  return dcid2name
 
 
 def main(_):
@@ -60,9 +58,12 @@ def main(_):
     sv_list = f.read().splitlines()
 
   # get names and create a DataFrame with dcids and names.
-  names_list = get_names(sv_list)
+  dcid2name = get_names(sv_list)
 
-  input_df = pd.DataFrame.from_dict({'dcid': sv_list, "Name": names_list})
+  input_df = pd.DataFrame.from_dict({
+      "dcid": dcid2name.keys(),
+      "Name": dcid2name.values()
+  })
 
   # Get the DDD titles dataframe.
   ddd_df = pd.read_csv(FLAGS.ddd_titles_file).fillna("")

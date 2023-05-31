@@ -23,20 +23,17 @@
 
 set -e
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+ROOT="$(dirname "$DIR")"
+
 function help {
-  echo "Usage: $0 -elphti"
+  echo "Usage: $0 -el"
   echo "-e       Instance environment as defined under /deploy/gke"
   echo "-l       GKE location(zone or region) Default: us-central1"
-  echo "-p       GCP project to deploy the project to, when specified, docker image is also read from this project"
-  echo "-h       Website hash used for deployment"
-  echo "-i       GCP project id where the website/nl images are stored."
   exit 1
 }
 
-PROJECT_ID=""
-ENV=""
-
-while getopts ":e:l:p:h:t:i:" OPTION; do
+while getopts ":e:l:" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
@@ -44,41 +41,28 @@ while getopts ":e:l:p:h:t:i:" OPTION; do
     l)
       LOCATION=$OPTARG
       ;;
-    p)
-      PROJECT_ID=$OPTARG
-      ENV=custom
-      ;;
-    h)
-      WEBSITE_HASH=$OPTARG
-      ;;
-    i)
-      IMAGE_PROJECT=$OPTARG
-      ;;
     *)
       help
       ;;
   esac
 done
 
-if [[ $ENV == "" && $PROJECT_ID == "" ]];then
-  echo "Set environment by -e, or set project id by -p"
+if [[ $ENV == "" ]]; then
+  echo "Set environment by -e"
   exit 1
 fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-ROOT="$(dirname "$DIR")"
+PROJECT_ID=$(yq eval '.project' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
+CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
+ESP_SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
 
 if [[ $LOCATION == "" ]]; then
   LOCATION="us-central1"
 fi
 
-if [[ $IMAGE_PROJECT == "" ]]; then
-  IMAGE_PROJECT="datcom-ci"
-fi
-
-
-cd $ROOT
-if [[ $WEBSITE_HASH == "" ]]; then
+WEBSITE_HASH=$(yq eval '.website.image.tag' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
+if [[ $WEBSITE_HASH == "" || $WEBSITE_HASH == "null" ]]; then
+  cd $ROOT
   WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
 fi
 
@@ -130,7 +114,6 @@ function deploy_cloud_esp() {
   gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
   gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID
 }
-
 # Release website helm chart
 function deploy_website() {
   helm upgrade --install dc-website deploy/helm_charts/dc_website \
@@ -138,22 +121,10 @@ function deploy_website() {
   --atomic \
   --debug \
   --timeout 10m \
-  --set website.image.project="$IMAGE_PROJECT" \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
   --set-file nl.embeddings=deploy/base/model.yaml
 }
-
-cd $ROOT
-if [[ $PROJECT_ID != "" ]]; then
-  # This is a pure custom project hosted and deployed by third party
-  CLUSTER_PREFIX=datacommons
-else
-  touch mixer/deploy/storage/custom_bigtable_info.yaml
-  PROJECT_ID=$(yq eval '.project' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
-  CLUSTER_PREFIX=$(yq eval '.cluster_prefix' $ROOT/deploy/helm_charts/envs/$ENV.yaml)
-fi
-ESP_SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
 
 cd $ROOT
 get_gke_credentials

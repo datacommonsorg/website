@@ -13,17 +13,16 @@
 # limitations under the License.
 
 # Helm config
-project: "techsoup-data-commons"
-cluster_prefix: "datacommons"
+project: techsoup-data-commons
+cluster_prefix: datacommons
 
 namespace:
   name: website
 
 website:
   image:
-    project:
-    tag:
-  githash:
+    project: techsoup-data-commons
+    tag: f5bad76
   flaskEnv: custom
   replicas: 1
 
@@ -33,9 +32,6 @@ ingress:
 mixer:
   useBranchBigtable: false
   useCustomBigtable: true
-
-customDC:
-  enabled: true
 
 serviceAccount:
   name: website-ksa
