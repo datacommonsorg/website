@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,20 +44,18 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
                                          })
     assert no_stat_vars.status_code == 400
 
-  @mock.patch('server.routes.api.facets.dc.obs_point_within')
+  @mock.patch('server.routes.shared_api.facets.dc.obs_point_within')
   def test_single_date(self, mock_point_within):
     expected_parent_place = "country/USA"
     expected_child_type = "State"
     expected_stat_vars = ["Count_Person", "UnemploymentRate_Person"]
     expected_date = "2005"
 
-    def point_within_side_effect(parent_place, child_type, stat_vars, date,
-                                 all_facets):
+    def point_within_side_effect(parent_place, child_type, stat_vars, date):
       if (parent_place != expected_parent_place or
-          child_type != expected_child_type or
-          stat_vars != expected_stat_vars or not all_facets):
+          child_type != expected_child_type or stat_vars != expected_stat_vars):
         return {}
-      if date == "":
+      if date == "LATEST":
         return mock_data.POINT_WITHIN_LATEST_ALL_FACETS
       if date == expected_date:
         return mock_data.POINT_WITHIN_2015_ALL_FACETS
@@ -84,9 +82,9 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
     single_date = app.test_client().get(endpoint_url,
                                         query_string=single_date_req_json)
     assert single_date.status_code == 200
-    assert single_date.data == b'{"Count_Person":{"2176550201":{"importName":"USCensusPEP_Annual_Population","measurementMethod":"CensusPEPSurvey","observationPeriod":"P1Y","provenanceUrl":"https://www2.census.gov/programs-surveys/popest/tables"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"}},"UnemploymentRate_Person":{"2978659163":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyUnadjusted","observationPeriod":"P1Y","provenanceUrl":"https://www.bls.gov/lau/"}}}\n'
+    assert single_date.data == b'{"Count_Person":{"2176550201":{"importName":"USCensusPEP_Annual_Population","measurementMethod":"CensusPEPSurvey","observationPeriod":"P1Y","provenanceUrl":"https://www2.census.gov/programs-surveys/popest/tables"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"}},"UnemploymentRate_Person":{"2978659163":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyUnadjusted","observationPeriod":"P1Y","provenanceUrl":"https://www.bls.gov/lau/","unit":"testUnit"}}}\n'
 
-  @mock.patch('server.routes.api.facets.dc.obs_series_within')
+  @mock.patch('server.routes.shared_api.facets.dc.obs_series_within')
   def test_date_range(self, mock_series_within):
     expected_parent_place = "country/USA"
     expected_child_type = "State"
@@ -94,9 +92,10 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
     expected_min_date_year = "2015"
     expected_max_date_year = "2018"
 
-    def series_within_side_effect(parent_place, child_type, stat_vars,
-                                  all_facets):
-      if parent_place == expected_parent_place and child_type == expected_child_type and stat_vars == expected_stat_vars and all_facets:
+    def series_within_side_effect(parent_place, child_type, stat_vars):
+      if (parent_place == expected_parent_place and
+          child_type == expected_child_type and
+          stat_vars == expected_stat_vars):
         return mock_data.SERIES_WITHIN_ALL_FACETS
       else:
         return {}

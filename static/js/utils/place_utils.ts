@@ -77,15 +77,10 @@ export function getParentPlacesPromise(
     .then((resp) => {
       const parentsData = resp.data;
       const filteredParentsData = parentsData.filter((parent) => {
-        for (const type of parent.types) {
-          if (type in ALL_MAP_PLACE_TYPES) {
-            return true;
-          }
-        }
-        return false;
+        return parent.type in ALL_MAP_PLACE_TYPES;
       });
       const parentPlaces = filteredParentsData.map((parent) => {
-        return { dcid: parent.dcid, name: parent.name, types: parent.types };
+        return { dcid: parent.dcid, name: parent.name, types: [parent.type] };
       });
       if (placeDcid !== EARTH_NAMED_TYPED_PLACE.dcid) {
         parentPlaces.push(EARTH_NAMED_TYPED_PLACE);
@@ -122,7 +117,9 @@ export function getEnclosedPlacesPromise(
   childPlaceType: string
 ): Promise<Array<NamedPlace>> {
   return axios
-    .get(`/api/place/places-in?dcid=${placeDcid}&placeType=${childPlaceType}`)
+    .get(
+      `/api/place/descendent?dcids=${placeDcid}&descendentType=${childPlaceType}`
+    )
     .then((resp) => {
       const enclosedPlaces = resp.data[placeDcid];
       if (_.isEmpty(enclosedPlaces)) {
@@ -130,7 +127,7 @@ export function getEnclosedPlacesPromise(
       }
       return enclosedPlaces.map((dcid) => {
         return {
-          dcid: dcid,
+          dcid,
           name: dcid,
         };
       });
@@ -178,7 +175,7 @@ export function getPlaceNames(
   }
   return axios
     .post("/api/place/name", {
-      dcids: dcids,
+      dcids,
     })
     .then((resp) => {
       return resp.data;
@@ -253,8 +250,8 @@ export function getPlaceIdsFromNames(
   }
   return Promise.all(names.map(getPlaceId)).then((places) => {
     const result = {};
-    for (const [name, place_id] of places) {
-      result[name] = place_id;
+    for (const [name, placeId] of places) {
+      result[name] = placeId;
     }
     return result;
   });

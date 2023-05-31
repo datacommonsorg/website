@@ -203,8 +203,8 @@ async function loadData(
   const populationPromise: Promise<SeriesApiResponse> = axios
     .get("/api/observations/series/within", {
       params: {
-        parent_entity: place.enclosingPlace.dcid,
-        child_type: place.enclosedPlaceType,
+        parentEntity: place.enclosingPlace.dcid,
+        childType: place.enclosedPlaceType,
         variables: Array.from(populationSvList),
       },
       paramsSerializer: stringifyFn,

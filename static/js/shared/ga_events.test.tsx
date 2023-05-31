@@ -61,11 +61,12 @@ import {
   DisplayOptionsWrapper as ScatterDisplayOptionsWrapper,
   IsLoadingWrapper as ScatterIsLoadingWrapper,
   PlaceInfoWrapper as ScatterPlaceInfoWrapper,
+  SHOW_POPULATION_OFF,
 } from "../tools/scatter/context";
 import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
-import { axios_mock } from "../tools/timeline/mock_functions";
+import { axiosMock } from "../tools/timeline/mock_functions";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_EVENT_PLACE_CHART_CLICK,
@@ -143,7 +144,7 @@ const MAP_PROPS = {
   geoJsonData: {
     features: [],
     properties: {
-      current_geo: PLACE_DCID,
+      currentGeo: PLACE_DCID,
     },
     type: "FeatureCollection",
   } as GeoJsonData,
@@ -216,6 +217,7 @@ const SCATTER_PROPS = {
     showLabels: false,
     chartType: ScatterChartType.SCATTER,
     showDensity: false,
+    showPopulation: SHOW_POPULATION_OFF,
     showRegression: false,
   } as ScatterDisplayOptionsWrapper,
   sources: new Set<string>([""]),
@@ -342,11 +344,13 @@ const SCATTER_CONTEXT = {
     showLabels: false,
     chartType: ScatterChartType.SCATTER,
     showDensity: false,
+    showPopulation: SHOW_POPULATION_OFF,
     showRegression: false,
     setQuadrants: () => null,
     setLabels: () => null,
     setChartType: () => null,
     setDensity: () => null,
+    setPopulation: () => null,
     setRegression: () => null,
   } as ScatterDisplayOptionsWrapper,
   isLoading: {} as ScatterIsLoadingWrapper,
@@ -784,7 +788,7 @@ describe("test ga event tool stat var click", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
     // Mock child stat var groups.
-    axios_mock();
+    axiosMock();
 
     // When the component is rendered.
     const statVarHierarchy = render(

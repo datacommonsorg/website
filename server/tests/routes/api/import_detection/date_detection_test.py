@@ -16,7 +16,7 @@ from dataclasses import dataclass
 from typing import Any, List
 import unittest
 
-import server.routes.api.import_detection.date_detection as dd
+import server.routes.import_detection.date_detection as dd
 
 
 class TestDateDetection(unittest.TestCase):

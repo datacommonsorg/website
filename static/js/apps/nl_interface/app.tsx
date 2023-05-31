@@ -33,6 +33,7 @@ export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
+  const indexType = useRef(getUrlToken("idx"));
   const urlPrompts = useRef(getUrlPrompts());
   // Timer used to input characters from a single prompt with
   // CHARACTER_INPUT_INTERVAL ms between each character.
@@ -160,8 +161,10 @@ export function App(): JSX.Element {
         key={i}
         queryIdx={i}
         query={q}
+        indexType={indexType.current}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
+        showData={false}
       ></QueryResult>
     );
   });

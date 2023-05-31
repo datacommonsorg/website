@@ -61,6 +61,7 @@ export interface BlockPropType {
   statVarProvider: StatVarProvider;
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
+  showData?: boolean;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -179,6 +180,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
             svgChartHeight={props.svgChartHeight}
             className={className}
+            isDataTile={props.showData}
           />
         );
       case "LINE":
@@ -191,6 +193,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
+            isDataTile={props.showData}
           />
         );
       case "RANKING":
@@ -204,6 +207,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
+            isDataTile={props.showData}
           />
         );
       case "BAR":
@@ -219,6 +223,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             tileSpec={tile.barTileSpec}
+            isDataTile={props.showData}
           />
         );
       case "SCATTER":
@@ -235,6 +240,7 @@ function renderTiles(
             }
             className={className}
             scatterTileSpec={tile.scatterTileSpec}
+            isDataTile={props.showData}
           />
         );
       case "BIVARIATE":
@@ -248,6 +254,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
+            isDataTile={props.showData}
           />
         );
       case "DESCRIPTION":

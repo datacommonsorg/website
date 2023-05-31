@@ -281,7 +281,7 @@ export const TopEventTile = memo(function TopEventTile(
       .flatMap((event) => event.affectedPlaces)
       .forEach((place) => allAffectedPlaces.add(place));
     axios
-      .post<Record<string, string[]>>("/api/node/propvals", {
+      .post<Record<string, string[]>>("/api/node/propvals/out", {
         dcids: Array.from(allAffectedPlaces),
         prop: "typeOf",
       })
@@ -294,7 +294,11 @@ export const TopEventTile = memo(function TopEventTile(
         events.forEach((event) => {
           for (const place of event.affectedPlaces) {
             const placeTypes = resp.data[place] || [];
-            if (placeTypes.find((type) => type === props.enclosedPlaceType)) {
+            if (
+              placeTypes.find(
+                (item) => item["dcid"] === props.enclosedPlaceType
+              )
+            ) {
               eventPlaceDcids[event.placeDcid] = place;
               break;
             }
@@ -361,9 +365,10 @@ export const TopEventTile = memo(function TopEventTile(
     });
     embedModalElement.current.show(
       "",
-      rankingPointsToCsv(rankingPoints),
+      rankingPointsToCsv(rankingPoints, ["data"]),
       chartContainer.current.offsetWidth,
       0,
+      "",
       "",
       "",
       []

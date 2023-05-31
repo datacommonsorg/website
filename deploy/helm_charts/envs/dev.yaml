@@ -15,64 +15,31 @@
 # Helm config
 project: "datcom-website-dev"
 cluster_prefix: "website"
-resourceSuffix: "-dev"
 
 namespace:
   name: "website"
 
 website:
-  image:
-    project: "datcom-ci"
-    tag:
-  githash:
   flaskEnv: dev
-  replicas:
-    default: 5
-  enableModel: true
-  ai:
-    - us-central1:
-        protocol: rest
-        endpoint_id: "2621578768245850112"
-        deployed_model_id: "1265982086267797504"
+  replicas: 6
 
 mixer:
-  gcpProjectID:
+  hostProject:
   serviceName:
-
-ingress:
-  enabled: false
 
 serviceAccount:
   name: website-ksa
-  gsaName: website-reobot
 
 serviceGroups:
-  - svg:
-      urlPaths:
-        - "/place/stat-var-group/*"
-        - "/stat-var/*"
-        - "/v1/info/variable-group/*"
-        - "/v1/variable/*"
-        - "/v1/bulk/info/variable-group"
-        - "/v1/bulk/info/variable"
-      replicas:
-        default: 5
-        min: 5
-        max: 5
-      resources:
-        memoryRequest: "8G"
-        memoryLimit: "8G"
-      useSearch: true
-  - default:
-      urlPaths:
-        - "/*"
-      replicas:
-        default: 5
-        min: 5
-        max: 5
-      resources:
-        memoryRequest: "4G"
-        memoryLimit: "4G"
+  recon: null
+  svg:
+    replicas: 1
+  observation:
+    replicas: 2
+  node:
+    replicas: 2
+  default:
+    replicas: 2
 
 nl:
   enabled: true

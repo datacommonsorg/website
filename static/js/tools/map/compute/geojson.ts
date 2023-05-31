@@ -52,7 +52,7 @@ export function useUpdateGeoJson(
         error: null,
         payload: {
           type: "FeatureCollection",
-          properties: { current_geo: placeInfo.value.enclosingPlace.dcid },
+          properties: { currentGeo: placeInfo.value.enclosingPlace.dcid },
           features: geoJsonFeatures,
         } as GeoJsonData,
       });

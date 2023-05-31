@@ -21,6 +21,7 @@ class Config(_base.Config):
   NAME = "Data Commons for Civil Society"
   OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
   LOGO_PATH = "/custom_dc/custom/techsoup-logo.svg"
+  SHOW_DISASTER = False
 
 
 class LocalConfig(Config, local.Config):

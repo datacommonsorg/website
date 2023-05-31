@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,22 +25,22 @@ class TestApiSeriesWithin(unittest.TestCase):
     """Failure if required fields are not present."""
     no_parent_entity = app.test_client().get('/api/observations/series/within',
                                              query_string={
-                                                 'child_type': 'City',
+                                                 'childType': 'City',
                                                  'variables': ['Count_Person']
                                              })
     assert no_parent_entity.status_code == 400
 
     no_child_type = app.test_client().get('/api/observations/series/within',
                                           query_string={
-                                              'parent_entity': 'country/USA',
+                                              'parentEntity': 'country/USA',
                                               'variables': ['Count_Person']
                                           })
     assert no_child_type.status_code == 400
 
     no_stat_var = app.test_client().get('/api/observations/series/within',
                                         query_string={
-                                            'parent_entity': 'country/USA',
-                                            'child_type': 'City'
+                                            'parentEntity': 'country/USA',
+                                            'childType': 'City'
                                         })
     assert no_stat_var.status_code == 400
 
@@ -199,41 +199,45 @@ class TestApiSeriesWithin(unittest.TestCase):
     }
 
     def side_effect(url, data):
-      if url.endswith('/v1/bulk/observations/series/linked') and data == {
-          'linked_entity': 'country/USA',
-          'linked_property': 'containedInPlace',
-          'entity_type': 'State',
-          'variables': ['Count_Person', 'UnemploymentRate_Person'],
-          'all_facets': True
+      if url.endswith('/v2/observation') and data == {
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'expression': 'country/USA<-containedInPlace+{typeOf:State}'
+          },
+          'variable': {
+              'dcids': ['Count_Person', 'UnemploymentRate_Person']
+          },
       }:
         return mock_data.SERIES_WITHIN_ALL_FACETS
-      if url.endswith('/v1/bulk/triples/out') and data == {
+      if url.endswith('/v2/node') and data == {
           'nodes': ['testUnit'],
+          'property': '->*'
       }:
         return {
-            'data': [{
-                'node': 'testUnit',
-                'triples': {
-                    'name': {
-                        'nodes': [{
-                            'value': 'longUnitName'
-                        }]
-                    },
-                    'shortDisplayName': {
-                        'nodes': [{
-                            'value': 'shortUnit'
-                        }]
-                    },
+            'data': {
+                'testUnit': {
+                    'arcs': {
+                        'name': {
+                            'nodes': [{
+                                'value': 'longUnitName'
+                            }]
+                        },
+                        'shortDisplayName': {
+                            'nodes': [{
+                                'value': 'shortUnit'
+                            }]
+                        },
+                    }
                 }
-            }]
+            }
         }
 
     post.side_effect = side_effect
     response = app.test_client().get(
         '/api/observations/series/within/all',
         query_string={
-            'parent_entity': 'country/USA',
-            'child_type': 'State',
+            'parentEntity': 'country/USA',
+            'childType': 'State',
             'variables': ['Count_Person', 'UnemploymentRate_Person']
         })
     assert response.status_code == 200

@@ -31,7 +31,6 @@ class TestConfig(unittest.TestCase):
       'API_ROOT': 'api-root',
       'SECRET_PROJECT': '',
       'GA_ACCOUNT': '',
-      'MAPS_API_KEY': '',
       'SCHEME': 'http',
   }),
                          ('local', {
@@ -42,7 +41,6 @@ class TestConfig(unittest.TestCase):
                              'API_ROOT': 'https://autopush.api.datacommons.org',
                              'SECRET_PROJECT': 'datcom-website-dev',
                              'GA_ACCOUNT': '',
-                             'MAPS_API_KEY': '',
                              'SCHEME': 'http',
                          }),
                          ('production', {
@@ -53,7 +51,6 @@ class TestConfig(unittest.TestCase):
                              'API_ROOT': 'http://127.0.0.1:8081',
                              'SECRET_PROJECT': '',
                              'GA_ACCOUNT': 'UA-117119267-1',
-                             'MAPS_API_KEY': '',
                              'SCHEME': 'https',
                          }),
                          ('webdriver', {
@@ -64,7 +61,6 @@ class TestConfig(unittest.TestCase):
                              'API_ROOT': 'https://autopush.api.datacommons.org',
                              'SECRET_PROJECT': 'datcom-website-dev',
                              'GA_ACCOUNT': '',
-                             'MAPS_API_KEY': '',
                              'SCHEME': 'http',
                          })])
   def test_format_title(self, env, expected):
@@ -80,5 +76,4 @@ class TestConfig(unittest.TestCase):
     self.assertEqual(config.LITE, expected['LITE'])
     self.assertEqual(config.API_ROOT, expected['API_ROOT'])
     self.assertEqual(config.GA_ACCOUNT, expected['GA_ACCOUNT'])
-    self.assertEqual(config.MAPS_API_KEY, expected['MAPS_API_KEY'])
     self.assertEqual(config.SCHEME, expected['SCHEME'])

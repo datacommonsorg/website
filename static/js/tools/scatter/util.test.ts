@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ContextType } from "./context";
+import { ContextType, SHOW_POPULATION_LINEAR } from "./context";
 import { applyHash, ScatterChartType, updateHash } from "./util";
 
 const TestContext = {
@@ -69,10 +69,11 @@ const TestContext = {
     showDensity: true,
     chartType: ScatterChartType.SCATTER,
     showRegression: true,
+    showPopulation: SHOW_POPULATION_LINEAR,
   },
 } as unknown as ContextType;
 const Hash =
-  "#%26svx%3DCount_Person%26lx%3D1%26dx%3DCount_Person%26svy%3DCount_HousingUnit%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F10%26ept%3DCounty%26ub%3D99999%26qd%3D1%26ld%3D1%26dd%3D1%26rg%3D1";
+  "#%26svx%3DCount_Person%26lx%3D1%26dx%3DCount_Person%26svy%3DCount_HousingUnit%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F10%26ept%3DCounty%26ub%3D99999%26qd%3D1%26ld%3D1%26dd%3D1%26rg%3D1%26pp%3Dlinear";
 
 test("updateHash", () => {
   history.pushState = jest.fn();
@@ -96,6 +97,8 @@ test("applyHash", () => {
   context.display.setDensity = (value) => (context.display.showDensity = value);
   context.display.setRegression = (value) =>
     (context.display.showRegression = value);
+  context.display.setPopulation = (value) =>
+    (context.display.showPopulation = value);
   location.hash = Hash;
   applyHash(context);
   expect(context.x.value).toEqual(TestContext.x.value);
@@ -115,5 +118,8 @@ test("applyHash", () => {
   expect(context.display.showDensity).toEqual(TestContext.display.showDensity);
   expect(context.display.showRegression).toEqual(
     TestContext.display.showRegression
+  );
+  expect(context.display.showPopulation).toEqual(
+    TestContext.display.showPopulation
   );
 });

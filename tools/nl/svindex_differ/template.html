@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SV Index Differ</title>
+  </head>
+  <style type="text/css">
+    .diff_add {
+        background-color: #aaffaa;
+    }
+    .diff_chg {
+        background-color: #ffff77;
+    }
+    .diff_sub {
+        background-color: #ffaaaa;
+    }
+    .diff_header {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+    table {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+
+    td {
+        padding: 5px;
+    }
+
+    td.add {
+        background-color: #aaffaa;
+    }
+
+    td.del {
+        background-color: #ffaaaa;
+    }
+  </style>
+  <body>
+    <h1>Queries with Diffs</h1>
+    <pre>Test: {{test_file}}</pre>
+    <pre>Base: {{base_file}}</pre>
+    {% if diffs %}
+      <ul>
+      {% for query, base, test in diffs %}
+        <li><a href="#{{ loop.index }}">{{ loop.index }}. {{query}}</a></li>
+      {% endfor %}
+      </ul>
+
+      {% for query, base, test in diffs %}
+        <hr>
+        <h2 id="{{ loop.index }}">{{ loop.index }}: {{query}}</h2>
+        {{ base|diff_table(test) }}
+      {% endfor %}
+    {% else %}
+      <h2>No diffs found!</h2>
+    {% endif %}
+  </body>
+</html>

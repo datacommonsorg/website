@@ -42,12 +42,9 @@ spec:
         - name: schema-mapping
           configMap:
             name: schema-mapping
-        - name: ai-config
+        - name: nl-config
           configMap:
-            name: ai-config
-        - name: model-config
-          configMap:
-            name: model-config
+            name: nl-config
         - name: memdb-config
           configMap:
             name: memdb-config
@@ -76,9 +73,6 @@ spec:
               memory: "3G"
             requests:
               memory: "3G"
-          volumeMounts:
-            - name: ai-config
-              mountPath: /datacommons/ai
           env:
             - name: FLASK_ENV
               valueFrom:
@@ -113,7 +107,7 @@ spec:
             requests:
               memory: "8G"
           args:
-            - --mixer_project=$(MIXER_PROJECT)
+            - --host_project=$(HOST_PROJECT)
             - --bq_dataset=$(BIG_QUERY)
             - --schema_path=/datacommons/mapping
             - --base_bigtable_info=$(BASE_BIGTABLE_INFO)
@@ -126,11 +120,11 @@ spec:
             - name: memdb-config
               mountPath: /datacommons/memdb
           env:
-            - name: MIXER_PROJECT
+            - name: HOST_PROJECT
               valueFrom:
                 configMapKeyRef:
                   name: mixer-configmap
-                  key: mixerProject
+                  key: hostProject
             - name: BIG_QUERY
               valueFrom:
                 configMapKeyRef:
@@ -178,8 +172,8 @@ spec:
                   name: website-configmap
                   key: flaskEnv
           volumeMounts:
-            - name: model-config
-              mountPath: /datacommons/model
+            - name: nl-config
+              mountPath: /datacommons/nl
           startupProbe:
             httpGet:
               path: /healthz

@@ -77,28 +77,18 @@ class TestRemoveEmptyCharts(unittest.TestCase):
             }
             """, category)
     stat_vars_existence = {
-        'variable': {
-            'Count_fireEvent': {
-                'entity': {
-                    'place_id': False
-                }
-            },
-            'Area_fireEvent': {
-                'entity': {
-                    'place_id': True
-                }
-            },
-            'TotalArea': {
-                'entity': {
-                    'place_id': True
-                }
-            },
-            'Nonexistent': {
-                'entity': {
-                    'place_id': False
-                }
-            },
-        }
+        'Count_fireEvent': {
+            'place_id': False
+        },
+        'Area_fireEvent': {
+            'place_id': True
+        },
+        'TotalArea': {
+            'place_id': True
+        },
+        'Nonexistent': {
+            'place_id': False
+        },
     }
     result = lib_subject_page_config._exist_keys_category(['place_id'],
                                                           category,
@@ -112,77 +102,57 @@ class TestRemoveEmptyCharts(unittest.TestCase):
     }
     assert result == expect
 
-  @mock.patch('server.services.datacommons.properties_v1')
+  @mock.patch('server.lib.fetch.properties')
   @mock.patch('server.lib.nl.utils.get_sample_child_places')
-  @mock.patch('server.services.datacommons.observation_existence')
+  @mock.patch('server.lib.fetch.observation_existence')
   def test_remove_empty_charts(self, mock_observation_existence,
                                mock_sample_child_places,
                                mock_geojson_properties):
 
-    def properties_side_effect(nodes, dir):
-      return [{'node': 'child_id', 'properties': ['prop1', 'prop2']}]
+    def properties_side_effect(nodes):
+      return {'child_id': ['prop1', 'prop2']}
 
     def sample_child_places_side_effect(place_dcid, contained_place_type, _):
       return ['child_id']
 
     def obs_side_effect(all_svs, place_dcids):
       return {
-          'variable': {
-              "sv_exists_1": {
-                  'entity': {
-                      'place_id': True,
-                      'child_id': False
-                  }
-              },
-              "sv_exists_3": {
-                  'entity': {
-                      'place_id': True,
-                      'child_id': False
-                  }
-              },
-              "sv_filtered_1": {
-                  'entity': {
-                      'place_id': False,
-                      'child_id': False
-                  }
-              },
-              "sv_filtered_2": {
-                  'entity': {
-                      'place_id': False,
-                      'child_id': False
-                  }
-              },
-              "sv_filtered_3": {
-                  'entity': {
-                      'place_id': False,
-                      'child_id': False
-                  }
-              },
-              "sv_child_exists_1": {
-                  'entity': {
-                      'place_id': False,
-                      'child_id': True
-                  }
-              },
-              "sv_child_filtered_1": {
-                  'entity': {
-                      'place_id': False,
-                      'child_id': False
-                  }
-              },
-              "sv_parent_exists_1": {
-                  'entity': {
-                      'place_id': True,
-                      'child_id': False
-                  }
-              },
-              "sv_parent_filtered_1": {
-                  'entity': {
-                      'place_id': False,
-                      'child_id': False
-                  }
-              },
-          }
+          "sv_exists_1": {
+              'place_id': True,
+              'child_id': False
+          },
+          "sv_exists_3": {
+              'place_id': True,
+              'child_id': False
+          },
+          "sv_filtered_1": {
+              'place_id': False,
+              'child_id': False
+          },
+          "sv_filtered_2": {
+              'place_id': False,
+              'child_id': False
+          },
+          "sv_filtered_3": {
+              'place_id': False,
+              'child_id': False
+          },
+          "sv_child_exists_1": {
+              'place_id': False,
+              'child_id': True
+          },
+          "sv_child_filtered_1": {
+              'place_id': False,
+              'child_id': False
+          },
+          "sv_parent_exists_1": {
+              'place_id': True,
+              'child_id': False
+          },
+          "sv_parent_filtered_1": {
+              'place_id': False,
+              'child_id': False
+          },
       }
 
     mock_observation_existence.side_effect = obs_side_effect

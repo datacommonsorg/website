@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -65,20 +65,20 @@ class TestScatter(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert place name is correct.
-    place_name = self.driver.find_element_by_xpath(
-        '//*[@id="place-list"]/div/span')
+    place_name = self.driver.find_element(By.XPATH,
+                                          '//*[@id="place-list"]/div/span')
     self.assertEqual(place_name.text, 'California')
 
     # Assert chart is correct.
-    chart_title_y = self.driver.find_element_by_xpath(
-        '//*[@id="chart"]/div[1]/div[1]/h3[1]')
-    chart_title_x = self.driver.find_element_by_xpath(
-        '//*[@id="chart"]/div[1]/div[1]/h3[2]')
+    chart_title_y = self.driver.find_element(
+        By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[1]')
+    chart_title_x = self.driver.find_element(
+        By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[2]')
     self.assertEqual(chart_title_y.text,
-                     "Population: Asian Alone Per Capita (2020)")
-    self.assertEqual(chart_title_x.text, "Median Income (2020)")
-    chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
-    circles = chart.find_elements_by_tag_name('circle')
+                     "Population Asian Alone Per Capita (2020)")
+    self.assertEqual(chart_title_x.text, "Median Income of a Population (2020)")
+    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
+    circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
 
   def test_manually_enter_options(self):
@@ -90,7 +90,7 @@ class TestScatter(WebdriverBaseTest):
     # Wait until search box is present.
     element_present = EC.presence_of_element_located((By.ID, 'ac'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element_by_id('ac')
+    search_box_input = self.driver.find_element(By.ID, 'ac')
 
     # Type california into the search box.
     search_box_input.send_keys(PLACE_SEARCH_CA)
@@ -101,8 +101,8 @@ class TestScatter(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Click on the first result.
-    first_result = self.driver.find_element_by_css_selector(
-        '.pac-item:nth-child(1)')
+    first_result = self.driver.find_element(By.CSS_SELECTOR,
+                                            '.pac-item:nth-child(1)')
     first_result.click()
     element_present = EC.presence_of_element_located((By.CLASS_NAME, 'chip'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
@@ -112,7 +112,7 @@ class TestScatter(WebdriverBaseTest):
         (By.ID, 'place-selector-place-type'), "County")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     selects = Select(
-        self.driver.find_element_by_id('place-selector-place-type'))
+        self.driver.find_element(By.ID, 'place-selector-place-type'))
     selects.select_by_value('County')
 
     # Choose stat vars
@@ -124,28 +124,29 @@ class TestScatter(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_id(
-        'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
+    self.driver.find_element(
+        By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Click on median income button
     shared.wait_for_loading(self.driver)
     element_present = EC.presence_of_element_located(
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_id(
+    self.driver.find_element(
+        By.ID,
         'Median_Income_Persondc/g/Demographics-Median_Income_Person').click()
 
     # Assert chart is correct.
     element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_title_y = self.driver.find_element_by_xpath(
-        '//*[@id="chart"]/div[1]/div[1]/h3[1]')
-    chart_title_x = self.driver.find_element_by_xpath(
-        '//*[@id="chart"]/div[1]/div[1]/h3[2]')
-    self.assertEqual(chart_title_y.text, "Median Income (2020)")
-    self.assertEqual(chart_title_x.text, "Median Age (2020)")
-    chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
-    circles = chart.find_elements_by_tag_name('circle')
+    chart_title_y = self.driver.find_element(
+        By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[1]')
+    chart_title_x = self.driver.find_element(
+        By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[2]')
+    self.assertEqual(chart_title_y.text, "Median Income of a Population (2020)")
+    self.assertEqual(chart_title_x.text, "Median Age of Population (2020)")
+    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
+    circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
 
   def test_landing_page_link(self):
@@ -156,13 +157,13 @@ class TestScatter(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.ID, 'placeholder-container'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element_by_xpath(
-        '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
+    self.driver.find_element(
+        By.XPATH, '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
 
     # Assert chart loads
     element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     shared.wait_for_loading(self.driver)
-    chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
-    circles = chart.find_elements_by_tag_name('circle')
+    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
+    circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 1)

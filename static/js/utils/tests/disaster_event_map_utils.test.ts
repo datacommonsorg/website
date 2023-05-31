@@ -368,7 +368,7 @@ const DATE_RANGES = {
   },
 };
 
-function axios_mock(): void {
+function axiosMock(): void {
   axios.get = jest.fn();
 
   for (const eventList of Object.values(DISASTER_EVENT_TYPES)) {
@@ -422,7 +422,7 @@ function axios_mock(): void {
 }
 
 test("fetch date list for all disasters", () => {
-  axios_mock();
+  axiosMock();
   return fetchDateList(
     Object.values(DISASTER_EVENT_TYPES).flat(),
     EARTH_NAMED_TYPED_PLACE.dcid
@@ -466,7 +466,7 @@ test("fetch date list for all disasters", () => {
 });
 
 test("fetch date list for single disaster multiple event types", () => {
-  axios_mock();
+  axiosMock();
   return fetchDateList(
     DISASTER_EVENT_TYPES[STORM_DISASTER_TYPE_ID],
     EARTH_NAMED_TYPED_PLACE.dcid
@@ -502,7 +502,7 @@ test("fetch date list for single disaster multiple event types", () => {
 });
 
 test("fetch date list for single eventType", () => {
-  axios_mock();
+  axiosMock();
   return fetchDateList(
     DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
     EARTH_NAMED_TYPED_PLACE.dcid
@@ -545,7 +545,7 @@ test("fetch date list for single eventType", () => {
 });
 
 test("fetch data for single disaster multiple events with date as YYYY-MM", () => {
-  axios_mock();
+  axiosMock();
   const eventSpec = {
     id: STORM_DISASTER_TYPE_ID,
     name: "storm",
@@ -578,7 +578,7 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
 });
 
 test("fetch data for single disaster multiple events with date as YYYY", () => {
-  axios_mock();
+  axiosMock();
   const eventSpec = {
     id: STORM_DISASTER_TYPE_ID,
     name: "storm",
@@ -612,7 +612,7 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
 });
 
 test("fetch data for single event with date as YYYY-MM", () => {
-  axios_mock();
+  axiosMock();
   const eventSpec = {
     id: EARTHQUAKE_DISASTER_TYPE_ID,
     name: "earthquake",
@@ -644,7 +644,7 @@ test("fetch data for single event with date as YYYY-MM", () => {
 });
 
 test("fetch data for single event with date as YYYY", () => {
-  axios_mock();
+  axiosMock();
   const eventSpec = {
     id: EARTHQUAKE_DISASTER_TYPE_ID,
     name: "earthquake",

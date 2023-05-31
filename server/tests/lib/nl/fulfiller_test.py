@@ -52,9 +52,8 @@ from server.tests.lib.nl.test_utterance import TIME_DELTA_ACROSS_VARS_UTTR
 #
 # External interfaces that may need mocking:
 # - variable.extend_svs
-# - utils.sv_existence_for_places
+# - utils.sv_existence_for_places | utils.sv_existence_for_places_check_single_point
 # - utils.get_sample_child_places
-# - utils.has_series_with_single_datapoint
 # - fulfillment.base._build_chart_vars
 # - fulfillment.base.open_topics_ordered
 #
@@ -74,10 +73,8 @@ class TestDataSpecNext(unittest.TestCase):
 
   # Example: [male population in california]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'has_series_with_single_datapoint')
-  @patch.object(utils, 'sv_existence_for_places')
-  def test_simple(self, mock_sv_existence, mock_single_datapoint,
-                  mock_extend_svs):
+  @patch.object(utils, 'sv_existence_for_places_check_single_point')
+  def test_simple(self, mock_sv_existence, mock_extend_svs):
     # First 2 SVs should be considered, and 3rd one dropped.
     detection = _detection(
         'geoId/06',
@@ -87,11 +84,11 @@ class TestDataSpecNext(unittest.TestCase):
     # MOCK:
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
-    mock_single_datapoint.return_value = False
-    # - Make SVs exist
-    mock_sv_existence.side_effect = [[
-        'Count_Person_Male', 'Count_Person_Female'
-    ]]
+    # - Make SVs exist.  There are 2 calls for base SVs + extensions.
+    mock_sv_existence.side_effect = [{
+        'Count_Person_Male': False,
+        'Count_Person_Female': False
+    }]
 
     got = _run(detection, [])
 
@@ -114,10 +111,8 @@ class TestDataSpecNext(unittest.TestCase):
 
   # Example: [male population in california]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'has_series_with_single_datapoint')
-  @patch.object(utils, 'sv_existence_for_places')
-  def test_simple_barchart_downgrade(self, mock_sv_existence,
-                                     mock_single_datapoint, mock_extend_svs):
+  @patch.object(utils, 'sv_existence_for_places_check_single_point')
+  def test_simple_barchart_downgrade(self, mock_sv_existence, mock_extend_svs):
     constants.SV_BLOCKS_MAP['Count_Person_Male'] = ['census/NumMales']
     # First 3 SVs should be considered, and 4rd one dropped.
     # But since 1st SV blocks 3rd one, that should also be dropped.
@@ -129,11 +124,10 @@ class TestDataSpecNext(unittest.TestCase):
     # MOCK:
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
-    mock_single_datapoint.return_value = True
-    # - Make SVs exist
-    mock_sv_existence.side_effect = [[
-        'Count_Person_Male', 'Count_Person_Female'
-    ]]
+    mock_sv_existence.side_effect = [{
+        'Count_Person_Male': True,
+        'Count_Person_Female': True
+    }]
 
     got = _run(detection, [])
 
@@ -282,10 +276,8 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This exercises SV expansion to peers.
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'has_series_with_single_datapoint')
-  @patch.object(utils, 'sv_existence_for_places')
-  def test_simple_with_sv_extension(self, mock_sv_existence,
-                                    mock_single_datapoint, mock_extend_svs):
+  @patch.object(utils, 'sv_existence_for_places_check_single_point')
+  def test_simple_with_sv_extension(self, mock_sv_existence, mock_extend_svs):
     # Detect a single SV.
     detection = _detection('geoId/06', ['Count_Person_Male'], [0.6])
 
@@ -295,10 +287,12 @@ class TestDataSpecNext(unittest.TestCase):
         'Count_Person_Male': ['Count_Person_Male', 'Count_Person_Female']
     }
     # - Make SVs exist. Importantly, the second call is for both male + female.
-    mock_sv_existence.side_effect = [[
-        'Count_Person_Male', 'Count_Person_Female'
-    ]]
-    mock_single_datapoint.return_value = False
+    mock_sv_existence.side_effect = [{
+        'Count_Person_Male': False
+    }, {
+        'Count_Person_Male': False,
+        'Count_Person_Female': False
+    }]
 
     got = _run(detection, [])
 
@@ -308,10 +302,9 @@ class TestDataSpecNext(unittest.TestCase):
   # This exercises Topic expansion.
   @patch.object(variable, 'extend_svs')
   @patch.object(base, '_build_chart_vars')
-  @patch.object(utils, 'has_series_with_single_datapoint')
-  @patch.object(utils, 'sv_existence_for_places')
-  def test_simple_with_topic(self, mock_sv_existence, mock_single_datapoint,
-                             mock_topic_to_svs, mock_extend_svs):
+  @patch.object(utils, 'sv_existence_for_places_check_single_point')
+  def test_simple_with_topic(self, mock_sv_existence, mock_topic_to_svs,
+                             mock_extend_svs):
     # Detect a topic.
     detection = _detection('geoId/06', ['dc/topic/Agriculture'], [0.6])
 
@@ -336,12 +329,14 @@ class TestDataSpecNext(unittest.TestCase):
                        include_percapita=False,
                        is_topic_peer_group=True)
     ]
-    mock_single_datapoint.return_value = False
     # - Make SVs exist. The order doesn't matter.
     #   Make Wheat inventory fail existence check.
-    mock_sv_existence.side_effect = [[
-        'Count_Farm', 'Area_Farm', 'FarmInventory_Rice', 'FarmInventory_Barley'
-    ]]
+    mock_sv_existence.side_effect = [{
+        'Count_Farm': False,
+        'Area_Farm': False,
+        'FarmInventory_Rice': False,
+        'FarmInventory_Barley': False
+    }]
 
     got = _run(detection, [])
 
@@ -353,11 +348,9 @@ class TestDataSpecNext(unittest.TestCase):
   @patch.object(variable, 'extend_svs')
   @patch.object(utils, 'rank_svs_by_latest_value')
   @patch.object(base, '_build_chart_vars')
-  @patch.object(utils, 'has_series_with_single_datapoint')
   @patch.object(utils, 'sv_existence_for_places')
-  def test_ranking_across_svs(self, mock_sv_existence, mock_single_datapoint,
-                              mock_topic_to_svs, mock_rank_svs,
-                              mock_extend_svs):
+  def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
+                              mock_rank_svs, mock_extend_svs):
     # Ranking, no place.
     detection = _detection(None, ['dc/topic/Agriculture'], [0.6],
                            ClassificationType.RANKING)
@@ -380,17 +373,18 @@ class TestDataSpecNext(unittest.TestCase):
                        source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
-    mock_sv_existence.side_effect = [[
-        'Count_Farm', 'FarmInventory_Rice', 'FarmInventory_Wheat',
-        'FarmInventory_Barley'
-    ]]
+    mock_sv_existence.side_effect = [{
+        'Count_Farm': False,
+        'FarmInventory_Rice': False,
+        'FarmInventory_Wheat': False,
+        'FarmInventory_Barley': False
+    }]
     # Differently order result
     mock_rank_svs.return_value = [
         'FarmInventory_Barley',
         'FarmInventory_Rice',
         'FarmInventory_Wheat',
     ]
-    mock_single_datapoint.return_value = False
 
     # Pass in just simple utterance
     got = _run(detection, [SIMPLE_UTTR])
@@ -459,10 +453,8 @@ class TestDataSpecNext(unittest.TestCase):
 
   # Example: [male population in california]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'has_series_with_single_datapoint')
-  @patch.object(utils, 'sv_existence_for_places')
-  def test_counters_simple(self, mock_sv_existence, mock_single_datapoint,
-                           mock_extend_svs):
+  @patch.object(utils, 'sv_existence_for_places_check_single_point')
+  def test_counters_simple(self, mock_sv_existence, mock_extend_svs):
     # First 2 SVs should be considered, and 3rd one dropped.
     detection = _detection(
         'geoId/06',
@@ -472,11 +464,11 @@ class TestDataSpecNext(unittest.TestCase):
     # MOCK:
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
-    mock_single_datapoint.return_value = False
     # - Make SVs exist
-    mock_sv_existence.side_effect = [[
-        'Count_Person_Male', 'Count_Person_Female'
-    ]]
+    mock_sv_existence.side_effect = [{
+        'Count_Person_Male': False,
+        'Count_Person_Female': False
+    }]
 
     counters = ctr.Counters()
     fulfiller.fulfill(detection, None, counters, constants.TEST_SESSION_ID)

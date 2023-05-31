@@ -33,6 +33,8 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { PropertyValues } from "../shared/api_response_types";
+
 const DEFAULT_MAP_ZOOM = 4;
 const MAP_BOUNDS_PADDING = 0;
 
@@ -163,12 +165,18 @@ function drawGeoJson(geoJson: any, map: google.maps.Map) {
 function geoJsonFromGeometry(
   geoJsonGeometry: string
 ): GeoJSON.FeatureCollection {
+  let geoJson;
+  try {
+    geoJson = JSON.parse(geoJsonGeometry);
+  } catch (e) {
+    return null;
+  }
   return {
     type: "FeatureCollection",
     features: [
       {
         type: "Feature",
-        geometry: JSON.parse(geoJsonGeometry),
+        geometry: geoJson,
         properties: {}, // TODO: Fill in with a name or dcid.
       },
     ],
@@ -209,8 +217,8 @@ export class GoogleMap extends React.Component<
     if (this.props.geoJsonGeometry) {
       const geoJson = geoJsonFromGeometry(this.props.geoJsonGeometry);
       this.setState({
-        shouldShowMap: true,
-        geoJson: geoJson,
+        shouldShowMap: geoJson !== null,
+        geoJson,
       });
     } else if (this.props.latLong) {
       const coordinates = {
@@ -257,12 +265,16 @@ export class GoogleMap extends React.Component<
 
     // Get lat/long from properties
     const latitudePromise = axios
-      .get(`/api/browser/propvals/latitude/${this.props.dcid}`)
-      .then((resp) => resp.data)
+      .get<PropertyValues>(
+        `/api/node/propvals/out?prop=latitude&dcids=${this.props.dcid}`
+      )
+      .then((resp) => resp.data[this.props.dcid])
       .catch((error) => console.log(error));
     const longitudePromise = axios
-      .get(`/api/browser/propvals/longitude/${this.props.dcid}`)
-      .then((resp) => resp.data)
+      .get<PropertyValues>(
+        `/api/node/propvals/out?prop=longitude&dcids=${this.props.dcid}`
+      )
+      .then((resp) => resp.data[this.props.dcid])
       .catch((error) => console.log(error));
 
     Promise.all([polygonPromise, latitudePromise, longitudePromise])
@@ -270,24 +282,21 @@ export class GoogleMap extends React.Component<
         // Update state with mapInfo
         if (!_.isEmpty(mapInfo)) {
           this.setState({
-            mapInfo: mapInfo,
+            mapInfo,
             shouldShowMap: true,
           });
         }
 
         // Update state with lat/long if both are present
-        if (
-          latitudes.values &&
-          longitudes.values &&
-          !_.isEmpty(latitudes.values.out) &&
-          !_.isEmpty(longitudes.values.out)
-        ) {
+        if (!_.isEmpty(latitudes) && !_.isEmpty(longitudes)) {
+          const lat = parseFloat(latitudes[0].value);
+          const lng = parseFloat(longitudes[0].value);
+          if (Number.isNaN(lat) || Number.isNaN(lng)) {
+            return;
+          }
           // TODO (juliawu): Update logic to use highest precision lat/long if
           //                multiple values are provided
-          const coordinates = {
-            lat: parseFloat(latitudes.values.out[0].value),
-            lng: parseFloat(longitudes.values.out[0].value),
-          };
+          const coordinates = { lat, lng };
           this.setState({
             markerLocation: coordinates,
             shouldShowMap: true,

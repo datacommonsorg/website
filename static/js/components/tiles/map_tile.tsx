@@ -23,18 +23,18 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
+import {
+  addPolygonLayer,
+  drawD3Map,
+  getProjection,
+} from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
-import {
-  EntityObservation,
-  EntitySeries,
-  PointApiResponse,
-  SeriesApiResponse,
-  StatMetadata,
-} from "../../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
   DataPointMetadata,
   NamedPlace,
@@ -42,7 +42,7 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { getPlaceChartData } from "../../tools/map/util";
+import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -50,7 +50,7 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { ReplacementStrings } from "../../utils/tile_utils";
+import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface MapTilePropType {
@@ -63,14 +63,16 @@ interface MapTilePropType {
   svgChartHeight: number;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface RawData {
   geoJson: GeoJsonData;
-  placeStat: EntityObservation;
-  metadataMap: Record<string, StatMetadata>;
-  population: EntitySeries;
+  placeStat: PointApiResponse;
+  population: SeriesApiResponse;
   parentPlaces: NamedTypedPlace[];
+  borderGeoJson?: GeoJsonData;
 }
 
 interface MapChartData {
@@ -82,44 +84,42 @@ interface MapChartData {
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
   unit: string;
+  borderGeoJson?: GeoJsonData;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
   const svgContainer = useRef<HTMLDivElement>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const legendContainer = useRef<HTMLDivElement>(null);
-  const [rawData, setRawData] = useState<RawData | undefined>(null);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
   const [svgHeight, setSvgHeight] = useState(null);
 
-  useEffect(() => {
-    fetchData(
-      props.place.dcid,
-      props.enclosedPlaceType,
-      props.statVarSpec.statVar,
-      props.statVarSpec.denom,
-      setRawData
-    );
-  }, [props.place, props.enclosedPlaceType, props.statVarSpec]);
-
-  useEffect(() => {
-    if (rawData) {
-      processData(
-        rawData,
-        props.statVarSpec,
-        props.place,
-        props.statVarSpec.scaling,
-        props.enclosedPlaceType,
-        setMapChartData
-      );
+  function addSvgDataAttribute(): void {
+    const { svgXml } = getMergedSvg(svgContainer.current);
+    const dataDiv = svgContainer.current.getElementsByClassName(DATA_CSS_CLASS);
+    if (_.isEmpty(dataDiv)) {
+      return;
     }
-  }, [rawData, props]);
+    dataDiv[0].setAttribute("data-svg", svgXml);
+  }
 
   useEffect(() => {
-    if (mapChartData) {
+    if (!mapChartData) {
+      (async () => {
+        const data = await fetchData(
+          props.place,
+          props.enclosedPlaceType,
+          props.statVarSpec
+        );
+        setMapChartData(data);
+      })();
+    } else {
       draw(mapChartData, props, svgContainer, legendContainer, mapContainer);
+      if (props.isDataTile) {
+        addSvgDataAttribute();
+      }
     }
   }, [mapChartData, props]);
 
@@ -157,6 +157,15 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         ref={svgContainer}
         style={{ minHeight: svgHeight }}
       >
+        {props.isDataTile && mapChartData && (
+          <div
+            className={DATA_CSS_CLASS}
+            data-csv={mapDataToCsv(
+              mapChartData.geoJson,
+              mapChartData.dataValues
+            )}
+          />
+        )}
         <div className="map" ref={mapContainer}></div>
         <div className="legend" ref={legendContainer}></div>
       </div>
@@ -164,86 +173,95 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   );
 }
 
-function fetchData(
-  placeDcid: string,
+export const fetchData = async (
+  place: NamedTypedPlace,
   enclosedPlaceType: string,
-  mainStatVar: string,
-  denomStatVar: string,
-  setRawData: (data: RawData) => void
-): void {
+  statVarSpec: StatVarSpec
+): Promise<MapChartData> => {
   const geoJsonPromise = axios
     .get(
-      `/api/choropleth/geojson?placeDcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  const dataDate = getCappedStatVarDate(mainStatVar);
+  const borderGeoJsonPromise = axios
+    .post(`/api/choropleth/node-geojson`, {
+      geoJsonProp: "geoJsonCoordinates",
+      nodes: [place.dcid],
+    })
+    .then((resp) => resp.data);
+  const dataDate = getCappedStatVarDate(statVarSpec.statVar);
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get("/api/observations/point/within", {
       params: {
-        parent_entity: placeDcid,
-        child_type: enclosedPlaceType,
-        variables: [mainStatVar],
+        childType: enclosedPlaceType,
         date: dataDate,
+        parentEntity: place.dcid,
+        variables: [statVarSpec.statVar],
       },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
-  const populationPromise: Promise<SeriesApiResponse> = denomStatVar
+  const populationPromise: Promise<SeriesApiResponse> = statVarSpec.denom
     ? axios
         .get("/api/observations/series/within", {
           params: {
-            parent_entity: placeDcid,
-            child_type: enclosedPlaceType,
-            variables: [denomStatVar],
+            childType: enclosedPlaceType,
+            parentEntity: place.dcid,
+            variables: [statVarSpec.denom],
           },
           paramsSerializer: stringifyFn,
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
   const parentPlacesPromise = axios
-    .get(`/api/place/parent/${placeDcid}`)
+    .get(`/api/place/parent/${place.dcid}`)
     .then((resp) => resp.data);
-  Promise.all([
-    geoJsonPromise,
-    placeStatPromise,
-    populationPromise,
-    parentPlacesPromise,
-  ])
-    .then(([geoJson, placeStat, populationData, parentPlaces]) => {
-      const metadataMap = placeStat.facets;
-      if (!_.isEmpty(populationData.facets)) {
-        Object.assign(metadataMap, populationData.facets);
-      }
-      let population = {};
-      if (
-        !_.isEmpty(populationData.data) &&
-        !_.isEmpty(denomStatVar) &&
-        denomStatVar in populationData.data
-      ) {
-        population = populationData.data[denomStatVar];
-      }
-      setRawData({
-        geoJson,
-        placeStat: placeStat.data[mainStatVar],
-        metadataMap,
-        population,
-        parentPlaces,
-      });
-    })
-    .catch(() => {
-      // TODO: add error message
-      setRawData(null);
-    });
-}
+  try {
+    const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
+      await Promise.all([
+        geoJsonPromise,
+        placeStatPromise,
+        populationPromise,
+        parentPlacesPromise,
+        borderGeoJsonPromise,
+      ]);
+    // Only draw borders for containing places without 'wall to wall' coverage
+    const borderGeoJson = shouldShowBorder(enclosedPlaceType)
+      ? borderGeoJsonData
+      : undefined;
+    const rawData = {
+      geoJson,
+      placeStat,
+      population,
+      parentPlaces,
+      borderGeoJson,
+    };
+    return rawToChart(rawData, statVarSpec, place, enclosedPlaceType);
+  } catch (error) {
+    return null;
+  }
+};
 
-function processData(
+function rawToChart(
   rawData: RawData,
   statVarSpec: StatVarSpec,
   place: NamedTypedPlace,
-  scaling: number,
-  enclosedPlaceType: string,
-  setChartData: (data: MapChartData) => void
-): void {
+  enclosedPlaceType: string
+): MapChartData {
+  const metadataMap = rawData.placeStat.facets || {};
+  if (!_.isEmpty(rawData.population.facets)) {
+    Object.assign(metadataMap, rawData.population.facets);
+  }
+  let population = {};
+  if (
+    !_.isEmpty(rawData.population.data) &&
+    !_.isEmpty(statVarSpec.denom) &&
+    statVarSpec.denom in rawData.population.data
+  ) {
+    population = rawData.population.data[statVarSpec.denom];
+  }
+  const placeStat = rawData.placeStat.data[statVarSpec.statVar] || {};
+
   const dataValues = {};
   const metadata = {};
   const sources: Set<string> = new Set();
@@ -256,18 +274,18 @@ function processData(
   for (const geoFeature of rawData.geoJson.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
-      rawData.placeStat,
+      placeStat,
       placeDcid,
       isPerCapita,
-      rawData.population,
-      rawData.metadataMap
+      population,
+      metadataMap
     );
     if (_.isEmpty(placeChartData)) {
       continue;
     }
     let value = placeChartData.value;
-    if (scaling !== null && scaling !== undefined) {
-      value = value * scaling;
+    if (statVarSpec.scaling !== null && statVarSpec.scaling !== undefined) {
+      value = value * statVarSpec.scaling;
     }
     dataValues[placeDcid] = value;
     metadata[placeDcid] = placeChartData.metadata;
@@ -283,7 +301,7 @@ function processData(
   if (_.isEmpty(dataValues)) {
     return;
   }
-  setChartData({
+  return {
     dataValues,
     metadata,
     sources,
@@ -296,7 +314,8 @@ function processData(
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
     unit: statVarSpec.unit || unit,
-  });
+    borderGeoJson: rawData.borderGeoJson,
+  };
 }
 
 function draw(
@@ -368,4 +387,15 @@ function draw(
     chartData.showMapBoundaries,
     projection
   );
+  if (!_.isEmpty(chartData.borderGeoJson)) {
+    addPolygonLayer(
+      mapContainer.current,
+      chartData.borderGeoJson,
+      projection,
+      () => "none",
+      () => BORDER_STROKE_COLOR,
+      () => null,
+      false
+    );
+  }
 }

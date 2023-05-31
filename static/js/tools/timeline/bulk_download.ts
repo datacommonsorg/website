@@ -36,15 +36,15 @@ function removeSpinner(): void {
  */
 function downloadBulkData(
   statVars: string[],
-  placeType: string,
+  descendentType: string,
   ancestorDcid: string
 ): void {
   loadSpinner();
   axios
-    .get("/api/place/places-in-names", {
+    .get("/api/place/descendent/name", {
       params: {
         dcid: ancestorDcid,
-        placeType,
+        descendentType,
       },
     })
     .then((resp) => {

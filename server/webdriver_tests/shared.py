@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ def wait_for_loading(driver):
 
 def click_sv_group(driver, svg_name):
   """In the stat var widget, click on the stat var group titled svg_name."""
-  sv_groups = driver.find_elements_by_class_name('node-title')
+  sv_groups = driver.find_elements(By.CLASS_NAME, 'node-title')
   for group in sv_groups:
     if svg_name in group.text:
       group.click()

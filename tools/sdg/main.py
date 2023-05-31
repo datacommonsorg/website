@@ -22,7 +22,7 @@ from subject_page_pb2 import Tile
 
 logging.getLogger().setLevel(logging.INFO)
 
-_SDG_ROOT = "sdg/g/SDG"
+_SDG_ROOT = "dc/g/SDG"
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 _MAX_BLOCKS = 20
@@ -38,9 +38,10 @@ def write_page_config(page_config):
 
 def post(url, req):
   headers = {'Content-Type': 'application/json'}
-  dc_api_key = os.environ.get('DC_API_KEY', '')
-  if dc_api_key:
-    headers['x-api-key'] = dc_api_key
+  # Set MIXER_API_KEY to the autopush API key
+  mixer_api_key = os.environ.get('MIXER_API_KEY', '')
+  if mixer_api_key:
+    headers['x-api-key'] = mixer_api_key
   # Send the request and verify the request succeeded
   response = requests.post(url, json=req, headers=headers)
   if response.status_code != 200:

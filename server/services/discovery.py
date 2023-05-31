@@ -130,46 +130,26 @@ class Endpoints:
 
 # Source of truth for all mixer endpoints.
 endpoints = Endpoints([
-    '/query',
+    # v0
     '/translate',
     '/search',
+    # v1
+    '/v1/query',
     '/v1/bulk/info/place',
     '/v1/bulk/info/variable',
     '/v1/bulk/info/variable-group',
-    '/v1/bulk/observations/point',
-    '/v1/bulk/observations/point/linked',
-    '/v1/bulk/observations/series',
-    '/v1/bulk/observations/series/linked',
     '/v1/bulk/observation-dates/linked',
-    '/v1/bulk/observation-existence',
-    '/v1/bulk/triples',
-    '/v1/triples',
-    '/v1/variables',
     '/v1/variable/ancestors',
-    '/node/triples',
-    '/v1/properties',
-    '/v1/bulk/properties',
-    '/v1/bulk/property/values',
-    '/v1/bulk/property/values/in/linked',
-    '/node/property-values',
-    '/node/places-in',
-    '/node/ranking-locations',
-    '/v1/place/stat-vars/union',
-    # TODO(shifucun): switch back to /node/related-places after data switch.
-    '/node/related-locations',
-    '/stat-var/search',
-    '/stat-var/match',
-    '/stat-var/summary',
-    '/v1/info/variable-group',
-    # Recon APIs
-    '/v1/recon/resolve/id',
-    '/v1/recon/resolve/coordinate',
-    # Bio APIs
+    '/v1/place/ranking',
+    '/v1/place/related',
+    '/v1/variable/search',
     '/v1/internal/page/bio',
-    # Misc
     '/v1/internal/page/place',
-    '/v1/events',
-    '/v1/events/dates',
+    # v2
+    '/v2/observation',
+    '/v2/node',
+    '/v2/resolve',
+    '/v2/event',
 ])
 
 

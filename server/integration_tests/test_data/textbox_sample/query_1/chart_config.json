@@ -57,6 +57,21 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Income for Married Couple Family Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
                     "title": "Median Income for Family Households in California",
@@ -87,6 +102,21 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Average Income for Nonfamily Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Mean_Income_Household"
                     ],
                     "title": "Average Income for Households in California",
@@ -102,9 +132,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
                     ],
-                    "title": "Median Income for Married Couple Family Households in California",
+                    "title": "Family Households Receiving Social Security Income in the Last Year in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc"
+                    ],
+                    "title": "Per Capita Family Households Receiving Social Security Income in the Last Year in California",
                     "type": "LINE"
                   }
                 ]
@@ -117,9 +154,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household"
+                      "Mean_Earnings_Person_Male"
                     ],
-                    "title": "Household Median Income in California",
+                    "title": "Average Earnings for Male Population in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Person_Male_pc"
+                    ],
+                    "title": "Per Capita Average Earnings for Male Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Male Population in California",
                     "type": "LINE"
                   }
                 ]
@@ -128,6 +187,24 @@
           }
         ],
         "statVarSpec": {
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold": {
+            "name": "Family Households Receiving Social Security Income in the Last Year",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Family Households Receiving Social Security Income in the Last Year",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+          },
+          "Mean_Earnings_Person_Male": {
+            "name": "Average Earnings for Male Population",
+            "statVar": "Mean_Earnings_Person_Male"
+          },
+          "Mean_Earnings_Person_Male_pc": {
+            "denom": "Count_Person",
+            "name": "Average Earnings for Male Population",
+            "statVar": "Mean_Earnings_Person_Male"
+          },
           "Mean_Income_Household": {
             "name": "Average Income for Households",
             "statVar": "Mean_Income_Household"
@@ -140,9 +217,17 @@
             "name": "Average Income for Married Couple Family Households",
             "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold"
           },
+          "Mean_Income_Household_NonfamilyHousehold": {
+            "name": "Average Income for Nonfamily Households",
+            "statVar": "Mean_Income_Household_NonfamilyHousehold"
+          },
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person"
+          },
+          "Median_Earnings_Person_Male": {
+            "name": "Median Earnings for Male Population",
+            "statVar": "Median_Earnings_Person_Male"
           },
           "Median_Income_Household": {
             "name": "Household Median Income",

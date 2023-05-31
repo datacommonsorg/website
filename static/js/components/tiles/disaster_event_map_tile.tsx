@@ -406,6 +406,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
         polygonGeoJson[eventType],
         projection,
         () => props.eventTypeSpec[eventType].color,
+        () => "none",
         (geoFeature: GeoJsonFeature) =>
           onPointClicked(
             infoCardRef.current,

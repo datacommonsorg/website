@@ -177,25 +177,25 @@ const MULTI_VAR_COL_EXPLANATION = (
 export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
   constantVar: {
     title: "Single Variable",
-    subtitle: "One date column",
+    subtitle: "One Date Column",
     explanation: CONSTANT_VAR_EXPLANATION,
     table: CONSTANT_VAR_TABLE,
   },
   multiVarCol: {
     title: "Multiple Variables",
-    subtitle: "One date column",
+    subtitle: "One Date Column",
     explanation: MULTI_VAR_COL_EXPLANATION,
     table: MULTI_VAR_COL_TABLE,
   },
   multiVarMultiDateCol: {
     title: "Multiple Variables",
-    subtitle: "Multiple date columns",
+    subtitle: "Multiple Date Columns",
     explanation: MULTI_VAR_MULTI_DATE_COL_EXPLANATION,
     table: MULTI_VAR_MULTI_DATE_COL_TABLE,
   },
   singleVarMultiDateCol: {
     title: "Single Variable",
-    subtitle: "Multiple date columns",
+    subtitle: "Multiple Date Columns",
     explanation: SINGLE_VAR_MULTI_DATE_COL_EXPLANATION,
     table: SINGLE_VAR_MULTI_DATE_COL_TABLE,
   },
@@ -204,9 +204,10 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
 export interface MappingTemplateProps {
   csvData: CsvData;
   userMapping: Mapping;
-  onMappingValUpdated: (
+  onMappingValUpdate: (
     mappedThing: MappedThing,
-    mappingVal: MappingVal
+    mappingVal: MappingVal,
+    hasInputErrors: boolean
   ) => void;
 }
 

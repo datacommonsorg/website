@@ -33,6 +33,10 @@ import {
   EmptyPlace,
   FieldToAbbreviation,
   PlaceInfo,
+  PointScaleState,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  SHOW_POPULATION_OFF,
 } from "./context";
 
 export enum ScatterChartType {
@@ -69,10 +73,10 @@ export async function getStatWithinPlace(
       axios
         .get<PointApiResponse>("/api/observations/point/within", {
           params: {
-            parent_entity: parentPlace,
-            child_type: childType,
-            variables: [statVar.statVarDcid],
+            childType,
             date: dataDate,
+            parentEntity: parentPlace,
+            variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
         })
@@ -121,10 +125,10 @@ export async function getStatAllWithinPlace(
       axios
         .get<PointAllApiResponse>("/api/observations/point/within/all", {
           params: {
-            parent_entity: parentPlace,
-            child_type: childType,
-            variables: [statVar.statVarDcid],
+            childType,
             date: dataDate,
+            parentEntity: parentPlace,
+            variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
         })
@@ -142,36 +146,6 @@ export async function getStatAllWithinPlace(
     }
     return result;
   });
-}
-
-/**
- * Parses the hash and updates the context accordingly.
- * @param context
- */
-export function applyHash(context: ContextType): void {
-  const params = new URLSearchParams(
-    decodeURIComponent(location.hash).replace("#", "?")
-  );
-  context.x.set(applyHashAxis(params, true));
-  context.y.set(applyHashAxis(params, false));
-  context.place.set(applyHashPlace(params));
-  context.display.setQuadrants(
-    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
-  );
-  context.display.setLabels(
-    applyHashBoolean(params, FieldToAbbreviation.showLabels)
-  );
-  const chartType =
-    params.get(FieldToAbbreviation.chartType) === "1"
-      ? ScatterChartType.MAP
-      : ScatterChartType.SCATTER;
-  context.display.setChartType(chartType);
-  context.display.setDensity(
-    applyHashBoolean(params, FieldToAbbreviation.showDensity)
-  );
-  context.display.setRegression(
-    applyHashBoolean(params, FieldToAbbreviation.showRegression)
-  );
 }
 
 /**
@@ -220,7 +194,7 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
   const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
   if (dcid) {
     place.enclosingPlace = {
-      dcid: dcid,
+      dcid,
       name: "",
       types: null,
     };
@@ -246,6 +220,21 @@ export function applyHashBoolean(
   return val === "1";
 }
 
+/**
+ * Fetches a population point scale state from the given url query params
+ * @param params url query parameters
+ * @returns PointScaleState value
+ */
+export function applyHashPopulation(params: URLSearchParams): PointScaleState {
+  const val = params.get(FieldToAbbreviation.showPopulation) || "";
+  if (val.toLowerCase() === SHOW_POPULATION_LINEAR) {
+    return SHOW_POPULATION_LINEAR;
+  } else if (val.toLowerCase() === SHOW_POPULATION_LOG) {
+    return SHOW_POPULATION_LOG;
+  }
+  return SHOW_POPULATION_OFF;
+}
+
 export function updateHashBoolean(
   hash: string,
   key: string,
@@ -257,6 +246,36 @@ export function updateHashBoolean(
   return hash;
 }
 
+/**
+ * Parses the hash and updates the context accordingly.
+ * @param context
+ */
+export function applyHash(context: ContextType): void {
+  const params = new URLSearchParams(
+    decodeURIComponent(location.hash).replace("#", "?")
+  );
+  context.x.set(applyHashAxis(params, true));
+  context.y.set(applyHashAxis(params, false));
+  context.place.set(applyHashPlace(params));
+  context.display.setQuadrants(
+    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
+  );
+  context.display.setLabels(
+    applyHashBoolean(params, FieldToAbbreviation.showLabels)
+  );
+  const chartType =
+    params.get(FieldToAbbreviation.chartType) === "1"
+      ? ScatterChartType.MAP
+      : ScatterChartType.SCATTER;
+  context.display.setChartType(chartType);
+  context.display.setDensity(
+    applyHashBoolean(params, FieldToAbbreviation.showDensity)
+  );
+  context.display.setRegression(
+    applyHashBoolean(params, FieldToAbbreviation.showRegression)
+  );
+  context.display.setPopulation(applyHashPopulation(params));
+}
 /**
  * Updates the hash based on the context and returns the new hash.
  * If there are multiple denominators for a statvar, only the first
@@ -378,7 +397,11 @@ function updateHashDisplayOptions(
     FieldToAbbreviation.chartType,
     display.chartType === ScatterChartType.MAP
   );
-
+  hash = appendEntry(
+    hash,
+    FieldToAbbreviation.showPopulation,
+    display.showPopulation
+  );
   return hash;
 }
 

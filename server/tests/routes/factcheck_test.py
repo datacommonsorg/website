@@ -32,7 +32,7 @@ class TestRoute(unittest.TestCase):
     response = app.test_client().get('/factcheck/blog')
     assert response.status_code == 200
 
-  @patch('server.routes.factcheck.list_blobs')
+  @patch('server.routes.factcheck.html.list_blobs')
   def test_download(self, mock_list_blobs):
     mock_list_blobs.side_effect = (lambda bucket, max_blobs: [])
     response = app.test_client().get('/factcheck/download')

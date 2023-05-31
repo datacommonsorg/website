@@ -13,16 +13,15 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-import logging
 from typing import Dict, List, Union
 
-from flask import escape
+from markupsafe import escape
 
 from server.config import subject_page_pb2
+import server.lib.fetch as fetch
 import server.lib.nl.counters as nl_ctr
 import server.lib.nl.utils as nl_utils
-import server.routes.api.place as place_api
-import server.services.datacommons as dc
+import server.routes.shared_api.place as place_api
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
@@ -104,7 +103,7 @@ def _sv_places_exist(places, stat_var, stat_vars_existence, place_dcid):
   Returns true if stat_var exists for all places in stat_vars_existence. Also
   supports "self" placeholder replacement.
   """
-  sv_entity = stat_vars_existence['variable'][stat_var]['entity']
+  sv_entity = stat_vars_existence.get(stat_var, {})
   for p in places:
     if p == SELF_PLACE_DCID_PLACEHOLDER:
       p = place_dcid
@@ -156,11 +155,10 @@ def _places_with_geojson(places):
   property.
   """
   result = []
-  resp = dc.properties_v1(places, 'out')
-  for node_dict in resp:
-    props = node_dict.get('properties', [])
-    if 'geoJsonCoordinates' in props:
-      result.append(node_dict.get('node', ''))
+  resp = fetch.properties(places)
+  for place, place_props in resp.items():
+    if 'geoJsonCoordinates' in place_props:
+      result.append(place)
   return result
 
 
@@ -179,7 +177,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
       place_dcid, contained_place_type, ctr)[::SAMPLE_PLACE_STEP]
   bar_comparison_places = _bar_comparison_places(page_config, place_dcid)
   all_places = sample_child_places + bar_comparison_places + [place_dcid]
-  stat_vars_existence = dc.observation_existence(all_stat_vars, all_places)
+  stat_vars_existence = fetch.observation_existence(all_stat_vars, all_places)
 
   child_places_geojson = _places_with_geojson(sample_child_places)
 
@@ -246,7 +244,7 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
   place_types = [DEFAULT_PLACE_TYPE]
   parent_places = []
   if place_dcid != DEFAULT_PLACE_DCID:
-    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
+    place_types = fetch.property_values([place_dcid], 'typeOf')[place_dcid]
     if not place_types:
       return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
     wanted_place_types = [

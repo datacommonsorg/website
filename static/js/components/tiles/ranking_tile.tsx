@@ -23,40 +23,29 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
-import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { RankingPoint } from "../../types/ranking_unit_types";
+import {
+  RankingData,
+  RankingGroup,
+  RankingPoint,
+} from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { formatString, getStatVarName } from "../../utils/tile_utils";
-import { RankingUnit } from "../ranking_unit";
-import { ChartFooter } from "./chart_footer";
+import { getStatVarName } from "../../utils/tile_utils";
+import { SvRankingUnits } from "./sv_ranking_units";
 
 const RANKING_COUNT = 5;
 const HEADING_HEIGHT = 36;
 const PER_RANKING_HEIGHT = 24;
 const FOOTER_HEIGHT = 26;
-interface RankingGroup {
-  points: RankingPoint[];
-  // If only value is used in RankingPoint - then there will only be one unit &
-  // scaling set. Otherwise, will match the order of values[].
-  unit: string[];
-  scaling: number[];
-  sources: Set<string>;
-  numDataPoints?: number;
-  dateRange: string;
-}
 
-interface RankingData {
-  [key: string]: RankingGroup; // Key is main statVarDcid.
-}
 interface RankingTilePropType {
   id: string;
   place: NamedTypedPlace;
@@ -65,6 +54,8 @@ interface RankingTilePropType {
   statVarSpec: StatVarSpec[];
   rankingMetadata: RankingTileSpec;
   className?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
@@ -73,7 +64,9 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const chartContainer = useRef(null);
 
   useEffect(() => {
-    fetchData(props, setRankingData);
+    fetchData(props).then((rankingData) => {
+      setRankingData(rankingData);
+    });
   }, [props]);
 
   const numRankingLists = getNumRankingLists(
@@ -88,6 +81,29 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
   const placeHolderArray = Array(numRankingLists).fill("");
+
+  /**
+   * Opens export modal window
+   */
+  function showChartEmbed(
+    chartWidth: number,
+    chartHeight: number,
+    chartHtml: string,
+    rankingPoints: RankingPoint[],
+    sources: string[]
+  ): void {
+    embedModalElement.current.show(
+      "",
+      rankingPointsToCsv(rankingPoints, svNames),
+      chartWidth,
+      chartHeight,
+      chartHtml,
+      "",
+      "",
+      Array.from(sources)
+    );
+  }
+
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -109,95 +125,30 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
         })}
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
-          const points = rankingData[statVar].points;
-          const unit = rankingData[statVar].unit;
-          const scaling = rankingData[statVar].scaling;
-          const svName = getStatVarName(statVar, props.statVarSpec);
-          const numDataPoints = rankingData[statVar].numDataPoints;
-          const sources = rankingData[statVar].sources;
-          const dateRange = rankingData[statVar].dateRange;
           return (
-            <React.Fragment key={statVar}>
-              {props.rankingMetadata.showHighest && (
-                <div className="ranking-unit-container">
-                  <RankingUnit
-                    key={`${statVar}-highest`}
-                    unit={unit}
-                    scaling={scaling}
-                    title={formatString(
-                      props.title ||
-                        (props.rankingMetadata.highestTitle
-                          ? props.rankingMetadata.highestTitle
-                          : "Highest ${statVar}"),
-                      {
-                        date: dateRange,
-                        placeName: "",
-                        statVar: svName,
-                      }
-                    )}
-                    points={points.slice(-rankingCount).reverse()}
-                    isHighest={true}
-                    svNames={isMultiColumn ? svNames : undefined}
-                    formatNumberFn={formatNumber}
-                  />
-                  <ChartFooter
-                    sources={sources}
-                    handleEmbed={() => handleEmbed(points.reverse())}
-                  />
-                </div>
-              )}
-              {props.rankingMetadata.showLowest && (
-                <div>
-                  <RankingUnit
-                    key={`${statVar}-lowest`}
-                    unit={unit}
-                    scaling={scaling}
-                    title={formatString(
-                      props.title ||
-                        (props.rankingMetadata.lowestTitle
-                          ? props.rankingMetadata.lowestTitle
-                          : "Lowest ${statVar}"),
-                      {
-                        date: dateRange,
-                        placeName: "",
-                        statVar: svName,
-                      }
-                    )}
-                    numDataPoints={numDataPoints}
-                    points={points.slice(0, rankingCount)}
-                    isHighest={false}
-                    svNames={isMultiColumn ? svNames : undefined}
-                    formatNumberFn={formatNumber}
-                  />
-                  <ChartFooter
-                    sources={sources}
-                    handleEmbed={() => handleEmbed(points)}
-                  />
-                </div>
-              )}
-            </React.Fragment>
+            <SvRankingUnits
+              isMultiColumn={isMultiColumn}
+              key={statVar}
+              rankingCount={rankingCount}
+              rankingData={rankingData}
+              rankingMetadata={props.rankingMetadata}
+              showChartEmbed={showChartEmbed}
+              statVar={statVar}
+              svName={getStatVarName(statVar, props.statVarSpec)}
+              svNames={svNames}
+              title={props.title}
+              isDataTile={props.isDataTile}
+            />
           );
         })}
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
-
-  function handleEmbed(rankingPoints: RankingPoint[]): void {
-    embedModalElement.current.show(
-      "",
-      rankingPointsToCsv(rankingPoints),
-      chartContainer.current.offsetWidth,
-      0,
-      "",
-      "",
-      []
-    );
-  }
 }
-function fetchData(
-  props: RankingTilePropType,
-  setRankingData: (data: RankingData) => void
-): void {
+
+export async function fetchData(
+  props: RankingTilePropType
+): Promise<RankingData> {
   const variables = [];
   for (const spec of props.statVarSpec) {
     variables.push(spec.statVar);
@@ -205,12 +156,12 @@ function fetchData(
       variables.push(spec.denom);
     }
   }
-  axios
+  return axios
     .get<PointApiResponse>("/api/observations/point/within", {
       params: {
-        parent_entity: props.place.dcid,
-        child_type: props.enclosedPlaceType,
-        variables: variables,
+        parentEntity: props.place.dcid,
+        childType: props.enclosedPlaceType,
+        variables,
       },
       paramsSerializer: stringifyFn,
     })
@@ -237,16 +188,19 @@ function fetchData(
       }
       // We want the display name (gets name with state code if available) if
       // parent place is USA
-      const placeNamesPromise = _.isEqual(props.place, USA_NAMED_TYPED_PLACE)
+      const placeNamesPromise = _.isEqual(
+        props.place.dcid,
+        USA_NAMED_TYPED_PLACE.dcid
+      )
         ? getPlaceDisplayNames(Array.from(places))
         : getPlaceNames(Array.from(places));
-      placeNamesPromise.then((placeNames) => {
+      return placeNamesPromise.then((placeNames) => {
         for (const statVar in rankingData) {
           for (const point of rankingData[statVar].points) {
             point.placeName = placeNames[point.placeDcid] || point.placeDcid;
           }
         }
-        setRankingData(rankingData);
+        return rankingData;
       });
     });
 }

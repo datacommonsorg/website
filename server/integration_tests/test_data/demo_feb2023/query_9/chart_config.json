@@ -69,10 +69,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_scatter",
+                      "Median_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Median Income for Family Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -88,10 +88,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices_scatter",
+                      "Mean_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Total Wages Paid to Professional, Scientific, and Technical Services (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -108,6 +108,10 @@
             "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person"
           },
+          "Median_Income_Household_FamilyHousehold_scatter": {
+            "name": "Median Income for Family Households",
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
           "Median_Income_Household_scatter": {
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
@@ -120,10 +124,6 @@
             "name": "High Bood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
-          },
-          "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices_scatter": {
-            "name": "Total Wages Paid to Professional, Scientific, and Technical Services",
-            "statVar": "WagesTotal_Worker_NAICSProfessionalScientificTechnicalServices"
           }
         }
       }

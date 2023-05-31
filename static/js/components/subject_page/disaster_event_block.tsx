@@ -18,7 +18,6 @@
  * Component for rendering a disaster type block.
  */
 
-import _ from "lodash";
 import React, { memo, useContext, useEffect, useRef, useState } from "react";
 
 import {
@@ -68,6 +67,7 @@ interface DisasterEventBlockPropType {
   columns: ColumnConfig[];
   eventTypeSpec: Record<string, EventTypeSpec>;
   footnote?: string;
+  showData?: boolean;
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;

@@ -6,7 +6,7 @@ __pycache__/
 test_screenshots/
 
 # Production static files
-server/dist/**
+**/dist/**
 !server/dist/.empty
 
 **/node_modules/**
@@ -55,3 +55,10 @@ pytest_log.txt
 
 tools/sdg/sdg.textproto
 tools/sdg/subject_page_pb2.py
+
+*diff_report.html
+
+# Experimental - ignore symbolic links
+experimental/sdg-static/datacommons/datacommons.js
+experimental/sdg-static/datacommons/ranking.min.css
+

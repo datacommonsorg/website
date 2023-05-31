@@ -27,8 +27,8 @@ window.onload = () => {
   const newUser = "True" === pageElem.dataset.new_user;
   ReactDOM.render(
     React.createElement(Page, {
-      user,
       newUser,
+      user,
     }),
     pageElem
   );

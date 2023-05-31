@@ -29,8 +29,10 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
@@ -53,6 +55,8 @@ interface ScatterTilePropType {
   scatterTileSpec: ScatterTileSpec;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface RawData {
@@ -70,32 +74,28 @@ interface ScatterChartData {
   yUnit: string;
   xDate: string;
   yDate: string;
+  errorMsg: string;
 }
 
 export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const tooltip = useRef(null);
-  const [rawData, setRawData] = useState<RawData | undefined>(null);
   const [scatterChartData, setScatterChartData] = useState<
     ScatterChartData | undefined
   >(null);
-  const [errorMsg, setErrorMsg] = useState<string>("");
 
   useEffect(() => {
-    fetchData(
-      props.place.dcid,
-      props.enclosedPlaceType,
-      props.statVarSpec,
-      setRawData
-    );
-    setErrorMsg("");
-  }, [props]);
-
-  useEffect(() => {
-    if (rawData) {
-      processData(rawData, props.statVarSpec, setScatterChartData, setErrorMsg);
+    if (!scatterChartData) {
+      (async () => {
+        const data = await fetchData(
+          props.place.dcid,
+          props.enclosedPlaceType,
+          props.statVarSpec
+        );
+        setScatterChartData(data);
+      })();
     }
-  }, [props, rawData]);
+  }, [props, scatterChartData]);
 
   const drawFn = useCallback(() => {
     if (!scatterChartData || _.isEmpty(scatterChartData.points)) {
@@ -124,7 +124,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       sources={scatterChartData && scatterChartData.sources}
       replacementStrings={rs}
       className={`${props.className} scatter-chart`}
-      allowEmbed={!errorMsg}
+      allowEmbed={!(scatterChartData && scatterChartData.errorMsg)}
       getDataCsv={
         scatterChartData
           ? () =>
@@ -139,12 +139,24 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(scatterChartData)}
     >
-      {errorMsg ? (
+      {scatterChartData && scatterChartData.errorMsg ? (
         <div className="error-msg" style={{ minHeight: props.svgChartHeight }}>
-          {errorMsg}
+          {scatterChartData.errorMsg}
         </div>
       ) : (
         <>
+          {props.isDataTile && scatterChartData && (
+            <div
+              className={DATA_CSS_CLASS}
+              data-csv={scatterDataToCsv(
+                scatterChartData.xStatVar.statVar,
+                scatterChartData.xStatVar.denom,
+                scatterChartData.yStatVar.statVar,
+                scatterChartData.yStatVar.denom,
+                scatterChartData.points
+              )}
+            />
+          )}
           <div
             id={props.id}
             className="scatter-svg-container"
@@ -179,8 +191,8 @@ function getPopulationPromise(
     return axios
       .get("/api/observations/series/within", {
         params: {
-          parent_entity: placeDcid,
-          child_type: enclosedPlaceType,
+          parentEntity: placeDcid,
+          childType: enclosedPlaceType,
           variables: statVars,
         },
         paramsSerializer: stringifyFn,
@@ -189,12 +201,11 @@ function getPopulationPromise(
   }
 }
 
-function fetchData(
+export const fetchData = async (
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
-  setRawData: (data: RawData) => void
-): void {
+  statVarSpec: StatVarSpec[]
+) => {
   if (statVarSpec.length < 2) {
     // TODO: add error message
     return;
@@ -210,29 +221,26 @@ function fetchData(
   );
   const placeNamesPromise = axios
     .get(
-      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  Promise.all([placeStatsPromise, populationPromise, placeNamesPromise])
-    .then(([placeStats, population, placeNames]) => {
-      setRawData({
-        placeStats,
-        population,
-        placeNames,
-      });
-    })
-    .catch(() => {
-      // TODO: add error message
-      setRawData(null);
-    });
-}
+  try {
+    const [placeStats, population, placeNames] = await Promise.all([
+      placeStatsPromise,
+      populationPromise,
+      placeNamesPromise,
+    ]);
+    const rawData = { placeStats, population, placeNames };
+    return rawToChart(rawData, statVarSpec);
+  } catch (error) {
+    return null;
+  }
+};
 
-function processData(
+function rawToChart(
   rawData: RawData,
-  statVarSpec: StatVarSpec[],
-  setChartdata: (data: ScatterChartData) => void,
-  setErrorMsg: (msg: string) => void
-): void {
+  statVarSpec: StatVarSpec[]
+): ScatterChartData {
   const yStatVar = statVarSpec[0];
   const xStatVar = statVarSpec[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
@@ -280,10 +288,10 @@ function processData(
     xUnit = xUnit || placeChartData.xUnit;
     yUnit = yUnit || placeChartData.yUnit;
   }
-  if (_.isEmpty(points)) {
-    setErrorMsg("Sorry, we don't have data for those variables");
-  }
-  setChartdata({
+  const errorMsg = _.isEmpty(points)
+    ? "Sorry, we don't have data for those variables"
+    : "";
+  return {
     xStatVar,
     yStatVar,
     points,
@@ -292,7 +300,8 @@ function processData(
     yUnit,
     xDate: getDateRange(Array.from(xDates)),
     yDate: getDateRange(Array.from(yDates)),
-  });
+    errorMsg,
+  };
 }
 
 function getTooltipElement(
@@ -340,6 +349,7 @@ function draw(
     yLog: chartData.yStatVar.log,
     showQuadrants: false,
     showDensity: true,
+    showPopulation: SHOW_POPULATION_OFF,
     showLabels: false,
     showRegression: false,
     highlightPoints,

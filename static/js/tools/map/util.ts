@@ -21,6 +21,7 @@
 import _ from "lodash";
 
 import { GeoJsonFeature } from "../../chart/types";
+import { NO_FULL_COVERAGE_PLACE_TYPES } from "../../constants/map_constants";
 import {
   BANGLADESH_PLACE_DCID,
   CHINA_PLACE_DCID,
@@ -106,8 +107,8 @@ export const ALL_PLACE_CHILD_TYPES = {
 
 export const USA_CHILD_PLACE_TYPES = {
   Country: ["State", "County"],
-  State: ["County"],
-  County: ["County"],
+  State: ["County", "City", "CensusZipCodeTabulationArea"],
+  County: ["County", "City", "CensusTract", "CensusZipCodeTabulationArea"],
   CensusRegion: ["State", "County"],
   CensusDivision: ["State", "County"],
 };
@@ -765,4 +766,14 @@ export function getRankingLink(
   params += unit ? `&unit=${unit}` : "";
   params += date ? `&date=${date}` : "";
   return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`;
+}
+
+/**
+ * Determine whether to show a border around enclosed places.
+ * Only draw border if enclosed place type does not have 'wall-to-wall'
+ * coverage of the enclosing place.
+ * @param enclosedPlaceType the type (city, county, etc) of the enclosed places
+ */
+export function shouldShowBorder(enclosedPlaceType: string): boolean {
+  return NO_FULL_COVERAGE_PLACE_TYPES.includes(enclosedPlaceType);
 }

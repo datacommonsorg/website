@@ -35,7 +35,7 @@ export function fetchNodeGeoJson(
     return Promise.resolve({
       type: "FeatureCollection",
       features: [],
-      properties: { current_geo: "" },
+      properties: { currentGeo: "" },
     });
   }
   return axios

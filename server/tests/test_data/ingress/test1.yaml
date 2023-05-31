@@ -1,10 +1,6 @@
 query-host:8080:
-  - /query
+  - /v1/query
 stat-var-host:8080:
   - /stat-var/*
-bulk-observation-host:8080:
-  - /v1/bulk/observations/*
-observation-series-linked-host:8080:
-  - /v1/bulk/observations/series/linked
 default-host:8080:
   - /*

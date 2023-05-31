@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,12 +35,12 @@ if os.path.isfile(REDIS_CONFIG):
       port = redis[region]["port"]
       cache = Cache(
           config={
-              'CACHE_TYPE': 'redis',
+              'CACHE_TYPE': 'RedisCache',
               'CACHE_REDIS_HOST': host,
               'CACHE_REDIS_PORT': port,
               'CACHE_REDIS_URL': 'redis://{}:{}'.format(host, port)
           })
     else:
-      cache = Cache(config={'CACHE_TYPE': 'simple'})
+      cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
 else:
-  cache = Cache(config={'CACHE_TYPE': 'simple'})
+  cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})

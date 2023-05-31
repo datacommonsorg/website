@@ -18,5 +18,6 @@ from server.app_env import _base
 class Config(_base.Config):
   GA_ACCOUNT = 'G-Y6ZXZ9JK3H'
   GCS_BUCKET = 'datcom-website-autopush-resources'
-  ENABLE_AI = True
   LOG_QUERY = True
+  SHOW_TOPIC = True
+  SHOW_SUSTAINABILITY = True

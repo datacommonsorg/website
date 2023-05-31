@@ -26,22 +26,22 @@ class TestApiPointWithin(unittest.TestCase):
     """Failure if required fields are not present."""
     no_parent_entity = app.test_client().get('/api/observations/point/within',
                                              query_string={
-                                                 'child_type': 'City',
+                                                 'childType': 'City',
                                                  'variables': ['Count_Person']
                                              })
     assert no_parent_entity.status_code == 400
 
     no_child_type = app.test_client().get('/api/observations/point/within',
                                           query_string={
-                                              'parent_entity': 'country/USA',
+                                              'parentEntity': 'country/USA',
                                               'variables': ['Count_Person']
                                           })
     assert no_child_type.status_code == 400
 
     no_stat_var = app.test_client().get('/api/observations/point/within',
                                         query_string={
-                                            'parent_entity': 'country/USA',
-                                            'child_type': 'City'
+                                            'parentEntity': 'country/USA',
+                                            'childType': 'City'
                                         })
     assert no_stat_var.status_code == 400
 
@@ -105,34 +105,39 @@ class TestApiPointWithin(unittest.TestCase):
     }
 
     def post_side_effect(url, data):
-      if url.endswith('/v1/bulk/observations/point/linked') and data == {
-          'linked_entity': 'country/USA',
-          'linked_property': 'containedInPlace',
-          'entity_type': 'State',
-          'variables': ['Count_Person', 'UnemploymentRate_Person'],
+      if url.endswith('/v2/observation') and data == {
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'expression': 'country/USA<-containedInPlace+{typeOf:State}'
+          },
+          'variable': {
+              'dcids': ['Count_Person', 'UnemploymentRate_Person']
+          },
           'date': '2015',
-          'all_facets': False
       }:
-        return mock_data.POINT_WITHIN_2015
-      if url.endswith('/v1/bulk/triples/out') and data == {
+        return mock_data.POINT_WITHIN_2015_ALL_FACETS
+
+      if url.endswith('/v2/node') and data == {
           'nodes': ['testUnit'],
+          'property': '->*'
       }:
         return {
-            'data': [{
-                'node': 'testUnit',
-                'triples': {
-                    'name': {
-                        'nodes': [{
-                            'value': 'longUnitName'
-                        }]
-                    },
-                    'shortDisplayName': {
-                        'nodes': [{
-                            'value': 'shortUnit'
-                        }]
+            'data': {
+                'testUnit': {
+                    'arcs': {
+                        'name': {
+                            'nodes': [{
+                                'value': 'longUnitName'
+                            }]
+                        },
+                        'shortDisplayName': {
+                            'nodes': [{
+                                'value': 'shortUnit'
+                            }]
+                        },
                     },
                 }
-            }]
+            }
         }
 
     post.side_effect = post_side_effect
@@ -140,8 +145,8 @@ class TestApiPointWithin(unittest.TestCase):
     response = app.test_client().get(
         '/api/observations/point/within',
         query_string={
-            'parent_entity': 'country/USA',
-            'child_type': 'State',
+            'parentEntity': 'country/USA',
+            'childType': 'State',
             'date': '2015',
             'variables': ['Count_Person', 'UnemploymentRate_Person']
         })

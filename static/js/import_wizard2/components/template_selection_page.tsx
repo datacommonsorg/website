@@ -15,27 +15,27 @@
  */
 
 /**
- * Page for selecting a template
+ * Page for selecting a template and uploading a file.
  */
 
 import _ from "lodash";
 import React, { useState } from "react";
-import { Button, Card, CardBody } from "reactstrap";
+import { Button, Card, CardBody, Label } from "reactstrap";
 
 import { TEMPLATE_OPTIONS } from "../templates";
 
 interface TemplateSelectionPageProps {
-  onContinueClicked: (templateId: string) => void;
+  onContinueClicked: () => void;
   selectedTemplate: string;
+  onTemplateChanged: (templateId: string) => void;
+  uploadedFile: File;
+  onUploadedFileChanged: (uploadedFile: File) => void;
 }
 
 export function TemplateSelectionPage(
   props: TemplateSelectionPageProps
 ): JSX.Element {
   const sortedTemplateIds = Object.keys(TEMPLATE_OPTIONS).sort();
-  const [selectedTemplate, setSelectedTemplate] = useState(
-    props.selectedTemplate || sortedTemplateIds[0]
-  );
   const [openedInfo, setOpenedInfo] = useState(new Set());
 
   // Toggle open/close the info for given templateId
@@ -51,21 +51,21 @@ export function TemplateSelectionPage(
 
   return (
     <>
-      <h2>Select Template</h2>
+      <h2>Select Template and Upload File</h2>
       <div>Please choose a template that best matches your data file</div>
       <div className="template-options-container">
         {sortedTemplateIds.map((templateId) => {
           return (
             <Card
               key={templateId}
-              onClick={() => setSelectedTemplate(templateId)}
+              onClick={() => props.onTemplateChanged(templateId)}
               className={`template-option${
-                templateId === selectedTemplate ? "-selected" : ""
+                templateId === props.selectedTemplate ? "-selected" : ""
               }`}
             >
               <div className="template-example-section">
                 <div className="template-example-table">
-                  {selectedTemplate === templateId && (
+                  {props.selectedTemplate === templateId && (
                     <span className={"material-icons selected-icon"}>
                       check_circle
                     </span>
@@ -73,7 +73,11 @@ export function TemplateSelectionPage(
                   {TEMPLATE_OPTIONS[templateId].table}
                   <span
                     className={"material-icons-outlined info-button"}
-                    onClick={(e) => {
+                    onMouseEnter={(e) => {
+                      onInfoToggled(templateId);
+                      e.stopPropagation();
+                    }}
+                    onMouseLeave={(e) => {
                       onInfoToggled(templateId);
                       e.stopPropagation();
                     }}
@@ -101,12 +105,33 @@ export function TemplateSelectionPage(
           );
         })}
       </div>
-      <Button
-        onClick={() => props.onContinueClicked(selectedTemplate)}
-        className="nav-btn"
-      >
-        Continue
-      </Button>
+      <div className="file-upload-section">
+        <Label for="file-upload-input" className="upload-file-button">
+          Choose File
+        </Label>
+        <input
+          id="file-upload-input"
+          type="file"
+          accept=".csv"
+          onChange={(event) => {
+            const files = event.target.files;
+            if (files.length < 1) {
+              // TODO: handle malformed csv
+              return;
+            }
+            props.onUploadedFileChanged(files[0]);
+          }}
+          style={{ display: "none" }}
+        ></input>
+        <span>
+          {props.uploadedFile ? props.uploadedFile.name : "No file chosen"}
+        </span>
+      </div>
+      {props.uploadedFile && (
+        <Button onClick={() => props.onContinueClicked()} className="nav-btn">
+          Continue
+        </Button>
+      )}
     </>
   );
 }

@@ -21,14 +21,16 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
-import { stringifyFn } from "../../utils/axios";
+import { getRoot, stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
@@ -42,8 +44,14 @@ interface LineTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Width, in px, for the SVG chart.
+  svgChartWidth?: number;
   // Extra classes to add to the container.
   className?: string;
+  // API root
+  apiRoot?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface LineChartData {
@@ -54,27 +62,23 @@ interface LineChartData {
 
 export function LineTile(props: LineTilePropType): JSX.Element {
   const svgContainer = useRef(null);
-  const [rawData, setRawData] = useState<SeriesApiResponse | undefined>(null);
-  const [lineChartData, setLineChartData] = useState<LineChartData | undefined>(
-    null
-  );
+  const [chartData, setChartData] = useState<LineChartData | undefined>(null);
 
   useEffect(() => {
-    fetchData(props, setRawData);
-  }, [props]);
-
-  useEffect(() => {
-    if (rawData) {
-      processData(props, rawData, setLineChartData);
+    if (!chartData) {
+      (async () => {
+        const data = await fetchData(props);
+        setChartData(data);
+      })();
     }
-  }, [props, rawData]);
+  }, [props, chartData]);
 
   const drawFn = useCallback(() => {
-    if (_.isEmpty(lineChartData)) {
+    if (_.isEmpty(chartData)) {
       return;
     }
-    draw(props, lineChartData, svgContainer);
-  }, [props, lineChartData]);
+    draw(props, chartData, svgContainer.current);
+  }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
 
@@ -84,15 +88,19 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   return (
     <ChartTileContainer
       title={props.title}
-      sources={lineChartData && lineChartData.sources}
+      sources={chartData && chartData.sources}
       replacementStrings={rs}
       className={`${props.className} line-chart`}
       allowEmbed={true}
-      getDataCsv={
-        lineChartData ? () => dataGroupsToCsv(lineChartData.dataGroup) : null
-      }
-      isInitialLoading={_.isNull(lineChartData)}
+      getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
+      isInitialLoading={_.isNull(chartData)}
     >
+      {props.isDataTile && chartData && (
+        <div
+          className={DATA_CSS_CLASS}
+          data-csv={dataGroupsToCsv(chartData.dataGroup)}
+        />
+      )}
       <div
         id={props.id}
         className="svg-container"
@@ -103,10 +111,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   );
 }
 
-function fetchData(
-  props: LineTilePropType,
-  setRawData: (data: SeriesApiResponse) => void
-): void {
+export const fetchData = async (props: LineTilePropType) => {
   const statVars = [];
   for (const spec of props.statVarSpec) {
     statVars.push(spec.statVar);
@@ -114,44 +119,32 @@ function fetchData(
       statVars.push(spec.denom);
     }
   }
-  axios
-    .get("/api/observations/series", {
-      // Fetch both numerator stat vars and denominator stat vars
-      params: {
-        variables: statVars,
-        entities: [props.place.dcid],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      setRawData(resp.data);
-    })
-    .catch(() => {
-      // TODO: add error message
-      setRawData(null);
-    });
-}
+  let endpoint = `${getRoot()}/api/observations/series`;
+  if (props.apiRoot) {
+    endpoint = props.apiRoot + endpoint;
+  }
+  const resp = await axios.get(endpoint, {
+    // Fetch both numerator stat vars and denominator stat vars
+    params: {
+      variables: statVars,
+      entities: [props.place.dcid],
+    },
+    paramsSerializer: stringifyFn,
+  });
+  return rawToChart(resp.data, props);
+};
 
-function processData(
-  props: LineTilePropType,
-  rawData: SeriesApiResponse,
-  setChartData: (data: LineChartData) => void
-): void {
-  const chartData = rawToChart(rawData, props);
-  setChartData(chartData);
-}
-
-function draw(
+export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
-  svgContainer: React.RefObject<HTMLElement>
+  svgContainer: HTMLElement
 ): void {
   const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
   elem.innerHTML = "";
   const isCompleteLine = drawLineChart(
     props.id,
-    elem.offsetWidth,
+    props.svgChartWidth || elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     false,
@@ -160,7 +153,7 @@ function draw(
     chartData.unit
   );
   if (!isCompleteLine) {
-    svgContainer.current.querySelectorAll(".dotted-warning")[0].className +=
+    svgContainer.querySelectorAll(".dotted-warning")[0].className +=
       " d-inline";
   }
 }
@@ -214,7 +207,19 @@ function rawToChart(
   }
   return {
     dataGroup: dataGroups,
-    sources: sources,
+    sources,
     unit,
   };
 }
+
+/**
+ * Renders line chart tile component in the given HTML element
+ * @param element DOM element to render the chart
+ * @param props line chart tile component properties
+ */
+export const renderLineComponent = (
+  element: HTMLElement,
+  props: LineTilePropType
+): void => {
+  ReactDOM.render(React.createElement(LineTile, props), element);
+};

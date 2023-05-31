@@ -109,6 +109,12 @@ export const GA_VALUE_TOOL_CHART_OPTION_SWAP = "swap x and y axis";
 export const GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS = "show quadrants";
 export const GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS = "show labels";
 export const GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY = "show density";
+export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_OFF =
+  "show population off";
+export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LINEAR =
+  "show population linear";
+export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG =
+  "show population log";
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
