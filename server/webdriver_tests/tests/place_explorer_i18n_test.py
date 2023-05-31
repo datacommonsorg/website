@@ -36,13 +36,11 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
                                                           'アジア 内の 国')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 
-    # TODO(beets): Re-enable this test after fixing flakiness in finding
-    # the chart.
     # Test strings in GDP comparison chart
     gdp_chart = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/section[1]/div/div[1]/div')
+        By.XPATH, '//*[@id="main-pane"]/section[1]/div/div[1]/div[1]/div[1]')
     self.assertEqual(
-        gdp_chart.find_element(By.XPATH, 'h4').text, '日本 の 1 人あたりの国内総生産')
+        gdp_chart.find_element(By.TAG_NAME, 'h4').text, '日本 の 1 人あたりの国内総生産')
 
     # Test that chart tick values are translated
     y_text = gdp_chart.find_elements(By.CLASS_NAME,
@@ -114,7 +112,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     # Click through to ranking
     pop_growth_rate_chip = self.driver.find_element(
         By.XPATH,
-        '//*[@id="main-pane"]/section[6]/div/div[1]/div/div/div/div/a')
+        '//*[@id="main-pane"]/section[6]/div/div[1]/div/div[1]/div/div/div/a')
     self.assertEqual(pop_growth_rate_chip.text,
                      'Taux de croissance de la population')
     pop_growth_rate_chip.click()

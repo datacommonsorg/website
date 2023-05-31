@@ -18,7 +18,6 @@
  * A container for any tile containing a chart.
  */
 
-import _ from "lodash";
 import React, { useRef } from "react";
 
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
@@ -28,7 +27,7 @@ import {
   getMergedSvg,
   ReplacementStrings,
 } from "../../utils/tile_utils";
-import { ChartFooter } from "./chart_footer";
+import { ChartFooter, ClickFnType } from "./chart_footer";
 
 interface ChartTileContainerProp {
   title: string;
@@ -44,6 +43,10 @@ interface ChartTileContainerProp {
   className?: string;
   // Whether or not this is the initial loading state.
   isInitialLoading?: boolean;
+  // Optional explore link JSX.
+  exploreJsx?: JSX.Element;
+  // Optional callback function when source link is clicked.
+  clickFn?: ClickFnType;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -75,6 +78,8 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       <ChartFooter
         sources={props.sources}
         handleEmbed={showEmbed ? handleEmbed : null}
+        exploreJsx={props.exploreJsx}
+        clickFn={props.clickFn}
       />
       {showEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>

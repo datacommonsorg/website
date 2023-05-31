@@ -283,51 +283,6 @@ def get_bar(cc, data, places):
   return result
 
 
-def get_trend(cc, data, place):
-  """Get the time series data for a place."""
-  if place not in data:
-    return {}
-
-  result_series = {}
-  sources = set()
-  num_denom = get_denom(cc)
-  stat_var_group = get_stat_var_group(cc, data, [place])[place]
-  statvar_denom = {}
-  for num_sv, sv_list in stat_var_group.items():
-    num_series, num_sources = get_series(data, place, sv_list)
-    if not num_series:
-      continue
-    sources.update(num_sources)
-    if num_denom:
-      if isinstance(num_denom, dict):
-        denom_sv = num_denom[num_sv]
-      else:
-        denom_sv = num_denom
-      denom_sv = num_denom[num_sv]
-      statvar_denom[num_sv] = denom_sv
-      denom_series, denom_sources = get_series(data, place, [denom_sv])
-      if not denom_series:
-        continue
-      sources.update(denom_sources)
-      result_series[num_sv] = scale_series(num_series, denom_series)
-    else:
-      result_series[num_sv] = num_series
-      statvar_denom[num_sv] = None
-  # filter out time series with single data point.
-  for sv in list(result_series.keys()):
-    if len(result_series[sv]) <= 1:
-      del result_series[sv]
-  if not result_series:
-    return {}
-
-  is_scaled = ('denominator' in cc)
-  return {
-      'series': result_series,
-      'sources': list(sources),
-      'exploreUrl': build_url([place], statvar_denom, is_scaled)
-  }
-
-
 def get_year(date):
   try:
     return int(date.split('-')[0])
@@ -387,8 +342,8 @@ def get_i18n_all_child_places(raw_page_data):
 
 def has_data(data):
   for item in data:
-    if (item.get('trend', {}) or item.get('similar', {}) or
-        item.get('nearyby', {}) or item.get('child', {})):
+    if (item.get('similar', {}) or item.get('nearyby', {}) or
+        item.get('child', {})):
       return True
   return False
 
@@ -467,14 +422,6 @@ def data(dcid):
       chart_types = BAR_CHART_TYPES
     for topic in spec_obj[category]:
       for chart in spec_obj[category][topic]:
-        # Trend data
-        chart['trend'] = get_trend(chart, stats, dcid)
-        if 'aggregate' in chart:
-          aggregated_stat_vars = list(chart['trend'].get('series', {}).keys())
-          if aggregated_stat_vars:
-            chart['trend']['statsVars'] = aggregated_stat_vars
-          else:
-            chart['trend'] = {}
         # Bar data
         for t in chart_types:
           chart[t] = get_bar(chart, stats,

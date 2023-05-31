@@ -55,7 +55,23 @@ class Config:
   SCHEME = 'https'
   # Additional stat vars that need to be fetched for place page data.
   # This is only needed for local development when cache is not up to date.
-  NEW_STAT_VARS = []
+  NEW_STAT_VARS = [
+      "Count_HousingUnit_HomeValueUpto49999USDollar",
+      "Count_HousingUnit_HomeValue50000To99999USDollar",
+      "Count_HousingUnit_HomeValue100000To199999USDollar",
+      "Count_HousingUnit_HomeValue200000To299999USDollar",
+      "Count_HousingUnit_HomeValue300000To499999USDollar",
+      "Count_HousingUnit_HomeValue500000To999999USDollar",
+      "Count_Person_55To64Years",
+      "Count_Person_Upto9Years",
+      "Count_Person_10To19Years",
+      "Count_Person_20To29Years",
+      "Count_Person_30To39Years",
+      "Count_Person_40To49Years",
+      "Count_Person_50To59Years",
+      "Count_Person_60To69Years",
+      "Count_Person_70OrMoreYears",
+  ]
   # If set, will be used in the main header of the default base template. Must
   # be the full serving path from /static folder.
   LOGO_PATH = ''

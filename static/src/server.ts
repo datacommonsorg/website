@@ -103,7 +103,7 @@ app.get("/", (req: Request, res: Response) => {
       };
 
       fetchData(lineTileProp).then((chartData) => {
-        draw(lineTileProp, chartData, null);
+        draw(lineTileProp, chartData);
         const svg = document.querySelector("svg");
         res.setHeader("Content-Type", "text/html");
         res.send(svg.outerHTML);
