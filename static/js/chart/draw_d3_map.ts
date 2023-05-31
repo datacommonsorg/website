@@ -392,7 +392,6 @@ function addGeoJsonLayer(
  * @param projection projection to use for the map
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
  * @param zoomParams the parameters needed to add zoom functionality for the map
- * @param borderGeoJson the geojson data for drawing borders of containing place
  */
 export function drawD3Map(
   containerElement: HTMLDivElement,

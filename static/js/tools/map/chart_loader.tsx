@@ -28,7 +28,6 @@ import React, {
   useState,
 } from "react";
 
-import { NO_FULL_COVERAGE_PLACE_TYPES } from "../../constants/map_constants";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";

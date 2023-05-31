@@ -32,13 +32,9 @@ export function useGeoJsonReady(chartStore: ChartStore) {
   return useCallback(() => {
     const c = chartStore.geoJson.context;
     // if we should show border, check that border data is ready
-    let borderIsReady = true;
-    if (
-      shouldShowBorder(placeInfo.value.enclosedPlaceType) &&
-      _.isEmpty(chartStore.borderGeoJson.data)
-    ) {
-      borderIsReady = false;
-    }
+    const borderIsReady =
+      !shouldShowBorder(placeInfo.value.enclosedPlaceType) ||
+      !_.isEmpty(chartStore.borderGeoJson.data);
     return (
       !chartStore.geoJson.error &&
       !_.isEmpty(c) &&
