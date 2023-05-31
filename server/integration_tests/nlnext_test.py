@@ -57,11 +57,16 @@ class IntegrationTest(LiveServerTestCase):
     return create_web_app()
 
   # TODO: Validate contexts as well eventually.
-  def run_sequence(self, test_dir, queries, check_place_detection=False):
+  def run_sequence(self,
+                   test_dir,
+                   queries,
+                   idx='small',
+                   check_place_detection=False):
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
-      resp = requests.post(self.get_server_url() + f'/api/nl/data?q={q}',
+      resp = requests.post(self.get_server_url() +
+                           f'/api/nl/data?q={q}&idx={idx}',
                            json={
                                'contextHistory': ctx
                            }).json()
@@ -214,3 +219,8 @@ class IntegrationTest(LiveServerTestCase):
         'which countries have show the greatest reduction?',
         'health in the world',
     ])
+
+  def test_medium_index(self):
+    self.run_sequence('medium_index',
+                      ['cars per family in california counties'],
+                      idx='medium')
