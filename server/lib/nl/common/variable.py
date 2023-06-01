@@ -25,7 +25,7 @@ import server.lib.nl.common.utils as utils
 import server.services.datacommons as dc
 
 # TODO: This is reading the file on every call.  Improve it!
-_CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
+_CHART_TITLE_CONFIG_RELATIVE_PATH = "../../../config/nl_page/chart_titles_by_sv.json"
 
 
 @dataclass
