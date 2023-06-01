@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
+import { renderBarComponent } from "../js/components/tiles/bar_tile";
 import { renderLineComponent } from "../js/components/tiles/line_tile";
+import { renderMapComponent } from "../js/components/tiles/map_tile";
 import { renderRankingComponent } from "../js/ranking/ranking";
 
 globalThis.datacommons = {
+  drawBar: renderBarComponent,
   drawLine: renderLineComponent,
+  drawMap: renderMapComponent,
   drawRanking: renderRankingComponent,
   root: "https://datacommons.org",
 };

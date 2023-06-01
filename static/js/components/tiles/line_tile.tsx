@@ -30,7 +30,7 @@ import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
-import { getRoot, stringifyFn } from "../../utils/axios";
+import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
@@ -119,7 +119,7 @@ export const fetchData = async (props: LineTilePropType) => {
       statVars.push(spec.denom);
     }
   }
-  let endpoint = `${getRoot()}/api/observations/series`;
+  let endpoint = "/api/observations/series";
   if (props.apiRoot) {
     endpoint = props.apiRoot + endpoint;
   }
