@@ -15,15 +15,16 @@
 import logging
 from typing import List
 
-from server.lib.nl import utils
-from server.lib.nl.detection import Place
+from server.lib.nl.common import rank_utils
+from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import ChartVars
 from server.lib.nl.fulfillment.base import populate_charts
-from server.lib.nl.fulfillment.base import PopulateState
-from server.lib.nl.utterance import ChartOriginType
-from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import Utterance
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 
 
 #
@@ -70,11 +71,12 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('Attempting to compute growth rate stats')
 
   direction = state.time_delta_types[0]
-  ranked_lists = utils.rank_svs_by_series_growth(place=places[0].dcid,
-                                                 svs=chart_vars.svs,
-                                                 growth_direction=direction,
-                                                 rank_order=rank_order,
-                                                 counters=state.uttr.counters)
+  ranked_lists = rank_utils.rank_svs_by_series_growth(
+      place=places[0].dcid,
+      svs=chart_vars.svs,
+      growth_direction=direction,
+      rank_order=rank_order,
+      counters=state.uttr.counters)
 
   state.uttr.counters.info(
       'time-delta-across-vars_reranked_svs', {

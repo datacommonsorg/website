@@ -34,8 +34,6 @@ website:
       }
 
 mixer:
-  hostProject:
-  serviceName:
   useTMCFCSVData: true
   tmcfCSVBucket: "datcom-feedingamerica-resources"
   tmcfCSVFolder: "food"
@@ -47,7 +45,7 @@ nl:
   enabled: false
 
 svg:
-  blocklistFile: ["oecd/g/OECD"]
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
 
 serviceGroups:
   recon: null

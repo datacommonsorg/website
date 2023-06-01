@@ -20,14 +20,13 @@
 # TODO: support non-digits too, like "one thousand".
 # TODO: maybe support units
 
-import logging
 import re
 
-from server.lib.nl.counters import Counters
-from server.lib.nl.detection import QCmpType
-from server.lib.nl.detection import Quantity
-from server.lib.nl.detection import QuantityClassificationAttributes
-from server.lib.nl.detection import QuantityRange
+from server.lib.nl.common.counters import Counters
+from server.lib.nl.detection.types import QCmpType
+from server.lib.nl.detection.types import Quantity
+from server.lib.nl.detection.types import QuantityClassificationAttributes
+from server.lib.nl.detection.types import QuantityRange
 
 # Match a number followed by an optional decimal part.
 NUMBER_RE = r'\d+(?:\.\d+)?'
