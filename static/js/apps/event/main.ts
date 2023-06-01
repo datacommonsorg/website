@@ -39,7 +39,9 @@ function renderPage(): void {
   // Event
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
-  const properties = JSON.parse(document.getElementById("node").dataset.pv || "{}");
+  const properties = JSON.parse(
+    document.getElementById("node").dataset.pv || "{}"
+  );
   const provenance = JSON.parse(
     document.getElementById("node").dataset.provenance || "[]"
   );
