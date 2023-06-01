@@ -238,8 +238,8 @@ function plot(
   };
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
-      svgContainerRef,
-      tooltipRef,
+      svgContainerRef.current,
+      tooltipRef.current,
       ScatterPlotProperties,
       scatterPlotOptions,
       props.points,
