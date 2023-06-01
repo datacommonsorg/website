@@ -58,6 +58,7 @@ interface ChartProps {
   geoRaster: any;
   mapType: MAP_TYPE;
   children: ReactNode;
+  borderGeoJsonData?: GeoJsonData;
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -133,6 +134,7 @@ export function Chart(props: ChartProps): JSX.Element {
               mapPointValues={props.mapPointValues}
               mapPoints={props.mapPoints}
               europeanCountries={props.europeanCountries}
+              borderGeoJsonData={props.borderGeoJsonData}
             />
             {/* )} */}
             {props.children}

@@ -18,7 +18,7 @@ from unittest.mock import patch
 
 from parameterized import parameterized
 
-from server.lib.nl.place_detection import NLPlaceDetector
+from server.lib.nl.detection.place import NLPlaceDetector
 
 
 class TestPlaceDetector(unittest.TestCase):

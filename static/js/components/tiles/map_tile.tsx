@@ -22,10 +22,16 @@ import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
-import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
+import {
+  addPolygonLayer,
+  drawD3Map,
+  getProjection,
+} from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
@@ -37,7 +43,7 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { getPlaceChartData } from "../../tools/map/util";
+import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -60,6 +66,8 @@ interface MapTilePropType {
   className?: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
+  // API root
+  apiRoot?: string;
 }
 
 interface RawData {
@@ -67,6 +75,7 @@ interface RawData {
   placeStat: PointApiResponse;
   population: SeriesApiResponse;
   parentPlaces: NamedTypedPlace[];
+  borderGeoJson?: GeoJsonData;
 }
 
 interface MapChartData {
@@ -78,6 +87,7 @@ interface MapChartData {
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
   unit: string;
+  borderGeoJson?: GeoJsonData;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -101,15 +111,17 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   useEffect(() => {
     if (!mapChartData) {
       (async () => {
-        const data = await fetchData(
-          props.place,
-          props.enclosedPlaceType,
-          props.statVarSpec
-        );
+        const data = await fetchData(props);
         setMapChartData(data);
       })();
     } else {
-      draw(mapChartData, props, svgContainer, legendContainer, mapContainer);
+      draw(
+        mapChartData,
+        props,
+        svgContainer.current,
+        legendContainer.current,
+        mapContainer.current
+      );
       if (props.isDataTile) {
         addSvgDataAttribute();
       }
@@ -167,51 +179,76 @@ export function MapTile(props: MapTilePropType): JSX.Element {
 }
 
 export const fetchData = async (
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec
+  props: MapTilePropType
 ): Promise<MapChartData> => {
   const geoJsonPromise = axios
-    .get(
-      `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
-    )
-    .then((resp) => resp.data);
-  const dataDate = getCappedStatVarDate(statVarSpec.statVar);
-  const placeStatPromise: Promise<PointApiResponse> = axios
-    .get("/api/observations/point/within", {
+    .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
       params: {
-        childType: enclosedPlaceType,
-        date: dataDate,
-        parentEntity: place.dcid,
-        variables: [statVarSpec.statVar],
+        placeDcid: props.place.dcid,
+        placeType: props.enclosedPlaceType,
       },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
-  const populationPromise: Promise<SeriesApiResponse> = statVarSpec.denom
+  const borderGeoJsonPromise = axios
+    .post(`${props.apiRoot || ""}/api/choropleth/node-geojson`, {
+      geoJsonProp: "geoJsonCoordinates",
+      nodes: [props.place.dcid],
+    })
+    .then((resp) => resp.data);
+  const dataDate = getCappedStatVarDate(props.statVarSpec.statVar);
+  const placeStatPromise: Promise<PointApiResponse> = axios
+    .get(`${props.apiRoot || ""}/api/observations/point/within`, {
+      params: {
+        childType: props.enclosedPlaceType,
+        date: dataDate,
+        parentEntity: props.place.dcid,
+        variables: [props.statVarSpec.statVar],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => resp.data);
+  const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec.denom
     ? axios
-        .get("/api/observations/series/within", {
+        .get(`${props.apiRoot || ""}/api/observations/series/within`, {
           params: {
-            childType: enclosedPlaceType,
-            parentEntity: place.dcid,
-            variables: [statVarSpec.denom],
+            childType: props.enclosedPlaceType,
+            parentEntity: props.place.dcid,
+            variables: [props.statVarSpec.denom],
           },
           paramsSerializer: stringifyFn,
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
   const parentPlacesPromise = axios
-    .get(`/api/place/parent/${place.dcid}`)
+    .get(`${props.apiRoot || ""}/api/place/parent/${props.place.dcid}`)
     .then((resp) => resp.data);
   try {
-    const [geoJson, placeStat, population, parentPlaces] = await Promise.all([
-      geoJsonPromise,
-      placeStatPromise,
-      populationPromise,
-      parentPlacesPromise,
-    ]);
-    const rawData = { geoJson, placeStat, population, parentPlaces };
-    return rawToChart(rawData, statVarSpec, place, enclosedPlaceType);
+    const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
+      await Promise.all([
+        geoJsonPromise,
+        placeStatPromise,
+        populationPromise,
+        parentPlacesPromise,
+        borderGeoJsonPromise,
+      ]);
+    // Only draw borders for containing places without 'wall to wall' coverage
+    const borderGeoJson = shouldShowBorder(props.enclosedPlaceType)
+      ? borderGeoJsonData
+      : undefined;
+    const rawData = {
+      geoJson,
+      placeStat,
+      population,
+      parentPlaces,
+      borderGeoJson,
+    };
+    return rawToChart(
+      rawData,
+      props.statVarSpec,
+      props.place,
+      props.enclosedPlaceType
+    );
   } catch (error) {
     return null;
   }
@@ -289,18 +326,23 @@ function rawToChart(
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
     unit: statVarSpec.unit || unit,
+    borderGeoJson: rawData.borderGeoJson,
   };
 }
 
-function draw(
+export function draw(
   chartData: MapChartData,
   props: MapTilePropType,
-  svgContainer: React.RefObject<HTMLDivElement>,
-  legendContainer: React.RefObject<HTMLDivElement>,
-  mapContainer: React.RefObject<HTMLDivElement>
+  svgContainer: HTMLDivElement,
+  legendContainer: HTMLDivElement,
+  mapContainer: HTMLDivElement,
+  svgWidth?: number
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
-  const height = svgContainer.current.offsetHeight;
+  let height = props.svgChartHeight;
+  if (svgContainer) {
+    height = Math.max(props.svgChartHeight, svgContainer.offsetHeight);
+  }
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,
@@ -333,23 +375,33 @@ function draw(
     return place.name + ": " + value;
   };
   const legendWidth = generateLegendSvg(
-    legendContainer.current,
+    legendContainer,
     height,
     colorScale,
     chartData.unit,
     0,
     formatNumber
   );
-  const chartWidth = svgContainer.current.offsetWidth - legendWidth;
+  const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
+  const shouldUseBorderData =
+    props.enclosedPlaceType &&
+    shouldShowBorder(props.enclosedPlaceType) &&
+    !_.isEmpty(chartData.borderGeoJson);
+  // Use border data to calculate projection if using borders.
+  // This prevents borders from being cutoff when enclosed places don't
+  // provide wall to wall coverage.
+  const projectionData = shouldUseBorderData
+    ? chartData.borderGeoJson
+    : chartData.geoJson;
   const projection = getProjection(
     chartData.isUsaPlace,
     props.place.dcid,
     chartWidth,
     height,
-    chartData.geoJson
+    projectionData
   );
   drawD3Map(
-    mapContainer.current,
+    mapContainer,
     chartData.geoJson,
     height,
     chartWidth,
@@ -361,4 +413,27 @@ function draw(
     chartData.showMapBoundaries,
     projection
   );
+  if (shouldUseBorderData) {
+    addPolygonLayer(
+      mapContainer,
+      chartData.borderGeoJson,
+      projection,
+      () => "none",
+      () => BORDER_STROKE_COLOR,
+      () => null,
+      false
+    );
+  }
 }
+
+/**
+ * Renders map chart tile component in the given HTML element
+ * @param element DOM element to render the chart
+ * @param props map chart tile component properties
+ */
+export const renderMapComponent = (
+  element: HTMLElement,
+  props: MapTilePropType
+): void => {
+  ReactDOM.render(React.createElement(MapTile, props), element);
+};

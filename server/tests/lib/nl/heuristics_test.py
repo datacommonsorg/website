@@ -17,10 +17,10 @@ import unittest
 
 from parameterized import parameterized
 
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import EventType
-from server.lib.nl.detection import RankingType
-from server.lib.nl.detection import TimeDeltaType
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import RankingType
+from server.lib.nl.detection.types import TimeDeltaType
 from server.services.nl import Model
 
 # TODO: This should probably live in tests/services/nl_test.py

@@ -42,6 +42,8 @@ const NO_DATE_CAP_RCP_STATVARS = [
   // These SVs are not a time-series, but a single value across multi-decadal time-horizons.
   "ProjectedMax_Until_",
   "ProjectedMin_Until_",
+  // All PDF probability projections should be excluded.
+  "PctProb_",
 ];
 
 // used to set fields in an object

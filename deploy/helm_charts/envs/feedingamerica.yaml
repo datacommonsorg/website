@@ -20,10 +20,6 @@ namespace:
   name: "website"
 
 website:
-  image:
-    project: "datcom-ci"
-    tag:
-  githash:
   flaskEnv: feedingamerica
   replicas: 4
 
@@ -38,8 +34,6 @@ website:
       }
 
 mixer:
-  hostProject:
-  serviceName:
   useTMCFCSVData: true
   tmcfCSVBucket: "datcom-feedingamerica-resources"
   tmcfCSVFolder: "food"
@@ -51,7 +45,7 @@ nl:
   enabled: false
 
 svg:
-  blocklistFile: ["oecd/g/OECD"]
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
 
 serviceGroups:
   recon: null

@@ -22,11 +22,12 @@ from google.protobuf import text_format
 from parameterized import parameterized
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.nl import counters as ctr
-from server.lib.nl import page_config_builder
-from server.lib.nl import topic
-from server.lib.nl import utils
-from server.lib.nl import utterance
+from server.lib.nl.common import counters as ctr
+from server.lib.nl.common import topic
+from server.lib.nl.common import utils
+from server.lib.nl.common import utterance
+from server.lib.nl.common import variable
+from server.lib.nl.config_builder import builder
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
@@ -149,13 +150,13 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compared with Other Variables in Foo Place"
+         title: "Count_Person_Male-name compared with other variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Per Capita Compared with Other Variables in Foo Place"
+         title: "Per Capita Count_Person_Male-name compared with other variables in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
          stat_var_key: "Count_Person_Female_pc"
@@ -771,11 +772,11 @@ class TestPageConfigNext(unittest.TestCase):
       ],
       ["RankingAcrossSVs", RANKING_ACROSS_SVS_UTTR, RANKING_ACROSS_SVS_CONFIG],
   ])
-  @patch.object(utils, 'get_sv_unit')
-  @patch.object(utils, 'get_sv_footnote')
+  @patch.object(variable, 'get_sv_unit')
+  @patch.object(variable, 'get_sv_footnote')
   @patch.object(topic, 'get_topic_name')
   @patch.object(utils, 'parent_place_names')
-  @patch.object(utils, 'get_sv_name')
+  @patch.object(variable, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
                 mock_parent_place_names, mock_topic_name, mock_sv_footnote,
                 mock_sv_unit):
@@ -797,9 +798,9 @@ class TestPageConfigNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, _textproto(config_str), test_name + ' failed!')
 
-  @patch.object(utils, 'get_sv_unit')
-  @patch.object(utils, 'get_sv_footnote')
-  @patch.object(utils, 'get_sv_name')
+  @patch.object(variable, 'get_sv_unit')
+  @patch.object(variable, 'get_sv_footnote')
+  @patch.object(variable, 'get_sv_name')
   def test_event(self, mock_sv_name, mock_sv_footnote, mock_sv_unit):
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs: {sv: sv for sv in svs})
@@ -826,5 +827,4 @@ def _run(uttr_dict: Dict,
          config: SubjectPageConfig = None) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
   uttr.counters = ctr.Counters()
-  return text_format.MessageToString(
-      page_config_builder.build_page_config(uttr, config))
+  return text_format.MessageToString(builder.build(uttr, config))

@@ -20,10 +20,6 @@ namespace:
   name: "website"
 
 website:
-  image:
-    project: "datcom-ci"
-    tag:
-  githash:
   flaskEnv: stanford
   replicas: 4
   redis:
@@ -37,7 +33,11 @@ website:
       }
 
 mixer:
-  pinnedSvg: dc/g/Stanford
+  useBaseBigtable: false
+  useBranchBigtable: false
+  useCustomBigtable: true
+  foldRemoteRootSvg: true
+  remoteMixerDomain: https://api.datacommons.org
 
 serviceAccount:
   name: website-ksa

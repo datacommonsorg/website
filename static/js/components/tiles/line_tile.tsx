@@ -21,6 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
@@ -210,3 +211,15 @@ function rawToChart(
     unit,
   };
 }
+
+/**
+ * Renders line chart tile component in the given HTML element
+ * @param element DOM element to render the chart
+ * @param props line chart tile component properties
+ */
+export const renderLineComponent = (
+  element: HTMLElement,
+  props: LineTilePropType
+): void => {
+  ReactDOM.render(React.createElement(LineTile, props), element);
+};

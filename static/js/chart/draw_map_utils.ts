@@ -25,16 +25,17 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
 
+export const LEGEND_MARGIN_VERTICAL = 6;
+export const LEGEND_MARGIN_RIGHT = 5;
+export const LEGEND_IMG_WIDTH = 10;
+export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
+export const LEGEND_TICK_LABEL_MARGIN = 10;
 const MIN_COLOR = "#f0f0f0";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
 const TICK_SIZE = 6;
-const LEGEND_MARGIN_RIGHT = 5;
-const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 4;
-export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const LEGEND_CLASS_NAME = "legend";
-const LEGEND_TICK_LABEL_MARGIN = 10;
 
 // Curated temperature domains.
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
@@ -194,6 +195,7 @@ export function generateLegend(
   );
   legend
     .append("g")
+    .attr("id", "legend-axis")
     .call(
       d3
         .axisRight(yScale)
@@ -217,7 +219,9 @@ export function generateLegend(
     )
     .call((g) => g.select(".domain").remove());
 
-  const legendWidth = legend.node().getBBox().width;
+  const legendWidth = (
+    legend.select("#legend-axis").node() as SVGGraphicsElement
+  ).getBBox().width;
   return legendWidth;
 }
 
@@ -248,9 +252,9 @@ export function generateLegendSvg(
     generateLegend(svg, height, colorScale, unit, formatNumberFn) + marginLeft;
   svg
     .attr("width", legendWidth)
-    .attr("height", height + TICK_SIZE * 2)
+    .attr("height", height + LEGEND_MARGIN_VERTICAL * 2)
     .select(`.${LEGEND_CLASS_NAME}`)
-    .attr("transform", `translate(${marginLeft}, ${TICK_SIZE})`);
+    .attr("transform", `translate(${marginLeft}, ${LEGEND_MARGIN_VERTICAL})`);
   return legendWidth;
 }
 

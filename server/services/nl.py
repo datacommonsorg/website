@@ -18,25 +18,25 @@ import logging
 import re
 from typing import Dict, List, Union
 
-from server.lib.nl import quantity_parser
-from server.lib.nl.counters import Counters
-from server.lib.nl.detection import BinaryClassificationResultType
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import ComparisonClassificationAttributes
-from server.lib.nl.detection import ContainedInClassificationAttributes
-from server.lib.nl.detection import ContainedInPlaceType
-from server.lib.nl.detection import CorrelationClassificationAttributes
-from server.lib.nl.detection import EventClassificationAttributes
-from server.lib.nl.detection import EventType
-from server.lib.nl.detection import NLClassifier
-from server.lib.nl.detection import OverviewClassificationAttributes
-from server.lib.nl.detection import RankingClassificationAttributes
-from server.lib.nl.detection import RankingType
-from server.lib.nl.detection import SizeType
-from server.lib.nl.detection import SizeTypeClassificationAttributes
-from server.lib.nl.detection import TimeDeltaClassificationAttributes
-from server.lib.nl.detection import TimeDeltaType
-from server.lib.nl.place_detection import NLPlaceDetector
+from server.lib.nl.common.counters import Counters
+from server.lib.nl.detection import quantity
+from server.lib.nl.detection.place import NLPlaceDetector
+from server.lib.nl.detection.types import BinaryClassificationResultType
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ComparisonClassificationAttributes
+from server.lib.nl.detection.types import ContainedInClassificationAttributes
+from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import CorrelationClassificationAttributes
+from server.lib.nl.detection.types import EventClassificationAttributes
+from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import OverviewClassificationAttributes
+from server.lib.nl.detection.types import RankingClassificationAttributes
+from server.lib.nl.detection.types import RankingType
+from server.lib.nl.detection.types import SizeType
+from server.lib.nl.detection.types import SizeTypeClassificationAttributes
+from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
+from server.lib.nl.detection.types import TimeDeltaType
 from server.services import datacommons as dc
 import shared.lib.constants as constants
 import shared.lib.utils as shared_utils
@@ -394,13 +394,13 @@ class Model:
 
   def heuristic_quantity_classification(
       self, query_orig: str, ctr: Counters) -> Union[NLClassifier, None]:
-    attributes = quantity_parser.parse_quantity(query_orig, ctr)
+    attributes = quantity.parse_quantity(query_orig, ctr)
     if attributes:
       return NLClassifier(type=ClassificationType.QUANTITY,
                           attributes=attributes)
     return None
 
-  def detect_svs(self, query: str,
+  def detect_svs(self, query: str, index_type: str,
                  debug_logs: Dict) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
     # Check comment at the top of this file above `ALL_STOP_WORDS` to understand
@@ -408,12 +408,13 @@ class Model:
     # any words in ALL_STOP_WORDS which includes contained_in places and their
     # plurals and any other query attribution/classification trigger words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
+    debug_logs["sv_detection_query_index_type"] = index_type
     debug_logs["sv_detection_query_input"] = query
     debug_logs["sv_detection_query_stop_words_removal"] = \
         shared_utils.remove_stop_words(query, ALL_STOP_WORDS)
 
     # Make API call to the NL models/embeddings server.
-    return dc.nl_search_sv(query)
+    return dc.nl_search_sv(query, index_type)
 
   def detect_place(self, query):
     return self.place_detector.detect_places_heuristics(query)

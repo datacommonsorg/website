@@ -168,13 +168,14 @@ export function getNamedTypedPlace(
  * names
  */
 export function getPlaceNames(
-  dcids: string[]
+  dcids: string[],
+  apiRoot?: string
 ): Promise<{ [key: string]: string }> {
   if (!dcids.length) {
     return Promise.resolve({});
   }
   return axios
-    .post("/api/place/name", {
+    .post(`${apiRoot || ""}/api/place/name`, {
       dcids,
     })
     .then((resp) => {

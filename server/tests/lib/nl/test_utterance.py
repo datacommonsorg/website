@@ -13,13 +13,13 @@
 # limitations under the License.
 """Utterance JSONs for tests."""
 
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import EventType
-from server.lib.nl.detection import RankingType
-from server.lib.nl.utterance import ChartOriginType
-from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import QueryType
-from server.lib.nl.utterance import TimeDeltaType
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.common.utterance import TimeDeltaType
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import RankingType
 
 # Utterance for Place Overview.
 SIMPLE_PLACE_ONLY_UTTR = {
@@ -197,7 +197,8 @@ SIMPLE_WITH_SV_EXT_UTTR = {
             'place_type': None,
             'ranking_types': [],
             'source_topic': '',
-            'title': ''
+            'title': '',
+            'orig_sv': 'Count_Person_Male',
         },
         'chart_type': ChartType.TIMELINE_CHART,
         'places': [{

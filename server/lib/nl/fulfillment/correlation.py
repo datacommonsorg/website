@@ -15,25 +15,24 @@
 import logging
 from typing import List
 
-from server.lib.nl import utils
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import ContainedInClassificationAttributes
-from server.lib.nl.detection import ContainedInPlaceType
-from server.lib.nl.detection import NLClassifier
-from server.lib.nl.detection import Place
+from server.lib.nl.common import utils
+from server.lib.nl.common.topic import open_top_topics_ordered
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ContainedInClassificationAttributes
+from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import ChartVars
 from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.base import handle_contained_in_type
-from server.lib.nl.fulfillment.base import open_top_topics_ordered
-from server.lib.nl.fulfillment.base import PopulateState
 from server.lib.nl.fulfillment.context import \
     classifications_of_type_from_context
 from server.lib.nl.fulfillment.context import places_from_context
 from server.lib.nl.fulfillment.context import svs_from_context
-from server.lib.nl.utterance import ChartOriginType
-from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import Utterance
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 import shared.lib.detected_variables as vars
 
 _MAX_CONTEXT_SVS = 3

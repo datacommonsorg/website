@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./datacommons/nl_interface.min.css" />
+    <link rel="stylesheet" href="./datacommons/ranking.min.css" />
+    <link rel="stylesheet" href="./styles/index.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="./datacommons/datacommons.js"></script>
+    <script src="./js/index.js"></script>
+    <script></script>
+  </head>
+  <body>
+    <nav class="dc-navbar navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="dc-navbar-brand navbar-brand" href="#"
+          >Sustainable Development Goals Tracker</a
+        >
+        <div class="collapse navbar-collapse">
+          <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Select Country"
+              aria-label="Select Country"
+            />
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Country Title -->
+      <div class="row my-4 d-flex justify-content-center">
+        <h1 class="display-4">United States</h1>
+      </div>
+
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col-4">
+          <div
+            class="sticky-top pt-4 pr-4 sidebar-container"
+            id="sidebar-container"
+          ></div>
+        </div>
+
+        <!-- Main page content -->
+        <div class="col">
+          <main class="flex flex-col pt-4" id="main-container"></main>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

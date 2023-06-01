@@ -21,6 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
@@ -61,6 +62,8 @@ interface BarTilePropType {
   tileSpec?: BarTileSpec;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
+  // API root
+  apiRoot?: string;
 }
 
 interface BarChartData {
@@ -139,13 +142,13 @@ export const fetchData = async (props: BarTilePropType) => {
   let url: string;
   let params;
   if (props.comparisonPlaces) {
-    url = "/api/observations/point";
+    url = `${props.apiRoot || ""}/api/observations/point`;
     params = {
       entities: props.comparisonPlaces,
       variables: statVars,
     };
   } else {
-    url = "/api/observations/point/within";
+    url = `${props.apiRoot || ""}/api/observations/point/within`;
     params = {
       parentEntity: props.place.dcid,
       childType: props.enclosedPlaceType,
@@ -170,7 +173,8 @@ export const fetchData = async (props: BarTilePropType) => {
     popPoints.sort((a, b) => a.value - b.value);
     popPoints = popPoints.slice(0, NUM_PLACES);
     const placeNames = await getPlaceNames(
-      Array.from(popPoints).map((x) => x.placeDcid)
+      Array.from(popPoints).map((x) => x.placeDcid),
+      props.apiRoot
     );
     return rawToChart(props, resp.data, popPoints, placeNames);
   } catch (error) {
@@ -237,16 +241,32 @@ function rawToChart(
   };
 }
 
-function draw(props: BarTilePropType, chartData: BarChartData): void {
+export function draw(
+  props: BarTilePropType,
+  chartData: BarChartData,
+  svgWidth?: number
+): void {
   const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
   elem.innerHTML = "";
   drawGroupBarChart(
     props.id,
-    elem.offsetWidth,
+    svgWidth || elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     formatNumber,
     chartData.unit
   );
 }
+
+/**
+ * Renders bar chart tile component in the given HTML element
+ * @param element DOM element to render the chart
+ * @param props bar chart tile component properties
+ */
+export const renderBarComponent = (
+  element: HTMLElement,
+  props: BarTilePropType
+): void => {
+  ReactDOM.render(React.createElement(BarTile, props), element);
+};

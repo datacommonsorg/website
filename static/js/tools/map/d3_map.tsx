@@ -30,6 +30,7 @@ import React, {
 
 import {
   addMapPoints,
+  addPolygonLayer,
   drawD3Map,
   getProjection,
 } from "../../chart/draw_d3_map";
@@ -39,6 +40,7 @@ import {
   GeoJsonFeatureProperties,
   MapPoint,
 } from "../../chart/types";
+import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { formatNumber } from "../../i18n/i18n";
 import {
   EUROPE_NAMED_TYPED_PLACE,
@@ -55,6 +57,7 @@ import {
   getParentPlaces,
   getRedirectLink,
 } from "./util";
+import { shouldShowBorder } from "./util";
 
 interface D3MapProps {
   geoJsonData: GeoJsonData;
@@ -64,6 +67,8 @@ interface D3MapProps {
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
   europeanCountries: Array<NamedPlace>;
+  // Geojson for drawing border of containing place
+  borderGeoJsonData?: GeoJsonData;
 }
 
 const LEGEND_CONTAINER_ID = "choropleth-legend";
@@ -145,12 +150,22 @@ export function D3Map(props: D3MapProps): JSX.Element {
       USA_PLACE_DCID,
       placeInfo.value.parentPlaces
     );
+    const shouldUseBorderData =
+      placeInfo.value.enclosedPlaceType &&
+      shouldShowBorder(placeInfo.value.enclosedPlaceType) &&
+      props.borderGeoJsonData;
+    // Use border data to calculate projection if using borders.
+    // This prevents borders from being cutoff when enclosed places don't
+    // provide wall to wall coverage.
+    const projectionData = shouldUseBorderData
+      ? props.borderGeoJsonData
+      : props.geoJsonData;
     const projection = getProjection(
       isUSAPlace,
       placeInfo.value.enclosingPlace.dcid,
       width - legendWidth,
       height,
-      props.geoJsonData,
+      projectionData,
       zoomDcid
     );
     drawD3Map(
@@ -176,6 +191,18 @@ export function D3Map(props: D3MapProps): JSX.Element {
       zoomDcid,
       zoomParams
     );
+    // Draw borders
+    if (shouldUseBorderData) {
+      addPolygonLayer(
+        mapContainerRef.current,
+        props.borderGeoJsonData,
+        projection,
+        () => "none",
+        () => BORDER_STROKE_COLOR,
+        () => null,
+        false
+      );
+    }
     if (display.value.showMapPoints) {
       let mapPointSvTitle = "";
       if (statVar.value.mapPointSv !== statVar.value.dcid) {
@@ -184,18 +211,18 @@ export function D3Map(props: D3MapProps): JSX.Element {
             ? statVar.value.info[statVar.value.mapPointSv].title
             : "";
       }
-      const filteredMapPoints = props.mapPoints.filter((point) => {
-        return point.placeDcid in props.mapPointValues;
-      });
       addMapPoints(
         mapContainerRef.current,
-        filteredMapPoints,
-        props.mapPointValues,
+        props.mapPoints,
+        props.mapPointValues || {},
         projection,
-        null,
+        props.mapPointValues
+          ? null
+          : () =>
+              "black" /* getPointColor: if there are mapPointValues, addMapPoints will color the points accordingly */,
         getTooltipHtml(
           props.metadata,
-          props.mapPointValues,
+          props.mapPointValues || {},
           false,
           mapPointSvTitle || statVar.value.mapPointSv
         )
@@ -203,6 +230,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
     }
     removeSpinner(CHART_LOADER_SCREEN);
   }, [
+    props.borderGeoJsonData,
     props.europeanCountries,
     props.geoJsonData,
     props.mapDataValues,
