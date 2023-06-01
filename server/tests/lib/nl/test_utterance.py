@@ -13,9 +13,9 @@
 # limitations under the License.
 """Utterance JSONs for tests."""
 
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import EventType
-from server.lib.nl.detection import RankingType
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import RankingType
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import QueryType

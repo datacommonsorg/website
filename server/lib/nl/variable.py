@@ -13,13 +13,19 @@
 # limitations under the License.
 """Module for NL page variable"""
 
-from abc import ABC
 from dataclasses import dataclass
 from dataclasses import field
+import json
+import os
 from typing import Dict, List
 
 import server.lib.fetch as fetch
+import server.lib.nl.constants as constants
+import server.lib.nl.utils as utils
 import server.services.datacommons as dc
+
+# TODO: This is reading the file on every call.  Improve it!
+_CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 
 @dataclass
@@ -36,28 +42,6 @@ class SVG:
   pt: str = ''
   pvs: Dict[str, str] = field(default_factory=dict)
   p: str = ''
-
-
-class Entry(ABC):
-  """Abctract class to hold an entry in VariableStore."""
-  pass
-
-
-@dataclass
-class SimpleEntry(Entry):
-  dcid: str
-
-
-@dataclass
-class PeerEntry(Entry):
-  # sources contains the sv/svg from the model. They are used to deduce peer
-  sources: List[str]
-  # peers are computed from the stat vars in sources.
-  peers: List[str]
-
-
-class VariableStore:
-  entries: List[Entry]
 
 
 def parse_sv(sv_definition: str) -> SV:
@@ -181,3 +165,135 @@ def extend_svs(svs: List[str]):
       reverse_map[sv2] = res[sv]
   res_ordered = {sv: sorted(ext_svs) for sv, ext_svs in res.items()}
   return res_ordered
+
+
+def get_sv_name(all_svs: List[str]) -> Dict:
+  sv2name_raw = fetch.property_values(all_svs, 'name')
+  uncurated_names = {
+      sv: names[0] if names else sv for sv, names in sv2name_raw.items()
+  }
+  basepath = os.path.dirname(__file__)
+  title_config_path = os.path.abspath(
+      os.path.join(basepath, _CHART_TITLE_CONFIG_RELATIVE_PATH))
+  title_by_sv_dcid = {}
+  with open(title_config_path) as f:
+    title_by_sv_dcid = json.load(f)
+
+  sv_name_map = {}
+  # If a curated name is found return that,
+  # Else return the name property for SV.
+  for sv in all_svs:
+    if sv in constants.SV_DISPLAY_NAME_OVERRIDE:
+      sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
+    elif sv in title_by_sv_dcid:
+      sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
+    else:
+      sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
+
+  return sv_name_map
+
+
+def get_sv_unit(all_svs: List[str]) -> Dict:
+  sv_unit_map = {}
+  for sv in all_svs:
+    # If the dcid has "percent", the unit should be "%"
+    if "Percent" in sv:
+      sv_unit_map[sv] = "%"
+    else:
+      sv_unit_map[sv] = ""
+  return sv_unit_map
+
+
+def get_sv_description(all_svs: List[str]) -> Dict:
+  sv_desc_map = {}
+  for sv in all_svs:
+    sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
+  return sv_desc_map
+
+
+# TODO: Remove this hack by fixing the name in schema and config.
+def clean_sv_name(name: str) -> str:
+  _PREFIXES = [
+      'Population of People Working in the ',
+      'Population of People Working in ',
+      'Population of People ',
+      'Population Working in the ',
+      'Population Working in ',
+      'Number of the ',
+      'Number of ',
+  ]
+  _SUFFIXES = [
+      ' Workers',
+  ]
+  for p in _PREFIXES:
+    if name.startswith(p):
+      name = name[len(p):]
+  for s in _SUFFIXES:
+    if name.endswith(s):
+      name = name[:-len(s)]
+  return name
+
+
+def get_sv_footnote(all_svs: List[str]) -> Dict:
+  sv2footnote_raw = fetch.property_values(all_svs, 'footnote')
+  uncurated_footnotes = {
+      sv: footnotes[0] if footnotes else ''
+      for sv, footnotes in sv2footnote_raw.items()
+  }
+  sv_map = {}
+  for sv in all_svs:
+    if sv in constants.SV_DISPLAY_FOOTNOTE_OVERRIDE:
+      sv_map[sv] = constants.SV_DISPLAY_FOOTNOTE_OVERRIDE[sv]
+    else:
+      sv_map[sv] = uncurated_footnotes[sv]
+  return sv_map
+
+
+def get_only_svs(svs: List[str]) -> List[str]:
+  ret = []
+  for sv in svs:
+    if utils.is_sv(sv):
+      ret.append(sv)
+  return ret
+
+
+#
+# Per-capita handling
+#
+
+_SV_PARTIAL_DCID_NO_PC = [
+    'Temperature',
+    'Precipitation',
+    "BarometricPressure",
+    "CloudCover",
+    "PrecipitableWater",
+    "Rainfall",
+    "Snowfall",
+    "Visibility",
+    "WindSpeed",
+    "ConsecutiveDryDays",
+    "Percent",
+    "Area_",
+    "Median_",
+    "LifeExpectancy_",
+    "AsFractionOf",
+    "AsAFractionOfCount",
+    "UnemploymentRate_",
+    "Mean_Income_",
+    "GenderIncomeInequality_",
+    "FertilityRate_",
+    "GrowthRate_",
+    "sdg/",
+]
+
+_SV_FULL_DCID_NO_PC = ["Count_Person"]
+
+
+def is_percapita_relevant(sv_dcid: str) -> bool:
+  for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
+    if skip_phrase in sv_dcid:
+      return False
+  for skip_sv in _SV_FULL_DCID_NO_PC:
+    if skip_sv == sv_dcid:
+      return False
+  return True

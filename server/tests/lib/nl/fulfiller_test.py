@@ -19,20 +19,22 @@ from unittest.mock import patch
 
 from server.lib.nl import constants
 from server.lib.nl import counters as ctr
-from server.lib.nl import fulfiller
+from server.lib.nl import rank_utils
 from server.lib.nl import utils
 from server.lib.nl import utterance
 from server.lib.nl import variable
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import ContainedInPlaceType
-from server.lib.nl.detection import Detection
-from server.lib.nl.detection import NLClassifier
-from server.lib.nl.detection import Place
-from server.lib.nl.detection import PlaceDetection
-from server.lib.nl.detection import RankingType
-from server.lib.nl.detection import SVDetection
-import server.lib.nl.detection as nl_detection
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import PlaceDetection
+from server.lib.nl.detection.types import RankingType
+from server.lib.nl.detection.types import SVDetection
+import server.lib.nl.detection.types as nl_detection
 from server.lib.nl.fulfillment import base
+from server.lib.nl.fulfillment import existence
+from server.lib.nl.fulfillment import main
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
@@ -54,7 +56,7 @@ from server.tests.lib.nl.test_utterance import TIME_DELTA_ACROSS_VARS_UTTR
 # - variable.extend_svs
 # - utils.sv_existence_for_places | utils.sv_existence_for_places_check_single_point
 # - utils.get_sample_child_places
-# - fulfillment.base._build_chart_vars
+# - fulfillment.existence._build_chart_vars
 # - fulfillment.base.open_topics_ordered
 #
 class TestDataSpecNext(unittest.TestCase):
@@ -301,7 +303,7 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This exercises Topic expansion.
   @patch.object(variable, 'extend_svs')
-  @patch.object(base, '_build_chart_vars')
+  @patch.object(existence, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places_check_single_point')
   def test_simple_with_topic(self, mock_sv_existence, mock_topic_to_svs,
                              mock_extend_svs):
@@ -346,8 +348,8 @@ class TestDataSpecNext(unittest.TestCase):
   # This follows up on test_simple().  It relies on topic as well.
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'rank_svs_by_latest_value')
-  @patch.object(base, '_build_chart_vars')
+  @patch.object(rank_utils, 'rank_svs_by_latest_value')
+  @patch.object(existence, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
                               mock_rank_svs, mock_extend_svs):
@@ -395,8 +397,8 @@ class TestDataSpecNext(unittest.TestCase):
   # This follows up on test_simple().  It relies on topic as well.
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'rank_svs_by_series_growth')
-  @patch.object(base, '_build_chart_vars')
+  @patch.object(rank_utils, 'rank_svs_by_series_growth')
+  @patch.object(existence, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
                       mock_extend_svs):
@@ -421,7 +423,7 @@ class TestDataSpecNext(unittest.TestCase):
         'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
     ]]
     # Differently order result
-    mock_rank_svs.return_value = utils.GrowthRankedLists(
+    mock_rank_svs.return_value = rank_utils.GrowthRankedLists(
         pct=[
             'FarmInventory_Barley',
             'FarmInventory_Rice',
@@ -471,7 +473,7 @@ class TestDataSpecNext(unittest.TestCase):
     }]
 
     counters = ctr.Counters()
-    fulfiller.fulfill(detection, None, counters, constants.TEST_SESSION_ID)
+    main.fulfill(detection, None, counters, constants.TEST_SESSION_ID)
     got = counters.get()
 
     self.maxDiff = None
@@ -579,5 +581,5 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
     prev_uttr = utterance.load_utterance(uttr_dict)
   counters = ctr.Counters()
   return utterance.save_utterance(
-      fulfiller.fulfill(detection, prev_uttr, counters,
-                        constants.TEST_SESSION_ID))[0]
+      main.fulfill(detection, prev_uttr, counters,
+                   constants.TEST_SESSION_ID))[0]

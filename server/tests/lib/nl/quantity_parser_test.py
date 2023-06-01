@@ -18,8 +18,8 @@ import unittest
 
 from parameterized import parameterized
 
-from server.lib.nl import quantity_parser
 from server.lib.nl.counters import Counters
+from server.lib.nl.detection import quantity
 
 
 class TestQuantityParser(unittest.TestCase):
@@ -87,7 +87,7 @@ class TestQuantityParser(unittest.TestCase):
   ])
   def test_main(self, query, expected):
     ctr = Counters()
-    attr = quantity_parser.parse_quantity(query, ctr)
+    attr = quantity.parse_quantity(query, ctr)
     logging.info(attr)
     if attr:
       actual = str(attr)

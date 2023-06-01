@@ -18,7 +18,7 @@ from typing import List
 
 from server.lib.nl import constants
 from server.lib.nl import counters as ctr
-from server.lib.nl.detection import Detection
+from server.lib.nl.detection.types import Detection
 from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.utterance import QueryType

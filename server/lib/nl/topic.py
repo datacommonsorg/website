@@ -13,10 +13,12 @@
 # limitations under the License.
 """Module for NL topics"""
 
+import time
 from typing import List
 
 from server.lib import fetch
 from server.lib.nl import utils
+import server.lib.nl.counters as ctr
 
 _MIN_TOPIC_RANK = 2
 
@@ -481,3 +483,52 @@ def _get_svpg_vars(svpg: str) -> List[str]:
   if not svs:
     svs = fetch.property_values(nodes=[svpg], prop='member')[svpg]
   return svs
+
+
+# Takes a list of ordered vars which may contain SV and topic,
+# opens up "highly ranked" topics into SVs and returns it
+# ordered.
+def open_top_topics_ordered(svs: List[str],
+                            counters: ctr.Counters) -> List[str]:
+  opened_svs = []
+  sv_set = set()
+  start = time.time()
+  for rank, var in enumerate(svs):
+    for sv in _open_topic_in_var(var, rank, counters):
+      if sv not in sv_set:
+        opened_svs.append(sv)
+        sv_set.add(sv)
+  counters.timeit('open_top_topics_ordered', start)
+  return opened_svs
+
+
+def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
+  if utils.is_sv(sv):
+    return [sv]
+  if utils.is_topic(sv):
+    topic_vars = get_topic_vars(sv, rank)
+    peer_groups = get_topic_peers(topic_vars)
+
+    # Classify into two lists.
+    just_svs = []
+    svpgs = []
+    for v in topic_vars:
+      if v in peer_groups and peer_groups[v]:
+        title = svpg_name(v)
+        svpgs.append((title, peer_groups[v]))
+      else:
+        just_svs.append(v)
+
+    svs = just_svs
+    for (title, svpg) in svpgs:
+      svs.extend(svpg)
+
+    counters.info('topics_processed',
+                  {sv: {
+                      'svs': just_svs,
+                      'peer_groups': svpgs,
+                  }})
+
+    return svs
+
+  return []

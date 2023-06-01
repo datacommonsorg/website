@@ -16,14 +16,15 @@ import copy
 import logging
 from typing import List
 
+from server.lib.nl import rank_utils
 from server.lib.nl import utils
-from server.lib.nl.detection import ContainedInPlaceType
-from server.lib.nl.detection import Place
+from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import ChartVars
-from server.lib.nl.fulfillment.base import open_top_topics_ordered
 from server.lib.nl.fulfillment.base import populate_charts
-from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.topic import open_top_topics_ordered
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance
@@ -103,16 +104,17 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('Attempting to filter places')
   sv = chart_vars.svs[0]
 
-  ranked_children = utils.filter_and_rank_places(parent_place=places[0],
-                                                 child_type=state.place_type,
-                                                 sv=sv,
-                                                 filter=state.quantity)
+  ranked_children = rank_utils.filter_and_rank_places(
+      parent_place=places[0],
+      child_type=state.place_type,
+      sv=sv,
+      filter=state.quantity)
 
   if not ranked_children:
     state.uttr.counters.err('filter-with-dual-vars_emptyresults', 1)
     return False
 
-  show_lowest = utils.sort_filtered_results_lowest_first(state.quantity)
+  show_lowest = rank_utils.sort_filtered_results_lowest_first(state.quantity)
   if show_lowest:
     ranked_children.reverse()
   shortlist = ranked_children[:_MAX_PLACES_TO_RETURN]

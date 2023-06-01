@@ -15,9 +15,9 @@
 from typing import Dict, List
 
 from server.lib.nl import constants
-from server.lib.nl.detection import ClassificationAttributes
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import Place
+from server.lib.nl.detection.types import ClassificationAttributes
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import Place
 from server.lib.nl.utterance import CTX_LOOKBACK_LIMIT
 from server.lib.nl.utterance import QueryType
 from server.lib.nl.utterance import Utterance

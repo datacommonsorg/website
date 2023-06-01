@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.lib.nl import utils
-from server.lib.nl.detection import Place
-from server.lib.nl.fulfillment import context as ctx
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import ChartVars
-from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance

@@ -30,18 +30,18 @@ from markupsafe import escape
 import requests
 
 from server.lib import fetch
+import server.lib.nl.config_builder.main as nl_page_config
 import server.lib.nl.constants as constants
 import server.lib.nl.counters as ctr
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import Detection
-from server.lib.nl.detection import NLClassifier
-from server.lib.nl.detection import Place
-from server.lib.nl.detection import PlaceDetection
-from server.lib.nl.detection import SimpleClassificationAttributes
-from server.lib.nl.detection import SVDetection
-import server.lib.nl.fulfiller as fulfillment
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import PlaceDetection
+from server.lib.nl.detection.types import SimpleClassificationAttributes
+from server.lib.nl.detection.types import SVDetection
 import server.lib.nl.fulfillment.context as context
-import server.lib.nl.page_config_builder as nl_page_config
+import server.lib.nl.fulfillment.main as fulfillment
 import server.lib.nl.utils as utils
 import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_nl_disaster_config
@@ -525,8 +525,7 @@ def data():
 
   if utterance.rankedCharts:
     start = time.time()
-    page_config_pb = nl_page_config.build_page_config(utterance,
-                                                      disaster_config)
+    page_config_pb = nl_page_config.build(utterance, disaster_config)
     page_config = json.loads(MessageToJson(page_config_pb))
     counters.timeit('build_page_config', start)
 

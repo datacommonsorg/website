@@ -15,7 +15,7 @@
 
 import unittest
 
-import server.lib.nl.utils as utils
+import server.lib.nl.rank_utils as utils
 
 
 class TestComputeGrowthRate(unittest.TestCase):

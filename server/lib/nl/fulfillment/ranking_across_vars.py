@@ -15,12 +15,13 @@
 import logging
 from typing import List
 
+from server.lib.nl import rank_utils
 from server.lib.nl import utils
-from server.lib.nl.detection import Place
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import ChartVars
 from server.lib.nl.fulfillment.base import populate_charts
-from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance
@@ -81,9 +82,10 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     return False
 
   # Ranking among peer group of SVs.
-  ranked_svs = utils.rank_svs_by_latest_value(places[0].dcid, chart_vars.svs,
-                                              state.ranking_types[0],
-                                              state.uttr.counters)
+  ranked_svs = rank_utils.rank_svs_by_latest_value(places[0].dcid,
+                                                   chart_vars.svs,
+                                                   state.ranking_types[0],
+                                                   state.uttr.counters)
   state.uttr.counters.info('ranking-across-vars_reranked_svs', {
       'orig': chart_vars.svs,
       'ranked': ranked_svs,

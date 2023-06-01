@@ -15,13 +15,13 @@
 import logging
 from typing import List
 
+from server.lib.nl import rank_utils
 from server.lib.nl import utils
-from server.lib.nl.detection import Place
-from server.lib.nl.detection import TimeDeltaType
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import ChartVars
 from server.lib.nl.fulfillment.base import populate_charts
-from server.lib.nl.fulfillment.base import PopulateState
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.utterance import ChartOriginType
 from server.lib.nl.utterance import ChartType
 from server.lib.nl.utterance import Utterance
@@ -86,7 +86,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   dcids = list(dcid2place.keys())
 
   direction = state.time_delta_types[0]
-  ranked_children = utils.rank_places_by_series_growth(
+  ranked_children = rank_utils.rank_places_by_series_growth(
       places=dcids,
       sv=chart_vars.svs[0],
       growth_direction=direction,

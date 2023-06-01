@@ -14,13 +14,13 @@
 
 from typing import List
 
-from server.lib.nl import detection
 from server.lib.nl import utils
+from server.lib.nl.detection import types
 import server.lib.nl.fulfillment.base as base
 import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.utterance as nl_uttr
 
-_DEFAULT_EVENT_PLACE = detection.Place("country/USA", "USA", "Country")
+_DEFAULT_EVENT_PLACE = types.Place("country/USA", "USA", "Country")
 
 #
 # Handler for Event queries.
@@ -29,21 +29,21 @@ _DEFAULT_EVENT_PLACE = detection.Place("country/USA", "USA", "Country")
 
 def populate(uttr: nl_uttr.Utterance) -> bool:
   event_classification = ctx.classifications_of_type_from_utterance(
-      uttr, detection.ClassificationType.EVENT)
+      uttr, types.ClassificationType.EVENT)
   if (not event_classification or
       not isinstance(event_classification[0].attributes,
-                     detection.EventClassificationAttributes) or
+                     types.EventClassificationAttributes) or
       not event_classification[0].attributes.event_types):
     uttr.counters.err('event_failed_no_event_types', 1)
     return False
   event_types = event_classification[0].attributes.event_types
 
   ranking_classification = ctx.classifications_of_type_from_utterance(
-      uttr, detection.ClassificationType.RANKING)
+      uttr, types.ClassificationType.RANKING)
   ranking_types = []
   if (ranking_classification and
       isinstance(ranking_classification[0].attributes,
-                 detection.RankingClassificationAttributes) and
+                 types.RankingClassificationAttributes) and
       ranking_classification[0].attributes.ranking_type):
     ranking_types = ranking_classification[0].attributes.ranking_type
 
@@ -53,7 +53,7 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
 
 
 def _populate_event(state: base.PopulateState,
-                    event_types: List[detection.EventType]) -> bool:
+                    event_types: List[types.EventType]) -> bool:
   for pl in state.uttr.places:
     if (_populate_event_for_place(state, event_types, pl)):
       return True
@@ -71,8 +71,8 @@ def _populate_event(state: base.PopulateState,
 
 
 def _populate_event_for_place(state: base.PopulateState,
-                              event_types: List[detection.EventType],
-                              place: detection.Place) -> bool:
+                              event_types: List[types.EventType],
+                              place: types.Place) -> bool:
   event_type = event_types[0]
   if not utils.event_existence_for_place(place.dcid, event_type,
                                          state.uttr.counters):
