@@ -22,6 +22,7 @@ import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import {
   addPolygonLayer,
@@ -424,3 +425,15 @@ export function draw(
     );
   }
 }
+
+/**
+ * Renders map chart tile component in the given HTML element
+ * @param element DOM element to render the chart
+ * @param props map chart tile component properties
+ */
+export const renderMapComponent = (
+  element: HTMLElement,
+  props: MapTilePropType
+): void => {
+  ReactDOM.render(React.createElement(MapTile, props), element);
+};
