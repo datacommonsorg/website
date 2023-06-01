@@ -34,9 +34,9 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
 
 
-def detection(orig_query: str, cleaned_query: str, index_type: str,
-              query_detection_debug_logs: Dict,
-              counters: ctr.Counters) -> Detection:
+def detect(orig_query: str, cleaned_query: str, index_type: str,
+           query_detection_debug_logs: Dict,
+           counters: ctr.Counters) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
