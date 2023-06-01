@@ -74,7 +74,7 @@ const MAP_PATH_OPACITY = "0.5";
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
  * scales and translates the projection to allow resizing of the choropleth map
  */
-export function fitSize(
+function fitSize(
   width: number,
   height: number,
   object: GeoJsonData | GeoJsonFeature,

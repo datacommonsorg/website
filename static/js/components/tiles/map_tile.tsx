@@ -26,7 +26,6 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   addPolygonLayer,
   drawD3Map,
-  fitSize,
   getProjection,
 } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
@@ -413,7 +412,7 @@ export function draw(
     chartData.showMapBoundaries,
     projection
   );
-  if (!_.isEmpty(chartData.borderGeoJson)) {
+  if (shouldUseBorderData) {
     addPolygonLayer(
       mapContainer,
       chartData.borderGeoJson,
