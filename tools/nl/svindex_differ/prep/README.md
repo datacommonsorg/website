@@ -6,6 +6,6 @@ querysets used for SV index evaluation.
 
 Run it as:
 
-```
+```bash
 # ./run.sh
 ```

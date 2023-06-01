@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import csv
-import json
 
 from absl import app
 from absl import flags
