@@ -39,9 +39,9 @@ function renderPage(): void {
   // Event
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
-  const properties = JSON.parse(document.getElementById("node").dataset.pv);
+  const properties = JSON.parse(document.getElementById("node").dataset.pv || "{}");
   const provenance = JSON.parse(
-    document.getElementById("node").dataset.provenance
+    document.getElementById("node").dataset.provenance || "[]"
   );
 
   // Event place
@@ -50,10 +50,10 @@ function renderPage(): void {
   const placeTypes = [document.getElementById("place").dataset.type] || [];
   const place = { dcid: placeDcid, name: placeName, types: placeTypes };
   const parentPlaces = JSON.parse(
-    document.getElementById("place").dataset.parents
+    document.getElementById("place").dataset.parents || "[]"
   );
   const subjectConfig = JSON.parse(
-    document.getElementById("subject-config").dataset.config
+    document.getElementById("subject-config").dataset.config || "{}"
   );
 
   ReactDOM.render(
