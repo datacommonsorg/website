@@ -27,7 +27,7 @@ from server.lib.nl.common import topic
 from server.lib.nl.common import utils
 from server.lib.nl.common import utterance
 from server.lib.nl.common import variable
-from server.lib.nl.config_builder import main
+from server.lib.nl.config_builder import builder
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
@@ -827,4 +827,4 @@ def _run(uttr_dict: Dict,
          config: SubjectPageConfig = None) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
   uttr.counters = ctr.Counters()
-  return text_format.MessageToString(main.build(uttr, config))
+  return text_format.MessageToString(builder.build(uttr, config))

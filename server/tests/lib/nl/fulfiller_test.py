@@ -34,7 +34,7 @@ from server.lib.nl.detection.types import SVDetection
 import server.lib.nl.detection.types as nl_detection
 from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import existence
-from server.lib.nl.fulfillment import main
+from server.lib.nl.fulfillment import fulfiller
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
@@ -473,7 +473,7 @@ class TestDataSpecNext(unittest.TestCase):
     }]
 
     counters = ctr.Counters()
-    main.fulfill(detection, None, counters, constants.TEST_SESSION_ID)
+    fulfiller.fulfill(detection, None, counters, constants.TEST_SESSION_ID)
     got = counters.get()
 
     self.maxDiff = None
@@ -581,5 +581,5 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
     prev_uttr = utterance.load_utterance(uttr_dict)
   counters = ctr.Counters()
   return utterance.save_utterance(
-      main.fulfill(detection, prev_uttr, counters,
-                   constants.TEST_SESSION_ID))[0]
+      fulfiller.fulfill(detection, prev_uttr, counters,
+                        constants.TEST_SESSION_ID))[0]

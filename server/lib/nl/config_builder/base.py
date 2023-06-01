@@ -171,10 +171,10 @@ def is_sv_percapita(sv_name: str, sv_dcid: str) -> bool:
 
 def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
   if len(cspec.places) > 1:
-    logging.error('Incompatible MAP/RANKING: too-many-places ', cspec)
+    logging.error(f'Incompatible MAP/RANKING: too-many-places {cspec}')
     return False
   if 'place_type' not in cspec.attr or not cspec.attr['place_type']:
-    logging.error('Incompatible MAP/RANKING: missing-place-type', cspec)
+    logging.error(f'Incompatible MAP/RANKING: missing-place-type {cspec}')
     return False
   return True
 

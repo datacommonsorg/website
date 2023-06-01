@@ -315,7 +315,7 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
     # Infer comparison charts with extended SVs.
     if not exist_state.chart_vars_list:
       continue
-    assert len(exist_state.chart_vars_list) == 1, f'exist_state'
+    assert len(exist_state.chart_vars_list) == 1, f'{exist_state}'
     chart_vars = tracker.get_chart_vars(exist_state.chart_vars_list[0])
     if len(chart_vars.svs) > 1:
       exist_svs_key = ''.join(sorted(chart_vars.svs))

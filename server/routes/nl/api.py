@@ -31,11 +31,11 @@ import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
-import server.lib.nl.config_builder.main as config_builder
-import server.lib.nl.detection.main as detection
+import server.lib.nl.config_builder.builder as config_builder
+import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Place
 import server.lib.nl.fulfillment.context as context
-import server.lib.nl.fulfillment.main as fulfillment
+import server.lib.nl.fulfillment.fulfiller as fulfillment
 from server.lib.util import get_nl_disaster_config
 import server.services.bigtable as bt
 import shared.lib.utils as shared_utils
@@ -87,8 +87,8 @@ def data():
 
   if not query:
     logging.info("Query was empty")
-    query_detection = detection.detect("", "", embeddings_index_type,
-                                       query_detection_debug_logs, counters)
+    query_detection = detector.detect("", "", embeddings_index_type,
+                                      query_detection_debug_logs, counters)
     data_dict = dbg.result_with_debug_info(
         data_dict=res,
         status="Aborted: Query was Empty.",
@@ -102,9 +102,9 @@ def data():
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detection.detect(str(escape(original_query)), query,
-                                     embeddings_index_type,
-                                     query_detection_debug_logs, counters)
+  query_detection = detector.detect(str(escape(original_query)), query,
+                                    embeddings_index_type,
+                                    query_detection_debug_logs, counters)
   counters.timeit('query_detection', start)
 
   # Generate new utterance.
