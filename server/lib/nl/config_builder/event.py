@@ -16,9 +16,9 @@ import logging
 
 from server.config.subject_page_pb2 import Block
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl import utils
+from server.lib.nl.common import utils
+import server.lib.nl.common.constants as constants
 from server.lib.nl.config_builder import base
-import server.lib.nl.constants as constants
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType

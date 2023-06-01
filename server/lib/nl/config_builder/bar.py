@@ -16,10 +16,10 @@ from typing import List
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl import variable
+from server.lib.nl.common import variable
+from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
-from server.lib.nl.utterance import ChartOriginType
 
 
 def multiple_place_bar_block(column, places: List[Place], svs: List[str],

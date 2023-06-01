@@ -26,16 +26,16 @@ from flask import request
 from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
+import server.lib.nl.common.constants as constants
+import server.lib.nl.common.counters as ctr
+import server.lib.nl.common.debug_utils as dbg
+import server.lib.nl.common.utils as utils
+import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.main as config_builder
-import server.lib.nl.constants as constants
-import server.lib.nl.counters as ctr
-import server.lib.nl.debug_utils as dbg
 import server.lib.nl.detection.main as detection
 from server.lib.nl.detection.types import Place
 import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.main as fulfillment
-import server.lib.nl.utils as utils
-import server.lib.nl.utterance as nl_utterance
 from server.lib.util import get_nl_disaster_config
 import server.services.bigtable as bt
 import shared.lib.utils as shared_utils

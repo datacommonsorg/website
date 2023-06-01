@@ -14,11 +14,11 @@
 
 from typing import List
 
-from server.lib.nl import utils
+from server.lib.nl.common import utils
+import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.detection import types
 import server.lib.nl.fulfillment.base as base
 import server.lib.nl.fulfillment.context as ctx
-import server.lib.nl.utterance as nl_uttr
 
 _DEFAULT_EVENT_PLACE = types.Place("country/USA", "USA", "Country")
 

@@ -15,7 +15,9 @@
 import time
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.nl import variable
+from server.lib.nl.common import variable
+from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import event
@@ -23,8 +25,6 @@ from server.lib.nl.config_builder import map
 from server.lib.nl.config_builder import ranking
 from server.lib.nl.config_builder import scatter
 from server.lib.nl.config_builder import timeline
-from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import Utterance
 
 
 #

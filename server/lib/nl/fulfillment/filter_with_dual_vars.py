@@ -16,18 +16,18 @@ import copy
 import logging
 from typing import List
 
-from server.lib.nl import rank_utils
-from server.lib.nl import utils
+from server.lib.nl.common import rank_utils
+from server.lib.nl.common import utils
+from server.lib.nl.common.topic import open_top_topics_ordered
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
-from server.lib.nl.topic import open_top_topics_ordered
-from server.lib.nl.utterance import ChartOriginType
-from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import Utterance
 
 # TODO: Support per-capita
 # TODO: Increase this after frontend handles comparedPlaces better.

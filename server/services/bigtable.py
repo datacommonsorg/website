@@ -21,7 +21,7 @@ import google.auth
 from google.cloud import bigtable
 from google.cloud.bigtable import row_filters
 
-import server.lib.nl.constants as nl_constants
+import server.lib.nl.common.constants as nl_constants
 
 _PROJECT_ID = 'datcom-store'
 _INSTANCE_ID = 'website-data'

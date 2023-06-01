@@ -20,12 +20,12 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import List
 
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import QuantityClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import TimeDeltaType
-from server.lib.nl.utterance import Utterance
 
 
 # Data structure to store state for a single "populate" call.

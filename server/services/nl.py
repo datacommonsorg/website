@@ -18,7 +18,7 @@ import logging
 import re
 from typing import Dict, List, Union
 
-from server.lib.nl.counters import Counters
+from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import quantity
 from server.lib.nl.detection.place import NLPlaceDetector
 from server.lib.nl.detection.types import BinaryClassificationResultType

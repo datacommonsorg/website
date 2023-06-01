@@ -17,12 +17,12 @@ import logging
 import time
 from typing import Dict, List
 
-from server.lib.nl import constants
-from server.lib.nl import topic
-from server.lib.nl import utils
+from server.lib.nl.common import constants
+from server.lib.nl.common import topic
+from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
-from server.lib.nl.utterance import QueryType
 
 _EVENT_PREFIX = 'event/'
 

@@ -22,7 +22,7 @@
 
 import re
 
-from server.lib.nl.counters import Counters
+from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection.types import QCmpType
 from server.lib.nl.detection.types import Quantity
 from server.lib.nl.detection.types import QuantityClassificationAttributes

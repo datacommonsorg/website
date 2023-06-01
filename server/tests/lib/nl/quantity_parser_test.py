@@ -18,7 +18,7 @@ import unittest
 
 from parameterized import parameterized
 
-from server.lib.nl.counters import Counters
+from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection import quantity
 
 

@@ -20,7 +20,7 @@ from flask import current_app
 import requests
 
 from server.lib import fetch
-import server.lib.nl.constants as constants
+import server.lib.nl.common.constants as constants
 from server.lib.nl.detection.types import Place
 import server.services.datacommons as dc
 import shared.lib.utils as utils

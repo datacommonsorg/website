@@ -16,7 +16,7 @@ from typing import Dict
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl import variable
+from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
 

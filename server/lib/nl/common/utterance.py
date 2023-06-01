@@ -21,7 +21,7 @@ from enum import IntEnum
 import logging
 from typing import Dict, List
 
-from server.lib.nl import counters as ctr
+from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType

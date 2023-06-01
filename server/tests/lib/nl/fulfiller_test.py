@@ -17,12 +17,12 @@ from typing import Dict, List
 import unittest
 from unittest.mock import patch
 
-from server.lib.nl import constants
-from server.lib.nl import counters as ctr
-from server.lib.nl import rank_utils
-from server.lib.nl import utils
-from server.lib.nl import utterance
-from server.lib.nl import variable
+from server.lib.nl.common import constants
+from server.lib.nl.common import counters as ctr
+from server.lib.nl.common import rank_utils
+from server.lib.nl.common import utils
+from server.lib.nl.common import utterance
+from server.lib.nl.common import variable
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection

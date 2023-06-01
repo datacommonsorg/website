@@ -19,9 +19,9 @@ import time
 from typing import Dict, List, NamedTuple, Tuple
 
 import server.lib.fetch as fetch
-from server.lib.nl import variable
-import server.lib.nl.constants as constants
-import server.lib.nl.counters as ctr
+from server.lib.nl.common import variable
+import server.lib.nl.common.constants as constants
+import server.lib.nl.common.counters as ctr
 import server.lib.nl.detection.types as types
 
 # (growth_direction, rank_order) -> reverse

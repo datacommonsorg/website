@@ -19,13 +19,13 @@ from typing import Dict
 from server.config.subject_page_pb2 import Block
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl import utils
+from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartSpec
+from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.common.utterance import TimeDeltaType
 from server.lib.nl.detection.types import Place
-from server.lib.nl.utterance import ChartOriginType
-from server.lib.nl.utterance import ChartSpec
-from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import QueryType
-from server.lib.nl.utterance import TimeDeltaType
 
 
 class Builder:

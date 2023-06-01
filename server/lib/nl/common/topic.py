@@ -17,8 +17,8 @@ import time
 from typing import List
 
 from server.lib import fetch
-from server.lib.nl import utils
-import server.lib.nl.counters as ctr
+from server.lib.nl.common import utils
+import server.lib.nl.common.counters as ctr
 
 _MIN_TOPIC_RANK = 2
 

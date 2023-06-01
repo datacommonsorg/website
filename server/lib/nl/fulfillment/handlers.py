@@ -16,7 +16,9 @@
 from dataclasses import dataclass
 from typing import List
 
-from server.lib.nl import utils
+from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
@@ -36,8 +38,6 @@ from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
-from server.lib.nl.utterance import QueryType
-from server.lib.nl.utterance import Utterance
 
 
 # Represents a query type handler.

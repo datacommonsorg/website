@@ -16,9 +16,13 @@ import logging
 import time
 from typing import List
 
-from server.lib.nl import constants
-from server.lib.nl import utils
-from server.lib.nl import variable
+from server.lib.nl.common import constants
+from server.lib.nl.common import utils
+from server.lib.nl.common import variable
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartSpec
+from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import context
@@ -26,10 +30,6 @@ from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
-from server.lib.nl.utterance import ChartOriginType
-from server.lib.nl.utterance import ChartSpec
-from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import QueryType
 
 # Limit the number of charts.  With 3 per row max, allow up to 5 rows.
 _MAX_NUM_CHARTS = 15

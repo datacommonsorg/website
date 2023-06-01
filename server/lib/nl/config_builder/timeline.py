@@ -14,10 +14,10 @@
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
-from server.lib.nl import variable
+from server.lib.nl.common import variable
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartSpec
 from server.lib.nl.config_builder import base
-from server.lib.nl.utterance import ChartOriginType
-from server.lib.nl.utterance import ChartSpec
 
 
 def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,

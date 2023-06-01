@@ -20,11 +20,11 @@ import time
 from typing import Dict, List
 
 import server.lib.fetch as fetch
-import server.lib.nl.constants as constants
-import server.lib.nl.counters as ctr
+import server.lib.nl.common.constants as constants
+import server.lib.nl.common.counters as ctr
+import server.lib.nl.common.utterance as nl_uttr
 import server.lib.nl.detection.types as types
 import server.lib.nl.fulfillment.context as ctx
-import server.lib.nl.utterance as nl_uttr
 import shared.lib.constants as shared_constants
 
 # TODO: Consider tweaking/reducing this

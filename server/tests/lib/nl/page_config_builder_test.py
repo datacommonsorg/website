@@ -22,11 +22,11 @@ from google.protobuf import text_format
 from parameterized import parameterized
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.nl import counters as ctr
-from server.lib.nl import topic
-from server.lib.nl import utils
-from server.lib.nl import utterance
-from server.lib.nl import variable
+from server.lib.nl.common import counters as ctr
+from server.lib.nl.common import topic
+from server.lib.nl.common import utils
+from server.lib.nl.common import utterance
+from server.lib.nl.common import variable
 from server.lib.nl.config_builder import main
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR

@@ -18,7 +18,7 @@ from typing import Dict
 
 from flask import current_app
 
-import server.lib.nl.counters as ctr
+import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.place import infer_place_dcids
 from server.lib.nl.detection.place import remove_places

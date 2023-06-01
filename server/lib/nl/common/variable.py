@@ -20,8 +20,8 @@ import os
 from typing import Dict, List
 
 import server.lib.fetch as fetch
-import server.lib.nl.constants as constants
-import server.lib.nl.utils as utils
+import server.lib.nl.common.constants as constants
+import server.lib.nl.common.utils as utils
 import server.services.datacommons as dc
 
 # TODO: This is reading the file on every call.  Improve it!
