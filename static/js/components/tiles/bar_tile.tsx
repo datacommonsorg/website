@@ -262,7 +262,7 @@ export function draw(
 /**
  * Renders bar chart tile component in the given HTML element
  * @param element DOM element to render the chart
- * @param props line chart tile component properties
+ * @param props bar chart tile component properties
  */
 export const renderBarComponent = (
   element: HTMLElement,

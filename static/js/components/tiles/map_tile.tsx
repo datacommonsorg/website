@@ -419,7 +419,7 @@ export function draw(
 /**
  * Renders map chart tile component in the given HTML element
  * @param element DOM element to render the chart
- * @param props line chart tile component properties
+ * @param props map chart tile component properties
  */
 export const renderMapComponent = (
   element: HTMLElement,
