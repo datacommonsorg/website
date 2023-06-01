@@ -383,26 +383,23 @@ export function draw(
     formatNumber
   );
   const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
+  const shouldUseBorderData =
+    props.enclosedPlaceType &&
+    shouldShowBorder(props.enclosedPlaceType) &&
+    !_.isEmpty(chartData.borderGeoJson);
+  // Use border data to calculate projection if using borders.
+  // This prevents borders from being cutoff when enclosed places don't
+  // provide wall to wall coverage.
+  const projectionData = shouldUseBorderData
+    ? chartData.borderGeoJson
+    : chartData.geoJson;
   const projection = getProjection(
     chartData.isUsaPlace,
     props.place.dcid,
     chartWidth,
     height,
-    chartData.geoJson
+    projectionData
   );
-  // Re-fit projection to border data if border data is available.
-  // This prevents borders from getting cutoff if enclosed places don't
-  // stretch wall-to-wall.
-  if (!_.isEmpty(chartData.borderGeoJson)) {
-    fitSize(
-      chartWidth,
-      height,
-      chartData.borderGeoJson,
-      projection,
-      d3.geoPath().projection(projection),
-      1
-    );
-  }
   drawD3Map(
     mapContainer,
     chartData.geoJson,
