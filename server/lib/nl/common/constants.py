@@ -13,11 +13,11 @@
 # limitations under the License.
 """Various constants for NL detection."""
 
-from typing import Dict, FrozenSet, List, Set, Union
+from typing import Dict, List
 
-from server.lib.nl.detection import ContainedInPlaceType
-from server.lib.nl.detection import EventType
-from server.lib.nl.detection import Place
+from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import Place
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 

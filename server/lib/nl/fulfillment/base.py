@@ -12,79 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
-from dataclasses import field
 import logging
 import time
-from typing import Dict, List
+from typing import List
 
-from server.lib.nl import constants
-from server.lib.nl import topic
-from server.lib.nl import utils
-from server.lib.nl import variable
-import server.lib.nl.counters as ctr
-from server.lib.nl.detection import ContainedInPlaceType
-from server.lib.nl.detection import EventType
-from server.lib.nl.detection import Place
-from server.lib.nl.detection import QuantityClassificationAttributes
-from server.lib.nl.detection import RankingType
-from server.lib.nl.detection import TimeDeltaType
+from server.lib.nl.common import constants
+from server.lib.nl.common import utils
+from server.lib.nl.common import variable
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartSpec
+from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import context
-from server.lib.nl.utterance import ChartOriginType
-from server.lib.nl.utterance import ChartSpec
-from server.lib.nl.utterance import ChartType
-from server.lib.nl.utterance import QueryType
-from server.lib.nl.utterance import Utterance
-
-_EVENT_PREFIX = 'event/'
+from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
+from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 
 # Limit the number of charts.  With 3 per row max, allow up to 5 rows.
 _MAX_NUM_CHARTS = 15
 
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
-
-
-# Data structure to store state for a single "populate" call.
-@dataclass
-class PopulateState:
-  uttr: Utterance
-  main_cb: any
-  place_type: ContainedInPlaceType = None
-  ranking_types: List[RankingType] = field(default_factory=list)
-  time_delta_types: List[TimeDeltaType] = field(default_factory=list)
-  quantity: QuantityClassificationAttributes = None
-  block_id: int = 0
-
-
-# Data structure for configuring the vars that go into a chart.
-@dataclass
-class ChartVars:
-  # Only one of svs or events is set.
-  svs: List[str]
-  # Represents a grouping of charts on the resulting display.
-  block_id: int
-  include_percapita: bool = True
-  title: str = ""
-  description: str = ""
-  title_suffix: str = ""
-  # Represents a peer-group of SVs from a Topic.
-  is_topic_peer_group: bool = False
-  # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
-  response_type: str = ""
-  # If svs came from a topic, the topic dcid.
-  source_topic: str = ""
-  event: EventType = None
-  skip_map_for_ranking: bool = False
-  # When `svs` has multiple entries and corresponds to expansion, this represents
-  # the original SV.
-  orig_sv: str = ""
-  # Set for SIMPLE query when all SVs have only one data point.
-  has_single_point: bool = False
-
-  # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
-  growth_direction: TimeDeltaType = None
-  growth_ranking_type: str = None
 
 
 #
@@ -263,170 +214,6 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
   return False
 
 
-#
-# These are data classes to track state needed for batched existence-checks.
-#
-@dataclass
-class ChartVarsExistenceCheckState:
-  chart_vars: ChartVars
-  # Existing svs from among chart_vars.svs
-  # Note that `chart_vars` is not mutated to point to existing SVs.
-  exist_svs: List[str]
-  # Set only if chart_vars.event is true, to indicate event existence.
-  exist_event: bool = False
-
-
-@dataclass
-class SVExistenceCheckState:
-  sv: str
-  chart_vars_list: List[ChartVarsExistenceCheckState]
-  # ChartVars for extended SVs.
-  extended_vars: ChartVarsExistenceCheckState
-
-
-#
-# This class helps batch existence checks.
-# TODO: Fork this into separate classes for main SVs and extensions.
-#
-class ExistenceCheckStateTracker:
-
-  # NOTE: If sv2extensions is set, then this is for extensions only.
-  def __init__(self, state: PopulateState, places: List[str], svs: List[str],
-               sv2extensions: Dict):
-    self.state = state
-    self.places = places
-    self.all_svs = set()
-    self.exist_sv_states: List[SVExistenceCheckState] = []
-    # Map of existing SVs with key as SV DCID and value as
-    # whether the SV has single-data point.
-    self.existing_svs = {}
-
-    # Loop over all SVs, and construct existence check state.
-    for rank, sv in enumerate(svs):
-      exist_state = SVExistenceCheckState(sv=sv,
-                                          chart_vars_list=[],
-                                          extended_vars=None)
-
-      if not sv2extensions:
-        chart_vars_list = _build_chart_vars(state, sv, rank)
-        for chart_vars in chart_vars_list:
-          exist_cv = ChartVarsExistenceCheckState(chart_vars=chart_vars,
-                                                  exist_svs=[])
-          if chart_vars.event:
-            exist_cv.exist_event = utils.event_existence_for_place(
-                places[0], chart_vars.event, self.state.uttr.counters)
-            if not exist_cv.exist_event:
-              state.uttr.counters.err(
-                  'failed_event_existence_check', {
-                      'places': places[:constants.DBG_LIST_LIMIT],
-                      'event': chart_vars.event
-                  })
-          else:
-            if all(v in self.all_svs for v in chart_vars.svs):
-              # Avoid adding SVs that have already been added before.
-              continue
-          self.all_svs.update(chart_vars.svs)
-          exist_state.chart_vars_list.append(exist_cv)
-      else:
-        # Infer comparison charts with extended SVs.
-        extended_svs = sv2extensions.get(sv, [])
-        if extended_svs and not all(v in self.all_svs for v in extended_svs):
-          state.block_id += 1
-          exist_state.extended_vars = ChartVarsExistenceCheckState(
-              chart_vars=ChartVars(svs=extended_svs,
-                                   block_id=state.block_id,
-                                   orig_sv=sv),
-              exist_svs=[])
-          self.all_svs.update(extended_svs)
-
-      # If we have the main chart-vars or extended-svs, add.
-      if exist_state.chart_vars_list or exist_state.extended_vars:
-        self.exist_sv_states.append(exist_state)
-
-  def perform_existence_check(self):
-    # Perform batch existence check.
-    if self.state.uttr.query_type == QueryType.SIMPLE:
-      self.existing_svs = utils.sv_existence_for_places_check_single_point(
-          self.places, list(self.all_svs), self.state.uttr.counters)
-    else:
-      tmp_svs = utils.sv_existence_for_places(self.places, list(self.all_svs),
-                                              self.state.uttr.counters)
-      self.existing_svs = {v: False for v in tmp_svs}
-
-    if self.existing_svs:
-      logging.info('Existence check succeeded for %s - %s',
-                   ', '.join(self.places), ', '.join(self.existing_svs.keys()))
-    else:
-      logging.info('Existence check failed for %s - %s', ', '.join(self.places),
-                   ', '.join(self.all_svs))
-      self.state.uttr.counters.err(
-          'failed_existence_check', {
-              'places': self.places[:constants.DBG_LIST_LIMIT],
-              'type': self.state.place_type,
-              'svs': list(self.all_svs)[:constants.DBG_LIST_LIMIT],
-          })
-      return
-
-    # Set "exist_svs" and "extended_exist_svs" in the same order it was originally found.
-    for es in self.exist_sv_states:
-
-      for ecv in es.chart_vars_list:
-        if ecv.chart_vars.event:
-          continue
-        for sv in ecv.chart_vars.svs:
-          if sv in self.existing_svs:
-            ecv.exist_svs.append(sv)
-        if len(ecv.exist_svs) < len(ecv.chart_vars.svs):
-          self.state.uttr.counters.err(
-              'failed_partial_existence_check', {
-                  'places':
-                      self.places,
-                  'type':
-                      self.state.place_type,
-                  'svs':
-                      list(
-                          set(ecv.chart_vars.svs) -
-                          set(self.existing_svs.keys()))
-                      [:constants.DBG_LIST_LIMIT],
-              })
-
-      if not es.extended_vars:
-        continue
-
-      for esv in es.extended_vars.chart_vars.svs:
-        if esv in self.existing_svs:
-          es.extended_vars.exist_svs.append(esv)
-
-      if len(es.extended_vars.exist_svs) < len(es.extended_vars.chart_vars.svs):
-        self.state.uttr.counters.err(
-            'failed_existence_check_extended_svs', {
-                'places':
-                    self.places[:constants.DBG_LIST_LIMIT],
-                'type':
-                    self.state.place_type,
-                'svs':
-                    list(
-                        set(es.extended_vars.chart_vars.svs) -
-                        set(es.extended_vars.exist_svs))
-                    [:constants.DBG_LIST_LIMIT]
-            })
-        logging.info('Existence check failed for %s - %s',
-                     ', '.join(self.places),
-                     ', '.join(es.extended_vars.chart_vars.svs))
-
-  # Get chart-vars for addition to charts
-  def get_chart_vars(self,
-                     cv_existence: ChartVarsExistenceCheckState) -> ChartVars:
-    cv = cv_existence.chart_vars
-    # Set existing SVs.
-    cv.svs = cv_existence.exist_svs
-    # Set `has_single_point` if all SVs in the ChartVars have a single-data point.
-    # Do so only for SIMPLE charts.
-    if self.state.uttr.query_type == QueryType.SIMPLE:
-      cv.has_single_point = all(self.existing_svs.get(v, False) for v in cv.svs)
-    return cv
-
-
 # Add charts given a place and a list of stat-vars.
 def _add_charts(state: PopulateState, places: List[Place],
                 svs: List[str]) -> bool:
@@ -443,7 +230,7 @@ def _add_charts(state: PopulateState, places: List[Place],
     # Counter updated in get_sample_child_places
     return False
 
-  tracker = ExistenceCheckStateTracker(state, places_to_check, svs, {})
+  tracker = MainExistenceCheckTracker(state, places_to_check, svs)
   tracker.perform_existence_check()
 
   found = False
@@ -497,7 +284,7 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
   # PERF-TODO: This is expensive! (multiple seconds)
   sv2extensions = {}
   start = time.time()
-  svs_for_ext = utils.get_only_svs(svs)[:_MAX_EXTENSION_SVS]
+  svs_for_ext = variable.get_only_svs(svs)[:_MAX_EXTENSION_SVS]
   sv2extensions = variable.extend_svs(svs_for_ext)
   state.uttr.counters.timeit('extend_svs', start)
   state.uttr.counters.info('stat_var_extensions', sv2extensions)
@@ -514,8 +301,8 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
   # We extended some SVs, perform existence check.
   # PERF-NOTE: We do two serial existence-checks because the SV extension
   # call is super expensive.
-  tracker = ExistenceCheckStateTracker(state, places_to_check, svs,
-                                       sv2extensions)
+  tracker = ExtensionExistenceCheckTracker(state, places_to_check, svs,
+                                           sv2extensions)
   tracker.perform_existence_check()
 
   # A set used to ensure that a set of SVs are constructed into charts
@@ -526,9 +313,10 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
   found = False
   for exist_state in tracker.exist_sv_states:
     # Infer comparison charts with extended SVs.
-    if not exist_state.extended_vars:
+    if not exist_state.chart_vars_list:
       continue
-    chart_vars = tracker.get_chart_vars(exist_state.extended_vars)
+    assert len(exist_state.chart_vars_list) == 1, f'{exist_state}'
+    chart_vars = tracker.get_chart_vars(exist_state.chart_vars_list[0])
     if len(chart_vars.svs) > 1:
       exist_svs_key = ''.join(sorted(chart_vars.svs))
       if exist_svs_key in printed_sv_extensions:
@@ -557,127 +345,6 @@ def _get_place_names(places: List[Place]) -> List[str]:
   for p in places:
     names.append(p.name)
   return names
-
-
-#
-# Returns a list of ChartVars, where each ChartVars may be a single SV or
-# group of SVs.
-#
-def _build_chart_vars(state: PopulateState, sv: str,
-                      rank: int) -> List[ChartVars]:
-  if utils.is_sv(sv):
-    state.block_id += 1
-    return [ChartVars(svs=[sv], block_id=state.block_id)]
-  if utils.is_topic(sv):
-    start = time.time()
-    topic_vars = topic.get_topic_vars(sv, rank)
-    peer_groups = topic.get_topic_peers(topic_vars)
-
-    # Classify into two lists.
-    just_svs = []
-    svpgs = []
-    for v in topic_vars:
-      if v in peer_groups and peer_groups[v]:
-        title = topic.svpg_name(v)
-        description = topic.svpg_description(v)
-        svpgs.append((title, description, peer_groups[v]))
-      else:
-        just_svs.append(v)
-    state.uttr.counters.timeit('topic_calls', start)
-
-    # Group into blocks carefully:
-
-    # 1. Make a block for all SVs in just_svs
-    state.block_id += 1
-    charts = []
-    for v in just_svs:
-      # Skip PC for this case (per prior implementation)
-      svs = []
-      event = None
-      if v.startswith(_EVENT_PREFIX):
-        config_key = v[len(_EVENT_PREFIX):]
-        etype = constants.EVENT_CONFIG_KEY_TO_EVENT_TYPE.get(config_key, None)
-        if not etype:
-          continue
-        event = etype
-      else:
-        svs = [v]
-      charts.append(
-          ChartVars(svs=svs,
-                    event=event,
-                    block_id=state.block_id,
-                    include_percapita=False,
-                    source_topic=sv))
-
-    # 2. Make a block for every peer-group in svpgs
-    for (title, description, svs) in svpgs:
-      state.block_id += 1
-      charts.append(
-          ChartVars(svs=svs,
-                    block_id=state.block_id,
-                    include_percapita=False,
-                    title=title,
-                    description=description,
-                    is_topic_peer_group=True,
-                    source_topic=sv))
-
-    state.uttr.counters.info('topics_processed',
-                             {sv: {
-                                 'svs': just_svs,
-                                 'peer_groups': svpgs,
-                             }})
-    return charts
-
-  return []
-
-
-# Takes a list of ordered vars which may contain SV and topic,
-# opens up "highly ranked" topics into SVs and returns it
-# ordered.
-def open_top_topics_ordered(svs: List[str],
-                            counters: ctr.Counters) -> List[str]:
-  opened_svs = []
-  sv_set = set()
-  start = time.time()
-  for rank, var in enumerate(svs):
-    for sv in _open_topic_in_var(var, rank, counters):
-      if sv not in sv_set:
-        opened_svs.append(sv)
-        sv_set.add(sv)
-  counters.timeit('open_top_topics_ordered', start)
-  return opened_svs
-
-
-def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
-  if utils.is_sv(sv):
-    return [sv]
-  if utils.is_topic(sv):
-    topic_vars = topic.get_topic_vars(sv, rank)
-    peer_groups = topic.get_topic_peers(topic_vars)
-
-    # Classify into two lists.
-    just_svs = []
-    svpgs = []
-    for v in topic_vars:
-      if v in peer_groups and peer_groups[v]:
-        title = topic.svpg_name(v)
-        svpgs.append((title, peer_groups[v]))
-      else:
-        just_svs.append(v)
-
-    svs = just_svs
-    for (title, svpg) in svpgs:
-      svs.extend(svpg)
-
-    counters.info('topics_processed',
-                  {sv: {
-                      'svs': just_svs,
-                      'peer_groups': svpgs,
-                  }})
-
-    return svs
-
-  return []
 
 
 def handle_contained_in_type(state: PopulateState, places: List[Place]):

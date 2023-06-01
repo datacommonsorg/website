@@ -28,7 +28,7 @@ mixer:
   useBranchBigtable: false
   useCustomBigtable: true
   foldRemoteRootSvg: true
-  remoteMixerDomain: https://autopush.api.datacommons.org
+  remoteMixerDomain: https://api.datacommons.org
 
 serviceAccount:
   name: website-ksa

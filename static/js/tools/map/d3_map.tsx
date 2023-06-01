@@ -150,12 +150,22 @@ export function D3Map(props: D3MapProps): JSX.Element {
       USA_PLACE_DCID,
       placeInfo.value.parentPlaces
     );
+    const shouldUseBorderData =
+      placeInfo.value.enclosedPlaceType &&
+      shouldShowBorder(placeInfo.value.enclosedPlaceType) &&
+      props.borderGeoJsonData;
+    // Use border data to calculate projection if using borders.
+    // This prevents borders from being cutoff when enclosed places don't
+    // provide wall to wall coverage.
+    const projectionData = shouldUseBorderData
+      ? props.borderGeoJsonData
+      : props.geoJsonData;
     const projection = getProjection(
       isUSAPlace,
       placeInfo.value.enclosingPlace.dcid,
       width - legendWidth,
       height,
-      props.geoJsonData,
+      projectionData,
       zoomDcid
     );
     drawD3Map(
@@ -181,11 +191,8 @@ export function D3Map(props: D3MapProps): JSX.Element {
       zoomDcid,
       zoomParams
     );
-    if (
-      placeInfo.value.enclosedPlaceType &&
-      shouldShowBorder(placeInfo.value.enclosedPlaceType) &&
-      props.borderGeoJsonData
-    ) {
+    // Draw borders
+    if (shouldUseBorderData) {
       addPolygonLayer(
         mapContainerRef.current,
         props.borderGeoJsonData,

@@ -30,6 +30,11 @@ mixer:
 serviceAccount:
   name: website-ksa
 
+ingress:
+  enabled: true
+  ipName: mixer-ip
+  certName: mcrt-7483a5a8-4776-4db4-adcc-fe641b088fd2
+
 nl:
   enabled: true
 
@@ -49,7 +54,7 @@ kgStoreConfig:
     project: datcom-magiceye-dev
     instance: dc-graph
     tables:
-      - magic_eye_2023_02_16_16_23_36
+      - magic_eye_2023_02_18_16_57_52
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

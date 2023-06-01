@@ -19,8 +19,8 @@ from markupsafe import escape
 
 from server.config import subject_page_pb2
 import server.lib.fetch as fetch
-import server.lib.nl.counters as nl_ctr
-import server.lib.nl.utils as nl_utils
+import server.lib.nl.common.counters as nl_ctr
+import server.lib.nl.common.utils as nl_utils
 import server.routes.shared_api.place as place_api
 
 DEFAULT_PLACE_DCID = "Earth"

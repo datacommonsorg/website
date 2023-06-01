@@ -26,7 +26,7 @@ from flask import request
 from selenium import webdriver
 
 from server.lib.nl import scraper
-from server.lib.nl.counters import Counters
+from server.lib.nl.common.counters import Counters
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 

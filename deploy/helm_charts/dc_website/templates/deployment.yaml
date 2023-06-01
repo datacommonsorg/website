@@ -34,6 +34,8 @@ spec:
     metadata:
       labels:
         app: website-app
+      annotations:
+        timestamp: {{ now | quote }}
     spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
