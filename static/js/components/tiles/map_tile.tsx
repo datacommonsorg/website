@@ -382,12 +382,22 @@ export function draw(
     formatNumber
   );
   const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
+  const shouldUseBorderData =
+    props.enclosedPlaceType &&
+    shouldShowBorder(props.enclosedPlaceType) &&
+    !_.isEmpty(chartData.borderGeoJson);
+  // Use border data to calculate projection if using borders.
+  // This prevents borders from being cutoff when enclosed places don't
+  // provide wall to wall coverage.
+  const projectionData = shouldUseBorderData
+    ? chartData.borderGeoJson
+    : chartData.geoJson;
   const projection = getProjection(
     chartData.isUsaPlace,
     props.place.dcid,
     chartWidth,
     height,
-    chartData.geoJson
+    projectionData
   );
   drawD3Map(
     mapContainer,
@@ -402,7 +412,7 @@ export function draw(
     chartData.showMapBoundaries,
     projection
   );
-  if (!_.isEmpty(chartData.borderGeoJson)) {
+  if (shouldUseBorderData) {
     addPolygonLayer(
       mapContainer,
       chartData.borderGeoJson,
