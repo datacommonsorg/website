@@ -245,7 +245,10 @@ export function D3Map(props: D3MapProps): JSX.Element {
 
   // Replot when data changes.
   useEffect(() => {
-    if (display.value.showMapPoints && !props.mapPoints) {
+    if (
+      display.value.showMapPoints &&
+      (_.isNull(props.mapPoints) || _.isUndefined(props.mapPoints))
+    ) {
       loadSpinner(SECTION_CONTAINER_ID);
       return;
     } else {
