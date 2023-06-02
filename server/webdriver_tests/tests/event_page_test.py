@@ -177,8 +177,8 @@ class TestEventPage(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     title = self.driver.find_element(By.XPATH,
                                      '//*[@id="main-pane"]/div[1]/div[1]/h1')
-    self.assertEqual(title.text,
-                     'DroughtEvent at LatLong(52.00000:-81.00000) on 2020-04-01')
+    self.assertEqual(
+        title.text, 'DroughtEvent at LatLong(52.00000:-81.00000) on 2020-04-01')
     dcid_subtitle = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/div[1]/div[1]/h3')
     self.assertEqual(dcid_subtitle.text, 'Drought Event in Canada, Earth')
