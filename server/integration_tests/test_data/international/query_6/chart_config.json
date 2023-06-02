@@ -54,7 +54,7 @@
           ],
           "id": "drought",
           "name": "Drought",
-          "polygonGeoJsonProp": "geoJsonCoordinatesDP1"
+          "polygonGeoJsonProp": "geoJsonCoordinates"
         }
       },
       "placeDcid": [
