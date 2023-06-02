@@ -169,7 +169,7 @@ class TestEventPage(WebdriverBaseTest):
     # Assert page title is correct
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(
-            'DroughtEvent at LatLong(10.00000:8.00000) on 2023-01 - Event Page - Data Commons'
+            'DroughtEvent at LatLong(52.00000:-81.00000) on 2020-04-01 - Event Page - Data Commons'
         ))
 
     # Check header section
@@ -178,10 +178,10 @@ class TestEventPage(WebdriverBaseTest):
     title = self.driver.find_element(By.XPATH,
                                      '//*[@id="main-pane"]/div[1]/div[1]/h1')
     self.assertEqual(title.text,
-                     'DroughtEvent at LatLong(10.00000:8.00000) on 2023-01')
+                     'DroughtEvent at LatLong(52.00000:-81.00000) on 2020-04-01')
     dcid_subtitle = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/div[1]/div[1]/h3')
-    self.assertEqual(dcid_subtitle.text, 'Drought Event in Nigeria, Earth')
+    self.assertEqual(dcid_subtitle.text, 'Drought Event in Canada, Earth')
 
     # Check google map section
     element_present = EC.presence_of_element_located(
@@ -206,7 +206,7 @@ class TestEventPage(WebdriverBaseTest):
         '//*[@id="main-pane"]/div[1]/section/div/table/tbody/tr[2]/td')
     # assert the date is correct
     self.assertEqual(date_row[0].text, 'Date')
-    self.assertEqual(date_row[1].text, '2023-01 — 2023-01')
+    self.assertEqual(date_row[1].text, '2020-04-01 — 2020-05-01')
 
     # Check additional charts section
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'svg'))
