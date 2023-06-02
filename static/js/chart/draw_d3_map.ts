@@ -588,12 +588,10 @@ export function addMapPoints(
       (point: MapPoint) => projection([point.longitude, point.latitude])[1]
     )
     .attr("r", (point: MapPoint) => {
-      if (_.isEmpty(pointSizeScale)) {
-        return minDotSize * 2;
+      if (_.isEmpty(pointSizeScale) || !mapPointValues[point.placeDcid]) {
+        return minDotSize;
       }
-      return mapPointValues[point.placeDcid]
-        ? pointSizeScale(mapPointValues[point.placeDcid])
-        : minDotSize;
+      return pointSizeScale(mapPointValues[point.placeDcid]);
     });
   if (getTooltipHtml) {
     mapPointsLayer
