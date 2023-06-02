@@ -34,9 +34,10 @@ website:
       }
 
 mixer:
-  useTMCFCSVData: true
-  tmcfCSVBucket: "datcom-feedingamerica-resources"
-  tmcfCSVFolder: "food"
+  useBaseBigtable: false
+  useBranchBigtable: false
+  useCustomBigtable: true
+  remoteMixerDomain: https://api.datacommons.org
 
 serviceAccount:
   name: website-ksa
@@ -46,6 +47,13 @@ nl:
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
+
+kgStoreConfig:
+  customBigtableInfo: |
+    project: datcom-feedingamerica
+    instance: dc-graph
+    tables:
+      - import_2023_06_02_14_49_07
 
 serviceGroups:
   recon: null
@@ -58,109 +66,3 @@ serviceGroups:
   default:
     replicas: 2
 
-memdbJSON: |
-  {
-    "importName": "Feeding America",
-    "provenanceUrl": "https://www.feedingamerica.org/",
-    "dataDownloadUrl": "https://www.feedingamerica.org/",
-    "rootSvg": "g/Feeding_America",
-    "statVarGroups": {
-      "g/Feeding_America": {
-        "childStatVarGroups": [
-          {
-            "id": "g/Child_FoodInsecure",
-            "specializedEntity": "Food Insecure Children"
-          },
-          {
-            "id": "g/Person_FoodInsecure",
-            "specializedEntity": "Food Insecure People"
-          }
-        ],
-        "childStatVars": [
-          {
-            "id": "Annual_FoodBudgetShortfall",
-            "searchNames": ["Annual Food Budget Shortfall"],
-            "displayName": "Annual Food Budget Shortfall"
-          },
-          {
-            "id": "Mean_MealCost_Person_FoodSecure",
-            "searchNames": ["Food Secure Person Mean Meal Cost"],
-            "displayName": "Average Meal Cost for Food Secure Persons"
-          }
-        ]
-      },
-      "g/Child_FoodInsecure": {
-        "childStatVarGroups": [
-          {
-            "id": "g/Child_FoodInsecure_ChildNutritionBenefits",
-            "specializedEntity": "Child Nutrition Benefits"
-          }
-        ],
-        "childStatVars": [
-          {
-            "id": "Count_Child_FoodInsecure",
-            "searchNames": ["Count of Food Insecure Child"],
-            "displayName": "Population"
-          }
-        ]
-      },
-      "g/Child_FoodInsecure_ChildNutritionBenefits": {
-        "childStatVars": [
-          {
-            "id": "Count_Child_FoodInsecure_EligibleForManyChildNutritionBenefits",
-            "searchNames": [
-              "Count of Child Food Insecure Eligible for Many Child Nutrition Benefits"
-            ],
-            "displayName": "Eligible"
-          },
-          {
-            "id": "Count_Child_FoodInsecure_IneligibleForChildNutritionBenefits",
-            "searchNames": [
-              "Count of Child Food Insecure Ineligible for Many Child Nutrition Benefits"
-            ],
-            "displayName": "Ineligible"
-          }
-        ]
-      },
-      "g/Person_FoodInsecure": {
-        "childStatVarGroups": [
-          {
-            "id": "g/Person_FoodInsecure_FederalBenefits",
-            "specializedEntity": "Federal Benefits"
-          }
-        ],
-        "childStatVars": [
-          {
-            "id": "Count_Person_FoodInsecure",
-            "searchNames": ["Count of Person Food Insecure"],
-            "displayName": "Population"
-          }
-        ]
-      },
-      "g/Person_FoodInsecure_FederalBenefits": {
-        "childStatVars": [
-          {
-            "id": "Count_Person_FoodInsecure_EligibleForAllFederalBenefits",
-            "searchNames": [
-              "Count of Person with Food Insecure Eligible for All Federal Benefits"
-            ],
-            "displayName": "Eligible for All Federal Benefits"
-          },
-          {
-            "id": "Count_Person_FoodInsecure_EligibleForSomeFederalBenefits",
-            "searchNames": [
-              "Count of Person with Food Insecure Eligible for Some Federal Benefits"
-            ],
-            "displayName": "Eligible for Some Federal Benefits"
-          },
-          {
-            "id": "Count_Person_FoodInsecure_IneligibleForFederalBenefits",
-            "searchNames": [
-              "Count of Person with Food Insecure Ineligible for Federal Benefits"
-            ],
-            "displayName": "Ineligible for Federal Benefits"
-          }
-        ]
-      }
-    }
-  }
