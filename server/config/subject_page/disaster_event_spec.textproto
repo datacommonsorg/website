@@ -137,7 +137,7 @@ event_type_spec {
       display_name: "Area"
       unit: "SquareKilometer"
     }
-    polygon_geo_json_prop: "geoJsonCoordinatesDP1"
+    polygon_geo_json_prop: "geoJsonCoordinates"
     end_date_prop: "endDate"
   }
 }
