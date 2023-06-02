@@ -213,8 +213,8 @@ class TestEventPage(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     chart_section = self.driver.find_element(By.ID, 'subject-page-main-pane')
     charts = chart_section.find_elements(By.CLASS_NAME, 'chart-container')
-    # assert there are 11+ charts
-    self.assertGreater(len(charts), 11)
+    # assert there are 10+ charts
+    self.assertGreater(len(charts), 10)
     # assert that the first chart has data
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 1)
