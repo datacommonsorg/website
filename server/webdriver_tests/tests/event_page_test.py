@@ -24,7 +24,7 @@ from server.webdriver_tests.base_test import WebdriverBaseTest
 BASE_PAGE_URL = '/event/'
 CYCLONE_NICOLE_DCID = 'cyclone/ibtracs_2022309N16290'
 DOUBLE_CREEK_FIRE_DCID = 'fire/irwinId/92b22838-c96c-4b21-b1e8-f09e8ee65c8f'
-DROUGHT_EVENT_DCID = 'droughtEvent/2023-01_grid_1/10_8'
+DROUGHT_EVENT_DCID = 'droughtEvent/2020-04-01_grid_1/52_-81'
 
 
 # Class to test Event Pages.
