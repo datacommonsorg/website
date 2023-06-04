@@ -23,10 +23,6 @@ website:
   flaskEnv: dev
   replicas: 6
 
-mixer:
-  hostProject:
-  serviceName:
-
 serviceAccount:
   name: website-ksa
 
