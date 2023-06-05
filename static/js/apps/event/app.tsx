@@ -216,7 +216,7 @@ function formatNumericValue(property: Node[]): string {
   if (!isNaN(Date.parse(val))) {
     return val;
   }
-  const numIndex = val.search(/[0-9]/);
+  const numIndex = val.search(/-?[0-9]/);
   if (numIndex < 0) {
     return val;
   }
