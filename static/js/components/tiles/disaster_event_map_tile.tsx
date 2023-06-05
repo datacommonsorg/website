@@ -67,6 +67,12 @@ const MAP_POINTS_MIN_RADIUS_EARTH = 0.8;
 // Set of dcids of places that should use the selected place as the base geojson
 const PLACE_MAP_PLACES = new Set(["country/AUS", "country/BRA"]);
 
+// Stores IDs for the zoom buttons on the map
+interface ZoomParams {
+  zoomInButtonId: string;
+  zoomOutButtonId: string;
+}
+
 interface DisasterEventMapTilePropType {
   // Id for this tile
   id: string;
@@ -110,7 +116,10 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
     _.isNull(props.disasterEventData);
   const shouldShowMap =
     !isInitialLoading && !_.isEmpty(baseMapGeoJson.features);
-
+  const zoomParams = {
+    zoomInButtonId: `${ZOOM_IN_BUTTON_ID}-${props.id}`,
+    zoomOutButtonId: `${ZOOM_OUT_BUTTON_ID}-${props.id}`,
+  };
   useEffect(() => {
     if (_.isNull(props.disasterEventData)) {
       return;
@@ -143,7 +152,8 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
         baseMapGeoJson,
         props.disasterEventData,
         polygonGeoJson,
-        pathGeoJson
+        pathGeoJson,
+        zoomParams
       );
     }
   }, [
@@ -187,13 +197,13 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
           {shouldShowMap && (
             <div className={`${CSS_SELECTOR_PREFIX}-zoom-button-section`}>
               <div
-                id={ZOOM_IN_BUTTON_ID}
+                id={zoomParams.zoomInButtonId}
                 className={`${CSS_SELECTOR_PREFIX}-zoom-button`}
               >
                 <i className="material-icons">add</i>
               </div>
               <div
-                id={ZOOM_OUT_BUTTON_ID}
+                id={zoomParams.zoomOutButtonId}
                 className={`${CSS_SELECTOR_PREFIX}-zoom-button`}
               >
                 <i className="material-icons">remove</i>
@@ -343,14 +353,11 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
     geoJsonData: GeoJsonData,
     disasterEventData: Record<string, DisasterEventPointData>,
     polygonGeoJson: GeoJsonData,
-    pathGeoJson: GeoJsonData
+    pathGeoJson: GeoJsonData,
+    zoomParams: ZoomParams
   ): void {
     const width = svgContainerRef.current.offsetWidth;
     const height = svgHeight;
-    const zoomParams = {
-      zoomInButtonId: ZOOM_IN_BUTTON_ID,
-      zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
-    };
     const isUsaPlace = isChildPlaceOf(
       props.place.dcid,
       USA_PLACE_DCID,
