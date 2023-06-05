@@ -212,6 +212,10 @@ function formatNumericValue(property: Node[]): string {
   if (!val) {
     return "";
   }
+  // If value is a date, pass through without a unit.
+  if (!isNaN(Date.parse(val))) {
+    return val;
+  }
   const numIndex = val.search(/[0-9]/);
   if (numIndex < 0) {
     return val;
