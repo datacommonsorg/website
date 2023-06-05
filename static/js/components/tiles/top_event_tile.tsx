@@ -78,7 +78,6 @@ export const TopEventTile = memo(function TopEventTile(
   }, [props]);
 
   const displayPropNames = {};
-  const displayPropUnits = {};
   if (props.topEventMetadata.displayProp) {
     for (const dp of props.topEventMetadata.displayProp) {
       if (_.isEmpty(props.eventTypeSpec.displayProp)) {
@@ -87,7 +86,6 @@ export const TopEventTile = memo(function TopEventTile(
       for (const edp of props.eventTypeSpec.displayProp) {
         if (edp.prop == dp) {
           displayPropNames[dp] = edp.displayName;
-          displayPropUnits[dp] = edp.unit;
           break;
         }
       }
