@@ -450,7 +450,7 @@ def get_map_points():
   geos = []
   geos = fetch.descendent_places([place_dcid], place_type).get(place_dcid, [])
   if not geos:
-    return Response(json.dumps({}), 200, mimetype='application/json')
+    return Response(json.dumps([]), 200, mimetype='application/json')
   names_by_geo = place_api.get_display_name(geos)
   # For some places, lat long is attached to the place node, but for other
   # places, the lat long is attached to the location value of the place node.
