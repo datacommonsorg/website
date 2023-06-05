@@ -38,6 +38,7 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
+import { formatPropertyValue } from "../../utils/property_value_utils";
 import { ChartFooter } from "./chart_footer";
 
 const DEFAULT_RANKING_COUNT = 10;
@@ -176,11 +177,7 @@ export const TopEventTile = memo(function TopEventTile(
                         props.topEventMetadata.displayProp.map((dp, i) => {
                           return (
                             <td key={i} className="stat">
-                              {formatNumber(
-                                event.displayProps[dp],
-                                displayPropUnits[dp],
-                                false
-                              )}
+                              {formatPropertyValue(event.displayProps[dp])}
                             </td>
                           );
                         })}
