@@ -39,5 +39,7 @@
 {% endblock %}
 
 {% block subfooter_extra %}
+{% if not config['CUSTOM'] %}
 <button id="bq-link" class="btn-subfooter btn btn-primary" style="display: none">Get BigQuery SQL</button>
+{% endif %}
 {% endblock %}
