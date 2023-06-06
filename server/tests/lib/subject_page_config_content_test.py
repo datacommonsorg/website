@@ -114,7 +114,9 @@ class TestSubjectPageConfigs(unittest.TestCase):
         page_msg = f"{id}[config={page_i}]"
         self.assertNotEqual(page.metadata.topic_id, '', page_msg)
         self.assertNotEqual(page.metadata.topic_name, '', page_msg)
-        self.assertGreater(len(page.metadata.place_dcid), 0, page_msg)
+        self.assertGreater(
+            len(page.metadata.place_dcid) + len(page.metadata.place_group), 0,
+            page_msg)
         self.assertGreater(len(page.metadata.contained_place_types), 0,
                            page_msg)
         event_type_specs = self.verify_event_type_specs(page, page_msg)

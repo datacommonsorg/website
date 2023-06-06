@@ -113,7 +113,7 @@ def get_choropleth_display_level(geoDcid):
     return None, None
 
   if place_type == display_level:
-    parents_places = place_api.parent_places(geoDcid)
+    parents_places = place_api.parent_places([geoDcid])
     # Multiple place types can be equivalent (eg. County and AA2) and we
     # want to find the parent who's display level is equivalent to the
     # geoDcid display_level
@@ -124,15 +124,14 @@ def get_choropleth_display_level(geoDcid):
       parent_dcid = parent.get('dcid', None)
       if not parent_dcid:
         continue
-      parent_place_types = parent.get('types', [])
-      for parent_place_type in parent_place_types:
+      parent_place_type = parent.get('type', '')
+      parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
+          parent_place_type, None)
+      if not parent_display_level:
         parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
-            parent_place_type, None)
-        if not parent_display_level:
-          parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
-              EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
-        if parent_display_level in target_display_levels:
-          return parent_dcid, display_level
+            EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
+      if parent_display_level in target_display_levels:
+        return parent_dcid, display_level
     return None, None
   else:
     return geoDcid, display_level
