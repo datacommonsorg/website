@@ -25,7 +25,7 @@ event_type_spec {
       prop: "area"
       display_name: "Area"
       unit: "SquareKilometer"
-      upper_limit: 1000
+      upper_limit: 10000
       lower_limit: 50
     }
     place_type_severity_filter {

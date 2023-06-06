@@ -131,7 +131,13 @@ export const TopEventTile = memo(function TopEventTile(
                 <tr>
                   <td></td>
                   {showNameColumn && <td>Name</td>}
-                  {showPlaceColumn && <td>{props.enclosedPlaceType}</td>}
+                  {showPlaceColumn && (
+                    <td>
+                      {Object.keys(eventPlaces).length < topEvents.length
+                        ? "Location"
+                        : props.enclosedPlaceType}
+                    </td>
+                  )}
                   {(props.topEventMetadata.showStartDate ||
                     props.topEventMetadata.showEndDate) && <td>Date</td>}
                   {props.topEventMetadata.displayProp &&
@@ -147,7 +153,7 @@ export const TopEventTile = memo(function TopEventTile(
                 {topEvents.map((event, i) => {
                   const placeName = eventPlaces[event.placeDcid]
                     ? eventPlaces[event.placeDcid].name
-                    : "N/A";
+                    : props.place.name || props.place.dcid;
                   const displayDate = getDisplayDate(event);
                   return (
                     <tr key={i}>
