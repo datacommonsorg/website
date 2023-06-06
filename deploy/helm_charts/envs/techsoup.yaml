@@ -22,7 +22,7 @@ namespace:
 website:
   image:
     project: techsoup-data-commons
-    tag: bd4d138
+    tag: 3d59df8
   flaskEnv: custom
   replicas: 1
 
@@ -56,12 +56,10 @@ kgStoreConfig:
     project: techsoup-data-commons
     instance: dc-graph
     tables:
-      - freemeals_2023_04_11_14_09_49
-      - mealsites_2023_05_31_10_45_31
+      - mealsites_places_exp_2023_06_02_18_41_11
       - usda_grocery_access_2023_05_22_11_28_04
-      - schema_test_from_doc_2023_05_31_15_22_55
-      - schema_test_from_not_2023_05_31_19_34_02
-      - value_changed_test_2023_05_31_06_52_45
+      - fea_grocery_access_2023_06_01_18_49_10
+      - fea_store_availabili_2023_06_06_09_02_14
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]
