@@ -59,7 +59,7 @@ export function useFetchMapPointCoordinate(
         paramsSerializer: stringifyFn,
       })
       .then((resp) => {
-        if (_.isEmpty(resp.data)) {
+        if (resp.status !== 200) {
           action.error = "error fetching map point coordinate data";
         } else {
           action.payload = resp.data as Array<MapPoint>;

@@ -18,6 +18,7 @@ cd experimental
 
 # Create symbolic links to compiled datacommons js and  css 
 ln -s ../../../server/dist/datacommons.js ./sdg-static/datacommons/datacommons.js
+ln -s ../../../server/dist/css/nl_interface.min.css ./sdg-static/datacommons/nl_interface.min.css
 ln -s ../../../server/dist/css/ranking.min.css ./sdg-static/datacommons/ranking.min.css
 
 # Start static webserver

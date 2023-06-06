@@ -22,6 +22,7 @@ import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import {
   addPolygonLayer,
@@ -382,12 +383,22 @@ export function draw(
     formatNumber
   );
   const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
+  const shouldUseBorderData =
+    props.enclosedPlaceType &&
+    shouldShowBorder(props.enclosedPlaceType) &&
+    !_.isEmpty(chartData.borderGeoJson);
+  // Use border data to calculate projection if using borders.
+  // This prevents borders from being cutoff when enclosed places don't
+  // provide wall to wall coverage.
+  const projectionData = shouldUseBorderData
+    ? chartData.borderGeoJson
+    : chartData.geoJson;
   const projection = getProjection(
     chartData.isUsaPlace,
     props.place.dcid,
     chartWidth,
     height,
-    chartData.geoJson
+    projectionData
   );
   drawD3Map(
     mapContainer,
@@ -402,7 +413,7 @@ export function draw(
     chartData.showMapBoundaries,
     projection
   );
-  if (!_.isEmpty(chartData.borderGeoJson)) {
+  if (shouldUseBorderData) {
     addPolygonLayer(
       mapContainer,
       chartData.borderGeoJson,
@@ -414,3 +425,15 @@ export function draw(
     );
   }
 }
+
+/**
+ * Renders map chart tile component in the given HTML element
+ * @param element DOM element to render the chart
+ * @param props map chart tile component properties
+ */
+export const renderMapComponent = (
+  element: HTMLElement,
+  props: MapTilePropType
+): void => {
+  ReactDOM.render(React.createElement(MapTile, props), element);
+};

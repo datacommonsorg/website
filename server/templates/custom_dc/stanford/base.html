@@ -59,6 +59,9 @@
         rel="stylesheet">
       {% block head %}
       {% endblock %}
+      {% if OVERRIDE_CSS_PATH %}
+      <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
+      {% endif %}
     </head>
 
     <body>

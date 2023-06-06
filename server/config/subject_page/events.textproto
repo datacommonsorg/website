@@ -51,6 +51,13 @@ categories {
     columns {
       tiles {
         type: LINE
+        title: "Number of wildfires in ${placeName}"
+        stat_var_key: "count_wildfire"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
         title: "Number of floods in ${placeName}"
         stat_var_key: "count_flood"
       }
@@ -81,6 +88,13 @@ categories {
     key: "count_fire"
     value {
       stat_var: "Count_FireEvent"
+      name: "Fires"
+    }
+  }
+  stat_var_spec {
+    key: "count_wildfire"
+    value {
+      stat_var: "Count_WildlandFireEvent"
       name: "Fires"
     }
   }

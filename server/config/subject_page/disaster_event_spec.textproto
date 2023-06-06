@@ -25,7 +25,7 @@ event_type_spec {
       prop: "area"
       display_name: "Area"
       unit: "SquareKilometer"
-      upper_limit: 1000
+      upper_limit: 10000
       lower_limit: 50
     }
     place_type_severity_filter {
@@ -137,7 +137,7 @@ event_type_spec {
       display_name: "Area"
       unit: "SquareKilometer"
     }
-    polygon_geo_json_prop: "geoJsonCoordinatesDP1"
+    polygon_geo_json_prop: "geoJsonCoordinates"
     end_date_prop: "endDate"
   }
 }

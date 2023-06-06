@@ -23,6 +23,66 @@
       "name": "No Poverty",
       "charts": [
         {
+          "type": "MAP",
+          "config": {
+            "title": "Population Below Poverty Level Status in Past Year in States of United States (2020)",
+            "place": {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "types": ["Country"]
+            },
+            "enclosedPlaceType": "State",
+            "statVarSpec": {
+              "name": "Population Below Poverty Level Status in Past Year",
+              "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+            }
+          }
+        },
+        {
+          "type": "BAR",
+          "config": {
+            "title": "Median household income by race",
+            "place": {
+              "dcid": "country/USA",
+              "name": "United States of America",
+              "types": ["Country"]
+            },
+            "enclosedPlaceType": "State",
+            "statVarSpec": [
+              {
+                "name": "American Indian or Alaska Native",
+                "statVar": "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+                "unit": "$"
+              },
+              {
+                "name": "Asian",
+                "statVar": "Median_Income_Household_HouseholderRaceAsianAlone",
+                "unit": "$"
+              },
+              {
+                "name": "Black or African American",
+                "statVar": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+                "unit": "$"
+              },
+              {
+                "name": "Hispanic or Latino",
+                "statVar": "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+                "unit": "$"
+              },
+              {
+                "name": "Native Hawaiian or Pacific Islander",
+                "statVar": "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+                "unit": "$"
+              },
+              {
+                "name": "White",
+                "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone",
+                "unit": "$"
+              }
+            ]
+          }
+        },
+        {
           "type": "LINE",
           "config": {
             "title": "Unemployment rate by sex",

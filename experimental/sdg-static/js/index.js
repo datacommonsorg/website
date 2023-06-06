@@ -89,18 +89,42 @@ function renderBlocks() {
  * Renders a data commons chart
  */
 function renderChart($container, chartConfig) {
-  if (chartConfig.type == "LINE") {
+  if (chartConfig.type == "BAR") {
+    const chartElement = document.createElement("div");
+    $container.append(chartElement);
+    var lineChartProps = {
+      id: _.uniqueId("chart-"),
+      svgChartHeight: 200,
+      className: undefined,
+      apiRoot: datacommons.root,
+      isDataTile: false,
+      ...chartConfig.config,
+    };
+    datacommons.drawBar(chartElement, lineChartProps);
+  } else if (chartConfig.type == "LINE") {
     const chartElement = document.createElement("div");
     $container.append(chartElement);
     var lineChartProps = {
       id: _.uniqueId("chart-"),
       svgChartHeight: 150,
       className: undefined,
-      apiRoot: undefined,
+      apiRoot: datacommons.root,
       isDataTile: false,
       ...chartConfig.config,
     };
     datacommons.drawLine(chartElement, lineChartProps);
+  } else if (chartConfig.type == "MAP") {
+    const chartElement = document.createElement("div");
+    $container.append(chartElement);
+    var mapChartProps = {
+      id: _.uniqueId("chart-"),
+      svgChartHeight: 250,
+      className: undefined,
+      apiRoot: datacommons.root,
+      isDataTile: false,
+      ...chartConfig.config,
+    };
+    datacommons.drawMap(chartElement, mapChartProps);
   } else if (chartConfig.type == "RANKING") {
     const chartElement = document.createElement("div");
     $container.append(chartElement);

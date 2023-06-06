@@ -1,3 +1,18 @@
+.dc-navbar {
+  height: 65px;
+  border-bottom: 1px solid #f1f1f1;
+  background-color: white !important;
+}
+.dc-navbar-brand {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #454545;
+  letter-spacing: 0.01rem;
+}
+.sidebar-container {
+  max-height: calc(100vh - 1rem);
+  overflow: auto;
+}
 .sidebar-link {
   align-items: center;
   border-left: 2px solid transparent;
@@ -21,4 +36,9 @@
 }
 .sidebar-link:hover .sidebar-link-text {
   text-decoration: underline;
+}
+
+/** Datacommons style overrides */
+.chart-container {
+  height: unset; /** Prevents map chart overflow */
 }
