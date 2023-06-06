@@ -96,6 +96,11 @@ def topic_page(topic_id=None, place_dcid=None):
 
   more_places = request.args.getlist('places')
 
+  # TODO: should use place metadata API to fetch these data in one call.
+  place_type = place_api.get_place_type(place_dcid)
+  parent_places = place_api.parent_places([place_dcid]).get(place_dcid, [])
+  parent_dcids = list(map(lambda x: x.get('dcid', ''), parent_places))
+
   # Find the config for the topic & place.
   topic_place_config = None
   if topic_id == _SDG_TOPIC:
@@ -106,11 +111,13 @@ def topic_page(topic_id=None, place_dcid=None):
       if place_dcid in config.metadata.place_dcid:
         topic_place_config = config
         break
+      for place_group in config.metadata.place_group:
+        if place_group.parent_place in parent_dcids and place_group.place_type == place_type:
+          topic_place_config = config
+          break
   if not topic_place_config:
     return "Error: no config found"
 
-  # TODO: should use place metadata API to fetch these data in one call.
-  place_type = place_api.get_place_type(place_dcid)
   place_names = place_api.get_i18n_name([place_dcid])
   if place_names:
     place_name = place_names[place_dcid]
