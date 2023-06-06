@@ -22,5 +22,6 @@ class Config(_base.Config):
   GCS_BUCKET = 'datcom-stanford-resources'
   OVERRIDE_CSS_PATH = '/custom_dc/stanford/overrides.css'
 
+
 class LocalConfig(Config, local.Config):
   pass
