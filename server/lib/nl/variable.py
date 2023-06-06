@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import Dict, List
 
+import server.lib.fetch as fetch
 import server.services.datacommons as dc
 
 
@@ -94,7 +95,7 @@ def parse_svg(svg_dcid: str) -> SVG:
   return res
 
 
-def extend_svs(svs: Dict[str, List[str]]):
+def extend_svs(svs: List[str]):
   """Extend stat vars by finding siblings.
 
     Each SV has a parent SVG associated. Extending an SV would need to trace to
@@ -115,7 +116,7 @@ def extend_svs(svs: Dict[str, List[str]]):
   """
   if not svs:
     return {}
-  sv2svgs = dc.property_values(svs, "memberOf", True)
+  sv2svgs = fetch.property_values(svs, "memberOf", True)
   sv2svg = {sv: svg[0] for sv, svg in sv2svgs.items() if svg}
   svg2childsvs = {}
   if not sv2svg:
@@ -127,7 +128,12 @@ def extend_svs(svs: Dict[str, List[str]]):
     svg2childsvs[item['node']] = item['info'].get('childStatVars', [])
 
   res = {}
+  # Extended SV member -> Extended SV list
+  reverse_map = {}
   for sv, svg in sv2svg.items():
+    if sv in reverse_map:
+      res[sv] = reverse_map[sv]
+      continue
     res[sv] = []
     svg_obj = parse_svg(svg)
     sv_obj = None
@@ -141,12 +147,12 @@ def extend_svs(svs: Dict[str, List[str]]):
     if len(svg_obj.pvs) == len(sv_obj.pvs):
       # There are no direct siblings of this sv in the current svg.
       # need to look for in-direct siblings
-      svg_parents = dc.property_values([svg], "specializationOf", True)[svg]
+      svg_parents = fetch.property_values([svg], "specializationOf", True)[svg]
       if not svg_parents:
         continue
       svg_parent = svg_parents[0]
-      svg_siblings = dc.property_values([svg_parent], "specializationOf",
-                                        False)[svg_parent]
+      svg_siblings = fetch.property_values([svg_parent], "specializationOf",
+                                           False)[svg_parent]
       if not svg_siblings:
         continue
       svg_siblings_info = dc.get_variable_group_info(svg_siblings, [])
@@ -169,4 +175,9 @@ def extend_svs(svs: Dict[str, List[str]]):
     else:
       # Can use the direct siblings of this sv
       res[sv] = list(map(lambda x: x['id'], svg2childsvs[svg]))
-  return res
+    for sv2 in res[sv]:
+      if sv2 == sv:
+        continue
+      reverse_map[sv2] = res[sv]
+  res_ordered = {sv: sorted(ext_svs) for sv, ext_svs in res.items()}
+  return res_ordered

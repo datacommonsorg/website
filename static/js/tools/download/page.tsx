@@ -114,13 +114,17 @@ export function Page(props: PagePropType): JSX.Element {
     } else if (selectedOptions.dateType === DownloadDateTypes.LATEST) {
       minDate = DATE_LATEST;
       maxDate = DATE_LATEST;
+    } else {
+      if (!isValidDateInput(minDate) || !isValidDateInput(maxDate)) {
+        return;
+      }
     }
     const reqObj = {
       statVars: Object.keys(selectedOptions.selectedStatVars),
       parentPlace: selectedOptions.selectedPlace.dcid,
       childType: selectedOptions.enclosedPlaceType,
-      minDate: minDate,
-      maxDate: maxDate,
+      minDate,
+      maxDate,
     };
     // if req object is the same as the one used for current
     // svSourceListPromise, then don't need to update svSourceListPromise
@@ -507,8 +511,12 @@ export function Page(props: PagePropType): JSX.Element {
     window.location.hash = urlParams.toString();
   }
 
+  function isValidDateInput(date: string): boolean {
+    return _.isEmpty(date) || isValidDate(date);
+  }
+
   function validateDate(date: string, isMinDate: boolean): void {
-    const dateError = !_.isEmpty(date) && !isValidDate(date);
+    const dateError = !isValidDateInput(date);
     setValidationErrors((prev) => {
       return {
         ...prev,

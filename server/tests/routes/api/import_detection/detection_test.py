@@ -17,9 +17,9 @@ import json
 from typing import Dict, List, Optional
 import unittest
 
-import server.routes.api.import_detection.detection as detection
-from server.routes.api.import_detection.detection_types import Column
-from server.routes.api.import_detection.detection_types import DCProperty
+import server.routes.import_detection.detection as detection
+from server.routes.import_detection.detection_types import Column
+from server.routes.import_detection.detection_types import DCProperty
 
 
 class TestDetection(unittest.TestCase):
@@ -211,15 +211,17 @@ class TestDetection(unittest.TestCase):
 
     # col_name does not provide any help with choosing between numeric country
     # codes vs FIPS codes for US states.
-    col_name = "name"
+    col_dcid = "dcid"
     col_iso_mistake = "isoMistake"
+    col_dcid_mistake = "dcidMistake"
 
     col_vals: Dict[str, List[str]] = {
         "iso": ["US", "IT"],
         "alpha3": ["USA", "ITA"],
         "number": ["840", "380"],
-        "name": ["United States", "italy "],
+        "dcid": ["country/USA", "country/ITA "],
         "isoMistake": ["U", "IFH"],
+        "dcidMistake": ["couty/USA", "country/IT"]
     }
 
     @dataclass
@@ -231,44 +233,45 @@ class TestDetection(unittest.TestCase):
 
     test_cases: List[TestHelper] = [
         TestHelper(name="all-properties",
-                   col_names_order=[col_iso, col_alpha3, col_number, col_name],
+                   col_names_order=[col_iso, col_alpha3, col_number, col_dcid],
+                   expected_col=Column(id=col_dcid + "3",
+                                       header=col_dcid,
+                                       column_idx=3),
+                   expected_prop=DCProperty(dcid="dcid", display_name="Dcid")),
+        TestHelper(name="dcid-missing",
+                   col_names_order=[col_iso, col_alpha3, col_number],
                    expected_col=Column(id=col_iso + "0",
                                        header=col_iso,
                                        column_idx=0),
                    expected_prop=DCProperty(dcid="isoCode",
                                             display_name="ISO Code")),
         TestHelper(name="iso-missing",
-                   col_names_order=[col_number, col_name, col_alpha3],
-                   expected_col=Column(id=col_alpha3 + "2",
+                   col_names_order=[col_number, col_alpha3],
+                   expected_col=Column(id=col_alpha3 + "1",
                                        header=col_alpha3,
-                                       column_idx=2),
+                                       column_idx=1),
                    expected_prop=DCProperty(dcid="countryAlpha3Code",
                                             display_name="Alpha 3 Code")),
-        TestHelper(name="iso-alpha3-missing",
-                   col_names_order=[col_number, col_name],
+        TestHelper(name="only-number",
+                   col_names_order=[col_number],
                    expected_col=Column(id=col_number + "0",
                                        header=col_number,
                                        column_idx=0),
                    expected_prop=DCProperty(dcid="countryNumericCode",
                                             display_name="Numeric Code")),
-        TestHelper(name="only-name",
-                   col_names_order=[col_name],
-                   expected_col=Column(id=col_name + "0",
-                                       header=col_name,
-                                       column_idx=0),
-                   expected_prop=DCProperty(dcid="name", display_name="Name")),
         TestHelper(name="none-found",
                    col_names_order=[],
                    expected_col=None,
                    expected_prop=None),
-        TestHelper(
-            name="all-properties-iso-with-typos",
-            col_names_order=[col_iso_mistake, col_alpha3, col_number, col_name],
-            expected_col=Column(id=col_alpha3 + "1",
-                                header=col_alpha3,
-                                column_idx=1),
-            expected_prop=DCProperty(dcid="countryAlpha3Code",
-                                     display_name="Alpha 3 Code")),
+        TestHelper(name="all-properties-dcid-with-typos",
+                   col_names_order=[
+                       col_iso_mistake, col_alpha3, col_number, col_dcid_mistake
+                   ],
+                   expected_col=Column(id=col_alpha3 + "1",
+                                       header=col_alpha3,
+                                       column_idx=1),
+                   expected_prop=DCProperty(dcid="countryAlpha3Code",
+                                            display_name="Alpha 3 Code")),
     ]
 
     for tc in test_cases:

@@ -37,10 +37,10 @@ interface StatVarInfo {
 }
 
 function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
-  let url = "/api/stats/stats-var-property?";
+  let url = "/api/stats/stat-var-property?";
   const urls = [];
   for (const dcid of dcids) {
-    urls.push(`dcid=${dcid}`);
+    urls.push(`dcids=${dcid}`);
   }
   url += urls.join("&");
   return axios.get(url).then((resp) => {
@@ -63,7 +63,7 @@ async function getStatVar(
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
-  const resp = await axios.post("/api/place/stat-vars/union", {
+  const resp = await axios.post("/api/place/variable", {
     dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
   });
   return new Set<string>(resp.data);

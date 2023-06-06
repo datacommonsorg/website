@@ -32,9 +32,11 @@ const SVG_CHART_HEIGHT = 160;
 
 export interface QueryResultProps {
   query: string;
+  indexType: string;
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
+  showData: boolean;
 }
 
 export const QueryResult = memo(function QueryResult(
@@ -66,9 +68,13 @@ export const QueryResult = memo(function QueryResult(
   function fetchData(query: string): void {
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
+    let indexType = "";
+    if (props.indexType !== null) {
+      indexType = props.indexType;
+    }
 
     axios
-      .post(`/nl/data?q=${query}`, {
+      .post(`/api/nl/data?q=${query}&idx=${indexType}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {
@@ -142,6 +148,7 @@ export const QueryResult = memo(function QueryResult(
               place={chartsData.place}
               pageConfig={chartsData.config}
               svgChartHeight={SVG_CHART_HEIGHT}
+              showData={props.showData}
             />
           )}
           {errorMsg && (

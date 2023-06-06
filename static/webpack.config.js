@@ -18,6 +18,7 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 const smp = new SpeedMeasurePlugin();
 
@@ -47,10 +48,6 @@ const config = {
       __dirname + "/css/place/place.scss",
     ],
     place_landing: [__dirname + "/js/place/place_landing.ts"],
-    rich_search: [
-      __dirname + "/js/rich_search/rich_search.ts",
-      __dirname + "/css/rich_search.scss",
-    ],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",
@@ -109,6 +106,8 @@ const config = {
       __dirname + "/js/apps/sustainability/main.ts",
       __dirname + "/css/sustainability.scss",
     ],
+    nl_interface_data: [__dirname + "/js/apps/nl_interface/data_app/main.ts"],
+    datacommons: [__dirname + "/library/index.ts"],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -119,13 +118,6 @@ const config = {
   },
   module: {
     rules: [
-      {
-        test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
-      },
       {
         test: /\.(ts|tsx)$/,
         loader: "ts-loader",
@@ -153,6 +145,7 @@ const config = {
     ],
   },
   plugins: [
+    new NodePolyfillPlugin(),
     new CopyPlugin({
       patterns: [
         { from: "css/**/*.css" },
@@ -175,7 +168,7 @@ module.exports = (env, argv) => {
   // If in development, disable optimization.minimize.
   // development and production are arguments.
   if (argv.mode === "development") {
-    config.devtool = "eval-cheap-module-source-map";
+    config.devtool = "source-map";
   }
 
   return argv.mode === "development" ? config : smp.wrap(config);

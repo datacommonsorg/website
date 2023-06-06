@@ -74,15 +74,27 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
       axios
-        .post("/api/place/stat-vars/union", {
-          dcids: props.sampleEntities.map((place) => place.dcid),
-          statVars: Object.keys(props.selectedSVs),
+        .post("/api/observation/existence", {
+          entities: props.sampleEntities.map((place) => place.dcid),
+          variables: Object.keys(props.selectedSVs),
         })
         .then((resp) => {
-          const availableSVs = resp.data;
+          const availableSVs = [];
           const unavailableSVs = [];
           for (const sv in props.selectedSVs) {
-            if (availableSVs.indexOf(sv) === -1) {
+            // sv is used if there is even one entity(place) has observations.
+            // This is apparently very loose and can be tightened by making this
+            // a percentage of all entities.
+            let available = false;
+            for (const entity in resp.data[sv]) {
+              if (resp.data[sv][entity]) {
+                available = true;
+                break;
+              }
+            }
+            if (available) {
+              availableSVs.push(sv);
+            } else {
               unavailableSVs.push(sv);
             }
           }

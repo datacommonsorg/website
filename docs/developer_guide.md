@@ -31,10 +31,10 @@ website and mixer changes.
 
 **WARNING**: Make sure to go through each of the following steps.
 
-- Python 3.7
+- Python 3.11
 
-  Confirm the Python3 version is 3.7.x. Otherwise please try
-  [pyenv](https://github.com/pyenv/pyenv) to switch the Python3 versioin.
+  Confirm the Python3 version is 3.11.x. Otherwise install/upgrade your Python
+  and confirm the version:
 
   ```bash
   python3 --version
@@ -143,11 +143,13 @@ Then run
 gcloud auth login
 gcloud auth configure-docker
 ./scripts/push_image.sh
-./scripts/deploy_gke_helm.sh dev us-central1
+./scripts/deploy_gke_helm.sh -e dev
+./scripts/deploy_gke_helm.sh -e dev -l us-west1
 ```
 
 The script builds docker image locally and tags it with the local git commit
-hash at HEAD, then deploys to dev instance in GKE.
+hash at HEAD, then deploys to dev instance in GKE. Need to deploy it to both
+us-central1 (which is the default) and us-west1.
 
 View the deployoment at [link](https://dev.datacommons.org).
 

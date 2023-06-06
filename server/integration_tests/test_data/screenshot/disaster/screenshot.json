@@ -1,0 +1,18 @@
+{
+  "charts": [
+    {
+      "legend": [
+        "Fire"
+      ],
+      "srcs": [
+        {
+          "name": "data-nifc.opendata.arcgis.com",
+          "url": "https://data-nifc.opendata.arcgis.com/"
+        }
+      ],
+      "svg": "",
+      "title": "Fires in California",
+      "type": "EVENT_MAP"
+    }
+  ]
+}

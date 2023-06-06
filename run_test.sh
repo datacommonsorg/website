@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,32 +16,13 @@
 
 set -e
 
-export NODE_OPTIONS=--openssl-legacy-provider
-
 function setup_python {
   python3 -m venv .env
   source .env/bin/activate
-  python3 -m pip install --upgrade pip
-  pip3 install -r server/requirements.txt -q
-
-  # For the local server, filter out the en_code_web* packages which are simply
-  # the NER models bundled as packages. They are conditionally installed below.
-  V=`cat nl_server/requirements.txt | grep -v en_core_web > requirements_filtered.txt`
-  pip3 install -r requirements_filtered.txt -q
-  rm requirements_filtered.txt
-
-  # Downloading the named-entity recognition (NER) library spacy and the large EN model
-  # using the guidelines here: https://spacy.io/usage/models#production
-  # Unfortunately, pip is not able to recognize this data (as a library) as part of
-  # requirements.txt and will try to download a new version every single time.
-  # Reason for doing this here is that if the library is already installed, no need
-  # to download > 560Mb file.
-  if python3 -c "import en_core_web_lg" &> /dev/null; then
-      echo 'NER model (en_core_web_lg) already installed.'
-  else
-      echo 'Installing the NER model: en_core_web_lg'
-      pip3 install $(spacy info en_core_web_lg --url)
-fi
+  python3 -m pip install --upgrade pip setuptools light-the-torch
+  ltt install torch --cpuonly
+  pip3 install -r server/requirements.txt
+  pip3 install -r nl_server/requirements.txt
 }
 
 # Run test for client side code.
@@ -73,10 +54,7 @@ function run_lint_fix {
   echo -e "#### Fixing Python code"
   python3 -m venv .env
   source .env/bin/activate
-  if ! command -v yapf &> /dev/null
-  then
-    pip3 install yapf isort -q
-  fi
+  pip3 install yapf==0.33.0 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q
@@ -92,11 +70,12 @@ function run_npm_build () {
   if [[ $1 == true ]]
   then
     echo -e "#### Only installing production dependencies"
-    npm install --only=prod
+    npm install --omit=dev
+    npm run-script build
   else
     npm install
+    npm run-script dev-build
   fi
-  npm run-script build
   cd ..
 }
 
@@ -110,15 +89,13 @@ function run_py_test {
   # export FLASK_ENV=test-sustainability
   # python3 -m pytest tests/sustainability/**.py
   python3 -m pytest shared/tests/ -s
-
-  cd nl_server
-  # Custom packages installation for nl_server.
-  echo "nl_server custom requirements installation: starting."
-  ./requirements_install.sh
-  echo "nl_server custom requirements installation: done."
-  cd ..
   python3 -m pytest nl_server/tests/ -s
 
+  pip3 install yapf==0.33.0 -q
+  if ! command -v isort &> /dev/null
+  then
+    pip3 install isort -q
+  fi
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py; then
     echo "Fix Python lint errors by running ./run_test.sh -f"
@@ -142,7 +119,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 10 --reruns 3 server/webdriver_tests/tests/
+  python3 -m pytest -n 10 --reruns 2 server/webdriver_tests/tests/
 }
 
 # Run integration test for NL interface

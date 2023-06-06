@@ -14,22 +14,18 @@
 """Managing the embeddings."""
 from dataclasses import dataclass
 import logging
-import os
 from typing import Dict, List, Union
 
 from datasets import load_dataset
-from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 import torch
 
 from nl_server import query_util
-import nl_server.gcs as gcs
 from shared.lib import constants
 from shared.lib import detected_variables as vars
 from shared.lib import utils
 
-TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
 # A value higher than the highest score.
@@ -41,23 +37,22 @@ _SV_SCORE_THRESHOLD = 0.5
 
 _NUM_CANDIDATES_PER_NSPLIT = 3
 
+# Number of matches to find within the SV index.
+_NUM_SV_INDEX_MATCHES = 40
+
 
 class Embeddings:
   """Manages the embeddings."""
 
-  def __init__(self, embeddings_file: str) -> None:
-    self.embeddings_file = embeddings_file
+  def __init__(self, embeddings_path: str) -> None:
     self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
-    self._download_embeddings()
     self.dcids: List[str] = []
     self.sentences: List[str] = []
 
     logging.info('Loading embeddings file')
     try:
-      ds = load_dataset('csv',
-                        data_files=os.path.join(TEMP_DIR,
-                                                f'{self.embeddings_file}'))
+      ds = load_dataset('csv', data_files=embeddings_path)
     except:
       error_str = "No embedding could be loaded."
       logging.error(error_str)
@@ -75,25 +70,6 @@ class Embeddings:
     self.dataset_embeddings = torch.from_numpy(self.df.to_numpy()).to(
         torch.float)
 
-  def _download_embeddings(self):
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name=gcs.BUCKET)
-    blob = bucket.get_blob(self.embeddings_file)
-    # Download
-    blob.download_to_filename(os.path.join(TEMP_DIR, self.embeddings_file))
-
-  def get_embedding_at_index(self, index: int) -> List[float]:
-    if index < 0 or index >= len(self.df):
-      logging.error(
-          f"get_embedding_at_index() got an index out of range. index = {index}. len(df) = {len(self.df)}"
-      )
-      return []
-
-    return self.df.iloc[index].values.tolist()
-
-  def get_embedding(self, query: str) -> List[float]:
-    return self.model.encode(query).tolist()
-
   #
   # Given a list of queries, searches the in-memory embeddings index
   # and returns a map of candidates keyed by input queries.
@@ -101,7 +77,9 @@ class Embeddings:
   def _search_embeddings(self,
                          queries: List[str]) -> Dict[str, vars.VarCandidates]:
     query_embeddings = self.model.encode(queries)
-    hits = semantic_search(query_embeddings, self.dataset_embeddings, top_k=20)
+    hits = semantic_search(query_embeddings,
+                           self.dataset_embeddings,
+                           top_k=_NUM_SV_INDEX_MATCHES)
 
     # A map from input query -> SV DCID -> matched sentence -> score for that match
     query2sv2sentence2score: Dict[str, Dict[str, Dict[str, float]]] = {}

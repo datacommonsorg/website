@@ -24,6 +24,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -58,6 +59,10 @@ interface BarTilePropType {
   className?: string;
   // Tile spec with additional information about what to show on this tile
   tileSpec?: BarTileSpec;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
+  // API root
+  apiRoot?: string;
 }
 
 interface BarChartData {
@@ -69,20 +74,18 @@ interface BarChartData {
 
 export function BarTile(props: BarTilePropType): JSX.Element {
   const chartContainerRef = useRef(null);
-  const [rawData, setRawData] = useState<PointApiResponse | undefined>(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
 
   useEffect(() => {
-    fetchData(props, setRawData);
-  }, [props]);
-
-  useEffect(() => {
-    if (rawData) {
-      processData(props, rawData, setBarChartData);
+    if (!barChartData) {
+      (async () => {
+        const data = await fetchData(props);
+        setBarChartData(data);
+      })();
     }
-  }, [props, rawData]);
+  }, [props, barChartData]);
 
   const drawFn = useCallback(() => {
     if (_.isEmpty(barChartData)) {
@@ -109,6 +112,12 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(barChartData)}
     >
+      {props.isDataTile && barChartData && (
+        <div
+          className={DATA_CSS_CLASS}
+          data-csv={dataGroupsToCsv(barChartData.dataGroup)}
+        />
+      )}
       <div
         id={props.id}
         className="svg-container"
@@ -119,10 +128,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   );
 }
 
-function fetchData(
-  props: BarTilePropType,
-  setRawData: (data: PointApiResponse) => void
-): void {
+export const fetchData = async (props: BarTilePropType) => {
   const statVars = [];
   for (const spec of props.statVarSpec) {
     statVars.push(spec.statVar);
@@ -135,116 +141,116 @@ function fetchData(
   let url: string;
   let params;
   if (props.comparisonPlaces) {
-    url = "/api/observations/point";
+    url = `${props.apiRoot || ""}/api/observations/point`;
     params = {
       entities: props.comparisonPlaces,
       variables: statVars,
     };
   } else {
-    url = "/api/observations/point/within";
+    url = `${props.apiRoot || ""}/api/observations/point/within`;
     params = {
-      parent_entity: props.place.dcid,
-      child_type: props.enclosedPlaceType,
+      parentEntity: props.place.dcid,
+      childType: props.enclosedPlaceType,
       variables: statVars,
     };
   }
-  axios
-    .get<PointApiResponse>(url, {
-      params: params,
+  try {
+    const resp = await axios.get<PointApiResponse>(url, {
+      params,
       paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      setRawData(resp.data);
-    })
-    .catch(() => {
-      setRawData(null);
     });
-}
 
-function processData(
+    // Find the most populated places.
+    let popPoints: RankingPoint[] = [];
+    for (const place in resp.data.data[FILTER_STAT_VAR]) {
+      popPoints.push({
+        placeDcid: place,
+        value: resp.data.data[FILTER_STAT_VAR][place].value,
+      });
+    }
+    // Take the most populated places.
+    popPoints.sort((a, b) => a.value - b.value);
+    popPoints = popPoints.slice(0, NUM_PLACES);
+    const placeNames = await getPlaceNames(
+      Array.from(popPoints).map((x) => x.placeDcid),
+      props.apiRoot
+    );
+    return rawToChart(props, resp.data, popPoints, placeNames);
+  } catch (error) {
+    return null;
+  }
+};
+
+function rawToChart(
   props: BarTilePropType,
   rawData: PointApiResponse,
-  setBarChartData: (data: BarChartData) => void
-): void {
+  popPoints: RankingPoint[],
+  placeNames: Record<string, string>
+): BarChartData {
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
 
-  // Find the most populated places.
-  let popPoints: RankingPoint[] = [];
-  for (const place in raw.data[FILTER_STAT_VAR]) {
-    popPoints.push({
-      placeDcid: place,
-      value: raw.data[FILTER_STAT_VAR][place].value,
-    });
-  }
-  // Take the most populated places.
-  popPoints.sort((a, b) => a.value - b.value);
-  popPoints = popPoints.slice(0, NUM_PLACES);
-
-  // Fetch the place names
-  getPlaceNames(Array.from(popPoints).map((x) => x.placeDcid)).then(
-    (placeNames) => {
-      let unit = "";
-      const dates: Set<string> = new Set();
-      for (const point of popPoints) {
-        const placeDcid = point.placeDcid;
-        const dataPoints: DataPoint[] = [];
-        for (const spec of props.statVarSpec) {
-          const statVar = spec.statVar;
-          if (!raw.data[statVar] || _.isEmpty(raw.data[statVar][placeDcid])) {
-            continue;
-          }
-          const stat = raw.data[statVar][placeDcid];
-          const dataPoint = {
-            label: getStatVarName(statVar, props.statVarSpec),
-            value: stat.value || 0,
-            dcid: placeDcid,
-          };
-          dates.add(stat.date);
-          if (raw.facets[stat.facet]) {
-            sources.add(raw.facets[stat.facet].provenanceUrl);
-            const svUnit = getUnit(raw.facets[stat.facet]);
-            unit = unit || svUnit;
-          }
-          if (spec.denom && spec.denom in raw.data) {
-            const denomStat = raw.data[spec.denom][placeDcid];
-            dataPoint.value /= denomStat.value;
-            sources.add(raw.facets[denomStat.facet].provenanceUrl);
-          }
-          if (spec.scaling) {
-            dataPoint.value *= spec.scaling;
-          }
-          dataPoints.push(dataPoint);
-        }
-        const specLinkRoot = props.tileSpec
-          ? props.tileSpec.xLabelLinkRoot
-          : "";
-        const link = `${specLinkRoot || DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
-        dataGroups.push(
-          new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
-        );
+  let unit = "";
+  const dates: Set<string> = new Set();
+  for (const point of popPoints) {
+    const placeDcid = point.placeDcid;
+    const dataPoints: DataPoint[] = [];
+    for (const spec of props.statVarSpec) {
+      const statVar = spec.statVar;
+      if (!raw.data[statVar] || _.isEmpty(raw.data[statVar][placeDcid])) {
+        continue;
       }
-      if (!_.isEmpty(props.statVarSpec)) {
-        unit = props.statVarSpec[0].unit || unit;
+      const stat = raw.data[statVar][placeDcid];
+      const dataPoint = {
+        label: getStatVarName(statVar, props.statVarSpec),
+        value: stat.value || 0,
+        dcid: placeDcid,
+      };
+      dates.add(stat.date);
+      if (raw.facets[stat.facet]) {
+        sources.add(raw.facets[stat.facet].provenanceUrl);
+        const svUnit = getUnit(raw.facets[stat.facet]);
+        unit = unit || svUnit;
       }
-      setBarChartData({
-        dataGroup: dataGroups,
-        sources: sources,
-        dateRange: getDateRange(Array.from(dates)),
-        unit,
-      });
+      if (spec.denom && spec.denom in raw.data) {
+        const denomStat = raw.data[spec.denom][placeDcid];
+        dataPoint.value /= denomStat.value;
+        sources.add(raw.facets[denomStat.facet].provenanceUrl);
+      }
+      if (spec.scaling) {
+        dataPoint.value *= spec.scaling;
+      }
+      dataPoints.push(dataPoint);
     }
-  );
+    const specLinkRoot = props.tileSpec ? props.tileSpec.xLabelLinkRoot : "";
+    const link = `${specLinkRoot || DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
+    dataGroups.push(
+      new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
+    );
+  }
+  if (!_.isEmpty(props.statVarSpec)) {
+    unit = props.statVarSpec[0].unit || unit;
+  }
+  return {
+    dataGroup: dataGroups,
+    sources,
+    dateRange: getDateRange(Array.from(dates)),
+    unit,
+  };
 }
 
-function draw(props: BarTilePropType, chartData: BarChartData): void {
+export function draw(
+  props: BarTilePropType,
+  chartData: BarChartData,
+  svgWidth?: number
+): void {
   const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
   elem.innerHTML = "";
   drawGroupBarChart(
     props.id,
-    elem.offsetWidth,
+    svgWidth || elem.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     formatNumber,

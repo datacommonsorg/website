@@ -20,8 +20,10 @@ class Config(_base.Config):
   CUSTOM = True
   NAME = "IITM"
   GA_ACCOUNT = 'G-32HPL4K4Y1'
+  SHOW_DISASTER = False
 
 
 class LocalConfig(local.Config):
   CUSTOM = True
   NAME = "IITM"
+  SHOW_DISASTER = False

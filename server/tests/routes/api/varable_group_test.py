@@ -21,7 +21,8 @@ from web_app import app
 
 class TestGetVariableGroupInfo(unittest.TestCase):
 
-  @mock.patch('server.routes.api.variable_group.dc.get_variable_group_info')
+  @mock.patch(
+      'server.routes.shared_api.variable_group.dc.get_variable_group_info')
   def test_statvar_path(self, mock_result):
     expected_result = {
         "absoluteName":

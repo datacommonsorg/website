@@ -1,0 +1,68 @@
+{{- if .Values.ingress.enabled }}
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backendconfig
+  namespace: {{ .Values.namespace.name }}
+spec:
+  timeoutSec: 60
+  connectionDraining:
+    drainingTimeoutSec: 60
+  healthCheck:
+    checkIntervalSec: 15
+    port: 8080
+    type: HTTP
+    requestPath: /healthz
+  {{- if .Values.website.iap.enabled }}
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: iap-secret
+  {{- end }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-service
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    cloud.google.com/backend-config: '{"ports": {"8081":"backendconfig"}}'
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: website-app
+
+---
+
+# Note:
+# ingress.gcp.kubernetes.io/pre-shared-cert should match the name
+# of the certificate created in Terraform.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ipName }}
+    ingress.gcp.kubernetes.io/pre-shared-cert: {{ .Values.ingress.certName }}
+spec:
+  rules:
+    - http:
+        paths:
+        - path: /*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: website-service
+              port:
+                number: 8080
+
+{{- end }}

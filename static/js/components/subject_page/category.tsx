@@ -23,12 +23,11 @@ import ReactMarkdown from "react-markdown";
 
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
-import { randDomId } from "../../shared/util";
 import {
   CategoryConfig,
   EventTypeSpec,
 } from "../../types/subject_page_proto_types";
-import { getId, getRelLink } from "../../utils/subject_page_utils";
+import { getId } from "../../utils/subject_page_utils";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
@@ -46,6 +45,7 @@ export interface CategoryPropType {
   eventTypeSpec: Record<string, EventTypeSpec>;
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
+  showData?: boolean;
 }
 
 export const Category = memo(function Category(
@@ -63,6 +63,12 @@ export const Category = memo(function Category(
   return (
     <article className="category col-12" id={props.id}>
       {title && <h2 className="block-title">{title}</h2>}
+      {globalThis.viaGoogle && (
+        <p>
+          This data was imported by the Google DataCommons team. For more info,
+          see <a href="https://datacommons.org">Datacommons.org</a>.
+        </p>
+      )}
       {description && <ReactMarkdown>{description}</ReactMarkdown>}
       {renderBlocks(props, svProvider)}
     </article>
@@ -91,6 +97,7 @@ function renderBlocks(
               footnote={block.footnote}
               columns={block.columns}
               eventTypeSpec={props.eventTypeSpec}
+              showData={props.showData}
             />
           </ErrorBoundary>
         );
@@ -107,6 +114,7 @@ function renderBlocks(
               columns={block.columns}
               statVarProvider={svProvider}
               svgChartHeight={props.svgChartHeight}
+              showData={props.showData}
             />
           </ErrorBoundary>
         );

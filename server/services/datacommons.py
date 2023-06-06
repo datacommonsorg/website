@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,13 +13,10 @@
 # limitations under the License.
 """Copy of Data Commons Python Client API Core without pandas dependency."""
 
-import base64
-import collections
 import json
 import logging
 from typing import Dict, List
 import urllib.parse
-import zlib
 
 from flask import current_app
 import requests
@@ -36,9 +33,9 @@ cfg = libconfig.get_config()
 @cache.memoize(timeout=3600 * 24)
 def get(url: str):
   headers = {'Content-Type': 'application/json'}
-  dc_api_key = current_app.config.get('DC_API_KEY', '')
-  if dc_api_key:
-    headers['x-api-key'] = dc_api_key
+  mixer_api_key = current_app.config.get('MIXER_API_KEY', '')
+  if mixer_api_key:
+    headers['x-api-key'] = mixer_api_key
   # Send the request and verify the request succeeded
   response = requests.get(url, headers=headers)
   if response.status_code != 200:
@@ -62,9 +59,9 @@ def post(url: str, req: Dict):
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
   headers = {'Content-Type': 'application/json'}
-  dc_api_key = current_app.config.get('DC_API_KEY', '')
-  if dc_api_key:
-    headers['x-api-key'] = dc_api_key
+  mixer_api_key = current_app.config.get('MIXER_API_KEY', '')
+  if mixer_api_key:
+    headers['x-api-key'] = mixer_api_key
   # Send the request and verify the request succeeded
   response = requests.post(url, json=req, headers=headers)
   if response.status_code != 200:
@@ -74,7 +71,7 @@ def post_wrapper(url, req_str: str):
   return response.json()
 
 
-def obs_point(entities, variables, date='', all_facets=False):
+def obs_point(entities, variables, date='LATEST'):
   """Gets the observation point for the given entities of the given variable.
 
   Args:
@@ -82,23 +79,22 @@ def obs_point(entities, variables, date='', all_facets=False):
       variables: A list of statistical variables.
       date (optional): The date of the observation. If not set, the latest
           observation is returned.
-      all_facets (optional): Whether or not to get data for all facets.
   """
-  url = get_service_url('/v1/bulk/observations/point')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'entities': sorted(entities),
-          'variables': sorted(variables),
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'dcids': sorted(entities)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
           'date': date,
-          'all_facets': all_facets,
       })
 
 
-def obs_point_within(parent_entity,
-                     child_type,
-                     variables,
-                     date='',
-                     all_facets=False):
+def obs_point_within(parent_entity, child_type, variables, date='LATEST'):
   """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -107,47 +103,52 @@ def obs_point_within(parent_entity,
       child_type: Type of child places as a string.
       variables: List of statistical variable DCIDs each as a string.
       date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
-      all_facets (optional): Whether or not to get data for all facets
 
   Returns:
-      Dict with a key "facets" and a key "observationsByVariable".
+      Dict with a key "facets" and a key "byVariable".
       The value for "facets" is a dict keyed by facet ids, with dicts as values
       (See "StatMetadata" in https://github.com/datacommonsorg/mixer/blob/master/proto/stat.proto for the definition of the inner dicts)
-      The value for "observationsByVariable" is a list of dicts (See "VariableObservations"
-      in https://github.com/datacommonsorg/mixer/blob/master/proto/v1/observations.proto for the definition of these dicts)
+      The value for "byVariable" is a list of dicts containing observations.
 
   """
-  url = get_service_url('/v1/bulk/observations/point/linked')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'linked_entity': parent_entity,
-          'linked_property': 'containedInPlace',
-          'entity_type': child_type,
-          'variables': sorted(variables),
-          'date': date,
-          'all_facets': all_facets,
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'expression':
+                  '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
+                      parent_entity, child_type)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
+          'date': date
       })
 
 
-def obs_series(entities, variables, all_facets=False):
+def obs_series(entities, variables):
   """Gets the observation time series for the given entities of the given
   variable.
 
   Args:
       entities: A list of entities DCIDs.
       variables: A list of statistical variables.
-      all_facets (optional): Whether or not to get data for all facets.
   """
-  url = get_service_url('/v1/bulk/observations/series')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'entities': sorted(entities),
-          'variables': sorted(variables),
-          'all_facets': all_facets,
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'dcids': sorted(entities)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
       })
 
 
-def obs_series_within(parent_entity, child_type, variables, all_facets=False):
+def obs_series_within(parent_entity, child_type, variables):
   """Gets the statistical variable series for child places of a certain place
     type contained in a parent place.
 
@@ -155,92 +156,65 @@ def obs_series_within(parent_entity, child_type, variables, all_facets=False):
       parent_entity: Parent entity DCID as a string.
       child_type: Type of child places as a string.
       variables: List of statistical variable DCIDs each as a string.
-      all_facets (optional): Whether or not to get data for all facets
   """
-  url = get_service_url('/v1/bulk/observations/series/linked')
+  url = get_service_url('/v2/observation')
   return post(
       url, {
-          'linked_entity': parent_entity,
-          'linked_property': "containedInPlace",
-          'entity_type': child_type,
-          'variables': sorted(variables),
-          'all_facets': all_facets,
+          'select': ['date', 'value', 'variable', 'entity'],
+          'entity': {
+              'expression':
+                  '{0}<-containedInPlace+{{typeOf:{1}}}'.format(
+                      parent_entity, child_type)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
       })
 
 
-def triples(node, direction):
-  """Retrieves the triples for a node.
+def v2observation(select, entity, variable):
+  """
+  Args:
+    select: A list of select props.
+    entity: A dict in the form of {'dcids':, 'expression':}
+    variable: A dict in the form of {'dcids':, 'expression':}
+
+  """
+  if 'dcids' in entity:
+    entity['dcids'] = sorted(entity['dcids'])
+  if 'dcids' in variable:
+    variable['dcids'] = sorted(variable['dcids'])
+  url = get_service_url('/v2/observation')
+  return post(url, {
+      'select': select,
+      'entity': entity,
+      'variable': variable,
+  })
+
+
+def v2node(nodes, prop):
+  """Wrapper to call V2 Node REST API.
 
   Args:
-      node: Node DCID.
-      direction: Predicate direction, either be 'in' or 'out'.
+      nodes: A list of node dcids.
+      prop: The property to query for.
   """
-  url = get_service_url('/v1/triples')
-  return get(f'{url}/{direction}/{node}')
-
-
-def bulk_triples(nodes, direction):
-  """Retrieves the triples for multiple nodes.
-
-  Args:
-      nodes: DCIDs of nodes.
-      direction: Predicate direction, either be 'in' or 'out'.
-  """
-  url = get_service_url('/v1/bulk/triples')
-  return post(f'{url}/{direction}', {'nodes': nodes})
-
-
-def properties(node, direction):
-  """Retrieves the properties for a node.
-
-  Args:
-      node: Node DCID.
-      direction: Predicate direction, either be 'in' or 'out'.
-  """
-  url = get_service_url('/v1/properties')
-  return get(f'{url}/{direction}/{node}').get('properties', [])
-
-
-def properties_v1(nodes, direction):
-  """Retrieves the properties for a list of nodes.
-
-  Args:
-      nodes: List of node DCIDs.
-      direction: Predicate direction, either be 'in' or 'out'.
-  """
-  url = get_service_url('/v1/bulk/properties')
-  return post(f'{url}/{direction}', {'nodes': nodes}).get('data', [])
-
-
-def property_values_v1(nodes, prop, out=True):
-  """Retrieves the property values with V1 response."""
-  direction = 'out' if out else 'in'
-  url = get_service_url('/v1/bulk/property/values')
-  return post(f'{url}/{direction}', {
-      'nodes': sorted(set(nodes)),
+  url = get_service_url('/v2/node')
+  return post(url, {
+      'nodes': sorted(nodes),
       'property': prop,
   })
 
 
-def property_values(nodes, prop, out=True):
-  """Retrieves the property values for a list of nodes.
+def v2event(node, prop):
+  """Wrapper to call V2 Event REST API.
 
   Args:
-      nodes: A list of node DCIDs.
-      prop: The property label to query for.
-      out: Whether the property direction is 'out'.
+      node: The node dcid of which event data is queried.
+      prop: Property expression to filter the event.
   """
-  resp = property_values_v1(nodes, prop, out)
-  result = {}
-  for item in resp.get('data', []):
-    node, values = item['node'], item.get('values', [])
-    result[node] = []
-    for v in values:
-      if 'dcid' in v:
-        result[node].append(v['dcid'])
-      else:
-        result[node].append(v['value'])
-  return result
+  url = get_service_url('/v2/event')
+  return post(url, {'node': node, 'property': prop})
 
 
 def get_place_info(dcids: List[str]) -> Dict:
@@ -271,13 +245,6 @@ def variable_info(nodes: List[str]) -> Dict:
   return post(url, req_dict)
 
 
-def get_variables(dcid: str):
-  """Get all the statistical variable dcids for a place."""
-  url = get_service_url('/v1/variables')
-  url = f'{url}/{dcid}'
-  return get(url).get('variables', [])
-
-
 def get_variable_ancestors(dcid: str):
   """Gets the path of a stat var to the root of the stat var hierarchy."""
   url = get_service_url('/v1/variable/ancestors')
@@ -297,104 +264,26 @@ def get_series_dates(parent_entity, child_type, variables):
       })
 
 
-def observation_existence(variables, entities):
-  """Check if observation exist for <entity, variable> pairs"""
-  url = get_service_url('/v1/bulk/observation-existence')
-  return post(url, {
-      'entities': entities,
-      'variables': variables,
-  })
-
-
 def bio(entity):
   """Fetch biology subgraph linking to the given entity"""
   url = get_service_url('/v1/internal/page/bio')
   return get(url + "/" + entity)
 
 
-def resolve_id(in_ids, in_prop, out_prop):
-  """Resolves ids given nodes input and output property.
+def resolve(nodes, prop):
+  """Resolves nodes based on the given property.
 
   Args:
-      in_ids: A list of input ids.
-      in_prop: The input property.
-      out_prop: The output property.
+      nodes: A list of node dcids.
+      prop: Property expression indicating the property to resolve.
   """
-  url = get_service_url('/v1/recon/resolve/id')
-  return post(url, {
-      'ids': in_ids,
-      'in_prop': in_prop,
-      'out_prop': out_prop,
-  })
+  url = get_service_url('/v2/resolve')
+  return post(url, {'nodes': nodes, 'property': prop})
 
 
-def resolve_coordinates(coordinates):
-  """Resolves a list of coordinates.
-
-  Args:
-      coordinates: a list of { longitude: number, latitude: number }.
-  """
-  url = get_service_url('/v1/recon/resolve/coordinate')
-  return post(url, {
-      'coordinates': coordinates,
-  })
-
-
-def get_event_collection(event_type,
-                         affected_place,
-                         date,
-                         filter_prop=None,
-                         filter_unit=None,
-                         filter_upper_limit=None,
-                         filter_lower_limit=None):
-  """Gets all the events for a specified event type, affected place, date, and
-      filter information (filter prop, unit, lower limit, and upper limit).
-
-  Args:
-      event_type: type of events to get
-      affected_place: affected place of events to get
-      date: date of events to get
-  """
-  return post(
-      get_service_url('/v1/events'), {
-          'event_type': event_type,
-          'affected_place_dcid': affected_place,
-          'date': date,
-          'filter_prop': filter_prop,
-          'filter_unit': filter_unit,
-          'filter_upper_limit': filter_upper_limit,
-          'filter_lower_limit': filter_lower_limit
-      })
-
-
-def get_event_collection_date(event_type, affected_place):
-  """Gets all the dates of events for a specified event type and affected place
-
-  Args:
-      event_type: type of event to get the dates for
-      affected_place: affected place of events to include dates of
-  """
-  return post(get_service_url('/v1/events/dates'), {
-      'event_type': event_type,
-      'affected_place_dcid': affected_place,
-  })
-
-
-def nl_embeddings_vector_at_index(index: int):
-  """Embedding vector at index from the NL server."""
-  url = f'{cfg.NL_ROOT}/api/embedding?i={index}'
-  return get(url).get('embeddings_vector', [])
-
-
-def nl_embeddings_vector(query):
-  """Embedding vector from the NL server."""
-  url = f'{cfg.NL_ROOT}/api/embedding?q={query}'
-  return get(url).get('embeddings_vector', [])
-
-
-def nl_search_sv(query):
+def nl_search_sv(query, index_type):
   """Search sv from NL server."""
-  url = f'{cfg.NL_ROOT}/api/search_sv?q={query}'
+  url = f'{cfg.NL_ROOT}/api/search_sv?q={query}&sz={index_type}'
   return get(url)
 
 
@@ -419,8 +308,7 @@ def search(query_text, max_results):
 
 def translate(sparql, mapping):
   url = get_service_url('/translate')
-  req_json = {'schema_mapping': mapping, 'sparql': sparql}
-  return send_request(url, req_json=req_json, has_payload=False)
+  return post(url, {'schema_mapping': mapping, 'sparql': sparql})
 
 
 def version():
@@ -429,94 +317,45 @@ def version():
   Currently all service groups must have the same version.
   """
   url = get_health_check_urls()[0]
-  return send_request(url, req_json={}, post=False, has_payload=False)
+  return get(url)
 
 
-def get_place_ranking(stat_vars,
-                      place_type,
-                      within_place=None,
-                      is_per_capita=False):
-  url = get_service_url('/node/ranking-locations')
-  req_json = {
-      'stat_var_dcids': stat_vars,
-      'place_type': place_type,
-      'within_place': within_place,
-      'is_per_capita': is_per_capita,
-  }
-  return send_request(url, req_json=req_json, post=False, has_payload=False)
-
-
-def get_places_in_v1(dcids, place_type):
-  # Convert the dcids field and format the request to GetPlacesIn
-  url = get_service_url('/v1/bulk/property/values/in/linked')
+def place_ranking(variable, descendent_type, ancestor=None, per_capita=False):
+  url = get_service_url('/v1/place/ranking')
   return post(
       url, {
-          'nodes': dcids,
-          'property': 'containedInPlace',
-          'value_node_type': place_type,
+          'stat_var_dcids': [variable],
+          'place_type': descendent_type,
+          'within_place': ancestor,
+          'is_per_capita': per_capita,
       })
-
-
-def get_places_in(dcids, place_type):
-  # Convert the dcids field and format the request to GetPlacesIn
-  url = get_service_url('/node/places-in')
-  payload = send_request(url,
-                         req_json={
-                             'dcids': dcids,
-                             'place_type': place_type,
-                         },
-                         post=False)
-
-  # Create the results and format it appropriately
-  result = _format_expand_payload(payload, 'place', must_exist=dcids)
-  return result
 
 
 def query(query_string):
   # Get the API Key and perform the POST request.
   logging.info("[ Mixer Request ]: \n" + query_string)
-  headers = {'Content-Type': 'application/json'}
-  url = get_service_url('/query')
-  response = requests.post(url,
-                           json={'sparql': query_string},
-                           headers=headers,
-                           timeout=60)
-  if response.status_code != 200:
-    raise ValueError(
-        'Response error: An HTTP {} code was returned by the mixer. '
-        'Printing response\n{}'.format(response.status_code, response.reason))
-  res_json = response.json()
-  return res_json['header'], res_json.get('rows', [])
+  url = get_service_url('/v1/query')
+  resp = post(url, {'sparql': query_string})
+  return resp['header'], resp.get('rows', [])
 
 
-def get_related_place(dcid, stat_vars, within_place=None, is_per_capita=None):
-  url = get_service_url('/node/related-locations')
-  req_json = {'dcid': dcid, 'stat_var_dcids': stat_vars}
-  if within_place:
-    req_json['within_place'] = within_place
-  if is_per_capita:
-    req_json['is_per_capita'] = is_per_capita
-  return send_request(url, req_json, has_payload=False)
+def related_place(dcid, variables, ancestor=None, per_capita=False):
+  url = get_service_url('/v1/place/related')
+  req_json = {'dcid': dcid, 'stat_var_dcids': sorted(variables)}
+  if ancestor:
+    req_json['within_place'] = ancestor
+  if per_capita:
+    req_json['is_per_capita'] = per_capita
+  return post(url, req_json)
 
 
 def search_statvar(query, places, sv_only):
-  url = get_service_url('/stat-var/search')
-  req_json = {
+  url = get_service_url('/v1/variable/search')
+  return post(url, {
       'query': query,
       'places': places,
       "sv_only": sv_only,
-  }
-  return send_request(url, req_json, has_payload=False)
-
-
-def match_statvar(query: str, limit: int, debug: bool):
-  url = get_service_url('/stat-var/match')
-  req_json = {
-      'query': query,
-      'limit': limit,
-      'debug': debug,
-  }
-  return send_request(url, req_json, has_payload=False)
+  })
 
 
 def get_landing_page_data(dcid, category: str, new_stat_vars: List):
@@ -525,65 +364,3 @@ def get_landing_page_data(dcid, category: str, new_stat_vars: List):
     req['newStatVars'] = new_stat_vars
   url = get_service_url('/v1/internal/page/place')
   return post(url, req)
-
-
-# ------------------------- INTERNAL HELPER FUNCTIONS -------------------------
-
-
-def send_request(req_url,
-                 req_json={},
-                 compress=False,
-                 post=True,
-                 has_payload=True):
-  """ Sends a POST/GET request to req_url with req_json, default to POST.
-
-  Returns:
-    The payload returned by sending the POST/GET request formatted as a dict.
-  """
-  headers = {'Content-Type': 'application/json'}
-
-  # Send the request and verify the request succeeded
-  if post:
-    response = requests.post(req_url, json=req_json, headers=headers)
-  else:
-    response = requests.get(req_url, params=req_json, headers=headers)
-
-  if response.status_code != 200:
-    raise ValueError(
-        'Response error: An HTTP {} code ({}) was returned by the mixer. '
-        'Printing response:\n{}'.format(response.status_code, response.reason,
-                                        response.json()['message']))
-  # Get the JSON
-  res_json = response.json()
-  # If the payload is compressed, decompress and decode it
-  if has_payload:
-    res_json = res_json['payload']
-    if compress:
-      res_json = zlib.decompress(base64.b64decode(res_json),
-                                 zlib.MAX_WBITS | 32)
-    res_json = json.loads(res_json)
-  return res_json
-
-
-def fetch_data(endpoint_name: str,
-               req_json: Dict,
-               compress,
-               post,
-               has_payload=True):
-  url = get_service_url(endpoint_name)
-  return send_request(url, req_json, compress, post, has_payload)
-
-
-def _format_expand_payload(payload, new_key, must_exist=[]):
-  """ Formats expand payloads into dicts from dcids to lists of values."""
-  # Create the results dictionary from payload
-  results = collections.defaultdict(set)
-  for entry in payload:
-    if 'dcid' in entry and new_key in entry:
-      dcid = entry['dcid']
-      results[dcid].add(entry[new_key])
-
-  # Ensure all dcids in must_exist have some entry in results.
-  for dcid in must_exist:
-    results[dcid]
-  return {k: sorted(list(v)) for k, v in results.items()}

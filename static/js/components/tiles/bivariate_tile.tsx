@@ -26,6 +26,7 @@ import ReactDOMServer from "react-dom/server";
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
+import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -52,6 +53,8 @@ interface BivariateTilePropType {
   svgChartHeight: number;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
 }
 
 interface RawData {
@@ -75,31 +78,22 @@ interface BivariateChartData {
 export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const legend = useRef(null);
-  const [rawData, setRawData] = useState<RawData | undefined>(null);
   const [bivariateChartData, setBivariateChartData] = useState<
     BivariateChartData | undefined
   >(null);
 
   useEffect(() => {
-    fetchData(
-      props.place.dcid,
-      props.enclosedPlaceType,
-      props.statVarSpec,
-      setRawData
-    );
-  }, [props]);
-
-  useEffect(() => {
-    if (rawData) {
-      processData(
-        rawData,
-        props.statVarSpec,
-        props.place,
-        props.enclosedPlaceType,
-        setBivariateChartData
-      );
+    if (!bivariateChartData) {
+      (async () => {
+        const data = await fetchData(
+          props.place,
+          props.enclosedPlaceType,
+          props.statVarSpec
+        );
+        setBivariateChartData(data);
+      })();
     }
-  }, [props, rawData]);
+  }, [props, bivariateChartData]);
 
   const drawFn = useCallback(() => {
     if (_.isEmpty(bivariateChartData)) {
@@ -134,6 +128,18 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(bivariateChartData)}
     >
+      {props.isDataTile && bivariateChartData && (
+        <div
+          className={DATA_CSS_CLASS}
+          data-csv={scatterDataToCsv(
+            bivariateChartData.xStatVar.statVar,
+            bivariateChartData.xStatVar.denom,
+            bivariateChartData.yStatVar.statVar,
+            bivariateChartData.yStatVar.denom,
+            bivariateChartData.points
+          )}
+        />
+      )}
       <div
         id={props.id}
         className="bivariate-svg-container"
@@ -162,9 +168,9 @@ function getPopulationPromise(
     return axios
       .get("/api/observations/series/within", {
         params: {
-          parent_entity: placeDcid,
-          child_type: enclosedPlaceType,
-          variables: variables,
+          parentEntity: placeDcid,
+          childType: enclosedPlaceType,
+          variables,
         },
         paramsSerializer: stringifyFn,
       })
@@ -172,23 +178,22 @@ function getPopulationPromise(
   }
 }
 
-function fetchData(
-  placeDcid: string,
+export const fetchData = async (
+  place: NamedTypedPlace,
   enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
-  setRawData: (data: RawData) => void
-): void {
+  statVarSpec: StatVarSpec[]
+) => {
   if (statVarSpec.length < 2) {
     // TODO: add error message
     return;
   }
   const geoJsonPromise: Promise<GeoJsonData> = axios
     .get(
-      `/api/choropleth/geojson?placeDcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const placeStatsPromise: Promise<PointApiResponse> = getStatWithinPlace(
-    placeDcid,
+    place.dcid,
     enclosedPlaceType,
     [
       { statVarDcid: statVarSpec[0].statVar },
@@ -196,47 +201,46 @@ function fetchData(
     ]
   );
   const populationPromise: Promise<SeriesApiResponse> = getPopulationPromise(
-    placeDcid,
+    place.dcid,
     enclosedPlaceType,
     statVarSpec
   );
   const placeNamesPromise = axios
     .get(
-      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${place.dcid}&descendentType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const parentPlacesPromise = axios
-    .get(`/api/place/parent/${placeDcid}`)
+    .get(`/api/place/parent/${place.dcid}`)
     .then((resp) => resp.data);
-  Promise.all([
-    placeStatsPromise,
-    populationPromise,
-    placeNamesPromise,
-    geoJsonPromise,
-    parentPlacesPromise,
-  ])
-    .then(([placeStats, population, placeNames, geoJson, parentPlaces]) => {
-      setRawData({
-        geoJson,
-        placeStats,
-        population,
-        placeNames,
-        parentPlaces,
-      });
-    })
-    .catch(() => {
-      // TODO: add error message
-      setRawData(null);
-    });
-}
+  try {
+    const [placeStats, population, placeNames, geoJson, parentPlaces] =
+      await Promise.all([
+        placeStatsPromise,
+        populationPromise,
+        placeNamesPromise,
+        geoJsonPromise,
+        parentPlacesPromise,
+      ]);
+    const rawData = {
+      placeStats,
+      population,
+      placeNames,
+      geoJson,
+      parentPlaces,
+    };
+    return rawToChart(rawData, statVarSpec, place, enclosedPlaceType);
+  } catch (error) {
+    return null;
+  }
+};
 
-function processData(
+function rawToChart(
   rawData: RawData,
   statVarSpec: StatVarSpec[],
   place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  setChartdata: (data: BivariateChartData) => void
-): void {
+  enclosedPlaceType: string
+): BivariateChartData {
   const xStatVar = statVarSpec[0];
   const yStatVar = statVarSpec[1];
   const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
@@ -274,7 +278,7 @@ function processData(
     });
     points[place] = placeChartData.point;
   }
-  setChartdata({
+  return {
     xStatVar,
     yStatVar,
     points,
@@ -286,7 +290,7 @@ function processData(
       rawData.parentPlaces
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
-  });
+  };
 }
 
 const getTooltipHtml =

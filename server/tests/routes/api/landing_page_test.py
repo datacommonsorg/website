@@ -20,7 +20,7 @@ from flask import Flask
 from flask_babel import Babel
 
 import server.lib.util as libutil
-import server.routes.api.landing_page as landing_page
+import server.routes.place.api as api
 from web_app import app
 
 # TODO(shifucun): add test for api endpoint.
@@ -69,14 +69,14 @@ class TestBuildSpec(unittest.TestCase):
         }
     }]
     with self.context:
-      result = landing_page.build_spec(chart_config, target_category="Overview")
+      result = api.build_spec(chart_config, target_category="Overview")
       with open('server/tests/test_data/golden_config.json') as f:
         expected = json.load(f)
         assert expected == result
 
   def test_menu_hierarchy(self):
     chart_config = libutil.get_chart_config()
-    spec = landing_page.build_spec(chart_config, "Overview", False)
+    spec = api.build_spec(chart_config, "Overview", False)
     got = {}
     for category, topic_data in spec.items():
       got[category] = {}
@@ -102,29 +102,16 @@ class TestI18n(unittest.TestCase):
         '/api/landingpage/data/geoId/06?hl=ru')
 
   @staticmethod
-  def side_effect(url, req, compress, post):
+  def side_effect(dcids, prop):
     return {
-        "geoId/0646870": {
-            "out": [{
-                "value": "门洛帕克@ru",
-                "provenance": "prov1"
-            }]
-        },
-        "geoId/0651840": {
-            "out": [{
-                "value": "北費爾奧克斯 (加利福尼亞州)@ru",
-                "provenance": "prov1"
-            }, {
-                "value": "North Fair Oaks@en",
-                "provenance": "prov1"
-            }]
-        },
-        "geoId/0684536": {}
+        "geoId/0646870": ["门洛帕克@ru"],
+        "geoId/0651840": ["北費爾奧克斯 (加利福尼亞州)@ru", "North Fair Oaks@en"],
+        "geoId/0684536": []
     }
 
-  @patch('server.routes.api.place.fetch_data')
-  def test_child_places_i18n(self, mock_fetch_data):
-    mock_fetch_data.side_effect = self.side_effect
+  @patch('server.routes.shared_api.place.fetch.property_values')
+  def test_child_places_i18n(self, mock_property_values):
+    mock_property_values.side_effect = self.side_effect
 
     raw_page_data = {
         "allChildPlaces": {
@@ -164,5 +151,5 @@ class TestI18n(unittest.TestCase):
 
     with self.context:
       app.preprocess_request()
-      all_child_places = landing_page.get_i18n_all_child_places(raw_page_data)
+      all_child_places = api.get_i18n_all_child_places(raw_page_data)
       assert expected == all_child_places

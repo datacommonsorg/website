@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import copy
 from datetime import datetime
 import gzip
 import hashlib
@@ -20,14 +19,13 @@ import json
 import logging
 import os
 import time
-from typing import Dict, List
+from typing import List
 import urllib
 
 from flask import make_response
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
-import server.services.datacommons as dc
 
 _ready_check_timeout = 120  # seconds
 _ready_check_sleep_seconds = 5
@@ -225,135 +223,6 @@ def parse_date(date_string):
     return datetime.strptime(date_string, "%Y-%m-%d")
   else:
     raise ValueError("Invalid date: %s", date_string)
-
-
-def _get_unit_names(units: List[str]) -> Dict:
-  if not units:
-    return {}
-
-  dcid2name = {}
-  resp = dc.bulk_triples(nodes=units, direction='out')
-
-  for node in resp.get('data', []):
-    if 'node' not in node or 'triples' not in node:
-      continue
-    dcid = node['node']
-    triples = node['triples']
-    short_name = triples.get('shortDisplayName', None)
-    name = triples.get('name', None)
-    if short_name and short_name.get('nodes', []):
-      # Prefer short names
-      dcid2name[dcid] = short_name['nodes'][0].get('value', '')
-    elif name and name.get('nodes', []):
-      # Otherwise use name
-      dcid2name[dcid] = name['nodes'][0].get('value', '')
-
-  return dcid2name
-
-
-# For all facets that have a unit with a shortDisplayName, adds a
-# unitDisplayName property to the facet with the short display name as the value
-def _get_processed_facets(facets):
-  units = set()
-  for facet in facets.values():
-    facet_unit = facet.get('unit')
-    if facet_unit:
-      units.add(facet_unit)
-  unit2name = _get_unit_names(list(units))
-  result = copy.deepcopy(facets)
-  for facet_id, facet in facets.items():
-    facet_unit = facet.get('unit')
-    if facet_unit and unit2name.get(facet_unit, ''):
-      result[facet_id]['unitDisplayName'] = unit2name[facet_unit]
-  return result
-
-
-def point_core(entities, variables, date, all_facets):
-  resp = dc.obs_point(entities, variables, date, all_facets)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
-  return _compact_point(resp, all_facets)
-
-
-def point_within_core(parent_entity, child_type, variables, date, all_facets):
-  resp = dc.obs_point_within(parent_entity, child_type, variables, date,
-                             all_facets)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
-  return _compact_point(resp, all_facets)
-
-
-# Returns a compact version of observation point API results
-def _compact_point(point_resp, all_facets):
-  result = {
-      'facets': point_resp.get('facets', {}),
-  }
-  data = {}
-  for obs_by_variable in point_resp.get('observationsByVariable', []):
-    if 'variable' not in obs_by_variable:
-      continue
-    var = obs_by_variable['variable']
-    data[var] = {}
-    for obs_by_entity in obs_by_variable.get('observationsByEntity', []):
-      if 'entity' not in obs_by_entity:
-        continue
-      entity = obs_by_entity['entity']
-      data[var][entity] = None
-      if 'pointsByFacet' in obs_by_entity:
-        if all_facets:
-          data[var][entity] = obs_by_entity['pointsByFacet']
-        else:
-          # There should be only one point.
-          data[var][entity] = obs_by_entity['pointsByFacet'][0]
-      else:
-        if all_facets:
-          data[var][entity] = []
-        else:
-          data[var][entity] = {}
-  result['data'] = data
-  return result
-
-
-def series_core(entities, variables, all_facets):
-  resp = dc.obs_series(entities, variables, all_facets)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
-  return _compact_series(resp, all_facets)
-
-
-def series_within_core(parent_entity, child_type, variables, all_facets):
-  resp = dc.obs_series_within(parent_entity, child_type, variables, all_facets)
-  resp['facets'] = _get_processed_facets(resp.get('facets', {}))
-  return _compact_series(resp, all_facets)
-
-
-def _compact_series(series_resp, all_facets):
-  result = {
-      'facets': series_resp.get('facets', {}),
-  }
-  data = {}
-  for obs_by_variable in series_resp.get('observationsByVariable', []):
-    if 'variable' not in obs_by_variable:
-      continue
-    var = obs_by_variable['variable']
-    data[var] = {}
-    for obs_by_entity in obs_by_variable.get('observationsByEntity', []):
-      if 'entity' not in obs_by_entity:
-        continue
-      entity = obs_by_entity['entity']
-      data[var][entity] = None
-      if 'seriesByFacet' in obs_by_entity:
-        if all_facets:
-          data[var][entity] = obs_by_entity['seriesByFacet']
-        else:
-          # There should be only one series
-          data[var][entity] = obs_by_entity['seriesByFacet'][0]
-      else:
-        if all_facets:
-          data[var][entity] = []
-        else:
-          data[var][entity] = {
-              'series': [],
-          }
-  result['data'] = data
-  return result
 
 
 def is_up(url: str):

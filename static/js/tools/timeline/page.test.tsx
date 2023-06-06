@@ -23,7 +23,7 @@ import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
 import React from "react";
 
-import { axios_mock, drawGroupLineChart_mock } from "./mock_functions";
+import { axiosMock, drawGroupLineChartMock } from "./mock_functions";
 import { Page } from "./page";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -60,9 +60,9 @@ test("Single place and single stat var", async () => {
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
-  drawGroupLineChart_mock();
+  drawGroupLineChartMock();
   // Mock all the async axios call
-  axios_mock();
+  axiosMock();
   // Do the actual render!
   const wrapper = mount(<Page />);
   await waitForComponentUpdates(wrapper);
@@ -136,9 +136,9 @@ test("statVar not in PV-tree", async () => {
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
-  drawGroupLineChart_mock();
+  drawGroupLineChartMock();
   // mock all the async axios call
-  axios_mock();
+  axiosMock();
   // Do the actual render!
   const wrapper = mount(<Page />);
   await waitForComponentUpdates(wrapper);
@@ -163,9 +163,9 @@ test("chart options", async () => {
 
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
-  drawGroupLineChart_mock();
+  drawGroupLineChartMock();
   // mock all the async axios call
-  axios_mock();
+  axiosMock();
 
   // Do the actual render!
   const wrapper = mount(<Page />);

@@ -223,6 +223,7 @@ function plot(
     yLog: props.yLog,
     showQuadrants: props.display.showQuadrants,
     showDensity: props.display.showDensity,
+    showPopulation: props.display.showPopulation,
     showLabels: props.display.showLabels,
     showRegression: props.display.showRegression,
     highlightPoints: [],
@@ -237,8 +238,8 @@ function plot(
   };
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
-      svgContainerRef,
-      tooltipRef,
+      svgContainerRef.current,
+      tooltipRef.current,
       ScatterPlotProperties,
       scatterPlotOptions,
       props.points,

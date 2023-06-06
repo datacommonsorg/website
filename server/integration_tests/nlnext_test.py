@@ -15,7 +15,6 @@ import json
 import logging
 import multiprocessing
 import os
-import sys
 
 from flask_testing import LiveServerTestCase
 import requests
@@ -23,14 +22,6 @@ import requests
 from nl_server.__init__ import create_app as create_nl_app
 from server.__init__ import create_app as create_web_app
 import server.lib.util as libutil
-
-# Explicitly set multiprocessing start method to 'fork' so tests work with
-# python3.8+ on MacOS.
-# https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
-# This code must only be run once per execution.
-if sys.version_info >= (3, 8) and sys.platform == "darwin":
-  multiprocessing.set_start_method("fork")
-  os.environ['no_proxy'] = '*'
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -69,12 +60,13 @@ class IntegrationTest(LiveServerTestCase):
   def run_sequence(self,
                    test_dir,
                    queries,
-                   check_chart_config=True,
-                   check_debug_info=True):
+                   idx='small',
+                   check_place_detection=False):
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
-      resp = requests.post(self.get_server_url() + f'/nl/data?q={q}',
+      resp = requests.post(self.get_server_url() +
+                           f'/api/nl/data?q={q}&idx={idx}',
                            json={
                                'contextHistory': ctx
                            }).json()
@@ -92,11 +84,18 @@ class IntegrationTest(LiveServerTestCase):
         with open(json_file, 'w') as infile:
           infile.write(json.dumps(resp, indent=2))
 
-        dbg_file = os.path.join(json_dir, 'debug_info.json')
-        with open(dbg_file, 'w') as infile:
-          infile.write(json.dumps(dbg, indent=2))
+        if check_place_detection:
+          dbg_file = os.path.join(json_dir, 'debug_info.json')
+          with open(dbg_file, 'w') as infile:
+            dbg_to_write = {
+                "places_detected": dbg["places_detected"],
+                "places_resolved": dbg["places_resolved"],
+                "main_place_dcid": dbg["main_place_dcid"],
+                "main_place_name": dbg["main_place_name"]
+            }
+            infile.write(json.dumps(dbg_to_write, indent=2))
       else:
-        if check_chart_config:
+        if not check_place_detection:
           with open(json_file, 'r') as infile:
             expected = json.load(infile)
             expected['debug'] = {}
@@ -107,8 +106,7 @@ class IntegrationTest(LiveServerTestCase):
             )
             self.maxDiff = None
             self.assertEqual(a, b)
-
-        if check_debug_info:
+        else:
           # Look in the debugInfo file to match places detected.
           dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
                                   'debug_info.json')
@@ -203,7 +201,7 @@ class IntegrationTest(LiveServerTestCase):
         'show me the population of mexico city',
         'counties in the US with the most poverty',
     ],
-                      check_chart_config=False)
+                      check_place_detection=True)
 
   def test_international(self):
     self.run_sequence('international', [
@@ -221,3 +219,8 @@ class IntegrationTest(LiveServerTestCase):
         'which countries have show the greatest reduction?',
         'health in the world',
     ])
+
+  def test_medium_index(self):
+    self.run_sequence('medium_index',
+                      ['cars per family in california counties'],
+                      idx='medium')

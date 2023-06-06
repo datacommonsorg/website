@@ -1,0 +1,67 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Helm config
+project: techsoup-data-commons
+cluster_prefix: datacommons
+
+namespace:
+  name: website
+
+website:
+  image:
+    project: techsoup-data-commons
+    tag: bd4d138
+  flaskEnv: custom
+  replicas: 1
+
+ingress:
+  enabled: true
+
+mixer:
+  useBranchBigtable: false
+  useCustomBigtable: true
+
+serviceAccount:
+  name: website-ksa
+
+nl:
+  enabled: false
+
+serviceGroups:
+  recon: null
+  svg: null
+  observation: null
+  node: null
+  default:
+    replicas: 1
+    useSearch: true # No svg service, this needs to use search
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
+
+kgStoreConfig:
+  customBigtableInfo: |
+    project: techsoup-data-commons
+    instance: dc-graph
+    tables:
+      - freemeals_2023_04_11_14_09_49
+      - mealsites_2023_05_31_10_45_31
+      - usda_grocery_access_2023_05_22_11_28_04
+      - schema_test_from_doc_2023_05_31_15_22_55
+      - schema_test_from_not_2023_05_31_19_34_02
+      - value_changed_test_2023_05_31_06_52_45
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]

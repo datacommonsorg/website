@@ -222,148 +222,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue400000To499999USDollar"
+                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
                     ],
-                    "title": "Housing Units Valued at $400,000-$499,999 in States of United States (${date})",
+                    "title": "Homes Whose Householder Identifies as Two or More Races in States of United States (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue400000To499999USDollar_pc"
+                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_pc"
                     ],
-                    "title": "Per Capita Housing Units Valued at $400,000-$499,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue300000To399999USDollar"
-                    ],
-                    "title": "Housing Units Valued at $300,000-$399,999 in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue300000To399999USDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $300,000-$399,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue750000To999999USDollar"
-                    ],
-                    "title": "Housing Units Valued at $750,000-$999,999 in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue750000To999999USDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $750,000-$999,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue500000To749999USDollar"
-                    ],
-                    "title": "Housing Units Valued at $500,000-$749,999 in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue500000To749999USDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $500,000-$749,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-                    ],
-                    "title": "Housing Units Valued at $1,000,000 or More in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $1,000,000 or More in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
-                    ],
-                    "title": "Housing Units Valued at $2,000 or More in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_2000OrMoreUSDollar_pc"
-                    ],
-                    "title": "Per Capita Housing Units Valued at $2,000 or More in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
-                    ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_pc"
-                    ],
-                    "title": "Per Capita Homes Valued Between $175,000 to $199,999 in States of United States (${date})",
+                    "title": "Per Capita Homes Whose Householder Identifies as Two or More Races in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -373,11 +241,6 @@
         ],
         "statVarSpec": {
           "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": {
-            "name": "Housing Units Valued at $1,000,000 or More",
-            "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-          },
-          "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_pc": {
-            "denom": "Count_Person",
             "name": "Housing Units Valued at $1,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
           },
@@ -413,11 +276,6 @@
             "name": "Homes Valued Between $175,000 to $199,999",
             "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
           },
-          "Count_HousingUnit_HomeValue175000To199999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Valued Between $175,000 to $199,999",
-            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
           "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
             "name": "Homes Valued at $2,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
@@ -442,11 +300,6 @@
             "name": "Housing Units Valued at $300,000-$399,999",
             "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
           },
-          "Count_HousingUnit_HomeValue300000To399999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Housing Units Valued at $300,000-$399,999",
-            "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
-          },
           "Count_HousingUnit_HomeValue30000To34999USDollar": {
             "name": "Homes Valued Between $30,000 to $34,999",
             "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
@@ -459,21 +312,11 @@
             "name": "Housing Units Valued at $400,000-$499,999",
             "statVar": "Count_HousingUnit_HomeValue400000To499999USDollar"
           },
-          "Count_HousingUnit_HomeValue400000To499999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Housing Units Valued at $400,000-$499,999",
-            "statVar": "Count_HousingUnit_HomeValue400000To499999USDollar"
-          },
           "Count_HousingUnit_HomeValue40000To49999USDollar": {
             "name": "Homes Valued Between $40,000 to $49,999",
             "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
           },
           "Count_HousingUnit_HomeValue500000To749999USDollar": {
-            "name": "Housing Units Valued at $500,000-$749,999",
-            "statVar": "Count_HousingUnit_HomeValue500000To749999USDollar"
-          },
-          "Count_HousingUnit_HomeValue500000To749999USDollar_pc": {
-            "denom": "Count_Person",
             "name": "Housing Units Valued at $500,000-$749,999",
             "statVar": "Count_HousingUnit_HomeValue500000To749999USDollar"
           },
@@ -493,11 +336,6 @@
             "name": "Housing Units Valued at $750,000-$999,999",
             "statVar": "Count_HousingUnit_HomeValue750000To999999USDollar"
           },
-          "Count_HousingUnit_HomeValue750000To999999USDollar_pc": {
-            "denom": "Count_Person",
-            "name": "Housing Units Valued at $750,000-$999,999",
-            "statVar": "Count_HousingUnit_HomeValue750000To999999USDollar"
-          },
           "Count_HousingUnit_HomeValue80000To89999USDollar": {
             "name": "Homes Valued Between $80,000 to $89,999",
             "statVar": "Count_HousingUnit_HomeValue80000To89999USDollar"
@@ -510,14 +348,14 @@
             "name": "Homes Valued at $10,000 or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
-          "Count_HousingUnit_WithRent_2000OrMoreUSDollar": {
-            "name": "Housing Units Valued at $2,000 or More",
-            "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
+            "name": "Homes Whose Householder Identifies as Two or More Races",
+            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
           },
-          "Count_HousingUnit_WithRent_2000OrMoreUSDollar_pc": {
+          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_pc": {
             "denom": "Count_Person",
-            "name": "Housing Units Valued at $2,000 or More",
-            "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+            "name": "Homes Whose Householder Identifies as Two or More Races",
+            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",

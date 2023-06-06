@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ from flask import g
 from flask import redirect
 from flask import request
 from flask_babel import Babel
+import flask_cors
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
@@ -36,12 +37,13 @@ import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 import server.lib.util as libutil
-import server.services.ai as ai
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
+
+BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 
 def createMiddleWare(app, exporter):
@@ -56,29 +58,42 @@ def createMiddleWare(app, exporter):
 
 def register_routes_base_dc(app):
   # apply the blueprints for all apps
-  from server.routes import dev
-  from server.routes import disease
-  from server.routes import import_wizard
-  from server.routes import placelist
-  from server.routes import protein
-  from server.routes import redirects
-  from server.routes import special_announcement
-  from server.routes import topic_page
-  app.register_blueprint(dev.bp)
-  app.register_blueprint(disease.bp)
-  app.register_blueprint(placelist.bp)
-  app.register_blueprint(protein.bp)
-  app.register_blueprint(redirects.bp)
-  app.register_blueprint(special_announcement.bp)
-  app.register_blueprint(topic_page.bp)
+  from server.routes.dev import html as dev_html
+  app.register_blueprint(dev_html.bp)
 
-  from server.routes.api import disease as disease_api
-  from server.routes.api import protein as protein_api
-  from server.routes.api.import_detection import detection as detection_api
-  app.register_blueprint(detection_api.bp)
+  from server.routes.disease import html as disease_html
+  app.register_blueprint(disease_html.bp)
+
+  from server.routes.import_wizard import html as import_wizard_html
+  app.register_blueprint(import_wizard_html.bp)
+
+  from server.routes.place_list import html as place_list_html
+  app.register_blueprint(place_list_html.bp)
+
+  from server.routes.protein import html as protein_html
+  app.register_blueprint(protein_html.bp)
+
+  from server.routes import redirects
+  app.register_blueprint(redirects.bp)
+
+  from server.routes.special_announcement import \
+      html as special_announcement_html
+  app.register_blueprint(special_announcement_html.bp)
+
+  from server.routes.topic_page import html as topic_page_html
+  app.register_blueprint(topic_page_html.bp)
+
+  from server.routes.disease import api as disease_api
   app.register_blueprint(disease_api.bp)
-  app.register_blueprint(import_wizard.bp)
+
+  from server.routes.protein import api as protein_api
   app.register_blueprint(protein_api.bp)
+
+  from server.routes.import_detection import detection as detection_api
+  app.register_blueprint(detection_api.bp)
+
+  from server.routes.disaster import api as disaster_api
+  app.register_blueprint(disaster_api.bp)
 
 
 def register_routes_custom_dc(app):
@@ -88,15 +103,12 @@ def register_routes_custom_dc(app):
 
 
 def register_routes_disasters(app):
-  # Install blueprints specific to Stanford DC
-  from server.routes import disasters
-  from server.routes import event
-  from server.routes import sustainability
-  from server.routes.api import disaster_api
-  app.register_blueprint(disasters.bp)
-  app.register_blueprint(disaster_api.bp)
-  app.register_blueprint(event.bp)
-  app.register_blueprint(sustainability.bp)
+  # Install blueprints specific to disasters
+  from server.routes.disaster import html as disaster_html
+  app.register_blueprint(disaster_html.bp)
+
+  from server.routes.event import html as event_html
+  app.register_blueprint(event_html.bp)
 
   if app.config['TEST']:
     return
@@ -105,9 +117,6 @@ def register_routes_disasters(app):
   app.config[
       'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
   app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
-  app.config[
-      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
-      )
 
   if app.config['INTEGRATION']:
     return
@@ -119,81 +128,107 @@ def register_routes_disasters(app):
     app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
 
+def register_routes_sustainability(app):
+  # Install blueprint for sustainability page
+  from server.routes.sustainability import html as sustainability_html
+  app.register_blueprint(sustainability_html.bp)
+  if app.config['TEST']:
+    return
+  # load sustainability config
+  app.config[
+      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+      )
+
+
 def register_routes_admin(app):
-  from server.routes import user
-  app.register_blueprint(user.bp)
-  from server.routes.api import user as user_api
+  from server.routes.user import html as user_html
+  app.register_blueprint(user_html.bp)
+  from server.routes.user import api as user_api
   app.register_blueprint(user_api.bp)
 
 
 def register_routes_common(app):
   # apply the blueprints for main app
-  from server.routes import browser
-  from server.routes import factcheck
-  from server.routes import nl
-  from server.routes import place
-  from server.routes import ranking
-  from server.routes import search
   from server.routes import static
-  from server.routes import tools
-  app.register_blueprint(browser.bp)
-  app.register_blueprint(nl.bp)
-  app.register_blueprint(place.bp)
-  app.register_blueprint(ranking.bp)
-  app.register_blueprint(search.bp)
   app.register_blueprint(static.bp)
-  app.register_blueprint(tools.bp)
+
+  from server.routes.browser import html as browser_html
+  app.register_blueprint(browser_html.bp)
+
+  from server.routes.factcheck import html as factcheck_html
+  app.register_blueprint(factcheck_html.bp)
+
+  from server.routes.nl import html as nl_html
+  app.register_blueprint(nl_html.bp)
+
+  from server.routes.place import html as place_html
+  app.register_blueprint(place_html.bp)
+
+  from server.routes.ranking import html as ranking_html
+  app.register_blueprint(ranking_html.bp)
+
+  from server.routes.search import html as search_html
+  app.register_blueprint(search_html.bp)
+
+  from server.routes.tools import html as tools_html
+  app.register_blueprint(tools_html.bp)
+
   # TODO: Extract more out to base_dc
-  from server.routes.api import browser as browser_api
-  from server.routes.api import choropleth
-  from server.routes.api import csv
-  from server.routes.api import facets
-  from server.routes.api import landing_page
-  from server.routes.api import node
-  from server.routes.api import observation_dates
-  from server.routes.api import observation_existence
-  from server.routes.api import place as place_api
-  from server.routes.api import point
-  from server.routes.api import ranking as ranking_api
-  from server.routes.api import series
-  from server.routes.api import stats
-  from server.routes.api import translator
-  from server.routes.api import variable
-  from server.routes.api import variable_group
+  from server.routes.browser import api as browser_api
   app.register_blueprint(browser_api.bp)
-  app.register_blueprint(choropleth.bp)
-  app.register_blueprint(csv.bp)
-  app.register_blueprint(facets.bp)
-  app.register_blueprint(factcheck.bp)
-  app.register_blueprint(landing_page.bp)
-  app.register_blueprint(node.bp)
-  app.register_blueprint(observation_dates.bp)
-  app.register_blueprint(observation_existence.bp)
+
+  from server.routes.place import api as place_api
   app.register_blueprint(place_api.bp)
-  app.register_blueprint(point.bp)
+
+  from server.routes.ranking import api as ranking_api
   app.register_blueprint(ranking_api.bp)
-  app.register_blueprint(series.bp)
-  app.register_blueprint(stats.bp)
-  app.register_blueprint(translator.bp)
-  app.register_blueprint(variable.bp)
-  app.register_blueprint(variable_group.bp)
+
+  from server.routes.translator import api as translator_api
+  app.register_blueprint(translator_api.bp)
+
+  from server.routes.nl import api as nl_api
+  app.register_blueprint(nl_api.bp)
+
+  from server.routes.shared_api import choropleth as shared_choropleth
+  app.register_blueprint(shared_choropleth.bp)
+
+  from server.routes.shared_api import csv as shared_csv
+  app.register_blueprint(shared_csv.bp)
+
+  from server.routes.shared_api import facets as shared_facets
+  app.register_blueprint(shared_facets.bp)
+
+  from server.routes.shared_api import node as shared_node
+  app.register_blueprint(shared_node.bp)
+
+  from server.routes.shared_api import place as shared_place
+  app.register_blueprint(shared_place.bp)
+
+  from server.routes.shared_api import stats as shared_stats
+  app.register_blueprint(shared_stats.bp)
+
+  from server.routes.shared_api import variable as shared_variable
+  app.register_blueprint(shared_variable.bp)
+
+  from server.routes.shared_api import variable_group as shared_variable_group
+  app.register_blueprint(shared_variable_group.bp)
+
+  from server.routes.shared_api.observation import date as observation_date
+  app.register_blueprint(observation_date.bp)
+
+  from server.routes.shared_api.observation import \
+      existence as observation_existence
+  app.register_blueprint(observation_existence.bp)
+
+  from server.routes.shared_api.observation import point as observation_point
+  app.register_blueprint(observation_point.bp)
+
+  from server.routes.shared_api.observation import series as observation_series
+  app.register_blueprint(observation_series.bp)
 
 
 def create_app():
   app = Flask(__name__, static_folder='dist', static_url_path='')
-
-  if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
-    createMiddleWare(app, StackdriverExporter())
-    import googlecloudprofiler
-
-    # Profiler initialization. It starts a daemon thread which continuously
-    # collects and uploads profiles. Best done as early as possible.
-    try:
-      # service and service_version can be automatically inferred when
-      # running on GCP.
-      googlecloudprofiler.start(verbose=3)
-    except (ValueError, NotImplementedError) as exc:
-      logging.error(exc)
 
   # Setup flask config
   cfg = libconfig.get_config()
@@ -206,7 +241,7 @@ def create_app():
   if app.config['USE_MEMCACHE']:
     cache.init_app(app)
   else:
-    cache.init_app(app, {'CACHE_TYPE': 'null'})
+    cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
 
   # Configure ingress
   ingress_config_path = os.environ.get(
@@ -219,10 +254,11 @@ def create_app():
     register_routes_custom_dc(app)
 
   register_routes_base_dc(app)
-  if (cfg.ENV == 'stanford' or os.environ.get('ENABLE_MODEL') == 'true' or
-      cfg.TEST or cfg.INTEGRATION or cfg.LOCAL and not cfg.LITE):
-    # disaster dashboard tests require stanford's routes to be registered.
+  if cfg.SHOW_DISASTER:
     register_routes_disasters(app)
+
+  if cfg.SHOW_SUSTAINABILITY:
+    register_routes_sustainability(app)
 
   if cfg.ADMIN:
     register_routes_admin(app)
@@ -248,12 +284,18 @@ def create_app():
   app.config['RANKED_STAT_VARS'] = ranked_statvars
   app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
 
-  if not cfg.TEST and not cfg.LITE:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'maps-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  if cfg.TEST or cfg.LITE:
+    app.config['MAPS_API_KEY'] = ''
+  else:
+    # Get the API key from environment first.
+    if os.environ.get('MAPS_API_KEY'):
+      app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'maps-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   if cfg.ADMIN:
     secret_client = secretmanager.SecretManagerServiceClient()
@@ -278,24 +320,24 @@ def create_app():
   if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-  if cfg.NEED_API_KEY:
-    # Only need to fetch the API key for local development.
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'mixer-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  # Need to fetch the API key for non gcp environment.
+  if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
+    # Get the API key from environment first.
+    if os.environ.get('MIXER_API_KEY'):
+      app.config['MIXER_API_KEY'] = os.environ.get('MIXER_API_KEY')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'mixer-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['MIXER_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  # Enable the AI module.
-  if cfg.ENABLE_AI:
-    app.config['AI_CONTEXT'] = ai.Context()
-
-  #   # Enable the NL model.
+  # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
     # Some specific imports for the NL Interface.
@@ -309,6 +351,13 @@ def create_app():
       app.config['NL_TABLE'] = bt.get_nl_table()
     else:
       app.config['NL_TABLE'] = None
+
+  # Get and save the blocklisted svgs.
+  blocklist_svg = []
+  if os.path.isfile(BLOCKLIST_SVG_FILE):
+    with open(BLOCKLIST_SVG_FILE) as f:
+      blocklist_svg = json.load(f) or []
+  app.config['BLOCKLIST_SVG'] = blocklist_svg
 
   if not cfg.TEST:
     urls = get_health_check_urls()
@@ -364,4 +413,5 @@ def create_app():
   else:
     app.jinja_env.globals['BASE_HTML'] = 'base.html'
 
+  flask_cors.CORS(app)
   return app

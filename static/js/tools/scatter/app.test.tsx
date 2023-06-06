@@ -26,7 +26,13 @@ import React, { useEffect } from "react";
 
 import { stringifyFn } from "../../utils/axios";
 import { App } from "./app";
-import { Context, EmptyPlace, useContextStore } from "./context";
+import {
+  Context,
+  EmptyPlace,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  useContextStore,
+} from "./context";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -76,7 +82,9 @@ function mockAxios(): void {
 
   // Counties in Delaware
   when(axios.get)
-    .calledWith(`/api/place/places-in-names?dcid=geoId/10&placeType=County`)
+    .calledWith(
+      "/api/place/descendent/name?dcid=geoId/10&descendentType=County"
+    )
     .mockResolvedValue({
       data: {
         "geoId/10001": "Kent County",
@@ -261,8 +269,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person_Employed"],
         date: "",
       },
@@ -273,14 +281,14 @@ function mockAxios(): void {
         data: {
           Count_Person_Employed: data.Count_Person_Employed,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_HousingUnit"],
         date: "",
       },
@@ -291,14 +299,14 @@ function mockAxios(): void {
         data: {
           Count_HousingUnit: data.Count_HousingUnit,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Establishment"],
         date: "",
       },
@@ -309,14 +317,14 @@ function mockAxios(): void {
         data: {
           Count_Establishment: data.Count_Establishment,
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person_Employed"],
         date: "",
       },
@@ -327,14 +335,14 @@ function mockAxios(): void {
         data: {
           Count_Person_Employed: dataAll.Count_Person_Employed, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_HousingUnit"],
         date: "",
       },
@@ -345,14 +353,14 @@ function mockAxios(): void {
         data: {
           Count_HousingUnit: dataAll.Count_HousingUnit, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
   when(axios.get)
     .calledWith("/api/observations/point/within/all", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Establishment"],
         date: "",
       },
@@ -363,7 +371,7 @@ function mockAxios(): void {
         data: {
           Count_Establishment: dataAll.Count_Establishment, // eslint-disable-line camelcase
         },
-        facets: facets,
+        facets,
       },
     });
 
@@ -399,8 +407,8 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/observations/series/within", {
       params: {
-        parent_entity: "geoId/10",
-        child_type: "County",
+        parentEntity: "geoId/10",
+        childType: "County",
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
@@ -453,7 +461,7 @@ function mockAxios(): void {
   when(axios.get)
     .calledWith("/api/place/parent/geoId/10")
     .mockResolvedValue({
-      data: ["country/USA"],
+      data: [{ dcid: "country/USA", type: "Country", name: "United States" }],
     });
 
   when(axios.get).calledWith("/api/place/type/geoId/10").mockResolvedValue({
@@ -467,7 +475,7 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/place/places-in?dcid=geoId/10&placeType=County")
+    .calledWith("/api/place/descendent?dcids=geoId/10&descendentType=County")
     .mockResolvedValue({
       data: {
         "geoId/10": ["geoId/10001", "geoId/10003", "geoId/10005"],
@@ -579,15 +587,15 @@ function mockAxios(): void {
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_Establishment")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_Establishment")
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_HousingUnit")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_HousingUnit")
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_Person_Employed")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_Person_Employed")
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
@@ -655,6 +663,22 @@ function expectCircles(n: number, app: Enzyme.ReactWrapper): void {
   expect($("circle").length).toEqual(n);
 }
 
+/**
+ * Asserts all <circle> tags in the app have the specified radius values
+ * @param values array of radius values encoded as strings. Example: ["3.5", "3.5"]
+ * @param app react app wrapper
+ */
+function expectCircleSizes(values: string[], app: Enzyme.ReactWrapper): void {
+  const $ = Cheerio.load(app.html());
+  const $tags = $("circle");
+  expect($tags.length).toEqual(values.length);
+  const actualValues = [];
+  $tags.each((i, tag) => {
+    actualValues.push($(tag).attr("r"));
+  });
+  expect(actualValues.join(",")).toEqual(values.join(","));
+}
+
 test("all functionalities", async () => {
   mockAxios();
   const app = mount(<TestApp />);
@@ -676,7 +700,7 @@ test("all functionalities", async () => {
   });
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/place/places-in?dcid=geoId/10&placeType=County"
+      "/api/place/descendent?dcids=geoId/10&descendentType=County"
     );
   });
 
@@ -771,4 +795,23 @@ test("all functionalities", async () => {
     "Establishments Per Capita (2016)vsHousing Units Per Capita (2016)"
   );
   expectCircles(3, app);
+
+  // Selecting point size by population should resize points using a linear scale
+  expectCircleSizes(["3.5", "3.5", "3.5"], app);
+  await act(async () => {
+    app
+      .find("#show-population-linear")
+      .at(0)
+      .simulate("change", { target: { value: SHOW_POPULATION_LINEAR } });
+  });
+  expectCircleSizes(["3.5", "20", "5.8328584241481405"], app);
+
+  // Changing to log scale should resize points
+  await act(async () => {
+    app
+      .find("#show-population-log")
+      .at(0)
+      .simulate("change", { target: { value: SHOW_POPULATION_LOG } });
+  });
+  expectCircleSizes(["3.5", "20", "7.286777364719656"], app);
 });

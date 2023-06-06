@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { RefObject } from "react";
 
 import { LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
@@ -42,6 +42,10 @@ interface RankingUnitPropType {
     numFractionDigits?: number
   ) => string;
   unit?: string[];
+  /**
+   * React ref for outermost div of this element
+   */
+  forwardRef?: RefObject<HTMLDivElement>;
   scaling?: number[];
   /**
    * Total number of points. This is used for calculating ranks if isHighest is false
@@ -80,7 +84,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   }
 
   return (
-    <div className="ranking-list">
+    <div className="ranking-list" ref={props.forwardRef}>
       <h4>{props.title}</h4>
       <table>
         {props.svNames && !props.hideValue && (

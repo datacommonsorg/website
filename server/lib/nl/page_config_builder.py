@@ -304,8 +304,14 @@ def _single_place_multiple_var_timeline_block(column, place, svs, sv2thing,
   """A column with two chart, all stat vars and per capita"""
   stat_var_spec_map = {}
 
-  orig_title = attr['title'] if attr[
-      'title'] else "Compared with Other Variables"
+  if attr.get('title'):
+    orig_title = attr['title']
+  elif attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
+      'orig_sv'):
+    orig_sv_name = sv2thing.name[attr['orig_sv']]
+    orig_title = f'{orig_sv_name} compared with other variables'
+  else:
+    orig_title = "Compared with Other Variables"
   title = _decorate_chart_title(title=orig_title, place=place)
 
   # Line chart for the stat var
@@ -343,8 +349,13 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
     # This happens in the case of Topics
     orig_title = attr['title']
   elif len(svs) > 1:
-    # This suggests we are comparing against SV peers from SV extension
-    orig_title = 'Compared with Other Variables'
+    if attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
+        'orig_sv') and sv2thing.name.get(attr.get('orig_sv', '')):
+      # This suggests we are comparing against SV peers from SV extension
+      orig_sv_name = sv2thing.name[attr['orig_sv']]
+      orig_title = f'{orig_sv_name} compared with other variables'
+    else:
+      orig_title = "Compared with Other Variables"
   else:
     # This is the case of multiple places for a single SV
     orig_title = sv2thing.name[svs[0]]
@@ -607,12 +618,16 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
   sv_key_pair = [sv_pair[0] + '_scatter', sv_pair[1] + '_scatter']
 
   change_to_pc = [False, False]
-  if _is_sv_percapita(sv_names[0]):
-    if not _is_sv_percapita(sv_names[1]):
+  is_sv_pc = [
+      _is_sv_percapita(sv_names[0], sv_pair[0]),
+      _is_sv_percapita(sv_names[1], sv_pair[1])
+  ]
+  if is_sv_pc[0]:
+    if not is_sv_pc[1] and utils.is_percapita_relevant(sv_pair[1]):
       change_to_pc[1] = True
       sv_names[1] += " Per Capita"
-  if _is_sv_percapita(sv_names[1]):
-    if not _is_sv_percapita(sv_names[0]):
+  if is_sv_pc[1]:
+    if not is_sv_pc[0] and utils.is_percapita_relevant(sv_pair[0]):
       change_to_pc[0] = True
       sv_names[0] += " Per Capita"
 
@@ -786,8 +801,11 @@ def _decorate_chart_title(title: str,
   return title
 
 
-def _is_sv_percapita(sv_name: str) -> bool:
-  # Use names for these since some old prevalence dcid's do not use the new naming scheme.
-  if "Percentage" in sv_name or "Prevalence" in sv_name:
-    return True
+def _is_sv_percapita(sv_name: str, sv_dcid: str) -> bool:
+  # Check both names and dcids because per capita indicating word may be in one
+  # or the other.
+  for per_capita_indicator in ["Percent", "Prevalence"]:
+    for sv_string in [sv_name, sv_dcid]:
+      if per_capita_indicator in sv_string:
+        return True
   return False

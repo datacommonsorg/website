@@ -43,6 +43,66 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block"
+                    ],
+                    "title": "Property Related Crimes (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Property Related Crimes (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery_multiple_place_bar_block"
+                    ],
+                    "title": "Robberies (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Robberies (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block"
                     ],
                     "title": "Larceny Theft Cases (${date})",
@@ -133,36 +193,6 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_CriminalActivities_Robbery_multiple_place_bar_block"
-                    ],
-                    "title": "Robberies (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Robberies (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
                     "title": "Violent Crimes (${date})",
@@ -207,36 +237,6 @@
                       "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Forcible Rapes (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block"
-                    ],
-                    "title": "Property Related Crimes (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Property Related Crimes (${date})",
                     "type": "BAR"
                   }
                 ]

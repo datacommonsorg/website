@@ -25,6 +25,7 @@ import ReactDOM from "react-dom";
 import { ChartQuadrant } from "../constants/scatter_chart_constants";
 import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
+import { SHOW_POPULATION_LOG } from "../tools/scatter/context";
 import { wrap } from "./base";
 
 /**
@@ -36,8 +37,8 @@ export interface Point {
   yVal: number;
   xDate: string;
   yDate: string;
-  xPop?: number;
-  yPop?: number;
+  xPopVal?: number;
+  yPopVal?: number;
   xPopDate?: string;
   yPopDate?: string;
 }
@@ -56,6 +57,8 @@ const DENSITY_LEGEND_TEXT_HEIGHT = 15;
 const DENSITY_LEGEND_TEXT_PADDING = 5;
 const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
+const DEFAULT_MAX_POINT_SIZE = 20;
+const DEFAULT_POINT_SIZE = 3.5;
 const R_LINE_LABEL_MARGIN = 3;
 const TOOLTIP_OFFSET = 5;
 // When using log scale, can't have zero, so use this value in place of 0. This
@@ -295,13 +298,15 @@ function addQuadrants(
  * @param colorScale the color scale to use for the legend
  * @param chartHeight the height of the chart
  * @param marginTop top margin for the legend
+ * @param svgWidth the width of the svg to add the legend to
  */
 function addDensityLegend(
   svg: d3.Selection<SVGElement, any, any, any>,
   contours: d3.ContourMultiPolygon[],
   colorScale: d3.ScaleSequential<string>,
   chartHeight: number,
-  marginTop: number
+  marginTop: number,
+  svgWidth: number
 ): void {
   const legend = svg
     .append("g")
@@ -350,12 +355,37 @@ function addDensityLegend(
     .attr("xlink:href", canvas.toDataURL())
     .attr("transform", `translate(0, ${DENSITY_LEGEND_TEXT_HEIGHT})`);
 
-  const containerWidth = svg.node().getBoundingClientRect().width;
   const yPosition = chartHeight / 2 + marginTop - legendHeight / 2;
   legend.attr(
     "transform",
-    `translate(${containerWidth - DENSITY_LEGEND_WIDTH}, ${yPosition})`
+    `translate(${svgWidth - DENSITY_LEGEND_WIDTH}, ${yPosition})`
   );
+}
+
+/**
+ * Gets the most recent population value for the given point.
+ * Returns undefined if no population is set
+ * @param point scatter plot Point object
+ */
+function getPointPopulation(point: Point): number | undefined {
+  const xPopDate = point.xPopDate || 0;
+  const yPopDate = point.yPopDate || 0;
+  return xPopDate > yPopDate ? point.xPopVal : point.yPopVal;
+}
+
+/**
+ * Calculates scatter plot point size based on population.
+ * Returns DEFAULT_POINT_SIZE if population is undefined
+ * @param point scatter plot Point object
+ * @param pointSizeScale d3 scale for sizing point based on population
+ */
+function calculatePointSize(
+  point: Point,
+  pointSizeScale: ScatterScale
+): number {
+  const population = getPointPopulation(point);
+  const pointSize = pointSizeScale(population);
+  return pointSize || DEFAULT_POINT_SIZE;
 }
 
 /**
@@ -368,6 +398,8 @@ function addDensityLegend(
  * @param chartWidth the width of the chart area
  * @param chartHeight the height of the chart area
  * @param marginTop margin between top of the chart area and the top of the container
+ * @param svgWidth width of the svg that holds the chart
+ * @param pointSizeScale d3 scale for sizing points based on population values
  */
 function addDensity(
   svg: d3.Selection<SVGElement, any, any, any>,
@@ -377,13 +409,16 @@ function addDensity(
   dataPoints: Array<Point>,
   chartWidth: number,
   chartHeight: number,
-  marginTop: number
+  marginTop: number,
+  svgWidth: number,
+  pointSizeScale?: ScatterScale
 ): void {
   // Generate the multipolygons (contours) to group the dots into areas of
   // varying densities (number of dots per pixel)
   const contours = d3
     .contourDensity<Point>()
     .size([chartWidth, chartHeight])
+    .weight((p) => (pointSizeScale ? calculatePointSize(p, pointSizeScale) : 1))
     .x((d) => {
       return xScale(d.xVal);
     })
@@ -398,7 +433,14 @@ function addDensity(
     .domain([contours.length, 0]);
 
   // Add a legend to show what each color means
-  addDensityLegend(svg, contours, densityColorScale, chartHeight, marginTop);
+  addDensityLegend(
+    svg,
+    contours,
+    densityColorScale,
+    chartHeight,
+    marginTop,
+    svgWidth
+  );
 
   // color the dots according to which contour it's in
   dots
@@ -423,6 +465,39 @@ function addDensity(
 }
 
 /**
+ * Gets a d3 scale to size a list of points based on population
+ * @param points Object mapping dcids to scatter plot point values
+ * @param logScale set to true to return a log scale, otherwise defaults to linear scale
+ */
+function getPointSizeScale(
+  points: { [placeDcid: string]: Point },
+  logScale: boolean
+): ScatterScale {
+  const populationValues = Object.values(points).map((point) =>
+    getPointPopulation(point)
+  );
+  const populationMin = Math.min(...populationValues);
+  const populationMax = Math.max(...populationValues);
+  const pointSizeScale = logScale ? d3.scaleLog() : d3.scaleLinear();
+  pointSizeScale
+    .domain([populationMin, populationMax])
+    .range([DEFAULT_POINT_SIZE, DEFAULT_MAX_POINT_SIZE]);
+  return pointSizeScale;
+}
+
+/**
+ * Sizes points by population using a linear or log scale
+ * @param dots
+ * @param pointSizeScale
+ */
+function addSizeByPopulation(
+  dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
+  pointSizeScale: ScatterScale
+): void {
+  dots.attr("r", (point) => calculatePointSize(point, pointSizeScale));
+}
+
+/**
  * Adds a hidden tooltip that becomse visible when hovering over a point
  * describing the point.
  * @param tooltip
@@ -431,8 +506,8 @@ function addDensity(
  * @param yLabel
  */
 function addTooltip(
-  svgContainerRef: React.MutableRefObject<HTMLDivElement>,
-  tooltip: React.MutableRefObject<HTMLDivElement>,
+  svgContainer: HTMLDivElement,
+  tooltip: HTMLDivElement,
   dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
   xLabel: string,
   yLabel: string,
@@ -446,7 +521,7 @@ function addTooltip(
   xPerCapita: boolean,
   yPerCapita: boolean
 ): void {
-  const div = d3.select(tooltip.current).style("visibility", "hidden");
+  const div = d3.select(tooltip).style("visibility", "hidden");
   const onTooltipMouseover = (point: Point) => {
     const element = getTooltipElement(
       point,
@@ -456,13 +531,13 @@ function addTooltip(
       yPerCapita
     );
 
-    ReactDOM.render(element, tooltip.current);
+    ReactDOM.render(element, tooltip);
     const tooltipHeight = (div.node() as HTMLDivElement).getBoundingClientRect()
       .height;
     const tooltipWidth = (div.node() as HTMLDivElement).getBoundingClientRect()
       .width;
     const containerWidth = (
-      d3.select(svgContainerRef.current).node() as HTMLDivElement
+      d3.select(svgContainer).node() as HTMLDivElement
     ).getBoundingClientRect().width;
     let left = Math.min(
       d3.event.offsetX + TOOLTIP_OFFSET,
@@ -715,6 +790,7 @@ export interface ScatterPlotOptions {
   yLog: boolean;
   showQuadrants: boolean;
   showDensity: boolean;
+  showPopulation: string;
   showLabels: boolean;
   showRegression: boolean;
   highlightPoints: ChartQuadrant[];
@@ -734,8 +810,8 @@ export interface ScatterPlotProperties {
 
 /**
  * Draws a scatter plot.
- * @param svgContainerRef the ref to draw the scatter plot in
- * @param tooltipRef the ref for the tooltip
+ * @param svgContainer the div element to draw the scatter plot in
+ * @param tooltip the div element for the tooltip
  * @param properties the properties of the scatter plot to draw
  * @param options the options that are set for how the scatter plot is drawn
  * @param points the points to plot
@@ -743,8 +819,8 @@ export interface ScatterPlotProperties {
  * @param getTooltipElement function to get the element to show in the tooltip
  */
 export function drawScatter(
-  svgContainerRef: React.RefObject<HTMLDivElement>,
-  tooltipRef: React.RefObject<HTMLDivElement>,
+  svgContainer: HTMLDivElement,
+  tooltip: HTMLDivElement,
   properties: ScatterPlotProperties,
   options: ScatterPlotOptions,
   points: { [placeDcid: string]: Point },
@@ -757,9 +833,9 @@ export function drawScatter(
     yPerCapita: boolean
   ) => JSX.Element
 ): void {
-  const container = d3.select(svgContainerRef.current);
+  const container = d3.select(svgContainer);
   container.selectAll("*").remove();
-  const svgContainerWidth = svgContainerRef.current.offsetWidth;
+  const svgContainerWidth = svgContainer.offsetWidth;
   const svgXTranslation =
     properties.width < svgContainerWidth
       ? (svgContainerWidth - properties.width) / 2
@@ -830,12 +906,15 @@ export function drawScatter(
     .data(Object.values(points))
     .enter()
     .append("circle")
-    .attr("r", 5)
     .attr("cx", (point) => xScale(point.xVal))
     .attr("cy", (point) => yScale(point.yVal))
     .attr("stroke", "rgb(147, 0, 0)")
     .style("opacity", "0.7")
     .on("click", (point: Point) => redirectAction(point.place.dcid));
+
+  const pointSizeScale = options.showPopulation
+    ? getPointSizeScale(points, options.showPopulation === SHOW_POPULATION_LOG)
+    : null;
 
   if (options.showDensity) {
     addDensity(
@@ -846,13 +925,21 @@ export function drawScatter(
       Object.values(points),
       width,
       height,
-      MARGINS.top
+      MARGINS.top,
+      properties.width,
+      pointSizeScale
     );
   } else {
     dots
       .attr("class", "scatter-dot")
       .attr("fill", DEFAULT_FILL)
       .attr("stroke-width", STROKE_WIDTH);
+  }
+
+  if (options.showPopulation) {
+    addSizeByPopulation(dots, pointSizeScale);
+  } else {
+    dots.attr("r", DEFAULT_POINT_SIZE);
   }
 
   if (options.showLabels) {
@@ -877,8 +964,8 @@ export function drawScatter(
   }
 
   addTooltip(
-    svgContainerRef,
-    tooltipRef,
+    svgContainer,
+    tooltip,
     dots,
     properties.xLabel,
     properties.yLabel,

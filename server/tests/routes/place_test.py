@@ -22,7 +22,7 @@ from web_app import app
 
 class TestPlaceLandingPage(unittest.TestCase):
 
-  @patch('server.routes.api.place.get_display_name')
+  @patch('server.routes.shared_api.place.get_display_name')
   def test_place_landing(self, mock_get_display_name):
     mock_get_display_name.return_value = {
         'geoId/1714000': 'Chicago, IL',
@@ -61,8 +61,8 @@ class TestPlaceLandingPage(unittest.TestCase):
 
 class TestPlacePage(unittest.TestCase):
 
-  @patch('server.routes.api.place.get_i18n_name')
-  @patch('server.routes.api.place.get_place_type')
+  @patch('server.routes.shared_api.place.get_i18n_name')
+  @patch('server.routes.shared_api.place.get_place_type')
   def test_place(self, mock_get_place_type, mock_get_i18n_name):
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
     mock_get_place_type.return_value = 'State'
@@ -130,5 +130,5 @@ class TestPlacePage(unittest.TestCase):
       response = test_client.get(
           '/place?dcid=geoId/06&utm_medium=explore&mprop=count&popt=Person&hl=fr',
           follow_redirects=True)
-      assert '/place/geoId/06?utm_medium=explore&mprop=count&popt=Person&hl=fr' in request.url
+      assert '/place?dcid=geoId/06&utm_medium=explore&mprop=count&popt=Person&hl=fr' in request.url
       assert response.status_code == 200

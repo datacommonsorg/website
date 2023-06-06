@@ -13,3 +13,24 @@
 # limitations under the License.
 
 BUCKET = 'datcom-nl-models'
+TEMP_DIR = '/tmp/'
+
+import os
+
+from google.cloud import storage
+
+
+# Downloads the `embeddings_file` from GCS to TEMP_DIR
+# and return its path.
+def download_embeddings(embeddings_file: str) -> str:
+  storage_client = storage.Client()
+  bucket = storage_client.bucket(bucket_name=BUCKET)
+  blob = bucket.get_blob(embeddings_file)
+  # Download
+  local_embeddings_path = local_path(embeddings_file)
+  blob.download_to_filename(local_embeddings_path)
+  return local_embeddings_path
+
+
+def local_path(embeddings_file: str) -> str:
+  return os.path.join(TEMP_DIR, embeddings_file)

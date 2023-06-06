@@ -1,0 +1,625 @@
+[
+  {
+    "dcid": "geoId/01",
+    "geoId": "01",
+    "name": "Alabama",
+    "isoCode": "US-AL",
+    "fips52AlphaCode": "AL"
+  },
+  {
+    "dcid": "geoId/02",
+    "geoId": "02",
+    "name": "Alaska",
+    "isoCode": "US-AK",
+    "fips52AlphaCode": "AK"
+  },
+  {
+    "dcid": "geoId/04",
+    "geoId": "04",
+    "name": "Arizona",
+    "isoCode": "US-AZ",
+    "fips52AlphaCode": "AZ"
+  },
+  {
+    "dcid": "geoId/05",
+    "geoId": "05",
+    "name": "Arkansas",
+    "isoCode": "US-AR",
+    "fips52AlphaCode": "AR"
+  },
+  {
+    "dcid": "geoId/06",
+    "geoId": "06",
+    "name": "California",
+    "isoCode": "US-CA",
+    "fips52AlphaCode": "CA"
+  },
+  {
+    "dcid": "geoId/08",
+    "geoId": "08",
+    "name": "Colorado",
+    "isoCode": "US-CO",
+    "fips52AlphaCode": "CO"
+  },
+  {
+    "dcid": "geoId/09",
+    "geoId": "09",
+    "name": "Connecticut",
+    "isoCode": "US-CT",
+    "fips52AlphaCode": "CT"
+  },
+  {
+    "dcid": "geoId/10",
+    "geoId": "10",
+    "name": "Delaware",
+    "isoCode": "US-DE",
+    "fips52AlphaCode": "DE"
+  },
+  {
+    "dcid": "geoId/11",
+    "geoId": "11",
+    "name": "District of Columbia",
+    "isoCode": "US-DC",
+    "fips52AlphaCode": "DC"
+  },
+  {
+    "dcid": "geoId/12",
+    "geoId": "12",
+    "name": "Florida",
+    "isoCode": "US-FL",
+    "fips52AlphaCode": "FL"
+  },
+  {
+    "dcid": "geoId/13",
+    "geoId": "13",
+    "name": "Georgia",
+    "isoCode": "US-GA",
+    "fips52AlphaCode": "GA"
+  },
+  {
+    "dcid": "geoId/15",
+    "geoId": "15",
+    "name": "Hawaii",
+    "isoCode": "US-HI",
+    "fips52AlphaCode": "HI"
+  },
+  {
+    "dcid": "geoId/16",
+    "geoId": "16",
+    "name": "Idaho",
+    "isoCode": "US-ID",
+    "fips52AlphaCode": "dcid"
+  },
+  {
+    "dcid": "geoId/17",
+    "geoId": "17",
+    "name": "Illinois",
+    "isoCode": "US-IL",
+    "fips52AlphaCode": "IL"
+  },
+  {
+    "dcid": "geoId/18",
+    "geoId": "18",
+    "name": "Indiana",
+    "isoCode": "US-IN",
+    "fips52AlphaCode": "IN"
+  },
+  {
+    "dcid": "geoId/19",
+    "geoId": "19",
+    "name": "Iowa",
+    "isoCode": "US-IA",
+    "fips52AlphaCode": "IA"
+  },
+  {
+    "dcid": "geoId/20",
+    "geoId": "20",
+    "name": "Kansas",
+    "isoCode": "US-KS",
+    "fips52AlphaCode": "KS"
+  },
+  {
+    "dcid": "geoId/21",
+    "geoId": "21",
+    "name": "Kentucky",
+    "isoCode": "US-KY",
+    "fips52AlphaCode": "KY"
+  },
+  {
+    "dcid": "geoId/22",
+    "geoId": "22",
+    "name": "Louisiana",
+    "isoCode": "US-LA",
+    "fips52AlphaCode": "LA"
+  },
+  {
+    "dcid": "geoId/23",
+    "geoId": "23",
+    "name": "Maine",
+    "isoCode": "US-ME",
+    "fips52AlphaCode": "ME"
+  },
+  {
+    "dcid": "geoId/24",
+    "geoId": "24",
+    "name": "Maryland",
+    "isoCode": "US-MD",
+    "fips52AlphaCode": "MD"
+  },
+  {
+    "dcid": "geoId/25",
+    "geoId": "25",
+    "name": "Massachusetts",
+    "isoCode": "US-MA",
+    "fips52AlphaCode": "MA"
+  },
+  {
+    "dcid": "geoId/26",
+    "geoId": "26",
+    "name": "Michigan",
+    "isoCode": "US-MI",
+    "fips52AlphaCode": "MI"
+  },
+  {
+    "dcid": "geoId/27",
+    "geoId": "27",
+    "name": "Minnesota",
+    "isoCode": "US-MN",
+    "fips52AlphaCode": "MN"
+  },
+  {
+    "dcid": "geoId/28",
+    "geoId": "28",
+    "name": "Mississippi",
+    "isoCode": "US-MS",
+    "fips52AlphaCode": "MS"
+  },
+  {
+    "dcid": "geoId/29",
+    "geoId": "29",
+    "name": "Missouri",
+    "isoCode": "US-MO",
+    "fips52AlphaCode": "MO"
+  },
+  {
+    "dcid": "geoId/30",
+    "geoId": "30",
+    "name": "Montana",
+    "isoCode": "US-MT",
+    "fips52AlphaCode": "MT"
+  },
+  {
+    "dcid": "geoId/31",
+    "geoId": "31",
+    "name": "Nebraska",
+    "isoCode": "US-NE",
+    "fips52AlphaCode": "NE"
+  },
+  {
+    "dcid": "geoId/32",
+    "geoId": "32",
+    "name": "Nevada",
+    "isoCode": "US-NV",
+    "fips52AlphaCode": "NV"
+  },
+  {
+    "dcid": "geoId/33",
+    "geoId": "33",
+    "name": "New Hampshire",
+    "isoCode": "US-NH",
+    "fips52AlphaCode": "NH"
+  },
+  {
+    "dcid": "geoId/34",
+    "geoId": "34",
+    "name": "New Jersey",
+    "isoCode": "US-NJ",
+    "fips52AlphaCode": "NJ"
+  },
+  {
+    "dcid": "geoId/35",
+    "geoId": "35",
+    "name": "New Mexico",
+    "isoCode": "US-NM",
+    "fips52AlphaCode": "NM"
+  },
+  {
+    "dcid": "geoId/36",
+    "geoId": "36",
+    "name": "New York",
+    "isoCode": "US-NY",
+    "fips52AlphaCode": "NY"
+  },
+  {
+    "dcid": "geoId/37",
+    "geoId": "37",
+    "name": "North Carolina",
+    "isoCode": "US-NC",
+    "fips52AlphaCode": "NC"
+  },
+  {
+    "dcid": "geoId/38",
+    "geoId": "38",
+    "name": "North Dakota",
+    "isoCode": "US-ND",
+    "fips52AlphaCode": "ND"
+  },
+  {
+    "dcid": "geoId/39",
+    "geoId": "39",
+    "name": "Ohio",
+    "isoCode": "US-OH",
+    "fips52AlphaCode": "OH"
+  },
+  {
+    "dcid": "geoId/40",
+    "geoId": "40",
+    "name": "Oklahoma",
+    "isoCode": "US-OK",
+    "fips52AlphaCode": "OK"
+  },
+  {
+    "dcid": "geoId/41",
+    "geoId": "41",
+    "name": "Oregon",
+    "isoCode": "US-OR",
+    "fips52AlphaCode": "OR"
+  },
+  {
+    "dcid": "geoId/42",
+    "geoId": "42",
+    "name": "Pennsylvania",
+    "isoCode": "US-PA",
+    "fips52AlphaCode": "PA"
+  },
+  {
+    "dcid": "geoId/44",
+    "geoId": "44",
+    "name": "Rhode Island",
+    "isoCode": "US-RI",
+    "fips52AlphaCode": "RI"
+  },
+  {
+    "dcid": "geoId/45",
+    "geoId": "45",
+    "name": "South Carolina",
+    "isoCode": "US-SC",
+    "fips52AlphaCode": "SC"
+  },
+  {
+    "dcid": "geoId/46",
+    "geoId": "46",
+    "name": "South Dakota",
+    "isoCode": "US-SD",
+    "fips52AlphaCode": "SD"
+  },
+  {
+    "dcid": "geoId/47",
+    "geoId": "47",
+    "name": "Tennessee",
+    "isoCode": "US-TN",
+    "fips52AlphaCode": "TN"
+  },
+  {
+    "dcid": "geoId/48",
+    "geoId": "48",
+    "name": "Texas",
+    "isoCode": "US-TX",
+    "fips52AlphaCode": "TX"
+  },
+  {
+    "dcid": "geoId/49",
+    "geoId": "49",
+    "name": "Utah",
+    "isoCode": "US-UT",
+    "fips52AlphaCode": "UT"
+  },
+  {
+    "dcid": "geoId/50",
+    "geoId": "50",
+    "name": "Vermont",
+    "isoCode": "US-VT",
+    "fips52AlphaCode": "VT"
+  },
+  {
+    "dcid": "geoId/51",
+    "geoId": "51",
+    "name": "Virginia",
+    "isoCode": "US-VA",
+    "fips52AlphaCode": "VA"
+  },
+  {
+    "dcid": "geoId/53",
+    "geoId": "53",
+    "name": "Washington",
+    "isoCode": "US-WA",
+    "fips52AlphaCode": "WA"
+  },
+  {
+    "dcid": "geoId/54",
+    "geoId": "54",
+    "name": "West Virginia",
+    "isoCode": "US-WV",
+    "fips52AlphaCode": "WV"
+  },
+  {
+    "dcid": "geoId/55",
+    "geoId": "55",
+    "name": "Wisconsin",
+    "isoCode": "US-WI",
+    "fips52AlphaCode": "WI"
+  },
+  {
+    "dcid": "geoId/56",
+    "geoId": "56",
+    "name": "Wyoming",
+    "isoCode": "US-WY",
+    "fips52AlphaCode": "WY"
+  },
+  {
+    "dcid": "geoId/72",
+    "geoId": "72",
+    "name": "Puerto Rico",
+    "isoCode": "US-PR",
+    "fips52AlphaCode": "PR"
+  },
+  {
+    "dcid": "wikidataId/Q1061",
+    "geoId": "",
+    "name": "Gujarat",
+    "isoCode": "IN-GJ",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1159",
+    "geoId": "",
+    "name": "Andhra Pradesh",
+    "isoCode": "IN-AP",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1162",
+    "geoId": "",
+    "name": "Arunachal Pradesh",
+    "isoCode": "IN-AR",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1164",
+    "geoId": "",
+    "name": "Assam",
+    "isoCode": "IN-AS",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1165",
+    "geoId": "",
+    "name": "Bihar",
+    "isoCode": "IN-BR",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1168",
+    "geoId": "",
+    "name": "Chhattisgarh",
+    "isoCode": "IN-CT",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1171",
+    "geoId": "",
+    "name": "Goa",
+    "isoCode": "IN-GA",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1174",
+    "geoId": "",
+    "name": "Haryana",
+    "isoCode": "IN-HR",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1177",
+    "geoId": "",
+    "name": "Himachal Pradesh",
+    "isoCode": "IN-HP",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1184",
+    "geoId": "",
+    "name": "Jharkhand",
+    "isoCode": "IN-JH",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1185",
+    "geoId": "",
+    "name": "Karnataka",
+    "isoCode": "IN-KA",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1186",
+    "geoId": "",
+    "name": "Kerala",
+    "isoCode": "IN-KL",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1188",
+    "geoId": "",
+    "name": "Madhya Pradesh",
+    "isoCode": "IN-MP",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1191",
+    "geoId": "",
+    "name": "Maharashtra",
+    "isoCode": "IN-MH",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1193",
+    "geoId": "",
+    "name": "Manipur",
+    "isoCode": "IN-MN",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1195",
+    "geoId": "",
+    "name": "Meghalaya",
+    "isoCode": "IN-ML",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1353",
+    "geoId": "",
+    "name": "Delhi",
+    "isoCode": "IN-DL",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1356",
+    "geoId": "",
+    "name": "West Bengal",
+    "isoCode": "IN-WB",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1363",
+    "geoId": "",
+    "name": "Tripura",
+    "isoCode": "IN-TR",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1437",
+    "geoId": "",
+    "name": "Rajasthan",
+    "isoCode": "IN-RJ",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1445",
+    "geoId": "",
+    "name": "Tamil Nadu",
+    "isoCode": "IN-TN",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1498",
+    "geoId": "",
+    "name": "Uttar Pradesh",
+    "isoCode": "IN-UP",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1499",
+    "geoId": "",
+    "name": "Uttarakhand",
+    "isoCode": "IN-UT",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1502",
+    "geoId": "",
+    "name": "Mizoram",
+    "isoCode": "IN-MZ",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1505",
+    "geoId": "",
+    "name": "Sikkim",
+    "isoCode": "IN-SK",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q1599",
+    "geoId": "",
+    "name": "Nagaland",
+    "isoCode": "IN-NL",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q200667",
+    "geoId": "",
+    "name": "Ladakh",
+    "isoCode": "IN-LA",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q22048",
+    "geoId": "",
+    "name": "Odisha",
+    "isoCode": "IN-OR",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q22424",
+    "geoId": "",
+    "name": "Punjab",
+    "isoCode": "IN-PB",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q26927",
+    "geoId": "",
+    "name": "Lakshadweep",
+    "isoCode": "IN-LD",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q40888",
+    "geoId": "",
+    "name": "Andaman and Nicobar Islands",
+    "isoCode": "IN-AN",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q43433",
+    "geoId": "",
+    "name": "Chandigarh",
+    "isoCode": "IN-CH",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q46107",
+    "geoId": "",
+    "name": "Dadra and Nagar Haveli",
+    "isoCode": "IN-DN",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q66278313",
+    "geoId": "",
+    "name": "Jammu and Kashmir",
+    "isoCode": "IN-JK",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q66710",
+    "geoId": "",
+    "name": "Daman and Diu",
+    "isoCode": "IN-DD",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q66743",
+    "geoId": "",
+    "name": "Puducherry",
+    "isoCode": "IN-PY",
+    "fips52AlphaCode": ""
+  },
+  {
+    "dcid": "wikidataId/Q677037",
+    "geoId": "",
+    "name": "Telangana",
+    "isoCode": "IN-TG",
+    "fips52AlphaCode": ""
+  }
+]

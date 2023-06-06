@@ -128,7 +128,7 @@ func testWebsiteDeployment(t *testing.T) {
 			"website.gcpProjectID":       ProjectID,
 			"website.domain":             WebsiteDomain,
 			"website.secretGCPProjectID": ProjectID,
-			"mixer.gcpProjectID":         ProjectID,
+			"mixer.hostProject":          ProjectID,
 			"mixer.serviceName":          fmt.Sprintf("website-esp.endpoints.%s.cloud.goog", ProjectID),
 			"ingress.enabled":            "true",
 		},

@@ -42,6 +42,8 @@ const NO_DATE_CAP_RCP_STATVARS = [
   // These SVs are not a time-series, but a single value across multi-decadal time-horizons.
   "ProjectedMax_Until_",
   "ProjectedMin_Until_",
+  // All PDF probability projections should be excluded.
+  "PctProb_",
 ];
 
 // used to set fields in an object
@@ -57,28 +59,37 @@ export function randDomId(): string {
 }
 
 /**
+ * Downloads a file under a given filename.
+ * @param filename name to download the file to
+ * @param file the file to download
+ */
+export function downloadFile(fileName: string, file: Blob | File): void {
+  const link = document.createElement("a");
+  const url = window.URL.createObjectURL(file);
+  link.setAttribute("href", url);
+  link.setAttribute("download", fileName);
+  link.onclick = () => {
+    setTimeout(() => window.URL.revokeObjectURL(url));
+  };
+  link.click();
+  link.remove();
+}
+
+/**
  * Saves csv to filename.
  * @param {filename} string
  * @param {contents} string
  * @return void
  */
 export function saveToFile(filename: string, contents: string): void {
-  let mimeType = "text/plan";
+  let mimeType = "text/plain";
   if (filename.match(/\.csv$/i)) {
-    mimeType = "text/csv;chartset=utf-8";
+    mimeType = "text/csv;charset=utf-8";
   } else if (filename.match(/\.svg$/i)) {
-    mimeType = "image/svg+xml;chartset=utf-8";
+    mimeType = "image/svg+xml;charset=utf-8";
   }
   const blob = new Blob([contents], { type: mimeType });
-  const link = document.createElement("a");
-  const url = window.URL.createObjectURL(blob);
-  link.setAttribute("href", url);
-  link.setAttribute("download", filename);
-  link.onclick = () => {
-    setTimeout(() => window.URL.revokeObjectURL(url));
-  };
-  link.click();
-  link.remove();
+  downloadFile(filename, blob);
 }
 
 /**
