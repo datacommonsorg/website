@@ -18,9 +18,9 @@ from server.app_env import local
 
 class Config(_base.Config):
   CUSTOM = True
-  NAME = "Google Stanford Data Commons"
+  NAME = "Stanford Data Commons"
   GCS_BUCKET = 'datcom-stanford-resources'
-
+  OVERRIDE_CSS_PATH = '/custom_dc/stanford/overrides.css'
 
 class LocalConfig(Config, local.Config):
   pass
