@@ -23,6 +23,8 @@ import { Node, PropertyValues } from "../shared/api_response_types";
 
 /**
  * Returns the first property in a list with any of the given dcids.
+ * @param dcids list of dcids of properties to look for
+ * @param properties mapping of property dcids to value nodes
  */
 export function findProperty(
   dcids: string[],
@@ -38,6 +40,7 @@ export function findProperty(
 
 /**
  * Returns the first display value of the property.
+ * @param property list of property value nodes for a property
  */
 export function getValue(property: Node[]): string {
   if (!property || !property.length) {
@@ -48,12 +51,12 @@ export function getValue(property: Node[]): string {
 
 /**
  * Formats the raw property value string from an API call as a number with unit.
+ * @param val property value string to format
  */
 export function formatPropertyValue(val: string): string {
   if (!val) {
     return "";
   }
-
   // If value is a date, pass through without a unit.
   if (!isNaN(Date.parse(val))) {
     return val;
@@ -72,6 +75,7 @@ export function formatPropertyValue(val: string): string {
 
 /**
  * Formats the first display value of a property value node as a number with unit.
+ * @param property list of property value nodes for a property
  */
 export function formatPropertyNodeValue(property: Node[]): string {
   const val = getValue(property);
@@ -83,6 +87,7 @@ export function formatPropertyNodeValue(property: Node[]): string {
 
 /**
  * Parses a lat,long pair from the first value of a property value node.
+ * @param property list of property value nodes for a property
  */
 export function parseLatLong(property: Node[]): [number, number] {
   if (!property || !property.length) return null;
@@ -98,6 +103,7 @@ export function parseLatLong(property: Node[]): [number, number] {
 /**
  * Strips the unit from a numeric property value, returning just the number.
  * Expects values formatted as "Unit 1.2345".
+ * @param value property value string to strip unit from
  */
 export function stripUnitFromPropertyValue(value: string): number {
   const numIndex = value.search(/-?[0-9]/);
