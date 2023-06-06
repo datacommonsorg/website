@@ -49,6 +49,7 @@ import {
   EventTypeSpec,
   SeverityFilter,
 } from "../types/subject_page_proto_types";
+import { getValue } from "./property_value_utils";
 import { isValidDate } from "./string_utils";
 
 const MAX_YEARS = 20;
@@ -262,9 +263,11 @@ function fetchEventPoints(
         if (eventTypeSpec.displayProp) {
           for (const dp of eventTypeSpec.displayProp) {
             if (dp.prop in eventData.propVals) {
-              const val = eventData.propVals[dp.prop].vals[0];
-              if (val) {
-                displayProps[dp.prop] = val;
+              if (!_.isEmpty(eventData.propVals[dp.prop].vals)) {
+                const val = eventData.propVals[dp.prop].vals[0];
+                if (val) {
+                  displayProps[dp.prop] = val;
+                }
               }
             }
           }

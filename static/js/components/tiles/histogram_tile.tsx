@@ -178,10 +178,12 @@ function binData(
 
     // Get value of property to aggregate
     let eventValue = 1;
-    if (property) {
+    if (property && event.displayProps) {
       // default to 0 if property can't be found in display props
-      eventValue =
-        stripUnitFromPropertyValue(event.displayProps[property]) || 0;
+      const propertyValueString = event.displayProps[property];
+      eventValue = propertyValueString
+        ? stripUnitFromPropertyValue(event.displayProps[property])
+        : 0;
     }
 
     // Increment value in corresponding bin if event has at least
