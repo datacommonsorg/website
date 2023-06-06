@@ -28,6 +28,7 @@ import {
   addPolygonLayer,
   drawD3Map,
   getProjection,
+  MapZoomParams,
 } from "../../chart/draw_d3_map";
 import {
   GeoJsonData,
@@ -110,7 +111,10 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
     _.isNull(props.disasterEventData);
   const shouldShowMap =
     !isInitialLoading && !_.isEmpty(baseMapGeoJson.features);
-
+  const zoomParams = {
+    zoomInButtonId: `${ZOOM_IN_BUTTON_ID}-${props.id}`,
+    zoomOutButtonId: `${ZOOM_OUT_BUTTON_ID}-${props.id}`,
+  };
   useEffect(() => {
     if (_.isNull(props.disasterEventData)) {
       return;
@@ -143,7 +147,8 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
         baseMapGeoJson,
         props.disasterEventData,
         polygonGeoJson,
-        pathGeoJson
+        pathGeoJson,
+        zoomParams
       );
     }
   }, [
@@ -187,13 +192,13 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
           {shouldShowMap && (
             <div className={`${CSS_SELECTOR_PREFIX}-zoom-button-section`}>
               <div
-                id={ZOOM_IN_BUTTON_ID}
+                id={zoomParams.zoomInButtonId}
                 className={`${CSS_SELECTOR_PREFIX}-zoom-button`}
               >
                 <i className="material-icons">add</i>
               </div>
               <div
-                id={ZOOM_OUT_BUTTON_ID}
+                id={zoomParams.zoomOutButtonId}
                 className={`${CSS_SELECTOR_PREFIX}-zoom-button`}
               >
                 <i className="material-icons">remove</i>
@@ -343,14 +348,11 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
     geoJsonData: GeoJsonData,
     disasterEventData: Record<string, DisasterEventPointData>,
     polygonGeoJson: GeoJsonData,
-    pathGeoJson: GeoJsonData
+    pathGeoJson: GeoJsonData,
+    zoomParams: MapZoomParams
   ): void {
     const width = svgContainerRef.current.offsetWidth;
     const height = svgHeight;
-    const zoomParams = {
-      zoomInButtonId: ZOOM_IN_BUTTON_ID,
-      zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
-    };
     const isUsaPlace = isChildPlaceOf(
       props.place.dcid,
       USA_PLACE_DCID,
