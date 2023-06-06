@@ -28,6 +28,7 @@ import {
   addPolygonLayer,
   drawD3Map,
   getProjection,
+  MapZoomParams,
 } from "../../chart/draw_d3_map";
 import {
   GeoJsonData,
@@ -66,12 +67,6 @@ const MAP_POINTS_MIN_RADIUS = 1.5;
 const MAP_POINTS_MIN_RADIUS_EARTH = 0.8;
 // Set of dcids of places that should use the selected place as the base geojson
 const PLACE_MAP_PLACES = new Set(["country/AUS", "country/BRA"]);
-
-// Stores IDs for the zoom buttons on the map
-interface ZoomParams {
-  zoomInButtonId: string;
-  zoomOutButtonId: string;
-}
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -354,7 +349,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
     disasterEventData: Record<string, DisasterEventPointData>,
     polygonGeoJson: GeoJsonData,
     pathGeoJson: GeoJsonData,
-    zoomParams: ZoomParams
+    zoomParams: MapZoomParams
   ): void {
     const width = svgContainerRef.current.offsetWidth;
     const height = svgHeight;
