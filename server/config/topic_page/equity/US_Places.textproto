@@ -47,24 +47,24 @@ categories {
         stat_var_key: "CO2_emissions"
       }
       tiles {
-        title: "Diabetes Prevalence (${yDate}) vs. Predicted Max Temperature (${xDate})"
+        title: "Diabetes Prevalence (${yDate}) vs. Projected Max Temperature (${xDate})"
         type: SCATTER
         stat_var_key: "diabetes_prevalence"
-        stat_var_key: "max_temp_prediction"
+        stat_var_key: "max_temp_projection"
       }
       tiles {
-        title: "Disabilities (${yDate}) vs. Predicted Max Temperature (${xDate})"
+        title: "Disabilities (${yDate}) vs. Projected Max Temperature (${xDate})"
         type: SCATTER
         stat_var_key: "disabilities_prevalence"
-        stat_var_key: "max_temp_prediction"
+        stat_var_key: "max_temp_projection"
       }
     }
     columns {
       tiles {
-        title: "Coronary Heart Disease Prevalence (${yDate}) vs. Predicted Max Temperature (${xDate})"
+        title: "Coronary Heart Disease Prevalence (${yDate}) vs. Projected Max Temperature (${xDate})"
         type: SCATTER
         stat_var_key: "heart_disease_prevalence"
-        stat_var_key: "max_temp_prediction"
+        stat_var_key: "max_temp_projection"
       }
       tiles {
         title: "No Health Insurance (${yDate}) vs. Lifetime Cancer Risk due to Air Pollutants (${xDate})"
@@ -123,10 +123,10 @@ categories {
     title: "Employment"
     columns {
       tiles {
-        title: "Unemployement Rate (${yDate}) vs. Predicted Max Temperature (${xDate})"
+        title: "Unemployement Rate (${yDate}) vs. Projected Max Temperature (${xDate})"
         type: SCATTER
         stat_var_key: "unemployment_rate"
-        stat_var_key: "max_temp_prediction"
+        stat_var_key: "max_temp_projection"
       }
     }
   }
@@ -140,10 +140,10 @@ categories {
   }
 
   stat_var_spec {
-    key: "max_temp_prediction"
+    key: "max_temp_projection"
     value {
       stat_var: "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-      name: "MaxTemp Ensemble GaussianMixture 5PctProb Greater Atleast1DayAYear CMIP6 SSP245"
+      name: "Projected Max Temperature (5% probability, decadal, SSP245)"
     }
   }
 
