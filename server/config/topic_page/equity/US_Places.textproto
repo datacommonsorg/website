@@ -41,19 +41,19 @@ categories {
     title: "Health"
     columns {
       tiles {
-        title: "Asthma Prevalence vs. CO2 Emissions"
+        title: "Asthma Prevalence (${yDate}) vs. CO2 Emissions (${xDate})"
         type: SCATTER
         stat_var_key: "asthma_prevalence"
         stat_var_key: "CO2_emissions"
       }
       tiles {
-        title: "Diabetes Prevalence vs. Predicted Max Temperature"
+        title: "Diabetes Prevalence (${yDate}) vs. Predicted Max Temperature (${xDate})"
         type: SCATTER
         stat_var_key: "diabetes_prevalence"
         stat_var_key: "max_temp_prediction"
       }
       tiles {
-        title: "Disabilities vs. Predicted Max Temperature"
+        title: "Disabilities (${yDate}) vs. Predicted Max Temperature (${xDate})"
         type: SCATTER
         stat_var_key: "disabilities_prevalence"
         stat_var_key: "max_temp_prediction"
@@ -61,13 +61,13 @@ categories {
     }
     columns {
       tiles {
-        title: "Cardiovascular Disease Prevalence vs. Predicted Max Temperature"
+        title: "Coronary Heart Disease Prevalence (${yDate}) vs. Predicted Max Temperature (${xDate})"
         type: SCATTER
         stat_var_key: "heart_disease_prevalence"
         stat_var_key: "max_temp_prediction"
       }
       tiles {
-        title: "No Health Insurance vs. Lifetime Cancer Risk due to Air Pollutants"
+        title: "No Health Insurance (${yDate}) vs. Lifetime Cancer Risk due to Air Pollutants (${xDate})"
         type: SCATTER
         stat_var_key: "no_health_insurance"
         stat_var_key: "cancer_risk"
@@ -79,19 +79,19 @@ categories {
     title: "Demographics"
     columns {
       tiles {
-        title: "Poverty Rate vs. PM 2.5 Emissions"
+        title: "Poverty Rate (${yDate}) vs. PM 2.5 Emissions (${xDate})"
         type: SCATTER
         stat_var_key: "poverty_rate"
         stat_var_key: "PM25_emissions"
       }
       tiles {
-        title: "Per Capita Asian Population vs. Lifetime Cancer Risk due to Air Pollutants"
+        title: "Per Capita Asian Population (${yDate}) vs. Lifetime Cancer Risk due to Air Pollutants (${xDate})"
         type: SCATTER
-        stat_var_key: "poverty_rate"
+        stat_var_key: "asian_population"
         stat_var_key: "PM25_emissions"
       }
       tiles {
-        title: "Per Capita Black or African American Population vs. PM 2.5 Emissions"
+        title: "Per Capita Black or African American Population (${yDate}) vs. PM 2.5 Emissions (${xDate})"
         type: SCATTER
         stat_var_key: "black_population"
         stat_var_key: "PM25_emissions"
@@ -99,19 +99,19 @@ categories {
     }
     columns {
       tiles {
-        title: "Household Median Income vs. Lifetime Cancer Risk due to Air Pollutants"
+        title: "Household Median Income (${yDate}) vs. Lifetime Cancer Risk due to Air Pollutants (${xDate})"
         type: SCATTER
-        stat_var_key: "cancer_risk"
         stat_var_key: "household_median_income"
+        stat_var_key: "cancer_risk"
       }
       tiles {
-        title: "Per Capita Hispanic Population vs. Ozone Emissions"
+        title: "Per Capita Hispanic Population (${yDate}) vs. Ozone Emissions (${xDate})"
         type: SCATTER
         stat_var_key: "hispanic_population"
         stat_var_key: "O3_emissions"
       }
       tiles {
-        title: "Per Capita American Indian or Alaskan Native Population vs. PM 2.5 Emissions"
+        title: "Per Capita American Indian or Alaskan Native Population (${yDate}) vs. PM 2.5 Emissions (${xDate})"
         type: SCATTER
         stat_var_key: "american_indian_population"
         stat_var_key: "PM25_emissions"
@@ -123,7 +123,7 @@ categories {
     title: "Employment"
     columns {
       tiles {
-        title: "Unemployement Rate vs. Predicted Max Temperature"
+        title: "Unemployement Rate (${yDate}) vs. Predicted Max Temperature (${xDate})"
         type: SCATTER
         stat_var_key: "unemployment_rate"
         stat_var_key: "max_temp_prediction"
@@ -196,7 +196,7 @@ categories {
     key: "heart_disease_prevalence"
     value {
       stat_var: "Percent_Person_WithCoronaryHeartDisease"
-      name: "Cardiovascular Disease Prevalence"
+      name: "Coronary Heart Disease Prevalence"
     }
   }
 
