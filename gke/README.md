@@ -13,7 +13,6 @@ You should have owner/editor role to perform the following tasks.
   - `domain`: domain of the the website
   - `region.primary`: region for Kubernetes cluster
   - `storage-project`: base Data Commons project (set this to `datcom-store`)
-  - `tmcf_csv_bucket`: GCS bucket which contains the TMCF and CSV files for the instance
 
 - Install the following tools:
 

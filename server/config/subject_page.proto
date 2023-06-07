@@ -72,6 +72,14 @@ message PageMetadata {
   // Event type information to be used by this config. The key is the event
   // type id and the value is the spec for that event type.
   map<string, EventTypeSpec> event_type_spec = 5;
+
+  // A group of places characterized by place type and parent place
+  message PlaceGroup {
+    string parent_place = 1;
+    string place_type = 2;
+  }
+  // List of place groups supported by this config.
+  repeated PlaceGroup place_group = 6;
 }
 
 message StatVarSpec {

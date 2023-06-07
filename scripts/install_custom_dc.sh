@@ -199,11 +199,6 @@ terraform apply \
   -var="dc_resource_bucket=$RESOURCE_BUCKET" \
   -auto-approve
 
-# Copy over sample tmcfs/csvs from reference resource bucket.
-gsutil cp -r \
-  gs://datcom-public/reference/tmcf_csv \
-  gs://$RESOURCE_BUCKET/reference/tmcf_csv
-
 _success_msg="
 ###############################################################################
 # Status: Successfully launched the installer in $PROJECT_ID.

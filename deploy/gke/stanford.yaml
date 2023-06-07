@@ -24,5 +24,3 @@ region:
     -
 nodes: 1
 storage_project: datcom-store
-tmcf_csv_bucket: datcom-stanford-resources
-tmcf_csv_folder: stanford
