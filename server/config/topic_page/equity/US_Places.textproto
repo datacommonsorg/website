@@ -143,7 +143,7 @@ categories {
     key: "max_temp_projection"
     value {
       stat_var: "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-      name: "Projected max temp (5% probability, decadal, SSP245)"
+      name: "Projected Max Temperature (5% probability, decadal, SSP245)"
     }
   }
 
