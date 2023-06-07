@@ -262,13 +262,11 @@ function fetchEventPoints(
         if (eventTypeSpec.displayProp) {
           for (const dp of eventTypeSpec.displayProp) {
             if (dp.prop in eventData.propVals) {
-              const val = parseEventPropVal(
-                eventData.propVals[dp.prop].vals,
-                dp.unit || "",
-                reqParams
-              );
-              if (!isNaN(val)) {
-                displayProps[dp.prop] = val;
+              if (!_.isEmpty(eventData.propVals[dp.prop].vals)) {
+                const val = eventData.propVals[dp.prop].vals[0];
+                if (val) {
+                  displayProps[dp.prop] = val;
+                }
               }
             }
           }
