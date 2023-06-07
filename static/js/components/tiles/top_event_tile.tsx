@@ -38,6 +38,7 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
+import { formatPropertyValue } from "../../utils/property_value_utils";
 import { ChartFooter } from "./chart_footer";
 
 const DEFAULT_RANKING_COUNT = 10;
@@ -77,7 +78,6 @@ export const TopEventTile = memo(function TopEventTile(
   }, [props]);
 
   const displayPropNames = {};
-  const displayPropUnits = {};
   if (props.topEventMetadata.displayProp) {
     for (const dp of props.topEventMetadata.displayProp) {
       if (_.isEmpty(props.eventTypeSpec.displayProp)) {
@@ -86,7 +86,6 @@ export const TopEventTile = memo(function TopEventTile(
       for (const edp of props.eventTypeSpec.displayProp) {
         if (edp.prop == dp) {
           displayPropNames[dp] = edp.displayName;
-          displayPropUnits[dp] = edp.unit;
           break;
         }
       }
@@ -132,7 +131,13 @@ export const TopEventTile = memo(function TopEventTile(
                 <tr>
                   <td></td>
                   {showNameColumn && <td>Name</td>}
-                  {showPlaceColumn && <td>{props.enclosedPlaceType}</td>}
+                  {showPlaceColumn && (
+                    <td>
+                      {Object.keys(eventPlaces).length < topEvents.length
+                        ? "Location"
+                        : props.enclosedPlaceType}
+                    </td>
+                  )}
                   {(props.topEventMetadata.showStartDate ||
                     props.topEventMetadata.showEndDate) && <td>Date</td>}
                   {props.topEventMetadata.displayProp &&
@@ -148,7 +153,7 @@ export const TopEventTile = memo(function TopEventTile(
                 {topEvents.map((event, i) => {
                   const placeName = eventPlaces[event.placeDcid]
                     ? eventPlaces[event.placeDcid].name
-                    : "N/A";
+                    : props.place.name || props.place.dcid;
                   const displayDate = getDisplayDate(event);
                   return (
                     <tr key={i}>
@@ -176,11 +181,7 @@ export const TopEventTile = memo(function TopEventTile(
                         props.topEventMetadata.displayProp.map((dp, i) => {
                           return (
                             <td key={i} className="stat">
-                              {formatNumber(
-                                event.displayProps[dp],
-                                displayPropUnits[dp],
-                                false
-                              )}
+                              {formatPropertyValue(event.displayProps[dp])}
                             </td>
                           );
                         })}

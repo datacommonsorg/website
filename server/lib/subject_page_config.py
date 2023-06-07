@@ -254,7 +254,12 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
       return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
     place_types = wanted_place_types
 
-    parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
+    for place in place_api.parent_places([place_dcid]).get(place_dcid, []):
+      parent_places.append({
+          'dcid': place.get('dcid', ''),
+          'name': place.get('name', ''),
+          'types': [place.get('type', '')]
+      })
 
   place_name = place_api.get_i18n_name([place_dcid
                                        ]).get(place_dcid, escape(place_dcid))
