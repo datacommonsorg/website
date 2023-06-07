@@ -87,6 +87,7 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   setup_python
+  setup_python_nl
   export FLASK_ENV=test
   python3 -m pytest server/tests/ -s --ignore=sustainability
 
