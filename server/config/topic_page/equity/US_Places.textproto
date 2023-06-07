@@ -36,6 +36,265 @@ metadata {
 }
 
 categories {
+  title: "Climate Equity"
+  blocks {
+    title: "Health"
+    columns {
+      tiles {
+        title: "Asthma Prevalence vs. CO2 Emissions"
+        type: SCATTER
+        stat_var_key: "asthma_prevalence"
+        stat_var_key: "CO2_emissions"
+      }
+      tiles {
+        title: "Diabetes Prevalence vs. Predicted Max Temperature"
+        type: SCATTER
+        stat_var_key: "diabetes_prevalence"
+        stat_var_key: "max_temp_prediction"
+      }
+      tiles {
+        title: "Disabilities vs. Predicted Max Temperature"
+        type: SCATTER
+        stat_var_key: "disabilities_prevalence"
+        stat_var_key: "max_temp_prediction"
+      }
+    }
+    columns {
+      tiles {
+        title: "Cardiovascular Disease Prevalence vs. Predicted Max Temperature"
+        type: SCATTER
+        stat_var_key: "heart_disease_prevalence"
+        stat_var_key: "max_temp_prediction"
+      }
+      tiles {
+        title: "No Health Insurance vs. Lifetime Cancer Risk due to Air Pollutants"
+        type: SCATTER
+        stat_var_key: "no_health_insurance"
+        stat_var_key: "cancer_risk"
+      }
+    }
+  }
+
+  blocks {
+    title: "Demographics"
+    columns {
+      tiles {
+        title: "Poverty Rate vs. PM 2.5 Emissions"
+        type: SCATTER
+        stat_var_key: "poverty_rate"
+        stat_var_key: "PM25_emissions"
+      }
+      tiles {
+        title: "Per Capita Asian Population vs. Lifetime Cancer Risk due to Air Pollutants"
+        type: SCATTER
+        stat_var_key: "poverty_rate"
+        stat_var_key: "PM25_emissions"
+      }
+      tiles {
+        title: "Per Capita Black or African American Population vs. PM 2.5 Emissions"
+        type: SCATTER
+        stat_var_key: "black_population"
+        stat_var_key: "PM25_emissions"
+      }
+    }
+    columns {
+      tiles {
+        title: "Household Median Income vs. Lifetime Cancer Risk due to Air Pollutants"
+        type: SCATTER
+        stat_var_key: "cancer_risk"
+        stat_var_key: "household_median_income"
+      }
+      tiles {
+        title: "Per Capita Hispanic Population vs. Ozone Emissions"
+        type: SCATTER
+        stat_var_key: "hispanic_population"
+        stat_var_key: "O3_emissions"
+      }
+      tiles {
+        title: "Per Capita American Indian or Alaskan Native Population vs. PM 2.5 Emissions"
+        type: SCATTER
+        stat_var_key: "american_indian_population"
+        stat_var_key: "PM25_emissions"
+      }
+    }
+  }
+
+  blocks {
+    title: "Employment"
+    columns {
+      tiles {
+        title: "Unemployement Rate vs. Predicted Max Temperature"
+        type: SCATTER
+        stat_var_key: "unemployment_rate"
+        stat_var_key: "max_temp_prediction"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "CO2_emissions"
+    value {
+      stat_var: "Annual_Emissions_CarbonDioxide_NonBiogenic"
+      name: "CO2 Emissions"
+    }
+  }
+
+  stat_var_spec {
+    key: "max_temp_prediction"
+    value {
+      stat_var: "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      name: "MaxTemp Ensemble GaussianMixture 5PctProb Greater Atleast1DayAYear CMIP6 SSP245"
+    }
+  }
+
+  stat_var_spec {
+    key: "cancer_risk"
+    value {
+      stat_var: "AirPollutant_Cancer_Risk"
+      name: "Lifetime Cancer Risk due to Air Pollutants"
+    }
+  }
+
+  stat_var_spec {
+    key: "PM25_emissions"
+    value {
+      stat_var: "Mean_Concentration_AirPollutant_PM2.5"
+      name: "Mean Concentration of PM 2.5"
+    }
+  }
+  stat_var_spec {
+    key: "O3_emissions"
+    value {
+      stat_var: "Mean_Concentration_AirPollutant_Ozone"
+      name: "Mean Concentration of Ozone"
+    }
+  }
+  stat_var_spec {
+    key: "dieselPM_emissions"
+    value {
+      stat_var: "Mean_Concentration_AirPollutant_DieselPM"
+      name: "Mean Concentration of Diseael PM"
+    }
+  }
+
+  stat_var_spec {
+    key: "asthma_prevalence"
+    value {
+      stat_var: "Percent_Person_WithAsthma"
+      name: "Asthma Prevalence"
+    }
+  }
+
+  stat_var_spec {
+    key: "diabetes_prevalence"
+    value {
+      stat_var: "Percent_Person_WithDiabetes"
+      name: "Diabetes Prevalence"
+    }
+  }
+  stat_var_spec {
+    key: "heart_disease_prevalence"
+    value {
+      stat_var: "Percent_Person_WithCoronaryHeartDisease"
+      name: "Cardiovascular Disease Prevalence"
+    }
+  }
+
+  stat_var_spec {
+    key: "disabilities_prevalence"
+    value {
+      stat_var: "Count_Person_WithDisability"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Percent Person with Disability"
+    }
+  }
+
+  stat_var_spec {
+    key: "no_health_insurance"
+    value {
+      stat_var: "Count_Person_NoHealthInsurance"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "No Health Insurance Per Capita"
+    }
+  }
+
+  stat_var_spec {
+    key: "poverty_rate"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Poverty Rate"
+    }
+  }
+
+  stat_var_spec {
+    key: "household_median_income"
+    value {
+      stat_var: "Median_Income_Household"
+      name: "Household Median Income"
+    }
+  }
+
+  stat_var_spec {
+    key: "asian_population"
+    value {
+      stat_var: "Count_Person_AsianAlone"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Per Capita Asian Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "black_population"
+    value {
+      stat_var: "Count_Person_BlackOrAfricanAmericanAlone"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Per Capita Black or African American Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "hispanic_population"
+    value {
+      stat_var: "Count_Person_HispanicOrLatino"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Per Capita Hispanic Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "american_indian_population"
+    value {
+      stat_var: "Count_Person_AmericanIndianAndAlaskaNativeAlone"
+      denom: "Count_Person"
+      scaling: 100
+      unit: "%"
+      name: "Per Capita American Indian or Alaska Native Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "unemployment_rate"
+    value {
+      stat_var: "UnemploymentRate_Person"
+      name: "Unemployment Rate"
+    }
+  }
+}
+
+categories {
   title: "Equity between sexes"
   description: "Gender is often confused with the concept of sex. Gender is a social construct, whereas sex is based on the biological attributes of men and women. The US Census intends to capture a person's biological sex and not gender. For more information, see https://www.census.gov/topics/population/age-and-sex/about.html"
   blocks {
