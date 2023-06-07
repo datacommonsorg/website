@@ -61,8 +61,9 @@ def list_png(bucket_name, prefix):
   storage_client = storage.Client()
   bucket = storage_client.get_bucket(bucket_name)
   blobs = bucket.list_blobs(prefix=prefix)
-  result = []
+  result = {}
   for b in blobs:
     if b.name.endswith('png'):
-      result.append(b64encode(b.download_as_string()).decode("utf-8"))
+      bytes = b64encode(b.download_as_string()).decode('utf-8')
+      result[b.name.removeprefix(prefix + '/')] = bytes
   return result

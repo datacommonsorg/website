@@ -22,6 +22,6 @@ class TestRoute(unittest.TestCase):
 
   @patch('server.routes.screenshot.html.list_png')
   def test_screenshot(self, mock_list_png):
-    mock_list_png.side_effect = (lambda bucket, prefix: [])
+    mock_list_png.side_effect = (lambda bucket, prefix: {})
     response = app.test_client().get('/screenshot/folder')
     assert response.status_code == 200
