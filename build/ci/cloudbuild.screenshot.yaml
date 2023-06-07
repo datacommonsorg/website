@@ -46,8 +46,8 @@ steps:
       - -c
       - |
         set -e
-        gsutil cp test_screenshots/*.png gs://datcom-website-screenshot/$SHORT_SHA/
-        rm -rf test_screenshots
+        gsutil cp ./screenshots/*.png gs://datcom-website-screenshot/$SHORT_SHA/
+        rm -rf screenshots
 
 timeout: 1800s
 

@@ -23,7 +23,7 @@ from server.webdriver_tests.base_test import WebdriverBaseTest
 # TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
 
-SCREENSHOTS_FOLDER = 'test_screenshots/'
+SCREENSHOTS_FOLDER = 'screenshots/'
 # TODO: Can add more urls and tests if necessary.
 TEST_URLS = [
     {
@@ -98,5 +98,6 @@ class TestScreenShot(WebdriverBaseTest):
       self.assertGreater(len(charts), 0, test_info['url'])
 
       # Take a screenshot of the page and save it.
-      self.driver.save_screenshot('{}{:02}_{}'.format(
-          SCREENSHOTS_FOLDER, index, test_info['filename_suffix']))
+      self.assertTrue(
+          self.driver.save_screenshot('{}{:02}_{}'.format(
+              SCREENSHOTS_FOLDER, index, test_info['filename_suffix'])))

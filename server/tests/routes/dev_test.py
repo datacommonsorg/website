@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import unittest
-from unittest.mock import patch
 
 from web_app import app
 
@@ -22,10 +21,4 @@ class TestRoute(unittest.TestCase):
 
   def test_dev(self):
     response = app.test_client().get('/dev/')
-    assert response.status_code == 200
-
-  @patch('server.routes.dev.html.list_png')
-  def test_screenshot(self, mock_list_png):
-    mock_list_png.side_effect = (lambda bucket, prefix: [])
-    response = app.test_client().get('/dev/screenshot/folder')
     assert response.status_code == 200

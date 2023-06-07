@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,16 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
+import unittest
+from unittest.mock import patch
 
-import flask
-
-# Define blueprint
-bp = flask.Blueprint("dev", __name__, url_prefix='/dev')
+from web_app import app
 
 
-@bp.route('/')
-def dev():
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
-  return flask.render_template('dev/dev.html')
+class TestRoute(unittest.TestCase):
+
+  @patch('server.routes.screenshot.html.list_png')
+  def test_screenshot(self, mock_list_png):
+    mock_list_png.side_effect = (lambda bucket, prefix: [])
+    response = app.test_client().get('/screenshot/folder')
+    assert response.status_code == 200

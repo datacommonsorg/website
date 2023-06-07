@@ -76,6 +76,9 @@ def register_routes_base_dc(app):
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
 
+  from server.routes.screenshot import html as screenshot_html
+  app.register_blueprint(screenshot_html.bp)
+
   from server.routes.special_announcement import \
       html as special_announcement_html
   app.register_blueprint(special_announcement_html.bp)

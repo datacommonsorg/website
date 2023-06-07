@@ -12,19 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import flask
 import os
+
+import flask
 
 from server.lib.gcs import list_png
 
 SCREENSHOT_BUCKET = 'datcom-website-screenshot'
 
-bp = flask.Blueprint("dev", __name__, url_prefix='/screenshot')
+bp = flask.Blueprint("screenshot", __name__, url_prefix='/screenshot')
 
 
 @bp.route('/<path:folder>')
 def screenshot(folder):
-  if os.environ.get('FLASK_ENV') not in ['autopush', 'local']:
+  if os.environ.get('FLASK_ENV') not in [
+      'autopush', 'local', 'test', 'webdriver'
+  ]:
     flask.abort(404)
   images = list_png(SCREENSHOT_BUCKET, folder)
   return flask.render_template('screenshot.html', images=images)
