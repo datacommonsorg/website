@@ -24,6 +24,7 @@ from google.protobuf.json_format import MessageToJson
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as libutil
 import server.routes.shared_api.place as place_api
+import server.services.datacommons as dc
 
 _NL_DISASTER_TOPIC = 'nl_disasters'
 _SDG_TOPIC = 'sdg'
@@ -96,6 +97,18 @@ def topic_page(topic_id=None, place_dcid=None):
 
   more_places = request.args.getlist('places')
 
+  place_name = ''
+  place_type = ''
+  parent_dcids = set()
+  place_info = dc.get_place_info([place_dcid])
+  for item in place_info.get('data', []):
+    if 'node' not in item or item['node'] != place_dcid or 'info' not in item:
+      continue
+    place_name = item['info'].get('self', {}).get('name', '')
+    place_type = item['info'].get('self', {}).get('type', '')
+    for parent in item['info'].get('parents', []):
+      parent_dcids.add(parent.get('dcid'))
+
   # Find the config for the topic & place.
   topic_place_config = None
   if topic_id == _SDG_TOPIC:
@@ -106,11 +119,13 @@ def topic_page(topic_id=None, place_dcid=None):
       if place_dcid in config.metadata.place_dcid:
         topic_place_config = config
         break
+      for place_group in config.metadata.place_group:
+        if place_group.parent_place in parent_dcids and place_group.place_type == place_type:
+          topic_place_config = config
+          break
   if not topic_place_config:
     return "Error: no config found"
 
-  # TODO: should use place metadata API to fetch these data in one call.
-  place_type = place_api.get_place_type(place_dcid)
   place_names = place_api.get_i18n_name([place_dcid])
   if place_names:
     place_name = place_names[place_dcid]

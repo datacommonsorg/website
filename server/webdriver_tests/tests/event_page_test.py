@@ -53,8 +53,10 @@ class TestEventPage(WebdriverBaseTest):
     self.assertEqual(title.text, 'Nicole')
     dcid_subtitle = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/div[1]/div[1]/h3')
-    self.assertEqual(dcid_subtitle.text,
-                     'Cyclone Event in Indian River County, Earth')
+    self.assertEqual(
+        dcid_subtitle.text,
+        'Cyclone Event in Indian River County, Florida, United States, North America, Earth'
+    )
 
     # Check google map section
     element_present = EC.presence_of_element_located(
@@ -116,8 +118,10 @@ class TestEventPage(WebdriverBaseTest):
     self.assertEqual(title.text, 'Double Creek Fire')
     dcid_subtitle = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/div[1]/div[1]/h3')
-    self.assertEqual(dcid_subtitle.text,
-                     'Wildland Fire Event in Wallowa County, Earth')
+    self.assertEqual(
+        dcid_subtitle.text,
+        'Wildland Fire Event in Wallowa County, Oregon, United States, North America, Earth'
+    )
 
     # Check google map section
     element_present = EC.presence_of_element_located(
@@ -181,7 +185,8 @@ class TestEventPage(WebdriverBaseTest):
         title.text, 'DroughtEvent at LatLong(52.00000:-81.00000) on 2020-04-01')
     dcid_subtitle = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/div[1]/div[1]/h3')
-    self.assertEqual(dcid_subtitle.text, 'Drought Event in Canada, Earth')
+    self.assertEqual(dcid_subtitle.text,
+                     'Drought Event in Canada, North America, Earth')
 
     # Check google map section
     element_present = EC.presence_of_element_located(

@@ -73,7 +73,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     mock_parents.return_value = mock_parents.return_value = {
         dcid: [{
             'dcid': parent_dcid,
-            'types': ['Country']
+            'type': 'Country'
         }]
     }
     result = choropleth_api.get_choropleth_display_level(dcid)
@@ -90,7 +90,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     mock_parents.return_value = {
         dcid: [{
             'dcid': parent_dcid,
-            'types': ['AdministrativeArea1']
+            'type': 'AdministrativeArea1'
         }]
     }
     result = choropleth_api.get_choropleth_display_level(dcid)
@@ -104,12 +104,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     parent_dcid = "parent_dcid"
 
     mock_place_type.return_value = "County"
-    mock_parents.return_value = {
-        dcid: [{
-            'dcid': parent_dcid,
-            'types': ['State']
-        }]
-    }
+    mock_parents.return_value = {dcid: [{'dcid': parent_dcid, 'type': 'State'}]}
     result = choropleth_api.get_choropleth_display_level(dcid)
     assert result == (parent_dcid, "County")
 

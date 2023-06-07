@@ -46,7 +46,7 @@ PLACE_EXPLORER_CATEGORIES = [
 # key is topic_id, which should match the folder name under config/topic_page
 # property is the list of filenames in that folder to load.
 TOPIC_PAGE_CONFIGS = {
-    'equity': ['USA', 'CA'],
+    'equity': ['USA', 'US_Places'],
     'poverty': ['USA', 'India'],
     'dev': ['CA'],
     'sdg': ['sdg']
