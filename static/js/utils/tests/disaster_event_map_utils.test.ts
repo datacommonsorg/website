@@ -95,7 +95,7 @@ const EARTHQUAKE_EVENT_1_PROCESSED = {
   disasterType: EARTHQUAKE_DISASTER_TYPE_ID,
   startDate: "2022-01-01",
   severity: { magnitude: 5 },
-  displayProps: { keep: 132 },
+  displayProps: { keep: "Unit 132" },
   endDate: "",
   provenanceId: "earthquakeProv",
   affectedPlaces: ["country/USA"],
