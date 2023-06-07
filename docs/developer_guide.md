@@ -323,14 +323,6 @@ rm -rf ~/.datacommons/cache.*
 
 The GKE configuration is stored [here](../deploy/overlays).
 
-### Custom Instance
-
-Create a pub/sub topic for mixer to listen to data change.
-
-```bash
-gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
-```
-
 ### Redis memcache
 
 [Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
