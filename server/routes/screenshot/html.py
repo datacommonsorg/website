@@ -15,12 +15,16 @@
 import flask
 import os
 
-# Define blueprint
-bp = flask.Blueprint("dev", __name__, url_prefix='/dev')
+from server.lib.gcs import list_png
+
+SCREENSHOT_BUCKET = 'datcom-website-screenshot'
+
+bp = flask.Blueprint("dev", __name__, url_prefix='/screenshot')
 
 
-@bp.route('/')
-def dev():
-  if os.environ.get('FLASK_ENV') == 'production':
+@bp.route('/<path:folder>')
+def screenshot(folder):
+  if os.environ.get('FLASK_ENV') not in ['autopush', 'local']:
     flask.abort(404)
-  return flask.render_template('dev/dev.html')
+  images = list_png(SCREENSHOT_BUCKET, folder)
+  return flask.render_template('screenshot.html', images=images)

@@ -28,24 +28,26 @@ steps:
   # Run the screenshot tests
   - id: screenshot_test
     name: gcr.io/datcom-ci/webdriver-chrome:2023-05-03
-    entrypoint: /bin/sh
+    entrypoint: /bin/bash
     waitFor:
       - package_js
     args:
       - -c
       - |
+        set -e
         ./run_test.sh -s
 
   - id: copy_files
     name: gcr.io/cloud-builders/gsutil
-    entrypoint: /bin/sh
+    entrypoint: /bin/bash
     waitFor:
       - screenshot_test
     args:
       - -c
       - |
-        gsutil cp server/test_screenshots/*.png gs://datcom-website-screenshot/$SHORT_SHA/
-        rm -rf server/test_screenshots
+        set -e
+        gsutil cp test_screenshots/*.png gs://datcom-website-screenshot/$SHORT_SHA/
+        rm -rf test_screenshots
 
 timeout: 1800s
 
