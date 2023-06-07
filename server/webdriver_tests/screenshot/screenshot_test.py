@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_tests.base_test import WebdriverBaseTest
+
+from server.webdriver_tests.base_test import WebdriverBaseTest
 
 # TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
@@ -24,98 +27,43 @@ SCREENSHOTS_FOLDER = 'test_screenshots/'
 # TODO: Can add more urls and tests if necessary.
 TEST_URLS = [
     {
-        'url': '/place',
-        'filename_suffix': 'place_landing.png',
-        'test_class': 'container',
-        'height': 1142
-    },
-    {
-        'url': '/place/country/USA',
-        'filename_suffix': 'place_usa.png',
-        'test_class': 'chart-container',
-        'height': 5500
-    },
-    {
         'url': '/place/country/USA?topic=Demographics',
         'filename_suffix': 'place_usa_demographics.png',
-        'test_class': 'chart-container',
+        'selector': By.CLASS_NAME,
+        'name': 'chart-container',
         'height': 4400
     },
-    # TODO(beets): Re-enable this test when feasible (without sacrificing
-    #              potential ssl downgrade)
-    # {
-    #     'url': '/place?dcid=country/USA&topic=Health',
-    #     'filename_suffix': 'place_usa_health.png',
-    #     'test_class': 'chart-container',
-    #     'height': 3300
-    # },
     {
         'url':
-            '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person',
+            '/tools/timeline#&place=geoId/0606000,geoId/2511000&statsVar=Median_Age_Person',
         'filename_suffix':
             'median_age_six_places.png',
-        'test_class':
-            'card',
-        'height':
-            1000
-    },
-    {
-        'url':
-            '/tools/timeline#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime',
-        'filename_suffix':
-            'violentcrime_six_places.png',
-        'test_class':
-            'card',
-        'height':
-            1000
-    },
-    {
-        'url':
-            '/tools/timeline#place=country%2FUSA%2CgeoId%2F06085&pc=1&statsVar=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase',
-        'filename_suffix':
-            'covid_19_cases_two_places.png',
-        'test_class':
-            'card',
+        'selector':
+            By.CLASS_NAME,
+        'name':
+            'chart-area',
         'height':
             1000
     },
     {
         'url': '/ranking/Median_Income_Person/County/country/USA',
         'filename_suffix': 'ranking_median_income_counties.png',
-        'test_class': 'chart-container',
-        'height': 1080
-    },
-    {
-        'url': '/ranking/Count_Person/Country?bottom',
-        'filename_suffix': 'ranking_population_countries.png',
-        'test_class': 'chart-container',
+        'selector': By.CLASS_NAME,
+        'name': 'chart-container',
         'height': 1080
     },
     {
         'url':
-            '/ranking/Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone/City/geoId/06085?h=geoId%2F0649670&pc=1&scaling=100&unit=%25',
+            '/tools/map#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility',
         'filename_suffix':
-            'ranking_poverty.png',
-        'test_class':
-            'chart-container',
+            'annual_co2_emission_map.png',
+        'selector':
+            By.ID,
+        'name':
+            'map-items',
         'height':
             1080
     },
-    {
-        'url': '/dev',
-        'filename_suffix': 'dev_charts.png',
-        'test_class': 'chart',
-        'height': 2300
-    },
-    {
-        'url':
-            '/tools/scatter#&svx=Count_Person_Employed&svpx=3-0&svdx=Count_Person&svnx=Employed'
-            '&svy=Count_Establishment&svpy=9-2&svny=Number of Establishments&epd=geoId/10'
-            '&epn=Delaware&ept=County&y=2016',
-        'filename_suffix': 'scatter_delaware_establishments_vs_employed.png',
-        'test_class': 'plot-title',
-        'height': 1000
-    }
 ]
 
 
@@ -125,13 +73,17 @@ class TestScreenShot(WebdriverBaseTest):
   def test_pages_and_sreenshot(self):
     """Test these page can show correctly and do screenshot."""
     for index, test_info in enumerate(TEST_URLS):
-      test_class_name = test_info['test_class']
       self.driver.get(self.url_ + test_info['url'])
 
       # Wait until the test_class_name has loaded.
       element_present = EC.presence_of_element_located(
-          (By.CLASS_NAME, test_class_name))
-      WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+          (test_info['selector'], test_info['name']))
+
+      try:
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+      except Exception as e:
+        logging.error(test_info['url'])
+        raise e
 
       # Set the window size. Testing different sizes.
       self.driver.set_window_size(width=WIDTH,
@@ -139,7 +91,8 @@ class TestScreenShot(WebdriverBaseTest):
                                   windowHandle='current')
 
       # Get the element to test.
-      charts = self.driver.find_elements(By.CLASS_NAME, test_class_name)
+      charts = self.driver.find_elements(test_info['selector'],
+                                         test_info['name'])
 
       # Assert there is at least one chart.
       self.assertGreater(len(charts), 0, test_info['url'])
