@@ -64,7 +64,8 @@ CHILD_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.BAR,
     subject_page_pb2.Tile.TileType.RANKING,
 ]
-
+# Map of Tile type to the minimum number of stat var keys the tile should have.
+TILE_MIN_SV_KEYS = {subject_page_pb2.Tile.TileType.SCATTER: 2}
 # Placeholder allowed in config that should be interpreted as the main place dcid.
 SELF_PLACE_DCID_PLACEHOLDER = "self"
 
@@ -215,7 +216,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
           else:
             new_tiles.append(t)
             continue
-          if len(filtered_keys):
+          if len(filtered_keys) >= TILE_MIN_SV_KEYS.get(t.type, 1):
             del t.stat_var_key[:]
             t.stat_var_key.extend(filtered_keys)
             new_tiles.append(t)

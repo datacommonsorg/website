@@ -24,10 +24,6 @@ website:
   replicas: 6
   enableModel: true
 
-mixer:
-  hostProject:
-  serviceName:
-
 ingress:
   enabled: false
 

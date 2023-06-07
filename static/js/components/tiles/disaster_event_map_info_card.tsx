@@ -22,6 +22,7 @@ import React from "react";
 
 import { formatNumber } from "../../i18n/i18n";
 import { DisasterEventPoint } from "../../types/disaster_event_map_types";
+import { formatPropertyValue } from "../../utils/property_value_utils";
 
 interface DisasterEventMapInfoCardPropType {
   // The event data to show info about
@@ -57,7 +58,8 @@ export function DisasterEventMapInfoCard(
             seenProps.add(prop);
             return (
               <span key={prop}>
-                {prop}: {formatNumber(props.eventData.displayProps[prop])}
+                {prop}:{" "}
+                {formatPropertyValue(props.eventData.displayProps[prop])}
               </span>
             );
           })}

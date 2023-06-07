@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { memo, useCallback, useEffect, useRef } from "react";
+import React, { memo, useCallback, useRef } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
@@ -32,6 +32,7 @@ import {
 } from "../../types/disaster_event_map_types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import { getDateRange } from "../../utils/disaster_event_map_utils";
+import { stripUnitFromPropertyValue } from "../../utils/property_value_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -177,9 +178,12 @@ function binData(
 
     // Get value of property to aggregate
     let eventValue = 1;
-    if (property) {
-      // default to 0 if property can't be found in display props
-      eventValue = event.displayProps[property] || 0;
+    if (property && event.displayProps) {
+      // Default to 0 if property can't be found in display props
+      const propertyValueString = event.displayProps[property];
+      eventValue = propertyValueString
+        ? stripUnitFromPropertyValue(propertyValueString)
+        : 0;
     }
 
     // Increment value in corresponding bin if event has at least
