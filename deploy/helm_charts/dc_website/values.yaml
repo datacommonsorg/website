@@ -57,10 +57,6 @@ mixer:
     pullPolicy: Always
     tag:
 
-    useTMCFCSVData: false
-    tmcfCSVBucket: ""
-    tmcfCSVFolder: ""
-
     hostProject:
     serviceName:
 
