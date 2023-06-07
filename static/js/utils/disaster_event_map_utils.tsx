@@ -49,7 +49,6 @@ import {
   EventTypeSpec,
   SeverityFilter,
 } from "../types/subject_page_proto_types";
-import { getValue } from "./property_value_utils";
 import { isValidDate } from "./string_utils";
 
 const MAX_YEARS = 20;

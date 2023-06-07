@@ -182,7 +182,7 @@ function binData(
       // Default to 0 if property can't be found in display props
       const propertyValueString = event.displayProps[property];
       eventValue = propertyValueString
-        ? stripUnitFromPropertyValue(event.displayProps[property])
+        ? stripUnitFromPropertyValue(propertyValueString)
         : 0;
     }
 
