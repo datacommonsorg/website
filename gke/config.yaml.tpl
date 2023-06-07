@@ -25,5 +25,3 @@ region:
     -
 nodes: 1
 storage_project:
-tmcf_csv_bucket:
-tmcf_csv_folder:
