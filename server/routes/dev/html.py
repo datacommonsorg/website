@@ -18,7 +18,7 @@ import flask
 
 from server.lib.gcs import list_png
 
-SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
+SCREENSHOT_BUCKET = 'datcom-website-screenshot'
 
 # Define blueprint
 bp = flask.Blueprint("dev", __name__, url_prefix='/dev')
