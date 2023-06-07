@@ -22,7 +22,7 @@ namespace:
 website:
   image:
     project: techsoup-data-commons
-    tag: 3d59df8
+    tag: 6745233
   flaskEnv: custom
   replicas: 1
 
@@ -59,7 +59,8 @@ kgStoreConfig:
       - mealsites_places_exp_2023_06_02_18_41_11
       - usda_grocery_access_2023_05_22_11_28_04
       - fea_grocery_access_2023_06_01_18_49_10
-      - fea_store_availabili_2023_06_06_09_02_14
+      - fea_store_availabili_2023_06_06_12_25_22
+      - irs_registered_nonpr_2023_06_07_11_02_15
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]
