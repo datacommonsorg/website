@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from markupsafe import escape
 from base64 import b64encode
 import io
 import os
@@ -43,11 +44,17 @@ def screenshot(githash):
 
 @bp.route('/compare/<path:compare>')
 def diff(compare):
+  """
+  compare is an expression in the form of "githash1...githash2".
+  This is to follow the github url pattern.
+  """
+
   if os.environ.get('FLASK_ENV') not in [
       'autopush', 'local', 'test', 'webdriver'
   ]:
     flask.abort(404)
 
+  compare = str(escape(compare))
   parts = compare.split('...')
   if len(parts) != 2:
     return "Invalid hash comparison: " + compare, 400
