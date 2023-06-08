@@ -219,9 +219,9 @@ export class ObservationChart extends React.Component<
     // is not result of user action. Find better way to do this.
     this.loadSpinner();
     const params = {
+      date,
       place: this.props.placeDcid,
       statVar: this.props.statVarId,
-      date,
     };
     if (this.props.metadata.measurementMethod) {
       params["measurementMethod"] = this.props.metadata.measurementMethod;
