@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from PIL import Image, ImageChops, ImageStat
-
 import io
+
+from PIL import Image
+from PIL import ImageChops
+from PIL import ImageStat
 
 
 # This is inspired by https://github.com/nicolashahn/diffimg/blob/master/diffimg/diff.py

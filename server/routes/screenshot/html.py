@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-import io
 from base64 import b64encode
+import io
+import os
 
 import flask
 
-from server.routes.screenshot.diff import img_diff
 from server.lib.gcs import list_png
+from server.routes.screenshot.diff import img_diff
 
 SCREENSHOT_BUCKET = 'datcom-website-screenshot'
 
