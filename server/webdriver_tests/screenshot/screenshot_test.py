@@ -27,7 +27,7 @@ SCREENSHOTS_FOLDER = 'screenshots/'
 # TODO: Can add more urls and tests if necessary.
 TEST_URLS = [
     {
-        'url': '/place/country/USA?topic=Demographics',
+        'url': '/place/country/JPN?topic=Demographics',
         'filename_suffix': 'place_usa_demographics.png',
         'selector': By.CLASS_NAME,
         'name': 'chart-container',

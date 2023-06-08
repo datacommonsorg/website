@@ -26,11 +26,21 @@
 {% block content %}
   <div class="container">
     {% for name in data %}
-      <span>{{ name }}</span>
+      <p class="name">{{ name }}</p>
       <div class="row">
-        <img class="col-md-6 screenshot-image" src="data:image/png;base64,{{ data[name]['base'] }}"/>
+        <div class={{"col-md-6" if data[name]['diff']|length > 0 else "col-md-12" }}>
+          <p>
+            <a href="https://github.com/datacommonsorg/website/commit/{{ base_hash }}">
+              https://github.com/datacommonsorg/website/commit/{{ base_hash }}
+            </a>
+          </p>
+          <img class="screenshot-image col-md-12" src="data:image/png;base64,{{ data[name]['base'] }}"/>
+        </div>
         {% if data[name]['diff']|length > 0 %}
-          <img class="col-md-6 screenshot-image" src="data:image/png;base64,{{ data[name]['diff'] }}"/>
+          <div class="col-md-6">
+            <p>Diff Image</p>
+            <img class="screenshot-image col-md-12" src="data:image/png;base64,{{ data[name]['diff'] }}"/>
+          </div>
         {% endif %}
       </div>
     {% endfor %}

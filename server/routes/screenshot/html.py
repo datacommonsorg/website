@@ -26,20 +26,20 @@ SCREENSHOT_BUCKET = 'datcom-website-screenshot'
 bp = flask.Blueprint("screenshot", __name__, url_prefix='/screenshot')
 
 
-@bp.route('/<path:folder>')
-def screenshot(folder):
+@bp.route('/<path:githash>')
+def screenshot(githash):
   if os.environ.get('FLASK_ENV') not in [
       'autopush', 'local', 'test', 'webdriver'
   ]:
     flask.abort(404)
-  images = list_png(SCREENSHOT_BUCKET, folder)
+  images = list_png(SCREENSHOT_BUCKET, githash)
   data = {}
   for name in images:
     data[name] = {
         'title': name,
         'base': b64encode(images[name]).decode('utf-8'),
     }
-  return flask.render_template('screenshot.html', data=data)
+  return flask.render_template('screenshot.html', data=data, base_hash=githash)
 
 
 @bp.route('/diff/<path:comparison>')
@@ -70,4 +70,4 @@ def diff(comparison):
           'diff': b64encode(diff_byte_arr).decode('utf-8'),
           'base': b64encode(im1).decode('utf-8')
       }
-  return flask.render_template('screenshot.html', data=data)
+  return flask.render_template('screenshot.html', data=data, base_hash=parts[0])
