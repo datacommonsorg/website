@@ -41,7 +41,7 @@ def img_diff(im1, im2):
   # Generate diff image in memory.
   diff_img = ImageChops.difference(im1, im2)
 
-  r, g, b, a = diff_img.split()
+  r, g, b, _ = diff_img.split()
   rgb_image = Image.merge('RGB', (r, g, b))
 
   num_diff_pixel = sum(
