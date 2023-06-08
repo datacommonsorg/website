@@ -42,7 +42,7 @@
         </div>
         {% if data[name]['diff']|length > 0 %}
           <div class="col-md-6">
-            <p>Diff Image (diff score: {{diff_ratio}})</p>
+            <p>Diff Image (diff ratio: {{data[name]['diff_ratio']}})</p>
             <img class="screenshot-image col-md-12" src="data:image/png;base64,{{ data[name]['diff'] }}"/>
           </div>
         {% endif %}
