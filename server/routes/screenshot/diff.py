@@ -20,7 +20,7 @@ from PIL import ImageStat
 
 
 # This is inspired by https://github.com/nicolashahn/diffimg/blob/master/diffimg/diff.py
-def img_diff(im1, im2, ignore_alpha=False):
+def img_diff(im1, im2):
   """
     Calculate the difference between two images by comparing channel values at the pixel
     level. If the images are different sizes, the second will be resized to match the
@@ -44,13 +44,12 @@ def img_diff(im1, im2, ignore_alpha=False):
   # Generate diff image in memory.
   diff_img = ImageChops.difference(im1, im2)
 
-  if ignore_alpha:
-    diff_img.putalpha(256)
+  diff_img.putalpha(256)
 
   # Calculate difference as a ratio.
   stat = ImageStat.Stat(diff_img)
   # stat.mean can be [r,g,b] or [r,g,b,a].
-  removed_channels = 1 if ignore_alpha and len(stat.mean) == 4 else 0
+  removed_channels = 1 if len(stat.mean) == 4 else 0
   num_channels = len(stat.mean) - removed_channels
   sum_channel_values = sum(stat.mean[:num_channels])
   max_all_channels = num_channels * 255

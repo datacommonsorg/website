@@ -26,7 +26,7 @@
 {% block content %}
   <div class="container">
     {% for name in data %}
-      <p class="name">{{ name }}</p>
+      <p class="name">{{ data[name]['title'] }}</p>
       <div class="row">
         <div class={{"col-md-6" if data[name]['diff']|length > 0 else "col-md-12" }}>
           <p>

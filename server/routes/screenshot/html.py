@@ -66,7 +66,7 @@ def diff(comparison):
       diff.save(diff_byte_arr, format='PNG')
       diff_byte_arr = diff_byte_arr.getvalue()
       data[name] = {
-          'title': 'name: {}\ndiff_ratio:{}'.format(name, diff_ratio),
+          'title': 'name: {}; diff_ratio: {}'.format(name, diff_ratio),
           'diff': b64encode(diff_byte_arr).decode('utf-8'),
           'base': b64encode(im1).decode('utf-8')
       }
