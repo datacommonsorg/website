@@ -26,11 +26,15 @@
 {% block content %}
   <div class="container">
     {% for name in data %}
-      <p class="name">{{ data[name]['title'] }}</p>
+      <p class="name">
+        Page Link: <a href="https://datacommons.org/{{ name }}">
+          https://datacommons.org/{{ name }}
+        </a>
+      </p>
       <div class="row">
         <div class={{"col-md-6" if data[name]['diff']|length > 0 else "col-md-12" }}>
           <p>
-            <a href="https://github.com/datacommonsorg/website/commit/{{ base_hash }}">
+            Code Link: <a href="https://github.com/datacommonsorg/website/commit/{{ base_hash }}">
               https://github.com/datacommonsorg/website/commit/{{ base_hash }}
             </a>
           </p>
@@ -38,7 +42,7 @@
         </div>
         {% if data[name]['diff']|length > 0 %}
           <div class="col-md-6">
-            <p>Diff Image</p>
+            <p>Diff Image (diff score: {{diff_ratio}})</p>
             <img class="screenshot-image col-md-12" src="data:image/png;base64,{{ data[name]['diff'] }}"/>
           </div>
         {% endif %}

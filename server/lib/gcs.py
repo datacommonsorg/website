@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import collections
+import urllib.parse
 
 from google.cloud import storage
 
@@ -64,5 +65,7 @@ def list_png(bucket_name, prefix):
   for b in blobs:
     if b.name.endswith('png'):
       bytes = b.download_as_bytes()
-      result[b.name.removeprefix(prefix + '/')] = bytes
+      name = b.name.removeprefix(prefix + '/').removesuffix('.png')
+      name = urllib.parse.unquote(name)
+      result[name] = bytes
   return result

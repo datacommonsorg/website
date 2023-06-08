@@ -16,19 +16,16 @@ import io
 
 from PIL import Image
 from PIL import ImageChops
-from PIL import ImageStat
+from PIL import ImageOps
 
 
 # This is inspired by https://github.com/nicolashahn/diffimg/blob/master/diffimg/diff.py
 def img_diff(im1, im2):
   """
-    Calculate the difference between two images by comparing channel values at the pixel
-    level. If the images are different sizes, the second will be resized to match the
-    first.
-
-    `ignore_alpha`: ignore the alpha channel for ratio calculation, and set the diff
-        image's alpha to fully opaque
-    """
+  Calculate the difference between two images by comparing channel values at the pixel
+  level. If the images are different sizes, the second will be resized to match the
+  first.
+  """
   im1 = Image.open(io.BytesIO(im1))
   im2 = Image.open(io.BytesIO(im2))
 
@@ -44,15 +41,11 @@ def img_diff(im1, im2):
   # Generate diff image in memory.
   diff_img = ImageChops.difference(im1, im2)
 
-  diff_img.putalpha(256)
+  r, g, b, a = diff_img.split()
+  rgb_image = Image.merge('RGB', (r, g, b))
 
-  # Calculate difference as a ratio.
-  stat = ImageStat.Stat(diff_img)
-  # stat.mean can be [r,g,b] or [r,g,b,a].
-  removed_channels = 1 if len(stat.mean) == 4 else 0
-  num_channels = len(stat.mean) - removed_channels
-  sum_channel_values = sum(stat.mean[:num_channels])
-  max_all_channels = num_channels * 255
-  diff_ratio = sum_channel_values / max_all_channels
-
-  return diff_img, diff_ratio
+  num_diff_pixel = sum(
+      rgb_image.point(lambda x: 255
+                      if x else 0).convert("L").point(bool).getdata())
+  diff_ratio = num_diff_pixel / rgb_image.width / rgb_image.height
+  return ImageOps.invert(rgb_image), diff_ratio

@@ -36,7 +36,6 @@ def screenshot(githash):
   data = {}
   for name in images:
     data[name] = {
-        'title': name,
         'base': b64encode(images[name]).decode('utf-8'),
     }
   return flask.render_template('screenshot.html', data=data, base_hash=githash)
@@ -66,8 +65,8 @@ def diff(comparison):
       diff.save(diff_byte_arr, format='PNG')
       diff_byte_arr = diff_byte_arr.getvalue()
       data[name] = {
-          'title': 'name: {}; diff_ratio: {}'.format(name, diff_ratio),
           'diff': b64encode(diff_byte_arr).decode('utf-8'),
-          'base': b64encode(im1).decode('utf-8')
+          'base': b64encode(im1).decode('utf-8'),
+          'diff_ratio': diff_ratio
       }
   return flask.render_template('screenshot.html', data=data, base_hash=parts[0])

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import urllib.parse
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -23,12 +24,11 @@ from server.webdriver_tests.base_test import WebdriverBaseTest
 # TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
 
-SCREENSHOTS_FOLDER = 'screenshots/'
+SCREENSHOTS_FOLDER = 'screenshots'
 # TODO: Can add more urls and tests if necessary.
 TEST_URLS = [
     {
         'url': '/place/country/USA?topic=Demographics',
-        'filename_suffix': 'place_usa_demographics.png',
         'selector': By.CLASS_NAME,
         'name': 'chart-container',
         'height': 4400
@@ -36,8 +36,6 @@ TEST_URLS = [
     {
         'url':
             '/tools/timeline#&place=geoId/0606000,geoId/2511000&statsVar=Median_Age_Person',
-        'filename_suffix':
-            'median_age_six_places.png',
         'selector':
             By.CLASS_NAME,
         'name':
@@ -47,7 +45,6 @@ TEST_URLS = [
     },
     {
         'url': '/ranking/Median_Income_Person/County/country/USA',
-        'filename_suffix': 'ranking_median_income_counties.png',
         'selector': By.CLASS_NAME,
         'name': 'chart-container',
         'height': 1080
@@ -55,8 +52,6 @@ TEST_URLS = [
     {
         'url':
             '/tools/map#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility',
-        'filename_suffix':
-            'annual_co2_emission_map.png',
         'selector':
             By.ID,
         'name':
@@ -72,8 +67,10 @@ class TestScreenShot(WebdriverBaseTest):
 
   def test_pages_and_sreenshot(self):
     """Test these page can show correctly and do screenshot."""
-    for index, test_info in enumerate(TEST_URLS):
+    for _, test_info in enumerate(TEST_URLS):
       self.driver.get(self.url_ + test_info['url'])
+
+      name = urllib.parse.quote_plus(test_info['url'].removeprefix('/'))
 
       # Wait until the test_class_name has loaded.
       element_present = EC.presence_of_element_located(
@@ -98,6 +95,5 @@ class TestScreenShot(WebdriverBaseTest):
       self.assertGreater(len(charts), 0, test_info['url'])
 
       # Take a screenshot of the page and save it.
-      self.assertTrue(
-          self.driver.save_screenshot('{}{:02}_{}'.format(
-              SCREENSHOTS_FOLDER, index, test_info['filename_suffix'])))
+      file_name = '{}/{}.png'.format(SCREENSHOTS_FOLDER, name)
+      self.assertTrue(self.driver.save_screenshot(file_name))
