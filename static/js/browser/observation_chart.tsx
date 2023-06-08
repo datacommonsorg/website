@@ -26,6 +26,7 @@ import { drawLineChart } from "../chart/draw";
 import { formatNumber } from "../i18n/i18n";
 import { Series, StatMetadata } from "../shared/stat_types";
 import { randDomId } from "../shared/util";
+import { stringifyFn } from "../utils/axios";
 import { getUnit } from "../utils/stat_metadata_utils";
 import { URI_PREFIX } from "./constants";
 
@@ -217,15 +218,22 @@ export class ObservationChart extends React.Component<
     // TODO(chejennifer): triggers pop up warning because opening the new tab
     // is not result of user action. Find better way to do this.
     this.loadSpinner();
-    let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
+    const params = {
+      place: this.props.placeDcid,
+      statVar: this.props.statVarId,
+      date,
+    };
     if (this.props.metadata.measurementMethod) {
-      request = `${request}&measurementMethod=${this.props.metadata.measurementMethod}`;
+      params["measurementMethod"] = this.props.metadata.measurementMethod;
     }
     if (this.props.metadata.observationPeriod) {
-      request = `${request}&obsPeriod=${this.props.metadata.observationPeriod}`;
+      params["obsPeriod"] = this.props.metadata.observationPeriod;
     }
     axios
-      .get(request)
+      .get("/api/browser/observation-id", {
+        params,
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => {
         this.removeSpinner();
         const obsDcid = resp.data;

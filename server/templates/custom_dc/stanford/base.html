@@ -50,6 +50,7 @@
       {% endif %}
       <script>
         globalThis.viaGoogle = true;
+        globalThis.is_custom_datacommons = {{ config['CUSTOM']|int }};
       </script>
       <title>{{ title }} - Data Commons</title>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
