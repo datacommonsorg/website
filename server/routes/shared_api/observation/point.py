@@ -16,7 +16,7 @@ from flask import Blueprint
 from flask import request
 
 from server.cache import cache
-from server.lib import fetch
+from server.lib import fetch, shared
 
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
@@ -69,6 +69,23 @@ def point_within():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or 'LATEST'
+  # Make batched calls instead if it's a special case
+  # TODO(juliawu): This is a temporary fix. Remove once cache is updated.
+  batch_size = request.args.get('batch_size') or 5000
+  if (child_type in shared.NEEDS_SPECIAL_HANDLING and
+      parent_entity in shared.NEEDS_SPECIAL_HANDLING[child_type]):
+    try:
+      child_places = fetch.descendent_places([parent_entity],
+                                            child_type)[parent_entity]
+      child_place_batches = list(shared.divide_into_batches(child_places,
+                                                            batch_size))
+      merged_response = {}
+      for batch in child_place_batches:
+        new_response = fetch.point_core(batch, variables, date, False)
+        merged_response = shared.merge_responses(merged_response, new_response)
+      return merged_response, 200
+    except:
+      return 'error: Error encountered when attempting to make batch calls', 400
   return fetch.point_within_core(parent_entity, child_type, variables, date,
                                  False)
 
@@ -92,5 +109,22 @@ def point_within_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or 'LATEST'
+  # Make batched calls instead if it's a special case
+  # TODO(juliawu): This is a temporary fix. Remove once cache is updated.
+  batch_size = request.args.get('batch_size') or 5000
+  if (child_type in shared.NEEDS_SPECIAL_HANDLING and
+      parent_entity in shared.NEEDS_SPECIAL_HANDLING[child_type]):
+    try:
+      child_places = fetch.descendent_places([parent_entity],
+                                            child_type)[parent_entity]
+      child_place_batches = list(shared.divide_into_batches(child_places,
+                                                            batch_size))
+      merged_response = {}
+      for batch in child_place_batches:
+        new_response = fetch.point_core(batch, variables, date, True)
+        merged_response = shared.merge_responses(merged_response, new_response)
+      return merged_response, 200
+    except:
+      return 'error: Error encountered when attempting to make batch calls', 400
   return fetch.point_within_core(parent_entity, child_type, variables, date,
                                  True)

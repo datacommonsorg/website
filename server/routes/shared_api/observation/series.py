@@ -16,7 +16,7 @@ from flask import Blueprint
 from flask import request
 
 from server.cache import cache
-from server.lib import fetch
+from server.lib import fetch, shared
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
@@ -64,6 +64,23 @@ def series_within():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
+  # Make batched calls instead if it's a special case
+  # TODO(juliawu): This is a temporary fix. Remove once cache is updated.
+  batch_size = request.args.get('batch_size') or 5000
+  if (child_type in shared.NEEDS_SPECIAL_HANDLING and
+      parent_entity in shared.NEEDS_SPECIAL_HANDLING[child_type]):
+    try:
+      child_places = fetch.descendent_places([parent_entity],
+                                            child_type)[parent_entity]
+      child_place_batches = list(shared.divide_into_batches(child_places,
+                                                            batch_size))
+      merged_response = {}
+      for batch in child_place_batches:
+        new_response = fetch.series_core(batch, variables, False)
+        merged_response = shared.merge_responses(merged_response, new_response)
+      return merged_response, 200
+    except:
+      return 'error: Error encountered when attempting to make batch calls', 400
   return fetch.series_within_core(parent_entity, child_type, variables, False)
 
 
@@ -83,4 +100,21 @@ def series_within_all():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
+  # Make batched calls instead if it's a special case
+  # TODO(juliawu): This is a temporary fix. Remove once cache is updated.
+  batch_size = request.args.get('batch_size') or 5000
+  if (child_type in shared.NEEDS_SPECIAL_HANDLING and
+      parent_entity in shared.NEEDS_SPECIAL_HANDLING[child_type]):
+    try:
+      child_places = fetch.descendent_places([parent_entity],
+                                            child_type)[parent_entity]
+      child_place_batches = list(shared.divide_into_batches(child_places,
+                                                            batch_size))
+      merged_response = {}
+      for batch in child_place_batches:
+        new_response = fetch.series_core(batch, variables, True)
+        merged_response = shared.merge_responses(merged_response, new_response)
+      return merged_response, 200
+    except:
+      return 'error: Error encountered when attempting to make batch calls', 400
   return fetch.series_within_core(parent_entity, child_type, variables, True)

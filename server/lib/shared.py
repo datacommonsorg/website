@@ -17,6 +17,17 @@ import re
 
 import server.lib.fetch as fetch
 
+# Maps enclosed place type -> places with too many of the enclosed type
+# Determines when to make batched API calls to avoid server errors.
+# TODO(juliawu): This is a temporary workaround. Remove once cache is updated.
+NEEDS_SPECIAL_HANDLING = {
+  "CensusTract": [
+    "geoId/06", # California
+    "geoId/12", # Florida
+    "geoId/36", # New York (State)
+    "geoId/48", # Texas
+  ]
+}
 
 def names(dcids):
   """Returns display names for set of dcids.
@@ -136,3 +147,39 @@ def date_lesser_equal_max(date, max_date):
   if not date:
     return False
   return not max_date or date <= max_date or max_date in date
+
+
+def divide_into_batches(all_items: list, batch_size: int):
+  """Helper function to divide a large list of items into batches of a set
+  batch size. Used to make batched calls to mixer.
+  """
+  for i in range(0, len(all_items), batch_size):
+    yield all_items[i:i+batch_size]
+
+
+def merge_responses(resp_1: dict, resp_2: dict) -> dict:
+  """Merge the response of two calls to the same API into a single response.
+  Requires the two responses to have identical keys. In the case of conflicts,
+  will default to using values from the first given response.
+  """
+  merged_resp = {}
+  for key, val in resp_1.items():
+    if type(val) == dict:
+      if key in resp_2:
+        if type(resp_2[key]) == dict:
+          merged_resp[key] = merge_responses(resp_1[key], resp_2[key])
+      else: # key is not in second response
+        merged_resp[key] = val
+    elif type(val) == list:
+        if key in resp_2 and type(resp_2[key]) == list:
+          merged_resp[key] = resp_1[key] + resp_2[key]
+    else:
+      merged_resp[key] = val
+
+  # Check for items in second response that first response does not have
+  for key, val in resp_2.items():
+    if not key in resp_1:
+      merged_resp[key] = val
+  
+  return merged_resp
+      
