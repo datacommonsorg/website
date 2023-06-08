@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,12 +16,18 @@ import os
 
 import flask
 
-# Define blueprint
-bp = flask.Blueprint("dev", __name__, url_prefix='/dev')
+from server.lib.gcs import list_png
+
+SCREENSHOT_BUCKET = 'datcom-website-screenshot'
+
+bp = flask.Blueprint("screenshot", __name__, url_prefix='/screenshot')
 
 
-@bp.route('/')
-def dev():
-  if os.environ.get('FLASK_ENV') == 'production':
+@bp.route('/<path:folder>')
+def screenshot(folder):
+  if os.environ.get('FLASK_ENV') not in [
+      'autopush', 'local', 'test', 'webdriver'
+  ]:
     flask.abort(404)
-  return flask.render_template('dev/dev.html')
+  images = list_png(SCREENSHOT_BUCKET, folder)
+  return flask.render_template('screenshot.html', images=images)

@@ -27,6 +27,6 @@
 # Ignore tests
 tests/
 
-test_screenshots/
+screenshots/*.png
 
 .env/

@@ -26,8 +26,9 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      {% for image in images %}
-        <img class="col-md-12 card screenshot-image" src="data:;base64,{{ image }}"/>
+      {% for name in images %}
+        <span>{{ name }}</span>
+        <img class="col-md-12 card screenshot-image" src="data:;base64,{{ images[name] }}"/>
       {% endfor %}
     </div>
   </div>

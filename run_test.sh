@@ -19,9 +19,14 @@ set -e
 function setup_python {
   python3 -m venv .env
   source .env/bin/activate
+  pip3 install -r server/requirements.txt
+}
+
+function setup_python_nl {
+  python3 -m venv .env
+  source .env/bin/activate
   python3 -m pip install --upgrade pip setuptools light-the-torch
   ltt install torch --cpuonly
-  pip3 install -r server/requirements.txt
   pip3 install -r nl_server/requirements.txt
 }
 
@@ -82,6 +87,7 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   setup_python
+  setup_python_nl
   export FLASK_ENV=test
   python3 -m pytest server/tests/ -s --ignore=sustainability
 
@@ -140,6 +146,7 @@ function run_screenshot_test {
 # Run integration test for NL interface
 function run_integration_test {
   setup_python
+  setup_python_nl
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
@@ -155,6 +162,7 @@ function run_integration_test {
 
 function update_integration_test_golden {
   setup_python
+  setup_python_nl
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
