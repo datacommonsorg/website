@@ -13,9 +13,12 @@
 # limitations under the License.
 
 import os
+import io
+from base64 import b64encode
 
 import flask
 
+from server.routes.screenshot.diff import img_diff
 from server.lib.gcs import list_png
 
 SCREENSHOT_BUCKET = 'datcom-website-screenshot'
@@ -30,4 +33,41 @@ def screenshot(folder):
   ]:
     flask.abort(404)
   images = list_png(SCREENSHOT_BUCKET, folder)
-  return flask.render_template('screenshot.html', images=images)
+  data = {}
+  for name in images:
+    data[name] = {
+        'title': name,
+        'base': b64encode(images[name]).decode('utf-8'),
+    }
+  return flask.render_template('screenshot.html', data=data)
+
+
+@bp.route('/diff/<path:comparison>')
+def diff(comparison):
+  if os.environ.get('FLASK_ENV') not in [
+      'autopush', 'local', 'test', 'webdriver'
+  ]:
+    flask.abort(404)
+
+  parts = comparison.split('...')
+  if len(parts) != 2:
+    return "Invalid tag comparison " + comparison
+
+  images_1 = list_png(SCREENSHOT_BUCKET, parts[0])
+  images_2 = list_png(SCREENSHOT_BUCKET, parts[1])
+
+  data = {}
+  for name, im1 in images_1.items():
+    data[name] = {}
+    if name in images_2:
+      im2 = images_2[name]
+      diff, diff_ratio = img_diff(im1, im2)
+      diff_byte_arr = io.BytesIO()
+      diff.save(diff_byte_arr, format='PNG')
+      diff_byte_arr = diff_byte_arr.getvalue()
+      data[name] = {
+          'title': 'name: {}\ndiff_ratio:{}'.format(name, diff_ratio),
+          'diff': b64encode(diff_byte_arr).decode('utf-8'),
+          'base': b64encode(im1).decode('utf-8')
+      }
+  return flask.render_template('screenshot.html', data=data)

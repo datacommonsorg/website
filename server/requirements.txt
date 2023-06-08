@@ -20,6 +20,7 @@ opencensus==0.10.0
 opencensus-ext-flask==0.8.0
 opencensus-ext-stackdriver==0.8.0
 parameterized==0.8.1
+pillow==9.5.0
 protobuf==3.20.2
 pyOpenSSL==22.1.0
 pytest-rerunfailures==10.2

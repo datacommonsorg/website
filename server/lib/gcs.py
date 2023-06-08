@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from base64 import b64encode
 import collections
 
 from google.cloud import storage
@@ -64,6 +63,6 @@ def list_png(bucket_name, prefix):
   result = {}
   for b in blobs:
     if b.name.endswith('png'):
-      bytes = b64encode(b.download_as_string()).decode('utf-8')
+      bytes = b.download_as_bytes()
       result[b.name.removeprefix(prefix + '/')] = bytes
   return result

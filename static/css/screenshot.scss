@@ -15,11 +15,7 @@
  */
 
 @import "base";
-@import "statvar_menu";
-@import "draw";
-@import "browser";
 
-.card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  position: relative;
+img {
+  border: 1px solid black;
 }
