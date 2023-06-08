@@ -34,9 +34,17 @@
       <div class="row">
         <div class={{"col-md-6" if data[name]['diff']|length > 0 else "col-md-12" }}>
           <p>
-            Code Link: <a href="https://github.com/datacommonsorg/website/commit/{{ base_hash }}">
-              https://github.com/datacommonsorg/website/commit/{{ base_hash }}
-            </a>
+            Code Link:
+            {% if githash%}
+              <a href="https://github.com/datacommonsorg/website/commit/{{ githash }}">
+                https://github.com/datacommonsorg/website/commit/{{ githash }}
+              </a>
+            {% endif %}
+            {% if compare%}
+              <a href="https://github.com/datacommonsorg/website/compare/{{ compare }}">
+                https://github.com/datacommonsorg/website/compare/{{ compare }}
+              </a>
+            {% endif %}
           </p>
           <img class="screenshot-image col-md-12" src="data:image/png;base64,{{ data[name]['base'] }}"/>
         </div>

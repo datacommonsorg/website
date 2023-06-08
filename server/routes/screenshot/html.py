@@ -26,7 +26,7 @@ SCREENSHOT_BUCKET = 'datcom-website-screenshot'
 bp = flask.Blueprint("screenshot", __name__, url_prefix='/screenshot')
 
 
-@bp.route('/<path:githash>')
+@bp.route('/commit/<path:githash>')
 def screenshot(githash):
   if os.environ.get('FLASK_ENV') not in [
       'autopush', 'local', 'test', 'webdriver'
@@ -38,19 +38,19 @@ def screenshot(githash):
     data[name] = {
         'base': b64encode(images[name]).decode('utf-8'),
     }
-  return flask.render_template('screenshot.html', data=data, base_hash=githash)
+  return flask.render_template('screenshot.html', data=data, githash=githash)
 
 
-@bp.route('/diff/<path:comparison>')
-def diff(comparison):
+@bp.route('/compare/<path:compare>')
+def diff(compare):
   if os.environ.get('FLASK_ENV') not in [
       'autopush', 'local', 'test', 'webdriver'
   ]:
     flask.abort(404)
 
-  parts = comparison.split('...')
+  parts = compare.split('...')
   if len(parts) != 2:
-    return "Invalid tag comparison " + comparison
+    return "Invalid tag compare " + compare
 
   images_1 = list_png(SCREENSHOT_BUCKET, parts[0])
   images_2 = list_png(SCREENSHOT_BUCKET, parts[1])
@@ -69,4 +69,4 @@ def diff(comparison):
           'base': b64encode(im1).decode('utf-8'),
           'diff_ratio': diff_ratio
       }
-  return flask.render_template('screenshot.html', data=data, base_hash=parts[0])
+  return flask.render_template('screenshot.html', data=data, compare=compare)
