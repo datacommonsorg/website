@@ -295,5 +295,4 @@ class TestMergeResponses(unittest.TestCase):
     for test_case in cases:
       result = shared.merge_responses(test_case.get("resp_1"),
                                       test_case.get("resp_2"))
-      assert result == test_case.get("expected")
       self.assertDictEqual(result, test_case.get("expected"))
