@@ -21,13 +21,14 @@ import server.lib.fetch as fetch
 # Determines when to make batched API calls to avoid server errors.
 # TODO(juliawu): This is a temporary workaround. Remove once cache is updated.
 NEEDS_SPECIAL_HANDLING = {
-  "CensusTract": [
-    "geoId/06", # California
-    "geoId/12", # Florida
-    "geoId/36", # New York (State)
-    "geoId/48", # Texas
-  ]
+    "CensusTract": [
+        "geoId/06",  # California
+        "geoId/12",  # Florida
+        "geoId/36",  # New York (State)
+        "geoId/48",  # Texas
+    ]
 }
+
 
 def names(dcids):
   """Returns display names for set of dcids.
@@ -154,7 +155,7 @@ def divide_into_batches(all_items: list, batch_size: int):
   batch size. Used to make batched calls to mixer.
   """
   for i in range(0, len(all_items), batch_size):
-    yield all_items[i:i+batch_size]
+    yield all_items[i:i + batch_size]
 
 
 def merge_responses(resp_1: dict, resp_2: dict) -> dict:
@@ -168,11 +169,11 @@ def merge_responses(resp_1: dict, resp_2: dict) -> dict:
       if key in resp_2:
         if type(resp_2[key]) == dict:
           merged_resp[key] = merge_responses(resp_1[key], resp_2[key])
-      else: # key is not in second response
+      else:  # key is not in second response
         merged_resp[key] = val
     elif type(val) == list:
-        if key in resp_2 and type(resp_2[key]) == list:
-          merged_resp[key] = resp_1[key] + resp_2[key]
+      if key in resp_2 and type(resp_2[key]) == list:
+        merged_resp[key] = resp_1[key] + resp_2[key]
     else:
       merged_resp[key] = val
 
@@ -180,5 +181,5 @@ def merge_responses(resp_1: dict, resp_2: dict) -> dict:
   for key, val in resp_2.items():
     if not key in resp_1:
       merged_resp[key] = val
-  
+
   return merged_resp

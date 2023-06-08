@@ -182,28 +182,31 @@ class TestDateLesserEqualMax(unittest.TestCase):
                                             test_case.get("max_date"))
       assert result == test_case.get("expected")
 
+
 class TestDivideIntoBatches(unittest.TestCase):
-  
+
   def test_divide_into_batches(self):
     cases = [{
-        'all_items': ['1','2','3','4','5','6','7'],
+        'all_items': ['1', '2', '3', '4', '5', '6', '7'],
         'batch_size': 3,
-        'expected': [['1','2','3'],
-                    ['4','5','6'],
-                    ['7']]
+        'expected': [['1', '2', '3'], ['4', '5', '6'], ['7']]
     }]
     for test_case in cases:
-      result = list(shared.divide_into_batches(test_case.get("all_items"),
-                                               test_case.get("batch_size")))
+      result = list(
+          shared.divide_into_batches(test_case.get("all_items"),
+                                     test_case.get("batch_size")))
       assert result == test_case.get("expected")
 
 
 class TestMergeResponses(unittest.TestCase):
-  
+
   def test_merge_responses(self):
     response_A = {
         "facets": {
-        "12345678": {"importName": "import", "provenanceUrl": "url"}
+            "12345678": {
+                "importName": "import",
+                "provenanceUrl": "url"
+            }
         },
         "data": {
             "variable_1": {
@@ -222,7 +225,10 @@ class TestMergeResponses(unittest.TestCase):
     }
     response_B = {
         "facets": {
-        "87654321": {"importName": "other_import", "provenanceUrl": "other_url"}
+            "87654321": {
+                "importName": "other_import",
+                "provenanceUrl": "other_url"
+            }
         },
         "data": {
             "variable_1": {
@@ -240,11 +246,17 @@ class TestMergeResponses(unittest.TestCase):
         },
     }
     response_A_and_B = {
-      "facets": {
-        "12345678": {"importName": "import", "provenanceUrl": "url"},
-        "87654321": {"importName": "other_import", "provenanceUrl": "other_url"}
-      },
-      "data": {
+        "facets": {
+            "12345678": {
+                "importName": "import",
+                "provenanceUrl": "url"
+            },
+            "87654321": {
+                "importName": "other_import",
+                "provenanceUrl": "other_url"
+            }
+        },
+        "data": {
             "variable_1": {
                 "entity_1": {
                     "date": "20XX",
@@ -268,21 +280,20 @@ class TestMergeResponses(unittest.TestCase):
         },
     }
     cases = [{
-      'resp_1': {},
-      'resp_2': response_B,
-      'expected': response_B,
+        'resp_1': {},
+        'resp_2': response_B,
+        'expected': response_B,
     }, {
-      'resp_1': response_A,
-      'resp_2': {},
-      'expected': response_A,
-    },{
-      'resp_1': response_A,
-      'resp_2': response_B,
-      'expected': response_A_and_B,
+        'resp_1': response_A,
+        'resp_2': {},
+        'expected': response_A,
+    }, {
+        'resp_1': response_A,
+        'resp_2': response_B,
+        'expected': response_A_and_B,
     }]
     for test_case in cases:
       result = shared.merge_responses(test_case.get("resp_1"),
-                                            test_case.get("resp_2"))
+                                      test_case.get("resp_2"))
       assert result == test_case.get("expected")
       self.assertDictEqual(result, test_case.get("expected"))
-      

@@ -25,7 +25,8 @@ from flask_babel import gettext
 from markupsafe import escape
 
 from server.cache import cache
-from server.lib import fetch, shared
+from server.lib import fetch
+from server.lib import shared
 import server.lib.i18n as i18n
 from server.lib.shared import names
 import server.services.datacommons as dc

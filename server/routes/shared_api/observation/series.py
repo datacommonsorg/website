@@ -16,7 +16,8 @@ from flask import Blueprint
 from flask import request
 
 from server.cache import cache
-from server.lib import fetch, shared
+from server.lib import fetch
+from server.lib import shared
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
@@ -71,9 +72,9 @@ def series_within():
       parent_entity in shared.NEEDS_SPECIAL_HANDLING[child_type]):
     try:
       child_places = fetch.descendent_places([parent_entity],
-                                            child_type)[parent_entity]
-      child_place_batches = list(shared.divide_into_batches(child_places,
-                                                            batch_size))
+                                             child_type)[parent_entity]
+      child_place_batches = list(
+          shared.divide_into_batches(child_places, batch_size))
       merged_response = {}
       for batch in child_place_batches:
         new_response = fetch.series_core(batch, variables, False)
@@ -107,9 +108,9 @@ def series_within_all():
       parent_entity in shared.NEEDS_SPECIAL_HANDLING[child_type]):
     try:
       child_places = fetch.descendent_places([parent_entity],
-                                            child_type)[parent_entity]
-      child_place_batches = list(shared.divide_into_batches(child_places,
-                                                            batch_size))
+                                             child_type)[parent_entity]
+      child_place_batches = list(
+          shared.divide_into_batches(child_places, batch_size))
       merged_response = {}
       for batch in child_place_batches:
         new_response = fetch.series_core(batch, variables, True)
