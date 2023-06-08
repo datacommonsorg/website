@@ -50,7 +50,7 @@ def diff(compare):
 
   parts = compare.split('...')
   if len(parts) != 2:
-    return "Invalid tag compare " + compare
+    return "Invalid hash comparison: " + compare, 400
 
   images_1 = list_png(SCREENSHOT_BUCKET, parts[0])
   images_2 = list_png(SCREENSHOT_BUCKET, parts[1])
