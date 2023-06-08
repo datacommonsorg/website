@@ -182,4 +182,3 @@ def merge_responses(resp_1: dict, resp_2: dict) -> dict:
       merged_resp[key] = val
   
   return merged_resp
-      

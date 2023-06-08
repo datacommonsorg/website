@@ -25,7 +25,7 @@ from flask_babel import gettext
 from markupsafe import escape
 
 from server.cache import cache
-from server.lib import fetch
+from server.lib import fetch, shared
 import server.lib.i18n as i18n
 from server.lib.shared import names
 import server.services.datacommons as dc
@@ -356,7 +356,21 @@ def parent_places(dcids):
       A dictionary of lists of containedInPlace, keyed by dcid.
   """
   result = {dcid: {} for dcid in dcids}
-  place_info = dc.get_place_info(dcids)
+  # Make batched calls instead if it's a special case
+  # TODO(juliawu): This is a temporary fix. Remove once cache is updated.
+  batch_size = request.args.get('batch_size') or 5000
+  if len(dcids) > batch_size:
+    try:
+      batches = list(shared.divide_into_batches(dcids, batch_size))
+      merged_response = {}
+      for batch in batches:
+        new_response = dc.get_place_info(batch)
+        merged_response = shared.merge_responses(merged_response, new_response)
+      place_info = merged_response
+    except:
+      return 'error: Error encountered when attempting to make batch calls', 400
+  else:
+    place_info = dc.get_place_info(dcids)
   for item in place_info.get('data', []):
     if 'node' not in item or 'info' not in item:
       continue
