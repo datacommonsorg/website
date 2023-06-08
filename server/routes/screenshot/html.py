@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from markupsafe import escape
 from base64 import b64encode
 import io
 import os
 
 import flask
+from markupsafe import escape
 
 from server.lib.gcs import list_png
 from server.routes.screenshot.diff import img_diff
