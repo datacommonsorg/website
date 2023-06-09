@@ -49,18 +49,18 @@ import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 
 const app = express();
-const DEFAULT_CONFIG = {
-  port: 8080,
-  apiRoot: "http://mci-website-mcs-svc-ta0n5jd94jdh7kdn:8080",
-};
 const APP_CONFIGS = {
   local: {
     port: 3030,
     apiRoot: "http://127.0.0.1:8080",
   },
+  gke: {
+    port: 8080,
+    apiRoot: process.env.API_ROOT,
+  },
 };
 const NODE_ENV = process.env.NODE_ENV || "local";
-const CONFIG = APP_CONFIGS[NODE_ENV] || DEFAULT_CONFIG;
+const CONFIG = APP_CONFIGS[NODE_ENV];
 const HOST = "0.0.0.0";
 // Each value in the array is the width of the character with ascii code of
 // array index + 32 for 10px Roboto font.
