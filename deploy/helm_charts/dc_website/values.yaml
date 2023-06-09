@@ -131,5 +131,6 @@ nodejs:
   # When enabling the NodeJS server for the first time for a project, need to
   # update the cluster config by following instructions here: https://github.com/datacommonsorg/website/blob/master/gke/README.md
   enabled: false
-  env: "prod"
+  env: "gke"
   replicas:
+  apiRoot:

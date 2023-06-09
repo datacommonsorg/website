@@ -171,14 +171,16 @@ spec:
             - containerPort: 8080
           resources:
             limits:
-              memory: "3G"
+              memory: "2G"
             requests:
-              memory: "3G"
+              memory: "2G"
           env:
             - name: WEBSITE_HASH
               value: {{ .Values.website.githash | quote }}
             - name: NODE_ENV
               value: {{ .Values.nodejs.env }}
+            - name: API_ROOT
+              value: {{ .Values.nodejs.apiRoot }}
             # A dummy config used to bounce the server without any docker image
             # or data config change.
             - name: BOUNCE

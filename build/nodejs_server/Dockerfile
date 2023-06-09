@@ -19,10 +19,6 @@ ENV ENV=${ENV}
 
 WORKDIR /workspace
 
-# Install netstat which is useful for debugging.
-RUN apt-get -y update
-RUN apt-get -y install net-tools
-
 # Install dependencies
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
@@ -30,8 +26,9 @@ WORKDIR /workspace/static
 RUN npm install --omit=dev
 
 COPY static/. /workspace/static/
-# Expose the port that the Node.js application will listen on
+# Expose the port that the Node.js application will listen on.
+# Important to use 8080 for health check.
 EXPOSE 8080
 # Run nodejs server
-# TODO: Check best practices for starting a typescript NodeJS app
+# TODO: Check best practices for starting a typescript NodeJS app.
 CMD npx ts-node ./src/server.ts
