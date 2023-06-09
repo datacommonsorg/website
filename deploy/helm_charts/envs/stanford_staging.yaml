@@ -34,7 +34,7 @@ serviceAccount:
   name: website-ksa
 
 nl:
-  enabled: true
+  enabled: false
 
 serviceGroups:
   recon: null
@@ -56,7 +56,3 @@ kgStoreConfig:
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG", "oecd/g/OECD"]
-
-nodejs:
-  enabled: true
-  replicas: 2
