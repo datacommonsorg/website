@@ -94,9 +94,11 @@ where `<ENV>` refers to the name of the instance and `<REGION>` is the region of
 
 # Update cluster config
 
-If multi-cluster ingress and service needs to be updated, then run:
+If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run:
 
 ```bash
 gcloud config set project <PROJECT>
-./update_config_cluster.sh
+./update_config_cluster.sh -e <ENV> -l <REGION>
 ```
+
+where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
