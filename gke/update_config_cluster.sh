@@ -15,10 +15,50 @@
 
 set -e
 
+function help {
+  echo "Usage: $0 -el"
+  echo "-e       Instance environment as defined under ../deploy/gke"
+  echo "-l       GKE region Default: us-central1"
+  exit 1
+}
+
+while getopts ":e:l:" OPTION; do
+  case $OPTION in
+    e)
+      ENV=$OPTARG
+      ;;
+    l)
+      LOCATION=$OPTARG
+      ;;
+    *)
+      help
+      ;;
+  esac
+done
+
+if [[ $ENV == "" ]]; then
+  echo "Set environment by -e"
+  exit 1
+fi
+
+PROJECT_ID=$(yq eval '.project' ../deploy/helm_charts/envs/$ENV.yaml)
+CLUSTER_PREFIX=$(yq eval '.cluster_prefix' ../deploy/helm_charts/envs/$ENV.yaml)
+
+if [[ $LOCATION == "" ]]; then
+  LOCATION="us-central1"
+fi
+
+# Get gke credentials
+CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
+gcloud container clusters get-credentials $CLUSTER_NAME \
+  --region=$LOCATION --project=$PROJECT_ID
+
+# Update mci config
 cp mci.yaml.tpl mci.yaml
 export IP=$(gcloud compute addresses list --global --filter='name:website-ip' --format='value(ADDRESS)')
 yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
 
+# Apply configs
 kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml
 kubectl apply -f mcs.yaml
