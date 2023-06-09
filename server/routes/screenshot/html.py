@@ -19,8 +19,10 @@ import os
 
 from dateutil.relativedelta import relativedelta
 import flask
+from flask import current_app
 from flask import request
 from github import Github
+from google.cloud import secretmanager
 from markupsafe import escape
 
 from server.lib.gcs import list_png
@@ -32,9 +34,15 @@ bp = flask.Blueprint("screenshot", __name__, url_prefix='/screenshot')
 
 
 @bp.route('/')
-def list():
+def commit_list():
   base_sha = request.args.get('base', '')
-  g = Github("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")
+  # Secret generated from Github account 'dc-org2018'
+  secret_client = secretmanager.SecretManagerServiceClient()
+  secret_name = secret_client.secret_version_path(
+      current_app.config['SECRET_PROJECT'], 'github-token', 'latest')
+  secret_response = secret_client.access_secret_version(name=secret_name)
+  token = secret_response.payload.data.decode('UTF-8')
+  g = Github(token)
   # Then, get the repository:
   repo = g.get_repo("datacommonsorg/website")
   one_month_ago = datetime.now() - relativedelta(months=1)
