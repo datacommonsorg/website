@@ -352,17 +352,22 @@ class Page extends Component<unknown, PageStateType> {
             paramsSerializer: stringifyFn,
           })
           .then((resp) => {
-            const urlData = resp.data["url"];
             const urlMap = {};
-            for (const dcid in urlData) {
-              urlMap[dcid] = urlData[dcid][0].value;
+            for (const dcid in resp.data) {
+              urlMap[dcid] = resp.data[dcid][0].value;
             }
+            const description =
+              descriptionResult[sv].length > 0
+                ? descriptionResult[sv][0]["value"]
+                : "";
+            let displayName =
+              displayNameResult[sv].length > 0
+                ? displayNameResult[sv][0]["value"]
+                : "";
+            displayName = displayName || description;
             this.setState({
-              description:
-                descriptionResult[sv].length > 0
-                  ? descriptionResult[sv][0]["value"]
-                  : "",
-              displayName: displayNameResult[sv][0]["value"],
+              description,
+              displayName,
               error: false,
               statVar: sv,
               summary: summaryResult[sv],
