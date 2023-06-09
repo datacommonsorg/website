@@ -27,3 +27,14 @@ spec:
       backend:
         serviceName: website-mcs
         servicePort: 8080
+      rules:
+      - http:
+          paths:
+          - path: /
+            backend:
+                serviceName: website-mcs
+                servicePort: 8080
+          - path: /nodejs/*
+            backend:
+                serviceName: website-nodejs-mcs
+                servicePort: 8080

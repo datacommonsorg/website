@@ -12,34 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Helm config
-project: "datcom-website-dev"
-cluster_prefix: "website"
+FROM node:18.4.0
 
-namespace:
-  name: "website"
+ARG ENV
+ENV ENV=${ENV}
 
-website:
-  flaskEnv: dev
-  replicas: 6
+WORKDIR /workspace
 
-serviceAccount:
-  name: website-ksa
+# Install dependencies
+COPY static/package.json /workspace/static/package.json
+COPY static/package-lock.json /workspace/static/package-lock.json
+WORKDIR /workspace/static
+RUN npm install --omit=dev
 
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 1
-  observation:
-    replicas: 2
-  node:
-    replicas: 2
-  default:
-    replicas: 2
-
-nl:
-  enabled: true
-
-nodejs:
-  enabled: true
-  replicas: 6
+COPY static/. /workspace/static/
+# Expose the port that the Node.js application will listen on.
+# Important to use 8080 for health check.
+EXPOSE 8080
+# Run nodejs server
+# TODO: Check best practices for starting a typescript NodeJS app.
+CMD npx ts-node ./src/server.ts
