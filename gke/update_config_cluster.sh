@@ -1,10 +1,11 @@
+#!/bin/bash
 # Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,34 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Helm config
-project: "datcom-website-dev"
-cluster_prefix: "website"
+set -e
 
-namespace:
-  name: "website"
+cp mci.yaml.tpl mci.yaml
+export IP=$(gcloud compute addresses list --global --filter='name:website-ip' --format='value(ADDRESS)')
+yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
 
-website:
-  flaskEnv: dev
-  replicas: 6
+kubectl apply -f backendconfig.yaml
+kubectl apply -f mci.yaml
+kubectl apply -f mcs.yaml
 
-serviceAccount:
-  name: website-ksa
-
-serviceGroups:
-  recon: null
-  svg:
-    replicas: 1
-  observation:
-    replicas: 2
-  node:
-    replicas: 2
-  default:
-    replicas: 2
-
-nl:
-  enabled: true
-
-nodejs:
-  enabled: true
-  replicas: 6
+# Check the status: `kubectl describe mci website -n website`

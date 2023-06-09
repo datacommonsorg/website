@@ -122,3 +122,14 @@ nl:
 ###############################################################################
 svg:
   blocklistFile: []
+
+###############################################################################
+# Config for NodeJS Server
+###############################################################################
+nodejs:
+  # If nodejs is enabled, must also enable nl.
+  # When enabling the NodeJS server for the first time for a project, need to
+  # update the cluster config by following instructions here: https://github.com/datacommonsorg/website/blob/master/gke/README.md
+  enabled: false
+  env: "prod"
+  replicas:
