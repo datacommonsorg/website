@@ -1,0 +1,52 @@
+{#
+ Copyright 2023 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'screenshot' %}
+{% set page_id = 'page-screenshot-landing' %}
+{% set title = 'Screenshot Page List' %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/screenshot.min.css')}}>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <table>
+      {% for item in data %}
+        <tr>
+          <th>
+            <a href="{{item['url']}}">{{item['message']}}</a>
+          </th>
+          <th>
+            {{item['sha']}}
+          </th>
+          <th>
+            <a href="/screenshot/commit/{{item['sha']}}">current</a>
+          </th>
+          <th>
+            <a href="/screenshot/compare/{{item['compare']}}">diff (vs previoius)</a>
+          </th>
+          {% if item['compare_base'] %}
+            <th>
+              <a href="/screenshot/compare/{{item['compare_base']}}">diff (vs base)</a>
+            </th>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
