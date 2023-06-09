@@ -354,15 +354,16 @@ class Page extends Component<unknown, PageStateType> {
           .then((resp) => {
             const urlMap = {};
             for (const dcid in resp.data) {
-              urlMap[dcid] = resp.data[dcid][0].value;
+              urlMap[dcid] =
+                resp.data[dcid].length > 0 ? resp.data[dcid][0].value : "";
             }
             const description =
               descriptionResult[sv].length > 0
-                ? descriptionResult[sv][0]["value"]
+                ? descriptionResult[sv][0].value
                 : "";
             let displayName =
               displayNameResult[sv].length > 0
-                ? displayNameResult[sv][0]["value"]
+                ? displayNameResult[sv][0].value
                 : "";
             displayName = displayName || description;
             this.setState({
