@@ -35,6 +35,10 @@ bp = flask.Blueprint("screenshot", __name__, url_prefix='/screenshot')
 
 @bp.route('/')
 def commit_list():
+  """List recent commits and diff url
+
+  Optional url argument "base" to set a base commit sha for comparison.
+  """
   base_sha = request.args.get('base', '')
   # Secret generated from Github account 'dc-org2018'
   secret_client = secretmanager.SecretManagerServiceClient()
