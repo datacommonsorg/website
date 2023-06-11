@@ -106,7 +106,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 
   return (
     <div
-      className={`chart-container ranking-tile ${props.className}`}
+      className={`chart-container dc-chart-holder ranking-tile ${props.className}`}
       ref={chartContainer}
       style={{
         gridTemplateColumns:

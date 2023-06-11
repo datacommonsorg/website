@@ -637,6 +637,7 @@ function drawHistogram(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("class", "dc-chart-exist")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
@@ -743,6 +744,7 @@ function drawStackBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("class", "dc-chart-exist")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
@@ -852,6 +854,7 @@ function drawGroupBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("class", "dc-chart-exist")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
@@ -968,6 +971,7 @@ function drawLineChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
+    .attr("class", "dc-chart-exist")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
@@ -1191,6 +1195,7 @@ function drawGroupLineChart(
 
   const svg = container
     .append("svg")
+    .attr("class", "dc-chart-exist")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)

@@ -243,7 +243,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     });
     return (
       <div className="col">
-        <div className="chart-container" ref={this.chartElement}>
+        <div
+          className="chart-container dc-chart-holder"
+          ref={this.chartElement}
+        >
           <h4>
             {this.props.title}
             <span className="sub-title">{dateString}</span>
@@ -261,7 +264,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             )}
             {this.props.chartType === chartTypeEnum.RANKING &&
               this.state.rankingGroup && (
-                <div className="ranking-chart-container">
+                <div className="ranking-chart-container dc-chart-exist">
                   <h4>{this.getRankingChartContainerTitle()}</h4>
                   <div className="ranking-chart">
                     <RankingUnit

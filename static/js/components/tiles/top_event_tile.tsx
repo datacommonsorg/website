@@ -112,7 +112,7 @@ export const TopEventTile = memo(function TopEventTile(
 
   return (
     <div
-      className={`chart-container ranking-tile ${props.className}`}
+      className={`chart-container dc-chart-holder ranking-tile ${props.className}`}
       ref={chartContainer}
     >
       <div

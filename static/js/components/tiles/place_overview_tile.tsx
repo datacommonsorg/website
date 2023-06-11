@@ -58,7 +58,7 @@ export function PlaceOverviewTile(
 
   return (
     <>
-      <div className="chart-container place-overview-tile">
+      <div className="chart-container place-overview-tile dc-chart-holder">
         <RawIntlProvider value={intl}>
           <Overview
             dcid={props.place.dcid}

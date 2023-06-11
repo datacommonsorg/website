@@ -507,6 +507,7 @@ export function drawD3Map(
       });
     }
   }
+  svg.attr("class", "dc-chart-exist");
 }
 
 /**

@@ -63,7 +63,6 @@ interface ChartProps {
 
 export const MAP_CONTAINER_ID = "choropleth-map";
 export const LEGEND_CONTAINER_ID = "choropleth-legend";
-export const CHART_CONTAINER_ID = "chart-container";
 const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 export const SECTION_CONTAINER_ID = "map-chart";
@@ -98,7 +97,7 @@ export function Chart(props: ChartProps): JSX.Element {
           <div id="map-chart-screen" className="screen">
             <div id="spinner"></div>
           </div>
-          <div className="chart-section">
+          <div className="chart-section dc-chart-holder">
             <div className="map-title">
               <h3>
                 {title}

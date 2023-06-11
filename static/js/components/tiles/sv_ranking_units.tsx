@@ -25,10 +25,7 @@ import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { RankingData, RankingPoint } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
-import {
-  dataPointsToCsv,
-  rankingPointsToCsv,
-} from "../../utils/chart_csv_utils";
+import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { formatString } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
@@ -124,6 +121,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       .append("g")
       .attr("transform", `translate(${CHART_PADDING})`)
       .append("svg")
+      .attr("class", "dc-chart-exist")
       .append("foreignObject")
       .attr("width", chartDiv.offsetWidth)
       .attr("height", chartDiv.offsetHeight)

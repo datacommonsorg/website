@@ -126,6 +126,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     const svg = d3
       .select(container)
       .append("svg")
+      .attr("class", "dc-chart-exist")
       .attr("xmlns", SVGNS)
       .attr("xmlns:xlink", XLINKNS)
       .attr("width", chartWidth);
@@ -212,6 +213,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     const svg = d3
       .select(container)
       .append("svg")
+      .attr("class", "dc-chart-exist")
       .attr("xmlns", SVGNS)
       .attr("xmlns:xlink", XLINKNS)
       .attr("width", chartWidth);
