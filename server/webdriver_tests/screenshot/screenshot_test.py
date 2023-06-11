@@ -16,6 +16,7 @@ import json
 import os
 import urllib.parse
 
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -37,7 +38,7 @@ def wait_for_charts(driver):
   for c in chart_containers:
     try:
       c.find_element(By.CLASS_NAME, CHART_EXIST_CLASS)
-    except:
+    except TimeoutException:
       return False
   return True
 
