@@ -66,7 +66,9 @@ def series_within():
   if not variables:
     return 'error: must provide a `variables` field', 400
   # Make batched calls instead if it's a special case
-  # TODO(juliawu): This is a temporary fix. Remove once cache is updated.
+  # TODO(juliawu): This is a workaround for mixer not using cache for 
+  #                Count_Person series. Remove this once v2/observation is
+  #                updated.
   batch_size = request.args.get('batch_size') or 5000
   if (child_type in shared.NEEDS_SPECIAL_HANDLING and
       parent_entity in shared.NEEDS_SPECIAL_HANDLING[child_type]):
