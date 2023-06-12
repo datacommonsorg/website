@@ -65,11 +65,8 @@ def series_within():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  # Make batched calls instead if it's a special case
-  # TODO(juliawu): This is a workaround for mixer not using cache for 
-  #                Count_Person series. Remove this once v2/observation is
-  #                updated.
   batch_size = request.args.get('batch_size') or 5000
+  # Make batched calls if it's a special case, as defined in shared.py
   if (child_type in shared.NEEDS_SPECIAL_HANDLING and
       parent_entity in shared.NEEDS_SPECIAL_HANDLING[child_type]):
     try:

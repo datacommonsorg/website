@@ -19,7 +19,6 @@ import server.lib.fetch as fetch
 
 # Maps enclosed place type -> places with too many of the enclosed type
 # Determines when to make batched API calls to avoid server errors.
-# TODO(juliawu): This is a temporary workaround. Remove once cache is updated.
 NEEDS_SPECIAL_HANDLING = {
     "CensusTract": [
         "geoId/06",  # California
