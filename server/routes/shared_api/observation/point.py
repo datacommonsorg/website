@@ -17,7 +17,6 @@ from flask import request
 
 from server.cache import cache
 from server.lib import fetch
-from server.lib import shared
 
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
