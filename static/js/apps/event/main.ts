@@ -49,7 +49,7 @@ function renderPage(): void {
   // Event place
   const placeDcid = document.getElementById("place").dataset.dcid;
   const placeName = document.getElementById("place").dataset.name || placeDcid;
-  const placeTypes = [document.getElementById("place").dataset.type] || [];
+  const placeTypes = [document.getElementById("place").dataset.types] || [];
   const place = { dcid: placeDcid, name: placeName, types: placeTypes };
   const parentPlaces = JSON.parse(
     document.getElementById("place").dataset.parents || "[]"
