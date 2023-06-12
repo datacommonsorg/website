@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
     />
@@ -19,10 +23,11 @@
   </head>
   <body>
     <nav class="dc-navbar navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
+      <div class="container dc-navbar-container">
         <a class="dc-navbar-brand navbar-brand" href="#"
           >Sustainable Development Goals Tracker</a
         >
+        <!--
         <div class="collapse navbar-collapse">
           <form class="form-inline my-2 my-lg-0">
             <input
@@ -33,7 +38,12 @@
             />
           </form>
         </div>
+        -->
       </div>
+    </nav>
+    <nav class="dc-subnav">
+      <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link selected">Global Overview</span></a></div>
+      <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link">Country View</span></span></a></div>
     </nav>
 
     <div class="container">
