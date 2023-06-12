@@ -65,7 +65,7 @@ class RankingHistogram extends React.Component<
         key={this.id}
         id={this.id}
         ref={this.chartElementRef}
-        className={"chart-container " + CLASS_DC_CHART_HOLDER}
+        className={`chart-container  ${CLASS_DC_CHART_HOLDER}`}
       ></div>
     );
   }

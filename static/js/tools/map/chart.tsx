@@ -98,7 +98,7 @@ export function Chart(props: ChartProps): JSX.Element {
           <div id="map-chart-screen" className="screen">
             <div id="spinner"></div>
           </div>
-          <div className={"chart-section " + CLASS_DC_CHART_HOLDER}>
+          <div className={`chart-section ${CLASS_DC_CHART_HOLDER}`}>
             <div className="map-title">
               <h3>
                 {title}

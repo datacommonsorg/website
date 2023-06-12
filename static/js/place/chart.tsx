@@ -248,7 +248,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     return (
       <div className="col">
         <div
-          className={"chart-container " + CLASS_DC_CHART_HOLDER}
+          className={`chart-container ${CLASS_DC_CHART_HOLDER}`}
           ref={this.chartElement}
         >
           <h4>

@@ -745,7 +745,6 @@ function drawStackBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
@@ -815,6 +814,7 @@ function drawStackBarChart(
       link: dp.link,
     }))
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
 
 /**
@@ -855,7 +855,6 @@ function drawGroupBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
@@ -930,6 +929,7 @@ function drawGroupBarChart(
       link: dp.link,
     }))
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
 
 /**
@@ -972,7 +972,6 @@ function drawLineChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
@@ -1126,6 +1125,7 @@ function drawLineChart(
       link: dg.link,
     }))
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
   return !hasFilledInValues;
 }
 
@@ -1196,7 +1196,6 @@ function drawGroupLineChart(
 
   const svg = container
     .append("svg")
-    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
@@ -1413,6 +1412,7 @@ function drawGroupLineChart(
     unit,
     statVarInfos
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
 
 /**

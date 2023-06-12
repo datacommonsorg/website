@@ -117,7 +117,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
     }
     return (
-      <div className={"chart-container " + CLASS_DC_CHART_HOLDER}>
+      <div className={`chart-container ${CLASS_DC_CHART_HOLDER}`}>
         <div className="card">
           <div className="statVarChipRegion">
             {statVars.map((statVar) => {

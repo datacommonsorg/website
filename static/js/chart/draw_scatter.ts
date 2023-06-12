@@ -844,7 +844,6 @@ export function drawScatter(
   const svg = container
     .append("svg")
     .attr("id", "scatterplot")
-    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("width", properties.width)
     .attr("height", properties.height)
     .attr("transform", `translate(${svgXTranslation},0)`);
@@ -975,4 +974,5 @@ export function drawScatter(
     options.xPerCapita,
     options.yPerCapita
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }

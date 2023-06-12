@@ -60,9 +60,7 @@ export function PlaceOverviewTile(
   return (
     <>
       <div
-        className={
-          "chart-container place-overview-tile " + CLASS_DC_CHART_HOLDER
-        }
+        className={`chart-container place-overview-tile ${CLASS_DC_CHART_HOLDER}`}
       >
         <RawIntlProvider value={intl}>
           <Overview

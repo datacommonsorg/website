@@ -57,7 +57,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   };
   const description = formatString(props.description, rs);
   return (
-    <div className={"chart-container highlight-tile " + CLASS_DC_CHART_HOLDER}>
+    <div className={`chart-container highlight-tile ${CLASS_DC_CHART_HOLDER}`}>
       {highlightData && (
         <span className="stat">
           {formatNumber(
