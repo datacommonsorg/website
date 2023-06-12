@@ -21,6 +21,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
 
+import { CLASS_DC_CHART_EXIST } from "../../constants/css_constants";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { RankingData, RankingPoint } from "../../types/ranking_unit_types";
@@ -121,7 +122,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       .append("g")
       .attr("transform", `translate(${CHART_PADDING})`)
       .append("svg")
-      .attr("class", "dc-chart-exist")
+      .attr("class", CLASS_DC_CHART_EXIST)
       .append("foreignObject")
       .attr("width", chartDiv.offsetWidth)
       .attr("height", chartDiv.offsetHeight)

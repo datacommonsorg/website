@@ -18,6 +18,7 @@ import React from "react";
 
 import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw";
+import { CLASS_DC_CHART_HOLDER } from "../constants/css_constants";
 import { formatNumber } from "../i18n/i18n";
 import { randDomId } from "../shared/util";
 import { RankInfo, Ranking } from "./ranking_types";
@@ -64,7 +65,7 @@ class RankingHistogram extends React.Component<
         key={this.id}
         id={this.id}
         ref={this.chartElementRef}
-        className="chart-container dc-chart-holder"
+        className={"chart-container " + CLASS_DC_CHART_HOLDER}
       ></div>
     );
   }

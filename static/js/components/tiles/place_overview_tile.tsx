@@ -23,6 +23,7 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
+import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
 import { intl } from "../../i18n/i18n";
 import { Overview } from "../../place/overview";
 import { NamedTypedPlace } from "../../shared/types";
@@ -58,7 +59,11 @@ export function PlaceOverviewTile(
 
   return (
     <>
-      <div className="chart-container place-overview-tile dc-chart-holder">
+      <div
+        className={
+          "chart-container place-overview-tile " + CLASS_DC_CHART_HOLDER
+        }
+      >
         <RawIntlProvider value={intl}>
           <Overview
             dcid={props.place.dcid}

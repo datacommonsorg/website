@@ -17,6 +17,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { CLASS_DC_CHART_EXIST } from "../constants/css_constants";
 import {
   GA_EVENT_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_CHART_CLICK,
@@ -637,7 +638,6 @@ function drawHistogram(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("class", "dc-chart-exist")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
@@ -698,6 +698,7 @@ function drawHistogram(
         (x.bandwidth() - Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH)) / 2
       );
     })
+    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("y", (d) => y(Math.max(0, d.value)))
     .attr("width", Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH))
     .attr("height", (d) => Math.abs(y(0) - y(d.value)))
@@ -744,7 +745,7 @@ function drawStackBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("class", "dc-chart-exist")
+    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
@@ -854,7 +855,7 @@ function drawGroupBarChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("class", "dc-chart-exist")
+    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
@@ -971,7 +972,7 @@ function drawLineChart(
   const svg = d3
     .select("#" + id)
     .append("svg")
-    .attr("class", "dc-chart-exist")
+    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
@@ -1195,7 +1196,7 @@ function drawGroupLineChart(
 
   const svg = container
     .append("svg")
-    .attr("class", "dc-chart-exist")
+    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)

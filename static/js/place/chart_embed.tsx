@@ -19,6 +19,7 @@ import React from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { wrap } from "../chart/base";
+import { CLASS_DC_CHART_EXIST } from "../constants/css_constants";
 import { intl } from "../i18n/i18n";
 import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 
@@ -126,7 +127,6 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     const svg = d3
       .select(container)
       .append("svg")
-      .attr("class", "dc-chart-exist")
       .attr("xmlns", SVGNS)
       .attr("xmlns:xlink", XLINKNS)
       .attr("width", chartWidth);
@@ -192,6 +192,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         sourcesHeight +
         SOURCES_MARGIN
     );
+    svg.attr("class", CLASS_DC_CHART_EXIST);
 
     const s = new XMLSerializer();
     const svgXml = s.serializeToString(svg.node());
@@ -213,7 +214,6 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     const svg = d3
       .select(container)
       .append("svg")
-      .attr("class", "dc-chart-exist")
       .attr("xmlns", SVGNS)
       .attr("xmlns:xlink", XLINKNS)
       .attr("width", chartWidth);
@@ -274,7 +274,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         sourcesHeight +
         SOURCES_MARGIN
     );
-
+    svg.attr("class", CLASS_DC_CHART_EXIST);
     const s = new XMLSerializer();
     const svgXml = s.serializeToString(svg.node());
     container.innerHTML = "";
