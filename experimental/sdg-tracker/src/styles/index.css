@@ -1,0 +1,32 @@
+html,
+body {
+  height: 100%;
+}
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+  flex-grow: 1;
+}
+
+a {
+  font-weight: 500;
+  color: #9a0000;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #c10000;
+}
+
+body {
+  margin: 0;
+  display: flex;
+}

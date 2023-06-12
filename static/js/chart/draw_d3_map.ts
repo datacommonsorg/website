@@ -38,6 +38,35 @@ import {
 } from "./types";
 
 /**
+ * SVG path style configuration
+ *
+ * @param fill fill color
+ * @param fillOpacity fill opacity
+ * @param stroke stroke color
+ * @param strokeWidth stroke width
+ * @param strokeOpacity stroke opacity
+ */
+export interface PathStyle {
+  fill?: string;
+  fillOpacity?: number;
+  stroke?: string;
+  strokeWidth?: number;
+  strokeOpacity?: number;
+}
+/**
+ * Map style configuration
+ *
+ * @param sphere map outline style
+ * @param graticule graticule style
+ * @param region map region style
+ */
+export interface MapStyle {
+  sphere?: PathStyle;
+  graticule?: PathStyle;
+  region?: PathStyle;
+}
+
+/**
  * Information used for the zoom functionality on a map
  *
  * @param zoomInButtonId id of a button that can be clicked to zoom in
@@ -393,6 +422,7 @@ function addGeoJsonLayer(
  * @param projection projection to use for the map
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
  * @param zoomParams the parameters needed to add zoom functionality for the map
+ * @param style map style configuration
  */
 export function drawD3Map(
   containerElement: HTMLDivElement,
@@ -409,7 +439,8 @@ export function drawD3Map(
   shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
   zoomDcid?: string,
-  zoomParams?: MapZoomParams
+  zoomParams?: MapZoomParams,
+  mapStyle?: MapStyle
 ): void {
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
@@ -419,6 +450,8 @@ export function drawD3Map(
     .attr("viewBox", `0 0 ${chartWidth} ${chartHeight}`)
     .attr("preserveAspectRatio", "xMidYMid meet");
   const map = svg.append("g").attr("id", MAP_ITEMS_GROUP_ID);
+  // Add graticulate layer
+  addGraticuleLayer(containerElement, projection, mapStyle);
   // Build the map objects
   const mapObjects = addGeoJsonLayer(
     containerElement,
@@ -442,7 +475,9 @@ export function drawD3Map(
     })
     .attr("fill", (d: GeoJsonFeature) => {
       const value = getValue(d, dataValues);
-      return value === undefined ? MISSING_DATA_COLOR : colorScale(value);
+      return value === undefined
+        ? mapStyle?.region?.fill || MISSING_DATA_COLOR
+        : colorScale(value);
     })
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);
@@ -455,8 +490,8 @@ export function drawD3Map(
     );
   if (shouldShowBoundaryLines) {
     mapObjects
-      .attr("stroke-width", STROKE_WIDTH)
-      .attr("stroke", GEO_STROKE_COLOR);
+      .attr("stroke-width", mapStyle?.region?.strokeWidth || STROKE_WIDTH)
+      .attr("stroke", mapStyle?.region?.stroke || GEO_STROKE_COLOR);
   }
   mapObjects.on(
     "click",
@@ -713,4 +748,57 @@ export function addPathLayer(
       ]);
     })
     .on("click", onClick);
+}
+
+export function addGraticuleLayer(
+  containerElement: HTMLDivElement,
+  projection: d3.GeoProjection,
+  mapStyle: MapStyle
+): void {
+  if (!mapStyle?.sphere && !mapStyle?.graticule) {
+    return;
+  }
+  const mapObjectsLayer = d3
+    .select(containerElement)
+    .select(`#${MAP_ITEMS_GROUP_ID}`)
+    .append("g");
+  const geomap = d3.geoPath().projection(projection);
+
+  if (mapStyle.sphere) {
+    const sphere = mapObjectsLayer
+      .append("path")
+      .datum({ type: "Sphere" })
+      .attr("d", geomap);
+    if (mapStyle.sphere.fill) {
+      sphere.style("fill", mapStyle.sphere.fill);
+    }
+    if (mapStyle.sphere.strokeWidth) {
+      sphere.style("stroke-width", mapStyle.sphere.strokeWidth);
+    }
+    if (mapStyle.sphere.stroke) {
+      sphere.style("stroke", mapStyle.sphere.stroke);
+    }
+    if (mapStyle.sphere.strokeOpacity) {
+      sphere.style("stroke-opacity", mapStyle.sphere.strokeOpacity);
+    }
+  }
+
+  if (mapStyle.graticule) {
+    const graticule = mapObjectsLayer
+      .append("path")
+      .datum(d3.geoGraticule())
+      .attr("d", geomap);
+    if (mapStyle.graticule.fill) {
+      graticule.style("fill", mapStyle.graticule.fill);
+    }
+    if (mapStyle.graticule.strokeWidth) {
+      graticule.style("stroke-width", mapStyle.graticule.strokeWidth);
+    }
+    if (mapStyle.graticule.stroke) {
+      graticule.style("stroke", mapStyle.graticule.stroke);
+    }
+    if (mapStyle.graticule.strokeOpacity) {
+      graticule.style("stroke-opacity", mapStyle.graticule.strokeOpacity);
+    }
+  }
 }

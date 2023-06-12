@@ -13,13 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Serves static content from experimental directory
-cd experimental
+function run_static {
+  echo "Starting SDG static app..."
+  # Serves static content from experimental directory
+  cd experimental
+  # Create symbolic links to compiled datacommons js and  css 
+  ln -s ../../../server/dist/datacommons.js ./sdg-static/datacommons/datacommons.js
+  ln -s ../../../server/dist/css/nl_interface.min.css ./sdg-static/datacommons/nl_interface.min.css
+  ln -s ../../../server/dist/css/ranking.min.css ./sdg-static/datacommons/ranking.min.css
+  # Start static webserver
+  python3 -m http.server 8081
+}
 
-# Create symbolic links to compiled datacommons js and  css 
-ln -s ../../../server/dist/datacommons.js ./sdg-static/datacommons/datacommons.js
-ln -s ../../../server/dist/css/nl_interface.min.css ./sdg-static/datacommons/nl_interface.min.css
-ln -s ../../../server/dist/css/ranking.min.css ./sdg-static/datacommons/ranking.min.css
+function run_react {
+  echo "Starting SDG react app..."
+  cd experimental/sdg-tracker
+  npm run dev
+}
 
-# Start static webserver
-python3 -m http.server 8081
+while getopts ":r" OPTION; do
+  echo $OPTION
+  case $OPTION in
+    r)
+      run_react
+      ;;
+  esac
+done
+
+# Start static server if no options are specified
+run_static

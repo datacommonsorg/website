@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { drawD3Map } from "../js/chart/draw_d3_map";
 import { renderBarComponent } from "../js/components/tiles/bar_tile";
 import { renderLineComponent } from "../js/components/tiles/line_tile";
 import { renderMapComponent } from "../js/components/tiles/map_tile";
@@ -21,6 +22,7 @@ import { renderRankingComponent } from "../js/ranking/ranking";
 
 globalThis.datacommons = {
   drawBar: renderBarComponent,
+  drawD3Map,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,
   drawRanking: renderRankingComponent,
