@@ -39,6 +39,10 @@ import {
 import { RankingUnit } from "../components/ranking_unit";
 import { fetchData } from "../components/tiles/ranking_tile";
 import {
+  CLASS_DC_CHART_EXIST,
+  CLASS_DC_CHART_HOLDER,
+} from "../constants/css_constants";
+import {
   formatNumber,
   intl,
   LocalizedLink,
@@ -243,7 +247,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     });
     return (
       <div className="col">
-        <div className="chart-container" ref={this.chartElement}>
+        <div
+          className={`chart-container ${CLASS_DC_CHART_HOLDER}`}
+          ref={this.chartElement}
+        >
           <h4>
             {this.props.title}
             <span className="sub-title">{dateString}</span>
@@ -261,7 +268,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             )}
             {this.props.chartType === chartTypeEnum.RANKING &&
               this.state.rankingGroup && (
-                <div className="ranking-chart-container">
+                <div
+                  className={"ranking-chart-container " + CLASS_DC_CHART_EXIST}
+                >
                   <h4>{this.getRankingChartContainerTitle()}</h4>
                   <div className="ranking-chart">
                     <RankingUnit

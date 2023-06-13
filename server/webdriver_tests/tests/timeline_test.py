@@ -80,12 +80,10 @@ class TestCharts(WebdriverBaseTest):
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
 
     # Wait until the group of charts has loaded.
-    element_present = EC.presence_of_element_located((By.ID, 'chart-region'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
 
     # Store a list of all the charts.
-    chart_region = self.driver.find_element(By.XPATH, '//*[@id="chart-region"]')
-    charts = chart_region.find_elements(By.CLASS_NAME, 'card')
+    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')
     # Assert there are three charts.
     self.assertEqual(len(charts), 3)
     # Wait until the charts are drawn.
@@ -116,7 +114,7 @@ class TestCharts(WebdriverBaseTest):
     time.sleep(2)
 
     # Re-store a list of all the charts.
-    charts = chart_region.find_elements(By.CLASS_NAME, 'card')
+    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')
     # Assert there are two charts.
     self.assertEqual(len(charts), 2)
 
@@ -149,12 +147,11 @@ class TestCharts(WebdriverBaseTest):
     # Wait until there is a card present.
     shared.wait_for_loading(self.driver)
     element_present = EC.presence_of_element_located(
-        (By.XPATH, '//*[@id="chart-region"]/div'))
+        (By.CLASS_NAME, 'dc-chart-exist'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Assert there is one chart.
-    charts = self.driver.find_elements(
-        By.XPATH, '//*[@id="chart-region"]/div[@class="chart-container"]')
+    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')
     self.assertEqual(len(charts), 1)
 
     # Uncheck the checked stat var.
