@@ -354,14 +354,17 @@ def create_app():
       app.config['NL_TABLE'] = None
 
     # Get the API key from environment first.
-    if os.environ.get('PALM_API_KEY'):
-      app.config['PALM_API_KEY'] = os.environ.get('PALM_API_KEY')
-    else:
-      secret_client = secretmanager.SecretManagerServiceClient()
-      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                      'palm-api-key', 'latest')
-      secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['PALM_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+    if cfg.USE_PALM:
+      if os.environ.get('PALM_API_KEY'):
+        app.config['PALM_API_KEY'] = os.environ.get('PALM_API_KEY')
+      else:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                        'palm-api-key',
+                                                        'latest')
+        secret_response = secret_client.access_secret_version(name=secret_name)
+        app.config['PALM_API_KEY'] = secret_response.payload.data.decode(
+            'UTF-8')
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []

@@ -70,7 +70,8 @@ def data():
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
-  use_llm = True if 'llm' in request.args else False
+
+  use_llm = request.args.get('llm', default=False, type=bool)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
@@ -105,7 +106,7 @@ def data():
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  if use_llm:
+  if use_llm and 'PALM_API_KEY' in current_app.config:
     query_detection = llm_detector.detect(original_query, context_history,
                                           embeddings_index_type,
                                           query_detection_debug_logs, counters)
