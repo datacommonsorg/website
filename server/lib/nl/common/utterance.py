@@ -137,6 +137,8 @@ class Utterance:
   counters: ctr.Counters
   # Includes top candidates of multi-SV detection.
   multi_svs: MultiVarCandidates
+  # Response from LLM.  Relevant only when LLM is used.
+  llm_resp: Dict
 
 
 #
@@ -259,6 +261,7 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['classifications'] = _classification_to_dict(u.classifications)
     udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
     udict['session_id'] = u.session_id
+    udict['llm_resp'] = u.llm_resp
     uttr_dicts.append(udict)
     u = u.prev_utterance
     cnt += 1
@@ -289,6 +292,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
                      answerPlaces=None,
                      counters=None,
                      session_id=udict['session_id'],
-                     multi_svs=None)
+                     multi_svs=None,
+                     llm_resp=udict.get('llm_resp', {}))
     prev_uttr = uttr
   return uttr

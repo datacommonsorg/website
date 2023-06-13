@@ -15,6 +15,7 @@
 # The following classes are used for the NL Detection.
 from abc import ABC
 from dataclasses import dataclass
+from dataclasses import field
 from enum import Enum
 from enum import IntEnum
 from typing import Dict, List
@@ -355,3 +356,4 @@ class Detection:
   places_detected: PlaceDetection
   svs_detected: SVDetection
   classifications: List[NLClassifier]
+  llm_resp: Dict = field(default_factory=dict)
