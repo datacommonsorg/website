@@ -74,7 +74,8 @@
     "webpack": "^5.76.0",
     "webpack-cli": "^5.1.1",
     "webpack-remove-empty-scripts": "^0.6.3",
-    "canvas": "2.11.2"
+    "canvas": "2.11.2",
+    "xmlserializer": "0.6.1"
   },
   "devDependencies": {
     "@formatjs/cli": "^2.13.12",
