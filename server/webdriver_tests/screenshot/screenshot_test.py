@@ -16,31 +16,14 @@ import json
 import os
 import urllib.parse
 
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver_tests.base_test import WebdriverBaseTest
+from server.webdriver_tests.shared import wait_for_charts
 
 # TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
 SCREENSHOTS_FOLDER = 'screenshots'
-CHART_HOLDER_CLASS = 'dc-chart-holder'
-CHART_EXIST_CLASS = 'dc-chart-exist'
-
-
-def wait_for_charts(driver):
-  element_present = EC.presence_of_element_located(
-      (By.CLASS_NAME, CHART_HOLDER_CLASS))
-  WebDriverWait(driver, 30).until(element_present)
-  chart_containers = driver.find_elements(By.CLASS_NAME, CHART_HOLDER_CLASS)
-  for c in chart_containers:
-    try:
-      c.find_element(By.CLASS_NAME, CHART_EXIST_CLASS)
-    except NoSuchElementException:
-      return False
-  return True
 
 
 # Class to test screenshot capture.

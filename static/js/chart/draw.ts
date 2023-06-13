@@ -698,11 +698,12 @@ function drawHistogram(
         (x.bandwidth() - Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH)) / 2
       );
     })
-    .attr("class", CLASS_DC_CHART_EXIST)
     .attr("y", (d) => y(Math.max(0, d.value)))
     .attr("width", Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH))
     .attr("height", (d) => Math.abs(y(0) - y(d.value)))
     .attr("fill", color);
+
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
 
 /**
