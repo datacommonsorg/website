@@ -293,6 +293,6 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
                      counters=None,
                      session_id=udict['session_id'],
                      multi_svs=None,
-                     llm_resp=udict['llm_resp'])
+                     llm_resp=udict.get('llm_resp', {}))
     prev_uttr = uttr
   return uttr
