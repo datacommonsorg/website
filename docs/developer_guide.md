@@ -295,7 +295,7 @@ A full tutorial of debugging Flask app in Visual Studio Code is in
   features like the dev inspector are available in this mode which is useful
   combined with `sleep()` to give you time to inspect the page. To enter this
   mode, comment out this line in
-  [base_test.py](../server/webdriver_tests/base_test.py):
+  [base_test.py](../server/webdriver/base_test.py):
 
   ```python
   chrome_options.add_argument('--headless')
