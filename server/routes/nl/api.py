@@ -99,14 +99,19 @@ def data():
         query_detection=query_detection,
         uttr_history=escaped_context_history,
         debug_counters=counters.get(),
-        query_detection_debug_logs=query_detection_debug_logs)
+        query_detection_debug_logs=query_detection_debug_logs,
+        use_llm=False)
     logging.info('NL Data API: Empty Exit')
     return data_dict
+
+  if use_llm and 'PALM_API_KEY' not in current_app.config:
+    counters.err('failed_palm_keynotfound', '')
+    use_llm = False
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  if use_llm and 'PALM_API_KEY' in current_app.config:
+  if use_llm:
     query_detection = llm_detector.detect(original_query, context_history,
                                           embeddings_index_type,
                                           query_detection_debug_logs, counters)
@@ -176,7 +181,7 @@ def data():
 
   data_dict = dbg.result_with_debug_info(data_dict, status_str, query_detection,
                                          context_history, dbg_counters,
-                                         query_detection_debug_logs)
+                                         query_detection_debug_logs, use_llm)
 
   logging.info('NL Data API: Exit')
   return data_dict

@@ -25,7 +25,8 @@ def _empty_svs_score_dict():
 def result_with_debug_info(data_dict: Dict, status: str,
                            query_detection: Detection, uttr_history: List[Dict],
                            debug_counters: Dict,
-                           query_detection_debug_logs: str) -> Dict:
+                           query_detection_debug_logs: str,
+                           use_llm: bool) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -72,9 +73,14 @@ def result_with_debug_info(data_dict: Dict, status: str,
     elif classification.type == ClassificationType.QUANTITY:
       quantity_classification = str(classification.attributes)
 
+  if use_llm:
+    detection_type = 'LLM Based'
+  else:
+    detection_type = 'Heuristic Based'
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
+      'detection_type': detection_type,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,
