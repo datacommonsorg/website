@@ -16,10 +16,11 @@ import os
 
 os.environ["FLASK_ENV"] = "webdriver"
 
-from server.webdriver.screenshot import runner
-from server.webdriver import base
 import argparse
 import logging
+
+from server.webdriver import base
+from server.webdriver.screenshot import runner
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d",
