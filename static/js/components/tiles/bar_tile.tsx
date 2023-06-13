@@ -125,6 +125,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   );
 }
 
+// Get the ReplacementStrings object used for formatting the title
 export function getReplacementStrings(
   props: BarTilePropType,
   chartData: BarChartData

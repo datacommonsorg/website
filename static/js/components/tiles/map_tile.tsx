@@ -174,6 +174,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   );
 }
 
+// Get the ReplacementStrings object used for formatting the title
 export function getReplacementStrings(
   props: MapTilePropType,
   chartData: MapChartData
@@ -249,8 +250,6 @@ export const fetchData = async (
       parentPlaces,
       borderGeoJson,
     };
-    //console.log("got raw")
-    //console.log(props)
     return rawToChart(
       rawData,
       props.statVarSpec,

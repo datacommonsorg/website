@@ -51,7 +51,9 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   // on initial loading, hide the title text
-  const title = !props.isInitialLoading ? getChartTitle : "";
+  const title = !props.isInitialLoading
+    ? getChartTitle(props.title, props.replacementStrings)
+    : "";
   const showEmbed = props.allowEmbed && !props.isInitialLoading;
   return (
     <div

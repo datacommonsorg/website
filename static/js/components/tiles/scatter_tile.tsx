@@ -166,6 +166,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   );
 }
 
+// Get the ReplacementStrings object used for formatting the title
 export function getReplacementStrings(
   props: ScatterTilePropType,
   chartData: ScatterChartData

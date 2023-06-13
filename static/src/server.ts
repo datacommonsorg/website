@@ -215,7 +215,8 @@ function getProcessedSvg(chartSvg: SVGSVGElement): string {
   if (!chartSvg) {
     return "";
   }
-  // Set the font for all the text in the svg
+  // Set the font for all the text in the svg to match the font family and size
+  // used for getBBox calculations.
   chartSvg.querySelectorAll("text").forEach((node) => {
     node.setAttribute("font-family", FONT_FAMILY);
     node.setAttribute("font-size", FONT_SIZE);
@@ -481,6 +482,7 @@ app.disable("etag");
 
 app.get("/nodejs/query", (req: Request, res: Response) => {
   const query = req.query.q;
+  res.setHeader("Content-Type", "application/json");
   axios
     .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}`, {})
     .then((resp) => {
@@ -504,7 +506,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
 
       // If no place, return here
       if (!place.dcid) {
-        res.status(200).send("No data found");
+        res.status(200).send({ charts: [] });
         return;
       }
 
@@ -530,7 +532,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
 
       // If no tiles return here.
       if (tilePromises.length < 1) {
-        res.status(200).send("No data found");
+        res.status(200).send({ charts: [] });
         return;
       }
 
@@ -539,16 +541,15 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           const filteredResults = tileResults.filter(
             (result) => result !== null
           );
-          res.status(200).setHeader("Content-Type", "application/json");
-          res.send(JSON.stringify({ charts: filteredResults }));
+          res.status(200).send(JSON.stringify({ charts: filteredResults }));
         })
         .catch(() => {
-          res.status(500).send("Error fetching data.");
+          res.status(500).send({ err: "Error fetching data." });
         });
     })
     .catch((error) => {
       console.error("Error making request:\n", error.message);
-      res.status(500).send("Failed to make a request to the target service.");
+      res.status(500).send({ err: "Error fetching data." });
     });
 });
 
