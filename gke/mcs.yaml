@@ -31,3 +31,23 @@ spec:
           protocol: TCP
           port: 8080
           targetPort: 8080
+
+---
+
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  name: website-nodejs-mcs
+  namespace: website
+  annotations:
+    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig-nodejs"}}'
+spec:
+  template:
+    spec:
+      selector:
+        app: website-nodejs-app
+      ports:
+        - name: web
+          protocol: TCP
+          port: 8080
+          targetPort: 8080

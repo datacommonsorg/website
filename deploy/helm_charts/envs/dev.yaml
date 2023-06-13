@@ -39,3 +39,7 @@ serviceGroups:
 
 nl:
   enabled: true
+
+nodejs:
+  enabled: true
+  replicas: 6

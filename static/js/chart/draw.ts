@@ -17,6 +17,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { CLASS_DC_CHART_EXIST } from "../constants/css_constants";
 import {
   GA_EVENT_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_CHART_CLICK,
@@ -701,6 +702,8 @@ function drawHistogram(
     .attr("width", Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH))
     .attr("height", (d) => Math.abs(y(0) - y(d.value)))
     .attr("fill", color);
+
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
 
 /**
@@ -812,6 +815,7 @@ function drawStackBarChart(
       link: dp.link,
     }))
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
 
 /**
@@ -926,6 +930,7 @@ function drawGroupBarChart(
       link: dp.link,
     }))
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
 
 /**
@@ -1121,6 +1126,7 @@ function drawLineChart(
       link: dg.link,
     }))
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
   return !hasFilledInValues;
 }
 
@@ -1407,6 +1413,7 @@ function drawGroupLineChart(
     unit,
     statVarInfos
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
 
 /**
@@ -1468,5 +1475,4 @@ export {
   drawHistogram,
   drawLineChart,
   drawStackBarChart,
-  wrap,
 };

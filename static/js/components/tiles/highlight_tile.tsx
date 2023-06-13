@@ -21,6 +21,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { Observation, PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -56,7 +57,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   };
   const description = formatString(props.description, rs);
   return (
-    <div className="chart-container highlight-tile">
+    <div className={`chart-container highlight-tile ${CLASS_DC_CHART_HOLDER}`}>
       {highlightData && (
         <span className="stat">
           {formatNumber(

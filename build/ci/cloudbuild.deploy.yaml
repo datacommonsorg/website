@@ -42,6 +42,21 @@ steps:
         docker push gcr.io/datcom-ci/datacommons-nl:latest
     waitFor: ["-"]
 
+  - id: push-nodejs-server
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        docker build -f build/nodejs_server/Dockerfile \
+          -t gcr.io/datcom-ci/datacommons-nodejs:$SHORT_SHA \
+          -t gcr.io/datcom-ci/datacommons-nodejs:latest \
+          .
+        docker push gcr.io/datcom-ci/datacommons-nodejs:$SHORT_SHA
+        docker push gcr.io/datcom-ci/datacommons-nodejs:latest
+    waitFor: ["-"]
+
   - id: update version
     name: "gcr.io/cloud-builders/git"
     entrypoint: /bin/bash

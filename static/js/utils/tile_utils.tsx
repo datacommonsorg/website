@@ -122,3 +122,12 @@ export function getMergedSvg(svgContainer: HTMLDivElement): SVGInfo {
   const svgXml = !_.isEmpty(svgElemList) ? s.serializeToString(mergedSvg) : "";
   return { svgXml, height, width };
 }
+
+/**
+ * Gets the chart title for a tile
+ * @param title the title from the tile config
+ * @param rs replacement strings to use to format the title
+ */
+export function getChartTitle(title: string, rs: ReplacementStrings): string {
+  return title ? formatString(title, rs) : "";
+}

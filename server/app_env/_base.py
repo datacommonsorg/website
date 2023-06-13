@@ -41,6 +41,8 @@ class Config:
   SHOW_DISASTER = True
   # Whether to show sustainability page
   SHOW_SUSTAINABILITY = False
+  # Whether to use PaLM API
+  USE_PALM = False
 
   # Environment name of the config.
   ENV = ''

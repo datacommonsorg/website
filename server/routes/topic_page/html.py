@@ -125,6 +125,10 @@ def topic_page(topic_id=None, place_dcid=None):
           break
   if not topic_place_config:
     return "Error: no config found"
+  contained_place_type = topic_place_config.metadata.contained_place_types.get(
+      place_type, None)
+  topic_place_config = lib_subject_page_config.remove_empty_charts(
+      topic_place_config, place_dcid, contained_place_type)
 
   place_names = place_api.get_i18n_name([place_dcid])
   if place_names:
@@ -139,5 +143,5 @@ def topic_page(topic_id=None, place_dcid=None):
       more_places=json.dumps(more_places),
       topic_id=topic_id,
       topic_name=topic_place_config.metadata.topic_name or "",
-      config=MessageToJson(topic_place_config),
+      page_config=MessageToJson(topic_place_config),
       topics_summary=topics_summary)

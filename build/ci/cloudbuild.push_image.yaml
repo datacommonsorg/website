@@ -32,6 +32,16 @@ steps:
         DOCKER_BUILDKIT=1 docker build -f build/nl_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG} .
         docker push gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG}
     waitFor: ["-"]
+  - id: push-nodejs-server
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1 docker build -f build/nodejs_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nodejs:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-nodejs:${_TAG}
+    waitFor: ["-"]
 
 timeout: 3600s
 options:

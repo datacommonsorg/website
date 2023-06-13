@@ -33,6 +33,7 @@ const SVG_CHART_HEIGHT = 160;
 export interface QueryResultProps {
   query: string;
   indexType: string;
+  useLLM: boolean;
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
@@ -73,8 +74,14 @@ export const QueryResult = memo(function QueryResult(
       indexType = props.indexType;
     }
 
+    console.log(props.useLLM);
+    let useLLMStr = "";
+    if (props.useLLM) {
+      useLLMStr = "&llm=True";
+    }
+
     axios
-      .post(`/api/nl/data?q=${query}&idx=${indexType}`, {
+      .post(`/api/nl/data?q=${query}&idx=${indexType}${useLLMStr}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {

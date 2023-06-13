@@ -29,7 +29,6 @@ import flask_cors
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
-from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
 
@@ -75,6 +74,9 @@ def register_routes_base_dc(app):
 
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
+
+  from server.routes.screenshot import html as screenshot_html
+  app.register_blueprint(screenshot_html.bp)
 
   from server.routes.special_announcement import \
       html as special_announcement_html
@@ -350,6 +352,19 @@ def create_app():
       app.config['NL_TABLE'] = bt.get_nl_table()
     else:
       app.config['NL_TABLE'] = None
+
+    # Get the API key from environment first.
+    if cfg.USE_PALM:
+      if os.environ.get('PALM_API_KEY'):
+        app.config['PALM_API_KEY'] = os.environ.get('PALM_API_KEY')
+      else:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                        'palm-api-key',
+                                                        'latest')
+        secret_response = secret_client.access_secret_version(name=secret_name)
+        app.config['PALM_API_KEY'] = secret_response.payload.data.decode(
+            'UTF-8')
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []

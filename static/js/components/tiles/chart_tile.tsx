@@ -18,13 +18,14 @@
  * A container for any tile containing a chart.
  */
 
-import _ from "lodash";
 import React, { useRef } from "react";
 
+import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import {
   formatString,
+  getChartTitle,
   getMergedSvg,
   ReplacementStrings,
 } from "../../utils/tile_utils";
@@ -50,14 +51,15 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   // on initial loading, hide the title text
-  const title =
-    props.title && !props.isInitialLoading
-      ? formatString(props.title, props.replacementStrings)
-      : "";
+  const title = !props.isInitialLoading
+    ? getChartTitle(props.title, props.replacementStrings)
+    : "";
   const showEmbed = props.allowEmbed && !props.isInitialLoading;
   return (
     <div
-      className={`chart-container ${props.className ? props.className : ""}`}
+      className={`chart-container ${CLASS_DC_CHART_HOLDER} ${
+        props.className ? props.className : ""
+      }`}
       ref={containerRef}
     >
       <div

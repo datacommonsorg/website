@@ -43,3 +43,7 @@ serviceGroups:
     replicas: 10
   default:
     replicas: 10
+
+nodejs:
+  enabled: true
+  replicas: 10

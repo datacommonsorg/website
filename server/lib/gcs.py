@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from base64 import b64encode
 import collections
+import urllib.parse
 
 from google.cloud import storage
 
@@ -61,8 +61,11 @@ def list_png(bucket_name, prefix):
   storage_client = storage.Client()
   bucket = storage_client.get_bucket(bucket_name)
   blobs = bucket.list_blobs(prefix=prefix)
-  result = []
+  result = {}
   for b in blobs:
     if b.name.endswith('png'):
-      result.append(b64encode(b.download_as_string()).decode("utf-8"))
+      bytes = b.download_as_bytes()
+      name = b.name.removeprefix(prefix + '/').removesuffix('.png')
+      name = urllib.parse.unquote(name)
+      result[name] = bytes
   return result

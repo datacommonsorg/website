@@ -55,7 +55,8 @@ def fulfill(query_detection: Detection, currentUtterance: Utterance,
                    answerPlaces=[],
                    counters=counters,
                    session_id=session_id,
-                   multi_svs=multi_svs)
+                   multi_svs=multi_svs,
+                   llm_resp=query_detection.llm_resp)
   uttr.counters.info('filtered_svs', filtered_svs)
 
   # Add detected places.

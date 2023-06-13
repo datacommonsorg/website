@@ -11,14 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Common library for functions used by multiple webdriver tests"""
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
-"""Common library for functions used by multiple webdriver tests"""
+CHART_HOLDER_CLASS = 'dc-chart-holder'
+CHART_EXIST_CLASS = 'dc-chart-exist'
+TIMEOUT = 60
 
 
 def wait_for_loading(driver):
@@ -47,3 +51,18 @@ def click_sv_group(driver, svg_name):
     if svg_name in group.text:
       group.click()
       break
+
+
+def charts_rendered(driver):
+  """Wait for asyncronously charts to show up.
+  """
+  element_present = EC.presence_of_element_located(
+      (By.CLASS_NAME, CHART_HOLDER_CLASS))
+  WebDriverWait(driver, TIMEOUT).until(element_present)
+  chart_containers = driver.find_elements(By.CLASS_NAME, CHART_HOLDER_CLASS)
+  for c in chart_containers:
+    try:
+      c.find_element(By.CLASS_NAME, CHART_EXIST_CLASS)
+    except NoSuchElementException:
+      return False
+  return True

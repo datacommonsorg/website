@@ -19,6 +19,7 @@ from flask_testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+from server.webdriver_tests import shared
 from web_app import app
 
 # Explicitly set multiprocessing start method to 'fork' so tests work with
@@ -57,7 +58,7 @@ class WebdriverBaseTest(LiveServerTestCase):
       chrome_options.add_experimental_option("prefs", preferences)
 
     # Maximum time, in seconds, before throwing a TimeoutException.
-    self.TIMEOUT_SEC = 60
+    self.TIMEOUT_SEC = shared.TIMEOUT
     self.driver = webdriver.Chrome(options=chrome_options)
 
     # Set a reliable window size for all tests (can be overwritten though)

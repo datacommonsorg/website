@@ -23,6 +23,7 @@ import React, { ReactNode, useContext, useEffect } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
+import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_PLOT,
@@ -63,7 +64,6 @@ interface ChartProps {
 
 export const MAP_CONTAINER_ID = "choropleth-map";
 export const LEGEND_CONTAINER_ID = "choropleth-legend";
-export const CHART_CONTAINER_ID = "chart-container";
 const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 export const SECTION_CONTAINER_ID = "map-chart";
@@ -98,7 +98,7 @@ export function Chart(props: ChartProps): JSX.Element {
           <div id="map-chart-screen" className="screen">
             <div id="spinner"></div>
           </div>
-          <div className="chart-section">
+          <div className={`chart-section ${CLASS_DC_CHART_HOLDER}`}>
             <div className="map-title">
               <h3>
                 {title}
