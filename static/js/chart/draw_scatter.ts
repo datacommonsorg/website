@@ -22,6 +22,7 @@ import * as d3 from "d3";
 import * as d3Regression from "d3-regression";
 import ReactDOM from "react-dom";
 
+import { CLASS_DC_CHART_EXIST } from "../constants/css_constants";
 import { ChartQuadrant } from "../constants/scatter_chart_constants";
 import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
@@ -973,4 +974,5 @@ export function drawScatter(
     options.xPerCapita,
     options.yPerCapita
   );
+  svg.attr("class", CLASS_DC_CHART_EXIST);
 }
