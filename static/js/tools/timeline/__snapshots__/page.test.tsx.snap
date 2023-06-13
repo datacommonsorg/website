@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Single place and single stat var 1`] = `
-"<div class=\\"chart-container\\">
+"<div class=\\"chart-container dc-chart-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -21,7 +21,7 @@ exports[`Single place and single stat var 1`] = `
 `;
 
 exports[`Single place and single stat var 2`] = `
-"<div class=\\"chart-container\\">
+"<div class=\\"chart-container dc-chart-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -38,7 +38,7 @@ exports[`Single place and single stat var 2`] = `
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button></div>
   <div class=\\"feedback-link\\"><a href=\\"/feedback\\">Feedback</a></div>
 </div>
-<div class=\\"chart-container\\">
+<div class=\\"chart-container dc-chart-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -58,7 +58,7 @@ exports[`Single place and single stat var 2`] = `
 `;
 
 exports[`Single place and single stat var 3`] = `
-"<div class=\\"chart-container\\">
+"<div class=\\"chart-container dc-chart-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -116,7 +116,7 @@ exports[`Single place and single stat var 4`] = `
 `;
 
 exports[`chart options 1`] = `
-"<div class=\\"chart-container\\">
+"<div class=\\"chart-container dc-chart-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -136,7 +136,7 @@ exports[`chart options 1`] = `
 `;
 
 exports[`statVar not in PV-tree 1`] = `
-"<div class=\\"chart-container\\">
+"<div class=\\"chart-container dc-chart-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\"></span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>

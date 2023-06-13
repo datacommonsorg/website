@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { memo, useEffect, useRef, useState } from "react";
 
+import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
@@ -112,7 +113,7 @@ export const TopEventTile = memo(function TopEventTile(
 
   return (
     <div
-      className={`chart-container ranking-tile ${props.className}`}
+      className={`chart-container ${CLASS_DC_CHART_HOLDER} ranking-tile ${props.className}`}
       ref={chartContainer}
     >
       <div

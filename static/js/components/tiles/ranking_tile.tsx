@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
+import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
@@ -106,7 +107,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 
   return (
     <div
-      className={`chart-container ranking-tile ${props.className}`}
+      className={`chart-container ${CLASS_DC_CHART_HOLDER} ranking-tile ${props.className}`}
       ref={chartContainer}
       style={{
         gridTemplateColumns:

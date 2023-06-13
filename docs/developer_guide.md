@@ -202,7 +202,7 @@ sudo chmod +x /usr/bin/chromedriver
 
 ```bash
 cd static
-npm test testfilename -- -u
+npm test testfilename -- -u .
 ```
 
 ## Other Developing Tips

@@ -16,10 +16,8 @@
 import copy
 import json
 import logging
-import os
 from typing import Dict, List
 
-from flask import abort
 from flask import Blueprint
 from flask import current_app
 from flask import render_template
@@ -31,7 +29,6 @@ from server.lib import fetch
 import server.lib.shared as shared_api
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
-import server.services.datacommons as dc
 
 DEFAULT_EVENT_DCID = ""
 
@@ -44,11 +41,11 @@ DEFAULT_CONTAINED_PLACE_TYPES = {
 }
 
 EMPTY_SUBJECT_PAGE_ARGS = {
-    "place_type": "{}",
+    "place_types": "[]",
     "place_name": "",
     "place_dcid": "",
     "parent_places": "[]",
-    "config": "{}",
+    "subject_config": "{}",
 }
 
 LOCATION_PROPERTIES = ['location', 'startLocation']
@@ -183,7 +180,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
 
       # TODO: If not enough charts from the current place, add from the next place up and so on.
       subject_page_args = {
-          "place_type": place_metadata.place_type,
+          "place_types": json.dumps([place_metadata.place_type]),
           "place_name": place_metadata.place_name,
           "place_dcid": place_dcid,
           "parent_places": json.dumps(place_metadata.parent_places),
