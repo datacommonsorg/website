@@ -28,18 +28,18 @@ SCREENSHOTS_FOLDER = 'screenshots'
 def run(driver, url):
   """Take screenshot and save to desired folders"""
   for f in os.listdir(SCREENSHOTS_FOLDER):
-    os.remove(os.path.join(SCREENSHOTS_FOLDER, f))
+    if f != '.gitkeep':
+      os.remove(os.path.join(SCREENSHOTS_FOLDER, f))
   curr_dir = os.path.dirname(os.path.abspath(__file__))
   with open(os.path.join(curr_dir, 'page.json')) as f:
     config = json.load(f)
     for page in config:
-      logging.info(url + page['url'])
-      driver.get(url + page['url'])
-      name = urllib.parse.quote_plus(page['url'].removeprefix('/'))
       # Set the window size. Testing different sizes.
       driver.set_window_size(width=WIDTH,
                              height=page['height'],
                              windowHandle='current')
+      driver.get(url + page['url'])
+      name = urllib.parse.quote_plus(page['url'].removeprefix('/'))
       WebDriverWait(driver, shared.TIMEOUT).until(shared.charts_rendered)
       # Take a screenshot of the page and save it.
       file_name = '{}/{}.png'.format(SCREENSHOTS_FOLDER, name)

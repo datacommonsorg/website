@@ -33,12 +33,14 @@ DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
 
 
-def create_driver():
+def create_driver(preferences=None):
   # These options are needed to run ChromeDriver inside a Docker without a UI.
   chrome_options = Options()
-  # chrome_options.add_argument('--headless=new')
+  chrome_options.add_argument('--headless=new')
   chrome_options.add_argument('--no-sandbox')
   chrome_options.add_argument('--disable-dev-shm-usage')
+  if preferences:
+    chrome_options.add_experimental_option("prefs", preferences)
   driver = webdriver.Chrome(options=chrome_options)
   # Set a reliable window size for all tests (can be overwritten though)
   driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)
@@ -59,11 +61,11 @@ class WebdriverBaseTest(LiveServerTestCase):
     app_instance.config['LIVESERVER_PORT'] = 0
     return app_instance
 
-  def setUp(self):
+  def setUp(self, preferences=None):
     """Runs at the beginning of every individual test."""
     # Maximum time, in seconds, before throwing a TimeoutException.
     self.TIMEOUT_SEC = shared.TIMEOUT
-    self.driver = create_driver()
+    self.driver = create_driver(preferences)
     # The URL of the Data Commons server.
     self.url_ = self.get_server_url()
 
