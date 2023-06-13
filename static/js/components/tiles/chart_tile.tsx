@@ -18,9 +18,9 @@
  * A container for any tile containing a chart.
  */
 
-import _ from "lodash";
 import React, { useRef } from "react";
 
+import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import {
@@ -57,7 +57,9 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const showEmbed = props.allowEmbed && !props.isInitialLoading;
   return (
     <div
-      className={`chart-container ${props.className ? props.className : ""}`}
+      className={`chart-container ${CLASS_DC_CHART_HOLDER} ${
+        props.className ? props.className : ""
+      }`}
       ref={containerRef}
     >
       <div

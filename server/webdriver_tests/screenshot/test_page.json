@@ -1,0 +1,18 @@
+[
+  {
+    "url": "/place/country/USA?topic=Demographics",
+    "height": 4400
+  },
+  {
+    "url": "/tools/timeline#&place=geoId/0606000,geoId/2511000&statsVar=Median_Age_Person",
+    "height": 1000
+  },
+  {
+    "url": "/ranking/Median_Income_Person/County/country/USA",
+    "height": 1080
+  },
+  {
+    "url": "/tools/map#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility",
+    "height": 1080
+  }
+]
