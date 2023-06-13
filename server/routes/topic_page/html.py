@@ -143,5 +143,5 @@ def topic_page(topic_id=None, place_dcid=None):
       more_places=json.dumps(more_places),
       topic_id=topic_id,
       topic_name=topic_place_config.metadata.topic_name or "",
-      config=MessageToJson(topic_place_config),
+      page_config=MessageToJson(topic_place_config),
       topics_summary=topics_summary)
