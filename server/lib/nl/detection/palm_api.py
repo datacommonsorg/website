@@ -26,7 +26,7 @@ from server.lib.nl.common import counters
 _API_URL_BASE = f"https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage"
 _API_HEADER = {'content-type': 'application/json'}
 
-
+# TODO: Move this to a text file.
 _PROMPT_CONTEXT_ORIG = \
 ("""You are going to be a super helpful assistant that will convert an english sentence to a JSON object.
 
@@ -259,7 +259,7 @@ Do not make up new JSON properties outside of the JSON Schema.
 
 _SUFFIX = '\n\nIn your response, include just the JSON adhering to the above schema. Do not add JSON keys outside the schema.  Also, explain why you set specific enum values.'
 
-# TODO: Consider tweaking this.
+# TODO: Consider tweaking this. And maybe consider passing as url param.
 _TEMPERATURE = 1.0
 
 _CANDIDATE_COUNT = 1
@@ -278,12 +278,13 @@ _SKIP_BEGIN_CHARS = ['`', '*']
 
 
 def call(query: str, history: str, ctr: counters.Counters) -> str:
-  logging.info(f'Doing PaLM API for {query}')
   req_data = _REQ_DATA.copy()
 
   if not history:
+    # For the first query in the session.
     q = 'Convert this sentence to JSON: "' + query + '"'
   else:
+    # For subsequent queries in the session.
     q = 'As a follow up to the last sentence, convert this sentence to JSON: "' + query + '"'
   req_data['prompt']['messages']['content'] = q + _SUFFIX
 
@@ -299,6 +300,7 @@ def call(query: str, history: str, ctr: counters.Counters) -> str:
 
   start_time = time.time()
   req = json.dumps(req_data)
+  # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['PALM_API_KEY']
   r = requests.post(f'{_API_URL_BASE}?key={api_key}',
                     data=req,
@@ -311,9 +313,20 @@ def call(query: str, history: str, ctr: counters.Counters) -> str:
 
 def _parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
   if 'candidates' in resp and resp['candidates']:
-    ans = _extract_ans(resp['candidates'][0]['content'])
-    logging.info(f'PaLM returned <{ans}>')
-    return json.loads(ans)
+    content = resp['candidates'][0]['content']
+    ans = _extract_ans(content)
+    if not ans:
+      ctr.err('failed_palm_api_emptyparsedresult', content)
+      return {}
+
+    try:
+      ans_json = json.loads(ans)
+    except json.decoder.JSONDecodeError as e:
+      logging.error(f'ERROR: json decoding failed {e}')
+      ctr.err('failed_palm_api_jsondecodeerror', ans)
+      return {}
+
+    return ans_json
 
   if "error" not in resp:
     # TODO: Unclear why this occasionally happens.

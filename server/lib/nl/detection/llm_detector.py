@@ -128,8 +128,8 @@ def _merge_sv_dicts(sv_list: List[str], svs_score_dicts: List[Dict]) -> Dict:
   if len(svs_score_dicts) == 1:
     return svs_score_dicts[0]
 
-  # This is the case of multiple since SV, which we should merge into
-  # the MultiSV case.
+  # This is the case of multiple stat-vars detected by PaLM, which we should
+  # merge into the MultiSV case, for downstream handling.
 
   # Just something to fill up 'SV', 'CosineScore', etc.
   merged_dict = svs_score_dicts[0]
