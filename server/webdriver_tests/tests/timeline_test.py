@@ -80,7 +80,7 @@ class TestCharts(WebdriverBaseTest):
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
 
     # Wait until the group of charts has loaded.
-    shared.wait_for_charts(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
 
     # Store a list of all the charts.
     charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')

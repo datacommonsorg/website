@@ -19,7 +19,7 @@ import urllib.parse
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver_tests.base_test import WebdriverBaseTest
-from server.webdriver_tests.shared import wait_for_charts
+from server.webdriver_tests.shared import charts_rendered
 
 # TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
@@ -43,7 +43,7 @@ class TestScreenShot(WebdriverBaseTest):
         self.driver.set_window_size(width=WIDTH,
                                     height=test_info['height'],
                                     windowHandle='current')
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(wait_for_charts)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(charts_rendered)
         # Take a screenshot of the page and save it.
         file_name = '{}/{}.png'.format(SCREENSHOTS_FOLDER, name)
         self.assertTrue(self.driver.save_screenshot(file_name))

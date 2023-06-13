@@ -22,6 +22,7 @@ LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
 CHART_HOLDER_CLASS = 'dc-chart-holder'
 CHART_EXIST_CLASS = 'dc-chart-exist'
+TIMEOUT = 60
 
 
 def wait_for_loading(driver):
@@ -52,12 +53,12 @@ def click_sv_group(driver, svg_name):
       break
 
 
-def wait_for_charts(driver):
+def charts_rendered(driver):
   """Wait for asyncronously charts to show up.
   """
   element_present = EC.presence_of_element_located(
       (By.CLASS_NAME, CHART_HOLDER_CLASS))
-  WebDriverWait(driver, 30).until(element_present)
+  WebDriverWait(driver, TIMEOUT).until(element_present)
   chart_containers = driver.find_elements(By.CLASS_NAME, CHART_HOLDER_CLASS)
   for c in chart_containers:
     try:

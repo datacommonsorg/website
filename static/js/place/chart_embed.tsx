@@ -275,7 +275,6 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         sourcesHeight +
         SOURCES_MARGIN
     );
-    svg.attr("class", CLASS_DC_CHART_EXIST);
     const s = new XMLSerializer();
     const svgXml = s.serializeToString(svg.node());
     container.innerHTML = "";

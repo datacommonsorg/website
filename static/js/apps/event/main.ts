@@ -51,7 +51,6 @@ function renderPage(): void {
   const placeName = document.getElementById("place").dataset.name || placeDcid;
   const placeTypes =
     JSON.parse(document.getElementById("place").dataset.types) || [];
-  console.log(placeTypes);
   const place = { dcid: placeDcid, name: placeName, types: placeTypes };
   const parentPlaces = JSON.parse(
     document.getElementById("place").dataset.parents || "[]"
