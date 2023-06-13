@@ -25,3 +25,4 @@ class Config(_base.Config):
   LOG_QUERY = True
   SHOW_TOPIC = True
   SHOW_SUSTAINABILITY = True
+  USE_PALM = True

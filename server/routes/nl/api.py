@@ -32,7 +32,8 @@ import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
-import server.lib.nl.detection.detector as detector
+import server.lib.nl.detection.heuristic_detector as heuristic_detector
+import server.lib.nl.detection.llm_detector as llm_detector
 from server.lib.nl.detection.types import Place
 import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
@@ -70,6 +71,8 @@ def data():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
 
+  use_llm = request.args.get('llm', default=False, type=bool)
+
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
       'place': {
@@ -87,24 +90,36 @@ def data():
 
   if not query:
     logging.info("Query was empty")
-    query_detection = detector.detect("", "", embeddings_index_type,
-                                      query_detection_debug_logs, counters)
+    query_detection = heuristic_detector.detect("", "", embeddings_index_type,
+                                                query_detection_debug_logs,
+                                                counters)
     data_dict = dbg.result_with_debug_info(
         data_dict=res,
         status="Aborted: Query was Empty.",
         query_detection=query_detection,
         uttr_history=escaped_context_history,
         debug_counters=counters.get(),
-        query_detection_debug_logs=query_detection_debug_logs)
+        query_detection_debug_logs=query_detection_debug_logs,
+        use_llm=False)
     logging.info('NL Data API: Empty Exit')
     return data_dict
+
+  if use_llm and 'PALM_API_KEY' not in current_app.config:
+    counters.err('failed_palm_keynotfound', '')
+    use_llm = False
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(str(escape(original_query)), query,
-                                    embeddings_index_type,
-                                    query_detection_debug_logs, counters)
+  if use_llm:
+    query_detection = llm_detector.detect(original_query, context_history,
+                                          embeddings_index_type,
+                                          query_detection_debug_logs, counters)
+  else:
+    query_detection = heuristic_detector.detect(str(escape(original_query)),
+                                                query, embeddings_index_type,
+                                                query_detection_debug_logs,
+                                                counters)
   counters.timeit('query_detection', start)
 
   # Generate new utterance.
@@ -166,7 +181,7 @@ def data():
 
   data_dict = dbg.result_with_debug_info(data_dict, status_str, query_detection,
                                          context_history, dbg_counters,
-                                         query_detection_debug_logs)
+                                         query_detection_debug_logs, use_llm)
 
   logging.info('NL Data API: Exit')
   return data_dict

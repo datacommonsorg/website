@@ -30,6 +30,7 @@ SIMPLE_PLACE_ONLY_UTTR = {
         'place_type': 'State',
         'country': 'country/USA',
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
     'ranked_charts': [{
@@ -69,6 +70,7 @@ OVERVIEW_PLACE_ONLY_UTTR = {
         'place_type': 'State',
         'country': 'country/USA',
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
     'ranked_charts': [{
@@ -106,6 +108,7 @@ SIMPLE_UTTR = {
         'place_type': 'State',
         'country': 'country/USA',
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
@@ -164,6 +167,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         'place_type': 'State',
         'country': 'country/USA',
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
@@ -223,6 +227,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'place_type': 'State',
         'country': 'country/USA',
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
@@ -305,6 +310,7 @@ COMPARISON_UTTR = {
         'place_type': 'State',
         'country': 'country/USA',
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.COMPARISON_ACROSS_PLACES,
     'ranked_charts': [{
@@ -372,6 +378,7 @@ CONTAINED_IN_UTTR = {
         'type': ClassificationType.CONTAINED_IN
     }],
     'places': [],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CONTAINED_IN,
     'ranked_charts': [{
@@ -428,6 +435,7 @@ CORRELATION_UTTR = {
         'type': ClassificationType.CORRELATION
     }],
     'places': [],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CORRELATION_ACROSS_VARS,
     'ranked_charts': [{
@@ -488,6 +496,7 @@ MULTISV_CORRELATION_UTTR = {
         'name': 'Foo Place',
         'place_type': 'State'
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CORRELATION_ACROSS_VARS,
     'ranked_charts': [{
@@ -527,6 +536,7 @@ RANKING_ACROSS_PLACES_UTTR = {
         'type': QueryType.CONTAINED_IN,
     }],
     'places': [],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.RANKING_ACROSS_PLACES,
     'ranked_charts': [{
@@ -562,6 +572,7 @@ RANKING_ACROSS_SVS_UTTR = {
         'type': ClassificationType.RANKING
     }],
     'places': [],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.RANKING_ACROSS_VARS,
     'ranked_charts': [{
@@ -601,6 +612,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'type': ClassificationType.TIME_DELTA
     }],
     'places': [],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.TIME_DELTA_ACROSS_VARS,
     'ranked_charts': [{
@@ -694,6 +706,7 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'place_type': 'State',
         'country': 'country/USA',
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
@@ -757,6 +770,7 @@ EVENT_UTTR = {
         'place_type': 'State',
         'country': 'country/USA',
     }],
+    'llm_resp': {},
     'query': 'foo sv in place',
     'query_type': QueryType.EVENT,
     'ranked_charts': [{

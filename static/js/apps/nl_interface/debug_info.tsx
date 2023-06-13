@@ -169,6 +169,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
   const debugInfo = {
     status: props.debugData["status"],
     originalQuery: props.debugData["original_query"],
+    detectionType: props.debugData["detection_type"],
     placesDetected: props.debugData["places_detected"],
     placesResolved: props.debugData["places_resolved"],
     mainPlaceDCID: props.debugData["main_place_dcid"],
@@ -211,6 +212,9 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <b>Execution Status: </b> {debugInfo.status}
+          </Row>
+          <Row>
+            <b>Detection Type: </b> {debugInfo.detectionType}
           </Row>
           <Row>
             <b>Original Query: </b> {debugInfo.originalQuery}
