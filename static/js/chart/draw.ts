@@ -1462,11 +1462,9 @@ function buildInChartLegend(
 }
 
 export {
-  appendLegendElem,
   drawGroupBarChart,
   drawGroupLineChart,
   drawHistogram,
   drawLineChart,
   drawStackBarChart,
-  wrap,
 };

@@ -139,15 +139,11 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     setSvgHeight(svgHeight);
   }, [props]);
 
-  const rs: ReplacementStrings = {
-    placeName: props.place.name,
-    date: mapChartData && mapChartData.dateRange,
-  };
   return (
     <ChartTileContainer
       title={props.title}
       sources={mapChartData && mapChartData.sources}
-      replacementStrings={rs}
+      replacementStrings={getReplacementStrings(props, mapChartData)}
       className={`${props.className} map-chart`}
       allowEmbed={true}
       getDataCsv={
@@ -176,6 +172,16 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       </div>
     </ChartTileContainer>
   );
+}
+
+export function getReplacementStrings(
+  props: MapTilePropType,
+  chartData: MapChartData
+): ReplacementStrings {
+  return {
+    placeName: props.place.name,
+    date: chartData && chartData.dateRange,
+  };
 }
 
 export const fetchData = async (
@@ -243,6 +249,8 @@ export const fetchData = async (
       parentPlaces,
       borderGeoJson,
     };
+    //console.log("got raw")
+    //console.log(props)
     return rawToChart(
       rawData,
       props.statVarSpec,

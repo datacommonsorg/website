@@ -97,15 +97,11 @@ export function BarTile(props: BarTilePropType): JSX.Element {
 
   useDrawOnResize(drawFn, chartContainerRef.current);
 
-  const rs: ReplacementStrings = {
-    placeName: props.place ? props.place.name : "",
-    date: barChartData && barChartData.dateRange,
-  };
   return (
     <ChartTileContainer
       title={props.title}
       sources={barChartData && barChartData.sources}
-      replacementStrings={rs}
+      replacementStrings={getReplacementStrings(props, barChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
       getDataCsv={
@@ -127,6 +123,16 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       ></div>
     </ChartTileContainer>
   );
+}
+
+export function getReplacementStrings(
+  props: BarTilePropType,
+  chartData: BarChartData
+): ReplacementStrings {
+  return {
+    placeName: props.place ? props.place.name : "",
+    date: chartData && chartData.dateRange,
+  };
 }
 
 export const fetchData = async (props: BarTilePropType) => {
