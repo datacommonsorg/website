@@ -18,8 +18,8 @@ import sys
 from flask_testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from server.webdriver_tests import shared
 
+from server.webdriver_tests import shared
 from web_app import app
 
 # Explicitly set multiprocessing start method to 'fork' so tests work with
