@@ -160,12 +160,11 @@ def merge_responses(resp_1: dict, resp_2: dict) -> dict:
         # key is not in resp_2, or values conflict, take value from resp_1
         merged_resp[key] = val
     elif type(val) == list:
-      if key in resp_2:
-        if type(resp_2[key]) == list:
-          merged_resp[key] = resp_1[key] + resp_2[key]
-        else:
-          # values in resp_1 and resp_2 conflict, take value from resp_1
-          merged_resp[key] = val
+      if key in resp_2 and type(resp_2[key]) == list:
+        merged_resp[key] = resp_1[key] + resp_2[key]
+      else:
+        # key is not in resp_2, or values conflict, take value from resp_1
+        merged_resp[key] = val
     else:
       merged_resp[key] = val
 

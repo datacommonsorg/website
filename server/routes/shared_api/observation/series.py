@@ -79,7 +79,7 @@ def series_within():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  batch_size = request.args.get('batch_size') or _MAX_BATCH_SIZE
+  batch_size = request.args.get('batchSize') or _MAX_BATCH_SIZE
   # Make batched calls there are too many child places for server to handle
   if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
     try:
