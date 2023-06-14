@@ -15,11 +15,11 @@
  */
 
 /**
- * Constants used for css styling.
+ * Constants shared across components for stat-var tool.
  */
 
-// A class used to indicate a chart element exist.
-export const ASYNC_ELEMENT_CLASS = "dc-async-element";
-
-// A class used to indicate an element is a holder for inner chart elements.
-export const ASYNC_ELEMENT_HOLDER_CLASS = "dc-async-element-holder";
+export const SV_URL_PARAMS = {
+  DATASET: "d",
+  SOURCE: "s",
+  STAT_VAR: "sv",
+};

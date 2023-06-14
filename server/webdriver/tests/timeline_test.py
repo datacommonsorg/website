@@ -83,7 +83,7 @@ class TestCharts(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
 
     # Store a list of all the charts.
-    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')
+    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-async-element')
     # Assert there are three charts.
     self.assertEqual(len(charts), 3)
     # Wait until the charts are drawn.
@@ -114,9 +114,9 @@ class TestCharts(WebdriverBaseTest):
     time.sleep(2)
 
     # Re-store a list of all the charts.
-    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')
+    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-async-element')
     # Assert there are two charts.
-    self.assertEqual(len(charts), 2)
+    self.assertEqual(len(charts), 3)
 
   def test_check_statvar_and_uncheck(self):
     """Test check and uncheck one statvar."""
@@ -147,12 +147,12 @@ class TestCharts(WebdriverBaseTest):
     # Wait until there is a card present.
     shared.wait_for_loading(self.driver)
     element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'dc-chart-exist'))
+        (By.CLASS_NAME, 'dc-async-element'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    # Assert there is one chart.
-    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')
-    self.assertEqual(len(charts), 1)
+    # Assert there is one chart and on opened hierarchy.
+    charts = self.driver.find_elements(By.CLASS_NAME, 'dc-async-element')
+    self.assertEqual(len(charts), 2)
 
     # Uncheck the checked stat var.
     self.driver.find_element(

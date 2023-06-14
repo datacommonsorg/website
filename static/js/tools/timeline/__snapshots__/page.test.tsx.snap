@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Single place and single stat var 1`] = `
-"<div class=\\"chart-container dc-chart-holder\\">
+"<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -21,7 +21,7 @@ exports[`Single place and single stat var 1`] = `
 `;
 
 exports[`Single place and single stat var 2`] = `
-"<div class=\\"chart-container dc-chart-holder\\">
+"<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -38,7 +38,7 @@ exports[`Single place and single stat var 2`] = `
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button></div>
   <div class=\\"feedback-link\\"><a href=\\"/feedback\\">Feedback</a></div>
 </div>
-<div class=\\"chart-container dc-chart-holder\\">
+<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -58,7 +58,7 @@ exports[`Single place and single stat var 2`] = `
 `;
 
 exports[`Single place and single stat var 3`] = `
-"<div class=\\"chart-container dc-chart-holder\\">
+"<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -78,12 +78,12 @@ exports[`Single place and single stat var 3`] = `
 `;
 
 exports[`Single place and single stat var 4`] = `
-"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">remove</i><span class=\\"title selected-node-title\\">Demographics<span class=\\"sv-count\\">(100)</span></span></div></span>
+"<div class=\\"dc-async-element-holder\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">remove</i><span class=\\"title selected-node-title\\">Demographics<span class=\\"sv-count\\">(100)</span></span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\">
     <div class=\\"svg-node-child\\">
       <div>
-        <form class=\\"node-title\\"><input id=\\"Count_Persondc/g/Demographics-Count_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"selected-node-title\\" for=\\"Count_Persondc/g/Demographics-Count_Person\\">Count Of Person</label></form>
+        <form class=\\"node-title\\"><input id=\\"Count_Persondc/g/Demographics-Count_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"selected-node-title dc-async-element\\" for=\\"Count_Persondc/g/Demographics-Count_Person\\">Count Of Person</label></form>
       </div>
       <div>
         <form class=\\"node-title\\"><input id=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"\\" for=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\">Median age of person</label></form>
@@ -116,7 +116,7 @@ exports[`Single place and single stat var 4`] = `
 `;
 
 exports[`chart options 1`] = `
-"<div class=\\"chart-container dc-chart-holder\\">
+"<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -136,7 +136,7 @@ exports[`chart options 1`] = `
 `;
 
 exports[`statVar not in PV-tree 1`] = `
-"<div class=\\"chart-container dc-chart-holder\\">
+"<div class=\\"chart-container dc-async-element-holder\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\"></span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
