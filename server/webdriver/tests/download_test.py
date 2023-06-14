@@ -21,8 +21,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver_tests.base_test import WebdriverBaseTest
-import server.webdriver_tests.shared as shared
+from server.webdriver.base import WebdriverBaseTest
+import server.webdriver.shared as shared
 
 DOWNLOAD_URL = '/tools/download'
 PLACE_SEARCH_CA = 'California'

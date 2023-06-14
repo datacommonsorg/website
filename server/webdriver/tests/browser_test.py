@@ -19,8 +19,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver_tests.base_test import WebdriverBaseTest
-import server.webdriver_tests.shared as shared
+from server.webdriver.base import WebdriverBaseTest
+import server.webdriver.shared as shared
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'

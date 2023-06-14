@@ -18,7 +18,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver_tests.base_test import WebdriverBaseTest
+from server.webdriver.base import WebdriverBaseTest
 
 MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
