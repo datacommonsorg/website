@@ -78,12 +78,12 @@ exports[`Single place and single stat var 3`] = `
 `;
 
 exports[`Single place and single stat var 4`] = `
-"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">remove</i><span class=\\"title selected-node-title\\">Demographics<span class=\\"sv-count\\">(100)</span></span></div></span>
+"<div class=\\"dc-chart-holder\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">remove</i><span class=\\"title selected-node-title\\">Demographics<span class=\\"sv-count\\">(100)</span></span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\">
     <div class=\\"svg-node-child\\">
       <div>
-        <form class=\\"node-title\\"><input id=\\"Count_Persondc/g/Demographics-Count_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"selected-node-title\\" for=\\"Count_Persondc/g/Demographics-Count_Person\\">Count Of Person</label></form>
+        <form class=\\"node-title\\"><input id=\\"Count_Persondc/g/Demographics-Count_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"selected-node-title dc-chart-exist\\" for=\\"Count_Persondc/g/Demographics-Count_Person\\">Count Of Person</label></form>
       </div>
       <div>
         <form class=\\"node-title\\"><input id=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\" name=\\"stat-var-hierarchy\\" type=\\"checkbox\\"><label class=\\"\\" for=\\"Median_Age_Persondc/g/Demographics-Median_Age_Person\\">Median age of person</label></form>

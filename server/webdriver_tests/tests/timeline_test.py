@@ -116,7 +116,7 @@ class TestCharts(WebdriverBaseTest):
     # Re-store a list of all the charts.
     charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')
     # Assert there are two charts.
-    self.assertEqual(len(charts), 2)
+    self.assertEqual(len(charts), 3)
 
   def test_check_statvar_and_uncheck(self):
     """Test check and uncheck one statvar."""
@@ -150,9 +150,9 @@ class TestCharts(WebdriverBaseTest):
         (By.CLASS_NAME, 'dc-chart-exist'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    # Assert there is one chart.
+    # Assert there is one chart and on opened hierarchy.
     charts = self.driver.find_elements(By.CLASS_NAME, 'dc-chart-exist')
-    self.assertEqual(len(charts), 1)
+    self.assertEqual(len(charts), 2)
 
     # Uncheck the checked stat var.
     self.driver.find_element(
