@@ -16,8 +16,8 @@
 {%- extends BASE_HTML -%}
 
 {% set main_id = 'screenshot' %}
-{% set page_id = 'page-screenshot-landing' %}
-{% set title = 'Screenshot Page List' %}
+{% set page_id = 'page-screenshot-home' %}
+{% set title = 'Screenshot Home Page' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/screenshot.min.css')}}>
@@ -35,14 +35,18 @@
             {{item['sha']}}
           </th>
           <th>
-            <a href="/screenshot/commit/{{item['sha']}}">current</a>
+            <a href="/screenshot/commit/{{item['sha']}}">this</a>
           </th>
           <th>
-            <a href="/screenshot/compare/{{item['compare']}}">diff (vs previoius)</a>
+            <a
+            href="/screenshot/compare/{{item['prev_sha']}}...{{item['sha']}}">diff
+            (vs last)</a>
           </th>
-          {% if item['compare_base'] %}
+          {% if item['base_sha'] %}
             <th>
-              <a href="/screenshot/compare/{{item['compare_base']}}">diff (vs base)</a>
+              <a
+              href="/screenshot/compare/{{item['base_sha']}}...{{item['sha']}}">diff
+              (vs base)</a>
             </th>
           {% endif %}
         </tr>

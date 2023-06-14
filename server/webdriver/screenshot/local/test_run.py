@@ -21,4 +21,4 @@ class Test(WebdriverBaseTest):
 
   def test_run_local(self):
     """Test these page can show correctly and do screenshot."""
-    self.assertTrue(runner.run(self.driver, self.url_))
+    self.assertTrue(runner.run(self.driver, self.url_, 'local'))
