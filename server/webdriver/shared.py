@@ -20,8 +20,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
-CHART_HOLDER_CLASS = 'dc-chart-holder'
-CHART_EXIST_CLASS = 'dc-chart-exist'
+CHART_HOLDER_CLASS = 'dc-async-element-holder'
+CHART_EXIST_CLASS = 'dc-async-element'
 TIMEOUT = 60
 
 

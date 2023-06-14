@@ -23,7 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 
-import { CLASS_DC_CHART_EXIST } from "../constants/css_constants";
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
   RADIO_BUTTON_TYPES,
@@ -162,7 +162,7 @@ export class StatVarSectionInput extends React.Component<
         <label
           className={
             this.state.checked
-              ? `selected-node-title ${CLASS_DC_CHART_EXIST}`
+              ? `selected-node-title ${ASYNC_ELEMENT_CLASS}`
               : ""
           }
           htmlFor={sectionId}

@@ -23,7 +23,7 @@ import _ from "lodash";
 import React from "react";
 import Collapsible from "react-collapsible";
 
-import { CLASS_DC_CHART_HOLDER } from "../constants/css_constants";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
   RADIO_BUTTON_TYPES,
@@ -211,7 +211,7 @@ export class StatVarGroupNode extends React.Component<
           transitionTime={200}
           onOpen={this.scrollToHighlighted}
           containerElementProps={
-            shouldOpen ? { className: CLASS_DC_CHART_HOLDER } : {}
+            shouldOpen ? { className: ASYNC_ELEMENT_HOLDER_CLASS } : {}
           }
         >
           <>
