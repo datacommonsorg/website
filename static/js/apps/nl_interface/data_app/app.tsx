@@ -163,8 +163,8 @@ export function App(): JSX.Element {
           }}
           indexType={indexType}
           useLLM={useLLM}
-          setIndexType={(v) => setIndexType(v)}
-          setUseLLM={(v) => setUseLLM(v)}
+          setIndexType={setIndexType}
+          setUseLLM={setUseLLM}
         />
       </div>
     </>
