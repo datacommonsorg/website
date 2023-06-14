@@ -22,7 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-const MAX_QUERY_COUNT = 10;
+import { MAX_QUERY_COUNT } from "./nl_constants";
 
 interface QueryHistoryProps {
   // Callback function for history item clicks.

@@ -27,8 +27,7 @@ import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
-
-const SVG_CHART_HEIGHT = 160;
+import { SVG_CHART_HEIGHT } from "./nl_constants";
 
 export interface QueryResultProps {
   query: string;

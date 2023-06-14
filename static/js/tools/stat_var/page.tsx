@@ -28,12 +28,13 @@ import {
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
+import { getUrlToken, updateHash } from "../../shared/url_utils";
 import { stringifyFn } from "../../utils/axios";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
-import { getUrlToken, SV_URL_PARAMS, updateHash } from "./util";
+import { SV_URL_PARAMS } from "./stat_var_constants";
 
 const SVG_URL_PREFIX = "/api/variable-group/info?dcid=dc/g/Root&entities=";
 
