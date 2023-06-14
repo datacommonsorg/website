@@ -204,7 +204,7 @@ Draws bar chart tile with specified [statistical variable](https://datacommons.o
     Datacommons [statistical variable](https://datacommons.org/tools/statvar) configuration
 
     - `statVar` (string): Statistical variable dcid
-    - `denom` (string): Denominator (e.g., `Total_Population`)
+    - `denom` (string): Denominator (e.g., `Count_Person`)
     - `unit` (string): [Unit](https://datacommons.org/browser/UnitOfMeasure) (e.g., '$')
     - `scaling` (number):
     - `log` (boolean): Set to true to color values using logarithmic scale
