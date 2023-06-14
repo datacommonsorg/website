@@ -20,6 +20,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 
+# TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
 SCREENSHOTS_FOLDER = 'screenshots'
 

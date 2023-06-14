@@ -15,8 +15,6 @@
 from server.webdriver.base import WebdriverBaseTest
 from server.webdriver.screenshot import runner
 
-# TODO(shifucun): add test for narrow width for mobile testing
-
 
 # Class to test screenshot capture.
 class Test(WebdriverBaseTest):
