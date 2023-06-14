@@ -15,14 +15,8 @@
  */
 
 /**
- * Constants and functions shared across components.
+ * URL related helpers shared across components.
  */
-
-export const SV_URL_PARAMS = {
-  DATASET: "d",
-  SOURCE: "s",
-  STAT_VAR: "sv",
-};
 
 /**
  * Returns token for URL param.
@@ -32,6 +26,20 @@ export const SV_URL_PARAMS = {
 export function getUrlToken(param: string): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   return urlParams.get(param);
+}
+
+/**
+ * Returns token for URL param, or the given default.
+ * @param param URL param
+ * @def def default value
+ * @returns Corresponding token
+ */
+export function getUrlTokenOrDefault(param: string, def: string): string {
+  const res = getUrlToken(param);
+  if (res === null) {
+    return def;
+  }
+  return res;
 }
 
 /**
