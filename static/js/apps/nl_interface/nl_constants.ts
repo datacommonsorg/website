@@ -19,8 +19,8 @@
  */
 
 export const NL_URL_PARAMS = {
-  LLM: "llm",
   IDX: "idx",
+  LLM: "llm",
   SMALL: "small",
   MEDIUM: "medium",
 };
