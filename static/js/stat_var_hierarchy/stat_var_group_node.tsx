@@ -23,6 +23,7 @@ import _ from "lodash";
 import React from "react";
 import Collapsible from "react-collapsible";
 
+import { CLASS_DC_CHART_HOLDER } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
   RADIO_BUTTON_TYPES,
@@ -193,6 +194,8 @@ export class StatVarGroupNode extends React.Component<
         nodeDcid: this.props.data.id,
       });
     };
+    const shouldOpen =
+      this.state.isOpen && !_.isNull(this.state.dataFetchedEntities);
     return (
       <>
         {!_.isEmpty(this.state.errorMessage) && (
@@ -201,16 +204,14 @@ export class StatVarGroupNode extends React.Component<
         <Collapsible
           trigger={getTrigger(false)}
           triggerWhenOpen={getTrigger(true)}
-          open={this.state.isOpen && !_.isNull(this.state.dataFetchedEntities)}
+          open={shouldOpen}
           handleTriggerClick={() => {
             this.setState({ isOpen: !this.state.isOpen });
           }}
           transitionTime={200}
           onOpen={this.scrollToHighlighted}
           containerElementProps={
-            this.props.isSelected
-              ? { className: "highlighted-stat-var-group" }
-              : {}
+            shouldOpen ? { className: CLASS_DC_CHART_HOLDER } : {}
           }
         >
           <>

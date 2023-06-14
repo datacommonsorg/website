@@ -226,6 +226,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log(`Skipping ${this.props.title} - missing sources`);
       return null;
     }
+    sources.sort();
     const sourcesJsx = sources.map((source, index) => {
       const domain = urlToDomain(source);
       return (
