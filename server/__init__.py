@@ -355,6 +355,7 @@ def create_app():
 
     # Get the API key from environment first.
     if cfg.USE_PALM:
+      app.config['PALM_PROMPT_TEXT'] = libutil.get_llm_prompt_text()
       if os.environ.get('PALM_API_KEY'):
         app.config['PALM_API_KEY'] = os.environ.get('PALM_API_KEY')
       else:

@@ -42,7 +42,7 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
             { placeName: this.props.placeName }
           )}
         </span>
-        {Object.keys(this.props.childPlaces).map((placeType) => (
+        {[...Object.keys(this.props.childPlaces)].sort().map((placeType) => (
           <div key={placeType} className="child-place-group">
             <div className="child-place-type">
               {displayNameForPlaceType(placeType, true /* isPlural */)}

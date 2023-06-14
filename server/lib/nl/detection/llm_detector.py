@@ -19,16 +19,67 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib.nl.common import counters
+from server.lib.nl.common import utterance
 from server.lib.nl.detection import palm_api
+from server.lib.nl.detection import types
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.place import infer_place_dcids
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
 
+# TODO: Add support for COMPARISON_FILTER and RANKING_FILTER
+_LLM_TYPE_TO_CLASSIFICATION_TYPE = {
+    'RANK': (types.ClassificationType.RANKING, 'ranking_type'),
+    'SUB_PLACE_TYPE':
+        (types.ClassificationType.CONTAINED_IN, 'contained_in_place_type'),
+    'COMPARE': (None, None),
+    'GROWTH': (types.ClassificationType.TIME_DELTA, 'time_delta_type'),
+    'SIZE': (types.ClassificationType.SIZE_TYPE, 'size_type'),
+    'DISASTER_EVENT': (types.ClassificationType.EVENT, 'event_type'),
+}
+
+_LLM_TYPE_TO_CLASSIFICATION_SUBTYPE = {
+    'RANK': {
+        'HIGH': types.RankingType.HIGH,
+        'LOW': types.RankingType.LOW,
+    },
+    'SUB_PLACE_TYPE': {
+        'CITY': types.ContainedInPlaceType.CITY.value,
+        'COUNTY': types.ContainedInPlaceType.COUNTY.value,
+        'PROVINCE': types.ContainedInPlaceType.PROVINCE.value,
+        'DISTRICT': types.ContainedInPlaceType.DISTRICT.value,
+        'STATE': types.ContainedInPlaceType.STATE.value,
+        'COUNTRY': types.ContainedInPlaceType.COUNTRY.value,
+        'HIGH_SCHOOL': types.ContainedInPlaceType.HIGH_SCHOOL.value,
+        'MIDDLE_SCHOOL': types.ContainedInPlaceType.MIDDLE_SCHOOL.value,
+        'ELEMENTARY_SCHOOL': types.ContainedInPlaceType.ELEMENTARY_SCHOOL.value,
+        'PUBLIC_SCHOOL': types.ContainedInPlaceType.PUBLIC_SCHOOL.value,
+    },
+    'COMPARE': {},
+    'GROWTH': {
+        'INCREASE': types.TimeDeltaType.INCREASE,
+        'DECREASE': types.TimeDeltaType.DECREASE,
+    },
+    'SIZE': {
+        'BIG': types.SizeType.BIG,
+        'SMALL': types.SizeType.SMALL,
+    },
+    'DISASTER_EVENT': {
+        'FIRE': types.EventType.FIRE,
+        'DROUGHT': types.EventType.DROUGHT,
+        'FLOOD': types.EventType.FLOOD,
+        'CYCLONE': types.EventType.CYCLONE,
+        'EARTHQUAKE': types.EventType.EARTHQUAKE,
+        'EXTREME_HEAT': types.EventType.HEAT,
+        'EXTREME_COLD': types.EventType.COLD,
+        'HIGH_WETBULB_TEMPERATURE': types.EventType.WETBULB,
+    }
+}
+
 
 def _empty_svs_score_dict():
-  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
+  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
 
 
 def detect(query: str, context_history: Dict, index_type: str,
@@ -44,6 +95,7 @@ def detect(query: str, context_history: Dict, index_type: str,
 
   llm_resp = palm_api.call(query, history, ctr)
 
+  sv_list = llm_resp.get('METRICS', [])
   places_str_found = llm_resp.get('PLACES', [])
 
   if not places_str_found:
@@ -76,11 +128,12 @@ def detect(query: str, context_history: Dict, index_type: str,
     logging.info(f"Using main_place as: {main_place}")
 
   # Set PlaceDetection.
-  place_detection = PlaceDetection(query_original=query,
-                                   query_without_place_substr=query,
-                                   query_places_mentioned=places_str_found,
-                                   places_found=resolved_places,
-                                   main_place=main_place)
+  place_detection = PlaceDetection(
+      query_original=query,
+      query_without_place_substr=' ;  '.join(sv_list),
+      query_places_mentioned=places_str_found,
+      places_found=resolved_places,
+      main_place=main_place)
 
   # Update the various place detection and query transformation debug logs dict.
   query_detection_debug_logs["places_found_str"] = places_str_found
@@ -94,7 +147,6 @@ def detect(query: str, context_history: Dict, index_type: str,
     query_detection_debug_logs[
         "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
 
-  sv_list = llm_resp.get('METRICS', [])
   svs_score_dicts = []
   dummy_dict = {}
   for sv in sv_list:
@@ -112,13 +164,17 @@ def detect(query: str, context_history: Dict, index_type: str,
       svs_to_sentences=svs_scores_dict['SV_to_Sentences'],
       multi_sv=svs_scores_dict['MultiSV'])
 
-  # TODO: Infer the various classifications!
+  classifications = []
+  for t in sorted(_LLM_TYPE_TO_CLASSIFICATION_TYPE.keys()):
+    cls = _llm2classification(llm_resp, t)
+    if cls:
+      classifications.append(cls)
 
   return Detection(original_query=query,
                    cleaned_query=query,
                    places_detected=place_detection,
                    svs_detected=sv_detection,
-                   classifications=[],
+                   classifications=classifications,
                    llm_resp=llm_resp)
 
 
@@ -150,3 +206,51 @@ def _merge_sv_dicts(sv_list: List[str], svs_score_dicts: List[Dict]) -> Dict:
       }]
   }
   return merged_dict
+
+
+def _llm2classification(llm_resp: Dict, llm_ctype: str) -> types.NLClassifier:
+  if llm_ctype not in llm_resp:
+    return None
+
+  llm_vals = _get_llm_vals(llm_resp[llm_ctype])
+  if not llm_vals:
+    return None
+
+  if llm_ctype == 'COMPARE':
+    # Special-case.
+    if llm_vals[0] == 'COMPARE_PLACES':
+      return types.NLClassifier(
+          type=types.ClassificationType.COMPARISON,
+          attributes=types.ComparisonClassificationAttributes(
+              comparison_trigger_words=[]))
+    elif llm_vals[0] == 'COMPARE_METRICS':
+      return types.NLClassifier(
+          type=types.ClassificationType.CORRELATION,
+          attributes=types.CorrelationClassificationAttributes(
+              correlation_trigger_words=[]))
+    return None
+
+  ctype, dict_key = _LLM_TYPE_TO_CLASSIFICATION_TYPE[llm_ctype]
+  submap = _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE[llm_ctype]
+  matches = [submap[v] for v in llm_vals if v in submap]
+  if not matches:
+    return None
+  if llm_ctype == 'SUB_PLACE_TYPE':
+    # This only supports a singleton.
+    matches = matches[0]
+
+  cdict = {
+      'type': ctype,
+      dict_key: matches,
+  }
+  logging.info(f'DICT: {cdict}')
+  return utterance.dict_to_classification([cdict])[0]
+
+
+# Vals may only be a string or a list.
+def _get_llm_vals(val) -> List[str]:
+  if isinstance(val, str):
+    return [val]
+  if isinstance(val, list) and all(isinstance(it, str) for it in val):
+    return val
+  return []
