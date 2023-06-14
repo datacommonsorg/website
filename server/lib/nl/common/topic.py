@@ -422,14 +422,6 @@ _TOPIC_NAMES_OVERRIDE = {
 }
 
 
-def get_topics(sv_dcids: List[str]):
-  """Returns a list of SV's to use for the topic if the topic is ranked highly during detection."""
-  topic_svs = []
-  for i, sv in enumerate(sv_dcids):
-    topic_svs += get_topic_vars(sv, i)
-  return topic_svs
-
-
 def get_topic_vars(topic: str, rank: int):
   if not utils.is_topic(topic) or rank >= _MIN_TOPIC_RANK:
     return []
@@ -437,7 +429,13 @@ def get_topic_vars(topic: str, rank: int):
   if not svs:
     # Lookup KG
     svs = fetch.property_values(nodes=[topic], prop='relevantVariable')[topic]
-  return svs
+  new_svs = []
+  for sv in svs:
+    if utils.is_topic(sv):
+      new_svs.extend(get_topic_vars(sv, rank))
+    else:
+      new_svs.append(sv)
+  return new_svs
 
 
 def get_topic_peers(sv_dcids: List[str]):
