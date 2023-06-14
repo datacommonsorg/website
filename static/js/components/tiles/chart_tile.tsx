@@ -20,7 +20,7 @@
 
 import React, { useRef } from "react";
 
-import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import {
@@ -57,7 +57,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const showEmbed = props.allowEmbed && !props.isInitialLoading;
   return (
     <div
-      className={`chart-container ${CLASS_DC_CHART_HOLDER} ${
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
         props.className ? props.className : ""
       }`}
       ref={containerRef}

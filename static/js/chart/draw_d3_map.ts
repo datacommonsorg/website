@@ -22,7 +22,7 @@ import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
-import { CLASS_DC_CHART_EXIST } from "../constants/css_constants";
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import {
   ASIA_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
@@ -508,7 +508,7 @@ export function drawD3Map(
       });
     }
   }
-  svg.attr("class", CLASS_DC_CHART_EXIST);
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
 /**
