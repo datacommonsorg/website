@@ -20,8 +20,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
-CHART_HOLDER_CLASS = 'dc-async-element-holder'
-CHART_EXIST_CLASS = 'dc-async-element'
+ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
+ASYNC_ELEMENT_CLASS = 'dc-async-element'
 TIMEOUT = 60
 
 
@@ -57,12 +57,13 @@ def charts_rendered(driver):
   """Wait for asyncronously charts to show up.
   """
   element_present = EC.presence_of_element_located(
-      (By.CLASS_NAME, CHART_HOLDER_CLASS))
+      (By.CLASS_NAME, ASYNC_ELEMENT_HOLDER_CLASS))
   WebDriverWait(driver, TIMEOUT).until(element_present)
-  chart_containers = driver.find_elements(By.CLASS_NAME, CHART_HOLDER_CLASS)
+  chart_containers = driver.find_elements(By.CLASS_NAME,
+                                          ASYNC_ELEMENT_HOLDER_CLASS)
   for c in chart_containers:
     try:
-      c.find_element(By.CLASS_NAME, CHART_EXIST_CLASS)
+      c.find_element(By.CLASS_NAME, ASYNC_ELEMENT_CLASS)
     except NoSuchElementException:
       return False
   return True
