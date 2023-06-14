@@ -20,13 +20,20 @@
 
 import _ from "lodash";
 import React, { useState } from "react";
-import { Button, Container } from "reactstrap";
+import { Button, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
+
+export const NL_INDEX_SMALL = "small";
+const NL_INDEX_MEDIUM = "medium";
 
 interface QuerySearchPropType {
   queries: string[];
   onQuerySearched: (query: string) => void;
+  indexType: string;
+  setIndexType: (idx: string) => void;
+  useLLM: boolean;
+  setUseLLM: (v: boolean) => void;
 }
 
 export function QuerySearch(props: QuerySearchPropType): JSX.Element {
@@ -91,6 +98,66 @@ export function QuerySearch(props: QuerySearchPropType): JSX.Element {
           >
             <span className="material-icons">history</span>
           </Button>
+        </div>
+        <div className="nl-options-row">
+          <div className="nl-options-label">Detection:</div>
+          <div className="nl-options-input-radio">
+            <FormGroup>
+              <Label>
+                <Input
+                  checked={!props.useLLM}
+                  id="nl-heuristics"
+                  type="radio"
+                  value={0}
+                  onChange={(e) => {
+                    props.setUseLLM(false);
+                  }}
+                />
+                Heuristics Based
+              </Label>
+              <Label>
+                <Input
+                  checked={props.useLLM}
+                  id="nl-llm"
+                  type="radio"
+                  value={1}
+                  onChange={(e) => {
+                    props.setUseLLM(true);
+                  }}
+                />
+                LLM Based (experimental)
+              </Label>
+            </FormGroup>
+          </div>
+          <div className="nl-options-label">Embeddings:</div>
+          <div className="nl-options-input-radio">
+            <FormGroup>
+              <Label>
+                <Input
+                  checked={props.indexType === NL_INDEX_SMALL}
+                  id="nl-small-index"
+                  type="radio"
+                  value={NL_INDEX_SMALL}
+                  onChange={(e) => {
+                    props.setIndexType(NL_INDEX_SMALL);
+                  }}
+                />
+                Small-1K
+              </Label>
+              <Label>
+                <Input
+                  checked={props.indexType === NL_INDEX_MEDIUM}
+                  id="nl-medium-index"
+                  type="radio"
+                  value={NL_INDEX_MEDIUM}
+                  onChange={(e) => {
+                    props.setIndexType(NL_INDEX_MEDIUM);
+                  }}
+                />
+                Medium-5K (experimental)
+              </Label>
+            </FormGroup>
+          </div>
         </div>
       </Container>
     </div>

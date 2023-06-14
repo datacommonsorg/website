@@ -23,7 +23,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { getUrlToken } from "../../tools/stat_var/util";
 import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
-import { QuerySearch } from "./query_search";
+import { NL_INDEX_SMALL, QuerySearch } from "./query_search";
 
 const CHARACTER_INPUT_INTERVAL = 50;
 const PROMPT_SEARCH_DELAY = 1000;
@@ -33,8 +33,8 @@ export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
-  const indexType = useRef(getUrlToken("idx"));
-  const useLLM = useRef(!!getUrlToken("llm"));
+  const [indexType, setIndexType] = useState(NL_INDEX_SMALL);
+  const [useLLM, setUseLLM] = useState(false);
   const urlPrompts = useRef(getUrlPrompts());
   // Timer used to input characters from a single prompt with
   // CHARACTER_INPUT_INTERVAL ms between each character.
@@ -162,8 +162,8 @@ export function App(): JSX.Element {
         key={i}
         queryIdx={i}
         query={q}
-        indexType={indexType.current}
-        useLLM={useLLM.current}
+        indexType={indexType}
+        useLLM={useLLM}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={false}
@@ -189,6 +189,10 @@ export function App(): JSX.Element {
               inputNextPrompt(true);
             }
           }}
+          indexType={indexType}
+          useLLM={useLLM}
+          setIndexType={(v) => setIndexType(v)}
+          setUseLLM={(v) => setUseLLM(v)}
         />
         {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
       </div>

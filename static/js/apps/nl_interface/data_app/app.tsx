@@ -22,14 +22,14 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { getUrlToken } from "../../../tools/stat_var/util";
 import { QueryResult } from "../query_result";
-import { QuerySearch } from "../query_search";
+import { NL_INDEX_SMALL, QuerySearch } from "../query_search";
 
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
-  const indexType = useRef(getUrlToken("idx"));
-  const useLLM = useRef(!!getUrlToken("llm"));
+  const [indexType, setIndexType] = useState(NL_INDEX_SMALL);
+  const [useLLM, setUseLLM] = useState(false);
   const urlPrompts = useRef(getUrlPrompts());
 
   // Updates the query search input box value.
@@ -128,8 +128,8 @@ export function App(): JSX.Element {
         key={i}
         queryIdx={i}
         query={q}
-        indexType={indexType.current}
-        useLLM={useLLM.current}
+        indexType={indexType}
+        useLLM={useLLM}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={true}
@@ -155,6 +155,10 @@ export function App(): JSX.Element {
               inputNextPrompt();
             }
           }}
+          indexType={indexType}
+          useLLM={useLLM}
+          setIndexType={(v) => setIndexType(v)}
+          setUseLLM={(v) => setUseLLM(v)}
         />
       </div>
     </>

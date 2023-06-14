@@ -90,7 +90,6 @@ $feedback-link-font-color: #70757a;
 
   .search-section {
     align-items: flex-end;
-    padding-bottom: $page-vertical-padding;
     // HACK: account for scrollbar differences
     margin-left: -7px;
     padding-right: 7px;
@@ -140,6 +139,39 @@ $feedback-link-font-color: #70757a;
   .input-query {
     flex-grow: 1;
   }
+
+  .nl-options-row {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    margin-left: -0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .nl-options-input {
+    padding: 0.1rem 1rem;
+  }
+
+  .nl-options-input-radio {
+    display: flex;
+    padding: 0.1rem 1rem;
+  }
+
+  .nl-options-input-radio .form-group {
+    display: flex;
+    margin-bottom: 0;
+  }
+
+  .nl-options-input-radio .form-group label {
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    padding-left: 10px;
+    padding-right: 20px;
+  }
+
 }
 
 .nl-query {
