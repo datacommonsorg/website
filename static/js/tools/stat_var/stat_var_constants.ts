@@ -15,7 +15,7 @@
  */
 
 /**
- * Constants shared across components.
+ * Constants shared across components for stat-var tool.
  */
 
 export const SV_URL_PARAMS = {

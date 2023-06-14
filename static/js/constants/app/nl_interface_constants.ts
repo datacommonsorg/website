@@ -29,3 +29,17 @@ export const NL_SOURCE_REPLACEMENTS = {
   "https://www.datacommons.org": "https://www.google.com",
   "https://datacommons.org": "https://www.google.com",
 };
+
+export const NL_URL_PARAMS = {
+  IDX: "idx",
+  LLM: "llm",
+};
+
+export const NL_INDEX_VALS = {
+  SMALL: "small",
+  MEDIUM: "medium",
+};
+
+export const MAX_QUERY_COUNT = 10;
+
+export const SVG_CHART_HEIGHT = 160;

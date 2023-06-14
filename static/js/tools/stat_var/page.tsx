@@ -28,8 +28,8 @@ import {
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
-import { getUrlToken, updateHash } from "../../shared/url_utils";
 import { stringifyFn } from "../../utils/axios";
+import { getUrlToken, updateHash } from "../../utils/url_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";

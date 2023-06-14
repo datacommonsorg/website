@@ -22,7 +22,7 @@ import React from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
 import { NamedNode } from "../../shared/types";
-import { updateHash } from "../../shared/url_utils";
+import { updateHash } from "../../utils/url_utils";
 import { SV_URL_PARAMS } from "./stat_var_constants";
 
 const CSS_PREFIX = "dataset-selector";

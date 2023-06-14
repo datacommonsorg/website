@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import _ from "lodash";
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
-import { NL_URL_PARAMS } from "./nl_constants";
+import { NL_INDEX_VALS } from "../../constants/app/nl_interface_constants";
 
 interface NLOptionsPropType {
   indexType: string;
@@ -68,24 +68,24 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
         <FormGroup>
           <Label>
             <Input
-              checked={props.indexType === NL_URL_PARAMS.SMALL}
+              checked={props.indexType === NL_INDEX_VALS.SMALL}
               id="nl-small-index"
               type="radio"
-              value={NL_URL_PARAMS.SMALL}
+              value={NL_INDEX_VALS.SMALL}
               onChange={() => {
-                props.setIndexType(NL_URL_PARAMS.SMALL);
+                props.setIndexType(NL_INDEX_VALS.SMALL);
               }}
             />
             Small-1K
           </Label>
           <Label>
             <Input
-              checked={props.indexType === NL_URL_PARAMS.MEDIUM}
+              checked={props.indexType === NL_INDEX_VALS.MEDIUM}
               id="nl-medium-index"
               type="radio"
-              value={NL_URL_PARAMS.MEDIUM}
+              value={NL_INDEX_VALS.MEDIUM}
               onChange={() => {
-                props.setIndexType(NL_URL_PARAMS.MEDIUM);
+                props.setIndexType(NL_INDEX_VALS.MEDIUM);
               }}
             />
             Medium-5K (experimental)

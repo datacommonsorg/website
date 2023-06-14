@@ -20,8 +20,11 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-import { getUrlToken, getUrlTokenOrDefault } from "../../../shared/url_utils";
-import { NL_URL_PARAMS } from "../nl_constants";
+import {
+  NL_INDEX_VALS,
+  NL_URL_PARAMS,
+} from "../../../constants/app/nl_interface_constants";
+import { getUrlToken, getUrlTokenOrDefault } from "../../../utils/url_utils";
 import { QueryResult } from "../query_result";
 import { QuerySearch } from "../query_search";
 
@@ -30,7 +33,7 @@ export function App(): JSX.Element {
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
   const [indexType, setIndexType] = useState(
-    getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_URL_PARAMS.SMALL)
+    getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.SMALL)
   );
   const [useLLM, setUseLLM] = useState(!!getUrlToken(NL_URL_PARAMS.LLM));
   const urlPrompts = useRef(getUrlPrompts());
