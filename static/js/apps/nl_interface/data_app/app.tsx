@@ -20,16 +20,21 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-import { getUrlToken } from "../../../tools/stat_var/util";
+import {
+  getUrlToken,
+  getUrlTokenOrDefault,
+} from "../../../tools/stat_var/util";
 import { QueryResult } from "../query_result";
-import { NL_INDEX_SMALL, QuerySearch } from "../query_search";
+import { NL_INDEX, NL_INDEX_SMALL, NL_LLM, QuerySearch } from "../query_search";
 
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
-  const [indexType, setIndexType] = useState(NL_INDEX_SMALL);
-  const [useLLM, setUseLLM] = useState(false);
+  const [indexType, setIndexType] = useState(
+    getUrlTokenOrDefault(NL_INDEX, NL_INDEX_SMALL)
+  );
+  const [useLLM, setUseLLM] = useState(!!getUrlToken(NL_LLM));
   const urlPrompts = useRef(getUrlPrompts());
 
   // Updates the query search input box value.

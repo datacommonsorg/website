@@ -35,6 +35,21 @@ export function getUrlToken(param: string): string {
 }
 
 /**
+ * Returns token for URL param, or the given default.
+ * @param param URL param
+ * @def def default value
+ * @returns Corresponding token
+ */
+export function getUrlTokenOrDefault(param: string, def: string): string {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  const res = urlParams.get(param);
+  if (res === null) {
+    return def;
+  }
+  return res;
+}
+
+/**
  * Updates URL hash param with given value.
  * @param params Map of param to new value.
  */

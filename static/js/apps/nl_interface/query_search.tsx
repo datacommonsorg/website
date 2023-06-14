@@ -25,6 +25,8 @@ import { Button, Container, FormGroup, Input, Label } from "reactstrap";
 import { TextSearchBar } from "../../components/text_search_bar";
 
 export const NL_INDEX_SMALL = "small";
+export const NL_INDEX = "idx";
+export const NL_LLM = "llm";
 const NL_INDEX_MEDIUM = "medium";
 
 interface QuerySearchPropType {
