@@ -1475,5 +1475,4 @@ export {
   drawHistogram,
   drawLineChart,
   drawStackBarChart,
-  wrap,
 };

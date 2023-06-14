@@ -21,22 +21,27 @@ import * as Canvas from "canvas";
 import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
+import * as xmlserializer from "xmlserializer";
 
 import {
   draw as drawBar,
   fetchData as fetchBarData,
+  getReplacementStrings as getBarRS,
 } from "../../static/js/components/tiles/bar_tile";
 import {
   draw as drawLine,
   fetchData as fetchLineData,
+  getReplacementStrings as getLineRS,
 } from "../../static/js/components/tiles/line_tile";
 import {
   draw as drawMap,
   fetchData as fetchMapData,
+  getReplacementStrings as getMapRS,
 } from "../../static/js/components/tiles/map_tile";
 import {
   draw as drawScatter,
   fetchData as fetchScatterData,
+  getReplacementStrings as getScatterRS,
 } from "../../static/js/components/tiles/scatter_tile";
 import {
   LEGEND_IMG_WIDTH,
@@ -46,7 +51,14 @@ import {
 } from "../js/chart/draw_map_utils";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../js/constants/subject_page_constants";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
+import { urlToDomain } from "../js/shared/util";
 import { TileConfig } from "../js/types/subject_page_proto_types";
+import {
+  dataGroupsToCsv,
+  mapDataToCsv,
+  scatterDataToCsv,
+} from "../js/utils/chart_csv_utils";
+import { getChartTitle } from "../js/utils/tile_utils";
 
 const app = express();
 const APP_CONFIGS = {
@@ -118,6 +130,22 @@ globalThis.datacommons = {
 const window = dom.window;
 global.document = dom.window.document;
 
+// The result for a single tile
+interface TileResult {
+  // The svg for the chart in the tile as an xml string
+  svg: string;
+  // The data for the chart in the tile as a csv string
+  data_csv: string;
+  // List of sources of the data in the chart
+  srcs: { name: string; url: string }[];
+  // The title of the tile
+  title: string;
+  // The type of the tile
+  type: string;
+  // List of legend labels
+  legend?: string[];
+}
+
 // Gets the length in pixels of a string
 function getTextLength(text: string): number {
   if (!text) {
@@ -172,15 +200,42 @@ function getTextLength(text: string): number {
   };
 };
 
-// Gets the svg element for a scatter tile.
-function getScatterTileSvg(
+// Gets a list of source objects with name and url from a set of source urls.
+function getSources(sources: Set<string>): { name: string; url: string }[] {
+  return Array.from(sources).map((src) => {
+    return {
+      name: urlToDomain(src),
+      url: src,
+    };
+  });
+}
+
+// Processes and serializes a svg for a chart.
+function getProcessedSvg(chartSvg: SVGSVGElement): string {
+  if (!chartSvg) {
+    return "";
+  }
+  // Set the font for all the text in the svg to match the font family and size
+  // used for getBBox calculations.
+  chartSvg.querySelectorAll("text").forEach((node) => {
+    node.setAttribute("font-family", FONT_FAMILY);
+    node.setAttribute("font-size", FONT_SIZE);
+  });
+  // Get and return the svg as an xml string
+  const svgXml = xmlserializer.serializeToString(chartSvg);
+  return "data:image/svg+xml," + encodeURIComponent(svgXml);
+}
+
+// Gets the TileResult for a scatter tile.
+function getScatterTileResult(
+  id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[]
-): Promise<SVGSVGElement> {
+): Promise<TileResult> {
   const tileProp = {
-    id: DOM_ID,
+    id,
     title: tileConfig.title,
     place,
     enclosedPlaceType,
@@ -190,56 +245,92 @@ function getScatterTileSvg(
     apiRoot: CONFIG.apiRoot,
   };
 
-  return fetchScatterData(tileProp).then((chartData) => {
-    const svgContainer = document.createElement("div");
-    drawScatter(
-      chartData,
-      svgContainer,
-      SVG_HEIGHT,
-      null /* tooltipHtml */,
-      tileConfig.scatterTileSpec,
-      SVG_WIDTH
-    );
-    return svgContainer.querySelector("svg");
-  });
+  return fetchScatterData(tileProp)
+    .then((chartData) => {
+      const svgContainer = document.createElement("div");
+      drawScatter(
+        chartData,
+        svgContainer,
+        SVG_HEIGHT,
+        null /* tooltipHtml */,
+        tileConfig.scatterTileSpec,
+        SVG_WIDTH
+      );
+      return {
+        svg: getProcessedSvg(svgContainer.querySelector("svg")),
+        data_csv: scatterDataToCsv(
+          chartData.xStatVar.statVar,
+          chartData.xStatVar.denom,
+          chartData.yStatVar.statVar,
+          chartData.yStatVar.denom,
+          chartData.points
+        ),
+        srcs: getSources(chartData.sources),
+        title: getChartTitle(
+          tileConfig.title,
+          getScatterRS(tileProp, chartData)
+        ),
+        type: "SCATTER",
+      };
+    })
+    .catch(() => {
+      console.log("Failed to get scatter tile result for: " + id);
+      return null;
+    });
 }
 
-// Gets the svg element for a line tile
-function getLineTileSvg(
+// Gets the TileResult for a line tile
+function getLineTileResult(
+  id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec[]
-): Promise<SVGSVGElement> {
+): Promise<TileResult> {
   const tileProp = {
     apiRoot: CONFIG.apiRoot,
-    id: DOM_ID,
+    id,
     place,
     statVarSpec,
     svgChartHeight: SVG_HEIGHT,
     svgChartWidth: SVG_WIDTH,
     title: tileConfig.title,
   };
-
-  return fetchLineData(tileProp).then((chartData) => {
-    drawLine(tileProp, chartData, null);
-    return document.querySelector("svg");
-  });
+  return fetchLineData(tileProp)
+    .then((chartData) => {
+      const tileContainer = document.createElement("div");
+      tileContainer.setAttribute("id", id);
+      document.getElementById(DOM_ID).appendChild(tileContainer);
+      drawLine(tileProp, chartData, null);
+      return {
+        svg: getProcessedSvg(tileContainer.querySelector("svg")),
+        data_csv: dataGroupsToCsv(chartData.dataGroup),
+        srcs: getSources(chartData.sources),
+        legend: chartData.dataGroup.map((dg) => dg.label || "A"),
+        title: getChartTitle(tileConfig.title, getLineRS(tileProp)),
+        type: "LINE",
+      };
+    })
+    .catch(() => {
+      console.log("Failed to get line tile result for: " + id);
+      return null;
+    });
 }
 
-// Gets the svg element for a bar tile
-function getBarTileSvg(
+// Gets the TileResult for a bar tile
+function getBarTileResult(
+  id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[]
-): Promise<SVGSVGElement> {
+): Promise<TileResult> {
   const comparisonPlaces = tileConfig.comparisonPlaces
     ? tileConfig.comparisonPlaces.map((p) =>
         p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
       )
     : undefined;
   const tileProp = {
-    id: DOM_ID,
+    id,
     title: tileConfig.title,
     place,
     enclosedPlaceType,
@@ -249,21 +340,44 @@ function getBarTileSvg(
     comparisonPlaces,
   };
 
-  return fetchBarData(tileProp).then((chartData) => {
-    drawBar(tileProp, chartData, SVG_WIDTH);
-    return document.querySelector("svg");
-  });
+  return fetchBarData(tileProp)
+    .then((chartData) => {
+      const tileContainer = document.createElement("div");
+      tileContainer.setAttribute("id", id);
+      document.getElementById(DOM_ID).appendChild(tileContainer);
+      drawBar(tileProp, chartData, SVG_WIDTH);
+      let legend = [];
+      if (
+        !_.isEmpty(chartData.dataGroup) &&
+        !_.isEmpty(chartData.dataGroup[0].value)
+      ) {
+        legend = chartData.dataGroup[0].value.map((dp) => dp.label);
+      }
+      return {
+        svg: getProcessedSvg(tileContainer.querySelector("svg")),
+        data_csv: dataGroupsToCsv(chartData.dataGroup),
+        srcs: getSources(chartData.sources),
+        legend,
+        title: getChartTitle(tileConfig.title, getBarRS(tileProp, chartData)),
+        type: "BAR",
+      };
+    })
+    .catch(() => {
+      console.log("Failed to get bar tile result for: " + id);
+      return null;
+    });
 }
 
-// Gets the svg element for a map tile
-function getMapTileSvg(
+// Gets the TileResult for a map tile
+function getMapTileResult(
+  id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec
-): Promise<SVGSVGElement> {
+): Promise<TileResult> {
   const tileProp = {
-    id: DOM_ID,
+    id,
     title: tileConfig.title,
     place,
     enclosedPlaceType,
@@ -271,46 +385,95 @@ function getMapTileSvg(
     svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
     apiRoot: CONFIG.apiRoot,
   };
-  return fetchMapData(tileProp).then((chartData) => {
-    const legendContainer = document.createElement("div");
-    const mapContainer = document.createElement("div");
-    drawMap(
-      chartData,
-      tileProp,
-      null,
-      legendContainer,
-      mapContainer,
-      SVG_WIDTH
-    );
-    // Get the width of the text in the legend
-    let legendTextWidth = 0;
-    Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
-      legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
+  return fetchMapData(tileProp)
+    .then((chartData) => {
+      const legendContainer = document.createElement("div");
+      const mapContainer = document.createElement("div");
+      drawMap(
+        chartData,
+        tileProp,
+        null,
+        legendContainer,
+        mapContainer,
+        SVG_WIDTH
+      );
+      // Get the width of the text in the legend
+      let legendTextWidth = 0;
+      Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
+        legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
+      });
+      const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
+      // Create a single merged svg to hold both the map and the legend svgs
+      const mergedSvg = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      );
+      mergedSvg.setAttribute("height", String(SVG_HEIGHT));
+      mergedSvg.setAttribute("width", String(SVG_WIDTH));
+      // Get the map svg and add it to the merged svg
+      const mapSvg = mapContainer.querySelector("svg");
+      const mapWidth = SVG_WIDTH - legendWidth;
+      mapSvg.setAttribute("width", String(mapWidth));
+      const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      mapG.appendChild(mapSvg);
+      mergedSvg.appendChild(mapG);
+      // Get the legend svg and add it to the merged svg
+      const legendSvg = legendContainer.querySelector("svg");
+      legendSvg.setAttribute("width", String(legendWidth));
+      const legendG = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "g"
+      );
+      legendG.setAttribute("transform", `translate(${mapWidth})`);
+      legendG.appendChild(legendSvg);
+      mergedSvg.appendChild(legendG);
+
+      return {
+        svg: getProcessedSvg(mergedSvg),
+        data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
+        srcs: getSources(chartData.sources),
+        legend: "",
+        title: getChartTitle(tileConfig.title, getMapRS(tileProp, chartData)),
+        type: "MAP",
+      };
+    })
+    .catch(() => {
+      console.log("Failed to get map tile result for: " + id);
+      return null;
     });
-    const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
-    // Create a single merged svg to hold both the map and the legend svgs
-    const mergedSvg = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    mergedSvg.setAttribute("height", String(SVG_HEIGHT));
-    mergedSvg.setAttribute("width", String(SVG_WIDTH));
-    // Get the map svg and add it to the merged svg
-    const mapSvg = mapContainer.querySelector("svg");
-    const mapWidth = SVG_WIDTH - legendWidth;
-    mapSvg.setAttribute("width", String(mapWidth));
-    const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    mapG.appendChild(mapSvg);
-    mergedSvg.appendChild(mapG);
-    // Get the legend svg and add it to the merged svg
-    const legendSvg = legendContainer.querySelector("svg");
-    legendSvg.setAttribute("width", String(legendWidth));
-    const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    legendG.setAttribute("transform", `translate(${mapWidth})`);
-    legendG.appendChild(legendSvg);
-    mergedSvg.appendChild(legendG);
-    return mergedSvg;
-  });
+}
+
+// Gets the TileResult for a given tile config and supporting information.
+function getTileResult(
+  id: string,
+  tile: TileConfig,
+  svSpec: Record<string, StatVarSpec>,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string
+): Promise<TileResult> {
+  let tileSvSpec = null;
+  switch (tile.type) {
+    case "LINE":
+      tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+      return getLineTileResult(id, tile, place, tileSvSpec);
+    case "SCATTER":
+      tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+      return getScatterTileResult(
+        id,
+        tile,
+        place,
+        enclosedPlaceType,
+        tileSvSpec
+      );
+    case "BAR":
+      tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+      return getBarTileResult(id, tile, place, enclosedPlaceType, tileSvSpec);
+    case "MAP":
+      tileSvSpec = svSpec[tile.statVarKey[0]];
+      return getMapTileResult(id, tile, place, enclosedPlaceType, tileSvSpec);
+    default:
+      return null;
+  }
 }
 
 // Prevents returning 304 status if same GET request gets hit multiple times.
@@ -319,11 +482,10 @@ app.disable("etag");
 
 app.get("/nodejs/query", (req: Request, res: Response) => {
   const query = req.query.q;
+  res.setHeader("Content-Type", "application/json");
   axios
     .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}`, {})
     .then((resp) => {
-      const tiles = [];
-      const svSpec = {};
       const mainPlace = resp.data["place"] || {};
       const place = {
         dcid: mainPlace["dcid"],
@@ -342,82 +504,52 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           enclosedPlaceType;
       }
 
-      // Get the list of tiles and the stat var spec for the first category in
-      // the config.
-      const categories = config["categories"];
-      if (!_.isEmpty(categories)) {
-        const category = categories[0];
-        for (const sv in category["statVarSpec"]) {
-          svSpec[sv] = category["statVarSpec"][sv];
-        }
-        for (const block of category["blocks"]) {
-          for (const column of block["columns"]) {
-            for (const tile of column["tiles"]) {
-              tiles.push(tile);
-            }
-          }
-        }
-      }
-
-      // If no tiles or no place, return here.
-      if (tiles.length < 1 || !place.dcid) {
-        res.setHeader("Content-Type", "text/html");
-        res.send("No data found");
+      // If no place, return here
+      if (!place.dcid) {
+        res.status(200).send({ charts: [] });
         return;
       }
 
-      const tile: TileConfig = tiles[0];
-      let htmlPromise: Promise<SVGSVGElement>;
-      let tileSvSpec = null;
-      switch (tile.type) {
-        case "LINE":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-          htmlPromise = getLineTileSvg(tile, place, tileSvSpec);
-          break;
-        case "SCATTER":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-          htmlPromise = getScatterTileSvg(
-            tile,
-            place,
-            enclosedPlaceType,
-            tileSvSpec
-          );
-          break;
-        case "BAR":
-          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-          htmlPromise = getBarTileSvg(
-            tile,
-            place,
-            enclosedPlaceType,
-            tileSvSpec
-          );
-          break;
-        case "MAP":
-          tileSvSpec = svSpec[tile.statVarKey[0]];
-          htmlPromise = getMapTileSvg(
-            tile,
-            place,
-            enclosedPlaceType,
-            tileSvSpec
-          );
-          break;
-        default:
-          htmlPromise = null;
+      // Get a list of tile result promises
+      const tilePromises: Array<Promise<TileResult>> = [];
+      const categories = config["categories"] || [];
+      categories.forEach((category, catIdx) => {
+        const svSpec = {};
+        for (const sv in category["statVarSpec"]) {
+          svSpec[sv] = category["statVarSpec"][sv];
+        }
+        category.blocks.forEach((block, blkIdx) => {
+          block.columns.forEach((column, colIdx) => {
+            column.tiles.forEach((tile, tileIdx) => {
+              const tileId = `cat${catIdx}-blk${blkIdx}-col${colIdx}-tile${tileIdx}`;
+              tilePromises.push(
+                getTileResult(tileId, tile, svSpec, place, enclosedPlaceType)
+              );
+            });
+          });
+        });
+      });
+
+      // If no tiles return here.
+      if (tilePromises.length < 1) {
+        res.status(200).send({ charts: [] });
+        return;
       }
 
-      htmlPromise.then((svg) => {
-        // Set the font for all the text in the svg
-        svg.querySelectorAll("text").forEach((node) => {
-          node.setAttribute("font-family", FONT_FAMILY);
-          node.setAttribute("font-size", FONT_SIZE);
+      Promise.all(tilePromises)
+        .then((tileResults) => {
+          const filteredResults = tileResults.filter(
+            (result) => result !== null
+          );
+          res.status(200).send(JSON.stringify({ charts: filteredResults }));
+        })
+        .catch(() => {
+          res.status(500).send({ err: "Error fetching data." });
         });
-        res.setHeader("Content-Type", "text/html");
-        res.send(svg.outerHTML);
-      });
     })
     .catch((error) => {
       console.error("Error making request:\n", error.message);
-      res.status(500).send("Failed to make a request to the target service.");
+      res.status(500).send({ err: "Error fetching data." });
     });
 });
 
