@@ -14,7 +14,6 @@
 
 import json
 import logging
-from typing import List, Tuple
 
 from flask import Blueprint
 from flask import current_app

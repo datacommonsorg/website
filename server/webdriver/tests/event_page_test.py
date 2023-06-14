@@ -19,7 +19,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver_tests.base_test import WebdriverBaseTest
+from server.webdriver.base import WebdriverBaseTest
 
 BASE_PAGE_URL = '/event/'
 CYCLONE_NICOLE_DCID = 'cyclone/ibtracs_2022309N16290'
