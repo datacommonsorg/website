@@ -81,7 +81,19 @@ CACHED_GEOJSON_FILES = {
     },
     "southamerica": {
         "Country": "southamerica_country_dp10"
-    }
+    },
+    "geoId/06": {
+        "CensusTract": "california_censustract"
+    },
+    "geoId/12": {
+        "CensusTract": "florida_censustract"
+    },
+    "geoId/36": {
+        "CensusTract": "newyorkstate_censustract"
+    },
+    "geoId/48": {
+        "CensusTract": "texas_censustract"
+    },
 }
 
 
