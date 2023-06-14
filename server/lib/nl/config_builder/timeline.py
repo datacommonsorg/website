@@ -103,7 +103,7 @@ def single_place_multiple_var_timeline_block(column, place, svs, sv2thing,
   if attr.get('title'):
     orig_title = attr['title']
   elif attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
-      'orig_sv'):
+      'orig_sv') and sv2thing.name.get(attr['orig_sv']):
     orig_sv_name = sv2thing.name[attr['orig_sv']]
     orig_title = f'{orig_sv_name} compared with other variables'
   else:
