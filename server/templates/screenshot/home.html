@@ -29,23 +29,25 @@
       {% for item in data %}
         <tr>
           <th>
-            <a href="{{item['url']}}">{{item['message']}}</a>
+            {% if item['url'] %}
+              <a href="{{item['url']}}">{{item['message']}}</a>
+            {% endif %}
           </th>
           <th>
             {{item['sha']}}
           </th>
           <th>
-            <a href="/screenshot/commit/{{item['sha']}}">this</a>
+            <a href="/screenshot/commit/{{item['sha']}}?domain={{domain}}">this</a>
           </th>
           <th>
             <a
-            href="/screenshot/compare/{{item['prev_sha']}}...{{item['sha']}}">diff
+            href="/screenshot/compare/{{item['prev_sha']}}...{{item['sha']}}?domain={{domain}}">diff
             (vs last)</a>
           </th>
           {% if item['base_sha'] %}
             <th>
               <a
-              href="/screenshot/compare/{{item['base_sha']}}...{{item['sha']}}">diff
+              href="/screenshot/compare/{{item['base_sha']}}...{{item['sha']}}?domain={{domain}}">diff
               (vs base)</a>
             </th>
           {% endif %}

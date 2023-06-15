@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -69,3 +69,17 @@ def list_png(bucket_name, prefix):
       name = urllib.parse.unquote(name)
       result[name] = bytes
   return result
+
+
+def list_folder(bucket_name, prefix, start_offset):
+  storage_client = storage.Client()
+  bucket = storage_client.get_bucket(bucket_name)
+  blobs = bucket.list_blobs(prefix=prefix, start_offset=start_offset)
+  folders = set()
+  for blob in blobs:
+    parts = blob.name.split('/')
+    if len(parts) >= 3:
+      folders.add(parts[1])
+  res = list(folders)
+  res.sort()
+  return res

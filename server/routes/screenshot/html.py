@@ -17,6 +17,7 @@ from datetime import datetime
 import io
 import os
 
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import flask
 from flask import current_app
@@ -25,6 +26,7 @@ from github import Github
 from google.cloud import secretmanager
 from markupsafe import escape
 
+from server.lib.gcs import list_folder
 from server.lib.gcs import list_png
 from server.routes.screenshot.diff import img_diff
 
@@ -33,13 +35,42 @@ SCREENSHOT_BUCKET = 'datcom-website-screenshot'
 bp = flask.Blueprint("screenshot", __name__, url_prefix='/screenshot')
 
 
+def env_valid():
+  return os.environ.get('FLASK_ENV') in [
+      'autopush', 'local', 'test', 'webdriver'
+  ]
+
+
 @bp.route('/')
 def home():
   """List recent commits and diff url
 
   Optional url argument "base" to set a base commit sha for comparison.
   """
+  if not env_valid():
+    flask.abort(404)
   base_sha = request.args.get('base', '')
+  domain = request.args.get('domain', '')
+
+  if domain:
+    one_month_ago = datetime.now() - timedelta(days=30)
+    start_offset = one_month_ago.strftime("%Y_%m_%d")
+    folders = list_folder(SCREENSHOT_BUCKET, domain, start_offset)
+    data = []
+    prev_date = ''
+    for date in folders:
+      item = {
+          'message': date,
+          'url': '',
+          'sha': date,
+          'prev_sha': prev_date,
+      }
+      prev_date = date
+      data.append(item)
+    # Change back the item order from new to old
+    data.reverse()
+    return flask.render_template('screenshot/home.html', domain=domain, data=data)
+
   # Secret generated from Github account 'dc-org2018'
   secret_client = secretmanager.SecretManagerServiceClient()
   secret_name = secret_client.secret_version_path(
@@ -81,13 +112,35 @@ def home():
   return flask.render_template('screenshot/home.html', data=data)
 
 
-@bp.route('/commit/<path:sha>')
-def screenshot(sha):
-  if os.environ.get('FLASK_ENV') not in [
-      'autopush', 'local', 'test', 'webdriver'
-  ]:
+@bp.route('/<path:domain>')
+def domain(domain):
+  if not env_valid():
     flask.abort(404)
-  images = list_png(SCREENSHOT_BUCKET, 'local/' + sha)
+  one_month_ago = datetime.now() - timedelta(days=30)
+  start_offset = one_month_ago.strftime("%Y_%m_%d")
+  folders = list_folder(SCREENSHOT_BUCKET, domain, start_offset)
+  data = []
+  prev_date = ''
+  for date in folders:
+    item = {
+        'message': date,
+        'url': '',
+        'sha': date,
+        'prev_sha': prev_date,
+    }
+    prev_date = date
+    data.append(item)
+  # Change back the item order from new to old
+  data.reverse()
+  return flask.render_template('screenshot/home.html', domain=domain, data=data)
+
+
+@bp.route('/commit/<path:sha>')
+def commit(sha):
+  if not env_valid():
+    flask.abort(404)
+  domain = request.args.get('domain') or 'local'
+  images = list_png(SCREENSHOT_BUCKET, domain + '/' + sha)
   data = {}
   for name in images:
     data[name] = {
@@ -97,24 +150,22 @@ def screenshot(sha):
 
 
 @bp.route('/compare/<path:compare>')
-def diff(compare):
+def compare(compare):
   """
   compare is an expression in the form of "githash1...githash2".
   This is to follow the github url pattern.
   """
-
-  if os.environ.get('FLASK_ENV') not in [
-      'autopush', 'local', 'test', 'webdriver'
-  ]:
+  if not env_valid():
     flask.abort(404)
+  domain = request.args.get('domain') or 'local'
 
   compare = str(escape(compare))
   parts = compare.split('...')
   if len(parts) != 2:
     return "Invalid hash comparison: " + compare, 400
 
-  images_1 = list_png(SCREENSHOT_BUCKET, 'local/' + parts[0])
-  images_2 = list_png(SCREENSHOT_BUCKET, 'local/' + parts[1])
+  images_1 = list_png(SCREENSHOT_BUCKET, domain + '/' + parts[0])
+  images_2 = list_png(SCREENSHOT_BUCKET, domain + '/' + parts[1])
 
   data = {}
   for name, im1 in images_1.items():

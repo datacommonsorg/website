@@ -26,12 +26,16 @@
 {% block content %}
   <div class="container">
     <p>
-      <div>Code Link:</div>
-      <div>
-          <a href="https://github.com/datacommonsorg/website/commit/{{ sha }}">
-            https://github.com/datacommonsorg/website/commit/{{ sha }}
-          </a>
-      </div>
+      {% if sha|length == 7 %}
+        <div>Code Link:</div>
+        <div>
+            <a href="https://github.com/datacommonsorg/website/commit/{{ sha }}">
+              https://github.com/datacommonsorg/website/commit/{{ sha }}
+            </a>
+        </div>
+      {% else %}
+        <div><b>Date: {{ sha }}</b></div>
+      {% endif %}
     </p>
     {% for name in data %}
       <div class="name">
