@@ -1,10 +1,10 @@
 # datacommons-js
 
-Embed [datacommons.org](https://datacommons.org) [statistical variable](https://datacommons.org/tools/statvar) visualizations in your web application.
+Embed [datacommons.org](https://datacommons.org) [statistical variable](https://datacommons.org/tools/statvar) observation visualizations in your web application.
 
 ## Usage
 
-Include datacommons.js and styles in your html
+Include datacommons.js and styles in your html `<head>...</head>` tag
 
 ```
 <link rel="stylesheet" href="https://www.datacommons.org/css/ranking.min.css" />
@@ -34,7 +34,6 @@ datacommons.drawBar(document.getElementById("bar-example"), {
   svgChartHeight: 200,
   className: "my-chart",
   apiRoot: datacommons.root,
-  isDataTile: false,
   title:
     "Population Below Poverty Level Status in Past Year in States of United States (2020)",
   place: {
@@ -74,7 +73,6 @@ datacommons.drawLine(document.getElementById("line-example"), {
   svgChartHeight: 200,
   className: "my-chart",
   apiRoot: datacommons.root,
-  isDataTile: false,
   title:
     "Population Below Poverty Level Status in Past Year in United States (2020)",
   place: {
@@ -112,7 +110,6 @@ datacommons.drawMap(document.getElementById("map-example"), {
   svgChartHeight: 200,
   className: "my-chart",
   apiRoot: datacommons.root,
-  isDataTile: false,
   title:
     "Population Below Poverty Level Status in Past Year in States of United States (2020)",
   place: {
@@ -193,7 +190,7 @@ Draws bar chart tile with specified [statistical variable](https://datacommons.o
 
   - `enclosedPlaceType` (string)
 
-    Enclosing place type
+    Show statistical variable observations at this place type. Must be enclosed in the parent place type.
 
   - `comparisonPlaces` (string[])
 
@@ -218,11 +215,7 @@ Draws bar chart tile with specified [statistical variable](https://datacommons.o
 
     Extra classes to add to the container.
 
-  - `isDataTile?` (boolean)
-
-    Whether or not to render the data version of this tile
-
-  - `apiRoot` (string)
+  - `apiRoot?` (string)
 
     Datacommons API root. Default: `https://datacommons.org`
 
@@ -277,11 +270,7 @@ Draws line chart tile with specified [statistical variable](https://datacommons.
 
     Extra classes to add to the container.
 
-  - `isDataTile?` (boolean)
-
-    Whether or not to render the data version of this tile
-
-  - `apiRoot` (string)
+  - `apiRoot?` (string)
 
     Datacommons API root. Default: `https://datacommons.org`
 
@@ -315,7 +304,7 @@ Draws choropleth map with specified statistical variables.
 
   - `enclosedPlaceType` (string)
 
-    Enclosing place type
+    Show statistical variable observations at this place type. Must be enclosed in the parent place type.
 
   - `statVarSpec` (StatVarSpec)
 
@@ -336,11 +325,7 @@ Draws choropleth map with specified statistical variables.
 
     Extra classes to add to the container.
 
-  - `isDataTile?` (boolean)
-
-    Whether or not to render the data version of this tile
-
-  - `apiRoot` (string)
+  - `apiRoot?` (string)
 
     Datacommons API root. Default: `https://datacommons.org`
 

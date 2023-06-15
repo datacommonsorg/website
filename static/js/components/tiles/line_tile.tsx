@@ -23,6 +23,7 @@ import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
+import { DEFAULT_API_ENDPOINT } from "../../../library/constants";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
@@ -33,7 +34,7 @@ import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { ReplacementStrings, getStatVarName } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -221,5 +222,11 @@ export const renderLineComponent = (
   element: HTMLElement,
   props: LineTilePropType
 ): void => {
-  ReactDOM.render(React.createElement(LineTile, props), element);
+  ReactDOM.render(
+    React.createElement(LineTile, {
+      apiRoot: DEFAULT_API_ENDPOINT,
+      ...props,
+    }),
+    element
+  );
 };

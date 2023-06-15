@@ -24,6 +24,7 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
+import { DEFAULT_API_ENDPOINT } from "../../../library/constants";
 import {
   addPolygonLayer,
   drawD3Map,
@@ -51,7 +52,7 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
+import { ReplacementStrings, getMergedSvg } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 interface MapTilePropType {
@@ -435,5 +436,11 @@ export const renderMapComponent = (
   element: HTMLElement,
   props: MapTilePropType
 ): void => {
-  ReactDOM.render(React.createElement(MapTile, props), element);
+  ReactDOM.render(
+    React.createElement(MapTile, {
+      apiRoot: DEFAULT_API_ENDPOINT,
+      ...props,
+    }),
+    element
+  );
 };

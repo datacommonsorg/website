@@ -14,16 +14,5 @@
  * limitations under the License.
  */
 
-import { renderBarComponent } from "../js/components/tiles/bar_tile";
-import { renderLineComponent } from "../js/components/tiles/line_tile";
-import { renderMapComponent } from "../js/components/tiles/map_tile";
-import { renderRankingComponent } from "../js/ranking/ranking";
-import { DEFAULT_API_ENDPOINT } from "./constants";
-
-globalThis.datacommons = {
-  drawBar: renderBarComponent,
-  drawLine: renderLineComponent,
-  drawMap: renderMapComponent,
-  drawRanking: renderRankingComponent,
-  root: DEFAULT_API_ENDPOINT,
-};
+/** Default website API endpoint for datacommons library */
+export const DEFAULT_API_ENDPOINT = "https://datacommons.org";

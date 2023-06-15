@@ -23,6 +23,7 @@ import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
+import { DEFAULT_API_ENDPOINT } from "../../../library/constants";
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
@@ -36,7 +37,7 @@ import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { ReplacementStrings, getStatVarName } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -268,5 +269,11 @@ export const renderBarComponent = (
   element: HTMLElement,
   props: BarTilePropType
 ): void => {
-  ReactDOM.render(React.createElement(BarTile, props), element);
+  ReactDOM.render(
+    React.createElement(BarTile, {
+      apiRoot: DEFAULT_API_ENDPOINT,
+      ...props,
+    }),
+    element
+  );
 };
