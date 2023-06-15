@@ -60,11 +60,7 @@ def home():
     data = []
     prev_date = ''
     for date in folders:
-      item = {
-          'date': date,
-          'prev_date': prev_date,
-          'base_date': base_date
-      }
+      item = {'date': date, 'prev_date': prev_date, 'base_date': base_date}
       prev_date = date
       data.append(item)
     # Change back the item order from new to old
