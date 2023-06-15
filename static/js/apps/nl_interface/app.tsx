@@ -103,15 +103,11 @@ export function App(): JSX.Element {
 
   useEffect(() => {
     // If there are url prompts that have not been searched, input the next
-    // url prompt into the search box.
+    // url prompt into the search box when the last query's data fetch has
+    // completed.
     // TODO: Do this by going through state/props instead of directly
     // manipulating the DOM.
-    if (!urlPrompts.current.length) {
-      return;
-    }
-    // Wait for the last query's data fetch to complete before inputting the
-    // next prompt.
-    if (queries.length === contextList.length) {
+    if (urlPrompts.current.length && queries.length === contextList.length) {
       // delay inputting the prompt if it's not the first query.
       inputNextPrompt(queries.length > 0 /* delayStart */);
     }
