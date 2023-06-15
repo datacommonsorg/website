@@ -45,7 +45,7 @@ _REQ_DATA = {
 _SKIP_BEGIN_CHARS = ['`', '*']
 
 
-def call(query: str, history: str, ctr: counters.Counters) -> str:
+def call(query: str, history: str, ctr: counters.Counters) -> Dict:
   req_data = _REQ_DATA.copy()
 
   req_data['prompt']['context'] = current_app.config['PALM_PROMPT_TEXT']
@@ -83,6 +83,7 @@ def call(query: str, history: str, ctr: counters.Counters) -> str:
 def _parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
   if 'candidates' in resp and resp['candidates']:
     content = resp['candidates'][0]['content']
+    ctr.info('info_palm_api_response', content)
     ans = _extract_ans(content)
     if not ans:
       logging.error(f'ERROR: empty parsed result for {query}')
@@ -110,9 +111,20 @@ def _parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
 
 def _extract_ans(resp: str) -> str:
   ans = []
+
+  num_code_block_delims = 0
   for l in resp.splitlines():
     if l and not l[0] in _SKIP_BEGIN_CHARS and not l[0].isalnum():
       ans.append(l)
+    if l.startswith('```'):
+      num_code_block_delims += 1
+
+    # Sometimes LLM returns two sets of JSONs where the first one
+    # is the answer and the second one is part of the explanation.
+    # To handle that, just quit when we've found a pair of them.
+    if num_code_block_delims == 2:
+      break
+
   if len(ans) > 2 and ans[-2].strip().endswith(','):
     # Remove trailing ','
     ans[-2] = ans[-2].rstrip(', ')
