@@ -41,6 +41,8 @@ def run(driver, base_url, page_config_dir):
                              height=page['height'],
                              windowHandle='current')
       driver.get(base_url + page['url'])
+      # 'async' indicates whether this page fetches data or renders components
+      # asyncronously. The web driver wait depends on it.
       if page['async']:
         WebDriverWait(driver, shared.TIMEOUT).until(shared.charts_rendered)
       else:
