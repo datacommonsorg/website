@@ -239,7 +239,7 @@ function getProcessedSvg(chartSvg: SVGSVGElement): string {
 }
 
 // Gets the TileResult for a scatter tile.
-function getScatterTileResult(
+async function getScatterTileResult(
   id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
@@ -257,44 +257,43 @@ function getScatterTileResult(
     apiRoot: CONFIG.apiRoot,
   };
 
-  return fetchScatterData(tileProp)
-    .then((chartData) => {
-      const svgContainer = document.createElement("div");
-      drawScatter(
-        chartData,
-        svgContainer,
-        SVG_HEIGHT,
-        null /* tooltipHtml */,
-        tileConfig.scatterTileSpec,
-        SVG_WIDTH
-      );
-      return [
-        {
-          svg: getProcessedSvg(svgContainer.querySelector("svg")),
-          data_csv: scatterDataToCsv(
-            chartData.xStatVar.statVar,
-            chartData.xStatVar.denom,
-            chartData.yStatVar.statVar,
-            chartData.yStatVar.denom,
-            chartData.points
-          ),
-          srcs: getSources(chartData.sources),
-          title: getChartTitle(
-            tileConfig.title,
-            getScatterRS(tileProp, chartData)
-          ),
-          type: "SCATTER",
-        },
-      ];
-    })
-    .catch(() => {
-      console.log("Failed to get scatter tile result for: " + id);
-      return null;
-    });
+  try {
+    const chartData = await fetchScatterData(tileProp);
+    const svgContainer = document.createElement("div");
+    drawScatter(
+      chartData,
+      svgContainer,
+      SVG_HEIGHT,
+      null /* tooltipHtml */,
+      tileConfig.scatterTileSpec,
+      SVG_WIDTH
+    );
+    return [
+      {
+        svg: getProcessedSvg(svgContainer.querySelector("svg")),
+        data_csv: scatterDataToCsv(
+          chartData.xStatVar.statVar,
+          chartData.xStatVar.denom,
+          chartData.yStatVar.statVar,
+          chartData.yStatVar.denom,
+          chartData.points
+        ),
+        srcs: getSources(chartData.sources),
+        title: getChartTitle(
+          tileConfig.title,
+          getScatterRS(tileProp, chartData)
+        ),
+        type: "SCATTER",
+      },
+    ];
+  } catch (e) {
+    console.log("Failed to get scatter tile result for: " + id);
+    return null;
+  }
 }
 
 // Gets the TileResult for a line tile
-function getLineTileResult(
+async function getLineTileResult(
   id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
@@ -309,31 +308,30 @@ function getLineTileResult(
     svgChartWidth: SVG_WIDTH,
     title: tileConfig.title,
   };
-  return fetchLineData(tileProp)
-    .then((chartData) => {
-      const tileContainer = document.createElement("div");
-      tileContainer.setAttribute("id", id);
-      document.getElementById(DOM_ID).appendChild(tileContainer);
-      drawLine(tileProp, chartData, null);
-      return [
-        {
-          svg: getProcessedSvg(tileContainer.querySelector("svg")),
-          data_csv: dataGroupsToCsv(chartData.dataGroup),
-          srcs: getSources(chartData.sources),
-          legend: chartData.dataGroup.map((dg) => dg.label || "A"),
-          title: getChartTitle(tileConfig.title, getLineRS(tileProp)),
-          type: "LINE",
-        },
-      ];
-    })
-    .catch(() => {
-      console.log("Failed to get line tile result for: " + id);
-      return null;
-    });
+  try {
+    const chartData = await fetchLineData(tileProp);
+    const tileContainer = document.createElement("div");
+    tileContainer.setAttribute("id", id);
+    document.getElementById(DOM_ID).appendChild(tileContainer);
+    drawLine(tileProp, chartData, null);
+    return [
+      {
+        svg: getProcessedSvg(tileContainer.querySelector("svg")),
+        data_csv: dataGroupsToCsv(chartData.dataGroup),
+        srcs: getSources(chartData.sources),
+        legend: chartData.dataGroup.map((dg) => dg.label || "A"),
+        title: getChartTitle(tileConfig.title, getLineRS(tileProp)),
+        type: "LINE",
+      },
+    ];
+  } catch (e) {
+    console.log("Failed to get line tile result for: " + id);
+    return null;
+  }
 }
 
 // Gets the TileResult for a bar tile
-function getBarTileResult(
+async function getBarTileResult(
   id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
@@ -355,39 +353,37 @@ function getBarTileResult(
     svgChartHeight: SVG_HEIGHT,
     comparisonPlaces,
   };
-
-  return fetchBarData(tileProp)
-    .then((chartData) => {
-      const tileContainer = document.createElement("div");
-      tileContainer.setAttribute("id", id);
-      document.getElementById(DOM_ID).appendChild(tileContainer);
-      drawBar(tileProp, chartData, SVG_WIDTH);
-      let legend = [];
-      if (
-        !_.isEmpty(chartData.dataGroup) &&
-        !_.isEmpty(chartData.dataGroup[0].value)
-      ) {
-        legend = chartData.dataGroup[0].value.map((dp) => dp.label);
-      }
-      return [
-        {
-          svg: getProcessedSvg(tileContainer.querySelector("svg")),
-          data_csv: dataGroupsToCsv(chartData.dataGroup),
-          srcs: getSources(chartData.sources),
-          legend,
-          title: getChartTitle(tileConfig.title, getBarRS(tileProp, chartData)),
-          type: "BAR",
-        },
-      ];
-    })
-    .catch(() => {
-      console.log("Failed to get bar tile result for: " + id);
-      return null;
-    });
+  try {
+    const chartData = await fetchBarData(tileProp);
+    const tileContainer = document.createElement("div");
+    tileContainer.setAttribute("id", id);
+    document.getElementById(DOM_ID).appendChild(tileContainer);
+    drawBar(tileProp, chartData, SVG_WIDTH);
+    let legend = [];
+    if (
+      !_.isEmpty(chartData.dataGroup) &&
+      !_.isEmpty(chartData.dataGroup[0].value)
+    ) {
+      legend = chartData.dataGroup[0].value.map((dp) => dp.label);
+    }
+    return [
+      {
+        svg: getProcessedSvg(tileContainer.querySelector("svg")),
+        data_csv: dataGroupsToCsv(chartData.dataGroup),
+        srcs: getSources(chartData.sources),
+        legend,
+        title: getChartTitle(tileConfig.title, getBarRS(tileProp, chartData)),
+        type: "BAR",
+      },
+    ];
+  } catch (e) {
+    console.log("Failed to get bar tile result for: " + id);
+    return null;
+  }
 }
 
 // Gets the TileResult for a map tile
-function getMapTileResult(
+async function getMapTileResult(
   id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
@@ -403,63 +399,59 @@ function getMapTileResult(
     svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
     apiRoot: CONFIG.apiRoot,
   };
-  return fetchMapData(tileProp)
-    .then((chartData) => {
-      const legendContainer = document.createElement("div");
-      const mapContainer = document.createElement("div");
-      drawMap(
-        chartData,
-        tileProp,
-        null,
-        legendContainer,
-        mapContainer,
-        SVG_WIDTH
-      );
-      // Get the width of the text in the legend
-      let legendTextWidth = 0;
-      Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
-        legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
-      });
-      const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
-      // Create a single merged svg to hold both the map and the legend svgs
-      const mergedSvg = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "svg"
-      );
-      mergedSvg.setAttribute("height", String(SVG_HEIGHT));
-      mergedSvg.setAttribute("width", String(SVG_WIDTH));
-      // Get the map svg and add it to the merged svg
-      const mapSvg = mapContainer.querySelector("svg");
-      const mapWidth = SVG_WIDTH - legendWidth;
-      mapSvg.setAttribute("width", String(mapWidth));
-      const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-      mapG.appendChild(mapSvg);
-      mergedSvg.appendChild(mapG);
-      // Get the legend svg and add it to the merged svg
-      const legendSvg = legendContainer.querySelector("svg");
-      legendSvg.setAttribute("width", String(legendWidth));
-      const legendG = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "g"
-      );
-      legendG.setAttribute("transform", `translate(${mapWidth})`);
-      legendG.appendChild(legendSvg);
-      mergedSvg.appendChild(legendG);
-
-      return [
-        {
-          svg: getProcessedSvg(mergedSvg),
-          data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
-          srcs: getSources(chartData.sources),
-          title: getChartTitle(tileConfig.title, getMapRS(tileProp, chartData)),
-          type: "MAP",
-        },
-      ];
-    })
-    .catch(() => {
-      console.log("Failed to get map tile result for: " + id);
-      return null;
+  try {
+    const chartData = await fetchMapData(tileProp);
+    const legendContainer = document.createElement("div");
+    const mapContainer = document.createElement("div");
+    drawMap(
+      chartData,
+      tileProp,
+      null,
+      legendContainer,
+      mapContainer,
+      SVG_WIDTH
+    );
+    // Get the width of the text in the legend
+    let legendTextWidth = 0;
+    Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
+      legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
     });
+    const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
+    // Create a single merged svg to hold both the map and the legend svgs
+    const mergedSvg = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    mergedSvg.setAttribute("height", String(SVG_HEIGHT));
+    mergedSvg.setAttribute("width", String(SVG_WIDTH));
+    // Get the map svg and add it to the merged svg
+    const mapSvg = mapContainer.querySelector("svg");
+    const mapWidth = SVG_WIDTH - legendWidth;
+    mapSvg.setAttribute("width", String(mapWidth));
+    const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    mapG.appendChild(mapSvg);
+    mergedSvg.appendChild(mapG);
+    // Get the legend svg and add it to the merged svg
+    const legendSvg = legendContainer.querySelector("svg");
+    legendSvg.setAttribute("width", String(legendWidth));
+    const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    legendG.setAttribute("transform", `translate(${mapWidth})`);
+    legendG.appendChild(legendSvg);
+    mergedSvg.appendChild(legendG);
+
+    return [
+      {
+        svg: getProcessedSvg(mergedSvg),
+        data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
+        srcs: getSources(chartData.sources),
+        title: getChartTitle(tileConfig.title, getMapRS(tileProp, chartData)),
+        type: "MAP",
+      },
+    ];
+  } catch (e) {
+    console.log("Failed to get map tile result for: " + id);
+    return null;
+  }
 }
 
 // Get the result for a single ranking unit
@@ -500,7 +492,7 @@ function getRankingUnitResult(
 }
 
 // Get the tile results for a ranking tile.
-function getRankingTileResult(
+async function getRankingTileResult(
   id: string,
   tileConfig: TileConfig,
   place: NamedTypedPlace,
@@ -516,32 +508,31 @@ function getRankingTileResult(
     rankingMetadata: tileConfig.rankingTileSpec,
     apiRoot: CONFIG.apiRoot,
   };
-  return fetchRankingData(tileProp)
-    .then((rankingData) => {
-      const tileResults: TileResult[] = [];
-      for (const sv of Object.keys(rankingData)) {
-        const rankingGroup = rankingData[sv];
-        if (tileConfig.rankingTileSpec.showHighest) {
-          tileResults.push(
-            getRankingUnitResult(tileConfig, rankingGroup, sv, true)
-          );
-        }
-        if (tileConfig.rankingTileSpec.showLowest) {
-          tileResults.push(
-            getRankingUnitResult(tileConfig, rankingGroup, sv, false)
-          );
-        }
+  try {
+    const rankingData = fetchRankingData(tileProp);
+    const tileResults: TileResult[] = [];
+    for (const sv of Object.keys(rankingData)) {
+      const rankingGroup = rankingData[sv];
+      if (tileConfig.rankingTileSpec.showHighest) {
+        tileResults.push(
+          getRankingUnitResult(tileConfig, rankingGroup, sv, true)
+        );
       }
-      return tileResults;
-    })
-    .catch(() => {
-      console.log("Failed to get ranking tile result for: " + id);
-      return null;
-    });
+      if (tileConfig.rankingTileSpec.showLowest) {
+        tileResults.push(
+          getRankingUnitResult(tileConfig, rankingGroup, sv, false)
+        );
+      }
+    }
+    return tileResults;
+  } catch (e) {
+    console.log("Failed to get ranking tile result for: " + id);
+    return null;
+  }
 }
 
 // Gets the TileResults for a given tile config and supporting information.
-function getTileResult(
+async function getTileResult(
   id: string,
   tile: TileConfig,
   svSpec: Record<string, StatVarSpec>,
@@ -645,8 +636,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
       Promise.all(tilePromises)
         .then((tileResults) => {
           const filteredResults = tileResults
-            .filter((result) => result !== null)
-            .flat(1);
+            .flat(1)
+            .filter((result) => result !== null);
           res.status(200).send(JSON.stringify({ charts: filteredResults }));
         })
         .catch(() => {
