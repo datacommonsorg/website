@@ -26,24 +26,24 @@
 {% block content %}
   <div class="container">
     <div>
-      {% if sha|length == 7 %}
+      {% if token|length == 7 %}
         <div>
           <span>Base: </span>
-          <a href="https://github.com/datacommonsorg/website/commit/{{ base_sha }}">
+          <a href="https://github.com/datacommonsorg/website/commit/{{ base_token }}">
             code
           </a>
           <span>, </span>
-          <a href="/screenshot/commit/{{ base_sha }}">
+          <a href="/screenshot/commit/{{ base_token }}">
             screenshot
           </a>
         </div>
         <div>
           <span>Current: </span>
-          <a href="https://github.com/datacommonsorg/website/commit/{{ sha }}">
+          <a href="https://github.com/datacommonsorg/website/commit/{{ token }}">
             code
           </a>
           <span>, </span>
-          <a href="/screenshot/commit/{{ sha }}">
+          <a href="/screenshot/commit/{{ token }}">
             screenshot
           </a>
         </div>
@@ -51,11 +51,11 @@
         <table>
           <tr>
             <td>Base:</td>
-            <td>{{ base_sha }}</td>
+            <td>{{ base_token }}</td>
           </tr>
           <tr>
             <td>Current:</td>
-            <td>{{ sha }}</td>
+            <td>{{ token }}</td>
           </tr>
         </table>
       {% endif %}

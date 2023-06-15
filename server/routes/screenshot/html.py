@@ -176,5 +176,5 @@ def compare(compare):
       }
   return flask.render_template('screenshot/compare.html',
                                data=data,
-                               sha=parts[1],
-                               base_sha=parts[0])
+                               token=parts[1],
+                               base_token=parts[0])
