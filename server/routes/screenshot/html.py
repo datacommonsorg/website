@@ -14,10 +14,10 @@
 
 from base64 import b64encode
 from datetime import datetime
+from datetime import timedelta
 import io
 import os
 
-from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import flask
 from flask import current_app
@@ -69,7 +69,9 @@ def home():
       data.append(item)
     # Change back the item order from new to old
     data.reverse()
-    return flask.render_template('screenshot/home.html', domain=domain, data=data)
+    return flask.render_template('screenshot/home.html',
+                                 domain=domain,
+                                 data=data)
 
   # Secret generated from Github account 'dc-org2018'
   secret_client = secretmanager.SecretManagerServiceClient()
@@ -110,29 +112,6 @@ def home():
   # Change back the item order from new to old
   data.reverse()
   return flask.render_template('screenshot/home.html', data=data)
-
-
-@bp.route('/<path:domain>')
-def domain(domain):
-  if not env_valid():
-    flask.abort(404)
-  one_month_ago = datetime.now() - timedelta(days=30)
-  start_offset = one_month_ago.strftime("%Y_%m_%d")
-  folders = list_folder(SCREENSHOT_BUCKET, domain, start_offset)
-  data = []
-  prev_date = ''
-  for date in folders:
-    item = {
-        'message': date,
-        'url': '',
-        'sha': date,
-        'prev_sha': prev_date,
-    }
-    prev_date = date
-    data.append(item)
-  # Change back the item order from new to old
-  data.reverse()
-  return flask.render_template('screenshot/home.html', domain=domain, data=data)
 
 
 @bp.route('/commit/<path:sha>')
