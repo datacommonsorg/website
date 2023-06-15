@@ -13,7 +13,9 @@
 # limitations under the License.
 """LLM based detector."""
 
+import copy
 import logging
+import sys
 from typing import Dict, List
 
 from flask import current_app
@@ -33,11 +35,16 @@ _LLM_TYPE_TO_CLASSIFICATION_TYPE = {
     'RANK': (types.ClassificationType.RANKING, 'ranking_type'),
     'SUB_PLACE_TYPE':
         (types.ClassificationType.CONTAINED_IN, 'contained_in_place_type'),
-    'COMPARE': (None, None),
     'GROWTH': (types.ClassificationType.TIME_DELTA, 'time_delta_type'),
     'SIZE': (types.ClassificationType.SIZE_TYPE, 'size_type'),
     'DISASTER_EVENT': (types.ClassificationType.EVENT, 'event_type'),
 }
+
+# These need special handling and do not fit the
+# _LLM_TYPE_TO_CLASSIFICATION_TYPE map.
+_SPECIAL_LLM_TYPE_CLASSIFICATIONS = [
+    'COMPARE', 'COMPARISON_FILTER', 'RANKING_FILTER'
+]
 
 _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE = {
     'RANK': {
@@ -56,7 +63,6 @@ _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE = {
         'ELEMENTARY_SCHOOL': types.ContainedInPlaceType.ELEMENTARY_SCHOOL.value,
         'PUBLIC_SCHOOL': types.ContainedInPlaceType.PUBLIC_SCHOOL.value,
     },
-    'COMPARE': {},
     'GROWTH': {
         'INCREASE': types.TimeDeltaType.INCREASE,
         'DECREASE': types.TimeDeltaType.DECREASE,
@@ -74,7 +80,15 @@ _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE = {
         'EXTREME_HEAT': types.EventType.HEAT,
         'EXTREME_COLD': types.EventType.COLD,
         'HIGH_WETBULB_TEMPERATURE': types.EventType.WETBULB,
-    }
+    },
+}
+
+_LLM_OP_TO_QUANTITY_OP = {
+    'EQUAL': types.QCmpType.EQ,
+    'GREATER_THAN': types.QCmpType.GT,
+    'GREATER_THAN_OR_EQUAL': types.QCmpType.GE,
+    'LESSER_THAN': types.QCmpType.LT,
+    'LESSER_THAN_OR_EQUAL': types.QCmpType.LE,
 }
 
 
@@ -95,13 +109,24 @@ def detect(query: str, context_history: Dict, index_type: str,
 
   llm_resp = palm_api.call(query, history, ctr)
 
-  sv_list = llm_resp.get('METRICS', [])
+  # Need to append to sv_list below, so make a copy.
+  sv_list = copy.deepcopy(llm_resp.get('METRICS', []))
   places_str_found = llm_resp.get('PLACES', [])
 
-  if not places_str_found:
-    logging.info("Place detection failed.")
+  # Process filters.
+  filter_type = None
+  for f, m in [('COMPARISON_FILTER', 'COMPARISON_METRIC'),
+               ('RANKING_FILTER', 'RANKING_METRIC')]:
+    if len(sv_list) == 1 and len(llm_resp.get(f, [])) == 1:
+      vals = _get_llm_vals(llm_resp[f][0].get(m, []))
+      if len(vals) == 1:
+        if vals[0] != sv_list[0]:
+          sv_list.append(vals[0])
+        filter_type = f
+        break
 
-  logging.info("Found places in query: {}".format(places_str_found))
+  if not places_str_found:
+    ctr.err('failed_place_detection', llm_resp)
 
   place_dcids = []
   main_place = None
@@ -115,17 +140,13 @@ def detect(query: str, context_history: Dict, index_type: str,
   if places_str_found:
     place_dcids = infer_place_dcids(
         places_str_found, query_detection_debug_logs["place_dcid_inference"])
-    logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
   if place_dcids:
     resolved_places = get_place_from_dcids(
         place_dcids.values(), query_detection_debug_logs["place_resolution"])
-    logging.info(
-        f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
   if resolved_places:
     main_place = resolved_places[0]
-    logging.info(f"Using main_place as: {main_place}")
 
   # Set PlaceDetection.
   place_detection = PlaceDetection(
@@ -147,6 +168,7 @@ def detect(query: str, context_history: Dict, index_type: str,
     query_detection_debug_logs[
         "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
 
+  # SV Detection.
   svs_score_dicts = []
   dummy_dict = {}
   for sv in sv_list:
@@ -155,8 +177,6 @@ def detect(query: str, context_history: Dict, index_type: str,
     except ValueError as e:
       logging.info(e)
   svs_scores_dict = _merge_sv_dicts(sv_list, svs_score_dicts)
-
-  # Set the SVDetection.
   sv_detection = SVDetection(
       query=query,
       sv_dcids=svs_scores_dict['SV'],
@@ -164,9 +184,24 @@ def detect(query: str, context_history: Dict, index_type: str,
       svs_to_sentences=svs_scores_dict['SV_to_Sentences'],
       multi_sv=svs_scores_dict['MultiSV'])
 
+  # Handle other keys in LLM Response.
   classifications = []
-  for t in sorted(_LLM_TYPE_TO_CLASSIFICATION_TYPE.keys()):
-    cls = _llm2classification(llm_resp, t)
+  for t in _SPECIAL_LLM_TYPE_CLASSIFICATIONS + sorted(
+      _LLM_TYPE_TO_CLASSIFICATION_TYPE.keys()):
+    if t not in llm_resp:
+      continue
+
+    cls = None
+    if t in _LLM_TYPE_TO_CLASSIFICATION_TYPE:
+      cls = _handle_llm2classification(t, llm_resp)
+    elif t == 'COMPARE':
+      llm_vals = _get_llm_vals(llm_resp[t])
+      if not llm_vals:
+        continue
+      cls = _handle_compare(llm_vals[0])
+    elif t == filter_type:
+      # Earlier since we had set filter_type, should be safe to do llm_resp[f][0].
+      cls = _handle_quantity(llm_resp[f][0], t)
     if cls:
       classifications.append(cls)
 
@@ -208,28 +243,26 @@ def _merge_sv_dicts(sv_list: List[str], svs_score_dicts: List[Dict]) -> Dict:
   return merged_dict
 
 
-def _llm2classification(llm_resp: Dict, llm_ctype: str) -> types.NLClassifier:
-  if llm_ctype not in llm_resp:
-    return None
+def _handle_compare(llm_val: str):
+  # Special-case.
+  if llm_val == 'COMPARE_PLACES':
+    return types.NLClassifier(
+        type=types.ClassificationType.COMPARISON,
+        attributes=types.ComparisonClassificationAttributes(
+            comparison_trigger_words=[]))
+  elif llm_val == 'COMPARE_METRICS':
+    return types.NLClassifier(
+        type=types.ClassificationType.CORRELATION,
+        attributes=types.CorrelationClassificationAttributes(
+            correlation_trigger_words=[]))
+  return None
 
+
+def _handle_llm2classification(llm_ctype: str,
+                               llm_resp: Dict) -> types.NLClassifier:
   llm_vals = _get_llm_vals(llm_resp[llm_ctype])
   if not llm_vals:
     return None
-
-  if llm_ctype == 'COMPARE':
-    # Special-case.
-    if llm_vals[0] == 'COMPARE_PLACES':
-      return types.NLClassifier(
-          type=types.ClassificationType.COMPARISON,
-          attributes=types.ComparisonClassificationAttributes(
-              comparison_trigger_words=[]))
-    elif llm_vals[0] == 'COMPARE_METRICS':
-      return types.NLClassifier(
-          type=types.ClassificationType.CORRELATION,
-          attributes=types.CorrelationClassificationAttributes(
-              correlation_trigger_words=[]))
-    return None
-
   ctype, dict_key = _LLM_TYPE_TO_CLASSIFICATION_TYPE[llm_ctype]
   submap = _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE[llm_ctype]
   matches = [submap[v] for v in llm_vals if v in submap]
@@ -238,13 +271,38 @@ def _llm2classification(llm_resp: Dict, llm_ctype: str) -> types.NLClassifier:
   if llm_ctype == 'SUB_PLACE_TYPE':
     # This only supports a singleton.
     matches = matches[0]
-
   cdict = {
       'type': ctype,
       dict_key: matches,
   }
-  logging.info(f'DICT: {cdict}')
   return utterance.dict_to_classification([cdict])[0]
+
+
+def _handle_quantity(filter: Dict, ctype: str) -> types.NLClassifier:
+  qty = None
+  if ctype == 'RANKING_FILTER':
+    rank = filter.get('RANKING_OPERATOR', '')
+    if rank == 'IS_HIGHEST':
+      # Map highest as >= lowest value ever.  Fulfillment will do the rest.
+      qty = types.Quantity(cmp=types.QCmpType.GE, val=sys.float_info.min)
+    elif rank == 'IS_LOWEST':
+      # Map lowest as <= highest value ever.  Fulfillment will do the rest.
+      qty = types.Quantity(cmp=types.QCmpType.LE, val=sys.float_info.max)
+  else:
+    op = filter.get('COMPARISON_OPERATOR', '')
+    val = filter.get('VALUE', '')
+    try:
+      val = float(val)
+      qop = _LLM_OP_TO_QUANTITY_OP.get(op, None)
+      if qop:
+        qty = types.Quantity(cmp=qop, val=val)
+    except ValueError:
+      pass
+  if not qty:
+    return None
+  return types.NLClassifier(type=types.ClassificationType.QUANTITY,
+                            attributes=types.QuantityClassificationAttributes(
+                                qval=qty, qrange=None, idx=0))
 
 
 # Vals may only be a string or a list.
