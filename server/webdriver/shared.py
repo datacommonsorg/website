@@ -14,6 +14,7 @@
 """Common library for functions used by multiple webdriver tests"""
 
 import logging
+
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
