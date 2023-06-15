@@ -73,5 +73,10 @@
     "url": "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DPercent_Person_WithCoronaryHeartDisease%26dy%3DCount_Person%26epd%3DgeoId%2F12%26ept%3DCounty%26pp%3D",
     "height": 1200,
     "async": true
+  },
+  {
+    "url": "/tools/statvar#sv=Mean_WagesDaily_Worker",
+    "height": 1200,
+    "async": true
   }
 ]
