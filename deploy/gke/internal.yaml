@@ -20,6 +20,6 @@ region:
   primary: us-central1
   others:
     -
-cluster_prefix: mixer
+cluster_prefix: website
 nodes: 1
 storage_project: datcom-store
