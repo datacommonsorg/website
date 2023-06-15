@@ -70,6 +70,8 @@ import {
 import { htmlToSvg } from "../js/utils/svg_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
 
+// TODO (chejennifer): Split up functions into smaller files
+
 const app = express();
 const APP_CONFIGS = {
   local: {
