@@ -44,6 +44,7 @@ def run(driver, base_url, page_config_dir):
       # 'async' indicates whether this page fetches data or renders components
       # asyncronously. The web driver wait depends on it.
       if page['async']:
+        shared.wait_for_loading(driver)
         WebDriverWait(driver, shared.TIMEOUT).until(shared.charts_rendered)
       else:
         element_present = EC.presence_of_element_located((By.TAG_NAME, 'main'))
