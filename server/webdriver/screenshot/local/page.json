@@ -5,7 +5,7 @@
     "async": false
   },
   {
-    "url": "/place/country/USA?topic=Demographics",
+    "url": "/place/country/USA?topic=Demographics&seed=1",
     "height": 4400,
     "async": true
   },
