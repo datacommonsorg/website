@@ -36,6 +36,7 @@ const NEXT_PROMPT_DELAY = 5000;
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
+  // If autoRun is enabled, runs every prompt (';' separated) from the url.
   const autoRun = useRef(!!getUrlToken("a"));
   const [indexType, setIndexType] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.SMALL)
@@ -101,13 +102,14 @@ export function App(): JSX.Element {
   }
 
   useEffect(() => {
-    // If there are prompts in the url, automatically input the first prompt
-    // into the search box.
-    // If autoRun is enabled, runs every prompt (';' separated) from the url.
+    // If there are url prompts that have not been searched, input the next
+    // url prompt into the search box when the last query's data fetch has
+    // completed.
     // TODO: Do this by going through state/props instead of directly
     // manipulating the DOM.
-    if (urlPrompts.current.length) {
-      inputNextPrompt(false);
+    if (urlPrompts.current.length && queries.length === contextList.length) {
+      // delay inputting the prompt if it's not the first query.
+      inputNextPrompt(queries.length > 0 /* delayStart */);
     }
     return () => {
       // When component unmounts, clear all timers
@@ -115,7 +117,7 @@ export function App(): JSX.Element {
       clearTimeout(searchDelayTimer.current);
       clearTimeout(nextPromptDelayTimer.current);
     };
-  }, []);
+  }, [queries, contextList]);
 
   useEffect(() => {
     // Scroll to the last query.
@@ -190,10 +192,6 @@ export function App(): JSX.Element {
           queries={queries}
           onQuerySearched={(q) => {
             setQueries([...queries, q]);
-            // If there are prompts from the url, input the next one
-            if (urlPrompts.current.length) {
-              inputNextPrompt(true);
-            }
           }}
           indexType={indexType}
           useLLM={useLLM}

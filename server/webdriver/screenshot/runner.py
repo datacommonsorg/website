@@ -16,6 +16,8 @@ import json
 import os
 import urllib.parse
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
@@ -25,23 +27,29 @@ WIDTH = 1280
 SCREENSHOTS_FOLDER = 'screenshots'
 
 
-def run(driver, url):
+def run(driver, base_url, page_config_dir):
   """Take screenshot and save to desired folders"""
   for f in os.listdir(SCREENSHOTS_FOLDER):
     if f != '.gitkeep':
       os.remove(os.path.join(SCREENSHOTS_FOLDER, f))
   curr_dir = os.path.dirname(os.path.abspath(__file__))
-  with open(os.path.join(curr_dir, 'page.json')) as f:
+  with open(os.path.join(curr_dir, page_config_dir, 'page.json')) as f:
     config = json.load(f)
     for page in config:
       # Set the window size. Testing different sizes.
       driver.set_window_size(width=WIDTH,
                              height=page['height'],
                              windowHandle='current')
-      driver.get(url + page['url'])
-      name = urllib.parse.quote_plus(page['url'].removeprefix('/'))
-      WebDriverWait(driver, shared.TIMEOUT).until(shared.charts_rendered)
+      driver.get(base_url + page['url'])
+      # 'async' indicates whether this page fetches data or renders components
+      # asyncronously. The web driver wait depends on it.
+      if page['async']:
+        WebDriverWait(driver, shared.TIMEOUT).until(shared.charts_rendered)
+      else:
+        element_present = EC.presence_of_element_located((By.TAG_NAME, 'main'))
+        WebDriverWait(driver, shared.TIMEOUT).until(element_present)
       # Take a screenshot of the page and save it.
+      name = urllib.parse.quote_plus(page['url'].removeprefix('/'))
       file_name = '{}/{}.png'.format(SCREENSHOTS_FOLDER, name)
       if not driver.save_screenshot(file_name):
         return False
