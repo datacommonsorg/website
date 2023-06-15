@@ -13,6 +13,7 @@
 # limitations under the License.
 """Common library for functions used by multiple webdriver tests"""
 
+import logging
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -65,5 +66,6 @@ def charts_rendered(driver):
     try:
       c.find_element(By.CLASS_NAME, ASYNC_ELEMENT_CLASS)
     except NoSuchElementException:
+      logging.info(c.text)
       return False
   return True
