@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.webdriver.base import WebdriverBaseTest
-from server.webdriver.screenshot import runner
+set -e
 
+export FLASK_ENV=webdriver
 
-# Class to test screenshot capture.
-class Test(WebdriverBaseTest):
+python3 -m venv .env
+source .env/bin/activate
+pip3 install -r server/requirements.txt
 
-  def test_run_local(self):
-    """Test these page can show correctly and do screenshot."""
-    self.assertTrue(runner.run(self.driver, self.url_, 'local'))
+# Define a list of domains
+domain_list="datacommons.feedingamerica.org"
+
+# Loop through the domain list
+for domain in $domain_list
+do
+  date_str=$(date +"%Y_%m_%d_%H_%M_%S")
+  python3 -m server.webdriver.screenshot.remote.main -d $domain
+  gsutil cp ./screenshots/*.png ./screenshots/.png gs://datcom-website-screenshot/$domain/$date_str/
+done
