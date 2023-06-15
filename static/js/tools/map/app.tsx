@@ -21,6 +21,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
@@ -50,7 +51,7 @@ function App(): JSX.Element {
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
       />
-      <div id="plot-container">
+      <div id="plot-container" className={ASYNC_ELEMENT_HOLDER_CLASS}>
         <Container fluid={true}>
           <Row>
             <Title />

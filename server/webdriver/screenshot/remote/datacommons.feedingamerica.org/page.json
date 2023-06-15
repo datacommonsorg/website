@@ -1,0 +1,12 @@
+[
+  {
+    "url": "/version",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/",
+    "height": 2500,
+    "async": false
+  }
+]

@@ -23,7 +23,6 @@ import React, { ReactNode, useContext, useEffect } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
-import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_PLOT,
@@ -98,7 +97,7 @@ export function Chart(props: ChartProps): JSX.Element {
           <div id="map-chart-screen" className="screen">
             <div id="spinner"></div>
           </div>
-          <div className={`chart-section ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
+          <div className="chart-section">
             <div className="map-title">
               <h3>
                 {title}
