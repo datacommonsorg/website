@@ -22,6 +22,7 @@ import axios from "axios";
 import React from "react";
 
 import { GoogleMap } from "../components/google_map";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { StatVarHierarchyType } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { ImageSection } from "./image_section";
@@ -113,7 +114,7 @@ export class BrowserPage extends React.Component<
         <div id="overview-map">
           <GoogleMap dcid={this.props.dcid}></GoogleMap>
         </div>
-        <div id="node-content">
+        <div id="node-content" className={ASYNC_ELEMENT_HOLDER_CLASS}>
           <div className="table-page-section">
             <h3>{outArcHeader}</h3>
             <OutArcSection
