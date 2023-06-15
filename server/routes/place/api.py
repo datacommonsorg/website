@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -407,7 +407,11 @@ def data(dcid):
                              target_category)
   new_stat_vars = current_app.config['NEW_STAT_VARS']
 
-  raw_page_data = dc.get_landing_page_data(dcid, target_category, new_stat_vars)
+  seed = request.args.get("seed", 0)
+  raw_page_data = dc.get_landing_page_data(dcid,
+                                           target_category,
+                                           new_stat_vars,
+                                           seed=seed)
 
   if 'statVarSeries' not in raw_page_data:
     logging.info("Landing Page: No data for %s", dcid)

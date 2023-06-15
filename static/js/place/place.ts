@@ -111,10 +111,13 @@ function adjustMenuPosition(): void {
 async function getLandingPageData(
   dcid: string,
   category: string,
-  locale: string
+  locale: string,
+  seed: string
 ): Promise<PageData> {
   return axios
-    .get(`/api/landingpage/data/${dcid}?category=${category}&hl=${locale}`)
+    .get(
+      `/api/landingpage/data/${dcid}?category=${category}&hl=${locale}&seed=${seed}`
+    )
     .then((resp) => {
       return resp.data;
     });
@@ -129,7 +132,8 @@ function renderPage(): void {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
-  const landingPagePromise = getLandingPageData(dcid, category, locale);
+  const seed = document.getElementById("seed").dataset.seed;
+  const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
   Promise.all([
     landingPagePromise,
