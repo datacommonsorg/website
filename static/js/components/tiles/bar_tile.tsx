@@ -21,9 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
 
-import { DEFAULT_API_ENDPOINT } from "../../../library/constants";
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
@@ -46,7 +44,7 @@ const NUM_PLACES = 7;
 const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
 
-interface BarTilePropType {
+export interface BarTilePropType {
   id: string;
   title: string;
   // The primary place of the page (disaster, topic, nl)
@@ -259,21 +257,3 @@ export function draw(
     chartData.unit
   );
 }
-
-/**
- * Renders bar chart tile component in the given HTML element
- * @param element DOM element to render the chart
- * @param props bar chart tile component properties
- */
-export const renderBarComponent = (
-  element: HTMLElement,
-  props: BarTilePropType
-): void => {
-  ReactDOM.render(
-    React.createElement(BarTile, {
-      apiRoot: DEFAULT_API_ENDPOINT,
-      ...props,
-    }),
-    element
-  );
-};

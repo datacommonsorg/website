@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import { renderBarComponent } from "../js/components/tiles/bar_tile";
-import { renderLineComponent } from "../js/components/tiles/line_tile";
-import { renderMapComponent } from "../js/components/tiles/map_tile";
 import { renderRankingComponent } from "../js/ranking/ranking";
+import {
+  renderBarComponent,
+  renderLineComponent,
+  renderMapComponent,
+} from "./components";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 
 globalThis.datacommons = {
