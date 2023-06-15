@@ -117,10 +117,10 @@ def detect(query: str, context_history: Dict, index_type: str,
   filter_type = None
   for f, m in [('COMPARISON_FILTER', 'COMPARISON_METRIC'),
                ('RANKING_FILTER', 'RANKING_METRIC')]:
-    if len(sv_list) == 1 and len(llm_resp.get(f, [])) == 1:
+    if sv_list and llm_resp.get(f) and len(llm_resp[f]) == 1:
       vals = _get_llm_vals(llm_resp[f][0].get(m, []))
       if len(vals) == 1:
-        if vals[0] != sv_list[0]:
+        if vals[0] not in sv_list:
           sv_list.append(vals[0])
         filter_type = f
         break
