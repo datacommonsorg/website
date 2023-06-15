@@ -49,7 +49,6 @@ def place(place_dcid=None):
     return flask.redirect(flask.url_for('place.place', **redirect_args))
 
   dcid = flask.request.args.get('dcid', None)
-  seed = flask.request.args.get('seed', 0)
   if dcid:
     # Traffic from "explore more" in Search. Forward along all parameters,
     # except for dcid, to the new URL format.
@@ -77,8 +76,7 @@ def place(place_dcid=None):
                                place_name=place_name,
                                place_dcid=place_dcid,
                                category=category if category else '',
-                               maps_api_key=current_app.config['MAPS_API_KEY'],
-                               seed=seed)
+                               maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 def place_landing():

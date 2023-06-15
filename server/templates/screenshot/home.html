@@ -28,28 +28,47 @@
     <table>
       {% for item in data %}
         <tr>
-          <th>
-            {% if item['url'] %}
-              <a href="{{item['url']}}">{{item['message']}}</a>
-            {% endif %}
-          </th>
-          <th>
-            {{item['sha']}}
-          </th>
-          <th>
-            <a href="/screenshot/commit/{{item['sha']}}?domain={{domain}}">this</a>
-          </th>
-          <th>
-            <a
-            href="/screenshot/compare/{{item['prev_sha']}}...{{item['sha']}}?domain={{domain}}">diff
-            (vs last)</a>
-          </th>
-          {% if item['base_sha'] %}
+          {% if domain %}
+            <th>
+              {{item['date']}}
+            </th>
+            <th>
+              <a href="/screenshot/date/{{item['date']}}?domain={{domain}}">this</a>
+            </th>
             <th>
               <a
-              href="/screenshot/compare/{{item['base_sha']}}...{{item['sha']}}?domain={{domain}}">diff
-              (vs base)</a>
+              href="/screenshot/compare/{{item['prev_date']}}...{{item['date']}}?domain={{domain}}">diff
+              (vs last)</a>
             </th>
+            {% if item['base_date'] %}
+              <th>
+                <a
+                href="/screenshot/compare/{{item['base_date']}}...{{item['date']}}?domain={{domain}}">diff
+                (vs base)</a>
+              </th>
+            {% endif %}
+          {% else %}
+            <th>
+              <a href="{{item['url']}}">{{item['message']}}</a>
+            </th>
+            <th>
+              {{item['sha']}}
+            </th>
+            <th>
+              <a href="/screenshot/commit/{{item['sha']}}">this</a>
+            </th>
+            <th>
+              <a
+              href="/screenshot/compare/{{item['prev_sha']}}...{{item['sha']}}">diff
+              (vs last)</a>
+            </th>
+            {% if item['base_sha'] %}
+              <th>
+                <a
+                href="/screenshot/compare/{{item['base_sha']}}...{{item['sha']}}">diff
+                (vs base)</a>
+              </th>
+            {% endif %}
           {% endif %}
         </tr>
       {% endfor %}

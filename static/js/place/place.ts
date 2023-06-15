@@ -128,11 +128,11 @@ function renderPage(): void {
   const urlHash = window.location.hash;
   // Get category and render menu.
   const category = urlParams.get("category") || "Overview";
+  const seed = urlParams.get("seed") || "0";
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
-  const seed = document.getElementById("seed").dataset.seed;
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
   Promise.all([

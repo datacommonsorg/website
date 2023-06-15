@@ -78,6 +78,8 @@ def list_folder(bucket_name, prefix, start_offset):
   folders = set()
   for blob in blobs:
     parts = blob.name.split('/')
+    # A sub directory blob is in the form of <prefix>/sub-directory/...
+    # It should have >= 3 parts.
     if len(parts) >= 3:
       folders.add(parts[1])
   res = list(folders)

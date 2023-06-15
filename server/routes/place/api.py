@@ -407,6 +407,9 @@ def data(dcid):
                              target_category)
   new_stat_vars = current_app.config['NEW_STAT_VARS']
 
+  # Place landing page mixer API takes a parameter "seed" to randomly pick
+  # related places. When "seed" is 0, mixer creates a new time based seed.
+  # Otherwise the passed "seed" is used, and results is stable.
   seed = request.args.get("seed", 0)
   raw_page_data = dc.get_landing_page_data(dcid,
                                            target_category,

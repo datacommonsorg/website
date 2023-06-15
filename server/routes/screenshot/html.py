@@ -45,14 +45,15 @@ def env_valid():
 def home():
   """List recent commits and diff url
 
-  Optional url argument "base" to set a base commit sha for comparison.
+  Optional url argument "base" to set a base commit sha or date string for
+  comparison.
   """
   if not env_valid():
     flask.abort(404)
-  base_sha = request.args.get('base', '')
   domain = request.args.get('domain', '')
 
   if domain:
+    base_date = request.args.get('base_date', '')
     one_month_ago = datetime.now() - timedelta(days=30)
     start_offset = one_month_ago.strftime("%Y_%m_%d")
     folders = list_folder(SCREENSHOT_BUCKET, domain, start_offset)
@@ -60,10 +61,9 @@ def home():
     prev_date = ''
     for date in folders:
       item = {
-          'message': date,
-          'url': '',
-          'sha': date,
-          'prev_sha': prev_date,
+          'date': date,
+          'prev_date': prev_date,
+          'base_date': base_date
       }
       prev_date = date
       data.append(item)
@@ -73,6 +73,7 @@ def home():
                                  domain=domain,
                                  data=data)
 
+  base_sha = request.args.get('base_sha', '')
   # Secret generated from Github account 'dc-org2018'
   secret_client = secretmanager.SecretManagerServiceClient()
   secret_name = secret_client.secret_version_path(
@@ -118,14 +119,27 @@ def home():
 def commit(sha):
   if not env_valid():
     flask.abort(404)
-  domain = request.args.get('domain') or 'local'
-  images = list_png(SCREENSHOT_BUCKET, domain + '/' + sha)
+  images = list_png(SCREENSHOT_BUCKET, 'local/' + sha)
   data = {}
   for name in images:
     data[name] = {
         'base': b64encode(images[name]).decode('utf-8'),
     }
   return flask.render_template('screenshot/commit.html', data=data, sha=sha)
+
+
+@bp.route('/date/<path:date>')
+def date(date):
+  if not env_valid():
+    flask.abort(404)
+  domain = request.args.get('domain')
+  images = list_png(SCREENSHOT_BUCKET, domain + '/' + date)
+  data = {}
+  for name in images:
+    data[name] = {
+        'base': b64encode(images[name]).decode('utf-8'),
+    }
+  return flask.render_template('screenshot/date.html', data=data, date=date)
 
 
 @bp.route('/compare/<path:compare>')

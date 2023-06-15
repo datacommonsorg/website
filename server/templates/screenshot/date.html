@@ -16,8 +16,8 @@
 {%- extends BASE_HTML -%}
 
 {% set main_id = 'screenshot' %}
-{% set page_id = 'page-screenshot-commit' %}
-{% set title = 'Screenshot Commit Page' %}
+{% set page_id = 'page-screenshot-date' %}
+{% set title = 'Screenshot Date Page' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/screenshot.min.css')}}>
@@ -26,12 +26,7 @@
 {% block content %}
   <div class="container">
     <p>
-      <div>Code Link:</div>
-      <div>
-          <a href="https://github.com/datacommonsorg/website/commit/{{ sha }}">
-            https://github.com/datacommonsorg/website/commit/{{ sha }}
-          </a>
-      </div>
+      <b>Date: {{ date }}</b>
     </p>
     {% for name in data %}
       <div class="name">
