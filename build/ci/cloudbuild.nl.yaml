@@ -44,4 +44,4 @@ steps:
         ./run_test.sh -i
 
 options:
-  machineType: "N1_HIGHCPU_8"
+  machineType: "E2_HIGHCPU_32"
