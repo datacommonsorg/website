@@ -57,6 +57,7 @@ interface RankingTilePropType {
   className?: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
+  apiRoot?: string;
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
@@ -76,8 +77,6 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     props.statVarSpec
   );
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
-  const isMultiColumn = props.rankingMetadata.showMultiColumn;
-  const svNames = props.statVarSpec.map((sv) => sv.name);
   // TODO: have a better way of calculating the loading placeholder height
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
@@ -91,7 +90,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartHeight: number,
     chartHtml: string,
     rankingPoints: RankingPoint[],
-    sources: string[]
+    sources: string[],
+    svNames: string[]
   ): void {
     embedModalElement.current.show(
       "",
@@ -128,15 +128,11 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
         Object.keys(rankingData).map((statVar) => {
           return (
             <SvRankingUnits
-              isMultiColumn={isMultiColumn}
               key={statVar}
-              rankingCount={rankingCount}
               rankingData={rankingData}
               rankingMetadata={props.rankingMetadata}
               showChartEmbed={showChartEmbed}
               statVar={statVar}
-              svName={getStatVarName(statVar, props.statVarSpec)}
-              svNames={svNames}
               title={props.title}
               isDataTile={props.isDataTile}
             />
@@ -158,14 +154,17 @@ export async function fetchData(
     }
   }
   return axios
-    .get<PointApiResponse>("/api/observations/point/within", {
-      params: {
-        parentEntity: props.place.dcid,
-        childType: props.enclosedPlaceType,
-        variables,
-      },
-      paramsSerializer: stringifyFn,
-    })
+    .get<PointApiResponse>(
+      `${props.apiRoot || ""}/api/observations/point/within`,
+      {
+        params: {
+          parentEntity: props.place.dcid,
+          childType: props.enclosedPlaceType,
+          variables,
+        },
+        paramsSerializer: stringifyFn,
+      }
+    )
     .then((resp) => {
       const rankingData = pointApiToPerSvRankingData(
         resp.data,
@@ -228,6 +227,9 @@ function transformRankingDataForMultiColumn(
   }
   rankingData[sortSv].unit = statVarSpecs.map((spec) => spec.unit);
   rankingData[sortSv].scaling = statVarSpecs.map((spec) => spec.scaling);
+  rankingData[sortSv].svName = statVarSpecs.map((spec) =>
+    getStatVarName(spec.statVar, [spec])
+  );
   return { [sortSv]: rankingData[sortSv] };
 }
 
@@ -297,6 +299,7 @@ function pointApiToPerSvRankingData(
       numDataPoints,
       sources,
       dateRange: getDateRange(Array.from(dates)),
+      svName: [getStatVarName(spec.statVar, [spec])],
     };
   }
   return rankingData;

@@ -34,7 +34,7 @@ steps:
 
   # Run the tests
   - id: flask_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2023-05-03
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-15
     entrypoint: /bin/sh
     waitFor:
       - package_js
@@ -44,4 +44,4 @@ steps:
         ./run_test.sh -i
 
 options:
-  machineType: "N1_HIGHCPU_8"
+  machineType: "E2_HIGHCPU_32"

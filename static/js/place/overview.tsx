@@ -17,6 +17,7 @@
 import React from "react";
 
 import { GoogleMap } from "../components/google_map";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { Ranking } from "./ranking";
 
 interface OverviewPropType {
@@ -39,7 +40,8 @@ class Overview extends React.Component<OverviewPropType> {
     return (
       <section
         className={`factoid col-12 ${
-          this.props.showRanking && "overview-with-ranking"
+          this.props.showRanking &&
+          `overview-with-ranking ${ASYNC_ELEMENT_HOLDER_CLASS}`
         }`}
       >
         <div className="row">

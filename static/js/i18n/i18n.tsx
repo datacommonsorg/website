@@ -107,11 +107,15 @@ function localizeSearchParams(searchParams: URLSearchParams): URLSearchParams {
  * @return potentially updated href
  */
 function localizeLink(href: string): string {
-  const url = new URL(href, document.location.origin);
-  url.search = localizeSearchParams(
-    new URLSearchParams(url.searchParams)
-  ).toString();
-  return url.toString();
+  try {
+    const url = new URL(href, document.location.origin);
+    url.search = localizeSearchParams(
+      new URLSearchParams(url.searchParams)
+    ).toString();
+    return url.toString();
+  } catch (e) {
+    return href;
+  }
 }
 
 /**

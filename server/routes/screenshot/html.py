@@ -26,6 +26,7 @@ from github import Github
 from google.cloud import secretmanager
 from markupsafe import escape
 
+from server.cache import cache
 from server.lib.gcs import list_folder
 from server.lib.gcs import list_png
 from server.routes.screenshot.diff import img_diff
@@ -112,6 +113,7 @@ def home():
 
 
 @bp.route('/commit/<path:sha>')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def commit(sha):
   if not env_valid():
     flask.abort(404)
@@ -125,6 +127,7 @@ def commit(sha):
 
 
 @bp.route('/date/<path:date>')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def date(date):
   if not env_valid():
     flask.abort(404)
@@ -139,6 +142,7 @@ def date(date):
 
 
 @bp.route('/compare/<path:compare>')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def compare(compare):
   """
   compare is an expression in the form of "githash1...githash2".
