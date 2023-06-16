@@ -12,50 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import json
-import logging
-import multiprocessing
 import os
-import sys
 
-from flask_testing import LiveServerTestCase
 import requests
 
-from nl_server.__init__ import create_app as create_nl_app
-from server.__init__ import create_app as create_web_app
-import server.lib.util as libutil
+from shared.lib.test_server import NLWebServerTestCase
 
 _dir = os.path.dirname(os.path.abspath(__file__))
-
-_NL_SERVER_URL = 'http://127.0.0.1:6060'
 
 _TEST_MODE = os.environ['TEST_MODE']
 
 _TEST_DATA = 'test_data/screenshot'
 
 
-class IntegrationTest(LiveServerTestCase):
-
-  @classmethod
-  def setUpClass(cls):
-
-    def start_nl_server(app):
-      app.run(port=6060, debug=False, use_reloader=False, threaded=True)
-
-    nl_app = create_nl_app()
-    # Create a thread that will contain our running server
-    cls.proc = multiprocessing.Process(target=start_nl_server,
-                                       args=(nl_app,),
-                                       daemon=True)
-    cls.proc.start()
-    libutil.check_backend_ready([_NL_SERVER_URL + '/healthz'])
-
-  @classmethod
-  def tearDownClass(cls):
-    cls.proc.terminate()
-
-  def create_app(self):
-    """Returns the Flask Server running Data Commons."""
-    return create_web_app()
+class IntegrationTest(NLWebServerTestCase):
 
   def run_test(self, test_dir, query):
     resp = requests.get(

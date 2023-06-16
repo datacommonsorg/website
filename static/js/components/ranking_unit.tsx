@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React, { RefObject } from "react";
 
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
 
@@ -77,7 +78,10 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   }
 
   return (
-    <div className="ranking-list" ref={props.forwardRef}>
+    <div
+      className={"ranking-list " + ASYNC_ELEMENT_CLASS}
+      ref={props.forwardRef}
+    >
       <h4>{props.title}</h4>
       <table>
         {props.svNames && !props.hideValue && (
