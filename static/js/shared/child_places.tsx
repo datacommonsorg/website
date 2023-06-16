@@ -40,28 +40,30 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
   return (
     <div id="child-places">
       <span id="child-place-head">Places in {props.parentPlace.name}</span>
-      {[...Object.keys(this.props.childPlaces)].sort().map((placeType) => (
-        <div key={placeType} className="child-place-group">
-          <div className="child-place-type">
-            {displayNameForPlaceType(placeType, true /* isPlural */)}
+      {Object.keys(this.props.childPlaces)
+        .sort()
+        .map((placeType) => (
+          <div key={placeType} className="child-place-group">
+            <div className="child-place-type">
+              {displayNameForPlaceType(placeType, true /* isPlural */)}
+            </div>
+            {props.childPlaces[placeType].map((place, i) => {
+              const rs: ReplacementStrings = {
+                placeDcid: place.dcid,
+              };
+              return (
+                <a
+                  href={formatString(props.urlFormatString, rs)}
+                  className="child-place-link"
+                  key={`child-place-${i}`}
+                >
+                  {place.name || place.dcid}
+                  {i < props.childPlaces[placeType].length - 1 ? "," : ""}
+                </a>
+              );
+            })}
           </div>
-          {props.childPlaces[placeType].map((place, i) => {
-            const rs: ReplacementStrings = {
-              placeDcid: place.dcid,
-            };
-            return (
-              <a
-                href={formatString(props.urlFormatString, rs)}
-                className="child-place-link"
-                key={`child-place-${i}`}
-              >
-                {place.name || place.dcid}
-                {i < props.childPlaces[placeType].length - 1 ? "," : ""}
-              </a>
-            );
-          })}
-        </div>
-      ))}
+        ))}
     </div>
   );
 }
