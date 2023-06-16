@@ -16,6 +16,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
