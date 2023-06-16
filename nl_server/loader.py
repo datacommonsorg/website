@@ -36,7 +36,7 @@ def embeddings_config_key(index_type):
 
 
 def _use_cache(flask_env):
-  return flask_env == 'local' or flask_env == 'integration_test'
+  return flask_env in ['local', 'integration_test', 'webdriver']
 
 
 def load_model(app, model_map):

@@ -139,6 +139,7 @@ function run_screenshot_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export ENABLE_MODEL=true
   export MIXER_API_KEY=
   export PALM_API_KEY=
   python3 -m pytest server/webdriver/screenshot/
