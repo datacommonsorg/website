@@ -81,7 +81,19 @@ CACHED_GEOJSON_FILES = {
     },
     "southamerica": {
         "Country": "southamerica_country_dp10"
-    }
+    },
+    "geoId/06": {
+        "CensusTract": "california_censustract"
+    },
+    "geoId/12": {
+        "CensusTract": "florida_censustract"
+    },
+    "geoId/36": {
+        "CensusTract": "newyorkstate_censustract"
+    },
+    "geoId/48": {
+        "CensusTract": "texas_censustract"
+    },
 }
 
 
@@ -139,6 +151,15 @@ def get_disaster_event_config():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
                           "events.textproto")
   return get_subject_page_config(filepath)
+
+
+# Returns LLM prompt text
+def get_llm_prompt_text():
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "palm_prompt.txt")
+  with open(filepath, 'r') as f:
+    data = f.read()
+  return data
 
 
 # Returns disaster sustainability config loaded as SubjectPageConfig protos

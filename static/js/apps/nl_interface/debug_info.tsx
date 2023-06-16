@@ -131,7 +131,8 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
           </tr>
         </thead>
         <tbody>
-          {candidates.length > 0 &&
+          {candidates &&
+            candidates.length > 0 &&
             candidates.map((c, i) => {
               return (
                 <tr key={i}>

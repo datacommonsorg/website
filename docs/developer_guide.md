@@ -202,7 +202,7 @@ sudo chmod +x /usr/bin/chromedriver
 
 ```bash
 cd static
-npm test testfilename -- -u .
+npm test . -- -u
 ```
 
 ## Other Developing Tips
@@ -294,8 +294,7 @@ A full tutorial of debugging Flask app in Visual Studio Code is in
 - Disable headless mode in webdriver to follow the test in Chrome. Chrome
   features like the dev inspector are available in this mode which is useful
   combined with `sleep()` to give you time to inspect the page. To enter this
-  mode, comment out this line in
-  [base_test.py](../server/webdriver_tests/base_test.py):
+  mode, comment out this line in [base.py](../server/webdriver/base.py):
 
   ```python
   chrome_options.add_argument('--headless')

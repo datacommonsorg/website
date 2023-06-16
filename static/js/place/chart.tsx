@@ -39,8 +39,8 @@ import {
 import { RankingUnit } from "../components/ranking_unit";
 import { fetchData } from "../components/tiles/ranking_tile";
 import {
-  CLASS_DC_CHART_EXIST,
-  CLASS_DC_CHART_HOLDER,
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import {
   formatNumber,
@@ -226,6 +226,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log(`Skipping ${this.props.title} - missing sources`);
       return null;
     }
+    sources.sort();
     const sourcesJsx = sources.map((source, index) => {
       const domain = urlToDomain(source);
       return (
@@ -248,7 +249,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     return (
       <div className="col">
         <div
-          className={`chart-container ${CLASS_DC_CHART_HOLDER}`}
+          className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
           ref={this.chartElement}
         >
           <h4>
@@ -269,7 +270,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             {this.props.chartType === chartTypeEnum.RANKING &&
               this.state.rankingGroup && (
                 <div
-                  className={"ranking-chart-container " + CLASS_DC_CHART_EXIST}
+                  className={"ranking-chart-container " + ASYNC_ELEMENT_CLASS}
                 >
                   <h4>{this.getRankingChartContainerTitle()}</h4>
                   <div className="ranking-chart">
