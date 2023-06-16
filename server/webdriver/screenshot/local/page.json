@@ -39,7 +39,46 @@
     "height": 2000,
     "async": true
   },
-
+  {
+    "url": "/browser/geoId/06085?statVar=Count_Person_AsianAlone",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/disasters/Earth",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/disasters/country/BRA",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/tools/timeline#&place=geoId/0606000,geoId/2511000&statsVar=Median_Age_Person",
+    "height": 1000,
+    "async": true
+  },
+  {
+    "url": "/ranking/Median_Income_Person/County/country/USA",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/tools/map#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DPercent_Person_WithCoronaryHeartDisease%26dy%3DCount_Person%26epd%3DgeoId%2F12%26ept%3DCounty%26pp%3D",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/statvar#sv=Mean_WagesDaily_Worker",
+    "height": 1200,
+    "async": true
+  },
   {
     "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=true",
     "height": 2000,
