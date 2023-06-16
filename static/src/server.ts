@@ -579,13 +579,15 @@ async function getDisasterMapTileResult(
     );
     const svg = mapContainer.querySelector("svg");
     svg.style.background = "#eee";
-    return [{
-      svg: getProcessedSvg(svg),
-      data_csv: "",
-      srcs: getSources(chartData.sources),
-      title: getChartTitle(tileConfig.title, getDisasterMapRS(tileProp)),
-      type: "EVENT_MAP",
-    }];
+    return [
+      {
+        svg: getProcessedSvg(svg),
+        data_csv: "",
+        srcs: getSources(chartData.sources),
+        title: getChartTitle(tileConfig.title, getDisasterMapRS(tileProp)),
+        type: "EVENT_MAP",
+      },
+    ];
   } catch (e) {
     console.log("Failed to get disaster event map tile result for: " + id);
     return null;
