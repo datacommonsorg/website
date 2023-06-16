@@ -15,12 +15,11 @@
 import multiprocessing
 import sys
 
-from flask_testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from server.webdriver import shared
-from web_app import app
+from shared.lib.test_server import NLWebServerTestCase
 
 # Explicitly set multiprocessing start method to 'fork' so tests work with
 # python3.8+ on MacOS.
@@ -49,17 +48,7 @@ def create_driver(preferences=None):
 
 # Base test class to setup the server.
 # Please refer to README.md to see the order of method execution during test.
-class WebdriverBaseTest(LiveServerTestCase):
-
-  def create_app(self):
-    """Returns the Flask Server running Data Commons."""
-    app_instance = app
-    # Each test will start its own Flask Server.
-    # Port 0 is used to let Flask pick any available port.
-    # If no port is specified, port 5000 will be used for all tests which
-    # may cause some racing issue when running tests.
-    app_instance.config['LIVESERVER_PORT'] = 0
-    return app_instance
+class WebdriverBaseTest(NLWebServerTestCase):
 
   def setUp(self, preferences=None):
     """Runs at the beginning of every individual test."""

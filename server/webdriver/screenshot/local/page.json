@@ -78,5 +78,10 @@
     "url": "/tools/statvar#sv=Mean_WagesDaily_Worker",
     "height": 1200,
     "async": true
+  },
+  {
+    "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=true",
+    "height": 2000,
+    "async": true
   }
 ]

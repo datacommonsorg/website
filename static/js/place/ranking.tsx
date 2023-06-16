@@ -18,6 +18,7 @@ import axios from "axios";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface RankingPropsType {
@@ -52,7 +53,10 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
       <React.Fragment>
         {data.label.length > 0 && (
           <React.Fragment>
-            <table id="ranking-table" className="table">
+            <table
+              id="ranking-table"
+              className={`table ${ASYNC_ELEMENT_CLASS}`}
+            >
               <thead>
                 <tr>
                   <th scope="col">
