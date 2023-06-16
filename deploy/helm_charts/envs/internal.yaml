@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: custom
-  replicas: 6
+  replicas: 2
 
 mixer:
   useBranchBigtable: false
@@ -40,15 +40,13 @@ nl:
 serviceGroups:
   recon: null
   svg:
-    replicas: 6
+    replicas: 1
   observation:
-    replicas: 6
+    replicas: 2
   node:
-    replicas: 6
+    replicas: 2
   default:
-    replicas: 6
-
-kgStoreConfig:
+    replicas: 2
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
