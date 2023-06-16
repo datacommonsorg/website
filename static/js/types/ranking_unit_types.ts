@@ -33,10 +33,11 @@ export interface RankingPoint {
 
 export interface RankingGroup {
   points: RankingPoint[];
-  // If only value is used in RankingPoint - then there will only be one unit &
-  // scaling set. Otherwise, will match the order of values[].
+  // If only value is used in RankingPoint - then there will only be one unit,
+  // scaling, and svName set. Otherwise, will match the order of values[].
   unit: string[];
   scaling: number[];
+  svName: string[];
   sources: Set<string>;
   numDataPoints?: number;
   dateRange: string;

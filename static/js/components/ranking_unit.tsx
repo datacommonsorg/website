@@ -21,7 +21,7 @@
 import _ from "lodash";
 import React, { RefObject } from "react";
 
-import { LocalizedLink } from "../i18n/i18n";
+import { formatNumber, LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
 
 const NUM_FRACTION_DIGITS = 2;
@@ -34,13 +34,6 @@ interface RankingUnitPropType {
    * Otherwise, from lowest to highest, e.g., n,n-1,n-2,...
    */
   isHighest: boolean;
-  // Function to use for formatting numbers
-  formatNumberFn: (
-    value: number,
-    unit?: string,
-    useDefaultFormat?: boolean,
-    numFractionDigits?: number
-  ) => string;
   unit?: string[];
   /**
    * React ref for outermost div of this element
@@ -131,7 +124,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                         point.placeDcid === props.highlightedDcid ? "bold" : ""
                       }`}
                     >
-                      {props.formatNumberFn(
+                      {formatNumber(
                         !_.isEmpty(props.scaling) && props.scaling[0]
                           ? point.value * props.scaling[0]
                           : point.value,
@@ -153,7 +146,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                             : ""
                         }`}
                       >
-                        {props.formatNumberFn(
+                        {formatNumber(
                           !_.isEmpty(props.scaling) && props.scaling[i]
                             ? v * props.scaling[i]
                             : v,
