@@ -22,6 +22,7 @@ import _ from "lodash";
 
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
+import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -130,4 +131,41 @@ export function getMergedSvg(svgContainer: HTMLDivElement): SVGInfo {
  */
 export function getChartTitle(title: string, rs: ReplacementStrings): string {
   return title ? formatString(title, rs) : "";
+}
+
+/**
+ * Gets the relevant event type specs for a disaster event tile (a tile that is
+ * rendered in a disaster event block)
+ * @param eventTypeSpec the full collection of event type specs
+ * @param tile tile to get the event type specs for
+ */
+export function getTileEventTypeSpecs(
+  eventTypeSpec: Record<string, EventTypeSpec>,
+  tile: TileConfig
+): Record<string, EventTypeSpec> {
+  const relevantEventSpecs = {};
+  if (tile.disasterEventMapTileSpec) {
+    const pointEventTypeKeys =
+      tile.disasterEventMapTileSpec.pointEventTypeKey || [];
+    const polygonEventTypeKeys =
+      tile.disasterEventMapTileSpec.polygonEventTypeKey || [];
+    const pathEventTypeKeys =
+      tile.disasterEventMapTileSpec.pathEventTypeKey || [];
+    [
+      ...pointEventTypeKeys,
+      ...polygonEventTypeKeys,
+      ...pathEventTypeKeys,
+    ].forEach((specId) => {
+      relevantEventSpecs[specId] = eventTypeSpec[specId];
+    });
+  }
+  if (tile.topEventTileSpec) {
+    const specId = tile.topEventTileSpec.eventTypeKey;
+    relevantEventSpecs[specId] = eventTypeSpec[specId];
+  }
+  if (tile.histogramTileSpec) {
+    const specId = tile.histogramTileSpec.eventTypeKey;
+    relevantEventSpecs[specId] = eventTypeSpec[specId];
+  }
+  return relevantEventSpecs;
 }

@@ -49,6 +49,11 @@ export interface MapZoomParams {
   zoomOutButtonId: string;
 }
 
+interface MapStyleParams {
+  strokeColor?: string;
+  noDataFill?: string;
+}
+
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
 const TOOLTIP_ID = "tooltip";
@@ -410,7 +415,8 @@ export function drawD3Map(
   shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
   zoomDcid?: string,
-  zoomParams?: MapZoomParams
+  zoomParams?: MapZoomParams,
+  styleParams?: MapStyleParams
 ): void {
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
@@ -443,7 +449,12 @@ export function drawD3Map(
     })
     .attr("fill", (d: GeoJsonFeature) => {
       const value = getValue(d, dataValues);
-      return value === undefined ? MISSING_DATA_COLOR : colorScale(value);
+      if (value !== undefined) {
+        return colorScale(value);
+      }
+      return styleParams
+        ? styleParams.noDataFill || MISSING_DATA_COLOR
+        : MISSING_DATA_COLOR;
     })
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);
@@ -457,7 +468,12 @@ export function drawD3Map(
   if (shouldShowBoundaryLines) {
     mapObjects
       .attr("stroke-width", STROKE_WIDTH)
-      .attr("stroke", GEO_STROKE_COLOR);
+      .attr(
+        "stroke",
+        styleParams
+          ? styleParams.strokeColor || GEO_STROKE_COLOR
+          : GEO_STROKE_COLOR
+      );
   }
   mapObjects.on(
     "click",

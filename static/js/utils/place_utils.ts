@@ -70,10 +70,11 @@ export function getSamplePlaces(
  * @param placeDcid the place to get parent places for
  */
 export function getParentPlacesPromise(
-  placeDcid: string
+  placeDcid: string,
+  apiRoot?: string
 ): Promise<Array<NamedTypedPlace>> {
   return axios
-    .get(`/api/place/parent/${placeDcid}`)
+    .get(`${apiRoot || ""}/api/place/parent/${placeDcid}`)
     .then((resp) => {
       const parentsData = resp.data;
       const filteredParentsData = parentsData.filter((parent) => {
