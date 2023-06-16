@@ -33,6 +33,8 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SimpleClassificationAttributes
+from server.lib.nl.detection.types import SizeType
+from server.lib.nl.detection.types import SizeTypeClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 from shared.lib.detected_variables import MultiVarCandidates
@@ -169,7 +171,7 @@ def _dict_to_place(places_dict: List[Dict]) -> List[Place]:
   return places
 
 
-def _classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
+def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
   classifications_dict = []
   for c in classifications:
     cdict = {}
@@ -188,12 +190,14 @@ def _classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['ranking_type'] = c.attributes.ranking_type
     elif isinstance(c.attributes, TimeDeltaClassificationAttributes):
       cdict['time_delta_type'] = c.attributes.time_delta_types
+    elif isinstance(c.attributes, SizeTypeClassificationAttributes):
+      cdict['size_type'] = c.attributes.size_types
 
     classifications_dict.append(cdict)
   return classifications_dict
 
 
-def _dict_to_classification(
+def dict_to_classification(
     classifications_dict: List[Dict]) -> List[NLClassifier]:
   classifications = []
   for cdict in classifications_dict:
@@ -214,6 +218,10 @@ def _dict_to_classification(
       attributes = TimeDeltaClassificationAttributes(
           time_delta_types=[TimeDeltaType(t) for t in cdict['time_delta_type']],
           time_delta_trigger_words=[])
+    elif 'size_type' in cdict:
+      attributes = SizeTypeClassificationAttributes(
+          size_types=[SizeType(t) for t in cdict['size_type']],
+          size_types_trigger_words=[])
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
                      attributes=attributes))
@@ -258,7 +266,7 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['query_type'] = u.query_type
     udict['svs'] = u.svs
     udict['places'] = _place_to_dict(u.places)
-    udict['classifications'] = _classification_to_dict(u.classifications)
+    udict['classifications'] = classification_to_dict(u.classifications)
     udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
     udict['session_id'] = u.session_id
     udict['llm_resp'] = u.llm_resp
@@ -284,7 +292,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
                      query_type=QueryType(udict['query_type']),
                      svs=udict['svs'],
                      places=_dict_to_place(udict['places']),
-                     classifications=_dict_to_classification(
+                     classifications=dict_to_classification(
                          udict['classifications']),
                      rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
                      detection=None,

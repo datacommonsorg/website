@@ -23,6 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
   RADIO_BUTTON_TYPES,
@@ -159,7 +160,11 @@ export class StatVarSectionInput extends React.Component<
           disabled={!this.props.statVar.hasData}
         />
         <label
-          className={this.state.checked ? "selected-node-title" : ""}
+          className={
+            this.state.checked
+              ? `selected-node-title ${ASYNC_ELEMENT_CLASS}`
+              : ""
+          }
           htmlFor={sectionId}
           onMouseMove={this.mouseMoveAction(this.props.statVar.hasData)}
           onMouseOut={() => hideTooltip()}

@@ -125,7 +125,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 10 --reruns 2 server/webdriver_tests/tests/
+  python3 -m pytest -n 10 --reruns 2 server/webdriver/tests/
 }
 
 # Run test for screenshot test codes.
@@ -141,7 +141,7 @@ function run_screenshot_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export MIXER_API_KEY=
   export PALM_API_KEY=
-  python3 -m pytest server/webdriver_tests/screenshot/
+  python3 -m pytest server/webdriver/screenshot/
 }
 
 # Run integration test for NL interface

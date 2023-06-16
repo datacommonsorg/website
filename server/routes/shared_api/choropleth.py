@@ -34,7 +34,6 @@ import server.lib.util as lib_util
 import server.routes.place.api as landing_page_api
 from server.routes.shared_api.place import EQUIVALENT_PLACE_TYPES
 import server.routes.shared_api.place as place_api
-import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')

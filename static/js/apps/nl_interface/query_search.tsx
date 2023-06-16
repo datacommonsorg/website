@@ -23,10 +23,15 @@ import React, { useState } from "react";
 import { Button, Container } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
+import { NLOptions } from "./nl_options";
 
 interface QuerySearchPropType {
   queries: string[];
   onQuerySearched: (query: string) => void;
+  indexType: string;
+  setIndexType: (idx: string) => void;
+  useLLM: boolean;
+  setUseLLM: (v: boolean) => void;
 }
 
 export function QuerySearch(props: QuerySearchPropType): JSX.Element {
@@ -92,6 +97,12 @@ export function QuerySearch(props: QuerySearchPropType): JSX.Element {
             <span className="material-icons">history</span>
           </Button>
         </div>
+        <NLOptions
+          indexType={props.indexType}
+          setIndexType={props.setIndexType}
+          useLLM={props.useLLM}
+          setUseLLM={props.setUseLLM}
+        />
       </Container>
     </div>
   );

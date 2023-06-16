@@ -126,7 +126,7 @@ export function App(props: AppPropsType): JSX.Element {
         <div className="head-section">
           <h1>{props.name}</h1>
           <h3>
-            <span>{_.startCase(typeOf[0].name)}</span>
+            <span>{_.startCase(typeOf[0].name || typeOf[0].dcid)}</span>
             {placeBreadcrumbsJsx && <> in {placeBreadcrumbsJsx}</>}
           </h3>
           <h4 className="clearfix">

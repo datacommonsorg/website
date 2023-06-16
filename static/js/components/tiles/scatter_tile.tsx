@@ -110,17 +110,11 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   useDrawOnResize(drawFn, svgContainer.current);
 
-  const rs: ReplacementStrings = {
-    placeName: props.place.name,
-    xDate: scatterChartData && scatterChartData.xDate,
-    yDate: scatterChartData && scatterChartData.yDate,
-  };
-
   return (
     <ChartTileContainer
       title={props.title}
       sources={scatterChartData && scatterChartData.sources}
-      replacementStrings={rs}
+      replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}
       allowEmbed={!(scatterChartData && scatterChartData.errorMsg)}
       getDataCsv={
@@ -170,6 +164,18 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       )}
     </ChartTileContainer>
   );
+}
+
+// Get the ReplacementStrings object used for formatting the title
+export function getReplacementStrings(
+  props: ScatterTilePropType,
+  chartData: ScatterChartData
+): ReplacementStrings {
+  return {
+    placeName: props.place.name,
+    xDate: chartData && chartData.xDate,
+    yDate: chartData && chartData.yDate,
+  };
 }
 
 function getPopulationPromise(

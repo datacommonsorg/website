@@ -24,11 +24,10 @@ import React, { createRef, memo, useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { SearchResult } from "../../types/app/nl_interface_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
-
-const SVG_CHART_HEIGHT = 160;
 
 export interface QueryResultProps {
   query: string;

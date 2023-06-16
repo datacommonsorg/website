@@ -21,7 +21,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
 
-import { CLASS_DC_CHART_EXIST } from "../../constants/css_constants";
+import { ASYNC_ELEMENT_CLASS } from "../../constants/css_constants";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { RankingData, RankingPoint } from "../../types/ranking_unit_types";
@@ -122,7 +122,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       .append("g")
       .attr("transform", `translate(${CHART_PADDING})`)
       .append("svg")
-      .attr("class", CLASS_DC_CHART_EXIST)
+      .attr("class", ASYNC_ELEMENT_CLASS)
       .append("foreignObject")
       .attr("width", chartDiv.offsetWidth)
       .attr("height", chartDiv.offsetHeight)
@@ -164,7 +164,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
   return (
     <React.Fragment>
       {showHighest && (
-        <div className="ranking-unit-container highest-ranking-container">
+        <div
+          className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
+        >
           {props.isDataTile && (
             <div
               className={DATA_CSS_CLASS}
@@ -196,7 +198,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
         </div>
       )}
       {showLowest && (
-        <div className="ranking-unit-container lowest-ranking-container">
+        <div
+          className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} lowest-ranking-container`}
+        >
           {props.isDataTile && (
             <div
               className={DATA_CSS_CLASS}

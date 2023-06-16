@@ -80,15 +80,11 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
-
-  const rs: ReplacementStrings = {
-    placeName: props.place.name,
-  };
   return (
     <ChartTileContainer
       title={props.title}
       sources={chartData && chartData.sources}
-      replacementStrings={rs}
+      replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
       allowEmbed={true}
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
@@ -108,6 +104,15 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       ></div>
     </ChartTileContainer>
   );
+}
+
+// Get the ReplacementStrings object used for formatting the title
+export function getReplacementStrings(
+  props: LineTilePropType
+): ReplacementStrings {
+  return {
+    placeName: props.place.name,
+  };
 }
 
 export const fetchData = async (props: LineTilePropType) => {

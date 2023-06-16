@@ -19,7 +19,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
-import { CLASS_DC_CHART_HOLDER } from "../../constants/css_constants";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { Chip } from "../../shared/chip";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
@@ -117,7 +117,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
     }
     return (
-      <div className={`chart-container ${CLASS_DC_CHART_HOLDER}`}>
+      <div className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
         <div className="card">
           <div className="statVarChipRegion">
             {statVars.map((statVar) => {

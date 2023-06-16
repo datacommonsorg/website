@@ -54,7 +54,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
     if classification.type == ClassificationType.RANKING:
       ranking_classification = str(classification.attributes.ranking_type)
     elif classification.type == ClassificationType.OVERVIEW:
-      overview_classification = str(classification.type)
+      overview_classification = 'DETECTED'
     elif classification.type == ClassificationType.SIZE_TYPE:
       size_type_classification = str(classification.attributes.size_types)
     elif classification.type == ClassificationType.TIME_DELTA:
@@ -63,13 +63,12 @@ def result_with_debug_info(data_dict: Dict, status: str,
     elif classification.type == ClassificationType.EVENT:
       event_classification = str(classification.attributes.event_types)
     elif classification.type == ClassificationType.COMPARISON:
-      comparison_classification = str(classification.type)
+      comparison_classification = 'DETECTED'
     elif classification.type == ClassificationType.CONTAINED_IN:
-      contained_in_classification = str(classification.type)
       contained_in_classification = \
           str(classification.attributes.contained_in_place_type)
     elif classification.type == ClassificationType.CORRELATION:
-      correlation_classification = str(classification.type)
+      correlation_classification = 'DETECTED'
     elif classification.type == ClassificationType.QUANTITY:
       quantity_classification = str(classification.attributes)
 

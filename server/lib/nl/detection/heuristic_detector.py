@@ -31,7 +31,7 @@ from server.lib.nl.detection.types import SVDetection
 
 
 def _empty_svs_score_dict():
-  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
+  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
 
 
 def detect(orig_query: str, cleaned_query: str, index_type: str,
