@@ -19,7 +19,7 @@ jest.mock("../../chart/draw");
 
 import { waitFor } from "@testing-library/react";
 import Enzyme, { mount, ReactWrapper } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import pretty from "pretty";
 import React from "react";
 
