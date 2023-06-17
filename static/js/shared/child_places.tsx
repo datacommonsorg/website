@@ -40,7 +40,7 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
   return (
     <div id="child-places">
       <span id="child-place-head">Places in {props.parentPlace.name}</span>
-      {Object.keys(this.props.childPlaces)
+      {Object.keys(props.childPlaces)
         .sort()
         .map((placeType) => (
           <div key={placeType} className="child-place-group">
