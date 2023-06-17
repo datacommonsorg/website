@@ -13,9 +13,11 @@
 # limitations under the License.
 
 import collections
+import io
 import urllib.parse
 
 from google.cloud import storage
+from PIL import Image
 
 
 def list_blobs(bucket_name, max_blobs):
@@ -67,6 +69,9 @@ def list_png(bucket_name, prefix):
       bytes = b.download_as_bytes()
       name = b.name.removeprefix(prefix + '/').removesuffix('.png')
       name = urllib.parse.unquote(name)
+      im = Image.open(io.BytesIO(bytes))
+      if 'url' in im.info:
+        name = im.info['url'][1:]  # remove leading /
       result[name] = bytes
   return result
 
