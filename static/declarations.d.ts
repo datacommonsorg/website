@@ -14,20 +14,5 @@
  * limitations under the License.
  */
 
-import { renderRankingComponent } from "../js/ranking/ranking";
-import {
-  renderBarComponent,
-  renderLineComponent,
-  renderMapComponent,
-} from "./components";
-import { DatacommonsMapComponent } from "./map_component";
-import { DEFAULT_API_ENDPOINT } from "./constants";
-
-globalThis.datacommons = {
-  drawBar: renderBarComponent,
-  drawLine: renderLineComponent,
-  drawMap: renderMapComponent,
-  drawRanking: renderRankingComponent,
-  root: DEFAULT_API_ENDPOINT,
-  DatacommonsMapComponent,
-};
+// Allow .scss files to be imported directly into .ts(x) files for web component style loading.
+declare module "*.scss";
