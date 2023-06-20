@@ -20,8 +20,8 @@ import {
   renderLineComponent,
   renderMapComponent,
 } from "./components";
-import { DatacommonsMapComponent } from "./map_component";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { DatacommonsMapComponent } from "./map_component";
 
 globalThis.datacommons = {
   drawBar: renderBarComponent,

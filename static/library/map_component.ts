@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 import { css, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
+
+import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
+
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 
