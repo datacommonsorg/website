@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,19 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Version can be found at: https://chromedriver.storage.googleapis.com/LATEST_RELEASE
-substitutions:
-  _VERS: "2023-06-17"
-
-steps:
-  - name: "gcr.io/cloud-builders/docker"
-    args:
-      - build
-      - "--build-arg=VERS=${_VERS}"
-      - --tag=gcr.io/datcom-ci/webdriver-chrome:${_VERS}
-      - --tag=gcr.io/datcom-ci/webdriver-chrome:latest
-      - "."
-
-images:
-  - "gcr.io/datcom-ci/webdriver-chrome:${_VERS}"
-  - "gcr.io/datcom-ci/webdriver-chrome:latest"
+# gcp/gke configuration for the internal DC instance
+project: datcom-internal
+ip:
+domain:
+region:
+  primary: us-central1
+  others:
+    -
+cluster_prefix: website
+nodes: 1
+storage_project: datcom-store

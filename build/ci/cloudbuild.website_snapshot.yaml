@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,19 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Version can be found at: https://chromedriver.storage.googleapis.com/LATEST_RELEASE
-substitutions:
-  _VERS: "2023-06-17"
-
 steps:
-  - name: "gcr.io/cloud-builders/docker"
+  # Build the static files
+  - id: package_js
+    name: gcr.io/datcom-ci/node:2023-05-18
+    entrypoint: /bin/bash
+    waitFor: ["-"]
     args:
-      - build
-      - "--build-arg=VERS=${_VERS}"
-      - --tag=gcr.io/datcom-ci/webdriver-chrome:${_VERS}
-      - --tag=gcr.io/datcom-ci/webdriver-chrome:latest
-      - "."
+      - -c
+      - |
+        rm -rf static/node_modules
+        cp -r /resources/node_modules -d static/
+        ./run_test.sh -b
 
-images:
-  - "gcr.io/datcom-ci/webdriver-chrome:${_VERS}"
-  - "gcr.io/datcom-ci/webdriver-chrome:latest"
+  # Run snapshot
+  - id: snapshot
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
+    entrypoint: /bin/bash
+    waitFor:
+      - package_js
+    args:
+      - -c
+      - |
+        ./run_website_snapshot.sh
+
+timeout: 1800s
+
+options:
+  machineType: "E2_HIGHCPU_32"

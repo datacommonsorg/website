@@ -16,10 +16,15 @@
 set -e
 
 export FLASK_ENV=webdriver
+export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+export ENABLE_MODEL=true
 
 python3 -m venv .env
 source .env/bin/activate
 pip3 install -r server/requirements.txt
+python3 -m pip install --upgrade pip setuptools light-the-torch
+ltt install torch --cpuonly
+pip3 install -r nl_server/requirements.txt
 
 # Define a list of domains
 domain_list="datacommons.feedingamerica.org"

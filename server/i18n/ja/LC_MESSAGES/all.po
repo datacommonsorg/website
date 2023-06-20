@@ -1,5 +1,5 @@
-msgid "%(project)s is a Google supported project"
-msgstr "%(project)s は Google がサポートするプロジェクトです"
+msgid "%(project)s is a Google project"
+msgstr "%(project)s は Google のプロジェクトです"
 
 msgid "APIs"
 msgstr "APIs"
