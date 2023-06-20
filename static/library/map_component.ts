@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { css, LitElement, unsafeCSS } from "lit";
+import { CSSResult, LitElement, css, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
 import React from "react";
@@ -43,7 +43,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
 @customElement("datacommons-map")
 export class DatacommonsMapComponent extends LitElement {
   // Inject tiles.scss styles directly into web component
-  static styles = css`
+  static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
   `;
 
@@ -68,26 +68,26 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   statVarDcid!: string;
 
-  render() {
+  render(): HTMLElement {
     const mapTileProps: MapTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      enclosedPlaceType: this.enclosedPlaceType,
       id: `chart-${_.uniqueId()}`,
-      svgChartHeight: 200,
-      title: this.title,
       place: {
         dcid: this.placeDcid,
         name: this.placeName,
         types: this.placeTypes,
       },
-      enclosedPlaceType: this.enclosedPlaceType,
       statVarSpec: {
         denom: "",
-        name: this.statVarName,
         log: false,
+        name: this.statVarName,
         scaling: 1,
         statVar: this.statVarDcid,
         unit: "",
       },
+      svgChartHeight: 200,
+      title: this.title,
     };
     const mountPoint = document.createElement("span");
     ReactDOM.render(React.createElement(MapTile, mapTileProps), mountPoint);

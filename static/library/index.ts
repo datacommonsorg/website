@@ -24,10 +24,10 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
 import { DatacommonsMapComponent } from "./map_component";
 
 globalThis.datacommons = {
+  DatacommonsMapComponent,
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,
   drawRanking: renderRankingComponent,
   root: DEFAULT_API_ENDPOINT,
-  DatacommonsMapComponent,
 };
