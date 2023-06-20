@@ -10,11 +10,6 @@
     "async": false
   },
   {
-    "url": "/tools/scatter",
-    "height": 1500,
-    "async": false
-  },
-  {
     "url": "/tools/scatter#%26svx%3DCount_Person_FoodInsecure%26pcx%3D1%26dx%3DCount_Person%26svy%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dy%3DCount_Person%26epd%3DgeoId%2F06%26ept%3DCounty%26qd%3D1%26pp%3D",
     "height": 1500,
     "async": true

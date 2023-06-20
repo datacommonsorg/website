@@ -51,11 +51,21 @@
         <table>
           <tr>
             <td>Base:</td>
-            <td>{{ base_token }}</td>
+            <td>
+              {{ base_token }}
+              <a href="/screenshot/date/{{ base_token }}?domain={{ domain }}">
+                (screenshot)
+              </a>
+            </td>
           </tr>
           <tr>
             <td>Current:</td>
-            <td>{{ token }}</td>
+            <td>
+              {{ token }}
+              <a href="/screenshot/date/{{ token }}?domain={{ domain }}">
+                (screenshot)
+              </a>
+            </td>
           </tr>
         </table>
       {% endif %}
