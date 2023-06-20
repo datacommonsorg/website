@@ -30,3 +30,4 @@ if __name__ == "__main__":
   logging.info(args.domain)
   driver = base.create_driver()
   runner.run(driver, 'https://' + args.domain, f'remote/{args.domain}')
+  driver.quit()

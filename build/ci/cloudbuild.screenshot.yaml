@@ -27,7 +27,7 @@ steps:
 
   # Run the screenshot tests
   - id: screenshot_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2023-05-03
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/bash
     waitFor:
       - package_js
@@ -52,4 +52,4 @@ steps:
 timeout: 1800s
 
 options:
-  machineType: "N1_HIGHCPU_8"
+  machineType: "E2_HIGHCPU_32"

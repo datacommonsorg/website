@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { PropertyValues } from "../shared/api_response_types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { ArcTableRow } from "./arc_table_row";
@@ -106,7 +107,7 @@ export class OutArcSection extends React.Component<
     const predicates = Object.keys(this.state.data);
     predicates.sort(this.predicateComparator);
     return (
-      <div className="card p-0">
+      <div className={`card p-0 ${ASYNC_ELEMENT_CLASS}`}>
         <table className="node-table">
           <tbody>
             <tr key="header">

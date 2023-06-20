@@ -283,7 +283,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
                       }
-                      formatNumberFn={formatNumber}
                     />
                     <RankingUnit
                       title="Lowest"
@@ -295,7 +294,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
                       }
-                      formatNumberFn={formatNumber}
                     />
                   </div>
                 </div>

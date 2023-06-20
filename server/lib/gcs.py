@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,9 +13,11 @@
 # limitations under the License.
 
 import collections
+import io
 import urllib.parse
 
 from google.cloud import storage
+from PIL import Image
 
 
 def list_blobs(bucket_name, max_blobs):
@@ -67,5 +69,24 @@ def list_png(bucket_name, prefix):
       bytes = b.download_as_bytes()
       name = b.name.removeprefix(prefix + '/').removesuffix('.png')
       name = urllib.parse.unquote(name)
+      im = Image.open(io.BytesIO(bytes))
+      if 'url' in im.info:
+        name = im.info['url'][1:]  # remove leading /
       result[name] = bytes
   return result
+
+
+def list_folder(bucket_name, prefix, start_offset):
+  storage_client = storage.Client()
+  bucket = storage_client.get_bucket(bucket_name)
+  blobs = bucket.list_blobs(prefix=prefix, start_offset=start_offset)
+  folders = set()
+  for blob in blobs:
+    parts = blob.name.split('/')
+    # A sub directory blob is in the form of <prefix>/sub-directory/...
+    # It should have >= 3 parts.
+    if len(parts) >= 3:
+      folders.add(parts[1])
+  res = list(folders)
+  res.sort()
+  return res

@@ -17,27 +17,26 @@
 /**
  * Component for rendering a ranking tile.
  */
-import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useRef } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 
 import { ASYNC_ELEMENT_CLASS } from "../../constants/css_constants";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
-import { formatNumber } from "../../i18n/i18n";
-import { RankingData, RankingPoint } from "../../types/ranking_unit_types";
+import {
+  RankingData,
+  RankingGroup,
+  RankingPoint,
+} from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
+import { htmlToSvg } from "../../utils/svg_utils";
 import { formatString } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
-const SVGNS = "http://www.w3.org/2000/svg";
-const XLINKNS = "http://www.w3.org/1999/xlink";
-const CHART_PADDING = 10;
+const RANKING_COUNT = 5;
 
 interface SvRankingUnitsProps {
-  isMultiColumn?: boolean;
-  rankingCount: number;
   rankingData: RankingData;
   rankingMetadata: RankingTileSpec;
   showChartEmbed: (
@@ -45,11 +44,10 @@ interface SvRankingUnitsProps {
     chartHeight: number,
     chartHtml: string,
     rankingPoints: RankingPoint[],
-    sources: string[]
+    sources: string[],
+    svNames: string[]
   ) => void;
   statVar: string;
-  svName: string;
-  svNames?: string[];
   title?: string;
   // Whether or not to render the data version of these units
   isDataTile?: boolean;
@@ -60,32 +58,16 @@ interface SvRankingUnitsProps {
  * @param props SvRankingUnitsProps
  */
 export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
-  const {
-    isMultiColumn,
-    rankingCount,
-    rankingData,
-    rankingMetadata,
-    showChartEmbed,
-    statVar,
-    svName,
-    svNames,
-    title,
-  } = props;
-  const { dateRange, numDataPoints, points, scaling, sources, unit } =
-    rankingData[statVar];
-  const { highestTitle, lowestTitle, showHighest, showLowest } =
-    rankingMetadata;
+  const { rankingData, rankingMetadata, showChartEmbed, statVar, title } =
+    props;
+  const rankingGroup = rankingData[statVar];
   const highestRankingUnitRef = useRef<HTMLDivElement>();
   const lowestRankingUnitRef = useRef<HTMLDivElement>();
 
   /**
    * Build content and triggers export modal window
    */
-  function handleEmbed(
-    rankingPoints: RankingPoint[],
-    sources: Set<string>,
-    isHighest: boolean
-  ): void {
+  function handleEmbed(isHighest: boolean): void {
     let chartHtml = "";
     let chartHeight = 0;
     let chartWidth = 0;
@@ -97,12 +79,16 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       chartHeight = divEl.offsetHeight;
       chartWidth = divEl.offsetWidth;
     }
+    const points = isHighest
+      ? rankingGroup.points.slice().reverse()
+      : rankingGroup.points;
     showChartEmbed(
       chartWidth,
       chartHeight,
       chartHtml,
-      rankingPoints,
-      Array.from(sources)
+      points,
+      Array.from(rankingGroup.sources),
+      rankingGroup.svName
     );
   }
 
@@ -112,26 +98,16 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
     chartDiv: HTMLDivElement,
     dataContainerClass: string
   ): void {
-    const svg = d3
-      .create("svg")
-      .attr("xmlns", SVGNS)
-      .attr("xmlns:xlink", XLINKNS)
-      .attr("width", chartDiv.offsetWidth);
-
-    svg
-      .append("g")
-      .attr("transform", `translate(${CHART_PADDING})`)
-      .append("svg")
-      .attr("class", ASYNC_ELEMENT_CLASS)
-      .append("foreignObject")
-      .attr("width", chartDiv.offsetWidth)
-      .attr("height", chartDiv.offsetHeight)
-      .style("font-family", "sans-serif")
-      .append("xhtml:div")
-      .html(chartDiv.outerHTML);
+    const svg = htmlToSvg(
+      chartDiv.outerHTML,
+      chartDiv.offsetWidth,
+      chartDiv.offsetHeight,
+      ASYNC_ELEMENT_CLASS,
+      { "font-family": "sans-serif" }
+    );
 
     const s = new XMLSerializer();
-    const svgXml = s.serializeToString(svg.node());
+    const svgXml = s.serializeToString(svg);
     const dataContainer = document.getElementsByClassName(dataContainerClass);
     if (_.isEmpty(dataContainer)) {
       return;
@@ -163,71 +139,137 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
 
   return (
     <React.Fragment>
-      {showHighest && (
-        <div className="ranking-unit-container highest-ranking-container">
+      {rankingMetadata.showHighest && (
+        <div
+          className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
+        >
           {props.isDataTile && (
             <div
               className={DATA_CSS_CLASS}
-              data-csv={rankingPointsToCsv(points, svNames || [svName])}
+              data-csv={rankingPointsToCsv(
+                rankingGroup.points,
+                rankingGroup.svName
+              )}
             />
           )}
-          <RankingUnit
-            key={`${statVar}-highest`}
-            unit={unit}
-            forwardRef={highestRankingUnitRef}
-            scaling={scaling}
-            title={formatString(
-              title || (highestTitle ? highestTitle : "Highest ${statVar}"),
-              {
-                date: dateRange,
-                placeName: "",
-                statVar: svName,
-              }
-            )}
-            points={points.slice(-rankingCount).reverse()}
-            isHighest={true}
-            svNames={isMultiColumn ? svNames : undefined}
-            formatNumberFn={formatNumber}
-          />
+          {getRankingUnit(
+            title,
+            statVar,
+            rankingGroup,
+            rankingMetadata,
+            true,
+            highestRankingUnitRef
+          )}
           <ChartFooter
-            sources={sources}
-            handleEmbed={() => handleEmbed(points.reverse(), sources, true)}
+            sources={rankingGroup.sources}
+            handleEmbed={() => handleEmbed(true)}
           />
         </div>
       )}
-      {showLowest && (
-        <div className="ranking-unit-container lowest-ranking-container">
+      {rankingMetadata.showLowest && (
+        <div
+          className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} lowest-ranking-container`}
+        >
           {props.isDataTile && (
             <div
               className={DATA_CSS_CLASS}
-              data-csv={rankingPointsToCsv(points, svNames || [svName])}
+              data-csv={rankingPointsToCsv(
+                rankingGroup.points,
+                rankingGroup.svName
+              )}
             />
           )}
-          <RankingUnit
-            key={`${statVar}-lowest`}
-            unit={unit}
-            forwardRef={lowestRankingUnitRef}
-            scaling={scaling}
-            title={formatString(
-              title || (lowestTitle ? lowestTitle : "Lowest ${statVar}"),
-              {
-                date: dateRange,
-                placeName: "",
-                statVar: svName,
-              }
-            )}
-            numDataPoints={numDataPoints}
-            points={points.slice(0, rankingCount)}
-            isHighest={false}
-            svNames={isMultiColumn ? svNames : undefined}
-            formatNumberFn={formatNumber}
-          />
+          {getRankingUnit(
+            title,
+            statVar,
+            rankingGroup,
+            rankingMetadata,
+            false,
+            lowestRankingUnitRef
+          )}
           <ChartFooter
-            sources={sources}
-            handleEmbed={() => handleEmbed(points, sources, false)}
+            sources={rankingGroup.sources}
+            handleEmbed={() => handleEmbed(false)}
           />
         </div>
       )}
     </React.Fragment>
+  );
+}
+
+/**
+ * Gets the title for a ranking unit
+ * @param tileConfigTitle title of the tile
+ * @param rankingMetadata the RankingTileSpec for the ranking unit
+ * @param rankingGroup the RankingGroup for the ranking unit
+ * @param isHighest whether or not this title is for a ranking unit that shows
+ *                  highest
+ * @param statVar the dcid of the stat var that the ranking unit is showing
+ */
+export function getRankingUnitTitle(
+  tileConfigTitle: string,
+  rankingMetadata: RankingTileSpec,
+  rankingGroup: RankingGroup,
+  isHighest: boolean,
+  statVar: string
+): string {
+  let title = tileConfigTitle;
+  if (!title) {
+    if (isHighest) {
+      title = rankingMetadata.highestTitle || "Highest ${statVar}";
+    } else {
+      title = rankingMetadata.lowestTitle || "Lowest ${statVar}";
+    }
+  }
+  const rs = {
+    date: rankingGroup.dateRange,
+    placeName: "",
+    statVar: rankingGroup.svName.length ? rankingGroup.svName[0] : statVar,
+  };
+  return formatString(title, rs);
+}
+
+/**
+ * Gets a ranking unit as an element
+ * @param tileConfigTitle title of the tile
+ * @param statVar dcid of the statVar to get the ranking unit for
+ * @param rankingGroup the RankingGroup information to get the ranking unit for
+ * @param rankingMetadata the RankingTileSpec to get the ranking unit for
+ * @param isHighest whether or not this ranking unit is showing highest
+ * @param rankingUnitRef ref object to attach to the ranking unit
+ */
+export function getRankingUnit(
+  tileConfigTitle: string,
+  statVar: string,
+  rankingGroup: RankingGroup,
+  rankingMetadata: RankingTileSpec,
+  isHighest: boolean,
+  rankingUnitRef?: RefObject<HTMLDivElement>
+): JSX.Element {
+  const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
+  const points = isHighest
+    ? rankingGroup.points.slice(-rankingCount).reverse()
+    : rankingGroup.points.slice(0, rankingCount);
+  const title = getRankingUnitTitle(
+    tileConfigTitle,
+    rankingMetadata,
+    rankingGroup,
+    isHighest,
+    statVar
+  );
+  return (
+    <RankingUnit
+      key={`${statVar}-highest`}
+      unit={rankingGroup.unit}
+      forwardRef={rankingUnitRef}
+      scaling={rankingGroup.scaling}
+      title={title}
+      points={points}
+      numDataPoints={rankingGroup.numDataPoints}
+      isHighest={isHighest}
+      svNames={
+        rankingMetadata.showMultiColumn ? rankingGroup.svName : undefined
+      }
+    />
   );
 }

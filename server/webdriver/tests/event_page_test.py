@@ -23,7 +23,7 @@ from server.webdriver.base import WebdriverBaseTest
 
 BASE_PAGE_URL = '/event/'
 CYCLONE_NICOLE_DCID = 'cyclone/ibtracs_2022309N16290'
-DOUBLE_CREEK_FIRE_DCID = 'fire/irwinId/92b22838-c96c-4b21-b1e8-f09e8ee65c8f'
+FIRE_EVENT_DCID = 'fireEvent/2022-07-19_0x2e025b0000000000'
 DROUGHT_EVENT_DCID = 'droughtEvent/2020-04-01_grid_1/52_-81'
 
 
@@ -99,7 +99,7 @@ class TestEventPage(WebdriverBaseTest):
     """Test a fire event page can be loaded successfully"""
 
     # Load event page for cyclone Nicole.
-    self.driver.get(self.url_ + BASE_PAGE_URL + DOUBLE_CREEK_FIRE_DCID)
+    self.driver.get(self.url_ + BASE_PAGE_URL + FIRE_EVENT_DCID)
 
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
@@ -108,20 +108,17 @@ class TestEventPage(WebdriverBaseTest):
 
     # Assert page title is correct
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.title_contains('Double Creek Fire - Event Page - Data Commons'))
+        EC.title_contains('FireEvent at Ketapang on 2022-07-19'))
 
     # Check header section
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     title = self.driver.find_element(By.XPATH,
                                      '//*[@id="main-pane"]/div[1]/div[1]/h1')
-    self.assertEqual(title.text, 'Double Creek Fire')
+    self.assertEqual(title.text, 'FireEvent at Ketapang on 2022-07-19')
     dcid_subtitle = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/div[1]/div[1]/h3')
-    self.assertEqual(
-        dcid_subtitle.text,
-        'Wildland Fire Event in Wallowa County, Oregon, United States, North America, Earth'
-    )
+    self.assertEqual(dcid_subtitle.text, 'Fire Event in Indonesia, Asia, Earth')
 
     # Check google map section
     element_present = EC.presence_of_element_located(
@@ -139,14 +136,14 @@ class TestEventPage(WebdriverBaseTest):
         By.XPATH, '//*[@id="main-pane"]/div[1]/section/div/table')
     table_rows = table.find_elements(
         By.XPATH, '//*[@id="main-pane"]/div[1]/section/div/table/tbody/tr')
-    # assert there are 3+ rows in the property values table
-    self.assertGreater(len(table_rows), 3)
+    # assert there are 2+ rows in the property values table
+    self.assertGreater(len(table_rows), 2)
     date_row = table.find_elements(
         By.XPATH,
         '//*[@id="main-pane"]/div[1]/section/div/table/tbody/tr[2]/td')
     # assert the date is correct
     self.assertEqual(date_row[0].text, 'Date')
-    self.assertEqual(date_row[1].text, '2022-08-30 — 2022-10-24')
+    self.assertEqual(date_row[1].text, '2022-07-19 — 2022-07-23')
 
     # Check additional charts section
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'svg'))

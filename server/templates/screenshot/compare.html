@@ -26,26 +26,49 @@
 {% block content %}
   <div class="container">
     <div>
-      <div>
-        <span>Base: </span>
-        <a href="https://github.com/datacommonsorg/website/commit/{{ base_sha }}">
-          code
-        </a>
-        <span>, </span>
-        <a href="/screenshot/commit/{{ base_sha }}">
-          screenshot
-        </a>
-      </div>
-      <div>
-        <span>Current: </span>
-        <a href="https://github.com/datacommonsorg/website/commit/{{ sha }}">
-          code
-        </a>
-        <span>, </span>
-        <a href="/screenshot/commit/{{ sha }}">
-          screenshot
-        </a>
-      </div>
+      {% if token|length == 7 %}
+        <div>
+          <span>Base: </span>
+          <a href="https://github.com/datacommonsorg/website/commit/{{ base_token }}">
+            code
+          </a>
+          <span>, </span>
+          <a href="/screenshot/commit/{{ base_token }}">
+            screenshot
+          </a>
+        </div>
+        <div>
+          <span>Current: </span>
+          <a href="https://github.com/datacommonsorg/website/commit/{{ token }}">
+            code
+          </a>
+          <span>, </span>
+          <a href="/screenshot/commit/{{ token }}">
+            screenshot
+          </a>
+        </div>
+      {% else %}
+        <table>
+          <tr>
+            <td>Base:</td>
+            <td>
+              {{ base_token }}
+              <a href="/screenshot/date/{{ base_token }}?domain={{ domain }}">
+                (screenshot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>Current:</td>
+            <td>
+              {{ token }}
+              <a href="/screenshot/date/{{ token }}?domain={{ domain }}">
+                (screenshot)
+              </a>
+            </td>
+          </tr>
+        </table>
+      {% endif %}
     </div>
     {% for name in data %}
       <div class="name">
@@ -60,7 +83,7 @@
           <img class="screenshot-image col-md-12" src="data:image/png;base64,{{ data[name]['base'] }}"/>
         </div>
         <div class="col-md-6">
-          <div>Diff</div>
+          <div>Current - Base</div>
           <img class="screenshot-image col-md-12" src="data:image/png;base64,{{ data[name]['diff'] }}"/>
         </div>
       </div>

@@ -83,7 +83,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
             {provenanceSummaryList.map((element) => {
               const url =
                 element.provId in this.props.urls
-                  ? this.props.urls[element.provId][0]
+                  ? this.props.urls[element.provId]
                   : "";
               return (
                 <Provenance
