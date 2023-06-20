@@ -40,7 +40,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  */
 @customElement("datacommons-map")
 export class DatacommonsMapComponent extends LitElement {
-  // Inject
+  // Inject tiles.scss styles directly into web component
   static styles = css`
     ${unsafeCSS(tilesCssString)}
   `;
