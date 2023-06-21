@@ -29,7 +29,8 @@ import { GeoJsonData } from "../chart/types";
  */
 export function fetchNodeGeoJson(
   nodes: string[],
-  geoJsonProp: string
+  geoJsonProp: string,
+  apiRoot?: string
 ): Promise<GeoJsonData> {
   if (!nodes.length || !geoJsonProp) {
     return Promise.resolve({
@@ -39,7 +40,7 @@ export function fetchNodeGeoJson(
     });
   }
   return axios
-    .post<GeoJsonData>("/api/choropleth/node-geojson", {
+    .post<GeoJsonData>(`${apiRoot || ""}/api/choropleth/node-geojson`, {
       nodes,
       geoJsonProp,
     })

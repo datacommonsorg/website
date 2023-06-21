@@ -22,7 +22,7 @@ import React, { memo } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
   CategoryConfig,
   EventTypeSpec,
@@ -31,6 +31,7 @@ import { getId } from "../../utils/subject_page_utils";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
+import { BlockContainer } from "./block_container";
 import { DisasterEventBlock } from "./disaster_event_block";
 import { StatVarProvider } from "./stat_var_provider";
 
@@ -46,6 +47,7 @@ export interface CategoryPropType {
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
   showData?: boolean;
+  parentPlaces?: NamedPlace[];
 }
 
 export const Category = memo(function Category(
@@ -88,34 +90,51 @@ function renderBlocks(
       case "DISASTER_EVENT":
         return (
           <ErrorBoundary key={id}>
-            <DisasterEventBlock
+            <BlockContainer
               id={id}
-              place={props.place}
-              enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
               description={block.description}
               footnote={block.footnote}
-              columns={block.columns}
-              eventTypeSpec={props.eventTypeSpec}
-              showData={props.showData}
-            />
+              place={props.place}
+            >
+              <DisasterEventBlock
+                id={id}
+                place={props.place}
+                enclosedPlaceType={props.enclosedPlaceType}
+                title={block.title}
+                description={block.description}
+                footnote={block.footnote}
+                columns={block.columns}
+                eventTypeSpec={props.eventTypeSpec}
+                showData={props.showData}
+              />
+            </BlockContainer>
           </ErrorBoundary>
         );
       default:
         return (
           <ErrorBoundary key={id}>
-            <Block
+            <BlockContainer
               id={id}
-              place={props.place}
-              enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
               description={block.description}
               footnote={block.footnote}
-              columns={block.columns}
-              statVarProvider={svProvider}
-              svgChartHeight={props.svgChartHeight}
-              showData={props.showData}
-            />
+              place={props.place}
+            >
+              <Block
+                id={id}
+                place={props.place}
+                enclosedPlaceType={props.enclosedPlaceType}
+                title={block.title}
+                description={block.description}
+                footnote={block.footnote}
+                columns={block.columns}
+                statVarProvider={svProvider}
+                svgChartHeight={props.svgChartHeight}
+                showData={props.showData}
+                parentPlaces={props.parentPlaces}
+              />
+            </BlockContainer>
           </ErrorBoundary>
         );
     }

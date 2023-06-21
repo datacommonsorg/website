@@ -31,6 +31,11 @@ import {
   getReplacementStrings as getBarRS,
 } from "../../static/js/components/tiles/bar_tile";
 import {
+  draw as drawDisasterMap,
+  fetchChartData as fetchDisasterMapData,
+  getReplacementStrings as getDisasterMapRS,
+} from "../../static/js/components/tiles/disaster_event_map_tile";
+import {
   draw as drawLine,
   fetchData as fetchLineData,
   getReplacementStrings as getLineRS,
@@ -52,6 +57,7 @@ import {
   LEGEND_MARGIN_VERTICAL,
   LEGEND_TICK_LABEL_MARGIN,
 } from "../js/chart/draw_map_utils";
+import { fetchDisasterEventData } from "../js/components/subject_page/disaster_event_block";
 import {
   getRankingUnit,
   getRankingUnitTitle,
@@ -59,8 +65,13 @@ import {
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../js/constants/subject_page_constants";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { urlToDomain } from "../js/shared/util";
+import { DisasterEventPointData } from "../js/types/disaster_event_map_types";
 import { RankingGroup } from "../js/types/ranking_unit_types";
-import { TileConfig } from "../js/types/subject_page_proto_types";
+import {
+  BlockConfig,
+  EventTypeSpec,
+  TileConfig,
+} from "../js/types/subject_page_proto_types";
 import {
   dataGroupsToCsv,
   mapDataToCsv,
@@ -68,7 +79,7 @@ import {
   scatterDataToCsv,
 } from "../js/utils/chart_csv_utils";
 import { htmlToSvg } from "../js/utils/svg_utils";
-import { getChartTitle } from "../js/utils/tile_utils";
+import { getChartTitle, getTileEventTypeSpecs } from "../js/utils/tile_utils";
 
 // TODO (chejennifer): Split up functions into smaller files
 
@@ -146,8 +157,6 @@ global.document = dom.window.document;
 interface TileResult {
   // The svg for the chart in the tile as an xml string
   svg: string;
-  // The data for the chart in the tile as a csv string
-  data_csv: string;
   // List of sources of the data in the chart
   srcs: { name: string; url: string }[];
   // The title of the tile
@@ -156,6 +165,8 @@ interface TileResult {
   type: string;
   // List of legend labels
   legend?: string[];
+  // The data for the chart in the tile as a csv string
+  data_csv?: string;
 }
 
 // Gets the length in pixels of a string
@@ -314,6 +325,8 @@ async function getLineTileResult(
     tileContainer.setAttribute("id", id);
     document.getElementById(DOM_ID).appendChild(tileContainer);
     drawLine(tileProp, chartData, null);
+    const svg = getProcessedSvg(tileContainer.querySelector("svg"));
+    tileContainer.remove();
     return [
       {
         svg: getProcessedSvg(tileContainer.querySelector("svg")),
@@ -366,6 +379,8 @@ async function getBarTileResult(
     ) {
       legend = chartData.dataGroup[0].value.map((dp) => dp.label);
     }
+    const svg = getProcessedSvg(tileContainer.querySelector("svg"));
+    tileContainer.remove();
     return [
       {
         svg: getProcessedSvg(tileContainer.querySelector("svg")),
@@ -487,7 +502,7 @@ function getRankingUnitResult(
       false,
       sv
     ),
-    type: "RANKING",
+    type: "TABLE",
   };
 }
 
@@ -509,7 +524,7 @@ async function getRankingTileResult(
     apiRoot: CONFIG.apiRoot,
   };
   try {
-    const rankingData = fetchRankingData(tileProp);
+    const rankingData = await fetchRankingData(tileProp);
     const tileResults: TileResult[] = [];
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
@@ -531,46 +546,163 @@ async function getRankingTileResult(
   }
 }
 
-// Gets the TileResults for a given tile config and supporting information.
-async function getTileResult(
+async function getDisasterMapTileResult(
   id: string,
-  tile: TileConfig,
-  svSpec: Record<string, StatVarSpec>,
+  tileConfig: TileConfig,
   place: NamedTypedPlace,
-  enclosedPlaceType: string
+  enclosedPlaceType: string,
+  eventTypeSpec: Record<string, EventTypeSpec>,
+  disasterEventDataPromise: Promise<Record<string, DisasterEventPointData>>
 ): Promise<TileResult[]> {
-  let tileSvSpec = null;
-  switch (tile.type) {
-    case "LINE":
-      tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-      return getLineTileResult(id, tile, place, tileSvSpec);
-    case "SCATTER":
-      tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-      return getScatterTileResult(
-        id,
-        tile,
-        place,
-        enclosedPlaceType,
-        tileSvSpec
-      );
-    case "BAR":
-      tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-      return getBarTileResult(id, tile, place, enclosedPlaceType, tileSvSpec);
-    case "MAP":
-      tileSvSpec = svSpec[tile.statVarKey[0]];
-      return getMapTileResult(id, tile, place, enclosedPlaceType, tileSvSpec);
-    case "RANKING":
-      tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-      return getRankingTileResult(
-        id,
-        tile,
-        place,
-        enclosedPlaceType,
-        tileSvSpec
-      );
-    default:
-      return null;
+  let tileEventData = null;
+  try {
+    const disasterEventData = await disasterEventDataPromise;
+    tileEventData = {};
+    Object.keys(eventTypeSpec).forEach((specId) => {
+      tileEventData[specId] = disasterEventData[specId];
+    });
+    const tileProp = {
+      id: "test",
+      title: tileConfig.title,
+      place,
+      enclosedPlaceType,
+      eventTypeSpec,
+      disasterEventData: tileEventData,
+      tileSpec: tileConfig.disasterEventMapTileSpec,
+      apiRoot: CONFIG.apiRoot,
+    };
+    const chartData = await fetchDisasterMapData(tileProp);
+    const mapContainer = document.createElement("div");
+    drawDisasterMap(
+      tileProp,
+      chartData,
+      mapContainer,
+      new Set(Object.keys(eventTypeSpec)),
+      SVG_HEIGHT,
+      SVG_WIDTH
+    );
+    const svg = mapContainer.querySelector("svg");
+    svg.style.background = "#eee";
+    return [
+      {
+        svg: getProcessedSvg(svg),
+        legend: Object.values(eventTypeSpec).map((spec) => spec.name),
+        srcs: getSources(chartData.sources),
+        title: getChartTitle(tileConfig.title, getDisasterMapRS(tileProp)),
+        type: "EVENT_MAP",
+      },
+    ];
+  } catch (e) {
+    console.log("Failed to get disaster event map tile result for: " + id);
+    return null;
   }
+}
+
+// Get a list of tile result promises for all the tiles in the block
+function getBlockTileResults(
+  id: string,
+  block: BlockConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  svSpec: Record<string, StatVarSpec>
+): Promise<TileResult[]>[] {
+  const tilePromises = [];
+  block.columns.forEach((column, colIdx) => {
+    column.tiles.forEach((tile, tileIdx) => {
+      const tileId = `${id}-col${colIdx}-tile${tileIdx}`;
+      let tileSvSpec = null;
+      switch (tile.type) {
+        case "LINE":
+          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tilePromises.push(getLineTileResult(tileId, tile, place, tileSvSpec));
+          break;
+        case "SCATTER":
+          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tilePromises.push(
+            getScatterTileResult(
+              tileId,
+              tile,
+              place,
+              enclosedPlaceType,
+              tileSvSpec
+            )
+          );
+          break;
+        case "BAR":
+          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tilePromises.push(
+            getBarTileResult(tileId, tile, place, enclosedPlaceType, tileSvSpec)
+          );
+          break;
+        case "MAP":
+          tileSvSpec = svSpec[tile.statVarKey[0]];
+          tilePromises.push(
+            getMapTileResult(tileId, tile, place, enclosedPlaceType, tileSvSpec)
+          );
+          break;
+        case "RANKING":
+          tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
+          tilePromises.push(
+            getRankingTileResult(
+              tileId,
+              tile,
+              place,
+              enclosedPlaceType,
+              tileSvSpec
+            )
+          );
+          break;
+        default:
+          break;
+      }
+    });
+  });
+  return tilePromises;
+}
+
+// Get a list of tile result promises for all the tiles in the disaster block
+function getDisasterBlockTileResults(
+  id: string,
+  block: BlockConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  eventTypeSpec: Record<string, EventTypeSpec>
+): Promise<TileResult[]>[] {
+  const blockProp = {
+    id,
+    place,
+    enclosedPlaceType,
+    title: block.title,
+    description: block.description,
+    footnote: block.footnote,
+    columns: block.columns,
+    eventTypeSpec,
+    apiRoot: CONFIG.apiRoot,
+  };
+  const disasterEventDataPromise = fetchDisasterEventData(blockProp);
+  const tilePromises = [];
+  block.columns.forEach((column, colIdx) => {
+    column.tiles.forEach((tile, tileIdx) => {
+      const tileEventTypeSpec = getTileEventTypeSpecs(eventTypeSpec, tile);
+      const tileId = `${id}-col${colIdx}-tile${tileIdx}`;
+      switch (tile.type) {
+        case "DISASTER_EVENT_MAP":
+          tilePromises.push(
+            getDisasterMapTileResult(
+              tileId,
+              tile,
+              place,
+              enclosedPlaceType,
+              tileEventTypeSpec,
+              disasterEventDataPromise
+            )
+          );
+        default:
+          return null;
+      }
+    });
+  });
+  return tilePromises;
 }
 
 // Prevents returning 304 status if same GET request gets hit multiple times.
@@ -616,14 +748,28 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           svSpec[sv] = category["statVarSpec"][sv];
         }
         category.blocks.forEach((block, blkIdx) => {
-          block.columns.forEach((column, colIdx) => {
-            column.tiles.forEach((tile, tileIdx) => {
-              const tileId = `cat${catIdx}-blk${blkIdx}-col${colIdx}-tile${tileIdx}`;
-              tilePromises.push(
-                getTileResult(tileId, tile, svSpec, place, enclosedPlaceType)
+          const blockId = `cat${catIdx}-blk${blkIdx}`;
+          let blockTilePromises = [];
+          switch (block.type) {
+            case "DISASTER_EVENT":
+              blockTilePromises = getDisasterBlockTileResults(
+                blockId,
+                block,
+                place,
+                enclosedPlaceType,
+                config["metadata"]["eventTypeSpec"]
               );
-            });
-          });
+              break;
+            default:
+              blockTilePromises = getBlockTileResults(
+                blockId,
+                block,
+                place,
+                enclosedPlaceType,
+                svSpec
+              );
+          }
+          tilePromises.push(...blockTilePromises);
         });
       });
 

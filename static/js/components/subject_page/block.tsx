@@ -27,7 +27,7 @@ import {
   SELF_PLACE_DCID_PLACEHOLDER,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { isNlInterface } from "../../utils/nl_interface_utils";
@@ -45,7 +45,6 @@ import { MapTile } from "../tiles/map_tile";
 import { PlaceOverviewTile } from "../tiles/place_overview_tile";
 import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
-import { BlockContainer } from "./block_container";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
 
@@ -62,6 +61,7 @@ export interface BlockPropType {
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
   showData?: boolean;
+  parentPlaces?: NamedPlace[];
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -95,37 +95,29 @@ export function Block(props: BlockPropType): JSX.Element {
   }, [props]);
 
   return (
-    <BlockContainer
-      id={props.id}
-      title={props.title}
-      description={props.description}
-      footnote={props.footnote}
-      place={props.place}
-    >
-      <div className="block-body row">
-        {props.columns &&
-          props.columns.map((column, idx) => {
-            const id = getId(props.id, COLUMN_ID_PREFIX, idx);
-            const columnTileClassName = getColumnTileClassName(column);
-            return (
-              <Column
-                key={id}
-                id={id}
-                config={column}
-                width={columnWidth}
-                tiles={renderTiles(
-                  column.tiles,
-                  props,
-                  id,
-                  minIdxToHide,
-                  overridePlaceTypes,
-                  columnTileClassName
-                )}
-              />
-            );
-          })}
-      </div>
-    </BlockContainer>
+    <div className="block-body row">
+      {props.columns &&
+        props.columns.map((column, idx) => {
+          const id = getId(props.id, COLUMN_ID_PREFIX, idx);
+          const columnTileClassName = getColumnTileClassName(column);
+          return (
+            <Column
+              key={id}
+              id={id}
+              config={column}
+              width={columnWidth}
+              tiles={renderTiles(
+                column.tiles,
+                props,
+                id,
+                minIdxToHide,
+                overridePlaceTypes,
+                columnTileClassName
+              )}
+            />
+          );
+        })}
+    </div>
   );
 }
 
@@ -181,6 +173,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             isDataTile={props.showData}
+            parentPlaces={props.parentPlaces}
           />
         );
       case "LINE":

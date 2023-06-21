@@ -138,6 +138,6 @@ function deploy_website() {
 
 cd $ROOT
 get_gke_credentials
+deploy_cloud_esp
 deploy_mixer
 deploy_website
-deploy_cloud_esp

@@ -17,10 +17,10 @@
 jest.mock("axios");
 
 import { act, waitFor } from "@testing-library/react";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
 import Cheerio from "cheerio";
-import Enzyme, { mount } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import Enzyme, { mount, ReactWrapper } from "enzyme";
 import { when } from "jest-when";
 import React, { useEffect } from "react";
 
