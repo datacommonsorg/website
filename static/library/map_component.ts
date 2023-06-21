@@ -33,8 +33,6 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * <datacommons-map
  *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
  *      placeDcid="country/USA"
- *      placeName="United States of America"
- *      placeTypes="Country"
  *      enclosedPlaceType="State"
  *      statVarName="Population Below Poverty Level Status in Past Year"
  *      statVarDcid="Count_Person_BelowPovertyLevelInThePast12Months"
@@ -54,12 +52,6 @@ export class DatacommonsMapComponent extends LitElement {
   placeDcid!: string;
 
   @property()
-  placeName!: string;
-
-  @property()
-  placeTypes!: string[];
-
-  @property()
   enclosedPlaceType!: string;
 
   @property()
@@ -75,8 +67,8 @@ export class DatacommonsMapComponent extends LitElement {
       id: `chart-${_.uniqueId()}`,
       place: {
         dcid: this.placeDcid,
-        name: this.placeName,
-        types: this.placeTypes,
+        name: "",
+        types: [],
       },
       statVarSpec: {
         denom: "",

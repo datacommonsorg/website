@@ -21,9 +21,10 @@ import { placeExplorerCategories } from "./util";
 
 test("stats var label: marked for translation", async () => {
   for (const file of placeExplorerCategories) {
-    const chartConfig = await import(
-      `../../../server/config/chart_config/${file}.json`
-    );
+    const chartConfig = (
+      await import(`../../../server/config/chart_config/${file}.json`)
+    ).default;
+
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
         for (const statsVar of chart.statsVars) {
@@ -33,15 +34,14 @@ test("stats var label: marked for translation", async () => {
     }
   }
 });
-
 test("stats var label: compiled to en", async () => {
-  loadLocaleData("en", [
+  await loadLocaleData("en", [
     import("../i18n/compiled-lang/en/stats_var_titles.json"),
   ]);
   for (const file of placeExplorerCategories) {
-    const chartConfig = await import(
-      `../../../server/config/chart_config/${file}.json`
-    );
+    const chartConfig = (
+      await import(`../../../server/config/chart_config/${file}.json`)
+    ).default;
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
         for (const statsVar of chart.statsVars) {
@@ -57,14 +57,15 @@ test("stats var label: compiled to en", async () => {
 });
 
 test("stats var label: compiled to es", async () => {
-  loadLocaleData("es", [
+  await loadLocaleData("es", [
     import("../i18n/compiled-lang/es/stats_var_titles.json"),
     import("../i18n/compiled-lang/en/stats_var_titles.json"),
   ]);
   for (const file of placeExplorerCategories) {
-    const chartConfig = await import(
-      `../../../server/config/chart_config/${file}.json`
-    );
+    const chartConfig = (
+      await import(`../../../server/config/chart_config/${file}.json`)
+    ).default;
+
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
         for (const statsVar of chart.statsVars) {
