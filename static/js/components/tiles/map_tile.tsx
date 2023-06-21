@@ -67,6 +67,8 @@ export interface MapTilePropType {
   isDataTile?: boolean;
   // API root
   apiRoot?: string;
+  // Parent places of the current place showing map for
+  parentPlaces?: NamedPlace[];
 }
 
 interface RawData {
@@ -226,9 +228,11 @@ export const fetchData = async (
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
-  const parentPlacesPromise = axios
-    .get(`${props.apiRoot || ""}/api/place/parent/${props.place.dcid}`)
-    .then((resp) => resp.data);
+  const parentPlacesPromise = props.parentPlaces
+    ? Promise.resolve(props.parentPlaces)
+    : axios
+        .get(`${props.apiRoot || ""}/api/place/parent/${props.place.dcid}`)
+        .then((resp) => resp.data);
   try {
     const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
       await Promise.all([

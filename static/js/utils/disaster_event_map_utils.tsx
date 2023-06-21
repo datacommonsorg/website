@@ -208,7 +208,8 @@ function fetchEventPoints(
   dateRange: [string, string],
   eventTypeSpec: EventTypeSpec,
   severityFilter?: SeverityFilter,
-  useCache?: boolean
+  useCache?: boolean,
+  apiRoot?: string
 ): Promise<DisasterEventPointData> {
   const reqParams = {
     eventType,
@@ -223,8 +224,8 @@ function fetchEventPoints(
     reqParams["filterLowerLimit"] = severityFilter.lowerLimit;
   }
   const url = useCache
-    ? "/api/disaster-dashboard/event-data"
-    : "/api/disaster-dashboard/json-event-data";
+    ? `${apiRoot || ""}/api/disaster-dashboard/event-data`
+    : `${apiRoot || ""}/api/disaster-dashboard/json-event-data`;
   return axios
     .get<DisasterEventDataApiResponse>(url, { params: reqParams })
     .then((resp) => {
@@ -367,7 +368,8 @@ export function getDateRange(selectedDate: string): [string, string] {
  * @param dataOptions the options to use for the data fetch
  */
 export function fetchDisasterEventPoints(
-  dataOptions: DisasterDataOptions
+  dataOptions: DisasterDataOptions,
+  apiRoot?: string
 ): Promise<DisasterEventPointData> {
   // Date range to fetch data for.
   const dateRange = getDateRange(dataOptions.selectedDate);
@@ -380,7 +382,8 @@ export function fetchDisasterEventPoints(
         dateRange,
         dataOptions.eventTypeSpec,
         dataOptions.severityFilters[dataOptions.eventTypeSpec.id],
-        dataOptions.useCache
+        dataOptions.useCache,
+        apiRoot
       )
     );
   }
@@ -512,6 +515,9 @@ export function setUrlHash(
  *
  */
 export function getHashValue(paramKey: string, blockId: string): string {
+  if (typeof window == "undefined") {
+    return "";
+  }
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   const blockParamString = urlParams.get(blockId) || "";
   let blockParamVal = {};
@@ -561,6 +567,9 @@ export function getSeverityFilters(
  * If true, use EventCollectionCache for data fetch. Otherwise, use saved JSON files.
  */
 export function getUseCache(): boolean {
+  if (typeof window == "undefined") {
+    return true;
+  }
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   const useJsonVal = urlParams.get(URL_HASH_PARAM_KEYS.USE_JSON) || "";
   return useJsonVal !== "1";
