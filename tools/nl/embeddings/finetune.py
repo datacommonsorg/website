@@ -13,7 +13,7 @@
 # limitations under the License.
 """Fine Tune the base model."""
 
-import datetime as datetime
+from datetime import datetime
 import glob
 import os
 import time
@@ -74,7 +74,7 @@ def _upload_to_gcs(ctx: utils.Context,
 
 
 def _make_gcs_model_folder(base_model_name: str) -> str:
-  now = datetime.datetime.now()
+  now = datetime.now()
 
   month_str = utils.two_digits(now.month)
   day_str = utils.two_digits(now.day)
@@ -109,6 +109,20 @@ def _alternatives(autogen_input_filepattern: str,
 
 def fine_tune_model(model: Any, df_svs: pd.DataFrame,
                     df_sentence_pairs: pd.DataFrame):
+  """Fine tuning involves providing pairs of sentences/text with an
+  approximate similar score to a baseline model. These pairs (and scores)
+  are used for further `training` (with CosineSimilarityLoss as the objecive).
+  The end result is that the baseline model's weights get updated based on
+  the `new` training examples (pairs).
+  Effectively, the training examples (pairs and scores) provide additional
+  context to a baseline model about the kinds of associations between
+  sentences/text that we care about. In this case, we use the StatVar name,
+  description and alternatives (human curated and LLM-generated) to create
+  pairs of sentences/text with high similarity scores. We also provide a
+  way to indicate that some pairs of texts/words/sentences should not be
+  associated with each other by assigning very low scores. This allows us to
+  bias the model's weights to accomodate our particular use case better. 
+  """
 
   training_examples: List[InputExample] = []
 
@@ -120,12 +134,12 @@ def fine_tune_model(model: Any, df_svs: pd.DataFrame,
     descriptions = row[utils.DESCRIPTION_COL].split(";")
     desc = descriptions[0]
 
+    if not name and not desc:
+      continue
     if ((not name) and desc):
       name = desc
     elif ((not desc) and name):
       desc = name
-    elif ((not name) and (not desc)):
-      continue
 
     curated = row[utils.CURATED_ALTERNATIVES_COL].split(";")
     palm_alts = row[utils.ALTERNATIVES_COL].split(";")
@@ -206,36 +220,35 @@ def main(_):
   print(f"Saving locally to {gcs_tmp_out_path}")
   model.save(gcs_tmp_out_path)
 
+  # Finally, upload to the NL model server's GCS bucket
+  print("Attempting to write to GCS")
+  print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_model_folder}/")
 
-#   # Finally, upload to the NL model server's GCS bucket
-#   print("Attempting to write to GCS")
-#   print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_model_folder}/")
+  # To upload the model directory, we need to traverse the files and folders.
+  for str_path in glob.glob(f"{gcs_tmp_out_path}/**"):
 
-#   # To upload the model directory, we need to traverse the files and folders.
-#   for str_path in glob.glob(f"{gcs_tmp_out_path}/**"):
+    # Check if str_path is a folder.
+    if os.path.isdir(str_path):
+      if not glob.glob(f"{str_path}/**"):
+        # This means we found an empty folder.
+        foldername = os.path.basename(str_path)
+        gcs_path = gcs_model_folder + "/" + foldername + "/"
+        print(f'Path in GCS: {gcs_path}')
+        _upload_to_gcs(ctx, gcs_path, str_path, empty_folder=True)
 
-#     # Check if str_path is a folder.
-#     if os.path.isdir(str_path):
-#       if not glob.glob(f"{str_path}/**"):
-#         # This means we found an empty folder.
-#         foldername = os.path.basename(str_path)
-#         gcs_path = gcs_model_folder + "/" + foldername + "/"
-#         print(f'Path in GCS: {gcs_path}')
-#         _upload_to_gcs(ctx, gcs_path, str_path, empty_folder=True)
+      for filepath in glob.glob(f"{str_path}/**"):
+        # Found files under a folder.
+        filename = filepath.split(gcs_tmp_out_path)[1]
+        gcs_path = gcs_model_folder + filename
+        _upload_to_gcs(ctx, gcs_path, filepath)
+    else:
+      # Just files under the main model folder.
+      foldername = os.path.basename(str_path)
+      gcs_path = gcs_model_folder + "/" + foldername
+      _upload_to_gcs(ctx, gcs_path, str_path)
 
-#       for filepath in glob.glob(f"{str_path}/**"):
-#         # Found files under a folder.
-#         filename = filepath.split(gcs_tmp_out_path)[1]
-#         gcs_path = gcs_model_folder + filename
-#         _upload_to_gcs(ctx, gcs_path, filepath)
-#     else:
-#       # Just files under the main model folder.
-#       foldername = os.path.basename(str_path)
-#       gcs_path = gcs_model_folder + "/" + foldername
-#       _upload_to_gcs(ctx, gcs_path, str_path)
-
-#   print("Done uploading to gcs.")
-#   print(f"\t Finetuned Model Filename: {gcs_model_folder}")
+  print("Done uploading to gcs.")
+  print(f"\t Finetuned Model Filename: {gcs_model_folder}")
 
 # TODO: update the model.yalm file to indicate the finetuned model name.
 # print("\nNOTE: Please update model.yaml with the Finetuned Model Filename")
