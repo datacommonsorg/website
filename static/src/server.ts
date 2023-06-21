@@ -157,8 +157,6 @@ global.document = dom.window.document;
 interface TileResult {
   // The svg for the chart in the tile as an xml string
   svg: string;
-  // The data for the chart in the tile as a csv string
-  data_csv: string;
   // List of sources of the data in the chart
   srcs: { name: string; url: string }[];
   // The title of the tile
@@ -167,6 +165,8 @@ interface TileResult {
   type: string;
   // List of legend labels
   legend?: string[];
+  // The data for the chart in the tile as a csv string
+  data_csv?: string;
 }
 
 // Gets the length in pixels of a string
@@ -325,6 +325,8 @@ async function getLineTileResult(
     tileContainer.setAttribute("id", id);
     document.getElementById(DOM_ID).appendChild(tileContainer);
     drawLine(tileProp, chartData, null);
+    const svg = getProcessedSvg(tileContainer.querySelector("svg"));
+    tileContainer.remove();
     return [
       {
         svg: getProcessedSvg(tileContainer.querySelector("svg")),
@@ -377,6 +379,8 @@ async function getBarTileResult(
     ) {
       legend = chartData.dataGroup[0].value.map((dp) => dp.label);
     }
+    const svg = getProcessedSvg(tileContainer.querySelector("svg"));
+    tileContainer.remove();
     return [
       {
         svg: getProcessedSvg(tileContainer.querySelector("svg")),
@@ -582,7 +586,7 @@ async function getDisasterMapTileResult(
     return [
       {
         svg: getProcessedSvg(svg),
-        data_csv: "",
+        legend: Object.values(eventTypeSpec).map((spec) => spec.name),
         srcs: getSources(chartData.sources),
         title: getChartTitle(tileConfig.title, getDisasterMapRS(tileProp)),
         type: "EVENT_MAP",

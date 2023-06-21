@@ -217,7 +217,7 @@ function getDataFetchCacheKey(dataOptions: DisasterDataOptions): string {
  * @param fetchData function to use to fetch data with a given cache key and
  *                  data promise
  */
-export async function fetchDisasterEventData(
+export function fetchDisasterEventData(
   props: DisasterEventBlockPropType,
   fetchData?: (
     cacheKey: string,

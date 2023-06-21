@@ -452,9 +452,7 @@ export function drawD3Map(
       if (value !== undefined) {
         return colorScale(value);
       }
-      return styleParams
-        ? styleParams.noDataFill || MISSING_DATA_COLOR
-        : MISSING_DATA_COLOR;
+      return styleParams?.noDataFill || MISSING_DATA_COLOR;
     })
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);

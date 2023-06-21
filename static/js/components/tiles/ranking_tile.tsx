@@ -192,8 +192,8 @@ export async function fetchData(
         props.place.dcid,
         USA_NAMED_TYPED_PLACE.dcid
       )
-        ? getPlaceDisplayNames(Array.from(places))
-        : getPlaceNames(Array.from(places));
+        ? getPlaceDisplayNames(Array.from(places), props.apiRoot)
+        : getPlaceNames(Array.from(places), props.apiRoot);
       return placeNamesPromise.then((placeNames) => {
         for (const statVar in rankingData) {
           for (const point of rankingData[statVar].points) {

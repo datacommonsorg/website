@@ -286,8 +286,10 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
   }
 });
 
-// Gets whether the geojson for the selected place should be used for the base
-// map.
+/**
+ * Gets whether the geojson for the selected place should be used for the base
+ * map
+ */
 function shouldUsePlaceGeoJson(
   placeDcid: string,
   childrenGeoJson: GeoJsonData
@@ -369,7 +371,7 @@ function fetchEventGeoJsonData(
  * @param props props for the disaster event map tile
  * @param fetchData function to use to fetch data with a given cache key and data promise
  */
-export async function fetchChartData(
+export function fetchChartData(
   props: DisasterEventMapTilePropType,
   fetchData?: (
     cacheKey: string,

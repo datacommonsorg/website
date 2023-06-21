@@ -190,13 +190,13 @@ export function getPlaceNames(
  * will have the state code at the end of the name if state code is available)
  */
 export function getPlaceDisplayNames(
-  dcids: string[]
+  dcids: string[], apiRoot?: string
 ): Promise<DisplayNameApiResponse> {
   if (!dcids.length) {
     return Promise.resolve({});
   }
   return axios
-    .post("/api/place/displayname", { dcids })
+    .post(`${apiRoot || ""}/api/place/displayname`, { dcids })
     .then((resp) => {
       return resp.data;
     })
