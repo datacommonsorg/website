@@ -232,7 +232,8 @@ content - main page content
           <div id="sub-footer" class="col-12">
             <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
             {# TRANSLATORS: The label for a link to project homepage. #}
-            <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
+            <img style="height: 1rem" src="/images/google.png" />
+            <span>{% trans project="Data Commons" %}{{ project }} is a Google project{% endtrans %}</span>
 
             <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
