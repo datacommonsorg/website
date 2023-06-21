@@ -190,7 +190,8 @@ export function getPlaceNames(
  * will have the state code at the end of the name if state code is available)
  */
 export function getPlaceDisplayNames(
-  dcids: string[], apiRoot?: string
+  dcids: string[],
+  apiRoot?: string
 ): Promise<DisplayNameApiResponse> {
   if (!dcids.length) {
     return Promise.resolve({});
