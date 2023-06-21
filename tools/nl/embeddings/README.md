@@ -54,3 +54,12 @@ To allow the `gspread` library access to the google sheets above, you will need 
 As of Feb 2023, you can download the gspread-python-app credentials [found here](https://pantheon.corp.google.com/apis/credentials/oauthclient/878764285063-2tqmvvstv8k8cdl7ougccd7ptpnat8d5.apps.googleusercontent.com?project=datcom-204919) to `~/.config/gspread/credentials.json`.
 
 
+# Fine Tuning the Model
+
+To fine tune an existing  `sentence_transform` model, do the following:
+
+```bash
+    ./run_finetune.sh (small | medium)
+```
+
+This process requires non-empty `.csv` files under [`data/alternatives/`](data/alternatives) and [`data/autogen/*`](data/autogen_input/) from which to pick synonymous pairs of sentences/descriptions. These pairs are formed between StatVar `Name`, `Description` and `Alternatives` (either human curated or LLM-generated). The goal is to fine tune the model by understanding that these pairs are close. Additionally, and perhaps more importantly, the [`finetuning/sentence_pairs.csv`](data/finetuning/sentence_pairs.csv) file contains pairs of sentences and a relative similarity indicator ranging between `[0, 1]` where close to `0` means very dissimilar and close to `1` means very similar. Note that the similarity indicator (`label`) does not need to be exact--it is simply a helpful indicator for the fine tuning processs to refine the model by taking in to account the pairs and their suggested labels (scores). We assign high scores (close to 1) to the pairs generated from the various alternatives files. We use [`finetuning/sentence_pairs.csv`](data/finetuning/sentence_pairs.csv) to get the pairs with low similarity scores. These are essentially the pairs for which we want the model to produce very dissimilar scores.
