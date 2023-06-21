@@ -23,92 +23,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://autopush.datacommons.org/datacommons.js"></script>
-    <style>
-      .my-chart {
-        height: auto;
-        margin-bottom: 2rem;
-      }
-    </style>
     <script>
-      console.log("datacommons", datacommons);
       window.onload = function () {
-        // Draw bar chart
-        datacommons.drawBar(document.getElementById("bar-example"), {
-          id: "bar-chart-1",
-          svgChartHeight: 200,
-          className: "my-chart",
-          apiRoot: datacommons.root,
-          isDataTile: false,
-          title:
-            "Population Below Poverty Level Status in Past Year in States of United States (2020)",
-          place: {
-            dcid: "country/USA",
-            name: "United States of America",
-            types: ["Country"],
-          },
-          enclosedPlaceType: "State",
-          statVarSpec: [
-            {
-              name: "Population Below Poverty Level Status in Past Year",
-              statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
-            },
-          ],
-        });
+        // Update web component when text input changes
+        var onTextInputChange = _.debounce((e) => {
+          var $el = $(e.currentTarget);
+          var targetId = $el.data("target-id");
+          var targetAttr = $el.data("target-attr");
+          var $webComponent = $("#" + targetId);
+          $webComponent.attr(targetAttr, $el.val());
+          if (targetAttr === "statVarDcid") {
+            $webComponent.attr("title", $el.val());
+          }
+        }, 400);
 
-        // Draw line chart
-        datacommons.drawLine(document.getElementById("line-example"), {
-          id: "line-chart-1",
-          svgChartHeight: 200,
-          className: "my-chart",
-          apiRoot: datacommons.root,
-          isDataTile: false,
-          title:
-            "Population Below Poverty Level Status in Past Year in United States (2020)",
-          place: {
-            dcid: "country/USA",
-            name: "United States of America",
-            types: ["Country"],
-          },
-          statVarSpec: [
-            {
-              name: "Population Below Poverty Level Status in Past Year",
-              statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
-            },
-          ],
-        });
-
-        // Draw map chart
-        datacommons.drawMap(document.getElementById("map-example"), {
-          id: "map-chart-1",
-          svgChartHeight: 200,
-          className: "my-chart",
-          apiRoot: datacommons.root,
-          isDataTile: false,
-          title:
-            "Population Below Poverty Level Status in Past Year in States of United States (2020)",
-          place: {
-            dcid: "country/USA",
-            name: "United States of America",
-            types: ["Country"],
-          },
-          enclosedPlaceType: "State",
-          statVarSpec: {
-            name: "Population Below Poverty Level Status in Past Year",
-            statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
-          },
-        });
-
-        // Draw ranking chart
-        datacommons.drawRanking(document.getElementById("ranking-example"), {
-          placeName: "USA",
-          placeType: "State",
-          withinPlace: "country/USA",
-          statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
-          isPerCapita: false,
-          scaling: 1,
-          unit: "",
-          date: "2020",
-        });
+        $(".map-control").on("input", onTextInputChange);
       };
     </script>
   </head>
@@ -120,28 +49,123 @@
     </nav>
     <div class="container">
       <!-- Web component example -->
-      <h2>Map Web Component</h2>
-      <datacommons-map
-        title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
-        placeDcid="country/USA"
-        enclosedPlaceType="State"
-        statVarName="Population Below Poverty Level Status in Past Year"
-        statVarDcid="Count_Person_BelowPovertyLevelInThePast12Months"
-      ></datacommons-map>
-      <!-- Map chart-->
-      <h2 class="mt-4 mb-4">JS Map Chart</h2>
-      <div id="map-example"></div>
-      <!-- Bar chart-->
-      <h2 class="mt-4 mb-4">JS Bar Chart</h2>
-      <div id="bar-example"></div>
-
-      <!-- Line chart-->
-      <h2 class="mt-4 mb-4">JS Line Chart</h2>
-      <div id="line-example"></div>
-
-      <!-- Ranking chart-->
-      <h2 class="mt-4 mb-4">JS Ranking Chart</h2>
-      <div id="ranking-example"></div>
+      <h2>Map Web Components</h2>
+      <div class="row">
+        <div class="col col-6">
+          <datacommons-map
+            id="map1"
+            title="Count_Person"
+            placeDcid="country/USA"
+            enclosedPlaceType="State"
+            statVarDcid="Count_Person"
+          ></datacommons-map>
+          <form class="mt-3">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control map-control"
+                data-target-id="map1"
+                data-target-attr="placeDcid"
+                placeholder="Place DCID"
+                value="country/USA"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control map-control"
+                data-target-id="map1"
+                data-target-attr="enclosedPlaceType"
+                placeholder="Enclosed Place Type (e.g., State, EurostatNUTS1)"
+                value="State"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control map-control"
+                data-target-id="map1"
+                data-target-attr="statVarDcid"
+                placeholder="Statistical Variable DCID"
+                value="Count_Person"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="col col-6">
+          <datacommons-map
+            id="map2"
+            title="Count_Person_PerArea"
+            placeDcid="country/USA"
+            enclosedPlaceType="State"
+            statVarDcid="Count_Person_PerArea"
+          ></datacommons-map>
+          <form class="mt-3">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control map-control"
+                data-target-id="map2"
+                data-target-attr="placeDcid"
+                placeholder="Place DCID"
+                value="country/USA"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control map-control"
+                data-target-id="map2"
+                data-target-attr="enclosedPlaceType"
+                placeholder="Enclosed Place Type (e.g., State, EurostatNUTS1)"
+                value="State"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control map-control"
+                data-target-id="map2"
+                data-target-attr="statVarDcid"
+                placeholder="Statistical Variable DCID"
+                value="Count_Person_PerArea"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col col-4">
+          <h5>Example stat vars</h5>
+          <ul>
+            <li>Count_Person</li>
+            <li>Count_Person_PerArea</li>
+            <li>LifeExpectancy_Person</li>
+          </ul>
+        </div>
+        <div class="col col-4">
+          <h5>Example country DCIDs</h5>
+          <ul>
+            <li>country/USA</li>
+            <li>country/GBR</li>
+            <li>country/FRA</li>
+            <li>country/DEU</li>
+            <li>geoId/12 (Florida)</li>
+            <li>geoId/15 (Hawaii)</li>
+            <li>Earth</li>
+          </ul>
+        </div>
+        <div class="col col-4">
+          <h5>Example enclosed place</h5>
+          <ul>
+            <li>State</li>
+            <li>County</li>
+            <li>City</li>
+            <li>EurostatNUTS1</li>
+            <li>EurostatNUTS2</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </body>
 </html>

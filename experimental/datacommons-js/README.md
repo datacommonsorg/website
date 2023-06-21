@@ -12,11 +12,35 @@ Include datacommons.js and styles in your html `<head>...</head>` tag
 <script src="https://datacommons.org/datacommons.js"></script>
 ```
 
+For testing on autopush, replace the above script tag with
+
+```html
+<script src="https://autopush.datacommons.org/datacommons.js"></script>
+```
+
 ## Examples
 
-For a complete example, see [example.html](./example.html)
+- Web component examples: [example.html](./example.html)
+- JS examples: [example.html](./example.html)
 
-### Bar chart
+### Web Component Map
+
+Draw a choropleth map by adding the `datacommons-map` element to your HTML
+
+```html
+<datacommons-map
+  title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+  placeDcid="country/USA"
+  enclosedPlaceType="State"
+  statVarDcid="Count_Person_BelowPovertyLevelInThePast12Months"
+></datacommons-map>
+```
+
+Renders:
+
+![Map chart](./assets/map-chart.png "Map Chart")
+
+### JS Bar chart
 
 Draw a multi-variable bar chart
 
@@ -55,7 +79,7 @@ Renders:
 
 ![Bar chart](./assets/bar-chart.png "Bar Chart")
 
-### Line chart
+### JS Line chart
 
 Draw a multi-variable line chart
 
@@ -92,7 +116,7 @@ datacommons.drawLine(document.getElementById("line-example"), {
 Renders:
 ![Line chart](./assets/line-chart.png "Line Chart")
 
-### Map chart
+### JS Map chart
 
 Draw a choropleth map
 
