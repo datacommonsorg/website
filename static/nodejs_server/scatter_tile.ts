@@ -50,7 +50,7 @@ export async function getScatterTileResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
-): Promise<TileResult[]> {
+): Promise<TileResult> {
   const tileProp = {
     id,
     title: tileConfig.title,
@@ -73,24 +73,22 @@ export async function getScatterTileResult(
       tileConfig.scatterTileSpec,
       SVG_WIDTH
     );
-    return [
-      {
-        svg: getProcessedSvg(svgContainer.querySelector("svg")),
-        data_csv: scatterDataToCsv(
-          chartData.xStatVar.statVar,
-          chartData.xStatVar.denom,
-          chartData.yStatVar.statVar,
-          chartData.yStatVar.denom,
-          chartData.points
-        ),
-        srcs: getSources(chartData.sources),
-        title: getChartTitle(
-          tileConfig.title,
-          getReplacementStrings(tileProp, chartData)
-        ),
-        type: "SCATTER",
-      },
-    ];
+    return {
+      svg: getProcessedSvg(svgContainer.querySelector("svg")),
+      data_csv: scatterDataToCsv(
+        chartData.xStatVar.statVar,
+        chartData.xStatVar.denom,
+        chartData.yStatVar.statVar,
+        chartData.yStatVar.denom,
+        chartData.points
+      ),
+      srcs: getSources(chartData.sources),
+      title: getChartTitle(
+        tileConfig.title,
+        getReplacementStrings(tileProp, chartData)
+      ),
+      type: "SCATTER",
+    };
   } catch (e) {
     console.log("Failed to get scatter tile result for: " + id);
     return null;

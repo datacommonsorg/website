@@ -54,7 +54,7 @@ export async function getDisasterMapTileResult(
   eventTypeSpec: Record<string, EventTypeSpec>,
   disasterEventDataPromise: Promise<Record<string, DisasterEventPointData>>,
   apiRoot: string
-): Promise<TileResult[]> {
+): Promise<TileResult> {
   let tileEventData = null;
   try {
     const disasterEventData = await disasterEventDataPromise;
@@ -84,15 +84,13 @@ export async function getDisasterMapTileResult(
     );
     const svg = mapContainer.querySelector("svg");
     svg.style.background = "#eee";
-    return [
-      {
-        svg: getProcessedSvg(svg),
-        legend: Object.values(eventTypeSpec).map((spec) => spec.name),
-        srcs: getSources(chartData.sources),
-        title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
-        type: "EVENT_MAP",
-      },
-    ];
+    return {
+      svg: getProcessedSvg(svg),
+      legend: Object.values(eventTypeSpec).map((spec) => spec.name),
+      srcs: getSources(chartData.sources),
+      title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
+      type: "EVENT_MAP",
+    };
   } catch (e) {
     console.log("Failed to get disaster event map tile result for: " + id);
     return null;

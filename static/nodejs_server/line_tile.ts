@@ -45,7 +45,7 @@ export async function getLineTileResult(
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec[],
   apiRoot: string
-): Promise<TileResult[]> {
+): Promise<TileResult> {
   const tileProp = {
     apiRoot,
     id,
@@ -63,16 +63,14 @@ export async function getLineTileResult(
     draw(tileProp, chartData, null);
     const svg = getProcessedSvg(tileContainer.querySelector("svg"));
     tileContainer.remove();
-    return [
-      {
-        svg,
-        data_csv: dataGroupsToCsv(chartData.dataGroup),
-        srcs: getSources(chartData.sources),
-        legend: chartData.dataGroup.map((dg) => dg.label || "A"),
-        title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
-        type: "LINE",
-      },
-    ];
+    return {
+      svg,
+      data_csv: dataGroupsToCsv(chartData.dataGroup),
+      srcs: getSources(chartData.sources),
+      legend: chartData.dataGroup.map((dg) => dg.label || "A"),
+      title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
+      type: "LINE",
+    };
   } catch (e) {
     console.log("Failed to get line tile result for: " + id);
     return null;

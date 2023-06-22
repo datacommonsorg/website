@@ -50,7 +50,7 @@ export async function getBarTileResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
-): Promise<TileResult[]> {
+): Promise<TileResult> {
   const comparisonPlaces = tileConfig.comparisonPlaces
     ? tileConfig.comparisonPlaces.map((p) =>
         p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
@@ -81,19 +81,17 @@ export async function getBarTileResult(
     }
     const svg = getProcessedSvg(tileContainer.querySelector("svg"));
     tileContainer.remove();
-    return [
-      {
-        svg: getProcessedSvg(tileContainer.querySelector("svg")),
-        data_csv: dataGroupsToCsv(chartData.dataGroup),
-        srcs: getSources(chartData.sources),
-        legend,
-        title: getChartTitle(
-          tileConfig.title,
-          getReplacementStrings(tileProp, chartData)
-        ),
-        type: "BAR",
-      },
-    ];
+    return {
+      svg,
+      data_csv: dataGroupsToCsv(chartData.dataGroup),
+      srcs: getSources(chartData.sources),
+      legend,
+      title: getChartTitle(
+        tileConfig.title,
+        getReplacementStrings(tileProp, chartData)
+      ),
+      type: "BAR",
+    };
   } catch (e) {
     console.log("Failed to get bar tile result for: " + id);
     return null;

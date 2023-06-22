@@ -150,7 +150,7 @@ function getBlockTileResults(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   svSpec: Record<string, StatVarSpec>
-): Promise<TileResult[]>[] {
+): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
@@ -230,7 +230,7 @@ function getDisasterBlockTileResults(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   eventTypeSpec: Record<string, EventTypeSpec>
-): Promise<TileResult[]>[] {
+): Promise<TileResult>[] {
   const blockProp = {
     id,
     place,
@@ -304,7 +304,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
       }
 
       // Get a list of tile result promises
-      const tilePromises: Array<Promise<TileResult[]>> = [];
+      const tilePromises: Array<Promise<TileResult[] | TileResult>> = [];
       const categories = config["categories"] || [];
       categories.forEach((category, catIdx) => {
         const svSpec = {};

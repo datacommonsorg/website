@@ -52,7 +52,7 @@ export async function getMapTileResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec,
   apiRoot: string
-): Promise<TileResult[]> {
+): Promise<TileResult> {
   const tileProp = {
     id,
     title: tileConfig.title,
@@ -95,18 +95,16 @@ export async function getMapTileResult(
     legendG.appendChild(legendSvg);
     mergedSvg.appendChild(legendG);
 
-    return [
-      {
-        svg: getProcessedSvg(mergedSvg),
-        data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
-        srcs: getSources(chartData.sources),
-        title: getChartTitle(
-          tileConfig.title,
-          getReplacementStrings(tileProp, chartData)
-        ),
-        type: "MAP",
-      },
-    ];
+    return {
+      svg: getProcessedSvg(mergedSvg),
+      data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
+      srcs: getSources(chartData.sources),
+      title: getChartTitle(
+        tileConfig.title,
+        getReplacementStrings(tileProp, chartData)
+      ),
+      type: "MAP",
+    };
   } catch (e) {
     console.log("Failed to get map tile result for: " + id);
     return null;
