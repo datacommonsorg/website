@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import logging
 import os
 import shutil
 import time
@@ -20,6 +21,8 @@ import urllib.parse
 
 from PIL import Image
 from PIL import PngImagePlugin
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -41,6 +44,7 @@ def run(driver, base_url, page_config_dir):
     config = json.load(f)
     for page in config:
       # Set the window size. Testing different sizes.
+      driver.switch_to.new_window('window')
       driver.set_window_size(width=WIDTH,
                              height=page['height'],
                              windowHandle='current')
@@ -49,7 +53,11 @@ def run(driver, base_url, page_config_dir):
       # asyncronously. The web driver wait depends on it.
       if page['async']:
         shared.wait_for_loading(driver)
-        WebDriverWait(driver, shared.TIMEOUT).until(shared.charts_rendered)
+        try:
+          WebDriverWait(driver, shared.TIMEOUT).until(shared.charts_rendered)
+        except (TimeoutException, UnexpectedAlertPresentException) as e:
+          logging.error("Exception for url: %s\n%s", page['url'], e)
+          continue
       else:
         element_present = EC.presence_of_element_located((By.TAG_NAME, 'main'))
         WebDriverWait(driver, shared.TIMEOUT).until(element_present)
