@@ -15,6 +15,7 @@
  */
 
 import { renderRankingComponent } from "../js/ranking/ranking";
+import { DatacommonsBarComponent } from "./bar_component";
 import {
   renderBarComponent,
   renderLineComponent,
@@ -24,6 +25,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
 import { DatacommonsMapComponent } from "./map_component";
 
 globalThis.datacommons = {
+  DatacommonsBarComponent,
   DatacommonsMapComponent,
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
