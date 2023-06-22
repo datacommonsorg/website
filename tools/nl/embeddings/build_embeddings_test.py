@@ -18,11 +18,10 @@ import tempfile
 import unittest
 from unittest import mock
 
+import build_embeddings as be
 import pandas as pd
 from parameterized import parameterized
 from sentence_transformers import SentenceTransformer
-
-import build_embeddings as be
 import utils
 
 

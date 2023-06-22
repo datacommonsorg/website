@@ -28,7 +28,6 @@ from sentence_transformers import InputExample
 from sentence_transformers import losses
 from sentence_transformers import SentenceTransformer
 from torch.utils.data import DataLoader
-
 import utils
 
 FLAGS = flags.FLAGS
