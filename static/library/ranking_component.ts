@@ -38,7 +38,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *      title="US States with the Highest Population"
  *      placeDcid="country/USA"
  *      enclosedPlaceType="State"
- *      statVarDcid="Count_Person"
+ *      variableDcid="Count_Person"
  *    ></datacommons-ranking>
  *
  * <!-- Show a ranking of US States by population, lowest to highest -->
@@ -46,7 +46,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *      title="US States with the Lowest Population"
  *      placeDcid="country/USA"
  *      enclosedPlaceType="State"
- *      statVarDcid="Count_Person"
+ *      variableDcid="Count_Person"
  *      showLowest=true
  *    ></datacommons-ranking>
  */
