@@ -25,7 +25,7 @@ import {
   HIDE_TILE_CLASS,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedNode, NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
   DisasterDataOptions,
@@ -48,12 +48,12 @@ import {
   getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
+import { getTileEventTypeSpecs } from "../../utils/tile_utils";
 import { DisasterEventMapFilters } from "../tiles/disaster_event_map_filters";
 import { DisasterEventMapSelectors } from "../tiles/disaster_event_map_selectors";
 import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
 import { HistogramTile } from "../tiles/histogram_tile";
 import { TopEventTile } from "../tiles/top_event_tile";
-import { BlockContainer } from "./block_container";
 import { Column } from "./column";
 import { DataFetchContext } from "./data_fetch_context";
 
@@ -68,6 +68,9 @@ interface DisasterEventBlockPropType {
   eventTypeSpec: Record<string, EventTypeSpec>;
   footnote?: string;
   showData?: boolean;
+  parentPlaces?: NamedNode[];
+  // API root
+  apiRoot?: string;
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;
@@ -104,23 +107,28 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
       props.eventTypeSpec,
       props.columns
     );
-    fetchDisasterData(true);
-    window.addEventListener("hashchange", () => fetchDisasterData(false));
+    fetchDisasterEventData(props, fetchData).then((disasterData) => {
+      setDisasterEventData(disasterData);
+    });
+
+    function handleHashChange() {
+      const spinnerId = getSpinnerId();
+      loadSpinner(spinnerId);
+      fetchDisasterEventData(props, fetchData).then((disasterData) => {
+        setDisasterEventData(disasterData);
+        removeSpinner(spinnerId);
+      });
+    }
+    window.addEventListener("hashchange", handleHashChange);
     return () => {
-      window.removeEventListener("hashchange", () => fetchDisasterData(false));
+      window.removeEventListener("hashchange", handleHashChange);
     };
   }, [props]);
 
   const columnWidth = getColumnWidth(props.columns);
   const minIdxToHide = getMinTileIdxToHide();
   return (
-    <BlockContainer
-      id={props.id}
-      title={props.title}
-      description={props.description}
-      footnote={props.footnote}
-      place={props.place}
-    >
+    <>
       <DisasterEventMapSelectors
         blockId={props.id}
         eventTypeSpec={blockEventTypeSpecs.current}
@@ -170,110 +178,89 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
           </div>
         </div>
       </div>
-    </BlockContainer>
+    </>
   );
 
   function getSpinnerId(): string {
     return `${props.id}-spinner`;
   }
-
-  // Gets the cache key to use for the disaster data fetch
-  function getDataFetchCacheKey(dataOptions: DisasterDataOptions): string {
-    const severityFilter =
-      dataOptions.severityFilters[dataOptions.eventTypeSpec.id] || null;
-    const cacheKeyParams = {
-      specId: dataOptions.eventTypeSpec.id,
-      date: dataOptions.selectedDate,
-      filterProp: severityFilter && severityFilter.prop,
-      filterUnit: severityFilter && severityFilter.unit,
-      filterUpper: severityFilter && severityFilter.upperLimit,
-      filterLower: severityFilter && severityFilter.lowerLimit,
-      useCache: dataOptions.useCache,
-      place: dataOptions.place,
-    };
-    let cacheKey = "";
-    Object.keys(cacheKeyParams)
-      .sort()
-      .forEach((key) => {
-        if (cacheKeyParams[key]) {
-          cacheKey += `&${key}=${cacheKeyParams[key]}`;
-        }
-      });
-    return cacheKey;
-  }
-
-  function fetchDisasterData(isInitialLoading: boolean): void {
-    const spinnerId = getSpinnerId();
-    if (!isInitialLoading) {
-      loadSpinner(spinnerId);
-    }
-    const promises = [];
-    // list of spec ids that correspond to the spec id used for the promise at
-    // that index in the list of promises.
-    const specIds = [];
-    Object.values(blockEventTypeSpecs.current).forEach((spec) => {
-      const specDataOptions = {
-        eventTypeSpec: spec,
-        selectedDate: getDate(props.id),
-        severityFilters: getSeverityFilters(props.eventTypeSpec, props.id),
-        useCache: getUseCache(),
-        place: props.place.dcid,
-      };
-      specIds.push(spec.id);
-      const cacheKey = getDataFetchCacheKey(specDataOptions);
-      promises.push(
-        fetchData(cacheKey, () => fetchDisasterEventPoints(specDataOptions))
-      );
-    });
-    if (!promises) {
-      removeSpinner(spinnerId);
-    }
-    Promise.all(promises)
-      .then((resp) => {
-        const result = {};
-        resp.forEach((disasterDataResp, i) => {
-          result[specIds[i]] = disasterDataResp;
-        });
-        setDisasterEventData(result);
-        removeSpinner(spinnerId);
-      })
-      .catch(() => {
-        setDisasterEventData({});
-        removeSpinner(spinnerId);
-      });
-  }
 });
 
-// Get the relevant event type specs for a tile
-function getTileEventTypeSpecs(
-  fullEventTypeSpec: Record<string, EventTypeSpec>,
-  tile: TileConfig
-): Record<string, EventTypeSpec> {
-  const relevantEventSpecs = {};
-  if (tile.disasterEventMapTileSpec) {
-    const pointEventTypeKeys =
-      tile.disasterEventMapTileSpec.pointEventTypeKey || [];
-    const polygonEventTypeKeys =
-      tile.disasterEventMapTileSpec.polygonEventTypeKey || [];
-    const pathEventTypeKeys =
-      tile.disasterEventMapTileSpec.pathEventTypeKey || [];
-    [
-      ...pointEventTypeKeys,
-      ...polygonEventTypeKeys,
-      ...pathEventTypeKeys,
-    ].forEach((specId) => {
-      relevantEventSpecs[specId] = fullEventTypeSpec[specId];
+// Gets the cache key to use for the disaster data fetch
+function getDataFetchCacheKey(dataOptions: DisasterDataOptions): string {
+  const severityFilter =
+    dataOptions.severityFilters[dataOptions.eventTypeSpec.id] || null;
+  const cacheKeyParams = {
+    specId: dataOptions.eventTypeSpec.id,
+    date: dataOptions.selectedDate,
+    filterProp: severityFilter && severityFilter.prop,
+    filterUnit: severityFilter && severityFilter.unit,
+    filterUpper: severityFilter && severityFilter.upperLimit,
+    filterLower: severityFilter && severityFilter.lowerLimit,
+    useCache: dataOptions.useCache,
+    place: dataOptions.place,
+  };
+  let cacheKey = "";
+  Object.keys(cacheKeyParams)
+    .sort()
+    .forEach((key) => {
+      if (cacheKeyParams[key]) {
+        cacheKey += `&${key}=${cacheKeyParams[key]}`;
+      }
     });
+  return cacheKey;
+}
+
+/**
+ * Fetches disaster event data for a disaster event block
+ * @param props the props for a disaster event block
+ * @param fetchData function to use to fetch data with a given cache key and
+ *                  data promise
+ */
+export function fetchDisasterEventData(
+  props: DisasterEventBlockPropType,
+  fetchData?: (
+    cacheKey: string,
+    dataPromise: () => Promise<any>
+  ) => Promise<any>
+): Promise<Record<string, DisasterEventPointData>> {
+  const promises = [];
+  // list of spec ids that correspond to the spec id used for the promise at
+  // that index in the list of promises.
+  const specIds = [];
+  const blockEventTypeSpecs = getBlockEventTypeSpecs(
+    props.eventTypeSpec,
+    props.columns
+  );
+  Object.values(blockEventTypeSpecs).forEach((spec) => {
+    const specDataOptions = {
+      eventTypeSpec: spec,
+      selectedDate: getDate(props.id),
+      severityFilters: getSeverityFilters(props.eventTypeSpec, props.id),
+      useCache: getUseCache(),
+      place: props.place.dcid,
+    };
+    specIds.push(spec.id);
+    const cacheKey = getDataFetchCacheKey(specDataOptions);
+    const promiseFn = () =>
+      fetchDisasterEventPoints(specDataOptions, props.apiRoot);
+    const promise = fetchData ? fetchData(cacheKey, promiseFn) : promiseFn();
+    promises.push(promise);
+  });
+  if (!promises) {
+    return Promise.resolve({});
   }
-  if (tile.topEventTileSpec) {
-    const specId = tile.topEventTileSpec.eventTypeKey;
-    relevantEventSpecs[specId] = fullEventTypeSpec[specId];
-  }
-  if (tile.histogramTileSpec) {
-    const specId = tile.histogramTileSpec.eventTypeKey;
-    relevantEventSpecs[specId] = fullEventTypeSpec[specId];
-  }
-  return relevantEventSpecs;
+  return Promise.all(promises)
+    .then((resp) => {
+      const result = {};
+      resp.forEach((disasterDataResp, i) => {
+        result[specIds[i]] = disasterDataResp;
+      });
+      return result;
+    })
+    .catch(() => {
+      return {};
+    });
 }
 
 // Gets all the relevant event type specs for a list of columns
@@ -333,6 +320,7 @@ function renderTiles(
             eventTypeSpec={eventTypeSpec}
             disasterEventData={tileEventData}
             tileSpec={tile.disasterEventMapTileSpec}
+            parentPlaces={props.parentPlaces}
           />
         );
       }

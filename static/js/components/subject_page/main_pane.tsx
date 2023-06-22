@@ -19,18 +19,15 @@
  */
 
 import _ from "lodash";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 
 import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
-import { fetchNodeGeoJson } from "../../utils/geojson_utils";
-import { getParentPlacesPromise } from "../../utils/place_utils";
-import { fetchGeoJsonData, getId } from "../../utils/subject_page_utils";
+import { getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
-import { DataContext, DataContextType } from "./data_context";
 import { DataFetchContextProvider } from "./data_fetch_context";
 
 interface SubjectPageMainPanePropType {
@@ -46,19 +43,6 @@ interface SubjectPageMainPanePropType {
   parentPlaces?: NamedPlace[];
   showData?: boolean;
 }
-
-const PLACE_TYPE_GEOJSON_PROP = {
-  City: "geoJsonCoordinates",
-  Country: "geoJsonCoordinatesDP3",
-  State: "geoJsonCoordinatesDP3",
-  AdministrativeArea1: "geoJsonCoordinatesDP3",
-  County: "geoJsonCoordinatesDP1",
-  AdministrativeArea2: "geoJsonCoordinatesDP1",
-  AdministrativeArea3: "geoJsonCoordinatesDP1",
-  EurostatNUTS1: "geoJsonCoordinatesDP2",
-  EurostatNUTS2: "geoJsonCoordinatesDP2",
-  EurostatNUTS3: "geoJsonCoordinatesDP1",
-};
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   props: SubjectPageMainPanePropType
@@ -77,43 +61,6 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         props.pageConfig.metadata.containedPlaceTypes[placeType];
     }
   }
-  const [contextData, setContextData] = useState<DataContextType>({
-    geoJsonData: null,
-    parentPlaces: null,
-  });
-
-  useEffect(() => {
-    // re-fetch geojson data if props change
-    const childrenGeoJsonPromise = fetchGeoJsonData(
-      props.place,
-      enclosedPlaceType,
-      props.parentPlaces
-    );
-    let placeGeoJsonProp = "";
-    for (const type of props.place.types) {
-      if (type in PLACE_TYPE_GEOJSON_PROP) {
-        placeGeoJsonProp = PLACE_TYPE_GEOJSON_PROP[type];
-        break;
-      }
-    }
-    const placeGeoJsonPromise = fetchNodeGeoJson(
-      [props.place.dcid],
-      placeGeoJsonProp
-    );
-    const parentPlacesPromise = !_.isUndefined(props.parentPlaces)
-      ? Promise.resolve(props.parentPlaces)
-      : getParentPlacesPromise(props.place.dcid);
-    Promise.all([
-      childrenGeoJsonPromise,
-      placeGeoJsonPromise,
-      parentPlacesPromise,
-    ]).then(([childrenGeoJson, placeGeoJson, parentPlaces]) => {
-      setContextData({
-        geoJsonData: { placeGeoJson, childrenGeoJson },
-        parentPlaces,
-      });
-    });
-  }, [props]);
 
   return (
     <div id="subject-page-main-pane">
@@ -125,30 +72,23 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
             // TODO: just use DataFetchContextProvider for fetching data and
             // remove DataContext.
             return (
-              <DataContext.Provider
-                key={id}
-                value={{
-                  geoJsonData: contextData.geoJsonData,
-                  parentPlaces: contextData.parentPlaces,
-                }}
-              >
-                <ErrorBoundary>
-                  <Category
-                    id={id}
-                    place={props.place}
-                    enclosedPlaceType={enclosedPlaceType}
-                    config={category}
-                    eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
-                    svgChartHeight={
-                      // TODO: Unroll this for NL and use container offset from CSS instead.
-                      props.svgChartHeight
-                        ? props.svgChartHeight
-                        : SVG_CHART_HEIGHT
-                    }
-                    showData={props.showData}
-                  />
-                </ErrorBoundary>
-              </DataContext.Provider>
+              <ErrorBoundary key={id}>
+                <Category
+                  id={id}
+                  place={props.place}
+                  enclosedPlaceType={enclosedPlaceType}
+                  config={category}
+                  eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
+                  svgChartHeight={
+                    // TODO: Unroll this for NL and use container offset from CSS instead.
+                    props.svgChartHeight
+                      ? props.svgChartHeight
+                      : SVG_CHART_HEIGHT
+                  }
+                  showData={props.showData}
+                  parentPlaces={props.parentPlaces}
+                />
+              </ErrorBoundary>
             );
           })}
       </DataFetchContextProvider>
