@@ -39,7 +39,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *      placeDcid="country/USA"
  *      enclosedPlaceType="State"
  *      variableDcid="Count_Person"
- *    ></datacommons-ranking>
+ * ></datacommons-ranking>
  *
  * <!-- Show a ranking of US States by population, lowest to highest -->
  * <datacommons-ranking
@@ -48,7 +48,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *      enclosedPlaceType="State"
  *      variableDcid="Count_Person"
  *      showLowest=true
- *    ></datacommons-ranking>
+ * ></datacommons-ranking>
  */
 @customElement("datacommons-ranking")
 export class DatacommonsRankingComponent extends LitElement {
