@@ -250,8 +250,9 @@ def main(_):
   print("Done uploading to gcs.")
   print(f"\t Finetuned Model Filename: {gcs_model_folder}")
 
-# TODO: update the model.yalm file to indicate the finetuned model name.
-# print("\nNOTE: Please update model.yaml with the Finetuned Model Filename")
+  # TODO: update the model.yalm file to indicate the finetuned model name.
+  # print("\nNOTE: Please update model.yaml with the Finetuned Model Filename")
+
 
 if __name__ == "__main__":
   app.run(main)
