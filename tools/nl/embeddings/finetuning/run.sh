@@ -18,10 +18,10 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-
+cd ../
 python3 -m venv .env
 source .env/bin/activate
-python3 -m pip install --upgrade pip setuptools light-the-torch
-ltt install torch --cpuonly
-pip3 install -r requirements.txt
-python3 finetune.py --embeddings_size=$1
+# python3 -m pip install --upgrade pip setuptools light-the-torch
+# ltt install torch --cpuonly
+# pip3 install -r requirements.txt
+python3 -m finetuning.finetune --embeddings_size=$1

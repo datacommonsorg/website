@@ -28,6 +28,7 @@ from sentence_transformers import InputExample
 from sentence_transformers import losses
 from sentence_transformers import SentenceTransformer
 from torch.utils.data import DataLoader
+
 import utils
 
 FLAGS = flags.FLAGS
@@ -107,6 +108,31 @@ def _alternatives(autogen_input_filepattern: str,
   return df_svs
 
 
+def _save_finetuned_model(ctx: utils.Context, gcs_tmp_out_path: str,
+                          gcs_model_folder: str) -> None:
+  # To upload the model directory, we need to traverse the files and folders.
+  for str_path in glob.glob(f"{gcs_tmp_out_path}/**"):
+    # Check if str_path is a folder.
+    if os.path.isdir(str_path):
+      if not glob.glob(f"{str_path}/**"):
+        # This means we found an empty folder.
+        foldername = os.path.basename(str_path)
+        gcs_path = gcs_model_folder + "/" + foldername + "/"
+        print(f'Path in GCS: {gcs_path}')
+        _upload_to_gcs(ctx, gcs_path, str_path, empty_folder=True)
+
+      for filepath in glob.glob(f"{str_path}/**"):
+        # Found files under a folder.
+        filename = filepath.split(gcs_tmp_out_path)[1]
+        gcs_path = gcs_model_folder + filename
+        _upload_to_gcs(ctx, gcs_path, filepath)
+    else:
+      # Just files under the main model folder.
+      foldername = os.path.basename(str_path)
+      gcs_path = gcs_model_folder + "/" + foldername
+      _upload_to_gcs(ctx, gcs_path, str_path)
+
+
 def fine_tune_model(model: Any, df_svs: pd.DataFrame,
                     df_sentence_pairs: pd.DataFrame):
   """Fine tuning involves providing pairs of sentences/text with an
@@ -116,12 +142,14 @@ def fine_tune_model(model: Any, df_svs: pd.DataFrame,
   the `new` training examples (pairs).
   Effectively, the training examples (pairs and scores) provide additional
   context to a baseline model about the kinds of associations between
-  sentences/text that we care about. In this case, we use the StatVar name,
-  description and alternatives (human curated and LLM-generated) to create
-  pairs of sentences/text with high similarity scores. We also provide a
-  way to indicate that some pairs of texts/words/sentences should not be
-  associated with each other by assigning very low scores. This allows us to
-  bias the model's weights to accomodate our particular use case better. 
+  sentences/text that we care about.
+  In this case, we use the StatVar name, description and alternatives
+  (human curated and LLM-generated) to create pairs of sentences/text with
+  high similarity scores.
+  We also provide a way to indicate that some pairs of texts/words/sentences
+  should not be associated with each other by assigning very low scores.
+  This allows us to bias the model's weights to accomodate our particular
+  use case better. 
   """
 
   training_examples: List[InputExample] = []
@@ -161,7 +189,7 @@ def fine_tune_model(model: Any, df_svs: pd.DataFrame,
       # All all curated alternatives as pairs with the description.
       if c:
         training_examples.append(
-            InputExample(texts=[desc, c], label=HIGH_MATCH_SCORE))
+            InputExample(texts=[desc, c], label=VERY_HIGH_MATCH_SCORE))
 
     for p in palm_alts:
       if p:
@@ -174,12 +202,14 @@ def fine_tune_model(model: Any, df_svs: pd.DataFrame,
   for _, row in df_sentence_pairs.iterrows():
     assert "sentence_1" in row
     assert "sentence_2" in row
-    assert "score" in row
+    assert float(row["score"])
     training_examples.append(
         InputExample(texts=[row["sentence_1"], row["sentence_2"]],
                      label=row["score"]))
 
   # Ready to fine-tune.
+  # Setting shuffle to True to ensure the training examples are not always provided
+  # in the same manner for each epoch.
   train_dataloader = DataLoader(training_examples,
                                 shuffle=True,
                                 batch_size=BATCH_SIZE)
@@ -206,10 +236,20 @@ def main(_):
   sc = storage.Client()
   bucket = sc.bucket(FLAGS.bucket_name_v2)
 
+  # Step 1. Gather the sentence/text alternatives and load the base model.
+  print("Gathering the training sentence/text pairs.")
   df_svs = _alternatives(autogen_input_filepattern,
                          FLAGS.alternatives_filepattern)
   df_sentence_pairs = pd.read_csv(FLAGS.sentence_pairs_filepath).fillna("")
+  print(f"Found {len(df_svs)} rows in the alternatives dataframe.")
+  print(
+      f"Found {len(df_sentence_pairs)} human-curated sentence pairs with scores."
+  )
+  print(f"Loading the base model: {FLAGS.model_name_v2}")
   model = SentenceTransformer(FLAGS.model_name_v2)
+
+  # Step 2. Fine tuning.
+  print("Beginning fine tuning.")
   model = fine_tune_model(model, df_svs, df_sentence_pairs)
 
   ctx = utils.Context(gs=gs, model=model, bucket=bucket, tmp='/tmp')
@@ -217,35 +257,14 @@ def main(_):
   gcs_model_folder = _make_gcs_model_folder(FLAGS.model_name_v2)
   gcs_tmp_out_path = os.path.join(ctx.tmp, gcs_model_folder)
 
-  print(f"Saving locally to {gcs_tmp_out_path}")
+  print(f"Saving finetuned model locally to {gcs_tmp_out_path}")
   model.save(gcs_tmp_out_path)
 
-  # Finally, upload to the NL model server's GCS bucket
+  # Step 3. Upload the finetuned model to the NL model server's GCS bucket.
   print("Attempting to write to GCS")
   print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_model_folder}/")
 
-  # To upload the model directory, we need to traverse the files and folders.
-  for str_path in glob.glob(f"{gcs_tmp_out_path}/**"):
-
-    # Check if str_path is a folder.
-    if os.path.isdir(str_path):
-      if not glob.glob(f"{str_path}/**"):
-        # This means we found an empty folder.
-        foldername = os.path.basename(str_path)
-        gcs_path = gcs_model_folder + "/" + foldername + "/"
-        print(f'Path in GCS: {gcs_path}')
-        _upload_to_gcs(ctx, gcs_path, str_path, empty_folder=True)
-
-      for filepath in glob.glob(f"{str_path}/**"):
-        # Found files under a folder.
-        filename = filepath.split(gcs_tmp_out_path)[1]
-        gcs_path = gcs_model_folder + filename
-        _upload_to_gcs(ctx, gcs_path, filepath)
-    else:
-      # Just files under the main model folder.
-      foldername = os.path.basename(str_path)
-      gcs_path = gcs_model_folder + "/" + foldername
-      _upload_to_gcs(ctx, gcs_path, str_path)
+  _save_finetuned_model(ctx, gcs_tmp_out_path, gcs_model_folder)
 
   print("Done uploading to gcs.")
   print(f"\t Finetuned Model Filename: {gcs_model_folder}")
