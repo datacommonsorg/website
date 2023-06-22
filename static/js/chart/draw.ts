@@ -820,7 +820,7 @@ function drawStackBarChart(
 
 /**
  * Draw group bar chart.
- * @param containerElement 
+ * @param containerElement
  * @param id
  * @param chartWidth
  * @param chartHeight

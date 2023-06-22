@@ -57,6 +57,7 @@ export class DatacommonsBarComponent extends LitElement {
   @property()
   enclosedPlaceType!: string;
 
+  // DCID of the statistical variable to plot values for
   @property()
   variableDcid!: string;
 
