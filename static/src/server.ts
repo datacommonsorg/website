@@ -19,20 +19,20 @@ import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
 
+import { fetchDisasterEventData } from "../js/components/subject_page/disaster_event_block";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import {
   BlockConfig,
   EventTypeSpec,
 } from "../js/types/subject_page_proto_types";
-import { TileResult } from "../nodejs_server/types";
-import { getLineTileResult } from "../nodejs_server/line_tile";
-import { getScatterTileResult } from "../nodejs_server/scatter_tile";
+import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
 import { getBarTileResult } from "../nodejs_server/bar_tile";
+import { getDisasterMapTileResult } from "../nodejs_server/disaster_map_tile";
+import { getLineTileResult } from "../nodejs_server/line_tile";
 import { getMapTileResult } from "../nodejs_server/map_tile";
 import { getRankingTileResult } from "../nodejs_server/ranking_tile";
-import { getDisasterMapTileResult } from "../nodejs_server/disaster_map_tile";
-import { fetchDisasterEventData } from "../js/components/subject_page/disaster_event_block";
-import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
+import { getScatterTileResult } from "../nodejs_server/scatter_tile";
+import { TileResult } from "../nodejs_server/types";
 const app = express();
 const APP_CONFIGS = {
   local: {
@@ -89,8 +89,6 @@ globalThis.datacommons = {
 const window = dom.window;
 global.document = dom.window.document;
 
-
-
 // Gets the length in pixels of a string
 function getTextLength(text: string): number {
   if (!text) {
@@ -145,7 +143,6 @@ function getTextLength(text: string): number {
   };
 };
 
-
 // Get a list of tile result promises for all the tiles in the block
 function getBlockTileResults(
   id: string,
@@ -162,7 +159,9 @@ function getBlockTileResults(
       switch (tile.type) {
         case "LINE":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-          tilePromises.push(getLineTileResult(tileId, tile, place, tileSvSpec, CONFIG.apiRoot));
+          tilePromises.push(
+            getLineTileResult(tileId, tile, place, tileSvSpec, CONFIG.apiRoot)
+          );
           break;
         case "SCATTER":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
@@ -180,13 +179,27 @@ function getBlockTileResults(
         case "BAR":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
           tilePromises.push(
-            getBarTileResult(tileId, tile, place, enclosedPlaceType, tileSvSpec, CONFIG.apiRoot)
+            getBarTileResult(
+              tileId,
+              tile,
+              place,
+              enclosedPlaceType,
+              tileSvSpec,
+              CONFIG.apiRoot
+            )
           );
           break;
         case "MAP":
           tileSvSpec = svSpec[tile.statVarKey[0]];
           tilePromises.push(
-            getMapTileResult(tileId, tile, place, enclosedPlaceType, tileSvSpec, CONFIG.apiRoot)
+            getMapTileResult(
+              tileId,
+              tile,
+              place,
+              enclosedPlaceType,
+              tileSvSpec,
+              CONFIG.apiRoot
+            )
           );
           break;
         case "RANKING":

@@ -18,7 +18,11 @@
  * Functions for getting tile result for a line tile
  */
 
-import { draw, fetchData, getReplacementStrings } from "../js/components/tiles/line_tile";
+import {
+  draw,
+  fetchData,
+  getReplacementStrings,
+} from "../js/components/tiles/line_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";

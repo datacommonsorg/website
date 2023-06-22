@@ -19,7 +19,12 @@
  */
 
 import _ from "lodash";
-import { draw, fetchData, getReplacementStrings } from "../js/components/tiles/bar_tile";
+
+import {
+  draw,
+  fetchData,
+  getReplacementStrings,
+} from "../js/components/tiles/bar_tile";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../js/constants/subject_page_constants";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
@@ -57,7 +62,7 @@ export async function getBarTileResult(
     place,
     enclosedPlaceType,
     statVarSpec,
-    apiRoot: apiRoot,
+    apiRoot,
     svgChartHeight: SVG_HEIGHT,
     comparisonPlaces,
   };
@@ -82,7 +87,10 @@ export async function getBarTileResult(
         data_csv: dataGroupsToCsv(chartData.dataGroup),
         srcs: getSources(chartData.sources),
         legend,
-        title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp, chartData)),
+        title: getChartTitle(
+          tileConfig.title,
+          getReplacementStrings(tileProp, chartData)
+        ),
         type: "BAR",
       },
     ];

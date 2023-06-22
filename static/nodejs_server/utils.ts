@@ -18,15 +18,18 @@
  * Util functions used by node js server
  */
 
+import * as xmlserializer from "xmlserializer";
+
 import { urlToDomain } from "../js/shared/util";
 import { FONT_FAMILY, FONT_SIZE } from "./constants";
-import * as xmlserializer from "xmlserializer";
 
 /**
  * Gets a list of source objects with name and url from a set of source urls.
  * @param sources set of source urls
  */
-export function getSources(sources: Set<string>): { name: string; url: string }[] {
+export function getSources(
+  sources: Set<string>
+): { name: string; url: string }[] {
   return Array.from(sources).map((src) => {
     return {
       name: urlToDomain(src),

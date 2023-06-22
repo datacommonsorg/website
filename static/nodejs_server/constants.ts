@@ -18,7 +18,11 @@
  * Constants used by the nodejs server
  */
 
-import { LEGEND_IMG_WIDTH, LEGEND_MARGIN_RIGHT, LEGEND_TICK_LABEL_MARGIN } from "../js/chart/draw_map_utils";
+import {
+  LEGEND_IMG_WIDTH,
+  LEGEND_MARGIN_RIGHT,
+  LEGEND_TICK_LABEL_MARGIN,
+} from "../js/chart/draw_map_utils";
 
 // Height of the svg to render.
 export const SVG_HEIGHT = 300;

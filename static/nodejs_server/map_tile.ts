@@ -18,8 +18,16 @@
  * Functions for getting tile result for a map tile
  */
 
+// This import is unused in this file, but needed for draw functions
+import * as Canvas from "canvas";
 import _ from "lodash";
-import { draw, fetchData, getReplacementStrings } from "../js/components/tiles/map_tile";
+
+import { LEGEND_MARGIN_VERTICAL } from "../dist/js/chart/draw_map_utils";
+import {
+  draw,
+  fetchData,
+  getReplacementStrings,
+} from "../js/components/tiles/map_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { mapDataToCsv } from "../js/utils/chart_csv_utils";
@@ -27,9 +35,6 @@ import { getChartTitle } from "../js/utils/tile_utils";
 import { MAP_LEGEND_CONSTANT_WIDTH, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
 import { getProcessedSvg, getSources } from "./utils";
-import { LEGEND_MARGIN_VERTICAL } from "../dist/js/chart/draw_map_utils";
-// This import is unused in this file, but needed for draw functions
-import * as Canvas from "canvas";
 
 /**
  * Gets the Tile Result for a map tile
@@ -61,14 +66,7 @@ export async function getMapTileResult(
     const chartData = await fetchData(tileProp);
     const legendContainer = document.createElement("div");
     const mapContainer = document.createElement("div");
-    draw(
-      chartData,
-      tileProp,
-      null,
-      legendContainer,
-      mapContainer,
-      SVG_WIDTH
-    );
+    draw(chartData, tileProp, null, legendContainer, mapContainer, SVG_WIDTH);
     // Get the width of the text in the legend
     let legendTextWidth = 0;
     Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
@@ -102,7 +100,10 @@ export async function getMapTileResult(
         svg: getProcessedSvg(mergedSvg),
         data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
         srcs: getSources(chartData.sources),
-        title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp, chartData)),
+        title: getChartTitle(
+          tileConfig.title,
+          getReplacementStrings(tileProp, chartData)
+        ),
         type: "MAP",
       },
     ];

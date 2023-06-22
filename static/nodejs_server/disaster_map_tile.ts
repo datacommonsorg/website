@@ -19,14 +19,22 @@
  */
 
 import _ from "lodash";
-import { draw, fetchChartData, getReplacementStrings } from "../js/components/tiles/disaster_event_map_tile";
+
+import {
+  draw,
+  fetchChartData,
+  getReplacementStrings,
+} from "../js/components/tiles/disaster_event_map_tile";
 import { NamedTypedPlace } from "../js/shared/types";
-import { EventTypeSpec, TileConfig } from "../js/types/subject_page_proto_types";
+import { DisasterEventPointData } from "../js/types/disaster_event_map_types";
+import {
+  EventTypeSpec,
+  TileConfig,
+} from "../js/types/subject_page_proto_types";
 import { getChartTitle } from "../js/utils/tile_utils";
 import { SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
 import { getProcessedSvg, getSources } from "./utils";
-import { DisasterEventPointData } from "../js/types/disaster_event_map_types";
 
 /**
  * Gets the Tile Result for a disaster map tile

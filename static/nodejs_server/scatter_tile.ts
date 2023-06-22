@@ -18,7 +18,14 @@
  * Functions for getting tile result for a scatter tile
  */
 
-import { draw, fetchData, getReplacementStrings } from "../js/components/tiles/scatter_tile";
+// This import is unused in this file, but needed for draw functions
+import * as Canvas from "canvas";
+
+import {
+  draw,
+  fetchData,
+  getReplacementStrings,
+} from "../js/components/tiles/scatter_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { scatterDataToCsv } from "../js/utils/chart_csv_utils";
@@ -26,8 +33,6 @@ import { getChartTitle } from "../js/utils/tile_utils";
 import { SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
 import { getProcessedSvg, getSources } from "./utils";
-// This import is unused in this file, but needed for draw functions
-import * as Canvas from "canvas";
 
 /**
  * Gets the Tile Result for a scatter tile

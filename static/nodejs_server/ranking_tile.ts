@@ -19,18 +19,22 @@
  */
 
 import _ from "lodash";
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+
 import { fetchData } from "../js/components/tiles/ranking_tile";
+import {
+  getRankingUnit,
+  getRankingUnitTitle,
+} from "../js/components/tiles/sv_ranking_units";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
+import { RankingGroup } from "../js/types/ranking_unit_types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../js/utils/chart_csv_utils";
+import { htmlToSvg } from "../js/utils/svg_utils";
 import { FONT_FAMILY, FONT_SIZE, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
 import { getProcessedSvg, getSources } from "./utils";
-import { RankingGroup } from "../js/types/ranking_unit_types";
-import React from "react";
-import ReactDOMServer from "react-dom/server";
-import { getRankingUnit, getRankingUnitTitle } from "../js/components/tiles/sv_ranking_units";
-import { htmlToSvg } from "../js/utils/svg_utils";
 
 /**
  * Get the result for a single ranking unit
