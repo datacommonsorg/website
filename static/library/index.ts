@@ -22,9 +22,11 @@ import {
 } from "./components";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 import { DatacommonsMapComponent } from "./map_component";
+import { DatacommonsRankingComponent } from "./ranking_component";
 
 globalThis.datacommons = {
   DatacommonsMapComponent,
+  DatacommonsRankingComponent,
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,
