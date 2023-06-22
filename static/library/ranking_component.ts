@@ -89,6 +89,12 @@ export class DatacommonsRankingComponent extends LitElement {
         name: "",
         types: [],
       },
+      rankingMetadata: {
+        diffBaseDate: "",
+        showHighest: !this.showLowest,
+        showLowest: this.showLowest,
+        showMultiColumn: false,
+      },
       statVarSpec: [
         {
           denom: "",
@@ -99,12 +105,6 @@ export class DatacommonsRankingComponent extends LitElement {
           unit: "",
         },
       ],
-      rankingMetadata: {
-        diffBaseDate: "",
-        showHighest: !this.showLowest,
-        showLowest: this.showLowest,
-        showMultiColumn: false,
-      },
       title: this.title,
     };
     const mountPoint = document.createElement("span");
