@@ -30,12 +30,13 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *
  * Example usage:
  *
+ * <!-- Show a bar chart of population for states in the US -->
  * <datacommons-bar
- *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+ *      title="Population of US States"
  *      placeDcid="country/USA"
  *      enclosedPlaceType="State"
- *      statVarDcid="Count_Person_BelowPovertyLevelInThePast12Months"
- *    ></datacommons-bar>
+ *      variableDcid="Count_Person"
+ * ></datacommons-bar>
  */
 @customElement("datacommons-bar")
 export class DatacommonsBarComponent extends LitElement {
@@ -44,12 +45,15 @@ export class DatacommonsBarComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Title of the chart
   @property()
   title!: string;
 
+  // DCID of the parent place
   @property()
   placeDcid!: string;
 
+  // Type of child places to plot (ex: State, County)
   @property()
   enclosedPlaceType!: string;
 
