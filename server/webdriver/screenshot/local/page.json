@@ -83,5 +83,55 @@
     "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=true",
     "height": 2000,
     "async": true
+  },
+  {
+    "url": "/nl/#q=family+earnings+in+california&a=true",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/nl/#q=top+jobs+in+santa+clara+county&a=true",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=true",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/nl/#q=obesity+vs.+poverty+in+counties+of+california&a=true",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/nl/#q=fires+in+california&a=true",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=true",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/nl/#q=Prevalence+of+Asthma+in+California+cities+with+hispanic+population+over+10000&a=true",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/tools/map#%26sv%3DMaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/map#%26sv%3DMaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_GFDL-CM4_SSP245%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/browser/fire/irwinId/04745f7c-3f8b-47a4-8efe-c8f3c84742d9",
+    "height": 1080,
+    "async": true
   }
 ]
