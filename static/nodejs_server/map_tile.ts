@@ -22,7 +22,7 @@
 import * as Canvas from "canvas";
 import _ from "lodash";
 
-import { LEGEND_MARGIN_VERTICAL } from "../dist/js/chart/draw_map_utils";
+import { LEGEND_MARGIN_VERTICAL } from "../js/chart/draw_map_utils";
 import {
   draw,
   fetchData,
