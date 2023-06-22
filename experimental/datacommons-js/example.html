@@ -22,7 +22,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
-    <script src="https://autopush.datacommons.org/datacommons.js"></script>
+    <!-- <script src="https://autopush.datacommons.org/datacommons.js"></script> -->
+    <script src="http://localhost:8080/datacommons.js"></script>
     <style>
       .my-chart {
         height: auto;
@@ -120,6 +121,13 @@
     </nav>
     <div class="container">
       <!-- Web component example -->
+      <h2>Bar Chart Web Component</h2>
+      <datacommons-bar
+        title="Population in States of United States"
+        placeDcid="country/USA"
+        enclosedPlaceType="State"
+        variableDcid="Count_Person"
+      ></datacommons-bar>
       <h2>Map Web Component</h2>
       <datacommons-map
         title="Population Below Poverty Level Status in Past Year in States of United States (2020)"

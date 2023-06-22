@@ -371,7 +371,7 @@ async function getBarTileResult(
     const tileContainer = document.createElement("div");
     tileContainer.setAttribute("id", id);
     document.getElementById(DOM_ID).appendChild(tileContainer);
-    drawBar(tileProp, chartData, SVG_WIDTH);
+    drawBar(tileProp, chartData, tileContainer, SVG_WIDTH);
     let legend = [];
     if (
       !_.isEmpty(chartData.dataGroup) &&
