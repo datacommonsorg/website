@@ -33,12 +33,21 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *
  * Example usage:
  *
+ * <!-- Show a ranking of US States by population, highest to lowest -->
  * <datacommons-ranking
- *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+ *      title="US States with the Highest Population"
  *      placeDcid="country/USA"
  *      enclosedPlaceType="State"
- *      statVarName="Population Below Poverty Level Status in Past Year"
- *      statVarDcid="Count_Person_BelowPovertyLevelInThePast12Months"
+ *      statVarDcid="Count_Person"
+ *    ></datacommons-ranking>
+ *
+ * <!-- Show a ranking of US States by population, lowest to highest -->
+ * <datacommons-ranking
+ *      title="US States with the Lowest Population"
+ *      placeDcid="country/USA"
+ *      enclosedPlaceType="State"
+ *      statVarDcid="Count_Person"
+ *      showLowest=true
  *    ></datacommons-ranking>
  */
 @customElement("datacommons-ranking")
@@ -48,18 +57,25 @@ export class DatacommonsRankingComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Title of the chart
   @property()
   title!: string;
 
+  // DCID of the parent place
   @property()
   placeDcid!: string;
 
+  // Type of child place to rank (ex: State, County)
   @property()
   enclosedPlaceType!: string;
 
+  // DCID of the statistical variable to compare values for
   @property()
   variableDcid!: string;
 
+  // Optional: whether to show a lowest-to-highest ranking
+  // If not specified, defaults to highest-to-lowest
+  // To show places with lowest value first, set showLowest=true
   @property()
   showLowest: boolean;
 
