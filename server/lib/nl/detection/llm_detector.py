@@ -184,8 +184,20 @@ def detect(query: str, context_history: Dict, index_type: str,
       svs_to_sentences=svs_scores_dict['SV_to_Sentences'],
       multi_sv=svs_scores_dict['MultiSV'])
 
+  classifications = _build_classifications(llm_resp, filter_type)
+
+  return Detection(original_query=query,
+                   cleaned_query=query,
+                   places_detected=place_detection,
+                   svs_detected=sv_detection,
+                   classifications=classifications,
+                   llm_resp=llm_resp)
+
+
+def _build_classifications(llm_resp: Dict,
+                           filter_type: str) -> List[types.NLClassifier]:
   # Handle other keys in LLM Response.
-  classifications = []
+  classifications: List[types.NLClassifier] = []
   for t in _SPECIAL_LLM_TYPE_CLASSIFICATIONS + sorted(
       _LLM_TYPE_TO_CLASSIFICATION_TYPE.keys()):
     if t not in llm_resp:
@@ -200,37 +212,33 @@ def detect(query: str, context_history: Dict, index_type: str,
         continue
       cls = _handle_compare(llm_vals[0])
     elif t == filter_type:
-      # Earlier since we had set filter_type, should be safe to do llm_resp[f][0].
-      cls = _handle_quantity(llm_resp[f][0], t)
+      # Earlier caller had set filter_type by checking llm_resp,
+      # should be safe to do llm_resp[t][0].
+      cls = _handle_quantity(llm_resp[t][0], t)
     if cls:
       classifications.append(cls)
-
-  return Detection(original_query=query,
-                   cleaned_query=query,
-                   places_detected=place_detection,
-                   svs_detected=sv_detection,
-                   classifications=classifications,
-                   llm_resp=llm_resp)
+  return classifications
 
 
-def _merge_sv_dicts(sv_list: List[str], svs_score_dicts: List[Dict]) -> Dict:
-  if not svs_score_dicts:
+def _merge_sv_dicts(sv_word_list: List[str],
+                    sv_scores_list: List[Dict]) -> Dict:
+  if not sv_scores_list:
     return _empty_svs_score_dict()
-  if len(svs_score_dicts) == 1:
-    return svs_score_dicts[0]
+  if len(sv_scores_list) == 1:
+    return sv_scores_list[0]
 
   # This is the case of multiple stat-vars detected by PaLM, which we should
   # merge into the MultiSV case, for downstream handling.
 
   # Just something to fill up 'SV', 'CosineScore', etc.
-  merged_dict = svs_score_dicts[0]
+  merged_dict = sv_scores_list[0]
 
   parts = []
-  for i in range(len(svs_score_dicts)):
+  for i in range(len(sv_scores_list)):
     parts.append({
-        'QueryPart': sv_list[i],
-        'SV': svs_score_dicts[i]['SV'],
-        'CosineScore': svs_score_dicts[i]['CosineScore']
+        'QueryPart': sv_word_list[i],
+        'SV': sv_scores_list[i]['SV'],
+        'CosineScore': sv_scores_list[i]['CosineScore']
     })
   # Set aggregate_score to 1.0 so that this should always trump singleSV case.
   merged_dict['MultiSV'] = {
