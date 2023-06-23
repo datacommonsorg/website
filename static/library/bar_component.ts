@@ -33,9 +33,9 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * <!-- Show a bar chart of population for states in the US -->
  * <datacommons-bar
  *      title="Population of US States"
- *      placeDcid="country/USA"
- *      enclosedPlaceType="State"
- *      variableDcid="Count_Person"
+ *      place="country/USA"
+ *      childPlaceType="State"
+ *      variable="Count_Person"
  * ></datacommons-bar>
  *
  * <!-- Show a bar chart of population for specific US states -->
@@ -60,18 +60,18 @@ export class DatacommonsBarComponent extends LitElement {
 
   // DCID of the parent place
   @property()
-  placeDcid!: string;
+  place!: string;
 
   // Type of child places to plot (ex: State, County)
   @property()
-  enclosedPlaceType!: string;
+  childPlaceType!: string;
 
   // DCID of the statistical variable to plot values for
   @property()
-  variableDcid!: string;
+  variable!: string;
 
   // Optional: List of DCIDs of places to plot
-  // If provided, placeDcid and enclosePlaceType will be ignored
+  // If provided, place and enclosePlaceType will be ignored
   // !Important: In the web element, use double quotes inside the list, and
   //             double quotes outside the list.
   //             E.g. comparisonPlaces = '["dcid1", "dcid2"]'
@@ -82,10 +82,10 @@ export class DatacommonsBarComponent extends LitElement {
     const barTileProps: BarTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
       comparisonPlaces: this.comparisonPlaces,
-      enclosedPlaceType: this.enclosedPlaceType,
+      enclosedPlaceType: this.childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.placeDcid,
+        dcid: this.place,
         name: "",
         types: [],
       },
@@ -95,14 +95,14 @@ export class DatacommonsBarComponent extends LitElement {
           log: false,
           name: "",
           scaling: 1,
-          statVar: this.variableDcid,
+          statVar: this.variable,
           unit: "",
         },
       ],
       svgChartHeight: 200,
       title: this.title,
     };
-    const mountPoint = document.createElement("span");
+    const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(BarTile, barTileProps), mountPoint);
     return mountPoint;
   }

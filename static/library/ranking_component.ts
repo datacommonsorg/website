@@ -36,17 +36,17 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * <!-- Show a ranking of US States by population, highest to lowest -->
  * <datacommons-ranking
  *      title="US States with the Highest Population"
- *      placeDcid="country/USA"
- *      enclosedPlaceType="State"
- *      variableDcid="Count_Person"
+ *      place="country/USA"
+ *      childPlaceType="State"
+ *      variable="Count_Person"
  * ></datacommons-ranking>
  *
  * <!-- Show a ranking of US States by population, lowest to highest -->
  * <datacommons-ranking
  *      title="US States with the Lowest Population"
- *      placeDcid="country/USA"
- *      enclosedPlaceType="State"
- *      variableDcid="Count_Person"
+ *      place="country/USA"
+ *      childPlaceType="State"
+ *      variable="Count_Person"
  *      showLowest=true
  * ></datacommons-ranking>
  */
@@ -63,15 +63,15 @@ export class DatacommonsRankingComponent extends LitElement {
 
   // DCID of the parent place
   @property()
-  placeDcid!: string;
+  place!: string;
 
   // Type of child place to rank (ex: State, County)
   @property()
-  enclosedPlaceType!: string;
+  childPlaceType!: string;
 
   // DCID of the statistical variable to compare values for
   @property()
-  variableDcid!: string;
+  variable!: string;
 
   // Optional: whether to show a lowest-to-highest ranking
   // If not specified, defaults to highest-to-lowest
@@ -82,10 +82,10 @@ export class DatacommonsRankingComponent extends LitElement {
   render(): HTMLElement {
     const rankingTileProps: RankingTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
-      enclosedPlaceType: this.enclosedPlaceType,
+      enclosedPlaceType: this.childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.placeDcid,
+        dcid: this.place,
         name: "",
         types: [],
       },
@@ -101,13 +101,13 @@ export class DatacommonsRankingComponent extends LitElement {
           log: false,
           name: "",
           scaling: 1,
-          statVar: this.variableDcid,
+          statVar: this.variable,
           unit: "",
         },
       ],
       title: this.title,
     };
-    const mountPoint = document.createElement("span");
+    const mountPoint = document.createElement("div");
     ReactDOM.render(
       React.createElement(RankingTile, rankingTileProps),
       mountPoint
