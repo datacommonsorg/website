@@ -73,7 +73,7 @@ interface BarChartData {
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
-  const chartContainerRef = useRef(null);
+  const chartContainerRef = useRef<HTMLDivElement>(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
@@ -91,7 +91,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     if (_.isEmpty(barChartData)) {
       return;
     }
-    draw(props, barChartData);
+    draw(props, barChartData, chartContainerRef.current);
   }, [props, barChartData]);
 
   useDrawOnResize(drawFn, chartContainerRef.current);
@@ -147,7 +147,7 @@ export const fetchData = async (props: BarTilePropType) => {
   statVars.push(FILTER_STAT_VAR);
   let url: string;
   let params;
-  if (props.comparisonPlaces) {
+  if (!_.isEmpty(props.comparisonPlaces)) {
     url = `${props.apiRoot || ""}/api/observations/point`;
     params = {
       entities: props.comparisonPlaces,
@@ -250,14 +250,13 @@ function rawToChart(
 export function draw(
   props: BarTilePropType,
   chartData: BarChartData,
+  svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
-  const elem = document.getElementById(props.id);
-  // TODO: Remove all cases of setting innerHTML directly.
-  elem.innerHTML = "";
   drawGroupBarChart(
+    svgContainer,
     props.id,
-    svgWidth || elem.offsetWidth,
+    svgWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     formatNumber,
