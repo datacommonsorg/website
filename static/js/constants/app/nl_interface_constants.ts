@@ -31,13 +31,19 @@ export const NL_SOURCE_REPLACEMENTS = {
 };
 
 export const NL_URL_PARAMS = {
+  DETECTOR: "detector",
   IDX: "idx",
-  LLM: "llm",
 };
 
 export const NL_INDEX_VALS = {
   SMALL: "small",
   MEDIUM: "medium",
+};
+
+export const NL_DETECTOR_VALS = {
+  HEURISTIC: "heuristic",
+  HYBRID: "hybrid",
+  LLM: "llm",
 };
 
 export const MAX_QUERY_COUNT = 10;
