@@ -1,6 +1,6 @@
 # Fine Tuning the Model
 
-To fine tune an existing  `sentence_transform` model, do the following:
+To fine tune an existing  `sentence_transformer` model, do the following:
 
 ```bash
     ./run.sh (small | medium)
