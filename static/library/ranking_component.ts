@@ -36,17 +36,17 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * <!-- Show a ranking of US States by population, highest to lowest -->
  * <datacommons-ranking
  *      title="US States with the Highest Population"
- *      placeDcid="country/USA"
+ *      place="country/USA"
  *      enclosedPlaceType="State"
- *      variableDcid="Count_Person"
+ *      variable="Count_Person"
  * ></datacommons-ranking>
  *
  * <!-- Show a ranking of US States by population, lowest to highest -->
  * <datacommons-ranking
  *      title="US States with the Lowest Population"
- *      placeDcid="country/USA"
+ *      place="country/USA"
  *      enclosedPlaceType="State"
- *      variableDcid="Count_Person"
+ *      variable="Count_Person"
  *      showLowest=true
  * ></datacommons-ranking>
  */
@@ -63,7 +63,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   // DCID of the parent place
   @property()
-  placeDcid!: string;
+  place!: string;
 
   // Type of child place to rank (ex: State, County)
   @property()
@@ -71,7 +71,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   // DCID of the statistical variable to compare values for
   @property()
-  variableDcid!: string;
+  variable!: string;
 
   // Optional: whether to show a lowest-to-highest ranking
   // If not specified, defaults to highest-to-lowest
@@ -85,7 +85,7 @@ export class DatacommonsRankingComponent extends LitElement {
       enclosedPlaceType: this.enclosedPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.placeDcid,
+        dcid: this.place,
         name: "",
         types: [],
       },
@@ -101,7 +101,7 @@ export class DatacommonsRankingComponent extends LitElement {
           log: false,
           name: "",
           scaling: 1,
-          statVar: this.variableDcid,
+          statVar: this.variable,
           unit: "",
         },
       ],

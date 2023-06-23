@@ -33,9 +33,9 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * <!-- Show a bar chart of population for states in the US -->
  * <datacommons-bar
  *      title="Population of US States"
- *      placeDcid="country/USA"
+ *      place="country/USA"
  *      enclosedPlaceType="State"
- *      variableDcid="Count_Person"
+ *      variable="Count_Person"
  * ></datacommons-bar>
  */
 @customElement("datacommons-bar")
@@ -51,7 +51,7 @@ export class DatacommonsBarComponent extends LitElement {
 
   // DCID of the parent place
   @property()
-  placeDcid!: string;
+  place!: string;
 
   // Type of child places to plot (ex: State, County)
   @property()
@@ -59,7 +59,7 @@ export class DatacommonsBarComponent extends LitElement {
 
   // DCID of the statistical variable to plot values for
   @property()
-  variableDcid!: string;
+  variable!: string;
 
   render(): HTMLElement {
     const barTileProps: BarTilePropType = {
@@ -68,7 +68,7 @@ export class DatacommonsBarComponent extends LitElement {
       enclosedPlaceType: this.enclosedPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.placeDcid,
+        dcid: this.place,
         name: "",
         types: [],
       },
@@ -78,14 +78,14 @@ export class DatacommonsBarComponent extends LitElement {
           log: false,
           name: "",
           scaling: 1,
-          statVar: this.variableDcid,
+          statVar: this.variable,
           unit: "",
         },
       ],
       svgChartHeight: 200,
       title: this.title,
     };
-    const mountPoint = document.createElement("span");
+    const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(BarTile, barTileProps), mountPoint);
     return mountPoint;
   }

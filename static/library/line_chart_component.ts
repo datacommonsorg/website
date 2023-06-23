@@ -32,8 +32,8 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *
  * <datacommons-line
  *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
- *      placeDcid="country/USA"
- *      variableDcids='["Count_Person_BelowPovertyLevelInThePast12Months"]'
+ *      place="country/USA"
+ *      variables='["Count_Person_BelowPovertyLevelInThePast12Months"]'
  *    ></datacommons-line>
  */
 @customElement("datacommons-line")
@@ -43,30 +43,33 @@ export class DatacommonsLineComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Title of the chart
   @property()
   title!: string;
 
+  // DCID of the parent place
   @property()
-  placeDcid!: string;
+  place!: string;
 
+  // Statistical variable DCIDs
   @property({ type: Array<string> })
-  variableDcids!: Array<string>;
+  variables!: Array<string>;
 
   render(): HTMLElement {
     const tileProps: LineTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.placeDcid,
+        dcid: this.place,
         name: "",
         types: [],
       },
-      statVarSpec: this.variableDcids.map((variableDcid) => ({
+      statVarSpec: this.variables.map((variable) => ({
         denom: "",
         log: false,
         name: "",
         scaling: 1,
-        statVar: variableDcid,
+        statVar: variable,
         unit: "",
       })),
       svgChartHeight: 200,

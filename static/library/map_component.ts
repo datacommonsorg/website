@@ -32,9 +32,9 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *
  * <datacommons-map
  *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
- *      placeDcid="country/USA"
+ *      place="country/USA"
  *      enclosedPlaceType="State"
- *      variableDcid="Count_Person_BelowPovertyLevelInThePast12Months"
+ *      variable="Count_Person_BelowPovertyLevelInThePast12Months"
  *    ></datacommons-map>
  */
 @customElement("datacommons-map")
@@ -44,17 +44,21 @@ export class DatacommonsMapComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Title of the chart
   @property()
   title!: string;
 
+  // DCID of the parent place
   @property()
-  placeDcid!: string;
+  place!: string;
 
+  // Type of child place to rank (ex: State, County)
   @property()
   enclosedPlaceType!: string;
 
+  // Statistical variable DCID
   @property()
-  variableDcid!: string;
+  variable!: string;
 
   render(): HTMLElement {
     const mapTileProps: MapTilePropType = {
@@ -62,7 +66,7 @@ export class DatacommonsMapComponent extends LitElement {
       enclosedPlaceType: this.enclosedPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.placeDcid,
+        dcid: this.place,
         name: "",
         types: [],
       },
@@ -71,7 +75,7 @@ export class DatacommonsMapComponent extends LitElement {
         log: false,
         name: "",
         scaling: 1,
-        statVar: this.variableDcid,
+        statVar: this.variable,
         unit: "",
       },
       svgChartHeight: 200,
