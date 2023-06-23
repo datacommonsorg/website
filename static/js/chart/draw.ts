@@ -858,8 +858,7 @@ function drawGroupBarChart(
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
 
-  const svg = d3
-    .select(containerElement)
+  const svg = container
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
