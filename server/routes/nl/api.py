@@ -227,5 +227,6 @@ def feedback():
   try:
     bt.write_feedback(session_info, feedback_data)
     return 200
-  except:
+  except Exception as e:
+    logging.error(e)
     return 500, 'Failed to record feedback data'
