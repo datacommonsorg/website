@@ -15,6 +15,8 @@
 from datetime import datetime
 from datetime import timedelta
 import json
+import os
+import pickle
 
 from flask import current_app
 import google.auth
@@ -22,6 +24,7 @@ from google.cloud import bigtable
 from google.cloud.bigtable import row_filters
 
 import server.lib.nl.common.constants as nl_constants
+from server.services import datacommons as dc
 
 _PROJECT_ID = 'datcom-store'
 _INSTANCE_ID = 'website-data'
@@ -30,8 +33,16 @@ _COLUMN_FAMILY = 'all'
 
 _COL_PROJECT = 'project'
 _COL_SESSION = 'session_info'
+_COL_VERSION = 'version'
+_COL_DATA = 'data'
+_COL_FEEDBACK = 'feedback'
 
 _SPAN_IN_DAYS = 3
+
+
+def get_row_key(session_info, project_id):
+  # The session_id starts with a rand to avoid hotspots.
+  return '{}#{}'.format(session_info['id'], project_id).encode()
 
 
 def get_nl_table():
@@ -48,7 +59,16 @@ def get_project_id():
   return project_id
 
 
-async def write_row(session_info):
+def write_feedback(session_info, data):
+  project_id = get_project_id()
+  row_key = get_row_key(session_info, project_id)
+  table = current_app.config['NL_TABLE']
+  row = table.direct_row(row_key)
+  row.set_cell(_COLUMN_FAMILY, _COL_FEEDBACK.encode(), json.dumps(data))
+  table.mutate_rows([row])
+
+
+async def write_row(session_info, data):
   if not session_info.get('id', None):
     return
   table = current_app.config['NL_TABLE']
@@ -56,11 +76,19 @@ async def write_row(session_info):
     return
   project_id = get_project_id()
   # The session_id starts with a rand to avoid hotspots.
-  row_key = '{}#{}'.format(session_info['id'], project_id).encode()
+  row_key = get_row_key(session_info, project_id)
   row = table.direct_row(row_key)
+  mixer_version = dc.version()
+  version = {
+      'website_hash': os.environ.get("WEBSITE_HASH"),
+      'mixer_hash': mixer_version.get('gitHash', ''),
+      'table': mixer_version.get('tables', ''),
+  }
   # Rely on timestamp in BT server
   row.set_cell(_COLUMN_FAMILY, _COL_PROJECT.encode(), project_id)
   row.set_cell(_COLUMN_FAMILY, _COL_SESSION.encode(), json.dumps(session_info))
+  row.set_cell(_COLUMN_FAMILY, _COL_VERSION.encode(), json.dumps(version))
+  row.set_cell(_COLUMN_FAMILY, _COL_DATA.encode(), pickle.dumps(data))
   table.mutate_rows([row])
 
 

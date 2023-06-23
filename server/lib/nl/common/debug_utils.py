@@ -26,15 +26,15 @@ def result_with_debug_info(data_dict: Dict, status: str,
                            query_detection: Detection, uttr_history: List[Dict],
                            debug_counters: Dict,
                            query_detection_debug_logs: str,
-                           use_llm: bool) -> Dict:
+                           detector: str) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
-      'SV': query_detection.svs_detected.sv_dcids,
-      'CosineScore': query_detection.svs_detected.sv_scores,
-      'SV_to_Sentences': query_detection.svs_detected.svs_to_sentences,
+      'SV': query_detection.svs_detected.single_sv.svs,
+      'CosineScore': query_detection.svs_detected.single_sv.scores,
+      'SV_to_Sentences': query_detection.svs_detected.single_sv.sv2sentences,
       'MultiSV': query_detection.svs_detected.multi_sv,
   }
-  svs_to_sentences = query_detection.svs_detected.svs_to_sentences
+  svs_to_sentences = query_detection.svs_detected.single_sv.sv2sentences
 
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()
@@ -72,14 +72,10 @@ def result_with_debug_info(data_dict: Dict, status: str,
     elif classification.type == ClassificationType.QUANTITY:
       quantity_classification = str(classification.attributes)
 
-  if use_llm:
-    detection_type = 'LLM Based'
-  else:
-    detection_type = 'Heuristic Based'
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
-      'detection_type': detection_type,
+      'detection_type': detector,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,

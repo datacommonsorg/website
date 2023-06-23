@@ -37,6 +37,15 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *      enclosedPlaceType="State"
  *      variableDcid="Count_Person"
  * ></datacommons-bar>
+ *
+ * <!-- Show a bar chart of population for specific US states -->
+ * <!-- Note: use single quotes on outside,
+ *            and double quotes inside for comparisonPlaces-->
+ * <datacommons-bar
+ *      title="Population of US States"
+ *      variableDcid="Count_Person"
+ *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ * ></datacommons-bar>
  */
 @customElement("datacommons-bar")
 export class DatacommonsBarComponent extends LitElement {
@@ -61,10 +70,18 @@ export class DatacommonsBarComponent extends LitElement {
   @property()
   variableDcid!: string;
 
+  // Optional: List of DCIDs of places to plot
+  // If provided, placeDcid and enclosePlaceType will be ignored
+  // !Important: In the web element, use double quotes inside the list, and
+  //             double quotes outside the list.
+  //             E.g. comparisonPlaces = '["dcid1", "dcid2"]'
+  @property({ type: Array<string> })
+  comparisonPlaces;
+
   render(): HTMLElement {
     const barTileProps: BarTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
-      comparisonPlaces: [],
+      comparisonPlaces: this.comparisonPlaces,
       enclosedPlaceType: this.enclosedPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {

@@ -32,7 +32,7 @@ import { DebugInfo } from "./debug_info";
 export interface QueryResultProps {
   query: string;
   indexType: string;
-  useLLM: boolean;
+  detector: string;
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
@@ -68,19 +68,17 @@ export const QueryResult = memo(function QueryResult(
   function fetchData(query: string): void {
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
-    let indexType = "";
-    if (props.indexType !== null) {
-      indexType = props.indexType;
+    let indexParam = "";
+    if (props.indexType) {
+      indexParam = "&idx=" + props.indexType;
     }
 
-    console.log(props.useLLM);
-    let useLLMStr = "";
-    if (props.useLLM) {
-      useLLMStr = "&llm=True";
+    let detectorParam = "";
+    if (props.detector) {
+      detectorParam = "&detector=" + props.detector;
     }
-
     axios
-      .post(`/api/nl/data?q=${query}&idx=${indexType}${useLLMStr}`, {
+      .post(`/api/nl/data?q=${query}${indexParam}${detectorParam}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {
@@ -99,14 +97,14 @@ export const QueryResult = memo(function QueryResult(
         const categories = _.get(resp, ["data", "config", "categories"], []);
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
-          let main_place = {};
+          let mainPlace = {};
           // For NL Next, context does not contain the "main place".
-          main_place = resp.data["place"];
+          mainPlace = resp.data["place"];
           setChartsData({
             place: {
-              dcid: main_place["dcid"],
-              name: main_place["name"],
-              types: [main_place["place_type"]],
+              dcid: mainPlace["dcid"],
+              name: mainPlace["name"],
+              types: [mainPlace["place_type"]],
             },
             config: resp.data["config"],
           });
