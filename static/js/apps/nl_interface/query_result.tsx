@@ -32,7 +32,7 @@ import { DebugInfo } from "./debug_info";
 export interface QueryResultProps {
   query: string;
   indexType: string;
-  useLLM: boolean;
+  detector: string;
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
@@ -68,19 +68,17 @@ export const QueryResult = memo(function QueryResult(
   function fetchData(query: string): void {
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
-    let indexType = "";
-    if (props.indexType !== null) {
-      indexType = props.indexType;
+    let indexParam = "";
+    if (props.indexType) {
+      indexParam = "&idx=" + props.indexType;
     }
 
-    console.log(props.useLLM);
-    let useLLMStr = "";
-    if (props.useLLM) {
-      useLLMStr = "&llm=True";
+    let detectorParam = "";
+    if (props.detector) {
+      detectorParam = "&detector=" + props.detector;
     }
-
     axios
-      .post(`/api/nl/data?q=${query}&idx=${indexType}${useLLMStr}`, {
+      .post(`/api/nl/data?q=${query}${indexParam}${detectorParam}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {

@@ -21,6 +21,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import {
+  NL_DETECTOR_VALS,
   NL_INDEX_VALS,
   NL_URL_PARAMS,
 } from "../../constants/app/nl_interface_constants";
@@ -41,7 +42,9 @@ export function App(): JSX.Element {
   const [indexType, setIndexType] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.SMALL)
   );
-  const [useLLM, setUseLLM] = useState(!!getUrlToken(NL_URL_PARAMS.LLM));
+  const [detector, setDetector] = useState(
+    getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HEURISTIC)
+  );
   const urlPrompts = useRef(getUrlPrompts());
   // Timer used to input characters from a single prompt with
   // CHARACTER_INPUT_INTERVAL ms between each character.
@@ -171,7 +174,7 @@ export function App(): JSX.Element {
         queryIdx={i}
         query={q}
         indexType={indexType}
-        useLLM={useLLM}
+        detector={detector}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={false}
@@ -194,9 +197,9 @@ export function App(): JSX.Element {
             setQueries([...queries, q]);
           }}
           indexType={indexType}
-          useLLM={useLLM}
+          detector={detector}
           setIndexType={setIndexType}
-          setUseLLM={setUseLLM}
+          setDetector={setDetector}
         />
         {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
       </div>

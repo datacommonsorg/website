@@ -19,6 +19,7 @@ from typing import List
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
@@ -188,7 +189,7 @@ def _classification_to_query_type(cl: NLClassifier,
         cl.type == ClassificationType.CORRELATION):
     query_type = _route_comparison_or_correlation(cl, uttr)
   elif cl.type == ClassificationType.QUANTITY:
-    if utils.has_dual_sv(uttr):
+    if detection_utils.has_dual_sv(uttr.detection):
       query_type = QueryType.FILTER_WITH_DUAL_VARS
     else:
       query_type = QueryType.FILTER_WITH_SINGLE_VAR
@@ -231,7 +232,7 @@ def next_query_type(query_types: List[QueryType]) -> QueryType:
 #
 def _route_comparison_or_correlation(cl: NLClassifier,
                                      uttr: Utterance) -> QueryType:
-  multi_sv = utils.is_multi_sv(uttr)
+  multi_sv = detection_utils.is_multi_sv(uttr.detection)
   multi_places = len(uttr.places) > 1
 
   # There are 3 cases here based on current utterance:
