@@ -68,22 +68,19 @@ export const QueryResult = memo(function QueryResult(
   function fetchData(query: string): void {
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
-    let indexType = "";
-    if (props.indexType !== null) {
-      indexType = props.indexType;
+    let indexParam = "";
+    if (props.indexType) {
+      indexParam = "&idx=" + props.indexType;
     }
 
-    let detectorStr = "";
-    if (props.detector !== null) {
-      detectorStr = props.detector;
+    let detectorParam = "";
+    if (props.detector) {
+      detectorParam = "&detector=" + props.detector;
     }
     axios
-      .post(
-        `/api/nl/data?q=${query}&idx=${indexType}&detector=${detectorStr}`,
-        {
-          contextHistory: props.contextHistory,
-        }
-      )
+      .post(`/api/nl/data?q=${query}${indexParam}${detectorParam}`, {
+        contextHistory: props.contextHistory,
+      })
       .then((resp) => {
         if (
           resp.data["context"] === undefined ||

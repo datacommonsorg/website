@@ -20,7 +20,7 @@ from enum import Enum
 from enum import IntEnum
 from typing import Dict, List
 
-from shared.lib import detected_variables as vars
+from shared.lib import detected_variables as dvars
 
 
 @dataclass
@@ -51,9 +51,9 @@ class SVDetection:
   """Various attributes of SV detection."""
   query: str
   # Single SV detection.
-  single_sv: vars.VarCandidates
+  single_sv: dvars.VarCandidates
   # Multi SV detection.
-  multi_sv: vars.MultiVarCandidates
+  multi_sv: dvars.MultiVarCandidates
 
 
 class RankingType(IntEnum):

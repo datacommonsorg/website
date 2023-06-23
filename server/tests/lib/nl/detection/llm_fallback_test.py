@@ -24,7 +24,7 @@ from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
-from shared.lib import detected_variables as vars
+from shared.lib import detected_variables as dvars
 
 
 def _place():
@@ -38,23 +38,23 @@ def _place():
 def _sv(v=[], delim=False):
   if len(v) == 1:
     return SVDetection(query='',
-                       single_sv=vars.VarCandidates(v, [1.0], {}),
+                       single_sv=dvars.VarCandidates(v, [1.0], {}),
                        multi_sv=None)
   if len(v) == 2:
     return SVDetection(query='',
-                       single_sv=vars.VarCandidates(v, [0.6, 0.4], {}),
-                       multi_sv=vars.MultiVarCandidates(candidates=[
-                           vars.MultiVarCandidate(parts=[
-                               vars.MultiVarCandidatePart(
+                       single_sv=dvars.VarCandidates(v, [0.6, 0.4], {}),
+                       multi_sv=dvars.MultiVarCandidates(candidates=[
+                           dvars.MultiVarCandidate(parts=[
+                               dvars.MultiVarCandidatePart(
                                    query_part=v[0], svs=[v[0]], scores=[]),
-                               vars.MultiVarCandidatePart(
+                               dvars.MultiVarCandidatePart(
                                    query_part=v[1], svs=[v[1]], scores=[])
                            ],
-                                                  aggregate_score=0.7,
-                                                  delim_based=delim)
+                                                   aggregate_score=0.7,
+                                                   delim_based=delim)
                        ]))
   return SVDetection(query='',
-                     single_sv=vars.VarCandidates([], [], {}),
+                     single_sv=dvars.VarCandidates([], [], {}),
                      multi_sv=None)
 
 
@@ -150,6 +150,6 @@ class TestLLMFallback(unittest.TestCase):
       self.assertFalse(got)
     if counter:
       if 'info' in counter:
-        self.assertTrue(counter in ctr.get()['INFO']), ctr.get()
+        self.assertTrue(counter in ctr.get()['INFO'])
       else:
-        self.assertTrue(counter in ctr.get()['ERROR']), ctr.get()
+        self.assertTrue(counter in ctr.get()['ERROR'])

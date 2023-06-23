@@ -31,8 +31,8 @@ export const NL_SOURCE_REPLACEMENTS = {
 };
 
 export const NL_URL_PARAMS = {
-  IDX: "idx",
   DETECTOR: "detector",
+  IDX: "idx",
 };
 
 export const NL_INDEX_VALS = {
@@ -42,8 +42,8 @@ export const NL_INDEX_VALS = {
 
 export const NL_DETECTOR_VALS = {
   HEURISTIC: "heuristic",
-  LLM: "llm",
   HYBRID: "hybrid",
+  LLM: "llm",
 };
 
 export const MAX_QUERY_COUNT = 10;

@@ -19,7 +19,7 @@ from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import Detection
 from shared.lib import constants as shared_constants
-from shared.lib import detected_variables as vars
+from shared.lib import detected_variables as dvars
 
 # We will ignore SV detections that are below this threshold
 _SV_THRESHOLD = 0.5
@@ -28,7 +28,7 @@ _SV_THRESHOLD = 0.5
 #
 # Filter out SVs that are below a score.
 #
-def filter_svs(sv: vars.VarCandidates, counters: ctr.Counters) -> List[str]:
+def filter_svs(sv: dvars.VarCandidates, counters: ctr.Counters) -> List[str]:
   i = 0
   ans = []
   blocked_vars = set()
@@ -70,6 +70,7 @@ def is_multi_sv(detection: Detection) -> bool:
   return False
 
 
+# Returns true if detection has a multi-sv candidate with 2 parts.
 def has_dual_sv(detection: Detection) -> bool:
   if not is_multi_sv(detection):
     return False

@@ -29,7 +29,7 @@ from server.lib.nl.detection.place import infer_place_dcids
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
-from shared.lib import detected_variables as vars
+from shared.lib import detected_variables as dvars
 
 # TODO: Add support for COMPARISON_FILTER and RANKING_FILTER
 _LLM_TYPE_TO_CLASSIFICATION_TYPE = {
@@ -180,11 +180,11 @@ def detect(query: str, context_history: Dict, index_type: str,
   svs_scores_dict = _merge_sv_dicts(sv_list, svs_score_dicts)
   sv_detection = SVDetection(
       query=query,
-      single_sv=vars.VarCandidates(
+      single_sv=dvars.VarCandidates(
           svs=svs_scores_dict['SV'],
           scores=svs_scores_dict['CosineScore'],
           sv2sentences=svs_scores_dict['SV_to_Sentences']),
-      multi_sv=vars.dict_to_multivar_candidates(svs_scores_dict['MultiSV']))
+      multi_sv=dvars.dict_to_multivar_candidates(svs_scores_dict['MultiSV']))
 
   # Handle other keys in LLM Response.
   classifications = []

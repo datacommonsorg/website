@@ -19,13 +19,20 @@ from server.lib.nl.common import counters
 from server.lib.nl.detection import utils
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
-from shared.lib import detected_variables as vars
+from shared.lib import detected_variables as dvars
 
 _COMPLEX_QUERY_TOKEN_THRESHOLD = 8
 
 
 #
 # Given a heuristic-based Detection, decides whether we need a call to LLM
+#
+# Here are some examples that should fallback:
+# - poverty vs. asthma in california counties
+# - Prevalence of Asthma in California cities with hispanic population over 10000
+# - Prevalence of Asthma in California cities with the highest hispanic population
+#
+# TODO: Fallback if we detect quantity?
 #
 def need_llm(heuristic: Detection, ctr: counters.Counters) -> bool:
   # 1. If there was no SV (and it is not an OVERVIEW classification).
@@ -99,7 +106,7 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
 
 
 def _does_place_delimit_query_parts(query: str, places_mentioned: List[str],
-                                    multi_sv: vars.MultiVarCandidate,
+                                    multi_sv: dvars.MultiVarCandidate,
                                     ctr: counters.Counters) -> bool:
   # Find all sv sub-part indexes.
   vidx_list = []

@@ -44,7 +44,9 @@ import shared.lib.utils as shared_utils
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
-_DEFAULT_DETECTOR = 'heuristic'
+_HEURISTIC_DETECTOR = 'heuristic'
+_LLM_DETECTOR = 'llm'
+_HYBRID_DETECTOR = 'hybrid'
 
 
 #
@@ -75,7 +77,7 @@ def data():
     escaped_context_history = escape(context_history)
 
   detector_type = request.args.get('detector',
-                                   default=_DEFAULT_DETECTOR,
+                                   default=_HEURISTIC_DETECTOR,
                                    type=str)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
@@ -109,15 +111,15 @@ def data():
     logging.info('NL Data API: Empty Exit')
     return data_dict
 
-  if detector_type in ['llm', 'hybrid'
+  if detector_type in [_LLM_DETECTOR, _HYBRID_DETECTOR
                       ] and 'PALM_API_KEY' not in current_app.config:
     counters.err('failed_palm_keynotfound', '')
-    detector_type = 'heuristic'
+    detector_type = _HEURISTIC_DETECTOR
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  if detector_type == 'llm':
+  if detector_type == _LLM_DETECTOR:
     actual_detector = 'LLM Based'
     query_detection = llm_detector.detect(original_query, context_history,
                                           embeddings_index_type,
@@ -127,7 +129,7 @@ def data():
                                                 query, embeddings_index_type,
                                                 query_detection_debug_logs,
                                                 counters)
-    if detector_type == 'hybrid':
+    if detector_type == _HYBRID_DETECTOR:
       if llm_fallback.need_llm(query_detection, counters):
         actual_detector = 'Hybrid - LLM Fallback'
         counters.err('warning_llm_fallback', '')
