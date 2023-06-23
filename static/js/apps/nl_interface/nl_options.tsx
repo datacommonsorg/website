@@ -18,7 +18,6 @@
  * Options for NL.
  */
 
-import _ from "lodash";
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 

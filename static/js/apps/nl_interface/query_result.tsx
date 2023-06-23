@@ -97,14 +97,14 @@ export const QueryResult = memo(function QueryResult(
         const categories = _.get(resp, ["data", "config", "categories"], []);
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
-          let main_place = {};
+          let mainPlace = {};
           // For NL Next, context does not contain the "main place".
-          main_place = resp.data["place"];
+          mainPlace = resp.data["place"];
           setChartsData({
             place: {
-              dcid: main_place["dcid"],
-              name: main_place["name"],
-              types: [main_place["place_type"]],
+              dcid: mainPlace["dcid"],
+              name: mainPlace["name"],
+              types: [mainPlace["place_type"]],
             },
             config: resp.data["config"],
           });
