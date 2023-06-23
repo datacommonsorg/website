@@ -47,7 +47,7 @@ const HEADING_HEIGHT = 36;
 const PER_RANKING_HEIGHT = 24;
 const FOOTER_HEIGHT = 26;
 
-interface RankingTilePropType {
+export interface RankingTilePropType {
   id: string;
   place: NamedTypedPlace;
   enclosedPlaceType: string;

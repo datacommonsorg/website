@@ -15,74 +15,24 @@
  */
 
 import axios from "axios";
-// This import is unused in this file, but needed for draw functions for map and
-// scatter.
-import * as Canvas from "canvas";
 import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
-import React from "react";
-import ReactDOMServer from "react-dom/server";
-import * as xmlserializer from "xmlserializer";
 
-import {
-  draw as drawBar,
-  fetchData as fetchBarData,
-  getReplacementStrings as getBarRS,
-} from "../../static/js/components/tiles/bar_tile";
-import {
-  draw as drawDisasterMap,
-  fetchChartData as fetchDisasterMapData,
-  getReplacementStrings as getDisasterMapRS,
-} from "../../static/js/components/tiles/disaster_event_map_tile";
-import {
-  draw as drawLine,
-  fetchData as fetchLineData,
-  getReplacementStrings as getLineRS,
-} from "../../static/js/components/tiles/line_tile";
-import {
-  draw as drawMap,
-  fetchData as fetchMapData,
-  getReplacementStrings as getMapRS,
-} from "../../static/js/components/tiles/map_tile";
-import { fetchData as fetchRankingData } from "../../static/js/components/tiles/ranking_tile";
-import {
-  draw as drawScatter,
-  fetchData as fetchScatterData,
-  getReplacementStrings as getScatterRS,
-} from "../../static/js/components/tiles/scatter_tile";
-import {
-  LEGEND_IMG_WIDTH,
-  LEGEND_MARGIN_RIGHT,
-  LEGEND_MARGIN_VERTICAL,
-  LEGEND_TICK_LABEL_MARGIN,
-} from "../js/chart/draw_map_utils";
 import { fetchDisasterEventData } from "../js/components/subject_page/disaster_event_block";
-import {
-  getRankingUnit,
-  getRankingUnitTitle,
-} from "../js/components/tiles/sv_ranking_units";
-import { SELF_PLACE_DCID_PLACEHOLDER } from "../js/constants/subject_page_constants";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
-import { urlToDomain } from "../js/shared/util";
-import { DisasterEventPointData } from "../js/types/disaster_event_map_types";
-import { RankingGroup } from "../js/types/ranking_unit_types";
 import {
   BlockConfig,
   EventTypeSpec,
-  TileConfig,
 } from "../js/types/subject_page_proto_types";
-import {
-  dataGroupsToCsv,
-  mapDataToCsv,
-  rankingPointsToCsv,
-  scatterDataToCsv,
-} from "../js/utils/chart_csv_utils";
-import { htmlToSvg } from "../js/utils/svg_utils";
-import { getChartTitle, getTileEventTypeSpecs } from "../js/utils/tile_utils";
-
-// TODO (chejennifer): Split up functions into smaller files
-
+import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
+import { getBarTileResult } from "../nodejs_server/bar_tile";
+import { getDisasterMapTileResult } from "../nodejs_server/disaster_map_tile";
+import { getLineTileResult } from "../nodejs_server/line_tile";
+import { getMapTileResult } from "../nodejs_server/map_tile";
+import { getRankingTileResult } from "../nodejs_server/ranking_tile";
+import { getScatterTileResult } from "../nodejs_server/scatter_tile";
+import { TileResult } from "../nodejs_server/types";
 const app = express();
 const APP_CONFIGS = {
   local: {
@@ -124,20 +74,7 @@ const CHAR_WIDTHS = [
 const CHAR_AVG_WIDTH = 5.0341796875;
 // Height of a 10px Roboto character.
 const CHAR_HEIGHT = 13;
-// Height of the svg to render.
-const SVG_HEIGHT = 300;
-// Width of the svg to render.
-const SVG_WIDTH = 500;
-// Font family to use for all the text on the charts. If this is updated, need
-// to also update CHAR_WIDTHS and CHAR_AVG_WIDTHS.
-const FONT_FAMILY = "Roboto";
-// Font size to use for all the text on the charts. If this is updated, need to
-// also update CHAR_WIDTHS, CHAR_AVG_WIDTHS, and CHAR_HEIGHT.
-const FONT_SIZE = "10px";
-// Width of the constant sized part of the map legend
-const MAP_LEGEND_CONSTANT_WIDTH =
-  LEGEND_IMG_WIDTH + LEGEND_MARGIN_RIGHT + LEGEND_TICK_LABEL_MARGIN;
-const DOM_ID = "dom-id";
+const TIMING_SCALE_FACTOR = BigInt(1000000000);
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -152,22 +89,6 @@ globalThis.datacommons = {
 
 const window = dom.window;
 global.document = dom.window.document;
-
-// The result for a single tile
-interface TileResult {
-  // The svg for the chart in the tile as an xml string
-  svg: string;
-  // List of sources of the data in the chart
-  srcs: { name: string; url: string }[];
-  // The title of the tile
-  title: string;
-  // The type of the tile
-  type: string;
-  // List of legend labels
-  legend?: string[];
-  // The data for the chart in the tile as a csv string
-  data_csv?: string;
-}
 
 // Gets the length in pixels of a string
 function getTextLength(text: string): number {
@@ -223,381 +144,6 @@ function getTextLength(text: string): number {
   };
 };
 
-// Gets a list of source objects with name and url from a set of source urls.
-function getSources(sources: Set<string>): { name: string; url: string }[] {
-  return Array.from(sources).map((src) => {
-    return {
-      name: urlToDomain(src),
-      url: src,
-    };
-  });
-}
-
-// Processes and serializes a svg for a chart.
-function getProcessedSvg(chartSvg: SVGSVGElement): string {
-  if (!chartSvg) {
-    return "";
-  }
-  // Set the font for all the text in the svg to match the font family and size
-  // used for getBBox calculations.
-  chartSvg.querySelectorAll("text").forEach((node) => {
-    node.setAttribute("font-family", FONT_FAMILY);
-    node.setAttribute("font-size", FONT_SIZE);
-  });
-  // Get and return the svg as an xml string
-  const svgXml = xmlserializer.serializeToString(chartSvg);
-  return "data:image/svg+xml," + encodeURIComponent(svgXml);
-}
-
-// Gets the TileResult for a scatter tile.
-async function getScatterTileResult(
-  id: string,
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
-): Promise<TileResult[]> {
-  const tileProp = {
-    id,
-    title: tileConfig.title,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    svgChartHeight: SVG_HEIGHT,
-    scatterTileSpec: tileConfig.scatterTileSpec,
-    apiRoot: CONFIG.apiRoot,
-  };
-
-  try {
-    const chartData = await fetchScatterData(tileProp);
-    const svgContainer = document.createElement("div");
-    drawScatter(
-      chartData,
-      svgContainer,
-      SVG_HEIGHT,
-      null /* tooltipHtml */,
-      tileConfig.scatterTileSpec,
-      SVG_WIDTH
-    );
-    return [
-      {
-        svg: getProcessedSvg(svgContainer.querySelector("svg")),
-        data_csv: scatterDataToCsv(
-          chartData.xStatVar.statVar,
-          chartData.xStatVar.denom,
-          chartData.yStatVar.statVar,
-          chartData.yStatVar.denom,
-          chartData.points
-        ),
-        srcs: getSources(chartData.sources),
-        title: getChartTitle(
-          tileConfig.title,
-          getScatterRS(tileProp, chartData)
-        ),
-        type: "SCATTER",
-      },
-    ];
-  } catch (e) {
-    console.log("Failed to get scatter tile result for: " + id);
-    return null;
-  }
-}
-
-// Gets the TileResult for a line tile
-async function getLineTileResult(
-  id: string,
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  statVarSpec: StatVarSpec[]
-): Promise<TileResult[]> {
-  const tileProp = {
-    apiRoot: CONFIG.apiRoot,
-    id,
-    place,
-    statVarSpec,
-    svgChartHeight: SVG_HEIGHT,
-    svgChartWidth: SVG_WIDTH,
-    title: tileConfig.title,
-  };
-  try {
-    const chartData = await fetchLineData(tileProp);
-    const tileContainer = document.createElement("div");
-    tileContainer.setAttribute("id", id);
-    document.getElementById(DOM_ID).appendChild(tileContainer);
-    drawLine(tileProp, chartData, null);
-    const svg = getProcessedSvg(tileContainer.querySelector("svg"));
-    tileContainer.remove();
-    return [
-      {
-        svg: getProcessedSvg(tileContainer.querySelector("svg")),
-        data_csv: dataGroupsToCsv(chartData.dataGroup),
-        srcs: getSources(chartData.sources),
-        legend: chartData.dataGroup.map((dg) => dg.label || "A"),
-        title: getChartTitle(tileConfig.title, getLineRS(tileProp)),
-        type: "LINE",
-      },
-    ];
-  } catch (e) {
-    console.log("Failed to get line tile result for: " + id);
-    return null;
-  }
-}
-
-// Gets the TileResult for a bar tile
-async function getBarTileResult(
-  id: string,
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
-): Promise<TileResult[]> {
-  const comparisonPlaces = tileConfig.comparisonPlaces
-    ? tileConfig.comparisonPlaces.map((p) =>
-        p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
-      )
-    : undefined;
-  const tileProp = {
-    id,
-    title: tileConfig.title,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    apiRoot: CONFIG.apiRoot,
-    svgChartHeight: SVG_HEIGHT,
-    comparisonPlaces,
-  };
-  try {
-    const chartData = await fetchBarData(tileProp);
-    const tileContainer = document.createElement("div");
-    tileContainer.setAttribute("id", id);
-    document.getElementById(DOM_ID).appendChild(tileContainer);
-    drawBar(tileProp, chartData, SVG_WIDTH);
-    let legend = [];
-    if (
-      !_.isEmpty(chartData.dataGroup) &&
-      !_.isEmpty(chartData.dataGroup[0].value)
-    ) {
-      legend = chartData.dataGroup[0].value.map((dp) => dp.label);
-    }
-    const svg = getProcessedSvg(tileContainer.querySelector("svg"));
-    tileContainer.remove();
-    return [
-      {
-        svg: getProcessedSvg(tileContainer.querySelector("svg")),
-        data_csv: dataGroupsToCsv(chartData.dataGroup),
-        srcs: getSources(chartData.sources),
-        legend,
-        title: getChartTitle(tileConfig.title, getBarRS(tileProp, chartData)),
-        type: "BAR",
-      },
-    ];
-  } catch (e) {
-    console.log("Failed to get bar tile result for: " + id);
-    return null;
-  }
-}
-
-// Gets the TileResult for a map tile
-async function getMapTileResult(
-  id: string,
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec
-): Promise<TileResult[]> {
-  const tileProp = {
-    id,
-    title: tileConfig.title,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
-    apiRoot: CONFIG.apiRoot,
-  };
-  try {
-    const chartData = await fetchMapData(tileProp);
-    const legendContainer = document.createElement("div");
-    const mapContainer = document.createElement("div");
-    drawMap(
-      chartData,
-      tileProp,
-      null,
-      legendContainer,
-      mapContainer,
-      SVG_WIDTH
-    );
-    // Get the width of the text in the legend
-    let legendTextWidth = 0;
-    Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
-      legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
-    });
-    const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
-    // Create a single merged svg to hold both the map and the legend svgs
-    const mergedSvg = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    mergedSvg.setAttribute("height", String(SVG_HEIGHT));
-    mergedSvg.setAttribute("width", String(SVG_WIDTH));
-    // Get the map svg and add it to the merged svg
-    const mapSvg = mapContainer.querySelector("svg");
-    const mapWidth = SVG_WIDTH - legendWidth;
-    mapSvg.setAttribute("width", String(mapWidth));
-    const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    mapG.appendChild(mapSvg);
-    mergedSvg.appendChild(mapG);
-    // Get the legend svg and add it to the merged svg
-    const legendSvg = legendContainer.querySelector("svg");
-    legendSvg.setAttribute("width", String(legendWidth));
-    const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    legendG.setAttribute("transform", `translate(${mapWidth})`);
-    legendG.appendChild(legendSvg);
-    mergedSvg.appendChild(legendG);
-
-    return [
-      {
-        svg: getProcessedSvg(mergedSvg),
-        data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
-        srcs: getSources(chartData.sources),
-        title: getChartTitle(tileConfig.title, getMapRS(tileProp, chartData)),
-        type: "MAP",
-      },
-    ];
-  } catch (e) {
-    console.log("Failed to get map tile result for: " + id);
-    return null;
-  }
-}
-
-// Get the result for a single ranking unit
-function getRankingUnitResult(
-  tileConfig: TileConfig,
-  rankingGroup: RankingGroup,
-  sv: string,
-  isHighest: boolean
-): TileResult {
-  const rankingHtml = ReactDOMServer.renderToString(
-    getRankingUnit(
-      tileConfig.title,
-      sv,
-      rankingGroup,
-      tileConfig.rankingTileSpec,
-      isHighest
-    )
-  );
-  const style = {
-    "font-family": FONT_FAMILY,
-    "font-size": FONT_SIZE,
-  };
-  const svg = htmlToSvg(rankingHtml, SVG_WIDTH, SVG_HEIGHT, "", style);
-  const processedSvg = getProcessedSvg(svg);
-  return {
-    svg: processedSvg,
-    data_csv: rankingPointsToCsv(rankingGroup.points, rankingGroup.svName),
-    srcs: getSources(rankingGroup.sources),
-    title: getRankingUnitTitle(
-      tileConfig.title,
-      tileConfig.rankingTileSpec,
-      rankingGroup,
-      false,
-      sv
-    ),
-    type: "TABLE",
-  };
-}
-
-// Get the tile results for a ranking tile.
-async function getRankingTileResult(
-  id: string,
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
-): Promise<TileResult[]> {
-  const tileProp = {
-    id,
-    title: tileConfig.title,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    rankingMetadata: tileConfig.rankingTileSpec,
-    apiRoot: CONFIG.apiRoot,
-  };
-  try {
-    const rankingData = await fetchRankingData(tileProp);
-    const tileResults: TileResult[] = [];
-    for (const sv of Object.keys(rankingData)) {
-      const rankingGroup = rankingData[sv];
-      if (tileConfig.rankingTileSpec.showHighest) {
-        tileResults.push(
-          getRankingUnitResult(tileConfig, rankingGroup, sv, true)
-        );
-      }
-      if (tileConfig.rankingTileSpec.showLowest) {
-        tileResults.push(
-          getRankingUnitResult(tileConfig, rankingGroup, sv, false)
-        );
-      }
-    }
-    return tileResults;
-  } catch (e) {
-    console.log("Failed to get ranking tile result for: " + id);
-    return null;
-  }
-}
-
-async function getDisasterMapTileResult(
-  id: string,
-  tileConfig: TileConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  eventTypeSpec: Record<string, EventTypeSpec>,
-  disasterEventDataPromise: Promise<Record<string, DisasterEventPointData>>
-): Promise<TileResult[]> {
-  let tileEventData = null;
-  try {
-    const disasterEventData = await disasterEventDataPromise;
-    tileEventData = {};
-    Object.keys(eventTypeSpec).forEach((specId) => {
-      tileEventData[specId] = disasterEventData[specId];
-    });
-    const tileProp = {
-      id: "test",
-      title: tileConfig.title,
-      place,
-      enclosedPlaceType,
-      eventTypeSpec,
-      disasterEventData: tileEventData,
-      tileSpec: tileConfig.disasterEventMapTileSpec,
-      apiRoot: CONFIG.apiRoot,
-    };
-    const chartData = await fetchDisasterMapData(tileProp);
-    const mapContainer = document.createElement("div");
-    drawDisasterMap(
-      tileProp,
-      chartData,
-      mapContainer,
-      new Set(Object.keys(eventTypeSpec)),
-      SVG_HEIGHT,
-      SVG_WIDTH
-    );
-    const svg = mapContainer.querySelector("svg");
-    svg.style.background = "#eee";
-    return [
-      {
-        svg: getProcessedSvg(svg),
-        legend: Object.values(eventTypeSpec).map((spec) => spec.name),
-        srcs: getSources(chartData.sources),
-        title: getChartTitle(tileConfig.title, getDisasterMapRS(tileProp)),
-        type: "EVENT_MAP",
-      },
-    ];
-  } catch (e) {
-    console.log("Failed to get disaster event map tile result for: " + id);
-    return null;
-  }
-}
-
 // Get a list of tile result promises for all the tiles in the block
 function getBlockTileResults(
   id: string,
@@ -605,7 +151,7 @@ function getBlockTileResults(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   svSpec: Record<string, StatVarSpec>
-): Promise<TileResult[]>[] {
+): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
@@ -614,7 +160,9 @@ function getBlockTileResults(
       switch (tile.type) {
         case "LINE":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
-          tilePromises.push(getLineTileResult(tileId, tile, place, tileSvSpec));
+          tilePromises.push(
+            getLineTileResult(tileId, tile, place, tileSvSpec, CONFIG.apiRoot)
+          );
           break;
         case "SCATTER":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
@@ -624,20 +172,35 @@ function getBlockTileResults(
               tile,
               place,
               enclosedPlaceType,
-              tileSvSpec
+              tileSvSpec,
+              CONFIG.apiRoot
             )
           );
           break;
         case "BAR":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
           tilePromises.push(
-            getBarTileResult(tileId, tile, place, enclosedPlaceType, tileSvSpec)
+            getBarTileResult(
+              tileId,
+              tile,
+              place,
+              enclosedPlaceType,
+              tileSvSpec,
+              CONFIG.apiRoot
+            )
           );
           break;
         case "MAP":
           tileSvSpec = svSpec[tile.statVarKey[0]];
           tilePromises.push(
-            getMapTileResult(tileId, tile, place, enclosedPlaceType, tileSvSpec)
+            getMapTileResult(
+              tileId,
+              tile,
+              place,
+              enclosedPlaceType,
+              tileSvSpec,
+              CONFIG.apiRoot
+            )
           );
           break;
         case "RANKING":
@@ -648,7 +211,8 @@ function getBlockTileResults(
               tile,
               place,
               enclosedPlaceType,
-              tileSvSpec
+              tileSvSpec,
+              CONFIG.apiRoot
             )
           );
           break;
@@ -667,7 +231,7 @@ function getDisasterBlockTileResults(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   eventTypeSpec: Record<string, EventTypeSpec>
-): Promise<TileResult[]>[] {
+): Promise<TileResult>[] {
   const blockProp = {
     id,
     place,
@@ -694,7 +258,8 @@ function getDisasterBlockTileResults(
               place,
               enclosedPlaceType,
               tileEventTypeSpec,
-              disasterEventDataPromise
+              disasterEventDataPromise,
+              CONFIG.apiRoot
             )
           );
         default:
@@ -710,11 +275,13 @@ function getDisasterBlockTileResults(
 app.disable("etag");
 
 app.get("/nodejs/query", (req: Request, res: Response) => {
+  const startTime = process.hrtime.bigint();
   const query = req.query.q;
   res.setHeader("Content-Type", "application/json");
   axios
     .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}`, {})
     .then((resp) => {
+      const nlResultTime = process.hrtime.bigint();
       const mainPlace = resp.data["place"] || {};
       const place = {
         dcid: mainPlace["dcid"],
@@ -740,7 +307,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
       }
 
       // Get a list of tile result promises
-      const tilePromises: Array<Promise<TileResult[]>> = [];
+      const tilePromises: Array<Promise<TileResult[] | TileResult>> = [];
       const categories = config["categories"] || [];
       categories.forEach((category, catIdx) => {
         const svSpec = {};
@@ -784,7 +351,21 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           const filteredResults = tileResults
             .flat(1)
             .filter((result) => result !== null);
-          res.status(200).send(JSON.stringify({ charts: filteredResults }));
+          const endTime = process.hrtime.bigint();
+          const debug = {
+            timing: {
+              getNlResult: Number(
+                (nlResultTime - startTime) / TIMING_SCALE_FACTOR
+              ),
+              getTileResults: Number(
+                (endTime - nlResultTime) / TIMING_SCALE_FACTOR
+              ),
+              total: Number((endTime - startTime) / TIMING_SCALE_FACTOR),
+            },
+          };
+          res
+            .status(200)
+            .send(JSON.stringify({ charts: filteredResults, debug }));
         })
         .catch(() => {
           res.status(500).send({ err: "Error fetching data." });

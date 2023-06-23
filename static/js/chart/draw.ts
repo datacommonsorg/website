@@ -820,7 +820,7 @@ function drawStackBarChart(
 
 /**
  * Draw group bar chart.
- *
+ * @param containerElement
  * @param id
  * @param chartWidth
  * @param chartHeight
@@ -829,6 +829,7 @@ function drawStackBarChart(
  * @param unit
  */
 function drawGroupBarChart(
+  containerElement: HTMLDivElement,
   id: string,
   chartWidth: number,
   chartHeight: number,
@@ -853,8 +854,11 @@ function drawGroupBarChart(
     return;
   }
 
-  const svg = d3
-    .select("#" + id)
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+
+  const svg = container
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)

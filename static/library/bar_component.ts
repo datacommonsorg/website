@@ -22,43 +22,66 @@ import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
+import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 
 /**
- * Web component for rendering map tile.
+ * Web component for rendering a bar chart tile.
  *
  * Example usage:
  *
- * <datacommons-map
- *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+ * <!-- Show a bar chart of population for states in the US -->
+ * <datacommons-bar
+ *      title="Population of US States"
  *      placeDcid="country/USA"
  *      enclosedPlaceType="State"
- *      variableDcid="Count_Person_BelowPovertyLevelInThePast12Months"
- *    ></datacommons-map>
+ *      variableDcid="Count_Person"
+ * ></datacommons-bar>
+ *
+ * <!-- Show a bar chart of population for specific US states -->
+ * <!-- Note: use single quotes on outside,
+ *            and double quotes inside for comparisonPlaces-->
+ * <datacommons-bar
+ *      title="Population of US States"
+ *      variableDcid="Count_Person"
+ *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ * ></datacommons-bar>
  */
-@customElement("datacommons-map")
-export class DatacommonsMapComponent extends LitElement {
+@customElement("datacommons-bar")
+export class DatacommonsBarComponent extends LitElement {
   // Inject tiles.scss styles directly into web component
   static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Title of the chart
   @property()
   title!: string;
 
+  // DCID of the parent place
   @property()
   placeDcid!: string;
 
+  // Type of child places to plot (ex: State, County)
   @property()
   enclosedPlaceType!: string;
 
+  // DCID of the statistical variable to plot values for
   @property()
   variableDcid!: string;
 
+  // Optional: List of DCIDs of places to plot
+  // If provided, placeDcid and enclosePlaceType will be ignored
+  // !Important: In the web element, use double quotes inside the list, and
+  //             double quotes outside the list.
+  //             E.g. comparisonPlaces = '["dcid1", "dcid2"]'
+  @property({ type: Array<string> })
+  comparisonPlaces;
+
   render(): HTMLElement {
-    const mapTileProps: MapTilePropType = {
+    const barTileProps: BarTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      comparisonPlaces: this.comparisonPlaces,
       enclosedPlaceType: this.enclosedPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
@@ -66,19 +89,21 @@ export class DatacommonsMapComponent extends LitElement {
         name: "",
         types: [],
       },
-      statVarSpec: {
-        denom: "",
-        log: false,
-        name: "",
-        scaling: 1,
-        statVar: this.variableDcid,
-        unit: "",
-      },
+      statVarSpec: [
+        {
+          denom: "",
+          log: false,
+          name: "",
+          scaling: 1,
+          statVar: this.variableDcid,
+          unit: "",
+        },
+      ],
       svgChartHeight: 200,
       title: this.title,
     };
     const mountPoint = document.createElement("span");
-    ReactDOM.render(React.createElement(MapTile, mapTileProps), mountPoint);
+    ReactDOM.render(React.createElement(BarTile, barTileProps), mountPoint);
     return mountPoint;
   }
 }
