@@ -42,7 +42,7 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
         <FormGroup>
           <Label>
             <Input
-              checked={props.detector == NL_DETECTOR_VALS.HEURISTIC}
+              checked={props.detector === NL_DETECTOR_VALS.HEURISTIC}
               id="nl-heuristics"
               type="radio"
               value={0}
@@ -54,7 +54,7 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
           </Label>
           <Label>
             <Input
-              checked={props.detector == NL_DETECTOR_VALS.LLM}
+              checked={props.detector === NL_DETECTOR_VALS.LLM}
               id="nl-llm"
               type="radio"
               value={1}
@@ -66,7 +66,7 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
           </Label>
           <Label>
             <Input
-              checked={props.detector == NL_DETECTOR_VALS.HYBRID}
+              checked={props.detector === NL_DETECTOR_VALS.HYBRID}
               id="nl-hybrid"
               type="radio"
               value={2}
