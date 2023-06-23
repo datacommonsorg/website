@@ -469,7 +469,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
     if (chartType === chartTypeEnum.LINE) {
       const isCompleteLine = drawLineChart(
-        this.props.id,
+        elem,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,

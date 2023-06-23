@@ -60,7 +60,7 @@ export async function getLineTileResult(
     const tileContainer = document.createElement("div");
     tileContainer.setAttribute("id", id);
     document.getElementById(DOM_ID).appendChild(tileContainer);
-    draw(tileProp, chartData, null);
+    draw(tileProp, chartData, tileContainer);
     const svg = getProcessedSvg(tileContainer.querySelector("svg"));
     tileContainer.remove();
     return {

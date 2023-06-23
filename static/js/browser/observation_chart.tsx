@@ -194,7 +194,7 @@ export class ObservationChart extends React.Component<
     });
     const dataGroups = [new DataGroup(this.props.statVarId, data)];
     drawLineChart(
-      this.chartId,
+      this.svgContainerRef.current,
       this.svgContainerRef.current.offsetWidth,
       HEIGHT,
       dataGroups,
