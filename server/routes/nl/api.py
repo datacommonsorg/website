@@ -194,16 +194,15 @@ def data():
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  if current_app.config['LOG_QUERY']:
-    # Asynchronously log as bigtable write takes O(100ms)
-    loop = asyncio.new_event_loop()
-    session_info = context.get_session_info(context_history)
-    loop.run_until_complete(bt.write_row(session_info))
-
   data_dict = dbg.result_with_debug_info(data_dict, status_str, query_detection,
                                          context_history, dbg_counters,
                                          query_detection_debug_logs,
                                          actual_detector)
+  if current_app.config['LOG_QUERY']:
+    # Asynchronously log as bigtable write takes O(100ms)
+    loop = asyncio.new_event_loop()
+    session_info = context.get_session_info(context_history)
+    loop.run_until_complete(bt.write_row(session_info, data_dict))
 
   logging.info('NL Data API: Exit')
   return data_dict
@@ -215,3 +214,19 @@ def history():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
   return json.dumps(bt.read_success_rows())
+
+
+@bp.route('/feedback', methods=['POST'])
+def feedback():
+  if (os.environ.get('FLASK_ENV') == 'production' or
+      not current_app.config['LOG_QUERY']):
+    flask.abort(404)
+
+  session_info = request.json('session_info')
+  feedback_data = request.json['feedback_data']
+  try:
+    bt.write_feedback(session_info, feedback_data)
+    return 200
+  except Exception as e:
+    logging.error(e)
+    return 500, 'Failed to record feedback data'
