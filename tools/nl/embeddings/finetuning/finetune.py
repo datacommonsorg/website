@@ -139,7 +139,9 @@ def _save_finetuned_model(ctx: utils.Context, gcs_tmp_out_path: str,
       _upload_to_gcs(ctx, gcs_path, str_path)
 
 
-def _generate_training_examples(df_svs: pd.DataFrame, df_sentence_pairs: pd.DataFrame) -> List[InputExample]:
+def _generate_training_examples(
+    df_svs: pd.DataFrame,
+    df_sentence_pairs: pd.DataFrame) -> List[InputExample]:
   """Use the `df_svs` (alternatives) and `df_sentence_pairs` (text pairs with approx similarity scores) to
   produce a list of training examples (text pairs and scores). Using the StatVar name, description and
   alternatives (human curated and LLM-generated)  in `df_svs` we create pairs
@@ -199,8 +201,9 @@ def _generate_training_examples(df_svs: pd.DataFrame, df_sentence_pairs: pd.Data
     training_examples.append(
         InputExample(texts=[row["sentence_1"], row["sentence_2"]],
                      label=row["score"]))
-    
+
   return training_examples
+
 
 def fine_tune_model(model: Any, df_svs: pd.DataFrame,
                     df_sentence_pairs: pd.DataFrame):
