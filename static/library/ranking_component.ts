@@ -22,42 +22,65 @@ import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
+import {
+  RankingTile,
+  RankingTilePropType,
+} from "../js/components/tiles/ranking_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 
 /**
- * Web component for rendering map tile.
+ * Web component for rendering a ranking tile.
  *
  * Example usage:
  *
- * <datacommons-map
- *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+ * <!-- Show a ranking of US States by population, highest to lowest -->
+ * <datacommons-ranking
+ *      title="US States with the Highest Population"
  *      placeDcid="country/USA"
  *      enclosedPlaceType="State"
- *      variableDcid="Count_Person_BelowPovertyLevelInThePast12Months"
- *    ></datacommons-map>
+ *      variableDcid="Count_Person"
+ * ></datacommons-ranking>
+ *
+ * <!-- Show a ranking of US States by population, lowest to highest -->
+ * <datacommons-ranking
+ *      title="US States with the Lowest Population"
+ *      placeDcid="country/USA"
+ *      enclosedPlaceType="State"
+ *      variableDcid="Count_Person"
+ *      showLowest=true
+ * ></datacommons-ranking>
  */
-@customElement("datacommons-map")
-export class DatacommonsMapComponent extends LitElement {
+@customElement("datacommons-ranking")
+export class DatacommonsRankingComponent extends LitElement {
   // Inject tiles.scss styles directly into web component
   static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Title of the chart
   @property()
   title!: string;
 
+  // DCID of the parent place
   @property()
   placeDcid!: string;
 
+  // Type of child place to rank (ex: State, County)
   @property()
   enclosedPlaceType!: string;
 
+  // DCID of the statistical variable to compare values for
   @property()
   variableDcid!: string;
 
+  // Optional: whether to show a lowest-to-highest ranking
+  // If not specified, defaults to highest-to-lowest
+  // To show places with lowest value first, set showLowest=true
+  @property()
+  showLowest: boolean;
+
   render(): HTMLElement {
-    const mapTileProps: MapTilePropType = {
+    const rankingTileProps: RankingTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
       enclosedPlaceType: this.enclosedPlaceType,
       id: `chart-${_.uniqueId()}`,
@@ -66,19 +89,29 @@ export class DatacommonsMapComponent extends LitElement {
         name: "",
         types: [],
       },
-      statVarSpec: {
-        denom: "",
-        log: false,
-        name: "",
-        scaling: 1,
-        statVar: this.variableDcid,
-        unit: "",
+      rankingMetadata: {
+        diffBaseDate: "",
+        showHighest: !this.showLowest,
+        showLowest: this.showLowest,
+        showMultiColumn: false,
       },
-      svgChartHeight: 200,
+      statVarSpec: [
+        {
+          denom: "",
+          log: false,
+          name: "",
+          scaling: 1,
+          statVar: this.variableDcid,
+          unit: "",
+        },
+      ],
       title: this.title,
     };
     const mountPoint = document.createElement("span");
-    ReactDOM.render(React.createElement(MapTile, mapTileProps), mountPoint);
+    ReactDOM.render(
+      React.createElement(RankingTile, rankingTileProps),
+      mountPoint
+    );
     return mountPoint;
   }
 }

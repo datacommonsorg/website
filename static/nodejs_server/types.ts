@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import { renderRankingComponent } from "../js/ranking/ranking";
-import {
-  renderBarComponent,
-  renderLineComponent,
-  renderMapComponent,
-} from "./components";
-import { DEFAULT_API_ENDPOINT } from "./constants";
-import { DatacommonsMapComponent } from "./map_component";
-import { DatacommonsRankingComponent } from "./ranking_component";
+/**
+ * Types used for nodejs server
+ */
 
-globalThis.datacommons = {
-  DatacommonsMapComponent,
-  DatacommonsRankingComponent,
-  drawBar: renderBarComponent,
-  drawLine: renderLineComponent,
-  drawMap: renderMapComponent,
-  drawRanking: renderRankingComponent,
-  root: DEFAULT_API_ENDPOINT,
-};
+// The result for a single tile
+export interface TileResult {
+  // The svg for the chart in the tile as an xml string
+  svg: string;
+  // List of sources of the data in the chart
+  srcs: { name: string; url: string }[];
+  // The title of the tile
+  title: string;
+  // The type of the tile
+  type: string;
+  // List of legend labels
+  legend?: string[];
+  // The data for the chart in the tile as a csv string
+  data_csv?: string;
+}
