@@ -74,7 +74,8 @@ const CHAR_WIDTHS = [
 const CHAR_AVG_WIDTH = 5.0341796875;
 // Height of a 10px Roboto character.
 const CHAR_HEIGHT = 13;
-const TIMING_SCALE_FACTOR = BigInt(1000000000);
+const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
+const MS_TO_S_SCALE_FACTOR = 1000;
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -270,6 +271,16 @@ function getDisasterBlockTileResults(
   return tilePromises;
 }
 
+// Get the elapsed time in seconds given the start and end times in nanoseconds.
+function getElapsedTime(startTime: bigint, endTime: bigint): number {
+  // Dividing bigints will cause decimals to be lost. Therefore, convert ns to
+  // ms first and convert that to number type. Then convert the ms to s to get
+  // seconds with decimal precision.
+  return (
+    Number((endTime - startTime) / NS_TO_MS_SCALE_FACTOR) / MS_TO_S_SCALE_FACTOR
+  );
+}
+
 // Prevents returning 304 status if same GET request gets hit multiple times.
 // This is needed for health checks to pass which require a 200 status.
 app.disable("etag");
@@ -354,13 +365,9 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           const endTime = process.hrtime.bigint();
           const debug = {
             timing: {
-              getNlResult: Number(
-                (nlResultTime - startTime) / TIMING_SCALE_FACTOR
-              ),
-              getTileResults: Number(
-                (endTime - nlResultTime) / TIMING_SCALE_FACTOR
-              ),
-              total: Number((endTime - startTime) / TIMING_SCALE_FACTOR),
+              getNlResult: getElapsedTime(startTime, nlResultTime),
+              getTileResults: getElapsedTime(nlResultTime, endTime),
+              total: getElapsedTime(startTime, endTime),
             },
           };
           res
