@@ -58,7 +58,7 @@ def get_project_id():
   return project_id
 
 
-async def write_feedback(session_info, data):
+def write_feedback(session_info, data):
   project_id = get_project_id()
   row_key = get_row_key(session_info, project_id)
   table = current_app.config['NL_TABLE']

@@ -200,6 +200,9 @@ def feedback():
     flask.abort(404)
 
   session_info = request.json('session_info')
-  data = request.json['data']
-  bt.write_feedback(session_info, data)
-  return 200
+  feedback_data = request.json['feedback_data']
+  try:
+    bt.write_feedback(session_info, feedback_data)
+    return 200
+  except:
+    return 500, 'Failed to record feedback data'
