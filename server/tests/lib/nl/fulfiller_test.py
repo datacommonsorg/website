@@ -49,6 +49,7 @@ from server.tests.lib.nl.test_utterance import SIMPLE_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 from server.tests.lib.nl.test_utterance import TIME_DELTA_ACROSS_VARS_UTTR
+from shared.lib import detected_variables as dvars
 
 
 #
@@ -196,7 +197,7 @@ class TestDataSpecNext(unittest.TestCase):
     # Detect a single SV for rainfall.
     detection = _detection('geoId/06', ['Mean_Precipitation'], [0.6],
                            ClassificationType.CORRELATION)
-    detection.svs_detected.multi_sv = {
+    detection.svs_detected.multi_sv = dvars.dict_to_multivar_candidates({
         'Candidates': [{
             'Parts': [{
                 'QueryPart': 'obesity',
@@ -210,7 +211,7 @@ class TestDataSpecNext(unittest.TestCase):
             'AggCosineScore': 0.8,
             'DelimBased': True,
         }]
-    }
+    })
 
     # MOCK:
     # - Do no SV extensions
@@ -514,9 +515,10 @@ def _detection(place: str,
                         classifications=[],
                         places_detected=places_detected,
                         svs_detected=SVDetection(query='foo sv',
-                                                 svs_to_sentences={},
-                                                 sv_dcids=svs,
-                                                 sv_scores=scores,
+                                                 single_sv=dvars.VarCandidates(
+                                                     svs=svs,
+                                                     scores=scores,
+                                                     sv2sentences={}),
                                                  multi_sv=None))
   if query_type == ClassificationType.COMPARISON:
     # Set comparison classifier

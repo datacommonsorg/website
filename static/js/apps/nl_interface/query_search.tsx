@@ -30,8 +30,8 @@ interface QuerySearchPropType {
   onQuerySearched: (query: string) => void;
   indexType: string;
   setIndexType: (idx: string) => void;
-  useLLM: boolean;
-  setUseLLM: (v: boolean) => void;
+  detector: string;
+  setDetector: (v: string) => void;
 }
 
 export function QuerySearch(props: QuerySearchPropType): JSX.Element {
@@ -100,8 +100,8 @@ export function QuerySearch(props: QuerySearchPropType): JSX.Element {
         <NLOptions
           indexType={props.indexType}
           setIndexType={props.setIndexType}
-          useLLM={props.useLLM}
-          setUseLLM={props.setUseLLM}
+          detector={props.detector}
+          setDetector={props.setDetector}
         />
       </Container>
     </div>
