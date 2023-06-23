@@ -1,5 +1,6 @@
 # Fine Tuning the Model
 
+A good guide to fine tuning Sentence Transformer models is [here](https://huggingface.co/blog/how-to-train-sentence-transformers).
 To fine tune an existing  `sentence_transformer` model, do the following:
 
 ```bash

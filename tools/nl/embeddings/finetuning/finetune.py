@@ -49,7 +49,13 @@ flags.DEFINE_string('sentence_pairs_filepath',
                     'data/finetuning/sentence_pairs.csv',
                     'File path for sentence pairs CSV')
 
+# Batch size determines the number of examples used together in a batch for
+# training. This can help speed up training time.
 BATCH_SIZE = 256
+
+# The params below are described in https://www.sbert.net/docs/package_reference/SentenceTransformer.html
+# Increasing NUM_EPOCHS can theoretically lead to better convergence of the estimated weights but
+# using 10 should be Ok.
 NUM_WARMUP_STEPS = 10
 NUM_EPOCHS = 10
 
@@ -82,6 +88,7 @@ def _make_gcs_model_folder(base_model_name: str) -> str:
   minute_str = utils.two_digits(now.minute)
   second_str = utils.two_digits(now.second)
 
+  # TODO: replace `model` with `finetuned`.
   return f"model_{base_model_name}_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}"
 
 
@@ -95,7 +102,7 @@ def _alternatives(autogen_input_filepattern: str,
     print(f'Processing autogen input file: {autogen_csv}')
     autogen_dfs.append(pd.read_csv(autogen_csv).fillna(""))
   if autogen_dfs:
-    df_svs = pd.concat([df_svs] + autogen_dfs)
+    df_svs = autogen_dfs
     df_svs = df_svs.drop_duplicates(subset=utils.DCID_COL)
 
   # Get alternatives and add to the dataframe.
@@ -132,27 +139,14 @@ def _save_finetuned_model(ctx: utils.Context, gcs_tmp_out_path: str,
       _upload_to_gcs(ctx, gcs_path, str_path)
 
 
-def fine_tune_model(model: Any, df_svs: pd.DataFrame,
-                    df_sentence_pairs: pd.DataFrame):
-  """Fine tuning involves providing pairs of sentences/text with an
-  approximate similar score to a baseline model. These pairs (and scores)
-  are used for further `training` (with CosineSimilarityLoss as the objecive).
-  The end result is that the baseline model's weights get updated based on
-  the `new` training examples (pairs).
-  Effectively, the training examples (pairs and scores) provide additional
-  context to a baseline model about the kinds of associations between
-  sentences/text that we care about.
-  In this case, we use the StatVar name, description and alternatives
-  (human curated and LLM-generated) to create pairs of sentences/text with
-  high similarity scores.
-  We also provide a way to indicate that some pairs of texts/words/sentences
-  should not be associated with each other by assigning very low scores.
-  This allows us to bias the model's weights to accomodate our particular
-  use case better. 
+def _generate_training_examples(df_svs: pd.DataFrame, df_sentence_pairs: pd.DataFrame) -> List[InputExample]:
+  """Use the `df_svs` (alternatives) and `df_sentence_pairs` (text pairs with approx similarity scores) to
+  produce a list of training examples (text pairs and scores). Using the StatVar name, description and
+  alternatives (human curated and LLM-generated)  in `df_svs` we create pairs
+  of sentences/text with high similarity scores`.
+  For the pairs in `df_sentence_pairs`, we use the provided similarity scores/labels.
   """
-
   training_examples: List[InputExample] = []
-
   # Iterate over SV Names, Descriptions and Alternatives to produce
   # pairs of texts which we want to associated with each other in
   # terms of similarity.
@@ -205,6 +199,26 @@ def fine_tune_model(model: Any, df_svs: pd.DataFrame,
     training_examples.append(
         InputExample(texts=[row["sentence_1"], row["sentence_2"]],
                      label=row["score"]))
+    
+  return training_examples
+
+def fine_tune_model(model: Any, df_svs: pd.DataFrame,
+                    df_sentence_pairs: pd.DataFrame):
+  """Fine tuning involves providing pairs of sentences/text with an
+  approximate similar score to a baseline model. These pairs (and scores)
+  are used for further `training` (with CosineSimilarityLoss as the objecive).
+  The end result is that the baseline model's weights get updated based on
+  the `new` training examples (pairs).
+  Effectively, the training examples (pairs and scores) provide additional
+  context to a baseline model about the kinds of associations between
+  sentences/text that we care about.
+  This function called `_generate_training_examples()` to produce a list of
+  training examples (text pairs and scores). The scores allow us to bias the
+  model's weights to accomodate our particular use cases better.
+  """
+
+  # Get the training examples (text pairs and scores).
+  training_examples = _generate_training_examples(df_svs, df_sentence_pairs)
 
   # Ready to fine-tune.
   # Setting shuffle to True to ensure the training examples are not always provided
