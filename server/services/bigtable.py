@@ -16,6 +16,7 @@ from datetime import datetime
 from datetime import timedelta
 import json
 import os
+import pickle
 
 from flask import current_app
 import google.auth
@@ -87,7 +88,7 @@ async def write_row(session_info, data):
   row.set_cell(_COLUMN_FAMILY, _COL_PROJECT.encode(), project_id)
   row.set_cell(_COLUMN_FAMILY, _COL_SESSION.encode(), json.dumps(session_info))
   row.set_cell(_COLUMN_FAMILY, _COL_VERSION.encode(), json.dumps(version))
-  row.set_cell(_COLUMN_FAMILY, _COL_DATA.encode(), json.dumps(data))
+  row.set_cell(_COLUMN_FAMILY, _COL_DATA.encode(), pickle.dumps(data))
   table.mutate_rows([row])
 
 

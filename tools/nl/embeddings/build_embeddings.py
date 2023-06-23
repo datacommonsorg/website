@@ -17,11 +17,10 @@
 # validation.
 
 import csv
-from dataclasses import dataclass
 import datetime as datetime
 import glob
 import os
-from typing import Any, Dict, List, Set, Tuple
+from typing import Dict, List
 
 from absl import app
 from absl import flags
@@ -29,6 +28,7 @@ from google.cloud import storage
 import gspread
 import pandas as pd
 from sentence_transformers import SentenceTransformer
+import utils
 
 FLAGS = flags.FLAGS
 
@@ -59,122 +59,20 @@ flags.DEFINE_string('alternatives_filepattern', 'data/alternatives/*.csv',
 # curated_input/ + autogen_input/ + alternatives/ => preindex/ => embeddings
 #
 
-# Col names in the input files/sheets.
-DCID_COL = 'dcid'
-
-SHEETS_NAME_COL = 'Name'
-SHEETS_DESCRIPTION_COL = 'Description'
-SHEETS_ALTERNATIVES_COL = 'Curated_Alternatives'
-SHEETS_OVERRIDE_COL = 'Override_Alternatives'
-
-CSV_ALTERNATIVES_COL = 'Alternatives'
-
-# Col names in the concatenated dataframe.
-COL_ALTERNATIVES = 'sentence'
-
 # Setting to a very high number right for now.
 MAX_ALTERNATIVES_LIMIT = 50
-
-
-def _add_sv(name: str, sv: str, text2sv: Dict[str, str],
-            dup_svs: List[List[str]]) -> None:
-  osv = text2sv.get(name)
-  if not osv or osv == sv:
-    text2sv[name] = sv
-    return
-
-  # This is a case of duplicate SV.  Prefer the human-curated, shorter SV.
-  # Track it.
-  pref, drop = sv, osv
-  if ((osv.startswith('dc/') and sv.startswith('dc/')) or
-      (not osv.startswith('dc/') and not sv.startswith('dc/'))):
-    # Both SVs are autogen or both aren't. Go by dcid len.
-    if len(osv) <= len(sv):
-      pref, drop = osv, sv
-  elif sv.startswith('dc/'):
-    # sv is autogen, prefer osv.
-    pref, drop = osv, sv
-
-  text2sv[name] = pref
-  dup_svs.append([pref, drop, name])
-
-
-def _dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
-  """Dedup multiple texts mapped to the same DCID and return a list."""
-  text2sv_dict = {}
-  dup_sv_rows = [['PreferredSV', 'DroppedSV', 'DuplicateName']]
-  for _, row in df.iterrows():
-    sv = row[DCID_COL].strip()
-
-    # All alternative sentences are retrieved from COL_ALTERNATIVES, which
-    # are expected to be delimited by ";" (semi-colon).
-    if COL_ALTERNATIVES in row:
-      alternatives = row[COL_ALTERNATIVES].split(';')
-      alternatives = [a.strip() for a in alternatives if a.strip()]
-      for alt in alternatives:
-        _add_sv(alt, sv, text2sv_dict, dup_sv_rows)
-
-  return (text2sv_dict, dup_sv_rows)
-
-
-def _get_texts_dcids(
-    text2sv_dict: Dict[str, str]) -> Tuple[List[str], List[str]]:
-  texts = sorted(list(text2sv_dict.keys()))
-  dcids = [text2sv_dict[k] for k in texts]
-  return (texts, dcids)
-
-
-def _two_digits(number: int) -> str:
-  return str(number).zfill(2)
 
 
 def _make_gcs_embeddings_filename(embeddings_size: str) -> str:
   now = datetime.datetime.now()
 
-  month_str = _two_digits(now.month)
-  day_str = _two_digits(now.day)
-  hour_str = _two_digits(now.hour)
-  minute_str = _two_digits(now.minute)
-  second_str = _two_digits(now.second)
+  month_str = utils.two_digits(now.month)
+  day_str = utils.two_digits(now.day)
+  hour_str = utils.two_digits(now.hour)
+  minute_str = utils.two_digits(now.minute)
+  second_str = utils.two_digits(now.second)
 
   return f"embeddings_{embeddings_size}_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.csv"
-
-
-def _merge_dataframes(df_1: pd.DataFrame, df_2: pd.DataFrame) -> pd.DataFrame:
-  # In case there is a column (besides DCID_COL) which is common, the merged copy
-  # will contain two columns (one with a postfix _x and one with a postfix _y.
-  # Concatenate the two to produce a final version.
-  df_1 = df_1.merge(df_2, how='left', on=DCID_COL,
-                    suffixes=("_x", "_y")).fillna("")
-
-  # Determine the columns which were common.
-  common_cols = set()
-  for col in df_1.columns:
-    if col.endswith("_x") or col.endswith("_y"):
-      common_cols.add(col.replace("_x", "").replace("_y", ""))
-
-  # Replace the common columns with their concatenation.
-  for col in common_cols:
-    df_1[col] = df_1[f"{col}_x"].str.cat(df_1[f"{col}_y"], sep=";")
-    df_1[col] = df_1[col].replace(to_replace="^;", value="", regex=True)
-    df_1 = df_1.drop(columns=[f"{col}_x", f"{col}_y"])
-
-  return df_1
-
-
-def _concat_alternatives(alternatives: List[str],
-                         max_alternatives,
-                         delimiter=";") -> str:
-  alts = set(alternatives[0:max_alternatives])
-  return f"{delimiter}".join(sorted(alts))
-
-
-def _split_alt_string(alt_string: str) -> List[str]:
-  alts = []
-  for alt in alt_string.split(";"):
-    if alt:
-      alts.append(alt.strip())
-  return alts
 
 
 def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
@@ -182,8 +80,8 @@ def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
 
   embeddings = ctx.model.encode(texts, show_progress_bar=True)
   embeddings = pd.DataFrame(embeddings)
-  embeddings[DCID_COL] = dcids
-  embeddings[COL_ALTERNATIVES] = texts
+  embeddings[utils.DCID_COL] = dcids
+  embeddings[utils.COL_ALTERNATIVES] = texts
   return embeddings
 
 
@@ -223,13 +121,6 @@ def get_sheets_data(ctx, sheets_url: str, worksheet_name: str) -> pd.DataFrame:
   return df
 
 
-def get_local_alternatives(local_filename: str,
-                           local_col_names: List[str]) -> pd.DataFrame:
-  df = pd.read_csv(local_filename).fillna("")
-  df = df[local_col_names]
-  return df
-
-
 def _write_intermediate_output(name2sv_dict: Dict[str, str],
                                dup_sv_rows: List[List[str]],
                                local_merged_filepath: str,
@@ -262,36 +153,36 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
   alternate_descriptions = []
   for _, row in df_svs.iterrows():
     alternatives = []
-    if row[SHEETS_OVERRIDE_COL]:
+    if row[utils.OVERRIDE_COL]:
       # Override takes precendence over everything else.
-      alternatives += _split_alt_string(row[SHEETS_OVERRIDE_COL])
+      alternatives += utils.split_alt_string(row[utils.OVERRIDE_COL])
     else:
       for col_name in [
-          SHEETS_NAME_COL,
-          SHEETS_DESCRIPTION_COL,
-          SHEETS_ALTERNATIVES_COL,
-          CSV_ALTERNATIVES_COL,
+          utils.NAME_COL,
+          utils.DESCRIPTION_COL,
+          utils.CURATED_ALTERNATIVES_COL,
+          utils.ALTERNATIVES_COL,
       ]:
         # In order of preference, traverse the various alternative descriptions.
-        alternatives += _split_alt_string(row[col_name])
+        alternatives += utils.split_alt_string(row[col_name])
 
-    alt_str = _concat_alternatives(alternatives, MAX_ALTERNATIVES_LIMIT)
+    alt_str = utils.concat_alternatives(alternatives, MAX_ALTERNATIVES_LIMIT)
     alternate_descriptions.append(alt_str)
 
   assert len(df_svs) == len(alternate_descriptions)
-  df_svs[COL_ALTERNATIVES] = alternate_descriptions
+  df_svs[utils.COL_ALTERNATIVES] = alternate_descriptions
   # Trim df
-  df_svs = df_svs[[DCID_COL, COL_ALTERNATIVES]]
+  df_svs = df_svs[[utils.DCID_COL, utils.COL_ALTERNATIVES]]
 
   # Dedupe texts
-  (name2sv_dict, dup_sv_rows) = _dedup_texts(df_svs)
+  (name2sv_dict, dup_sv_rows) = utils.dedup_texts(df_svs)
 
   # Write dcid -> texts and dups to intermediate files.
   _write_intermediate_output(name2sv_dict, dup_sv_rows, local_merged_filepath,
                              dup_names_filepath)
 
   print("Getting texts, dcids and embeddings.")
-  (texts, dcids) = _get_texts_dcids(name2sv_dict)
+  (texts, dcids) = utils.get_texts_dcids(name2sv_dict)
 
   print("Building embeddings")
   return _build_embeddings(ctx, texts, dcids)
@@ -321,26 +212,15 @@ def build(ctx, sheets_url: str, worksheet_name: str,
     autogen_dfs.append(pd.read_csv(autogen_csv).fillna(""))
   if autogen_dfs:
     df_svs = pd.concat([df_svs] + autogen_dfs)
-    df_svs = df_svs.drop_duplicates(subset=DCID_COL)
+    df_svs = df_svs.drop_duplicates(subset=utils.DCID_COL)
 
   # Get alternatives and add to the dataframe.
   for alt_fp in sorted(glob.glob(alternative_filepattern)):
-    df_alts = get_local_alternatives(alt_fp, [DCID_COL, CSV_ALTERNATIVES_COL])
-    df_svs = _merge_dataframes(df_svs, df_alts)
+    df_alts = utils.get_local_alternatives(
+        alt_fp, [utils.DCID_COL, utils.ALTERNATIVES_COL])
+    df_svs = utils.merge_dataframes(df_svs, df_alts)
 
   return get_embeddings(ctx, df_svs, local_merged_filepath, dup_names_filepath)
-
-
-@dataclass
-class Context:
-  # gspread client
-  gs: Any
-  # Model
-  model: Any
-  # GCS storage bucket
-  bucket: Any
-  # Temp dir
-  tmp: str
 
 
 def main(_):
@@ -358,7 +238,7 @@ def main(_):
   bucket = sc.bucket(FLAGS.bucket_name_v2)
   model = SentenceTransformer(FLAGS.model_name_v2)
 
-  ctx = Context(gs=gs, model=model, bucket=bucket, tmp='/tmp')
+  ctx = utils.Context(gs=gs, model=model, bucket=bucket, tmp='/tmp')
 
   gcs_embeddings_filename = _make_gcs_embeddings_filename(FLAGS.embeddings_size)
   gcs_tmp_out_path = os.path.join(ctx.tmp, gcs_embeddings_filename)
