@@ -1,147 +1,34 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+      href="https://datacommons.org/css/nl_interface.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://www.datacommons.org/css/ranking.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://www.datacommons.org/css/nl_interface.min.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
-    <script src="https://autopush.datacommons.org/datacommons.js"></script>
-    <style>
-      .my-chart {
-        height: auto;
-        margin-bottom: 2rem;
-      }
-    </style>
-    <script>
-      console.log("datacommons", datacommons);
-      window.onload = function () {
-        // Draw bar chart
-        datacommons.drawBar(document.getElementById("bar-example"), {
-          id: "bar-chart-1",
-          svgChartHeight: 200,
-          className: "my-chart",
-          apiRoot: datacommons.root,
-          isDataTile: false,
-          title:
-            "Population Below Poverty Level Status in Past Year in States of United States (2020)",
-          place: {
-            dcid: "country/USA",
-            name: "United States of America",
-            types: ["Country"],
-          },
-          enclosedPlaceType: "State",
-          statVarSpec: [
-            {
-              name: "Population Below Poverty Level Status in Past Year",
-              statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
-            },
-          ],
-        });
-
-        // Draw line chart
-        datacommons.drawLine(document.getElementById("line-example"), {
-          id: "line-chart-1",
-          svgChartHeight: 200,
-          className: "my-chart",
-          apiRoot: datacommons.root,
-          isDataTile: false,
-          title:
-            "Population Below Poverty Level Status in Past Year in United States (2020)",
-          place: {
-            dcid: "country/USA",
-            name: "United States of America",
-            types: ["Country"],
-          },
-          statVarSpec: [
-            {
-              name: "Population Below Poverty Level Status in Past Year",
-              statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
-            },
-          ],
-        });
-
-        // Draw map chart
-        datacommons.drawMap(document.getElementById("map-example"), {
-          id: "map-chart-1",
-          svgChartHeight: 200,
-          className: "my-chart",
-          apiRoot: datacommons.root,
-          isDataTile: false,
-          title:
-            "Population Below Poverty Level Status in Past Year in States of United States (2020)",
-          place: {
-            dcid: "country/USA",
-            name: "United States of America",
-            types: ["Country"],
-          },
-          enclosedPlaceType: "State",
-          statVarSpec: {
-            name: "Population Below Poverty Level Status in Past Year",
-            statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
-          },
-        });
-
-        // Draw ranking chart
-        datacommons.drawRanking(document.getElementById("ranking-example"), {
-          placeName: "USA",
-          placeType: "State",
-          withinPlace: "country/USA",
-          statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
-          isPerCapita: false,
-          scaling: 1,
-          unit: "",
-          date: "2020",
-        });
-      };
-    </script>
+    <script src="https://datacommons.org/datacommons.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="#">Datacommons JS Embedded Charts</a>
-      </div>
-    </nav>
-    <div class="container">
-      <!-- Web component example -->
-      <h2>Map Web Component</h2>
-      <datacommons-map
-        title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
-        placeDcid="country/USA"
-        enclosedPlaceType="State"
-        statVarName="Population Below Poverty Level Status in Past Year"
-        statVarDcid="Count_Person_BelowPovertyLevelInThePast12Months"
-      ></datacommons-map>
-      <!-- Map chart-->
-      <h2 class="mt-4 mb-4">JS Map Chart</h2>
-      <div id="map-example"></div>
-      <!-- Bar chart-->
-      <h2 class="mt-4 mb-4">JS Bar Chart</h2>
-      <div id="bar-example"></div>
-
-      <!-- Line chart-->
-      <h2 class="mt-4 mb-4">JS Line Chart</h2>
-      <div id="line-example"></div>
-
-      <!-- Ranking chart-->
-      <h2 class="mt-4 mb-4">JS Ranking Chart</h2>
-      <div id="ranking-example"></div>
-    </div>
+    <h1>Datacommons Web Components</h1>
+    <h2>Map</h2>
+    <datacommons-map
+      title="Population"
+      placeDcid="country/USA"
+      enclosedPlaceType="State"
+      statVarDcid="Count_Person"
+    ></datacommons-map>
+    <h2>Ranking</h2>
+    <datacommons-ranking
+      title="US States with the Highest Population"
+      placeDcid="country/USA"
+      enclosedPlaceType="State"
+      variableDcid="Count_Person"
+    ></datacommons-ranking>
+    <datacommons-ranking
+      title="US States with the Lowest Population"
+      placeDcid="country/USA"
+      enclosedPlaceType="State"
+      variableDcid="Count_Person"
+      showLowest="true"
+    ></datacommons-ranking>
   </body>
 </html>

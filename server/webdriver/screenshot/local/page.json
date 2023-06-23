@@ -120,7 +120,7 @@
     "async": true
   },
   {
-    "url": "/tools/map#%26sv%3DMaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
+    "url": "/tools/map#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
     "height": 1200,
     "async": true
   },
