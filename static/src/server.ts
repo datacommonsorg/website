@@ -74,6 +74,7 @@ const CHAR_WIDTHS = [
 const CHAR_AVG_WIDTH = 5.0341796875;
 // Height of a 10px Roboto character.
 const CHAR_HEIGHT = 13;
+const TIMING_SCALE_FACTOR = BigInt(1000000000);
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -274,11 +275,13 @@ function getDisasterBlockTileResults(
 app.disable("etag");
 
 app.get("/nodejs/query", (req: Request, res: Response) => {
+  const startTime = process.hrtime.bigint();
   const query = req.query.q;
   res.setHeader("Content-Type", "application/json");
   axios
     .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}`, {})
     .then((resp) => {
+      const nlResultTime = process.hrtime.bigint();
       const mainPlace = resp.data["place"] || {};
       const place = {
         dcid: mainPlace["dcid"],
@@ -348,7 +351,21 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           const filteredResults = tileResults
             .flat(1)
             .filter((result) => result !== null);
-          res.status(200).send(JSON.stringify({ charts: filteredResults }));
+          const endTime = process.hrtime.bigint();
+          const debug = {
+            timing: {
+              getNlResult: Number(
+                (nlResultTime - startTime) / TIMING_SCALE_FACTOR
+              ),
+              getTileResults: Number(
+                (endTime - nlResultTime) / TIMING_SCALE_FACTOR
+              ),
+              total: Number((endTime - startTime) / TIMING_SCALE_FACTOR),
+            },
+          };
+          res
+            .status(200)
+            .send(JSON.stringify({ charts: filteredResults, debug }));
         })
         .catch(() => {
           res.status(500).send({ err: "Error fetching data." });
