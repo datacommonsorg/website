@@ -20,6 +20,7 @@ from server.lib.nl.common.topic import open_top_topics_ordered
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
@@ -103,7 +104,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 
   # When multi-sv has a higher score than single-sv prefer that.
   # See discussion in _route_comparison_or_correlation().
-  if utils.is_multi_sv(state.uttr):
+  if detection_utils.is_multi_sv(state.uttr.detection):
     lhs_svs, rhs_svs = _handle_multi_sv_in_uttr(state.uttr, places_to_check)
   else:
     lhs_svs, rhs_svs = _handle_svs_from_context(state.uttr, places_to_check)

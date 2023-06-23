@@ -18,17 +18,19 @@
  * Options for NL.
  */
 
-import _ from "lodash";
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
-import { NL_INDEX_VALS } from "../../constants/app/nl_interface_constants";
+import {
+  NL_DETECTOR_VALS,
+  NL_INDEX_VALS,
+} from "../../constants/app/nl_interface_constants";
 
 interface NLOptionsPropType {
   indexType: string;
   setIndexType: (idx: string) => void;
-  useLLM: boolean;
-  setUseLLM: (v: boolean) => void;
+  detector: string;
+  setDetector: (v: string) => void;
 }
 
 export function NLOptions(props: NLOptionsPropType): JSX.Element {
@@ -39,27 +41,39 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
         <FormGroup>
           <Label>
             <Input
-              checked={!props.useLLM}
+              checked={props.detector === NL_DETECTOR_VALS.HEURISTIC}
               id="nl-heuristics"
               type="radio"
               value={0}
               onChange={() => {
-                props.setUseLLM(false);
+                props.setDetector(NL_DETECTOR_VALS.HEURISTIC);
               }}
             />
             Heuristics Based
           </Label>
           <Label>
             <Input
-              checked={props.useLLM}
+              checked={props.detector === NL_DETECTOR_VALS.LLM}
               id="nl-llm"
               type="radio"
               value={1}
               onChange={() => {
-                props.setUseLLM(true);
+                props.setDetector(NL_DETECTOR_VALS.LLM);
               }}
             />
-            LLM Based (experimental)
+            LLM Based
+          </Label>
+          <Label>
+            <Input
+              checked={props.detector === NL_DETECTOR_VALS.HYBRID}
+              id="nl-hybrid"
+              type="radio"
+              value={2}
+              onChange={() => {
+                props.setDetector(NL_DETECTOR_VALS.HYBRID);
+              }}
+            />
+            Hybrid
           </Label>
         </FormGroup>
       </div>

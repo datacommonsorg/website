@@ -14,19 +14,14 @@
 """Module for NL page data spec"""
 
 import logging
-from typing import List
 
-from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
-from shared.lib import detected_variables as vars
-
-# We will ignore SV detections that are below this threshold
-_SV_THRESHOLD = 0.5
 
 
 #
@@ -36,11 +31,8 @@ _SV_THRESHOLD = 0.5
 def fulfill(query_detection: Detection, currentUtterance: Utterance,
             counters: ctr.Counters, session_id: str) -> Utterance:
 
-  filtered_svs = filter_svs(query_detection.svs_detected.sv_dcids,
-                            query_detection.svs_detected.sv_scores, counters)
-
-  multi_svs = vars.dict_to_multivar_candidates(
-      query_detection.svs_detected.multi_sv)
+  filtered_svs = detection_utils.filter_svs(
+      query_detection.svs_detected.single_sv, counters)
 
   # Construct Utterance datastructure.
   uttr = Utterance(prev_utterance=currentUtterance,
@@ -55,7 +47,7 @@ def fulfill(query_detection: Detection, currentUtterance: Utterance,
                    answerPlaces=[],
                    counters=counters,
                    session_id=session_id,
-                   multi_svs=multi_svs,
+                   multi_svs=query_detection.svs_detected.multi_sv,
                    llm_resp=query_detection.llm_resp)
   uttr.counters.info('filtered_svs', filtered_svs)
 
@@ -104,31 +96,3 @@ def rank_charts(utterance: Utterance):
   for chart in utterance.chartCandidates:
     logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates
-
-
-#
-# Filter out SVs that are below a score.
-#
-def filter_svs(sv_list: List[str], sv_score: List[float],
-               counters: ctr.Counters) -> List[str]:
-  # this functionality should be moved to detection.
-  i = 0
-  ans = []
-  blocked_vars = set()
-  while (i < len(sv_list)):
-    if (sv_score[i] >= _SV_THRESHOLD):
-      var = sv_list[i]
-
-      # Check if an earlier var blocks this var.
-      if var in blocked_vars:
-        counters.info("blocked_vars", var)
-        i += 1
-        continue
-      ans.append(var)
-
-      # If this var should block some vars,
-      # add them to the blocked_vars set.
-      if var in constants.SV_BLOCKS_MAP:
-        blocked_vars.update(constants.SV_BLOCKS_MAP[var])
-    i += 1
-  return ans
