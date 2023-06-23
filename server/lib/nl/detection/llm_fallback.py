@@ -13,7 +13,6 @@
 # limitations under the License.
 """Decide whether to fallback to using LLM."""
 
-import logging
 from typing import List
 
 from server.lib.nl.common import counters
@@ -62,32 +61,38 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
     # If its not a multi-SV query, we just assume its not a complex query.
     return False
 
-  # We use the top-multi-sv which is the top-ranked on and one
-  # whose score exceeds top single-SV score.
+  # Use the top-multi-sv, whose score exceeds top single-SV.
   multi_sv = d.svs_detected.multi_sv.candidates[0]
 
-  # This might be a multi-sv, but increase confidence that it
-  # indeed is by checking that the top candidate is either
-  # delimiter-separated, or is delimited by the place name.
+  # This may be a multi-sv, but increase that confidence that it
+  # is by checking that the top candidate is either delimiter-separated,
+  # or is delimited by the place name.
+
   # TODO: Consider if we should skip this altogether.
 
-  # User had specified a delimiter like `x vs. Y`
+  # User had specified a delimiter.  e.g., asthma vs. poverty in ca
   if multi_sv.delim_based:
     disp = ':'.join([p.query_part for p in multi_sv.parts])
     ctr.info('info_fallback_multi_sv_delimiter', disp)
     return True
 
   # Or if the place name delimits query-parts.
+  # e.g., asthma in ca where poverty rules
   if _does_place_delimit_query_parts(query, query_places, multi_sv, ctr):
     # Callee writes counter.
     return True
 
-  # A useful signal for a complex query is its length.
+  # This could still be a complex query.  e.g., find asthma where poverty is high in ca cities
+  #
+  # Another useful signal for a complex query is its length.
+  #
   # TODO: Consider if we should do this ahead of `is_multi_sv` check.
   n = _num_query_tokens_excluding_places(query, query_places)
   if n > _COMPLEX_QUERY_TOKEN_THRESHOLD:
     ctr.info('info_fallback_query_very_long', n)
     return True
+
+  # TODO:  Add more heuristics.  Perhaps some specific words? (`where`, `with`)
 
   ctr.info('info_fallback_multi_sv_no_delim', '')
   return False
