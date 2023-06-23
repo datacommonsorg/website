@@ -44,7 +44,7 @@ Draw a choropleth map by adding the `datacommons-map` element to your HTML
 <datacommons-map
   title="Households with no health insurance in US States"
   place="country/USA"
-  enclosedPlaceType="State"
+  childPlaceType="State"
   variable="Count_Household_NoHealthInsurance"
 ></datacommons-map>
 ```
@@ -70,7 +70,7 @@ Renders: ![Map chart](./assets/no-health-insurance-texas-counties.png "Map Chart
 <datacommons-map
   title="Population below the poverty level in US States"
   place="country/USA"
-  enclosedPlaceType="State"
+  childPlaceType="State"
   variable="Count_Person_BelowPovertyLevelInThePast12Months"
 ></datacommons-map>
 ```

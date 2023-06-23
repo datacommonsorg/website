@@ -34,7 +34,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * <datacommons-bar
  *      title="Population of US States"
  *      place="country/USA"
- *      enclosedPlaceType="State"
+ *      childPlaceType="State"
  *      variable="Count_Person"
  * ></datacommons-bar>
  *
@@ -64,7 +64,7 @@ export class DatacommonsBarComponent extends LitElement {
 
   // Type of child places to plot (ex: State, County)
   @property()
-  enclosedPlaceType!: string;
+  childPlaceType!: string;
 
   // DCID of the statistical variable to plot values for
   @property()
@@ -82,7 +82,7 @@ export class DatacommonsBarComponent extends LitElement {
     const barTileProps: BarTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
       comparisonPlaces: this.comparisonPlaces,
-      enclosedPlaceType: this.enclosedPlaceType,
+      enclosedPlaceType: this.childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
         dcid: this.place,

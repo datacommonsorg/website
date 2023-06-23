@@ -927,7 +927,7 @@ function drawGroupBarChart(
     .attr("fill", (d) => colorFn(d.key));
 
   appendLegendElem(
-    document.getElementById(id),
+    containerElement,
     colorFn,
     dataGroups[0].value.map((dp) => ({
       label: dp.label,

@@ -1,11 +1,5 @@
 <html>
   <head>
-    <style>
-      body {
-        max-width: 1024px;
-        padding: 1rem;
-      }
-    </style>
     <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
     <link
       rel="stylesheet"
@@ -13,13 +7,13 @@
     />
     <script src="https://datacommons.org/datacommons.js"></script>
   </head>
-  <body>
+  <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
     <h2>Bar Chart</h2>
     <datacommons-bar
       title="Population in States of United States"
       place="country/USA"
-      enclosedPlaceType="State"
+      childPlaceType="State"
       variable="Count_Person"
     ></datacommons-bar>
     <datacommons-bar
@@ -31,20 +25,20 @@
     <datacommons-map
       title="Population"
       place="country/USA"
-      enclosedPlaceType="State"
+      childPlaceType="State"
       variable="Count_Person"
     ></datacommons-map>
     <h2>Ranking</h2>
     <datacommons-ranking
       title="US States with the Highest Population"
       place="country/USA"
-      enclosedPlaceType="State"
+      childPlaceType="State"
       variable="Count_Person"
     ></datacommons-ranking>
     <datacommons-ranking
       title="US States with the Lowest Population"
       place="country/USA"
-      enclosedPlaceType="State"
+      childPlaceType="State"
       variable="Count_Person"
       showLowest="true"
     ></datacommons-ranking>
