@@ -32,9 +32,11 @@ bp = Blueprint('browser', __name__, url_prefix='/browser')
 def browser_main():
   return lib_render.render_page("browser/landing.html", "browser_landing.html")
 
+
 @bp.route('/bio')
 def bio_browser_main():
   return lib_render.render_page("browser/bio_landing.html", "")
+
 
 @bp.route('/<path:dcid>')
 def browser_node(dcid):
