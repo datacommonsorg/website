@@ -22,6 +22,7 @@ import build_embeddings as be
 import pandas as pd
 from parameterized import parameterized
 from sentence_transformers import SentenceTransformer
+import utils
 
 
 def get_test_sv_data():
@@ -85,10 +86,10 @@ class TestEndToEnd(unittest.TestCase):
 
     # Given that the get_sheets_data() function is mocked, the Context
     # object does not need a valid `gs` and `bucket` field.
-    ctx = be.Context(gs=None,
-                     model=SentenceTransformer("all-MiniLM-L6-v2"),
-                     bucket="",
-                     tmp="/tmp")
+    ctx = utils.Context(gs=None,
+                        model=SentenceTransformer("all-MiniLM-L6-v2"),
+                        bucket="",
+                        tmp="/tmp")
 
     # Smilarly, sheets_url and worksheet_name can be empty strings.
     sheets_url = ""
@@ -108,16 +109,17 @@ class TestEndToEnd(unittest.TestCase):
                input_alternatives_filepattern)
 
   def testSuccess(self):
+    self.maxDiff = None
 
     # Mock the get_sheets_data function to return test data.
     be.get_sheets_data = mock.Mock(return_value=get_test_sv_data())
 
     # Given that the get_sheets_data() function is mocked, the Context
     # object does not need a valid `gs` and `bucket` field.
-    ctx = be.Context(gs=None,
-                     model=SentenceTransformer("all-MiniLM-L6-v2"),
-                     bucket="",
-                     tmp="/tmp")
+    ctx = utils.Context(gs=None,
+                        model=SentenceTransformer("all-MiniLM-L6-v2"),
+                        bucket="",
+                        tmp="/tmp")
 
     # Smilarly, sheets_url and worksheet_name can be empty strings.
     sheets_url = ""
