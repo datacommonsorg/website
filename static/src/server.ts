@@ -74,7 +74,8 @@ const CHAR_WIDTHS = [
 const CHAR_AVG_WIDTH = 5.0341796875;
 // Height of a 10px Roboto character.
 const CHAR_HEIGHT = 13;
-const TIMING_SCALE_FACTOR = BigInt(1000000000);
+const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
+const MS_TO_S_SCALE_FACTOR = 1000;
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -354,13 +355,15 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
           const endTime = process.hrtime.bigint();
           const debug = {
             timing: {
-              getNlResult: Number(
-                (nlResultTime - startTime) / TIMING_SCALE_FACTOR
-              ),
-              getTileResults: Number(
-                (endTime - nlResultTime) / TIMING_SCALE_FACTOR
-              ),
-              total: Number((endTime - startTime) / TIMING_SCALE_FACTOR),
+              getNlResult:
+                Number((nlResultTime - startTime) / NS_TO_MS_SCALE_FACTOR) /
+                MS_TO_S_SCALE_FACTOR,
+              getTileResults:
+                Number((endTime - nlResultTime) / NS_TO_MS_SCALE_FACTOR) /
+                MS_TO_S_SCALE_FACTOR,
+              total:
+                Number((endTime - startTime) / NS_TO_MS_SCALE_FACTOR) /
+                MS_TO_S_SCALE_FACTOR,
             },
           };
           res
