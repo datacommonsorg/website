@@ -202,6 +202,7 @@ def data():
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = context.get_session_info(context_history)
+    data_dict['session'] = session_info
     loop.run_until_complete(bt.write_row(session_info, data_dict))
 
   logging.info('NL Data API: Exit')
