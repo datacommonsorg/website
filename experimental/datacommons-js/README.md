@@ -77,10 +77,13 @@ Renders: ![Map chart](./assets/below-poverty-level-us-states.png "Map Chart")
 
 ### JS Bar chart Draw
 
-a multi-variable bar chart Initialize empty div ```html
+a multi-variable bar chart
 
+Initialize empty div
+
+```html
 <div id="bar-example"></div>
-````
+```
 
 Render the chart
 
