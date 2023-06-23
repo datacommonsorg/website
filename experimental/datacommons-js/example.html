@@ -1,5 +1,11 @@
 <html>
   <head>
+    <style>
+      body {
+        max-width: 1024px;
+        padding: 1rem;
+      }
+    </style>
     <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
     <link
       rel="stylesheet"
@@ -37,5 +43,11 @@
       variableDcid="Count_Person"
       showLowest="true"
     ></datacommons-ranking>
+    <h3>Line</h3>
+    <datacommons-line
+      title="US Population Over Time"
+      placeDcid="country/USA"
+      variableDcids='["Count_Person"]'
+    ></datacommons-line>
   </body>
 </html>

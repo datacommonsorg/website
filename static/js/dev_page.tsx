@@ -74,7 +74,7 @@ class DevChart extends React.Component<DevChartPropType> {
 
     if (this.props.type === chartTypeEnum.LINE) {
       drawLineChart(
-        this.props.id,
+        elem.current,
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataGroups,

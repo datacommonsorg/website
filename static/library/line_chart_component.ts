@@ -22,23 +22,22 @@ import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
+import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 
 /**
- * Web component for rendering map tile.
+ * Web component for rendering the datacommons line tile.
  *
  * Example usage:
  *
- * <datacommons-map
+ * <datacommons-line
  *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
  *      placeDcid="country/USA"
- *      enclosedPlaceType="State"
- *      variableDcid="Count_Person_BelowPovertyLevelInThePast12Months"
- *    ></datacommons-map>
+ *      variableDcids='["Count_Person_BelowPovertyLevelInThePast12Months"]'
+ *    ></datacommons-line>
  */
-@customElement("datacommons-map")
-export class DatacommonsMapComponent extends LitElement {
+@customElement("datacommons-line")
+export class DatacommonsLineComponent extends LitElement {
   // Inject tiles.scss styles directly into web component
   static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
@@ -50,35 +49,31 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   placeDcid!: string;
 
-  @property()
-  enclosedPlaceType!: string;
-
-  @property()
-  variableDcid!: string;
+  @property({ type: Array<string> })
+  variableDcids!: Array<string>;
 
   render(): HTMLElement {
-    const mapTileProps: MapTilePropType = {
+    const tileProps: LineTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
-      enclosedPlaceType: this.enclosedPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
         dcid: this.placeDcid,
         name: "",
         types: [],
       },
-      statVarSpec: {
+      statVarSpec: this.variableDcids.map((variableDcid) => ({
         denom: "",
         log: false,
         name: "",
         scaling: 1,
-        statVar: this.variableDcid,
+        statVar: variableDcid,
         unit: "",
-      },
+      })),
       svgChartHeight: 200,
       title: this.title,
     };
     const mountPoint = document.createElement("div");
-    ReactDOM.render(React.createElement(MapTile, mapTileProps), mountPoint);
+    ReactDOM.render(React.createElement(LineTile, tileProps), mountPoint);
     return mountPoint;
   }
 }

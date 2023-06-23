@@ -82,14 +82,14 @@ const DATAGROUP_UNKNOWN_PLACE = "unknown";
 const TICK_SIZE = 6;
 
 function appendLegendElem(
-  elem: string,
+  elem: HTMLElement,
   color: d3.ScaleOrdinal<string, string>,
   keys: {
     label: string;
     link?: string;
   }[]
 ): void {
-  d3.select("#" + elem)
+  d3.select(elem)
     .append("div")
     .attr("class", "legend")
     .selectAll("div")
@@ -808,7 +808,7 @@ function drawStackBarChart(
     .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
 
   appendLegendElem(
-    id,
+    document.getElementById(id),
     color,
     dataGroups[0].value.map((dp) => ({
       label: dp.label,
@@ -927,7 +927,7 @@ function drawGroupBarChart(
     .attr("fill", (d) => colorFn(d.key));
 
   appendLegendElem(
-    id,
+    document.getElementById(id),
     colorFn,
     dataGroups[0].value.map((dp) => ({
       label: dp.label,
@@ -939,7 +939,7 @@ function drawGroupBarChart(
 
 /**
  * Draw line chart.
- * @param id
+ * @param svgContainer
  * @param width
  * @param height
  * @param dataGroups
@@ -952,7 +952,7 @@ function drawGroupBarChart(
  * @return false if any series in the chart was filled in
  */
 function drawLineChart(
-  id: string,
+  svgContainer: HTMLDivElement,
   width: number,
   height: number,
   dataGroups: DataGroup[],
@@ -975,7 +975,7 @@ function drawLineChart(
   }
 
   const svg = d3
-    .select("#" + id)
+    .select(svgContainer)
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
@@ -1101,9 +1101,8 @@ function drawLineChart(
       top: 0,
     };
     const dataGroupsDict = { [DATAGROUP_UNKNOWN_PLACE]: dataGroups };
-    const container: d3.Selection<HTMLDivElement, any, any, any> = d3.select(
-      `#${id}`
-    );
+    const container: d3.Selection<HTMLDivElement, any, any, any> =
+      d3.select(svgContainer);
     const highlightColorFn = (_: string, dataGroup: DataGroup) => {
       return colorFn(dataGroup.label);
     };
@@ -1123,7 +1122,7 @@ function drawLineChart(
   }
 
   appendLegendElem(
-    id,
+    svgContainer,
     colorFn,
     dataGroups.map((dg) => ({
       label: dg.label,

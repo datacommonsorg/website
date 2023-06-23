@@ -107,7 +107,7 @@ export class DatacommonsRankingComponent extends LitElement {
       ],
       title: this.title,
     };
-    const mountPoint = document.createElement("span");
+    const mountPoint = document.createElement("div");
     ReactDOM.render(
       React.createElement(RankingTile, rankingTileProps),
       mountPoint

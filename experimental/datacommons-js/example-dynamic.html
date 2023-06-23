@@ -29,7 +29,7 @@
           var targetAttr = $el.data("target-attr");
           var $webComponent = $("#" + targetId);
           $webComponent.attr(targetAttr, $el.val());
-          if (targetAttr === "statVarDcid") {
+          if (targetAttr === "variableDcid") {
             $webComponent.attr("title", $el.val());
           }
         }, 400);
@@ -54,7 +54,7 @@
             title="Count_Person"
             placeDcid="country/USA"
             enclosedPlaceType="State"
-            statVarDcid="Count_Person"
+            variableDcid="Count_Person"
           ></datacommons-map>
           <form class="mt-3">
             <div class="form-group">
@@ -82,7 +82,7 @@
                 type="text"
                 class="form-control map-control"
                 data-target-id="map1"
-                data-target-attr="statVarDcid"
+                data-target-attr="variableDcid"
                 placeholder="Statistical Variable DCID"
                 value="Count_Person"
               />
@@ -95,7 +95,7 @@
             title="Count_Person_PerArea"
             placeDcid="country/USA"
             enclosedPlaceType="State"
-            statVarDcid="Count_Person_PerArea"
+            variableDcid="Count_Person_PerArea"
           ></datacommons-map>
           <form class="mt-3">
             <div class="form-group">
@@ -123,7 +123,7 @@
                 type="text"
                 class="form-control map-control"
                 data-target-id="map2"
-                data-target-attr="statVarDcid"
+                data-target-attr="variableDcid"
                 placeholder="Statistical Variable DCID"
                 value="Count_Person_PerArea"
               />
