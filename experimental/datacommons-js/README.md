@@ -30,6 +30,8 @@ Find datasets using the [Data Commons Statistical Variable Explorer](https://dat
 
 Example: Inspecting [Health / Health Insurance (Household) / No Health Insurance / Households Without Health Insurance](https://datacommons.org/tools/statvar#sv=Count_Household_NoHealthInsurance) shows us that the statistical variable `Count_Household_NoHealthInsurance` is available in the `United States` (Data Commons ID, or DCID: `country/USA`) at `State`, `County`, and `City` levels.
 
+![Statistical Variable Explorer](./assets/stat-var-explorer.png "Statistical Variable Explorer")
+
 Use the [Data Commons Graph Browser](https://datacommons.org/browser) to understand the relationship between entities. For example, the [country/USA](https://datacommons.org/browser/country/USA) page shows us the DCIDs for all US states and territories.
 
 ### Web Component Map
