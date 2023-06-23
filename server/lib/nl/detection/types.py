@@ -20,6 +20,8 @@ from enum import Enum
 from enum import IntEnum
 from typing import Dict, List
 
+from shared.lib import detected_variables as vars
+
 
 @dataclass
 class Place:
@@ -48,14 +50,10 @@ class PlaceDetection:
 class SVDetection:
   """Various attributes of SV detection."""
   query: str
-  # The two lists below are assumed to be ordered.
-  sv_dcids: List[str]
-  sv_scores: List[float]
-
-  # Helpful to have all svs to sentences.
-  svs_to_sentences: Dict[str, List[str]]
+  # Single SV detection.
+  single_sv: vars.VarCandidates
   # Multi SV detection.
-  multi_sv: Dict
+  multi_sv: vars.MultiVarCandidates
 
 
 class RankingType(IntEnum):

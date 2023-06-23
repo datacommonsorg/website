@@ -28,6 +28,7 @@ from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SimpleClassificationAttributes
 from server.lib.nl.detection.types import SVDetection
+from shared.lib import detected_variables as vars
 
 
 def _empty_svs_score_dict():
@@ -112,10 +113,11 @@ def detect(orig_query: str, cleaned_query: str, index_type: str,
   # Set the SVDetection.
   sv_detection = SVDetection(
       query=query,
-      sv_dcids=svs_scores_dict['SV'],
-      sv_scores=svs_scores_dict['CosineScore'],
-      svs_to_sentences=svs_scores_dict['SV_to_Sentences'],
-      multi_sv=svs_scores_dict['MultiSV'])
+      single_sv=vars.VarCandidates(
+          svs=svs_scores_dict['SV'],
+          scores=svs_scores_dict['CosineScore'],
+          sv2sentences=svs_scores_dict['SV_to_Sentences']),
+      multi_sv=vars.dict_to_multivar_candidates(svs_scores_dict['MultiSV']))
 
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)

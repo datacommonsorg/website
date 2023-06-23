@@ -34,6 +34,7 @@ import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
 import server.lib.nl.detection.heuristic_detector as heuristic_detector
 import server.lib.nl.detection.llm_detector as llm_detector
+import server.lib.nl.detection.llm_fallback as llm_fallback
 from server.lib.nl.detection.types import Place
 import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
@@ -42,6 +43,8 @@ import server.services.bigtable as bt
 import shared.lib.utils as shared_utils
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
+
+_DEFAULT_DETECTOR = 'heuristic'
 
 
 #
@@ -71,7 +74,9 @@ def data():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
 
-  use_llm = request.args.get('llm', default=False, type=bool)
+  detector_type = request.args.get('detector',
+                                   default=_DEFAULT_DETECTOR,
+                                   type=str)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
@@ -100,18 +105,20 @@ def data():
         uttr_history=escaped_context_history,
         debug_counters=counters.get(),
         query_detection_debug_logs=query_detection_debug_logs,
-        use_llm=False)
+        detector='Heuristic Based')
     logging.info('NL Data API: Empty Exit')
     return data_dict
 
-  if use_llm and 'PALM_API_KEY' not in current_app.config:
+  if detector_type in ['llm', 'hybrid'
+                      ] and 'PALM_API_KEY' not in current_app.config:
     counters.err('failed_palm_keynotfound', '')
-    use_llm = False
+    detector_type = 'heuristic'
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  if use_llm:
+  if detector_type == 'llm':
+    actual_detector = 'LLM Based'
     query_detection = llm_detector.detect(original_query, context_history,
                                           embeddings_index_type,
                                           query_detection_debug_logs, counters)
@@ -120,6 +127,18 @@ def data():
                                                 query, embeddings_index_type,
                                                 query_detection_debug_logs,
                                                 counters)
+    if detector_type == 'hybrid':
+      if llm_fallback.need_llm(query_detection, counters):
+        actual_detector = 'Hybrid - LLM Fallback'
+        counters.err('warning_llm_fallback', '')
+        query_detection = llm_detector.detect(original_query, context_history,
+                                              embeddings_index_type,
+                                              query_detection_debug_logs,
+                                              counters)
+      else:
+        actual_detector = 'Hybrid - Heuristic Based'
+    else:
+      actual_detector = 'Heuristic Based'
   counters.timeit('query_detection', start)
 
   # Generate new utterance.
@@ -181,7 +200,8 @@ def data():
 
   data_dict = dbg.result_with_debug_info(data_dict, status_str, query_detection,
                                          context_history, dbg_counters,
-                                         query_detection_debug_logs, use_llm)
+                                         query_detection_debug_logs,
+                                         actual_detector)
 
   logging.info('NL Data API: Exit')
   return data_dict
