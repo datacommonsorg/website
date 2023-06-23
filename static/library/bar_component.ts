@@ -71,7 +71,7 @@ export class DatacommonsBarComponent extends LitElement {
   variable!: string;
 
   // Optional: List of DCIDs of places to plot
-  // If provided, placeDcid and enclosePlaceType will be ignored
+  // If provided, place and enclosePlaceType will be ignored
   // !Important: In the web element, use double quotes inside the list, and
   //             double quotes outside the list.
   //             E.g. comparisonPlaces = '["dcid1", "dcid2"]'
