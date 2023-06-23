@@ -26,7 +26,7 @@ For testing on autopush, replace the above script tag with
 
 ### Data Commons Statistical Variables
 
-Find datasets using the [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar).
+Find data using the [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar).
 
 Example: Inspecting [Health / Health Insurance (Household) / No Health Insurance / Households Without Health Insurance](https://datacommons.org/tools/statvar#sv=Count_Household_NoHealthInsurance) shows us that the statistical variable `Count_Household_NoHealthInsurance` is available in the `United States` (Data Commons ID, or DCID: `country/USA`) at `State`, `County`, and `City` levels.
 
