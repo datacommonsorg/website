@@ -71,7 +71,7 @@ export async function getBarTileResult(
     const tileContainer = document.createElement("div");
     tileContainer.setAttribute("id", id);
     document.getElementById(DOM_ID).appendChild(tileContainer);
-    draw(tileProp, chartData, SVG_WIDTH);
+    draw(tileProp, chartData, tileContainer, SVG_WIDTH);
     let legend = [];
     if (
       !_.isEmpty(chartData.dataGroup) &&

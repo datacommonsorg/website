@@ -463,7 +463,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   drawChart(): void {
     const chartType = this.props.chartType;
-    const elem = document.getElementById(this.props.id);
+    const elem = document.getElementById(this.props.id) as HTMLDivElement;
     if (chartType !== chartTypeEnum.CHOROPLETH) {
       elem.innerHTML = "";
     }
@@ -494,6 +494,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       );
     } else if (chartType === chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
+        elem,
         this.props.id,
         elem.offsetWidth,
         CHART_HEIGHT,
