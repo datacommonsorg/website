@@ -1,24 +1,85 @@
 # datacommons-js
 
-Embed [datacommons.org](https://datacommons.org) [statistical variable](https://datacommons.org/tools/statvar) observation visualizations in your web application.
+Embed [Data Commons](https://datacommons.org) [statistical variable](https://datacommons.org/tools/statvar) observation visualizations in your web application.
 
 ## Usage
 
 Include datacommons.js and styles in your html `<head>...</head>` tag
 
 ```
-<link rel="stylesheet" href="https://www.datacommons.org/css/ranking.min.css" />
-<link rel="stylesheet" href="https://www.datacommons.org/css/nl_interface.min.css" />
+<link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
+<link rel="stylesheet" href="https://datacommons.org/css/nl_interface.min.css" />
 <script src="https://datacommons.org/datacommons.js"></script>
+```
+
+For testing on autopush, replace the above script tag with
+
+```html
+<script src="https://autopush.datacommons.org/datacommons.js"></script>
 ```
 
 ## Examples
 
-For a complete example, see [example.html](./example.html)
+- Basic web component examples: [example.html](./example.html)
+- Dynamic web component example: [example-dynamic.html](./example-dynamic.html)
+- JS examples: [example-js.html](./example-js.html)
 
-### Bar chart
+### Data Commons Statistical Variables
 
-Draw a multi-variable bar chart
+Find data using the [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar).
+
+Example: Inspecting [Health / Health Insurance (Household) / No Health Insurance / Households Without Health Insurance](https://datacommons.org/tools/statvar#sv=Count_Household_NoHealthInsurance) shows us that the statistical variable `Count_Household_NoHealthInsurance` is available in the `United States` (Data Commons ID, or DCID: `country/USA`) at `State`, `County`, and `City` levels.
+
+![Statistical Variable Explorer](./assets/stat-var-explorer.png "Statistical Variable Explorer")
+
+Use the [Data Commons Graph Browser](https://datacommons.org/browser) to understand the relationship between entities. For example, the [country/USA](https://datacommons.org/browser/country/USA) page shows us the DCIDs for all US states and territories.
+
+### Web Component Map
+
+Draw a choropleth map by adding the `datacommons-map` element to your HTML
+
+### Example: Households with no health insurance in US States
+
+```html
+<datacommons-map
+  title="Households with no health insurance in US States"
+  placeDcid="country/USA"
+  enclosedPlaceType="State"
+  statVarDcid="Count_Household_NoHealthInsurance"
+></datacommons-map>
+```
+
+Renders: ![Map chart](./assets/no-health-insurance-us-states.png "Map Chart")
+
+### Example: Households with no health insurance in Texas counties
+
+```html
+<datacommons-map
+  title="Households with no health insurance in Texas counties"
+  placeDcid="geoId/48"
+  enclosedPlaceType="County"
+  statVarDcid="Count_Household_NoHealthInsurance"
+></datacommons-map>
+```
+
+Renders: ![Map chart](./assets/no-health-insurance-texas-counties.png "Map Chart")
+
+### Example: Population below the poverty level in US States
+
+```html
+<datacommons-map
+  title="Population below the poverty level in US States"
+  placeDcid="country/USA"
+  enclosedPlaceType="State"
+  statVarDcid="Count_Person_BelowPovertyLevelInThePast12Months"
+></datacommons-map>
+```
+
+Renders: ![Map chart](./assets/below-poverty-level-us-states.png "Map Chart")
+
+### JS Bar chart Draw
+
+a multi-variable bar chart
 
 Initialize empty div
 
@@ -35,7 +96,7 @@ datacommons.drawBar(document.getElementById("bar-example"), {
   className: "my-chart",
   apiRoot: datacommons.root,
   title:
-    "Population Below Poverty Level Status in Past Year in States of United States (2020)",
+    "Population Below Poverty Level Status in Past Year in States of United States",
   place: {
     dcid: "country/USA",
     name: "United States of America",
@@ -55,7 +116,7 @@ Renders:
 
 ![Bar chart](./assets/bar-chart.png "Bar Chart")
 
-### Line chart
+### JS Line chart
 
 Draw a multi-variable line chart
 
@@ -73,8 +134,7 @@ datacommons.drawLine(document.getElementById("line-example"), {
   svgChartHeight: 200,
   className: "my-chart",
   apiRoot: datacommons.root,
-  title:
-    "Population Below Poverty Level Status in Past Year in United States (2020)",
+  title: "Population Below Poverty Level Status in Past Year in United States",
   place: {
     dcid: "country/USA",
     name: "United States of America",
@@ -92,7 +152,7 @@ datacommons.drawLine(document.getElementById("line-example"), {
 Renders:
 ![Line chart](./assets/line-chart.png "Line Chart")
 
-### Map chart
+### JS Map chart
 
 Draw a choropleth map
 
@@ -111,7 +171,7 @@ datacommons.drawMap(document.getElementById("map-example"), {
   className: "my-chart",
   apiRoot: datacommons.root,
   title:
-    "Population Below Poverty Level Status in Past Year in States of United States (2020)",
+    "Population Below Poverty Level Status in Past Year in States of United States",
   place: {
     dcid: "country/USA",
     name: "United States of America",

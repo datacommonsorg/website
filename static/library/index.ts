@@ -15,6 +15,7 @@
  */
 
 import { renderRankingComponent } from "../js/ranking/ranking";
+import { DatacommonsBarComponent } from "./bar_component";
 import {
   renderBarComponent,
   renderLineComponent,
@@ -25,6 +26,7 @@ import { DatacommonsMapComponent } from "./map_component";
 import { DatacommonsRankingComponent } from "./ranking_component";
 
 globalThis.datacommons = {
+  DatacommonsBarComponent,
   DatacommonsMapComponent,
   DatacommonsRankingComponent,
   drawBar: renderBarComponent,

@@ -85,6 +85,7 @@ class DevChart extends React.Component<DevChartPropType> {
       );
     } else if (this.props.type == chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
+        elem.current,
         this.props.id,
         elem.current.offsetWidth,
         this.props.height,

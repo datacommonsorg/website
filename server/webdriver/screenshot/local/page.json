@@ -91,12 +91,12 @@
   },
   {
     "url": "/nl/#q=top+jobs+in+santa+clara+county&a=true",
-    "height": 2000,
+    "height": 1000,
     "async": true
   },
   {
     "url": "/nl/#q=counties+in+california+with+highest+obesity&a=true",
-    "height": 2000,
+    "height": 1000,
     "async": true
   },
   {
@@ -106,7 +106,7 @@
   },
   {
     "url": "/nl/#q=fires+in+california&a=true",
-    "height": 2000,
+    "height": 1000,
     "async": true
   },
   {
@@ -116,7 +116,7 @@
   },
   {
     "url": "/nl/#q=Prevalence+of+Asthma+in+California+cities+with+hispanic+population+over+10000&a=true",
-    "height": 2000,
+    "height": 1000,
     "async": true
   },
   {
