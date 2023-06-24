@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://autopush.datacommons.org/datacommons.js"></script>
+    <script>
+      /** Click to show and hide different SDGs */
+      function showSdgContainer(event, elementName) {
+        console.log('click');
+        const element = document.getElementById(elementName);
+        element.scrollIntoView({
+          behavior: "smooth",
+        })
+      }
+    </script>
+    <style>
+      body {
+        color: #424242;
+      }
+      .chart-story-container {
+        margin: 20px 0px;
+      }
+      .dc-logo {
+        float:left;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 1;
+        margin-top: 10px;
+        margin-left: 20px;
+        overflow: hidden;
+        padding-left: 10px;
+      }
+      .dc-navbar {
+        align-items: center;
+        border-bottom: 1px solid #f1f1f1;
+        background-color: white !important;
+        height: 80px;
+        justify-content: center;
+      }
+      .dc-navbar-brand {
+        font-family: "Museo Sans Rounded", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        letter-spacing: 0.01rem;
+      }
+      .dc-navbar-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .dc-subnav {
+        align-items: center;
+        border-bottom: 1px solid #f1f1f1;
+        background-color: white !important;
+        display: flex;
+        flex-direction: row;
+
+        justify-content: center;
+      }
+      .dc-subnav-item {
+        padding: 0 0.85rem;
+      }
+      .dc-subnav-item:hover {
+        background-color: #f8f8f8;
+      }
+      .dc-subnav-item a {
+        color: #424242;
+        display: flex;
+        font-size: 0.9rem;
+      }
+      .dc-subnav-item a .dc-subnav-link {
+        padding: 0.8rem 0;
+      }
+      .dc-subnav-item a .dc-subnav-link.selected {
+        font-weight: 500;
+        box-shadow: inset 0 -2px 0 #9a0000;
+        color: #9a0000;
+      }
+      .dc-subnav-item:hover a {
+        text-decoration: none;
+      }
+      .logo-banner {
+        margin-top: 10px;
+      }
+      .logo-banner img {
+        margin-top: 10px;
+        float: left;
+        height: 35px;
+      }
+      .main-title {
+        font-size: 40px;
+        font-weight: bold;
+        padding-top: 100px;
+        text-align: center;
+      }
+      .sidebar-container {
+        max-height: calc(100vh - 1rem);
+        overflow: auto;
+      }
+      .sidebar-link {
+        align-items: center;
+        border-left: 2px solid transparent;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0.5rem;
+      }
+      .sidebar-link:hover {
+        border-left: 2px solid #efefef;
+      }
+      .sidebar-link-icon {
+        background-color: #f5f5f5;
+        margin-left: 0.25rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        margin-right: 0.75rem;
+      }
+      .sidebar-link:hover .sidebar-link-icon {
+        background-color: #efefef;
+      }
+      .sidebar-link:hover .sidebar-link-text {
+        text-decoration: underline;
+      }
+      .story-column {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+      }
+      .story-title {
+        font-weight: bold;
+        font-size: 1rem;
+      }
+      .vertical-line {
+        border-left: 2px solid grey;
+        padding-left: 20px;
+      }
+      /** Datacommons style overrides */
+      .chart-container {
+        height: unset; /** Prevents map chart overflow */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo-banner">
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Logo_of_the_United_Nations.svg/800px-Logo_of_the_United_Nations.svg.png"
+        />
+        <div class="vertical-line dc-logo">Data<br />Commons</div>
+      </div>
+    </div>
+  
+    <div class="main-title">Sustainable Development Goals</div>
+      <nav class="dc-navbar navbar navbar-expand-lg navbar-light bg-light">
+      </nav>
+      <nav class="dc-subnav">
+        <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link selected">Global Overview</span></a></div>
+        <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link">Country View</span></span></a></div>
+      </nav>
+
+
+    <div class="container">
+
+      <div class="row">
+
+
+
+        <!-- Sidebar -->
+        <div class="col-2">
+          <div
+            class="sticky-top pt-4 pr-4 sidebar-container"
+            id="sidebar-container"
+          >
+            <div class="sidebar-link" onclick="showSdgContainer(event, 'sdg1')">
+              <div>
+                <div class="sidebar-link-icon">1</div>
+              </div>
+              <div class="sidebar-link-text">No Poverty</div>
+            </div>
+        
+            <div class="sidebar-link" onclick="showSdgContainer(event, 'sdg2')">
+              <div>
+                <div class="sidebar-link-icon">2</div>
+              </div>
+              <div class="sidebar-link-text">Zero Hunger</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Main page content -->
+        <div class="col">
+
+          <!-- SDG 1: No Poverty -->
+          <div id="sdg1" class="sdg-container">
+            <div class="row my-4 d-flex justify-content-center">
+              <h2>Goal 1: No Poverty</h2>
+            </div>
+            <div class="row chart-story-container">
+              <div class="col-6 chart-column">
+                <datacommons-map
+                  title="Proportion of population below international poverty line"
+                  variable="sdg/SI_POV_DAY1"
+                  place="Earth"
+                  childPlaceType="Country"
+                ></datacommons-map>
+              </div>
+              <div class="col-6 story-column">
+                <header class="story-title">Target date: 2030</header>
+                The United Nations has set an ambitious target through Sustainable Development Goal 1: 
+                to end poverty in all its forms by 2030. This goal recognizes the urgent need to 
+                address the root causes of poverty, promote inclusive economic growth, and ensure 
+                equal access to essential resources and opportunities for all. By tackling poverty 
+                comprehensively and holistically, the UN aims to create a world where no one is left 
+                behind, paving the way for a more equitable and sustainable future for humanity.
+              </div>
+            </div>
+            <div class="row chart-story-container">
+              <div class="col-6 chart-column">
+                <datacommons-ranking
+                  title="Countries with highest proportion of population below international poverty line"
+                  variable="sdg/SI_POV_DAY1"
+                  place="Earth"
+                  childPlaceType="Country"
+                ></datacommons-ranking>
+              </div>
+              <div class="col-6 story-column">
+                <header class="story-title">Poverty is a challenge</header>
+                  Poverty levels continue to present a significant challenge on a global scale. 
+                  Despite progress in reducing poverty over the years, millions of people around 
+                  the world still struggle to meet their basic needs. Economic disparities, 
+                  limited access to resources, and systemic inequalities contribute to persistent 
+                  poverty, highlighting the urgent need for concerted efforts and sustainable 
+                  solutions to alleviate this pressing issue.
+              </div>
+            </div>
+            <div class="row chart-story-container">
+              <div class="col-6 chart-column">
+                <datacommons-bar
+                title="Proportion of population using basic sanitation services"
+                variable="sdg/SP_ACS_BSRVSAN"
+                comparisonPlaces='["country/MWI", "country/SOM", "country/COD", "country/MDG", "country/UZB"]'
+              ></datacommons-bar>
+              </div>
+              <div class="col-6 story-column">
+                <header class="story-title">Everyone should have equitable access to basic services</header>
+                Equitable access to basic services is essential for building inclusive societies and ensuring 
+                the well-being of all individuals. Access to services such as education, healthcare, clean 
+                water, sanitation, and energy should not be determined by one's socio-economic status, location, 
+                or other discriminatory factors. By prioritizing and investing in equitable access, 
+                we can bridge gaps, reduce inequalities, and empower marginalized communities, 
+                ultimately fostering social cohesion and creating a more just and prosperous world for everyone.
+              </div>
+            </div>
+            <div class="row chart-story-container">
+              <div class="col-6 chart-column">
+                <datacommons-map
+                  title="Number of people affected by disaster"
+                  variable="sdg/VC_DSR_AFFCT"
+                  place="Earth"
+                  childPlaceType="Country"
+              ></datacommons-map>
+              </div>
+              <div class="col-6 story-column">
+                <header class="story-title">Climate change exasperates poverty</header>
+                The impacts of climate change, such as extreme weather events, rising sea levels, 
+                and disruptions to ecosystems, pose significant challenges to economies, livelihoods, 
+                and social well-being. By prioritizing resilience, countries can adapt to these changes, 
+                protect vulnerable populations, safeguard infrastructure, and foster sustainable development, 
+                ensuring a more secure and prosperous future for their citizens.
+              </div>
+            </div>
+          </div>
+
+          
+          <!-- SDG 2: Zero Hunger -->
+          <div id="sdg2" class="sdg-container">
+            <div class="row my-4 d-flex justify-content-center">
+              <h2>Goal 2: Zero Hunger</h2>
+            </div>
+            <div class="row chart-story-container">
+              <div class="col-6 chart-column">
+                <datacommons-map
+                  title="Prevalence of undernourishment"
+                  variable="sdg/SN_ITK_DEFC"
+                  place="Earth"
+                  childPlaceType="Country"
+                ></datacommons-map>
+              </div>
+              <div class="col-6 story-column">
+                <header class="story-title">Undernourishment</header>
+                The United Nations is committed to achieving Sustainable Development Goal 2: Zero Hunger. 
+                This goal aims to ensure access to safe, nutritious, and sufficient food for all people, 
+                while promoting sustainable agriculture and ending malnutrition in all its forms. By 
+                addressing the systemic issues that contribute to hunger, such as poverty, inequality, 
+                and climate change, the UN strives to create a world where everyone has the fundamental 
+                right to food security and where hunger becomes a thing of the past, contributing to 
+                healthier populations and sustainable development.
+              </div>
+            </div>
+            <div class="row chart-story-container">
+              <div class="col-6 chart-column">
+                <datacommons-ranking
+                  title="Countries with highest prevalence of undernourishment"
+                  variable="sdg/SN_ITK_DEFC"
+                  place="Earth"
+                  childPlaceType="Country"
+                ></datacommons-ranking>
+              </div>
+              <div class="col-6 story-column">
+                <header class="story-title">Undernourishment</header>
+                Undernourishment remains a pressing global concern, affecting millions of individuals 
+                across various regions. Despite advancements in food production and distribution, 
+                a significant portion of the global population still lacks access to sufficient, 
+                nutritious food. Factors such as poverty, conflict, climate change, and unequal 
+                distribution of resources contribute to the persistence of undernourishment, 
+                necessitating collective action and targeted interventions to ensure food 
+                security for all.
+              </div>
+            </div>
+            <div class="row chart-story-container">
+              <div class="col-6 chart-column">
+                <datacommons-line
+                title="Agriculture value added share of GDP of Somalia"
+                variables='["sdg/AG_PRD_AGVAS"]'
+                place="country/SOM"
+              ></datacommons-line>
+              </div>
+              <div class="col-6 story-column">
+                <header class="story-title">We need to raise food production</header>
+                Raising agricultural production is vital in the global effort to end world hunger. 
+                With a growing population and increasing food demand, it is crucial to enhance 
+                agricultural productivity sustainably. By investing in modern farming techniques, 
+                technology, infrastructure, and access to markets, we can improve yields, enhance 
+                food availability, and ensure a stable supply of nutritious food, contributing to 
+                the eradication of hunger and achieving global food security. Empowering small-scale 
+                farmers, promoting sustainable practices, and supporting agricultural innovation are 
+                key steps towards a future where no one goes hungry.
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </body>
+  <footer>
+    <script>
+      document.getElementById('sdg1').style.display="block";
+    </script>
+  </footer>
+</html>
