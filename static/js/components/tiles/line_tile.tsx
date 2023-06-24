@@ -141,14 +141,13 @@ export const fetchData = async (props: LineTilePropType) => {
 export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
-  svgContainer: HTMLElement
+  svgContainer: HTMLDivElement
 ): void {
-  const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
-  elem.innerHTML = "";
+  svgContainer.innerHTML = "";
   const isCompleteLine = drawLineChart(
-    props.id,
-    props.svgChartWidth || elem.offsetWidth,
+    svgContainer,
+    props.svgChartWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     false,
