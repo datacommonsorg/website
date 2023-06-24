@@ -1,0 +1,54 @@
+{#
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'bio_browser_landing' %}
+{% set page_id = 'page-bio_browser_landing' %}
+{% set title = 'Biomedical Graph Browser' %}
+{% set subpage_title = 'Biomedical Graph Browser' %}
+{% set subpage_url = url_for('browser.bio_browser_main') %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/browser.min.css', t=config['VERSION'])}} >
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mb-4">Graph Browser</h1>
+    <p>
+      The Biomedical Data Commons Graph is constructed by synthesizing a single
+      database from many different data sources.
+      This graph browser can be used both to explore what data is available and to understand the graph structure.
+    </p>
+    <p>
+      You can use the search box above or start looking around from some well known starting points:
+    </p>
+    {# TODO: Use a config to drive these lists #}
+    <ul>
+      <li class="type-list">
+
+        <strong><a href="/browser/Allele">Alleles</a></strong>:
+        <a href="/browser/Allele_A_Frequency">Allele A Frequency</a>
+        <a href="/browser/Allele_C_Frequency">Allele C Frequency</a>
+        <a href="/browser/Allele_G_Frequency">Allele G Frequency</a>
+         <a href="/browser/Allele_T_Frequency">Allele T Frequency</a>
+      
+      </li>
+  
+    </ul>
+  </div>
+{% endblock %}
