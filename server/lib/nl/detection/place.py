@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import dataclasses
 import logging
 import re
 from typing import Dict, List
@@ -112,7 +113,7 @@ def get_place_from_dcids(place_dcids: List[str],
 
   debug_logs.update({
       "dc_resolution_failure": dc_resolve_failures,
-      "dc_resolved_places": places,
+      "dc_resolved_places": [dataclasses.asdict(p) for p in places],
   })
   return places
 

@@ -14,6 +14,7 @@
 """LLM based detector."""
 
 import copy
+import dataclasses
 import logging
 import sys
 from typing import Dict, List
@@ -159,7 +160,8 @@ def detect(query: str, context_history: Dict, index_type: str,
 
   # Update the various place detection and query transformation debug logs dict.
   query_detection_debug_logs["places_found_str"] = places_str_found
-  query_detection_debug_logs["main_place_inferred"] = main_place
+  query_detection_debug_logs["main_place_inferred"] = dataclasses.asdict(
+      main_place)
   query_detection_debug_logs["llm_response"] = llm_resp
 
   if not query_detection_debug_logs["place_dcid_inference"]:

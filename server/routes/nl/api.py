@@ -203,7 +203,7 @@ def data():
     loop = asyncio.new_event_loop()
     session_info = context.get_session_info(context_history)
     data_dict['session'] = session_info
-    loop.run_until_complete(bt.write_row(session_info, data_dict))
+    loop.run_until_complete(bt.write_row(session_info, data_dict, dbg_counters))
 
   logging.info('NL Data API: Exit')
   return data_dict
