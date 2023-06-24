@@ -89,59 +89,61 @@ function renderBlocks() {
  * Renders a data commons chart
  */
 function renderChart($container, chartConfig) {
+  // Create div for the chart-story row
+  const rowElement = document.createElement("div");
+  rowElement.setAttribute("class", "row");
+  $container.append(rowElement);
+
+  // Create div to contain the chart
+  const chartColumnElement = document.createElement("div");
+  chartColumnElement.setAttribute("class", "col-6")
+  rowElement.append(chartColumnElement);
+
   if (chartConfig.type == "BAR") {
-    const chartElement = document.createElement("div");
-    $container.append(chartElement);
-    var lineChartProps = {
-      id: _.uniqueId("chart-"),
-      svgChartHeight: 200,
-      className: undefined,
-      apiRoot: datacommons.root,
-      isDataTile: false,
-      ...chartConfig.config,
-    };
-    datacommons.drawBar(chartElement, lineChartProps);
+    const chartElement = document.createElement("datacommons-bar");
+    chartElement.setAttribute("title", chartConfig.config.title);
+    chartElement.setAttribute("placeDcid", chartConfig.config.place.dcid);
+    chartElement.setAttribute("enclosedPlaceType", chartConfig.config.enclosedPlaceType);
+    chartElement.setAttribute("variableDcid", chartConfig.config.statVarSpec[0].statVar);
+    chartColumnElement.append(chartElement);
   } else if (chartConfig.type == "LINE") {
-    const chartElement = document.createElement("div");
-    $container.append(chartElement);
-    var lineChartProps = {
-      id: _.uniqueId("chart-"),
-      svgChartHeight: 150,
-      className: undefined,
-      apiRoot: datacommons.root,
-      isDataTile: false,
-      ...chartConfig.config,
-    };
-    datacommons.drawLine(chartElement, lineChartProps);
+    const chartElement = document.createElement("datacommons-line");
+    chartElement.setAttribute("title", chartConfig.config.title);
+    chartElement.setAttribute("placeDcid", chartConfig.config.place.dcid);
+    chartElement.setAttribute("enclosedPlaceType", chartConfig.config.enclosedPlaceType);
+    chartElement.setAttribute("variableDcid", chartConfig.config.statVarSpec.statVar);
+    chartColumnElement.append(chartElement);
   } else if (chartConfig.type == "MAP") {
-    const chartElement = document.createElement("div");
-    $container.append(chartElement);
-    var mapChartProps = {
-      id: _.uniqueId("chart-"),
-      svgChartHeight: 250,
-      className: undefined,
-      apiRoot: datacommons.root,
-      isDataTile: false,
-      ...chartConfig.config,
-    };
-    datacommons.drawMap(chartElement, mapChartProps);
+    const chartElement = document.createElement("datacommons-map");
+    chartElement.setAttribute("title", chartConfig.config.title);
+    chartElement.setAttribute("placeDcid", chartConfig.config.place.dcid);
+    chartElement.setAttribute("enclosedPlaceType", chartConfig.config.enclosedPlaceType);
+    chartElement.setAttribute("variableDcid", chartConfig.config.statVarSpec.statVar);
+    chartColumnElement.append(chartElement);
   } else if (chartConfig.type == "RANKING") {
-    const chartElement = document.createElement("div");
-    $container.append(chartElement);
-    var props1 = {
-      placeName: "USA",
-      placeType: "State",
-      withinPlace: "country/USA",
-      statVar: "Count_Person",
-      isPerCapita: false,
-      scaling: 1,
-      unit: "",
-      date: "2020",
-    };
-    datacommons.drawRanking(chartElement, chartConfig.config);
+    const chartElement = document.createElement("datacommons-ranking");
+    chartElement.setAttribute("title", chartConfig.config.title);
+    chartElement.setAttribute("placeDcid", chartConfig.config.place.dcid);
+    chartElement.setAttribute("enclosedPlaceType", chartConfig.config.enclosedPlaceType);
+    chartElement.setAttribute("variableDcid", chartConfig.config.statVarSpec.statVar);
+    chartColumnElement.append(chartElement);
   } else {
     console.log("Skipping unknown chart type", chartConfig.type);
   }
+
+  //Create section for story
+  const storyColumnElement = document.createElement("div");
+  storyColumnElement.setAttribute("class", "col-6");
+  // Create story title
+  const storyTitleElement = document.createElement("h4")
+  storyTitleElement.textContent = chartConfig.story.title;
+  storyColumnElement.append(storyTitleElement);
+  // Create story body
+  const storyBodyElement = document.createElement("p");
+  storyBodyElement.textContent = chartConfig.story.body;
+  storyColumnElement.append(storyBodyElement);
+  // Append story to row
+  rowElement.append(storyBodyElement);
 }
 
 /**

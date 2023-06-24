@@ -29,7 +29,7 @@
           var targetAttr = $el.data("target-attr");
           var $webComponent = $("#" + targetId);
           $webComponent.attr(targetAttr, $el.val());
-          if (targetAttr === "statVarDcid") {
+          if (targetAttr === "variable") {
             $webComponent.attr("title", $el.val());
           }
         }, 400);
@@ -52,9 +52,9 @@
           <datacommons-map
             id="map1"
             title="Count_Person"
-            placeDcid="country/USA"
-            enclosedPlaceType="State"
-            statVarDcid="Count_Person"
+            place="country/USA"
+            childPlaceType="State"
+            variable="Count_Person"
           ></datacommons-map>
           <form class="mt-3">
             <div class="form-group">
@@ -62,7 +62,7 @@
                 type="text"
                 class="form-control map-control"
                 data-target-id="map1"
-                data-target-attr="placeDcid"
+                data-target-attr="place"
                 placeholder="Place DCID"
                 value="country/USA"
               />
@@ -72,7 +72,7 @@
                 type="text"
                 class="form-control map-control"
                 data-target-id="map1"
-                data-target-attr="enclosedPlaceType"
+                data-target-attr="childPlaceType"
                 placeholder="Enclosed Place Type (e.g., State, EurostatNUTS1)"
                 value="State"
               />
@@ -82,7 +82,7 @@
                 type="text"
                 class="form-control map-control"
                 data-target-id="map1"
-                data-target-attr="statVarDcid"
+                data-target-attr="variable"
                 placeholder="Statistical Variable DCID"
                 value="Count_Person"
               />
@@ -93,9 +93,9 @@
           <datacommons-map
             id="map2"
             title="Count_Person_PerArea"
-            placeDcid="country/USA"
-            enclosedPlaceType="State"
-            statVarDcid="Count_Person_PerArea"
+            place="country/USA"
+            childPlaceType="State"
+            variable="Count_Person_PerArea"
           ></datacommons-map>
           <form class="mt-3">
             <div class="form-group">
@@ -103,7 +103,7 @@
                 type="text"
                 class="form-control map-control"
                 data-target-id="map2"
-                data-target-attr="placeDcid"
+                data-target-attr="place"
                 placeholder="Place DCID"
                 value="country/USA"
               />
@@ -113,7 +113,7 @@
                 type="text"
                 class="form-control map-control"
                 data-target-id="map2"
-                data-target-attr="enclosedPlaceType"
+                data-target-attr="childPlaceType"
                 placeholder="Enclosed Place Type (e.g., State, EurostatNUTS1)"
                 value="State"
               />
@@ -123,7 +123,7 @@
                 type="text"
                 class="form-control map-control"
                 data-target-id="map2"
-                data-target-attr="statVarDcid"
+                data-target-attr="variable"
                 placeholder="Statistical Variable DCID"
                 value="Count_Person_PerArea"
               />
