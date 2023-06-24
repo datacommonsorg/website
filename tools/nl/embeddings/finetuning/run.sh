@@ -13,9 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <embeddings-size>  # 'small' or 'medium'"
-  exit 1
+if [[ "$1" != "" ]]; then
+  if [ "$1" != "alternatives" ] && [ "$1" != "base" ]; then
+    echo "Usage pattern # 1: $0   # In this case 'STAGE' is set to 'alternatives'."
+    echo "Usage pattern # 2: $0 <STAGE>  # options: 'alternatives' or 'base'"
+    exit 1
+  else
+    STAGE="$1"
+  fi
+else
+    STAGE="alternatives"
 fi
 
 cd ../
@@ -24,4 +31,13 @@ source .env/bin/activate
 python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
-python3 -m finetuning.finetune --embeddings_size=$1
+
+# Get the model finetuned on sentence alternatives.
+MODEL_FINETUNED_ALTS=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '$1=="finetuned_alternatives_model:"{ print $2; }')
+
+if [$MODEL_FINETUNED_ALTS == ""]; then
+  echo "Could not find a pre-finetuned model with alternative sentences."
+  echo "Try usage pattern # 2 to finetune from a base model: $0 base"
+  exit 1
+fi
+python3 -m finetuning.finetune --stage=$STAGE --stage_alternatives_model="$MODEL_FINETUNED_ALTS"
