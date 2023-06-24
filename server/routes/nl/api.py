@@ -223,11 +223,11 @@ def feedback():
       not current_app.config['LOG_QUERY']):
     flask.abort(404)
 
-  session_info = request.json('session_info')
-  feedback_data = request.json['feedback_data']
+  session_id = request.json['sessionId']
+  feedback_data = request.json['feedbackData']
   try:
-    bt.write_feedback(session_info, feedback_data)
-    return 200
+    bt.write_feedback(session_id, feedback_data)
+    return '', 200
   except Exception as e:
     logging.error(e)
-    return 500, 'Failed to record feedback data'
+    return 'Failed to record feedback data', 500

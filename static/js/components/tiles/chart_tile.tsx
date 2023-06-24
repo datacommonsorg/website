@@ -18,8 +18,10 @@
  * A container for any tile containing a chart.
  */
 
-import React, { useRef } from "react";
+import axios from "axios";
+import React, { useContext, useRef, useState } from "react";
 
+import { SessionContext } from "../../apps/nl_interface/query_result";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
@@ -30,7 +32,6 @@ import {
   ReplacementStrings,
 } from "../../utils/tile_utils";
 import { ChartFooter } from "./chart_footer";
-
 interface ChartTileContainerProp {
   title: string;
   sources: Set<string>;
@@ -48,8 +49,11 @@ interface ChartTileContainerProp {
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
+  const nlSessionId = useContext(SessionContext);
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
+  const [isThumbClicked, setIsThumbClicked] = useState(false);
+
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
@@ -78,6 +82,27 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         sources={props.sources}
         handleEmbed={showEmbed ? handleEmbed : null}
       />
+
+      {nlSessionId && (
+        <div className="nl-feedback">
+          <span
+            className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
+            onClick={() => {
+              if (isThumbClicked) {
+                return;
+              }
+              setIsThumbClicked(true);
+              axios.post("/api/nl/feedback", {
+                sessionId: nlSessionId,
+                feedbackData: {}, // TODO: get useful information and fill here.
+              });
+            }}
+          >
+            &#128078;
+          </span>
+        </div>
+      )}
+
       {showEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>
   );

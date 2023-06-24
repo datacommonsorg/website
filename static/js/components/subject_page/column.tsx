@@ -18,7 +18,6 @@
  * Component for rendering a column in a disaster type block.
  */
 
-import _ from "lodash";
 import React from "react";
 
 import { NL_NUM_TILES_SHOWN } from "../../constants/app/nl_interface_constants";
