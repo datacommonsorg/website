@@ -13,31 +13,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [[ "$1" != "" ]]; then
-  if [ "$1" != "alternatives" ] && [ "$1" != "base" ]; then
-    echo "Usage pattern # 1: $0   # In this case 'STAGE' is set to 'alternatives'."
-    echo "Usage pattern # 2: $0 <STAGE>  # options: 'alternatives' or 'base'"
-    exit 1
-  else
-    STAGE="$1"
-  fi
-else
+ERR=true
+if [ "$1" == "-f" ] || [ "$1" == "-a" ]; then
+  if [ "$1" == "-f" ] && [ "$2" != "" ]; then
+    STAGE="final"
+    TUNED_ALT_MODEL="$2"
+    ERR=false
+  elif [ "$1" == "-a" ]; then
     STAGE="alternatives"
+    TUNED_ALT_MODEL=""
+    ERR=false
+  fi
+fi
+
+if [ "$ERR" == true ]; then
+    echo "Usage pattern # 1: $0 -f <tuned_alternatives_model_path_on_gcs>  # finetunes an existing tuned_alternatives model (final stage only)"
+    echo "Usage pattern # 1: $0 -a # the complete finetuning procedure (both stages: alternatives -> final)" 
+  exit 1
 fi
 
 cd ../
 python3 -m venv .env
 source .env/bin/activate
-python3 -m pip install --upgrade pip setuptools light-the-torch
-ltt install torch --cpuonly
-pip3 install -r requirements.txt
-
-# Get the model finetuned on sentence alternatives.
-MODEL_FINETUNED_ALTS=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '$1=="finetuned_alternatives_model:"{ print $2; }')
-
-if [$MODEL_FINETUNED_ALTS == ""]; then
-  echo "Could not find a pre-finetuned model with alternative sentences."
-  echo "Try usage pattern # 2 to finetune from a base model: $0 base"
-  exit 1
-fi
-python3 -m finetuning.finetune --stage=$STAGE --stage_alternatives_model="$MODEL_FINETUNED_ALTS"
+# python3 -m pip install --upgrade pip setuptools light-the-torch
+# ltt install torch --cpuonly
+# pip3 install -r requirements.txt
+python3 -m finetuning.finetune --stage=$STAGE --pretuned_model="$TUNED_ALT_MODEL"

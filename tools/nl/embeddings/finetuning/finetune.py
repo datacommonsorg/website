@@ -40,7 +40,7 @@ flags.DEFINE_string(
     'Valid values are: "base", "alternatives". For a complete finetuning (starting from the base model, use "base". To start from a finetuned base which has already been trained on the alternatives, type "alternatives".)'
 )
 flags.DEFINE_string(
-    'stage_alternatives_model', '',
+    'pretuned_model', '',
     'The versioned model folder name on GCS for the model which has already been finetuned using alternatives.'
 )
 
@@ -89,7 +89,7 @@ def _upload_to_gcs(ctx: utils.Context,
   print(f'Path in GCS: {gcs_path}')
 
 
-def _make_gcs_model_folder(base_model_name: str) -> str:
+def _make_gcs_model_folder(stage: str, base_model_name: str) -> str:
   now = datetime.now()
 
   month_str = utils.two_digits(now.month)
@@ -98,7 +98,11 @@ def _make_gcs_model_folder(base_model_name: str) -> str:
   minute_str = utils.two_digits(now.minute)
   second_str = utils.two_digits(now.second)
 
-  return f"ft_{base_model_name}_v{now.year}{month_str}{day_str}{hour_str}{minute_str}{second_str}"
+  prefix = f"ft_{stage}_v{now.year}{month_str}{day_str}{hour_str}{minute_str}{second_str}"
+  if base_model_name:
+    return f"{prefix}.{base_model_name}"
+  else:
+    return prefix
 
 
 def _alternatives(autogen_input_filepattern: str,
@@ -139,8 +143,9 @@ def _download_model_from_gcs(ctx: utils.Context, model_folder_name: str) -> str:
   return local_dir + model_folder_name
 
 
-def _save_finetuned_model(ctx: utils.Context, model_name: str) -> str:
-  gcs_model_folder = _make_gcs_model_folder(model_name)
+def _save_finetuned_model(ctx: utils.Context, stage: str,
+                          model_name: str) -> str:
+  gcs_model_folder = _make_gcs_model_folder(stage, model_name)
   gcs_tmp_out_path = os.path.join(ctx.tmp, gcs_model_folder)
 
   print(f"Saving finetuned model locally to {gcs_tmp_out_path}")
@@ -278,15 +283,15 @@ def finetune_model(model: Any, training_examples: List[InputExample]):
 def main(_):
 
   assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2
-  assert FLAGS.stage in ["alternatives", "base"]
-  assert FLAGS.stage_alternatives_model
+  assert (FLAGS.stage == "alternatives") or ((FLAGS.stage == "final") and
+                                             (FLAGS.pretuned_model))
 
   assert os.path.exists(os.path.join('data'))
 
   # Determine if the finetuning begins from the base model or from a
   # pre-finetuned model (fine tuned on sentence alternatives) on GCS.
   start_from_base = False
-  if FLAGS.stage == "base":
+  if FLAGS.stage == "alternatives":
     start_from_base = True
 
   autogen_input_filepattern = f'{FLAGS.autogen_input_basedir}/{EMBEDDINGS_SIZE}/*.csv'
@@ -298,7 +303,7 @@ def main(_):
   # Step 0. Gather the sentence/text alternatives and load the base model.
   print("Gathering the training sentence/text pairs.")
   df_svs = _alternatives(autogen_input_filepattern,
-                         FLAGS.alternatives_filepattern)[0:100]
+                         FLAGS.alternatives_filepattern)
   df_sentence_pairs = pd.read_csv(FLAGS.sentence_pairs_filepath).fillna("")
   print(f"Found {len(df_svs)} rows in the alternatives dataframe.")
   print(
@@ -324,16 +329,16 @@ def main(_):
                         tmp='/tmp')
 
     # Step 2b. Upload the alternatives finetuned model to the NL model server's GCS bucket.
-    model_alts_folder_name = _save_finetuned_model(ctx,
-                                                   "alt_" + FLAGS.model_name_v2)
+    model_alts_folder_name = _save_finetuned_model(ctx, "alternatives",
+                                                   FLAGS.model_name_v2)
     print(
-        f"NOTE: Please update `finetuned_alternatives_model` in model.yaml with: {model_alts_folder_name}"
+        f"Produced and uploaded tuned_alternatives_model: {model_alts_folder_name}"
     )
 
   else:
     # Step 1. Loading the pre-finetuned model (fine tuned with alternatives).
     # No need for Steps 2a and 2b (see above).
-    model_alts_folder_name = FLAGS.stage_alternatives_model
+    model_alts_folder_name = FLAGS.pretuned_model
     print(
         f"Loading the pre-finetuned alternatives model: {model_alts_folder_name}"
     )
@@ -353,10 +358,10 @@ def main(_):
                       model=model_final_finetuned,
                       bucket=bucket,
                       tmp='/tmp')
-  model_final_folder_name = _save_finetuned_model(
-      ctx, "final_" + model_alts_folder_name)
+  model_final_folder_name = _save_finetuned_model(ctx, "final",
+                                                  model_alts_folder_name)
   print(
-      f"NOTE: Please update `finetuned_final_model` in model.yaml with:: {model_final_folder_name}"
+      f"NOTE: Please update `tuned_model` in model.yaml with:: {model_final_folder_name}"
   )
 
 
