@@ -198,6 +198,8 @@ def data():
                                          context_history, dbg_counters,
                                          query_detection_debug_logs,
                                          actual_detector)
+  # Convert data_dict to pure json.
+  data_dict = utils.to_dict(data_dict)
   if current_app.config['LOG_QUERY']:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()

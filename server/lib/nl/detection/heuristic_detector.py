@@ -13,7 +13,6 @@
 # limitations under the License.
 """Heuristics based detector"""
 
-import dataclasses
 import logging
 from typing import Dict
 
@@ -90,8 +89,7 @@ def detect(orig_query: str, cleaned_query: str, index_type: str,
 
   # Update the various place detection and query transformation debug logs dict.
   query_detection_debug_logs["places_found_str"] = places_str_found
-  query_detection_debug_logs["main_place_inferred"] = dataclasses.asdict(
-      main_place)
+  query_detection_debug_logs["main_place_inferred"] = main_place
   query_detection_debug_logs["query_transformations"] = {
       "place_detection_input": cleaned_query.lower(),
       "place_detection_with_places_removed": query,
