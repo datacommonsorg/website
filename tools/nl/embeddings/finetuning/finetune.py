@@ -16,6 +16,7 @@
 from datetime import datetime
 import glob
 import os
+from pathlib import Path
 import time
 from typing import Any, List
 
@@ -24,7 +25,6 @@ from absl import flags
 from google.cloud import storage
 import gspread
 import pandas as pd
-from pathlib import Path
 from sentence_transformers import InputExample
 from sentence_transformers import losses
 from sentence_transformers import SentenceTransformer
@@ -35,11 +35,14 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
-flags.DEFINE_string('stage', 'alternatives',
-                    'Valid values are: "base", "alternatives". For a complete finetuning (starting from the base model, use "base". To start from a finetuned base which has already been trained on the alternatives, type "alternatives".)')
-flags.DEFINE_string('stage_alternatives_model', '',
-                    'The versioned model folder name on GCS for the model which has already been finetuned using alternatives.')
-
+flags.DEFINE_string(
+    'stage', 'alternatives',
+    'Valid values are: "base", "alternatives". For a complete finetuning (starting from the base model, use "base". To start from a finetuned base which has already been trained on the alternatives, type "alternatives".)'
+)
+flags.DEFINE_string(
+    'stage_alternatives_model', '',
+    'The versioned model folder name on GCS for the model which has already been finetuned using alternatives.'
+)
 
 flags.DEFINE_string(
     'autogen_input_basedir', 'data/autogen_input',
@@ -120,20 +123,21 @@ def _alternatives(autogen_input_filepattern: str,
   return df_svs
 
 
-def _download_model_from_gcs(ctx: utils.Context, model_folder_name:str) -> str:
+def _download_model_from_gcs(ctx: utils.Context, model_folder_name: str) -> str:
   local_dir = ctx.tmp + "/"
   # Get list of files
-  blobs = ctx.bucket.list_blobs(prefix=model_folder_name) 
+  blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
   for blob in blobs:
     file_split = blob.name.split("/")
     directory = local_dir + "/".join(file_split[0:-1])
     Path(directory).mkdir(parents=True, exist_ok=True)
 
     if blob.name.endswith("/"):
-       continue
+      continue
     blob.download_to_filename(directory + "/" + file_split[-1])
-  
+
   return local_dir + model_folder_name
+
 
 def _save_finetuned_model(ctx: utils.Context, model_name: str) -> str:
   gcs_model_folder = _make_gcs_model_folder(model_name)
@@ -172,7 +176,8 @@ def _save_finetuned_model(ctx: utils.Context, model_name: str) -> str:
   return gcs_model_folder
 
 
-def _generate_training_examples_from_sentence_pairs(df_sentence_pairs: pd.DataFrame) -> List[InputExample]:
+def _generate_training_examples_from_sentence_pairs(
+    df_sentence_pairs: pd.DataFrame) -> List[InputExample]:
   """Transform `df_sentence_pairs` (text pairs with approx similarity scores) to
   produce a list of training examples (text pairs and scores). We use the provided
   similarity scores/labels without any edits.
@@ -191,7 +196,8 @@ def _generate_training_examples_from_sentence_pairs(df_sentence_pairs: pd.DataFr
   return training_examples
 
 
-def _generate_training_examples_from_alternatives(df_svs: pd.DataFrame) -> List[InputExample]:
+def _generate_training_examples_from_alternatives(
+    df_svs: pd.DataFrame) -> List[InputExample]:
   """Use `df_svs` (alternatives) to produce a list of training examples (text pairs and scores).
   Using the StatVar name, description and alternatives (human curated and LLM-generated) in `df_svs` we create pairs
   of sentences/text with high similarity scores`.
@@ -298,7 +304,7 @@ def main(_):
   print(
       f"Found {len(df_sentence_pairs)} human-curated sentence pairs with scores."
   )
-  
+
   if start_from_base:
     # If starting from the base model, first build the finetuned model using
     # sentence/text alternatives. Checkpoint (save/upload) that model to GCS.
@@ -309,31 +315,49 @@ def main(_):
 
     # Step 2a. Fine tuning with alternatives.
     print(f"Fine tuning with alternatives. Stage: {FLAGS.stage}")
-    model_alts_finetuned = finetune_model(model_base, _generate_training_examples_from_alternatives(df_svs))
+    model_alts_finetuned = finetune_model(
+        model_base, _generate_training_examples_from_alternatives(df_svs))
 
-    ctx = utils.Context(gs=gs, model=model_alts_finetuned, bucket=bucket, tmp='/tmp')
+    ctx = utils.Context(gs=gs,
+                        model=model_alts_finetuned,
+                        bucket=bucket,
+                        tmp='/tmp')
 
     # Step 2b. Upload the alternatives finetuned model to the NL model server's GCS bucket.
-    model_alts_folder_name = _save_finetuned_model(ctx, "alt_" + FLAGS.model_name_v2)
-    print(f"NOTE: Please update `finetuned_alternatives_model` in model.yaml with: {model_alts_folder_name}")
+    model_alts_folder_name = _save_finetuned_model(ctx,
+                                                   "alt_" + FLAGS.model_name_v2)
+    print(
+        f"NOTE: Please update `finetuned_alternatives_model` in model.yaml with: {model_alts_folder_name}"
+    )
 
   else:
     # Step 1. Loading the pre-finetuned model (fine tuned with alternatives).
     # No need for Steps 2a and 2b (see above).
     model_alts_folder_name = FLAGS.stage_alternatives_model
-    print(f"Loading the pre-finetuned alternatives model: {model_alts_folder_name}")
+    print(
+        f"Loading the pre-finetuned alternatives model: {model_alts_folder_name}"
+    )
     ctx = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
-    downloaded_model_path = _download_model_from_gcs(ctx, model_alts_folder_name)
+    downloaded_model_path = _download_model_from_gcs(ctx,
+                                                     model_alts_folder_name)
     model_alts_finetuned = SentenceTransformer(downloaded_model_path)
 
   # Step 3. Fine tuning with sentence pairs.
   print(f"Fine tuning with sentence pairs.")
-  model_final_finetuned = finetune_model(model_alts_finetuned, _generate_training_examples_from_sentence_pairs(df_sentence_pairs))
+  model_final_finetuned = finetune_model(
+      model_alts_finetuned,
+      _generate_training_examples_from_sentence_pairs(df_sentence_pairs))
 
   # Step 4. Upload the final finetuned model to the NL model server's GCS bucket.
-  ctx = utils.Context(gs=gs, model=model_final_finetuned, bucket=bucket, tmp='/tmp')
-  model_final_folder_name = _save_finetuned_model(ctx, "final_" + model_alts_folder_name)
-  print(f"NOTE: Please update `finetuned_final_model` in model.yaml with:: {model_final_folder_name}")
+  ctx = utils.Context(gs=gs,
+                      model=model_final_finetuned,
+                      bucket=bucket,
+                      tmp='/tmp')
+  model_final_folder_name = _save_finetuned_model(
+      ctx, "final_" + model_alts_folder_name)
+  print(
+      f"NOTE: Please update `finetuned_final_model` in model.yaml with:: {model_final_folder_name}"
+  )
 
 
 if __name__ == "__main__":
