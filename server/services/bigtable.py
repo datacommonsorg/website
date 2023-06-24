@@ -40,9 +40,9 @@ _COL_FEEDBACK = 'feedback'
 _SPAN_IN_DAYS = 3
 
 
-def get_row_key(session_info, project_id):
+def get_row_key(session_id, project_id):
   # The session_id starts with a rand to avoid hotspots.
-  return '{}#{}'.format(session_info['id'], project_id).encode()
+  return '{}#{}'.format(session_id, project_id).encode()
 
 
 def get_nl_table():
@@ -59,9 +59,9 @@ def get_project_id():
   return project_id
 
 
-def write_feedback(session_info, data):
+def write_feedback(session_id, data):
   project_id = get_project_id()
-  row_key = get_row_key(session_info, project_id)
+  row_key = get_row_key(session_id, project_id)
   table = current_app.config['NL_TABLE']
   row = table.direct_row(row_key)
   row.set_cell(_COLUMN_FAMILY, _COL_FEEDBACK.encode(), json.dumps(data))
@@ -76,7 +76,7 @@ async def write_row(session_info, data):
     return
   project_id = get_project_id()
   # The session_id starts with a rand to avoid hotspots.
-  row_key = get_row_key(session_info, project_id)
+  row_key = get_row_key(session_info['id'], project_id)
   row = table.direct_row(row_key)
   mixer_version = dc.version()
   version = {
