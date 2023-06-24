@@ -1,3 +1,3 @@
 small: embeddings_small_2023_05_24_23_17_03.csv
 medium: embeddings_medium_2023_05_24_22_15_24.csv
-tuned_model: ft_final_v20230623214025.ft_alternatives_v20230623214019.all-MiniLM-L6-v2
+tuned_model: ft_final_v20230624010424.ft_alternatives_v20230624010339.all-MiniLM-L6-v2
