@@ -75,7 +75,6 @@ export const QueryResult = memo(function QueryResult(
 
   function fetchData(query: string): void {
     setIsLoading(true);
-    console.log("context:", props.query, props.contextHistory);
     let indexParam = "";
     if (props.indexType) {
       indexParam = "&idx=" + props.indexType;

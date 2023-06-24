@@ -88,7 +88,10 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
           <span
             className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
             onClick={() => {
-              console.log(nlSessionId);
+              if (isThumbClicked) {
+                return;
+              }
+              setIsThumbClicked(true);
               axios.post("/api/nl/feedback", {
                 sessionId: nlSessionId,
                 feedbackData: {}, // TODO: get useful information and fill here.
