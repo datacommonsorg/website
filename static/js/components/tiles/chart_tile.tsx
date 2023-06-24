@@ -21,10 +21,10 @@
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 
-import { SessionContext } from "../../apps/nl_interface/query_result";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { NlSessionContext } from "../../shared/context";
 import {
   formatString,
   getChartTitle,
@@ -49,7 +49,7 @@ interface ChartTileContainerProp {
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
-  const nlSessionId = useContext(SessionContext);
+  const nlSessionId = useContext(NlSessionContext);
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   const [isThumbClicked, setIsThumbClicked] = useState(false);
