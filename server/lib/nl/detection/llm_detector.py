@@ -205,20 +205,20 @@ def _build_classifications(llm_resp: Dict,
     if t not in llm_resp:
       continue
 
-    cls = None
+    c = None
     if t in _LLM_TYPE_TO_CLASSIFICATION_TYPE:
-      cls = _handle_llm2classification(t, llm_resp)
+      c = _handle_llm2classification(t, llm_resp)
     elif t == 'COMPARE':
       llm_vals = _get_llm_vals(llm_resp[t])
       if not llm_vals:
         continue
-      cls = _handle_compare(llm_vals[0])
+      c = _handle_compare(llm_vals[0])
     elif t == filter_type:
       # Earlier caller had set filter_type by checking llm_resp,
       # should be safe to do llm_resp[t][0].
-      cls = _handle_quantity(llm_resp[t][0], t)
-    if cls:
-      classifications.append(cls)
+      c = _handle_quantity(llm_resp[t][0], t)
+    if c:
+      classifications.append(c)
   return classifications
 
 
