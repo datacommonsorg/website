@@ -20,7 +20,13 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { createRef, memo, useEffect, useState } from "react";
+import React, {
+  createContext,
+  createRef,
+  memo,
+  useEffect,
+  useState,
+} from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
@@ -28,6 +34,8 @@ import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { SearchResult } from "../../types/app/nl_interface_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
+
+export const SessionContext = createContext("");
 
 export interface QueryResultProps {
   query: string;
@@ -67,7 +75,6 @@ export const QueryResult = memo(function QueryResult(
 
   function fetchData(query: string): void {
     setIsLoading(true);
-    console.log("context:", props.query, props.contextHistory);
     let indexParam = "";
     if (props.indexType) {
       indexParam = "&idx=" + props.indexType;
@@ -107,6 +114,7 @@ export const QueryResult = memo(function QueryResult(
               types: [mainPlace["place_type"]],
             },
             config: resp.data["config"],
+            sessionId: "session" in resp.data ? resp.data["session"]["id"] : "",
           });
         } else {
           setErrorMsg("Sorry, we couldn't answer your question.");
@@ -147,13 +155,15 @@ export const QueryResult = memo(function QueryResult(
             ></DebugInfo>
           )}
           {chartsData && chartsData.config && (
-            <SubjectPageMainPane
-              id={`pg${props.queryIdx}`}
-              place={chartsData.place}
-              pageConfig={chartsData.config}
-              svgChartHeight={SVG_CHART_HEIGHT}
-              showData={props.showData}
-            />
+            <SessionContext.Provider value={chartsData.sessionId}>
+              <SubjectPageMainPane
+                id={`pg${props.queryIdx}`}
+                place={chartsData.place}
+                pageConfig={chartsData.config}
+                svgChartHeight={SVG_CHART_HEIGHT}
+                showData={props.showData}
+              />
+            </SessionContext.Provider>
           )}
           {errorMsg && (
             <div className="nl-query-error">

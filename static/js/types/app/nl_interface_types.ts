@@ -24,6 +24,7 @@ import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 export interface SearchResult {
   place: NamedTypedPlace;
   config: SubjectPageConfig;
+  sessionId?: string;
 }
 
 export interface MultiSVCandidatePart {
