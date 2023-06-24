@@ -30,3 +30,5 @@ export interface ContextType {
 }
 
 export const Context = createContext({} as ContextType);
+
+export const NlSessionContext = createContext("");

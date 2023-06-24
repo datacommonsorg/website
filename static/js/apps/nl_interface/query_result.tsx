@@ -20,22 +20,15 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, {
-  createContext,
-  createRef,
-  memo,
-  useEffect,
-  useState,
-} from "react";
+import React, { createRef, memo, useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
+import { NlSessionContext } from "../../shared/context";
 import { SearchResult } from "../../types/app/nl_interface_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
-
-export const SessionContext = createContext("");
 
 export interface QueryResultProps {
   query: string;
@@ -155,7 +148,7 @@ export const QueryResult = memo(function QueryResult(
             ></DebugInfo>
           )}
           {chartsData && chartsData.config && (
-            <SessionContext.Provider value={chartsData.sessionId}>
+            <NlSessionContext.Provider value={chartsData.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
                 place={chartsData.place}
@@ -163,7 +156,7 @@ export const QueryResult = memo(function QueryResult(
                 svgChartHeight={SVG_CHART_HEIGHT}
                 showData={props.showData}
               />
-            </SessionContext.Provider>
+            </NlSessionContext.Provider>
           )}
           {errorMsg && (
             <div className="nl-query-error">
