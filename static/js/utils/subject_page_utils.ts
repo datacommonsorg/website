@@ -52,7 +52,7 @@ export function getId(
   componentIdPrefix: string,
   componentIdx: number
 ): string {
-  return `${parentId}${componentIdPrefix}${componentIdx}`;
+  return `${parentId}_${componentIdPrefix}_${componentIdx}`;
 }
 
 /**
