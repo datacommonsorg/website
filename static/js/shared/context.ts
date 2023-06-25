@@ -34,8 +34,8 @@ export const Context = createContext({} as ContextType);
 export const NlSessionContext = createContext("");
 
 export const SdgContext = createContext({
-  sdgIndex: 0,
+  sdgIndex: null,
   setSdgIndex: (i: number) => {
-    console.log(i);
+    return;
   },
 });

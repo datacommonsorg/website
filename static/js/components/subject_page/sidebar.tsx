@@ -50,7 +50,7 @@ const SDG_TEXT = [
   "Life Below Water",
   "Life on Land",
   "Peace and Justice Strong Institutions",
-  "Partnerships to achieve the Goal<",
+  "Partnerships to achieve the Goal",
 ];
 
 interface SubjectPageSidebarPropType {
