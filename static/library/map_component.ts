@@ -52,21 +52,48 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   place!: string;
 
+  /**
+   * @deprecated
+   * DCID of the parent place
+   * Deprecated. Use place instead.
+   */
+  @property()
+  placeDcid: string;
+
   // Type of child place to rank (ex: State, County)
   @property()
   childPlaceType!: string;
+
+  /**
+   * @deprecated
+   * Type of child place to rank (ex: State, County)
+   * Deprecated. Use childPlaceType instead.
+   */
+  @property()
+  enclosedPlaceType: string;
 
   // Statistical variable DCID
   @property()
   variable!: string;
 
+  /**
+   * @deprecated
+   * Statistical variable DCID
+   * Deprecated. Use variable instead.
+   */
+  @property()
+  statVarDcid: string;
+
   render(): HTMLElement {
+    const place = this.place || this.placeDcid;
+    const variable = this.variable || this.statVarDcid;
+    const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
     const mapTileProps: MapTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
-      enclosedPlaceType: this.childPlaceType,
+      enclosedPlaceType: childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.place,
+        dcid: place,
         name: "",
         types: [],
       },
@@ -75,7 +102,7 @@ export class DatacommonsMapComponent extends LitElement {
         log: false,
         name: "",
         scaling: 1,
-        statVar: this.variable,
+        statVar: variable,
         unit: "",
       },
       svgChartHeight: 200,
