@@ -198,12 +198,14 @@ def data():
                                          context_history, dbg_counters,
                                          query_detection_debug_logs,
                                          actual_detector)
+  # Convert data_dict to pure json.
+  data_dict = utils.to_dict(data_dict)
   if current_app.config['LOG_QUERY']:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = context.get_session_info(context_history)
     data_dict['session'] = session_info
-    loop.run_until_complete(bt.write_row(session_info, data_dict))
+    loop.run_until_complete(bt.write_row(session_info, data_dict, dbg_counters))
 
   logging.info('NL Data API: Exit')
   return data_dict
