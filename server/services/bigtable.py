@@ -59,7 +59,7 @@ def get_project_id():
   return project_id
 
 
-def write_feedback(session_info: Dict, data: Dict):
+def write_feedback(session_id: str, data: Dict):
   project_id = get_project_id()
   row_key = get_row_key(session_id, project_id)
   table = current_app.config['NL_TABLE']
