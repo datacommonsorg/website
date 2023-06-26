@@ -14,9 +14,9 @@
 """Common Utility functions for Embeddings."""
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from pathlib import Path
 import pandas as pd
 
 # Col names in the input files/sheets.

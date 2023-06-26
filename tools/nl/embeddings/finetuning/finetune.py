@@ -35,8 +35,8 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string(
-    'stage', 'alternatives',
-    'Valid values are: "base", "alternatives". For a complete finetuning (starting from the base model, use "base". To start from a finetuned base which has already been trained on the alternatives, type "alternatives".)'
+    'stage', 'final',
+    'Valid values are: "final", "alternatives". For a complete finetuning (starting from the base model, use "alternatives". To start from a finetuned base which has already been trained on the alternatives, type "final".)'
 )
 flags.DEFINE_string(
     'pretuned_model', '',
