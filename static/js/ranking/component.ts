@@ -19,6 +19,14 @@ import ReactDOM from "react-dom";
 
 import { Page, RankingPagePropType } from "./ranking_page";
 
+/**
+ * Export the component so this can be used as a library in a static page.
+ *
+ * Note this is also used to render the "ranking" page directly.
+ *
+ * @param element DOM element to render the chart
+ * @param props ranking component properties
+ */
 export const renderRankingComponent = (
   element: HTMLElement,
   props: RankingPagePropType
