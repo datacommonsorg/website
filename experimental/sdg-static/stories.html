@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>UN SDGs + Google Data Commons</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -16,6 +17,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
     <script src="https://autopush.datacommons.org/datacommons.js"></script>
     <script>
+      $(document).ready(function() {
+        $(document).on("click", ".sidebar-link", function(e) {
+          var $e = $(e.currentTarget);
+          var targetNumber = $e.data("target");
+
+          // Unselect sidebar links and hide all sdg content sections
+          $(".sidebar-link").removeClass("selected");
+          $(".sdg-container").addClass("hidden");
+
+          // Select the current sidebar link & show its sdg content section
+          $e.addClass("selected")
+          $("#sdg" + targetNumber).removeClass("hidden");
+        });
+      });
       /** Click to show and hide different SDGs */
       function showSdgContainer(event, elementName) {
         console.log('click');
@@ -31,16 +46,6 @@
       }
       .chart-story-container {
         margin: 20px 0px;
-      }
-      .dc-logo {
-        float:left;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 1;
-        margin-top: 10px;
-        margin-left: 20px;
-        overflow: hidden;
-        padding-left: 10px;
       }
       .dc-navbar {
         align-items: center;
@@ -91,19 +96,74 @@
       .dc-subnav-item:hover a {
         text-decoration: none;
       }
-      .logo-banner {
-        margin-top: 10px;
+      .hidden {
+        display:none;
       }
-      .logo-banner img {
-        margin-top: 10px;
-        float: left;
+      .logo {
+        height: 75px;
+        display:flex;
+        flex-direction:row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo-banner {
+        align-items: center;
+        display:flex;
+        flex-direction:row;
+        
+      }
+      .logo-banner a, .logo-banner a:hover {
+        color: #222222;
+        text-decoration: none;
+      }
+      .logo-banner .left {
+        padding-right: 1.25rem;
+      }
+      .logo-banner .right {
+        border-left: 2px solid grey;
+        padding-left: 1.25rem;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 1;
+      }
+      .logo-secondary img {
         height: 35px;
       }
-      .main-title {
-        font-size: 40px;
-        font-weight: bold;
-        padding-top: 100px;
+      .logo-banner img {
+        height: 35px;
+      }
+      .main {
+        margin: 60px auto;
+      }
+      .main-text {
+        margin:auto;
+        max-width: 600px;
         text-align: center;
+      }
+      .main-subtext {
+        margin:auto;
+        max-width: 600px;
+        text-align: center;
+        font-size:0.8rem;
+        font-weight:600px;
+        color:#727272;
+      }
+      .main-title {
+        font-size: 2.5rem;
+        font-weight: 400;
+        margin-bottom:2rem;
+        text-align: center;
+      }
+      .section-header {
+        margin: 2rem 0;
+        display: flex;
+        justify-content: center;
+        font-size:2.5rem;
+        font-weight:300;
+        padding:1rem;
+        border-radius:1.5rem;
+        background: #f9f9f9;
+        
       }
       .sidebar-container {
         max-height: calc(100vh - 1rem);
@@ -111,27 +171,36 @@
       }
       .sidebar-link {
         align-items: center;
-        border-left: 2px solid transparent;
+        border-radius: 0.25rem;
         cursor: pointer;
         display: flex;
         flex-direction: row;
         margin-bottom: 0.5rem;
+        padding: 0.25rem;
+      }
+      .sidebar-link.selected,.sidebar-link.selected:hover {
+        background: #e0eafa;
       }
       .sidebar-link:hover {
-        border-left: 2px solid #efefef;
+        background: #f2f6fd;
       }
       .sidebar-link-icon {
         background-color: #f5f5f5;
         margin-left: 0.25rem;
-        padding: 0.25rem 0.5rem;
+        padding: 0.15rem 0.15rem;
         border-radius: 0.25rem;
         margin-right: 0.75rem;
       }
       .sidebar-link:hover .sidebar-link-icon {
         background-color: #efefef;
       }
+      .sidebar-link .sidebar-link-icon img {
+        width:40px;
+        height:40px;
+        border-radius: 0.25rem;
+      }
       .sidebar-link:hover .sidebar-link-text {
-        text-decoration: underline;
+        text-decoration: none;
       }
       .story-column {
         margin-top: 1rem;
@@ -141,10 +210,6 @@
         font-weight: bold;
         font-size: 1rem;
       }
-      .vertical-line {
-        border-left: 2px solid grey;
-        padding-left: 20px;
-      }
       /** Datacommons style overrides */
       .chart-container {
         height: unset; /** Prevents map chart overflow */
@@ -152,60 +217,193 @@
     </style>
   </head>
   <body>
-    <div class="container">
+    <div class="container logo">
       <div class="logo-banner">
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Logo_of_the_United_Nations.svg/800px-Logo_of_the_United_Nations.svg.png"
+        <a href="https://sdgs.un.org/" target="_blank">
+          <img class="left"
+            src="https://sdgs.un.org/themes/custom/porto/assets/images/logo-en.svg"
+          />
+        </a>
+        <a class="right" href="https://datacommons.org" target="_blank">
+          Data<br />Commons
+        </a>
+      </div>
+      <div class="logo-secondary">
+        <a href="https://sdgs.un.org/goals" target="_blank">
+          <img 
+          src="https://www.un.org/sustainabledevelopment/wp-content/uploads/2019/08/E_SDG_logo_without_UN_emblem_horizontal_RGB-1200x219.png"
         />
-        <div class="vertical-line dc-logo">Data<br />Commons</div>
+      </a>
       </div>
     </div>
   
-    <div class="main-title">Sustainable Development Goals</div>
-      <nav class="dc-navbar navbar navbar-expand-lg navbar-light bg-light">
-      </nav>
-      <nav class="dc-subnav">
-        <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link selected">Global Overview</span></a></div>
-        <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link">Country View</span></span></a></div>
-      </nav>
+    <div class="main container">
+      <div class="main-title">Sustainable Development Goals</div>
+      <p class="main-text mb-4">
+        Discover the progress made towards the United Nations Sustainable Development Goals (SDGs). Access accurate and up-to-date information, interactive visualizations, and insightful analysis, empowering you to drive positive change towards a sustainable future for all.
+      </p>
+      <p class="main-subtext">Powered by Google <a href="https://datacommons.org" target="_blank">Data Commons</a></p>
+    </div>
+    <nav class="dc-subnav">
+      <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link selected">Global Overview</span></a></div>
+      <div class="dc-subnav-item"><a href="#"><span class="dc-subnav-link">Country View</span></span></a></div>
+    </nav>
 
 
     <div class="container">
 
       <div class="row">
-
-
-
         <!-- Sidebar -->
-        <div class="col-2">
+        <div class="col-3">
           <div
             class="sticky-top pt-4 pr-4 sidebar-container"
             id="sidebar-container"
           >
-            <div class="sidebar-link" onclick="showSdgContainer(event, 'sdg1')">
+            <div class="sidebar-link selected" data-target="1">
               <div>
-                <div class="sidebar-link-icon">1</div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-01.jpg" />
+                </div>
               </div>
               <div class="sidebar-link-text">No Poverty</div>
             </div>
-        
-            <div class="sidebar-link" onclick="showSdgContainer(event, 'sdg2')">
+            <div class="sidebar-link" data-target="2">
               <div>
-                <div class="sidebar-link-icon">2</div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-02.jpg" />
+                </div>
               </div>
               <div class="sidebar-link-text">Zero Hunger</div>
             </div>
-
+            <div class="sidebar-link" data-target="3">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-03.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Good Health and Well-being</div>
+            </div>
+            <div class="sidebar-link" data-target="4">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-04.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Quality Education</div>
+            </div>
+            <div class="sidebar-link" data-target="5">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-05.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Gender Equality</div>
+            </div>
+            <div class="sidebar-link" data-target="6">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-06.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Clean Water and Sanitation</div>
+            </div>
+            <div class="sidebar-link" data-target="7">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-07.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Affordable and Clean Energy  </div>
+            </div>
+            <div class="sidebar-link" data-target="8">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-08.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Decent Work and Economic Growth</div>
+            </div>
+            <div class="sidebar-link" data-target="9">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-09.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Industry Innovation and Infrastructure</div>
+            </div>
+            <div class="sidebar-link" data-target="10">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-10.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Reduced Inequality</div>
+            </div>
+            <div class="sidebar-link" data-target="11">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-11.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Sustainable Cities and Communities</div>
+            </div>
+            <div class="sidebar-link" data-target="12">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-12.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Responsible Consumption and Production</div>
+            </div>
+            <div class="sidebar-link" data-target="13">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Climate Action</div>
+            </div>
+            <div class="sidebar-link" data-target="14">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-14.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Life Below Water</div>
+            </div>
+            <div class="sidebar-link" data-target="15">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-15.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Life on Land</div>
+            </div>
+            <div class="sidebar-link" data-target="16">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-16.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Peace and Justice Strong Institutions</div>
+            </div>
+            <div class="sidebar-link" data-target="17">
+              <div>
+                <div class="sidebar-link-icon">
+                  <img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-17.jpg" />
+                </div>
+              </div>
+              <div class="sidebar-link-text">Partnerships to achieve the Goal</div>
+            </div>
           </div>
         </div>
 
         <!-- Main page content -->
         <div class="col">
-
           <!-- SDG 1: No Poverty -->
           <div id="sdg1" class="sdg-container">
-            <div class="row my-4 d-flex justify-content-center">
-              <h2>Goal 1: No Poverty</h2>
+            <div class="section-header">
+              Goal 1: No Poverty
             </div>
             <div class="row chart-story-container">
               <div class="col-6 chart-column">
@@ -285,9 +483,9 @@
 
           
           <!-- SDG 2: Zero Hunger -->
-          <div id="sdg2" class="sdg-container">
-            <div class="row my-4 d-flex justify-content-center">
-              <h2>Goal 2: Zero Hunger</h2>
+          <div id="sdg2" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 2: Zero Hunger
             </div>
             <div class="row chart-story-container">
               <div class="col-6 chart-column">
@@ -351,14 +549,173 @@
             </div>
           </div>
 
+          <div id="sdg3" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 3: Good Health and Well-being
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg4" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 4: Quality Education
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg5" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 5: Gender Equality
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg6" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 6: Clean Water and Sanitation
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg7" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 7: Affordable and Clean Energy
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg8" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 8: Decent Work and Economic Growth
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg9" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 9: Industry Innovation and Infrastructure
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg10" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 10: Reduced Inequality
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg11" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 11: Sustainable Cities and Communities
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg12" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 12: Responsible Consumption and Production
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg13" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 13: Climate Action
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg14" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 14: Life Below Water
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg15" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 15: Life on Land
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg16" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 16: Peace and Justice Strong Institutions
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
+
+          <div id="sdg17" class="sdg-container hidden">
+            <div class="section-header">
+              Goal 17: Partnerships to achieve the Goal
+            </div>
+            <div class="row chart-story-container">
+              <div class="col">
+                Coming soon...
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
     </div>
   </body>
-  <footer>
-    <script>
-      document.getElementById('sdg1').style.display="block";
-    </script>
-  </footer>
 </html>
