@@ -17,6 +17,10 @@
 // lodash templates
 const BLOCK_TEMPLATE = "./templates/block.template.html";
 const SIDEBAR_ITEM_TEMPLATE = "./templates/sidebar_item.template.html";
+const CHART_BAR_TEMPLATE = "./templates/charts/bar.template.html";
+const CHART_LINE_TEMPLATE = "./templates/charts/line.template.html";
+const CHART_MAP_TEMPLATE = "./templates/charts/map.template.html";
+const CHART_RANKING_TEMPLATE = "./templates/charts/ranking.template.html";
 
 // Application config path
 const SDG_CONFIG = "./config/sdg.json";
@@ -25,6 +29,10 @@ const SDG_CONFIG = "./config/sdg.json";
 const TEMPLATES = {
   block: _.template(""),
   sidebarItem: _.template(""),
+  chartBar: _.template(""),
+  chartLine: _.template(""),
+  chartMap: _.template(""),
+  chartRanking: _.template(""),
 };
 
 // Global application state
@@ -50,16 +58,32 @@ async function initializeTemplates() {
   // Fetch templates simultaneously
   const blockTemplateRequest = fetch(BLOCK_TEMPLATE);
   const sidebarItemTemplateRequest = fetch(SIDEBAR_ITEM_TEMPLATE);
+  const chartBarTemplateRequest = fetch(CHART_BAR_TEMPLATE);
+  const chartLineTemplateRequest = fetch(CHART_LINE_TEMPLATE);
+  const chartMapTemplateRequest = fetch(CHART_MAP_TEMPLATE);
+  const chartRankingTemplateRequest = fetch(CHART_RANKING_TEMPLATE);
 
   // Wait for content
   const blockTemplateContent = await (await blockTemplateRequest).text();
   const sidebarItemTemplateContent = await (
     await sidebarItemTemplateRequest
   ).text();
+  const chartBarTemplateContent = await (await chartBarTemplateRequest).text();
+  const chartLineTemplateContent = await (
+    await chartLineTemplateRequest
+  ).text();
+  const chartMapTemplateContent = await (await chartMapTemplateRequest).text();
+  const chartRankingTemplateContent = await (
+    await chartRankingTemplateRequest
+  ).text();
 
   // Build templates
   TEMPLATES.block = _.template(blockTemplateContent);
   TEMPLATES.sidebarItem = _.template(sidebarItemTemplateContent);
+  TEMPLATES.chartBar = _.template(chartBarTemplateContent);
+  TEMPLATES.chartLine = _.template(chartLineTemplateContent);
+  TEMPLATES.chartMap = _.template(chartMapTemplateContent);
+  TEMPLATES.chartRanking = _.template(chartRankingTemplateContent);
 }
 
 /**
@@ -96,37 +120,47 @@ function renderChart($container, chartConfig) {
 
   // Create div to contain the chart
   const chartColumnElement = document.createElement("div");
-  chartColumnElement.setAttribute("class", "col-6")
+  chartColumnElement.setAttribute("class", "col-6");
+  chartColumnElement.setAttribute("class", "col-chart");
   rowElement.append(chartColumnElement);
+  const $chartColumnElement = $(chartColumnElement);
 
   if (chartConfig.type == "BAR") {
-    const chartElement = document.createElement("datacommons-bar");
-    chartElement.setAttribute("title", chartConfig.config.title);
-    chartElement.setAttribute("placeDcid", chartConfig.config.place.dcid);
-    chartElement.setAttribute("enclosedPlaceType", chartConfig.config.enclosedPlaceType);
-    chartElement.setAttribute("variableDcid", chartConfig.config.statVarSpec[0].statVar);
-    chartColumnElement.append(chartElement);
+    $chartColumnElement.append(
+      TEMPLATES.chartBar({
+        title: chartConfig.config.title,
+        place: chartConfig.config.place.dcid,
+        childPlaceType: chartConfig.config.enclosedPlaceType,
+        variable: chartConfig.config.statVarSpec[0].statVar,
+      })
+    );
   } else if (chartConfig.type == "LINE") {
-    const chartElement = document.createElement("datacommons-line");
-    chartElement.setAttribute("title", chartConfig.config.title);
-    chartElement.setAttribute("placeDcid", chartConfig.config.place.dcid);
-    chartElement.setAttribute("enclosedPlaceType", chartConfig.config.enclosedPlaceType);
-    chartElement.setAttribute("variableDcid", chartConfig.config.statVarSpec.statVar);
-    chartColumnElement.append(chartElement);
+    $chartColumnElement.append(
+      TEMPLATES.chartLine({
+        title: chartConfig.config.title,
+        place: chartConfig.config.place.dcid,
+        variables: JSON.stringify([chartConfig.config.statVarSpec[0].statVar]),
+      })
+    );
   } else if (chartConfig.type == "MAP") {
-    const chartElement = document.createElement("datacommons-map");
-    chartElement.setAttribute("title", chartConfig.config.title);
-    chartElement.setAttribute("placeDcid", chartConfig.config.place.dcid);
-    chartElement.setAttribute("enclosedPlaceType", chartConfig.config.enclosedPlaceType);
-    chartElement.setAttribute("variableDcid", chartConfig.config.statVarSpec.statVar);
-    chartColumnElement.append(chartElement);
+    $chartColumnElement.append(
+      TEMPLATES.chartMap({
+        title: chartConfig.config.title,
+        place: chartConfig.config.place.dcid,
+        childPlaceType: chartConfig.config.enclosedPlaceType,
+        variable: chartConfig.config.statVarSpec.statVar,
+      })
+    );
   } else if (chartConfig.type == "RANKING") {
-    const chartElement = document.createElement("datacommons-ranking");
-    chartElement.setAttribute("title", chartConfig.config.title);
-    chartElement.setAttribute("placeDcid", chartConfig.config.place.dcid);
-    chartElement.setAttribute("enclosedPlaceType", chartConfig.config.enclosedPlaceType);
-    chartElement.setAttribute("variableDcid", chartConfig.config.statVarSpec.statVar);
-    chartColumnElement.append(chartElement);
+    $chartColumnElement.append(
+      TEMPLATES.chartRanking({
+        title: chartConfig.config.title,
+        place: chartConfig.config.place.dcid,
+        childPlaceType: chartConfig.config.enclosedPlaceType,
+        variable: chartConfig.config.statVarSpec[0].statVar,
+        showLowest: "true",
+      })
+    );
   } else {
     console.log("Skipping unknown chart type", chartConfig.type);
   }
@@ -134,8 +168,9 @@ function renderChart($container, chartConfig) {
   //Create section for story
   const storyColumnElement = document.createElement("div");
   storyColumnElement.setAttribute("class", "col-6");
+  storyColumnElement.setAttribute("class", "col-story");
   // Create story title
-  const storyTitleElement = document.createElement("h4")
+  const storyTitleElement = document.createElement("h4");
   storyTitleElement.textContent = chartConfig.story.title;
   storyColumnElement.append(storyTitleElement);
   // Create story body
@@ -143,7 +178,7 @@ function renderChart($container, chartConfig) {
   storyBodyElement.textContent = chartConfig.story.body;
   storyColumnElement.append(storyBodyElement);
   // Append story to row
-  rowElement.append(storyBodyElement);
+  rowElement.append(storyColumnElement);
 }
 
 /**
