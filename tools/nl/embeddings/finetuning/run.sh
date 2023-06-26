@@ -15,7 +15,7 @@
 
 function help {
   echo "Usage: "
-  echo "$0 -f # finetunes the existing finetuned intermediate model on prod (final stage only)"
+  echo "$0 -f [<tuned_intermediate_model_path_on_gcs>] # finetunes the existing finetuned intermediate model; uses prod by default unless provided here (final stage only)"
   echo "$0 -i # the complete finetuning procedure (both stages: intermediate -> final)" 
 }
 
@@ -25,6 +25,7 @@ while getopts fi OPTION; do
     f)
         echo -e "### Finetuning an existing tuned_alternatives model (final stage only)"
         STAGE="final"
+        INTERMEDIATE_FINETUNED_MODEL="$2"
         ;;
     i)
         echo -e "### Starting the complete finetuning procedure (both stages: alternatives -> final)"
@@ -41,7 +42,11 @@ if [ "$STAGE" == "" ]; then
 fi
 
 # Get the model finetuned on sentence alternatives.
-PROD_FINAL_FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '$1=="tuned_model:"{ print $2; }')
+if [ "$2" != "" ]; then
+  INTERMEDIATE_FINETUNED_MODEL="$2"
+else
+  INTERMEDIATE_FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '$1=="tuned_model:"{ print $2; }' | cut -f2- -d'.')
+fi
 
 cd ../
 python3 -m venv .env
@@ -49,4 +54,4 @@ source .env/bin/activate
 python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
-python3 -m finetuning.finetune --stage=$STAGE --pretuned_model="$PROD_FINAL_FINETUNED_MODEL"
+python3 -m finetuning.finetune --stage=$STAGE --pretuned_model="$INTERMEDIATE_FINETUNED_MODEL"

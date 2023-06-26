@@ -11,10 +11,9 @@ There are two steps involved in a fully fine tuned model.
 To fine tune starting from an existing **Intermediate** finetuned model, do the following (this should be much quicker than performing **both** the Intermediate and **Final** tuning):
 
 ```bash
-    ./run.sh -f <tuned_intermediate_model_path_on_gcs>
+    ./run.sh -f [<tuned_intermediate_model_path_on_gcs>]
 ```
-
-The **Final** finetuned model is uploaded to GCS and the path printed at the end.
+Note that if no `tuned_intermediate_model_path_on_gcs` is provided, the **Final** `tuned_model` path in ['/model.yaml`](../../../../model.yaml) is used to extract the **Intermediate** model name/path. The updated **Final** finetuned model is uploaded to GCS and the path/name printed at the end.
 
 To fine tune a base`sentence_transformer` model and go through both the **Intermediate** and **Final** tuning steps, run:
 

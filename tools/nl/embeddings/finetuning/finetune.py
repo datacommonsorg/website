@@ -316,35 +316,30 @@ def main(_):
                         tmp='/tmp')
 
     # Step 2b. Upload the alternatives finetuned model to the NL model server's GCS bucket.
-    model_alts_folder_name = _save_finetuned_model(ctx, "intermediate",
-                                                   FLAGS.model_name_v2)
+    model_intermediate_folder_name = _save_finetuned_model(
+        ctx, "intermediate", FLAGS.model_name_v2)
     print(
-        f"Produced and uploaded finetuned intermediate model: {model_alts_folder_name}"
+        f"Produced and uploaded finetuned intermediate model: {model_intermediate_folder_name}"
     )
 
   else:
     # Step 1. Loading the Intermediate pre-finetuned model.
     # No need for Steps 2a and 2b (see above).
+    model_intermediate_folder_name = FLAGS.pretuned_model
 
-    # Extract the intermediate model name. The final pretuned model should have
-    # two period ("."). The parts after the first period should correspond to the
-    # intermediate model.
-    model_alts_folder_name = ".".join(FLAGS.pretuned_model.split(".")[1:])
-
-    print(f"Final finetuned model in prod (on GCS): {FLAGS.pretuned_model}")
     print(
-        f"Extracted the intermediate model in prod (on GCS): {model_alts_folder_name}"
+        f"Using the intermediate model (on GCS): {model_intermediate_folder_name}"
     )
-    assert "." in model_alts_folder_name
-    assert STAGE_INTERMEDIATE in model_alts_folder_name
-    assert STAGE_FINAL not in model_alts_folder_name
+    assert "." in model_intermediate_folder_name
+    assert STAGE_INTERMEDIATE in model_intermediate_folder_name
+    assert STAGE_FINAL not in model_intermediate_folder_name
 
     print(
-        f"Loading the pre-finetuned Intermediate model: {model_alts_folder_name}"
+        f"Loading the pre-finetuned Intermediate model: {model_intermediate_folder_name}"
     )
     ctx = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
     downloaded_model_path = utils.download_model_from_gcs(
-        ctx, model_alts_folder_name)
+        ctx, model_intermediate_folder_name)
     model_intermediate_finetuned = SentenceTransformer(downloaded_model_path)
 
   # Step 3. Fine tuning with sentence pairs.
@@ -358,8 +353,8 @@ def main(_):
                       model=model_final_finetuned,
                       bucket=bucket,
                       tmp='/tmp')
-  model_final_folder_name = _save_finetuned_model(ctx, "final",
-                                                  model_alts_folder_name)
+  model_final_folder_name = _save_finetuned_model(
+      ctx, "final", model_intermediate_folder_name)
   print(
       f"NOTE: Please update `tuned_model` in model.yaml with:: {model_final_folder_name}"
   )
