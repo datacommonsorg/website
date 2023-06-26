@@ -16,7 +16,7 @@ from datetime import datetime
 from datetime import timedelta
 import json
 import os
-import pickle
+from typing import Dict
 
 from flask import current_app
 import google.auth
@@ -59,7 +59,7 @@ def get_project_id():
   return project_id
 
 
-def write_feedback(session_id, data):
+def write_feedback(session_info: Dict, data: Dict):
   project_id = get_project_id()
   row_key = get_row_key(session_id, project_id)
   table = current_app.config['NL_TABLE']
@@ -68,7 +68,7 @@ def write_feedback(session_id, data):
   table.mutate_rows([row])
 
 
-async def write_row(session_info, data):
+async def write_row(session_info: Dict, data: Dict, ctr: Dict):
   if not session_info.get('id', None):
     return
   table = current_app.config['NL_TABLE']
@@ -86,9 +86,14 @@ async def write_row(session_info, data):
   }
   # Rely on timestamp in BT server
   row.set_cell(_COLUMN_FAMILY, _COL_PROJECT.encode(), project_id)
-  row.set_cell(_COLUMN_FAMILY, _COL_SESSION.encode(), json.dumps(session_info))
   row.set_cell(_COLUMN_FAMILY, _COL_VERSION.encode(), json.dumps(version))
-  row.set_cell(_COLUMN_FAMILY, _COL_DATA.encode(), pickle.dumps(data))
+  row.set_cell(_COLUMN_FAMILY, _COL_SESSION.encode(), json.dumps(session_info))
+  try:
+    row.set_cell(_COLUMN_FAMILY, _COL_DATA.encode(), json.dumps(data))
+  except TypeError as e:
+    ctr['ERROR']['FAILED_unserializable_data_dict'] = f'{e}'
+    row.set_cell(_COLUMN_FAMILY, _COL_DATA.encode(),
+                 json.dumps({'FATAL': f'{e}'}))
   table.mutate_rows([row])
 
 
