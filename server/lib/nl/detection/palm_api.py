@@ -77,14 +77,14 @@ def call(query: str, history: str, ctr: counters.Counters) -> Dict:
   resp = r.json()
   ctr.timeit('palm_api_call', start_time)
 
-  return _parse_response(query, resp, ctr)
+  return parse_response(query, resp, ctr)
 
 
-def _parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
+def parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
   if 'candidates' in resp and resp['candidates']:
     content = resp['candidates'][0]['content']
     ctr.info('info_palm_api_response', content)
-    ans = _extract_ans(content)
+    ans = _extract_answer(content)
     if not ans:
       logging.error(f'ERROR: empty parsed result for {query}')
       ctr.err('failed_palm_api_emptyparsedresult', content)
@@ -101,15 +101,13 @@ def _parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
 
   if "error" not in resp:
     # TODO: Unclear why this occasionally happens.
-    logging.error('ERROR: Got empty response, not sure why this happens!')
-    ctr.err('failed_palm_api_empty', query)
+    ctr.err('failed_palm_api_empty_noerr', query)
   else:
-    logging.error(f'ERROR: {query} failed with {resp["error"]}')
     ctr.err('failed_palm_api_empty', f'{query} -> {resp["error"]}')
   return {}
 
 
-def _extract_ans(resp: str) -> str:
+def _extract_answer(resp: str) -> str:
   ans = []
 
   num_code_block_delims = 0

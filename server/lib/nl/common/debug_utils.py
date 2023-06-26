@@ -16,6 +16,7 @@ from typing import Dict, List
 
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
+from shared.lib import detected_variables as dvars
 
 
 def _empty_svs_score_dict():
@@ -29,10 +30,15 @@ def result_with_debug_info(data_dict: Dict, status: str,
                            detector: str) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
-      'SV': query_detection.svs_detected.single_sv.svs,
-      'CosineScore': query_detection.svs_detected.single_sv.scores,
-      'SV_to_Sentences': query_detection.svs_detected.single_sv.sv2sentences,
-      'MultiSV': query_detection.svs_detected.multi_sv,
+      'SV':
+          query_detection.svs_detected.single_sv.svs,
+      'CosineScore':
+          query_detection.svs_detected.single_sv.scores,
+      'SV_to_Sentences':
+          query_detection.svs_detected.single_sv.sv2sentences,
+      'MultiSV':
+          dvars.multivar_candidates_to_dict(
+              query_detection.svs_detected.multi_sv),
   }
   svs_to_sentences = query_detection.svs_detected.single_sv.sv2sentences
 

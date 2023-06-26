@@ -13,6 +13,7 @@
 # limitations under the License.
 """Utility functions for use by the NL modules."""
 
+import dataclasses
 import datetime
 import logging
 import random
@@ -361,3 +362,20 @@ def admin_area_equiv_for_place(
     custom_remap = constants.EU_PLACE_TYPE_REMAP
 
   return custom_remap.get(ptype, ptype)
+
+
+# Convert the passed in dict or list or dataclass to dict
+# recursively.
+def to_dict(data):
+  if isinstance(data, dict):
+    for key, value in data.items():
+      data[key] = to_dict(value)
+    return data
+  elif dataclasses.is_dataclass(data) and not isinstance(data, type):
+    return to_dict(dataclasses.asdict(data))
+  elif isinstance(data, list):
+    for i, item in enumerate(data):
+      data[i] = to_dict(item)
+    return data
+  else:
+    return data
