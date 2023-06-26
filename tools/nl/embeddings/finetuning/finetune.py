@@ -36,11 +36,11 @@ flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string(
     'stage', 'final',
-    'Valid values are: "final", "alternatives". For a complete finetuning (starting from the base model, use "alternatives". To start from a finetuned base which has already been trained on the alternatives, type "final".)'
+    'Valid values are: "final", "intermediate". For a complete finetuning (starting from the base model, use "intermediate". To start from an Intermediate finetuned base which has already been trained on the alternatives, type "final".)'
 )
 flags.DEFINE_string(
     'pretuned_model', '',
-    'The versioned model folder name on GCS for the model which has already been finetuned using alternatives.'
+    'The versioned model folder name on GCS for the Final model which has already been finetuned.'
 )
 
 flags.DEFINE_string(
@@ -54,6 +54,9 @@ flags.DEFINE_string('alternatives_filepattern', 'data/alternatives/*.csv',
 flags.DEFINE_string('sentence_pairs_filepath',
                     'data/finetuning/sentence_pairs.csv',
                     'File path for sentence pairs CSV')
+
+STAGE_INTERMEDIATE = "intermediate"
+STAGE_FINAL = "final"
 
 # Use the Medium embeddings size for the larger training set.
 EMBEDDINGS_SIZE = "medium"
@@ -266,15 +269,16 @@ def finetune_model(model: Any, training_examples: List[InputExample]):
 def main(_):
 
   assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2
-  assert (FLAGS.stage == "alternatives") or ((FLAGS.stage == "final") and
-                                             (FLAGS.pretuned_model))
+  assert (FLAGS.stage
+          == STAGE_INTERMEDIATE) or ((FLAGS.stage == STAGE_FINAL) and
+                                     (FLAGS.pretuned_model))
 
   assert os.path.exists(os.path.join('data'))
 
   # Determine if the finetuning begins from the base model or from a
   # pre-finetuned model (fine tuned on sentence alternatives) on GCS.
   start_from_base = False
-  if FLAGS.stage == "alternatives":
+  if FLAGS.stage == STAGE_INTERMEDIATE:
     start_from_base = True
 
   autogen_input_filepattern = f'{FLAGS.autogen_input_basedir}/{EMBEDDINGS_SIZE}/*.csv'
@@ -294,46 +298,59 @@ def main(_):
   )
 
   if start_from_base:
-    # If starting from the base model, first build the finetuned model using
-    # sentence/text alternatives. Checkpoint (save/upload) that model to GCS.
+    # If starting from the base model, first build the Intermediate finetuned model
+    # using sentence/text alternatives. Checkpoint (save/upload) that model to GCS.
 
     # Step 1. Loading the model.
     print(f"Loading the base model: {FLAGS.model_name_v2}")
     model_base = SentenceTransformer(FLAGS.model_name_v2)
 
     # Step 2a. Fine tuning with alternatives.
-    print(f"Fine tuning with alternatives. Stage: {FLAGS.stage}")
-    model_alts_finetuned = finetune_model(
+    print(f"(Intermediate) Fine tuning with alternatives. Stage: {FLAGS.stage}")
+    model_intermediate_finetuned = finetune_model(
         model_base, _generate_training_examples_from_alternatives(df_svs))
 
     ctx = utils.Context(gs=gs,
-                        model=model_alts_finetuned,
+                        model=model_intermediate_finetuned,
                         bucket=bucket,
                         tmp='/tmp')
 
     # Step 2b. Upload the alternatives finetuned model to the NL model server's GCS bucket.
-    model_alts_folder_name = _save_finetuned_model(ctx, "alternatives",
+    model_alts_folder_name = _save_finetuned_model(ctx, "intermediate",
                                                    FLAGS.model_name_v2)
     print(
-        f"Produced and uploaded tuned_alternatives_model: {model_alts_folder_name}"
+        f"Produced and uploaded finetuned intermediate model: {model_alts_folder_name}"
     )
 
   else:
-    # Step 1. Loading the pre-finetuned model (fine tuned with alternatives).
+    # Step 1. Loading the Intermediate pre-finetuned model.
     # No need for Steps 2a and 2b (see above).
-    model_alts_folder_name = FLAGS.pretuned_model
+
+    # Extract the intermediate model name. The final pretuned model should have
+    # two period ("."). The parts after the first period should correspond to the
+    # intermediate model.
+    model_alts_folder_name = ".".join(FLAGS.pretuned_model.split(".")[1:])
+
+    print(f"Final finetuned model in prod (on GCS): {FLAGS.pretuned_model}")
     print(
-        f"Loading the pre-finetuned alternatives model: {model_alts_folder_name}"
+        f"Extracted the intermediate model in prod (on GCS): {model_alts_folder_name}"
+    )
+    assert "." in model_alts_folder_name
+    assert STAGE_INTERMEDIATE in model_alts_folder_name
+    assert STAGE_FINAL not in model_alts_folder_name
+
+    print(
+        f"Loading the pre-finetuned Intermediate model: {model_alts_folder_name}"
     )
     ctx = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
     downloaded_model_path = utils.download_model_from_gcs(
         ctx, model_alts_folder_name)
-    model_alts_finetuned = SentenceTransformer(downloaded_model_path)
+    model_intermediate_finetuned = SentenceTransformer(downloaded_model_path)
 
   # Step 3. Fine tuning with sentence pairs.
   print(f"Fine tuning with sentence pairs.")
   model_final_finetuned = finetune_model(
-      model_alts_finetuned,
+      model_intermediate_finetuned,
       _generate_training_examples_from_sentence_pairs(df_sentence_pairs))
 
   # Step 4. Upload the final finetuned model to the NL model server's GCS bucket.
