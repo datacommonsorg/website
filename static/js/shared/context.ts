@@ -32,3 +32,10 @@ export interface ContextType {
 export const Context = createContext({} as ContextType);
 
 export const NlSessionContext = createContext("");
+
+export const SdgContext = createContext({
+  sdgIndex: null,
+  setSdgIndex: (i: number) => {
+    return;
+  },
+});

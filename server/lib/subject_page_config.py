@@ -174,8 +174,10 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
     return page_config
 
   # TODO: find child places only if there are maps, etc.
-  sample_child_places = [] if contained_place_type == None else nl_utils.get_sample_child_places(
-      place_dcid, contained_place_type, ctr)[::SAMPLE_PLACE_STEP]
+  sample_child_places = []
+  if contained_place_type:
+    sample_child_places = nl_utils.get_sample_child_places(
+        place_dcid, contained_place_type, ctr)[::SAMPLE_PLACE_STEP]
   bar_comparison_places = _bar_comparison_places(page_config, place_dcid)
   all_places = sample_child_places + bar_comparison_places + [place_dcid]
   stat_vars_existence = fetch.observation_existence(all_stat_vars, all_places)
@@ -198,10 +200,13 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
             if not t.comparison_places:
               filtered_keys = [k for k in t.stat_var_key if child_exist_keys[k]]
             else:
-              # Should be the comparison places.
-              comparison_exist_keys = _exist_keys_category(
-                  t.comparison_places, category, stat_vars_existence,
-                  place_dcid)
+              # Check data existence only on current place, since SDG data is
+              # sparse. Reglying data exist in countries will result in very
+              # few stat vars (even 0) in some category.
+              comparison_exist_keys = _exist_keys_category([place_dcid],
+                                                           category,
+                                                           stat_vars_existence,
+                                                           place_dcid)
               filtered_keys = [
                   k for k in t.stat_var_key if comparison_exist_keys[k]
               ]
