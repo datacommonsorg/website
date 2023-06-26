@@ -300,7 +300,7 @@ def new_session_id() -> str:
   # Convert seconds to microseconds
   micros = int(datetime.datetime.now().timestamp() * 1000000)
   # Add some randomness to avoid clashes
-  rand = random.randrange(1000)
+  rand = random.randrange(10000)
   # Prefix randomness since session_id gets used as BT key
   return str(rand) + '_' + str(micros)
 
