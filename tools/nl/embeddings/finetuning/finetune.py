@@ -16,7 +16,6 @@
 from datetime import datetime
 import glob
 import os
-from pathlib import Path
 import time
 from typing import Any, List
 
@@ -125,22 +124,6 @@ def _alternatives(autogen_input_filepattern: str,
     df_svs = utils.merge_dataframes(df_svs, df_alts)
 
   return df_svs
-
-
-def _download_model_from_gcs(ctx: utils.Context, model_folder_name: str) -> str:
-  local_dir = ctx.tmp + "/"
-  # Get list of files
-  blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
-  for blob in blobs:
-    file_split = blob.name.split("/")
-    directory = local_dir + "/".join(file_split[0:-1])
-    Path(directory).mkdir(parents=True, exist_ok=True)
-
-    if blob.name.endswith("/"):
-      continue
-    blob.download_to_filename(directory + "/" + file_split[-1])
-
-  return local_dir + model_folder_name
 
 
 def _save_finetuned_model(ctx: utils.Context, stage: str,
@@ -343,8 +326,8 @@ def main(_):
         f"Loading the pre-finetuned alternatives model: {model_alts_folder_name}"
     )
     ctx = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
-    downloaded_model_path = _download_model_from_gcs(ctx,
-                                                     model_alts_folder_name)
+    downloaded_model_path = utils.download_model_from_gcs(
+        ctx, model_alts_folder_name)
     model_alts_finetuned = SentenceTransformer(downloaded_model_path)
 
   # Step 3. Fine tuning with sentence pairs.

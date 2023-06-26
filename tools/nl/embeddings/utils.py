@@ -16,6 +16,7 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List, Tuple
 
+from pathlib import Path
 import pandas as pd
 
 # Col names in the input files/sheets.
@@ -138,3 +139,33 @@ def get_texts_dcids(
   texts = sorted(list(text2sv_dict.keys()))
   dcids = [text2sv_dict[k] for k in texts]
   return (texts, dcids)
+
+
+def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
+  """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
+
+  Args:
+    ctx: Context which has the GCS bucket information.
+    model_folder_name: the GCS bucket name for the model.
+  
+  Returns the path to the local directory where the model was downloaded to.
+  The downloaded model can then be loaded as:
+
+  ```
+      downloaded_model_path = download_model_from_gcs(ctx, gcs_model_folder_name)
+      model = SentenceTransformer(downloaded_model_path)
+  ```
+  """
+  local_dir = ctx.tmp + "/"
+  # Get list of files
+  blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
+  for blob in blobs:
+    file_split = blob.name.split("/")
+    directory = local_dir + "/".join(file_split[0:-1])
+    Path(directory).mkdir(parents=True, exist_ok=True)
+
+    if blob.name.endswith("/"):
+      continue
+    blob.download_to_filename(directory + "/" + file_split[-1])
+
+  return local_dir + model_folder_name
