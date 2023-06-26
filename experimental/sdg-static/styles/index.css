@@ -62,6 +62,15 @@ body {
   flex-direction: row;
   margin-bottom: 0.5rem;
 }
+.sidebar-link a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #424242;
+}
+.sidebar-link a:hover {
+  text-decoration: none;
+}
 .sidebar-link:hover {
   border-left: 2px solid #efefef;
 }
@@ -82,4 +91,14 @@ body {
 /** Datacommons style overrides */
 .chart-container {
   height: unset; /** Prevents map chart overflow */
+}
+
+.charts .col-chart {
+  width: 50%;
+}
+
+.charts .col-story {
+  padding: 1rem;
+  flex-grow: 1;
+  color: rgba(0, 0, 0, 0.8);
 }
