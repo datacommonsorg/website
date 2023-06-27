@@ -142,6 +142,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
 
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={mapChartData && mapChartData.sources}
       replacementStrings={getReplacementStrings(props, mapChartData)}

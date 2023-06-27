@@ -112,6 +112,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={scatterChartData && scatterChartData.sources}
       replacementStrings={getReplacementStrings(props, scatterChartData)}

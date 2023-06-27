@@ -98,6 +98,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
 
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={barChartData && barChartData.sources}
       replacementStrings={getReplacementStrings(props, barChartData)}

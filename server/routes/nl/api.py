@@ -219,6 +219,22 @@ def history():
   return json.dumps(bt.read_success_rows())
 
 
+#
+# NOTE: `feedbackData` contains the logged payload.
+#
+# There are two types of feedback:
+# (1) Query-level: when `queryId` key is set
+# (2) Chart-level: when `chartId` field is set
+#
+# `chartId` is a json object that specifies the
+# location of a chart in the session by means of:
+#
+#   queryIdx, categoryIdx, blockIdx, columnIdx, tileIdx
+#
+# The last 4 are indexes into the corresponding fields in
+# the chart-config object (logged while processing the query),
+# and of type SubjectPageConfig proto.
+#
 @bp.route('/feedback', methods=['POST'])
 def feedback():
   if (os.environ.get('FLASK_ENV') == 'production' or

@@ -271,6 +271,7 @@ export const HistogramTile = memo(function HistogramTile(
   //                 present at 6 months but not 30 days
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={sources}
       replacementStrings={rs}
