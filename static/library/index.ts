@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { renderRankingComponent } from "../js/ranking/ranking";
+import { renderRankingComponent } from "../js/ranking/component";
 import { DatacommonsBarComponent } from "./bar_component";
 import {
   renderBarComponent,

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,8 @@
  * @fileoverview Entry point for Ranking pages
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-
 import { loadLocaleData } from "../i18n/i18n";
-import { Page, RankingPagePropType } from "./ranking_page";
-
-export const renderRankingComponent = (
-  element: HTMLElement,
-  props: RankingPagePropType
-): void => {
-  ReactDOM.render(React.createElement(Page, props), element);
-};
+import { renderRankingComponent } from "./component";
 
 window.onload = () => {
   const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;
