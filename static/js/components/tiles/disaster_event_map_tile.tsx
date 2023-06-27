@@ -182,6 +182,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
 
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={chartData ? chartData.sources : new Set<string>()}
       replacementStrings={getReplacementStrings(props)}

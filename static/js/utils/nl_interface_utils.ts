@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { Chart } from "../place/chart";
+
 /**
  * Utils used for the nl interface
  */
@@ -27,6 +29,36 @@ const SOURCE_PARAM_PREFIX = "&entry.1070482700=";
 const VERSION_PARAM_PREFIX = "&entry.1420739572=";
 const QUERY_CHAIN_PARAM_PREFIX = "&entry.1836374054=";
 const DEBUG_INFO_PARAM_PREFIX = "&entry.1280679042=";
+
+export const CHART_FEEDBACK_SENTIMENT = {
+  THUMBS_DOWN: "THUMBS_DOWN",
+};
+
+interface ChartId {
+  queryIdx: number;
+  categoryIdx: number;
+  blockIdx: number;
+  columnIdx: number;
+  tileIdx: number;
+}
+
+// Given the dom ID of a chart, extract its relevant indexes in
+// the query session and SubjectPageConfig proto.
+export function getNLChartId(idStr: string): ChartId {
+  // Format: pg0_cat_1_blk_2_col_3_tile_4
+  let numbers: number[] = idStr.match(/\d+/g)?.map(Number);
+  if (numbers.length != 5) {
+    numbers = [-1, -1, -1, -1, -1];
+  }
+  const chartId: ChartId = {
+    queryIdx: numbers[0],
+    categoryIdx: numbers[1],
+    blockIdx: numbers[2],
+    columnIdx: numbers[3],
+    tileIdx: numbers[4],
+  };
+  return chartId;
+}
 
 export function isNlInterface(): boolean {
   // Returns true if currently on the NL page.

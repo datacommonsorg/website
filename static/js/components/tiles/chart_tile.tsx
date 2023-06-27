@@ -26,6 +26,10 @@ import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NlSessionContext } from "../../shared/context";
 import {
+  CHART_FEEDBACK_SENTIMENT,
+  getNLChartId,
+} from "../../utils/nl_interface_utils";
+import {
   formatString,
   getChartTitle,
   getMergedSvg,
@@ -33,6 +37,7 @@ import {
 } from "../../utils/tile_utils";
 import { ChartFooter } from "./chart_footer";
 interface ChartTileContainerProp {
+  id: string;
   title: string;
   sources: Set<string>;
   children: React.ReactNode;
@@ -87,16 +92,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         <div className="nl-feedback">
           <span
             className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
-            onClick={() => {
-              if (isThumbClicked) {
-                return;
-              }
-              setIsThumbClicked(true);
-              axios.post("/api/nl/feedback", {
-                sessionId: nlSessionId,
-                feedbackData: {}, // TODO: get useful information and fill here.
-              });
-            }}
+            onClick={onThumbDownClick}
           >
             &#128078;
           </span>
@@ -123,5 +119,19 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       "",
       Array.from(props.sources)
     );
+  }
+
+  function onThumbDownClick(): void {
+    if (isThumbClicked) {
+      return;
+    }
+    setIsThumbClicked(true);
+    axios.post("/api/nl/feedback", {
+      sessionId: nlSessionId,
+      feedbackData: {
+        chartId: getNLChartId(props.id),
+        sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
+      },
+    });
   }
 }
