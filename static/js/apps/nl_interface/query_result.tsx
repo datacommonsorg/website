@@ -27,7 +27,10 @@ import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { NlSessionContext } from "../../shared/context";
 import { SearchResult } from "../../types/app/nl_interface_types";
-import { getFeedbackLink } from "../../utils/nl_interface_utils";
+import {
+  CHART_FEEDBACK_SENTIMENT,
+  getFeedbackLink,
+} from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
 
 export interface QueryResultProps {
@@ -48,6 +51,7 @@ export const QueryResult = memo(function QueryResult(
   const [debugData, setDebugData] = useState<any>();
   const scrollRef = createRef<HTMLDivElement>();
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
+  const [isThumbClicked, setIsThumbClicked] = useState(false);
 
   useEffect(() => {
     // Scroll to the top (assuming this is the last query to render, and other queries are memoized).
@@ -139,6 +143,12 @@ export const QueryResult = memo(function QueryResult(
           <a href={feedbackLink} target="_blank" rel="noreferrer">
             Feedback
           </a>
+          <span
+            className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
+            onClick={onThumbDownClick}
+          >
+            &nbsp;&nbsp;&#128078;
+          </span>
         </Container>
         <Container>
           {debugData && (
@@ -178,4 +188,18 @@ export const QueryResult = memo(function QueryResult(
       </div>
     </>
   );
+
+  function onThumbDownClick(): void {
+    if (isThumbClicked) {
+      return;
+    }
+    setIsThumbClicked(true);
+    axios.post("/api/nl/feedback", {
+      sessionId: chartsData.sessionId,
+      feedbackData: {
+        queryId: props.queryIdx,
+        sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
+      },
+    });
+  }
 });

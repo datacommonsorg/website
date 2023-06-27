@@ -398,8 +398,8 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 
 .nl-feedback {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: right;
+  align-items: right;
 }
 
 .thumb-down:not(.thumb-dim):hover {

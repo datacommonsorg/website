@@ -1,0 +1,326 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Styles for the homepage */
+
+@import 'base';
+
+$color-scatter: #FF8E6B;
+$color-map: #A0DCB0;
+$color-timeline: #FCBF71;
+$color-place: #6BC8DD;
+$color-font-dark: #3C4043;
+
+#main-header,
+#main-footer {
+  background-color: #467BD5;
+}
+ 
+#main-footer {
+  color: white;
+
+  a {
+    color: white;
+  }
+}
+ 
+#homepage-top {
+  margin: -3rem auto 1.5rem;
+  height: 250px;
+  background-color: #0B57D0;
+  display: flex;
+  align-items: center;
+}
+
+#homepage section {
+  padding: 24px;
+}
+ 
+#homepage section .main {
+  font-weight: bold;
+}
+
+#homepage h2 {
+  font-size: 24px;
+  font-weight: 400;
+  color: #444746;
+  margin-bottom: 1.5rem;
+}
+
+#homepage a.carousel-item-container,
+#homepage a.interact-button,
+#homepage a.tool-button {
+  color: $color-font-dark;
+  font-size: 24px;
+  font-weight: 400;
+  border: 1px solid #C4C7C5;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#homepage a.topic-card:hover,
+#homepage a.interact-button:hover,
+#homepage a.tool-button:hover,
+#homepage a.carousel-item-container:hover {
+  text-decoration: none;
+  box-shadow: $hover-box-shadow;
+}
+ 
+#homepage .interact-buttons-container,
+#homepage .tool-buttons-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  justify-content: center;
+  padding: 0 1.5rem;
+}
+
+@include media-breakpoint-up(lg) {
+  #homepage .interact-buttons-container,
+  #homepage .tool-buttons-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+ 
+// Styling for the search box
+#search-container {
+  width: 100%;
+  margin: 0 20%;
+  position: relative;
+
+  .search-icon-container {
+    width: 40px;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+
+    .material-icons-outlined {
+      font-size: 1.25rem;
+    }
+  }
+
+  #homepage-search-input {
+    border-radius: 30px;
+    padding-left: 40px;
+    padding-right: 100px;
+    height: 45px;
+  }
+
+  .search-button-container {
+    display: flex;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    align-items: center;
+
+    .search-button {
+      padding: 10px 24px 10px 24px;
+      font-size: 14px;
+      height: fit-content;
+      border-radius: 100px;
+      background-color: #0B57D0;
+      color: white;
+      margin-right: 5px;
+      cursor: pointer;
+    }
+  
+    .search-button:hover {
+      box-shadow: $hover-box-shadow;
+    }
+  }
+}
+
+// Styling for the topics section
+#homepage .topics-container {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr 1fr;
+  
+  a.topic-card {
+    color: $color-font-dark;
+    border: 2px solid #C2E7FF;
+    border-radius: 12px;
+    display: flex;
+    flex: 0 0 30%;
+  
+    .topic-card-body {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      flex-grow: 1;
+    }
+  
+    .topic-card-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  
+    .topic-card-description {
+      font-size: 14px;
+      font-weight: 400;
+    }
+  
+    .topic-card-icon {
+      padding: 8px;
+      background-color: #C2E7FF;
+      width: 80px;
+      min-height: 124px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0 12px 12px 0;
+      flex-shrink: 0;
+  
+      .material-icons-outlined {
+        font-size: 24px;
+        color: $color-font-dark;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// Styling for the partners carousel
+#homepage .carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  .carousel-items {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 32px;
+    margin: 1rem;
+  }
+  
+  a.carousel-item-container {
+    padding: 24px;
+    flex: 1 0 240px;
+    width: 0;
+ 
+    .image-container {
+     display: flex;
+     flex-grow: 1;
+     justify-content: center;
+     align-items: center;
+     margin-top: 0.5rem;
+    }
+  }
+
+  .navigation-button {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    background-color: white;
+
+    .material-icons-outlined {
+      font-size: 1.5rem;
+      padding: 0.75rem;
+      border-radius: 2rem;
+      background-color: var(--dc-gray-lite);
+      color: white;
+      cursor: pointer;
+    }
+  
+    .material-icons-outlined:hover {
+      box-shadow: $hover-box-shadow;
+    }
+  }
+}
+
+// Styling for the tools section
+#homepage .tool-buttons-container {
+  a.tool-button {
+    .img-container {
+      padding: 1.5rem;
+      border-radius: 4px 4px 0 0;
+    }
+   
+    span {
+      padding: 8px;
+    }
+  }
+
+  .tool-button-img {
+    background-repeat: no-repeat;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    height: 100px;
+  }
+  
+  #scatter-button .img-container {
+    background-color: $color-scatter;
+
+    .tool-button-img {
+      background: url('/images/home-tool_icons.png') -50px 0;
+    }
+  }
+  
+  #map-button .img-container {
+    background-color: $color-map;
+
+    .tool-button-img {
+      background: url('/images/home-tool_icons.png') -225px 0;
+      width: 150px;
+    }
+  }
+  
+  #timeline-button .img-container {
+    background-color: $color-timeline;
+
+    .tool-button-img {
+      background: url('/images/home-tool_icons.png') -450px 0;
+    }
+  }
+  
+  #place-button .img-container {
+    background-color: $color-place;
+
+    .tool-button-img {
+      background: url('/images/home-tool_icons.png') -855px 0;
+    }
+  }
+}
+
+// Styling for the learn more section
+#homepage .interact-buttons-container {
+  padding: 0 2.5rem;
+
+  a.interact-button {
+    padding: 24px;
+    flex-shrink: 0;
+  
+    .material-icons-outlined {
+      font-size: 40px;
+      font-weight: 400;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+ 

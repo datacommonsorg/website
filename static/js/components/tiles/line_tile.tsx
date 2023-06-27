@@ -82,6 +82,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   useDrawOnResize(drawFn, svgContainer.current);
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={chartData && chartData.sources}
       replacementStrings={getReplacementStrings(props)}
