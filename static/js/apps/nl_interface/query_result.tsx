@@ -189,7 +189,7 @@ export const QueryResult = memo(function QueryResult(
     </>
   );
 
-  function onThumbDownClick() {
+  function onThumbDownClick(): void {
     if (isThumbClicked) {
       return;
     }

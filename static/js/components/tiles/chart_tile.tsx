@@ -27,7 +27,7 @@ import { ChartEmbed } from "../../place/chart_embed";
 import { NlSessionContext } from "../../shared/context";
 import {
   CHART_FEEDBACK_SENTIMENT,
-  getNLChartId,
+  getNlChartId,
 } from "../../utils/nl_interface_utils";
 import {
   formatString,
@@ -127,11 +127,11 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     }
     setIsThumbClicked(true);
     axios.post("/api/nl/feedback", {
-      sessionId: nlSessionId,
       feedbackData: {
-        chartId: getNLChartId(props.id),
+        chartId: getNlChartId(props.id),
         sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
       },
+      sessionId: nlSessionId,
     });
   }
 }

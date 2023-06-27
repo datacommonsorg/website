@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { Chart } from "../place/chart";
-
 /**
  * Utils used for the nl interface
  */
@@ -44,10 +42,11 @@ interface ChartId {
 
 // Given the dom ID of a chart, extract its relevant indexes in
 // the query session and SubjectPageConfig proto.
-export function getNLChartId(idStr: string): ChartId {
+// TODO: Add an integration test to make sure the ID format doesn't change.
+export function getNlChartId(idStr: string): ChartId {
   // Format: pg0_cat_1_blk_2_col_3_tile_4
   let numbers: number[] = idStr.match(/\d+/g)?.map(Number);
-  if (numbers.length != 5) {
+  if (numbers.length !== 5) {
     numbers = [-1, -1, -1, -1, -1];
   }
   const chartId: ChartId = {
