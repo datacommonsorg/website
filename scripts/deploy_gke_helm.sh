@@ -133,8 +133,8 @@ function deploy_website() {
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
   --set nodejs.apiRoot="$NODEJS_API_ROOT" \
-  --set-file nl.embeddings=deploy/base/embeddings.yaml
-  --set-file nl.models=deploy/base/models.yaml
+  --set-file nl.embeddings=deploy/nl/embeddings.yaml
+  --set-file nl.models=deploy/nl/models.yaml
 }
 
 cd $ROOT

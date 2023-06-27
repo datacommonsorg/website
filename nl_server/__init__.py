@@ -32,7 +32,7 @@ def create_app():
   if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
     embeddings_config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        'deploy/base/embeddings.yaml')
+        'deploy/nl/embeddings.yaml')
   app.config['EMBEDDINGS_CONFIG_PATH'] = embeddings_config_path
 
   # Initialize the NL module.
