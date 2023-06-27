@@ -45,6 +45,7 @@ def create_app():
     # TODO: handle fine tuned model correctly.
     if "tuned_model" in model:
       del model["tuned_model"]
+
     loader.load_model(app, model)
 
   return app
