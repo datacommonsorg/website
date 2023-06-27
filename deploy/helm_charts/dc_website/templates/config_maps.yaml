@@ -24,7 +24,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   embeddings.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
-  tunedmodel.yaml: {{ required "NL finetuned model file is required" .Values.nl.embeddings | quote }}
+  models.yaml: {{ required "NL models file is required" .Values.nl.models | quote }}
 {{- end }}
 
 

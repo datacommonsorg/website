@@ -116,6 +116,7 @@ serviceGroups:
 nl:
   enabled: false
   embeddings:
+  models:
 
 ###############################################################################
 # Config for Stat Var Groups which is shared between Website and Mixer

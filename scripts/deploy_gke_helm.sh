@@ -134,7 +134,7 @@ function deploy_website() {
   --set website.githash="$WEBSITE_HASH" \
   --set nodejs.apiRoot="$NODEJS_API_ROOT" \
   --set-file nl.embeddings=deploy/base/embeddings.yaml
-  --set-file nl.tunedmodel=deploy/base/tunedmodel.yaml
+  --set-file nl.models=deploy/base/models.yaml
 }
 
 cd $ROOT
