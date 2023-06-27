@@ -266,7 +266,7 @@ def main(_):
   blob.upload_from_filename(gcs_tmp_out_path)
   print("Done uploading to gcs.")
   print(f"\t Embeddings Filename: {gcs_embeddings_filename}")
-  print("\nNOTE: Please update model.yaml with the Embeddings Filename")
+  print("\nNOTE: Please update embeddings.yaml with the Embeddings Filename")
 
 
 if __name__ == "__main__":

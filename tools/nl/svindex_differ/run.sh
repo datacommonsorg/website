@@ -29,7 +29,7 @@ pip3 install -r nl_server/requirements.txt
 pip3 install -r tools/nl/svindex_differ/requirements.txt
 
 # Get the production embeddings.
-PROD=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '{ print $2; }')
+PROD=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/embeddings.yaml | awk '{ print $2; }')
 
 # Diff production embeddings against test.
 python3 -m tools.nl.svindex_differ.differ --base="$PROD" --test="$1" --queryset=tools/nl/svindex_differ/queryset_vars.csv
