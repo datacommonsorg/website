@@ -12,18 +12,18 @@
                       "geoId/06061"
                     ],
                     "statVarKey": [
-                      "Percent_Person_WithArthritis_multiple_place_bar_block",
-                      "Percent_Person_WithAsthma_multiple_place_bar_block",
-                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
-                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
-                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
-                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
-                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
                       "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
+                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
+                      "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithStroke_multiple_place_bar_block"
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
+                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
+                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block"
                     ],
                     "title": "Medical Conditions in Placer County (${date})",
                     "type": "BAR"
@@ -33,61 +33,9 @@
             ],
             "description": "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
             "title": "Medical Conditions"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_WithArthritis_multiple_place_bar_block",
-                      "Percent_Person_WithAsthma_multiple_place_bar_block",
-                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
-                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
-                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
-                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
-                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
-                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
-                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithStroke_multiple_place_bar_block"
-                    ],
-                    "title": "Physical Health Issues compared with other variables in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block": {
-            "name": "Percentage of Population Aged 18-64 With No Health Insurance",
-            "statVar": "Percent_Person_18To64Years_ReceivedNoHealthInsurance",
-            "unit": "%"
-          },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
             "name": "Arthritis",
             "statVar": "Percent_Person_WithArthritis",

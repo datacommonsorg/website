@@ -26,41 +26,12 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0644000",
-                      "geoId/0666000",
-                      "geoId/0668000",
-                      "geoId/0627000",
-                      "geoId/0669000",
-                      "geoId/0643000",
-                      "geoId/0603526"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block"
-                    ],
-                    "title": "Chronic Obstructive Pulmonary Disease (${date}) - Top 7 of 289",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
           "Percent_Person_WithAsthma_multiple_place_bar_block": {
             "name": "Asthma",
             "statVar": "Percent_Person_WithAsthma",
-            "unit": "%"
-          },
-          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
-            "name": "Chronic Obstructive Pulmonary Disease",
-            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
             "unit": "%"
           }
         }

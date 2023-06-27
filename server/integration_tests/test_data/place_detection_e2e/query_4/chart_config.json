@@ -10,8 +10,8 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/3651000",
-                      "geoId/1150000"
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block"
@@ -30,8 +30,8 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/3651000",
-                      "geoId/1150000"
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_multiple_place_bar_block",
@@ -68,8 +68,8 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/3651000",
-                      "geoId/1150000"
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_multiple_place_bar_block_pc",
@@ -115,8 +115,8 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/3651000",
-                      "geoId/1150000"
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block"
@@ -127,8 +127,8 @@
                   {
                     "comparisonPlaces": [
                       "geoId/06",
-                      "geoId/3651000",
-                      "geoId/1150000"
+                      "geoId/36",
+                      "geoId/53"
                     ],
                     "statVarKey": [
                       "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block_pc"
