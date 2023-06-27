@@ -31,14 +31,6 @@
           $("#sdg" + targetNumber).removeClass("hidden");
         });
       });
-      /** Click to show and hide different SDGs */
-      function showSdgContainer(event, elementName) {
-        console.log('click');
-        const element = document.getElementById(elementName);
-        element.scrollIntoView({
-          behavior: "smooth",
-        })
-      }
     </script>
     <style>
       body {
@@ -97,7 +89,8 @@
         text-decoration: none;
       }
       .hidden {
-        display:none;
+        visibility: hidden;
+        height: 0;
       }
       .logo {
         height: 75px;
@@ -110,7 +103,6 @@
         align-items: center;
         display:flex;
         flex-direction:row;
-        
       }
       .logo-banner a, .logo-banner a:hover {
         color: #222222;
@@ -163,7 +155,7 @@
         padding:1rem;
         border-radius:1.5rem;
         background: #f9f9f9;
-        
+
       }
       .sidebar-container {
         max-height: calc(100vh - 1rem);
@@ -230,22 +222,25 @@
       </div>
       <div class="logo-secondary">
         <a href="https://sdgs.un.org/goals" target="_blank">
-          <img 
+          <img
           src="https://www.un.org/sustainabledevelopment/wp-content/uploads/2019/08/E_SDG_logo_without_UN_emblem_horizontal_RGB-1200x219.png"
         />
       </a>
       </div>
     </div>
-  
+
     <div class="main container">
       <div class="main-title">Sustainable Development Goals</div>
       <p class="main-text mb-4">
-        Discover the progress made towards the United Nations Sustainable Development Goals (SDGs). Access accurate and up-to-date information, interactive visualizations, and insightful analysis, empowering you to drive positive change towards a sustainable future for all.
+        Discover the progress made towards the United Nations Sustainable
+        Development Goals (SDGs). Access accurate and up-to-date information,
+        interactive visualizations, and insightful analysis, empowering you to
+        drive positive change towards a sustainable future for all.
       </p>
       <p class="main-subtext">Powered by Google <a href="https://datacommons.org" target="_blank">Data Commons</a></p>
     </div>
     <nav class="dc-subnav">
-      <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link selected">Global Overview</span></a></div>
+      <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link selected">SDG View</span></a></div>
       <div class="dc-subnav-item"><a href="#"><span class="dc-subnav-link">Country View</span></span></a></div>
     </nav>
 
@@ -406,7 +401,7 @@
               Goal 1: No Poverty
             </div>
             <div class="row chart-story-container">
-              <div class="col-6 chart-column">
+              <div class="col-12 chart-column">
                 <datacommons-map
                   title="Proportion of population below international poverty line"
                   variable="sdg/SI_POV_DAY1"
@@ -414,13 +409,13 @@
                   childPlaceType="Country"
                 ></datacommons-map>
               </div>
-              <div class="col-6 story-column">
+              <div class="col-12 story-column">
                 <header class="story-title">Target date: 2030</header>
-                The United Nations has set an ambitious target through Sustainable Development Goal 1: 
-                to end poverty in all its forms by 2030. This goal recognizes the urgent need to 
-                address the root causes of poverty, promote inclusive economic growth, and ensure 
-                equal access to essential resources and opportunities for all. By tackling poverty 
-                comprehensively and holistically, the UN aims to create a world where no one is left 
+                The United Nations has set an ambitious target through Sustainable Development Goal 1:
+                to end poverty in all its forms by 2030. This goal recognizes the urgent need to
+                address the root causes of poverty, promote inclusive economic growth, and ensure
+                equal access to essential resources and opportunities for all. By tackling poverty
+                comprehensively and holistically, the UN aims to create a world where no one is left
                 behind, paving the way for a more equitable and sustainable future for humanity.
               </div>
             </div>
@@ -435,11 +430,11 @@
               </div>
               <div class="col-6 story-column">
                 <header class="story-title">Poverty is a challenge</header>
-                  Poverty levels continue to present a significant challenge on a global scale. 
-                  Despite progress in reducing poverty over the years, millions of people around 
-                  the world still struggle to meet their basic needs. Economic disparities, 
-                  limited access to resources, and systemic inequalities contribute to persistent 
-                  poverty, highlighting the urgent need for concerted efforts and sustainable 
+                  Poverty levels continue to present a significant challenge on a global scale.
+                  Despite progress in reducing poverty over the years, millions of people around
+                  the world still struggle to meet their basic needs. Economic disparities,
+                  limited access to resources, and systemic inequalities contribute to persistent
+                  poverty, highlighting the urgent need for concerted efforts and sustainable
                   solutions to alleviate this pressing issue.
               </div>
             </div>
@@ -453,11 +448,11 @@
               </div>
               <div class="col-6 story-column">
                 <header class="story-title">Everyone should have equitable access to basic services</header>
-                Equitable access to basic services is essential for building inclusive societies and ensuring 
-                the well-being of all individuals. Access to services such as education, healthcare, clean 
-                water, sanitation, and energy should not be determined by one's socio-economic status, location, 
-                or other discriminatory factors. By prioritizing and investing in equitable access, 
-                we can bridge gaps, reduce inequalities, and empower marginalized communities, 
+                Equitable access to basic services is essential for building inclusive societies and ensuring
+                the well-being of all individuals. Access to services such as education, healthcare, clean
+                water, sanitation, and energy should not be determined by one's socio-economic status, location,
+                or other discriminatory factors. By prioritizing and investing in equitable access,
+                we can bridge gaps, reduce inequalities, and empower marginalized communities,
                 ultimately fostering social cohesion and creating a more just and prosperous world for everyone.
               </div>
             </div>
@@ -472,23 +467,23 @@
               </div>
               <div class="col-6 story-column">
                 <header class="story-title">Climate change exasperates poverty</header>
-                The impacts of climate change, such as extreme weather events, rising sea levels, 
-                and disruptions to ecosystems, pose significant challenges to economies, livelihoods, 
-                and social well-being. By prioritizing resilience, countries can adapt to these changes, 
-                protect vulnerable populations, safeguard infrastructure, and foster sustainable development, 
+                The impacts of climate change, such as extreme weather events, rising sea levels,
+                and disruptions to ecosystems, pose significant challenges to economies, livelihoods,
+                and social well-being. By prioritizing resilience, countries can adapt to these changes,
+                protect vulnerable populations, safeguard infrastructure, and foster sustainable development,
                 ensuring a more secure and prosperous future for their citizens.
               </div>
             </div>
           </div>
 
-          
+
           <!-- SDG 2: Zero Hunger -->
           <div id="sdg2" class="sdg-container hidden">
             <div class="section-header">
               Goal 2: Zero Hunger
             </div>
             <div class="row chart-story-container">
-              <div class="col-6 chart-column">
+              <div class="col-12 chart-column">
                 <datacommons-map
                   title="Prevalence of undernourishment"
                   variable="sdg/SN_ITK_DEFC"
@@ -496,14 +491,14 @@
                   childPlaceType="Country"
                 ></datacommons-map>
               </div>
-              <div class="col-6 story-column">
+              <div class="col-12 story-column">
                 <header class="story-title">Undernourishment</header>
-                The United Nations is committed to achieving Sustainable Development Goal 2: Zero Hunger. 
-                This goal aims to ensure access to safe, nutritious, and sufficient food for all people, 
-                while promoting sustainable agriculture and ending malnutrition in all its forms. By 
-                addressing the systemic issues that contribute to hunger, such as poverty, inequality, 
-                and climate change, the UN strives to create a world where everyone has the fundamental 
-                right to food security and where hunger becomes a thing of the past, contributing to 
+                The United Nations is committed to achieving Sustainable Development Goal 2: Zero Hunger.
+                This goal aims to ensure access to safe, nutritious, and sufficient food for all people,
+                while promoting sustainable agriculture and ending malnutrition in all its forms. By
+                addressing the systemic issues that contribute to hunger, such as poverty, inequality,
+                and climate change, the UN strives to create a world where everyone has the fundamental
+                right to food security and where hunger becomes a thing of the past, contributing to
                 healthier populations and sustainable development.
               </div>
             </div>
@@ -518,32 +513,32 @@
               </div>
               <div class="col-6 story-column">
                 <header class="story-title">Undernourishment</header>
-                Undernourishment remains a pressing global concern, affecting millions of individuals 
-                across various regions. Despite advancements in food production and distribution, 
-                a significant portion of the global population still lacks access to sufficient, 
-                nutritious food. Factors such as poverty, conflict, climate change, and unequal 
-                distribution of resources contribute to the persistence of undernourishment, 
-                necessitating collective action and targeted interventions to ensure food 
+                Undernourishment remains a pressing global concern, affecting millions of individuals
+                across various regions. Despite advancements in food production and distribution,
+                a significant portion of the global population still lacks access to sufficient,
+                nutritious food. Factors such as poverty, conflict, climate change, and unequal
+                distribution of resources contribute to the persistence of undernourishment,
+                necessitating collective action and targeted interventions to ensure food
                 security for all.
               </div>
             </div>
             <div class="row chart-story-container">
               <div class="col-6 chart-column">
                 <datacommons-line
-                title="Agriculture value added share of GDP of Somalia"
+                title="Agriculture value added share of GDP of Nigeria"
                 variables='["sdg/AG_PRD_AGVAS"]'
-                place="country/SOM"
+                place="country/NGA"
               ></datacommons-line>
               </div>
               <div class="col-6 story-column">
                 <header class="story-title">We need to raise food production</header>
-                Raising agricultural production is vital in the global effort to end world hunger. 
-                With a growing population and increasing food demand, it is crucial to enhance 
-                agricultural productivity sustainably. By investing in modern farming techniques, 
-                technology, infrastructure, and access to markets, we can improve yields, enhance 
-                food availability, and ensure a stable supply of nutritious food, contributing to 
-                the eradication of hunger and achieving global food security. Empowering small-scale 
-                farmers, promoting sustainable practices, and supporting agricultural innovation are 
+                Raising agricultural production is vital in the global effort to end world hunger.
+                With a growing population and increasing food demand, it is crucial to enhance
+                agricultural productivity sustainably. By investing in modern farming techniques,
+                technology, infrastructure, and access to markets, we can improve yields, enhance
+                food availability, and ensure a stable supply of nutritious food, contributing to
+                the eradication of hunger and achieving global food security. Empowering small-scale
+                farmers, promoting sustainable practices, and supporting agricultural innovation are
                 key steps towards a future where no one goes hungry.
               </div>
             </div>
