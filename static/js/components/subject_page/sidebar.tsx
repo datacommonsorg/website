@@ -19,15 +19,39 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { useContext } from "react";
 
 import {
   BLOCK_ID_PREFIX,
   CATEGORY_ID_PREFIX,
 } from "../../constants/subject_page_constants";
+import { SdgContext } from "../../shared/context";
 import { randDomId } from "../../shared/util";
 import { CategoryConfig } from "../../types/subject_page_proto_types";
 import { getId } from "../../utils/subject_page_utils";
+
+const SDG_ICON_URL_PREFIX =
+  "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-";
+
+const SDG_TEXT = [
+  "No Poverty",
+  "Zero Hunger",
+  "Good Health and Well-being",
+  "Quality Education",
+  "Gender Equality",
+  "Clean Water and Sanitation",
+  "Affordable and Clean Energy",
+  "Decent Work and Economic Growth",
+  "Industry Innovation and Infrastructure",
+  "Reduced Inequality",
+  "Sustainable Cities and Communities",
+  "Responsible Consumption and Production",
+  "Climate Action",
+  "Life Below Water",
+  "Life on Land",
+  "Peace and Justice Strong Institutions",
+  "Partnerships to achieve the Goal",
+];
 
 interface SubjectPageSidebarPropType {
   id: string;
@@ -78,5 +102,58 @@ function renderItem(
     >
       {title}
     </li>
+  );
+}
+
+export function SdgSubjectPageSidebar(
+  props: SubjectPageSidebarPropType
+): JSX.Element {
+  const { setSdgIndex } = useContext(SdgContext);
+  return (
+    <div id="subject-page-sidebar">
+      <div id="accordionMenu" className="accordion">
+        {!_.isEmpty(props.categories) &&
+          props.categories.map((category, idx) => {
+            const categoryId = getId(props.id, CATEGORY_ID_PREFIX, idx);
+            const num = (idx + 1).toString().padStart(2, "0");
+            return (
+              <div key={categoryId} className="accordion-item">
+                <h2 className="accordion-header" id={`heading${idx}`}>
+                  <div
+                    className="accordion-button collapsed"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapse${idx}`}
+                    aria-expanded="false"
+                    aria-controls={`collapse${idx}`}
+                    onClick={() => setSdgIndex(idx)}
+                  >
+                    <div className="sidebar-link">
+                      <div className="sidebar-link-icon">
+                        <img src={`${SDG_ICON_URL_PREFIX}${num}.jpg`} />
+                      </div>
+                      <div className="sidebar-link-text">{SDG_TEXT[idx]}</div>
+                    </div>
+                  </div>
+                </h2>
+                <div
+                  id={`collapse${idx}`}
+                  className="accordion-collapse collapse"
+                  aria-labelledby={`heading${idx}`}
+                  data-bs-parent="#accordionMenu"
+                >
+                  <div className="accordion-body">
+                    <ul className="list-unstyled">
+                      {category.blocks.map((block, idx) => {
+                        const blockId = getId(categoryId, BLOCK_ID_PREFIX, idx);
+                        return <li key={blockId}>{block.title}</li>;
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    </div>
   );
 }

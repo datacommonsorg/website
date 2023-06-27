@@ -7,40 +7,53 @@
     />
     <script src="https://datacommons.org/datacommons.js"></script>
   </head>
-  <body>
+  <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
     <h2>Bar Chart</h2>
     <datacommons-bar
       title="Population in States of United States"
-      placeDcid="country/USA"
-      enclosedPlaceType="State"
-      variableDcid="Count_Person"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
     ></datacommons-bar>
     <datacommons-bar
-    title="Population in States of United States"
-    variableDcid="Count_Person"
-    comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
-  ></datacommons-bar>
+      title="Population in States of United States"
+      variable="Count_Person"
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+    ></datacommons-bar>
     <h2>Map</h2>
     <datacommons-map
       title="Population"
-      placeDcid="country/USA"
-      enclosedPlaceType="State"
-      variableDcid="Count_Person"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+    ></datacommons-map>
+    <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
+    <datacommons-map
+      title="California: Annual_ExpectedLoss_NaturalHazardImpact"
+      placeDcid="geoId/06"
+      enclosedPlaceType="County"
+      statVarDcid="Annual_ExpectedLoss_NaturalHazardImpact"
     ></datacommons-map>
     <h2>Ranking</h2>
     <datacommons-ranking
       title="US States with the Highest Population"
-      placeDcid="country/USA"
-      enclosedPlaceType="State"
-      variableDcid="Count_Person"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
     ></datacommons-ranking>
     <datacommons-ranking
       title="US States with the Lowest Population"
-      placeDcid="country/USA"
-      enclosedPlaceType="State"
-      variableDcid="Count_Person"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
       showLowest="true"
     ></datacommons-ranking>
+    <h3>Line</h3>
+    <datacommons-line
+      title="US Population Over Time"
+      place="country/USA"
+      variables='["Count_Person"]'
+    ></datacommons-line>
   </body>
 </html>
