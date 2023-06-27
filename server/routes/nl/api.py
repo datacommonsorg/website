@@ -223,10 +223,10 @@ def history():
 # NOTE: `feedbackData` contains the logged payload.
 #
 # There are two types of feedback:
-# (1) Query-level: when `queryIdx` key is set
-# (2) Chart-level: when `chartIdx` field is set
+# (1) Query-level: when `queryId` key is set
+# (2) Chart-level: when `chartId` field is set
 #
-# `chartIdx` value is a json object that specifies the
+# `chartId` is a json object that specifies the
 # location of a chart in the session by means of:
 #
 #   queryIdx, categoryIdx, blockIdx, columnIdx, tileIdx
