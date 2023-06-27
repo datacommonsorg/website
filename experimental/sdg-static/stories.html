@@ -146,8 +146,10 @@
         margin-bottom:2rem;
         text-align: center;
       }
+      #main-content {
+        padding-top: 2rem;
+      }
       .section-header {
-        margin: 2rem 0;
         display: flex;
         justify-content: center;
         font-size:2.5rem;
@@ -243,7 +245,6 @@
       <div class="dc-subnav-item"><a href="/"><span class="dc-subnav-link selected">SDG View</span></a></div>
       <div class="dc-subnav-item"><a href="#"><span class="dc-subnav-link">Country View</span></span></a></div>
     </nav>
-
 
     <div class="container">
 
@@ -394,21 +395,13 @@
         </div>
 
         <!-- Main page content -->
-        <div class="col">
+        <div class="col" id="main-content">
           <!-- SDG 1: No Poverty -->
           <div id="sdg1" class="sdg-container">
             <div class="section-header">
               Goal 1: No Poverty
             </div>
             <div class="row chart-story-container">
-              <div class="col-12 chart-column">
-                <datacommons-map
-                  title="Proportion of population below international poverty line"
-                  variable="sdg/SI_POV_DAY1"
-                  place="Earth"
-                  childPlaceType="Country"
-                ></datacommons-map>
-              </div>
               <div class="col-12 story-column">
                 <header class="story-title">Target date: 2030</header>
                 The United Nations has set an ambitious target through Sustainable Development Goal 1:
@@ -417,6 +410,14 @@
                 equal access to essential resources and opportunities for all. By tackling poverty
                 comprehensively and holistically, the UN aims to create a world where no one is left
                 behind, paving the way for a more equitable and sustainable future for humanity.
+              </div>
+              <div class="col-12 chart-column">
+                <datacommons-map
+                  title="Proportion of population below international poverty line"
+                  variable="sdg/SI_POV_DAY1"
+                  place="Earth"
+                  childPlaceType="Country"
+                ></datacommons-map>
               </div>
             </div>
             <div class="row chart-story-container">
@@ -483,14 +484,6 @@
               Goal 2: Zero Hunger
             </div>
             <div class="row chart-story-container">
-              <div class="col-12 chart-column">
-                <datacommons-map
-                  title="Prevalence of undernourishment"
-                  variable="sdg/SN_ITK_DEFC"
-                  place="Earth"
-                  childPlaceType="Country"
-                ></datacommons-map>
-              </div>
               <div class="col-12 story-column">
                 <header class="story-title">Undernourishment</header>
                 The United Nations is committed to achieving Sustainable Development Goal 2: Zero Hunger.
@@ -500,6 +493,14 @@
                 and climate change, the UN strives to create a world where everyone has the fundamental
                 right to food security and where hunger becomes a thing of the past, contributing to
                 healthier populations and sustainable development.
+              </div>
+              <div class="col-12 chart-column">
+                <datacommons-map
+                  title="Prevalence of undernourishment"
+                  variable="sdg/SN_ITK_DEFC"
+                  place="Earth"
+                  childPlaceType="Country"
+                ></datacommons-map>
               </div>
             </div>
             <div class="row chart-story-container">
