@@ -41,7 +41,7 @@ def create_app():
     if not model:
       logging.error("No configuration found for model")
       return
-    
+
     # TODO: handle fine tuned model correctly.
     if "tuned_model" in model:
       del model["tuned_model"]
