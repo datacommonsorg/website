@@ -13,9 +13,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <embeddings-size>  # 'small' or 'medium'"
+function help {
+  echo "Usage: "
+  echo "$0 -f [<tuned_intermediate_model_path_on_gcs>] # finetunes the existing finetuned intermediate model; uses prod by default unless provided here (final stage only)"
+  echo "$0 -i # the complete finetuning procedure (both stages: intermediate -> final)" 
+}
+
+STAGE=""
+while getopts fi OPTION; do
+  case $OPTION in
+    f)
+        echo -e "### Finetuning an existing tuned_alternatives model (final stage only)"
+        STAGE="final"
+        INTERMEDIATE_FINETUNED_MODEL="$2"
+        ;;
+    i)
+        echo -e "### Starting the complete finetuning procedure (both stages: alternatives -> final)"
+        STAGE="intermediate"
+        ;;
+    *)
+        help
+    esac
+done
+
+if [ "$STAGE" == "" ]; then
+  help
   exit 1
+fi
+
+# Get the model finetuned on sentence alternatives.
+if [ "$2" != "" ]; then
+  INTERMEDIATE_FINETUNED_MODEL="$2"
+else
+  INTERMEDIATE_FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '$1=="tuned_model:"{ print $2; }' | cut -f2- -d'.')
 fi
 
 cd ../
@@ -24,4 +54,4 @@ source .env/bin/activate
 python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
-python3 -m finetuning.finetune --embeddings_size=$1
+python3 -m finetuning.finetune --stage=$STAGE --pretuned_model="$INTERMEDIATE_FINETUNED_MODEL"
