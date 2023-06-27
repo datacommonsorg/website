@@ -41,7 +41,7 @@ def homepage():
       "static/homepage.html",
       "homepage.html",
       topics=current_app.config.get('HOMEPAGE_TOPICS', []),
-      partner_items=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
+      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 
 @bp.route('/about')

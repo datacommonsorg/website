@@ -2,7 +2,7 @@
   "id": "womenCount",
   "title": "Women Count",
   "imgUrl": "/images/women_count_logo.png",
-  "url": ""
+  "url": "https://data.unwomen.org/women-count"
 }, {
   "id": "stanford",
   "title": "Stanford University",
@@ -17,5 +17,5 @@
   "id": "unWomen",
   "title": "UN Women",
   "imgUrl": "/images/un_women_logo.png",
-  "url": ""
+  "url": "https://www.unwomen.org/"
 }]

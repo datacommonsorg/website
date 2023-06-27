@@ -206,10 +206,9 @@ def get_cached_geojsons():
   return geojsons
 
 
-# Returns a homepage config in json format given the filename of the json file
-# for that config.
-def get_homepage_config_json(filename):
-  filepath = os.path.join(get_repo_root(), "config", "home_page", filename)
+# Returns a json object given the path (relative to root) to the json file
+def get_json(path_relative_to_root):
+  filepath = os.path.join(get_repo_root(), path_relative_to_root)
   with open(filepath, 'r') as f:
     data = json.load(f)
   return data
