@@ -18,8 +18,8 @@ from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import CTX_LOOKBACK_LIMIT
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection.types import ClassificationAttributes
 from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 
 #
@@ -116,8 +116,7 @@ def query_type_from_context(uttr: Utterance) -> List[QueryType]:
 
 
 def classifications_of_type_from_context(
-    uttr: Utterance,
-    ctype: ClassificationType) -> List[ClassificationAttributes]:
+    uttr: Utterance, ctype: ClassificationType) -> List[NLClassifier]:
   result = []
   result.extend(classifications_of_type_from_utterance(uttr, ctype))
   prev_uttr_count = 0
@@ -130,9 +129,13 @@ def classifications_of_type_from_context(
 
 
 def classifications_of_type_from_utterance(
-    uttr: Utterance,
-    ctype: ClassificationType) -> List[ClassificationAttributes]:
+    uttr: Utterance, ctype: ClassificationType) -> List[NLClassifier]:
   return [cl for cl in uttr.classifications if cl.type == ctype]
+
+
+def classifications_of_type(classifications: List[NLClassifier],
+                            ctype: ClassificationType) -> List[NLClassifier]:
+  return [cl for cl in classifications if cl.type == ctype]
 
 
 # `context_history` contains utterances in a given session.

@@ -284,7 +284,7 @@ def scrape(query, driver):
   if query.lower() in _OVERRIDE_CHART_MAP:
     return _OVERRIDE_CHART_MAP[query.lower()]
 
-  url = f'{_local_url()}nl/data#a=True&q={query}'
+  url = f'{_local_url()}nl/data#a=True&q={query}&detector=heuristic'
   logging.info(f'Scraping: {url}')
   driver.get(url)
 

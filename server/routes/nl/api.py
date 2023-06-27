@@ -77,7 +77,7 @@ def data():
     escaped_context_history = escape(context_history)
 
   detector_type = request.args.get('detector',
-                                   default=_HEURISTIC_DETECTOR,
+                                   default=_HYBRID_DETECTOR,
                                    type=str)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
