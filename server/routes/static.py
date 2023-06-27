@@ -14,13 +14,13 @@
 """Data Commons static content routes."""
 
 from datetime import date
-import os
 import json
+import os
 
 import flask
 from flask import Blueprint
-from flask import render_template
 from flask import current_app
+from flask import render_template
 
 import server.lib.render as lib_render
 from server.services import datacommons as dc
