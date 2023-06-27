@@ -33,7 +33,8 @@ configMapGenerator:
       - enableModel=false
   - name: nl-config
     files:
-      - model.yaml
+      - embeddings.yaml
+      - tunedmodel.yaml
   - name: memdb-config
     files:
       - memdb.json

@@ -356,7 +356,7 @@ def main(_):
   model_final_folder_name = _save_finetuned_model(
       ctx, "final", model_intermediate_folder_name)
   print(
-      f"NOTE: Please update `tuned_model` in model.yaml with:: {model_final_folder_name}"
+      f"NOTE: Please update `tuned_model` in tunedmodel.yaml with:: {model_final_folder_name}"
   )
 
 

@@ -45,7 +45,7 @@ fi
 if [ "$2" != "" ]; then
   INTERMEDIATE_FINETUNED_MODEL="$2"
 else
-  INTERMEDIATE_FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '$1=="tuned_model:"{ print $2; }' | cut -f2- -d'.')
+  INTERMEDIATE_FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/tunedmodel.yaml | awk '$1=="tuned_model:"{ print $2; }' | cut -f2- -d'.')
 fi
 
 cd ../

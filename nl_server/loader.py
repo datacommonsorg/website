@@ -39,15 +39,15 @@ def _use_cache(flask_env):
   return flask_env in ['local', 'integration_test', 'webdriver']
 
 
-def load_model(app, model_map):
+def load_embeddings(app, embeddings_map):
   flask_env = os.environ.get('FLASK_ENV')
 
   # Sanity check that file names aren't mispresented
-  for sz in model_map.keys():
-    assert sz in model_map[sz], f'{sz} not found in {model_map[sz]}'
+  for sz in embeddings_map.keys():
+    assert sz in embeddings_map[sz], f'{sz} not found in {embeddings_map[sz]}'
 
-  # In local dev, cache the model in disk so each hot reload won't download
-  # the model again.
+  # In local dev, cache the embeddings on disk so each hot reload won't download
+  # the embeddings again.
   if _use_cache(flask_env):
     from diskcache import Cache
     cache = Cache(nl_cache_path)
@@ -57,7 +57,7 @@ def load_model(app, model_map):
     app.config['NL_NER_PLACES'] = nl_ner_places
 
     missing_embeddings = False
-    for sz in model_map.keys():
+    for sz in embeddings_map.keys():
       nl_embeddings = cache.get(nl_embeddings_cache_key(sz))
       if not nl_embeddings:
         missing_embeddings = True
@@ -65,14 +65,13 @@ def load_model(app, model_map):
       app.config[embeddings_config_key(sz)] = nl_embeddings
 
     if nl_ner_places and not missing_embeddings:
-      logging.info("Using cached model for embeddings and NER in: " +
-                   cache.directory)
+      logging.info("Using cached embeddings and NER in: " + cache.directory)
       return
 
-  # Download the model from GCS
-  for sz in sorted(model_map.keys()):
-    assert sz in model_map, f'{sz} missing from {model_map}'
-    nl_embeddings = Embeddings(gcs.download_embeddings(model_map[sz]))
+  # Download the embeddings from GCS
+  for sz in sorted(embeddings_map.keys()):
+    assert sz in embeddings_map, f'{sz} missing from {embeddings_map}'
+    nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_map[sz]))
     app.config[embeddings_config_key(sz)] = nl_embeddings
 
   nl_ner_places = NERPlaces()
@@ -80,7 +79,7 @@ def load_model(app, model_map):
 
   if _use_cache(flask_env):
     with Cache(cache.directory) as reference:
-      for sz in model_map.keys():
+      for sz in embeddings_map.keys():
         reference.set(nl_embeddings_cache_key(sz),
                       app.config[embeddings_config_key(sz)],
                       expire=nl_cache_expire)
