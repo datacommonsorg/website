@@ -206,6 +206,15 @@ def get_cached_geojsons():
   return geojsons
 
 
+# Returns a homepage config in json format given the filename of the json file
+# for that config.
+def get_homepage_config_json(filename):
+  filepath = os.path.join(get_repo_root(), "config", "home_page", filename)
+  with open(filepath, 'r') as f:
+    data = json.load(f)
+  return data
+
+
 # Returns a summary of the available topic page summaries as an object:
 # {
 #   topicPlaceMap: {

@@ -284,6 +284,10 @@ def create_app():
       ranked_statvars.add(chart['relatedChart']['denominator'])
   app.config['RANKED_STAT_VARS'] = ranked_statvars
   app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
+  app.config['HOMEPAGE_TOPICS'] = libutil.get_homepage_config_json(
+      "topics.json")
+  app.config['HOMEPAGE_PARTNERS'] = libutil.get_homepage_config_json(
+      "partners.json")
 
   if cfg.TEST or cfg.LITE:
     app.config['MAPS_API_KEY'] = ''

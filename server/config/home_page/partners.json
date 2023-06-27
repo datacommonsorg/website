@@ -1,0 +1,21 @@
+[{
+  "id": "womenCount",
+  "title": "Women Count",
+  "imgUrl": "/images/women_count_logo.png",
+  "url": ""
+}, {
+  "id": "stanford",
+  "title": "Stanford University",
+  "imgUrl": "/images/stanford_logo.png",
+  "url": "https://datacommons.stanford.edu"
+}, {
+  "id": "feedingAmerica",
+  "title": "Feeding America",
+  "imgUrl": "/images/feeding_america_logo.png",
+  "url": "https://datacommons.feedingamerica.org"
+}, {
+  "id": "unWomen",
+  "title": "UN Women",
+  "imgUrl": "/images/un_women_logo.png",
+  "url": ""
+}]
