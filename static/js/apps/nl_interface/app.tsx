@@ -40,6 +40,7 @@ export function App(): JSX.Element {
   const [contextList, setContextList] = useState<any[]>([]);
   // If autoRun is enabled, runs every prompt (';' separated) from the url.
   const autoRun = useRef(!!getUrlToken("a"));
+  const demoMode = useRef(!!getUrlToken("enable_demo"));
   const delayDisabled = useRef(!!getUrlToken("d"));
   const [indexType, setIndexType] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.SMALL)
@@ -184,6 +185,7 @@ export function App(): JSX.Element {
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={false}
+        demoMode={demoMode.current}
       ></QueryResult>
     );
   });
