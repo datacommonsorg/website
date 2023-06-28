@@ -75,7 +75,7 @@ def _make_gcs_embeddings_filename(embeddings_size: str,
   minute_str = utils.two_digits(now.minute)
   second_str = utils.two_digits(now.second)
 
-  return f"embeddings_{embeddings_size}_{model_version}_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.csv"
+  return f"embeddings_{embeddings_size}_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.{model_version}.csv"
 
 
 def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:

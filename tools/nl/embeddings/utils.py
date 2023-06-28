@@ -143,6 +143,7 @@ def get_texts_dcids(
 
 
 def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
+  # TODO: deprecate this in favor of the function  in nl_server.gcs
   """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
 
   Args:

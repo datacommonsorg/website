@@ -25,7 +25,6 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-STAGE=""
 while getopts bf OPTION; do
   case $OPTION in
     b)

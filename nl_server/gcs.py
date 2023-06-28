@@ -16,10 +16,10 @@ BUCKET = 'datcom-nl-models'
 TEMP_DIR = '/tmp/'
 
 import os
+from pathlib import Path
+from typing import Any
 
 from google.cloud import storage
-
-from tools.nl.embeddings import utils as embeddings_utils
 
 
 # Downloads the `embeddings_file` from GCS to TEMP_DIR
@@ -42,15 +42,44 @@ def local_path(embeddings_file: str) -> str:
   return os.path.join(local_folder(), embeddings_file)
 
 
+def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
+                            model_folder_name: str) -> str:
+  """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
+
+  Args:
+    gcs_bucket: The GCS bucket.
+    local_dir: the local folder to download to.
+    model_folder_name: the GCS bucket name for the model.
+  
+  Returns the path to the local directory where the model was downloaded to.
+  The downloaded model can then be loaded as:
+
+  ```
+      downloaded_model_path = download_model_from_gcs(bucket, dir, gcs_model_folder_name)
+      model = SentenceTransformer(downloaded_model_path)
+  ```
+  """
+  if local_dir[-1] != "/":
+    local_dir += "/"
+  # Get list of files
+  blobs = gcs_bucket.list_blobs(prefix=model_folder_name)
+  for blob in blobs:
+    file_split = blob.name.split("/")
+    directory = local_dir + "/".join(file_split[0:-1])
+    Path(directory).mkdir(parents=True, exist_ok=True)
+
+    if blob.name.endswith("/"):
+      continue
+    blob.download_to_filename(os.path.join(directory, file_split[-1]))
+
+  return os.path.join(local_dir, model_folder_name)
+
+
 # Downloads the `model_folder` from GCS to `directory`
 # and return its path.
 def download_model_folder(directory: str, model_folder: str) -> str:
   sc = storage.Client()
   bucket = sc.bucket(bucket_name=BUCKET)
-  ctx = embeddings_utils.Context(gs=None,
-                                 model=None,
-                                 bucket=bucket,
-                                 tmp=directory)
 
   # Only download if needed.
   if os.path.exists(os.path.join(directory, model_folder)):
@@ -59,4 +88,5 @@ def download_model_folder(directory: str, model_folder: str) -> str:
   print(
       f"Model ({model_folder}) was not previously downloaded. Downloading to: {os.path.join(directory, model_folder)}"
   )
-  return embeddings_utils.download_model_from_gcs(ctx, model_folder)
+  return download_model_from_gcs.download_model_from_gcs(
+      bucket, directory, model_folder)

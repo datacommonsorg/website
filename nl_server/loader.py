@@ -39,6 +39,17 @@ def _use_cache(flask_env):
   return flask_env in ['local', 'integration_test', 'webdriver']
 
 
+def download_models(models_map):
+  # Download existing embeddings (if not already downloaded).
+  models_downloaded_paths = {}
+  for m in models_map:
+    # Download (only downloads if not already done so).
+    download_path = gcs.download_model_folder(gcs.local_folder(), models_map[m])
+    models_downloaded_paths[models_map[m]] = download_path
+
+  return models_downloaded_paths
+
+
 def load_embeddings(app, embeddings_map, models_downloaded_paths):
   flask_env = os.environ.get('FLASK_ENV')
 
@@ -82,7 +93,7 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
         break
 
     # Checking that the finetuned embeddings have the finetuned model.
-    if "ft" in sz:
+    if "_ft" in sz:
       assert existing_model_path, f"Could not find a finetuned model for finetuned embeddings ({sz}) version: {embeddings_map[sz]}"
 
     nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_map[sz]),
