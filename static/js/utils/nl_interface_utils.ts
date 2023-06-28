@@ -18,7 +18,6 @@
  * Utils used for the nl interface
  */
 
-import axios from "axios";
 const FEEDBACK_LINK =
   "https://docs.google.com/forms/d/e/1FAIpQLSfqndIayVhN1bN5oeZT0Te-MhhBMBR1hn97Lgr77QTOpga8Iw/viewform?usp=pp_url";
 // Param prefixes found when following the instructions here to get a prefilled
@@ -58,28 +57,6 @@ export function getNlChartId(idStr: string): ChartId {
     tileIdx: numbers[4],
   };
   return chartId;
-}
-
-//
-// Invoked when thumb-down is clicked on a chart.
-//
-export function onChartThumbDownClick(
-  idStr: string,
-  nlSessionId: string,
-  isThumbClicked: boolean,
-  setIsThumbClicked: (boolean) => void
-): void {
-  if (isThumbClicked) {
-    return;
-  }
-  setIsThumbClicked(true);
-  axios.post("/api/nl/feedback", {
-    feedbackData: {
-      chartId: getNlChartId(idStr),
-      sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
-    },
-    sessionId: nlSessionId,
-  });
 }
 
 export function isNlInterface(): boolean {

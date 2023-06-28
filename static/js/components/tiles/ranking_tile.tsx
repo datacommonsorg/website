@@ -20,13 +20,12 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { NlSessionContext } from "../../shared/context";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import {
@@ -37,11 +36,11 @@ import {
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
-import { onChartThumbDownClick } from "../../utils/nl_interface_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName } from "../../utils/tile_utils";
+import { NLChartFeedback } from "../nl_feedback";
 import { SvRankingUnits } from "./sv_ranking_units";
 
 const RANKING_COUNT = 5;
@@ -64,10 +63,8 @@ export interface RankingTilePropType {
 
 // TODO: Use ChartTileContainer like other tiles.
 export function RankingTile(props: RankingTilePropType): JSX.Element {
-  const nlSessionId = useContext(NlSessionContext);
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
-  const [isThumbClicked, setIsThumbClicked] = useState(false);
   const chartContainer = useRef(null);
 
   useEffect(() => {
@@ -143,25 +140,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
             />
           );
         })}
-
-      {nlSessionId && (
-        <div className="nl-feedback">
-          <span
-            className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
-            onClick={() => {
-              return onChartThumbDownClick(
-                props.id,
-                nlSessionId,
-                isThumbClicked,
-                setIsThumbClicked
-              );
-            }}
-          >
-            &#128078;
-          </span>
-        </div>
-      )}
-
+      <NLChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
