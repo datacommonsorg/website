@@ -73,6 +73,8 @@ class IntegrationTest(NLWebServerTestCase):
       else:
         print(f'{q} -> {dbg["detection_type"]}')
         logging.info(f'{q} -> {dbg["detection_type"]}')
+        print(f'LLM RESP: {dbg["query_detection_debug_logs"].get("llm_response")}')
+        logging.info(f'LLM RESP: {dbg["query_detection_debug_logs"].get("llm_response")}')
         self.assertEqual(dbg.get('detection_type'), dt), 'Query {q} failed!'
         if not check_place_detection:
           with open(json_file, 'r') as infile:
@@ -125,7 +127,7 @@ class IntegrationTest(NLWebServerTestCase):
         _HYBRID_LLM,
         _HYBRID_LLM,
         _HYBRID_HEURISTIC,
-        _HYBRID_HEURISTIC,
+        _HYBRID_LLM,
         _HYBRID_LLM,
         _HYBRID_LLM,
     ])
