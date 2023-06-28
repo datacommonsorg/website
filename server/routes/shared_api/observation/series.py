@@ -15,7 +15,7 @@
 from flask import Blueprint
 from flask import request
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 from server.lib import shared
 
@@ -38,7 +38,7 @@ bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
 
 @bp.route('', strict_slashes=False)
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -51,7 +51,7 @@ def series():
 
 
 @bp.route('/all')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -64,7 +64,7 @@ def series_all():
 
 
 @bp.route('/within')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def series_within():
   """Gets the observation for child entities of a certain place
   type contained in a parent entity at a given date.
@@ -98,7 +98,7 @@ def series_within():
 
 
 @bp.route('/within/all')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def series_within_all():
   """Gets the observation for child entities of a certain place
   type contained in a parent entity at a given date.
