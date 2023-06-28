@@ -31,7 +31,7 @@ from flask import Response
 from flask import url_for
 from flask_babel import gettext
 
-from server.cache import cache
+from server import cache
 import server.lib.range as lib_range
 import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
@@ -394,7 +394,7 @@ def has_data(data):
 
 
 @bp.route('/data/<path:dcid>')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def data(dcid):
   """Get chart spec and stats data of the landing page for a given place.
   """

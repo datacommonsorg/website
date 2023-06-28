@@ -20,7 +20,7 @@ from json import JSONEncoder
 import flask
 from flask import Response
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 import server.services.datacommons as dc
 
@@ -44,8 +44,7 @@ class DiseaseParentEncoder(JSONEncoder):
     return o.__dict__
 
 
-# Cache for one day.
-@cache.memoize(timeout=3600 * 24)
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 @bp.route('/<path:dcid>')
 def get_node(dcid):
   """Returns data given a disease node."""
