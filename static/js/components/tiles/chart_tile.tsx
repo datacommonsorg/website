@@ -18,17 +18,13 @@
  * A container for any tile containing a chart.
  */
 
-import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NlSessionContext } from "../../shared/context";
-import {
-  CHART_FEEDBACK_SENTIMENT,
-  getNlChartId,
-} from "../../utils/nl_interface_utils";
+import { onChartThumbDownClick } from "../../utils/nl_interface_utils";
 import {
   formatString,
   getChartTitle,
@@ -92,7 +88,14 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         <div className="nl-feedback">
           <span
             className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
-            onClick={onThumbDownClick}
+            onClick={() => {
+              return onChartThumbDownClick(
+                props.id,
+                nlSessionId,
+                isThumbClicked,
+                setIsThumbClicked
+              );
+            }}
           >
             &#128078;
           </span>
@@ -119,19 +122,5 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       "",
       Array.from(props.sources)
     );
-  }
-
-  function onThumbDownClick(): void {
-    if (isThumbClicked) {
-      return;
-    }
-    setIsThumbClicked(true);
-    axios.post("/api/nl/feedback", {
-      feedbackData: {
-        chartId: getNlChartId(props.id),
-        sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
-      },
-      sessionId: nlSessionId,
-    });
   }
 }

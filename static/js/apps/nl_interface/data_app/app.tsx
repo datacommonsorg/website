@@ -33,6 +33,7 @@ export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
   const [contextList, setContextList] = useState<any[]>([]);
   const autoRun = useRef(!!getUrlToken("a"));
+  const demoMode = useRef(!!getUrlToken("enable_demo"));
   const [indexType, setIndexType] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.SMALL)
   );
@@ -142,6 +143,7 @@ export function App(): JSX.Element {
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={true}
+        demoMode={demoMode.current}
       ></QueryResult>
     );
   });
