@@ -59,6 +59,7 @@ def _maybe_copy(file):
     lpath = gcs.local_path(file)
     if os.path.exists(lpath):
       return lpath
+    print(file)
     return gcs.download_embeddings(file)
   assert file.startswith('/'), \
     f'File should either be {_FILE_PATTERN} or an absolute local path'
@@ -69,13 +70,13 @@ def _diff_table(base, test):
   return difflib.HtmlDiff().make_table(base, test)
 
 
-def run_diff(base_file, test_file, query_file, output_file):
+def run_diff(base_file, test_file, test_model_path, query_file, output_file):
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   env.filters['diff_table'] = _diff_table
   template = env.get_template(os.path.basename(_TEMPLATE))
 
   base = Embeddings(base_file)
-  test = Embeddings(test_file)
+  test = Embeddings(test_file, test_model_path)
 
   diffs = []
   with open(query_file) as f:
@@ -106,7 +107,25 @@ def main(_):
   assert FLAGS.base and FLAGS.test and FLAGS.queryset
   base_file = _maybe_copy(FLAGS.base)
   test_file = _maybe_copy(FLAGS.test)
-  run_diff(base_file, test_file, FLAGS.queryset, _REPORT)
+
+  test_model_path = ""
+
+  if "ft" in test_file:
+    # This means we are using embeddings built on finetuned model.
+    # Download the model if needed.
+
+    # Extract the model name.
+    model_name = re.sub("\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv", "",
+                        FLAGS.test)
+    model_name = re.sub("embeddings_(small|medium|large)_", "", model_name)
+    print(f"finetuned model_name: {model_name}")
+    test_model_path = gcs.download_model_folder(gcs.local_folder(), model_name)
+
+    assert "ft_final" in test_model_path
+    assert "ft_intermediate" in test_model_path
+    assert len(test_model_path.split(".")) == 3
+
+  run_diff(base_file, test_file, test_model_path, FLAGS.queryset, _REPORT)
 
 
 if __name__ == "__main__":

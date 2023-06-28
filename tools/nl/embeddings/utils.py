@@ -14,6 +14,7 @@
 """Common Utility functions for Embeddings."""
 
 from dataclasses import dataclass
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -156,7 +157,9 @@ def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
       model = SentenceTransformer(downloaded_model_path)
   ```
   """
-  local_dir = ctx.tmp + "/"
+  local_dir = ctx.tmp
+  if local_dir[-1] != "/":
+    local_dir += "/"
   # Get list of files
   blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
   for blob in blobs:
@@ -166,6 +169,6 @@ def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
 
     if blob.name.endswith("/"):
       continue
-    blob.download_to_filename(directory + "/" + file_split[-1])
+    blob.download_to_filename(os.path.join(directory, file_split[-1]))
 
   return local_dir + model_folder_name

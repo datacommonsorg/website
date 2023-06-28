@@ -39,7 +39,7 @@ def _use_cache(flask_env):
   return flask_env in ['local', 'integration_test', 'webdriver']
 
 
-def load_embeddings(app, embeddings_map):
+def load_embeddings(app, embeddings_map, models_downloaded_paths):
   flask_env = os.environ.get('FLASK_ENV')
 
   # Sanity check that file names aren't mispresented
@@ -71,7 +71,22 @@ def load_embeddings(app, embeddings_map):
   # Download the embeddings from GCS
   for sz in sorted(embeddings_map.keys()):
     assert sz in embeddings_map, f'{sz} missing from {embeddings_map}'
-    nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_map[sz]))
+
+    existing_model_path = ""
+    for model_key, model_path in models_downloaded_paths.items():
+      if model_key in embeddings_map[sz]:
+        existing_model_path = model_path
+        print(
+            f"Using existing model {model_key} for embeddings ({sz}) version: {embeddings_map[sz]}"
+        )
+        break
+
+    # Checking that the finetuned embeddings have the finetuned model.
+    if "ft" in sz:
+      assert existing_model_path, f"Could not find a finetuned model for finetuned embeddings ({sz}) version: {embeddings_map[sz]}"
+
+    nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_map[sz]),
+                               existing_model_path)
     app.config[embeddings_config_key(sz)] = nl_embeddings
 
   nl_ner_places = NERPlaces()

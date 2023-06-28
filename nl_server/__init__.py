@@ -18,6 +18,7 @@ import os
 from flask import Flask
 import yaml
 
+import nl_server.gcs as gcs
 import nl_server.loader as loader
 import nl_server.routes as routes
 
@@ -27,6 +28,26 @@ def create_app():
   app.register_blueprint(routes.bp)
 
   flask_env = os.environ.get('FLASK_ENV')
+
+  # Download existing embeddings (if not already downloaded).
+  models_downloaded_paths = {}
+  models_config_path = '/datacommons/nl/models.yaml'
+  if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
+    models_config_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        'deploy/nl/models.yaml')
+  app.config['MODELS_CONFIG_PATH'] = models_config_path
+  with open(app.config['MODELS_CONFIG_PATH']) as f:
+    models_map = yaml.full_load(f)
+    if not models_map:
+      logging.error("No configuration found for model")
+      return
+
+    for m in models_map:
+      # Download (only downloads if not already done so).
+      download_path = gcs.download_model_folder(gcs.local_folder(),
+                                                models_map[m])
+      models_downloaded_paths[models_map[m]] = download_path
 
   embeddings_config_path = '/datacommons/nl/embeddings.yaml'
   if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
@@ -42,6 +63,6 @@ def create_app():
       logging.error("No configuration found for embeddings")
       return
 
-    loader.load_embeddings(app, embeddings_map)
+    loader.load_embeddings(app, embeddings_map, models_downloaded_paths)
 
   return app

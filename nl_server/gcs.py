@@ -19,6 +19,8 @@ import os
 
 from google.cloud import storage
 
+from tools.nl.embeddings import utils as embeddings_utils
+
 
 # Downloads the `embeddings_file` from GCS to TEMP_DIR
 # and return its path.
@@ -32,5 +34,29 @@ def download_embeddings(embeddings_file: str) -> str:
   return local_embeddings_path
 
 
+def local_folder() -> str:
+  return TEMP_DIR
+
+
 def local_path(embeddings_file: str) -> str:
-  return os.path.join(TEMP_DIR, embeddings_file)
+  return os.path.join(local_folder(), embeddings_file)
+
+
+# Downloads the `model_folder` from GCS to `directory`
+# and return its path.
+def download_model_folder(directory: str, model_folder: str) -> str:
+  sc = storage.Client()
+  bucket = sc.bucket(bucket_name=BUCKET)
+  ctx = embeddings_utils.Context(gs=None,
+                                 model=None,
+                                 bucket=bucket,
+                                 tmp=directory)
+
+  # Only download if needed.
+  if os.path.exists(os.path.join(directory, model_folder)):
+    return os.path.join(directory, model_folder)
+
+  print(
+      f"Model ({model_folder}) was not previously downloaded. Downloading to: {os.path.join(directory, model_folder)}"
+  )
+  return embeddings_utils.download_model_from_gcs(ctx, model_folder)
