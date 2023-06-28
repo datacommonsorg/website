@@ -29,7 +29,7 @@ import {
   getMergedSvg,
   ReplacementStrings,
 } from "../../utils/tile_utils";
-import { NLChartFeedback } from "../nl_feedback";
+import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 interface ChartTileContainerProp {
   id: string;
@@ -80,7 +80,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         sources={props.sources}
         handleEmbed={showEmbed ? handleEmbed : null}
       />
-      <NLChartFeedback id={props.id} />
+      <NlChartFeedback id={props.id} />
       {showEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>
   );

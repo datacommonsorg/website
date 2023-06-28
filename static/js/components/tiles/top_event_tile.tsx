@@ -43,7 +43,7 @@ import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
-import { NLChartFeedback } from "../nl_feedback";
+import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 
 const DEFAULT_RANKING_COUNT = 10;
@@ -212,7 +212,7 @@ export const TopEventTile = memo(function TopEventTile(
           />
         </div>
       </div>
-      <NLChartFeedback id={props.id} />
+      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
     </div>
   );

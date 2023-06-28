@@ -27,11 +27,13 @@ import {
   getNlChartId,
 } from "../utils/nl_interface_utils";
 
-interface NLChartFeedbackPropType {
+interface NlChartFeedbackPropType {
+  // This is a fixed ID format string
+  // e.g., "pg0_cat_1_blk_2_col_3_tile_4"
   id: string;
 }
 
-export function NLChartFeedback(props: NLChartFeedbackPropType): JSX.Element {
+export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
   const nlSessionId = useContext(NlSessionContext);
   const [isThumbClicked, setIsThumbClicked] = useState(false);
   if (!nlSessionId) {

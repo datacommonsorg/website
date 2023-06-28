@@ -40,7 +40,7 @@ import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName } from "../../utils/tile_utils";
-import { NLChartFeedback } from "../nl_feedback";
+import { NlChartFeedback } from "../nl_feedback";
 import { SvRankingUnits } from "./sv_ranking_units";
 
 const RANKING_COUNT = 5;
@@ -140,7 +140,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
             />
           );
         })}
-      <NLChartFeedback id={props.id} />
+      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
