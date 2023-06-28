@@ -938,6 +938,126 @@ function drawGroupBarChart(
 }
 
 /**
+ * Draw group lollipop chart.
+ * @param containerElement
+ * @param id
+ * @param chartWidth
+ * @param chartHeight
+ * @param dataGroups
+ * @param formatNumberFn
+ * @param unit
+ */
+function drawGroupLollipopChart(
+  containerElement: HTMLDivElement,
+  id: string,
+  chartWidth: number,
+  chartHeight: number,
+  dataGroups: DataGroup[],
+  formatNumberFn: (value: number, unit?: string) => string,
+  unit?: string
+): void {
+  if (_.isEmpty(dataGroups)) {
+    return;
+  }
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
+  const keys = dataGroups[0].value.map((dp) => dp.label);
+  const minV = Math.min(
+    0,
+    Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
+  );
+  const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
+  if (maxV === undefined || minV === undefined) {
+    return;
+  }
+
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+
+  const svg = container
+    .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
+    .attr("width", chartWidth)
+    .attr("height", chartHeight);
+
+  const yAxis = svg.append("g").attr("class", "y axis");
+  const chart = svg.append("g").attr("class", "chart-area");
+  const xAxis = svg.append("g").attr("class", "x axis");
+  const tempYAxis = svg.append("g");
+
+  const y = d3
+    .scaleLinear()
+    .domain([minV, maxV])
+    .nice()
+    .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
+  const leftWidth = addYAxis(
+    tempYAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    unit
+  );
+
+  const x0 = d3
+    .scaleBand()
+    .domain(dataGroups.map((dg) => dg.label))
+    .rangeRound([leftWidth, chartWidth - MARGIN.right])
+    .paddingInner(0.1)
+    .paddingOuter(0.1);
+  const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
+
+  const x1 = d3
+    .scaleBand()
+    .domain(keys)
+    .rangeRound([0, x0.bandwidth()])
+    .padding(0.05);
+
+  // Update and redraw the y-axis based on the new x-axis height.
+  y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+  tempYAxis.remove();
+  addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
+  updateXAxis(xAxis, bottomHeight, chartHeight, y);
+
+  const colorFn = getColorFn(keys);
+
+  chart
+    .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    // .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
+    .selectAll("rect")
+    .data((dg) =>
+      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
+    )
+    .join("rect")
+    .classed("g-bar", true)
+    .attr("data-dcid", (d) => d.dcid)
+    .attr("x", (d) => x1(d.key))
+    .attr("y", (d) => y(Math.max(0, d.value)))
+    // .attr("width", x1.bandwidth())
+    .attr("width", 1)
+    .attr("height", (d) => Math.abs(y(0) - y(d.value)))
+    .attr("data-d", (d) => d.value)
+    .attr("fill", (d) => colorFn(d.key));
+
+  appendLegendElem(
+    containerElement,
+    colorFn,
+    dataGroups[0].value.map((dp) => ({
+      label: dp.label,
+      link: dp.link,
+    }))
+  );
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
+}
+
+/**
  * Draw line chart.
  * @param svgContainer
  * @param width
@@ -1475,6 +1595,7 @@ export {
   appendLegendElem,
   drawGroupBarChart,
   drawGroupLineChart,
+  drawGroupLollipopChart,
   drawHistogram,
   drawLineChart,
   drawStackBarChart,

@@ -15,7 +15,7 @@
  */
 
 /**
- * Component for rendering a bar tile.
+ * Component for rendering a lollipop tile.
  */
 
 import axios from "axios";
@@ -23,7 +23,7 @@ import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
-import { drawGroupBarChart, drawGroupLollipopChart } from "../../chart/draw";
+import { drawGroupBarChart } from "../../chart/draw";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
@@ -63,8 +63,6 @@ export interface BarTilePropType {
   isDataTile?: boolean;
   // API root
   apiRoot?: string;
-  // Whether to draw as a lollipop chart instead
-  useLollipop?: boolean;
 }
 
 interface BarChartData {
@@ -74,7 +72,7 @@ interface BarChartData {
   dateRange: string;
 }
 
-export function BarTile(props: BarTilePropType): JSX.Element {
+export function LollipopTile(props: BarTilePropType): JSX.Element {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
@@ -256,25 +254,13 @@ export function draw(
   svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
-  if (props.useLollipop) {
-    drawGroupLollipopChart(
-      svgContainer,
-      props.id,
-      svgWidth || svgContainer.offsetWidth,
-      props.svgChartHeight,
-      chartData.dataGroup,
-      formatNumber,
-      chartData.unit
-    );
-  } else {
-    drawGroupBarChart(
-      svgContainer,
-      props.id,
-      svgWidth || svgContainer.offsetWidth,
-      props.svgChartHeight,
-      chartData.dataGroup,
-      formatNumber,
-      chartData.unit
-    );
-  }
+  drawGroupBarChart(
+    svgContainer,
+    props.id,
+    svgWidth || svgContainer.offsetWidth,
+    props.svgChartHeight,
+    chartData.dataGroup,
+    formatNumber,
+    chartData.unit
+  );
 }

@@ -78,6 +78,9 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Array<string> })
   comparisonPlaces;
 
+  @property()
+  useLollipop: boolean;
+
   render(): HTMLElement {
     const barTileProps: BarTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
@@ -101,6 +104,7 @@ export class DatacommonsBarComponent extends LitElement {
       ],
       svgChartHeight: 200,
       title: this.title,
+      useLollipop: this.useLollipop,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(BarTile, barTileProps), mountPoint);
