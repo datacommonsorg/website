@@ -75,14 +75,14 @@ export class DatacommonsBarComponent extends LitElement {
   comparisonPlaces;
 
   // Optional: List of DCIDs of statistical variables to plot
-  // If provided, "variable" (singular) will be ignored.
+  // If provided, the "variable" attribute will be ignored.
   // !Important: variables provided must share the same unit
   @property({ type: Array<string>, converter: convertArrayAttribute })
-  variables;
+  comparisonVariables;
 
   render(): HTMLElement {
-    const statVarDcids: string[] = this.variables
-      ? this.variables
+    const statVarDcids: string[] = this.comparisonVariables
+      ? this.comparisonVariables
       : [this.variable];
     const statVarSpec = [];
     console.log(statVarDcids);
