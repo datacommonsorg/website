@@ -36,8 +36,7 @@ _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 # TODO(pradh): Expand tests to other index sizes.
 def _get_embeddings_file_path() -> str:
-  embeddings_config_path = os.path.join(_root_dir,
-                                        'deploy/base/embeddings.yaml')
+  embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
   with open(embeddings_config_path) as f:
     embeddings = yaml.full_load(f)
     embeddings_file = embeddings[loader.DEFAULT_INDEX_TYPE]
