@@ -17,7 +17,7 @@ import collections
 from flask import Blueprint
 from flask import render_template
 
-from server.cache import cache
+from server import cache
 from server.lib.fetch import raw_property_values
 from server.routes.shared_api.place import child_fetch
 
@@ -30,7 +30,7 @@ bp = Blueprint(
 
 @bp.route('/placelist')
 @bp.route('/place-list')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def index():
   resp = raw_property_values(['Country'], 'typeOf', False)
   resp['Country'].sort(key=lambda x: x['name'])
@@ -38,7 +38,7 @@ def index():
 
 
 @bp.route('/place-list/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def node(dcid):
   child_places = child_fetch(dcid)
   place_by_type = collections.defaultdict(list)

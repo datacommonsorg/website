@@ -15,7 +15,7 @@
 from flask import Blueprint
 from flask import request
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 
 # Define blueprint
@@ -23,7 +23,7 @@ bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
 
 
 @bp.route('', strict_slashes=False)
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def point():
   """Handler to get the observation point given multiple stat vars and places."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -37,7 +37,7 @@ def point():
 
 
 @bp.route('/all')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def point_all():
   """Handler to get all the observation points given multiple stat vars and entities."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -51,7 +51,7 @@ def point_all():
 
 
 @bp.route('/within')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def point_within():
   """Gets the observations for child entities of a certain place
   type contained in a parent entity at a given date. If no date given, will
@@ -74,7 +74,7 @@ def point_within():
 
 
 @bp.route('/within/all')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def point_within_all():
   """Gets the observations for child entities of a certain place
   type contained in a parent entity at a given date. If no date given, will

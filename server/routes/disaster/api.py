@@ -21,7 +21,7 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-from server.cache import cache
+from server import cache
 import server.lib.fetch as fetch
 import server.lib.util as lib_util
 
@@ -199,7 +199,7 @@ def json_event_data():
 
 
 @bp.route('/event-data')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def event_data():
   """Gets the event data for a given eventType, date range, place, and
       filter information (filter prop, unit, lower limit, and upper limit).

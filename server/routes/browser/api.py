@@ -19,7 +19,7 @@ import flask
 from flask import request
 from flask import Response
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 import server.services.datacommons as dc
 
@@ -30,7 +30,7 @@ NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
 
 @bp.route('/provenance')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def provenance():
   """Returns all the provenance information."""
   prov_resp = fetch.property_values(['Provenance'], 'typeOf', False)
@@ -63,7 +63,7 @@ WHERE {{
   return sparql_query
 
 
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 @bp.route('/observation-id')
 def get_observation_id():
   """Returns the observation node dcid for a combination of
