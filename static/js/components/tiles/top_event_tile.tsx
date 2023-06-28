@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useContext, useEffect, useRef, useState } from "react";
 
 import {
   ASYNC_ELEMENT_CLASS,
@@ -29,6 +29,7 @@ import {
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
+import { NlSessionContext } from "../../shared/context";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
@@ -41,6 +42,7 @@ import {
 } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
+import { onChartThumbDownClick } from "../../utils/nl_interface_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
 import { ChartFooter } from "./chart_footer";
@@ -60,9 +62,12 @@ interface TopEventTilePropType {
   className?: string;
 }
 
+// TODO: Use ChartTileContainer like other tiles.
 export const TopEventTile = memo(function TopEventTile(
   props: TopEventTilePropType
 ): JSX.Element {
+  const nlSessionId = useContext(NlSessionContext);
+  const [isThumbClicked, setIsThumbClicked] = useState(false);
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
   const [eventPlaces, setEventPlaces] =
@@ -210,6 +215,23 @@ export const TopEventTile = memo(function TopEventTile(
           />
         </div>
       </div>
+      {nlSessionId && (
+        <div className="nl-feedback">
+          <span
+            className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
+            onClick={() => {
+              return onChartThumbDownClick(
+                props.id,
+                nlSessionId,
+                isThumbClicked,
+                setIsThumbClicked
+              );
+            }}
+          >
+            &#128078;
+          </span>
+        </div>
+      )}
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
