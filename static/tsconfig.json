@@ -5,7 +5,7 @@
         "name": "typescript-tslint-plugin"
       }
     ],
-    "lib": ["dom", "ES2021"],
+    "lib": ["dom", "es2021"],
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": false,
