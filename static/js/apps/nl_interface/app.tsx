@@ -26,6 +26,7 @@ import {
   NL_URL_PARAMS,
 } from "../../constants/app/nl_interface_constants";
 import { getUrlToken, getUrlTokenOrDefault } from "../../utils/url_utils";
+import { QueryExamples } from "./query_examples";
 import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
@@ -39,6 +40,7 @@ export function App(): JSX.Element {
   const [contextList, setContextList] = useState<any[]>([]);
   // If autoRun is enabled, runs every prompt (';' separated) from the url.
   const autoRun = useRef(!!getUrlToken("a"));
+  const delayDisabled = useRef(!!getUrlToken("d"));
   const [indexType, setIndexType] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.SMALL)
   );
@@ -81,9 +83,12 @@ export function App(): JSX.Element {
     if (!prompt) {
       return;
     }
-    const nextPromptDelay = delayStart ? NEXT_PROMPT_DELAY : 0;
+    const nextPromptDelay =
+      delayStart && !delayDisabled.current ? NEXT_PROMPT_DELAY : 0;
+    const promptSearchDelay = delayDisabled.current ? 0 : PROMPT_SEARCH_DELAY;
     nextPromptDelayTimer.current = setTimeout(() => {
-      let inputLength = 1;
+      // If delay is disabled, input the whole prompt at once
+      let inputLength = delayDisabled.current ? prompt.length : 1;
       inputIntervalTimer.current = setInterval(() => {
         if (inputLength <= prompt.length) {
           updateSearchInput(prompt.substring(0, inputLength));
@@ -95,7 +100,7 @@ export function App(): JSX.Element {
           if (autoRun.current) {
             searchDelayTimer.current = setTimeout(() => {
               executeSearch();
-            }, PROMPT_SEARCH_DELAY);
+            }, promptSearchDelay);
           }
           return;
         }
@@ -161,9 +166,10 @@ export function App(): JSX.Element {
     }
   }
 
-  function onHistoryItemClick(queries: string[]) {
+  function onQueryItemClick(queries: string[]) {
     urlPrompts.current.unshift(...queries);
     autoRun.current = true;
+    delayDisabled.current = true;
     inputNextPrompt(false /* delayStart */);
   }
 
@@ -188,6 +194,7 @@ export function App(): JSX.Element {
   return (
     <>
       <div id="results-thread-container">{queryResults}</div>
+      {queries.length === 0 && <QueryExamples onItemClick={onQueryItemClick} />}
       <div
         id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
       >
@@ -201,7 +208,7 @@ export function App(): JSX.Element {
           setIndexType={setIndexType}
           setDetector={setDetector}
         />
-        {isStartState && <QueryHistory onItemClick={onHistoryItemClick} />}
+        {isStartState && <QueryHistory onItemClick={onQueryItemClick} />}
       </div>
     </>
   );

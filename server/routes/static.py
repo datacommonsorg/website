@@ -29,12 +29,12 @@ bp = Blueprint('static', __name__)
 
 
 @bp.route('/')
-def homepage_old():
+def homepage():
   return lib_render.render_page("static/homepage_old.html", "homepage.html")
 
 
 @bp.route('/new')
-def homepage():
+def homepage_new():
   if (not os.environ.get('FLASK_ENV') in ['autopush', 'local']):
     flask.abort(404)
   return lib_render.render_page(

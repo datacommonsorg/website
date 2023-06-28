@@ -190,7 +190,8 @@ $feedback-link-font-color: #70757a;
 .nl-history.container,
 .nl-query .container,
 .nl-result .container,
-#search-container .container {
+#search-container .container,
+.nl-examples .container {
   padding-left: $container-horizontal-padding;
   padding-right: $container-horizontal-padding;
 }
@@ -481,4 +482,24 @@ $loading-dot-color: #999;
 
 #subject-page-main-pane .col-12 {
   padding-bottom: 1em;
+}
+
+.examples-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1rem;
+
+  .example-item {
+    padding: 5px 10px;
+    background: var(--dc-red-fade);
+    display: inline-block;
+    border-radius: 1rem;
+    cursor: pointer;
+    width: fit-content;
+  }
+  
+  .example-item:hover {
+    box-shadow: $hover-box-shadow;
+  }
 }

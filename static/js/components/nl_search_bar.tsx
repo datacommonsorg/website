@@ -52,7 +52,7 @@ export function NlSearchBar(props: NlSearchBarPropType): JSX.Element {
   function handleSearch(): void {
     const inputVal = inputRef.current ? inputRef.current.value : "";
     if (inputVal) {
-      window.open(`/nl/#q=${encodeURI(inputVal)}&a=1`, "_self");
+      window.open(`/nl/#q=${encodeURI(inputVal)}&a=1&d=1`, "_self");
     }
   }
 }
