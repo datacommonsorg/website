@@ -132,12 +132,13 @@ class TestLLMFallback(unittest.TestCase):
           'info_fallback_place_within_multi_sv'),
       (
           # Multi-SV query, with no delimiter, but a very long query.
-          Detection(original_query=
-                    'hispanic asian and a bunch of other words in california',
-                    cleaned_query='',
-                    places_detected=_place(),
-                    svs_detected=_sv(['hispanic', 'asian']),
-                    classifications=[]),
+          Detection(
+              original_query=
+              'hispanic asian and many many many many more other words in california',
+              cleaned_query='',
+              places_detected=_place(),
+              svs_detected=_sv(['hispanic', 'asian']),
+              classifications=[]),
           True,
           'info_fallback_query_very_long')
   ])

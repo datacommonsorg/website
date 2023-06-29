@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import json
-import logging
 import os
 
 import requests
@@ -25,9 +24,6 @@ _TEST_MODE = os.environ['TEST_MODE']
 
 _TEST_DATA = 'test_data'
 
-_HYBRID_LLM = 'Hybrid - LLM Fallback'
-_HYBRID_HEURISTIC = 'Hybrid - Heuristic Based'
-
 
 class IntegrationTest(NLWebServerTestCase):
 
@@ -35,14 +31,21 @@ class IntegrationTest(NLWebServerTestCase):
   def run_sequence(self,
                    test_dir,
                    queries,
-                   detections,
                    idx='small',
+                   detector='heuristic',
                    check_place_detection=False):
+    if detector == 'heuristic':
+      detection_method = 'Heuristic Based'
+    elif detector == 'llm':
+      detection_method = 'LLM Based'
+    elif detector == 'hybrid':
+      detection_method = 'Hybrid - '
+    assert detection_method
     ctx = {}
-    for i, (q, dt) in enumerate(zip(queries, detections)):
+    for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(self.get_server_url() +
-                           f'/api/nl/data?q={q}&idx={idx}&detector=hybrid',
+                           f'/api/nl/data?q={q}&idx={idx}&detector={detector}',
                            json={
                                'contextHistory': ctx
                            }).json()
@@ -71,11 +74,8 @@ class IntegrationTest(NLWebServerTestCase):
             }
             infile.write(json.dumps(dbg_to_write, indent=2))
       else:
-        print(f'{q} -> {dbg["detection_type"]}')
-        logging.info(f'{q} -> {dbg["detection_type"]}')
-        print(f'LLM RESP: {dbg["query_detection_debug_logs"].get("llm_response")}')
-        logging.info(f'LLM RESP: {dbg["query_detection_debug_logs"].get("llm_response")}')
-        self.assertEqual(dbg.get('detection_type'), dt), 'Query {q} failed!'
+        self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
+          'Query {q} failed!'
         if not check_place_detection:
           with open(json_file, 'r') as infile:
             expected = json.load(infile)
@@ -104,8 +104,12 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
-    self.run_sequence('textbox_sample', ['family earnings in california'],
-                      [_HYBRID_HEURISTIC])
+    self.run_sequence('textbox_sample', ['family earnings in california'])
+
+  def test_textbox_sample_llm(self):
+    # This is the sample advertised in our textbox
+    self.run_sequence('textbox_sample_llm', ['family earnings in california'],
+                      'llm')
 
   def test_demo_feb2023(self):
     self.run_sequence('demo_feb2023', [
@@ -119,17 +123,6 @@ class IntegrationTest(NLWebServerTestCase):
         'Which counties in the USA have the highest levels of blood pressure',
         'How does this correlate with income',
         'What is the meaning of life',
-    ], [
-        _HYBRID_HEURISTIC,
-        _HYBRID_LLM,
-        _HYBRID_HEURISTIC,
-        _HYBRID_LLM,
-        _HYBRID_LLM,
-        _HYBRID_LLM,
-        _HYBRID_HEURISTIC,
-        _HYBRID_LLM,
-        _HYBRID_LLM,
-        _HYBRID_LLM,
     ])
 
   def test_demo_cities_feb2023(self):
@@ -143,14 +136,6 @@ class IntegrationTest(NLWebServerTestCase):
             # Proxy for parks in magiceye
             'Which cities in the SF Bay Area have the highest larceny',
             'What countries in Africa had the greatest increase in life expectancy',
-        ],
-        [
-            _HYBRID_HEURISTIC,
-            _HYBRID_LLM,
-            _HYBRID_LLM,
-            _HYBRID_LLM,
-            _HYBRID_HEURISTIC,
-            _HYBRID_HEURISTIC,
         ])
 
   def test_demo_fallback(self):
@@ -172,13 +157,6 @@ class IntegrationTest(NLWebServerTestCase):
             # We should fail fulfilling "Country" type contained-in a country,
             # instead we would pick contained-in from context (County).
             'GDP of countries in the US',
-        ],
-        [
-            _HYBRID_LLM,
-            _HYBRID_HEURISTIC,
-            _HYBRID_HEURISTIC,
-            _HYBRID_HEURISTIC,
-            _HYBRID_HEURISTIC,
         ])
 
   def test_demo_multisv(self):
@@ -194,18 +172,11 @@ class IntegrationTest(NLWebServerTestCase):
             "California cities with hispanic population over 10000",
             # Filter query with another SV.
             "Prevalence of Asthma in California cities with hispanic population over 10000",
-        ],
-        [
-            _HYBRID_LLM,
-            _HYBRID_LLM,
-            _HYBRID_LLM,
-            _HYBRID_LLM,
         ])
 
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',
-                      ['Which countries emit the most greenhouse gases?'],
-                      [_HYBRID_HEURISTIC])
+                      ['Which countries emit the most greenhouse gases?'])
 
   def test_place_detection_e2e(self):
     self.run_sequence('place_detection_e2e', [
@@ -215,9 +186,6 @@ class IntegrationTest(NLWebServerTestCase):
         'compare with california and new york state and washington state',
         'show me the population of mexico city',
         'counties in the US with the most poverty',
-    ], [
-        _HYBRID_HEURISTIC, _HYBRID_HEURISTIC, _HYBRID_LLM, _HYBRID_LLM,
-        _HYBRID_HEURISTIC, _HYBRID_HEURISTIC
     ],
                       check_place_detection=True)
 
@@ -229,17 +197,16 @@ class IntegrationTest(NLWebServerTestCase):
         'Districts in Turkey with the highest fertility rate',
         'Floods in Brazil',
         'Drought in Africa',
-    ], [_HYBRID_HEURISTIC] * 6)
+    ])
 
   def test_sdg(self):
     self.run_sequence('sdg', [
         'tell me about poverty in africa',
         'which countries have show the greatest reduction?',
         'health in the world',
-    ], [_HYBRID_HEURISTIC, _HYBRID_LLM, _HYBRID_HEURISTIC])
+    ])
 
   def test_medium_index(self):
     self.run_sequence('medium_index',
                       ['cars per family in california counties'],
-                      [_HYBRID_HEURISTIC],
                       idx='medium')

@@ -46,7 +46,7 @@ export function App(): JSX.Element {
     getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.SMALL)
   );
   const [detector, setDetector] = useState(
-    getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HYBRID)
+    getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HEURISTIC)
   );
   const urlPrompts = useRef(getUrlPrompts());
   // Timer used to input characters from a single prompt with
