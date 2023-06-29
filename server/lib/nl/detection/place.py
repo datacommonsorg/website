@@ -61,7 +61,7 @@ def _maps_place(place_str):
     if place_str.lower() == main_text.lower():
       best_match = p
       break
-  
+
   return best_match
 
 
