@@ -40,12 +40,12 @@ This is a common sheet across the different index sizes.
 
    To use the base default sentence_transformer model:
    ```bash
-   ./run.sh -b (small | medium)
+   ./run.sh -b medium
    ```
 
    To use the finetuned model in PROD:
    ```bash
-   ./run.sh -f (small | medium)
+   ./run.sh -f medium
    ```
 
 1. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.

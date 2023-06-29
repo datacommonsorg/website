@@ -40,11 +40,11 @@ def _use_cache(flask_env):
 
 
 def download_models(models_map):
-  # Download existing embeddings (if not already downloaded).
+  # Download existing models (if not already downloaded).
   models_downloaded_paths = {}
   for m in models_map:
-    # Download (only downloads if not already done so).
-    download_path = gcs.download_model_folder(gcs.local_folder(), models_map[m])
+    # Only downloads if not already done so.
+    download_path = gcs.download_model_folder(models_map[m])
     models_downloaded_paths[models_map[m]] = download_path
 
   return models_downloaded_paths

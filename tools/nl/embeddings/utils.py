@@ -159,17 +159,17 @@ def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
   ```
   """
   local_dir = ctx.tmp
-  if local_dir[-1] != "/":
-    local_dir += "/"
   # Get list of files
   blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
   for blob in blobs:
     file_split = blob.name.split("/")
-    directory = local_dir + "/".join(file_split[0:-1])
+    directory = local_dir
+    for p in file_split[0:-1]:
+      directory = os.path.join(directory, p)
     Path(directory).mkdir(parents=True, exist_ok=True)
 
     if blob.name.endswith("/"):
       continue
     blob.download_to_filename(os.path.join(directory, file_split[-1]))
 
-  return local_dir + model_folder_name
+  return os.path.join(local_dir, model_folder_name)

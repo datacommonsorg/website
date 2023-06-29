@@ -28,7 +28,7 @@ def create_app():
 
   flask_env = os.environ.get('FLASK_ENV')
 
-  # Download existing embeddings (if not already downloaded).
+  # Download existing finetuned models (if not already downloaded).
   models_downloaded_paths = {}
   models_config_path = '/datacommons/nl/models.yaml'
   if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
@@ -42,8 +42,11 @@ def create_app():
       logging.error("No configuration found for model")
       return
 
-    loader.download_models(models_map)
+    models_downloaded_paths = loader.download_models(models_map)
 
+  assert models_downloaded_paths, "No models were found/downloaded. Check deploy/nl/models.yaml"
+
+  # Download existing embeddings (if not already downloaded).
   embeddings_config_path = '/datacommons/nl/embeddings.yaml'
   if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
     embeddings_config_path = os.path.join(
