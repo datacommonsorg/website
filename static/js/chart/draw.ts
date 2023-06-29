@@ -940,7 +940,6 @@ function drawGroupBarChart(
 /**
  * Draw group lollipop chart.
  * @param containerElement
- * @param id
  * @param chartWidth
  * @param chartHeight
  * @param dataGroups
@@ -949,7 +948,6 @@ function drawGroupBarChart(
  */
 function drawGroupLollipopChart(
   containerElement: HTMLDivElement,
-  id: string,
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
@@ -1003,19 +1001,13 @@ function drawGroupLollipopChart(
     unit
   );
 
-  const x0 = d3
+  const x = d3
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
     .rangeRound([leftWidth, chartWidth - MARGIN.right])
     .paddingInner(0.1)
     .paddingOuter(0.1);
-  const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
-
-  const x1 = d3
-    .scaleBand()
-    .domain(keys)
-    .rangeRound([0, x0.bandwidth()])
-    .padding(0.05);
+  const bottomHeight = addXAxis(xAxis, chartHeight, x, false, labelToLink);
 
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
@@ -1025,26 +1017,39 @@ function drawGroupLollipopChart(
 
   const colorFn = getColorFn(keys);
 
+  const chartData = dataGroups.map((dg) => ({
+    key: dg.label,
+    value: dg.value[0].value,
+    dcid: dg.value[0].dcid,
+  }));
+
+  // draw lollipop stems
   chart
     .append("g")
-    .selectAll("g")
-    .data(dataGroups)
-    .join("g")
-    // .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
-    .selectAll("rect")
-    .data((dg) =>
-      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
-    )
-    .join("rect")
-    .classed("g-bar", true)
+    .selectAll("line")
+    .data(chartData)
+    .join("line")
     .attr("data-dcid", (d) => d.dcid)
-    .attr("x", (d) => x1(d.key))
-    .attr("y", (d) => y(Math.max(0, d.value)))
-    // .attr("width", x1.bandwidth())
-    .attr("width", 1)
-    .attr("height", (d) => Math.abs(y(0) - y(d.value)))
     .attr("data-d", (d) => d.value)
-    .attr("fill", (d) => colorFn(d.key));
+    .attr("stroke", (d) => colorFn(d.key))
+    .attr("stroke-width", 2)
+    .attr("x1", (d) => x(d.key) + x.bandwidth()/2)
+    .attr("x2", (d) => x(d.key) + x.bandwidth()/2)
+    .attr("y1", y(0))
+    .attr("y2", (d) => y(d.value));
+
+  // draw circles
+  chart
+    .append("g")
+    .selectAll("circle")
+    .data(chartData)
+    .join("circle")
+    .attr("data-dcid", (d) => d.dcid)
+    .attr("data-d", (d) => d.value)
+    .attr("fill", (d) => colorFn(d.key))
+    .attr("cx", (d) => x(d.key) + x.bandwidth()/2)
+    .attr("cy", (d) => y(d.value))
+    .attr("r", 6);
 
   appendLegendElem(
     containerElement,

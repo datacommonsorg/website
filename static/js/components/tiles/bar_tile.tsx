@@ -259,7 +259,6 @@ export function draw(
   if (props.useLollipop) {
     drawGroupLollipopChart(
       svgContainer,
-      props.id,
       svgWidth || svgContainer.offsetWidth,
       props.svgChartHeight,
       chartData.dataGroup,
