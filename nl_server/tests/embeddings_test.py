@@ -36,10 +36,10 @@ _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 # TODO(pradh): Expand tests to other index sizes.
 def _get_embeddings_file_path() -> str:
-  model_config_path = os.path.join(_root_dir, 'deploy/base/model.yaml')
-  with open(model_config_path) as f:
-    model = yaml.full_load(f)
-    embeddings_file = model[loader.DEFAULT_INDEX_TYPE]
+  embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
+  with open(embeddings_config_path) as f:
+    embeddings = yaml.full_load(f)
+    embeddings_file = embeddings[loader.DEFAULT_INDEX_TYPE]
     return gcs.download_embeddings(embeddings_file)
 
 
@@ -48,7 +48,7 @@ class TestEmbeddings(unittest.TestCase):
   @classmethod
   def setUpClass(cls) -> None:
 
-    # Look for the Embeddings model in the cache if it exists.
+    # Look for the Embeddings in the cache if it exists.
     cache = Cache(nl_cache_path)
     cache.expire()
     cls.nl_embeddings = cache.get(loader.nl_embeddings_cache_key())

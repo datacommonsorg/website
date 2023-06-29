@@ -14,9 +14,12 @@
 """Data Commons static content routes."""
 
 from datetime import date
+import json
 import os
 
+import flask
 from flask import Blueprint
+from flask import current_app
 from flask import render_template
 
 import server.lib.render as lib_render
@@ -27,7 +30,18 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-  return lib_render.render_page("static/homepage.html", "homepage.html")
+  return lib_render.render_page("static/homepage_old.html", "homepage.html")
+
+
+@bp.route('/new')
+def homepage_new():
+  if (not os.environ.get('FLASK_ENV') in ['autopush', 'local']):
+    flask.abort(404)
+  return lib_render.render_page(
+      "static/homepage.html",
+      "homepage.html",
+      topics=current_app.config.get('HOMEPAGE_TOPICS', []),
+      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 
 @bp.route('/about')

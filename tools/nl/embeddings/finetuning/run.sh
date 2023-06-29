@@ -16,7 +16,7 @@
 function help {
   echo "Usage: "
   echo "$0 -f [<tuned_intermediate_model_path_on_gcs>] # finetunes the existing finetuned intermediate model; uses prod by default unless provided here (final stage only)"
-  echo "$0 -i # the complete finetuning procedure (both stages: intermediate -> final)" 
+  echo "$0 -i # the complete finetuning procedure (both stages: intermediate -> final)"
 }
 
 STAGE=""
@@ -45,7 +45,7 @@ fi
 if [ "$2" != "" ]; then
   INTERMEDIATE_FINETUNED_MODEL="$2"
 else
-  INTERMEDIATE_FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '$1=="tuned_model:"{ print $2; }' | cut -f2- -d'.')
+  INTERMEDIATE_FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }' | cut -f2- -d'.')
 fi
 
 cd ../

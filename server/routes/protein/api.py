@@ -21,7 +21,7 @@ from flask import request
 from flask import Response
 from markupsafe import escape
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 import server.services.datacommons as dc
 
@@ -37,7 +37,7 @@ BAD_REQUEST_CODE = 400
 bp = Blueprint('api_protein', __name__, url_prefix='/api/protein')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 @bp.route('/<path:dcid>')
 def get_node(dcid):
   """Returns data given a protein node."""

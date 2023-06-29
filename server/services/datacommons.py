@@ -21,7 +21,7 @@ import urllib.parse
 from flask import current_app
 import requests
 
-from server.cache import cache
+from server import cache
 import server.lib.config as libconfig
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -29,8 +29,7 @@ from server.services.discovery import get_service_url
 cfg = libconfig.get_config()
 
 
-# Cache for one day.
-@cache.memoize(timeout=3600 * 24)
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def get(url: str):
   headers = {'Content-Type': 'application/json'}
   mixer_api_key = current_app.config.get('MIXER_API_KEY', '')
@@ -54,8 +53,7 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-# Cache for one day.
-@cache.memoize(timeout=3600 * 24)
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
   headers = {'Content-Type': 'application/json'}

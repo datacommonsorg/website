@@ -28,24 +28,20 @@ def create_app():
 
   flask_env = os.environ.get('FLASK_ENV')
 
-  model_config_path = '/datacommons/nl/model.yaml'
+  embeddings_config_path = '/datacommons/nl/embeddings.yaml'
   if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
-    model_config_path = os.path.join(
+    embeddings_config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        'deploy/base/model.yaml')
-  app.config['MODEL_CONFIG_PATH'] = model_config_path
+        'deploy/nl/embeddings.yaml')
+  app.config['EMBEDDINGS_CONFIG_PATH'] = embeddings_config_path
 
   # Initialize the NL module.
-  with open(app.config['MODEL_CONFIG_PATH']) as f:
-    model = yaml.full_load(f)
-    if not model:
-      logging.error("No configuration found for model")
+  with open(app.config['EMBEDDINGS_CONFIG_PATH']) as f:
+    embeddings_map = yaml.full_load(f)
+    if not embeddings_map:
+      logging.error("No configuration found for embeddings")
       return
 
-    # TODO: handle fine tuned model correctly.
-    if "tuned_model" in model:
-      del model["tuned_model"]
-
-    loader.load_model(app, model)
+    loader.load_embeddings(app, embeddings_map)
 
   return app
