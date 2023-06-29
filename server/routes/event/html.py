@@ -24,7 +24,7 @@ from flask import render_template
 from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 import server.lib.shared as shared_api
 import server.lib.subject_page_config as lib_subject_page_config
@@ -137,7 +137,7 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
 
 @bp.route('/')
 @bp.route('/<path:dcid>', strict_slashes=False)
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def event_node(dcid=DEFAULT_EVENT_DCID):
   # Get node properties
   node_name = escape(dcid)
