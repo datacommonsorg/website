@@ -1019,6 +1019,7 @@ function drawGroupLollipopChart(
 
   const chartData = dataGroups.map((dg) => ({
     key: dg.label,
+    statVar: dg.value[0].label,
     value: dg.value[0].value,
     dcid: dg.value[0].dcid,
   }));
@@ -1031,7 +1032,7 @@ function drawGroupLollipopChart(
     .join("line")
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-d", (d) => d.value)
-    .attr("stroke", (d) => colorFn(d.key))
+    .attr("stroke", (d) => colorFn(d.statVar))
     .attr("stroke-width", 2)
     .attr("x1", (d) => x(d.key) + x.bandwidth()/2)
     .attr("x2", (d) => x(d.key) + x.bandwidth()/2)
@@ -1046,7 +1047,7 @@ function drawGroupLollipopChart(
     .join("circle")
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-d", (d) => d.value)
-    .attr("fill", (d) => colorFn(d.key))
+    .attr("fill", (d) => colorFn(d.statVar))
     .attr("cx", (d) => x(d.key) + x.bandwidth()/2)
     .attr("cy", (d) => y(d.value))
     .attr("r", 6);
