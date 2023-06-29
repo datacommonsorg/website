@@ -63,6 +63,7 @@ _CTX_REMAP = {
   'BLSWorker': 'workers by',
   'consumingSector': 'electricity consuming sector',
   'causeOfDeath': 'deaths due to',
+  'crimeType': '',
   'detailedLeveOfSchool': 'number of students enrolled in',
   'drugPrescribed': 'prescriptions of',
   'economicSector': '',
@@ -74,6 +75,7 @@ _CTX_REMAP = {
   'isic': '',
   'languageSpokeAtHome': 'population that speaks',
   'naics': '',
+  'naturalHazardType': '',
   'pop': '',
   'placeCategory': 'covid19 mobility trend in',
   'Person': 'population by',
@@ -84,11 +86,13 @@ _CTX_REMAP = {
   'USCWorker': 'workers by',
   'USCEstablishment': 'companies by',
   'waterSource': 'water withdrawal from',
+  'MedicalConditionIncident': 'medical conditions by',
 }
 
 # ctx, name -> replacement
 _PAIR_REMAP = {
   ('Person', 'count'): 'population',
+  ('Place', 'areaType'): '_DELETE_',
 }
 
 # Replace sources
@@ -135,6 +139,9 @@ def get_var(ctx, name):
 
   if final_str:
     return final_str
+
+  if final_str == '_DELETE_':
+    return ''
 
   if not ctx_str:
     return f'{fmt(name, ctx)}'
