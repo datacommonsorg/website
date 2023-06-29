@@ -38,18 +38,34 @@ def _maps_place(place_str):
   r = requests.get(url_formatted)
   resp = r.json()
 
-  # Return the first place found which has a type matching MAPS_GEO_TYPES.
+  # Canidates are all returned places with type matching MAPS_GEO_TYPES.
+  places = []
   if "predictions" in resp:
     for res in resp["predictions"]:
       types_found = set(res["types"])
 
       if constants.MAPS_GEO_TYPES.intersection(types_found):
-        return res
+        places.append(res)
 
-  logging.info(
-      f"Maps API did not find a result of type in: {constants.MAPS_GEO_TYPES}. Query URL: {url_formatted}. Response: {resp}"
-  )
-  return {}
+  if not places:
+    logging.info(
+        f"Maps API did not find a result of type in: {constants.MAPS_GEO_TYPES}. Query URL: {url_formatted}. Response: {resp}"
+    )
+    return {}
+
+  # Pick the first one unless there is an exact match.
+  best_match = places[0]
+  for p in places:
+    # If an exact match is found, look no further.
+    try:
+      # Wrapped in a try/catch to ensure there is no crash if the Maps API
+      # no longer returns ["structured_formatting"]["main_text"].
+      if (place_str.lower() == p["structured_formatting"]["main_text"].lower()):
+        best_match = p
+        break
+    except:
+      continue
+  return best_match
 
 
 def remove_places(query, place_str_to_dcids: Dict[str, str]):
