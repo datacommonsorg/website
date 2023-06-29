@@ -38,8 +38,6 @@ class IntegrationTest(NLWebServerTestCase):
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
       detection_method = 'LLM Based'
-    elif detector == 'hybrid':
-      detection_method = 'Hybrid - '
     assert detection_method
     ctx = {}
     for i, q in enumerate(queries):
@@ -74,7 +72,7 @@ class IntegrationTest(NLWebServerTestCase):
             }
             infile.write(json.dumps(dbg_to_write, indent=2))
       else:
-        self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
+        self.assertEqual(dbg.get('detection_type'), detection_method), \
           'Query {q} failed!'
         if not check_place_detection:
           with open(json_file, 'r') as infile:

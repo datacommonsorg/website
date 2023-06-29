@@ -289,7 +289,6 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const startTime = process.hrtime.bigint();
   const query = req.query.q;
   res.setHeader("Content-Type", "application/json");
-  // TODO: Switch to hybrid in the Bard path after sufficient validation.
   axios
     .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}&detector=heuristic`, {})
     .then((resp) => {
