@@ -14,6 +14,7 @@
 """Common Utility functions for Embeddings."""
 
 from dataclasses import dataclass
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -142,6 +143,7 @@ def get_texts_dcids(
 
 
 def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
+  # TODO: deprecate this in favor of the function  in nl_server.gcs
   """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
 
   Args:
@@ -156,16 +158,18 @@ def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
       model = SentenceTransformer(downloaded_model_path)
   ```
   """
-  local_dir = ctx.tmp + "/"
+  local_dir = ctx.tmp
   # Get list of files
   blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
   for blob in blobs:
     file_split = blob.name.split("/")
-    directory = local_dir + "/".join(file_split[0:-1])
+    directory = local_dir
+    for p in file_split[0:-1]:
+      directory = os.path.join(directory, p)
     Path(directory).mkdir(parents=True, exist_ok=True)
 
     if blob.name.endswith("/"):
       continue
-    blob.download_to_filename(directory + "/" + file_split[-1])
+    blob.download_to_filename(os.path.join(directory, file_split[-1]))
 
-  return local_dir + model_folder_name
+  return os.path.join(local_dir, model_folder_name)
