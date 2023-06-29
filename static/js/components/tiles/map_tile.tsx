@@ -69,6 +69,8 @@ export interface MapTilePropType {
   apiRoot?: string;
   // Parent places of the current place showing map for
   parentPlaces?: NamedPlace[];
+  // Specific date to show data for
+  date?: string;
 }
 
 interface RawData {
@@ -205,7 +207,9 @@ export const fetchData = async (
       nodes: [props.place.dcid],
     })
     .then((resp) => resp.data);
-  const dataDate = getCappedStatVarDate(props.statVarSpec.statVar);
+  const dataDate = props.date
+    ? props.date
+    : getCappedStatVarDate(props.statVarSpec.statVar);
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get(`${props.apiRoot || ""}/api/observations/point/within`, {
       params: {

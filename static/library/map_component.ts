@@ -84,12 +84,17 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   statVarDcid: string;
 
+  // Optional: specific date to show data for
+  @property()
+  date: string;
+
   render(): HTMLElement {
     const place = this.place || this.placeDcid;
     const variable = this.variable || this.statVarDcid;
     const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
     const mapTileProps: MapTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      date: this.date,
       enclosedPlaceType: childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
