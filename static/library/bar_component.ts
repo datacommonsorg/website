@@ -24,6 +24,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { convertArrayAttribute } from "./utils";
 
 /**
  * Web component for rendering a bar chart tile.
@@ -39,8 +40,6 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * ></datacommons-bar>
  *
  * <!-- Show a bar chart of population for specific US states -->
- * <!-- Note: use single quotes on outside,
- *            and double quotes inside for comparisonPlaces-->
  * <datacommons-bar
  *      title="Population of US States"
  *      variableDcid="Count_Person"
@@ -72,13 +71,30 @@ export class DatacommonsBarComponent extends LitElement {
 
   // Optional: List of DCIDs of places to plot
   // If provided, place and enclosePlaceType will be ignored
-  // !Important: In the web element, use double quotes inside the list, and
-  //             double quotes outside the list.
-  //             E.g. comparisonPlaces = '["dcid1", "dcid2"]'
-  @property({ type: Array<string> })
+  @property({ type: Array<string>, converter: convertArrayAttribute })
   comparisonPlaces;
 
+  // Optional: List of DCIDs of statistical variables to plot
+  // If provided, the "variable" attribute will be ignored.
+  // !Important: variables provided must share the same unit
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  comparisonVariables;
+
   render(): HTMLElement {
+    const statVarDcids: string[] = this.comparisonVariables
+      ? this.comparisonVariables
+      : [this.variable];
+    const statVarSpec = [];
+    statVarDcids.forEach((statVarDcid) => {
+      statVarSpec.push({
+        denom: "",
+        log: false,
+        name: "",
+        scaling: 1,
+        statVar: statVarDcid,
+        unit: "",
+      });
+    });
     const barTileProps: BarTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
       comparisonPlaces: this.comparisonPlaces,
@@ -89,16 +105,7 @@ export class DatacommonsBarComponent extends LitElement {
         name: "",
         types: [],
       },
-      statVarSpec: [
-        {
-          denom: "",
-          log: false,
-          name: "",
-          scaling: 1,
-          statVar: this.variable,
-          unit: "",
-        },
-      ],
+      statVarSpec,
       svgChartHeight: 200,
       title: this.title,
     };
