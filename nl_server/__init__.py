@@ -42,6 +42,7 @@ def create_app():
       logging.error("No configuration found for embeddings")
       return
 
+    app.config['EMBEDDINGS_VERSION_MAP'] = embeddings_map
     loader.load_embeddings(app, embeddings_map)
 
   return app
