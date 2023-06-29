@@ -14,8 +14,8 @@
 # limitations under the License.
 
 # This takes upto ~5 mins to run
-# cat "get_schema_tokens.sql" | bq query --use_legacy_sql=false \
-#   --format=csv --max_rows=10000 > data/schema_tokens_medium.csv
+cat "get_schema_tokens.sql" | bq query --use_legacy_sql=false \
+  --format=csv --max_rows=10000 > data/schema_tokens_medium.csv
 
 python3 -m venv .env
 source .env/bin/activate
