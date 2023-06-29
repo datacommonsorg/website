@@ -57,23 +57,33 @@ _TYPE_REMAP = {
 
 
 _CTX_REMAP = {
-  'educationalAttainment': 'number of people with education level',
-  'waterSource': 'water withdrawal from',
-  'biasMotivation': 'hate crimes motivated by',
-  'race': 'population that is',
-  'consumingSector': 'electricity consuming sector',
   'areaType': '',
-  'usedFor': 'fuel use in',
-  'languageSpokeAtHome': 'population that speaks',
+  'biasMotivation': 'hate crimes motivated by',
+  'BLSEstablishment': 'companies by',
+  'BLSWorker': 'workers by',
+  'consumingSector': 'electricity consuming sector',
+  'causeOfDeath': 'deaths due to',
+  'detailedLeveOfSchool': 'number of students enrolled in',
   'drugPrescribed': 'prescriptions of',
+  'economicSector': '',
+  'educationalAttainment': 'number of people with education level',
   'emissionSource': 'emissions from',
   'emittedThing': 'emissions due to',
-  'pop': '',
-  'Person': '',
-  'naics': '',
+  'energySource': 'electricity from source',
+  'householdType': '',
   'isic': '',
-  'economicSector': '',
+  'languageSpokeAtHome': 'population that speaks',
+  'naics': '',
+  'pop': '',
+  'placeCategory': 'covid19 mobility trend in',
+  'Person': 'population by',
+  'Place': '',
+  'race': 'population that is',
   'typeOfSchool': '',
+  'usedFor': 'fuel use in',
+  'USCWorker': 'workers by',
+  'USCEstablishment': 'companies by',
+  'waterSource': 'water withdrawal from',
 }
 
 # ctx, name -> replacement
@@ -81,10 +91,41 @@ _PAIR_REMAP = {
   ('Person', 'count'): 'population',
 }
 
+# Replace sources
+_POSTPROC_EMPTIES = [
+  'USC_', 'BLS_', 'DAD_', 'EIA_', 'CDC_', 'BRA_'
+]
 
-def fmt(s):
-  splits = re.sub('([A-Z][a-z]+)', r' \1', re.sub('([A-Z]+)', r' \1', s)).split()
-  return ' '.join(splits)
+_POSTPROC_STR_REPLACEMENTS = {
+  '_ ': ' ',
+  'Past 12 Months': 'Last Year',
+  ' Th ': 'th ',
+}
+
+def fmt(name, ctx=''):
+  if '(' in name and ')' in name:
+    if ctx in ['causeOfDeath']:
+      # Keep only the stuff within `()`
+      name = re.search(r'\(([^()]+)\)', name).group(1)
+    else:
+      # Strip stuff within `()`
+      name = re.sub(r'\([^()]*\)', '', name)
+
+  # split camel case
+  splits = re.sub('([A-Z][a-z]+)', r' \1', re.sub('([A-Z]+)', r' \1', name)).split()
+
+  result = ' '.join(splits)
+
+  # Add space between char and number
+  result = re.sub(r'([a-zA-Z])(\d)', r'\1 \2', result)
+
+  for s in _POSTPROC_EMPTIES:
+    result = result.replace(s, '')
+
+  for f, t in _POSTPROC_STR_REPLACEMENTS.items():
+    result = result.replace(f, t)
+
+  return ' '.join(result.split())
 
 
 def get_var(ctx, name):
@@ -96,19 +137,19 @@ def get_var(ctx, name):
     return final_str
 
   if not ctx_str:
-    return f'{fmt(name)}'
+    return f'{fmt(name, ctx)}'
 
   if ctx_str != ctx:
-    return f'{ctx_str} {fmt(name)}'
+    return f'{ctx_str} {fmt(name, ctx)}'
 
   ctx_is_class = ctx[0] >= 'A' and ctx[0] <= 'Z'
   if ctx_is_class:
     if name == 'count':
       return f'count of {fmt(ctx)}'
     else:
-      return f'{fmt(ctx)} by {fmt(name)}'
+      return f'{fmt(ctx)} by {fmt(name, ctx)}'
   else:
-    return f'{fmt(ctx)} {fmt(name)}'
+    return f'{fmt(ctx)} {fmt(name, ctx)}'
 
 
 def get_places(place_str):
@@ -143,9 +184,9 @@ def generate(row):
     return queries
   for pl, typ in places:
     if not typ:
-      queries.append(f'{var} in {pl}?')
+      queries.append(f'what about {var} in {pl}?')
     else:
-      queries.append(f'{var} in {typ} of {pl}?')
+      queries.append(f'what about {var} in {typ} of {pl}?')
   return queries
 
 
