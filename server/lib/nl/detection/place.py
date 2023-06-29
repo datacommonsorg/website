@@ -57,14 +57,11 @@ def _maps_place(place_str):
   best_match = places[0]
   for p in places:
     # If an exact match is found, look no further.
-    try:
-      # Wrapped in a try/catch to ensure there is no crash if the Maps API
-      # no longer returns ["structured_formatting"]["main_text"].
-      if (place_str.lower() == p["structured_formatting"]["main_text"].lower()):
-        best_match = p
-        break
-    except:
-      continue
+    main_text = p.get('structured_formatting', {}).get('main_text', '')
+    if place_str.lower() == main_text.lower():
+      best_match = p
+      break
+  
   return best_match
 
 
