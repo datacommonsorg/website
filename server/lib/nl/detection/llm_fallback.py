@@ -82,7 +82,9 @@ def _has_no_place(d: Detection) -> bool:
 #
 def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
   query = d.original_query
-  query_places = d.places_detected.query_places_mentioned
+  query_places = []
+  if d.places_detected:
+    query_places = d.places_detected.query_places_mentioned
 
   # If there is a Quantity detected, that's a good chance this might
   # be a complex query.
