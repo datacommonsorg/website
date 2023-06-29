@@ -14,6 +14,7 @@
 """Managing the embeddings."""
 from dataclasses import dataclass
 import logging
+import os
 from typing import Dict, List, Union
 
 from datasets import load_dataset
@@ -44,8 +45,14 @@ _NUM_SV_INDEX_MATCHES = 40
 class Embeddings:
   """Manages the embeddings."""
 
-  def __init__(self, embeddings_path: str) -> None:
-    self.model = SentenceTransformer(MODEL_NAME)
+  def __init__(self,
+               embeddings_path: str,
+               existing_model_path: str = "") -> None:
+    if existing_model_path:
+      assert os.path.exists(existing_model_path)
+      self.model = SentenceTransformer(existing_model_path)
+    else:
+      self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []
     self.sentences: List[str] = []
