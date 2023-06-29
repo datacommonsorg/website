@@ -18,6 +18,9 @@ import os
 from flask_caching import Cache
 import requests
 
+# Cache expires set to 7 days
+TIMEOUT = 3600 * 24 * 7
+
 # Per GCP region redis config. This is a mounted volume for the website container.
 REDIS_CONFIG = '/datacommons/redis/redis.json'
 

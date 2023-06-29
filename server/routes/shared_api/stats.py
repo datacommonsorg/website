@@ -19,7 +19,7 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 import server.services.datacommons as dc
 
@@ -86,7 +86,7 @@ def stat_var_property():
 
 
 @bp.route('/stat-var-search')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
   query = request.args.get("query")

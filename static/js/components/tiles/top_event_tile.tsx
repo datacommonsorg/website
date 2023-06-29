@@ -43,6 +43,7 @@ import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
+import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 
 const DEFAULT_RANKING_COUNT = 10;
@@ -60,6 +61,7 @@ interface TopEventTilePropType {
   className?: string;
 }
 
+// TODO: Use ChartTileContainer like other tiles.
 export const TopEventTile = memo(function TopEventTile(
   props: TopEventTilePropType
 ): JSX.Element {
@@ -210,6 +212,7 @@ export const TopEventTile = memo(function TopEventTile(
           />
         </div>
       </div>
+      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
