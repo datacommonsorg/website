@@ -55,7 +55,14 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
 
   # Sanity check that file names aren't mispresented
   for sz in embeddings_map.keys():
-    assert sz in embeddings_map[sz], f'{sz} not found in {embeddings_map[sz]}'
+    if '_ft' in sz:
+      assert '.ft_final' in embeddings_map[
+          sz], f'ft_final not found {embeddings_map[sz]}'
+      size_str = sz.split("_ft")[0]
+      assert size_str in embeddings_map[
+          sz], f'{size_str} not found {embeddings_map[sz]}'
+    else:
+      assert sz in embeddings_map[sz], f'{sz} not found in {embeddings_map[sz]}'
 
   # In local dev, cache the embeddings on disk so each hot reload won't download
   # the embeddings again.
