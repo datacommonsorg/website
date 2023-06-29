@@ -19,8 +19,8 @@ from parameterized import parameterized
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection.llm_fallback import need_llm
 from server.lib.nl.detection.types import ClassificationType
-from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
+from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
@@ -64,7 +64,11 @@ def _nlcl(t, pt=None):
   if not pt:
     return [NLClassifier(type=t, attributes=None)]
   else:
-    return [NLClassifier(type=t, attributes=ContainedInClassificationAttributes(contained_in_place_type=pt))]
+    return [
+        NLClassifier(type=t,
+                     attributes=ContainedInClassificationAttributes(
+                         contained_in_place_type=pt))
+    ]
 
 
 class TestLLMFallback(unittest.TestCase):
