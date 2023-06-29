@@ -2,7 +2,7 @@
 -- medium index, along with sample places.
 
 WITH UniqueTokens AS (
-WITH Tokens AS (
+ WITH Tokens AS (
   -- Get all SV components in index with associated place type and a few names.
   WITH IDPlace AS (
     -- Get all SVs in index with associated place type and a few names.
@@ -72,4 +72,5 @@ SELECT Tok.Ctx AS Context,
        STRING_AGG(CONCAT(CAST(Tok.Type AS STRING), "=",
                          CAST(Tok.Places AS STRING)), ":") AS SamplePlaces
 FROM UniqueTokens AS Tok
-GROUP BY Context, Token, Name;
+GROUP BY Context, Token, Name
+ORDER BY Context, Token, Name;

@@ -26,85 +26,230 @@ flags.DEFINE_string('output_csv', 'data/seed_queries.csv',
                     'Generated queries file')
 flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
 
-
 _PLACE_PREF = [
-  'State',
-  'County',
-  'Country',
-  'AdministrativeArea1',
-  'AdministrativeArea2',
-  'EurostatNUTS2',
-  'EurostatNUTS3',
-  'EurostatNUTS1',
+    'State',
+    'County',
+    'Country',
+    'AdministrativeArea1',
+    'AdministrativeArea2',
+    'EurostatNUTS2',
+    'EurostatNUTS3',
+    'EurostatNUTS1',
 ]
 
 _PLACE_PAIR_PREF = [
-  ('State', 'County'),
-  ('Country', 'State'),
-  ('Country', 'AdministrativeArea1'),
-  ('AdministrativeArea1', 'AdministrativeArea2'),
-  ('Country', 'EurostatNUTS2'),
-  ('EurostatNUTS2', 'EurostatNUTS3'),
+    ('State', 'County'),
+    ('Country', 'State'),
+    ('Country', 'AdministrativeArea1'),
+    ('AdministrativeArea1', 'AdministrativeArea2'),
+    ('Country', 'EurostatNUTS2'),
+    ('EurostatNUTS2', 'EurostatNUTS3'),
 ]
 
 _TYPE_REMAP = {
-  'AdministrativeArea1': 'state',
-  'AdministrativeArea2': 'district',
-  'EurostatNUTS1': 'state',
-  'EurostatNUTS2': 'state', 
-  'EurostatNUTS3': 'district', 
+    'AdministrativeArea1': 'state',
+    'AdministrativeArea2': 'district',
+    'EurostatNUTS1': 'state',
+    'EurostatNUTS2': 'state',
+    'EurostatNUTS3': 'district',
 }
 
-
 _CTX_REMAP = {
-  'areaType': '',
-  'biasMotivation': 'hate crimes motivated by',
-  'BLSEstablishment': 'companies by',
-  'BLSWorker': 'workers by',
-  'consumingSector': 'electricity consuming sector',
-  'causeOfDeath': 'deaths due to',
-  'crimeType': '',
-  'detailedLeveOfSchool': 'number of students enrolled in',
-  'drugPrescribed': 'prescriptions of',
-  'economicSector': '',
-  'educationalAttainment': 'number of people with education level',
-  'emissionSource': 'emissions from',
-  'emittedThing': 'emissions due to',
-  'energySource': 'electricity from source',
-  'householdType': '',
-  'isic': '',
-  'languageSpokeAtHome': 'population that speaks',
-  'naics': '',
-  'naturalHazardType': '',
-  'pop': '',
-  'placeCategory': 'covid19 mobility trend in',
-  'Person': 'population by',
-  'Place': '',
-  'race': 'population that is',
-  'typeOfSchool': '',
-  'usedFor': 'fuel use in',
-  'USCWorker': 'workers by',
-  'USCEstablishment': 'companies by',
-  'waterSource': 'water withdrawal from',
-  'MedicalConditionIncident': 'medical conditions by',
+    'abilityToSpeakEnglish':
+        '',
+    'activitySource':
+        '',
+    'areaType':
+        '',
+    'armedForcesStatus':
+        '',
+    'Atmosphere':
+        '',
+    'benefitsStatus':
+        'families',
+    'biasMotivation':
+        'hate crimes motivated by',
+    'BirthEvent':
+        'births by',
+    'BLSEstablishment':
+        'companies by',
+    'BLSWorker':
+        'workers by',
+    'CriminalActivities':
+        'crimes',
+    'cashRentStatus':
+        'houses with',
+    'citizenshipStatus':
+        '',
+    'claimType':
+        'unemployment insurance',
+    'consumingSector':
+        'electricity consuming sector',
+    'consumedThing':
+        'consumption of',
+    'causeOfDeath':
+        'deaths due to',
+    'Coal':
+        'coal',
+    'correctionalFacilityLocation':
+        'correctional facility located',
+    'correctionalFacilityOperator':
+        'correctional facility operated',
+    'crimeType':
+        '',
+    'detailedLevelOfSchool':
+        'number of students enrolled in',
+    'disabilityStatus':
+        '',
+    'drugPrescribed':
+        'prescriptions of',
+    'electricityConsumingSector':
+        'electricity consumed by',
+    'economicSector':
+        '',
+    'educationalAttainment':
+        'number of people who studied till',
+    'Electricity':
+        'electricity',
+    'emissionSource':
+        'emissions from',
+    'emittedThing':
+        'emissions due to',
+    'employment':
+        'people who are',
+    'employmentStatus':
+        'people who are',
+    'energySource':
+        'electricity from source',
+    'facilities':
+        'houses with',
+    'healthBehavior':
+        '',
+    'healthOutcome':
+        '',
+    'householdType':
+        '',
+    'householderEducationalAttainment':
+        'families where the head has studied till',
+    'householderRace':
+        'families who are',
+    'insuredThing':
+        'natural hazard insurance for',
+    'isic':
+        '',
+    'languageSpokeAtHome':
+        'population that speaks',
+    'landCover':
+        'land covered by',
+    'languageSpokenAtHome':
+        'people who speak',
+    'literacyStatus':
+        '',
+    'maritalStatus':
+        '',
+    'maxClassification':
+        'storm classified as',
+    'medicalCondition':
+        '',
+    'MedicalConditionIncident':
+        'medical conditions by',
+    'mothersEducation':
+        'mothers educated till',
+    'mothersMaritalStatus':
+        'mothers who are',
+    'mothersNativity':
+        'mothers who are',
+    'mothersRace':
+        'mothers who are',
+    'occupancyStatus':
+        '',
+    'occupancyTenure':
+        '',
+    'placeOfBirth':
+        'people born in',
+    'naics':
+        '',
+    'naturalHazardType':
+        '',
+    'pop':
+        '',
+    'placeCategory':
+        'covid19 mobility trend in',
+    'Person':
+        'population by',
+    'Place':
+        '',
+    'producingSector':
+        'electricity producing sector',
+    'race':
+        'population that is',
+    'religion':
+        '',
+    'residenceType':
+        'people residing in',
+    'residentStatus':
+        'people who lived in',
+    'schoolEnrollment':
+        'number of students enrolled in',
+    'socialCategory':
+        '',
+    'structureType':
+        'houses that are',
+    'transmissionMode':
+        'diseases that spread by',
+    'typeOfSchool':
+        '',
+    'usedFor':
+        'fuel use in',
+    'USCWorker':
+        'workers by',
+    'USCEstablishment':
+        'companies by',
+    'waterSource':
+        'water withdrawal from',
+    'workerClassification':
+        '',
+    'workerStatus':
+        '',
 }
 
 # ctx, name -> replacement
 _PAIR_REMAP = {
-  ('Person', 'count'): 'population',
-  ('Place', 'areaType'): '_DELETE_',
+    ('Atmosphere', 'accumulationPeriod'): '_DELETE_',
+    ('activityFrequency', 'Daily'): '_DELETE_',
+    ('citizenshipStatus', 'NotAUSCitizen'): 'people who are not citizens',
+    ('Consumption', 'amount'): '_DELETE_',
+    ('Consumption', 'consumedThing'): '_DELETE_',
+    ('Consumption', 'consumerAge'): '_DELETE_',
+    ('Person', 'count'): 'population',
+    ('healthInsurance', 'NoHealthInsurance'): 'people with no health insurance',
+    ('internetUser', 'True'): 'internet users',
+    ('pop', 'BLSEstablishment'): 'companies',
+    ('pop', 'USCEstablishment'): 'companies',
+    ('pop', 'BLSWorker'): 'workers',
+    ('pop', 'USCWorker'): 'workers',
+    ('Product', 'productType'): '_DELETE_',
+    ('Production', 'amount'): '_DELETE_',
+    ('Production', 'producedThing'): '_DELETE_',
+    ('producedThing', 'Electricity'): 'electricity production',
+    ('Place', 'areaType'): '_DELETE_',
+    ('StatisticalVariable', 'geoLevel'): '_DELETE_',
+    ('StatisticalVariable', 'count'): '_DELETE_',
+    ('Electricity', 'usedFor'): 'breakdown of electricity use',
+    ('ElectricityConsumer', 'count'): 'number of electricity consumers',
+    ('Energy', 'usedFor'): 'energy is used',
+    ('Water', 'usedFor'): 'water usage',
 }
 
 # Replace sources
-_POSTPROC_EMPTIES = [
-  'USC_', 'BLS_', 'DAD_', 'EIA_', 'CDC_', 'BRA_'
-]
+_POSTPROC_EMPTIES = ['USC_', 'BLS_', 'DAD_', 'EIA_', 'CDC_', 'BRA_']
 
 _POSTPROC_STR_REPLACEMENTS = {
-  '_ ': ' ',
-  'Past 12 Months': 'Last Year',
-  ' Th ': 'th ',
+    '_ ': ' ',
+    'Past 12 Months': 'Last Year',
+    ' Th ': 'th ',
 }
+
 
 def fmt(name, ctx=''):
   if '(' in name and ')' in name:
@@ -116,7 +261,8 @@ def fmt(name, ctx=''):
       name = re.sub(r'\([^()]*\)', '', name)
 
   # split camel case
-  splits = re.sub('([A-Z][a-z]+)', r' \1', re.sub('([A-Z]+)', r' \1', name)).split()
+  splits = re.sub('([A-Z][a-z]+)', r' \1', re.sub('([A-Z]+)', r' \1',
+                                                  name)).split()
 
   result = ' '.join(splits)
 
@@ -134,14 +280,13 @@ def fmt(name, ctx=''):
 
 def get_var(ctx, name):
   ctx_str = _CTX_REMAP.get(ctx, ctx)
-
   final_str = _PAIR_REMAP.get((ctx, name), '')
-
-  if final_str:
-    return final_str
 
   if final_str == '_DELETE_':
     return ''
+
+  if final_str:
+    return final_str
 
   if not ctx_str:
     return f'{fmt(name, ctx)}'
@@ -162,7 +307,7 @@ def get_var(ctx, name):
 def get_places(place_str):
   places = place_str.split(':')
   pmap = {}
-  
+
   for p in places:
     pt, pl = p.split('=', 1)
     pmap[pt] = pl
@@ -177,8 +322,7 @@ def get_places(place_str):
   if FLAGS.do_places_in:
     for parent, child in _PLACE_PAIR_PREF:
       if parent in pmap and child in pmap:
-        places.append((pmap[parent],
-                      _TYPE_REMAP.get(child, child.lower())))
+        places.append((pmap[parent], _TYPE_REMAP.get(child, child.lower())))
 
   return places
 
