@@ -85,7 +85,6 @@ export class DatacommonsBarComponent extends LitElement {
       ? this.comparisonVariables
       : [this.variable];
     const statVarSpec = [];
-    console.log(statVarDcids);
     statVarDcids.forEach((statVarDcid) => {
       statVarSpec.push({
         denom: "",
