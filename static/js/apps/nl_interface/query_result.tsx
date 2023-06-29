@@ -41,6 +41,7 @@ export interface QueryResultProps {
   contextHistory: any[];
   addContextCallback: (any, number) => void;
   showData: boolean;
+  demoMode: boolean;
 }
 
 export const QueryResult = memo(function QueryResult(
@@ -111,7 +112,10 @@ export const QueryResult = memo(function QueryResult(
               types: [mainPlace["place_type"]],
             },
             config: resp.data["config"],
-            sessionId: "session" in resp.data ? resp.data["session"]["id"] : "",
+            sessionId:
+              !props.demoMode && "session" in resp.data
+                ? resp.data["session"]["id"]
+                : "",
           });
         } else {
           setErrorMsg("Sorry, we couldn't answer your question.");
@@ -143,12 +147,14 @@ export const QueryResult = memo(function QueryResult(
           <a href={feedbackLink} target="_blank" rel="noreferrer">
             Feedback
           </a>
-          <span
-            className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
-            onClick={onThumbDownClick}
-          >
-            &nbsp;&nbsp;&#128078;
-          </span>
+          {chartsData && chartsData.sessionId && (
+            <span
+              className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
+              onClick={onThumbDownClick}
+            >
+              &nbsp;&nbsp;&#128078;
+            </span>
+          )}
         </Container>
         <Container>
           {debugData && (
