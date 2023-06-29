@@ -34,8 +34,8 @@ def download_embeddings(embeddings_file: str) -> str:
   return local_embeddings_path
 
 
-def local_folder() -> str:
-  return TEMP_DIR
+def local_path(embeddings_file: str) -> str:
+  return os.path.join(TEMP_DIR, embeddings_file)
 
 
 def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
@@ -76,7 +76,7 @@ def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
 def download_model_folder(model_folder: str) -> str:
   sc = storage.Client()
   bucket = sc.bucket(bucket_name=BUCKET)
-  directory = local_folder()
+  directory = TEMP_DIR
 
   # Only download if needed.
   if os.path.exists(os.path.join(directory, model_folder)):
