@@ -18,23 +18,18 @@
  * A container for any tile containing a chart.
  */
 
-import axios from "axios";
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
-import { NlSessionContext } from "../../shared/context";
-import {
-  CHART_FEEDBACK_SENTIMENT,
-  getNlChartId,
-} from "../../utils/nl_interface_utils";
 import {
   formatString,
   getChartTitle,
   getMergedSvg,
   ReplacementStrings,
 } from "../../utils/tile_utils";
+import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 interface ChartTileContainerProp {
   id: string;
@@ -54,10 +49,8 @@ interface ChartTileContainerProp {
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
-  const nlSessionId = useContext(NlSessionContext);
   const containerRef = useRef(null);
   const embedModalElement = useRef<ChartEmbed>(null);
-  const [isThumbClicked, setIsThumbClicked] = useState(false);
 
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
@@ -87,18 +80,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         sources={props.sources}
         handleEmbed={showEmbed ? handleEmbed : null}
       />
-
-      {nlSessionId && (
-        <div className="nl-feedback">
-          <span
-            className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
-            onClick={onThumbDownClick}
-          >
-            &#128078;
-          </span>
-        </div>
-      )}
-
+      <NlChartFeedback id={props.id} />
       {showEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>
   );
@@ -119,19 +101,5 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       "",
       Array.from(props.sources)
     );
-  }
-
-  function onThumbDownClick(): void {
-    if (isThumbClicked) {
-      return;
-    }
-    setIsThumbClicked(true);
-    axios.post("/api/nl/feedback", {
-      feedbackData: {
-        chartId: getNlChartId(props.id),
-        sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
-      },
-      sessionId: nlSessionId,
-    });
   }
 }
