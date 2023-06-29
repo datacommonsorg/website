@@ -291,6 +291,10 @@ def nl_detect_place_ner(query):
   return get(url).get('places', [])
 
 
+def nl_embeddings_version_map():
+  return get(f'{cfg.NL_ROOT}/api/embeddings_version_map')
+
+
 # =======================   V0 V0 V0 ================================
 def search(query_text, max_results):
   url = get_service_url('/search')
