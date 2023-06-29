@@ -200,13 +200,14 @@ def generate(row):
 def main(_):
   with open(FLAGS.input_csv) as fin:
     with open(FLAGS.output_csv, 'w') as fout:
-      fout.write('Query\n')
+      csvw = csv.writer(fout)
+      csvw.writerow(['Query'])
       for row in csv.DictReader(fin):
         queries = generate(row)
         if not queries:
           continue
-        lines = '\n'.join(queries)
-        fout.write(lines + '\n')
+        for q in queries:
+          csvw.writerow([q])
 
 
 if __name__ == "__main__":
