@@ -5,8 +5,7 @@
       rel="stylesheet"
       href="https://datacommons.org/css/nl_interface.min.css"
     />
-    <!-- <script src="https://datacommons.org/datacommons.js"></script> -->
-    <script src="http://localhost:8080/datacommons.js"></script>
+    <script src="https://datacommons.org/datacommons.js"></script>
   </head>
   <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
@@ -18,7 +17,7 @@
       variable="Count_Person"
       useLollipop=true
     ></datacommons-bar>
-    <!-- <datacommons-bar
+    <datacommons-bar
       title="Population in States of United States"
       variable="Count_Person"
       comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
@@ -40,9 +39,9 @@
       place="country/USA"
       childPlaceType="State"
       variable="Count_Person"
-    ></datacommons-map> -->
+    ></datacommons-map>
     <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
-    <!-- <datacommons-map
+    <datacommons-map
       title="California: Annual_ExpectedLoss_NaturalHazardImpact"
       placeDcid="geoId/06"
       enclosedPlaceType="County"
@@ -67,6 +66,30 @@
       title="US Population Over Time"
       place="country/USA"
       variables='["Count_Person"]'
-    ></datacommons-line> -->
+    ></datacommons-line>
+    <h2>Lollipop</h2>
+    <datacommons-lollipop
+      title="Population in States of United States"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+      useLollipop=true
+    ></datacommons-lollipop>
+    <datacommons-lollipop
+      title="Population in Alaska, Alabama, and Arizona"
+      variable="Count_Person"
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+    ></datacommons-lollipop>
+    <datacommons-lollipop
+      title="Median income by gender for Alaska, Alabama, and Arizona"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+    ></datacommons-lollipop>
+    <datacommons-lollipop
+      title="Median income by gender for counties in Alaska"
+      comparisonVariables="['Median_Income_Person_15OrMoreYears_Male_WithIncome', 'Median_Income_Person_15OrMoreYears_Female_WithIncome']"
+      place="geoId/02"
+      childPlaceType="County"
+    ></datacommons-lollipop>
   </body>
 </html>
