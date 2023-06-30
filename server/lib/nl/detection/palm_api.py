@@ -19,6 +19,7 @@ import time
 from typing import Dict
 
 from flask import current_app
+import json5
 import requests
 
 from server.lib.nl.common import counters
@@ -91,8 +92,11 @@ def parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
       return {}
 
     try:
-      ans_json = json.loads(ans)
-    except json.decoder.JSONDecodeError as e:
+      # Use json5 to load since it is a lot more lenient (e.g.,
+      # allows trailing commas) even if ~600x slower
+      # (and with current LLM latencies that's fine)
+      ans_json = json5.loads(ans, allow_duplicate_keys=False)
+    except Exception as e:
       logging.error(f'ERROR: json decoding failed {e}')
       ctr.err('failed_palm_api_jsondecodeerror', ans)
       return {}
@@ -123,7 +127,4 @@ def _extract_answer(resp: str) -> str:
     if num_code_block_delims == 2:
       break
 
-  if len(ans) > 2 and ans[-2].strip().endswith(','):
-    # Remove trailing ','
-    ans[-2] = ans[-2].rstrip(', ')
   return '\n'.join(ans)
