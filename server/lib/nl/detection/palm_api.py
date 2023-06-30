@@ -93,8 +93,9 @@ def parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
 
     try:
       # Use json5 to load since it is a lot more lenient (e.g.,
-      # allows trailing commas) even if ~600x slower
-      # (and with current LLM latencies that's fine)
+      # allows trailing commas), even if ~600x slower (e.g.,
+      # from 2us to 1.2ms for one loads).
+      # But with current LLM latencies that's fine.
       ans_json = json5.loads(ans, allow_duplicate_keys=False)
     except Exception as e:
       logging.error(f'ERROR: json decoding failed {e}')
