@@ -290,7 +290,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const query = req.query.q;
   res.setHeader("Content-Type", "application/json");
   axios
-    .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}`, {})
+    .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}&detector=heuristic`, {})
     .then((resp) => {
       const nlResultTime = process.hrtime.bigint();
       const mainPlace = resp.data["place"] || {};
@@ -369,6 +369,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
               getTileResults: getElapsedTime(nlResultTime, endTime),
               total: getElapsedTime(startTime, endTime),
             },
+            debug: resp.data["debug"] || {},
           };
           res
             .status(200)
