@@ -35,46 +35,114 @@ interface NlChartFeedbackPropType {
 
 export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
   const nlSessionId = useContext(NlSessionContext);
-  const [isThumbClicked, setIsThumbClicked] = useState(false);
+  const [isEmojiClicked, setIsEmojiClicked] = useState(false);
   if (!nlSessionId) {
     return <></>;
   }
   return (
     <div className="nl-feedback">
       <span
-        className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
+        className={`feedback-emoji ${
+          isEmojiClicked ? "feedback-emoji-dim" : ""
+        }`}
         onClick={() => {
-          return onChartThumbDownClick(
+          return onChartClick(
             props.id,
             nlSessionId,
-            isThumbClicked,
-            setIsThumbClicked
+            isEmojiClicked,
+            setIsEmojiClicked,
+            CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN
           );
         }}
       >
         &#128078;
+      </span>
+      <span
+        className={`feedback-emoji ${
+          isEmojiClicked ? "feedback-emoji-dim" : ""
+        }`}
+        onClick={() => {
+          return onChartClick(
+            props.id,
+            nlSessionId,
+            isEmojiClicked,
+            setIsEmojiClicked,
+            CHART_FEEDBACK_SENTIMENT.WARNING
+          );
+        }}
+      >
+        &nbsp;&nbsp;&#9888;
+      </span>
+      <span
+        className={`feedback-emoji ${
+          isEmojiClicked ? "feedback-emoji-dim" : ""
+        }`}
+        onClick={() => {
+          return onChartClick(
+            props.id,
+            nlSessionId,
+            isEmojiClicked,
+            setIsEmojiClicked,
+            CHART_FEEDBACK_SENTIMENT.PROMOTE
+          );
+        }}
+      >
+        &nbsp;&nbsp;&#11014;
+      </span>
+      <span
+        className={`feedback-emoji ${
+          isEmojiClicked ? "feedback-emoji-dim" : ""
+        }`}
+        onClick={() => {
+          return onChartClick(
+            props.id,
+            nlSessionId,
+            isEmojiClicked,
+            setIsEmojiClicked,
+            CHART_FEEDBACK_SENTIMENT.DEMOTE
+          );
+        }}
+      >
+        &nbsp;&nbsp;&#11015;
+      </span>
+      <span
+        className={`feedback-emoji ${
+          isEmojiClicked ? "feedback-emoji-dim" : ""
+        }`}
+        onClick={() => {
+          return onChartClick(
+            props.id,
+            nlSessionId,
+            isEmojiClicked,
+            setIsEmojiClicked,
+            CHART_FEEDBACK_SENTIMENT.FACE_PALM
+          );
+        }}
+      >
+        &nbsp;&nbsp;&#129318;
       </span>
     </div>
   );
 }
 
 //
-// Invoked when thumb-down is clicked on a chart.
+// Invoked when feedback emoji is clicked on a chart.
 //
-function onChartThumbDownClick(
+function onChartClick(
   idStr: string,
   nlSessionId: string,
-  isThumbClicked: boolean,
-  setIsThumbClicked: (boolean) => void
+  isEmojiClicked: boolean,
+  setIsEmojiClicked: (boolean) => void,
+  sentiment: string
 ): void {
-  if (isThumbClicked) {
+  if (isEmojiClicked) {
     return;
   }
-  setIsThumbClicked(true);
+  setIsEmojiClicked(true);
   axios.post("/api/nl/feedback", {
     feedbackData: {
       chartId: getNlChartId(idStr),
-      sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
+      sentiment,
     },
     sessionId: nlSessionId,
   });
