@@ -73,3 +73,8 @@ def search_places():
   except Exception as e:
     logging.error(f'NER place detection failed with error: {e}')
     return json.dumps({'places': []})
+
+
+@bp.route('/api/embeddings_version_map/', methods=['GET'])
+def embeddings_version_map():
+  return json.dumps(current_app.config['EMBEDDINGS_VERSION_MAP'])

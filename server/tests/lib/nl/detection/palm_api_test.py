@@ -62,6 +62,18 @@ _INPUT3 = """
 I'm a fancy LLM that makes up stuff willy-nilly when humans bore me with their stupid questions.
 """
 
+_INPUT4 = """
+Sure. Here is the JSON that corresponds to the sentence "which cities in california have a population more than 1000000":
+```
+{
+  "PLACES": [
+    "Los Angeles",
+  ]
+}
+```
+I set the enum value for the "SUB_PLACE_TYPE" property to "CITY" because all of the places in the list are cities.
+"""
+
 
 class TestParseResponse(unittest.TestCase):
 
@@ -84,6 +96,9 @@ class TestParseResponse(unittest.TestCase):
           'SUB_PLACE_TYPE': 'COUNTRY'
       }),
       (_INPUT3, {}),
+      (_INPUT4, {
+          'PLACES': ['Los Angeles']
+      }),
   ])
   def test_main(self, input, want):
     self.maxDiff = None
