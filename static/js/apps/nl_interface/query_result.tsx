@@ -149,7 +149,9 @@ export const QueryResult = memo(function QueryResult(
           </a>
           {chartsData && chartsData.sessionId && (
             <span
-              className={`thumb-down ${isThumbClicked ? "thumb-dim" : ""}`}
+              className={`feedback-emoji ${
+                isThumbClicked ? "feedback-emoji-dim" : ""
+              }`}
               onClick={onThumbDownClick}
             >
               &nbsp;&nbsp;&#128078;
