@@ -939,12 +939,14 @@ function drawGroupBarChart(
 
 /**
  * Draw group lollipop chart.
- * @param containerElement
- * @param chartWidth
- * @param chartHeight
- * @param dataGroups
- * @param formatNumberFn
- * @param unit
+ * Resulting chart is drawn with categories on the x-axis, and
+ * numerical values on the y-axis.
+ * @param containerElement Div element to draw chart in
+ * @param chartWidth width of the chart in pixels
+ * @param chartHeight height of the chart in pixels
+ * @param dataGroups data to plot, grouped by place
+ * @param formatNumberFn function to use to format y-axis labels
+ * @param unit (optional) unit to use for y-axis labels
  */
 function drawGroupLollipopChart(
   containerElement: HTMLDivElement,
@@ -961,7 +963,7 @@ function drawGroupLollipopChart(
   for (const dataGroup of dataGroups) {
     labelToLink[dataGroup.label] = dataGroup.link;
   }
-  const keys = dataGroups[0].value.map((dp) => dp.label);
+  const statVars = dataGroups[0].value.map((dp) => dp.label);
   const minV = Math.min(
     0,
     Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
@@ -1001,6 +1003,7 @@ function drawGroupLollipopChart(
     unit
   );
 
+  // Main x-axis scale band
   const x0 = d3
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
@@ -1009,9 +1012,10 @@ function drawGroupLollipopChart(
     .paddingOuter(0.1);
   const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
 
+  // Sub x-axis scale band for single groups
   const x1 = d3
     .scaleBand()
-    .domain(keys)
+    .domain(statVars)
     .rangeRound([0, x0.bandwidth()])
     .paddingOuter(0.05);
 
@@ -1021,7 +1025,7 @@ function drawGroupLollipopChart(
   addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const colorFn = getColorFn(keys);
+  const colorFn = getColorFn(statVars);
 
   // draw lollipop stems
   chart
