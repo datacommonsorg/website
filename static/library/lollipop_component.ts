@@ -27,27 +27,27 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
 import { convertArrayAttribute } from "./utils";
 
 /**
- * Web component for rendering a bar chart tile.
+ * Web component for rendering a lollipop chart tile.
  *
  * Example usage:
  *
- * <!-- Show a bar chart of population for states in the US -->
- * <datacommons-bar
+ * <!-- Show a lollipop chart of population for states in the US -->
+ * <datacommons-lollipop
  *      title="Population of US States"
  *      place="country/USA"
  *      childPlaceType="State"
  *      variable="Count_Person"
- * ></datacommons-bar>
+ * ></datacommons-lollipop>
  *
- * <!-- Show a bar chart of population for specific US states -->
- * <datacommons-bar
+ * <!-- Show a lollipop chart of population for specific US states -->
+ * <datacommons-lollipop
  *      title="Population of US States"
  *      variableDcid="Count_Person"
  *      comparisonPlaces='["geoId/01", "geoId/02"]'
- * ></datacommons-bar>
+ * ></datacommons-lollipop>
  */
-@customElement("datacommons-bar")
-export class DatacommonsBarComponent extends LitElement {
+@customElement("datacommons-lollipop")
+export class DatacommonsLollipopComponent extends LitElement {
   // Inject tiles.scss styles directly into web component
   static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
@@ -108,6 +108,7 @@ export class DatacommonsBarComponent extends LitElement {
       statVarSpec,
       svgChartHeight: 200,
       title: this.title,
+      useLollipop: true,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(BarTile, barTileProps), mountPoint);

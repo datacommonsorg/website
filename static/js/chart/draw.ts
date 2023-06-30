@@ -1001,13 +1001,19 @@ function drawGroupLollipopChart(
     unit
   );
 
-  const x = d3
+  const x0 = d3
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
     .rangeRound([leftWidth, chartWidth - MARGIN.right])
     .paddingInner(0.1)
     .paddingOuter(0.1);
-  const bottomHeight = addXAxis(xAxis, chartHeight, x, false, labelToLink);
+  const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
+
+  const x1 = d3
+    .scaleBand()
+    .domain(keys)
+    .rangeRound([0, x0.bandwidth()])
+    .padding(0.05);
 
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
@@ -1017,38 +1023,51 @@ function drawGroupLollipopChart(
 
   const colorFn = getColorFn(keys);
 
-  const chartData = dataGroups.map((dg) => ({
-    key: dg.label,
-    statVar: dg.value[0].label,
-    value: dg.value[0].value,
-    dcid: dg.value[0].dcid,
-  }));
-
   // draw lollipop stems
   chart
     .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
     .selectAll("line")
-    .data(chartData)
+    .data((dg) =>
+      dg.value.map((dp) => ({
+        statVar: dp.label,
+        value: dp.value,
+        dcid: dp.dcid,
+      }))
+    )
     .join("line")
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-d", (d) => d.value)
     .attr("stroke", (d) => colorFn(d.statVar))
     .attr("stroke-width", 2)
-    .attr("x1", (d) => x(d.key) + x.bandwidth()/2)
-    .attr("x2", (d) => x(d.key) + x.bandwidth()/2)
+    .attr("x1", (d) => x1(d.statVar) + x1.bandwidth() / 2)
+    .attr("x2", (d) => x1(d.statVar) + x1.bandwidth() / 2)
     .attr("y1", y(0))
     .attr("y2", (d) => y(d.value));
 
   // draw circles
   chart
     .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
     .selectAll("circle")
-    .data(chartData)
+    .data((dg) =>
+      dg.value.map((dp) => ({
+        statVar: dp.label,
+        value: dp.value,
+        dcid: dp.dcid,
+      }))
+    )
     .join("circle")
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-d", (d) => d.value)
     .attr("fill", (d) => colorFn(d.statVar))
-    .attr("cx", (d) => x(d.key) + x.bandwidth()/2)
+    .attr("cx", (d) => x1(d.statVar) + x1.bandwidth() / 2)
     .attr("cy", (d) => y(d.value))
     .attr("r", 6);
 
