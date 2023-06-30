@@ -119,7 +119,8 @@ export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
           );
         }}
       >
-        &nbsp;&nbsp;&#129318;
+        &nbsp;&nbsp;&#129318;&#127995;
+
       </span>
     </div>
   );
