@@ -24,13 +24,13 @@ from server.lib.nl.common import counters
 from server.lib.nl.common import utterance
 from server.lib.nl.detection import palm_api
 from server.lib.nl.detection import types
+from server.lib.nl.detection import utils as dutils
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.place import infer_place_dcids
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
-from server.lib.nl.detection import utils as dutils
 from shared.lib import detected_variables as dvars
 
 # TODO: Add support for COMPARISON_FILTER and RANKING_FILTER

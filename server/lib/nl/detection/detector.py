@@ -15,30 +15,26 @@
 
 from typing import Dict
 
+from flask import current_app
 from markupsafe import escape
-from server.lib.nl.detection.types import ActualDetectorType
-from server.lib.nl.detection.types import RequestedDetectorType
-from server.lib.nl.detection import llm_detector
-from server.lib.nl.detection import heuristic_detector
-from server.lib.nl.detection import llm_fallback
+
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.common.utterance import Utterance
-from flask import current_app
-
+from server.lib.nl.detection import heuristic_detector
+from server.lib.nl.detection import llm_detector
+from server.lib.nl.detection import llm_fallback
+from server.lib.nl.detection.types import ActualDetectorType
+from server.lib.nl.detection.types import RequestedDetectorType
 
 _PALM_API_DETECTORS = [
-  RequestedDetectorType.LLM.value,
-  RequestedDetectorType.Hybrid.value,
+    RequestedDetectorType.LLM.value,
+    RequestedDetectorType.Hybrid.value,
 ]
 
 
-def detect(detector_type: str,
-           original_query: str,
-           no_punct_query: str,
-           prev_utterance: Utterance,
-           embeddings_index_type: str,
-           query_detection_debug_logs: Dict,
-           counters: Counters):
+def detect(detector_type: str, original_query: str, no_punct_query: str,
+           prev_utterance: Utterance, embeddings_index_type: str,
+           query_detection_debug_logs: Dict, counters: Counters):
   if (detector_type in _PALM_API_DETECTORS and
       'PALM_API_KEY' not in current_app.config):
     counters.err('failed_palm_keynotfound', '')

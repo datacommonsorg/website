@@ -19,6 +19,7 @@ from typing import Dict
 from flask import current_app
 
 import server.lib.nl.common.counters as ctr
+from server.lib.nl.detection import utils as dutils
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.place import infer_place_dcids
 from server.lib.nl.detection.place import remove_places
@@ -29,7 +30,6 @@ from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SimpleClassificationAttributes
 from server.lib.nl.detection.types import SVDetection
-from server.lib.nl.detection import utils as dutils
 from shared.lib import detected_variables as dvars
 
 

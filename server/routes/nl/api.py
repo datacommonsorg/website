@@ -32,11 +32,11 @@ import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
+from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RequestedDetectorType
-from server.lib.nl.detection import utils as dutils
 import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 from server.lib.util import get_nl_disaster_config
@@ -73,9 +73,8 @@ def data():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
 
-  detector_type = request.args.get('detector',
-                                   default=RequestedDetectorType.Heuristic.value,
-                                   type=str)
+  detector_type = request.args.get(
+      'detector', default=RequestedDetectorType.Heuristic.value, type=str)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
@@ -93,14 +92,13 @@ def data():
   query_detection_debug_logs["original_query"] = query
 
   if not query:
-    query_detection = Detection(
-      original_query=original_query,
-      cleaned_query=query,
-      places_detected=None,
-      svs_detected=dutils.create_sv_detection(query,
-                                              dutils.empty_svs_score_dict()),
-      classifications=[],
-      llm_resp={})
+    query_detection = Detection(original_query=original_query,
+                                cleaned_query=query,
+                                places_detected=None,
+                                svs_detected=dutils.create_sv_detection(
+                                    query, dutils.empty_svs_score_dict()),
+                                classifications=[],
+                                llm_resp={})
     data_dict = dbg.result_with_debug_info(
         data_dict=res,
         status="Aborted: Query was Empty.",
@@ -124,13 +122,9 @@ def data():
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(detector_type,
-                                    original_query,
-                                    query,
-                                    prev_utterance,
-                                    embeddings_index_type,
-                                    query_detection_debug_logs,
-                                    counters)
+  query_detection = detector.detect(detector_type, original_query, query,
+                                    prev_utterance, embeddings_index_type,
+                                    query_detection_debug_logs, counters)
   counters.timeit('query_detection', start)
 
   start = time.time()

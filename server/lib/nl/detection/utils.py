@@ -86,10 +86,10 @@ def empty_svs_score_dict():
 
 
 def create_sv_detection(query: str, svs_scores_dict: Dict) -> SVDetection:
-  return SVDetection(
-      query=query,
-      single_sv=dvars.VarCandidates(
-          svs=svs_scores_dict['SV'],
-          scores=svs_scores_dict['CosineScore'],
-          sv2sentences=svs_scores_dict['SV_to_Sentences']),
-      multi_sv=dvars.dict_to_multivar_candidates(svs_scores_dict['MultiSV']))
+  return SVDetection(query=query,
+                     single_sv=dvars.VarCandidates(
+                         svs=svs_scores_dict['SV'],
+                         scores=svs_scores_dict['CosineScore'],
+                         sv2sentences=svs_scores_dict['SV_to_Sentences']),
+                     multi_sv=dvars.dict_to_multivar_candidates(
+                         svs_scores_dict['MultiSV']))
