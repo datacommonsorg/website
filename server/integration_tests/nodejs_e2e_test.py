@@ -29,6 +29,7 @@ class IntegrationTest(unittest.TestCase):
   def run_test(self, test_dir, query):
     resp = requests.get(
         f'https://dev.datacommons.org/nodejs/query?q={query}').json()
+    # TODO: Validate detection type, etc, after push to dev.
     del resp['debug']
     for chart in resp.get('charts', []):
       self.assertNotEqual('', chart.get('svg', '')), chart
