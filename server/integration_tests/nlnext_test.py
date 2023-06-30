@@ -32,18 +32,12 @@ class IntegrationTest(NLWebServerTestCase):
                    test_dir,
                    queries,
                    idx='small',
-                   detector='heuristic',
                    check_place_detection=False):
-    if detector == 'heuristic':
-      detection_method = 'Heuristic Based'
-    elif detector == 'llm':
-      detection_method = 'LLM Based'
-    assert detection_method
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(self.get_server_url() +
-                           f'/api/nl/data?q={q}&idx={idx}&detector={detector}',
+                           f'/api/nl/data?q={q}&idx={idx}',
                            json={
                                'contextHistory': ctx
                            }).json()
@@ -72,8 +66,6 @@ class IntegrationTest(NLWebServerTestCase):
             }
             infile.write(json.dumps(dbg_to_write, indent=2))
       else:
-        self.assertEqual(dbg.get('detection_type'), detection_method), \
-          'Query {q} failed!'
         if not check_place_detection:
           with open(json_file, 'r') as infile:
             expected = json.load(infile)
@@ -103,11 +95,6 @@ class IntegrationTest(NLWebServerTestCase):
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
-
-  def test_textbox_sample_llm(self):
-    # This is the sample advertised in our textbox
-    self.run_sequence('textbox_sample_llm', ['family earnings in california'],
-                      'llm')
 
   def test_demo_feb2023(self):
     self.run_sequence('demo_feb2023', [

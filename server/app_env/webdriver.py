@@ -21,4 +21,3 @@ class Config(_base.Config):
   SECRET_PROJECT = 'datcom-website-dev'
   SCHEME = 'http'
   SHOW_TOPIC = True
-  USE_PALM = True
