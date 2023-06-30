@@ -184,6 +184,8 @@ message Tile {
     // allowed in BlockTypes: TYPE_NONE
     DESCRIPTION = 8;
     // allowed in BlockTypes: TYPE_NONE
+    GAUGE = 13;
+    // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
     // allowed in BlockTypes: DISASTER_EVENT
     PLACE_OVERVIEW = 11;
