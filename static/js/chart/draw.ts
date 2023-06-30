@@ -1005,7 +1005,7 @@ function drawGroupLollipopChart(
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
     .rangeRound([leftWidth, chartWidth - MARGIN.right])
-    .paddingInner(0.1)
+    .paddingInner(0.5)
     .paddingOuter(0.1);
   const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
 
@@ -1013,7 +1013,7 @@ function drawGroupLollipopChart(
     .scaleBand()
     .domain(keys)
     .rangeRound([0, x0.bandwidth()])
-    .padding(0.05);
+    .paddingOuter(0.05);
 
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
