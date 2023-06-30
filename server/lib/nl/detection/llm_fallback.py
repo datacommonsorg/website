@@ -13,6 +13,7 @@
 # limitations under the License.
 """Decide whether to fallback to using LLM."""
 
+from enum import Enum
 from typing import List
 
 from server.lib.nl.common import counters
@@ -26,6 +27,13 @@ from server.lib.nl.fulfillment import context
 from shared.lib import detected_variables as dvars
 
 
+class NeedLLM(Enum):
+  No = 1
+  ForPlace = 2
+  ForVar = 3
+  Fully = 4
+
+
 #
 # Given a heuristic-based Detection, decides whether we need a call to LLM
 #
@@ -35,7 +43,10 @@ from shared.lib import detected_variables as dvars
 # - Prevalence of Asthma in California cities with the highest hispanic population
 #
 def need_llm(heuristic: Detection, prev_uttr: Utterance,
-             ctr: counters.Counters) -> bool:
+             ctr: counters.Counters) -> NeedLLM:
+  need_sv = False
+  need_place = False
+
   # 1. If there was no SV.
   if _has_no_sv(heuristic, ctr):
 
@@ -49,7 +60,7 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
     # Check if the context had SVs.
     if not has_sv_classification and not context.has_sv_in_context(prev_uttr):
       ctr.info('info_fallback_no_sv_found', '')
-      return True
+      need_sv = True
 
   # 2. If there was no place.
   if _has_no_place(heuristic):
@@ -62,14 +73,22 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
     if ptype != ContainedInPlaceType.COUNTRY and not context.has_place_in_context(
         prev_uttr):
       ctr.info('info_fallback_no_place_found', '')
-      return True
+      need_place = True
 
   # 3. Use some heuristics to tell if it is a complex query.
   if _is_complex_query(heuristic, ctr):
     # Callee writes counter.
-    return True
+    need_sv = True
 
-  return False
+  llm_type = NeedLLM.No
+  if need_sv and need_place:
+    llm_type = NeedLLM.Fully
+  elif need_sv:
+    llm_type = NeedLLM.ForVar
+  elif need_place:
+    llm_type = NeedLLM.ForPlace
+
+  return llm_type
 
 
 def _has_no_sv(d: Detection, ctr: counters.Counters) -> bool:
@@ -90,41 +109,43 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
   if d.places_detected:
     query_places = d.places_detected.query_places_mentioned
 
+  # If its not a multi-SV query, it is not a complex query.
   if not dutils.is_multi_sv(d):
-    # If its not a multi-SV query, we just assume its not a complex query.
     return False
 
   # Use the top-multi-sv, whose score exceeds top single-SV.
   multi_sv = d.svs_detected.multi_sv.candidates[0]
 
-  # This may be a multi-sv, but increase that confidence that it
-  # is by checking that the top candidate is either delimiter-separated,
-  # or is delimited by the place name.
+  # Increase confidence that it is a multi-sv case by checking that the top
+  # candidate is either delimiter-separated, or is delimited
+  # by the place name.
+  if _is_multi_sv_delimited(query, query_places, multi_sv, ctr) != 'YES':
+    return False
 
-  # User had specified a delimiter.  e.g., asthma vs. poverty in ca
-  if multi_sv.delim_based:
-    disp = ':'.join([p.query_part for p in multi_sv.parts])
-    ctr.info('info_fallback_multi_sv_delimiter', disp)
-    return True
+  # If there are ~2 SVs, and we have detected comparison/correlation,
+  # we would handle it better ourselves.
+  if len(
+      multi_sv.parts) == 2 and any(cl.type == ClassificationType.COMPARISON or
+                                   cl.type == ClassificationType.CORRELATION
+                                   for cl in d.classifications):
+    ctr.info('info_fallback_dual_sv_correlation', '')
+    return False
 
-  # Or if the place name delimits query-parts.
-  # e.g., asthma in ca where poverty rules
-  if _does_place_delimit_query_parts(query, query_places, multi_sv,
-                                     ctr) == 'YES':
-    # Callee writes counter.
-    return True
-
-  # This could still be a complex query.  e.g., find asthma where poverty is high in ca cities
-  ctr.info('info_fallback_multi_sv_no_delim', '')
-  return False
+  return True
 
 
 # Returns 'YES' *if* sv-parts of the `mult_sv` are delimited by a place
 # in `places_mentioned`.  If the sv or place sub-string cannot be found
 # in the query, returns 'UNSURE'.
-def _does_place_delimit_query_parts(query: str, places_mentioned: List[str],
-                                    multi_sv: dvars.MultiVarCandidate,
-                                    ctr: counters.Counters) -> str:
+def _is_multi_sv_delimited(query: str, places_mentioned: List[str],
+                           multi_sv: dvars.MultiVarCandidate,
+                           ctr: counters.Counters) -> str:
+  # User had specified a delimiter.  e.g., asthma vs. poverty in ca
+  if multi_sv.delim_based:
+    disp = ':'.join([p.query_part for p in multi_sv.parts])
+    ctr.info('info_fallback_multi_sv_delimiter', disp)
+    return 'YES'
+
   # Find all sv sub-part indexes.
   vidx_list = []
   for p in multi_sv.parts:
@@ -153,4 +174,5 @@ def _does_place_delimit_query_parts(query: str, places_mentioned: List[str],
         return 'YES'
       prev = cur
 
+  ctr.info('info_fallback_multi_sv_no_delim', '')
   return 'NO'

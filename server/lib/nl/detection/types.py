@@ -348,10 +348,16 @@ class NLClassifier:
 
 class ActualDetectorType(str, Enum):
   """Enum to represent detector types"""
-  Heuristic = "Heurstic Based"
+  Heuristic = "Heuristic Based"
   LLM = "LLM Based"
+  # No fallback
   HybridHeuristic = "Hybrid - Heuristic Based"
-  HybridLLM = "Hybrid - LLM Fallback"
+  # Fallback to LLM fully
+  HybridLLMFull = "Hybrid - LLM Fallback (Full)"
+  # Fallback to LLM for place detection only
+  HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
+  # Fallback to LLM for variable detection only
+  HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
 
 
 class RequestedDetectorType(str, Enum):

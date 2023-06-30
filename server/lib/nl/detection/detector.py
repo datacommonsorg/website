@@ -41,24 +41,45 @@ def detect(detector_type: str, original_query: str, no_punct_query: str,
     detector_type = RequestedDetectorType.Heuristic.value
 
   if detector_type == RequestedDetectorType.LLM.value:
-    query_detection = llm_detector.detect(original_query, prev_utterance,
-                                          embeddings_index_type,
-                                          query_detection_debug_logs, counters)
-  else:
-    query_detection = heuristic_detector.detect(str(escape(original_query)),
-                                                no_punct_query,
-                                                embeddings_index_type,
-                                                query_detection_debug_logs,
-                                                counters)
-    if detector_type == RequestedDetectorType.Hybrid.value:
-      if llm_fallback.need_llm(query_detection, prev_utterance, counters):
-        counters.err('warning_llm_fallback', '')
-        query_detection = llm_detector.detect(original_query, prev_utterance,
-                                              embeddings_index_type,
-                                              query_detection_debug_logs,
-                                              counters)
-        query_detection.detector = ActualDetectorType.HybridLLM.value
-      else:
-        query_detection.detector = ActualDetectorType.HybridHeuristic.value
+    llm_detection = llm_detector.detect(original_query, prev_utterance,
+                                        embeddings_index_type,
+                                        query_detection_debug_logs, counters)
+    return llm_detection
 
-  return query_detection
+  heuristic_detection = heuristic_detector.detect(str(escape(original_query)),
+                                                  no_punct_query,
+                                                  embeddings_index_type,
+                                                  query_detection_debug_logs,
+                                                  counters)
+  if detector_type == RequestedDetectorType.Heuristic.value:
+    return heuristic_detection
+
+  #
+  # This is Hybrid flow now.  First check if need LLM fallback.
+  #
+  llm_type = llm_fallback.need_llm(heuristic_detection, prev_utterance,
+                                   counters)
+  if llm_type == llm_fallback.NeedLLM.No:
+    heuristic_detection.detector = ActualDetectorType.HybridHeuristic
+    return heuristic_detection
+
+  counters.err('warning_llm_fallback', '')
+  llm_detection = llm_detector.detect(original_query, prev_utterance,
+                                      embeddings_index_type,
+                                      query_detection_debug_logs, counters)
+
+  if llm_type == llm_fallback.NeedLLM.Fully:
+    detection = llm_detection
+    detection.detector = ActualDetectorType.HybridLLMFull
+  elif llm_type == llm_fallback.NeedLLM.ForVar:
+    # Use place stuff from heuristics
+    detection = llm_detection
+    detection.places_detected = heuristic_detection.places_detected
+    detection.detector = ActualDetectorType.HybridLLMVar
+  elif llm_type == llm_fallback.NeedLLM.ForPlace:
+    # Use place stuff from LLM
+    detection = heuristic_detection
+    detection.places_detected = llm_detection.places_detected
+    detection.detector = ActualDetectorType.HybridLLMPlace
+
+  return detection
