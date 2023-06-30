@@ -18,7 +18,7 @@ import datetime
 import logging
 import random
 import time
-from typing import Any, Dict, List
+from typing import Dict, List
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
@@ -224,13 +224,9 @@ def parent_place_names(dcid: str) -> List[str]:
 
 
 def get_contained_in_type(
-    uttr_or_classifications: Any) -> types.ContainedInPlaceType:
-  if isinstance(uttr_or_classifications, nl_uttr.Utterance):
-    classification = ctx.classifications_of_type_from_utterance(
-        uttr_or_classifications, types.ClassificationType.CONTAINED_IN)
-  else:
-    classification = ctx.classifications_of_type(
-        uttr_or_classifications, types.ClassificationType.CONTAINED_IN)
+    uttr: nl_uttr.Utterance) -> types.ContainedInPlaceType:
+  classification = ctx.classifications_of_type_from_utterance(
+      uttr, types.ClassificationType.CONTAINED_IN)
   place_type = None
   if (classification and isinstance(classification[0].attributes,
                                     types.ContainedInClassificationAttributes)):

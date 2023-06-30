@@ -19,8 +19,6 @@ from parameterized import parameterized
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection.llm_fallback import need_llm
 from server.lib.nl.detection.types import ClassificationType
-from server.lib.nl.detection.types import ContainedInClassificationAttributes
-from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
@@ -60,15 +58,8 @@ def _sv(v=[], delim=False):
                      multi_sv=None)
 
 
-def _nlcl(t, pt=None):
-  if not pt:
-    return [NLClassifier(type=t, attributes=None)]
-  else:
-    return [
-        NLClassifier(type=t,
-                     attributes=ContainedInClassificationAttributes(
-                         contained_in_place_type=pt))
-    ]
+def _nlcl(t):
+  return [NLClassifier(type=t, attributes=None)]
 
 
 class TestLLMFallback(unittest.TestCase):
@@ -94,16 +85,6 @@ class TestLLMFallback(unittest.TestCase):
           False,
           ''),
       (
-          # Same as above, but since its SIZE_TYPE, we ignore
-          # the lack of SV.  NO fallback.
-          Detection(original_query='size of california',
-                    cleaned_query='',
-                    places_detected=_place(),
-                    svs_detected=_sv(),
-                    classifications=_nlcl(ClassificationType.SIZE_TYPE)),
-          False,
-          ''),
-      (
           # No place found, fallback.
           Detection(original_query='hispanic population',
                     cleaned_query='',
@@ -112,16 +93,6 @@ class TestLLMFallback(unittest.TestCase):
                     classifications=_nlcl(ClassificationType.OVERVIEW)),
           True,
           'info_fallback_no_place_found'),
-      (
-          # No place found, but Country type, so Earth is assumed.
-          Detection(original_query='health in the world',
-                    cleaned_query='',
-                    places_detected=None,
-                    svs_detected=_sv(['dc/topic/Health']),
-                    classifications=_nlcl(ClassificationType.CONTAINED_IN,
-                                          ContainedInPlaceType.COUNTRY)),
-          False,
-          ''),
       (
           # Single SV with place.  NO Fallback.
           Detection(original_query='hispanic population in california',
@@ -161,13 +132,12 @@ class TestLLMFallback(unittest.TestCase):
           'info_fallback_place_within_multi_sv'),
       (
           # Multi-SV query, with no delimiter, but a very long query.
-          Detection(
-              original_query=
-              'hispanic asian and many many many many more other words in california',
-              cleaned_query='',
-              places_detected=_place(),
-              svs_detected=_sv(['hispanic', 'asian']),
-              classifications=[]),
+          Detection(original_query=
+                    'hispanic asian and a bunch of other words in california',
+                    cleaned_query='',
+                    places_detected=_place(),
+                    svs_detected=_sv(['hispanic', 'asian']),
+                    classifications=[]),
           True,
           'info_fallback_query_very_long')
   ])
