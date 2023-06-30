@@ -346,6 +346,21 @@ class NLClassifier:
   attributes: List[ClassificationAttributes]
 
 
+class ActualDetectorType(str, Enum):
+  """Enum to represent detector types"""
+  Heuristic = "Heurstic Based"
+  LLM = "LLM Based"
+  HybridHeuristic = "Hybrid - Heuristic Based"
+  HybridLLM = "Hybrid - LLM Fallback"
+
+
+class RequestedDetectorType(str, Enum):
+  """Enum to represent detector types"""
+  Heuristic = "heuristic"
+  LLM = "llm"
+  Hybrid = "hybrid"
+
+
 @dataclass
 class Detection:
   """Detection attributes."""
@@ -355,3 +370,4 @@ class Detection:
   svs_detected: SVDetection
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
+  detector: ActualDetectorType = ActualDetectorType.Heuristic

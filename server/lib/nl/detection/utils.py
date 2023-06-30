@@ -13,11 +13,12 @@
 # limitations under the License.
 """Detector helper utils."""
 
-from typing import List
+from typing import Dict, List
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import SVDetection
 from shared.lib import constants as shared_constants
 from shared.lib import detected_variables as dvars
 
@@ -78,3 +79,17 @@ def has_dual_sv(detection: Detection) -> bool:
     if len(c.parts) == 2:
       return True
   return False
+
+
+def empty_svs_score_dict():
+  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
+
+
+def create_sv_detection(query: str, svs_scores_dict: Dict) -> SVDetection:
+  return SVDetection(
+      query=query,
+      single_sv=dvars.VarCandidates(
+          svs=svs_scores_dict['SV'],
+          scores=svs_scores_dict['CosineScore'],
+          sv2sentences=svs_scores_dict['SV_to_Sentences']),
+      multi_sv=dvars.dict_to_multivar_candidates(svs_scores_dict['MultiSV']))

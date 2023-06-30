@@ -17,13 +17,13 @@ from typing import List
 
 from server.lib.nl.common import counters
 from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
 import server.lib.nl.detection.utils as dutils
+from server.lib.nl.fulfillment import context
 from shared.lib import detected_variables as dvars
-
-_COMPLEX_QUERY_TOKEN_THRESHOLD = 10
 
 
 #
@@ -34,18 +34,20 @@ _COMPLEX_QUERY_TOKEN_THRESHOLD = 10
 # - Prevalence of Asthma in California cities with hispanic population over 10000
 # - Prevalence of Asthma in California cities with the highest hispanic population
 #
-def need_llm(heuristic: Detection, ctr: counters.Counters) -> bool:
+def need_llm(heuristic: Detection, prev_uttr: Utterance,
+             ctr: counters.Counters) -> bool:
   # 1. If there was no SV.
   if _has_no_sv(heuristic, ctr):
 
     # For OVERVIEW/SIZE_TYPE/EVENT_TYOE classifications, we don't have SVs,
     # exclude those.
-    has_no_sv_classification = any(
+    has_sv_classification = any(
         cl.type == ClassificationType.OVERVIEW or cl.type ==
         ClassificationType.SIZE_TYPE or cl.type == ClassificationType.EVENT
         for cl in heuristic.classifications)
 
-    if not has_no_sv_classification:
+    # Check if the context had SVs.
+    if not has_sv_classification and not context.has_sv_in_context(prev_uttr):
       ctr.info('info_fallback_no_sv_found', '')
       return True
 
@@ -54,9 +56,11 @@ def need_llm(heuristic: Detection, ctr: counters.Counters) -> bool:
 
     # For COUNTRY contained-in type, Earth is assumed
     # (e.g., countries with worst health), so exclude that.
+    #
+    # Also confirm there was no place in the context.
     ptype = utils.get_contained_in_type(heuristic.classifications)
-
-    if ptype != ContainedInPlaceType.COUNTRY:
+    if ptype != ContainedInPlaceType.COUNTRY and not context.has_place_in_context(
+        prev_uttr):
       ctr.info('info_fallback_no_place_found', '')
       return True
 
@@ -86,14 +90,6 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
   if d.places_detected:
     query_places = d.places_detected.query_places_mentioned
 
-  # If there is a Quantity detected, that's a good chance this might
-  # be a complex query.
-  has_quantity = any(
-      cl.type == ClassificationType.QUANTITY for cl in d.classifications)
-  if has_quantity:
-    ctr.info('info_fallback_has_quantity', '')
-    return True
-
   if not dutils.is_multi_sv(d):
     # If its not a multi-SV query, we just assume its not a complex query.
     return False
@@ -104,8 +100,6 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
   # This may be a multi-sv, but increase that confidence that it
   # is by checking that the top candidate is either delimiter-separated,
   # or is delimited by the place name.
-
-  # TODO: Consider if we should skip this altogether.
 
   # User had specified a delimiter.  e.g., asthma vs. poverty in ca
   if multi_sv.delim_based:
@@ -121,17 +115,6 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
     return True
 
   # This could still be a complex query.  e.g., find asthma where poverty is high in ca cities
-  #
-  # Another useful signal for a complex query is its length.
-  #
-  # TODO: Consider if we should do this ahead of `is_multi_sv` check.
-  n = _num_query_tokens_excluding_places(query, query_places)
-  if n > _COMPLEX_QUERY_TOKEN_THRESHOLD:
-    ctr.info('info_fallback_query_very_long', n)
-    return True
-
-  # TODO:  Add more heuristics.  Perhaps some specific words? (`where`, `with`)
-
   ctr.info('info_fallback_multi_sv_no_delim', '')
   return False
 
@@ -171,12 +154,3 @@ def _does_place_delimit_query_parts(query: str, places_mentioned: List[str],
       prev = cur
 
   return 'NO'
-
-
-def _num_query_tokens_excluding_places(query: str,
-                                       places_mentioned: List[str]) -> int:
-  tmp_query = query
-  for place in places_mentioned:
-    tmp_query = tmp_query.replace(place, '')
-  # Split ignores empties.
-  return len(tmp_query.split())

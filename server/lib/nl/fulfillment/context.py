@@ -29,8 +29,10 @@ from server.lib.nl.detection.types import Place
 #
 
 
-def svs_from_context(uttr: Utterance) -> List[str]:
+def svs_from_context(uttr: Utterance, include_uttr: bool = False) -> List[str]:
   ans = []
+  if include_uttr:
+    ans.append(uttr.svs)
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
@@ -40,8 +42,11 @@ def svs_from_context(uttr: Utterance) -> List[str]:
   return ans
 
 
-def places_from_context(uttr: Utterance) -> List[Place]:
+def places_from_context(uttr: Utterance,
+                        include_uttr: bool = False) -> List[Place]:
   ans = []
+  if include_uttr:
+    ans.extend(uttr.places)
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
@@ -50,6 +55,22 @@ def places_from_context(uttr: Utterance) -> List[Place]:
     prev = prev.prev_utterance
     prev_uttr_count = prev_uttr_count + 1
   return ans
+
+
+def has_sv_in_context(uttr: Utterance) -> bool:
+  svs_list = svs_from_context(uttr, include_uttr=True)
+  for svs in svs_list:
+    if svs:
+      return True
+  return False
+
+
+def has_place_in_context(uttr: Utterance) -> bool:
+  places = places_from_context(uttr, include_uttr=True)
+  for place in places:
+    if place.dcid:
+      return True
+  return False
 
 
 # Computes a list of place lists, where each inner list is a candidate for place
