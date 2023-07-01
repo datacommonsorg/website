@@ -52,7 +52,7 @@ export const QueryResult = memo(function QueryResult(
   const [debugData, setDebugData] = useState<any>();
   const scrollRef = createRef<HTMLDivElement>();
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
-  const [isThumbClicked, setIsThumbClicked] = useState(false);
+  const [isEmojiClicked, setIsEmojiClicked] = useState(false);
 
   useEffect(() => {
     // Scroll to the top (assuming this is the last query to render, and other queries are memoized).
@@ -150,11 +150,13 @@ export const QueryResult = memo(function QueryResult(
           {chartsData && chartsData.sessionId && (
             <span
               className={`feedback-emoji ${
-                isThumbClicked ? "feedback-emoji-dim" : ""
+                isEmojiClicked ? "feedback-emoji-dim" : ""
               }`}
-              onClick={onThumbDownClick}
+              onClick={() => {
+                onEmojiClick(CHART_FEEDBACK_SENTIMENT.WARNING);
+              }}
             >
-              &nbsp;&nbsp;&#128078;
+              &nbsp;&nbsp;&#9888;
             </span>
           )}
         </Container>
@@ -197,16 +199,16 @@ export const QueryResult = memo(function QueryResult(
     </>
   );
 
-  function onThumbDownClick(): void {
-    if (isThumbClicked) {
+  function onEmojiClick(sentiment: string): void {
+    if (isEmojiClicked) {
       return;
     }
-    setIsThumbClicked(true);
+    setIsEmojiClicked(true);
     axios.post("/api/nl/feedback", {
       sessionId: chartsData.sessionId,
       feedbackData: {
         queryId: props.queryIdx,
-        sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
+        sentiment,
       },
     });
   }
