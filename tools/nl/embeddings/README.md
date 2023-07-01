@@ -48,6 +48,12 @@ This is a common sheet across the different index sizes.
    ./run.sh -f medium
    ```
 
+   To use an existing local model, e.g. the locally stored model just built via finetuning, run:
+   ```bash
+   /run.sh -l medium <path_to_local_model>
+   ```
+   
+
 1. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
 
 1. Generate an SV embeddings differ report by following the process under the [`sv_index_differ`](../svindex_differ/README.md) folder (one level up). Look at the diffs and evaluate whether they make sense.

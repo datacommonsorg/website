@@ -269,17 +269,14 @@ def finetune_model(model: Any, training_examples: List[InputExample]):
 def main(_):
 
   assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2
-  assert (FLAGS.stage
-          == STAGE_INTERMEDIATE) or ((FLAGS.stage == STAGE_FINAL) and
-                                     (FLAGS.pretuned_model))
+  assert FLAGS.stage in [STAGE_INTERMEDIATE, STAGE_FINAL]
 
   assert os.path.exists(os.path.join('data'))
 
-  # Determine if the finetuning begins from the base model or from a
-  # pre-finetuned model (fine tuned on sentence alternatives) on GCS.
-  start_from_base = False
+  # Determine if the intermediate model needs to be built.
+  build_intermediate = False
   if FLAGS.stage == STAGE_INTERMEDIATE:
-    start_from_base = True
+    build_intermediate = True
 
   autogen_input_filepattern = f'{FLAGS.autogen_input_basedir}/{EMBEDDINGS_SIZE}/*.csv'
 
@@ -297,55 +294,61 @@ def main(_):
       f"Found {len(df_sentence_pairs)} human-curated sentence pairs with scores."
   )
 
-  if start_from_base:
-    # If starting from the base model, first build the Intermediate finetuned model
-    # using sentence/text alternatives. Checkpoint (save/upload) that model to GCS.
+  if build_intermediate:
+    # Build the Intermediate finetuned model using sentence/text alternatives.
+    # Checkpoint (save/upload) that model to GCS.
 
-    # Step 1. Loading the model.
+    # Step 1. Loading the base model.
     print(f"Loading the base model: {FLAGS.model_name_v2}")
     model_base = SentenceTransformer(FLAGS.model_name_v2)
 
     # Step 2a. Fine tuning with alternatives.
     print(f"(Intermediate) Fine tuning with alternatives. Stage: {FLAGS.stage}")
-    model_intermediate_finetuned = finetune_model(
+    model_intermediate = finetune_model(
         model_base, _generate_training_examples_from_alternatives(df_svs))
 
     ctx = utils.Context(gs=gs,
-                        model=model_intermediate_finetuned,
+                        model=model_intermediate,
                         bucket=bucket,
                         tmp='/tmp')
 
     # Step 2b. Upload the alternatives finetuned model to the NL model server's GCS bucket.
-    model_intermediate_folder_name = _save_finetuned_model(
-        ctx, "intermediate", FLAGS.model_name_v2)
+    model_intermediate_name = _save_finetuned_model(ctx, "intermediate",
+                                                    FLAGS.model_name_v2)
     print(
-        f"Produced and uploaded finetuned intermediate model: {model_intermediate_folder_name}"
+        f"Produced and uploaded finetuned intermediate model: {model_intermediate_name}"
     )
 
-  else:
+  elif FLAGS.pretuned_model:
+    # If a pretuned (intermediate) model was provided, use it to download and load
+    # the intermediate model.
+
     # Step 1. Loading the Intermediate pre-finetuned model.
     # No need for Steps 2a and 2b (see above).
-    model_intermediate_folder_name = FLAGS.pretuned_model
+    model_intermediate_name = FLAGS.pretuned_model
+
+    print(f"Using the intermediate model (on GCS): {model_intermediate_name}")
+    assert "." in model_intermediate_name
+    assert STAGE_INTERMEDIATE in model_intermediate_name
+    assert STAGE_FINAL not in model_intermediate_name
 
     print(
-        f"Using the intermediate model (on GCS): {model_intermediate_folder_name}"
-    )
-    assert "." in model_intermediate_folder_name
-    assert STAGE_INTERMEDIATE in model_intermediate_folder_name
-    assert STAGE_FINAL not in model_intermediate_folder_name
-
-    print(
-        f"Loading the pre-finetuned Intermediate model: {model_intermediate_folder_name}"
+        f"Loading the pre-finetuned Intermediate model: {model_intermediate_name}"
     )
     ctx = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
     downloaded_model_path = utils.download_model_from_gcs(
-        ctx, model_intermediate_folder_name)
-    model_intermediate_finetuned = SentenceTransformer(downloaded_model_path)
+        ctx, model_intermediate_name)
+    model_intermediate = SentenceTransformer(downloaded_model_path)
+
+  else:
+    # The intermediate model is the base model.
+    model_intermediate = SentenceTransformer(FLAGS.model_name_v2)
+    model_intermediate_name = FLAGS.model_name_v2
 
   # Step 3. Fine tuning with sentence pairs.
   print(f"Fine tuning with sentence pairs.")
   model_final_finetuned = finetune_model(
-      model_intermediate_finetuned,
+      model_intermediate,
       _generate_training_examples_from_sentence_pairs(df_sentence_pairs))
 
   # Step 4. Upload the final finetuned model to the NL model server's GCS bucket.
@@ -353,8 +356,8 @@ def main(_):
                       model=model_final_finetuned,
                       bucket=bucket,
                       tmp='/tmp')
-  model_final_folder_name = _save_finetuned_model(
-      ctx, "final", model_intermediate_folder_name)
+  model_final_folder_name = _save_finetuned_model(ctx, "final",
+                                                  model_intermediate_name)
   print(
       f"NOTE: Please update `tuned_model` in models.yaml with:: {model_final_folder_name}"
   )

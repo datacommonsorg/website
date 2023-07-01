@@ -43,7 +43,8 @@ flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
 _REPORT = '/tmp/diff_report.html'
-_FILE_PATTERN = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv'
+_FILE_PATTERN_EMBEDDINGS = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.csv'
+_FILE_PATTERN_FINETUNED_EMBEDDINGS = r'embeddings_.*_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}\.ft.*\.csv'
 
 
 def _prune(res):
@@ -54,14 +55,15 @@ def _prune(res):
   return result
 
 
-def _maybe_copy(file):
-  if re.match(_FILE_PATTERN, file):
+def _maybe_copy_embeddings(file):
+  if re.match(_FILE_PATTERN_EMBEDDINGS, file) or re.match(
+      _FILE_PATTERN_FINETUNED_EMBEDDINGS, file):
     lpath = gcs.local_path(file)
     if os.path.exists(lpath):
       return lpath
     return gcs.download_embeddings(file)
   assert file.startswith('/'), \
-    f'File should either be {_FILE_PATTERN} or an absolute local path'
+    f'File should either be {_FILE_PATTERN_EMBEDDINGS} or {_FILE_PATTERN_FINETUNED_EMBEDDINGS} or an absolute local path'
   return file
 
 
@@ -69,13 +71,18 @@ def _diff_table(base, test):
   return difflib.HtmlDiff().make_table(base, test)
 
 
-def run_diff(base_file, test_file, query_file, output_file):
+def run_diff(base_file, test_file, test_model_path, query_file, output_file):
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   env.filters['diff_table'] = _diff_table
   template = env.get_template(os.path.basename(_TEMPLATE))
 
+  print("=================================")
+  print(f"Setting up the Base Embeddings from: {base_file}")
   base = Embeddings(base_file)
-  test = Embeddings(test_file)
+  print("=================================")
+  print(f"Setting up the Test Embeddings from: {test_file}; Test model from: {test_model_path}")
+  test = Embeddings(test_file, test_model_path)
+  print("=================================")
 
   diffs = []
   with open(query_file) as f:
@@ -104,9 +111,28 @@ def run_diff(base_file, test_file, query_file, output_file):
 
 def main(_):
   assert FLAGS.base and FLAGS.test and FLAGS.queryset
-  base_file = _maybe_copy(FLAGS.base)
-  test_file = _maybe_copy(FLAGS.test)
-  run_diff(base_file, test_file, FLAGS.queryset, _REPORT)
+  base_file = _maybe_copy_embeddings(FLAGS.base)
+  test_file = _maybe_copy_embeddings(FLAGS.test)
+
+  test_model_path = ""
+  if "ft" in test_file:
+    # This means we are using embeddings built on finetuned model.
+    # Download the model if needed.
+
+    # Extract the model name.
+    # test embeddings name is of the form:
+    #  <embeddings_size_*>.<ft_final_*>.<ft_intermediate_*>.<base_model>.csv
+    # The model name is comprised of all the parts between <embeddings_size_*>
+    # and ".csv".
+    parts = FLAGS.test.split(".")
+    model_name = ".".join(parts[1:-1])
+    print(f"finetuned model_name: {model_name}")
+    test_model_path = gcs.download_model_folder(model_name)
+
+    assert "ft_final" in test_model_path
+    assert len(test_model_path.split(".")) >= 2
+
+  run_diff(base_file, test_file, test_model_path, FLAGS.queryset, _REPORT)
 
 
 if __name__ == "__main__":
