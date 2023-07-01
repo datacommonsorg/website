@@ -269,7 +269,7 @@ def main(_):
       print(f"Model downloaded locally to: {tuned_model_path}")
 
     model = SentenceTransformer(tuned_model_path)
-  
+
   elif use_local_model:
     print(f"Use the local model at: {FLAGS.existing_model_path}")
     print(f"Extracted model version: {model_version}")

@@ -81,7 +81,9 @@ def download_model_folder(model_folder: str) -> str:
   # Only download if needed.
   local_folderpath = os.path.join(directory, model_folder)
   if os.path.exists(local_folderpath):
-    print(f"Model ({model_folder}) already downloaded. Returning the local path: {local_folderpath}")
+    print(
+        f"Model ({model_folder}) already downloaded. Returning the local path: {local_folderpath}"
+    )
     return local_folderpath
 
   print(

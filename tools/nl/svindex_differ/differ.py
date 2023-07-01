@@ -80,7 +80,9 @@ def run_diff(base_file, test_file, test_model_path, query_file, output_file):
   print(f"Setting up the Base Embeddings from: {base_file}")
   base = Embeddings(base_file)
   print("=================================")
-  print(f"Setting up the Test Embeddings from: {test_file}; Test model from: {test_model_path}")
+  print(
+      f"Setting up the Test Embeddings from: {test_file}; Test model from: {test_model_path}"
+  )
   test = Embeddings(test_file, test_model_path)
   print("=================================")
 
