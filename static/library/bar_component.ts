@@ -53,6 +53,12 @@ export class DatacommonsBarComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  /**
+   * Set to true to draw as a stacked chart instead of grouped chart
+   */
+  @property({ type: Boolean })
+  stacked?: boolean;
+
   // Title of the chart
   @property()
   title!: string;
@@ -105,6 +111,7 @@ export class DatacommonsBarComponent extends LitElement {
         name: "",
         types: [],
       },
+      stacked: this.stacked,
       statVarSpec,
       svgChartHeight: 200,
       title: this.title,
