@@ -54,7 +54,7 @@ export class DatacommonsBarComponent extends LitElement {
   `;
 
   /**
-   * Set to true to draw as a stacked chart instead of grouped chart
+   * Draw as a stacked chart instead of grouped chart
    */
   @property({ type: Boolean })
   stacked?: boolean;
