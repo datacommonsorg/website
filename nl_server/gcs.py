@@ -83,6 +83,13 @@ def download_model_folder(model_folder: str) -> str:
   # Only download if needed.
   model_path = os.path.join(directory, model_folder)
   if os.path.exists(model_path):
+    if os.environ.get('FLASK_ENV') not in [
+        'local', 'test', 'integration_test', 'webdriver'
+    ]:
+      # If a production or production-like enrivonment,
+      # just return the model_path.
+      return model_path
+
     # Check if this path can still be loaded as a Sentence Transformer
     # model. If not, delete it and download anew.
     try:
