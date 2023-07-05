@@ -17,9 +17,11 @@ TEMP_DIR = '/tmp/'
 
 import os
 from pathlib import Path
+import shutil
 from typing import Any
 
 from google.cloud import storage
+from sentence_transformers import SentenceTransformer
 
 
 # Downloads the `embeddings_file` from GCS to TEMP_DIR
@@ -79,14 +81,20 @@ def download_model_folder(model_folder: str) -> str:
   directory = TEMP_DIR
 
   # Only download if needed.
-  local_folderpath = os.path.join(directory, model_folder)
-  if os.path.exists(local_folderpath):
-    print(
-        f"Model ({model_folder}) already downloaded. Returning the local path: {local_folderpath}"
-    )
-    return local_folderpath
+  model_path = os.path.join(directory, model_folder)
+  if os.path.exists(model_path):
+    # Check if this path can still be loaded as a Sentence Transformer
+    # model. If not, delete it and download anew.
+    try:
+      _ = SentenceTransformer(model_path)
+      return model_path
+    except:
+      print(f"Could not load the model from ({model_path}).")
+      print("Deleting this path and re-downloading.")
+      shutil.rmtree(model_path)
+      assert (not os.path.exists(model_path))
 
   print(
-      f"Model ({model_folder}) was not previously downloaded. Downloading to: {os.path.join(directory, model_folder)}"
+      f"Model ({model_folder}) was either not previously downloaded or cannot successfully be loaded. Downloading to: {model_path}"
   )
   return download_model_from_gcs(bucket, directory, model_folder)
