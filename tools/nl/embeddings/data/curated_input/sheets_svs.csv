@@ -1128,4 +1128,4 @@ Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person,,,,Birth rate; rate at whic
 dc/topic/HomeValue,,Home Value,,how much do houses cost in; value of homes; housing unit cost; how expensive are homes in;
 dc/topic/WetBulbTemperature,,Wet Bulb Temperature,,
 dc/topic/Temperature,,Temperature,,
-dc/235cmp60ywm46,,Population Working in Legal Services,,number of law industry workers; people working in law; how many legal service workers are there; population working in legal services; population of legal service workers;
+Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal Percent of Nominal Gross Domestic Production (GDP) Spent on Education,,Population Working in Legal Services,,number of law industry workers; people working in law; how many legal service workers are there; population working in legal services; population of legal service workers;
