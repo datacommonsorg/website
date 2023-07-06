@@ -14,6 +14,7 @@
 """Decide whether to fallback to using LLM."""
 
 from enum import Enum
+import logging
 from typing import List
 
 from server.lib.nl.common import counters
@@ -24,7 +25,9 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
 import server.lib.nl.detection.utils as dutils
 from server.lib.nl.fulfillment import context
+from shared.lib import constants as sh_constants
 from shared.lib import detected_variables as dvars
+from shared.lib import utils as sh_utils
 
 
 class NeedLLM(Enum):
@@ -38,9 +41,8 @@ class NeedLLM(Enum):
 # Given a heuristic-based Detection, decides whether we need a call to LLM
 #
 # Here are some examples that should fallback:
-# - poverty vs. asthma in california counties
-# - Prevalence of Asthma in California cities with hispanic population over 10000
-# - Prevalence of Asthma in California cities with the highest hispanic population
+# - Prevalence of Asthma in counties of California with hispanic population over 10000
+# - Prevalence of Asthma in counties of California with the highest hispanic population
 #
 def need_llm(heuristic: Detection, prev_uttr: Utterance,
              ctr: counters.Counters) -> NeedLLM:
@@ -104,7 +106,6 @@ def _has_no_place(d: Detection) -> bool:
 # multiple SVs.
 #
 def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
-  query = d.original_query
   query_places = []
   if d.places_detected:
     query_places = d.places_detected.query_places_mentioned
@@ -119,7 +120,7 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
   # Increase confidence that it is a multi-sv case by checking that the top
   # candidate is either delimiter-separated, or is delimited
   # by the place name.
-  if _is_multi_sv_delimited(query, query_places, multi_sv, ctr) != 'YES':
+  if _is_multi_sv_delimited(d, query_places, multi_sv, ctr) != 'YES':
     return False
 
   # If there are ~2 SVs, and we have detected comparison/correlation,
@@ -137,7 +138,7 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
 # Returns 'YES' *if* sv-parts of the `mult_sv` are delimited by a place
 # in `places_mentioned`.  If the sv or place sub-string cannot be found
 # in the query, returns 'UNSURE'.
-def _is_multi_sv_delimited(query: str, places_mentioned: List[str],
+def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
                            multi_sv: dvars.MultiVarCandidate,
                            ctr: counters.Counters) -> str:
   # User had specified a delimiter.  e.g., asthma vs. poverty in ca
@@ -145,6 +146,11 @@ def _is_multi_sv_delimited(query: str, places_mentioned: List[str],
     disp = ':'.join([p.query_part for p in multi_sv.parts])
     ctr.info('info_fallback_multi_sv_delimiter', disp)
     return 'YES'
+
+  # Note: since the `query_part` has stop words removed, remove
+  # them and look for delimiters.
+  query = sh_utils.remove_stop_words(d.cleaned_query, sh_constants.STOP_WORDS)
+  logging.info(f'stop-word removed query: {query}')
 
   # Find all sv sub-part indexes.
   vidx_list = []
