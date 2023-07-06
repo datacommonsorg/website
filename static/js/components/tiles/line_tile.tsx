@@ -32,7 +32,7 @@ import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { ReplacementStrings, getStatVarName } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -154,7 +154,9 @@ export function draw(
     false,
     false,
     formatNumber,
-    chartData.unit
+    {
+      unit: chartData.unit,
+    }
   );
   if (!isCompleteLine) {
     svgContainer.querySelectorAll(".dotted-warning")[0].className +=

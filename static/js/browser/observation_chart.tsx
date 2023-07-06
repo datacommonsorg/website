@@ -201,8 +201,10 @@ export class ObservationChart extends React.Component<
       true,
       true,
       formatNumber,
-      getUnit(this.props.metadata),
-      this.props.canClickObs ? this.handleDotClick : null
+      {
+        unit: getUnit(this.props.metadata),
+        handleDotClick: this.props.canClickObs ? this.handleDotClick : null,
+      }
     );
   }
 
