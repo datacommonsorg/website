@@ -41,8 +41,15 @@ class NeedLLM(Enum):
 # Given a heuristic-based Detection, decides whether we need a call to LLM
 #
 # Here are some examples that should fallback:
+#
 # - Prevalence of Asthma in counties of California with hispanic population over 10000
+#   => Because we have detected 2 SVs, and its not correlation/comparison.
 # - Prevalence of Asthma in counties of California with the highest hispanic population
+#   => Because we have detected 2 SVs, and its not correlation/comparison.
+# - Number of shakespeare fans in california
+#   => Because we would not have detected any SV, SIZE_TYPE, OVERVIEW, EVENT
+# - Asthma where Obama was born
+#   => Because we would not have detected a Place.
 #
 def need_llm(heuristic: Detection, prev_uttr: Utterance,
              ctr: counters.Counters) -> NeedLLM:
@@ -52,7 +59,7 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
   # 1. If there was no SV.
   if _has_no_sv(heuristic, ctr):
 
-    # For OVERVIEW/SIZE_TYPE/EVENT_TYOE classifications, we don't have SVs,
+    # For OVERVIEW/SIZE_TYPE/EVENT_TYPE classifications, we don't have SVs,
     # exclude those.
     has_sv_classification = any(
         cl.type == ClassificationType.OVERVIEW or cl.type ==
@@ -120,7 +127,7 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
   # Increase confidence that it is a multi-sv case by checking that the top
   # candidate is either delimiter-separated, or is delimited
   # by the place name.
-  if _is_multi_sv_delimited(d, query_places, multi_sv, ctr) != 'YES':
+  if not _is_multi_sv_delimited(d, query_places, multi_sv, ctr):
     return False
 
   # If there are ~2 SVs, and we have detected comparison/correlation,
@@ -135,22 +142,35 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
   return True
 
 
-# Returns 'YES' *if* sv-parts of the `mult_sv` are delimited by a place
-# in `places_mentioned`.  If the sv or place sub-string cannot be found
-# in the query, returns 'UNSURE'.
+#
+# Returns 'YES' *if* sv-parts of the `mult_sv` are delimited by a
+# delimiter or a place in `places_mentioned`.
+#
+# If the sv or place sub-string cannot be found in the query, returns 'UNSURE'.
+#
+# Examples:
+# - poverty vs. income in california
+#   => True (delimited by "vs")
+# - poverty in california cities where income is highest
+#   => True (delimited by place)
+# - poverty in highest income california cities
+#   => False (not delimited)
+# - asthma prevalence in california counties where income is highest
+#   => False *if* we suppose the query_parts detected are:
+#      [asthma prevalence counties] and [income]
+#
 def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
                            multi_sv: dvars.MultiVarCandidate,
-                           ctr: counters.Counters) -> str:
+                           ctr: counters.Counters) -> bool:
   # User had specified a delimiter.  e.g., asthma vs. poverty in ca
   if multi_sv.delim_based:
     disp = ':'.join([p.query_part for p in multi_sv.parts])
     ctr.info('info_fallback_multi_sv_delimiter', disp)
-    return 'YES'
+    return True
 
   # Note: since the `query_part` has stop words removed, remove
   # them and look for delimiters.
   query = sh_utils.remove_stop_words(d.cleaned_query, sh_constants.STOP_WORDS)
-  logging.info(f'stop-word removed query: {query}')
 
   # Find all sv sub-part indexes.
   vidx_list = []
@@ -158,7 +178,7 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
     vidx = query.find(p.query_part)
     if vidx == -1:
       ctr.err('failed_fallback_svidxmissing', p.query_part)
-      return 'UNSURE'
+      return False
     vidx_list.append(vidx)
 
   for place in places_mentioned:
@@ -166,7 +186,7 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
     pidx = query.find(place)
     if pidx == -1:
       ctr.err('failed_fallback_placeidxmissing', place)
-      return 'UNSURE'
+      return False
 
     # If pidx appears in-between vidx_list indexes, then return true.
     prev = -1
@@ -177,8 +197,8 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
             multi_sv.parts[i].query_part
         ])
         ctr.info('info_fallback_place_within_multi_sv', disp)
-        return 'YES'
+        return True
       prev = cur
 
   ctr.info('info_fallback_multi_sv_no_delim', '')
-  return 'NO'
+  return False

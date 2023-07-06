@@ -78,7 +78,7 @@ class TestLLMFallback(unittest.TestCase):
       (
           # Given place but no SV found.  Fallback.
           Detection(original_query='california',
-                    cleaned_query='',
+                    cleaned_query='california',
                     places_detected=_place(),
                     svs_detected=_sv(),
                     classifications=[]),
@@ -88,7 +88,7 @@ class TestLLMFallback(unittest.TestCase):
           # Same as above, but since its OVERVIEW, we ignore
           # the lack of SV.  NO fallback.
           Detection(original_query='tell me about california',
-                    cleaned_query='',
+                    cleaned_query='tell me about california',
                     places_detected=_place(),
                     svs_detected=_sv(),
                     classifications=_nlcl(ClassificationType.OVERVIEW)),
@@ -98,7 +98,7 @@ class TestLLMFallback(unittest.TestCase):
           # Same as above, but since its SIZE_TYPE, we ignore
           # the lack of SV.  NO fallback.
           Detection(original_query='size of california',
-                    cleaned_query='',
+                    cleaned_query='size of california',
                     places_detected=_place(),
                     svs_detected=_sv(),
                     classifications=_nlcl(ClassificationType.SIZE_TYPE)),
@@ -107,7 +107,7 @@ class TestLLMFallback(unittest.TestCase):
       (
           # No place found, fallback.
           Detection(original_query='hispanic population',
-                    cleaned_query='',
+                    cleaned_query='hispanic population',
                     places_detected=None,
                     svs_detected=_sv(['Count_Person_Hispanic']),
                     classifications=_nlcl(ClassificationType.OVERVIEW)),
@@ -116,7 +116,7 @@ class TestLLMFallback(unittest.TestCase):
       (
           # No place found, but Country type, so Earth is assumed.
           Detection(original_query='health in the world',
-                    cleaned_query='',
+                    cleaned_query='health in the world',
                     places_detected=None,
                     svs_detected=_sv(['dc/topic/Health']),
                     classifications=_nlcl(ClassificationType.CONTAINED_IN,
@@ -126,7 +126,7 @@ class TestLLMFallback(unittest.TestCase):
       (
           # Single SV with place.  NO Fallback.
           Detection(original_query='hispanic population in california',
-                    cleaned_query='',
+                    cleaned_query='hispanic population in california',
                     places_detected=_place(),
                     svs_detected=_sv(['Count_Person_Hispanic']),
                     classifications=[]),
@@ -135,7 +135,7 @@ class TestLLMFallback(unittest.TestCase):
       (
           # Multi-SV query, with delimiter, fallback.
           Detection(original_query='hispanic vs. asian in california',
-                    cleaned_query='',
+                    cleaned_query='hispanic vs asian in california',
                     places_detected=_place(),
                     svs_detected=_sv(['hispanic', 'asian'], True),
                     classifications=[]),
@@ -144,7 +144,7 @@ class TestLLMFallback(unittest.TestCase):
       (
           # Same as above, but with comparison classification, don't fallback.
           Detection(original_query='hispanic vs. asian in california',
-                    cleaned_query='',
+                    cleaned_query='hispanic vs asian in california',
                     places_detected=_place(),
                     svs_detected=_sv(['hispanic', 'asian'], True),
                     classifications=_nlcl(ClassificationType.CORRELATION)),
@@ -153,7 +153,7 @@ class TestLLMFallback(unittest.TestCase):
       (
           # Multi-SV query, but without explicit delimiter.  NO fallback.
           Detection(original_query='hispanic asian in california',
-                    cleaned_query='',
+                    cleaned_query='hispanic asian in california',
                     places_detected=_place(),
                     svs_detected=_sv(['hispanic', 'asian']),
                     classifications=[]),
@@ -163,7 +163,7 @@ class TestLLMFallback(unittest.TestCase):
           # Multi-SV query, but without explicit delimiter, but place delimits
           # sv parts.
           Detection(original_query='hispanic in california with most asian',
-                    cleaned_query='',
+                    cleaned_query='hispanic in california with most asian',
                     places_detected=_place(),
                     svs_detected=_sv(['hispanic', 'asian']),
                     classifications=[]),

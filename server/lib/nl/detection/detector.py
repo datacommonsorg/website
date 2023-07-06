@@ -32,20 +32,35 @@ _PALM_API_DETECTORS = [
 ]
 
 
+#
+# The main function that routes across Heuristic and LLM detectors.
+#
+# For `hybrid` detection, it first calls Heuristic detector, and
+# based on `need_llm()`, decides to call the LLM detector.
+#
 def detect(detector_type: str, original_query: str, no_punct_query: str,
            prev_utterance: Utterance, embeddings_index_type: str,
            query_detection_debug_logs: Dict, counters: Counters):
+  #
+  # In the absence of the PALM API key, fallback to heuristic.
+  #
   if (detector_type in _PALM_API_DETECTORS and
       'PALM_API_KEY' not in current_app.config):
     counters.err('failed_palm_keynotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
+  #
+  # LLM Detection.
+  #
   if detector_type == RequestedDetectorType.LLM.value:
     llm_detection = llm_detector.detect(original_query, prev_utterance,
                                         embeddings_index_type,
                                         query_detection_debug_logs, counters)
     return llm_detection
 
+  #
+  # Heuristic detection.
+  #
   heuristic_detection = heuristic_detector.detect(str(escape(original_query)),
                                                   no_punct_query,
                                                   embeddings_index_type,
@@ -69,6 +84,7 @@ def detect(detector_type: str, original_query: str, no_punct_query: str,
                                       query_detection_debug_logs, counters)
 
   if llm_type == llm_fallback.NeedLLM.Fully:
+    # Completely use LLM's detections.
     detection = llm_detection
     detection.detector = ActualDetectorType.HybridLLMFull
   elif llm_type == llm_fallback.NeedLLM.ForVar:
