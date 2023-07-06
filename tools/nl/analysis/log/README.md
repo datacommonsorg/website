@@ -8,5 +8,5 @@ To run it:
 ./run.sh
 ```
 
-This will produce an output CSV in `/tmp/nl_query_log.csv` (`--output_csv`)
-with the last 5 (`--past_days`) days worth of logs.
+This will produce an output CSV in `/tmp/` (filename printed at the end
+of the run), with the last 5 (`--past_days`) days worth of logs.

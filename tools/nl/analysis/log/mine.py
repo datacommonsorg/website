@@ -17,6 +17,7 @@ from datetime import datetime
 from datetime import timedelta
 import json
 import logging
+import os
 
 from absl import app
 from absl import flags
@@ -29,8 +30,11 @@ flags.DEFINE_string('project', 'datcom-store', 'GCP project')
 flags.DEFINE_string('instance', 'website-data', 'BT instance')
 flags.DEFINE_string('table', 'nl-query', 'BT table')
 flags.DEFINE_integer('past_days', 5, 'Days to go back')
-flags.DEFINE_string('output_csv', '/tmp/nl_query_log.csv', 'Output CSV')
+flags.DEFINE_string('output_dir', '/tmp/', 'Output dir for CSV')
 
+_CHART_IDX_THRESHOLD = 15
+_AUTOPUSH_URL = 'https://autopush.datacommons.org/nl#a=True&d=True&'
+_AUTOPUSH_PROJ = 'datcom-website-autopush'
 _COL_SESSION = 'session_info'
 _COL_DATA = 'data'
 _COL_FEEDBACK = 'feedback'
@@ -55,6 +59,56 @@ def _midx(val, keys):
   return val
 
 
+def _abs_chart_idx(config, d):
+  num_charts = 0
+  for i1, c1 in enumerate(config['categories']):
+    if i1 > d['categoryIdx']:
+      break
+
+    for i2, c2 in enumerate(c1['blocks']):
+      if i1 == d['categoryIdx'] and i2 > d['blockIdx']:
+        break
+
+      for i3, c3 in enumerate(c2['columns']):
+        c = len(c3['tiles'])
+        if i1 == d['categoryIdx'] and i2 == d['blockIdx']:
+          if i3 > d['columnIdx']:
+            break
+          if i3 == d['columnIdx']:
+            c = d['tileIdx'] + 1
+        num_charts += c
+
+  return num_charts - 1
+
+
+def _fname(start, now):
+  return 'querylog_' + start.strftime('%Y%m%d%H') + '_' + \
+    now.strftime('%Y%m%d%H') + '.csv'
+
+
+def _url(ditem, detection, index):
+  parts = []
+
+  queries = [it['query'] for it in ditem['session']['items']]
+  parts.append('q=' + ';'.join(queries))
+
+  if index:
+    parts.append('idx=' + index)
+
+  detector = ''
+  if detection.startswith('Heuristic'):
+    detector = 'heuristic'
+  elif detection.startswith('LLM'):
+    detector = 'llm'
+  elif detection.startswith('Hybrid'):
+    detector = 'hybrid'
+
+  if detector:
+    parts.append('detector=' + detector)
+
+  return _AUTOPUSH_URL + '&'.join(parts)
+
+
 def _write_rows(key, data, csvw):
   for fb in data[_COL_FEEDBACK]:
     if 'queryId' in fb:
@@ -69,6 +123,7 @@ def _write_rows(key, data, csvw):
         continue
 
       config = {}
+      abs_chart_idx = -1
 
     elif 'chartId' in fb:
       cid = fb['chartId']
@@ -88,6 +143,9 @@ def _write_rows(key, data, csvw):
                                         ('tiles', 'tileIdx')])
       if not config:
         continue
+      abs_chart_idx = _abs_chart_idx(ditem['config'], cid)
+      if abs_chart_idx >= _CHART_IDX_THRESHOLD:
+        continue
 
     sentiment = fb['sentiment']
 
@@ -95,13 +153,20 @@ def _write_rows(key, data, csvw):
     ts = int(key.split('#')[0].split('_')[1])
     time = datetime.fromtimestamp(ts / 1000000.0).strftime('%Y-%m-%d %H:%M:%S')
 
+    detection = _midx(ditem, ['debug', 'detection_type'])
+    index = _midx(ditem, [
+        'debug', 'query_detection_debug_logs', 'query_transformations',
+        'sv_detection_query_index_type'
+    ])
     output_row = {
         'Time':
             time,
         'Query':
             query,
+        'ChartIndex':
+            abs_chart_idx,
         'Detection':
-            _midx(ditem, ['debug', 'detection_type']),
+            detection,
         'Feedback':
             sentiment,
         'ChartTitle':
@@ -110,13 +175,12 @@ def _write_rows(key, data, csvw):
             config.get('type'),
         'ChartVarKeys':  # Just a few keys for sanity check
             '\n'.join(config.get('statVarKey', [])[:5]),
-        'Index':  # The index type is nested...
-            _midx(ditem, [
-                'debug', 'query_detection_debug_logs', 'query_transformations',
-                'sv_detection_query_index_type'
-            ]),
+        'EmbeddingsIndex':  # The index type is nested...
+            index,
         'SessionId':
             key,
+        'URL':
+            _url(ditem, detection, index)
     }
     csvw.writerow(output_row)
 
@@ -128,7 +192,7 @@ def mine(table, start, csvw):
     key = row.row_key.decode('utf-8')
     # Format xxx_yyyyyyyy#<project>
     project = key.split('#')[1].strip()
-    if project != 'datcom-website-autopush':
+    if project != _AUTOPUSH_PROJ:
       continue
     data = {
         _COL_DATA: [],
@@ -170,16 +234,23 @@ def main(_):
   client = bigtable.Client(project=FLAGS.project)
   instance = client.instance(FLAGS.instance)
   table = instance.table(FLAGS.table)
-  start = datetime.now() - timedelta(days=FLAGS.past_days)
-  with open(FLAGS.output_csv, 'w') as fp:
+
+  now = datetime.now()
+  start = now - timedelta(days=FLAGS.past_days)
+  output_csv = os.path.join(FLAGS.output_dir, _fname(start, now))
+
+  with open(output_csv, 'w') as fp:
     csvw = csv.DictWriter(fp,
                           fieldnames=[
-                              'Time', 'Query', 'Detection', 'Feedback',
-                              'ChartTitle', 'ChartType', 'ChartVarKeys',
-                              'Index', 'SessionId'
+                              'Time', 'Query', 'ChartIndex', 'Detection',
+                              'Feedback', 'ChartTitle', 'ChartType',
+                              'ChartVarKeys', 'EmbeddingsIndex', 'SessionId',
+                              'URL'
                           ])
     csvw.writeheader()
     mine(table, start, csvw)
+
+  print(f'\nOutput written to: {output_csv}\n')
 
 
 if __name__ == "__main__":
