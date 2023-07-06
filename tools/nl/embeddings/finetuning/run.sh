@@ -20,17 +20,20 @@ function help {
   echo "$0 -i # the complete finetuning procedure (both stages: intermediate -> final)"
 }
 
-STAGE=""
+START_FROM="base"
+GENERATE=""
 while getopts bfi OPTION; do
   case $OPTION in
     b)
         echo -e "### Finetuning the base model (final stage only; skipping intermediate stage)"
-        STAGE="final"
+        START_FROM="base"
+        GENERATE="final"
         INTERMEDIATE_FINETUNED_MODEL=""
         ;;
     f)
         echo -e "### Finetuning an existing tuned_alternatives model (final stage only)"
-        STAGE="final"
+        START_FROM="intermediate"
+        GENERATE="final"
         
         # Determine the intermediate model.
         if [ "$2" != "" ]; then
@@ -41,7 +44,8 @@ while getopts bfi OPTION; do
         ;;
     i)
         echo -e "### Starting the complete finetuning procedure (both stages: alternatives -> final)"
-        STAGE="intermediate"
+        START_FROM="base"
+        GENERATE="all"
         ;;
     *)
         help
@@ -61,4 +65,4 @@ source .env/bin/activate
 python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
-python3 -m finetuning.finetune --stage=$STAGE --pretuned_model="$INTERMEDIATE_FINETUNED_MODEL"
+python3 -m finetuning.finetune --start_from=START_FROM --generate=$GENERATE --pretuned_model="$INTERMEDIATE_FINETUNED_MODEL"
