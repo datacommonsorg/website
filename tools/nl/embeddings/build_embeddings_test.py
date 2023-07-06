@@ -20,9 +20,9 @@ from unittest import mock
 
 import build_embeddings as be
 import pandas as pd
+import utils
 from parameterized import parameterized
 from sentence_transformers import SentenceTransformer
-import utils
 
 
 def get_test_sv_data():

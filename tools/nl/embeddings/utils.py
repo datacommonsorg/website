@@ -13,8 +13,8 @@
 # limitations under the License.
 """Common Utility functions for Embeddings."""
 
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 

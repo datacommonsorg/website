@@ -22,16 +22,17 @@ import glob
 import os
 from typing import Dict, List
 
-from absl import app
-from absl import flags
-from google.cloud import storage
 import gspread
 import pandas as pd
-from sentence_transformers import SentenceTransformer
 import utils
+from absl import app, flags
+from google.cloud import storage
+from sentence_transformers import SentenceTransformer
 
 FLAGS = flags.FLAGS
 
+# TODO: use only one flag from the two below and "gcs://" prefix to differentiate
+# between local and GCS path.
 flags.DEFINE_string('finetuned_model_gcs', '',
                     'Existing finetuned model folder name on GCS')
 flags.DEFINE_string('existing_model_path', '',
@@ -245,7 +246,7 @@ def main(_):
     model_version = FLAGS.finetuned_model_gcs
   elif FLAGS.existing_model_path:
     use_local_model = True
-    model_version = FLAGS.existing_model_path.split("/")[-1]
+    model_version = os.path.basename(FLAGS.existing_model_path)
 
   local_merged_filepath = f'data/preindex/{FLAGS.embeddings_size}/sv_descriptions.csv'
   dup_names_filepath = f'data/preindex/{FLAGS.embeddings_size}/duplicate_names.csv'

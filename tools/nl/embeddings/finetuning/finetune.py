@@ -13,30 +13,31 @@
 # limitations under the License.
 """Fine Tune the base model."""
 
-from datetime import datetime
 import glob
 import os
 import time
+from datetime import datetime
 from typing import Any, List
 
-from absl import app
-from absl import flags
-from google.cloud import storage
 import gspread
 import pandas as pd
-from sentence_transformers import InputExample
-from sentence_transformers import losses
-from sentence_transformers import SentenceTransformer
-from torch.utils.data import DataLoader
 import utils
+from absl import app, flags
+from google.cloud import storage
+from sentence_transformers import InputExample, SentenceTransformer, losses
+from torch.utils.data import DataLoader
 
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string(
-    'stage', 'final',
-    'Valid values are: "final", "intermediate". For a complete finetuning (starting from the base model, use "intermediate". To start from an Intermediate finetuned base which has already been trained on the alternatives, type "final".)'
+    'start_from', 'base',
+    'Valid values are: "base", "intermediate". Determines what model to start finetuning from.'
+)
+flags.DEFINE_string(
+    'generate', '',
+    'Valid values are: "intermediate", "final", "all". Determines what stages to generate. "All" generates both intermediate and final.'
 )
 flags.DEFINE_string(
     'pretuned_model', '',
@@ -55,8 +56,12 @@ flags.DEFINE_string('sentence_pairs_filepath',
                     'data/finetuning/sentence_pairs.csv',
                     'File path for sentence pairs CSV')
 
-STAGE_INTERMEDIATE = "intermediate"
-STAGE_FINAL = "final"
+START_FROM_BASE = "base"
+START_FROM_INTERMEDIATE = "intermediate"
+
+GENERATE_ALL = "all"
+GENERATE_INTERMEDIATE = "intermediate"
+GENERATE_FINAL = "final"
 
 # Use the Medium embeddings size for the larger training set.
 EMBEDDINGS_SIZE = "medium"
@@ -269,13 +274,25 @@ def finetune_model(model: Any, training_examples: List[InputExample]):
 def main(_):
 
   assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2
-  assert FLAGS.stage in [STAGE_INTERMEDIATE, STAGE_FINAL]
+  assert FLAGS.start_from in [START_FROM_BASE, START_FROM_INTERMEDIATE]
+  assert FLAGS.generate in [GENERATE_ALL, GENERATE_INTERMEDIATE, GENERATE_FINAL]
+
+  if FLAGS.start_from == START_FROM_INTERMEDIATE and FLAGS.generate != GENERATE_FINAL:
+    print(
+        "Unsupported mode: if start_from == intermediate, then generate must be final."
+    )
+    exit(1)
 
   assert os.path.exists(os.path.join('data'))
 
+  # Determine whether to start with an intermediate model.
+  start_intermediate = False
+  if FLAGS.start_from == START_FROM_INTERMEDIATE and FLAGS.pretuned_model:
+    start_intermediate = True
+
   # Determine if the intermediate model needs to be built.
   build_intermediate = False
-  if FLAGS.stage == STAGE_INTERMEDIATE:
+  if FLAGS.generate in [GENERATE_INTERMEDIATE, GENERATE_ALL]:
     build_intermediate = True
 
   autogen_input_filepattern = f'{FLAGS.autogen_input_basedir}/{EMBEDDINGS_SIZE}/*.csv'
@@ -319,7 +336,7 @@ def main(_):
         f"Produced and uploaded finetuned intermediate model: {model_intermediate_name}"
     )
 
-  elif FLAGS.pretuned_model:
+  elif start_intermediate:
     # If a pretuned (intermediate) model was provided, use it to download and load
     # the intermediate model.
 
@@ -329,8 +346,8 @@ def main(_):
 
     print(f"Using the intermediate model (on GCS): {model_intermediate_name}")
     assert "." in model_intermediate_name
-    assert STAGE_INTERMEDIATE in model_intermediate_name
-    assert STAGE_FINAL not in model_intermediate_name
+    assert GENERATE_INTERMEDIATE in model_intermediate_name
+    assert GENERATE_FINAL not in model_intermediate_name
 
     print(
         f"Loading the pre-finetuned Intermediate model: {model_intermediate_name}"

@@ -14,6 +14,7 @@ To fine tune starting from the base model and only performing the **Final** tuni
     ./run.sh -b
 ```
 
+Note: the above process of using the base model and skipping the **Intermediate** tuning step should take a similar amount of time as the one below (when starting with a pre-finetuned **Intermediate** model). The reason is that the base model is typically loaded quickly by the Sentence Transformer model (usually cached locally) and once the base or intermediate model is loaded in memory, the **Final** finetuning step takes the same time.
 
 To fine tune starting from an existing **Intermediate** finetuned model, do the following (this should be much quicker than performing **both** the Intermediate and **Final** tuning):
 
