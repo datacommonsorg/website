@@ -254,12 +254,12 @@ function renderTiles(
       case "GAUGE":
         return (
           <GaugeTile
-            description={tile.title}
             id={id}
             minSvgChartHeight={props.svgChartHeight}
             place={place}
             range={tile.gaugeTileSpec.range}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            title={tile.title}
           ></GaugeTile>
         );
       case "DESCRIPTION":

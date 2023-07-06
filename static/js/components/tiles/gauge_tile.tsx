@@ -34,8 +34,8 @@ import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
 export interface GaugeTilePropType {
-  // Text to accompany gauge
-  description: string;
+  // Title at top of tile
+  title: string;
   // ID of the tile
   id: string;
   // Min height, in px, for the SVG chart
@@ -96,7 +96,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
   return (
     <ChartTileContainer
       id={props.id}
-      title={props.description}
+      title={props.title}
       sources={gaugeData && gaugeData.sources}
       replacementStrings={replacementStrings}
       allowEmbed={true}

@@ -73,7 +73,6 @@ export class DatacommonsGaugeComponent extends LitElement {
   render(): HTMLElement {
     const gaugeTileProps: GaugeTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
-      description: this.title,
       id: `chart-${_.uniqueId()}`,
       minSvgChartHeight: 200,
       place: {
@@ -93,6 +92,7 @@ export class DatacommonsGaugeComponent extends LitElement {
         statVar: this.variable,
         unit: "",
       },
+      title: this.title,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(GaugeTile, gaugeTileProps), mountPoint);
