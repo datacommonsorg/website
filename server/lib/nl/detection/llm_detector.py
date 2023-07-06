@@ -168,6 +168,9 @@ def detect(query: str, context_history: Dict, index_type: str,
   if not query_detection_debug_logs["place_resolution"]:
     query_detection_debug_logs[
         "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
+  query_detection_debug_logs["query_transformations"] = {
+      "sv_detection_query_index_type": index_type
+  }
 
   # SV Detection.
   svs_score_dicts = []
