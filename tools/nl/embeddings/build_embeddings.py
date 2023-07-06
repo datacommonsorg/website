@@ -22,12 +22,13 @@ import glob
 import os
 from typing import Dict, List
 
+from absl import app
+from absl import flags
+from google.cloud import storage
 import gspread
 import pandas as pd
-import utils
-from absl import app, flags
-from google.cloud import storage
 from sentence_transformers import SentenceTransformer
+import utils
 
 FLAGS = flags.FLAGS
 

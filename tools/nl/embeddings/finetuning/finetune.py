@@ -13,19 +13,22 @@
 # limitations under the License.
 """Fine Tune the base model."""
 
+from datetime import datetime
 import glob
 import os
 import time
-from datetime import datetime
 from typing import Any, List
 
+from absl import app
+from absl import flags
+from google.cloud import storage
 import gspread
 import pandas as pd
-import utils
-from absl import app, flags
-from google.cloud import storage
-from sentence_transformers import InputExample, SentenceTransformer, losses
+from sentence_transformers import InputExample
+from sentence_transformers import losses
+from sentence_transformers import SentenceTransformer
 from torch.utils.data import DataLoader
+import utils
 
 FLAGS = flags.FLAGS
 
