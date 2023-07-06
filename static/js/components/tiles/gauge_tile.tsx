@@ -22,12 +22,13 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { drawGaugeChart, drawGroupBarChart } from "../../chart/draw";
+import { drawGaugeChart } from "../../chart/draw";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { formatNumber } from "../../i18n/i18n";
-import { Observation, PointApiResponse } from "../../shared/stat_types";
+import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
+import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -37,9 +38,11 @@ export interface GaugeTilePropType {
   description: string;
   // ID of the tile
   id: string;
+  // Min height, in px, for the SVG chart
+  minSvgChartHeight: number;
   // Place to show data for
   place: NamedTypedPlace;
-  // Range of values
+  // Range of values gauge should span
   range: {
     min: number;
     max: number;
@@ -97,9 +100,19 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       sources={gaugeData && gaugeData.sources}
       replacementStrings={replacementStrings}
       allowEmbed={true}
+      className={`bar-chart`}
+      getDataCsv={
+        gaugeData
+          ? () =>
+              dataPointsToCsv([
+                { value: gaugeData.value, label: props.place.dcid },
+              ])
+          : null
+      }
     >
       <div
-        className={`${ASYNC_ELEMENT_HOLDER_CLASS}`}
+        className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+        style={{ minHeight: props.minSvgChartHeight }}
         ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
@@ -135,11 +148,10 @@ const fetchData = async (props: GaugeTilePropType) => {
       value *= props.statVarSpec.scaling;
     }
     const sources = new Set<string>();
-    let unit = "";
+
     if (resp.data.facets[mainStatData.facet]) {
       sources.add(resp.data.facets[mainStatData.facet].provenanceUrl);
     }
-    console.log(unit);
     return {
       value,
       date: mainStatData.date,
@@ -161,6 +173,7 @@ function draw(
     svgContainer,
     svgContainer.offsetWidth,
     chartData,
-    formatNumber
+    formatNumber,
+    props.minSvgChartHeight
   );
 }

@@ -940,34 +940,60 @@ function drawGroupBarChart(
 
 /**
  * Draw gauge chart.
- * @param containerElement
- * @param chartWidth
- * @param data
- * @param formatNumberFn
+ * @param containerElement HTML div to draw chart in
+ * @param chartWidth width of the chart area
+ * @param data data to plot
+ * @param formatNumberFn function to format the value's label
+ * @param minChartHeight minimum height of the chart area
  */
 function drawGaugeChart(
   containerElement: HTMLDivElement,
   chartWidth: number,
   data: GaugeChartData,
-  formatNumberFn: (value: number, unit?: string) => string
+  formatNumberFn: (value: number, unit?: string) => string,
+  minChartHeight: number
 ): void {
   if (_.isEmpty(data)) {
     return;
   }
 
-  // Arc values
+  /**
+   * Chart settings
+   * TODO(juliawu): Allow these constants to be set with an optional argument
+   */
+  // Angles, in radians, arc should cover
   const arcMin = -Math.PI / 2;
   const arcMax = Math.PI / 2;
-  const arcStrokeWidth = Math.max(chartWidth * 0.05, 10);
-  const outerRadius = 0.25 * chartWidth;
+  // color to use for unfilled portion of the arc
+  const backgroundArcColor = "#ddd";
+  // color scale for [low, med, high] values
+  const colorOptions = [
+    "#d63031", // red
+    "#fdcb6e", // yellow
+    "#00b894", // green
+  ];
+  // minimum thickness of the arc, in px
+  const minArcThickness = 10;
+  // how thickness of arc should scale with chart's width
+  // The larger the number, the thicker the arc
+  const arcThicknessRatio = 0.05;
+  // 0 to 1, compared to chart width, how wide should the arc be
+  const arcWidthRatio = 2 / 3;
+
+  // Compute arc and label text sizes based on settings
+  const arcStrokeWidth = Math.max(
+    chartWidth * arcThicknessRatio,
+    minArcThickness
+  );
+  const outerRadius = 0.5 * arcWidthRatio * chartWidth;
   const innerRadius = outerRadius - arcStrokeWidth;
+  const chartHeight = Math.max(outerRadius, minChartHeight);
   const labelTextSize = innerRadius / 3;
   const dataDomain = [
     data.range.min,
     (data.range.max - data.range.min) / 2,
     data.range.max,
   ];
-  const colorOptions = ["#d63031", "#fdcb6e", "#00b894"];
   const arcScale = d3
     .scaleLinear()
     .domain(dataDomain)
@@ -986,26 +1012,30 @@ function drawGaugeChart(
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
 
+  // create svg container
   const svg = container
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", chartWidth)
-    .attr("height", outerRadius)
+    .attr("height", chartHeight)
     .attr("class", ASYNC_ELEMENT_CLASS);
 
-  // draw chart
+  // draw chart and center in svg container
   const chart = svg
     .append("g")
     .attr("class", "arc")
-    .attr("transform", `translate(${chartWidth / 2}, ${outerRadius})`);
+    .attr(
+      "transform",
+      `translate(${chartWidth / 2}, ${(chartHeight + outerRadius) / 2})`
+    );
 
   // create background arc
   chart
     .append("path")
     .attr("class", "bg-arc")
     .datum({ endAngle: arcMax })
-    .style("fill", "#ddd")
+    .style("fill", backgroundArcColor)
     .attr("d", arc);
 
   // create data arc
@@ -1019,7 +1049,7 @@ function drawGaugeChart(
     .attr("d", arc)
     .style("fill", colorScale(data.value));
 
-  // add label
+  // add label in middle, under arc
   const arcCentroid = arc.centroid({
     endAngle: arcMax,
     startAngle: arcMin,

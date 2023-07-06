@@ -33,21 +33,14 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *
  * Example usage:
  *
- * <!-- Show a ranking of US States by population, highest to lowest -->
+ * <!-- Show a gauge of the percentage of people who are internet users
+ *      in the US -->
  * <datacommons-gauge
- *      title="US States with the Highest Population"
+ *      title="Percentage of US Population that are Internet Users"
  *      place="country/USA"
- *      childPlaceType="State"
- *      variable="Count_Person"
- * ></datacommons-gauge>
- *
- * <!-- Show a gauge of US States by population, lowest to highest -->
- * <datacommons-gauge
- *      title="US States with the Lowest Population"
- *      place="country/USA"
- *      childPlaceType="State"
- *      variable="Count_Person"
- *      showLowest=true
+ *      variable="Count_Person_IsInternetUser_PerCapita"
+ *      min="0"
+ *      max="100"
  * ></datacommons-gauge>
  */
 @customElement("datacommons-gauge")
@@ -69,9 +62,11 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property()
   variable!: string;
 
+  // Minimum value of gauge range
   @property()
   min: number;
 
+  // Maximum value of gauge range
   @property()
   max: number;
 
@@ -80,6 +75,7 @@ export class DatacommonsGaugeComponent extends LitElement {
       apiRoot: DEFAULT_API_ENDPOINT,
       description: this.title,
       id: `chart-${_.uniqueId()}`,
+      minSvgChartHeight: 200,
       place: {
         dcid: this.place,
         name: "",
