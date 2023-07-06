@@ -69,14 +69,25 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property()
   variable!: string;
 
+  @property()
+  min: number;
+
+  @property()
+  max: number;
+
   render(): HTMLElement {
     const gaugeTileProps: GaugeTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
       description: this.title,
+      id: `chart-${_.uniqueId()}`,
       place: {
         dcid: this.place,
         name: "",
         types: [],
+      },
+      range: {
+        min: this.min,
+        max: this.max,
       },
       statVarSpec: {
         denom: "",

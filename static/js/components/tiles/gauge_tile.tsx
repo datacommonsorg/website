@@ -22,47 +22,50 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { DataGroup, DataPoint } from "../../chart/base";
-import { drawGroupBarChart } from "../../chart/draw";
+import { drawGaugeChart, drawGroupBarChart } from "../../chart/draw";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { Observation, PointApiResponse } from "../../shared/stat_types";
-import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { RankingPoint } from "../../types/ranking_unit_types";
-import { BarTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
-import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
-import { getPlaceNames } from "../../utils/place_utils";
-import { getUnit } from "../../utils/stat_metadata_utils";
-import { getDateRange } from "../../utils/string_utils";
-import {
-  formatString,
-  getStatVarName,
-  ReplacementStrings,
-} from "../../utils/tile_utils";
+import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
-
-const NUM_FRACTION_DIGITS = 1;
 
 export interface GaugeTilePropType {
   // Text to accompany gauge
   description: string;
+  // ID of the tile
+  id: string;
   // Place to show data for
   place: NamedTypedPlace;
+  // Range of values
+  range: {
+    min: number;
+    max: number;
+  };
   // Variable to show data for
   statVarSpec: StatVarSpec;
   // API root
   apiRoot?: string;
 }
 
+export interface GaugeChartData {
+  date: string;
+  value: number;
+  sources: Set<string>;
+  range: {
+    min: number;
+    max: number;
+  };
+}
+
 export function GaugeTile(props: GaugeTilePropType): JSX.Element {
   const chartContainerRef = useRef<HTMLDivElement>(null);
-  const [gaugeData, setGaugeData] = useState<Observation | undefined>(null);
+  const [gaugeData, setGaugeData] = useState<GaugeChartData | undefined>(null);
 
   useEffect(() => {
+    // fetch data
     if (!gaugeData) {
       (async () => {
         const data = await fetchData(props);
@@ -72,36 +75,38 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
   }, [props, gaugeData]);
 
   const drawFn = useCallback(() => {
+    // draw if data is available
     if (_.isEmpty(gaugeData)) {
       return;
     }
     draw(props, gaugeData, chartContainerRef.current);
   }, [props, gaugeData]);
-
   useDrawOnResize(drawFn, chartContainerRef.current);
 
+  // replacement strings for formatting the title
+  const replacementStrings: ReplacementStrings = {
+    placeDcid: props.place.dcid,
+    placeName: props.place.name,
+    statVar: props.statVarSpec.statVar,
+  };
+
   return (
-    <div
-      className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
-      ref={chartContainerRef}
+    <ChartTileContainer
+      id={props.id}
+      title={props.description}
+      sources={gaugeData && gaugeData.sources}
+      replacementStrings={replacementStrings}
+      allowEmbed={true}
     >
-      {gaugeData && (
-        <span className="stat">
-          {formatNumber(
-            gaugeData.value,
-            props.statVarSpec.unit,
-            false,
-            NUM_FRACTION_DIGITS
-          )}
-        </span>
-      )}
-      <span className="desc">{props.description}</span>
-    </div>
+      <div
+        className={`${ASYNC_ELEMENT_HOLDER_CLASS}`}
+        ref={chartContainerRef}
+      ></div>
+    </ChartTileContainer>
   );
 }
 
-export const fetchData = async (props: GaugeTilePropType) => {
-  // Now assume highlight only talks about one stat var.
+const fetchData = async (props: GaugeTilePropType) => {
   const mainStatVar = props.statVarSpec.statVar;
   const denomStatVar = props.statVarSpec.denom;
   const statVars = [mainStatVar];
@@ -129,7 +134,18 @@ export const fetchData = async (props: GaugeTilePropType) => {
     if (props.statVarSpec.scaling) {
       value *= props.statVarSpec.scaling;
     }
-    return { value, date: mainStatData.date };
+    const sources = new Set<string>();
+    let unit = "";
+    if (resp.data.facets[mainStatData.facet]) {
+      sources.add(resp.data.facets[mainStatData.facet].provenanceUrl);
+    }
+    console.log(unit);
+    return {
+      value,
+      date: mainStatData.date,
+      sources,
+      range: props.range,
+    };
   } catch (error) {
     console.log(error);
     return null;
@@ -137,10 +153,14 @@ export const fetchData = async (props: GaugeTilePropType) => {
 };
 
 function draw(
-  props: gaugePropType,
-  chartData: gaugeData,
-  svgContainer: HTMLDivElement,
-  svgWidth?: number
+  props: GaugeTilePropType,
+  chartData: GaugeChartData,
+  svgContainer: HTMLDivElement
 ): void {
-  return;
+  drawGaugeChart(
+    svgContainer,
+    svgContainer.offsetWidth,
+    chartData,
+    formatNumber
+  );
 }

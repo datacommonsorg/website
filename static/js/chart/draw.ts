@@ -17,6 +17,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { GaugeChartData } from "../components/tiles/gauge_tile";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import {
   GA_EVENT_PLACE_CHART_CLICK,
@@ -938,6 +939,106 @@ function drawGroupBarChart(
 }
 
 /**
+ * Draw gauge chart.
+ * @param containerElement
+ * @param chartWidth
+ * @param data
+ * @param formatNumberFn
+ */
+function drawGaugeChart(
+  containerElement: HTMLDivElement,
+  chartWidth: number,
+  data: GaugeChartData,
+  formatNumberFn: (value: number, unit?: string) => string
+): void {
+  if (_.isEmpty(data)) {
+    return;
+  }
+
+  // Arc values
+  const arcMin = -Math.PI / 2;
+  const arcMax = Math.PI / 2;
+  const arcStrokeWidth = Math.max(chartWidth * 0.05, 10);
+  const outerRadius = 0.25 * chartWidth;
+  const innerRadius = outerRadius - arcStrokeWidth;
+  const labelTextSize = innerRadius / 3;
+  const dataDomain = [
+    data.range.min,
+    (data.range.max - data.range.min) / 2,
+    data.range.max,
+  ];
+  const colorOptions = ["#d63031", "#fdcb6e", "#00b894"];
+  const arcScale = d3
+    .scaleLinear()
+    .domain(dataDomain)
+    .range([arcMin, 0, arcMax]);
+  const colorScale = d3
+    .scaleLinear<string>()
+    .domain(dataDomain)
+    .range(colorOptions);
+  const arc = d3
+    .arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius)
+    .startAngle(arcMin);
+
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+
+  const svg = container
+    .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
+    .attr("width", chartWidth)
+    .attr("height", outerRadius)
+    .attr("class", ASYNC_ELEMENT_CLASS);
+
+  // draw chart
+  const chart = svg
+    .append("g")
+    .attr("class", "arc")
+    .attr("transform", `translate(${chartWidth / 2}, ${outerRadius})`);
+
+  // create background arc
+  chart
+    .append("path")
+    .attr("class", "bg-arc")
+    .datum({ endAngle: arcMax })
+    .style("fill", "#ddd")
+    .attr("d", arc);
+
+  // create data arc
+  chart
+    .append("path")
+    .attr("class", "data-arc")
+    .datum({
+      endAngle: arcScale(data.value),
+      startAngle: arcMin,
+    })
+    .attr("d", arc)
+    .style("fill", colorScale(data.value));
+
+  // add label
+  const arcCentroid = arc.centroid({
+    endAngle: arcMax,
+    startAngle: arcMin,
+    innerRadius,
+    outerRadius,
+  });
+  chart
+    .append("text")
+    .attr("class", "arc-label")
+    .datum({ value: data.value })
+    .attr("x", arcCentroid[0])
+    .attr("y", -1 * labelTextSize)
+    .style("alignment-baseline", "central")
+    .style("text-anchor", "middle")
+    .style("font-size", `${labelTextSize}px`)
+    .text((d) => formatNumberFn(d.value));
+}
+
+/**
  * Draw line chart.
  * @param svgContainer
  * @param width
@@ -1473,6 +1574,7 @@ function buildInChartLegend(
 
 export {
   appendLegendElem,
+  drawGaugeChart,
   drawGroupBarChart,
   drawGroupLineChart,
   drawHistogram,
