@@ -32,13 +32,15 @@ class IntegrationTest(NLWebServerTestCase):
                    test_dir,
                    queries,
                    idx='small',
-                   detector='heuristic',
-                   check_place_detection=False):
+                   detector='hybrid',
+                   check_place_detection=False,
+                   expected_detectors=[]):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
       detection_method = 'LLM Based'
-    assert detection_method
+    elif detector == 'hybrid':
+      detection_method = 'Hybrid - Heuristic Based'
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
@@ -72,8 +74,12 @@ class IntegrationTest(NLWebServerTestCase):
             }
             infile.write(json.dumps(dbg_to_write, indent=2))
       else:
-        self.assertEqual(dbg.get('detection_type'), detection_method), \
-          'Query {q} failed!'
+        if not expected_detectors:
+          self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
+            'Query {q} failed!'
+        else:
+          self.assertTrue(dbg.get('detection_type').startswith(expected_detectors[i])), \
+            'Query {q} failed!'
         if not check_place_detection:
           with open(json_file, 'r') as infile:
             expected = json.load(infile)
@@ -107,7 +113,7 @@ class IntegrationTest(NLWebServerTestCase):
   def test_textbox_sample_llm(self):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample_llm', ['family earnings in california'],
-                      'llm')
+                      detector='llm')
 
   def test_demo_feb2023(self):
     self.run_sequence('demo_feb2023', [
@@ -155,6 +161,14 @@ class IntegrationTest(NLWebServerTestCase):
             # We should fail fulfilling "Country" type contained-in a country,
             # instead we would pick contained-in from context (County).
             'GDP of countries in the US',
+        ],
+        detector='hybrid',
+        expected_detectors=[
+            'Hybrid - LLM Fallback',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
         ])
 
   def test_demo_multisv(self):
@@ -170,7 +184,9 @@ class IntegrationTest(NLWebServerTestCase):
             "California cities with hispanic population over 10000",
             # Filter query with another SV.
             "Prevalence of Asthma in California cities with hispanic population over 10000",
-        ])
+        ],
+        # Use heuristic because LLM fallback is not very deterministic.
+        detector='heuristic')
 
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',

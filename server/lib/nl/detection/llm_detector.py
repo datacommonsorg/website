@@ -24,8 +24,10 @@ from server.lib.nl.common import counters
 from server.lib.nl.common import utterance
 from server.lib.nl.detection import palm_api
 from server.lib.nl.detection import types
+from server.lib.nl.detection import utils as dutils
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.place import infer_place_dcids
+from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
@@ -93,20 +95,17 @@ _LLM_OP_TO_QUANTITY_OP = {
 }
 
 
-def _empty_svs_score_dict():
-  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
-
-
-def detect(query: str, context_history: Dict, index_type: str,
+def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
            query_detection_debug_logs: Dict,
            ctr: counters.Counters) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # History
   history = []
-  for i in range(len(context_history)):
-    ctx = context_history[len(context_history) - 1 - i]
-    history.append((ctx['query'], ctx['llm_resp']))
+  u = prev_utterance
+  while u:
+    history.append((u.query, u.llm_resp))
+    u = u.prev_utterance
 
   llm_resp = palm_api.call(query, history, ctr)
 
@@ -181,13 +180,7 @@ def detect(query: str, context_history: Dict, index_type: str,
     except ValueError as e:
       logging.info(e)
   svs_scores_dict = _merge_sv_dicts(sv_list, svs_score_dicts)
-  sv_detection = SVDetection(
-      query=query,
-      single_sv=dvars.VarCandidates(
-          svs=svs_scores_dict['SV'],
-          scores=svs_scores_dict['CosineScore'],
-          sv2sentences=svs_scores_dict['SV_to_Sentences']),
-      multi_sv=dvars.dict_to_multivar_candidates(svs_scores_dict['MultiSV']))
+  sv_detection = dutils.create_sv_detection(query, svs_scores_dict)
 
   classifications = _build_classifications(llm_resp, filter_type)
 
@@ -196,7 +189,8 @@ def detect(query: str, context_history: Dict, index_type: str,
                    places_detected=place_detection,
                    svs_detected=sv_detection,
                    classifications=classifications,
-                   llm_resp=llm_resp)
+                   llm_resp=llm_resp,
+                   detector=ActualDetectorType.LLM)
 
 
 def _build_classifications(llm_resp: Dict,
@@ -228,7 +222,7 @@ def _build_classifications(llm_resp: Dict,
 def _merge_sv_dicts(sv_word_list: List[str],
                     sv_scores_list: List[Dict]) -> Dict:
   if not sv_scores_list:
-    return _empty_svs_score_dict()
+    return dutils.empty_svs_score_dict()
   if len(sv_scores_list) == 1:
     return sv_scores_list[0]
 

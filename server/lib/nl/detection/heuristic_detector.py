@@ -19,9 +19,11 @@ from typing import Dict
 from flask import current_app
 
 import server.lib.nl.common.counters as ctr
+from server.lib.nl.detection import utils as dutils
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.place import infer_place_dcids
 from server.lib.nl.detection.place import remove_places
+from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
@@ -29,10 +31,6 @@ from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SimpleClassificationAttributes
 from server.lib.nl.detection.types import SVDetection
 from shared.lib import detected_variables as dvars
-
-
-def _empty_svs_score_dict():
-  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
 
 
 def detect(orig_query: str, cleaned_query: str, index_type: str,
@@ -102,7 +100,7 @@ def detect(orig_query: str, cleaned_query: str, index_type: str,
         "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
 
   # Step 3: Identify the SV matched based on the query.
-  svs_scores_dict = _empty_svs_score_dict()
+  svs_scores_dict = dutils.empty_svs_score_dict()
   try:
     svs_scores_dict = model.detect_svs(
         query, index_type, query_detection_debug_logs["query_transformations"])
@@ -111,13 +109,7 @@ def detect(orig_query: str, cleaned_query: str, index_type: str,
     logging.info("Using an empty svs_scores_dict")
 
   # Set the SVDetection.
-  sv_detection = SVDetection(
-      query=query,
-      single_sv=dvars.VarCandidates(
-          svs=svs_scores_dict['SV'],
-          scores=svs_scores_dict['CosineScore'],
-          sv2sentences=svs_scores_dict['SV_to_Sentences']),
-      multi_sv=dvars.dict_to_multivar_candidates(svs_scores_dict['MultiSV']))
+  sv_detection = dutils.create_sv_detection(query, svs_scores_dict)
 
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)
@@ -172,4 +164,5 @@ def detect(orig_query: str, cleaned_query: str, index_type: str,
                    cleaned_query=cleaned_query,
                    places_detected=place_detection,
                    svs_detected=sv_detection,
-                   classifications=classifications)
+                   classifications=classifications,
+                   detector=ActualDetectorType.Heuristic)
