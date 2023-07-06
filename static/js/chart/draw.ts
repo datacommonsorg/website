@@ -717,6 +717,7 @@ function drawHistogram(
  * @param unit
  */
 function drawStackBarChart(
+  containerElement: HTMLDivElement,
   id: string,
   chartWidth: number,
   chartHeight: number,
@@ -724,13 +725,15 @@ function drawStackBarChart(
   formatNumberFn: (value: number, unit?: string) => string,
   unit?: string
 ): void {
+  if (_.isEmpty(dataGroups)) {
+    return;
+  }
   const labelToLink = {};
   for (const dataGroup of dataGroups) {
     labelToLink[dataGroup.label] = dataGroup.link;
   }
 
   const keys = dataGroups[0].value.map((dp) => dp.label);
-
   const data = [];
   for (const dataGroup of dataGroups) {
     const curr: { [property: string]: any } = { label: dataGroup.label };
@@ -742,9 +745,12 @@ function drawStackBarChart(
   }
 
   const series = d3.stack().keys(keys).offset(d3.stackOffsetDiverging)(data);
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
 
   const svg = d3
-    .select("#" + id)
+    .select(containerElement)
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
@@ -808,7 +814,7 @@ function drawStackBarChart(
     .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
 
   appendLegendElem(
-    document.getElementById(id),
+    containerElement,
     color,
     dataGroups[0].value.map((dp) => ({
       label: dp.label,
