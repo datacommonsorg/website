@@ -30,6 +30,7 @@ BLOCK_TYPE_ALLOWED_TILES = {
         TileType.HIGHLIGHT: "",
         TileType.DESCRIPTION: "",
         TileType.PLACE_OVERVIEW: "",
+        TileType.GAUGE: "",
     },
     BlockType.DISASTER_EVENT: {
         TileType.DISASTER_EVENT_MAP: "",
@@ -72,6 +73,9 @@ class TestSubjectPageConfigs(unittest.TestCase):
     if tile.type == TileType.RANKING:
       self.assertIsNotNone(tile.ranking_tile_spec, msg)
 
+    if tile.type == TileType.GAUGE:
+      self.assertIsNotNone(tile.gauge_tile_spec, msg)
+    
     if tile.type == TileType.DISASTER_EVENT_MAP:
       self.assertIsNotNone(tile.disaster_event_map_tile_spec, msg)
       for i, event_type_id in enumerate(

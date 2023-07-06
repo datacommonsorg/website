@@ -39,6 +39,7 @@ import {
 } from "../../utils/subject_page_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
+import { GaugeTile } from "../tiles/gauge_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { LineTile } from "../tiles/line_tile";
 import { MapTile } from "../tiles/map_tile";
@@ -249,6 +250,17 @@ function renderTiles(
             className={className}
             isDataTile={props.showData}
           />
+        );
+      case "GAUGE":
+        return (
+          <GaugeTile
+            description={tile.title}
+            id={id}
+            minSvgChartHeight={props.svgChartHeight}
+            place={place}
+            range={tile.gaugeTileSpec.range}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+          ></GaugeTile>
         );
       case "DESCRIPTION":
         return (
