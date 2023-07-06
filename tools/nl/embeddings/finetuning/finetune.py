@@ -362,6 +362,9 @@ def main(_):
 
   else:
     # The intermediate model is the base model.
+    # Note that in this case, there is no "intermediate" finetuning using
+    # the sentence alternatives. The next step (finetuning with sentence pairs)
+    # will use the base model and do the "final" finetuning step.
     model_intermediate = SentenceTransformer(FLAGS.model_name_v2)
     model_intermediate_name = FLAGS.model_name_v2
 

@@ -123,8 +123,9 @@ def main(_):
 
     # Extract the model name.
     # test embeddings name is of the form:
-    #  <embeddings_size_*>.<ft_final_*>.<ft_intermediate_*>.<base_model>.csv
-    # The model name is comprised of all the parts between <embeddings_size_*>
+    #    <embeddings_size_*>.<ft_final_*>.<ft_intermediate_*>.<base_model>.csv
+    # OR <embeddings_size_*>.<ft_final_*>.<base_model>.csv
+    # The model name is comprised of all the parts between <embeddings_size_*>.
     # and ".csv".
     parts = FLAGS.test.split(".")
     model_name = ".".join(parts[1:-1])
