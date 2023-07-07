@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -119,13 +120,13 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
                      'Taux de croissance de la population')
     pop_growth_rate_chip.click()
 
+    time.sleep(1)
     # The above link has target="_blank" and opens in a new window
     self.driver.switch_to.window(self.driver.window_handles[1])
 
     # Wait until ranking page has loaded
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    
     
     # Assert language is propagated
     url = self.driver.current_url
