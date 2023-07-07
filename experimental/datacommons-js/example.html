@@ -11,26 +11,47 @@
     <h1>Datacommons Web Components</h1>
     <h2>Bar Chart</h2>
     <datacommons-bar
-      title="Population in States of United States"
+      title="Most populous states in the US"
       place="country/USA"
       childPlaceType="State"
       variable="Count_Person"
+      maxPlaces="15"
     ></datacommons-bar>
     <datacommons-bar
-      title="Population in States of United States"
+      title="Population of select US states"
       variable="Count_Person"
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
+      sort="ascending"
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender"
+      title="Median income by gender of select US states (grouped)"
       comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender"
+      title="Median income by gender of select US states (stacked)"
       comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
       stacked
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender of select US states (horizontal, stacked, sorted descending)"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+      stacked
+      horizontal
+      sort="descending"
+    ></datacommons-bar>
+    <datacommons-bar
+      barHeight="6"
+      title="Median income by gender (horizontal, grouped, sorted ascending)"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      place="country/USA"
+      childPlaceType="State"
+      horizontal
+      sort="ascending"
+      maxPlaces="52"
+      yAxisMargin="100"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for counties in Alaska"

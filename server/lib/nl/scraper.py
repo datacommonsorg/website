@@ -327,7 +327,7 @@ def scrape(query, driver):
       if 'line-chart' in classes:
         chart['type'] = 'LINE'
         chart['svg'] = _get_inline_svg(chart_container)
-        _get_legend_data(chart_container, 'div.legend', 'a', chart)
+        _get_legend_data(chart_container, 'div.legend-basic', 'a', chart)
       elif 'map-chart' in classes:
         chart['type'] = 'MAP'
         chart['svg'] = _get_data_svg(tile_data)
@@ -335,7 +335,7 @@ def scrape(query, driver):
       elif 'bar-chart' in classes:
         chart['type'] = 'BAR'
         chart['svg'] = _get_inline_svg(chart_container)
-        _get_legend_data(chart_container, 'div.legend', 'a', chart)
+        _get_legend_data(chart_container, 'div.legend-basic', 'a', chart)
       elif 'scatter-chart' in classes:
         chart['type'] = 'SCATTER'
         chart['svg'] = _get_inline_svg(chart_container)
