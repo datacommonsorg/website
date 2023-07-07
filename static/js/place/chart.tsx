@@ -476,7 +476,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         false,
         false,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
       if (!isCompleteLine) {
         this.chartElement.current.querySelectorAll(
@@ -491,7 +493,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         this.state.dataGroups,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (chartType === chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
@@ -501,7 +505,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         this.state.dataGroups,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (
       chartType === chartTypeEnum.CHOROPLETH &&

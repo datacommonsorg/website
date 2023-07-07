@@ -84,7 +84,9 @@ class RankingHistogram extends React.Component<
       this.chartElementRef.current.offsetHeight,
       dataPoints,
       formatNumber,
-      this.props.unit
+      {
+        unit: this.props.unit,
+      }
     );
   }
 
