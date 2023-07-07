@@ -93,7 +93,7 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   subscribe: string;
 
-  firstUpdated() {
+  firstUpdated(): void {
     if (this.subscribe) {
       this.parentElement.addEventListener(
         this.subscribe,

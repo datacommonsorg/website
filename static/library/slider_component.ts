@@ -16,7 +16,6 @@
 
 import { css, CSSResult, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import _ from "lodash";
 
 import { ChartEventDetail } from "../js/chart/types";
 
@@ -95,21 +94,6 @@ export class DatacommonsSliderComponent extends LitElement {
   @property({ type: Number })
   value: number;
 
-  private onSliderChange(e: Event) {
-    const target = e.currentTarget as HTMLInputElement;
-    const value = target.value;
-    this.value = Number(value);
-    this.dispatchEvent(
-      new CustomEvent<ChartEventDetail>(this.publish, {
-        detail: {
-          property: "date",
-          value,
-        },
-        bubbles: true,
-      })
-    );
-  }
-
   render(): TemplateResult {
     return html`
       <div class="container">
@@ -129,5 +113,20 @@ export class DatacommonsSliderComponent extends LitElement {
         <div class="value">${this.value}</div>
       </div>
     `;
+  }
+
+  private onSliderChange(e: Event): void {
+    const target = e.currentTarget as HTMLInputElement;
+    const value = target.value;
+    this.value = Number(value);
+    this.dispatchEvent(
+      new CustomEvent<ChartEventDetail>(this.publish, {
+        bubbles: true,
+        detail: {
+          property: "date",
+          value,
+        },
+      })
+    );
   }
 }
