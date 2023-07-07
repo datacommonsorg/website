@@ -32,6 +32,7 @@ from server.lib.nl.fulfillment.types import PopulateState
 
 def populate(uttr: Utterance) -> bool:
   # Loop over all CONTAINED_IN classifications (from current to past) in order.
+  # TODO: Check if we need to look in context here
   classifications = classifications_of_type_from_context(
       uttr, ClassificationType.CONTAINED_IN)
   for classification in classifications:

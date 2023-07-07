@@ -8,6 +8,14 @@ There are two steps involved in a fully fine tuned model.
 
 2. **Final Tuning**. This steps uses an **Intermediate** finetuned model, i.e. the output from Step (1) above, and further finetunes the model use the manually provided sentence pairs (and associated scores) in [`finetuning/sentence_pairs.csv`](../data/finetuning/sentence_pairs.csv).
 
+To fine tune starting from the base model and only performing the **Final** tuning (i.e. no **Intermediate** tuning step), do the following:
+
+```bash
+    ./run.sh -b
+```
+
+Note: the above process of using the base model and skipping the **Intermediate** tuning step should take a similar amount of time as the one below (when starting with a pre-finetuned **Intermediate** model). The reason is that the base model is typically loaded quickly by the Sentence Transformer model (usually cached locally) and once the base or intermediate model is loaded in memory, the **Final** finetuning step takes the same time.
+
 To fine tune starting from an existing **Intermediate** finetuned model, do the following (this should be much quicker than performing **both** the Intermediate and **Final** tuning):
 
 ```bash
