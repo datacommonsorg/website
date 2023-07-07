@@ -22,9 +22,9 @@ import {
   renderMapComponent,
 } from "./components";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { DatacommonsPieComponent } from "./donut_component";
 import { DatacommonsLineComponent } from "./line_chart_component";
 import { DatacommonsMapComponent } from "./map_component";
+import { DatacommonsPieComponent } from "./pie_component";
 import { DatacommonsRankingComponent } from "./ranking_component";
 
 globalThis.datacommons = {
