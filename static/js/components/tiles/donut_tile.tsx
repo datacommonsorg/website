@@ -24,7 +24,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawDonutChart } from "../../chart/draw";
-import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
