@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { DataGroup } from "./base";
+
 export const chartTypeEnum = {
   LINE: "LINE",
   STACK_BAR: "STACK_BAR",
@@ -134,6 +136,31 @@ export interface MapPoint {
   placeName: string;
   latitude: number;
   longitude: number;
+}
+
+export interface ChartOptions {
+  apiRoot?: string;
+  unit?: string;
+}
+
+export interface GroupLineChartOptions extends ChartOptions {
+  ylabel?: string;
+  modelsDataGroupsDict?: { [place: string]: DataGroup[] };
+}
+export interface HistogramOptions extends ChartOptions {
+  fillColor?: string;
+}
+
+export interface HorizontalBarChartOptions extends ChartOptions {
+  stacked?: boolean;
+  style?: {
+    barHeight?: number;
+    yAxisMargin?: number;
+  };
+}
+
+export interface LineChartOptions extends ChartOptions {
+  handleDotClick?: (dotData: DotDataPoint) => void;
 }
 
 export type SORT_ASCENDING = "ascending";

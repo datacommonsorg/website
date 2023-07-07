@@ -35,7 +35,13 @@ import {
   shouldFillInValues,
   wrap,
 } from "./base";
-import { DotDataPoint } from "./types";
+import {
+  ChartOptions,
+  GroupLineChartOptions,
+  HistogramOptions,
+  HorizontalBarChartOptions,
+  LineChartOptions,
+} from "./types";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -664,11 +670,7 @@ function drawHistogram(
   chartHeight: number,
   dataPoints: DataPoint[],
   formatNumberFn: (value: number, unit?: string) => string,
-  options?: {
-    apiRoot?: string;
-    unit?: string;
-    fillColor?: string;
-  }
+  options?: HistogramOptions
 ): void {
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
@@ -769,10 +771,7 @@ function drawStackBarChart(
   chartHeight: number,
   dataGroups: DataGroup[],
   formatNumberFn: (value: number, unit?: string) => string,
-  options?: {
-    apiRoot?: string;
-    unit?: string;
-  }
+  options?: ChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -906,10 +905,7 @@ function drawGroupBarChart(
   chartHeight: number,
   dataGroups: DataGroup[],
   formatNumberFn: (value: number, unit?: string) => string,
-  options?: {
-    apiRoot?: string;
-    unit?: string;
-  }
+  options?: ChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -1040,15 +1036,7 @@ function drawHorizontalBarChart(
   chartWidth: number,
   dataGroups: DataGroup[],
   formatNumberFn: (value: number, unit?: string) => string,
-  options?: {
-    apiRoot?: string;
-    stacked?: boolean;
-    style?: {
-      barHeight?: number;
-      yAxisMargin?: number;
-    };
-    unit?: string;
-  }
+  options?: HorizontalBarChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -1229,11 +1217,7 @@ function drawLineChart(
   showAllDots: boolean,
   highlightOnHover: boolean,
   formatNumberFn: (value: number, unit?: string) => string,
-  options?: {
-    apiRoot?: string;
-    unit?: string;
-    handleDotClick?: (dotData: DotDataPoint) => void;
-  }
+  options?: LineChartOptions
 ): boolean {
   if (_.isEmpty(dataGroups)) {
     return true;
@@ -1453,12 +1437,7 @@ function drawGroupLineChart(
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   formatNumberFn: (value: number, unit?: string) => string,
-  options?: {
-    apiRoot?: string;
-    ylabel?: string;
-    unit?: string;
-    modelsDataGroupsDict?: { [place: string]: DataGroup[] };
-  }
+  options?: GroupLineChartOptions
 ): void {
   // Get a non-empty array as dataGroups
   const dataGroupsAll = Object.values(dataGroupsDict).filter(
