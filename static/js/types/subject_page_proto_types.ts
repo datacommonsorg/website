@@ -101,6 +101,13 @@ export interface BarTileSpec {
   useLollipop?: boolean;
 }
 
+export interface GaugeTileSpec {
+  range: {
+    min: number;
+    max: number;
+  };
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
@@ -114,6 +121,7 @@ export interface TileConfig {
   scatterTileSpec?: ScatterTileSpec;
   histogramTileSpec?: HistogramTileSpec;
   barTileSpec?: BarTileSpec;
+  gaugeTileSpec?: GaugeTileSpec;
 }
 
 export interface ColumnConfig {

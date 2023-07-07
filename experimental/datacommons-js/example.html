@@ -27,11 +27,25 @@
       comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
     ></datacommons-bar>
     <datacommons-bar
+      title="Median income by gender"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      stacked
+    ></datacommons-bar>
+    <datacommons-bar
       title="Median income by gender for counties in Alaska"
       comparisonVariables="['Median_Income_Person_15OrMoreYears_Male_WithIncome', 'Median_Income_Person_15OrMoreYears_Female_WithIncome']"
       place="geoId/02"
       childPlaceType="County"
     ></datacommons-bar>
+    <h2>Gauge</h2>
+    <datacommons-gauge
+      title="Percentage of US Population that are Internet Users"
+      place="country/USA"
+      variable="Count_Person_IsInternetUser_PerCapita"
+      min="0"
+      max="100"
+    ></datacommons-gauge>
     <h2>Map</h2>
     <datacommons-map
       title="Population"

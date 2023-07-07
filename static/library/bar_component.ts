@@ -46,7 +46,15 @@ import { convertArrayAttribute } from "./utils";
  *      comparisonPlaces='["geoId/01", "geoId/02"]'
  * ></datacommons-bar>
  *
- * <!-- Show a bar chart of population for specific US states with lollipops -->
+ * <!-- Stacked bar chart of population for specific US states -->
+ * <datacommons-bar
+ *      title="Population of US States"
+ *      variableDcid="Count_Person"
+ *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      stacked
+ * ></datacommons-bar>
+ *
+ * <!-- Lollipop chart of population for specific US states -->
  * <datacommons-bar
  *      title="Population of US States"
  *      variableDcid="Count_Person"
@@ -60,6 +68,12 @@ export class DatacommonsBarComponent extends LitElement {
   static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
   `;
+
+  /**
+   * Draw as a stacked chart instead of grouped chart
+   */
+  @property({ type: Boolean })
+  stacked?: boolean;
 
   // Title of the chart
   @property()
@@ -118,6 +132,7 @@ export class DatacommonsBarComponent extends LitElement {
         name: "",
         types: [],
       },
+      stacked: this.stacked,
       statVarSpec,
       svgChartHeight: 200,
       title: this.title,

@@ -23,7 +23,7 @@ import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
-import { drawGroupBarChart } from "../../chart/draw";
+import { drawGroupBarChart, drawStackBarChart } from "../../chart/draw";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
@@ -53,6 +53,8 @@ export interface BarTilePropType {
   comparisonPlaces: string[];
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
+  // Set to true to draw as a stacked chart instead of a grouped chart
+  stacked?: boolean;
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
   // Extra classes to add to the container.
@@ -256,14 +258,26 @@ export function draw(
   svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
-  drawGroupBarChart(
-    svgContainer,
-    props.id,
-    svgWidth || svgContainer.offsetWidth,
-    props.svgChartHeight,
-    chartData.dataGroup,
-    formatNumber,
-    chartData.unit,
-    props.useLollipop
-  );
+  if (props.stacked) {
+    drawStackBarChart(
+      svgContainer,
+      props.id,
+      svgWidth || svgContainer.offsetWidth,
+      props.svgChartHeight,
+      chartData.dataGroup,
+      formatNumber,
+      chartData.unit
+    );
+  } else {
+    drawGroupBarChart(
+      svgContainer,
+      props.id,
+      svgWidth || svgContainer.offsetWidth,
+      props.svgChartHeight,
+      chartData.dataGroup,
+      formatNumber,
+      chartData.unit,
+      props.useLollipop
+    );
+  }
 }

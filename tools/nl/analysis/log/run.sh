@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
 
-
-class Config(_base.Config):
-  WEBDRIVER = True
-  API_ROOT = 'https://autopush.api.datacommons.org'
-  SECRET_PROJECT = 'datcom-website-dev'
-  SCHEME = 'http'
-  SHOW_TOPIC = True
-  USE_PALM = True
+python3 -m venv .env
+source .env/bin/activate
+pip3 install -r requirements.txt
+python3 mine.py

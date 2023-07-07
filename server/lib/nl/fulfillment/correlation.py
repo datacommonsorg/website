@@ -47,6 +47,7 @@ _MAX_MAIN_SVS = 5
 
 def populate(uttr: Utterance) -> bool:
   # Get the list of CONTAINED_IN classifications in order from current to past.
+  # TODO: Check if we need to look in context here
   classifications = classifications_of_type_from_context(
       uttr, ClassificationType.CONTAINED_IN)
   if not classifications:
