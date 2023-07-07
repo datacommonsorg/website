@@ -45,6 +45,14 @@ import { convertArrayAttribute } from "./utils";
  *      variableDcid="Count_Person"
  *      comparisonPlaces='["geoId/01", "geoId/02"]'
  * ></datacommons-bar>
+ *
+ * <!-- Show a bar chart of population for specific US states with lollipops -->
+ * <datacommons-bar
+ *      title="Population of US States"
+ *      variableDcid="Count_Person"
+ *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      lollipop="true"
+ * ></datacommons-bar>
  */
 @customElement("datacommons-bar")
 export class DatacommonsBarComponent extends LitElement {
