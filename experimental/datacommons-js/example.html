@@ -6,6 +6,21 @@
       href="https://datacommons.org/css/nl_interface.min.css"
     />
     <script src="https://datacommons.org/datacommons.js"></script>
+    <style>
+      #most-populous-us-states::part(chart-container) {
+        border: 3px solid #e9e9e9;
+      }
+      #most-populous-us-states::part(place-path) {
+        fill-opacity: 0.15;
+      }
+      #most-populous-us-states::part(place-path-geoId\/12),
+      #most-populous-us-states::part(place-path-geoId\/13),
+      #most-populous-us-states::part(place-path-geoId\/06) {
+        fill-opacity: 1;
+        stroke: #b22222;
+        stroke-width: 2px;
+      }
+    </style>
   </head>
   <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
@@ -92,6 +107,14 @@
       placeDcid="geoId/06"
       enclosedPlaceType="County"
       statVarDcid="Annual_ExpectedLoss_NaturalHazardImpact"
+    ></datacommons-map>
+    <datacommons-map
+      id="most-populous-us-states"
+      title="Styled map: Three most populous US states"
+      place="country/USA"
+      childPlaceType="State"
+      subscribe="dc-map"
+      variable="Count_Person"
     ></datacommons-map>
     <h2>Map with year slider</h2>
     <datacommons-map

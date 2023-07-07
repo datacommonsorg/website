@@ -62,6 +62,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
         props.className ? props.className : ""
       }`}
+      {...{ part: "chart-container" }}
       ref={containerRef}
     >
       <div
