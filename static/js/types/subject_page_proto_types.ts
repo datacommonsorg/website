@@ -100,6 +100,13 @@ export interface BarTileSpec {
   xLabelLinkRoot?: string;
 }
 
+export interface GaugeTileSpec {
+  range: {
+    min: number;
+    max: number;
+  };
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
@@ -113,6 +120,7 @@ export interface TileConfig {
   scatterTileSpec?: ScatterTileSpec;
   histogramTileSpec?: HistogramTileSpec;
   barTileSpec?: BarTileSpec;
+  gaugeTileSpec?: GaugeTileSpec;
 }
 
 export interface ColumnConfig {
