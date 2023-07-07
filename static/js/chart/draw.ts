@@ -924,7 +924,6 @@ function drawLollipops(
     .attr("r", 6);
 }
 
-
 /**
  * Draw group bar chart.
  * @param containerElement Div element chart will be drawn in
@@ -1020,108 +1019,6 @@ function drawGroupBarChart(
   } else {
     drawBars(chart, colorFn, dataGroups, x0, x1, y);
   }
-
-  appendLegendElem(
-    containerElement,
-    colorFn,
-    dataGroups[0].value.map((dp) => ({
-      label: dp.label,
-      link: dp.link,
-    }))
-  );
-  svg.attr("class", ASYNC_ELEMENT_CLASS);
-}
-
-/**
- * Draw group lollipop chart.
- * Resulting chart is drawn with categories on the x-axis, and
- * numerical values on the y-axis.
- * @param containerElement Div element to draw chart in
- * @param chartWidth width of the chart in pixels
- * @param chartHeight height of the chart in pixels
- * @param dataGroups data to plot, grouped by place
- * @param formatNumberFn function to use to format y-axis labels
- * @param unit (optional) unit to use for y-axis labels
- */
-function drawGroupLollipopChart(
-  containerElement: HTMLDivElement,
-  chartWidth: number,
-  chartHeight: number,
-  dataGroups: DataGroup[],
-  formatNumberFn: (value: number, unit?: string) => string,
-  unit?: string
-): void {
-  if (_.isEmpty(dataGroups)) {
-    return;
-  }
-  const labelToLink = {};
-  for (const dataGroup of dataGroups) {
-    labelToLink[dataGroup.label] = dataGroup.link;
-  }
-  const statVars = dataGroups[0].value.map((dp) => dp.label);
-  const minV = Math.min(
-    0,
-    Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
-  );
-  const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
-  if (maxV === undefined || minV === undefined) {
-    return;
-  }
-
-  // clear old chart to redraw over
-  const container = d3.select(containerElement);
-  container.selectAll("*").remove();
-
-  const svg = container
-    .append("svg")
-    .attr("xmlns", SVGNS)
-    .attr("xmlns:xlink", XLINKNS)
-    .attr("width", chartWidth)
-    .attr("height", chartHeight);
-
-  const yAxis = svg.append("g").attr("class", "y axis");
-  const chart = svg.append("g").attr("class", "chart-area");
-  const xAxis = svg.append("g").attr("class", "x axis");
-  const tempYAxis = svg.append("g");
-
-  const y = d3
-    .scaleLinear()
-    .domain([minV, maxV])
-    .nice()
-    .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
-  const leftWidth = addYAxis(
-    tempYAxis,
-    chartWidth,
-    y,
-    formatNumberFn,
-    TEXT_FONT_FAMILY,
-    unit
-  );
-
-  // Main x-axis scale band
-  const x0 = d3
-    .scaleBand()
-    .domain(dataGroups.map((dg) => dg.label))
-    .rangeRound([leftWidth, chartWidth - MARGIN.right])
-    .paddingInner(0.5)
-    .paddingOuter(0.1);
-  const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
-
-  // Sub x-axis scale band for single groups
-  const x1 = d3
-    .scaleBand()
-    .domain(statVars)
-    .rangeRound([0, x0.bandwidth()])
-    .paddingOuter(0.05);
-
-  // Update and redraw the y-axis based on the new x-axis height.
-  y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
-  tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
-  updateXAxis(xAxis, bottomHeight, chartHeight, y);
-
-  const colorFn = getColorFn(statVars);
-  drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
 
   appendLegendElem(
     containerElement,
