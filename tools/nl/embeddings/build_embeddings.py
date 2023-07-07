@@ -302,14 +302,14 @@ def main(_):
   _validateEmbeddings(embeddings_df, local_merged_filepath)
   print("Embeddings DataFrame is validated.")
 
-  # # Finally, upload to the NL embeddings server's GCS bucket
-  # print("Attempting to write to GCS")
-  # print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
-  # blob = ctx.bucket.blob(gcs_embeddings_filename)
-  # blob.upload_from_filename(gcs_tmp_out_path)
-  # print("Done uploading to gcs.")
-  # print(f"\t Embeddings Filename: {gcs_embeddings_filename}")
-  # print("\nNOTE: Please update embeddings.yaml with the Embeddings Filename")
+  # Finally, upload to the NL embeddings server's GCS bucket
+  print("Attempting to write to GCS")
+  print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
+  blob = ctx.bucket.blob(gcs_embeddings_filename)
+  blob.upload_from_filename(gcs_tmp_out_path)
+  print("Done uploading to gcs.")
+  print(f"\t Embeddings Filename: {gcs_embeddings_filename}")
+  print("\nNOTE: Please update embeddings.yaml with the Embeddings Filename")
 
 
 if __name__ == "__main__":

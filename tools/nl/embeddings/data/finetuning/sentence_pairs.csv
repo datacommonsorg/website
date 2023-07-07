@@ -27,6 +27,10 @@ blood pressure,atmospheric pressure,0.01
 blood pressure,barometric pressure,0.01
 crime,religion,0.01
 criminal lawyer,legal services,0.8
+district,incarcerated,0.01
+district,jurisdiction,0.2
+district,rural,0.1
+district,urban,0.1
 educated,illeterate,0.7
 educated,literate,0.95
 education,institutionalized,0.01
@@ -89,6 +93,9 @@ poverty,incarcerated,0.01
 race,farm worker,0.01
 race,farmer,0.01
 race,farming,0.01
+race,group quarters,0.01
+race,inactive,0.01
+race,physically active,0.01
 race,racial breakdown,0.95
 racial composition,racial breakdown,1
 sleep,work,0.1

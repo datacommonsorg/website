@@ -75,7 +75,7 @@ BATCH_SIZE = 8
 
 # The params below are described in https://www.sbert.net/docs/package_reference/SentenceTransformer.html
 # Increasing NUM_EPOCHS can theoretically lead to better convergence of the estimated weights but
-# using 10 should be Ok.
+# using 50 should be Ok (but will be pretty slow if building the intermediate index too).
 NUM_WARMUP_STEPS = 0
 NUM_EPOCHS = 50
 
@@ -145,32 +145,32 @@ def _save_finetuned_model(ctx: utils.Context, stage: str,
   print(f"Saving finetuned model locally to {gcs_tmp_out_path}")
   ctx.model.save(gcs_tmp_out_path)
 
-  # print("Attempting to write to GCS")
-  # print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_model_folder}/")
-  # # To upload the model directory, we need to traverse the files and folders.
-  # for str_path in glob.glob(f"{gcs_tmp_out_path}/**"):
-  #   # Check if str_path is a folder.
-  #   if os.path.isdir(str_path):
-  #     if not glob.glob(f"{str_path}/**"):
-  #       # This means we found an empty folder.
-  #       foldername = os.path.basename(str_path)
-  #       gcs_path = gcs_model_folder + "/" + foldername + "/"
-  #       print(f'Path in GCS: {gcs_path}')
-  #       _upload_to_gcs(ctx, gcs_path, str_path, empty_folder=True)
+  print("Attempting to write to GCS")
+  print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_model_folder}/")
+  # To upload the model directory, we need to traverse the files and folders.
+  for str_path in glob.glob(f"{gcs_tmp_out_path}/**"):
+    # Check if str_path is a folder.
+    if os.path.isdir(str_path):
+      if not glob.glob(f"{str_path}/**"):
+        # This means we found an empty folder.
+        foldername = os.path.basename(str_path)
+        gcs_path = gcs_model_folder + "/" + foldername + "/"
+        print(f'Path in GCS: {gcs_path}')
+        _upload_to_gcs(ctx, gcs_path, str_path, empty_folder=True)
 
-  #     for filepath in glob.glob(f"{str_path}/**"):
-  #       # Found files under a folder.
-  #       filename = filepath.split(gcs_tmp_out_path)[1]
-  #       gcs_path = gcs_model_folder + filename
-  #       _upload_to_gcs(ctx, gcs_path, filepath)
-  #   else:
-  #     # Just files under the main model folder.
-  #     foldername = os.path.basename(str_path)
-  #     gcs_path = gcs_model_folder + "/" + foldername
-  #     _upload_to_gcs(ctx, gcs_path, str_path)
+      for filepath in glob.glob(f"{str_path}/**"):
+        # Found files under a folder.
+        filename = filepath.split(gcs_tmp_out_path)[1]
+        gcs_path = gcs_model_folder + filename
+        _upload_to_gcs(ctx, gcs_path, filepath)
+    else:
+      # Just files under the main model folder.
+      foldername = os.path.basename(str_path)
+      gcs_path = gcs_model_folder + "/" + foldername
+      _upload_to_gcs(ctx, gcs_path, str_path)
 
-  # print("Done uploading to GCS.")
-  # print(f"\t Finetuned Model Filename: {gcs_model_folder}")
+  print("Done uploading to GCS.")
+  print(f"\t Finetuned Model Filename: {gcs_model_folder}")
 
   return gcs_model_folder
 
@@ -275,7 +275,6 @@ def finetune_model(model: Any, training_examples: List[InputExample]):
 
 
 def main(_):
-
   assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2
   assert FLAGS.start_from in [START_FROM_BASE, START_FROM_INTERMEDIATE]
   assert FLAGS.generate in [GENERATE_ALL, GENERATE_INTERMEDIATE, GENERATE_FINAL]
