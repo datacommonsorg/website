@@ -23,7 +23,7 @@ import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
-import { drawGroupBarChart, drawGroupLollipopChart } from "../../chart/draw";
+import { drawGroupBarChart } from "../../chart/draw";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";

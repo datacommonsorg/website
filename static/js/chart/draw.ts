@@ -943,7 +943,7 @@ function drawGroupBarChart(
   dataGroups: DataGroup[],
   formatNumberFn: (value: number, unit?: string) => string,
   unit?: string,
-  useLollipop?: boolean,
+  useLollipop?: boolean
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -1569,7 +1569,6 @@ export {
   appendLegendElem,
   drawGroupBarChart,
   drawGroupLineChart,
-  drawGroupLollipopChart,
   drawHistogram,
   drawLineChart,
   drawStackBarChart,
