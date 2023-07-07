@@ -1426,6 +1426,102 @@ function drawGroupLineChart(
 }
 
 /**
+ * Draw group bar chart.
+ * @param containerElement
+ * @param id
+ * @param chartWidth
+ * @param chartHeight
+ * @param dataGroups
+ * @param formatNumberFn
+ * @param unit
+ */
+function drawDonutChart(
+  containerElement: HTMLDivElement,
+  id: string,
+  chartWidth: number,
+  chartHeight: number,
+  dataGroups: DataGroup[],
+  formatNumberFn: (value: number, unit?: string) => string,
+  unit?: string
+): void {
+  if (_.isEmpty(dataGroups)) {
+    return;
+  }
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
+  const keys = dataGroups[0].value.map((dp) => dp.label);
+  const colorFn = getColorFn(keys);
+  // minimum thickness of the donut, in px
+  const minArcThickness = 10;
+  // how thickness of donut should scale with donut's radius
+  // The larger the number, the thicker the donut
+  const arcThicknessRatio = 0.1;
+  // how much space to leave on each side of donut, in px
+  const margin = 20;
+
+  // Compute donut size based on settings
+  const outerRadius = Math.min(chartWidth, chartHeight) / 2 - margin;
+  const arcStrokeWidth = Math.max(
+    outerRadius * arcThicknessRatio,
+    minArcThickness
+  );
+  const innerRadius = outerRadius - arcStrokeWidth;
+  const arc = d3
+    .arc<d3.PieArcDatum<DataPoint>>()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius);
+
+  // Compute position of each group on the donut
+  const pie = d3.pie<void, DataPoint>().value((d) => {
+    return d.value;
+  });
+  const donutData = pie(dataGroups[0].value);
+
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+
+  // create svg container
+  const svg = container
+    .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
+    .attr("width", chartWidth)
+    .attr("height", chartHeight);
+
+  // draw donut and center in svg container
+  const chart = svg
+    .append("g")
+    .attr("class", "arc")
+    .attr("transform", `translate(${chartWidth / 2}, ${chartHeight / 2})`);
+
+  // plot data
+  chart
+    .selectAll("g")
+    .data(donutData)
+    .enter()
+    .append("path")
+    .attr("d", arc)
+    .attr("fill", (d) => {
+      return colorFn(d.data.label);
+    });
+
+  console.log(donutData);
+
+  appendLegendElem(
+    containerElement,
+    colorFn,
+    dataGroups[0].value.map((dp) => ({
+      label: dp.label,
+      link: dp.link,
+    }))
+  );
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
+}
+
+/**
  * Generate in-chart legend.
  *
  * @param legend: The legend svg selection.
@@ -1479,6 +1575,7 @@ function buildInChartLegend(
 
 export {
   appendLegendElem,
+  drawDonutChart,
   drawGroupBarChart,
   drawGroupLineChart,
   drawHistogram,
