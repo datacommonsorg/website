@@ -26,8 +26,7 @@ def _empty_svs_score_dict():
 def result_with_debug_info(data_dict: Dict, status: str,
                            query_detection: Detection, uttr_history: List[Dict],
                            debug_counters: Dict,
-                           query_detection_debug_logs: str,
-                           detector: str) -> Dict:
+                           query_detection_debug_logs: str) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV':
@@ -81,7 +80,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
-      'detection_type': detector,
+      'detection_type': query_detection.detector,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,

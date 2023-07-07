@@ -402,10 +402,10 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   align-items: right;
 }
 
-.thumb-down:not(.thumb-dim):hover {
+.feedback-emoji:not(.feedback-emoji-dim):hover {
   cursor: pointer;
 }
 
-.thumb-dim {
+.feedback-emoji-dim {
   opacity: 0.3;
 }

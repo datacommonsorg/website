@@ -95,6 +95,7 @@ class DevChart extends React.Component<DevChartPropType> {
       );
     } else if (this.props.type == chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
+        this.svgContainerElement.current,
         this.props.id,
         elem.current.offsetWidth,
         this.props.height,
