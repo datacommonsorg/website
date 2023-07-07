@@ -485,6 +485,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       }
     } else if (chartType === chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
+        this.svgContainerElement.current,
         this.props.id,
         elem.offsetWidth,
         CHART_HEIGHT,

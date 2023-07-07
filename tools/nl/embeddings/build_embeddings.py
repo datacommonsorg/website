@@ -32,8 +32,12 @@ import utils
 
 FLAGS = flags.FLAGS
 
+# TODO: use only one flag from the two below and "gcs://" prefix to differentiate
+# between local and GCS path.
 flags.DEFINE_string('finetuned_model_gcs', '',
                     'Existing finetuned model folder name on GCS')
+flags.DEFINE_string('existing_model_path', '',
+                    'Path to an existing model (local)')
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '',
@@ -232,11 +236,18 @@ def main(_):
 
   assert os.path.exists(os.path.join('data'))
 
+  if FLAGS.existing_model_path:
+    assert os.path.exists(FLAGS.existing_model_path)
+
   use_finetuned_model = False
+  use_local_model = False
   model_version = FLAGS.model_name_v2
   if FLAGS.finetuned_model_gcs:
     use_finetuned_model = True
     model_version = FLAGS.finetuned_model_gcs
+  elif FLAGS.existing_model_path:
+    use_local_model = True
+    model_version = os.path.basename(FLAGS.existing_model_path)
 
   local_merged_filepath = f'data/preindex/{FLAGS.embeddings_size}/sv_descriptions.csv'
   dup_names_filepath = f'data/preindex/{FLAGS.embeddings_size}/duplicate_names.csv'
@@ -260,6 +271,12 @@ def main(_):
       print(f"Model downloaded locally to: {tuned_model_path}")
 
     model = SentenceTransformer(tuned_model_path)
+
+  elif use_local_model:
+    print(f"Use the local model at: {FLAGS.existing_model_path}")
+    print(f"Extracted model version: {model_version}")
+    model = SentenceTransformer(FLAGS.existing_model_path)
+
   else:
     model = SentenceTransformer(FLAGS.model_name_v2)
 
