@@ -19,10 +19,10 @@
  */
 
 import axios from "axios";
+import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import * as d3 from "d3";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
   drawGroupBarChart,
@@ -41,7 +41,7 @@ import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { ReplacementStrings, getStatVarName } from "../../utils/tile_utils";
+import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -78,7 +78,7 @@ export interface BarTilePropType {
   title: string;
   // Tile spec with additional information about what to show on this tile
   tileSpec?: BarTileSpec;
-  // Y-axis margin (text width)
+  // Y-axis margin / text width
   yAxisMargin?: number;
 }
 
@@ -186,7 +186,7 @@ export const fetchData = async (props: BarTilePropType) => {
     });
 
     // Find the most populated places.
-    let popPoints: RankingPoint[] = [];
+    const popPoints: RankingPoint[] = [];
     for (const place in resp.data.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,

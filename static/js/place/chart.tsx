@@ -29,12 +29,12 @@ import { drawD3Map, getProjection } from "../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
   ChartBlockData,
+  chartTypeEnum,
   ChoroplethDataGroup,
   GeoJsonData,
   GeoJsonFeatureProperties,
   SnapshotData,
   TrendData,
-  chartTypeEnum,
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
 import { fetchData } from "../components/tiles/ranking_tile";
@@ -43,9 +43,9 @@ import {
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import {
-  LocalizedLink,
   formatNumber,
   intl,
+  LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
 import {
