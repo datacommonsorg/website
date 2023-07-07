@@ -256,24 +256,14 @@ export function draw(
   svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
-  if (props.useLollipop) {
-    drawGroupLollipopChart(
-      svgContainer,
-      svgWidth || svgContainer.offsetWidth,
-      props.svgChartHeight,
-      chartData.dataGroup,
-      formatNumber,
-      chartData.unit
-    );
-  } else {
-    drawGroupBarChart(
-      svgContainer,
-      props.id,
-      svgWidth || svgContainer.offsetWidth,
-      props.svgChartHeight,
-      chartData.dataGroup,
-      formatNumber,
-      chartData.unit
-    );
-  }
+  drawGroupBarChart(
+    svgContainer,
+    props.id,
+    svgWidth || svgContainer.offsetWidth,
+    props.svgChartHeight,
+    chartData.dataGroup,
+    formatNumber,
+    chartData.unit,
+    props.useLollipop
+  );
 }

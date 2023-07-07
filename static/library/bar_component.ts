@@ -80,6 +80,11 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   comparisonVariables;
 
+  // Optional: Whether to render as a lollipop
+  // Set to true to render using lollipops instead of bars
+  @property()
+  lollipop: boolean;
+
   render(): HTMLElement {
     const statVarDcids: string[] = this.comparisonVariables
       ? this.comparisonVariables
@@ -108,6 +113,7 @@ export class DatacommonsBarComponent extends LitElement {
       statVarSpec,
       svgChartHeight: 200,
       title: this.title,
+      useLollipop: this.lollipop,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(BarTile, barTileProps), mountPoint);
