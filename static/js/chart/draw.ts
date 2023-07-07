@@ -131,8 +131,6 @@ function appendLegendElem(
   legendItem
     .append("a")
     .attr("class", "legend-link")
-    .attr("target", "_blank")
-    .attr("rel", "noopener noreferrer")
     .attr("title", (d) => d.label)
     .text((d) => d.label)
     .attr("href", (d) => (d.link ? `${apiRoot || ""}${d.link}` : null))

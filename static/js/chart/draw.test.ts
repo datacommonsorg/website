@@ -33,11 +33,11 @@ test("svg test", () => {
     '<div class="legend-basic">' +
       '<div class="legend-item">' +
       '<div class="legend-color" style="background: rgb(147, 0, 0)"></div>' +
-      '<a class="legend-link" target="_blank" rel="noopener noreferrer" title="San Jose" href="about:blank">San Jose</a>' +
+      '<a class="legend-link" title="San Jose" href="about:blank">San Jose</a>' +
       "</div>" +
       '<div class="legend-item">' +
       '<div class="legend-color" style="background: rgb(94, 79, 162)"></div>' +
-      '<a class="legend-link" target="_blank" rel="noopener noreferrer" title="Palo Alto" href="/foo/bar">Palo Alto</a>' +
+      '<a class="legend-link" title="Palo Alto" href="/foo/bar">Palo Alto</a>' +
       "</div>" +
       "</div>"
   );
