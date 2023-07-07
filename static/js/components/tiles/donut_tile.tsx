@@ -232,11 +232,8 @@ export function draw(
 ): void {
   drawDonutChart(
     svgContainer,
-    props.id,
     svgWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
-    chartData.dataGroup,
-    formatNumber,
-    chartData.unit
+    chartData.dataGroup
   );
 }
