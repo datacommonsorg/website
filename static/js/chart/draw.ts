@@ -1502,8 +1502,6 @@ function drawDonutChart(
       return colorFn(d.data.label);
     });
 
-  console.log(donutData);
-
   appendLegendElem(
     containerElement,
     colorFn,
