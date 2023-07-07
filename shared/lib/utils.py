@@ -31,19 +31,16 @@ def _add_to_set_from_list(set_strings: Set[str],
     set_strings.add(v_str.lower())
 
 
-def _add_to_set_from_nested_dict(
-    set_strings: Set[str],
-    nested_dict: Dict[str, Union[List[str], Dict[str, List[str]]]]) -> None:
-  """Adds (in place) every word/string (in lower case) to a Set of strings.
+def _add_classification_heuristics(set_strings: Set[str]) -> None:
+  """Adds (in place) relevant stop words in QUERY_CLASSIFICATION_HEURISTICS.
 
     Args:
         set_strings: the set of Strings to add to.
-        nested_dict: the dictionary from which to get the words. The keys are expected to be
-            strings but the values can either be a List of strings OR another dictionary with
-            string keys and values to be a List of strings. For ane example, see the constant
-            QUERY_CLASSIFICATION_HEURISTICS in lib/nl/nl_utils.py
     """
-  for (_, v) in nested_dict.items():
+  for (ctype, v) in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
+    # Skip events since we want those to match SVs too!
+    if ctype == "Event":
+      continue
     if isinstance(v, list):
       # If 'v' is a list, add all the words.
       _add_to_set_from_list(set_strings, v)
@@ -83,8 +80,7 @@ def combine_stop_words() -> Set[str]:
   stop_words = copy.deepcopy(constants.STOP_WORDS)
 
   # Now add the words in the classification heuristics.
-  _add_to_set_from_nested_dict(stop_words,
-                               constants.QUERY_CLASSIFICATION_HEURISTICS)
+  _add_classification_heuristics(stop_words)
 
   # Also add the plurals.
   _add_to_set_from_list(stop_words,
