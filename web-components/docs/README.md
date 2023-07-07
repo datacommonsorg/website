@@ -1,4 +1,4 @@
-# Data Commons JS Web Components Documentation
+# Chart Component APIs
 
 ## Including the library
 
@@ -27,18 +27,16 @@ must be included for the web components to work.
 </html>
 ```
 
-## Chart Component APIs
-
 Each web component is a custom HTML element that takes a number of attributes.
 
-### Bar Chart
+## Bar Chart
 
 Element Syntax:
 ```html
 <datacommons-bar></datacommons-bar>
 ```
 
-#### Attributes
+### Attributes
 
 Required:
 
@@ -48,7 +46,7 @@ Required:
   - Type of child places to plot.
 - `title` string
   - Title of the chart.
--`variable` string
+- `variable` string
   - DCID of the variable to plot
 
 Optional:
@@ -72,20 +70,20 @@ Optional:
     - `descendingPopulation` (descending by the place's population)
   - Default: `descendingPopulation`
 
-#### Examples
+### Examples
 
-##### 1.
+#### 1.
 
 Example here.
 
-### Line Chart
+## Line Chart
 
 Element Syntax:
 ```html
 <datacommons-line></datacommons-line>
 ```
 
-#### Attributes
+### Attributes
 
 Required:
 
@@ -93,12 +91,12 @@ Required:
   - Type of child places to plot.
 - `title` string
   - Title of the chart.
--`variables` string
+- `variables` string
   - List of DCIDs of the variables to plot
 
-#### Examples
+### Examples
 
-##### 1. US population over time
+#### 1. US population over time
 
 ```html
 <datacommons-line
@@ -108,14 +106,14 @@ Required:
 ></datacommons-line>
 ```
 
-### Map Chart
+## Map Chart
 
 Element Syntax:
 ```html
 <datacommons-map></datacommons-map>
 ```
 
-#### Attributes
+### Attributes
 
 Required:
 
@@ -129,7 +127,7 @@ Required:
   - Type of child places to plot.
 - `title` string
   - Title of the chart.
--`variable` string
+- `variable` string
   - DCID of the variable to plot
 
 Optional:
@@ -139,9 +137,9 @@ Optional:
   - The event channel must match the event channel of the slider component
     controlling the map.
 
-#### Examples
+### Examples
 
-##### 1. Households with no health insurance in US States
+#### 1. Households with no health insurance in US States
 
 ```html
 <datacommons-map
@@ -152,9 +150,10 @@ Optional:
 ></datacommons-map>
 ```
 
-Renders: ![Map chart](./assets/no-health-insurance-us-states.png "Map Chart")
+Renders:
+<img src="./assets/no-health-insurance-us-states.png" width="600" />
 
-##### 2. Households with no health insurance in Texas counties
+#### 2. Households with no health insurance in Texas counties
 
 ```html
 <datacommons-map
@@ -165,9 +164,11 @@ Renders: ![Map chart](./assets/no-health-insurance-us-states.png "Map Chart")
 ></datacommons-map>
 ```
 
-Renders: ![Map chart](./assets/no-health-insurance-texas-counties.png "Map Chart")
+Renders:
+<img src="./assets/no-health-insurance-texas-counties.png" width="600" />
 
-##### 3. Population below the poverty level in US States
+
+#### 3. Population below the poverty level in US States
 
 ```html
 <datacommons-map
@@ -178,16 +179,17 @@ Renders: ![Map chart](./assets/no-health-insurance-texas-counties.png "Map Chart
 ></datacommons-map>
 ```
 
-Renders: ![Map chart](./assets/below-poverty-level-us-states.png "Map Chart")
+Renders:
+<img src="./assets/below-poverty-level-us-states.png" width="600" />
 
-### Ranking Chart
+## Ranking Chart
 
 Element Syntax:
 ```html
 <datacommons-ranking></datacommons-ranking>
 ```
 
-#### Attributes
+### Attributes
 
 Required:
 
@@ -201,7 +203,7 @@ Required:
   - Type of child places to plot.
 - `title` string
   - Title of the chart.
--`variable` string
+- `variable` string
   - DCID of the variable to plot
 
 Optional:
@@ -211,8 +213,8 @@ Optional:
   - To show places with lowest value first, set to true.
   - If not provided, defaults to highest-to-lowest by variable value.
 
-#### Examples
+### Examples
 
-##### 1.
+#### 1.
 
 Example here.
