@@ -135,3 +135,8 @@ export interface MapPoint {
   latitude: number;
   longitude: number;
 }
+
+export interface ChartEventDetail {
+  property: string;
+  value: string;
+}

@@ -24,6 +24,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { ChartEventDetail } from "../js/chart/types";
 
 /**
  * Web component for rendering map tile.
@@ -87,6 +88,23 @@ export class DatacommonsMapComponent extends LitElement {
   // Optional: specific date to show data for
   @property()
   date: string;
+
+  // Optional: listen for value changes with this event name
+  @property()
+  subscribe: string;
+
+  firstUpdated() {
+    if (this.subscribe) {
+      this.parentElement.addEventListener(
+        this.subscribe,
+        (e: CustomEvent<ChartEventDetail>) => {
+          if (e.detail.property === "date") {
+            this.date = e.detail.value;
+          }
+        }
+      );
+    }
+  }
 
   render(): HTMLElement {
     const place = this.place || this.placeDcid;

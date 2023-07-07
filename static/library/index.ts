@@ -25,12 +25,14 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
 import { DatacommonsLineComponent } from "./line_chart_component";
 import { DatacommonsMapComponent } from "./map_component";
 import { DatacommonsRankingComponent } from "./ranking_component";
+import { DatacommonsSliderComponent } from "./slider_component";
 
 globalThis.datacommons = {
   DatacommonsBarComponent,
   DatacommonsLineComponent,
   DatacommonsMapComponent,
   DatacommonsRankingComponent,
+  DatacommonsSliderComponent,
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,
