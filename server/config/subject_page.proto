@@ -159,6 +159,15 @@ message BarTileSpec {
   string x_label_link_root = 1;
 }
 
+message GaugeTileSpec {
+  message Range {
+    double min = 1;
+    double max = 2;
+  }
+  // Range of values represented by the gauge
+  Range range = 1;
+}
+
 message Tile {
   // When adding a new TileType:
   // - make sure to update verify_tile in subject_page_configs_test.py with any
@@ -183,6 +192,8 @@ message Tile {
     HIGHLIGHT = 7;
     // allowed in BlockTypes: TYPE_NONE
     DESCRIPTION = 8;
+    // allowed in BlockTypes: TYPE_NONE
+    GAUGE = 13;
     // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
     // allowed in BlockTypes: DISASTER_EVENT
@@ -215,6 +226,7 @@ message Tile {
     ScatterTileSpec scatter_tile_spec = 9;
     HistogramTileSpec histogram_tile_spec = 10;
     BarTileSpec bar_tile_spec = 12;
+    GaugeTileSpec gauge_tile_spec = 13;
   }
 }
 
