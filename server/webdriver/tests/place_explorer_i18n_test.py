@@ -120,8 +120,8 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
                      'Taux de croissance de la population')
     pop_growth_rate_chip.click()
 
-    time.sleep(1)
     # The above link has target="_blank" and opens in a new window
+    time.sleep(1)
     self.driver.switch_to.window(self.driver.window_handles[1])
 
     # Wait until ranking page has loaded
