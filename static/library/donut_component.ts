@@ -34,15 +34,23 @@ import { convertArrayAttribute } from "./utils";
  *
  * Example usage:
  *
- * <!-- Show a donut chart of median income by gender in California -->
- * <datacommons-donut
+ * <!-- Show a pie chart of median income by gender in California -->
+ * <datacommons-pie
  *      title="Median Income by gender in California"
  *      place="geoId/06"
  *      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
- * ></datacommons-donut>
+ * ></datacommons-pie>
+ *
+ * <!-- Show a donut chart of median income by gender in California -->
+ * <datacommons-pie
+ *      title="Median Income by gender in California"
+ *      place="geoId/06"
+ *      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+ *      donut
+ * ></datacommons-pie>
  */
-@customElement("datacommons-donut")
-export class DatacommonsDonutComponent extends LitElement {
+@customElement("datacommons-pie")
+export class DatacommonsPieComponent extends LitElement {
   // Inject tiles.scss styles directly into web component
   static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
@@ -62,6 +70,11 @@ export class DatacommonsDonutComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   comparisonVariables;
 
+  // Optional: Whether to draw as donut chart instead of a pie chart
+  // Set to true to draw a donut chart
+  @property({ type: Boolean })
+  donut;
+
   render(): HTMLElement {
     const statVarSpec = [];
     this.comparisonVariables.forEach((statVarDcid) => {
@@ -77,6 +90,7 @@ export class DatacommonsDonutComponent extends LitElement {
     const donutTileProps: DonutTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
       id: `chart-${_.uniqueId()}`,
+      pie: !this.donut,
       place: {
         dcid: this.place,
         name: "",

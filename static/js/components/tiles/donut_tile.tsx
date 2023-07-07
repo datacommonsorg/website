@@ -52,6 +52,8 @@ export interface DonutTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Whether to draw as full pie chart instead
+  pie?: boolean;
   // Extra classes to add to the container.
   className?: string;
   // API root
@@ -233,6 +235,7 @@ export function draw(
     svgContainer,
     svgWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
-    chartData.dataGroup
+    chartData.dataGroup,
+    props.pie
   );
 }

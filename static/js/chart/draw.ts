@@ -1431,12 +1431,14 @@ function drawGroupLineChart(
  * @param chartWidth width of chart
  * @param chartHeight height of chart
  * @param dataGroups data to plot
+ * @param drawAsPie whether to draw as full pie chart instead of donut
  */
 function drawDonutChart(
   containerElement: HTMLDivElement,
   chartWidth: number,
   chartHeight: number,
-  dataGroups: DataGroup[]
+  dataGroups: DataGroup[],
+  drawAsPie: boolean
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -1451,7 +1453,7 @@ function drawDonutChart(
   const minArcThickness = 10;
   // how thickness of donut should scale with donut's radius
   // The larger the number, the thicker the donut
-  const arcThicknessRatio = 0.1;
+  const arcThicknessRatio = 0.15;
   // how much space to leave on each side of donut, in px
   const margin = 20;
 
@@ -1461,7 +1463,7 @@ function drawDonutChart(
     outerRadius * arcThicknessRatio,
     minArcThickness
   );
-  const innerRadius = outerRadius - arcStrokeWidth;
+  const innerRadius = drawAsPie ? 0 : outerRadius - arcStrokeWidth;
   const arc = d3
     .arc<d3.PieArcDatum<DataPoint>>()
     .innerRadius(innerRadius)
