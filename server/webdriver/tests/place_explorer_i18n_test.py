@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -123,7 +124,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     # Wait until ranking page has loaded
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    
+
     # Assert language is propagated
     url = self.driver.current_url
     self.assertTrue('GrowthRate_Count_Person' in url)
