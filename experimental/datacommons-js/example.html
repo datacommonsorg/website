@@ -60,6 +60,20 @@
       enclosedPlaceType="County"
       statVarDcid="Annual_ExpectedLoss_NaturalHazardImpact"
     ></datacommons-map>
+    <h2>Map with year slider</h2>
+    <datacommons-map
+      title="Population"
+      place="country/USA"
+      childPlaceType="State"
+      subscribe="dc-map"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-slider
+      max="2023"
+      min="1950"
+      publish="dc-map"
+      value="2023"
+    ></datacommons-slider>
     <h2>Ranking</h2>
     <datacommons-ranking
       title="US States with the Highest Population"
