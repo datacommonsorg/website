@@ -347,8 +347,8 @@ export const HistogramTile = memo(function HistogramTile(
         histogramData,
         formatNumber,
         {
-          unit,
           fillColor: props.eventTypeSpec.color,
+          unit,
         }
       );
     }

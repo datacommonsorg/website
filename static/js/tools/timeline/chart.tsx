@@ -379,9 +379,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       this.plotParams,
       formatNumber,
       {
-        ylabel: this.ylabel(),
-        unit: this.units.join(", "),
         modelsDataGroupsDict,
+        unit: this.units.join(", "),
+        ylabel: this.ylabel(),
       }
     );
   }

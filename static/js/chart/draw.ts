@@ -70,10 +70,10 @@ const YLABEL = {
 // Horizontal bar chart default style
 const HORIZONTAL_BAR_CHART = {
   barHeight: 30,
-  marginTop: 30,
-  marginRight: 30,
   marginBottom: 10,
   marginLeft: 80,
+  marginRight: 30,
+  marginTop: 30,
 };
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
@@ -489,7 +489,7 @@ function addXAxis(
       .style("text-decoration", "underline")
       .on("click", function () {
         window.open(
-          `${apiRoot || ""}(<SVGElement>this).dataset.link`,
+          `${apiRoot || ""}${(<SVGElement>this).dataset.link}`,
           "_blank"
         );
       });
@@ -702,7 +702,7 @@ function drawHistogram(
     chartWidth,
     y,
     formatNumberFn,
-    undefined,
+    null,
     options?.unit
   );
 
