@@ -26,6 +26,7 @@ import { DatacommonsGaugeComponent } from "./gauge_component";
 import { DatacommonsLineComponent } from "./line_chart_component";
 import { DatacommonsMapComponent } from "./map_component";
 import { DatacommonsRankingComponent } from "./ranking_component";
+import { DatacommonsSliderComponent } from "./slider_component";
 
 globalThis.datacommons = {
   DatacommonsBarComponent,
@@ -33,6 +34,7 @@ globalThis.datacommons = {
   DatacommonsLineComponent,
   DatacommonsMapComponent,
   DatacommonsRankingComponent,
+  DatacommonsSliderComponent,
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,
