@@ -51,7 +51,7 @@ import { convertArrayAttribute } from "./utils";
  *      title="Population of US States"
  *      variableDcid="Count_Person"
  *      comparisonPlaces='["geoId/01", "geoId/02"]'
- *      lollipop="true"
+ *      lollipop
  * ></datacommons-bar>
  */
 @customElement("datacommons-bar")
@@ -90,7 +90,7 @@ export class DatacommonsBarComponent extends LitElement {
 
   // Optional: Whether to render as a lollipop
   // Set to true to render using lollipops instead of bars
-  @property()
+  @property({ type: Boolean })
   lollipop: boolean;
 
   render(): HTMLElement {
