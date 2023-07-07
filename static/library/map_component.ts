@@ -22,9 +22,9 @@ import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
+import { ChartEventDetail } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { ChartEventDetail } from "../js/chart/types";
 
 /**
  * Web component for rendering map tile.
