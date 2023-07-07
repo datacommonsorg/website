@@ -172,3 +172,8 @@ export type SortType =
   | SORT_DESCENDING
   | SORT_ASCENDING_POPULATION
   | SORT_DESCENDING_POPULATION;
+
+export interface ChartEventDetail {
+  property: string;
+  value: string;
+}
