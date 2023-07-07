@@ -1426,23 +1426,17 @@ function drawGroupLineChart(
 }
 
 /**
- * Draw group bar chart.
- * @param containerElement
- * @param id
- * @param chartWidth
- * @param chartHeight
- * @param dataGroups
- * @param formatNumberFn
- * @param unit
+ * Draw donut chart.
+ * @param containerElement Div element to draw chart in
+ * @param chartWidth width of chart
+ * @param chartHeight height of chart
+ * @param dataGroups data to plot
  */
 function drawDonutChart(
   containerElement: HTMLDivElement,
-  id: string,
   chartWidth: number,
   chartHeight: number,
-  dataGroups: DataGroup[],
-  formatNumberFn: (value: number, unit?: string) => string,
-  unit?: string
+  dataGroups: DataGroup[]
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;

@@ -34,14 +34,6 @@ import { convertArrayAttribute } from "./utils";
  *
  * Example usage:
  *
- * <!-- Show a donut chart of population for states in the US -->
- * <datacommons-donut
- *      title="Population of US States"
- *      place="country/USA"
- *      childPlaceType="State"
- *      variable="Count_Person"
- * ></datacommons-donut>
- *
  * <!-- Show a donut chart of median income by gender in California -->
  * <datacommons-donut
  *      title="Median Income by gender in California"
