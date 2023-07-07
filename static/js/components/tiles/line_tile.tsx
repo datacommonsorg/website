@@ -154,7 +154,9 @@ export function draw(
     false,
     false,
     formatNumber,
-    chartData.unit
+    {
+      unit: chartData.unit,
+    }
   );
   if (!isCompleteLine) {
     svgContainer.querySelectorAll(".dotted-warning")[0].className +=

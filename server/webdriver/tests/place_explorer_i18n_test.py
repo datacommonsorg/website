@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -55,7 +57,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     self.assertEqual(x_text[0].text, '1960')
 
     # Test that sv labels are translated
-    sv_legend = gdp_chart.find_elements(By.CLASS_NAME, 'legend')[0]
+    sv_legend = gdp_chart.find_elements(By.CLASS_NAME, 'legend-basic')[0]
     sv_label = sv_legend.find_elements(By.TAG_NAME, 'a')[0]
     self.assertEqual(sv_label.text, '1 人あたりの GDP')
 

@@ -18,8 +18,8 @@ from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import CTX_LOOKBACK_LIMIT
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection.types import ClassificationAttributes
 from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 
 #
@@ -29,8 +29,10 @@ from server.lib.nl.detection.types import Place
 #
 
 
-def svs_from_context(uttr: Utterance) -> List[str]:
+def svs_from_context(uttr: Utterance, include_uttr: bool = False) -> List[str]:
   ans = []
+  if include_uttr:
+    ans.append(uttr.svs)
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
@@ -40,8 +42,11 @@ def svs_from_context(uttr: Utterance) -> List[str]:
   return ans
 
 
-def places_from_context(uttr: Utterance) -> List[Place]:
+def places_from_context(uttr: Utterance,
+                        include_uttr: bool = False) -> List[Place]:
   ans = []
+  if include_uttr:
+    ans.extend(uttr.places)
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
@@ -50,6 +55,26 @@ def places_from_context(uttr: Utterance) -> List[Place]:
     prev = prev.prev_utterance
     prev_uttr_count = prev_uttr_count + 1
   return ans
+
+
+def has_sv_in_context(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+  svs_list = svs_from_context(uttr, include_uttr=True)
+  for svs in svs_list:
+    if svs:
+      return True
+  return False
+
+
+def has_place_in_context(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+  places = places_from_context(uttr, include_uttr=True)
+  for place in places:
+    if place.dcid:
+      return True
+  return False
 
 
 # Computes a list of place lists, where each inner list is a candidate for place
@@ -116,8 +141,7 @@ def query_type_from_context(uttr: Utterance) -> List[QueryType]:
 
 
 def classifications_of_type_from_context(
-    uttr: Utterance,
-    ctype: ClassificationType) -> List[ClassificationAttributes]:
+    uttr: Utterance, ctype: ClassificationType) -> List[NLClassifier]:
   result = []
   result.extend(classifications_of_type_from_utterance(uttr, ctype))
   prev_uttr_count = 0
@@ -130,9 +154,13 @@ def classifications_of_type_from_context(
 
 
 def classifications_of_type_from_utterance(
-    uttr: Utterance,
-    ctype: ClassificationType) -> List[ClassificationAttributes]:
+    uttr: Utterance, ctype: ClassificationType) -> List[NLClassifier]:
   return [cl for cl in uttr.classifications if cl.type == ctype]
+
+
+def classifications_of_type(classifications: List[NLClassifier],
+                            ctype: ClassificationType) -> List[NLClassifier]:
+  return [cl for cl in classifications if cl.type == ctype]
 
 
 # `context_history` contains utterances in a given session.
