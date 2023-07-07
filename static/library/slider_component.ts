@@ -32,7 +32,7 @@ import { ChartEventDetail } from "../js/chart/types";
  *      min="1950"
  *      publish="dc-year"
  *      value="2023"
- * ></datacommons-bar>
+ * ></datacommons-slider>
  *
  * <!-- Map that subscribes to slider changes -->
  * <datacommons-map
