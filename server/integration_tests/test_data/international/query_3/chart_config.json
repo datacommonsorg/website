@@ -54,5 +54,8 @@
     "dcid": "country/GBR",
     "name": "United Kingdom",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

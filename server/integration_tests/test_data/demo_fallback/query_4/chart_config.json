@@ -192,5 +192,23 @@
     "dcid": "country/USA",
     "name": "United States",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {
+    "newPlace": {
+      "country": null,
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    },
+    "newStr": "United States",
+    "origPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "origStr": "California"
+  },
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

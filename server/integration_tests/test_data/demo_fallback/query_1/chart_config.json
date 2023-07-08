@@ -30,5 +30,8 @@
     "dcid": "geoId/0667000",
     "name": "San Francisco",
     "place_type": "City"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "UNRECOGNIZED"
 }

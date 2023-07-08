@@ -956,5 +956,8 @@
     "dcid": "country/GMB",
     "name": "Gambia",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "PAST_QUERY"
 }

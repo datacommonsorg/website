@@ -85,5 +85,8 @@
     "dcid": "country/TUR",
     "name": "Turkey",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

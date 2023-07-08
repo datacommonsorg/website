@@ -48,5 +48,8 @@
     "dcid": "geoId/0644000",
     "name": "Los Angeles",
     "place_type": "City"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

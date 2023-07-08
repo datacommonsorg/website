@@ -297,5 +297,8 @@
     "dcid": "Earth",
     "name": "Earth",
     "place_type": "Place"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

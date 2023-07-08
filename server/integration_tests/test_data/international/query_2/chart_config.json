@@ -99,5 +99,8 @@
     "dcid": "country/CHN",
     "name": "China",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

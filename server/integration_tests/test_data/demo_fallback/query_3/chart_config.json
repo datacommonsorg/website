@@ -413,5 +413,24 @@
     "dcid": "geoId/06",
     "name": "California",
     "place_type": "State"
-  }
+  },
+  "placeFallback": {
+    "newPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "newStr": "California",
+    "origPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "origStr": "counties in California",
+    "origType": "County"
+  },
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

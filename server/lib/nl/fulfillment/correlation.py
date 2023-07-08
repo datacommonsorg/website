@@ -29,7 +29,7 @@ from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.base import handle_contained_in_type
 from server.lib.nl.fulfillment.context import \
-    classifications_of_type_from_context
+    classifications_of_type_from_utterance
 from server.lib.nl.fulfillment.context import places_from_context
 from server.lib.nl.fulfillment.context import svs_from_context
 from server.lib.nl.fulfillment.types import ChartVars
@@ -47,8 +47,7 @@ _MAX_MAIN_SVS = 5
 
 def populate(uttr: Utterance) -> bool:
   # Get the list of CONTAINED_IN classifications in order from current to past.
-  # TODO: Check if we need to look in context here
-  classifications = classifications_of_type_from_context(
+  classifications = classifications_of_type_from_utterance(
       uttr, ClassificationType.CONTAINED_IN)
   if not classifications:
     # If there are no classifications, attempt default type.

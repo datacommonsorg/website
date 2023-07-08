@@ -103,8 +103,8 @@ export const QueryResult = memo(function QueryResult(
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
           let mainPlace = {};
-          // For NL Next, context does not contain the "main place".
           mainPlace = resp.data["place"];
+          const fb = resp.data["placeFallback"];
           setChartsData({
             place: {
               dcid: mainPlace["dcid"],
@@ -116,13 +116,22 @@ export const QueryResult = memo(function QueryResult(
               !props.demoMode && "session" in resp.data
                 ? resp.data["session"]["id"]
                 : "",
+            svSource: resp.data["svSource"],
+            placeSource: resp.data["placeSource"],
+            placeFallback:
+              "origStr" in fb && "newStr" in fb
+                ? {
+                    origStr: fb["origStr"],
+                    newStr: fb["newStr"],
+                  }
+                : null,
           });
         } else {
           setErrorMsg("Sorry, we couldn't answer your question.");
         }
-        // For NL Next, debug info is outside the context.
         const debugData = resp.data["debug"];
         if (debugData !== undefined) {
+          debugData["context"] = context;
           setDebugData(debugData);
         }
         setIsLoading(false);
@@ -166,6 +175,38 @@ export const QueryResult = memo(function QueryResult(
               debugData={debugData}
               pageConfig={chartsData ? chartsData.config : null}
             ></DebugInfo>
+          )}
+          {chartsData && chartsData.placeFallback && (
+            <div className="nl-query-info">
+              Sorry, there was no relevant data for &quot;
+              {chartsData.placeFallback.origStr}&quot;. &nbsp; Here is data
+              about &quot;{chartsData.placeFallback.newStr}&quot; instead.
+            </div>
+          )}
+          {chartsData && chartsData.placeSource === "PAST_QUERY" && (
+            <div className="nl-query-info">
+              Could not recognize any place in this query, so using{" "}
+              {chartsData.place.name} from a prior query.
+            </div>
+          )}
+          {chartsData && chartsData.svSource === "PAST_QUERY" && (
+            <div className="nl-query-info">
+              Could not recognize any topic in this query, so using a topic you
+              previously queried about in this session.
+            </div>
+          )}
+          {chartsData && chartsData.svSource === "UNRECOGNIZED" && (
+            <div className="nl-query-info">
+              Could not recognize any topic from the query. Below are some topic
+              categories with data for {chartsData.place.name}.
+            </div>
+          )}
+          {chartsData && chartsData.svSource === "UNFULFILLED" && (
+            <div className="nl-query-info">
+              Sorry, there was no relevant data about the topic for{" "}
+              {chartsData.place.name}. Below are some topic categories with
+              data.
+            </div>
           )}
           {chartsData && chartsData.config && (
             <NlSessionContext.Provider value={chartsData.sessionId}>

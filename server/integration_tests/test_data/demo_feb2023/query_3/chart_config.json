@@ -30,5 +30,8 @@
     "dcid": "geoId/06061",
     "name": "Placer County",
     "place_type": "County"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

@@ -210,5 +210,8 @@
     "dcid": "africa",
     "name": "Africa",
     "place_type": "Continent"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }
