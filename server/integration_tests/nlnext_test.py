@@ -213,6 +213,18 @@ class IntegrationTest(NLWebServerTestCase):
         'Drought in Africa',
     ])
 
+  def test_demo_usa_map_types(self):
+    self.run_sequence(
+        'usa_map_types',
+        [
+            # This should show ranking and map.
+            'which cities in the Santa Clara County have the highest larceny?',
+            # Shows map of tracts.
+            'household median income across tracts of Placer County',
+            # Shows map of ZCTAs.
+            'how many people are unemployed in zip codes of washington state?'
+        ])
+
   def test_sdg(self):
     self.run_sequence('sdg', [
         'tell me about poverty in africa',
