@@ -346,8 +346,10 @@ export const HistogramTile = memo(function HistogramTile(
         elem.clientHeight,
         histogramData,
         formatNumber,
-        unit,
-        props.eventTypeSpec.color
+        {
+          fillColor: props.eventTypeSpec.color,
+          unit,
+        }
       );
     }
   }

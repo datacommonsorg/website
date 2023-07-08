@@ -30,9 +30,15 @@ test("svg test", () => {
   appendLegendElem(rootEl, color, data);
 
   expect(rootEl.innerHTML).toEqual(
-    '<div class="legend">' +
-      '<div style="background: rgb(147, 0, 0)"><a href="about:blank">San Jose</a></div>' +
-      '<div style="background: rgb(94, 79, 162)"><a href="/foo/bar">Palo Alto</a></div>' +
+    '<div class="legend-basic">' +
+      '<div class="legend-item">' +
+      '<div class="legend-color" style="background: rgb(147, 0, 0)"></div>' +
+      '<a class="legend-link" title="San Jose" href="about:blank">San Jose</a>' +
+      "</div>" +
+      '<div class="legend-item">' +
+      '<div class="legend-color" style="background: rgb(94, 79, 162)"></div>' +
+      '<a class="legend-link" title="Palo Alto" href="/foo/bar">Palo Alto</a>' +
+      "</div>" +
       "</div>"
   );
 });

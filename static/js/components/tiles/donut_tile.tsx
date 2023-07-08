@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,18 @@
  */
 
 /**
- * Component for rendering a bar tile.
+ * Component for rendering a donut tile.
  */
 
 import axios from "axios";
-import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
-import {
-  drawGroupBarChart,
-  drawHorizontalBarChart,
-  drawStackBarChart,
-} from "../../chart/draw";
-import { SortType } from "../../chart/types";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
-import { formatNumber } from "../../i18n/i18n";
+import { drawDonutChart } from "../../chart/draw";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
-import { BarTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
@@ -45,73 +36,58 @@ import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
-const NUM_PLACES = 7;
+const NUM_PLACES = 1000;
 
 const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
 
-export interface BarTilePropType {
-  // API root
-  apiRoot?: string;
-  // Bar height for horizontal bar charts
-  barHeight?: number;
-  // Extra classes to add to the container.
-  className?: string;
-  // A list of related places to show comparison with the main place.
-  comparisonPlaces: string[];
-  enclosedPlaceType: string;
-  horizontal?: boolean;
+export interface DonutTilePropType {
+  // Id for the chart
   id: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
-  // Maximum number of places to display
-  maxPlaces?: number;
+  // Title to put at top of chart
+  title: string;
   // The primary place of the page (disaster, topic, nl)
   place: NamedTypedPlace;
-  // sort order
-  sort?: SortType;
-  // Set to true to draw as a stacked chart instead of a grouped chart
-  stacked?: boolean;
+  // Stat vars to plot
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
-  title: string;
-  // Tile spec with additional information about what to show on this tile
-  tileSpec?: BarTileSpec;
-  // Whether to draw as a lollipop chart instead
-  useLollipop?: boolean;
-  // Y-axis margin / text width
-  yAxisMargin?: number;
+  // Whether to draw as full pie chart instead
+  pie?: boolean;
+  // Extra classes to add to the container.
+  className?: string;
+  // API root
+  apiRoot?: string;
 }
 
-interface BarChartData {
+interface DonutChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
   unit: string;
   dateRange: string;
 }
 
-export function BarTile(props: BarTilePropType): JSX.Element {
+export function DonutTile(props: DonutTilePropType): JSX.Element {
   const chartContainerRef = useRef<HTMLDivElement>(null);
-  const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
-    null
-  );
+  const [donutChartData, setDonutChartData] = useState<
+    DonutChartData | undefined
+  >(null);
 
   useEffect(() => {
-    if (!barChartData) {
+    if (!donutChartData) {
       (async () => {
         const data = await fetchData(props);
-        setBarChartData(data);
+        setDonutChartData(data);
       })();
     }
-  }, [props, barChartData]);
+  }, [props, donutChartData]);
 
   const drawFn = useCallback(() => {
-    if (_.isEmpty(barChartData)) {
+    if (_.isEmpty(donutChartData)) {
       return;
     }
-    draw(props, barChartData, chartContainerRef.current);
-  }, [props, barChartData]);
+    draw(props, donutChartData, chartContainerRef.current);
+  }, [props, donutChartData]);
 
   useDrawOnResize(drawFn, chartContainerRef.current);
 
@@ -119,21 +95,15 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
-      sources={barChartData && barChartData.sources}
-      replacementStrings={getReplacementStrings(props, barChartData)}
+      sources={donutChartData && donutChartData.sources}
+      replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
       getDataCsv={
-        barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
+        donutChartData ? () => dataGroupsToCsv(donutChartData.dataGroup) : null
       }
-      isInitialLoading={_.isNull(barChartData)}
+      isInitialLoading={_.isNull(donutChartData)}
     >
-      {props.isDataTile && barChartData && (
-        <div
-          className={DATA_CSS_CLASS}
-          data-csv={dataGroupsToCsv(barChartData.dataGroup)}
-        />
-      )}
       <div
         id={props.id}
         className="svg-container"
@@ -146,8 +116,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
 
 // Get the ReplacementStrings object used for formatting the title
 export function getReplacementStrings(
-  props: BarTilePropType,
-  chartData: BarChartData
+  props: DonutTilePropType,
+  chartData: DonutChartData
 ): ReplacementStrings {
   return {
     placeName: props.place ? props.place.name : "",
@@ -155,7 +125,7 @@ export function getReplacementStrings(
   };
 }
 
-export const fetchData = async (props: BarTilePropType) => {
+export const fetchData = async (props: DonutTilePropType) => {
   const statVars = [];
   for (const spec of props.statVarSpec) {
     statVars.push(spec.statVar);
@@ -165,22 +135,11 @@ export const fetchData = async (props: BarTilePropType) => {
   }
   // Fetch populations.
   statVars.push(FILTER_STAT_VAR);
-  let url: string;
-  let params;
-  if (!_.isEmpty(props.comparisonPlaces)) {
-    url = `${props.apiRoot || ""}/api/observations/point`;
-    params = {
-      entities: props.comparisonPlaces,
-      variables: statVars,
-    };
-  } else {
-    url = `${props.apiRoot || ""}/api/observations/point/within`;
-    params = {
-      parentEntity: props.place.dcid,
-      childType: props.enclosedPlaceType,
-      variables: statVars,
-    };
-  }
+  const url = `${props.apiRoot || ""}/api/observations/point`;
+  const params = {
+    entities: [props.place.dcid],
+    variables: statVars,
+  };
   try {
     const resp = await axios.get<PointApiResponse>(url, {
       params,
@@ -188,20 +147,16 @@ export const fetchData = async (props: BarTilePropType) => {
     });
 
     // Find the most populated places.
-    const popPoints: RankingPoint[] = [];
+    let popPoints: RankingPoint[] = [];
     for (const place in resp.data.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
         value: resp.data.data[FILTER_STAT_VAR][place].value,
       });
     }
-    // Optionally sort by ascending/descending population
-    if (!props.sort || props.sort === "descendingPopulation") {
-      popPoints.sort((a, b) => b.value - a.value);
-    } else if (props.sort === "ascendingPopulation") {
-      popPoints.sort((a, b) => a.value - b.value);
-    }
-
+    // Take the most populated places.
+    popPoints.sort((a, b) => a.value - b.value);
+    popPoints = popPoints.slice(0, NUM_PLACES);
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
       props.apiRoot
@@ -213,11 +168,11 @@ export const fetchData = async (props: BarTilePropType) => {
 };
 
 function rawToChart(
-  props: BarTilePropType,
+  props: DonutTilePropType,
   rawData: PointApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>
-): BarChartData {
+): DonutChartData {
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
@@ -254,8 +209,7 @@ function rawToChart(
       }
       dataPoints.push(dataPoint);
     }
-    const specLinkRoot = props.tileSpec ? props.tileSpec.xLabelLinkRoot : "";
-    const link = `${specLinkRoot || DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
+    const link = `${DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
     dataGroups.push(
       new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
     );
@@ -263,17 +217,8 @@ function rawToChart(
   if (!_.isEmpty(props.statVarSpec)) {
     unit = props.statVarSpec[0].unit || unit;
   }
-  // Optionally sort ascending/descending by value
-  if (props.sort === "ascending" || props.sort === "descending") {
-    dataGroups.sort(
-      (a, b) =>
-        (d3.sum(a.value.map((v) => v.value)) -
-          d3.sum(b.value.map((v) => v.value))) *
-        (props.sort === "ascending" ? 1 : -1)
-    );
-  }
   return {
-    dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
+    dataGroup: dataGroups,
     sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
@@ -281,52 +226,16 @@ function rawToChart(
 }
 
 export function draw(
-  props: BarTilePropType,
-  chartData: BarChartData,
+  props: DonutTilePropType,
+  chartData: DonutChartData,
   svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
-  if (props.horizontal) {
-    drawHorizontalBarChart(
-      svgContainer,
-      svgWidth || svgContainer.offsetWidth,
-      chartData.dataGroup,
-      formatNumber,
-      {
-        stacked: props.stacked,
-        style: {
-          barHeight: props.barHeight,
-          yAxisMargin: props.yAxisMargin,
-        },
-        unit: chartData.unit,
-      }
-    );
-  } else {
-    if (props.stacked) {
-      drawStackBarChart(
-        svgContainer,
-        props.id,
-        svgWidth || svgContainer.offsetWidth,
-        props.svgChartHeight,
-        chartData.dataGroup,
-        formatNumber,
-        {
-          unit: chartData.unit,
-        }
-      );
-    } else {
-      drawGroupBarChart(
-        svgContainer,
-        props.id,
-        svgWidth || svgContainer.offsetWidth,
-        props.svgChartHeight,
-        chartData.dataGroup,
-        formatNumber,
-        {
-          unit: chartData.unit,
-          lollipop: props.useLollipop,
-        }
-      );
-    }
-  }
+  drawDonutChart(
+    svgContainer,
+    svgWidth || svgContainer.offsetWidth,
+    props.svgChartHeight,
+    chartData.dataGroup,
+    props.pie
+  );
 }
