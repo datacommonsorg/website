@@ -45,7 +45,7 @@
       {
         "Parts": [
           {
-            "QueryPart": "compare obesity",
+            "QueryPart": "obesity",
             "SV": [
               "Percent_Person_Obesity"
             ],

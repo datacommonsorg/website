@@ -113,6 +113,7 @@ class ContainedInPlaceType(str, Enum):
   CONTINENT = "Continent"
 
   ZIP = "CensusZipCodeTabulationArea"
+  CENSUS_TRACT = "CensusTract"
   SCHOOL = "School"
   PUBLIC_SCHOOL = "PublicSchool"
   PRIVATE_SCHOOL = "PrivateSchool"
