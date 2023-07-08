@@ -81,7 +81,7 @@
       {
         "Parts": [
           {
-            "QueryPart": "compare male",
+            "QueryPart": "male",
             "SV": [
               "Count_Person_Male"
             ],
@@ -114,7 +114,7 @@
       {
         "Parts": [
           {
-            "QueryPart": "compare male",
+            "QueryPart": "male",
             "SV": [
               "Count_Person_Male"
             ],
@@ -147,7 +147,7 @@
       {
         "Parts": [
           {
-            "QueryPart": "compare male population",
+            "QueryPart": "male population",
             "SV": [
               "Count_Person_Male"
             ],
@@ -180,7 +180,7 @@
       {
         "Parts": [
           {
-            "QueryPart": "compare male",
+            "QueryPart": "male",
             "SV": [
               "Count_Person_Male"
             ],

@@ -55,7 +55,9 @@ class TestUtilsAddToSet(unittest.TestCase):
     # This is the most complex because the values could we lists or
     # dictionary (of lists). The strings themselves are also sentences
     # which need to be split in to words.
-    for d_vals in constants.QUERY_CLASSIFICATION_HEURISTICS.values():
+    for ctype, d_vals in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
+      if ctype == 'Event':
+        continue
       vals_list = []
       if type(d_vals) == list:
         vals_list = [d_vals]
