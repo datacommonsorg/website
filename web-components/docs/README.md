@@ -27,7 +27,7 @@ must be included for the web components to work.
 </html>
 ```
 
-Each web component is a custom HTML element that takes a number of attributes.
+Each web component is a custom HTML element that takes a _number_ of attributes.
 
 ## Bar Chart
 
@@ -40,28 +40,30 @@ Element Syntax:
 
 Required:
 
-- `childPlaceType` string
+- `childPlaceType` _string_
   - Type of child places to plot.
-- `place` string
+- `place` _string_
   - Type of child places to plot.
-- `title` string
+- `title` _string_
   - Title of the chart.
-- `variable` string
-  - DCID of the variable to plot
+- `variable` _string_
+  - DCID of the variable to plot.
 
 Optional:
 
-- `barHeight` number
+- `barHeight` _number_
   - Bar height for horizontal charts, in px.
-- `comparisonPlaces` string
+- `comparisonPlaces` _string_
   - List of DCIDs of specific places to plot.
   - If provided, `place` and `childPlaceType` will be ignored.
-- `comparisonVariables` string
+  - Use the format `'["list item 1", "list item ,"]'`
+- `comparisonVariables` _string_
   - List of DCIDs of multiple variables to plot.
   - If provided, `variable` will be ignored.
-- `maxPlaces` number
-  - Maximum number of child places to plot
-- `sort` string
+  - Use the format `'["list item 1", "list item ,"]'`
+- `maxPlaces` _number_
+  - Maximum _number_ of child places to plot.
+- `sort` _string_
   - Bar chart sort order
   - Options:
     - `ascending` (ascending by the variable's value)
@@ -70,11 +72,112 @@ Optional:
     - `descendingPopulation` (descending by the place's population)
   - Default: `descendingPopulation`
 
+Styling Options:
+
+- `horizontal` _boolean_
+  - Set to true to draw bars horizontally instead of vertically
+- `stacked` _boolean_
+  - Set to true to draw as stacked bar chart instead of grouped chart
+- `lollipop` _boolean_
+  - Set to true to draw lollipops instead of bars.
+  - Note: only works when `horizontal` is false.
+
 ### Examples
 
-#### 1.
+A bar chart of population for states in the US:
 
-Example here.
+```html
+<datacommons-bar
+    title="Population of US States"
+    place="country/USA"
+    childPlaceType="State"
+    variable="Count_Person"
+></datacommons-bar>
+```
+
+A bar chart of population for specific US states:
+
+```html
+<datacommons-bar
+    title="Population of US States"
+    variable="Count_Person"
+    comparisonPlaces='["geoId/01", "geoId/02"]'
+></datacommons-bar>
+```
+
+A stacked bar chart of population for specific US states:
+
+```html
+<datacommons-bar
+    title="Population of US States"
+    variableDcid="Count_Person"
+    comparisonPlaces='["geoId/01", "geoId/02"]'
+    stacked
+></datacommons-bar>
+```
+
+A horizontal, stacked bar chart of median income for specific US states:
+
+```html
+<datacommons-bar
+    title="Median income by gender"
+    comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+    comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+    stacked
+    horizontal
+    sort="descending"
+></datacommons-bar>
+```
+
+A lollipop chart of population for states in the US:
+
+```html
+<datacommons-bar
+    title="Population of US States"
+    place="country/USA"
+    childPlaceType="State"
+    variable="Count_Person"
+    lollipop
+></datacommons-bar>
+```
+
+## Gauge Chart
+
+Element Syntax:
+```html
+<datacommons-gauge></datacommons-gauge>
+```
+
+### Attributes
+
+Required:
+
+- `childPlaceType` _string_
+  - Type of child places to plot.
+- `max` _number_
+  - Maximum value of the gauge's range.
+- `min` _number_
+  - Minimum value of the gauge's range.
+- `place` _string_
+  - Type of child places to plot.
+- `title` _string_
+  - Title of the chart.
+- `variable` _string_
+  - DCID of the variable to plot.
+
+### Examples
+
+A gauge of the percentage of people who are internet users in the US
+
+```html
+<datacommons-gauge
+    title="Percentage of US Population that are Internet Users"
+    place="country/USA"
+    variable="Count_Person_IsInternetUser_PerCapita"
+    min="0"
+    max="100"
+></datacommons-gauge>
+```
 
 ## Line Chart
 
@@ -87,22 +190,22 @@ Element Syntax:
 
 Required:
 
-- `place` string
+- `place` _string_
   - Type of child places to plot.
-- `title` string
+- `title` _string_
   - Title of the chart.
-- `variables` string
-  - List of DCIDs of the variables to plot
+- `variables` _string_
+  - List of DCIDs of the variables to plot.
+  - Use the format `'["list item 1", "list item ,"]'`
 
 ### Examples
 
-#### 1. US population over time
-
+A line chart of how the population below poverty level in the US changed over time:
 ```html
 <datacommons-line
-  title="US Population Over Time"
-  place="country/USA"
-  variables='["Count_Person"]'
+    title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+    place="country/USA"
+    variables='["Count_Person_BelowPovertyLevelInThePast12Months"]'
 ></datacommons-line>
 ```
 
@@ -117,70 +220,144 @@ Element Syntax:
 
 Required:
 
-- `childPlaceType` string
+- `childPlaceType` _string_
   - Type of child places to plot.
-- `date` string
+- `date` _string_
   - Specific date to show data for.
-  - Date should be formmated in ISO 8601 (e.g. "YYYY", "YYYY-MM", "YYYY-MM-DD")
+  - Date should be formatted in ISO 8601 (e.g. "YYYY", "YYYY-MM", "YYYY-MM-DD")
     and match the format used by the variable being plotted.
-- `place` string
+- `place` _string_
   - Type of child places to plot.
-- `title` string
+- `title` _string_
   - Title of the chart.
-- `variable` string
+- `variable` _string_
   - DCID of the variable to plot
 
 Optional:
 
-- `subscribe` string
+- `subscribe` _string_
   - Event channel to subscribe to.
-  - The event channel must match the event channel of the slider component
+  - The event channel must match the event channel of the [slider component](#map-chart-time-slider)
     controlling the map.
 
 ### Examples
 
-#### 1. Households with no health insurance in US States
+A map of population below poverty level in US States:
 
 ```html
 <datacommons-map
-  title="Households with no health insurance in US States"
-  place="country/USA"
-  childPlaceType="State"
-  variable="Count_Household_NoHealthInsurance"
+    title="Population Below Poverty Level Status in Past Year in States of United States"
+    place="country/USA"
+    childPlaceType="State"
+    variable="Count_Person_BelowPovertyLevelInThePast12Months"
 ></datacommons-map>
 ```
 
-Renders:
-<img src="./assets/no-health-insurance-us-states.png" width="600" />
-
-#### 2. Households with no health insurance in Texas counties
+A map of population below poverty level in US States, in the year 2020:
 
 ```html
 <datacommons-map
-  title="Households with no health insurance in Texas counties"
-  place="geoId/48"
-  enclosedPlaceType="County"
-  variable="Count_Household_NoHealthInsurance"
+    title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+    place="country/USA"
+    childPlaceType="State"
+    variable="Count_Person_BelowPovertyLevelInThePast12Months"
+    date="2020"
 ></datacommons-map>
 ```
 
-Renders:
-<img src="./assets/no-health-insurance-texas-counties.png" width="600" />
+## Map Chart Time Slider
 
+Element Syntax:
+```html
+<datacommons-slider></datacommons-slider>
+```
 
-#### 3. Population below the poverty level in US States
+### Attributes
+
+Required:
+
+- `max` _number_
+  - Maximum slider value.
+- `min` _number_
+  - Minimum slider value
+- `publish` _string_
+  - Event name to publish on slider change
+- `value` _number_
+  - Initial slider value
+
+### Examples
+
+A single slider controlling the date on a map, with event channel name "dc-map":
 
 ```html
+<!-- Date slider example  -->
+<datacommons-slider
+    max="2023"
+    min="1950"
+    publish="dc-year"
+    value="2023"
+></datacommons-slider>
+
+<!-- Map that subscribes to slider changes -->
 <datacommons-map
-  title="Population below the poverty level in US States"
-  place="country/USA"
-  childPlaceType="State"
-  variable="Count_Person_BelowPovertyLevelInThePast12Months"
+    title="Population"
+    place="country/USA"
+    childPlaceType="State"
+    subscribe="dc-map"
+    variable="Count_Person"
 ></datacommons-map>
 ```
 
-Renders:
-<img src="./assets/below-poverty-level-us-states.png" width="600" />
+## Pie / Donut Chart
+
+Element Syntax:
+```html
+<datacommons-pie></datacommons-pie>
+```
+
+### Attributes
+
+Required:
+
+- `date` _string_
+  - Specific date to show data for.
+  - Date should be formatted in ISO 8601 (e.g. "YYYY", "YYYY-MM", "YYYY-MM-DD")
+    and match the format used by the variable being plotted.
+- `place` _string_
+  - Type of child places to plot.
+- `title` _string_
+  - Title of the chart.
+- `comparisonVariables` _string_
+  - List of DCIDs of the variable to plot
+  - Use the format `'["list item 1", "list item ,"]'`
+
+Optional:
+
+- `donut` _boolean_
+  - Set to true to draw as a donut chart instead of a pie chart.
+
+### Examples
+
+A pie chart of median income by gender in California
+
+```html
+<datacommons-pie
+    title="Median Income by gender in California"
+    place="geoId/06"
+    comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+></datacommons-pie>
+```
+
+A donut chart of median income by gender in California
+
+```html
+<datacommons-pie
+    title="Median Income by gender in California"
+    place="geoId/06"
+    comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+    donut
+></datacommons-pie>
+```
 
 ## Ranking Chart
 
@@ -193,28 +370,43 @@ Element Syntax:
 
 Required:
 
-- `childPlaceType` string
+- `childPlaceType` _string_
   - Type of child places to plot.
-- `date` string
-  - Specific date to show data for.
-  - Date should be formmated in ISO 8601 (e.g. "YYYY", "YYYY-MM", "YYYY-MM-DD")
-    and match the format used by the variable being plotted.
-- `place` string
+- `place` _string_
   - Type of child places to plot.
-- `title` string
+- `title` _string_
   - Title of the chart.
-- `variable` string
+- `variable` _string_
   - DCID of the variable to plot
 
 Optional:
 
-- `showLowest` boolean
+- `showLowest` _boolean_
   - Whether to show a lowest-to-highest ranking.
   - To show places with lowest value first, set to true.
   - If not provided, defaults to highest-to-lowest by variable value.
 
 ### Examples
 
-#### 1.
+Show a ranking of US States by population, highest to lowest
 
-Example here.
+```html
+<datacommons-ranking
+    title="US States with the Highest Population"
+    place="country/USA"
+    childPlaceType="State"
+    variable="Count_Person"
+></datacommons-ranking>
+```
+
+Show a ranking of US States by population, lowest to highest
+
+```html
+<datacommons-ranking
+    title="US States with the Lowest Population"
+    place="country/USA"
+    childPlaceType="State"
+    variable="Count_Person"
+    showLowest=true
+></datacommons-ranking>
+```

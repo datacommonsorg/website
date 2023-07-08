@@ -1,6 +1,8 @@
 # Data Commons JS Web Components
 
-Embed [Data Commons](https://datacommons.org) [statistical variable](https://datacommons.org/tools/statvar) observation visualizations in your web application.
+Embed [Data Commons](https://datacommons.org)
+[statistical variable](https://datacommons.org/tools/statvar) observation
+visualizations in your web application.
 
 ## Usage
 
@@ -35,13 +37,27 @@ For a full list of supported charts and attributes, see our
 
 ### Finding DCIDs for Places and Variables
 
-Find data using the [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar).
+Many web component attributes require [DCIDs](), as input. To find the DCID of a
+place or variable:
 
-Example: Inspecting [Health / Health Insurance (Household) / No Health Insurance / Households Without Health Insurance](https://datacommons.org/tools/statvar#sv=Count_Household_NoHealthInsurance) shows us that the statistical variable `Count_Household_NoHealthInsurance` is available in the `United States` (Data Commons ID, or DCID: `country/USA`) at `State`, `County`, and `City` levels.
+1. Search places or variables on the
+   [Data Commons Search Page](https://datacommons.org/search).
+
+2. Use the [Data Commons Graph Browser](https://datacommons.org/browser) to
+   understand the relationship between places. For example, the
+   [country/USA](https://datacommons.org/browser/country/USA) page shows us the
+   DCIDs for all US states and territories.
+
+3. Find properties of variables using the
+   [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar).
+
+Example: Inspecting
+[Health / Health Insurance (Household) / No Health Insurance / Households Without Health Insurance](https://datacommons.org/tools/statvar#sv=Count_Household_NoHealthInsurance)
+shows us that the statistical variable `Count_Household_NoHealthInsurance` is
+available in the `United States` (Data Commons ID, or DCID: `country/USA`) at
+`State`, `County`, and `City` levels.
 
 <img src="./docs/assets/stat-var-explorer.png" width="600"/>
-
-Use the [Data Commons Graph Browser](https://datacommons.org/browser) to understand the relationship between entities. For example, the [country/USA](https://datacommons.org/browser/country/USA) page shows us the DCIDs for all US states and territories.
 
 ## Examples
 
@@ -50,21 +66,3 @@ Basic webpage with examples of each kind of supported chart:
 
 Example of adding some custom javascript to enable dynamic updating of charts:
 [example-dynamic.html](./examples/example-dynamic.html)
-
-## Supported Chart Types
-
-### Bar Chart
-
-<img src="./docs/assets/bar-chart.png" width="400"/>
-
-### Line Chart
-
-<img src="./docs/assets/line-chart.png" width="400"/>
-
-### Map Chart
-
-<img src="./docs/assets/map-chart.png" width="400"/>
-
-### Ranking Chart
-
-<img src="./docs/assets/ranking-chart.png" width="400"/>
