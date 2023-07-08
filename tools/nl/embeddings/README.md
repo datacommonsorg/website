@@ -38,9 +38,21 @@ This is a common sheet across the different index sizes.
    [`data/curated_input/`](data/curated_input/). Note down the embeddings
    file version printed at the end of the run.
 
+   To use the base default sentence_transformer model:
    ```bash
-   ./run.sh (small | medium)
+   ./run.sh -b medium
    ```
+
+   To use the finetuned model in PROD:
+   ```bash
+   ./run.sh -f medium
+   ```
+
+   To use an existing local model, e.g. the locally stored model just built via finetuning, run:
+   ```bash
+   /run.sh -l medium <path_to_local_model>
+   ```
+   
 
 1. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
 

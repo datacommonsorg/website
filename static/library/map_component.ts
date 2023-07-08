@@ -22,6 +22,7 @@ import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
+import { ChartEventDetail } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 
@@ -84,12 +85,34 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   statVarDcid: string;
 
+  // Optional: specific date to show data for
+  @property()
+  date: string;
+
+  // Optional: listen for value changes with this event name
+  @property()
+  subscribe: string;
+
+  firstUpdated(): void {
+    if (this.subscribe) {
+      this.parentElement.addEventListener(
+        this.subscribe,
+        (e: CustomEvent<ChartEventDetail>) => {
+          if (e.detail.property === "date") {
+            this.date = e.detail.value;
+          }
+        }
+      );
+    }
+  }
+
   render(): HTMLElement {
     const place = this.place || this.placeDcid;
     const variable = this.variable || this.statVarDcid;
     const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
     const mapTileProps: MapTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      date: this.date,
       enclosedPlaceType: childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {

@@ -81,7 +81,9 @@ class DevChart extends React.Component<DevChartPropType> {
         false,
         true,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (this.props.type == chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
@@ -91,16 +93,21 @@ class DevChart extends React.Component<DevChartPropType> {
         this.props.height,
         this.props.dataGroups,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (this.props.type == chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
+        this.svgContainerElement.current,
         this.props.id,
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataGroups,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (this.props.type == chartTypeEnum.GROUP_LINE) {
       drawGroupLineChart(
@@ -119,7 +126,9 @@ class DevChart extends React.Component<DevChartPropType> {
         this.props.height,
         this.props.dataPoints,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     }
   }

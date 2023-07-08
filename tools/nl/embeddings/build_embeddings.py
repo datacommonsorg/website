@@ -32,6 +32,12 @@ import utils
 
 FLAGS = flags.FLAGS
 
+# TODO: use only one flag from the two below and "gcs://" prefix to differentiate
+# between local and GCS path.
+flags.DEFINE_string('finetuned_model_gcs', '',
+                    'Existing finetuned model folder name on GCS')
+flags.DEFINE_string('existing_model_path', '',
+                    'Path to an existing model (local)')
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '',
@@ -63,7 +69,8 @@ flags.DEFINE_string('alternatives_filepattern', 'data/alternatives/*.csv',
 MAX_ALTERNATIVES_LIMIT = 50
 
 
-def _make_gcs_embeddings_filename(embeddings_size: str) -> str:
+def _make_gcs_embeddings_filename(embeddings_size: str,
+                                  model_version: str) -> str:
   now = datetime.datetime.now()
 
   month_str = utils.two_digits(now.month)
@@ -72,7 +79,7 @@ def _make_gcs_embeddings_filename(embeddings_size: str) -> str:
   minute_str = utils.two_digits(now.minute)
   second_str = utils.two_digits(now.second)
 
-  return f"embeddings_{embeddings_size}_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.csv"
+  return f"embeddings_{embeddings_size}_{now.year}_{month_str}_{day_str}_{hour_str}_{minute_str}_{second_str}.{model_version}.csv"
 
 
 def _build_embeddings(ctx, texts: List[str], dcids: List[str]) -> pd.DataFrame:
@@ -229,6 +236,19 @@ def main(_):
 
   assert os.path.exists(os.path.join('data'))
 
+  if FLAGS.existing_model_path:
+    assert os.path.exists(FLAGS.existing_model_path)
+
+  use_finetuned_model = False
+  use_local_model = False
+  model_version = FLAGS.model_name_v2
+  if FLAGS.finetuned_model_gcs:
+    use_finetuned_model = True
+    model_version = FLAGS.finetuned_model_gcs
+  elif FLAGS.existing_model_path:
+    use_local_model = True
+    model_version = os.path.basename(FLAGS.existing_model_path)
+
   local_merged_filepath = f'data/preindex/{FLAGS.embeddings_size}/sv_descriptions.csv'
   dup_names_filepath = f'data/preindex/{FLAGS.embeddings_size}/duplicate_names.csv'
   autogen_input_filepattern = f'{FLAGS.autogen_input_basedir}/{FLAGS.embeddings_size}/*.csv'
@@ -236,11 +256,34 @@ def main(_):
   gs = gspread.oauth()
   sc = storage.Client()
   bucket = sc.bucket(FLAGS.bucket_name_v2)
-  model = SentenceTransformer(FLAGS.model_name_v2)
+
+  if use_finetuned_model:
+    ctx_no_model = utils.Context(gs=gs, model=None, bucket=bucket, tmp='/tmp')
+
+    # Check if this model is already downloaded locally.
+    if os.path.exists(os.path.join(ctx_no_model.tmp, model_version)):
+      tuned_model_path = os.path.join(ctx_no_model.tmp, model_version)
+      print(f"Model already downloaded at path: {tuned_model_path}")
+    else:
+      print("Model not previously downloaded locally. Downloading from GCS.")
+      tuned_model_path = utils.download_model_from_gcs(ctx_no_model,
+                                                       model_version)
+      print(f"Model downloaded locally to: {tuned_model_path}")
+
+    model = SentenceTransformer(tuned_model_path)
+
+  elif use_local_model:
+    print(f"Use the local model at: {FLAGS.existing_model_path}")
+    print(f"Extracted model version: {model_version}")
+    model = SentenceTransformer(FLAGS.existing_model_path)
+
+  else:
+    model = SentenceTransformer(FLAGS.model_name_v2)
 
   ctx = utils.Context(gs=gs, model=model, bucket=bucket, tmp='/tmp')
 
-  gcs_embeddings_filename = _make_gcs_embeddings_filename(FLAGS.embeddings_size)
+  gcs_embeddings_filename = _make_gcs_embeddings_filename(
+      FLAGS.embeddings_size, model_version)
   gcs_tmp_out_path = os.path.join(ctx.tmp, gcs_embeddings_filename)
 
   # Process all the data, produce the final dataframes, build the embeddings and return the embeddings dataframe.

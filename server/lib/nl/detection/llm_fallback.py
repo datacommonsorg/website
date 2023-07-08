@@ -13,47 +13,99 @@
 # limitations under the License.
 """Decide whether to fallback to using LLM."""
 
+from enum import Enum
+import logging
 from typing import List
 
 from server.lib.nl.common import counters
-from server.lib.nl.detection import utils
+from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
+import server.lib.nl.detection.utils as dutils
+from server.lib.nl.fulfillment import context
+from shared.lib import constants as sh_constants
 from shared.lib import detected_variables as dvars
+from shared.lib import utils as sh_utils
 
-_COMPLEX_QUERY_TOKEN_THRESHOLD = 8
+
+class NeedLLM(Enum):
+  No = 1
+  ForPlace = 2
+  ForVar = 3
+  Fully = 4
 
 
 #
 # Given a heuristic-based Detection, decides whether we need a call to LLM
 #
 # Here are some examples that should fallback:
-# - poverty vs. asthma in california counties
-# - Prevalence of Asthma in California cities with hispanic population over 10000
-# - Prevalence of Asthma in California cities with the highest hispanic population
 #
-# TODO: Fallback if we detect quantity?
+# - Prevalence of Asthma in counties of California with hispanic population over 10000
+#   => Because we have detected 2 SVs, and its not correlation/comparison.
+# - Prevalence of Asthma in counties of California with the highest hispanic population
+#   => Because we have detected 2 SVs, and its not correlation/comparison.
+# - Number of shakespeare fans in california
+#   => Because we would not have detected any SV, SIZE_TYPE, OVERVIEW, EVENT
+# - Asthma where Obama was born
+#   => Because we would not have detected a Place.
 #
-def need_llm(heuristic: Detection, ctr: counters.Counters) -> bool:
-  # 1. If there was no SV (and it is not an OVERVIEW classification).
-  has_overview = any(cl.type == ClassificationType.OVERVIEW
-                     for cl in heuristic.classifications)
-  if not utils.filter_svs(heuristic.svs_detected.single_sv,
-                          ctr) and not has_overview:
-    ctr.info('info_fallback_no_sv_found', '')
-    return True
+def need_llm(heuristic: Detection, prev_uttr: Utterance,
+             ctr: counters.Counters) -> NeedLLM:
+  need_sv = False
+  need_place = False
+
+  # 1. If there was no SV.
+  if _has_no_sv(heuristic, ctr):
+
+    # For OVERVIEW/SIZE_TYPE/EVENT_TYPE classifications, we don't have SVs,
+    # exclude those.
+    has_sv_classification = any(
+        cl.type == ClassificationType.OVERVIEW or cl.type ==
+        ClassificationType.SIZE_TYPE or cl.type == ClassificationType.EVENT
+        for cl in heuristic.classifications)
+
+    # Check if the context had SVs.
+    if not has_sv_classification and not context.has_sv_in_context(prev_uttr):
+      ctr.info('info_fallback_no_sv_found', '')
+      need_sv = True
 
   # 2. If there was no place.
-  if not heuristic.places_detected or not heuristic.places_detected.places_found:
-    ctr.info('info_fallback_no_place_found', '')
-    return True
+  if _has_no_place(heuristic):
+
+    # For COUNTRY contained-in type, Earth is assumed
+    # (e.g., countries with worst health), so exclude that.
+    #
+    # Also confirm there was no place in the context.
+    ptype = utils.get_contained_in_type(heuristic.classifications)
+    if ptype != ContainedInPlaceType.COUNTRY and not context.has_place_in_context(
+        prev_uttr):
+      ctr.info('info_fallback_no_place_found', '')
+      need_place = True
 
   # 3. Use some heuristics to tell if it is a complex query.
   if _is_complex_query(heuristic, ctr):
     # Callee writes counter.
-    return True
+    need_sv = True
 
-  return False
+  llm_type = NeedLLM.No
+  if need_sv and need_place:
+    llm_type = NeedLLM.Fully
+  elif need_sv:
+    llm_type = NeedLLM.ForVar
+  elif need_place:
+    llm_type = NeedLLM.ForPlace
+
+  return llm_type
+
+
+def _has_no_sv(d: Detection, ctr: counters.Counters) -> bool:
+  return not dutils.filter_svs(d.svs_detected.single_sv, ctr)
+
+
+def _has_no_place(d: Detection) -> bool:
+  return not d.places_detected or not d.places_detected.places_found
 
 
 #
@@ -61,53 +113,65 @@ def need_llm(heuristic: Detection, ctr: counters.Counters) -> bool:
 # multiple SVs.
 #
 def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
-  query = d.original_query
-  query_places = d.places_detected.query_places_mentioned
+  query_places = []
+  if d.places_detected:
+    query_places = d.places_detected.query_places_mentioned
 
-  if not utils.is_multi_sv(d):
-    # If its not a multi-SV query, we just assume its not a complex query.
+  # If its not a multi-SV query, it is not a complex query.
+  if not dutils.is_multi_sv(d):
     return False
 
   # Use the top-multi-sv, whose score exceeds top single-SV.
   multi_sv = d.svs_detected.multi_sv.candidates[0]
 
-  # This may be a multi-sv, but increase that confidence that it
-  # is by checking that the top candidate is either delimiter-separated,
-  # or is delimited by the place name.
+  # Increase confidence that it is a multi-sv case by checking that the top
+  # candidate is either delimiter-separated, or is delimited
+  # by the place name.
+  if not _is_multi_sv_delimited(d, query_places, multi_sv, ctr):
+    return False
 
-  # TODO: Consider if we should skip this altogether.
+  # If there are ~2 SVs, and we have detected comparison/correlation,
+  # we would handle it better ourselves.
+  if len(
+      multi_sv.parts) == 2 and any(cl.type == ClassificationType.COMPARISON or
+                                   cl.type == ClassificationType.CORRELATION
+                                   for cl in d.classifications):
+    ctr.info('info_fallback_dual_sv_correlation', '')
+    return False
 
+  return True
+
+
+#
+# Returns 'YES' *if* sv-parts of the `mult_sv` are delimited by a
+# delimiter or a place in `places_mentioned`.
+#
+# If the sv or place sub-string cannot be found in the query, returns 'UNSURE'.
+#
+# Examples:
+# - poverty vs. income in california
+#   => True (delimited by "vs")
+# - poverty in california cities where income is highest
+#   => True (delimited by place)
+# - poverty in highest income california cities
+#   => False (not delimited)
+# - asthma prevalence in california counties where income is highest
+#   => False *if* we suppose the query_parts detected are:
+#      [asthma prevalence counties] and [income]
+#
+def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
+                           multi_sv: dvars.MultiVarCandidate,
+                           ctr: counters.Counters) -> bool:
   # User had specified a delimiter.  e.g., asthma vs. poverty in ca
   if multi_sv.delim_based:
     disp = ':'.join([p.query_part for p in multi_sv.parts])
     ctr.info('info_fallback_multi_sv_delimiter', disp)
     return True
 
-  # Or if the place name delimits query-parts.
-  # e.g., asthma in ca where poverty rules
-  if _does_place_delimit_query_parts(query, query_places, multi_sv, ctr):
-    # Callee writes counter.
-    return True
+  # Note: since the `query_part` has stop words removed, remove
+  # them and look for delimiters.
+  query = sh_utils.remove_stop_words(d.cleaned_query, sh_constants.STOP_WORDS)
 
-  # This could still be a complex query.  e.g., find asthma where poverty is high in ca cities
-  #
-  # Another useful signal for a complex query is its length.
-  #
-  # TODO: Consider if we should do this ahead of `is_multi_sv` check.
-  n = _num_query_tokens_excluding_places(query, query_places)
-  if n > _COMPLEX_QUERY_TOKEN_THRESHOLD:
-    ctr.info('info_fallback_query_very_long', n)
-    return True
-
-  # TODO:  Add more heuristics.  Perhaps some specific words? (`where`, `with`)
-
-  ctr.info('info_fallback_multi_sv_no_delim', '')
-  return False
-
-
-def _does_place_delimit_query_parts(query: str, places_mentioned: List[str],
-                                    multi_sv: dvars.MultiVarCandidate,
-                                    ctr: counters.Counters) -> bool:
   # Find all sv sub-part indexes.
   vidx_list = []
   for p in multi_sv.parts:
@@ -122,7 +186,7 @@ def _does_place_delimit_query_parts(query: str, places_mentioned: List[str],
     pidx = query.find(place)
     if pidx == -1:
       ctr.err('failed_fallback_placeidxmissing', place)
-      continue
+      return False
 
     # If pidx appears in-between vidx_list indexes, then return true.
     prev = -1
@@ -136,13 +200,5 @@ def _does_place_delimit_query_parts(query: str, places_mentioned: List[str],
         return True
       prev = cur
 
+  ctr.info('info_fallback_multi_sv_no_delim', '')
   return False
-
-
-def _num_query_tokens_excluding_places(query: str,
-                                       places_mentioned: List[str]) -> int:
-  tmp_query = query
-  for place in places_mentioned:
-    tmp_query = tmp_query.replace(place, '')
-  # Split ignores empties.
-  return len(tmp_query.split())

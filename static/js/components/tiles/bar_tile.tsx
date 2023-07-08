@@ -19,11 +19,17 @@
  */
 
 import axios from "axios";
+import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
-import { drawGroupBarChart } from "../../chart/draw";
+import {
+  drawGroupBarChart,
+  drawHorizontalBarChart,
+  drawStackBarChart,
+} from "../../chart/draw";
+import { SortType } from "../../chart/types";
 import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
@@ -45,24 +51,37 @@ const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
 
 export interface BarTilePropType {
-  id: string;
-  title: string;
-  // The primary place of the page (disaster, topic, nl)
-  place: NamedTypedPlace;
+  // API root
+  apiRoot?: string;
+  // Bar height for horizontal bar charts
+  barHeight?: number;
+  // Extra classes to add to the container.
+  className?: string;
   // A list of related places to show comparison with the main place.
   comparisonPlaces: string[];
   enclosedPlaceType: string;
+  horizontal?: boolean;
+  id: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
+  // Maximum number of places to display
+  maxPlaces?: number;
+  // The primary place of the page (disaster, topic, nl)
+  place: NamedTypedPlace;
+  // sort order
+  sort?: SortType;
+  // Set to true to draw as a stacked chart instead of a grouped chart
+  stacked?: boolean;
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
-  // Extra classes to add to the container.
-  className?: string;
+  title: string;
   // Tile spec with additional information about what to show on this tile
   tileSpec?: BarTileSpec;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
-  // API root
-  apiRoot?: string;
+  // Whether to draw as a lollipop chart instead
+  useLollipop?: boolean;
+  // Y-axis margin / text width
+  yAxisMargin?: number;
 }
 
 interface BarChartData {
@@ -169,16 +188,20 @@ export const fetchData = async (props: BarTilePropType) => {
     });
 
     // Find the most populated places.
-    let popPoints: RankingPoint[] = [];
+    const popPoints: RankingPoint[] = [];
     for (const place in resp.data.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
         value: resp.data.data[FILTER_STAT_VAR][place].value,
       });
     }
-    // Take the most populated places.
-    popPoints.sort((a, b) => a.value - b.value);
-    popPoints = popPoints.slice(0, NUM_PLACES);
+    // Optionally sort by ascending/descending population
+    if (!props.sort || props.sort === "descendingPopulation") {
+      popPoints.sort((a, b) => b.value - a.value);
+    } else if (props.sort === "ascendingPopulation") {
+      popPoints.sort((a, b) => a.value - b.value);
+    }
+
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
       props.apiRoot
@@ -240,8 +263,17 @@ function rawToChart(
   if (!_.isEmpty(props.statVarSpec)) {
     unit = props.statVarSpec[0].unit || unit;
   }
+  // Optionally sort ascending/descending by value
+  if (props.sort === "ascending" || props.sort === "descending") {
+    dataGroups.sort(
+      (a, b) =>
+        (d3.sum(a.value.map((v) => v.value)) -
+          d3.sum(b.value.map((v) => v.value))) *
+        (props.sort === "ascending" ? 1 : -1)
+    );
+  }
   return {
-    dataGroup: dataGroups,
+    dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
@@ -254,13 +286,47 @@ export function draw(
   svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
-  drawGroupBarChart(
-    svgContainer,
-    props.id,
-    svgWidth || svgContainer.offsetWidth,
-    props.svgChartHeight,
-    chartData.dataGroup,
-    formatNumber,
-    chartData.unit
-  );
+  if (props.horizontal) {
+    drawHorizontalBarChart(
+      svgContainer,
+      svgWidth || svgContainer.offsetWidth,
+      chartData.dataGroup,
+      formatNumber,
+      {
+        stacked: props.stacked,
+        style: {
+          barHeight: props.barHeight,
+          yAxisMargin: props.yAxisMargin,
+        },
+        unit: chartData.unit,
+      }
+    );
+  } else {
+    if (props.stacked) {
+      drawStackBarChart(
+        svgContainer,
+        props.id,
+        svgWidth || svgContainer.offsetWidth,
+        props.svgChartHeight,
+        chartData.dataGroup,
+        formatNumber,
+        {
+          unit: chartData.unit,
+        }
+      );
+    } else {
+      drawGroupBarChart(
+        svgContainer,
+        props.id,
+        svgWidth || svgContainer.offsetWidth,
+        props.svgChartHeight,
+        chartData.dataGroup,
+        formatNumber,
+        {
+          unit: chartData.unit,
+          lollipop: props.useLollipop,
+        }
+      );
+    }
+  }
 }

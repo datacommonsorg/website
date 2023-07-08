@@ -20,3 +20,4 @@ class Config(_base.Config):
   API_ROOT = 'https://autopush.api.datacommons.org'
   SECRET_PROJECT = 'datcom-website-dev'
   SCHEME = 'http'
+  USE_PALM = True
