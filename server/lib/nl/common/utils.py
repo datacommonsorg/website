@@ -302,7 +302,7 @@ def has_map(place_type: any, places: List[types.Place]) -> bool:
     return True
 
   # If the parent place is in USA, check that the child type +
-  # parent type combination is supports map.
+  # parent type combination supports map.
   if (places[0].country == constants.USA.dcid and
       places[0].place_type in constants.USA_ONLY_MAP_TYPES.get(place_type, [])):
     return True
