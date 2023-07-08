@@ -890,11 +890,11 @@ function drawStackBarChart(
 /**
  * Helper function for plotting dataGroups with rectangular bars.
  * Used by bar charts to render data in classic bar style.
- * @param chart SVG element to draw lollipops in
+ * @param chart SVG element to draw bars in
  * @param colorFn color scale mapping legend labels to colors
  * @param dataGroups grouped data values to plot
  * @param xScale main scale for x-axis values
- * @param xSubScale sub-scale for a single group of lollipops
+ * @param xSubScale sub-scale for a single group of bars
  * @param yScale  scale for y-axis values
  */
 function drawBars(
@@ -1011,8 +1011,7 @@ function drawGroupBarChart(
   chartHeight: number,
   dataGroups: DataGroup[],
   formatNumberFn: (value: number, unit?: string) => string,
-  options?: ChartOptions,
-  useLollipop?: boolean
+  options?: ChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -1098,7 +1097,7 @@ function drawGroupBarChart(
 
   const colorFn = getColorFn(keys);
 
-  if (useLollipop) {
+  if (options?.lollipop) {
     drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
   } else {
     drawBars(chart, colorFn, dataGroups, x0, x1, y);

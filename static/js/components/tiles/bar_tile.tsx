@@ -324,8 +324,8 @@ export function draw(
         formatNumber,
         {
           unit: chartData.unit,
-        },
-        props.useLollipop
+          lollipop: props.useLollipop,
+        }
       );
     }
   }
