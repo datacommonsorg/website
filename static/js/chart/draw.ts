@@ -1912,7 +1912,8 @@ function drawDonutChart(
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
-  drawAsPie: boolean
+  drawAsPie: boolean,
+  options?: ChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -1922,7 +1923,7 @@ function drawDonutChart(
     labelToLink[dataGroup.label] = dataGroup.link;
   }
   const keys = dataGroups[0].value.map((dp) => dp.label);
-  const colorFn = getColorFn(keys);
+  const colorFn = getColorFn(keys, options?.colors);
   // minimum thickness of the donut, in px
   const minArcThickness = 10;
   // how thickness of donut should scale with donut's radius

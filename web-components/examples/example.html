@@ -5,7 +5,8 @@
       rel="stylesheet"
       href="https://datacommons.org/css/nl_interface.min.css"
     />
-    <script src="https://datacommons.org/datacommons.js"></script>
+    <!-- <script src="https://datacommons.org/datacommons.js"></script> -->
+    <script src="http://localhost:8080/datacommons.js"></script>
   </head>
   <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
@@ -64,6 +65,7 @@
       title="US Population by gender"
       place="country/USA"
       comparisonVariables='["Count_Person_Male", "Count_Person_Female"]'
+      colors='["blue", "pink"]'
     ></datacommons-pie>
     <datacommons-pie
       title="US Population by gender"
@@ -127,5 +129,40 @@
       place="country/USA"
       variables='["Count_Person"]'
     ></datacommons-line>
+    <datacommons-line
+    title="Geothermal vs Solar energy generation over time in USA"
+    place="country/USA"
+    variables='["Annual_Generation_Energy_Geothermal", "Annual_Generation_Energy_Solar"]'
+    colors='["green", "orange"]'
+  ></datacommons-line>
+    <h2>Lollipop</h2>
+    <datacommons-bar
+      title="Population in States of United States"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+      lollipop
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Population in Alaska, Alabama, and Arizona"
+      variable="Count_Person"
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      lollipop
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender for Alaska, Alabama, and Arizona"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      lollipop
+      colors='["blue", "pink"]'
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender for counties in Alaska"
+      comparisonVariables="['Median_Income_Person_15OrMoreYears_Male_WithIncome', 'Median_Income_Person_15OrMoreYears_Female_WithIncome']"
+      place="geoId/02"
+      childPlaceType="County"
+      lollipop
+      colors='["blue", "pink"]'
+    ></datacommons-bar>
   </body>
 </html>

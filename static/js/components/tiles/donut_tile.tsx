@@ -42,22 +42,24 @@ const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
 
 export interface DonutTilePropType {
+  // API root
+  apiRoot?: string;
+  // Extra classes to add to the container.
+  className?: string;
+  // Colors to use
+  colors?: string[];
   // Id for the chart
   id: string;
-  // Title to put at top of chart
-  title: string;
+  // Whether to draw as full pie chart instead
+  pie?: boolean;
   // The primary place of the page (disaster, topic, nl)
   place: NamedTypedPlace;
   // Stat vars to plot
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
-  // Whether to draw as full pie chart instead
-  pie?: boolean;
-  // Extra classes to add to the container.
-  className?: string;
-  // API root
-  apiRoot?: string;
+  // Title to put at top of chart
+  title: string;
 }
 
 interface DonutChartData {
@@ -236,6 +238,9 @@ export function draw(
     svgWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
-    props.pie
+    props.pie,
+    {
+      colors: props.colors,
+    }
   );
 }
