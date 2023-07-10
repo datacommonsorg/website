@@ -62,11 +62,11 @@ Optional:
 - `comparisonPlaces` _list of strings_
   - List of DCIDs of specific places to plot.
   - If provided, `place` and `childPlaceType` will be ignored.
-  - Use the format `"list item 1, list item 2"`
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
 - `comparisonVariables` _list of strings_
   - List of DCIDs of multiple variables to plot.
   - If provided, `variable` will be ignored.
-  - Use the format `"list item 1, list item 2"`
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
 - `maxPlaces` _number_
   - Maximum _number_ of child places to plot.
 - `sort` _string_
@@ -107,7 +107,7 @@ A bar chart of population for specific US states:
 <datacommons-bar
     title="Population of US States"
     variable="Count_Person"
-    comparisonPlaces="geoId/01, geoId/02"
+    comparisonPlaces="geoId/01 geoId/02"
 ></datacommons-bar>
 ```
 
@@ -117,7 +117,7 @@ A stacked bar chart of population for specific US states:
 <datacommons-bar
     title="Population of US States"
     variableDcid="Count_Person"
-    comparisonPlaces="geoId/01, geoId/02"
+    comparisonPlaces="geoId/01 geoId/02"
     stacked
 ></datacommons-bar>
 ```
@@ -128,7 +128,7 @@ A horizontal, stacked bar chart of median income for specific US states:
 <datacommons-bar
     title="Median income by gender"
     comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-    comparisonPlaces="geoId/01, geoId/02, geoId/04, geoId/20, geoId/21 ,geoId/22, geoId/23, geoId/24, geoId/25"
+    comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
     stacked
     horizontal
     sort="descending"
@@ -202,7 +202,7 @@ Required:
   - Title of the chart.
 - `variables` _list of strings_
   - List of DCIDs of the variables to plot.
-  - Use the format `"list item 1, list item 2"`
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
 
 ### Examples
 
@@ -335,7 +335,7 @@ Required:
   - Title of the chart.
 - `comparisonVariables` _list of strings_
   - List of DCIDs of the variable to plot
-  - Use the format `"list item 1, list item 2"`
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
 
 Optional:
 
@@ -350,7 +350,7 @@ A pie chart of median income by gender in California
 <datacommons-pie
     title="Median Income by gender in California"
     place="geoId/06"
-    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome, Median_Income_Person_15OrMoreYears_Female_WithIncome"
+    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
 ></datacommons-pie>
 ```
 
@@ -360,7 +360,7 @@ A donut chart of median income by gender in California
 <datacommons-pie
     title="Median Income by gender in California"
     place="geoId/06"
-    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome, Median_Income_Person_15OrMoreYears_Female_WithIncome"
+    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
     donut
 ></datacommons-pie>
 ```
