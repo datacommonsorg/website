@@ -56,9 +56,40 @@
               }
             ],
             "title": "Rate of Population Growth"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
           }
         ],
         "statVarSpec": {
+          "Count_Death_AsAFractionOfCount_Person": {
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
           "FertilityRate_Person_Female": {
             "name": "Fertility Rate",
             "statVar": "FertilityRate_Person_Female"

@@ -78,6 +78,8 @@ export interface BarTilePropType {
   title: string;
   // Tile spec with additional information about what to show on this tile
   tileSpec?: BarTileSpec;
+  // Whether to draw as a lollipop chart instead
+  useLollipop?: boolean;
   // Y-axis margin / text width
   yAxisMargin?: number;
 }
@@ -322,6 +324,7 @@ export function draw(
         formatNumber,
         {
           unit: chartData.unit,
+          lollipop: props.useLollipop,
         }
       );
     }

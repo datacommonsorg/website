@@ -56,6 +56,8 @@ export async function getBarTileResult(
         p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
       )
     : undefined;
+  const useLollipop =
+    tileConfig.barTileSpec && tileConfig.barTileSpec.useLollipop;
   const tileProp = {
     id,
     title: tileConfig.title,
@@ -65,6 +67,7 @@ export async function getBarTileResult(
     apiRoot,
     svgChartHeight: SVG_HEIGHT,
     comparisonPlaces,
+    useLollipop,
   };
   try {
     const chartData = await fetchData(tileProp);

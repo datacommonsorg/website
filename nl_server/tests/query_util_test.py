@@ -93,23 +93,7 @@ class TestPrepareMultivarQuerysets(unittest.TestCase):
           [
               QuerySet(nsplits=2,
                        delim_based=True,
-                       combinations=[
-                           QuerySplit(parts=['compare obesity', 'poverty'])
-                       ]),
-              QuerySet(
-                  nsplits=3,
-                  delim_based=False,
-                  combinations=[
-                      QuerySplit(parts=['compare', 'obesity', 'vs poverty']),
-                      QuerySplit(parts=['compare', 'obesity vs', 'poverty']),
-                      QuerySplit(parts=['compare obesity', 'vs', 'poverty'])
-                  ]),
-              QuerySet(
-                  nsplits=4,
-                  delim_based=False,
-                  combinations=[
-                      QuerySplit(parts=['compare', 'obesity', 'vs', 'poverty'])
-                  ])
+                       combinations=[QuerySplit(parts=['obesity', 'poverty'])]),
           ],
       ],
       [
@@ -118,47 +102,23 @@ class TestPrepareMultivarQuerysets(unittest.TestCase):
               QuerySet(nsplits=2,
                        delim_based=False,
                        combinations=[
-                           QuerySplit(
-                               parts=['show', 'impact climate change drought']),
-                           QuerySplit(
-                               parts=['show impact', 'climate change drought']),
-                           QuerySplit(
-                               parts=['show impact climate', 'change drought']),
-                           QuerySplit(
-                               parts=['show impact climate change', 'drought'])
+                           QuerySplit(parts=['show', 'climate change drought']),
+                           QuerySplit(parts=['show climate', 'change drought']),
+                           QuerySplit(parts=['show climate change', 'drought'])
                        ]),
               QuerySet(
                   nsplits=3,
                   delim_based=False,
                   combinations=[
-                      QuerySplit(
-                          parts=['show', 'impact', 'climate change drought']),
-                      QuerySplit(
-                          parts=['show', 'impact climate', 'change drought']),
-                      QuerySplit(
-                          parts=['show', 'impact climate change', 'drought']),
-                      QuerySplit(
-                          parts=['show impact', 'climate', 'change drought']),
-                      QuerySplit(
-                          parts=['show impact', 'climate change', 'drought']),
-                      QuerySplit(
-                          parts=['show impact climate', 'change', 'drought'])
+                      QuerySplit(parts=['show', 'climate', 'change drought']),
+                      QuerySplit(parts=['show', 'climate change', 'drought']),
+                      QuerySplit(parts=['show climate', 'change', 'drought'])
                   ]),
               QuerySet(
                   nsplits=4,
                   delim_based=False,
                   combinations=[
-                      QuerySplit(
-                          parts=['show', 'impact', 'climate', 'change drought'
-                                ]),
-                      QuerySplit(
-                          parts=['show', 'impact', 'climate change', 'drought'
-                                ]),
-                      QuerySplit(
-                          parts=['show', 'impact climate', 'change', 'drought'
-                                ]),
-                      QuerySplit(
-                          parts=['show impact', 'climate', 'change', 'drought'])
+                      QuerySplit(parts=['show', 'climate', 'change', 'drought'])
                   ])
           ]
       ],
@@ -171,44 +131,23 @@ class TestPrepareMultivarQuerysets(unittest.TestCase):
                   combinations=[
                       QuerySplit(parts=['male population', 'female population'])
                   ]),
-              QuerySet(nsplits=3,
-                       delim_based=False,
-                       combinations=[
-                           QuerySplit(parts=[
-                               'compare', 'male', 'population female population'
-                           ]),
-                           QuerySplit(parts=[
-                               'compare', 'male population', 'female population'
-                           ]),
-                           QuerySplit(parts=[
-                               'compare', 'male population female', 'population'
-                           ]),
-                           QuerySplit(parts=[
-                               'compare male', 'population', 'female population'
-                           ]),
-                           QuerySplit(parts=[
-                               'compare male', 'population female', 'population'
-                           ]),
-                           QuerySplit(parts=[
-                               'compare male population', 'female', 'population'
-                           ])
-                       ]),
+              QuerySet(
+                  nsplits=3,
+                  delim_based=False,
+                  combinations=[
+                      QuerySplit(
+                          parts=['male', 'population', 'female population']),
+                      QuerySplit(
+                          parts=['male', 'population female', 'population']),
+                      QuerySplit(
+                          parts=['male population', 'female', 'population'])
+                  ]),
               QuerySet(
                   nsplits=4,
                   delim_based=False,
                   combinations=[
-                      QuerySplit(parts=[
-                          'compare', 'male', 'population', 'female population'
-                      ]),
-                      QuerySplit(parts=[
-                          'compare', 'male', 'population female', 'population'
-                      ]),
-                      QuerySplit(parts=[
-                          'compare', 'male population', 'female', 'population'
-                      ]),
-                      QuerySplit(parts=[
-                          'compare male', 'population', 'female', 'population'
-                      ])
+                      QuerySplit(
+                          parts=['male', 'population', 'female', 'population'])
                   ])
           ]
       ]

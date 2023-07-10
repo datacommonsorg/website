@@ -164,5 +164,32 @@
       place="country/USA"
       variables='["Count_Person"]'
     ></datacommons-line>
+    <h2>Lollipop</h2>
+    <datacommons-bar
+      title="Population in States of United States"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+      lollipop
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Population in Alaska, Alabama, and Arizona"
+      variable="Count_Person"
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      lollipop
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender for Alaska, Alabama, and Arizona"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      lollipop
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender for counties in Alaska"
+      comparisonVariables="['Median_Income_Person_15OrMoreYears_Male_WithIncome', 'Median_Income_Person_15OrMoreYears_Female_WithIncome']"
+      place="geoId/02"
+      childPlaceType="County"
+      lollipop
+    ></datacommons-bar>
   </body>
 </html>

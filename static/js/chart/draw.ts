@@ -889,14 +889,121 @@ function drawStackBarChart(
 }
 
 /**
+ * Helper function for plotting dataGroups with rectangular bars.
+ * Used by bar charts to render data in classic bar style.
+ * @param chart SVG element to draw bars in
+ * @param colorFn color scale mapping legend labels to colors
+ * @param dataGroups grouped data values to plot
+ * @param xScale main scale for x-axis values
+ * @param xSubScale sub-scale for a single group of bars
+ * @param yScale  scale for y-axis values
+ */
+function drawBars(
+  chart: d3.Selection<SVGElement, unknown, null, undefined>,
+  colorFn: d3.ScaleOrdinal<string, string, never>,
+  dataGroups: DataGroup[],
+  xScale: d3.ScaleBand<string>,
+  xSubScale: d3.ScaleBand<string>,
+  yScale: d3.ScaleLinear<number, number, never>
+): void {
+  chart
+    .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
+    .selectAll("rect")
+    .data((dg) =>
+      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
+    )
+    .join("rect")
+    .classed("g-bar", true)
+    .attr("data-dcid", (d) => d.dcid)
+    .attr("x", (d) => xSubScale(d.key))
+    .attr("y", (d) => yScale(Math.max(0, d.value)))
+    .attr("width", xSubScale.bandwidth())
+    .attr("height", (d) => Math.abs(yScale(0) - yScale(d.value)))
+    .attr("data-d", (d) => d.value)
+    .attr("fill", (d) => colorFn(d.key));
+}
+
+/**
+ * Helper function for plotting dataGroups with lollipops (stem and circle).
+ * Used by bar charts to render data in lollipop style.
+ * @param chart SVG element to draw lollipops in
+ * @param colorFn color scale mapping legend labels to colors
+ * @param dataGroups grouped data values to plot
+ * @param xScale main scale for x-axis values
+ * @param xSubScale sub-scale for a single group of lollipops
+ * @param yScale  scale for y-axis values
+ */
+function drawLollipops(
+  chart: d3.Selection<SVGElement, unknown, null, undefined>,
+  colorFn: d3.ScaleOrdinal<string, string, never>,
+  dataGroups: DataGroup[],
+  xScale: d3.ScaleBand<string>,
+  xSubScale: d3.ScaleBand<string>,
+  yScale: d3.ScaleLinear<number, number, never>
+): void {
+  // draw lollipop stems
+  chart
+    .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
+    .selectAll("line")
+    .data((dg) =>
+      dg.value.map((dp) => ({
+        statVar: dp.label,
+        value: dp.value,
+        dcid: dp.dcid,
+      }))
+    )
+    .join("line")
+    .attr("data-dcid", (d) => d.dcid)
+    .attr("data-d", (d) => d.value)
+    .attr("stroke", (d) => colorFn(d.statVar))
+    .attr("stroke-width", 2)
+    .attr("x1", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
+    .attr("x2", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
+    .attr("y1", yScale(0))
+    .attr("y2", (d) => yScale(d.value));
+
+  // draw circles
+  chart
+    .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
+    .selectAll("circle")
+    .data((dg) =>
+      dg.value.map((dp) => ({
+        statVar: dp.label,
+        value: dp.value,
+        dcid: dp.dcid,
+      }))
+    )
+    .join("circle")
+    .attr("data-dcid", (d) => d.dcid)
+    .attr("data-d", (d) => d.value)
+    .attr("fill", (d) => colorFn(d.statVar))
+    .attr("cx", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
+    .attr("cy", (d) => yScale(d.value))
+    .attr("r", 6);
+}
+
+/**
  * Draw group bar chart.
- * @param containerElement
- * @param id
- * @param chartWidth
- * @param chartHeight
- * @param dataGroups
- * @param formatNumberFn
- * @param unit
+ * @param containerElement Div element chart will be drawn in
+ * @param id id of the chart
+ * @param chartWidth width of chart
+ * @param chartHeight height of chart
+ * @param dataGroups data values to plot
+ * @param formatNumberFn function to format y-axis values
+ * @param options chart options
+ * @param useLollipop whether to use lollipops instead of bars
  */
 function drawGroupBarChart(
   containerElement: HTMLDivElement,
@@ -991,25 +1098,11 @@ function drawGroupBarChart(
 
   const colorFn = getColorFn(keys);
 
-  chart
-    .append("g")
-    .selectAll("g")
-    .data(dataGroups)
-    .join("g")
-    .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
-    .selectAll("rect")
-    .data((dg) =>
-      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
-    )
-    .join("rect")
-    .classed("g-bar", true)
-    .attr("data-dcid", (d) => d.dcid)
-    .attr("x", (d) => x1(d.key))
-    .attr("y", (d) => y(Math.max(0, d.value)))
-    .attr("width", x1.bandwidth())
-    .attr("height", (d) => Math.abs(y(0) - y(d.value)))
-    .attr("data-d", (d) => d.value)
-    .attr("fill", (d) => colorFn(d.key));
+  if (options?.lollipop) {
+    drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
+  } else {
+    drawBars(chart, colorFn, dataGroups, x0, x1, y);
+  }
 
   appendLegendElem(
     containerElement,
