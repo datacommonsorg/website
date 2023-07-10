@@ -874,14 +874,16 @@ function drawStackBarChart(
   );
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const color = getColorFn(keys);
+  const colorFn = options?.colors
+    ? setSpecificColorFn(keys, options?.colors)
+    : getColorFn(keys);
 
   chart
     .selectAll("g")
     .data(series)
     .enter()
     .append("g")
-    .attr("fill", (d) => color(d.key))
+    .attr("fill", (d) => colorFn(d.key))
     .selectAll("rect")
     .data((d) => d)
     .join("rect")
@@ -894,7 +896,7 @@ function drawStackBarChart(
 
   appendLegendElem(
     containerElement,
-    color,
+    colorFn,
     dataGroups[0].value.map((dp) => ({
       label: dp.label,
       link: dp.link,
@@ -1341,7 +1343,9 @@ function drawHorizontalBarChart(
     .rangeRound([marginTop, height - marginBottom])
     .padding(0.15);
 
-  const color = getColorFn(keys);
+  const color = options?.style?.colors
+    ? setSpecificColorFn(keys, options?.style?.colors)
+    : getColorFn(keys);
 
   // Create the SVG container.
   const svg = d3

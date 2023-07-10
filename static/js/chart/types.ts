@@ -159,6 +159,7 @@ export interface HorizontalBarChartOptions extends ChartOptions {
   stacked?: boolean;
   style?: {
     barHeight?: number;
+    colors?: string[];
     yAxisMargin?: number;
   };
 }

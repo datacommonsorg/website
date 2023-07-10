@@ -298,6 +298,7 @@ export function draw(
         stacked: props.stacked,
         style: {
           barHeight: props.barHeight,
+          colors: props.colors,
           yAxisMargin: props.yAxisMargin,
         },
         unit: chartData.unit,
@@ -313,6 +314,7 @@ export function draw(
         chartData.dataGroup,
         formatNumber,
         {
+          colors: props.colors,
           unit: chartData.unit,
         }
       );
