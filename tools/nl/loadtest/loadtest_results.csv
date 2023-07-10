@@ -1,43 +1,43 @@
-Result,Query,NumCharts,ChartTypes,Details
-SUCCESS,family earnings in california,3,['LINE'],"{""driver_init"": 0.8, ""scraping"": 0.06, ""total"": 0.86}"
-SUCCESS,What are the projected temperature extremes across California,8,"['MAP', 'TABLE']","{""driver_init"": 0.86, ""scraping"": 3.23, ""total"": 4.09}"
-SUCCESS,Where were the major fires in the last year in California,2,"['TABLE', 'EVENT_MAP']","{""driver_init"": 0.84, ""scraping"": 2.27, ""total"": 3.11}"
-FAILURE,Tell me about Placer County,0,,500
-SUCCESS,What were the most common jobs in Placer County,2,['BAR'],"{""driver_init"": 0.8, ""scraping"": 2.02, ""total"": 2.82}"
-SUCCESS,Which jobs have grown the most in Placer County,45,['LINE'],"{""driver_init"": 0.81, ""scraping"": 10.16, ""total"": 10.98}"
-SUCCESS,What are the most common health issues in Placer County,1,['BAR'],"{""driver_init"": 0.83, ""scraping"": 1.72, ""total"": 2.55}"
-SUCCESS,Which counties in california have the highest levels of blood pressure,2,"['MAP', 'TABLE']","{""driver_init"": 0.79, ""scraping"": 1.57, ""total"": 2.37}"
-SUCCESS,Which counties in the USA have the highest levels of blood pressure,2,"['MAP', 'TABLE']","{""driver_init"": 0.8, ""scraping"": 8.88, ""total"": 9.68}"
-SUCCESS,How does blood pressure correlate with income across USA,2,['BAR'],"{""driver_init"": 0.81, ""scraping"": 2.06, ""total"": 2.87}"
-FAILURE,What is the meaning of life,0,,500
-SUCCESS,How big are the public schools in Sunnyvale,3,['TABLE'],"{""driver_init"": 0.83, ""scraping"": 1.57, ""total"": 2.4}"
-SUCCESS,What is the prevalence of asthma in Sunnyvale,6,"['LINE', 'BAR']","{""driver_init"": 0.8, ""scraping"": 2.8, ""total"": 3.6}"
-SUCCESS,What is the commute pattern in Sunnyvale,2,['BAR'],"{""driver_init"": 0.85, ""scraping"": 1.78, ""total"": 2.63}"
-SUCCESS,How does the commute pattern in Sunnyvale compare with San Bruno,2,['BAR'],"{""driver_init"": 0.81, ""scraping"": 1.92, ""total"": 2.74}"
-SUCCESS,Which cities in the SF Bay Area have the highest larceny,2,['TABLE'],"{""driver_init"": 0.79, ""scraping"": 1.44, ""total"": 2.23}"
-SUCCESS,What countries in Africa had the greatest increase in life expectancy,122,['LINE'],"{""driver_init"": 0.87, ""scraping"": 26.88, ""total"": 27.75}"
-FAILURE,Number of Shakespeare fans in San Francisco and Chicago.,0,,500
-SUCCESS,Crime in California and Florida,18,['BAR'],"{""driver_init"": 0.81, ""scraping"": 5.98, ""total"": 6.79}"
-SUCCESS,counties in California with highest crime,20,"['LINE', 'BAR']","{""driver_init"": 0.87, ""scraping"": 5.99, ""total"": 6.86}"
-SUCCESS,obesity in California,4,['BAR'],"{""driver_init"": 0.83, ""scraping"": 2.48, ""total"": 3.31}"
-SUCCESS,GDP of countries in the US,23,['LINE'],"{""driver_init"": 0.81, ""scraping"": 6.24, ""total"": 7.05}"
-SUCCESS,Poverty vs. Obesity in California,1,['SCATTER'],"{""driver_init"": 0.81, ""scraping"": 1.43, ""total"": 2.23}"
-SUCCESS,Poverty vs. Obesity in California and Florida,28,['BAR'],"{""driver_init"": 0.82, ""scraping"": 7.67, ""total"": 8.49}"
-SUCCESS,California cities with hispanic population over 10000,1,['BAR'],"{""driver_init"": 0.83, ""scraping"": 1.81, ""total"": 2.65}"
-SUCCESS,Prevalence of Asthma in California cities with hispanic population over 10000,1,['BAR'],"{""driver_init"": 0.9, ""scraping"": 1.86, ""total"": 2.76}"
-SUCCESS,Where are the most rural districts in India,4,"['MAP', 'TABLE']","{""driver_init"": 0.83, ""scraping"": 6.35, ""total"": 7.19}"
-FAILURE,Life expectancy across provinces of China,0,,500
-SUCCESS,GDP of counties in the United Kingdom,2,['MAP'],"{""driver_init"": 0.79, ""scraping"": 2.39, ""total"": 3.18}"
-SUCCESS,Districts in Turkey with the highest fertility rate,4,"['MAP', 'TABLE']","{""driver_init"": 0.8, ""scraping"": 2.05, ""total"": 2.84}"
-SUCCESS,Floods in Brazil,1,['EVENT_MAP'],"{""driver_init"": 0.89, ""scraping"": 1.63, ""total"": 2.52}"
-SUCCESS,Drought in Africa,1,['EVENT_MAP'],"{""driver_init"": 0.89, ""scraping"": 1.9, ""total"": 2.79}"
-SUCCESS,tell me about poverty in africa,13,['MAP'],"{""driver_init"": 0.84, ""scraping"": 4.8, ""total"": 5.64}"
-SUCCESS,which countries in Africa have show the greatest reduction in poverty?,106,['LINE'],"{""driver_init"": 0.88, ""scraping"": 22.23, ""total"": 23.11}"
-SUCCESS,health in the world,20,['MAP'],"{""driver_init"": 0.92, ""scraping"": 11.73, ""total"": 12.65}"
-SUCCESS,Which countries emit the most greenhouse gases?,36,"['MAP', 'TABLE']","{""driver_init"": 0.84, ""scraping"": 14.65, ""total"": 15.49}"
-FAILURE,tell me about palo alto,0,,500
-SUCCESS,US states which have that the cheapest houses,66,['MAP'],"{""driver_init"": 0.79, ""scraping"": 31.26, ""total"": 32.05}"
-SUCCESS,what cheapest houses about in florida,45,"['LINE', 'BAR']","{""driver_init"": 0.91, ""scraping"": 13.59, ""total"": 14.5}"
-SUCCESS,how do the cheapest houses compare across california and new york state and washington state,41,['BAR'],"{""driver_init"": 0.83, ""scraping"": 10.46, ""total"": 11.29}"
-SUCCESS,show me the population of mexico city,1,['LINE'],"{""driver_init"": 0.8, ""scraping"": 1.68, ""total"": 2.48}"
+Result,Query,NumCharts,ChartTypes,NLTime,TileLoadTime,TotalTime
+SUCCESS,family earnings in california,13,['LINE'],0.835,0.26,1.096
+SUCCESS,What are the projected temperature extremes across California,8,"['TABLE', 'MAP']",0.35,0.594,0.944
+SUCCESS,Where were the major fires in the last year in California,1,['EVENT_MAP'],0.436,0.265,0.702
+EMPTY,Tell me about Placer County,0,,0,0,0
+SUCCESS,What were the most common jobs in Placer County,2,['BAR'],0.432,0.091,0.524
+SUCCESS,Which jobs have grown the most in Placer County,45,['LINE'],0.437,1.308,1.746
+SUCCESS,What are the most common health issues in Placer County,1,['BAR'],0.312,0.046,0.359
+SUCCESS,Which counties in california have the highest levels of blood pressure,2,"['TABLE', 'MAP']",0.214,0.153,0.367
+SUCCESS,Which counties in the USA have the highest levels of blood pressure,2,"['TABLE', 'MAP']",0.313,4.998,5.311
+SUCCESS,How does blood pressure correlate with income across USA,2,['BAR'],0.566,0.086,0.653
+EMPTY,What is the meaning of life,0,,0,0,0
+SUCCESS,How big are the public schools in Sunnyvale,3,['TABLE'],0.357,0.094,0.451
+SUCCESS,What is the prevalence of asthma in Sunnyvale,6,"['LINE', 'BAR']",0.524,0.119,0.643
+SUCCESS,What is the commute pattern in Sunnyvale,2,['BAR'],0.395,0.042,0.437
+SUCCESS,How does the commute pattern in Sunnyvale compare with San Bruno,2,['BAR'],0.398,0.081,0.479
+SUCCESS,Which cities in the SF Bay Area have the highest larceny,2,['TABLE'],0.39,0.097,0.488
+SUCCESS,What countries in Africa had the greatest increase in life expectancy,122,['LINE'],0.574,1.618,2.192
+EMPTY,Number of Shakespeare fans in San Francisco and Chicago.,0,,0,0,0
+SUCCESS,Crime in California and Florida,18,['BAR'],0.422,0.28,0.702
+SUCCESS,counties in California with highest crime,20,"['LINE', 'BAR']",0.399,0.27,0.67
+SUCCESS,obesity in California,4,['BAR'],0.518,0.09,0.608
+SUCCESS,GDP of countries in the US,23,['LINE'],0.475,0.405,0.881
+SUCCESS,Poverty vs. Obesity in California,1,['SCATTER'],0.322,0.193,0.516
+SUCCESS,Poverty vs. Obesity in California and Florida,28,['BAR'],0.472,0.502,0.974
+SUCCESS,California cities with hispanic population over 10000,1,['BAR'],0.771,0.06,0.831
+SUCCESS,Prevalence of Asthma in California cities with hispanic population over 10000,1,['BAR'],0.347,0.057,0.405
+SUCCESS,Where are the most rural districts in India,4,"['TABLE', 'MAP']",0.48,2.36,2.84
+SUCCESS,Life expectancy across provinces of China,4,['MAP'],0.379,0.639,1.018
+SUCCESS,GDP of counties in the United Kingdom,2,['MAP'],0.466,0.402,0.869
+SUCCESS,Districts in Turkey with the highest fertility rate,4,"['TABLE', 'MAP']",0.472,0.372,0.844
+SUCCESS,Floods in Brazil,1,['EVENT_MAP'],0.272,0.485,0.757
+SUCCESS,Drought in Africa,1,['EVENT_MAP'],0.231,0.538,0.77
+SUCCESS,tell me about poverty in africa,13,['MAP'],0.364,0.474,0.838
+SUCCESS,which countries in Africa have show the greatest reduction in poverty?,106,['LINE'],0.505,1.201,1.707
+SUCCESS,health in the world,20,['MAP'],0.416,3.486,3.903
+SUCCESS,Which countries emit the most greenhouse gases?,36,"['TABLE', 'MAP']",0.325,3.718,4.044
+EMPTY,tell me about palo alto,0,,0,0,0
+SUCCESS,US states which have that the cheapest houses,30,['MAP'],0.439,9.144,9.583
+SUCCESS,what about cheapest houses in florida,7,"['LINE', 'BAR']",0.485,0.144,0.629
+SUCCESS,how do the cheapest houses compare across california and new york state and washington state,5,['BAR'],0.467,0.151,0.618
+SUCCESS,show me the population of mexico city,1,['LINE'],0.416,0.034,0.45
 FAILURE,counties in the US with the most poverty,0,,502
