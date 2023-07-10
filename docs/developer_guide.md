@@ -158,10 +158,35 @@ View the deployoment at [link](https://dev.datacommons.org).
 Website, mixer, esp can be bundled in one container and running as separate
 processes.
 
-This can be used to bring up a custom Data Commons intance in any deployment
+This can be used to bring up a custom Data Commons intance in your preferred
 environment.
 
-### Build Docker image
+### Obtain API Key
+
+- Get API key for mixer by sending an email to [Data Commons Support](datacommons-support@google.com).
+- [Optional] Provision a Google Maps API key from your GCP project. This is
+  optional and used for place search in various visualization tools.
+
+Set the keys in the following `docker run` commands.
+
+### Test run a custom Data Commons instance
+
+```bash
+docker run -it \
+-e mixer_api_key= \
+-e maps_api_key= \
+-e FLASK_ENV=custom \
+-e ENV_PREFIX=Compose \
+-e USE_LOCAL_MIXER=true \
+-p 8080:8080 \
+gcr.io/datcom-ci/datacommons-website-compose:latest
+```
+
+Now you can access a custom Data Commons site via [localhost](http://localhost:8080).
+
+### Run custom Data Commons with UI modifications
+
+Make code changes and build the image:
 
 ```bash
 docker build \
@@ -170,20 +195,20 @@ docker build \
   -t website-compose .
 ```
 
-### Run Docker container
-
-Get API key for mixer and Google Maps first. Then run:
+Then run the instance:
 
 ```bash
-docker run \
--e mixer_api_key=<key> \
--e maps_api_key=<key> \
+docker run -it \
+-e mixer_api_key= \
+-e maps_api_key= \
 -e FLASK_ENV=custom \
 -e ENV_PREFIX=Compose \
 -e USE_LOCAL_MIXER=true \
 -p 8080:8080 \
 datacommons-website/compose:latest
 ```
+
+Now you can access a custom Data Commons site via [localhost](http://localhost:8080).
 
 ## Run Tests
 

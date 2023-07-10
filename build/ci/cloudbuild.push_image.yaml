@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,8 +20,17 @@ steps:
       - -c
       - |
         set -e
-        DOCKER_BUILDKIT=1 docker build -f build/web_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-website:${_TAG} .
+        DOCKER_BUILDKIT=1
+
+        # Website container
+        docker build -f build/web_server/Dockerfile --target server --tag gcr.io/$_PROJECT_ID/datacommons-website:${_TAG} .
         docker push gcr.io/$_PROJECT_ID/datacommons-website:${_TAG}
+
+        # Bundle container with website, esp and mixer.
+        docker build -f build/web_server/Dockerfile  --target website-compose --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG}
+        docker build -f build/web_server/Dockerfile  --target website-compose --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:latest .
+        docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:latest
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
