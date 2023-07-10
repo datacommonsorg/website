@@ -163,7 +163,7 @@ environment.
 
 ### Obtain API Key
 
-- Get API key for mixer by sending an email to [Data Commons Support](datacommons-support@google.com).
+- Get API key for mixer by sending an email to [Data Commons Support](support@datacommons.org).
 - [Optional] Provision a Google Maps API key from your GCP project. This is
   optional and used for place search in various visualization tools.
 
