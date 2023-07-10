@@ -5,7 +5,8 @@
       rel="stylesheet"
       href="https://datacommons.org/css/nl_interface.min.css"
     />
-    <script src="https://datacommons.org/datacommons.js"></script>
+    <!-- <script src="https://datacommons.org/datacommons.js"></script> -->
+    <script src="http://localhost:8080/datacommons.js"></script>
   </head>
   <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
@@ -22,6 +23,7 @@
       variable="Count_Person"
       comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
       sort="ascending"
+      colors='["#ff0000"]'
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (grouped)"

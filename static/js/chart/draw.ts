@@ -655,6 +655,23 @@ function addYAxis(
 }
 
 /**
+ * Creates a color function mapping labels to specific colors.
+ * Used to allow customization of chart colors. The number and order of colors
+ * passed in should correspond to the labels.
+ *
+ * @param labels labels to map to colors
+ * @param colors colors to assign, as a list of hex color codes
+ * @returns D3 scale mapping labels to its assigned color.
+ */
+function setSpecificColorFn(
+  labels: string[],
+  colors: string[]
+): d3.ScaleOrdinal<string, string> {
+  const range = colors.map((color) => d3.color(color));
+  return d3.scaleOrdinal<string, string>().domain(labels).range(colors);
+}
+
+/**
  * Draw histogram. Used for ranking pages. Labels will not be translated - expects translated place names as labels.
  * @param id
  * @param chartWidth
@@ -1095,7 +1112,13 @@ function drawGroupBarChart(
   );
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const colorFn = getColorFn(keys);
+  const colorFn = options?.colors
+    ? setSpecificColorFn(keys, options?.colors)
+    : getColorFn(keys);
+
+  console.log(keys);
+  console.log(options?.colors);
+  console.log(colorFn.range());
 
   if (options?.lollipop) {
     drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
