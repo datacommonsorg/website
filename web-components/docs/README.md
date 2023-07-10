@@ -59,14 +59,14 @@ Optional:
 
 - `barHeight` _number_
   - Bar height for horizontal charts, in px.
-- `comparisonPlaces` _string_
+- `comparisonPlaces` _list of strings_
   - List of DCIDs of specific places to plot.
   - If provided, `place` and `childPlaceType` will be ignored.
-  - Use the format `'["list item 1", "list item ,"]'`
-- `comparisonVariables` _string_
+  - Use the format `"list item 1, list item 2"`
+- `comparisonVariables` _list of strings_
   - List of DCIDs of multiple variables to plot.
   - If provided, `variable` will be ignored.
-  - Use the format `'["list item 1", "list item ,"]'`
+  - Use the format `"list item 1, list item 2"`
 - `maxPlaces` _number_
   - Maximum _number_ of child places to plot.
 - `sort` _string_
@@ -107,7 +107,7 @@ A bar chart of population for specific US states:
 <datacommons-bar
     title="Population of US States"
     variable="Count_Person"
-    comparisonPlaces='["geoId/01", "geoId/02"]'
+    comparisonPlaces="geoId/01, geoId/02"
 ></datacommons-bar>
 ```
 
@@ -117,7 +117,7 @@ A stacked bar chart of population for specific US states:
 <datacommons-bar
     title="Population of US States"
     variableDcid="Count_Person"
-    comparisonPlaces='["geoId/01", "geoId/02"]'
+    comparisonPlaces="geoId/01, geoId/02"
     stacked
 ></datacommons-bar>
 ```
@@ -128,7 +128,7 @@ A horizontal, stacked bar chart of median income for specific US states:
 <datacommons-bar
     title="Median income by gender"
     comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-    comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+    comparisonPlaces="geoId/01, geoId/02, geoId/04, geoId/20, geoId/21 ,geoId/22, geoId/23, geoId/24, geoId/25"
     stacked
     horizontal
     sort="descending"
@@ -200,9 +200,9 @@ Required:
   - Type of child places to plot.
 - `title` _string_
   - Title of the chart.
-- `variables` _string_
+- `variables` _list of strings_
   - List of DCIDs of the variables to plot.
-  - Use the format `'["list item 1", "list item ,"]'`
+  - Use the format `"list item 1, list item 2"`
 
 ### Examples
 
@@ -211,7 +211,7 @@ A line chart of how the population below poverty level in the US changed over ti
 <datacommons-line
     title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
     place="country/USA"
-    variables='["Count_Person_BelowPovertyLevelInThePast12Months"]'
+    variables="Count_Person_BelowPovertyLevelInThePast12Months"
 ></datacommons-line>
 ```
 
@@ -333,9 +333,9 @@ Required:
   - Type of child places to plot.
 - `title` _string_
   - Title of the chart.
-- `comparisonVariables` _string_
+- `comparisonVariables` _list of strings_
   - List of DCIDs of the variable to plot
-  - Use the format `'["list item 1", "list item ,"]'`
+  - Use the format `"list item 1, list item 2"`
 
 Optional:
 
@@ -350,7 +350,7 @@ A pie chart of median income by gender in California
 <datacommons-pie
     title="Median Income by gender in California"
     place="geoId/06"
-    comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome, Median_Income_Person_15OrMoreYears_Female_WithIncome"
 ></datacommons-pie>
 ```
 
@@ -360,7 +360,7 @@ A donut chart of median income by gender in California
 <datacommons-pie
     title="Median Income by gender in California"
     place="geoId/06"
-    comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome, Median_Income_Person_15OrMoreYears_Female_WithIncome"
     donut
 ></datacommons-pie>
 ```

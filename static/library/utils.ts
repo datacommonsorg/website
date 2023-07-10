@@ -17,14 +17,24 @@
 /** Library of helper functions shared across web components */
 
 /**
- * Custom attribute converter for Array<String> type attributes
- * Models the behavior of the default Lit attribute value converter, but
- * removes the requirement to use double quotes within a list.
+ * Custom attribute converter for Array<String> type attributes.
+ * Parses:
+ *   (1) A comma or space separated list of values
+ *   (2) A JSON formatted list of values
+ * into a Array<String> of values.
+ *
  * @param attributeValue the attribute value provided to the web component
- * @returns JSON parsed list of strings
+ * @returns A string array of attribute values
  */
 export function convertArrayAttribute(attributeValue: string): string[] {
-  // JSON.parse requires double quotes for strings within objects.
-  const cleanedAttributeValue = attributeValue.replaceAll("'", '"');
-  return JSON.parse(cleanedAttributeValue);
+  const openingBrackets = ["(", "[", "{"];
+  if (openingBrackets.includes(attributeValue.charAt(0))) {
+    // Parse as JSON if attribute value begins with a bracket
+    // JSON.parse requires double quotes for strings within objects
+    const cleanedAttributeValue = attributeValue.replaceAll("'", '"');
+    return JSON.parse(cleanedAttributeValue);
+  } else {
+    // Otherwise, parse as whitespace and/or comma separated list
+    return attributeValue.split(/[\s,]+/g);
+  }
 }
