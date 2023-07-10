@@ -24,6 +24,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { convertArrayAttribute } from "./utils";
 
 /**
  * Web component for rendering the datacommons line tile.
@@ -43,21 +44,27 @@ export class DatacommonsLineComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
-  // Title of the chart
-  @property()
-  title!: string;
+  // Optional: colors to use
+  // Length should match number of variables
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  colors?: string[];
 
   // DCID of the parent place
   @property()
   place!: string;
 
+  // Title of the chart
+  @property()
+  title!: string;
+
   // Statistical variable DCIDs
-  @property({ type: Array<string> })
+  @property({ type: Array<string>, converter: convertArrayAttribute })
   variables!: Array<string>;
 
   render(): HTMLElement {
     const tileProps: LineTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       place: {
         dcid: this.place,

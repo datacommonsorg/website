@@ -655,23 +655,6 @@ function addYAxis(
 }
 
 /**
- * Creates a color function mapping labels to specific colors.
- * Used to allow customization of chart colors. The number and order of colors
- * passed in should correspond to the labels.
- *
- * @param labels labels to map to colors
- * @param colors colors to assign, as a list of hex color codes
- * @returns D3 scale mapping labels to its assigned color.
- */
-function setSpecificColorFn(
-  labels: string[],
-  colors: string[]
-): d3.ScaleOrdinal<string, string> {
-  const range = colors.map((color) => d3.color(color));
-  return d3.scaleOrdinal<string, string>().domain(labels).range(colors);
-}
-
-/**
  * Draw histogram. Used for ranking pages. Labels will not be translated - expects translated place names as labels.
  * @param id
  * @param chartWidth
@@ -874,9 +857,7 @@ function drawStackBarChart(
   );
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const colorFn = options?.colors
-    ? setSpecificColorFn(keys, options?.colors)
-    : getColorFn(keys);
+  const colorFn = getColorFn(keys, options?.colors);
 
   chart
     .selectAll("g")
@@ -1114,13 +1095,7 @@ function drawGroupBarChart(
   );
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const colorFn = options?.colors
-    ? setSpecificColorFn(keys, options?.colors)
-    : getColorFn(keys);
-
-  console.log(keys);
-  console.log(options?.colors);
-  console.log(colorFn.range());
+  const colorFn = getColorFn(keys, options.colors);
 
   if (options?.lollipop) {
     drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
@@ -1343,9 +1318,7 @@ function drawHorizontalBarChart(
     .rangeRound([marginTop, height - marginBottom])
     .padding(0.15);
 
-  const color = options?.style?.colors
-    ? setSpecificColorFn(keys, options?.style?.colors)
-    : getColorFn(keys);
+  const color = getColorFn(keys, options?.style.colors);
 
   // Create the SVG container.
   const svg = d3
@@ -1535,7 +1508,7 @@ function drawLineChart(
   const legendText = dataGroups.map((dataGroup) =>
     dataGroup.label ? dataGroup.label : "A"
   );
-  const colorFn = getColorFn(legendText);
+  const colorFn = getColorFn(legendText, options?.colors);
 
   let hasFilledInValues = false;
   const timePoints = new Set<number>();
