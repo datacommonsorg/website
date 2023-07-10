@@ -18,7 +18,7 @@ import datetime
 import logging
 import random
 import time
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
@@ -224,9 +224,13 @@ def parent_place_names(dcid: str) -> List[str]:
 
 
 def get_contained_in_type(
-    uttr: nl_uttr.Utterance) -> types.ContainedInPlaceType:
-  classification = ctx.classifications_of_type_from_utterance(
-      uttr, types.ClassificationType.CONTAINED_IN)
+    uttr_or_classifications: Any) -> types.ContainedInPlaceType:
+  if isinstance(uttr_or_classifications, nl_uttr.Utterance):
+    classification = ctx.classifications_of_type_from_utterance(
+        uttr_or_classifications, types.ClassificationType.CONTAINED_IN)
+  else:
+    classification = ctx.classifications_of_type(
+        uttr_or_classifications, types.ClassificationType.CONTAINED_IN)
   place_type = None
   if (classification and isinstance(classification[0].attributes,
                                     types.ContainedInClassificationAttributes)):
@@ -289,11 +293,21 @@ def has_map(place_type: any, places: List[types.Place]) -> bool:
     place_type = types.ContainedInPlaceType(place_type)
   if place_type == types.ContainedInPlaceType.COUNTRY:
     return True
-  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
-  if not ptype or not places:
-    # Either not an equivalent type or places is empty, no map!
+
+  if not places:
     return False
-  return places[0].country in constants.ADMIN_AREA_MAP_COUNTRIES
+
+  aatype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
+  if aatype and places[0].country in constants.ADMIN_AREA_MAP_COUNTRIES:
+    return True
+
+  # If the parent place is in USA, check that the child type +
+  # parent type combination supports map.
+  if (places[0].country == constants.USA.dcid and
+      places[0].place_type in constants.USA_ONLY_MAP_TYPES.get(place_type, [])):
+    return True
+
+  return False
 
 
 def new_session_id() -> str:

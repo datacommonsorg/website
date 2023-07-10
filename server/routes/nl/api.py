@@ -32,10 +32,11 @@ import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
-import server.lib.nl.detection.heuristic_detector as heuristic_detector
-import server.lib.nl.detection.llm_detector as llm_detector
-import server.lib.nl.detection.llm_fallback as llm_fallback
+from server.lib.nl.detection import utils as dutils
+import server.lib.nl.detection.detector as detector
+from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import RequestedDetectorType
 import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 from server.lib.util import get_nl_disaster_config
@@ -43,10 +44,6 @@ import server.services.bigtable as bt
 import shared.lib.utils as shared_utils
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
-
-_HEURISTIC_DETECTOR = 'heuristic'
-_LLM_DETECTOR = 'llm'
-_HYBRID_DETECTOR = 'hybrid'
 
 
 #
@@ -76,9 +73,8 @@ def data():
     context_history = request.get_json().get('contextHistory', [])
     escaped_context_history = escape(context_history)
 
-  detector_type = request.args.get('detector',
-                                   default=_HEURISTIC_DETECTOR,
-                                   type=str)
+  detector_type = request.args.get(
+      'detector', default=RequestedDetectorType.Heuristic.value, type=str)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
@@ -96,52 +92,22 @@ def data():
   query_detection_debug_logs["original_query"] = query
 
   if not query:
-    logging.info("Query was empty")
-    query_detection = heuristic_detector.detect("", "", embeddings_index_type,
-                                                query_detection_debug_logs,
-                                                counters)
+    query_detection = Detection(original_query=original_query,
+                                cleaned_query=query,
+                                places_detected=None,
+                                svs_detected=dutils.create_sv_detection(
+                                    query, dutils.empty_svs_score_dict()),
+                                classifications=[],
+                                llm_resp={})
     data_dict = dbg.result_with_debug_info(
         data_dict=res,
         status="Aborted: Query was Empty.",
         query_detection=query_detection,
         uttr_history=escaped_context_history,
         debug_counters=counters.get(),
-        query_detection_debug_logs=query_detection_debug_logs,
-        detector='Heuristic Based')
+        query_detection_debug_logs=query_detection_debug_logs)
     logging.info('NL Data API: Empty Exit')
     return data_dict
-
-  if detector_type in [_LLM_DETECTOR, _HYBRID_DETECTOR
-                      ] and 'PALM_API_KEY' not in current_app.config:
-    counters.err('failed_palm_keynotfound', '')
-    detector_type = _HEURISTIC_DETECTOR
-
-  # Query detection routine:
-  # Returns detection for Place, SVs and Query Classifications.
-  start = time.time()
-  if detector_type == _LLM_DETECTOR:
-    actual_detector = 'LLM Based'
-    query_detection = llm_detector.detect(original_query, context_history,
-                                          embeddings_index_type,
-                                          query_detection_debug_logs, counters)
-  else:
-    query_detection = heuristic_detector.detect(str(escape(original_query)),
-                                                query, embeddings_index_type,
-                                                query_detection_debug_logs,
-                                                counters)
-    if detector_type == _HYBRID_DETECTOR:
-      if llm_fallback.need_llm(query_detection, counters):
-        actual_detector = 'Hybrid - LLM Fallback'
-        counters.err('warning_llm_fallback', '')
-        query_detection = llm_detector.detect(original_query, context_history,
-                                              embeddings_index_type,
-                                              query_detection_debug_logs,
-                                              counters)
-      else:
-        actual_detector = 'Hybrid - Heuristic Based'
-    else:
-      actual_detector = 'Heuristic Based'
-  counters.timeit('query_detection', start)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
@@ -152,6 +118,14 @@ def data():
       session_id = utils.new_session_id()
     else:
       session_id = constants.TEST_SESSION_ID
+
+  # Query detection routine:
+  # Returns detection for Place, SVs and Query Classifications.
+  start = time.time()
+  query_detection = detector.detect(detector_type, original_query, query,
+                                    prev_utterance, embeddings_index_type,
+                                    query_detection_debug_logs, counters)
+  counters.timeit('query_detection', start)
 
   start = time.time()
   utterance = fulfillment.fulfill(query_detection, prev_utterance, counters,
@@ -196,8 +170,7 @@ def data():
 
   data_dict = dbg.result_with_debug_info(data_dict, status_str, query_detection,
                                          context_history, dbg_counters,
-                                         query_detection_debug_logs,
-                                         actual_detector)
+                                         query_detection_debug_logs)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
   if current_app.config['LOG_QUERY']:

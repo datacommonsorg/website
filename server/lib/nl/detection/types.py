@@ -113,6 +113,7 @@ class ContainedInPlaceType(str, Enum):
   CONTINENT = "Continent"
 
   ZIP = "CensusZipCodeTabulationArea"
+  CENSUS_TRACT = "CensusTract"
   SCHOOL = "School"
   PUBLIC_SCHOOL = "PublicSchool"
   PRIVATE_SCHOOL = "PrivateSchool"
@@ -346,6 +347,27 @@ class NLClassifier:
   attributes: List[ClassificationAttributes]
 
 
+class ActualDetectorType(str, Enum):
+  """Enum to represent detector types"""
+  Heuristic = "Heuristic Based"
+  LLM = "LLM Based"
+  # No fallback
+  HybridHeuristic = "Hybrid - Heuristic Based"
+  # Fallback to LLM fully
+  HybridLLMFull = "Hybrid - LLM Fallback (Full)"
+  # Fallback to LLM for place detection only
+  HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
+  # Fallback to LLM for variable detection only
+  HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
+
+
+class RequestedDetectorType(str, Enum):
+  """Enum to represent detector types"""
+  Heuristic = "heuristic"
+  LLM = "llm"
+  Hybrid = "hybrid"
+
+
 @dataclass
 class Detection:
   """Detection attributes."""
@@ -355,3 +377,4 @@ class Detection:
   svs_detected: SVDetection
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
+  detector: ActualDetectorType = ActualDetectorType.Heuristic

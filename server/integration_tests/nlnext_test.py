@@ -32,12 +32,20 @@ class IntegrationTest(NLWebServerTestCase):
                    test_dir,
                    queries,
                    idx='small',
-                   check_place_detection=False):
+                   detector='hybrid',
+                   check_place_detection=False,
+                   expected_detectors=[]):
+    if detector == 'heuristic':
+      detection_method = 'Heuristic Based'
+    elif detector == 'llm':
+      detection_method = 'LLM Based'
+    elif detector == 'hybrid':
+      detection_method = 'Hybrid - Heuristic Based'
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(self.get_server_url() +
-                           f'/api/nl/data?q={q}&idx={idx}',
+                           f'/api/nl/data?q={q}&idx={idx}&detector={detector}',
                            json={
                                'contextHistory': ctx
                            }).json()
@@ -66,6 +74,12 @@ class IntegrationTest(NLWebServerTestCase):
             }
             infile.write(json.dumps(dbg_to_write, indent=2))
       else:
+        if not expected_detectors:
+          self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
+            'Query {q} failed!'
+        else:
+          self.assertTrue(dbg.get('detection_type').startswith(expected_detectors[i])), \
+            'Query {q} failed!'
         if not check_place_detection:
           with open(json_file, 'r') as infile:
             expected = json.load(infile)
@@ -95,6 +109,11 @@ class IntegrationTest(NLWebServerTestCase):
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
+
+  def test_textbox_sample_llm(self):
+    # This is the sample advertised in our textbox
+    self.run_sequence('textbox_sample_llm', ['family earnings in california'],
+                      detector='llm')
 
   def test_demo_feb2023(self):
     self.run_sequence('demo_feb2023', [
@@ -142,6 +161,14 @@ class IntegrationTest(NLWebServerTestCase):
             # We should fail fulfilling "Country" type contained-in a country,
             # instead we would pick contained-in from context (County).
             'GDP of countries in the US',
+        ],
+        detector='hybrid',
+        expected_detectors=[
+            'Hybrid - LLM Fallback',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
         ])
 
   def test_demo_multisv(self):
@@ -157,7 +184,9 @@ class IntegrationTest(NLWebServerTestCase):
             "California cities with hispanic population over 10000",
             # Filter query with another SV.
             "Prevalence of Asthma in California cities with hispanic population over 10000",
-        ])
+        ],
+        # Use heuristic because LLM fallback is not very deterministic.
+        detector='heuristic')
 
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',
@@ -183,6 +212,18 @@ class IntegrationTest(NLWebServerTestCase):
         'Floods in Brazil',
         'Drought in Africa',
     ])
+
+  def test_demo_usa_map_types(self):
+    self.run_sequence(
+        'usa_map_types',
+        [
+            # This should show ranking and map.
+            'which cities in the Santa Clara County have the highest larceny?',
+            # Shows map of tracts.
+            'household median income across tracts of Placer County',
+            # Shows map of ZCTAs.
+            'how many people are unemployed in zip codes of washington state?'
+        ])
 
   def test_sdg(self):
     self.run_sequence('sdg', [

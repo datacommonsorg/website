@@ -28,7 +28,7 @@ The generated JSON object must conform to the following JSON Schema:
     "SUB_PLACE_TYPE": {
       "type": "string",
       "description": "Set to the specific place type mentioned in the sentence.",
-      "enum": ["CITY", "COUNTY", "PROVINCE", "DISTRICT", "STATE", "COUNTRY", "HIGH_SCHOOL", "MIDDLE_SCHOOL", "ELEMENTARY_SCHOOL", "PUBLIC_SCHOOL"]
+      "enum": ["CITY", "COUNTY", "PROVINCE", "DISTRICT", "STATE", "COUNTRY", "HIGH_SCHOOL", "MIDDLE_SCHOOL", "ELEMENTARY_SCHOOL", "PUBLIC_SCHOOL", "ZIP", "TRACT"]
     },
     "COMPARE": {
       "type": "string",
