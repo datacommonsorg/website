@@ -19,7 +19,7 @@
 /**
  * Custom attribute converter for Array<String> type attributes.
  * Parses:
- *   (1) A comma or space separated list of values
+ *   (1) A space separated list of values
  *   (2) A JSON formatted list of values
  * into a Array<String> of values.
  *
@@ -27,14 +27,11 @@
  * @returns A string array of attribute values
  */
 export function convertArrayAttribute(attributeValue: string): string[] {
-  const openingBrackets = ["(", "[", "{"];
-  if (openingBrackets.includes(attributeValue.charAt(0))) {
+  if (attributeValue.startsWith("[")) {
     // Parse as JSON if attribute value begins with a bracket
-    // JSON.parse requires double quotes for strings within objects
-    const cleanedAttributeValue = attributeValue.replaceAll("'", '"');
-    return JSON.parse(cleanedAttributeValue);
+    return JSON.parse(attributeValue);
   } else {
-    // Otherwise, parse as whitespace and/or comma separated list
-    return attributeValue.split(/[\s,]+/g);
+    // Otherwise, parse as whitespace separated list
+    return attributeValue.split(/\s+/g);
   }
 }
