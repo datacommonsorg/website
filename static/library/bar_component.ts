@@ -62,6 +62,14 @@ import { convertArrayAttribute } from "./utils";
  *   horizontal
  *   sort="descending"
  * ></datacommons-bar>
+ *
+ * <!-- Lollipop chart of population for specific US states -->
+ * <datacommons-bar
+ *      title="Population of US States"
+ *      variableDcid="Count_Person"
+ *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      lollipop
+ * ></datacommons-bar>
  */
 @customElement("datacommons-bar")
 export class DatacommonsBarComponent extends LitElement {
@@ -147,6 +155,11 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Number })
   yAxisMargin?: number;
 
+  // Optional: Whether to render as a lollipop
+  // Set to true to render using lollipops instead of bars
+  @property({ type: Boolean })
+  lollipop: boolean;
+
   render(): HTMLElement {
     const statVarDcids: string[] = this.comparisonVariables
       ? this.comparisonVariables
@@ -180,6 +193,7 @@ export class DatacommonsBarComponent extends LitElement {
       statVarSpec,
       svgChartHeight: 200,
       title: this.title,
+      useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
     };
     const mountPoint = document.createElement("div");

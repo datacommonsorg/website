@@ -327,6 +327,9 @@ class Model:
         "parish": ContainedInPlaceType.PARISH,
         "town": ContainedInPlaceType.CITY,
         "zip": ContainedInPlaceType.ZIP,
+        "zip code": ContainedInPlaceType.ZIP,
+        "tract": ContainedInPlaceType.CENSUS_TRACT,
+        "census tract": ContainedInPlaceType.CENSUS_TRACT,
         # Schools.
         "high school": ContainedInPlaceType.HIGH_SCHOOL,
         "middle school": ContainedInPlaceType.MIDDLE_SCHOOL,
