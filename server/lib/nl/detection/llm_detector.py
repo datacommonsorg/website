@@ -65,6 +65,8 @@ _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE = {
         'MIDDLE_SCHOOL': types.ContainedInPlaceType.MIDDLE_SCHOOL.value,
         'ELEMENTARY_SCHOOL': types.ContainedInPlaceType.ELEMENTARY_SCHOOL.value,
         'PUBLIC_SCHOOL': types.ContainedInPlaceType.PUBLIC_SCHOOL.value,
+        'ZIP': types.ContainedInPlaceType.ZIP.value,
+        'TRACT': types.ContainedInPlaceType.CENSUS_TRACT.value,
     },
     'GROWTH': {
         'INCREASE': types.TimeDeltaType.INCREASE,

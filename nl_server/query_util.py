@@ -111,8 +111,7 @@ def _prepare_queryset_via_delimiters(query: str,
     return 0
   cleaned_parts = []
   for p in parts:
-    p = utils.remove_stop_words(utils.remove_punctuations(p),
-                                constants.STOP_WORDS)
+    p = utils.remove_stop_words(utils.remove_punctuations(p), ALL_STOP_WORDS)
     if p:
       cleaned_parts.append(p)
   if not cleaned_parts:
@@ -135,7 +134,7 @@ def prepare_multivar_querysets(query: str) -> List[QuerySet]:
   delim_nsplits = _prepare_queryset_via_delimiters(query, querysets)
 
   query = utils.remove_punctuations(query)
-  query = utils.remove_stop_words(query, constants.STOP_WORDS)
+  query = utils.remove_stop_words(query, ALL_STOP_WORDS)
 
   query_parts = [x.strip() for x in query.split(' ') if x.strip()]
   max_splits = min(_MAX_SVS, len(query_parts))

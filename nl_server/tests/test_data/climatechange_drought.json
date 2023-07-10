@@ -1,5 +1,6 @@
 {
   "SV": [
+    "Count_DroughtEvent",
     "dc/topic/ClimateChange",
     "dc/topic/SDG_13",
     "dc/topic/ProjectedClimateExtremes",
@@ -37,7 +38,7 @@
       {
         "Parts": [
           {
-            "QueryPart": "show impact climate change",
+            "QueryPart": "show climate change",
             "SV": [
               "dc/topic/ClimateChange"
             ],
@@ -61,8 +62,9 @@
       {
         "Parts": [
           {
-            "QueryPart": "show impact climate",
+            "QueryPart": "show climate",
             "SV": [
+              "dc/topic/Temperature",
               "dc/topic/ClimateChange",
               "dc/topic/SDG_13"
             ],

@@ -30,6 +30,41 @@
   text-shadow: rgba(0, 0, 0, 0.3) 0px 0 5px;
 }
 
+.legend-basic {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.legend-basic .legend-item {
+  align-items: center;
+  display: flex;
+  font-size: 10px;
+  padding-top: 5px;
+  margin-right: 12px;
+  max-width: calc(100% - 18px);
+}
+
+.legend-basic .legend-item .legend-color {
+  flex-shrink: 0;
+  height: 12px;
+  margin-right: 4px;
+  width: 12px;
+}
+
+.legend-basic .legend-item a.legend-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legend-basic .legend-item a.legend-link:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
 .legend-line {
   stroke-width: 2;
 }

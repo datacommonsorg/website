@@ -73,7 +73,7 @@ QUERY_HANDLERS = {
     QueryType.RANKING_ACROSS_PLACES:
         QueryHandlerConfig(module=ranking_across_places,
                            rank=5,
-                           direct_fallback=QueryType.CONTAINED_IN),
+                           direct_fallback=QueryType.SIMPLE),
 
     # Correlation has a more complex fallback logic captured in next_query_type().
     QueryType.CORRELATION_ACROSS_VARS:
@@ -85,7 +85,7 @@ QUERY_HANDLERS = {
     QueryType.TIME_DELTA_ACROSS_PLACES:
         QueryHandlerConfig(module=time_delta_across_places,
                            rank=8,
-                           direct_fallback=QueryType.CONTAINED_IN),
+                           direct_fallback=QueryType.SIMPLE),
     QueryType.EVENT:
         QueryHandlerConfig(module=event,
                            rank=9,
@@ -93,7 +93,7 @@ QUERY_HANDLERS = {
     QueryType.SIZE_ACROSS_ENTITIES:
         QueryHandlerConfig(module=size_across_entities,
                            rank=10,
-                           direct_fallback=QueryType.CONTAINED_IN),
+                           direct_fallback=QueryType.SIMPLE),
     QueryType.FILTER_WITH_SINGLE_VAR:
         QueryHandlerConfig(module=filter_with_single_var,
                            rank=11,

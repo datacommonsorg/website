@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://datacommons.org/css/nl_interface.min.css"
+    />
+    <script src="https://datacommons.org/datacommons.js"></script>
+  </head>
+  <body style="max-width: 40vw; margin: auto">
+    <h1>Datacommons Web Components</h1>
+    <h2>Bar Chart</h2>
+    <datacommons-bar
+      title="Most populous states in the US"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+      maxPlaces="15"
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Population of select US states"
+      variable="Count_Person"
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
+      sort="ascending"
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender of select US states (grouped)"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender of select US states (stacked)"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
+      stacked
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender of select US states (horizontal, stacked, sorted descending)"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+      stacked
+      horizontal
+      sort="descending"
+    ></datacommons-bar>
+    <datacommons-bar
+      barHeight="6"
+      title="Median income by gender (horizontal, grouped, sorted ascending)"
+      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      place="country/USA"
+      childPlaceType="State"
+      horizontal
+      sort="ascending"
+      maxPlaces="52"
+      yAxisMargin="100"
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender for counties in Alaska"
+      comparisonVariables="['Median_Income_Person_15OrMoreYears_Male_WithIncome', 'Median_Income_Person_15OrMoreYears_Female_WithIncome']"
+      place="geoId/02"
+      childPlaceType="County"
+    ></datacommons-bar>
+    <h2>Pie/Donut</h2>
+    <datacommons-pie
+      title="US Population by gender"
+      place="country/USA"
+      comparisonVariables='["Count_Person_Male", "Count_Person_Female"]'
+    ></datacommons-pie>
+    <datacommons-pie
+      title="US Population by gender"
+      place="country/USA"
+      comparisonVariables='["Count_Person_Male", "Count_Person_Female"]'
+      donut
+    ></datacommons-pie>
+    <h2>Gauge</h2>
+    <datacommons-gauge
+      title="Percentage of US Population that are Internet Users"
+      place="country/USA"
+      variable="Count_Person_IsInternetUser_PerCapita"
+      min="0"
+      max="100"
+    ></datacommons-gauge>
+    <h2>Map</h2>
+    <datacommons-map
+      title="Population"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+    ></datacommons-map>
+    <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
+    <datacommons-map
+      title="California: Annual_ExpectedLoss_NaturalHazardImpact"
+      placeDcid="geoId/06"
+      enclosedPlaceType="County"
+      statVarDcid="Annual_ExpectedLoss_NaturalHazardImpact"
+    ></datacommons-map>
+    <h2>Map with year slider</h2>
+    <datacommons-map
+      title="Population"
+      place="country/USA"
+      childPlaceType="State"
+      subscribe="dc-map"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-slider
+      max="2023"
+      min="1950"
+      publish="dc-map"
+      value="2023"
+    ></datacommons-slider>
+    <h2>Ranking</h2>
+    <datacommons-ranking
+      title="US States with the Highest Population"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+    ></datacommons-ranking>
+    <datacommons-ranking
+      title="US States with the Lowest Population"
+      place="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+      showLowest="true"
+    ></datacommons-ranking>
+    <h3>Line</h3>
+    <datacommons-line
+      title="US Population Over Time"
+      place="country/USA"
+      variables='["Count_Person"]'
+    ></datacommons-line>
+  </body>
+</html>
