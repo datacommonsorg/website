@@ -178,32 +178,32 @@ export const QueryResult = memo(function QueryResult(
           )}
           {chartsData && chartsData.placeFallback && (
             <div className="nl-query-info">
-              Sorry, there was no relevant data for &quot;
-              {chartsData.placeFallback.origStr}&quot;. &nbsp; Here is data
+              Sorry, there was no relevant statistics for &quot;
+              {chartsData.placeFallback.origStr}&quot;. &nbsp; Here are results
               about &quot;{chartsData.placeFallback.newStr}&quot; instead.
             </div>
           )}
           {chartsData && chartsData.placeSource === "PAST_QUERY" && (
             <div className="nl-query-info">
               Could not recognize any place in this query, so using{" "}
-              {chartsData.place.name} from a prior query.
+              {chartsData.place.name} from a prior query in this session.
             </div>
           )}
           {chartsData && chartsData.svSource === "PAST_QUERY" && (
             <div className="nl-query-info">
               Could not recognize any topic in this query, so using a topic you
-              previously queried about in this session.
+              previously asked about in this session.
             </div>
           )}
           {chartsData && chartsData.svSource === "UNRECOGNIZED" && (
             <div className="nl-query-info">
               Could not recognize any topic from the query. Below are some topic
-              categories with data for {chartsData.place.name}.
+              categories with statistics for {chartsData.place.name}.
             </div>
           )}
           {chartsData && chartsData.svSource === "UNFULFILLED" && (
             <div className="nl-query-info">
-              Sorry, there was no relevant data about the topic for{" "}
+              Sorry, there was no relevant statistics about the topic for{" "}
               {chartsData.place.name}. Below are some topic categories with
               data.
             </div>

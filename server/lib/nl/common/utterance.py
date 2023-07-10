@@ -115,11 +115,17 @@ class ChartSpec:
 @dataclass
 class PlaceFallback:
   """Has details on place fallback if there is one."""
+  # The user provided place
   origPlace: Place
+  # The user provided place type.
   origType: ContainedInPlaceType
+  # A display string with user-provided place + type
   origStr: str
+  # The new fallback place
   newPlace: Place
+  # The new fallback type
   newType: ContainedInPlaceType
+  # A display string with the new fallback place + type
   newStr: str
 
 

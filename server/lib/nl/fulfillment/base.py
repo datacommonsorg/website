@@ -409,7 +409,8 @@ def get_default_contained_in_place(state: PopulateState) -> Place:
 
 #
 # This is a key function that determines if this is a place or place-type
-# fallback call, and sets `place_fallback` in Utterance.
+# fallback call, and sets `place_fallback` in Utterance.  The `orig`
+# stuff is what user provided and `new` stuff is what we fallback to.
 #
 # Here are the supported scenarios:
 # 1) Fallback from one place-type to another
@@ -446,7 +447,10 @@ def maybe_set_fallback(state: PopulateState, places: List[Place]):
         # "places in california" but "california" as a state.
         orig_type = ContainedInPlaceType.PLACE
     elif orig_place.place_type == pt.value:
-      # Edge case buggy query, don't set orig_type
+      # This is the edge case where user has provided a
+      # sub-type that matches the main place type,
+      # like, [poverty among countries in USA].
+      # For this buggy query, don't set orig_type.
       pass
     else:
       orig_type = pt
