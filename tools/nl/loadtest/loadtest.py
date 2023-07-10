@@ -24,13 +24,16 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 
 _OUTPUT_FILE = 'loadtest_results.csv'
-_URL = 'https://dev.datacommons.org/nl/screenshot?format=json&q='
+_URL = 'https://dev.datacommons.org/nodejs/query?q='
 
 
 def load_test(query_file, output_file):
   with open(output_file, 'w') as outf:
     writer = csv.writer(outf)
-    writer.writerow(['Result', 'Query', 'NumCharts', 'ChartTypes', 'Details'])
+    writer.writerow([
+        'Result', 'Query', 'NumCharts', 'ChartTypes', 'NLTime', 'TileLoadTime',
+        'TotalTime'
+    ])
     with open(query_file) as inf:
       for row in csv.reader(inf):
         if not row:
@@ -48,11 +51,16 @@ def load_test(query_file, output_file):
         if response.status_code == 200:
           # Parse the JSON response
           data = response.json()
+          if not data.get('charts'):
+            writer.writerow(['EMPTY', query, "0", "", 0, 0, 0])
+            continue
           chart_types = list(set([c['type'] for c in data['charts']]))
           writer.writerow([
               'SUCCESS', query,
               str(len(data['charts'])), chart_types,
-              json.dumps(data['debug']['timing'])
+              data['debug']['timing'].get('getNlResult', 0),
+              data['debug']['timing'].get('getTileResults', 0),
+              data['debug']['timing'].get('total', 0)
           ])
         else:
           print("Request failed with status code:", response.status_code)
