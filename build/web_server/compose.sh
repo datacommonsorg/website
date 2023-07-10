@@ -23,7 +23,7 @@
 
 envoy --config-path /mixer/esp/envoy-config.yaml &
 
-gunicorn --timeout 30 --bind 0.0.0.0:8080 web_app:app
+gunicorn --log-level debug --timeout 30 --bind 0.0.0.0:8080 web_app:app
 
 # Wait for any process to exit
 wait -n
