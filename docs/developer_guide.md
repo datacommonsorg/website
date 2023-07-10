@@ -153,6 +153,38 @@ us-central1 (which is the default) and us-west1.
 
 View the deployoment at [link](https://dev.datacommons.org).
 
+## Run Website in Docker
+
+Website, mixer, esp can be bundled in one container and running as separate
+processes.
+
+This can be used to bring up a custom Data Commons intance in any deployment
+environment.
+
+### Build Docker image
+
+```bash
+docker build \
+  --tag datacommons-website/compose \
+  -f build/web_server/Dockerfile \
+  -t website-compose .
+```
+
+### Run Docker container
+
+Get API key for mixer and Google Maps first. Then run:
+
+```bash
+docker run \
+-e mixer_api_key=<key> \
+-e maps_api_key=<key> \
+-e FLASK_ENV=custom \
+-e ENV_PREFIX=Compose \
+-e USE_LOCAL_MIXER=true \
+-p 8080:8080 \
+datacommons-website/compose:latest
+```
+
 ## Run Tests
 
 ### Install web browser and webdriver
