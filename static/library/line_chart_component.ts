@@ -24,6 +24,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { convertArrayAttribute } from "./utils";
 
 /**
  * Web component for rendering the datacommons line tile.
@@ -52,7 +53,7 @@ export class DatacommonsLineComponent extends LitElement {
   place!: string;
 
   // Statistical variable DCIDs
-  @property({ type: Array<string> })
+  @property({ type: Array<string>, converter: convertArrayAttribute })
   variables!: Array<string>;
 
   render(): HTMLElement {
