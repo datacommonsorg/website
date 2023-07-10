@@ -153,6 +153,63 @@ us-central1 (which is the default) and us-west1.
 
 View the deployoment at [link](https://dev.datacommons.org).
 
+## Run Website in Docker
+
+Website, mixer, esp can be bundled in one container and running as separate
+processes.
+
+This can be used to bring up a custom Data Commons intance in your preferred
+environment.
+
+### Obtain API Key
+
+- Get API key for mixer by sending an email to [Data Commons Support](support@datacommons.org).
+- [Optional] Provision a Google Maps API key from your GCP project. This is
+  optional and used for place search in various visualization tools.
+
+Set the keys in the following `docker run` commands.
+
+### Test run a custom Data Commons instance
+
+```bash
+docker run -it \
+-e mixer_api_key= \
+-e maps_api_key= \
+-e FLASK_ENV=custom \
+-e ENV_PREFIX=Compose \
+-e USE_LOCAL_MIXER=true \
+-p 8080:8080 \
+gcr.io/datcom-ci/datacommons-website-compose:latest
+```
+
+Now you can access a custom Data Commons site via [localhost](http://localhost:8080).
+
+### Run custom Data Commons with UI modifications
+
+Make code changes and build the image:
+
+```bash
+docker build \
+  --tag datacommons-website/compose \
+  -f build/web_server/Dockerfile \
+  -t website-compose .
+```
+
+Then run the instance:
+
+```bash
+docker run -it \
+-e mixer_api_key= \
+-e maps_api_key= \
+-e FLASK_ENV=custom \
+-e ENV_PREFIX=Compose \
+-e USE_LOCAL_MIXER=true \
+-p 8080:8080 \
+datacommons-website/compose:latest
+```
+
+Now you can access a custom Data Commons site via [localhost](http://localhost:8080).
+
 ## Run Tests
 
 ### Install web browser and webdriver
