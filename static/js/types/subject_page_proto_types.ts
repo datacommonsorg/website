@@ -98,6 +98,7 @@ export interface ScatterTileSpec {
 
 export interface BarTileSpec {
   xLabelLinkRoot?: string;
+  useLollipop?: boolean;
 }
 
 export interface GaugeTileSpec {

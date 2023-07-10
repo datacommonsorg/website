@@ -1,0 +1,89 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Larceny Theft Cases"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft_pc"
+                    ],
+                    "title": "Per Capita Larceny Theft Cases in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft_pc"
+                    ],
+                    "title": "Per Capita Larceny Theft Cases in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_CriminalActivities_LarcenyTheft": {
+            "name": "Larceny Theft Cases",
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
+          },
+          "Count_CriminalActivities_LarcenyTheft_pc": {
+            "denom": "Count_Person",
+            "name": "Larceny Theft Cases",
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "County": "City"
+      },
+      "placeDcid": [
+        "geoId/06085"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "place": {
+    "dcid": "geoId/06085",
+    "name": "Santa Clara County",
+    "place_type": "County"
+  }
+}
