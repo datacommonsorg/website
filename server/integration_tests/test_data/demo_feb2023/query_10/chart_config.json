@@ -1,10 +1,249 @@
 {
-  "config": {},
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT_FEMALE",
+                      "sdg/SH_FPL_MTMM_15-49_FEMALE",
+                      "sdg/SP_DYN_ADKL_15-19_FEMALE",
+                      "sdg/SH_STA_ANEM_15-49_FEMALE"
+                    ],
+                    "title": "Women's health in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's health"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_IMRT_LT1Y",
+                      "sdg/SH_DYN_MORT_LT5Y",
+                      "sdg/SH_DYN_NMRT_LT1M"
+                    ],
+                    "title": "Preventable newborn and children deaths in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Preventable newborn and children deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_HIV_INCD",
+                      "sdg/SH_TBS_INCD",
+                      "sdg/SH_HAP_HBSAG_LT5Y",
+                      "sdg/SH_TRP_INTVN"
+                    ],
+                    "title": "Ending epidemics in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Ending epidemics"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_ACS_UNHC",
+                      "sdg/SH_XPD_EARN10",
+                      "sdg/SH_XPD_EARN25"
+                    ],
+                    "title": "Health coverage and financial risk in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Health coverage and financial risk"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_PRV_SMOK_15GEQ",
+                      "sdg/SH_SUD_ALCOL_15GEQ"
+                    ],
+                    "title": "Tobacco and alcohol in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Tobacco and alcohol"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_MED_DEN_PHYS",
+                      "sdg/SH_MED_DEN_NURSMID",
+                      "sdg/SH_MED_DEN_PHAR",
+                      "sdg/SH_MED_DEN_DENT"
+                    ],
+                    "title": "Health worker density in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Health worker density"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person",
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy compared with other variables in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "LifeExpectancy_Person": {
+            "name": "Life Expectancy",
+            "statVar": "LifeExpectancy_Person"
+          },
+          "sdg/SH_ACS_UNHC": {
+            "name": "Universal health coverage index",
+            "statVar": "sdg/SH_ACS_UNHC"
+          },
+          "sdg/SH_DYN_IMRT_LT1Y": {
+            "name": "Infant mortality rate",
+            "statVar": "sdg/SH_DYN_IMRT_LT1Y"
+          },
+          "sdg/SH_DYN_MORT_LT5Y": {
+            "name": "Mortality rate for children under 5 years",
+            "statVar": "sdg/SH_DYN_MORT_LT5Y"
+          },
+          "sdg/SH_DYN_NMRT_LT1M": {
+            "name": "Neonatal mortality rate",
+            "statVar": "sdg/SH_DYN_NMRT_LT1M"
+          },
+          "sdg/SH_FPL_MTMM_15-49_FEMALE": {
+            "name": "Access to modern family planning for women",
+            "statVar": "sdg/SH_FPL_MTMM_15-49_FEMALE"
+          },
+          "sdg/SH_HAP_HBSAG_LT5Y": {
+            "name": "Prevalence of hepatitis B in children under 5 years",
+            "statVar": "sdg/SH_HAP_HBSAG_LT5Y"
+          },
+          "sdg/SH_HIV_INCD": {
+            "name": "Incidence of HIV infections",
+            "statVar": "sdg/SH_HIV_INCD"
+          },
+          "sdg/SH_MED_DEN_DENT": {
+            "name": "Density of dentists",
+            "statVar": "sdg/SH_MED_DEN_DENT"
+          },
+          "sdg/SH_MED_DEN_NURSMID": {
+            "name": "Density of nurses and midwives",
+            "statVar": "sdg/SH_MED_DEN_NURSMID"
+          },
+          "sdg/SH_MED_DEN_PHAR": {
+            "name": "Density of pharmacists",
+            "statVar": "sdg/SH_MED_DEN_PHAR"
+          },
+          "sdg/SH_MED_DEN_PHYS": {
+            "name": "Density of medical doctors",
+            "statVar": "sdg/SH_MED_DEN_PHYS"
+          },
+          "sdg/SH_PRV_SMOK_15GEQ": {
+            "name": "Prevalence of tobacco use",
+            "statVar": "sdg/SH_PRV_SMOK_15GEQ"
+          },
+          "sdg/SH_STA_ANEM_15-49_FEMALE": {
+            "name": "Prevalence on anaemia in women",
+            "statVar": "sdg/SH_STA_ANEM_15-49_FEMALE"
+          },
+          "sdg/SH_STA_MORT_FEMALE": {
+            "name": "Maternal mortality ratio",
+            "statVar": "sdg/SH_STA_MORT_FEMALE"
+          },
+          "sdg/SH_SUD_ALCOL_15GEQ": {
+            "name": "Prevalence of alcohol use disorder",
+            "statVar": "sdg/SH_SUD_ALCOL_15GEQ"
+          },
+          "sdg/SH_TBS_INCD": {
+            "name": "Incidence of Tuberculosis",
+            "statVar": "sdg/SH_TBS_INCD"
+          },
+          "sdg/SH_TRP_INTVN": {
+            "name": "Need for intervention against neglected tropical diseases",
+            "statVar": "sdg/SH_TRP_INTVN"
+          },
+          "sdg/SH_XPD_EARN10": {
+            "name": "Population with health spending over 10% of household expenditure or income",
+            "statVar": "sdg/SH_XPD_EARN10"
+          },
+          "sdg/SH_XPD_EARN25": {
+            "name": "Population with health spending over 25% of household expenditure or income",
+            "statVar": "sdg/SH_XPD_EARN25"
+          },
+          "sdg/SP_DYN_ADKL_15-19_FEMALE": {
+            "name": "Birth rate for adolescent women",
+            "statVar": "sdg/SP_DYN_ADKL_15-19_FEMALE"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
   "context": {},
   "debug": {},
   "place": {
-    "dcid": "",
-    "name": "",
-    "place_type": ""
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
   }
 }

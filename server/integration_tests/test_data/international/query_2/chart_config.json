@@ -24,9 +24,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "LifeExpectancy_Person_Male"
+                      "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Male Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -39,9 +39,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female"
+                      "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "title": "Male Life Expectancy in Administrative Area 1 Places of China (${date})",
                     "type": "MAP"
                   }
                 ]

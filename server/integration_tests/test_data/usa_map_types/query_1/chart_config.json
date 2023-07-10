@@ -55,9 +55,186 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Property Related Crimes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime_pc"
+                    ],
+                    "title": "Per Capita Property Related Crimes in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime_pc"
+                    ],
+                    "title": "Per Capita Property Related Crimes in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime"
+                    ],
+                    "title": "Criminal Activities in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime"
+                    ],
+                    "title": "Criminal Activities in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Criminal Activities"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime_pc"
+                    ],
+                    "title": "Per Capita Criminal Activities in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime_pc"
+                    ],
+                    "title": "Per Capita Criminal Activities in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape"
+                    ],
+                    "title": "Forcible Rapes in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape"
+                    ],
+                    "title": "Forcible Rapes in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Forcible Rapes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape_pc"
+                    ],
+                    "title": "Per Capita Forcible Rapes in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape_pc"
+                    ],
+                    "title": "Per Capita Forcible Rapes in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
+          "Count_CriminalActivities_CombinedCrime": {
+            "name": "Criminal Activities",
+            "statVar": "Count_CriminalActivities_CombinedCrime"
+          },
+          "Count_CriminalActivities_CombinedCrime_pc": {
+            "denom": "Count_Person",
+            "name": "Criminal Activities",
+            "statVar": "Count_CriminalActivities_CombinedCrime"
+          },
+          "Count_CriminalActivities_ForcibleRape": {
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
+          },
+          "Count_CriminalActivities_ForcibleRape_pc": {
+            "denom": "Count_Person",
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
+          },
           "Count_CriminalActivities_LarcenyTheft": {
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
@@ -66,6 +243,15 @@
             "denom": "Count_Person",
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
+          },
+          "Count_CriminalActivities_PropertyCrime": {
+            "name": "Property Related Crimes",
+            "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
+          "Count_CriminalActivities_PropertyCrime_pc": {
+            "denom": "Count_Person",
+            "name": "Property Related Crimes",
+            "statVar": "Count_CriminalActivities_PropertyCrime"
           }
         }
       }

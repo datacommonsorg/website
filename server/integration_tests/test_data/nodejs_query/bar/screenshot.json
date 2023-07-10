@@ -1,40 +1,14 @@
 {
   "charts": [
     {
+      "svg": "",
       "data_csv": "label,Santa Clara County\r\nManufacturing,167062\r\n\"Professional, Scientific, and Technical Services\",162317\r\nHealth Care and Social Assistance Industry,134139\r\nInformation Industry,106824\r\nAccommodation and Food Services Industry,84154\r\nRetail Trade,79002\r\nAdministrative and Support and Waste Management Services Industry,59443\r\nConstruction Industry,51764\r\nEducational Services Industry,44652\r\nWholesale Trade,29952\r\nPublic Administration,27618\r\n\"Other Services, Except Public Administration\",26911\r\nFinance and Insurance Industry,22498\r\nTransportation and Warehousing,19134\r\n\"Arts, Entertainment, and Recreation Industry\",17877\r\nReal Estate and Rental and Leasing,16068\r\nUtilities,3281\r\n\"Agriculture, Forestry, Fishing, and Hunting Industry\",3099\r\n\"Mining, Quarrying, and Oil and Gas Extraction Industry\",152",
-      "legend": [
-        "Manufacturing",
-        "Professional, Scientific, and Technical Services",
-        "Health Care and Social Assistance Industry",
-        "Information Industry",
-        "Accommodation and Food Services Industry",
-        "Retail Trade",
-        "Administrative and Support and Waste Management Services Industry",
-        "Construction Industry",
-        "Educational Services Industry",
-        "Wholesale Trade",
-        "Public Administration",
-        "Other Services, Except Public Administration",
-        "Finance and Insurance Industry",
-        "Transportation and Warehousing",
-        "Arts, Entertainment, and Recreation Industry",
-        "Real Estate and Rental and Leasing",
-        "Utilities",
-        "Agriculture, Forestry, Fishing, and Hunting Industry",
-        "Mining, Quarrying, and Oil and Gas Extraction Industry"
-      ],
       "srcs": [
         {
           "name": "bls.gov",
           "url": "https://www.bls.gov/qcew/"
         }
       ],
-      "svg": "",
-      "title": "Categories of Jobs in Santa Clara County (2020-Mar)",
-      "type": "BAR"
-    },
-    {
-      "data_csv": "label,Santa Clara County\r\nManufacturing,0.0886031774991143\r\n\"Professional, Scientific, and Technical Services\",0.08608661432356692\r\nHealth Care and Social Assistance Industry,0.07114210069647013\r\nInformation Industry,0.0566552886543043\r\nAccommodation and Food Services Industry,0.044632003682827125\r\nRetail Trade,0.04189958356050465\r\nAdministrative and Support and Waste Management Services Industry,0.03152625181118298\r\nConstruction Industry,0.027453609319080058\r\nEducational Services Industry,0.02368168154152621\r\nWholesale Trade,0.015885374127290894\r\nPublic Administration,0.014647511439887817\r\n\"Other Services, Except Public Administration\",0.0142725461785365\r\nFinance and Insurance Industry,0.011932062871120143\r\nTransportation and Warehousing,0.010147928303672008\r\n\"Arts, Entertainment, and Recreation Industry\",0.0094812644655976\r\nReal Estate and Rental and Leasing,0.008521841328702928\r\nUtilities,0.0017401146004153787\r\n\"Agriculture, Forestry, Fishing, and Hunting Industry\",0.0016435888895724652\r\n\"Mining, Quarrying, and Oil and Gas Extraction Industry\",0.00008061487938529033",
       "legend": [
         "Manufacturing",
         "Professional, Scientific, and Technical Services",
@@ -56,6 +30,12 @@
         "Agriculture, Forestry, Fishing, and Hunting Industry",
         "Mining, Quarrying, and Oil and Gas Extraction Industry"
       ],
+      "title": "Categories of Jobs in Santa Clara County (2020-Mar)",
+      "type": "BAR"
+    },
+    {
+      "svg": "",
+      "data_csv": "label,Santa Clara County\r\nManufacturing,0.0886031774991143\r\n\"Professional, Scientific, and Technical Services\",0.08608661432356692\r\nHealth Care and Social Assistance Industry,0.07114210069647013\r\nInformation Industry,0.0566552886543043\r\nAccommodation and Food Services Industry,0.044632003682827125\r\nRetail Trade,0.04189958356050465\r\nAdministrative and Support and Waste Management Services Industry,0.03152625181118298\r\nConstruction Industry,0.027453609319080058\r\nEducational Services Industry,0.02368168154152621\r\nWholesale Trade,0.015885374127290894\r\nPublic Administration,0.014647511439887817\r\n\"Other Services, Except Public Administration\",0.0142725461785365\r\nFinance and Insurance Industry,0.011932062871120143\r\nTransportation and Warehousing,0.010147928303672008\r\n\"Arts, Entertainment, and Recreation Industry\",0.0094812644655976\r\nReal Estate and Rental and Leasing,0.008521841328702928\r\nUtilities,0.0017401146004153787\r\n\"Agriculture, Forestry, Fishing, and Hunting Industry\",0.0016435888895724652\r\n\"Mining, Quarrying, and Oil and Gas Extraction Industry\",0.00008061487938529033",
       "srcs": [
         {
           "name": "bls.gov",
@@ -66,7 +46,27 @@
           "url": "https://www2.census.gov/programs-surveys/popest/tables"
         }
       ],
-      "svg": "",
+      "legend": [
+        "Manufacturing",
+        "Professional, Scientific, and Technical Services",
+        "Health Care and Social Assistance Industry",
+        "Information Industry",
+        "Accommodation and Food Services Industry",
+        "Retail Trade",
+        "Administrative and Support and Waste Management Services Industry",
+        "Construction Industry",
+        "Educational Services Industry",
+        "Wholesale Trade",
+        "Public Administration",
+        "Other Services, Except Public Administration",
+        "Finance and Insurance Industry",
+        "Transportation and Warehousing",
+        "Arts, Entertainment, and Recreation Industry",
+        "Real Estate and Rental and Leasing",
+        "Utilities",
+        "Agriculture, Forestry, Fishing, and Hunting Industry",
+        "Mining, Quarrying, and Oil and Gas Extraction Industry"
+      ],
       "title": "Per Capita Categories of Jobs in Santa Clara County (2020-Mar)",
       "type": "BAR"
     }

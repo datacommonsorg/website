@@ -24,6 +24,50 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/5gtp8jjdzczh8"
+                    ],
+                    "title": "Population: No Income, Born in State of Residence in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/5gtp8jjdzczh8_pc"
+                    ],
+                    "title": "Per Capita Population: No Income, Born in State of Residence in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/dyhxtqe2pxhl5"
+                    ],
+                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/dyhxtqe2pxhl5_pc"
+                    ],
+                    "title": "Per Capita Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
@@ -35,6 +79,24 @@
             "denom": "Count_Person",
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
+          },
+          "dc/5gtp8jjdzczh8": {
+            "name": "Population: No Income, Born in State of Residence",
+            "statVar": "dc/5gtp8jjdzczh8"
+          },
+          "dc/5gtp8jjdzczh8_pc": {
+            "denom": "Count_Person",
+            "name": "Population: No Income, Born in State of Residence",
+            "statVar": "dc/5gtp8jjdzczh8"
+          },
+          "dc/dyhxtqe2pxhl5": {
+            "name": "Population: No Income, Foreign Born",
+            "statVar": "dc/dyhxtqe2pxhl5"
+          },
+          "dc/dyhxtqe2pxhl5_pc": {
+            "denom": "Count_Person",
+            "name": "Population: No Income, Foreign Born",
+            "statVar": "dc/dyhxtqe2pxhl5"
           }
         }
       }

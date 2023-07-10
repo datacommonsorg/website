@@ -13,60 +13,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas"
-                    ],
-                    "title": "Greenhouse Gas Emissions in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas"
-                    ],
-                    "title": "Greenhouse Gas Emissions in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "description": "Annual emissions from all greenhouse gases measured in tonnes of CO\u2082 equivalents.",
-            "title": "Greenhouse Gas Emissions"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_pc"
-                    ],
-                    "title": "Per Capita Greenhouse Gas Emissions in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_pc"
-                    ],
-                    "title": "Per Capita Greenhouse Gas Emissions in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture"
                     ],
                     "title": "Greenhouse Gas Emissions from Agriculture in the World (${date})",
@@ -488,6 +434,378 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas"
+                    ],
+                    "title": "Greenhouse Gas Emissions in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas"
+                    ],
+                    "title": "Greenhouse Gas Emissions in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "description": "Annual emissions from all greenhouse gases measured in tonnes of CO\u2082 equivalents.",
+            "title": "Greenhouse Gas Emissions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_pc"
+                    ],
+                    "title": "Per Capita Greenhouse Gas Emissions in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_pc"
+                    ],
+                    "title": "Per Capita Greenhouse Gas Emissions in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Other Manufacturing, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Other Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Other Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+                    ],
+                    "title": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+                    ],
+                    "title": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SolidFuelTransformation"
+                    ],
+                    "title": "Annual Amount of Emissions: Solid Fuel Transformation, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SolidFuelTransformation"
+                    ],
+                    "title": "Annual Amount of Emissions: Solid Fuel Transformation, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Solid Fuel Transformation, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SolidFuelTransformation_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Solid Fuel Transformation, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SolidFuelTransformation_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Solid Fuel Transformation, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Transportation, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Transportation, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Other Transportation, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Other Transportation, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Other Transportation, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
@@ -504,9 +822,36 @@
             "name": "Greenhouse Gas Emissions from Agriculture",
             "statVar": "Annual_Emissions_GreenhouseGas_Agriculture"
           },
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing": {
+            "name": "Annual Amount of Emissions: Other Manufacturing, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing"
+          },
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Other Manufacturing, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing"
+          },
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation": {
+            "name": "Annual Amount of Emissions: Other Transportation, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation"
+          },
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Other Transportation, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation"
+          },
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration": {
             "name": "Greenhouse Gas Emissions from Electricity Generation",
             "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
+          },
+          "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant": {
+            "name": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant"
+          },
+          "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Electricity Generation From Thermal Power Plant, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant"
           },
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc": {
             "denom": "Count_Person",
@@ -521,6 +866,15 @@
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Forestry and Land Use",
             "statVar": "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
+          },
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
+          },
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
           },
           "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings": {
             "name": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
@@ -548,6 +902,24 @@
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Mineral Extraction",
             "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
+          },
+          "Annual_Emissions_GreenhouseGas_OilAndGasProduction": {
+            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+          },
+          "Annual_Emissions_GreenhouseGas_OilAndGasProduction_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+          },
+          "Annual_Emissions_GreenhouseGas_SolidFuelTransformation": {
+            "name": "Annual Amount of Emissions: Solid Fuel Transformation, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_SolidFuelTransformation"
+          },
+          "Annual_Emissions_GreenhouseGas_SolidFuelTransformation_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Solid Fuel Transformation, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_SolidFuelTransformation"
           },
           "Annual_Emissions_GreenhouseGas_Transportation": {
             "name": "Greenhouse Gas Emissions from Transportation",

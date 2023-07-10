@@ -24,24 +24,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Person"
+                      "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
                     ],
-                    "title": "Individual Median Income in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceWhiteAlone"
-                    ],
-                    "title": "Median Income of White Households in Census Tracts of Placer County (${date})",
+                    "title": "Median Income of Household: Some Other Race Alone in Census Tracts of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -54,13 +39,9 @@
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
           },
-          "Median_Income_Household_HouseholderRaceWhiteAlone": {
-            "name": "Median Income of White Households",
-            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
-          },
-          "Median_Income_Person": {
-            "name": "Individual Median Income",
-            "statVar": "Median_Income_Person"
+          "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone": {
+            "name": "Median Income of Household: Some Other Race Alone",
+            "statVar": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
           }
         }
       }

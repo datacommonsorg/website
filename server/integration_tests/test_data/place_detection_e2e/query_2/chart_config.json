@@ -222,16 +222,186 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
+                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Homes Whose Householder Identifies as Two or More Races in States of United States (${date})",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                    ],
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                    ],
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage in States of United States (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_pc"
+                      "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_pc"
                     ],
-                    "title": "Per Capita Homes Whose Householder Identifies as Two or More Races in States of United States (${date})",
+                    "title": "Per Capita Count of Housing Unit: With Mortgage in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: Without Mortgage in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit"
+                    ],
+                    "title": "Housing Units in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_pc"
+                    ],
+                    "title": "Per Capita Housing Units in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_NoCashRent"
+                    ],
+                    "title": "Count of Housing Unit: No Cash Rent in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_NoCashRent_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: No Cash Rent in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
+                    ],
+                    "title": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household"
+                    ],
+                    "title": "Households in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_pc"
+                    ],
+                    "title": "Per Capita Households in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -240,6 +410,19 @@
           }
         ],
         "statVarSpec": {
+          "Count_Household": {
+            "name": "Households",
+            "statVar": "Count_Household"
+          },
+          "Count_Household_pc": {
+            "denom": "Count_Person",
+            "name": "Households",
+            "statVar": "Count_Household"
+          },
+          "Count_HousingUnit": {
+            "name": "Housing Units",
+            "statVar": "Count_HousingUnit"
+          },
           "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": {
             "name": "Housing Units Valued at $1,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
@@ -348,14 +531,62 @@
             "name": "Homes Valued at $10,000 or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
-            "name": "Homes Whose Householder Identifies as Two or More Races",
-            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
+          "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied": {
+            "name": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
+            "statVar": "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
           },
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_pc": {
+          "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_pc": {
             "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Two or More Races",
-            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
+            "name": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
+            "statVar": "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
+          },
+          "Count_HousingUnit_NoCashRent": {
+            "name": "Count of Housing Unit: No Cash Rent",
+            "statVar": "Count_HousingUnit_NoCashRent"
+          },
+          "Count_HousingUnit_NoCashRent_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: No Cash Rent",
+            "statVar": "Count_HousingUnit_NoCashRent"
+          },
+          "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied": {
+            "name": "Count of Housing Unit: With Mortgage",
+            "statVar": "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: With Mortgage",
+            "statVar": "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied": {
+            "name": "Count of Housing Unit: Without Mortgage",
+            "statVar": "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: Without Mortgage",
+            "statVar": "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_pc": {
+            "denom": "Count_Person",
+            "name": "Housing Units",
+            "statVar": "Count_HousingUnit"
+          },
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied",
+            "statVar": "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",

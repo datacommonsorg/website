@@ -119,28 +119,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime"
-                    ],
-                    "title": "Hate Crime Incidents in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime_pc"
-                    ],
-                    "title": "Per Capita Hate Crime Incidents in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_CriminalActivities_ViolentCrime"
                     ],
                     "title": "Violent Crimes in California",
@@ -151,28 +129,6 @@
                       "Count_CriminalActivities_ViolentCrime_pc"
                     ],
                     "title": "Per Capita Violent Crimes in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_ForcibleRape"
-                    ],
-                    "title": "Forcible Rapes in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_ForcibleRape_pc"
-                    ],
-                    "title": "Per Capita Forcible Rapes in California",
                     "type": "LINE"
                   }
                 ]
@@ -281,20 +237,11 @@
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
-          "Count_CriminalActivities_ForcibleRape": {
-            "name": "Forcible Rapes",
-            "statVar": "Count_CriminalActivities_ForcibleRape"
-          },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
             "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Forcible Rapes",
-            "statVar": "Count_CriminalActivities_ForcibleRape"
-          },
-          "Count_CriminalActivities_ForcibleRape_pc": {
             "denom": "Count_Person",
             "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
@@ -388,15 +335,6 @@
             "denom": "Count_Person",
             "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
-          },
-          "Count_CriminalIncidents_IsHateCrime": {
-            "name": "Hate Crime Incidents",
-            "statVar": "Count_CriminalIncidents_IsHateCrime"
-          },
-          "Count_CriminalIncidents_IsHateCrime_pc": {
-            "denom": "Count_Person",
-            "name": "Hate Crime Incidents",
-            "statVar": "Count_CriminalIncidents_IsHateCrime"
           }
         }
       }

@@ -119,9 +119,69 @@
                       "geoId/53"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block"
+                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block"
                     ],
-                    "title": "Homes Whose Householder Identifies as Two or More Races (${date})",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block"
+                    ],
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block"
+                    ],
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage (${date})",
                     "type": "BAR"
                   },
                   {
@@ -131,9 +191,189 @@
                       "geoId/53"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block_pc"
+                      "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Homes Whose Householder Identifies as Two or More Races (${date})",
+                    "title": "Per Capita Count of Housing Unit: With Mortgage (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: Without Mortgage (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Mean_Income_Household_multiple_place_bar_block"
+                    ],
+                    "title": "Average Income for Households (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_multiple_place_bar_block"
+                    ],
+                    "title": "Housing Units (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Housing Units (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_NoCashRent_multiple_place_bar_block"
+                    ],
+                    "title": "Count of Housing Unit: No Cash Rent (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_NoCashRent_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: No Cash Rent (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_multiple_place_bar_block"
+                    ],
+                    "title": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_multiple_place_bar_block"
+                    ],
+                    "title": "Households (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Households (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -142,6 +382,15 @@
           }
         ],
         "statVarSpec": {
+          "Count_Household_multiple_place_bar_block": {
+            "name": "Households",
+            "statVar": "Count_Household"
+          },
+          "Count_Household_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Households",
+            "statVar": "Count_Household"
+          },
           "Count_HousingUnit_HomeValue1000000OrMoreUSDollar_multiple_place_bar_block": {
             "name": "Housing Units Valued at $1,000,000 or More",
             "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
@@ -385,14 +634,66 @@
             "name": "Homes Valued at $10,000 or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as Two or More Races",
-            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
+          "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
+            "statVar": "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
           },
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Two or More Races",
-            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
+            "name": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
+            "statVar": "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
+          },
+          "Count_HousingUnit_NoCashRent_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: No Cash Rent",
+            "statVar": "Count_HousingUnit_NoCashRent"
+          },
+          "Count_HousingUnit_NoCashRent_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: No Cash Rent",
+            "statVar": "Count_HousingUnit_NoCashRent"
+          },
+          "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: With Mortgage",
+            "statVar": "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: With Mortgage",
+            "statVar": "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: Without Mortgage",
+            "statVar": "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: Without Mortgage",
+            "statVar": "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_multiple_place_bar_block": {
+            "name": "Housing Units",
+            "statVar": "Count_HousingUnit"
+          },
+          "Count_HousingUnit_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Housing Units",
+            "statVar": "Count_HousingUnit"
+          },
+          "Mean_Income_Household_multiple_place_bar_block": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied",
+            "statVar": "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_multiple_place_bar_block": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",

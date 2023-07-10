@@ -348,344 +348,6 @@
                   {
                     "placeDcidOverride": "country/TUN",
                     "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Tunisia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/LBR",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Liberia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/DZA",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Algeria",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GMB",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Gambia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/LBY",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Libya",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MAR",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/BFA",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Burkina Faso",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/ERI",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Eritrea",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NER",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Niger",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MDG",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Madagascar",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GAB",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Gabon",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SSD",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "South Sudan",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Rwanda",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MWI",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Malawi",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/BEN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Benin",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SLE",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Sierra Leone",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Increase in Male Life Expectancy over time (Absolute change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/LBR",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Liberia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GMB",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Gambia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SSD",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "South Sudan",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/TUN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Tunisia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/BFA",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Burkina Faso",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NER",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Niger",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SLE",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Sierra Leone",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/ERI",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Eritrea",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/LBY",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Libya",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GAB",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Gabon",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MDG",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Madagascar",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/DZA",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Algeria",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MWI",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Malawi",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GNQ",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Equatorial Guinea",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/BEN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Benin",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Rwanda",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Increase in Male Life Expectancy over time (Percent change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/TUN",
-                    "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
                     "title": "Tunisia",
@@ -1022,6 +684,344 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/TUN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Tunisia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Liberia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/DZA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Algeria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GMB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Gambia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBY",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Libya",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BFA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Burkina Faso",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ERI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Eritrea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Niger",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MDG",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Madagascar",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GAB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Gabon",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SSD",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "South Sudan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MWI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Malawi",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SLE",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Sierra Leone",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Increase in Male Life Expectancy over time (Absolute change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MLI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Mali",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBR",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Liberia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GMB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Gambia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SSD",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "South Sudan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/TUN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Tunisia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BFA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Burkina Faso",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Niger",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SLE",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Sierra Leone",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ERI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Eritrea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBY",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Libya",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GAB",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Gabon",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MDG",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Madagascar",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/DZA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Algeria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MWI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Malawi",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GNQ",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Equatorial Guinea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Increase in Male Life Expectancy over time (Percent change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
@@ -1048,12 +1048,354 @@
               }
             ],
             "title": "Increase over time (Percent change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CIV",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "C\u00f4te d'Ivoire",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BDI",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Burundi",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LSO",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Lesotho",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CPV",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Cape Verde",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/COM",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Comoros",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SWZ",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Eswatini",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/DJI",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Djibouti",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MRT",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Mauritania",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/TCD",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Chad",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SYC",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Seychelles",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/EGY",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Egypt",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ZAF",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "South Africa",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GAB",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Gabon",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NGA",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Nigeria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBR",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Liberia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBY",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Libya",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/STP",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Niger",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Increase in Count of Mortality Event: X60-X84 (Intentional Self-harm), Male (As Fraction of Count Person Male) over time (Absolute change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/CIV",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "C\u00f4te d'Ivoire",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GHA",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Ghana",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BDI",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Burundi",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/COM",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Comoros",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MRT",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Mauritania",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CPV",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Cape Verde",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/DJI",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Djibouti",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/EGY",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Egypt",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LSO",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Lesotho",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/TCD",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Chad",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SWZ",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Eswatini",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/STP",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SYC",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Seychelles",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBR",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Liberia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GAB",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Gabon",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NGA",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Nigeria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ZAF",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "South Africa",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Niger",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LBY",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
+                    ],
+                    "title": "Libya",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Increase in Count of Mortality Event: X60-X84 (Intentional Self-harm), Male (As Fraction of Count Person Male) over time (Percent change)"
           }
         ],
         "statVarSpec": {
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
+          "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male": {
+            "name": "Count of Mortality Event: X60-X84 (Intentional Self-harm), Male (As Fraction of Count Person Male)",
+            "statVar": "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
