@@ -1,4 +1,4 @@
-# Chart Component APIs
+# Data Commons Chart Component APIs
 
 ## Including the library
 
@@ -22,12 +22,18 @@ must be included for the web components to work.
     <script src="https://datacommons.org/datacommons.js"></script>
   </head>
   <body>
-    <!-- Embedded charts will go here -->
+    <!-- Embed a bar chart of the population of US states-->
+    <datacommons-bar
+        title="Population of US States"
+        place="country/USA"
+        childPlaceType="State"
+        variable="Count_Person"
+    ></datacommons-bar>
   </body>
 </html>
 ```
 
-Each web component is a custom HTML element that takes a _number_ of attributes.
+Each web component is a custom HTML element that takes a set of attributes.
 
 ## Bar Chart
 

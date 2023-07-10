@@ -37,8 +37,9 @@ For a full list of supported charts and attributes, see our
 
 ### Finding DCIDs for Places and Variables
 
-Many web component attributes require [DCIDs](), as input. To find the DCID of a
-place or variable:
+Many web component attributes require
+[DCID](https://docs.datacommons.org/glossary.html#dcid)s, as input. To find the
+DCID of a place or variable:
 
 1. Search places or variables on the
    [Data Commons Search Page](https://datacommons.org/search).
