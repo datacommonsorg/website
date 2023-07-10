@@ -30,10 +30,10 @@ import { Boundary } from "../shared/types";
 import {
   DataGroup,
   DataPoint,
-  getColorFn,
   PlotParams,
-  shouldFillInValues,
   Style,
+  getColorFn,
+  shouldFillInValues,
   wrap,
 } from "./base";
 import {
@@ -116,6 +116,7 @@ function appendLegendElem(
   const legendContainer = d3
     .select(elem)
     .append("div")
+    .attr("part", "legend")
     .attr("class", "legend-basic");
 
   const legendItem = legendContainer
