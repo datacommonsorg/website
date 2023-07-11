@@ -139,9 +139,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "United States",
   "place": {
     "dcid": "country/USA",
     "name": "United States",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

@@ -355,6 +355,21 @@ def get_parent_place_type(place_type: types.ContainedInPlaceType,
   return ptype
 
 
+# Checks whether two types are a direct match or are equivalents.
+def is_place_type_match(pt1: types.ContainedInPlaceType,
+                        pt2: types.ContainedInPlaceType) -> bool:
+  if pt1 == pt2:
+    return True
+
+  if pt1 != None and pt2 != None:
+    pt1_eq = constants.ADMIN_DIVISION_EQUIVALENTS.get(pt1, pt1)
+    pt2_eq = constants.ADMIN_DIVISION_EQUIVALENTS.get(pt2, pt2)
+    if pt1_eq == pt2 or pt1 == pt2_eq or pt1_eq == pt2_eq:
+      return True
+
+  return False
+
+
 # Given a place-type and a corresponding (contained-in) place,
 # returns the specific AdminArea type (County, EurostatNUTS2, etc)
 # corresponding to the country that the place is located in.

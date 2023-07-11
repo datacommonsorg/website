@@ -132,7 +132,11 @@ def first_query_type(uttr: Utterance):
 
 def _maybe_promote_simple(uttr: Utterance, query_types: List[QueryType]):
   remapped_type = None
-  if len(uttr.places) > 1:
+  if (uttr.detection and uttr.detection.places_detected and
+      not uttr.detection.places_detected.query_without_place_substr):
+    # If there are no words beyond place names, do OVERVIEW
+    remapped_type = QueryType.OVERVIEW
+  elif len(uttr.places) > 1:
     # Promote to place comparison.
     remapped_type = QueryType.COMPARISON_ACROSS_PLACES
   elif _should_promote_simple_to_containedin(query_types[-1], uttr.places):
