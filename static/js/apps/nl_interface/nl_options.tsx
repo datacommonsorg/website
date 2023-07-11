@@ -94,15 +94,15 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
           </Label>
           <Label>
             <Input
-              checked={props.indexType === NL_INDEX_VALS.MEDIUM}
+              checked={props.indexType === NL_INDEX_VALS.MEDIUM_FT}
               id="nl-medium-index"
               type="radio"
-              value={NL_INDEX_VALS.MEDIUM}
+              value={NL_INDEX_VALS.MEDIUM_FT}
               onChange={() => {
-                props.setIndexType(NL_INDEX_VALS.MEDIUM);
+                props.setIndexType(NL_INDEX_VALS.MEDIUM_FT);
               }}
             />
-            Medium-5K (experimental)
+            Medium-FT-5K (experimental)
           </Label>
         </FormGroup>
       </div>

@@ -24,7 +24,7 @@ nl_ner_cache_key = 'nl_ner'
 nl_cache_path = '~/.datacommons/'
 nl_cache_expire = 3600 * 24  # Cache for 1 day
 
-DEFAULT_INDEX_TYPE = 'small'
+DEFAULT_INDEX_TYPE = 'medium_ft'
 
 
 def nl_embeddings_cache_key(index_type=DEFAULT_INDEX_TYPE):
