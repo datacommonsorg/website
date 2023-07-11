@@ -85,5 +85,8 @@
     "dcid": "geoId/06085",
     "name": "Santa Clara County",
     "place_type": "County"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

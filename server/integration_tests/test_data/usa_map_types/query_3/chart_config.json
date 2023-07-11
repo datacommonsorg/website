@@ -54,5 +54,8 @@
     "dcid": "geoId/53",
     "name": "Washington",
     "place_type": "State"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }
