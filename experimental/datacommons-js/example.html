@@ -80,24 +80,24 @@
     <datacommons-bar
       title="Population of select US states"
       variable="Count_Person"
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
+      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
       sort="ascending"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (grouped)"
-      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (stacked)"
-      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
       stacked
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (horizontal, stacked, sorted descending)"
-      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
       stacked
       horizontal
       sort="descending"
@@ -105,7 +105,7 @@
     <datacommons-bar
       barHeight="6"
       title="Median income by gender (horizontal, grouped, sorted ascending)"
-      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       place="country/USA"
       childPlaceType="State"
       horizontal
@@ -115,7 +115,7 @@
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for counties in Alaska"
-      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       place="geoId/02"
       childPlaceType="County"
     ></datacommons-bar>
@@ -130,8 +130,8 @@
     <datacommons-bar
       id="styled-bar-multivariable"
       title="Styled: Median income by gender of select US states (horizontal, stacked, sorted descending)"
-      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
       stacked
       horizontal
       sort="descending"
@@ -140,12 +140,12 @@
     <datacommons-pie
       title="US Population by gender"
       place="country/USA"
-      comparisonVariables='["Count_Person_Male", "Count_Person_Female"]'
+      comparisonVariables="Count_Person_Male Count_Person_Female"
     ></datacommons-pie>
     <datacommons-pie
       title="US Population by gender"
       place="country/USA"
-      comparisonVariables='["Count_Person_Male", "Count_Person_Female"]'
+      comparisonVariables="Count_Person_Male Count_Person_Female"
       donut
     ></datacommons-pie>
     <h2>Gauge</h2>
@@ -209,23 +209,23 @@
     <datacommons-line
       title="US Population Over Time"
       place="country/USA"
-      variables='["Count_Person"]'
+      variables="Count_Person"
     ></datacommons-line>
     <datacommons-line
       title="Max and Min Temperature (Difference Relative To Base Date): Relative To 1990"
       place="country/USA"
-      variables='["DifferenceRelativeToBaseDate1990_Max_Temperature", "DifferenceRelativeToBaseDate1990_Min_Temperature"]'
+      variables="DifferenceRelativeToBaseDate1990_Max_Temperature DifferenceRelativeToBaseDate1990_Min_Temperature"
     ></datacommons-line>
     <datacommons-line
       title="Mean Palmer Drought Severity Index (PDSI) in the US"
       place="country/USA"
-      variables='["Mean_PalmerDroughtSeverityIndex"]'
+      variables="Mean_PalmerDroughtSeverityIndex"
     ></datacommons-line>
     <datacommons-line
       id="styled-line"
       title="Styled: Mean Palmer Drought Severity Index (PDSI) in the US"
       place="country/USA"
-      variables='["Mean_PalmerDroughtSeverityIndex"]'
+      variables="Mean_PalmerDroughtSeverityIndex"
     ></datacommons-line>
     <h2>Lollipop</h2>
     <datacommons-bar
@@ -238,18 +238,18 @@
     <datacommons-bar
       title="Population in Alaska, Alabama, and Arizona"
       variable="Count_Person"
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      comparisonPlaces="geoId/01 geoId/02 geoId/04"
       lollipop
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for Alaska, Alabama, and Arizona"
-      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-      comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      comparisonPlaces="geoId/01 geoId/02 geoId/04"
       lollipop
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for counties in Alaska"
-      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       place="geoId/02"
       childPlaceType="County"
       lollipop
