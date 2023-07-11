@@ -50,7 +50,7 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { ReplacementStrings, getMergedSvg } from "../../utils/tile_utils";
+import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 export interface MapTilePropType {
