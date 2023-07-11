@@ -112,8 +112,8 @@ export function getFeedbackLink(query: string, debugData: any): string {
         ? debugData["counters"]["processed_fulfillment_types"]
         : [],
     };
-    if (Array.isArray(debugData["data_spec"])) {
-      queryChain = debugData["data_spec"].map(
+    if (Array.isArray(debugData["context"])) {
+      queryChain = debugData["context"].map(
         (utterance) => utterance["query"] || ""
       );
     }
