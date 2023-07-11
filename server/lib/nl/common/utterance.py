@@ -17,25 +17,24 @@
 #
 
 from dataclasses import dataclass
-from dataclasses import field
 from enum import IntEnum
 import logging
 from typing import Dict, List
 
-from server.lib.nl import counters as ctr
-from server.lib.nl.detection import ClassificationType
-from server.lib.nl.detection import ContainedInClassificationAttributes
-from server.lib.nl.detection import ContainedInPlaceType
-from server.lib.nl.detection import Detection
-from server.lib.nl.detection import EventClassificationAttributes
-from server.lib.nl.detection import EventType
-from server.lib.nl.detection import NLClassifier
-from server.lib.nl.detection import Place
-from server.lib.nl.detection import RankingClassificationAttributes
-from server.lib.nl.detection import RankingType
-from server.lib.nl.detection import SimpleClassificationAttributes
-from server.lib.nl.detection import TimeDeltaClassificationAttributes
-from server.lib.nl.detection import TimeDeltaType
+from server.lib.nl.common import counters as ctr
+from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ContainedInClassificationAttributes
+from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import EventClassificationAttributes
+from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import RankingClassificationAttributes
+from server.lib.nl.detection.types import RankingType
+from server.lib.nl.detection.types import SimpleClassificationAttributes
+from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
+from server.lib.nl.detection.types import TimeDeltaType
 from shared.lib.detected_variables import MultiVarCandidates
 
 # How far back does the context go back.

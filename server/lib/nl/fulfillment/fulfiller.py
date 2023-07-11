@@ -16,13 +16,13 @@
 import logging
 from typing import List
 
-from server.lib.nl import constants
-from server.lib.nl import counters as ctr
-from server.lib.nl.detection import Detection
+from server.lib.nl.common import constants
+from server.lib.nl.common import counters as ctr
+from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.types import Detection
 from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
-from server.lib.nl.utterance import QueryType
-from server.lib.nl.utterance import Utterance
 from shared.lib import detected_variables as vars
 
 # We will ignore SV detections that are below this threshold

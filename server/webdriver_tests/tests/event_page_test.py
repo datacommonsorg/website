@@ -24,7 +24,7 @@ from server.webdriver_tests.base_test import WebdriverBaseTest
 BASE_PAGE_URL = '/event/'
 CYCLONE_NICOLE_DCID = 'cyclone/ibtracs_2022309N16290'
 DOUBLE_CREEK_FIRE_DCID = 'fire/irwinId/92b22838-c96c-4b21-b1e8-f09e8ee65c8f'
-DROUGHT_EVENT_DCID = 'droughtEvent/2023-01_grid_1/10_8'
+DROUGHT_EVENT_DCID = 'droughtEvent/2020-04-01_grid_1/52_-81'
 
 
 # Class to test Event Pages.
@@ -169,7 +169,7 @@ class TestEventPage(WebdriverBaseTest):
     # Assert page title is correct
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(
-            'DroughtEvent at LatLong(10.00000:8.00000) on 2023-01 - Event Page - Data Commons'
+            'DroughtEvent at LatLong(52.00000:-81.00000) on 2020-04-01 - Event Page - Data Commons'
         ))
 
     # Check header section
@@ -177,11 +177,11 @@ class TestEventPage(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     title = self.driver.find_element(By.XPATH,
                                      '//*[@id="main-pane"]/div[1]/div[1]/h1')
-    self.assertEqual(title.text,
-                     'DroughtEvent at LatLong(10.00000:8.00000) on 2023-01')
+    self.assertEqual(
+        title.text, 'DroughtEvent at LatLong(52.00000:-81.00000) on 2020-04-01')
     dcid_subtitle = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/div[1]/div[1]/h3')
-    self.assertEqual(dcid_subtitle.text, 'Drought Event in Nigeria, Earth')
+    self.assertEqual(dcid_subtitle.text, 'Drought Event in Canada, Earth')
 
     # Check google map section
     element_present = EC.presence_of_element_located(
@@ -206,15 +206,15 @@ class TestEventPage(WebdriverBaseTest):
         '//*[@id="main-pane"]/div[1]/section/div/table/tbody/tr[2]/td')
     # assert the date is correct
     self.assertEqual(date_row[0].text, 'Date')
-    self.assertEqual(date_row[1].text, '2023-01 — 2023-01')
+    self.assertEqual(date_row[1].text, '2020-04-01 — 2020-05-01')
 
     # Check additional charts section
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'svg'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     chart_section = self.driver.find_element(By.ID, 'subject-page-main-pane')
     charts = chart_section.find_elements(By.CLASS_NAME, 'chart-container')
-    # assert there are 11+ charts
-    self.assertGreater(len(charts), 11)
+    # assert there are 10+ charts
+    self.assertGreater(len(charts), 10)
     # assert that the first chart has data
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 1)

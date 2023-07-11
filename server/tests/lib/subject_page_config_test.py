@@ -103,7 +103,7 @@ class TestRemoveEmptyCharts(unittest.TestCase):
     assert result == expect
 
   @mock.patch('server.lib.fetch.properties')
-  @mock.patch('server.lib.nl.utils.get_sample_child_places')
+  @mock.patch('server.lib.nl.common.utils.get_sample_child_places')
   @mock.patch('server.lib.fetch.observation_existence')
   def test_remove_empty_charts(self, mock_observation_existence,
                                mock_sample_child_places,

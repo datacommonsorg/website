@@ -69,6 +69,7 @@ const MAP_PATH_LAYER_CLASS = "map-path-layer";
 const MAP_PATH_HIGHLIGHT_CLASS = "map-path-highlight";
 const MAP_PATH_STROKE_WIDTH = "1.5px";
 const MAP_PATH_OPACITY = "0.5";
+const DEFAULT_MIN_DOT_SIZE = 1.25;
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -540,11 +541,12 @@ export function addMapPoints(
         const pathClientRect = (
           paths[idx] as SVGPathElement
         ).getBoundingClientRect();
-        minRegionDiagonal = Math.sqrt(
+        const regionDiagonal = Math.sqrt(
           Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
         );
+        minRegionDiagonal = Math.min(regionDiagonal, minRegionDiagonal);
       });
-    minDotSize = Math.max(minRegionDiagonal * 0.02, 1.1);
+    minDotSize = Math.max(minRegionDiagonal * 0.02, DEFAULT_MIN_DOT_SIZE);
   }
   const filteredMapPoints = mapPoints.filter((point) => {
     const projectedPoint = projection([point.longitude, point.latitude]);
