@@ -53,8 +53,8 @@ bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 def data():
   """Data handler."""
   logging.info('NL Data API: Enter')
-  if (os.environ.get('FLASK_ENV') == 'production' or
-      not current_app.config['NL_MODEL']):
+  # NO production support yet.
+  if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
 
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
@@ -160,6 +160,7 @@ def data():
       'placeFallback': context_history[0]['placeFallback'],
       'svSource': utterance.sv_source.value,
       'placeSource': utterance.place_source.value,
+      'pastSourceContext': utterance.past_source_context,
   }
   status_str = "Successful"
   if utterance.rankedCharts:
@@ -188,8 +189,8 @@ def data():
 
 @bp.route('/history')
 def history():
-  if (os.environ.get('FLASK_ENV') == 'production' or
-      not current_app.config['NL_MODEL']):
+  # No production support.
+  if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   return json.dumps(bt.read_success_rows())
 

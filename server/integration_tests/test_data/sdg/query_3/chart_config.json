@@ -293,6 +293,7 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "Earth",
     "name": "Earth",

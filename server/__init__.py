@@ -349,11 +349,7 @@ def create_app():
   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
-    # Some specific imports for the NL Interface.
-    import server.services.nl as nl
 
-    nl_model = nl.Model()
-    app.config['NL_MODEL'] = nl_model
     # This also requires disaster and event routes.
     app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
     if app.config['LOG_QUERY']:

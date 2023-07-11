@@ -206,6 +206,7 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "africa",
     "name": "Africa",

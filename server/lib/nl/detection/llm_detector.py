@@ -18,20 +18,15 @@ import logging
 import sys
 from typing import Dict, List
 
-from flask import current_app
-
 from server.lib.nl.common import counters
 from server.lib.nl.common import utterance
 from server.lib.nl.detection import palm_api
+from server.lib.nl.detection import place
 from server.lib.nl.detection import types
 from server.lib.nl.detection import utils as dutils
-from server.lib.nl.detection.place import get_place_from_dcids
-from server.lib.nl.detection.place import infer_place_dcids
+from server.lib.nl.detection import variable
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
-from server.lib.nl.detection.types import PlaceDetection
-from server.lib.nl.detection.types import SVDetection
-from shared.lib import detected_variables as dvars
 
 # TODO: Add support for COMPARISON_FILTER and RANKING_FILTER
 _LLM_TYPE_TO_CLASSIFICATION_TYPE = {
@@ -100,8 +95,6 @@ _LLM_OP_TO_QUANTITY_OP = {
 def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
            query_detection_debug_logs: Dict,
            ctr: counters.Counters) -> Detection:
-  model = current_app.config['NL_MODEL']
-
   # History
   history = []
   u = prev_utterance
@@ -130,45 +123,13 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
   if not places_str_found:
     ctr.err('failed_place_detection', llm_resp)
 
-  place_dcids = []
-  main_place = None
-  resolved_places = []
+  place_detection = place.detect_from_names(
+      place_names=places_str_found,
+      query_without_places=' ; '.join(sv_list),
+      orig_query=query,
+      query_detection_debug_logs=query_detection_debug_logs)
 
-  # Start updating the query_detection_debug_logs. Create space for place dcid inference
-  # and place resolution. If they remain empty, the function belows were never triggered.
-  query_detection_debug_logs["place_dcid_inference"] = {}
-  query_detection_debug_logs["place_resolution"] = {}
-  # Look to find place DCIDs.
-  if places_str_found:
-    place_dcids = infer_place_dcids(
-        places_str_found, query_detection_debug_logs["place_dcid_inference"])
-
-  if place_dcids:
-    resolved_places = get_place_from_dcids(
-        place_dcids.values(), query_detection_debug_logs["place_resolution"])
-
-  if resolved_places:
-    main_place = resolved_places[0]
-
-  # Set PlaceDetection.
-  place_detection = PlaceDetection(
-      query_original=query,
-      query_without_place_substr=' ;  '.join(sv_list),
-      query_places_mentioned=places_str_found,
-      places_found=resolved_places,
-      main_place=main_place)
-
-  # Update the various place detection and query transformation debug logs dict.
-  query_detection_debug_logs["places_found_str"] = places_str_found
-  query_detection_debug_logs["main_place_inferred"] = main_place
   query_detection_debug_logs["llm_response"] = llm_resp
-
-  if not query_detection_debug_logs["place_dcid_inference"]:
-    query_detection_debug_logs[
-        "place_dcid_inference"] = "Place DCID Inference did not trigger (no place strings found)."
-  if not query_detection_debug_logs["place_resolution"]:
-    query_detection_debug_logs[
-        "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
   query_detection_debug_logs["query_transformations"] = {
       "sv_detection_query_index_type": index_type
   }
@@ -178,7 +139,7 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
   dummy_dict = {}
   for sv in sv_list:
     try:
-      svs_score_dicts.append(model.detect_svs(sv, index_type, dummy_dict))
+      svs_score_dicts.append(variable.detect_svs(sv, index_type, dummy_dict))
     except ValueError as e:
       logging.info(e)
   svs_scores_dict = _merge_sv_dicts(sv_list, svs_score_dicts)

@@ -59,6 +59,7 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "wikidataId/Q213205",
     "name": "San Francisco Bay Area",

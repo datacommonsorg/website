@@ -18,7 +18,8 @@ from unittest.mock import patch
 
 from parameterized import parameterized
 
-from server.lib.nl.detection.place import NLPlaceDetector
+from server.lib.nl.detection import place
+import server.services.datacommons as dc
 
 
 class TestPlaceDetector(unittest.TestCase):
@@ -44,27 +45,11 @@ class TestPlaceDetector(unittest.TestCase):
           ["berkeley", "mountain view"], ["berkeley"]
       ],
   ])
-  @patch.object(NLPlaceDetector, 'detect_place_ner')
+  @patch.object(dc, 'nl_detect_place_ner')
   def test_heuristic_detection(self, query_str, expected, api_response,
                                mock_detect_place_ner):
     mock_detect_place_ner.return_value = api_response
-    # Using the default NER model.
-    detector = NLPlaceDetector()
 
     # Covert all detected place string to lower case.
-    got = [s.lower() for s in detector.detect_places_heuristics(query_str)]
+    got = [s.lower() for s in place._detect_places(query_str)]
     self.assertEqual(expected, got)
-
-  @parameterized.expand(
-      # All these are valid queries even if they do not detect a Place.
-      # There should be no exceptions.
-      ["random", "California", "United States", "Mountain View", "", "."])
-  @patch.object(NLPlaceDetector, 'detect_place_ner')
-  def test_ner_default(self, query_str, mock_detect_place_ner):
-    mock_detect_place_ner.return_value = []
-    # Not setting the NER model should produce a valid default.
-    detector = NLPlaceDetector()
-    try:
-      detector.detect_place_ner(query_str)
-    except Exception as e:
-      self.assertTrue(False, f"Unexpected Exception raised: {e}")
