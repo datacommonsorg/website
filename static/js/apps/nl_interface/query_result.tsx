@@ -50,6 +50,7 @@ export const QueryResult = memo(function QueryResult(
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
+  const [hideCharts, setHideCharts] = useState<boolean>(false);
   const scrollRef = createRef<HTMLDivElement>();
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
   const [isEmojiClicked, setIsEmojiClicked] = useState(false);
@@ -104,7 +105,17 @@ export const QueryResult = memo(function QueryResult(
         if (categories.length > 0) {
           let mainPlace = {};
           mainPlace = resp.data["place"];
-          const fb = resp.data["placeFallback"];
+          const respFb = resp.data["placeFallback"];
+          let fb = null;
+          if ("origStr" in respFb && "newStr" in respFb) {
+            fb = {
+              origStr: respFb["origStr"],
+              newStr: respFb["newStr"],
+            };
+            setHideCharts(true);
+          } else {
+            setHideCharts(false);
+          }
           setChartsData({
             place: {
               dcid: mainPlace["dcid"],
@@ -118,13 +129,7 @@ export const QueryResult = memo(function QueryResult(
                 : "",
             svSource: resp.data["svSource"],
             placeSource: resp.data["placeSource"],
-            placeFallback:
-              "origStr" in fb && "newStr" in fb
-                ? {
-                    origStr: fb["origStr"],
-                    newStr: fb["newStr"],
-                  }
-                : null,
+            placeFallback: fb,
           });
         } else {
           setErrorMsg("Sorry, we couldn't answer your question.");
@@ -176,39 +181,72 @@ export const QueryResult = memo(function QueryResult(
               pageConfig={chartsData ? chartsData.config : null}
             ></DebugInfo>
           )}
-          {chartsData && chartsData.placeFallback && (
+          {chartsData && chartsData.placeFallback && hideCharts && (
             <div className="nl-query-info">
-              Sorry, there was no relevant statistics for &quot;
-              {chartsData.placeFallback.origStr}&quot;. &nbsp; Here are results
-              about &quot;{chartsData.placeFallback.newStr}&quot; instead.
+              {chartsData.placeSource === "PAST_QUERY" && (
+                <span>
+                  Could not recognize any place in this query. Tried
+                  using {chartsData.place.name} from a prior query in this
+                  session, but there were no relevant statistics for{" "}
+                  &quot;{chartsData.placeFallback.origStr}&quot;.
+                </span>
+              )}
+              {chartsData.svSource === "PAST_QUERY" && (
+                <span>
+                  Could not recognize any topic in this query, so tried
+                  using one from a prior query in this session.
+                  But there were no relevant statistics for{" "}
+                  &quot;{chartsData.placeFallback.origStr}&quot;.
+                </span>
+              )}
+              {chartsData.svSource !== "PAST_QUERY" &&
+               chartsData.placeSource !== "PAST_QUERY" && (
+                <span>
+                  Sorry, there were no relevant statistics for{" "}
+                  &quot;{chartsData.placeFallback.origStr}&quot;.
+                </span>
+              )}
+              <span>
+              &nbsp; If you would like to see results for{" "}
+              &quot;{chartsData.placeFallback.newStr}&quot; instead,{" "}
+              <span className="nl-query-info-click"
+                    onClick={() => { setHideCharts(false); }}>
+                click here
+              </span>
+              .
+              </span>
             </div>
           )}
-          {chartsData && chartsData.placeSource === "PAST_QUERY" && (
+          {chartsData && chartsData.placeFallback === null &&
+           chartsData.placeSource === "PAST_QUERY" && (
             <div className="nl-query-info">
               Could not recognize any place in this query, so using{" "}
               {chartsData.place.name} from a prior query in this session.
             </div>
           )}
-          {chartsData && chartsData.svSource === "PAST_QUERY" && (
+          {chartsData && chartsData.placeFallback === null &&
+           chartsData.svSource === "PAST_QUERY" && (
             <div className="nl-query-info">
               Could not recognize any topic in this query, so using a topic you
               previously asked about in this session.
             </div>
           )}
-          {chartsData && chartsData.svSource === "UNRECOGNIZED" && (
+          {chartsData && chartsData.placeFallback === null &&
+           chartsData.svSource === "UNRECOGNIZED" && (
             <div className="nl-query-info">
               Could not recognize any topic from the query. Below are some topic
               categories with statistics for {chartsData.place.name}.
             </div>
           )}
-          {chartsData && chartsData.svSource === "UNFULFILLED" && (
+          {chartsData && chartsData.placeFallback === null &&
+           chartsData.svSource === "UNFULFILLED" && (
             <div className="nl-query-info">
-              Sorry, there was no relevant statistics about the topic for{" "}
+              Sorry, there were no relevant statistics about the topic for{" "}
               {chartsData.place.name}. Below are some topic categories with
               data.
             </div>
           )}
-          {chartsData && chartsData.config && (
+          {chartsData && chartsData.config && !hideCharts && (
             <NlSessionContext.Provider value={chartsData.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
