@@ -5,8 +5,7 @@
       rel="stylesheet"
       href="https://datacommons.org/css/nl_interface.min.css"
     />
-    <!-- <script src="https://datacommons.org/datacommons.js"></script> -->
-    <script src="http://localhost:8080/datacommons.js"></script>
+    <script src="https://datacommons.org/datacommons.js"></script>
   </head>
   <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
@@ -28,14 +27,12 @@
       title="Median income by gender of select US states (grouped)"
       comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
       comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
-      colors='["blue", "pink"]'
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (stacked)"
       comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
       comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/05"]'
       stacked
-      colors='["blue", "pink"]'
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (horizontal, stacked, sorted descending)"
@@ -44,7 +41,6 @@
       stacked
       horizontal
       sort="descending"
-      colors='["blue", "pink"]'
     ></datacommons-bar>
     <datacommons-bar
       barHeight="6"
@@ -56,7 +52,6 @@
       sort="ascending"
       maxPlaces="52"
       yAxisMargin="100"
-      colors='["blue", "pink"]'
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for counties in Alaska"
@@ -132,12 +127,6 @@
       place="country/USA"
       variables='["Count_Person"]'
     ></datacommons-line>
-    <datacommons-line
-    title="US Population Over Time"
-    place="country/USA"
-    variables='["Count_Person"]'
-    colors='["green"]'
-  ></datacommons-line>
     <h2>Lollipop</h2>
     <datacommons-bar
       title="Population in States of United States"
@@ -157,7 +146,6 @@
       comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
       comparisonPlaces='["geoId/01", "geoId/02", "geoId/04"]'
       lollipop
-      colors='["blue", "pink"]'
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for counties in Alaska"
@@ -165,7 +153,6 @@
       place="geoId/02"
       childPlaceType="County"
       lollipop
-      colors='["blue", "pink"]'
     ></datacommons-bar>
   </body>
 </html>

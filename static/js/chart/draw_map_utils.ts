@@ -100,7 +100,7 @@ function getTemperatureColorScale(
  * @param domain the domain of the scale. The first number is the min, second
  *               number is the middle number, and the last number is the max.
  */
-export function getCustomColorScale(
+function getCustomColorScale(
   colors: string[],
   domain: [number, number, number]
 ): d3.ScaleLinear<number, number> {
@@ -144,12 +144,14 @@ export function getColorScale(
   customColorRange?: string[]
 ): d3.ScaleLinear<number, number> {
   if (customColorRange) {
+    // If a specific set of colors is provided, use those colors
     return getCustomColorScale(customColorRange, [
       minValue,
       meanValue,
       maxValue,
     ]);
   }
+
   if (isTemperatureStatVar(statVar)) {
     // Special handling of temperature stat vars, which need blue to red scale
     return getTemperatureColorScale(statVar, domain);

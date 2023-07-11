@@ -183,8 +183,6 @@ export function getDashes(n: number): string[] {
 
 /**
  * Creates a color function mapping labels to specific colors.
- * Used to allow customization of chart colors. The number and order of colors
- * passed in should correspond to the labels.
  *
  * @param labels labels to map to colors
  * @param colors colors to assign, as a list of hex color codes
