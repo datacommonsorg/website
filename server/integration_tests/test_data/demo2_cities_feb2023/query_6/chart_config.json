@@ -1078,9 +1078,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "country/DZA",
     "name": "Algeria",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

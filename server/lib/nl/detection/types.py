@@ -42,8 +42,6 @@ class PlaceDetection:
   query_places_mentioned: List[str]
   places_found: List[Place]
   main_place: Place
-  using_default_place: bool = False
-  using_from_context: bool = False
 
 
 @dataclass

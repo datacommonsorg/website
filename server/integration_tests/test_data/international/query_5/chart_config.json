@@ -53,9 +53,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "country/BRA",
     "name": "Brazil",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

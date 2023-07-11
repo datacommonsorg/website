@@ -56,18 +56,20 @@ def _populate_event(state: base.PopulateState,
                     event_types: List[types.EventType]) -> bool:
   for pl in state.uttr.places:
     if (_populate_event_for_place(state, event_types, pl)):
+      state.uttr.place_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
       return True
     else:
       state.uttr.counters.err('event_failed_populate_main_place', pl.dcid)
   if not state.uttr.places:
     for pl in ctx.places_from_context(state.uttr):
       if (_populate_event_for_place(state, event_types, pl)):
+        state.uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
+        state.uttr.past_source_context = pl.name
         return True
       else:
         state.uttr.counters.err('event_failed_populate_context_place', pl.dcid)
 
-  # Use a default of USA.
-  return _populate_event_for_place(state, event_types, _DEFAULT_EVENT_PLACE)
+  return False
 
 
 def _populate_event_for_place(state: base.PopulateState,
