@@ -1318,7 +1318,7 @@ function drawHorizontalBarChart(
     .rangeRound([marginTop, height - marginBottom])
     .padding(0.15);
 
-  const color = getColorFn(keys, options?.style.colors);
+  const color = getColorFn(keys, options?.colors);
 
   // Create the SVG container.
   const svg = d3

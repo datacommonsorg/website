@@ -295,10 +295,10 @@ export function draw(
       chartData.dataGroup,
       formatNumber,
       {
+        colors: props.colors,
         stacked: props.stacked,
         style: {
           barHeight: props.barHeight,
-          colors: props.colors,
           yAxisMargin: props.yAxisMargin,
         },
         unit: chartData.unit,
