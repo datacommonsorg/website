@@ -16,56 +16,126 @@ import logging
 import re
 from typing import Dict, List
 
-from flask import current_app
-import requests
-
-from server.lib import fetch
-import server.lib.nl.common.constants as constants
+from server.lib.nl.detection.place_recon import infer_place_dcids
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import PlaceDetection
 import server.services.datacommons as dc
 import shared.lib.utils as utils
 
 
-def _maps_place(place_str):
-  if place_str.lower() in constants.SPECIAL_PLACE_REPLACEMENTS:
-    logging.info(f"place_str {place_str} matched a special place.")
-    place_str = constants.SPECIAL_PLACE_REPLACEMENTS[place_str.lower()]
-    logging.info(f"place_str replaced with: {place_str}")
+#
+# The main entrypoint for place detection from a cleaned (no punctuations) query.
+#
+# Uses NER to detect place names, recons to DCIDs, produces PlaceDetection object.
+#
+def detect_from_query(cleaned_query: str, orig_query: str,
+                      query_detection_debug_logs: Dict) -> PlaceDetection:
+  # Step 1: find all relevant places and the name/type of the main place found.
+  places_str_found = _detect_places(cleaned_query)
 
-  api_key = current_app.config["MAPS_API_KEY"]
-  # Note on 03/01/2023: switching to use the Maps Autocomplete API.
-  url_formatted = f"{constants.MAPS_API}input={place_str}&key={api_key}&types={constants.AUTOCOMPLETE_MAPS_API_TYPES_FILTER}"
-  r = requests.get(url_formatted)
-  resp = r.json()
+  if not places_str_found:
+    logging.info("Place detection failed.")
 
-  # Canidates are all returned places with type matching MAPS_GEO_TYPES.
-  places = []
-  if "predictions" in resp:
-    for res in resp["predictions"]:
-      types_found = set(res["types"])
+  logging.info("Found places in query: {}".format(places_str_found))
 
-      if constants.MAPS_GEO_TYPES.intersection(types_found):
-        places.append(res)
+  query = cleaned_query
+  place_dcids = []
+  main_place = None
+  resolved_places = []
 
-  if not places:
+  # Start updating the query_detection_debug_logs. Create space for place dcid inference
+  # and place resolution. If they remain empty, the function belows were never triggered.
+  query_detection_debug_logs["place_dcid_inference"] = {}
+  query_detection_debug_logs["place_resolution"] = {}
+  # Look to find place DCIDs.
+  if places_str_found:
+    place_dcids = infer_place_dcids(
+        places_str_found, query_detection_debug_logs["place_dcid_inference"])
+    logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
+
+  if place_dcids:
+    resolved_places = _get_place_from_dcids(
+        place_dcids.values(), query_detection_debug_logs["place_resolution"])
     logging.info(
-        f"Maps API did not find a result of type in: {constants.MAPS_GEO_TYPES}. Query URL: {url_formatted}. Response: {resp}"
-    )
-    return {}
+        f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
 
-  # Pick the first one unless there is an exact match.
-  best_match = places[0]
-  for p in places:
-    # If an exact match is found, look no further.
-    main_text = p.get('structured_formatting', {}).get('main_text', '')
-    if place_str.lower() == main_text.lower():
-      best_match = p
-      break
+    # Step 2: replace the place strings with "" if place_dcids were found.
+    # Typically, this could also be done under the check for resolved_places
+    # but we don't expected the resolution from place dcids to fail (typically).
+    # Also, even if the resolution fails, if there is a place dcid found, it should
+    # be considered good enough to remove the place strings.
+    query = _remove_places(cleaned_query.lower(), place_dcids)
 
-  return best_match
+  if resolved_places:
+    main_place = resolved_places[0]
+    logging.info(f"Using main_place as: {main_place}")
+
+  # Set PlaceDetection.
+  place_detection = PlaceDetection(query_original=orig_query,
+                                   query_without_place_substr=query,
+                                   query_places_mentioned=places_str_found,
+                                   places_found=resolved_places,
+                                   main_place=main_place)
+  _set_query_detection_debug_logs(place_detection, query_detection_debug_logs)
+
+  # This only makes sense for this flow.
+  query_detection_debug_logs["query_transformations"] = {
+      "place_detection_input": cleaned_query,
+      "place_detection_with_places_removed": query,
+  }
+  return place_detection
 
 
-def remove_places(query, place_str_to_dcids: Dict[str, str]):
+#
+# The entry point for building PlaceDetection if we've already detected place names.
+# Uses recon to map to DCIDs.
+#
+def detect_from_names(place_names: List[str], query_without_places: str,
+                      orig_query: str,
+                      query_detection_debug_logs: Dict) -> PlaceDetection:
+  place_dcids = []
+  main_place = None
+  resolved_places = []
+
+  # Start updating the query_detection_debug_logs. Create space for place dcid inference
+  # and place resolution. If they remain empty, the function belows were never triggered.
+  query_detection_debug_logs["place_dcid_inference"] = {}
+  query_detection_debug_logs["place_resolution"] = {}
+  # Look to find place DCIDs.
+  if place_names:
+    place_dcids = infer_place_dcids(
+        place_names, query_detection_debug_logs["place_dcid_inference"])
+
+  if place_dcids:
+    resolved_places = _get_place_from_dcids(
+        place_dcids.values(), query_detection_debug_logs["place_resolution"])
+
+  if resolved_places:
+    main_place = resolved_places[0]
+
+  # Set PlaceDetection.
+  place_detection = PlaceDetection(
+      query_original=orig_query,
+      query_without_place_substr=query_without_places,
+      query_places_mentioned=place_names,
+      places_found=resolved_places,
+      main_place=main_place)
+
+  _set_query_detection_debug_logs(place_detection, query_detection_debug_logs)
+  return place_detection
+
+
+#
+# Wrapper with NL Server API.
+#
+def _detect_places(query: str) -> List[str]:
+  return utils.place_detection_with_heuristics(dc.nl_detect_place_ner, query)
+
+
+#
+# Helper function to remove place names from the given query.
+#
+def _remove_places(query, place_str_to_dcids: Dict[str, str]):
   for p_str in place_str_to_dcids.keys():
     # See if the word "in" precedes the place. If so, best to remove it too.
     needle = "in " + p_str
@@ -79,8 +149,12 @@ def remove_places(query, place_str_to_dcids: Dict[str, str]):
   return ' '.join(query.split())
 
 
-def get_place_from_dcids(place_dcids: List[str],
-                         debug_logs: Dict) -> List[Place]:
+#
+# Helper function to retrieve `Place` objects corresponding to DCIDs
+# by using the DC API.
+#
+def _get_place_from_dcids(place_dcids: List[str],
+                          debug_logs: Dict) -> List[Place]:
   place_info_result = dc.get_place_info(place_dcids)
   dcid2place = {}
   for res in place_info_result.get('data', []):
@@ -130,74 +204,14 @@ def get_place_from_dcids(place_dcids: List[str],
   return places
 
 
-def infer_place_dcids(places_str_found: List[str],
-                      debug_logs: Dict) -> Dict[str, str]:
-  if not places_str_found:
-    logging.info("places_found is empty. Nothing to retrieve from Maps API.")
-
-  override_places = []
-  maps_api_failures = []
-  no_dcids_found = []
-  place_dcids = {}
-  # Iterate over all the places until a valid place DCID is found.
-  for p_str in places_str_found:
-    place_dcid = ""
-    # If this is a special place, return the known DCID.
-    if p_str.lower() in constants.OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API:
-      place_dcid = constants.OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API[p_str.lower()]
-      logging.info(
-          f"{p_str} was found in OVERRIDE_PLACE_TO_DCID_FOR_MAPS_API. Recording its DCID {place_dcid} without querying Maps API."
-      )
-      place_dcids[p_str] = place_dcid
-      override_places.append((p_str.lower(), place_dcid))
-      continue
-
-    logging.info(f"Searching Maps API with: {p_str}")
-    place = _maps_place(p_str)
-    # If maps API returned a valid place, use the place_id to
-    # get the dcid.
-    if place and ("place_id" in place):
-      place_id = place["place_id"]
-      logging.info(
-          f"MAPS API found place with place_id: {place_id} for place string: {p_str}."
-      )
-      place_ids_map = fetch.resolve_id([place_id], 'placeId', 'dcid')
-
-      if place_id in place_ids_map and place_ids_map[place_id]:
-        place_dcid = place_ids_map[place_id][0]
-        logging.info(f"DC API found DCID: {place_dcid}")
-        place_dcids[p_str] = place_dcid
-      else:
-        logging.info(
-            f"Maps API found a place {place_id} but no DCID match found for place string: {p_str}."
-        )
-        no_dcids_found.append(place_id)
-    else:
-      logging.info(f"Maps API did not find a place for place string: {p_str}.")
-      maps_api_failures.append(p_str)
-
-  if not place_dcids:
-    logging.info(
-        f"No place DCIDs were found. Using places_found = {places_str_found}.")
-
-  # Update the debug_logs dict.
-  debug_logs.update({
-      "dcids_resolved": place_dcids,
-      "dcid_overrides_found": override_places,
-      "maps_api_failures": maps_api_failures,
-      "dcid_not_found_for_place_ids": no_dcids_found
-  })
-  return place_dcids
-
-
-class NLPlaceDetector:
-  """Performs all place detection for the NL modules."""
-
-  def detect_place_ner(self, query: str) -> List[str]:
-    # Making an API call to the NL models server.
-    return dc.nl_detect_place_ner(query)
-
-  def detect_places_heuristics(self, query: str) -> List[str]:
-    """Returns all strings in the `query` detectd as places."""
-
-    return utils.place_detection_with_heuristics(self.detect_place_ner, query)
+def _set_query_detection_debug_logs(d: PlaceDetection,
+                                    query_detection_debug_logs: Dict):
+  # Update the various place detection and query transformation debug logs dict.
+  query_detection_debug_logs["places_found_str"] = d.query_places_mentioned
+  query_detection_debug_logs["main_place_inferred"] = d.main_place
+  if not query_detection_debug_logs["place_dcid_inference"]:
+    query_detection_debug_logs[
+        "place_dcid_inference"] = "Place DCID Inference did not trigger (no place strings found)."
+  if not query_detection_debug_logs["place_resolution"]:
+    query_detection_debug_logs[
+        "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
