@@ -11,7 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Various heuristic classifiers."""
+"""Various heuristic classifiers corresponding to `ClassificationType`.
+
+Each function in this file takes a query and returns an NLClassifier object
+if it was able to classify the query with that classification type.
+"""
 
 from collections import OrderedDict
 import re

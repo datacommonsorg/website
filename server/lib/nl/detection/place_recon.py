@@ -22,45 +22,9 @@ from server.lib import fetch
 import server.lib.nl.common.constants as constants
 
 
-def _maps_place(place_str):
-  if place_str.lower() in constants.SPECIAL_PLACE_REPLACEMENTS:
-    logging.info(f"place_str {place_str} matched a special place.")
-    place_str = constants.SPECIAL_PLACE_REPLACEMENTS[place_str.lower()]
-    logging.info(f"place_str replaced with: {place_str}")
-
-  api_key = current_app.config["MAPS_API_KEY"]
-  # Note on 03/01/2023: switching to use the Maps Autocomplete API.
-  url_formatted = f"{constants.MAPS_API}input={place_str}&key={api_key}&types={constants.AUTOCOMPLETE_MAPS_API_TYPES_FILTER}"
-  r = requests.get(url_formatted)
-  resp = r.json()
-
-  # Canidates are all returned places with type matching MAPS_GEO_TYPES.
-  places = []
-  if "predictions" in resp:
-    for res in resp["predictions"]:
-      types_found = set(res["types"])
-
-      if constants.MAPS_GEO_TYPES.intersection(types_found):
-        places.append(res)
-
-  if not places:
-    logging.info(
-        f"Maps API did not find a result of type in: {constants.MAPS_GEO_TYPES}. Query URL: {url_formatted}. Response: {resp}"
-    )
-    return {}
-
-  # Pick the first one unless there is an exact match.
-  best_match = places[0]
-  for p in places:
-    # If an exact match is found, look no further.
-    main_text = p.get('structured_formatting', {}).get('main_text', '')
-    if place_str.lower() == main_text.lower():
-      best_match = p
-      break
-
-  return best_match
-
-
+#
+# Given a list of place names, returns a dict from name to DCID.
+#
 def infer_place_dcids(places_str_found: List[str],
                       debug_logs: Dict) -> Dict[str, str]:
   if not places_str_found:
@@ -119,3 +83,45 @@ def infer_place_dcids(places_str_found: List[str],
       "dcid_not_found_for_place_ids": no_dcids_found
   })
   return place_dcids
+
+
+#
+# Calls the Auto-complete API given a place name and returns a dict.
+#
+def _maps_place(place_str) -> Dict:
+  if place_str.lower() in constants.SPECIAL_PLACE_REPLACEMENTS:
+    logging.info(f"place_str {place_str} matched a special place.")
+    place_str = constants.SPECIAL_PLACE_REPLACEMENTS[place_str.lower()]
+    logging.info(f"place_str replaced with: {place_str}")
+
+  api_key = current_app.config["MAPS_API_KEY"]
+  # Note on 03/01/2023: switching to use the Maps Autocomplete API.
+  url_formatted = f"{constants.MAPS_API}input={place_str}&key={api_key}&types={constants.AUTOCOMPLETE_MAPS_API_TYPES_FILTER}"
+  r = requests.get(url_formatted)
+  resp = r.json()
+
+  # Canidates are all returned places with type matching MAPS_GEO_TYPES.
+  places = []
+  if "predictions" in resp:
+    for res in resp["predictions"]:
+      types_found = set(res["types"])
+
+      if constants.MAPS_GEO_TYPES.intersection(types_found):
+        places.append(res)
+
+  if not places:
+    logging.info(
+        f"Maps API did not find a result of type in: {constants.MAPS_GEO_TYPES}. Query URL: {url_formatted}. Response: {resp}"
+    )
+    return {}
+
+  # Pick the first one unless there is an exact match.
+  best_match = places[0]
+  for p in places:
+    # If an exact match is found, look no further.
+    main_text = p.get('structured_formatting', {}).get('main_text', '')
+    if place_str.lower() == main_text.lower():
+      best_match = p
+      break
+
+  return best_match
