@@ -683,9 +683,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "geoId/12",
     "name": "Florida",
     "place_type": "State"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "PAST_QUERY"
 }
