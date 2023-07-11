@@ -44,6 +44,85 @@ const TEMP_DOMAIN = [-40, -20, 0, 20, 40];
 const TEMP_AGGREGATE_DIFF_DOMAIN = [-30, -15, 0, 15, 30];
 
 /**
+ * Generate a blue to red color scale for temperature statistical variables.
+ * Used as a helper function for the more general getColorScale().
+ *
+ * @param statVar name of the stat var we are drawing choropleth for
+ * @param domain the domain of the scale. The first number is the min, second
+ *               number is the middle, and the last number is the max
+ * @returns a blue to red color scale to use with temperature values
+ */
+function getTemperatureColorScale(
+  statVar: string,
+  domain?: [number, number, number]
+): d3.ScaleLinear<number, number> {
+  let domainValues: number[];
+  let range: any[] = [
+    d3.interpolateBlues(1),
+    d3.interpolateBlues(0.8),
+    MIN_COLOR,
+    d3.interpolateReds(0.8),
+    d3.interpolateReds(1),
+  ];
+
+  if (statVar.indexOf("Difference") >= 0) {
+    if (statVar.indexOf("Base") >= 0) {
+      domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
+    } else if (statVar.indexOf("Dc Aggregate")) {
+      domainValues = domain || TEMP_AGGREGATE_DIFF_DOMAIN;
+    } else {
+      domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
+    }
+  } else {
+    domainValues = domain || TEMP_DOMAIN;
+  }
+  const min = domainValues[0];
+  const max = domainValues[domainValues.length - 1];
+  if (min >= 0) {
+    domainValues = [0, max / 2, max];
+    range = [MIN_COLOR, d3.interpolateReds(0.8), d3.interpolateReds(1)];
+  } else if (max <= 0) {
+    domainValues = [min, min / 2, 0];
+    range = [d3.interpolateBlues(1), d3.interpolateBlues(0.8), MIN_COLOR];
+  }
+  return d3.scaleLinear().domain(domainValues).nice().range(range);
+}
+
+/**
+ * Generate a color scale using specific color values.
+ *
+ * @param colors list of colors to use. If only one color is provided, will
+ *               generate a scale that varies by luminance. If two colors are
+ *               provided, will generate a diverging color scale with the first
+ *               color at min value, and second color at high value. Otherwise,
+ *               the first three colors will be taken to correspond to
+ *               [min, mean, max] values.
+ * @param domain the domain of the scale. The first number is the min, second
+ *               number is the middle number, and the last number is the max.
+ */
+export function getCustomColorScale(
+  colors: string[],
+  domain: [number, number, number]
+): d3.ScaleLinear<number, number> {
+  const midColor = d3.color(colors[0]);
+  const rangeValues =
+    colors.length == 1
+      ? [MIN_COLOR, midColor, midColor.darker(2)]
+      : colors.length == 2
+      ? [colors[0], MIN_COLOR, colors[1]]
+      : colors.slice(0, 3);
+
+  return d3
+    .scaleLinear()
+    .domain(domain)
+    .nice()
+    .range(rangeValues as unknown as number[])
+    .interpolate(
+      d3.interpolateRgb as unknown as (colors: unknown) => (t: number) => number
+    );
+}
+
+/**
  * Generates a color scale to be used for drawing choropleth map and legend.
  * NOTE: Only return linear scales.
  *
@@ -52,6 +131,8 @@ const TEMP_AGGREGATE_DIFF_DOMAIN = [-30, -15, 0, 15, 30];
  * @param color the color to use as the middle color in the scale
  * @param domain the domain of the scale. The first number is the min, second
  *               number is the middle number, and the last number is the max.
+ * @param customColorRange specific colors to use for the scale. See
+ *                         getCustomColorScale() for specifics.
  */
 export function getColorScale(
   statVar: string,
@@ -59,46 +140,28 @@ export function getColorScale(
   meanValue: number,
   maxValue: number,
   color?: string,
-  domain?: [number, number, number]
+  domain?: [number, number, number],
+  customColorRange?: string[]
 ): d3.ScaleLinear<number, number> {
+  if (customColorRange) {
+    return getCustomColorScale(customColorRange, [
+      minValue,
+      meanValue,
+      maxValue,
+    ]);
+  }
+  if (isTemperatureStatVar(statVar)) {
+    // Special handling of temperature stat vars, which need blue to red scale
+    return getTemperatureColorScale(statVar, domain);
+  }
+
   const label = getStatsVarLabel(statVar);
   const maxColor = color
     ? d3.color(color)
     : isWetBulbStatVar(statVar)
-    ? d3.color(d3.interpolateReds(1))
+    ? d3.color(d3.interpolateReds(1)) // Use a red scale for wet-bulb temps
     : d3.color(getColorFn([label])(label));
-  let domainValues: number[] = domain || [minValue, meanValue, maxValue];
-  if (isTemperatureStatVar(statVar)) {
-    let range: any[] = [
-      d3.interpolateBlues(1),
-      d3.interpolateBlues(0.8),
-      MIN_COLOR,
-      d3.interpolateReds(0.8),
-      d3.interpolateReds(1),
-    ];
-
-    if (statVar.indexOf("Difference") >= 0) {
-      if (statVar.indexOf("Base") >= 0) {
-        domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
-      } else if (statVar.indexOf("Dc Aggregate")) {
-        domainValues = domain || TEMP_AGGREGATE_DIFF_DOMAIN;
-      } else {
-        domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
-      }
-    } else {
-      domainValues = domain || TEMP_DOMAIN;
-    }
-    const min = domainValues[0];
-    const max = domainValues[domainValues.length - 1];
-    if (min >= 0) {
-      domainValues = [0, max / 2, max];
-      range = [MIN_COLOR, d3.interpolateReds(0.8), d3.interpolateReds(1)];
-    } else if (max <= 0) {
-      domainValues = [min, min / 2, 0];
-      range = [d3.interpolateBlues(1), d3.interpolateBlues(0.8), MIN_COLOR];
-    }
-    return d3.scaleLinear().domain(domainValues).nice().range(range);
-  }
+  const domainValues: number[] = domain || [minValue, meanValue, maxValue];
   const rangeValues =
     domainValues.length == 3
       ? [MIN_COLOR, maxColor, maxColor.darker(2)]

@@ -1128,7 +1128,8 @@ function drawGaugeChart(
   chartWidth: number,
   data: GaugeChartData,
   formatNumberFn: (value: number, unit?: string) => string,
-  minChartHeight: number
+  minChartHeight: number,
+  options?: ChartOptions
 ): void {
   if (_.isEmpty(data)) {
     return;
@@ -1144,11 +1145,10 @@ function drawGaugeChart(
   // color to use for unfilled portion of the arc
   const backgroundArcColor = "#ddd";
   // color scale for [low, med, high] values
-  const colorOptions = [
-    "#d63031", // red
-    "#fdcb6e", // yellow
-    "#00b894", // green
-  ];
+  const colorOptions = options?.colors
+    ? options?.colors
+    : ["#d63031", "#fdcb6e", "#00b894"]; // red, yellow, green
+
   // minimum thickness of the arc, in px
   const minArcThickness = 10;
   // how thickness of arc should scale with chart's width
