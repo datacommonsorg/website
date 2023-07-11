@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 from typing import Dict, List
 
 from server.lib.nl.common import constants
@@ -50,10 +51,11 @@ def places_from_context(uttr: Utterance,
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
-    if uttr.place_fallback:
+    if prev.place_fallback:
+      logging.info(f'FOUND PLACE FALLBACK: using {prev.place_fallback}')
       # Always use the user-provided original place
       # if there was past fallback.
-      ans.append(uttr.place_fallback.origPlace)
+      ans.append(prev.place_fallback.origPlace)
     else:
       for place in prev.places:
         ans.append(place)

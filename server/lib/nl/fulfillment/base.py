@@ -101,7 +101,8 @@ def populate_charts(state: PopulateState) -> bool:
     # If user has not provided a place, seek a place from the context.
     # Otherwise the result seems unexpected to them.
     for pl in context.places_from_context(state.uttr):
-      if (populate_charts_for_places(state, [pl])):
+      state.uttr.places = [pl]
+      if (populate_charts_for_places(state, state.uttr.places)):
         state.uttr.place_source = FulfillmentResult.PAST_QUERY
         state.uttr.past_source_context = pl.name
         return True
@@ -472,6 +473,7 @@ def maybe_set_fallback(state: PopulateState, places: List[Place]):
   else:
     new_str = new_place.name
 
+  logging.info(f'PLACE FALLBACK: {orig_str} -> {new_str}')
   state.uttr.place_fallback = PlaceFallback(origPlace=orig_place,
                                             origType=orig_type,
                                             origStr=orig_str,

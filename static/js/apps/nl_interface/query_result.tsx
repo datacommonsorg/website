@@ -185,67 +185,76 @@ export const QueryResult = memo(function QueryResult(
             <div className="nl-query-info">
               {chartsData.placeSource === "PAST_QUERY" && (
                 <span>
-                  Could not recognize any place in this query. Tried
-                  using {chartsData.place.name} from a prior query in this
-                  session, but there were no relevant statistics for{" "}
-                  &quot;{chartsData.placeFallback.origStr}&quot;.
+                  Could not recognize any place in this query. Tried using{" "}
+                  {chartsData.pastSourceContext} from a prior query in this
+                  session, but there were no relevant statistics for &quot;
+                  {chartsData.placeFallback.origStr}&quot;.
                 </span>
               )}
               {chartsData.svSource === "PAST_QUERY" && (
                 <span>
-                  Could not recognize any topic in this query, so tried
-                  using one from a prior query in this session.
-                  But there were no relevant statistics for{" "}
-                  &quot;{chartsData.placeFallback.origStr}&quot;.
+                  Could not recognize any topic in this query, so tried using
+                  one from a prior query in this session. But there were no
+                  relevant statistics for &quot;
+                  {chartsData.placeFallback.origStr}&quot;.
                 </span>
               )}
               {chartsData.svSource !== "PAST_QUERY" &&
-               chartsData.placeSource !== "PAST_QUERY" && (
-                <span>
-                  Sorry, there were no relevant statistics for{" "}
-                  &quot;{chartsData.placeFallback.origStr}&quot;.
-                </span>
-              )}
+                chartsData.placeSource !== "PAST_QUERY" && (
+                  <span>
+                    Sorry, there were no relevant statistics for &quot;
+                    {chartsData.placeFallback.origStr}&quot;.
+                  </span>
+                )}
               <span>
-              &nbsp; If you would like to see results for{" "}
-              &quot;{chartsData.placeFallback.newStr}&quot; instead,{" "}
-              <span className="nl-query-info-click"
-                    onClick={() => { setHideCharts(false); }}>
-                click here
+                &nbsp; If you would like to see results for &quot;
+                {chartsData.placeFallback.newStr}&quot; instead,{" "}
+                <span
+                  className="nl-query-info-click"
+                  onClick={() => {
+                    setHideCharts(false);
+                  }}
+                >
+                  click here
+                </span>
+                .
               </span>
-              .
-              </span>
             </div>
           )}
-          {chartsData && chartsData.placeFallback === null &&
-           chartsData.placeSource === "PAST_QUERY" && (
-            <div className="nl-query-info">
-              Could not recognize any place in this query, so using{" "}
-              {chartsData.place.name} from a prior query in this session.
-            </div>
-          )}
-          {chartsData && chartsData.placeFallback === null &&
-           chartsData.svSource === "PAST_QUERY" && (
-            <div className="nl-query-info">
-              Could not recognize any topic in this query, so using a topic you
-              previously asked about in this session.
-            </div>
-          )}
-          {chartsData && chartsData.placeFallback === null &&
-           chartsData.svSource === "UNRECOGNIZED" && (
-            <div className="nl-query-info">
-              Could not recognize any topic from the query. Below are some topic
-              categories with statistics for {chartsData.place.name}.
-            </div>
-          )}
-          {chartsData && chartsData.placeFallback === null &&
-           chartsData.svSource === "UNFULFILLED" && (
-            <div className="nl-query-info">
-              Sorry, there were no relevant statistics about the topic for{" "}
-              {chartsData.place.name}. Below are some topic categories with
-              data.
-            </div>
-          )}
+          {chartsData &&
+            chartsData.placeFallback === null &&
+            chartsData.placeSource === "PAST_QUERY" && (
+              <div className="nl-query-info">
+                Could not recognize any place in this query, so using{" "}
+                {chartsData.pastSourceContext} from a prior query in this
+                session.
+              </div>
+            )}
+          {chartsData &&
+            chartsData.placeFallback === null &&
+            chartsData.svSource === "PAST_QUERY" && (
+              <div className="nl-query-info">
+                Could not recognize any topic in this query, so using a topic
+                you previously asked about in this session.
+              </div>
+            )}
+          {chartsData &&
+            chartsData.placeFallback === null &&
+            chartsData.svSource === "UNRECOGNIZED" && (
+              <div className="nl-query-info">
+                Could not recognize any topic from the query. Below are some
+                topic categories with statistics for {chartsData.place.name}.
+              </div>
+            )}
+          {chartsData &&
+            chartsData.placeFallback === null &&
+            chartsData.svSource === "UNFULFILLED" && (
+              <div className="nl-query-info">
+                Sorry, there were no relevant statistics about the topic for{" "}
+                {chartsData.place.name}. Below are some topic categories with
+                data.
+              </div>
+            )}
           {chartsData && chartsData.config && !hideCharts && (
             <NlSessionContext.Provider value={chartsData.sessionId}>
               <SubjectPageMainPane

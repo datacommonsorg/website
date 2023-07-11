@@ -162,6 +162,8 @@ def data():
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
   }
+  logging.info(
+      f'PLACE SOURCE: {utterance.place_source} {utterance.past_source_context}')
   status_str = "Successful"
   if utterance.rankedCharts:
     status_str = ""

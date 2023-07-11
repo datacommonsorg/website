@@ -114,7 +114,6 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
 
   if _use_cache(flask_env):
     with Cache(nl_cache_path) as reference:
-      print(reference)
       for sz in embeddings_map.keys():
         logging.info(f'Saving cache key for {nl_embeddings_cache_key(sz)}')
         reference.set(nl_embeddings_cache_key(sz),
@@ -126,14 +125,4 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
         else:
           logging.error(f'1CACHE is NOT empty - {nl_embeddings_cache_key(sz)}')
       reference.set(nl_ner_cache_key, nl_ner_places, expire=nl_cache_expire)
-      reference.close()
       logging.info(f'{list(reference.iterkeys())}')
-
-    with Cache(nl_cache_path) as reference2:
-      logging.info(f'{list(reference2.iterkeys())}')
-      for sz in embeddings_map.keys():
-        nle = reference2.get(nl_embeddings_cache_key(sz))
-        if not nle:
-          logging.error(f'2CACHE is empty - {nl_embeddings_cache_key(sz)}')
-        else:
-          logging.error(f'2CACHE is NOT empty - {nl_embeddings_cache_key(sz)}')

@@ -62,6 +62,7 @@ def _populate_event(state: base.PopulateState,
       state.uttr.counters.err('event_failed_populate_main_place', pl.dcid)
   if not state.uttr.places:
     for pl in ctx.places_from_context(state.uttr):
+      state.uttr.places = [pl]
       if (_populate_event_for_place(state, event_types, pl)):
         state.uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
         state.uttr.past_source_context = pl.name
