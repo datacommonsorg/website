@@ -69,6 +69,7 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
   if _use_cache(flask_env):
     from diskcache import Cache
     cache = Cache(nl_cache_path)
+    logging.info(f'{list(cache.iterkeys())}')
     cache.expire()
 
     nl_ner_places = cache.get(nl_ner_cache_key)
@@ -78,6 +79,7 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
     for sz in embeddings_map.keys():
       nl_embeddings = cache.get(nl_embeddings_cache_key(sz))
       if not nl_embeddings:
+        logging.info(f'Cache miss for {nl_embeddings_cache_key(sz)}')
         missing_embeddings = True
         break
       app.config[embeddings_config_key(sz)] = nl_embeddings
@@ -111,9 +113,27 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
   app.config["NL_NER_PLACES"] = nl_ner_places
 
   if _use_cache(flask_env):
-    with Cache(cache.directory) as reference:
+    with Cache(nl_cache_path) as reference:
+      print(reference)
       for sz in embeddings_map.keys():
+        logging.info(f'Saving cache key for {nl_embeddings_cache_key(sz)}')
         reference.set(nl_embeddings_cache_key(sz),
                       app.config[embeddings_config_key(sz)],
                       expire=nl_cache_expire)
+        nle = reference.get(nl_embeddings_cache_key(sz))
+        if not nle:
+          logging.error(f'1CACHE is empty - {nl_embeddings_cache_key(sz)}')
+        else:
+          logging.error(f'1CACHE is NOT empty - {nl_embeddings_cache_key(sz)}')
       reference.set(nl_ner_cache_key, nl_ner_places, expire=nl_cache_expire)
+      reference.close()
+      logging.info(f'{list(reference.iterkeys())}')
+
+    with Cache(nl_cache_path) as reference2:
+      logging.info(f'{list(reference2.iterkeys())}')
+      for sz in embeddings_map.keys():
+        nle = reference2.get(nl_embeddings_cache_key(sz))
+        if not nle:
+          logging.error(f'2CACHE is empty - {nl_embeddings_cache_key(sz)}')
+        else:
+          logging.error(f'2CACHE is NOT empty - {nl_embeddings_cache_key(sz)}')
