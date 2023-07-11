@@ -140,6 +140,19 @@ def query_type_from_context(uttr: Utterance) -> List[QueryType]:
   return QueryType.SIMPLE
 
 
+def classifications_of_type_from_context(
+    uttr: Utterance, ctype: ClassificationType) -> List[NLClassifier]:
+  result = []
+  result.extend(classifications_of_type_from_utterance(uttr, ctype))
+  prev_uttr_count = 0
+  prev = uttr.prev_utterance
+  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
+    result.extend(classifications_of_type_from_utterance(prev, ctype))
+    prev = prev.prev_utterance
+    prev_uttr_count = prev_uttr_count + 1
+  return result
+
+
 def classifications_of_type_from_utterance(
     uttr: Utterance, ctype: ClassificationType) -> List[NLClassifier]:
   return [cl for cl in uttr.classifications if cl.type == ctype]

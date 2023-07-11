@@ -586,6 +586,7 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "Earth",
   "place": {
     "dcid": "Earth",
     "name": "Earth",

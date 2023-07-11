@@ -103,6 +103,7 @@ def populate_charts(state: PopulateState) -> bool:
     for pl in context.places_from_context(state.uttr):
       if (populate_charts_for_places(state, [pl])):
         state.uttr.place_source = FulfillmentResult.PAST_QUERY
+        state.uttr.past_source_context = pl.name
         return True
       else:
         state.uttr.counters.err('failed_populate_context_place', pl.dcid)

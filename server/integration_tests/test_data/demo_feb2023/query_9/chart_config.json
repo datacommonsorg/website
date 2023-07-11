@@ -13,9 +13,9 @@
                     },
                     "statVarKey": [
                       "Median_Income_Person_scatter",
-                      "Percent_Person_WithAsthma_scatter"
+                      "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) vs. Asthma (${xDate}) in States of United States",
+                    "title": "Individual Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -32,9 +32,9 @@
                     },
                     "statVarKey": [
                       "Median_Earnings_Person_scatter",
-                      "Percent_Person_WithAsthma_scatter"
+                      "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Earnings (${yDate}) vs. Asthma (${xDate}) in States of United States",
+                    "title": "Individual Median Earnings (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -51,9 +51,9 @@
                     },
                     "statVarKey": [
                       "Median_Income_Household_scatter",
-                      "Percent_Person_WithAsthma_scatter"
+                      "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) vs. Asthma (${xDate}) in States of United States",
+                    "title": "Household Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -70,9 +70,9 @@
                     },
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold_scatter",
-                      "Percent_Person_WithAsthma_scatter"
+                      "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Median Income for Family Households (${yDate}) vs. Asthma (${xDate}) in States of United States",
+                    "title": "Median Income for Family Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -89,9 +89,9 @@
                     },
                     "statVarKey": [
                       "Mean_Income_Household_scatter",
-                      "Percent_Person_WithAsthma_scatter"
+                      "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Households (${yDate}) vs. Asthma (${xDate}) in States of United States",
+                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -120,9 +120,9 @@
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
           },
-          "Percent_Person_WithAsthma_scatter": {
-            "name": "Asthma",
-            "statVar": "Percent_Person_WithAsthma",
+          "Percent_Person_WithHighBloodPressure_scatter": {
+            "name": "High Bood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           }
         }
@@ -130,7 +130,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Country": "State"
+        "Country": "County"
       },
       "placeDcid": [
         "country/USA"
@@ -139,12 +139,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "United States",
   "place": {
     "dcid": "country/USA",
     "name": "United States",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "svSource": "CURRENT_QUERY"
 }

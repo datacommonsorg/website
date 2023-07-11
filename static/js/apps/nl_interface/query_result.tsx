@@ -118,6 +118,7 @@ export const QueryResult = memo(function QueryResult(
                 : "",
             svSource: resp.data["svSource"],
             placeSource: resp.data["placeSource"],
+            pastSourceContext: resp.data["pastSourceContext"],
             placeFallback:
               "origStr" in fb && "newStr" in fb
                 ? {
@@ -186,7 +187,7 @@ export const QueryResult = memo(function QueryResult(
           {chartsData && chartsData.placeSource === "PAST_QUERY" && (
             <div className="nl-query-info">
               Could not recognize any place in this query, so using{" "}
-              {chartsData.place.name} from a prior query in this session.
+              {chartsData.pastSourceContext} from a prior query in this session.
             </div>
           )}
           {chartsData && chartsData.svSource === "PAST_QUERY" && (

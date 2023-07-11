@@ -33,6 +33,7 @@ export interface SearchResult {
   svSource: string;
   placeSource: string;
   placeFallback?: PlaceFallback;
+  pastSourceContext?: string;
 }
 
 export interface MultiSVCandidatePart {

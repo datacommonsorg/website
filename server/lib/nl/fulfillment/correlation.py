@@ -19,6 +19,7 @@ from server.lib.nl.common import utils
 from server.lib.nl.common.topic import open_top_topics_ordered
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import ClassificationType
@@ -29,7 +30,7 @@ from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.base import handle_contained_in_type
 from server.lib.nl.fulfillment.context import \
-    classifications_of_type_from_utterance
+    classifications_of_type_from_context
 from server.lib.nl.fulfillment.context import places_from_context
 from server.lib.nl.fulfillment.context import svs_from_context
 from server.lib.nl.fulfillment.types import ChartVars
@@ -47,7 +48,9 @@ _MAX_MAIN_SVS = 5
 
 def populate(uttr: Utterance) -> bool:
   # Get the list of CONTAINED_IN classifications in order from current to past.
-  classifications = classifications_of_type_from_utterance(
+  # Past is useful for demo queries, and also a correlation detection is a
+  # strong indication that child-place-type should be there.
+  classifications = classifications_of_type_from_context(
       uttr, ClassificationType.CONTAINED_IN)
   if not classifications:
     # If there are no classifications, attempt default type.
@@ -72,11 +75,14 @@ def populate(uttr: Utterance) -> bool:
 def _populate_correlation_for_place_type(state: PopulateState) -> bool:
   for pl in state.uttr.places:
     if (_populate_correlation_for_place(state, pl)):
+      state.uttr.place_source = FulfillmentResult.CURRENT_QUERY
       return True
     else:
       state.uttr.counters.err('correlation_failed_populate_main_place', pl.dcid)
   for pl in places_from_context(state.uttr):
     if (_populate_correlation_for_place(state, pl)):
+      state.uttr.place_source = FulfillmentResult.PAST_QUERY
+      state.uttr.past_source_context = pl.name
       return True
     else:
       state.uttr.counters.err('correlation_failed_populate_context_place',
@@ -84,7 +90,10 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
   default_place = get_default_contained_in_place(state)
   if default_place:
-    return _populate_correlation_for_place(state, default_place)
+    result = _populate_correlation_for_place(state, default_place)
+    if result:
+      state.uttr.place_source = FulfillmentResult.DEFAULT
+    return result
 
   return False
 
