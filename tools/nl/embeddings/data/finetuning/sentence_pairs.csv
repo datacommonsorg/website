@@ -73,7 +73,7 @@ housing,occupied,0.3
 housing,resident,0.3
 immigration,religion,0.01
 income,stock,0.1
-latin americans,immigratns,0.01
+latin americans,immigrants,0.01
 latin americans,poor,0.01
 latin americans,prison,0.01
 latino women,poor,0.01
@@ -85,10 +85,10 @@ men,marriage,0.1
 men,married,0.1
 men,poor,0.01
 poor,below poverty,0.95
-poor,illeterate,0.01
+poor,illiterate,0.01
 poor,prison,0.01
 poverty,below poverty line,0.95
-poverty,illeterate,0.01
+poverty,illiterate,0.01
 poverty,incarcerated,0.01
 race,farm worker,0.01
 race,farmer,0.01
