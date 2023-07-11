@@ -128,6 +128,7 @@ function appendLegendElem(
   legendItem
     .append("div")
     .attr("class", "legend-color")
+    .attr("part", (d) => `legend-color legend-color-${d.label}`)
     .attr("style", (d) => `background: ${color(d.label)}`);
 
   legendItem
@@ -553,6 +554,12 @@ function addXAxis(
   } else {
     axisHeight = MARGIN.bottom;
   }
+
+  // Add "part" attributes for web component styling
+  axis.selectAll(".domain").attr("part", "x-axis");
+  axis.selectAll("text").attr("part", "x-axis-text");
+  axis.selectAll(".tick line").attr("part", "x-axis-tick");
+
   return axisHeight;
 }
 
@@ -652,6 +659,9 @@ function addYAxis(
     g.selectAll("text").attr("transform", `translate(${maxLabelWidth}, 0)`)
   );
 
+  // Add "part" attributes for web component styling
+  axis.selectAll("text").attr("part", "y-axis-text");
+  axis.selectAll(".tick line").attr("part", "y-axis-tick");
   return maxLabelWidth + MARGIN.left + MARGIN.grid;
 }
 
@@ -867,9 +877,22 @@ function drawStackBarChart(
     .append("g")
     .attr("fill", (d) => color(d.key))
     .selectAll("rect")
-    .data((d) => d)
+    .data((d) =>
+      d.map((item) => ({
+        key: d.key,
+        ...item,
+      }))
+    )
     .join("rect")
     .classed("g-bar", true)
+    .attr("part", (d) =>
+      [
+        "series",
+        `series-place-${d.data.dcid}`,
+        `series-variable-${d.key}`,
+        `series-place-${d.data.dcid}-variable-${d.key}`,
+      ].join(" ")
+    )
     .attr("data-dcid", (d) => d.data.dcid)
     .attr("x", (d) => x(String(d.data.label)))
     .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
@@ -918,6 +941,14 @@ function drawBars(
     )
     .join("rect")
     .classed("g-bar", true)
+    .attr("part", (d) =>
+      [
+        "series",
+        `series-place-${d.dcid}`,
+        `series-variable-${d.key}`,
+        `series-place-${d.dcid}-variable-${d.key}`,
+      ].join(" ")
+    )
     .attr("data-dcid", (d) => d.dcid)
     .attr("x", (d) => xSubScale(d.key))
     .attr("y", (d) => yScale(Math.max(0, d.value)))
@@ -961,6 +992,14 @@ function drawLollipops(
       }))
     )
     .join("line")
+    .attr("part", (d) =>
+      [
+        "series",
+        `series-place-${d.dcid}`,
+        `series-variable-${d.statVar}`,
+        `series-place-${d.dcid}-variable-${d.statVar}`,
+      ].join(" ")
+    )
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-d", (d) => d.value)
     .attr("stroke", (d) => colorFn(d.statVar))
@@ -986,6 +1025,14 @@ function drawLollipops(
       }))
     )
     .join("circle")
+    .attr("part", (d) =>
+      [
+        "series",
+        `series-place-${d.dcid}`,
+        `series-variable-${d.statVar}`,
+        `series-place-${d.dcid}-variable-${d.statVar}`,
+      ].join(" ")
+    )
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-d", (d) => d.value)
     .attr("fill", (d) => colorFn(d.statVar))
@@ -1338,10 +1385,18 @@ function drawHorizontalBarChart(
       .append("g")
       .attr("fill", (d) => color(d.key))
       .selectAll("rect")
-      .data((d) => d)
+      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
       .join("rect")
       .classed("g-bar", true)
       .attr("data-dcid", (d) => d.data.dcid)
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
       .attr("x", (d) => x(d[0]))
       .attr("y", (d) => y(String(d.data.label)))
       .attr("width", (d) => x(d[1]) - x(d[0]))
@@ -1362,6 +1417,14 @@ function drawHorizontalBarChart(
       .attr("fill", (item) => color(item.dataGroupValue.label))
       .classed("g-bar", true)
       .attr("data-dcid", (item) => item.dataGroupValue.dcid)
+      .attr("part", (item) =>
+        [
+          "series",
+          `series-place-${item.dataGroupValue.dcid}`,
+          `series-variable-${item.label}`,
+          `series-place-${item.dataGroupValue.dcid}-variable-${item.label}`,
+        ].join(" ")
+      )
       .attr("x", x(0))
       .attr("y", (item, i) => y(item.label) + i * barHeight)
       .attr("width", (item) => x(item.dataGroupValue.value))
@@ -1519,6 +1582,7 @@ function drawLineChart(
         timePoints.add(dp.time);
       }
       return [dp.time, dp.value];
+      hasGap;
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
@@ -1538,19 +1602,23 @@ function drawLineChart(
         .datum(dataset.filter(line.defined())) // Only plot points that are defined
         .attr("class", "line fill")
         .attr("d", line)
+        .attr("part", (d) =>
+          ["series-fill", `series-fill-variable-${dataGroup.label}`].join(" ")
+        )
         .style("fill", "none")
         .style("stroke-width", "2.5px")
         .style("stroke", colorFn(dataGroup.label))
         .style("opacity", 0.4)
         .style("stroke-dasharray", 2);
     }
-
     chart
       .append("path")
       .datum(dataset)
       .attr("class", "line")
-      .style("stroke", colorFn(dataGroup.label))
       .attr("d", line)
+      .attr("part", (d) =>
+        ["series", `series-variable-${dataGroup.label}`].join(" ")
+      )
       .style("fill", "none")
       .style("stroke-width", "2.5px")
       .style("stroke", colorFn(dataGroup.label));
@@ -1565,6 +1633,9 @@ function drawLineChart(
         .attr("class", "dot")
         .attr("cx", (d) => xScale(d.time))
         .attr("cy", (d) => yScale(d.value))
+        .attr("part", (d) =>
+          ["series-point", `series-point-variable-${dataGroup.label}`].join(" ")
+        )
         .attr("r", (d) => (d.value === null ? 0 : 3))
         .style("fill", colorFn(dataGroup.label))
         .style("stroke", "#fff");
@@ -1977,7 +2048,10 @@ function drawDonutChart(
     .attr("d", arc)
     .attr("fill", (d) => {
       return colorFn(d.data.label);
-    });
+    })
+    .attr("part", (d) =>
+      ["series", `series-variable-${d.data.label}`].join(" ")
+    );
 
   appendLegendElem(
     containerElement,
