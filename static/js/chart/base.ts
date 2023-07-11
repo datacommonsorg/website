@@ -185,7 +185,7 @@ export function getDashes(n: number): string[] {
  * Creates a color function mapping labels to specific colors.
  *
  * @param labels labels to map to colors
- * @param colors colors to assign, as a list of hex color codes
+ * @param colors colors to assign
  * @returns D3 scale mapping labels to its assigned color.
  */
 export function getColorFn(
