@@ -63,6 +63,9 @@ Optional:
   - List of colors to use.
   - Colors should be passed in the same order as variables
   - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
 - `comparisonPlaces` _list of strings_
   - List of DCIDs of specific places to plot.
   - If provided, `place` and `childPlaceType` will be ignored.
@@ -181,6 +184,9 @@ Optional:
   - List of colors to use.
   - Colors will be spaced out linearly across the gauge
   - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
 
 ### Examples
 
@@ -221,6 +227,9 @@ Optional:
   - List of colors to use.
   - Colors should be passed in the same order as variables
   - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
 
 ### Examples
 
@@ -268,6 +277,9 @@ Optional:
     corresponding to the max value.
   - If 3 or more colors are given, a color scale with the first three colors
     corresponding to [min, mean, max] values will be used.
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
 - `subscribe` _string_
   - Event channel to subscribe to.
   - The event channel must match the event channel of the [slider component](#map-chart-time-slider)
@@ -370,6 +382,9 @@ Optional:
   - List of colors to use.
   - Colors should be passed in the same order as variables
   - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
 - `donut` _boolean_
   - Set to true to draw as a donut chart instead of a pie chart.
 
