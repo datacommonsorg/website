@@ -295,6 +295,8 @@ def create_app():
     # Get the API key from environment first.
     if os.environ.get('MAPS_API_KEY'):
       app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
+    elif os.environ.get('maps_api_key'):
+      app.config['MAPS_API_KEY'] = os.environ.get('maps_api_key')
     else:
       secret_client = secretmanager.SecretManagerServiceClient()
       secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
@@ -330,6 +332,8 @@ def create_app():
     # Get the API key from environment first.
     if os.environ.get('MIXER_API_KEY'):
       app.config['MIXER_API_KEY'] = os.environ.get('MIXER_API_KEY')
+    elif os.environ.get('mixer_api_key'):
+      app.config['MIXER_API_KEY'] = os.environ.get('mixer_api_key')
     else:
       secret_client = secretmanager.SecretManagerServiceClient()
       secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
