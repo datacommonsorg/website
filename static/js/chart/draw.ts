@@ -30,10 +30,10 @@ import { Boundary } from "../shared/types";
 import {
   DataGroup,
   DataPoint,
-  PlotParams,
-  Style,
   getColorFn,
+  PlotParams,
   shouldFillInValues,
+  Style,
   wrap,
 } from "./base";
 import {
