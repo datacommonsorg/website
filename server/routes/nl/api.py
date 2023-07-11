@@ -103,7 +103,6 @@ def data():
         data_dict=res,
         status="Aborted: Query was Empty.",
         query_detection=query_detection,
-        uttr_history=escaped_context_history,
         debug_counters=counters.get(),
         query_detection_debug_logs=query_detection_debug_logs)
     logging.info('NL Data API: Empty Exit')
@@ -157,7 +156,11 @@ def data():
           'place_type': main_place.place_type,
       },
       'config': page_config,
-      'context': context_history
+      'context': context_history,
+      'placeFallback': context_history[0]['placeFallback'],
+      'svSource': utterance.sv_source.value,
+      'placeSource': utterance.place_source.value,
+      'pastSourceContext': utterance.past_source_context,
   }
   status_str = "Successful"
   if utterance.rankedCharts:
@@ -169,7 +172,7 @@ def data():
       status_str += '**No SVs Found**.'
 
   data_dict = dbg.result_with_debug_info(data_dict, status_str, query_detection,
-                                         context_history, dbg_counters,
+                                         dbg_counters,
                                          query_detection_debug_logs)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)

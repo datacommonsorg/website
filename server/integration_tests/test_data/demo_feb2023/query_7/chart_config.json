@@ -51,9 +51,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
     "name": "California",
     "place_type": "State"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

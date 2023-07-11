@@ -2,9 +2,13 @@
   "config": {},
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "",
     "name": "",
     "place_type": ""
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

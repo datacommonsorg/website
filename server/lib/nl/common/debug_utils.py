@@ -24,8 +24,7 @@ def _empty_svs_score_dict():
 
 
 def result_with_debug_info(data_dict: Dict, status: str,
-                           query_detection: Detection, uttr_history: List[Dict],
-                           debug_counters: Dict,
+                           query_detection: Detection, debug_counters: Dict,
                            query_detection_debug_logs: str) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
@@ -94,7 +93,6 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'event_classification': event_classification,
       'quantity_classification': quantity_classification,
       'counters': debug_counters,
-      'data_spec': uttr_history,
   }
 
   places_found_formatted = ""

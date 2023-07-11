@@ -25,15 +25,14 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.context import \
-    classifications_of_type_from_context
+    classifications_of_type_from_utterance
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
 
 def populate(uttr: Utterance) -> bool:
   # Loop over all CONTAINED_IN classifications (from current to past) in order.
-  # TODO: Check if we need to look in context here
-  classifications = classifications_of_type_from_context(
+  classifications = classifications_of_type_from_utterance(
       uttr, ClassificationType.CONTAINED_IN)
   for classification in classifications:
     if (not classification or not isinstance(

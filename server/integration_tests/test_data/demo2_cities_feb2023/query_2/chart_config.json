@@ -230,9 +230,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "Sunnyvale",
   "place": {
     "dcid": "geoId/0677000",
     "name": "Sunnyvale",
     "place_type": "City"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

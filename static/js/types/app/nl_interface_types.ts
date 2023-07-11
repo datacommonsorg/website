@@ -21,10 +21,19 @@
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
+export interface PlaceFallback {
+  origStr?: string;
+  newStr?: string;
+}
+
 export interface SearchResult {
   place: NamedTypedPlace;
   config: SubjectPageConfig;
   sessionId?: string;
+  svSource: string;
+  placeSource: string;
+  placeFallback?: PlaceFallback;
+  pastSourceContext?: string;
 }
 
 export interface MultiSVCandidatePart {

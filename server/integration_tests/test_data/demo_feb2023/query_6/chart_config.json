@@ -107,9 +107,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "Placer County",
   "place": {
     "dcid": "geoId/06061",
     "name": "Placer County",
     "place_type": "County"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY"
 }
