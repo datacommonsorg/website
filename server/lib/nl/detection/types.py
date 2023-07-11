@@ -88,12 +88,6 @@ class RankingType(IntEnum):
   EXTREME = 5
 
 
-class BinaryClassificationResultType(IntEnum):
-  """Generic result of binary classification: Success/Failure."""
-  FAILURE = 0
-  SUCCESS = 1
-
-
 # Note: Inherit from `str` so that if the enum gets logged as json the serializer
 # will not complain.
 class ContainedInPlaceType(str, Enum):
