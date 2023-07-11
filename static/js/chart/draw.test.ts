@@ -32,11 +32,11 @@ test("svg test", () => {
   expect(rootEl.innerHTML).toEqual(
     '<div part="legend" class="legend-basic">' +
       '<div class="legend-item">' +
-      '<div class="legend-color" part="legend-color" style="background: rgb(147, 0, 0)"></div>' +
+      '<div class="legend-color" part="legend-color legend-color-San Jose" style="background: rgb(147, 0, 0)"></div>' +
       '<a class="legend-link" title="San Jose" href="about:blank">San Jose</a>' +
       "</div>" +
       '<div class="legend-item">' +
-      '<div class="legend-color" part="legend-color" style="background: rgb(94, 79, 162)"></div>' +
+      '<div class="legend-color" part="legend-color legend-color-Palo Alto" style="background: rgb(94, 79, 162)"></div>' +
       '<a class="legend-link" title="Palo Alto" href="/foo/bar">Palo Alto</a>' +
       "</div>" +
       "</div>"

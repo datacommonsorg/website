@@ -30,10 +30,10 @@ import { Boundary } from "../shared/types";
 import {
   DataGroup,
   DataPoint,
-  getColorFn,
   PlotParams,
-  shouldFillInValues,
   Style,
+  getColorFn,
+  shouldFillInValues,
   wrap,
 } from "./base";
 import {
@@ -108,6 +108,7 @@ function appendLegendElem(
   elem: HTMLElement,
   color: d3.ScaleOrdinal<string, string>,
   keys: {
+    dcid?: string;
     label: string;
     link?: string;
   }[],
@@ -128,7 +129,7 @@ function appendLegendElem(
   legendItem
     .append("div")
     .attr("class", "legend-color")
-    .attr("part", (d) => `legend-color legend-color-${d.label}`)
+    .attr("part", (d) => `legend-color legend-color-${d.dcid || d.label}`)
     .attr("style", (d) => `background: ${color(d.label)}`);
 
   legendItem
@@ -903,6 +904,7 @@ function drawStackBarChart(
     containerElement,
     color,
     dataGroups[0].value.map((dp) => ({
+      dcid: dp.dcid,
       label: dp.label,
       link: dp.link,
     })),
@@ -1155,6 +1157,7 @@ function drawGroupBarChart(
     containerElement,
     colorFn,
     dataGroups[0].value.map((dp) => ({
+      dcid: dp.dcid,
       label: dp.label,
       link: dp.link,
     })),
@@ -1474,6 +1477,7 @@ function drawHorizontalBarChart(
     containerElement,
     color,
     dataGroups[0].value.map((dp) => ({
+      dcid: dp.dcid,
       label: dp.label,
       link: dp.link,
     })),
@@ -1516,7 +1520,6 @@ function drawLineChart(
   if (maxV == 0) {
     maxV = MAX_Y_FOR_ZERO_CHARTS;
   }
-
   const svg = d3
     .select(svgContainer)
     .append("svg")
