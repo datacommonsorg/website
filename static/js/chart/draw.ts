@@ -30,10 +30,10 @@ import { Boundary } from "../shared/types";
 import {
   DataGroup,
   DataPoint,
-  getColorFn,
   PlotParams,
-  shouldFillInValues,
   Style,
+  getColorFn,
+  shouldFillInValues,
   wrap,
 } from "./base";
 import {
@@ -1585,7 +1585,6 @@ function drawLineChart(
         timePoints.add(dp.time);
       }
       return [dp.time, dp.value];
-      hasGap;
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
@@ -1605,7 +1604,7 @@ function drawLineChart(
         .datum(dataset.filter(line.defined())) // Only plot points that are defined
         .attr("class", "line fill")
         .attr("d", line)
-        .attr("part", (d) =>
+        .attr("part", () =>
           ["series-fill", `series-fill-variable-${dataGroup.label}`].join(" ")
         )
         .style("fill", "none")
