@@ -44,13 +44,18 @@ export class DatacommonsLineComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
-  // Title of the chart
-  @property()
-  title!: string;
+  // Optional: colors to use
+  // Length should match number of variables
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  colors?: string[];
 
   // DCID of the parent place
   @property()
   place!: string;
+
+  // Title of the chart
+  @property()
+  title!: string;
 
   // Statistical variable DCIDs
   @property({ type: Array<string>, converter: convertArrayAttribute })
@@ -59,6 +64,7 @@ export class DatacommonsLineComponent extends LitElement {
   render(): HTMLElement {
     const tileProps: LineTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       place: {
         dcid: this.place,

@@ -27,6 +27,7 @@ import {
   GaugeTilePropType,
 } from "../js/components/tiles/gauge_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { convertArrayAttribute } from "./utils";
 
 /**
  * Web component for rendering a gauge tile.
@@ -50,29 +51,34 @@ export class DatacommonsGaugeComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
-  // Title of the chart
-  @property()
-  title!: string;
-
-  // DCID of the parent place
-  @property()
-  place!: string;
-
-  // DCID of the statistical variable to compare values for
-  @property()
-  variable!: string;
-
-  // Minimum value of gauge range
-  @property()
-  min: number;
+  // Optional: colors to use
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  colors?: string[];
 
   // Maximum value of gauge range
   @property()
   max: number;
 
+  // Minimum value of gauge range
+  @property()
+  min: number;
+
+  // DCID of the parent place
+  @property()
+  place!: string;
+
+  // Title of the chart
+  @property()
+  title!: string;
+
+  // DCID of the statistical variable to compare values for
+  @property()
+  variable!: string;
+
   render(): HTMLElement {
     const gaugeTileProps: GaugeTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       minSvgChartHeight: 200,
       place: {
