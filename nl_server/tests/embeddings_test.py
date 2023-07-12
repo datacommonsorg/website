@@ -35,6 +35,7 @@ _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 _tuned_model_key = "tuned_model"
 
+
 # TODO(pradh): Expand tests to other index sizes.
 def _get_embeddings_file_path() -> str:
   embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
@@ -42,6 +43,7 @@ def _get_embeddings_file_path() -> str:
     embeddings = yaml.full_load(f)
     embeddings_file = embeddings[loader.DEFAULT_INDEX_TYPE]
     return gcs.download_embeddings(embeddings_file)
+
 
 def _get_tuned_model_path() -> str:
   models_config_path = os.path.join(_root_dir, 'deploy/nl/models.yaml')
@@ -60,14 +62,21 @@ class TestEmbeddings(unittest.TestCase):
     cache = Cache(nl_cache_path)
     cache.expire()
     cls.nl_embeddings = cache.get(loader.nl_embeddings_cache_key())
-    
+
     if not cls.nl_embeddings:
-      print( "Could not load the embeddings from the cache for these tests. Loading a new embeddings object." ) 
+      print(
+          "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
+      )
       # Building a new Embeddings object. It might require downloading the embeddings file
       # and a finetuned model.
       # This uses the default embeddings pointed to in embeddings.yaml file and the fine tuned
       # model pointed to in models.yaml.
-      cls.nl_embeddings = Embeddings(_get_embeddings_file_path(), _get_tuned_model_path())
+      # If the default index is not a "finetuned" index, then the default model can be used.
+      tuned_model_path = ""
+      if "ft" in loader.DEFAULT_INDEX_TYPE:
+        tuned_model_path = _get_tuned_model_path()
+      cls.nl_embeddings = Embeddings(_get_embeddings_file_path(),
+                                     tuned_model_path)
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
@@ -83,7 +92,10 @@ class TestEmbeddings(unittest.TestCase):
           "agricultural output",
           ["dc/g/FarmInventory", 'dc/topic/AgriculturalProduction']
       ],
-      ["agriculture workers", ["dc/hlxvn1t8b9bhh", "Count_Person_MainWorker_AgriculturalLabourers"]],
+      [
+          "agriculture workers",
+          ["dc/hlxvn1t8b9bhh", "Count_Person_MainWorker_AgriculturalLabourers"]
+      ],
       ["heart disease", ["Percent_Person_WithCoronaryHeartDisease"]],
   ])
   def test_sv_detection(self, query_str, expected_list):
