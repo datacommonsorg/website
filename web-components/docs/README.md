@@ -85,8 +85,7 @@ Styling Options:
 - `stacked` _boolean_
   - Set to true to draw as stacked bar chart instead of grouped chart
 - `lollipop` _boolean_
-  - Set to true to draw lollipops instead of bars.
-  - Note: only works when `horizontal` is false.
+  - Set to true to draw lollipops instead of bars
 
 ### Examples
 
