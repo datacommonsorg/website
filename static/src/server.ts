@@ -47,6 +47,7 @@ import {
   getScatterTileResult,
 } from "../nodejs_server/scatter_tile";
 import { TileResult } from "../nodejs_server/types";
+import { getSvgXml } from "../nodejs_server/utils";
 const app = express();
 const APP_CONFIGS = {
   local: {
@@ -511,7 +512,9 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   res.setHeader("Content-Type", "text/html");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
-      res.status(200).send(chart.outerHTML);
+      const img = document.createElement("img");
+      img.src = getSvgXml(chart);
+      res.status(200).send(img.outerHTML);
     })
     .catch(() => {
       res.status(500).send("Error retrieving chart.");
