@@ -469,6 +469,6 @@ Show a ranking of US States by population, lowest to highest
   parentPlace="country/USA"
   childPlaceType="State"
   variable="Count_Person"
-  showLowest="true"
+  showLowest
 ></datacommons-ranking>
 ```

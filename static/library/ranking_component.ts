@@ -47,7 +47,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *      parentPlace="country/USA"
  *      childPlaceType="State"
  *      variable="Count_Person"
- *      showLowest=true
+ *      showLowest
  * ></datacommons-ranking>
  */
 @customElement("datacommons-ranking")
@@ -73,10 +73,9 @@ export class DatacommonsRankingComponent extends LitElement {
   @property()
   variable!: string;
 
-  // Optional: whether to show a lowest-to-highest ranking
-  // If not specified, defaults to highest-to-lowest
-  // To show places with lowest value first, set showLowest=true
-  @property()
+  // Optional: Set to show a lowest-to-highest ranking.
+  // Default: highest-to-lowest
+  @property({ type: Boolean })
   showLowest: boolean;
 
   render(): HTMLElement {
