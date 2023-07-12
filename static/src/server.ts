@@ -358,7 +358,7 @@ function getTileChart(
       );
     default:
       return Promise.resolve(
-        `Chart of type ${tileConfig.type} is not supported.`
+        `Chart of type ${_.escape(tileConfig.type)} is not supported.`
       );
   }
 }
@@ -486,15 +486,15 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
     req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
   );
   const svSpec = JSON.parse(
-    _.escape(req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string)
+    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
   );
   // Need to convert encoded # back to #.
   const eventTypeSpecVal = (
     req.query[CHART_URL_PARAMS.EVENT_TYPE_SPEC] as string
   ).replaceAll("%23", "#");
-  const eventTypeSpec = JSON.parse(_.escape(eventTypeSpecVal));
+  const eventTypeSpec = JSON.parse(eventTypeSpecVal);
   const tileConfig = JSON.parse(
-    _.escape(req.query[CHART_URL_PARAMS.TILE_CONFIG] as string)
+    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
   );
   res.setHeader("Content-Type", "text/html");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
