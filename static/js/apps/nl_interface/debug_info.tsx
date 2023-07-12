@@ -344,6 +344,25 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           )}
           <Row>
             <Col>
+              Place Query Source: {props.chartsData.placeSource}
+              {props.chartsData.pastSourceContext
+                ? "(" + props.chartsData.pastSourceContext + ")"
+                : ""}
+            </Col>
+          </Row>
+          <Row>
+            <Col>Variable Query Source: {props.chartsData.svSource}</Col>
+          </Row>
+          {props.chartsData.placeFallback && (
+            <Row>
+              <Col>
+                Place Fallback: &quot;{props.chartsData.placeFallback.origStr}
+                &quot; to &quot;{props.chartsData.placeFallback.newStr}&quot;
+              </Col>
+            </Row>
+          )}
+          <Row>
+            <Col>
               <b>Counters:</b>
               <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
             </Col>
