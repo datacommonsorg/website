@@ -1,9 +1,8 @@
 <html>
   <head>
-    <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
     <link
       rel="stylesheet"
-      href="https://datacommons.org/css/nl_interface.min.css"
+      href="https://datacommons.org/css/datacommons.min.css"
     />
     <script src="https://datacommons.org/datacommons.js"></script>
     <style>
@@ -256,6 +255,22 @@
       childPlaceType="County"
       lollipop
       colors="#4287f5 #f542a4"
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender for counties in Alaska (horizontal, stacked, lollipop)"
+      comparisonVariables="Median_Income_Person Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      place="geoId/02"
+      childPlaceType="County"
+      lollipop
+      horizontal
+      stacked
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender of select US states (stacked, lollipop)"
+      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
+      stacked
+      lollipop
     ></datacommons-bar>
   </body>
 </html>

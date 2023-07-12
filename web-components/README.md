@@ -1,4 +1,4 @@
-# Data Commons JS Web Components
+# Data Commons Web Components
 
 Embed [Data Commons](https://datacommons.org)
 [statistical variable](https://datacommons.org/tools/statvar) observation
@@ -6,20 +6,15 @@ visualizations in your web application.
 
 ## Usage
 
-Include datacommons.js and styles in your html `<head>...</head>` tag
+Include `datacommons.js` and `datacommons.min.css` in your html `<head>...</head>` tag. Then add the web components desired. Example:
 
-```html
-<link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
-<link rel="stylesheet" href="https://datacommons.org/css/nl_interface.min.css" />
-<script src="https://datacommons.org/datacommons.js"></script>
-```
-
-Then add the web components desired. A minimal example would be:
 ```html
 <html>
   <head>
-    <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
-    <link rel="stylesheet" href="https://datacommons.org/css/nl_interface.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://datacommons.org/css/datacommons.min.css"
+    />
     <script src="https://datacommons.org/datacommons.js"></script>
   </head>
   <body>
@@ -32,6 +27,7 @@ Then add the web components desired. A minimal example would be:
   </body>
 </html>
 ```
+
 For a full list of supported charts and attributes, see our
 [Web Component Documentation](./docs/README.md).
 
