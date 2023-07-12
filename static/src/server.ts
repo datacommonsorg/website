@@ -358,7 +358,7 @@ function getTileChart(
       );
     default:
       return Promise.resolve(
-        `Chart of type ${tileConfig.type} is not supported.`
+        `Chart is not supported.`
       );
   }
 }
