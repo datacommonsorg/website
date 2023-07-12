@@ -35,6 +35,7 @@ _test_data = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 _tuned_model_key = "tuned_model"
 
+
 # TODO(pradh): Expand tests to other index sizes.
 def _get_embeddings_file_path() -> str:
   embeddings_config_path = os.path.join(_root_dir, 'deploy/nl/embeddings.yaml')
@@ -43,6 +44,7 @@ def _get_embeddings_file_path() -> str:
     embeddings_file = embeddings[loader.DEFAULT_INDEX_TYPE]
     return gcs.download_embeddings(embeddings_file)
 
+
 def _get_tuned_model_path() -> str:
   models_config_path = os.path.join(_root_dir, 'deploy/nl/models.yaml')
   with open(models_config_path) as f:
@@ -50,6 +52,7 @@ def _get_tuned_model_path() -> str:
     tuned_model_dict = {_tuned_model_key: models_map[_tuned_model_key]}
     models_downloaded_paths = loader.download_models(tuned_model_dict)
     return models_downloaded_paths[models_map[_tuned_model_key]]
+
 
 class TestEmbeddings(unittest.TestCase):
 
@@ -66,9 +69,10 @@ class TestEmbeddings(unittest.TestCase):
       )
       # Building a new Embeddings object. It might require downloading the embeddings file
       # and a finetuned model.
-      # This uses the default embeddings pointed to in embeddings.yaml file and the fine tuned 
+      # This uses the default embeddings pointed to in embeddings.yaml file and the fine tuned
       # model pointed to in models.yaml.
-      cls.nl_embeddings = Embeddings(_get_embeddings_file_path(), _get_tuned_model_path())
+      cls.nl_embeddings = Embeddings(_get_embeddings_file_path(),
+                                     _get_tuned_model_path())
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
