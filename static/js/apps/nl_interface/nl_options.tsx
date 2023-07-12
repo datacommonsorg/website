@@ -102,7 +102,7 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
                 props.setIndexType(NL_INDEX_VALS.MEDIUM_FT);
               }}
             />
-            Medium-FT-5K (experimental)
+            Medium-FineTuned
           </Label>
         </FormGroup>
       </div>

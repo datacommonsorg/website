@@ -43,7 +43,7 @@ export function App(): JSX.Element {
   const demoMode = useRef(!!getUrlToken("enable_demo"));
   const delayDisabled = useRef(!!getUrlToken("d"));
   const [indexType, setIndexType] = useState(
-    getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.SMALL)
+    getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.MEDIUM_FT)
   );
   const [detector, setDetector] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HEURISTIC)

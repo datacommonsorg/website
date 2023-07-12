@@ -73,7 +73,7 @@ class TestEmbeddings(unittest.TestCase):
           "agricultural output",
           ["dc/g/FarmInventory", 'dc/topic/AgriculturalProduction']
       ],
-      ["agriculture workers", ["dc/hlxvn1t8b9bhh"]],
+      ["agriculture workers", ["dc/hlxvn1t8b9bhh", "Count_Person_MainWorker_AgriculturalLabourers"]],
       ["heart disease", ["Percent_Person_WithCoronaryHeartDisease"]],
   ])
   def test_sv_detection(self, query_str, expected_list):
