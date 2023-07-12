@@ -248,6 +248,6 @@
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "PAST_QUERY",
+  "placeSource": "UNRECOGNIZED",
   "svSource": "CURRENT_QUERY"
 }

@@ -141,6 +141,7 @@ def data():
     main_place = utterance.rankedCharts[0].places[0]
   else:
     page_config = {}
+    utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED
     main_place = Place(dcid='', name='', place_type='')
     logging.info('Found empty place for query "%s"',
                  query_detection.original_query)
