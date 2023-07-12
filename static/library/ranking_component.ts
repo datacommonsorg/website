@@ -36,7 +36,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * <!-- Show a ranking of US States by population, highest to lowest -->
  * <datacommons-ranking
  *      title="US States with the Highest Population"
- *      place="country/USA"
+ *      parentPlace="country/USA"
  *      childPlaceType="State"
  *      variable="Count_Person"
  * ></datacommons-ranking>
@@ -44,7 +44,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  * <!-- Show a ranking of US States by population, lowest to highest -->
  * <datacommons-ranking
  *      title="US States with the Lowest Population"
- *      place="country/USA"
+ *      parentPlace="country/USA"
  *      childPlaceType="State"
  *      variable="Count_Person"
  *      showLowest=true
@@ -63,7 +63,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   // DCID of the parent place
   @property()
-  place!: string;
+  parentPlace!: string;
 
   // Type of child place to rank (ex: State, County)
   @property()
@@ -85,7 +85,7 @@ export class DatacommonsRankingComponent extends LitElement {
       enclosedPlaceType: this.childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.place,
+        dcid: this.parentPlace,
         name: "",
         types: [],
       },
