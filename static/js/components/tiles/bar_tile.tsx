@@ -293,6 +293,7 @@ export function draw(
       chartData.dataGroup,
       formatNumber,
       {
+        lollipop: props.useLollipop,
         stacked: props.stacked,
         style: {
           barHeight: props.barHeight,

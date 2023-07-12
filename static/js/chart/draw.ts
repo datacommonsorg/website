@@ -927,6 +927,191 @@ function drawBars(
 }
 
 /**
+ * Helper function for horizontally plotting dataGroups in a set of axes.
+ *
+ * @param chart SVG element to draw lollipops in
+ * @param colorFn color scale mapping legend labels to colors
+ * @param dataGroups grouped data values to plot
+ * @param xScale main scale for x-axis values
+ * @param xSubScale sub-scale for a single group of lollipops
+ * @param yScale  scale for y-axis values
+ * @param useLollipop whether to use lollipop style
+ */
+function drawHorizontalGroupedBars(
+  chart: d3.Selection<SVGElement, unknown, null, undefined>,
+  colorFn: d3.ScaleOrdinal<string, string, never>,
+  dataGroups: DataGroup[],
+  xScale: d3.ScaleLinear<number, number>,
+  yScale: d3.ScaleBand<string>,
+  useLollipop?: boolean
+): void {
+  const numGroups = dataGroups[0].value.length;
+
+  if (useLollipop) {
+    // Max allowable stem spacing
+    const maxStemSpacing = yScale.bandwidth() / (numGroups + 1);
+    // How far apart each stem should be
+    const stemSpacing = Math.min(15, maxStemSpacing);
+    // How far down bandwidth to start drawing stems
+    const bandwidthPadding =
+      ((numGroups + 1) * (maxStemSpacing - stemSpacing)) / 2;
+    // draw lollipop stems
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(dataGroups)
+      .join("g")
+      .selectAll("line")
+      .data((dg) =>
+        dg.value.map((dgv) => ({
+          dataGroupValue: dgv,
+          label: dg.label,
+        }))
+      )
+      .join("line")
+      .attr("data-dcid", (item) => item.dataGroupValue.dcid)
+      .attr("data-d", (item) => item.dataGroupValue.value)
+      .attr("stroke", (item) => colorFn(item.dataGroupValue.label))
+      .attr("stroke-width", 2)
+      .attr("x1", xScale(0))
+      .attr("x2", (item) => xScale(item.dataGroupValue.value))
+      .attr(
+        "y1",
+        (item, i) =>
+          yScale(item.label) + (i + 1) * stemSpacing + bandwidthPadding
+      )
+      .attr(
+        "y2",
+        (item, i) =>
+          yScale(item.label) + (i + 1) * stemSpacing + bandwidthPadding
+      );
+
+    // draw circles
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(dataGroups)
+      .join("g")
+      .selectAll("line")
+      .data((dg) =>
+        dg.value.map((dgv) => ({
+          dataGroupValue: dgv,
+          label: dg.label,
+        }))
+      )
+      .join("circle")
+      .attr("data-dcid", (item) => item.dataGroupValue.dcid)
+      .attr("data-d", (item) => item.dataGroupValue.value)
+      .attr("fill", (item) => colorFn(item.dataGroupValue.label))
+      .attr("cx", (item) => xScale(item.dataGroupValue.value))
+      .attr(
+        "cy",
+        (item, i) =>
+          yScale(item.label) + (i + 1) * stemSpacing + bandwidthPadding
+      )
+      .attr("r", Math.min(6, stemSpacing));
+  } else {
+    // Draw horizontal bars
+    const barHeight = yScale.bandwidth() / numGroups;
+    chart
+      .selectAll("g")
+      .data(dataGroups)
+      .enter()
+      .append("g")
+      .selectAll("rect")
+      .data((dg) =>
+        dg.value.map((dgv) => ({ dataGroupValue: dgv, label: dg.label }))
+      )
+      .join("rect")
+      .attr("fill", (item) => colorFn(item.dataGroupValue.label))
+      .classed("g-bar", true)
+      .attr("data-dcid", (item) => item.dataGroupValue.dcid)
+      .attr("x", xScale(0))
+      .attr("y", (item, i) => yScale(item.label) + i * barHeight)
+      .attr("width", (item) => xScale(item.dataGroupValue.value))
+      .attr("height", barHeight);
+  }
+}
+
+/**
+ * Helper function for horizontally stacking dataGroups in a set of axes.
+ *
+ * @param chart SVG element to draw lollipops in
+ * @param colorFn color scale mapping legend labels to colors
+ * @param series data values to plot
+ * @param xScale main scale for x-axis values
+ * @param xSubScale sub-scale for a single group of lollipops
+ * @param yScale  scale for y-axis values
+ * @param useLollipop whether to use lollipop style
+ */
+function drawHorizontalStackedBars(
+  chart: d3.Selection<SVGElement, unknown, null, undefined>,
+  colorFn: d3.ScaleOrdinal<string, string, never>,
+  series: d3.Series<{ [key: string]: number }, string>[],
+  xScale: d3.ScaleLinear<number, number>,
+  yScale: d3.ScaleBand<string>,
+  useLollipop?: boolean
+): void {
+  if (useLollipop) {
+    // How much to shift stems so they plot at center of band
+    const yShift = yScale.bandwidth() / 2;
+
+    // draw lollipop stems
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("stroke", (d) => colorFn(d.key))
+      .selectAll("line")
+      .data((d) => d)
+      .join("line")
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
+      .attr("stroke-width", 2)
+      .attr("x1", (d) => xScale(d[0]))
+      .attr("x2", (d) => xScale(d[1]))
+      .attr("y1", (d) => yScale(String(d.data.label)) + yShift)
+      .attr("y2", (d) => yScale(String(d.data.label)) + yShift);
+
+    // draw circles
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("fill", (d) => colorFn(d.key))
+      .selectAll("circle")
+      .data((d) => d)
+      .join("circle")
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
+      .attr("cx", (d) => xScale(d[1]))
+      .attr("cy", (d) => yScale(String(d.data.label)) + yShift)
+      .attr("r", 6);
+  } else {
+    // Draw horizontal bars, stacked
+    chart
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("fill", (d) => colorFn(d.key))
+      .selectAll("rect")
+      .data((d) => d)
+      .join("rect")
+      .classed("g-bar", true)
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("x", (d) => xScale(d[0]))
+      .attr("y", (d) => yScale(String(d.data.label)))
+      .attr("width", (d) => xScale(d[1]) - xScale(d[0]))
+      .attr("height", yScale.bandwidth());
+  }
+}
+
+/**
  * Helper function for plotting dataGroups with lollipops (stem and circle).
  * Used by bar charts to render data in lollipop style.
  * @param chart SVG element to draw lollipops in
@@ -1330,41 +1515,9 @@ function drawHorizontalBarChart(
 
   if (options?.stacked) {
     // Stacked bar chart
-    svg
-      .selectAll("g")
-      .data(series)
-      .enter()
-      .append("g")
-      .attr("fill", (d) => color(d.key))
-      .selectAll("rect")
-      .data((d) => d)
-      .join("rect")
-      .classed("g-bar", true)
-      .attr("data-dcid", (d) => d.data.dcid)
-      .attr("x", (d) => x(d[0]))
-      .attr("y", (d) => y(String(d.data.label)))
-      .attr("width", (d) => x(d[1]) - x(d[0]))
-      .attr("height", y.bandwidth());
+    drawHorizontalStackedBars(svg, color, series, x, y, options?.lollipop);
   } else {
-    // Grouped bar chart
-    const barHeight = y.bandwidth() / numGroups;
-    svg
-      .selectAll("g")
-      .data(dataGroups)
-      .enter()
-      .append("g")
-      .selectAll("rect")
-      .data((dg) =>
-        dg.value.map((dgv) => ({ dataGroupValue: dgv, label: dg.label }))
-      )
-      .join("rect")
-      .attr("fill", (item) => color(item.dataGroupValue.label))
-      .classed("g-bar", true)
-      .attr("data-dcid", (item) => item.dataGroupValue.dcid)
-      .attr("x", x(0))
-      .attr("y", (item, i) => y(item.label) + i * barHeight)
-      .attr("width", (item) => x(item.dataGroupValue.value))
-      .attr("height", barHeight);
+    drawHorizontalGroupedBars(svg, color, dataGroups, x, y, options?.lollipop);
   }
 
   // x axis
