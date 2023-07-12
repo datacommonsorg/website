@@ -163,7 +163,7 @@ def extend_svs(svs: List[str]):
       if sv2 == sv:
         continue
       reverse_map[sv2] = res[sv]
-  res_ordered = {sv: sorted(ext_svs) for sv, ext_svs in res.items()}
+  res_ordered = {sv: sorted(set(ext_svs)) for sv, ext_svs in res.items()}
   return res_ordered
 
 
@@ -284,6 +284,18 @@ _SV_PARTIAL_DCID_NO_PC = [
     "FertilityRate_",
     "GrowthRate_",
     "sdg/",
+    "FemaNaturalHazardRiskIndex_",
+    "FemaCommunityResilience_",
+    "FemaSocialVulnerability_",
+    "MothersAge_",
+    "IntervalSinceLastBirth_",
+    "BirthWeight_",
+    "Covid19MobilityTrend_",
+    "Average_",
+    "Cancer_Risk",
+    "IncrementalCount_",
+    "HouseholdSize_",
+    "LmpGestationalAge_",
 ]
 
 _SV_FULL_DCID_NO_PC = ["Count_Person"]
