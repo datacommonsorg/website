@@ -857,14 +857,14 @@ function drawStackBarChart(
   );
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const color = getColorFn(keys);
+  const colorFn = getColorFn(keys, options?.colors);
 
   chart
     .selectAll("g")
     .data(series)
     .enter()
     .append("g")
-    .attr("fill", (d) => color(d.key))
+    .attr("fill", (d) => colorFn(d.key))
     .selectAll("rect")
     .data((d) => d)
     .join("rect")
@@ -877,7 +877,7 @@ function drawStackBarChart(
 
   appendLegendElem(
     containerElement,
-    color,
+    colorFn,
     dataGroups[0].value.map((dp) => ({
       label: dp.label,
       link: dp.link,
@@ -1095,7 +1095,7 @@ function drawGroupBarChart(
   );
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const colorFn = getColorFn(keys);
+  const colorFn = getColorFn(keys, options.colors);
 
   if (options?.lollipop) {
     drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
@@ -1128,7 +1128,8 @@ function drawGaugeChart(
   chartWidth: number,
   data: GaugeChartData,
   formatNumberFn: (value: number, unit?: string) => string,
-  minChartHeight: number
+  minChartHeight: number,
+  options?: ChartOptions
 ): void {
   if (_.isEmpty(data)) {
     return;
@@ -1144,11 +1145,10 @@ function drawGaugeChart(
   // color to use for unfilled portion of the arc
   const backgroundArcColor = "#ddd";
   // color scale for [low, med, high] values
-  const colorOptions = [
-    "#d63031", // red
-    "#fdcb6e", // yellow
-    "#00b894", // green
-  ];
+  const colorOptions = options?.colors
+    ? options?.colors
+    : ["#d63031", "#fdcb6e", "#00b894"]; // red, yellow, green
+
   // minimum thickness of the arc, in px
   const minArcThickness = 10;
   // how thickness of arc should scale with chart's width
@@ -1318,7 +1318,7 @@ function drawHorizontalBarChart(
     .rangeRound([marginTop, height - marginBottom])
     .padding(0.15);
 
-  const color = getColorFn(keys);
+  const color = getColorFn(keys, options?.colors);
 
   // Create the SVG container.
   const svg = d3
@@ -1508,7 +1508,7 @@ function drawLineChart(
   const legendText = dataGroups.map((dataGroup) =>
     dataGroup.label ? dataGroup.label : "A"
   );
-  const colorFn = getColorFn(legendText);
+  const colorFn = getColorFn(legendText, options?.colors);
 
   let hasFilledInValues = false;
   const timePoints = new Set<number>();
@@ -1912,7 +1912,8 @@ function drawDonutChart(
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
-  drawAsPie: boolean
+  drawAsPie: boolean,
+  options?: ChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -1922,7 +1923,7 @@ function drawDonutChart(
     labelToLink[dataGroup.label] = dataGroup.link;
   }
   const keys = dataGroups[0].value.map((dp) => dp.label);
-  const colorFn = getColorFn(keys);
+  const colorFn = getColorFn(keys, options?.colors);
   // minimum thickness of the donut, in px
   const minArcThickness = 10;
   // how thickness of donut should scale with donut's radius

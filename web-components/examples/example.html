@@ -22,17 +22,20 @@
       variable="Count_Person"
       comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
       sort="ascending"
+      colors="orange"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (grouped)"
       comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
+      colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (stacked)"
       comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
       stacked
+      colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (horizontal, stacked, sorted descending)"
@@ -41,6 +44,7 @@
       stacked
       horizontal
       sort="descending"
+      colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
       barHeight="6"
@@ -52,23 +56,18 @@
       sort="ascending"
       maxPlaces="52"
       yAxisMargin="100"
-    ></datacommons-bar>
-    <datacommons-bar
-      title="Median income by gender for counties in Alaska"
-      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      place="geoId/02"
-      childPlaceType="County"
+      colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <h2>Pie/Donut</h2>
     <datacommons-pie
-      title="US Population by gender"
-      place="country/USA"
-      comparisonVariables="Count_Person_Male Count_Person_Female"
+      title="California Farms by Size"
+      place="geoId/06"
+      comparisonVariables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
     ></datacommons-pie>
     <datacommons-pie
-      title="US Population by gender"
-      place="country/USA"
-      comparisonVariables="Count_Person_Male Count_Person_Female"
+      title="California Farms by Size"
+      place="geoId/06"
+      comparisonVariables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
       donut
     ></datacommons-pie>
     <h2>Gauge</h2>
@@ -85,6 +84,7 @@
       place="country/USA"
       childPlaceType="State"
       variable="Count_Person"
+      colors="red"
     ></datacommons-map>
     <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
     <datacommons-map
@@ -126,6 +126,7 @@
       title="US Population Over Time"
       place="country/USA"
       variables="Count_Person"
+      colors="blue"
     ></datacommons-line>
     <h2>Lollipop</h2>
     <datacommons-bar
@@ -146,6 +147,7 @@
       comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       comparisonPlaces="geoId/01 geoId/02 geoId/04"
       lollipop
+      colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for counties in Alaska"
@@ -153,6 +155,7 @@
       place="geoId/02"
       childPlaceType="County"
       lollipop
+      colors="#4287f5 #f542a4"
     ></datacommons-bar>
   </body>
 </html>

@@ -174,39 +174,65 @@ export const QueryResult = memo(function QueryResult(
           {debugData && (
             <DebugInfo
               debugData={debugData}
-              pageConfig={chartsData ? chartsData.config : null}
+              chartsData={chartsData}
             ></DebugInfo>
           )}
+          {chartsData &&
+            !chartsData.placeFallback &&
+            (chartsData.placeSource === "PAST_QUERY" ||
+              chartsData.placeSource === "PAST_QUERY") && (
+              <div className="nl-query-info">
+                Could not recognize any{" "}
+                {chartsData.placeSource !== "PAST_QUERY" && <span>topic</span>}
+                {chartsData.svSource !== "PAST_QUERY" && <span>place</span>}
+                {chartsData.svSource === "PAST_QUERY" &&
+                  chartsData.placeSource === "PAST_QUERY" && (
+                    <span>place or topic</span>
+                  )}{" "}
+                in this query, so here are relevant statistics for{" "}
+                {chartsData.pastSourceContext} based on what you previously
+                asked.
+              </div>
+            )}
+          {chartsData &&
+            !chartsData.placeFallback &&
+            chartsData.svSource === "UNRECOGNIZED" && (
+              <div className="nl-query-info">
+                Could not recognize any topic from the query, but below are
+                topic categories with statistics for {chartsData.place.name}{" "}
+                that you could explore further.
+              </div>
+            )}
+          {chartsData &&
+            !chartsData.placeFallback &&
+            chartsData.svSource === "UNFULFILLED" && (
+              <div className="nl-query-info">
+                Sorry, there were no relevant statistics about the topic for{" "}
+                {chartsData.place.name}. Below are topic categories with
+                statistics for {chartsData.place.name} that you could explore
+                further.
+              </div>
+            )}
           {chartsData && chartsData.placeFallback && (
             <div className="nl-query-info">
-              Sorry, there was no relevant statistics for &quot;
-              {chartsData.placeFallback.origStr}&quot;. &nbsp; Here are results
-              about &quot;{chartsData.placeFallback.newStr}&quot; instead.
-            </div>
-          )}
-          {chartsData && chartsData.placeSource === "PAST_QUERY" && (
-            <div className="nl-query-info">
-              Could not recognize any place in this query, so using{" "}
-              {chartsData.pastSourceContext} from a prior query in this session.
-            </div>
-          )}
-          {chartsData && chartsData.svSource === "PAST_QUERY" && (
-            <div className="nl-query-info">
-              Could not recognize any topic in this query, so using a topic you
-              previously asked about in this session.
-            </div>
-          )}
-          {chartsData && chartsData.svSource === "UNRECOGNIZED" && (
-            <div className="nl-query-info">
-              Could not recognize any topic from the query. Below are some topic
-              categories with statistics for {chartsData.place.name}.
-            </div>
-          )}
-          {chartsData && chartsData.svSource === "UNFULFILLED" && (
-            <div className="nl-query-info">
-              Sorry, there was no relevant statistics about the topic for{" "}
-              {chartsData.place.name}. Below are some topic categories with
-              data.
+              {chartsData.placeSource !== "PAST_QUERY" &&
+                chartsData.svSource !== "PAST_QUERY" && (
+                  <span>
+                    Sorry, there were no relevant statistics on this topic for
+                    &quot;{chartsData.placeFallback.origStr}&quot;. &nbsp; Here
+                    are results for &quot;{chartsData.placeFallback.newStr}
+                    &quot; instead.
+                  </span>
+                )}
+              {(chartsData.placeSource === "PAST_QUERY" ||
+                chartsData.svSource === "PAST_QUERY") && (
+                <span>
+                  Tried looking up relevant statistics for &quot;
+                  {chartsData.placeFallback.origStr}&quot; based on your prior
+                  queries, but found no results. &nbsp; Here are results for
+                  &quot;{chartsData.placeFallback.newStr}&quot; instead.
+                </span>
+              )}
             </div>
           )}
           {chartsData && chartsData.config && (

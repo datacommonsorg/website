@@ -101,7 +101,9 @@ def populate_charts(state: PopulateState) -> bool:
     # If user has not provided a place, seek a place from the context.
     # Otherwise the result seems unexpected to them.
     for pl in context.places_from_context(state.uttr):
-      if (populate_charts_for_places(state, [pl])):
+      # Important to set this for maybe_set_fallback().
+      state.uttr.places = [pl]
+      if (populate_charts_for_places(state, state.uttr.places)):
         state.uttr.place_source = FulfillmentResult.PAST_QUERY
         state.uttr.past_source_context = pl.name
         return True
@@ -249,6 +251,7 @@ def _add_charts(state: PopulateState, places: List[Place],
   tracker = MainExistenceCheckTracker(state, places_to_check, svs)
   tracker.perform_existence_check()
 
+  existing_svs = set()
   found = False
   num_charts = 0
   for exist_state in tracker.exist_sv_states:
@@ -267,6 +270,7 @@ def _add_charts(state: PopulateState, places: List[Place],
             state.uttr.counters.err('failed_populate_callback_primary_event', 1)
       else:
         if chart_vars.svs:
+          existing_svs.update(chart_vars.svs)
           if state.main_cb(state, chart_vars, places,
                            ChartOriginType.PRIMARY_CHART):
             found = True
@@ -282,13 +286,15 @@ def _add_charts(state: PopulateState, places: List[Place],
   # for those we would construct a single bar chart comparing the differe
   # variables.  For other query-types like map/ranking/scatter, we will have
   # individual "related" charts, and those don't look good.
-  if (state.uttr.query_type == QueryType.SIMPLE and
-      _add_charts_for_extended_svs(state=state,
-                                   places=places,
-                                   places_to_check=places_to_check,
-                                   svs=svs,
-                                   num_charts=num_charts)):
-    found = True
+  if state.uttr.query_type == QueryType.SIMPLE and existing_svs:
+    # Note that we want to expand on existing_svs only, and in the
+    # order of `svs`
+    ordered_existing_svs = [v for v in svs if v in existing_svs]
+    found |= _add_charts_for_extended_svs(state=state,
+                                          places=places,
+                                          places_to_check=places_to_check,
+                                          svs=ordered_existing_svs,
+                                          num_charts=num_charts)
 
   if not found:
     # Always clear fallback when returning False
