@@ -319,18 +319,22 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <b>Query Fulfillment:</b>
           </Row>
-          <Row>
-            <Col>
-              Place Query Source: {props.chartsData.placeSource}
-              {props.chartsData.pastSourceContext
-                ? "(" + props.chartsData.pastSourceContext + ")"
-                : ""}
-            </Col>
-          </Row>
-          <Row>
-            <Col>Variable Query Source: {props.chartsData.svSource}</Col>
-          </Row>
-          {props.chartsData.placeFallback && (
+          {props.chartsData && (
+            <Row>
+              <Col>
+                Place Query Source: {props.chartsData.placeSource}
+                {props.chartsData.pastSourceContext
+                  ? "(" + props.chartsData.pastSourceContext + ")"
+                  : ""}
+              </Col>
+            </Row>
+          )}
+          {props.chartsData && (
+            <Row>
+              <Col>Variable Query Source: {props.chartsData.svSource}</Col>
+            </Row>
+          )}
+          {props.chartsData && props.chartsData.placeFallback && (
             <Row>
               <Col>
                 Place Fallback: &quot;{props.chartsData.placeFallback.origStr}

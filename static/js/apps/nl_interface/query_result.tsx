@@ -128,7 +128,14 @@ export const QueryResult = memo(function QueryResult(
                 : null,
           });
         } else {
-          setErrorMsg("Sorry, we couldn't answer your question.");
+          // If there was no place recognized, we might end up with 0
+          // categories.  Check if that's the case, and provide a different
+          // error message.
+          if ("placeSource" in resp.data && resp.data["placeSource"]) {
+            setErrorMsg("Could not recognize any place in the query!");
+          } else {
+            setErrorMsg("Sorry, we couldn't answer your question.");
+          }
         }
         const debugData = resp.data["debug"];
         if (debugData !== undefined) {
@@ -180,7 +187,7 @@ export const QueryResult = memo(function QueryResult(
           {chartsData &&
             !chartsData.placeFallback &&
             (chartsData.placeSource === "PAST_QUERY" ||
-              chartsData.placeSource === "PAST_QUERY") && (
+              chartsData.svSource === "PAST_QUERY") && (
               <div className="nl-query-info">
                 Could not recognize any{" "}
                 {chartsData.placeSource !== "PAST_QUERY" && <span>topic</span>}
@@ -189,9 +196,11 @@ export const QueryResult = memo(function QueryResult(
                   chartsData.placeSource === "PAST_QUERY" && (
                     <span>place or topic</span>
                   )}{" "}
-                in this query, so here are relevant statistics for{" "}
-                {chartsData.pastSourceContext} based on what you previously
-                asked.
+                in this query, so here are relevant statistics{" "}
+                {chartsData.pastSourceContext && (
+                  <span>for {chartsData.pastSourceContext} </span>
+                )}
+                based on what you previously asked.
               </div>
             )}
           {chartsData &&
