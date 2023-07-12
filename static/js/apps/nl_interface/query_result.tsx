@@ -132,11 +132,7 @@ export const QueryResult = memo(function QueryResult(
           // categories.  Check if that's the case, and provide a different
           // error message.
           if ("placeSource" in resp.data && resp.data["placeSource"]) {
-            setErrorMsg(
-              "Could not recognize any place in the query! " +
-                "If you included a place, it is possible " +
-                "we don't recognize it yet!"
-            );
+            setErrorMsg("Could not recognize any place in the query!");
           } else {
             setErrorMsg("Sorry, we couldn't answer your question.");
           }
