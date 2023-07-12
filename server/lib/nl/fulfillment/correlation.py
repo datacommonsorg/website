@@ -19,6 +19,7 @@ from server.lib.nl.common import utils
 from server.lib.nl.common.topic import open_top_topics_ordered
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import ClassificationType
@@ -47,7 +48,8 @@ _MAX_MAIN_SVS = 5
 
 def populate(uttr: Utterance) -> bool:
   # Get the list of CONTAINED_IN classifications in order from current to past.
-  # TODO: Check if we need to look in context here
+  # Past is useful for demo queries, and also a correlation detection is a
+  # strong indication that child-place-type should be there.
   classifications = classifications_of_type_from_context(
       uttr, ClassificationType.CONTAINED_IN)
   if not classifications:
@@ -73,11 +75,16 @@ def populate(uttr: Utterance) -> bool:
 def _populate_correlation_for_place_type(state: PopulateState) -> bool:
   for pl in state.uttr.places:
     if (_populate_correlation_for_place(state, pl)):
+      state.uttr.place_source = FulfillmentResult.CURRENT_QUERY
       return True
     else:
       state.uttr.counters.err('correlation_failed_populate_main_place', pl.dcid)
   for pl in places_from_context(state.uttr):
+    # Important to set this for maybe_set_fallback().
+    state.uttr.places = [pl]
     if (_populate_correlation_for_place(state, pl)):
+      state.uttr.place_source = FulfillmentResult.PAST_QUERY
+      state.uttr.past_source_context = pl.name
       return True
     else:
       state.uttr.counters.err('correlation_failed_populate_context_place',
@@ -85,7 +92,10 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
   default_place = get_default_contained_in_place(state)
   if default_place:
-    return _populate_correlation_for_place(state, default_place)
+    result = _populate_correlation_for_place(state, default_place)
+    if result:
+      state.uttr.place_source = FulfillmentResult.DEFAULT
+    return result
 
   return False
 

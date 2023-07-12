@@ -381,6 +381,7 @@ function addGeoJsonLayer(
     .data(geoJson.features)
     .enter()
     .append("path")
+    .attr("part", (d) => `place-path place-path-${d.id.toString()}`)
     .attr("d", geomap);
 }
 

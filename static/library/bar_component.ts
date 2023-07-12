@@ -90,11 +90,19 @@ export class DatacommonsBarComponent extends LitElement {
   @property()
   childPlaceType!: string;
 
+  /**
+   * Optional: list of specific colors to use in the chart.
+   * The number of colors passed in should equal the number of variables.
+   * The order of colors should match the order of variables.
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  colors?: string[];
+
   /* Optional: List of DCIDs of places to plot
    * If provided, place and enclosePlaceType will be ignored
    */
   @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonPlaces: string[];
+  comparisonPlaces?: string[];
 
   /**
    * Optional: List of DCIDs of statistical variables to plot
@@ -102,16 +110,22 @@ export class DatacommonsBarComponent extends LitElement {
    * !Important: variables provided must share the same unit
    */
   @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonVariables: string[];
+  comparisonVariables?: string[];
 
   /**
-   * Render bars horizontally instead of vertically
+   * Optional: Render bars horizontally instead of vertically
    */
   @property({ type: Boolean })
   horizontal?: boolean;
 
   /**
-   * Maximum number of child places or comparison places to display
+   * Optional: Draw as a lollipop chart instead of bars
+   */
+  @property({ type: Boolean })
+  lollipop: boolean;
+
+  /**
+   * Optional: Maximum number of child places or comparison places to display
    * Defaults to 7
    */
   @property({ type: Number })
@@ -124,7 +138,7 @@ export class DatacommonsBarComponent extends LitElement {
   place!: string;
 
   /**
-   * Bar chart sort order.
+   * Optional: Bar chart sort order.
    * Options: ascending, descending, ascendingPopulation, descendingPopulation
    * Default: descendingPopulation
    */
@@ -132,7 +146,7 @@ export class DatacommonsBarComponent extends LitElement {
   sort?: SortType;
 
   /**
-   * Draw as a stacked chart instead of grouped chart
+   * Optional: Draw as a stacked chart instead of grouped chart
    */
   @property({ type: Boolean })
   stacked?: boolean;
@@ -150,15 +164,11 @@ export class DatacommonsBarComponent extends LitElement {
   variable!: string;
 
   /**
-   * Y axis margin to fit the axis label text. Default: 60px
+   * Optional: Y axis margin to fit the axis label text.
+   * Default: 60px
    */
   @property({ type: Number })
   yAxisMargin?: number;
-
-  // Optional: Whether to render as a lollipop
-  // Set to true to render using lollipops instead of bars
-  @property({ type: Boolean })
-  lollipop: boolean;
 
   render(): HTMLElement {
     const statVarDcids: string[] = this.comparisonVariables
@@ -176,11 +186,12 @@ export class DatacommonsBarComponent extends LitElement {
       });
     });
     const barTileProps: BarTilePropType = {
-      barHeight: this.barHeight,
       apiRoot: DEFAULT_API_ENDPOINT,
+      barHeight: this.barHeight,
+      colors: this.colors,
       comparisonPlaces: this.comparisonPlaces,
-      horizontal: this.horizontal,
       enclosedPlaceType: this.childPlaceType,
+      horizontal: this.horizontal,
       id: `chart-${_.uniqueId()}`,
       maxPlaces: this.maxPlaces,
       place: {

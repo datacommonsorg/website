@@ -140,9 +140,11 @@ export interface MapPoint {
 
 export interface ChartOptions {
   apiRoot?: string;
-  unit?: string;
+  // specific colors to use
+  colors?: string[];
   // whether to draw chart in lollipop style, used for bar charts
   lollipop?: boolean;
+  unit?: string;
 }
 
 export interface GroupLineChartOptions extends ChartOptions {

@@ -59,14 +59,21 @@ Optional:
 
 - `barHeight` _number_
   - Bar height for horizontal charts, in px.
-- `comparisonPlaces` _string_
+- `colors` _list of strings_
+  - List of colors to use.
+  - Colors should be passed in the same order as variables
+  - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
+- `comparisonPlaces` _list of strings_
   - List of DCIDs of specific places to plot.
   - If provided, `place` and `childPlaceType` will be ignored.
-  - Use the format `'["list item 1", "list item ,"]'`
-- `comparisonVariables` _string_
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+- `comparisonVariables` _list of strings_
   - List of DCIDs of multiple variables to plot.
   - If provided, `variable` will be ignored.
-  - Use the format `'["list item 1", "list item ,"]'`
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
 - `maxPlaces` _number_
   - Maximum _number_ of child places to plot.
 - `sort` _string_
@@ -107,7 +114,7 @@ A bar chart of population for specific US states:
 <datacommons-bar
     title="Population of US States"
     variable="Count_Person"
-    comparisonPlaces='["geoId/01", "geoId/02"]'
+    comparisonPlaces="geoId/01 geoId/02"
 ></datacommons-bar>
 ```
 
@@ -117,7 +124,7 @@ A stacked bar chart of population for specific US states:
 <datacommons-bar
     title="Population of US States"
     variableDcid="Count_Person"
-    comparisonPlaces='["geoId/01", "geoId/02"]'
+    comparisonPlaces="geoId/01 geoId/02"
     stacked
 ></datacommons-bar>
 ```
@@ -128,7 +135,7 @@ A horizontal, stacked bar chart of median income for specific US states:
 <datacommons-bar
     title="Median income by gender"
     comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-    comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+    comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
     stacked
     horizontal
     sort="descending"
@@ -171,6 +178,16 @@ Required:
 - `variable` _string_
   - DCID of the variable to plot.
 
+Optional:
+
+- `colors` _list of strings_
+  - List of colors to use.
+  - Colors will be spaced out linearly across the gauge
+  - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
+
 ### Examples
 
 A gauge of the percentage of people who are internet users in the US
@@ -200,9 +217,19 @@ Required:
   - Type of child places to plot.
 - `title` _string_
   - Title of the chart.
-- `variables` _string_
+- `variables` _list of strings_
   - List of DCIDs of the variables to plot.
-  - Use the format `'["list item 1", "list item ,"]'`
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+
+Optional:
+
+- `colors` _list of strings_
+  - List of colors to use.
+  - Colors should be passed in the same order as variables
+  - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
 
 ### Examples
 
@@ -211,7 +238,7 @@ A line chart of how the population below poverty level in the US changed over ti
 <datacommons-line
     title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
     place="country/USA"
-    variables='["Count_Person_BelowPovertyLevelInThePast12Months"]'
+    variables="Count_Person_BelowPovertyLevelInThePast12Months"
 ></datacommons-line>
 ```
 
@@ -241,6 +268,18 @@ Required:
 
 Optional:
 
+- `colors` _list of strings_
+  - List of up to 3 colors to use for the color scale.
+  - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - If only 1 color is given, a luminance based color scale will be used
+  - If only 2 colors are given, a divergent color scale will be used, with the
+    first color corresponding to the min value, and the second color
+    corresponding to the max value.
+  - If 3 or more colors are given, a color scale with the first three colors
+    corresponding to [min, mean, max] values will be used.
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
 - `subscribe` _string_
   - Event channel to subscribe to.
   - The event channel must match the event channel of the [slider component](#map-chart-time-slider)
@@ -333,12 +372,19 @@ Required:
   - Type of child places to plot.
 - `title` _string_
   - Title of the chart.
-- `comparisonVariables` _string_
+- `comparisonVariables` _list of strings_
   - List of DCIDs of the variable to plot
-  - Use the format `'["list item 1", "list item ,"]'`
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
 
 Optional:
 
+- `colors` _list of strings_
+  - List of colors to use.
+  - Colors should be passed in the same order as variables
+  - Values should follow CSS specification (keywords, rgb, rgba, hsl, hex, etc.)
+  - Use the format `"list-item-1 list-item-2"` (space separated list).
+  - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
+    instead of `rgba(255, 0, 0, 0.3)`.
 - `donut` _boolean_
   - Set to true to draw as a donut chart instead of a pie chart.
 
@@ -350,7 +396,7 @@ A pie chart of median income by gender in California
 <datacommons-pie
     title="Median Income by gender in California"
     place="geoId/06"
-    comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
 ></datacommons-pie>
 ```
 
@@ -360,7 +406,7 @@ A donut chart of median income by gender in California
 <datacommons-pie
     title="Median Income by gender in California"
     place="geoId/06"
-    comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
     donut
 ></datacommons-pie>
 ```

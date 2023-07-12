@@ -49,14 +49,15 @@ while getopts bfi OPTION; do
         ;;
     *)
         help
+        exit 1
     esac
 done
 
-if [ "$STAGE" == "" ]; then
+if [ "$START_FROM" == "" ] || [ "$GENERATE" == "" ]; then
+  echo "START_FROM and GENERATE were not set"
   help
   exit 1
 fi
-
 
 
 cd ../
@@ -65,4 +66,4 @@ source .env/bin/activate
 python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
-python3 -m finetuning.finetune --start_from=START_FROM --generate=$GENERATE --pretuned_model="$INTERMEDIATE_FINETUNED_MODEL"
+python3 -m finetuning.finetune --start_from="$START_FROM" --generate="$GENERATE" --pretuned_model="$INTERMEDIATE_FINETUNED_MODEL"

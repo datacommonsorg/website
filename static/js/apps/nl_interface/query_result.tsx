@@ -103,8 +103,8 @@ export const QueryResult = memo(function QueryResult(
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
           let mainPlace = {};
-          // For NL Next, context does not contain the "main place".
           mainPlace = resp.data["place"];
+          const fb = resp.data["placeFallback"];
           setChartsData({
             place: {
               dcid: mainPlace["dcid"],
@@ -116,13 +116,30 @@ export const QueryResult = memo(function QueryResult(
               !props.demoMode && "session" in resp.data
                 ? resp.data["session"]["id"]
                 : "",
+            svSource: resp.data["svSource"],
+            placeSource: resp.data["placeSource"],
+            pastSourceContext: resp.data["pastSourceContext"],
+            placeFallback:
+              "origStr" in fb && "newStr" in fb
+                ? {
+                    origStr: fb["origStr"],
+                    newStr: fb["newStr"],
+                  }
+                : null,
           });
         } else {
-          setErrorMsg("Sorry, we couldn't answer your question.");
+          // If there was no place recognized, we might end up with 0
+          // categories.  Check if that's the case, and provide a different
+          // error message.
+          if ("placeSource" in resp.data && resp.data["placeSource"]) {
+            setErrorMsg("Could not recognize any place in the query!");
+          } else {
+            setErrorMsg("Sorry, we couldn't answer your question.");
+          }
         }
-        // For NL Next, debug info is outside the context.
         const debugData = resp.data["debug"];
         if (debugData !== undefined) {
+          debugData["context"] = context;
           setDebugData(debugData);
         }
         setIsLoading(false);
@@ -164,8 +181,68 @@ export const QueryResult = memo(function QueryResult(
           {debugData && (
             <DebugInfo
               debugData={debugData}
-              pageConfig={chartsData ? chartsData.config : null}
+              chartsData={chartsData}
             ></DebugInfo>
+          )}
+          {chartsData &&
+            !chartsData.placeFallback &&
+            (chartsData.placeSource === "PAST_QUERY" ||
+              chartsData.svSource === "PAST_QUERY") && (
+              <div className="nl-query-info">
+                Could not recognize any{" "}
+                {chartsData.placeSource !== "PAST_QUERY" && <span>topic</span>}
+                {chartsData.svSource !== "PAST_QUERY" && <span>place</span>}
+                {chartsData.svSource === "PAST_QUERY" &&
+                  chartsData.placeSource === "PAST_QUERY" && (
+                    <span>place or topic</span>
+                  )}{" "}
+                in this query, so here are relevant statistics{" "}
+                {chartsData.pastSourceContext && (
+                  <span>for {chartsData.pastSourceContext} </span>
+                )}
+                based on what you previously asked.
+              </div>
+            )}
+          {chartsData &&
+            !chartsData.placeFallback &&
+            chartsData.svSource === "UNRECOGNIZED" && (
+              <div className="nl-query-info">
+                Could not recognize any topic from the query, but below are
+                topic categories with statistics for {chartsData.place.name}{" "}
+                that you could explore further.
+              </div>
+            )}
+          {chartsData &&
+            !chartsData.placeFallback &&
+            chartsData.svSource === "UNFULFILLED" && (
+              <div className="nl-query-info">
+                Sorry, there were no relevant statistics about the topic for{" "}
+                {chartsData.place.name}. Below are topic categories with
+                statistics for {chartsData.place.name} that you could explore
+                further.
+              </div>
+            )}
+          {chartsData && chartsData.placeFallback && (
+            <div className="nl-query-info">
+              {chartsData.placeSource !== "PAST_QUERY" &&
+                chartsData.svSource !== "PAST_QUERY" && (
+                  <span>
+                    Sorry, there were no relevant statistics on this topic for
+                    &quot;{chartsData.placeFallback.origStr}&quot;. &nbsp; Here
+                    are results for &quot;{chartsData.placeFallback.newStr}
+                    &quot; instead.
+                  </span>
+                )}
+              {(chartsData.placeSource === "PAST_QUERY" ||
+                chartsData.svSource === "PAST_QUERY") && (
+                <span>
+                  Tried looking up relevant statistics for &quot;
+                  {chartsData.placeFallback.origStr}&quot; based on your prior
+                  queries, but found no results. &nbsp; Here are results for
+                  &quot;{chartsData.placeFallback.newStr}&quot; instead.
+                </span>
+              )}
+            </div>
           )}
           {chartsData && chartsData.config && (
             <NlSessionContext.Provider value={chartsData.sessionId}>

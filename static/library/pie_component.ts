@@ -56,24 +56,28 @@ export class DatacommonsPieComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
-  // Title of the chart
-  @property()
-  title!: string;
-
-  // DCID of the parent place
-  @property()
-  place!: string;
+  // Optional: Colors to use for statistical variables
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  colors?: string[];
 
   // List of DCIDs of statistical variables to plot
   // !Important: variables provided must cover all cases (sum of values takes
   //             up the full circle)
   @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonVariables;
+  comparisonVariables: string[];
 
   // Optional: Whether to draw as donut chart instead of a pie chart
   // Set to true to draw a donut chart
   @property({ type: Boolean })
-  donut;
+  donut?: boolean;
+
+  // DCID of the parent place
+  @property()
+  place!: string;
+
+  // Title of the chart
+  @property()
+  title!: string;
 
   render(): HTMLElement {
     const statVarSpec = [];
@@ -89,6 +93,7 @@ export class DatacommonsPieComponent extends LitElement {
     });
     const donutTileProps: DonutTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       pie: !this.donut,
       place: {

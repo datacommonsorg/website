@@ -26,9 +26,10 @@ bp = Blueprint('nl', __name__, url_prefix='/nl')
 
 @bp.route('/')
 def page():
-  if (os.environ.get('FLASK_ENV') == 'production' or
-      not current_app.config['NL_MODEL']):
+  # No production support yet.
+  if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
+
   placeholder_query = ''
   # TODO: Make this more customizable for all custom DC's
   if g.env == 'climate_trace':
