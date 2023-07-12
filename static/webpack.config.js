@@ -110,7 +110,8 @@ const config = {
     datacommons: [__dirname + "/library/index.ts"],
     homepage: [
       __dirname + "/js/homepage/main.ts",
-      __dirname + "/css/homepage.scss"]
+      __dirname + "/css/homepage.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
