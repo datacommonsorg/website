@@ -21,7 +21,7 @@
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   addPolygonLayer,
@@ -52,6 +52,7 @@ import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 export interface MapTilePropType {
   // API root
@@ -131,7 +132,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         addSvgDataAttribute();
       }
     }
-  }, [mapChartData, props]);
+  }, [mapChartData, props, svgContainer, legendContainer, mapContainer]);
 
   useEffect(() => {
     let svgHeight = props.svgChartHeight;
@@ -143,6 +144,20 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     }
     setSvgHeight(svgHeight);
   }, [props]);
+
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(mapChartData)) {
+      return;
+    }
+    draw(
+      mapChartData,
+      props,
+      svgContainer.current,
+      legendContainer.current,
+      mapContainer.current
+    );
+  }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
+  useDrawOnResize(drawFn, svgContainer.current);
 
   return (
     <ChartTileContainer
@@ -356,10 +371,7 @@ export function draw(
   svgWidth?: number
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
-  let height = props.svgChartHeight;
-  if (svgContainer) {
-    height = Math.max(props.svgChartHeight, svgContainer.offsetHeight);
-  }
+  const height = props.svgChartHeight;
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,
@@ -420,6 +432,7 @@ export function draw(
     height,
     projectionData
   );
+
   drawD3Map(
     mapContainer,
     chartData.geoJson,
