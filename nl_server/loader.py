@@ -23,6 +23,7 @@ nl_embeddings_cache_key_base = 'nl_embeddings'
 nl_ner_cache_key = 'nl_ner'
 nl_cache_path = '~/.datacommons/'
 nl_cache_expire = 3600 * 24  # Cache for 1 day
+nl_cache_size_limit = 16e9  # 16Gb local cache size
 
 DEFAULT_INDEX_TYPE = 'medium_ft'
 
@@ -68,7 +69,7 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
   # the embeddings again.
   if _use_cache(flask_env):
     from diskcache import Cache
-    cache = Cache(nl_cache_path)
+    cache = Cache(nl_cache_path, size_limit=nl_cache_size_limit)
     cache.expire()
 
     nl_ner_places = cache.get(nl_ner_cache_key)
@@ -111,7 +112,7 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
   app.config["NL_NER_PLACES"] = nl_ner_places
 
   if _use_cache(flask_env):
-    with Cache(cache.directory) as reference:
+    with Cache(cache.directory, size_limit=nl_cache_size_limit) as reference:
       for sz in embeddings_map.keys():
         reference.set(nl_embeddings_cache_key(sz),
                       app.config[embeddings_config_key(sz)],
