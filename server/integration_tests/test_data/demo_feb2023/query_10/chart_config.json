@@ -9,6 +9,6 @@
     "place_type": ""
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "UNRECOGNIZED",
   "svSource": "CURRENT_QUERY"
 }
