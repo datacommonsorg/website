@@ -1072,6 +1072,14 @@ function drawHorizontalGroupedBars(
       .join("line")
       .attr("data-dcid", (item) => item.dataGroupValue.dcid)
       .attr("data-d", (item) => item.dataGroupValue.value)
+      .attr("part", (item) =>
+        [
+          "series",
+          `series-place-${item.dataGroupValue.dcid}`,
+          `series-variable-${item.label}`,
+          `series-place-${item.dataGroupValue.dcid}-variable-${item.label}`,
+        ].join(" ")
+      )
       .attr("stroke", (item) => colorFn(item.dataGroupValue.label))
       .attr("stroke-width", 2)
       .attr("x1", xScale(0))
@@ -1103,6 +1111,14 @@ function drawHorizontalGroupedBars(
       .join("circle")
       .attr("data-dcid", (item) => item.dataGroupValue.dcid)
       .attr("data-d", (item) => item.dataGroupValue.value)
+      .attr("part", (item) =>
+        [
+          "series",
+          `series-place-${item.dataGroupValue.dcid}`,
+          `series-variable-${item.label}`,
+          `series-place-${item.dataGroupValue.dcid}-variable-${item.label}`,
+        ].join(" ")
+      )
       .attr("fill", (item) => colorFn(item.dataGroupValue.label))
       .attr("cx", (item) => xScale(item.dataGroupValue.value))
       .attr(
@@ -1175,10 +1191,18 @@ function drawHorizontalStackedBars(
       .append("g")
       .attr("stroke", (d) => colorFn(d.key))
       .selectAll("line")
-      .data((d) => d)
+      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
       .join("line")
       .attr("data-dcid", (d) => d.data.dcid)
       .attr("data-d", (d) => d.data.value)
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
       .attr("stroke-width", 2)
       .attr("x1", (d) => xScale(d[0]))
       .attr("x2", (d) => xScale(d[1]))
@@ -1194,10 +1218,18 @@ function drawHorizontalStackedBars(
       .append("g")
       .attr("fill", (d) => colorFn(d.key))
       .selectAll("circle")
-      .data((d) => d)
+      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
       .join("circle")
       .attr("data-dcid", (d) => d.data.dcid)
       .attr("data-d", (d) => d.data.value)
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
       .attr("cx", (d) => xScale(d[1]))
       .attr("cy", (d) => yScale(String(d.data.label)) + yShift)
       .attr("r", 6);
