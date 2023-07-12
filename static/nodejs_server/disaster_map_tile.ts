@@ -15,12 +15,14 @@
  */
 
 /**
- * Functions for getting tile result for a disaster map tile
+ * Functions for getting results for a disaster map tile
  */
 
 import _ from "lodash";
 
+import { fetchDisasterEventData } from "../js/components/subject_page/disaster_event_block";
 import {
+  DisasterEventMapTilePropType,
   draw,
   fetchChartData,
   getReplacementStrings,
@@ -32,9 +34,30 @@ import {
   TileConfig,
 } from "../js/types/subject_page_proto_types";
 import { getChartTitle } from "../js/utils/tile_utils";
-import { SVG_HEIGHT, SVG_WIDTH } from "./constants";
+import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
-import { getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+
+function getTileProp(
+  id: string,
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  eventTypeSpec: Record<string, EventTypeSpec>,
+  eventData: Record<string, DisasterEventPointData>,
+  apiRoot: string
+): DisasterEventMapTilePropType {
+  return {
+    id,
+    title: tileConfig.title,
+    place,
+    enclosedPlaceType,
+    eventTypeSpec,
+    disasterEventData: eventData,
+    tileSpec: tileConfig.disasterEventMapTileSpec,
+    apiRoot,
+  };
+}
 
 /**
  * Gets the Tile Result for a disaster map tile
@@ -53,7 +76,8 @@ export async function getDisasterMapTileResult(
   enclosedPlaceType: string,
   eventTypeSpec: Record<string, EventTypeSpec>,
   disasterEventDataPromise: Promise<Record<string, DisasterEventPointData>>,
-  apiRoot: string
+  apiRoot: string,
+  urlRoot: string
 ): Promise<TileResult> {
   let tileEventData = null;
   try {
@@ -62,16 +86,68 @@ export async function getDisasterMapTileResult(
     Object.keys(eventTypeSpec).forEach((specId) => {
       tileEventData[specId] = disasterEventData[specId];
     });
-    const tileProp = {
-      id: "test",
-      title: tileConfig.title,
+    const tileProp = getTileProp(
+      id,
+      tileConfig,
       place,
       enclosedPlaceType,
       eventTypeSpec,
-      disasterEventData: tileEventData,
-      tileSpec: tileConfig.disasterEventMapTileSpec,
-      apiRoot,
+      disasterEventData,
+      apiRoot
+    );
+    const chartData = await fetchChartData(tileProp);
+    return {
+      chartUrl: getChartUrl(
+        tileConfig,
+        place.dcid,
+        [],
+        enclosedPlaceType,
+        eventTypeSpec,
+        urlRoot
+      ),
+      legend: Object.values(eventTypeSpec).map((spec) => spec.name),
+      srcs: getSources(chartData.sources),
+      title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
+      type: "EVENT_MAP",
     };
+  } catch (e) {
+    console.log("Failed to get disaster event map tile result for: " + id);
+    return null;
+  }
+}
+
+/**
+ * Gets the disaster map chart for a given tile config
+ * @param tileConfig the tile config for the chart
+ * @param place the place to get the chart for
+ * @param enclosedPlaceType the enclosed place type to get the chart for
+ * @param eventTypeSpec map of event types to show in the chart to their specs
+ * @param apiRoot API root to use to fetch data
+ */
+export async function getDisasterMapChart(
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  eventTypeSpec: Record<string, EventTypeSpec>,
+  apiRoot: string
+): Promise<string> {
+  try {
+    const disasterEventData = await fetchDisasterEventData(
+      CHART_ID,
+      eventTypeSpec,
+      place.dcid,
+      null,
+      apiRoot
+    );
+    const tileProp = getTileProp(
+      CHART_ID,
+      tileConfig,
+      place,
+      enclosedPlaceType,
+      eventTypeSpec,
+      disasterEventData,
+      apiRoot
+    );
     const chartData = await fetchChartData(tileProp);
     const mapContainer = document.createElement("div");
     draw(
@@ -84,15 +160,8 @@ export async function getDisasterMapTileResult(
     );
     const svg = mapContainer.querySelector("svg");
     svg.style.background = "#eee";
-    return {
-      svg: getProcessedSvg(svg),
-      legend: Object.values(eventTypeSpec).map((spec) => spec.name),
-      srcs: getSources(chartData.sources),
-      title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
-      type: "EVENT_MAP",
-    };
+    return getProcessedSvg(svg);
   } catch (e) {
-    console.log("Failed to get disaster event map tile result for: " + id);
-    return null;
+    return "Failed to get disaster map chart.";
   }
 }

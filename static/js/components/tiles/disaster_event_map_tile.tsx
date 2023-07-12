@@ -83,7 +83,7 @@ const PLACE_TYPE_GEOJSON_PROP = {
   EurostatNUTS3: "geoJsonCoordinatesDP1",
 };
 
-interface DisasterEventMapTilePropType {
+export interface DisasterEventMapTilePropType {
   // Id for this tile
   id: string;
   // Title for this tile

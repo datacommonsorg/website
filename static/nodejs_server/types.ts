@@ -20,8 +20,8 @@
 
 // The result for a single tile
 export interface TileResult {
-  // The svg for the chart in the tile as an xml string
-  svg: string;
+  // The url to get the chart in the tile
+  chartUrl: string;
   // List of sources of the data in the chart
   srcs: { name: string; url: string }[];
   // The title of the tile

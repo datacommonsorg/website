@@ -19,19 +19,33 @@ import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
 
-import { fetchDisasterEventData } from "../js/components/subject_page/disaster_event_block";
+import {
+  fetchDisasterEventData,
+  getBlockEventTypeSpecs,
+} from "../js/components/subject_page/disaster_event_block";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import {
   BlockConfig,
   EventTypeSpec,
+  TileConfig,
 } from "../js/types/subject_page_proto_types";
 import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
-import { getBarTileResult } from "../nodejs_server/bar_tile";
-import { getDisasterMapTileResult } from "../nodejs_server/disaster_map_tile";
-import { getLineTileResult } from "../nodejs_server/line_tile";
-import { getMapTileResult } from "../nodejs_server/map_tile";
-import { getRankingTileResult } from "../nodejs_server/ranking_tile";
-import { getScatterTileResult } from "../nodejs_server/scatter_tile";
+import { getBarChart, getBarTileResult } from "../nodejs_server/bar_tile";
+import { CHART_URL_PARAMS } from "../nodejs_server/constants";
+import {
+  getDisasterMapChart,
+  getDisasterMapTileResult,
+} from "../nodejs_server/disaster_map_tile";
+import { getLineChart, getLineTileResult } from "../nodejs_server/line_tile";
+import { getMapChart, getMapTileResult } from "../nodejs_server/map_tile";
+import {
+  getRankingChart,
+  getRankingTileResult,
+} from "../nodejs_server/ranking_tile";
+import {
+  getScatterChart,
+  getScatterTileResult,
+} from "../nodejs_server/scatter_tile";
 import { TileResult } from "../nodejs_server/types";
 const app = express();
 const APP_CONFIGS = {
@@ -151,7 +165,8 @@ function getBlockTileResults(
   block: BlockConfig,
   place: NamedTypedPlace,
   enclosedPlaceType: string,
-  svSpec: Record<string, StatVarSpec>
+  svSpec: Record<string, StatVarSpec>,
+  urlRoot: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
@@ -162,7 +177,14 @@ function getBlockTileResults(
         case "LINE":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
           tilePromises.push(
-            getLineTileResult(tileId, tile, place, tileSvSpec, CONFIG.apiRoot)
+            getLineTileResult(
+              tileId,
+              tile,
+              place,
+              tileSvSpec,
+              CONFIG.apiRoot,
+              urlRoot
+            )
           );
           break;
         case "SCATTER":
@@ -174,7 +196,8 @@ function getBlockTileResults(
               place,
               enclosedPlaceType,
               tileSvSpec,
-              CONFIG.apiRoot
+              CONFIG.apiRoot,
+              urlRoot
             )
           );
           break;
@@ -187,7 +210,8 @@ function getBlockTileResults(
               place,
               enclosedPlaceType,
               tileSvSpec,
-              CONFIG.apiRoot
+              CONFIG.apiRoot,
+              urlRoot
             )
           );
           break;
@@ -200,7 +224,8 @@ function getBlockTileResults(
               place,
               enclosedPlaceType,
               tileSvSpec,
-              CONFIG.apiRoot
+              CONFIG.apiRoot,
+              urlRoot
             )
           );
           break;
@@ -213,7 +238,8 @@ function getBlockTileResults(
               place,
               enclosedPlaceType,
               tileSvSpec,
-              CONFIG.apiRoot
+              CONFIG.apiRoot,
+              urlRoot
             )
           );
           break;
@@ -231,20 +257,20 @@ function getDisasterBlockTileResults(
   block: BlockConfig,
   place: NamedTypedPlace,
   enclosedPlaceType: string,
-  eventTypeSpec: Record<string, EventTypeSpec>
+  eventTypeSpec: Record<string, EventTypeSpec>,
+  urlRoot: string
 ): Promise<TileResult>[] {
-  const blockProp = {
-    id,
-    place,
-    enclosedPlaceType,
-    title: block.title,
-    description: block.description,
-    footnote: block.footnote,
-    columns: block.columns,
+  const blockEventTypeSpec = getBlockEventTypeSpecs(
     eventTypeSpec,
-    apiRoot: CONFIG.apiRoot,
-  };
-  const disasterEventDataPromise = fetchDisasterEventData(blockProp);
+    block.columns
+  );
+  const disasterEventDataPromise = fetchDisasterEventData(
+    id,
+    blockEventTypeSpec,
+    place.dcid,
+    null,
+    CONFIG.apiRoot
+  );
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
@@ -260,7 +286,8 @@ function getDisasterBlockTileResults(
               enclosedPlaceType,
               tileEventTypeSpec,
               disasterEventDataPromise,
-              CONFIG.apiRoot
+              CONFIG.apiRoot,
+              urlRoot
             )
           );
         default:
@@ -269,6 +296,71 @@ function getDisasterBlockTileResults(
     });
   });
   return tilePromises;
+}
+
+// Get the chart html for a tile
+function getTileChart(
+  tileConfig: TileConfig,
+  placeDcid: string,
+  childPlaceType: string,
+  svSpec: StatVarSpec[],
+  eventTypeSpec: Record<string, EventTypeSpec>
+): Promise<string> {
+  // The name and types of a place are not used when drawing charts, so just
+  // set default values for them.
+  const place = {
+    dcid: placeDcid,
+    name: placeDcid,
+    types: [],
+  };
+  switch (tileConfig.type) {
+    case "LINE":
+      return getLineChart(tileConfig, place, svSpec, CONFIG.apiRoot);
+    case "BAR":
+      return getBarChart(
+        tileConfig,
+        place,
+        childPlaceType,
+        svSpec,
+        CONFIG.apiRoot
+      );
+    case "MAP":
+      return getMapChart(
+        tileConfig,
+        place,
+        childPlaceType,
+        svSpec.length ? svSpec[0] : null,
+        CONFIG.apiRoot
+      );
+    case "SCATTER":
+      return getScatterChart(
+        tileConfig,
+        place,
+        childPlaceType,
+        svSpec,
+        CONFIG.apiRoot
+      );
+    case "RANKING":
+      return getRankingChart(
+        tileConfig,
+        place,
+        childPlaceType,
+        svSpec,
+        CONFIG.apiRoot
+      );
+    case "DISASTER_EVENT_MAP":
+      return getDisasterMapChart(
+        tileConfig,
+        place,
+        childPlaceType,
+        eventTypeSpec,
+        CONFIG.apiRoot
+      );
+    default:
+      return Promise.resolve(
+        `Chart of type ${tileConfig.type} is not supported.`
+      );
+  }
 }
 
 // Get the elapsed time in seconds given the start and end times in nanoseconds.
@@ -288,6 +380,7 @@ app.disable("etag");
 app.get("/nodejs/query", (req: Request, res: Response) => {
   const startTime = process.hrtime.bigint();
   const query = req.query.q;
+  const urlRoot = `${req.protocol}://${req.get("host")}`;
   res.setHeader("Content-Type", "application/json");
   axios
     .post(`${CONFIG.apiRoot}/api/nl/data?q=${query}&detector=heuristic`, {})
@@ -335,7 +428,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 block,
                 place,
                 enclosedPlaceType,
-                config["metadata"]["eventTypeSpec"]
+                config["metadata"]["eventTypeSpec"],
+                urlRoot
               );
               break;
             default:
@@ -344,7 +438,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 block,
                 place,
                 enclosedPlaceType,
-                svSpec
+                svSpec,
+                urlRoot
               );
           }
           tilePromises.push(...blockTilePromises);
@@ -382,6 +477,32 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
     .catch((error) => {
       console.error("Error making request:\n", error.message);
       res.status(500).send({ err: "Error fetching data." });
+    });
+});
+
+app.get("/nodejs/chart", (req: Request, res: Response) => {
+  const place = req.query[CHART_URL_PARAMS.PLACE] as string;
+  const enclosedPlaceType = req.query[
+    CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE
+  ] as string;
+  const svSpec = JSON.parse(
+    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
+  );
+  // Need to convert encoded # back to #.
+  const eventTypeSpecVal = (
+    req.query[CHART_URL_PARAMS.EVENT_TYPE_SPEC] as string
+  ).replaceAll("%23", "#");
+  const eventTypeSpec = JSON.parse(eventTypeSpecVal);
+  const tileConfig = JSON.parse(
+    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
+  );
+  res.setHeader("Content-Type", "text/html");
+  getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
+    .then((chart) => {
+      res.status(200).send(chart);
+    })
+    .catch(() => {
+      res.status(500).send("Error retrieving chart.");
     });
 });
 

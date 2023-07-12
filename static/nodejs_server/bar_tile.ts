@@ -15,12 +15,13 @@
  */
 
 /**
- * Functions for getting tile result for a bar tile
+ * Functions for getting results for a bar tile
  */
 
 import _ from "lodash";
 
 import {
+  BarTilePropType,
   draw,
   fetchData,
   getReplacementStrings,
@@ -30,9 +31,37 @@ import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
-import { DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
+import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
-import { getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+
+function getTileProp(
+  id: string,
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  statVarSpec: StatVarSpec[],
+  apiRoot: string
+): BarTilePropType {
+  const comparisonPlaces = tileConfig.comparisonPlaces
+    ? tileConfig.comparisonPlaces.map((p) =>
+        p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
+      )
+    : undefined;
+  const useLollipop =
+    tileConfig.barTileSpec && tileConfig.barTileSpec.useLollipop;
+  return {
+    id,
+    title: tileConfig.title,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    apiRoot,
+    svgChartHeight: SVG_HEIGHT,
+    comparisonPlaces,
+    useLollipop,
+  };
+}
 
 /**
  * Gets the Tile Result for a bar tile
@@ -49,32 +78,19 @@ export async function getBarTileResult(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  urlRoot: string
 ): Promise<TileResult> {
-  const comparisonPlaces = tileConfig.comparisonPlaces
-    ? tileConfig.comparisonPlaces.map((p) =>
-        p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
-      )
-    : undefined;
-  const useLollipop =
-    tileConfig.barTileSpec && tileConfig.barTileSpec.useLollipop;
-  const tileProp = {
+  const tileProp = getTileProp(
     id,
-    title: tileConfig.title,
+    tileConfig,
     place,
     enclosedPlaceType,
     statVarSpec,
-    apiRoot,
-    svgChartHeight: SVG_HEIGHT,
-    comparisonPlaces,
-    useLollipop,
-  };
+    apiRoot
+  );
   try {
     const chartData = await fetchData(tileProp);
-    const tileContainer = document.createElement("div");
-    tileContainer.setAttribute("id", id);
-    document.getElementById(DOM_ID).appendChild(tileContainer);
-    draw(tileProp, chartData, tileContainer, SVG_WIDTH);
     let legend = [];
     if (
       !_.isEmpty(chartData.dataGroup) &&
@@ -82,10 +98,15 @@ export async function getBarTileResult(
     ) {
       legend = chartData.dataGroup[0].value.map((dp) => dp.label);
     }
-    const svg = getProcessedSvg(tileContainer.querySelector("svg"));
-    tileContainer.remove();
     return {
-      svg,
+      chartUrl: getChartUrl(
+        tileConfig,
+        place.dcid,
+        statVarSpec,
+        enclosedPlaceType,
+        null,
+        urlRoot
+      ),
       data_csv: dataGroupsToCsv(chartData.dataGroup),
       srcs: getSources(chartData.sources),
       legend,
@@ -98,5 +119,40 @@ export async function getBarTileResult(
   } catch (e) {
     console.log("Failed to get bar tile result for: " + id);
     return null;
+  }
+}
+
+/**
+ * Gets the bar chart for a given tile config
+ * @param tileConfig the tile config for the chart
+ * @param place the place to get the chart for
+ * @param enclosedPlaceType the enclosed place type to get the chart for
+ * @param statVarSpec list of stat var specs to show in the chart
+ * @param apiRoot API root to use to fetch data
+ */
+export async function getBarChart(
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  statVarSpec: StatVarSpec[],
+  apiRoot: string
+): Promise<string> {
+  const tileProp = getTileProp(
+    CHART_ID,
+    tileConfig,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    apiRoot
+  );
+  try {
+    const chartData = await fetchData(tileProp);
+    const tileContainer = document.createElement("div");
+    tileContainer.setAttribute("id", CHART_ID);
+    document.getElementById(DOM_ID).appendChild(tileContainer);
+    draw(tileProp, chartData, tileContainer, SVG_WIDTH);
+    return getProcessedSvg(tileContainer.querySelector("svg"));
+  } catch (e) {
+    return "Failed to get bar chart.";
   }
 }

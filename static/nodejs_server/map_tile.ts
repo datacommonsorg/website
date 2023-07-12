@@ -15,7 +15,7 @@
  */
 
 /**
- * Functions for getting tile result for a map tile
+ * Functions for getting results for a map tile
  */
 
 // This import is unused in this file, but needed for draw functions
@@ -27,14 +27,39 @@ import {
   draw,
   fetchData,
   getReplacementStrings,
+  MapTilePropType,
 } from "../js/components/tiles/map_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { mapDataToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
-import { MAP_LEGEND_CONSTANT_WIDTH, SVG_HEIGHT, SVG_WIDTH } from "./constants";
+import {
+  CHART_ID,
+  MAP_LEGEND_CONSTANT_WIDTH,
+  SVG_HEIGHT,
+  SVG_WIDTH,
+} from "./constants";
 import { TileResult } from "./types";
-import { getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+
+function getTileProp(
+  id: string,
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  statVarSpec: StatVarSpec,
+  apiRoot: string
+): MapTilePropType {
+  return {
+    id,
+    title: tileConfig.title,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
+    apiRoot,
+  };
+}
 
 /**
  * Gets the Tile Result for a map tile
@@ -51,17 +76,65 @@ export async function getMapTileResult(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec,
-  apiRoot: string
+  apiRoot: string,
+  urlRoot: string
 ): Promise<TileResult> {
-  const tileProp = {
+  const tileProp = getTileProp(
     id,
-    title: tileConfig.title,
+    tileConfig,
     place,
     enclosedPlaceType,
     statVarSpec,
-    svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
-    apiRoot,
-  };
+    apiRoot
+  );
+  try {
+    const chartData = await fetchData(tileProp);
+    return {
+      chartUrl: getChartUrl(
+        tileConfig,
+        place.dcid,
+        [statVarSpec],
+        enclosedPlaceType,
+        null,
+        urlRoot
+      ),
+      data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
+      srcs: getSources(chartData.sources),
+      title: getChartTitle(
+        tileConfig.title,
+        getReplacementStrings(tileProp, chartData)
+      ),
+      type: "MAP",
+    };
+  } catch (e) {
+    console.log("Failed to get map tile result for: " + id);
+    return null;
+  }
+}
+
+/**
+ * Gets the map chart for a given tile config
+ * @param tileConfig the tile config for the chart
+ * @param place the place to get the chart for
+ * @param enclosedPlaceType the enclosed place type to get the chart for
+ * @param statVarSpec list of stat var specs to show in the chart
+ * @param apiRoot API root to use to fetch data
+ */
+export async function getMapChart(
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  statVarSpec: StatVarSpec,
+  apiRoot: string
+): Promise<string> {
+  const tileProp = getTileProp(
+    CHART_ID,
+    tileConfig,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    apiRoot
+  );
   try {
     const chartData = await fetchData(tileProp);
     const legendContainer = document.createElement("div");
@@ -95,18 +168,8 @@ export async function getMapTileResult(
     legendG.appendChild(legendSvg);
     mergedSvg.appendChild(legendG);
 
-    return {
-      svg: getProcessedSvg(mergedSvg),
-      data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
-      srcs: getSources(chartData.sources),
-      title: getChartTitle(
-        tileConfig.title,
-        getReplacementStrings(tileProp, chartData)
-      ),
-      type: "MAP",
-    };
+    return getProcessedSvg(mergedSvg);
   } catch (e) {
-    console.log("Failed to get map tile result for: " + id);
-    return null;
+    return "Failed to get map chart.";
   }
 }

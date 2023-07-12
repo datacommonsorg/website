@@ -20,8 +20,13 @@
 
 import * as xmlserializer from "xmlserializer";
 
+import { StatVarSpec } from "../js/shared/types";
 import { urlToDomain } from "../js/shared/util";
-import { FONT_FAMILY, FONT_SIZE } from "./constants";
+import {
+  EventTypeSpec,
+  TileConfig,
+} from "../js/types/subject_page_proto_types";
+import { CHART_URL_PARAMS, FONT_FAMILY, FONT_SIZE } from "./constants";
 
 /**
  * Gets a list of source objects with name and url from a set of source urls.
@@ -39,7 +44,8 @@ export function getSources(
 }
 
 /**
- * Processes and serializes a svg for a chart.
+ * Processes and serializes a svg for a chart and returns the image element for
+ * that chart.
  * @param chartSvg the svg element for the chart to process
  */
 export function getProcessedSvg(chartSvg: SVGSVGElement): string {
@@ -52,7 +58,49 @@ export function getProcessedSvg(chartSvg: SVGSVGElement): string {
     node.setAttribute("font-family", FONT_FAMILY);
     node.setAttribute("font-size", FONT_SIZE);
   });
-  // Get and return the svg as an xml string
+  // Create and return an image element out of the chart svg.
   const svgXml = xmlserializer.serializeToString(chartSvg);
-  return "data:image/svg+xml," + encodeURIComponent(svgXml);
+  const img = document.createElement("img");
+  img.src = "data:image/svg+xml," + encodeURIComponent(svgXml);
+  return img.outerHTML;
+}
+
+/**
+ * Gets the url that will return a chart for a specific set of properties.
+ * @param tileConfig tile config of the chart
+ * @param placeDcid place to use for the chart
+ * @param statVarSpec list of stat var specs to use for the chart
+ * @param enclosedPlaceType enclosed place type to use for the chart
+ * @param eventTypeSpec map of event type to its event type spec to use for the
+ *                      chart
+ * @param urlRoot url root to use for the returned url
+ */
+export function getChartUrl(
+  tileConfig: TileConfig,
+  placeDcid: string,
+  statVarSpec: StatVarSpec[],
+  enclosedPlaceType: string,
+  eventTypeSpec: Record<string, EventTypeSpec>,
+  urlRoot: string
+): string {
+  const paramMapping = {
+    [CHART_URL_PARAMS.EVENT_TYPE_SPEC]: JSON.stringify(eventTypeSpec),
+    [CHART_URL_PARAMS.PLACE]: placeDcid,
+    [CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
+    [CHART_URL_PARAMS.STAT_VAR_SPEC]: JSON.stringify(statVarSpec),
+    [CHART_URL_PARAMS.TILE_CONFIG]: JSON.stringify(tileConfig),
+  };
+  let url = `${urlRoot}/nodejs/chart?`;
+  Object.keys(paramMapping)
+    .sort()
+    .forEach((paramKey, idx) => {
+      const paramVal = paramMapping[paramKey];
+      if (!paramVal) {
+        return;
+      }
+      url += `${idx === 0 ? "" : "&"}${paramKey}=${paramVal}`;
+    });
+  // manually escape the # because encodeURI will not escape it
+  url = url.replaceAll("#", "%23");
+  return encodeURI(url);
 }

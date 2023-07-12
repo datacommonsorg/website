@@ -15,7 +15,7 @@
  */
 
 /**
- * Functions for getting tile result for a scatter tile
+ * Functions for getting results for the scatter tile
  */
 
 // This import is unused in this file, but needed for draw functions
@@ -25,14 +25,35 @@ import {
   draw,
   fetchData,
   getReplacementStrings,
+  ScatterTilePropType,
 } from "../js/components/tiles/scatter_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { scatterDataToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
-import { SVG_HEIGHT, SVG_WIDTH } from "./constants";
+import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
-import { getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+
+function getTileProp(
+  id: string,
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  statVarSpec: StatVarSpec[],
+  apiRoot: string
+): ScatterTilePropType {
+  return {
+    id,
+    title: tileConfig.title,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    svgChartHeight: SVG_HEIGHT,
+    scatterTileSpec: tileConfig.scatterTileSpec,
+    apiRoot,
+  };
+}
 
 /**
  * Gets the Tile Result for a scatter tile
@@ -49,32 +70,29 @@ export async function getScatterTileResult(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  urlRoot
 ): Promise<TileResult> {
-  const tileProp = {
+  const tileProp = getTileProp(
     id,
-    title: tileConfig.title,
+    tileConfig,
     place,
     enclosedPlaceType,
     statVarSpec,
-    svgChartHeight: SVG_HEIGHT,
-    scatterTileSpec: tileConfig.scatterTileSpec,
-    apiRoot,
-  };
+    apiRoot
+  );
 
   try {
     const chartData = await fetchData(tileProp);
-    const svgContainer = document.createElement("div");
-    draw(
-      chartData,
-      svgContainer,
-      SVG_HEIGHT,
-      null /* tooltipHtml */,
-      tileConfig.scatterTileSpec,
-      SVG_WIDTH
-    );
     return {
-      svg: getProcessedSvg(svgContainer.querySelector("svg")),
+      chartUrl: getChartUrl(
+        tileConfig,
+        place.dcid,
+        statVarSpec,
+        enclosedPlaceType,
+        null,
+        urlRoot
+      ),
       data_csv: scatterDataToCsv(
         chartData.xStatVar.statVar,
         chartData.xStatVar.denom,
@@ -92,5 +110,45 @@ export async function getScatterTileResult(
   } catch (e) {
     console.log("Failed to get scatter tile result for: " + id);
     return null;
+  }
+}
+
+/**
+ * Gets the scatter chart for a given tile config
+ * @param tileConfig the tile config for the chart
+ * @param place the place to get the chart for
+ * @param enclosedPlaceType the enclosed place type to get the chart for
+ * @param statVarSpec list of stat var specs to show in the chart
+ * @param apiRoot API root to use to fetch data
+ */
+export async function getScatterChart(
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  statVarSpec: StatVarSpec[],
+  apiRoot: string
+): Promise<string> {
+  const tileProp = getTileProp(
+    CHART_ID,
+    tileConfig,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    apiRoot
+  );
+  try {
+    const chartData = await fetchData(tileProp);
+    const svgContainer = document.createElement("div");
+    draw(
+      chartData,
+      svgContainer,
+      SVG_HEIGHT,
+      null /* tooltipHtml */,
+      tileConfig.scatterTileSpec,
+      SVG_WIDTH
+    );
+    return getProcessedSvg(svgContainer.querySelector("svg"));
+  } catch (e) {
+    return "Failed to get scatter chart.";
   }
 }

@@ -15,21 +15,40 @@
  */
 
 /**
- * Functions for getting tile result for a line tile
+ * Functions for getting results for the line tile
  */
 
 import {
   draw,
   fetchData,
   getReplacementStrings,
+  LineTilePropType,
 } from "../js/components/tiles/line_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
-import { DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
+import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
-import { getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+
+function getTileProp(
+  id: string,
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  statVarSpec: StatVarSpec[],
+  apiRoot: string
+): LineTilePropType {
+  return {
+    apiRoot,
+    id,
+    place,
+    statVarSpec,
+    svgChartHeight: SVG_HEIGHT,
+    svgChartWidth: SVG_WIDTH,
+    title: tileConfig.title,
+  };
+}
 
 /**
  * Gets the Tile Result for a line tile
@@ -44,27 +63,21 @@ export async function getLineTileResult(
   tileConfig: TileConfig,
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  urlRoot: string
 ): Promise<TileResult> {
-  const tileProp = {
-    apiRoot,
-    id,
-    place,
-    statVarSpec,
-    svgChartHeight: SVG_HEIGHT,
-    svgChartWidth: SVG_WIDTH,
-    title: tileConfig.title,
-  };
+  const tileProp = getTileProp(id, tileConfig, place, statVarSpec, apiRoot);
   try {
     const chartData = await fetchData(tileProp);
-    const tileContainer = document.createElement("div");
-    tileContainer.setAttribute("id", id);
-    document.getElementById(DOM_ID).appendChild(tileContainer);
-    draw(tileProp, chartData, tileContainer);
-    const svg = getProcessedSvg(tileContainer.querySelector("svg"));
-    tileContainer.remove();
     return {
-      svg,
+      chartUrl: getChartUrl(
+        tileConfig,
+        place.dcid,
+        statVarSpec,
+        "",
+        null,
+        urlRoot
+      ),
       data_csv: dataGroupsToCsv(chartData.dataGroup),
       srcs: getSources(chartData.sources),
       legend: chartData.dataGroup.map((dg) => dg.label || "A"),
@@ -74,5 +87,37 @@ export async function getLineTileResult(
   } catch (e) {
     console.log("Failed to get line tile result for: " + id);
     return null;
+  }
+}
+
+/**
+ * Gets the line chart for a given tile config
+ * @param tileConfig the tile config for the line chart
+ * @param place the place to get the line chart for
+ * @param statVarSpec list of stat var specs to show in the chart
+ * @param apiRoot API root to use to fetch data
+ */
+export async function getLineChart(
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  statVarSpec: StatVarSpec[],
+  apiRoot: string
+): Promise<string> {
+  const tileProp = getTileProp(
+    CHART_ID,
+    tileConfig,
+    place,
+    statVarSpec,
+    apiRoot
+  );
+  try {
+    const chartData = await fetchData(tileProp);
+    const tileContainer = document.createElement("div");
+    tileContainer.setAttribute("id", CHART_ID);
+    document.getElementById(DOM_ID).appendChild(tileContainer);
+    draw(tileProp, chartData, tileContainer);
+    return getProcessedSvg(tileContainer.querySelector("svg"));
+  } catch (e) {
+    return "Failed to get line chart.";
   }
 }
