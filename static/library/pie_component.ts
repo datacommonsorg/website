@@ -38,14 +38,14 @@ import { convertArrayAttribute } from "./utils";
  * <datacommons-pie
  *      title="Median Income by gender in California"
  *      place="geoId/06"
- *      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+ *      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
  * ></datacommons-pie>
  *
  * <!-- Show a donut chart of median income by gender in California -->
  * <datacommons-pie
  *      title="Median Income by gender in California"
  *      place="geoId/06"
- *      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+ *      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
  *      donut
  * ></datacommons-pie>
  */
@@ -64,7 +64,7 @@ export class DatacommonsPieComponent extends LitElement {
   // !Important: variables provided must cover all cases (sum of values takes
   //             up the full circle)
   @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonVariables: string[];
+  variables: string[];
 
   // Optional: Whether to draw as donut chart instead of a pie chart
   // Set to true to draw a donut chart
@@ -81,7 +81,7 @@ export class DatacommonsPieComponent extends LitElement {
 
   render(): HTMLElement {
     const statVarSpec = [];
-    this.comparisonVariables.forEach((statVarDcid) => {
+    this.variables.forEach((statVarDcid) => {
       statVarSpec.push({
         denom: "",
         log: false,
