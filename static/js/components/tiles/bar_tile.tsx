@@ -312,6 +312,7 @@ export function draw(
         chartData.dataGroup,
         formatNumber,
         {
+          lollipop: props.useLollipop,
           unit: chartData.unit,
         }
       );
@@ -324,8 +325,8 @@ export function draw(
         chartData.dataGroup,
         formatNumber,
         {
-          unit: chartData.unit,
           lollipop: props.useLollipop,
+          unit: chartData.unit,
         }
       );
     }

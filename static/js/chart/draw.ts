@@ -859,21 +859,62 @@ function drawStackBarChart(
 
   const color = getColorFn(keys);
 
-  chart
-    .selectAll("g")
-    .data(series)
-    .enter()
-    .append("g")
-    .attr("fill", (d) => color(d.key))
-    .selectAll("rect")
-    .data((d) => d)
-    .join("rect")
-    .classed("g-bar", true)
-    .attr("data-dcid", (d) => d.data.dcid)
-    .attr("x", (d) => x(String(d.data.label)))
-    .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
-    .attr("width", x.bandwidth())
-    .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
+  if (options?.lollipop) {
+    // How much to shift stems so they plot at center of band
+    const xShift = x.bandwidth() / 2;
+
+    // draw lollipop stems
+    chart
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("stroke", (d) => color(d.key))
+      .selectAll("line")
+      .data((d) => d)
+      .join("line")
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
+      .attr("stroke-width", 2)
+      .attr("x1", (d) => x(String(d.data.label)) + xShift)
+      .attr("x2", (d) => x(String(d.data.label)) + xShift)
+      .attr("y1", (d) => y(d[0]))
+      .attr("y2", (d) => y(d[1]));
+
+    // draw circles
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("fill", (d) => color(d.key))
+      .selectAll("circle")
+      .data((d) => d)
+      .join("circle")
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
+      .attr("r", 6)
+      .attr("cx", (d) => x(String(d.data.label)) + xShift)
+      .attr("cy", (d) => y(d[1]));
+  } else {
+    // draw bars
+    chart
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("fill", (d) => color(d.key))
+      .selectAll("rect")
+      .data((d) => d)
+      .join("rect")
+      .classed("g-bar", true)
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("x", (d) => x(String(d.data.label)))
+      .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
+      .attr("width", x.bandwidth())
+      .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
+  }
 
   appendLegendElem(
     containerElement,
