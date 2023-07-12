@@ -181,7 +181,21 @@ export function getDashes(n: number): string[] {
   }
 }
 
-export function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
+/**
+ * Creates a color function mapping labels to specific colors.
+ *
+ * @param labels labels to map to colors
+ * @param colors colors to assign
+ * @returns D3 scale mapping labels to its assigned color.
+ */
+export function getColorFn(
+  labels: string[],
+  colors?: string[]
+): d3.ScaleOrdinal<string, string> {
+  if (colors) {
+    return d3.scaleOrdinal<string, string>().domain(labels).range(colors);
+  }
+
   let domain = labels;
   let range;
   if (

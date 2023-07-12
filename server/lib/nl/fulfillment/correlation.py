@@ -80,6 +80,8 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
     else:
       state.uttr.counters.err('correlation_failed_populate_main_place', pl.dcid)
   for pl in places_from_context(state.uttr):
+    # Important to set this for maybe_set_fallback().
+    state.uttr.places = [pl]
     if (_populate_correlation_for_place(state, pl)):
       state.uttr.place_source = FulfillmentResult.PAST_QUERY
       state.uttr.past_source_context = pl.name
