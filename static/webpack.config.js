@@ -107,10 +107,14 @@ const config = {
       __dirname + "/js/apps/sustainability/main.ts",
       __dirname + "/css/sustainability.scss",
     ],
-    datacommons: [__dirname + "/library/index.ts"],
+    datacommons: [
+      __dirname + "/library/index.ts",
+      __dirname + "/css/datacommons.scss",
+    ],
     homepage: [
       __dirname + "/js/homepage/main.ts",
-      __dirname + "/css/homepage.scss"]
+      __dirname + "/css/homepage.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
