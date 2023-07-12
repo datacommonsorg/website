@@ -27,6 +27,7 @@ import {
   draw,
   fetchData,
   getReplacementStrings,
+  MapChartData,
   MapTilePropType,
 } from "../js/components/tiles/map_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
@@ -40,7 +41,7 @@ import {
   SVG_WIDTH,
 } from "./constants";
 import { TileResult } from "./types";
-import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -61,6 +62,43 @@ function getTileProp(
   };
 }
 
+function getMapChartSvg(
+  tileProp: MapTilePropType,
+  chartData: MapChartData
+): SVGSVGElement {
+  const legendContainer = document.createElement("div");
+  const mapContainer = document.createElement("div");
+  draw(chartData, tileProp, null, legendContainer, mapContainer, SVG_WIDTH);
+  // Get the width of the text in the legend
+  let legendTextWidth = 0;
+  Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
+    legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
+  });
+  const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
+  // Create a single merged svg to hold both the map and the legend svgs
+  const mergedSvg = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "svg"
+  );
+  mergedSvg.setAttribute("height", String(SVG_HEIGHT));
+  mergedSvg.setAttribute("width", String(SVG_WIDTH));
+  // Get the map svg and add it to the merged svg
+  const mapSvg = mapContainer.querySelector("svg");
+  const mapWidth = SVG_WIDTH - legendWidth;
+  mapSvg.setAttribute("width", String(mapWidth));
+  const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  mapG.appendChild(mapSvg);
+  mergedSvg.appendChild(mapG);
+  // Get the legend svg and add it to the merged svg
+  const legendSvg = legendContainer.querySelector("svg");
+  legendSvg.setAttribute("width", String(legendWidth));
+  const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  legendG.setAttribute("transform", `translate(${mapWidth})`);
+  legendG.appendChild(legendSvg);
+  mergedSvg.appendChild(legendG);
+  return getProcessedSvg(mergedSvg);
+}
+
 /**
  * Gets the Tile Result for a map tile
  * @param id id of the chart
@@ -77,7 +115,8 @@ export async function getMapTileResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec,
   apiRoot: string,
-  urlRoot: string
+  urlRoot: string,
+  useChartUrl: boolean
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -89,15 +128,7 @@ export async function getMapTileResult(
   );
   try {
     const chartData = await fetchData(tileProp);
-    return {
-      chartUrl: getChartUrl(
-        tileConfig,
-        place.dcid,
-        [statVarSpec],
-        enclosedPlaceType,
-        null,
-        urlRoot
-      ),
+    const result: TileResult = {
       data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
       srcs: getSources(chartData.sources),
       title: getChartTitle(
@@ -106,6 +137,20 @@ export async function getMapTileResult(
       ),
       type: "MAP",
     };
+    if (useChartUrl) {
+      result.chartUrl = getChartUrl(
+        tileConfig,
+        place.dcid,
+        [statVarSpec],
+        enclosedPlaceType,
+        null,
+        urlRoot
+      );
+    } else {
+      const svg = getMapChartSvg(tileProp, chartData);
+      result.svg = getSvgXml(svg);
+    }
+    return result;
   } catch (e) {
     console.log("Failed to get map tile result for: " + id);
     return null;
@@ -126,7 +171,7 @@ export async function getMapChart(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec,
   apiRoot: string
-): Promise<string> {
+): Promise<SVGSVGElement> {
   const tileProp = getTileProp(
     CHART_ID,
     tileConfig,
@@ -137,39 +182,9 @@ export async function getMapChart(
   );
   try {
     const chartData = await fetchData(tileProp);
-    const legendContainer = document.createElement("div");
-    const mapContainer = document.createElement("div");
-    draw(chartData, tileProp, null, legendContainer, mapContainer, SVG_WIDTH);
-    // Get the width of the text in the legend
-    let legendTextWidth = 0;
-    Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
-      legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
-    });
-    const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
-    // Create a single merged svg to hold both the map and the legend svgs
-    const mergedSvg = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    mergedSvg.setAttribute("height", String(SVG_HEIGHT));
-    mergedSvg.setAttribute("width", String(SVG_WIDTH));
-    // Get the map svg and add it to the merged svg
-    const mapSvg = mapContainer.querySelector("svg");
-    const mapWidth = SVG_WIDTH - legendWidth;
-    mapSvg.setAttribute("width", String(mapWidth));
-    const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    mapG.appendChild(mapSvg);
-    mergedSvg.appendChild(mapG);
-    // Get the legend svg and add it to the merged svg
-    const legendSvg = legendContainer.querySelector("svg");
-    legendSvg.setAttribute("width", String(legendWidth));
-    const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    legendG.setAttribute("transform", `translate(${mapWidth})`);
-    legendG.appendChild(legendSvg);
-    mergedSvg.appendChild(legendG);
-
-    return getProcessedSvg(mergedSvg);
+    return getMapChartSvg(tileProp, chartData);
   } catch (e) {
-    return "Failed to get map chart.";
+    console.log("Failed to get map chart.");
+    return null;
   }
 }

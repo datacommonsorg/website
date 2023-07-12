@@ -33,7 +33,7 @@ import { scatterDataToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
 import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
-import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -71,7 +71,8 @@ export async function getScatterTileResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  urlRoot
+  urlRoot: string,
+  useChartUrl: boolean
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -84,15 +85,7 @@ export async function getScatterTileResult(
 
   try {
     const chartData = await fetchData(tileProp);
-    return {
-      chartUrl: getChartUrl(
-        tileConfig,
-        place.dcid,
-        statVarSpec,
-        enclosedPlaceType,
-        null,
-        urlRoot
-      ),
+    const result: TileResult = {
       data_csv: scatterDataToCsv(
         chartData.xStatVar.statVar,
         chartData.xStatVar.denom,
@@ -107,6 +100,29 @@ export async function getScatterTileResult(
       ),
       type: "SCATTER",
     };
+    if (useChartUrl) {
+      result.chartUrl = getChartUrl(
+        tileConfig,
+        place.dcid,
+        statVarSpec,
+        enclosedPlaceType,
+        null,
+        urlRoot
+      );
+    } else {
+      const svgContainer = document.createElement("div");
+      draw(
+        chartData,
+        svgContainer,
+        SVG_HEIGHT,
+        null /* tooltipHtml */,
+        tileConfig.scatterTileSpec,
+        SVG_WIDTH
+      );
+      const svg = getProcessedSvg(svgContainer.querySelector("svg"));
+      result.svg = getSvgXml(svg);
+    }
+    return result;
   } catch (e) {
     console.log("Failed to get scatter tile result for: " + id);
     return null;
@@ -127,7 +143,7 @@ export async function getScatterChart(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
-): Promise<string> {
+): Promise<SVGSVGElement> {
   const tileProp = getTileProp(
     CHART_ID,
     tileConfig,
@@ -149,6 +165,7 @@ export async function getScatterChart(
     );
     return getProcessedSvg(svgContainer.querySelector("svg"));
   } catch (e) {
-    return "Failed to get scatter chart.";
+    console.log("Failed to get scatter chart.");
+    return null;
   }
 }

@@ -21,6 +21,7 @@
 import _ from "lodash";
 
 import {
+  BarChartData,
   BarTilePropType,
   draw,
   fetchData,
@@ -33,7 +34,7 @@ import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
 import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
-import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -63,6 +64,17 @@ function getTileProp(
   };
 }
 
+function getBarChartSvg(
+  tileProp: BarTilePropType,
+  chartData: BarChartData
+): SVGSVGElement {
+  const tileContainer = document.createElement("div");
+  tileContainer.setAttribute("id", tileProp.id);
+  document.getElementById(DOM_ID).appendChild(tileContainer);
+  draw(tileProp, chartData, tileContainer, SVG_WIDTH);
+  return getProcessedSvg(tileContainer.querySelector("svg"));
+}
+
 /**
  * Gets the Tile Result for a bar tile
  * @param id id of the chart
@@ -79,7 +91,8 @@ export async function getBarTileResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  urlRoot: string
+  urlRoot: string,
+  useChartUrl: boolean
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -98,15 +111,7 @@ export async function getBarTileResult(
     ) {
       legend = chartData.dataGroup[0].value.map((dp) => dp.label);
     }
-    return {
-      chartUrl: getChartUrl(
-        tileConfig,
-        place.dcid,
-        statVarSpec,
-        enclosedPlaceType,
-        null,
-        urlRoot
-      ),
+    const result: TileResult = {
       data_csv: dataGroupsToCsv(chartData.dataGroup),
       srcs: getSources(chartData.sources),
       legend,
@@ -116,6 +121,20 @@ export async function getBarTileResult(
       ),
       type: "BAR",
     };
+    if (useChartUrl) {
+      result.chartUrl = getChartUrl(
+        tileConfig,
+        place.dcid,
+        statVarSpec,
+        enclosedPlaceType,
+        null,
+        urlRoot
+      );
+    } else {
+      const svg = getBarChartSvg(tileProp, chartData);
+      result.svg = getSvgXml(svg);
+    }
+    return result;
   } catch (e) {
     console.log("Failed to get bar tile result for: " + id);
     return null;
@@ -136,7 +155,7 @@ export async function getBarChart(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string
-): Promise<string> {
+): Promise<SVGSVGElement> {
   const tileProp = getTileProp(
     CHART_ID,
     tileConfig,
@@ -147,12 +166,9 @@ export async function getBarChart(
   );
   try {
     const chartData = await fetchData(tileProp);
-    const tileContainer = document.createElement("div");
-    tileContainer.setAttribute("id", CHART_ID);
-    document.getElementById(DOM_ID).appendChild(tileContainer);
-    draw(tileProp, chartData, tileContainer, SVG_WIDTH);
-    return getProcessedSvg(tileContainer.querySelector("svg"));
+    return getBarChartSvg(tileProp, chartData);
   } catch (e) {
-    return "Failed to get bar chart.";
+    console.log("Failed to get bar chart");
+    return null;
   }
 }

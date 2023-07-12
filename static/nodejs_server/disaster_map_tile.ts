@@ -23,6 +23,7 @@ import _ from "lodash";
 import { fetchDisasterEventData } from "../js/components/subject_page/disaster_event_block";
 import {
   DisasterEventMapTilePropType,
+  DisasterMapChartData,
   draw,
   fetchChartData,
   getReplacementStrings,
@@ -36,7 +37,7 @@ import {
 import { getChartTitle } from "../js/utils/tile_utils";
 import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
-import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -59,6 +60,25 @@ function getTileProp(
   };
 }
 
+function getDisasterMapSvg(
+  tileProp: DisasterEventMapTilePropType,
+  chartData: DisasterMapChartData,
+  eventTypeSpec: Record<string, EventTypeSpec>
+): SVGSVGElement {
+  const mapContainer = document.createElement("div");
+  draw(
+    tileProp,
+    chartData,
+    mapContainer,
+    new Set(Object.keys(eventTypeSpec)),
+    SVG_HEIGHT,
+    SVG_WIDTH
+  );
+  const svg = mapContainer.querySelector("svg");
+  svg.style.background = "#eee";
+  return getProcessedSvg(svg);
+}
+
 /**
  * Gets the Tile Result for a disaster map tile
  * @param id id of the chart
@@ -77,7 +97,8 @@ export async function getDisasterMapTileResult(
   eventTypeSpec: Record<string, EventTypeSpec>,
   disasterEventDataPromise: Promise<Record<string, DisasterEventPointData>>,
   apiRoot: string,
-  urlRoot: string
+  urlRoot: string,
+  useChartUrl: boolean
 ): Promise<TileResult> {
   let tileEventData = null;
   try {
@@ -96,20 +117,26 @@ export async function getDisasterMapTileResult(
       apiRoot
     );
     const chartData = await fetchChartData(tileProp);
-    return {
-      chartUrl: getChartUrl(
+    const result: TileResult = {
+      legend: Object.values(eventTypeSpec).map((spec) => spec.name),
+      srcs: getSources(chartData.sources),
+      title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
+      type: "EVENT_MAP",
+    };
+    if (useChartUrl) {
+      result.chartUrl = getChartUrl(
         tileConfig,
         place.dcid,
         [],
         enclosedPlaceType,
         eventTypeSpec,
         urlRoot
-      ),
-      legend: Object.values(eventTypeSpec).map((spec) => spec.name),
-      srcs: getSources(chartData.sources),
-      title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
-      type: "EVENT_MAP",
-    };
+      );
+    } else {
+      const svg = getDisasterMapSvg(tileProp, chartData, eventTypeSpec);
+      result.svg = getSvgXml(svg);
+    }
+    return result;
   } catch (e) {
     console.log("Failed to get disaster event map tile result for: " + id);
     return null;
@@ -130,7 +157,7 @@ export async function getDisasterMapChart(
   enclosedPlaceType: string,
   eventTypeSpec: Record<string, EventTypeSpec>,
   apiRoot: string
-): Promise<string> {
+): Promise<SVGSVGElement> {
   try {
     const disasterEventData = await fetchDisasterEventData(
       CHART_ID,
@@ -149,19 +176,9 @@ export async function getDisasterMapChart(
       apiRoot
     );
     const chartData = await fetchChartData(tileProp);
-    const mapContainer = document.createElement("div");
-    draw(
-      tileProp,
-      chartData,
-      mapContainer,
-      new Set(Object.keys(eventTypeSpec)),
-      SVG_HEIGHT,
-      SVG_WIDTH
-    );
-    const svg = mapContainer.querySelector("svg");
-    svg.style.background = "#eee";
-    return getProcessedSvg(svg);
+    return getDisasterMapSvg(tileProp, chartData, eventTypeSpec);
   } catch (e) {
-    return "Failed to get disaster map chart.";
+    console.log("Failed to get disaster map chart.");
+    return null;
   }
 }

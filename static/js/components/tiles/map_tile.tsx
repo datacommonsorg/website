@@ -83,7 +83,7 @@ interface RawData {
   borderGeoJson?: GeoJsonData;
 }
 
-interface MapChartData {
+export interface MapChartData {
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;

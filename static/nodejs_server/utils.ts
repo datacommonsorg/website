@@ -48,9 +48,9 @@ export function getSources(
  * that chart.
  * @param chartSvg the svg element for the chart to process
  */
-export function getProcessedSvg(chartSvg: SVGSVGElement): string {
+export function getProcessedSvg(chartSvg: SVGSVGElement): SVGSVGElement {
   if (!chartSvg) {
-    return "";
+    return null;
   }
   // Set the font for all the text in the svg to match the font family and size
   // used for getBBox calculations.
@@ -58,11 +58,19 @@ export function getProcessedSvg(chartSvg: SVGSVGElement): string {
     node.setAttribute("font-family", FONT_FAMILY);
     node.setAttribute("font-size", FONT_SIZE);
   });
-  // Create and return an image element out of the chart svg.
+  return chartSvg;
+}
+
+/**
+ * Get the serialized xml string for an svg element
+ * @param chartSvg the svg element to get the xml for
+ */
+export function getSvgXml(chartSvg: SVGSVGElement): string {
+  if (!chartSvg) {
+    return "";
+  }
   const svgXml = xmlserializer.serializeToString(chartSvg);
-  const img = document.createElement("img");
-  img.src = "data:image/svg+xml," + encodeURIComponent(svgXml);
-  return img.outerHTML;
+  return "data:image/svg+xml," + encodeURIComponent(svgXml);
 }
 
 /**

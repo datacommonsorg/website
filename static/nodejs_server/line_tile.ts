@@ -22,6 +22,7 @@ import {
   draw,
   fetchData,
   getReplacementStrings,
+  LineChartData,
   LineTilePropType,
 } from "../js/components/tiles/line_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
@@ -30,7 +31,7 @@ import { dataGroupsToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
 import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
-import { getChartUrl, getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
 function getTileProp(
   id: string,
@@ -50,6 +51,17 @@ function getTileProp(
   };
 }
 
+function getLineChartSvg(
+  tileProp: LineTilePropType,
+  chartData: LineChartData
+): SVGSVGElement {
+  const tileContainer = document.createElement("div");
+  tileContainer.setAttribute("id", CHART_ID);
+  document.getElementById(DOM_ID).appendChild(tileContainer);
+  draw(tileProp, chartData, tileContainer);
+  return getProcessedSvg(tileContainer.querySelector("svg"));
+}
+
 /**
  * Gets the Tile Result for a line tile
  * @param id id of the chart
@@ -64,26 +76,33 @@ export async function getLineTileResult(
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  urlRoot: string
+  urlRoot: string,
+  useChartUrl: boolean
 ): Promise<TileResult> {
   const tileProp = getTileProp(id, tileConfig, place, statVarSpec, apiRoot);
   try {
     const chartData = await fetchData(tileProp);
-    return {
-      chartUrl: getChartUrl(
-        tileConfig,
-        place.dcid,
-        statVarSpec,
-        "",
-        null,
-        urlRoot
-      ),
+    const result: TileResult = {
       data_csv: dataGroupsToCsv(chartData.dataGroup),
       srcs: getSources(chartData.sources),
       legend: chartData.dataGroup.map((dg) => dg.label || "A"),
       title: getChartTitle(tileConfig.title, getReplacementStrings(tileProp)),
       type: "LINE",
     };
+    if (useChartUrl) {
+      result.chartUrl = getChartUrl(
+        tileConfig,
+        place.dcid,
+        statVarSpec,
+        "",
+        null,
+        urlRoot
+      );
+    } else {
+      const svg = getLineChartSvg(tileProp, chartData);
+      result.svg = getSvgXml(svg);
+    }
+    return result;
   } catch (e) {
     console.log("Failed to get line tile result for: " + id);
     return null;
@@ -102,7 +121,7 @@ export async function getLineChart(
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec[],
   apiRoot: string
-): Promise<string> {
+): Promise<SVGSVGElement> {
   const tileProp = getTileProp(
     CHART_ID,
     tileConfig,
@@ -112,12 +131,9 @@ export async function getLineChart(
   );
   try {
     const chartData = await fetchData(tileProp);
-    const tileContainer = document.createElement("div");
-    tileContainer.setAttribute("id", CHART_ID);
-    document.getElementById(DOM_ID).appendChild(tileContainer);
-    draw(tileProp, chartData, tileContainer);
-    return getProcessedSvg(tileContainer.querySelector("svg"));
+    return getLineChartSvg(tileProp, chartData);
   } catch (e) {
-    return "Failed to get line chart.";
+    console.log("Failed to get line chart");
+    return null;
   }
 }

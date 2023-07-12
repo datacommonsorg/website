@@ -104,7 +104,7 @@ export interface DisasterEventMapTilePropType {
   apiRoot?: string;
 }
 
-interface DisasterMapChartData {
+export interface DisasterMapChartData {
   // Geojson data for the base map
   baseMapGeoJson: GeoJsonData;
   // Whether the base map is a map of just the current place. If false, the base

@@ -166,7 +166,8 @@ function getBlockTileResults(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   svSpec: Record<string, StatVarSpec>,
-  urlRoot: string
+  urlRoot: string,
+  useChartUrl: boolean
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   block.columns.forEach((column, colIdx) => {
@@ -183,7 +184,8 @@ function getBlockTileResults(
               place,
               tileSvSpec,
               CONFIG.apiRoot,
-              urlRoot
+              urlRoot,
+              useChartUrl
             )
           );
           break;
@@ -197,7 +199,8 @@ function getBlockTileResults(
               enclosedPlaceType,
               tileSvSpec,
               CONFIG.apiRoot,
-              urlRoot
+              urlRoot,
+              useChartUrl
             )
           );
           break;
@@ -211,7 +214,8 @@ function getBlockTileResults(
               enclosedPlaceType,
               tileSvSpec,
               CONFIG.apiRoot,
-              urlRoot
+              urlRoot,
+              useChartUrl
             )
           );
           break;
@@ -225,7 +229,8 @@ function getBlockTileResults(
               enclosedPlaceType,
               tileSvSpec,
               CONFIG.apiRoot,
-              urlRoot
+              urlRoot,
+              useChartUrl
             )
           );
           break;
@@ -239,7 +244,8 @@ function getBlockTileResults(
               enclosedPlaceType,
               tileSvSpec,
               CONFIG.apiRoot,
-              urlRoot
+              urlRoot,
+              useChartUrl
             )
           );
           break;
@@ -258,7 +264,8 @@ function getDisasterBlockTileResults(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   eventTypeSpec: Record<string, EventTypeSpec>,
-  urlRoot: string
+  urlRoot: string,
+  useChartUrl: boolean
 ): Promise<TileResult>[] {
   const blockEventTypeSpec = getBlockEventTypeSpecs(
     eventTypeSpec,
@@ -287,7 +294,8 @@ function getDisasterBlockTileResults(
               tileEventTypeSpec,
               disasterEventDataPromise,
               CONFIG.apiRoot,
-              urlRoot
+              urlRoot,
+              useChartUrl
             )
           );
         default:
@@ -305,7 +313,7 @@ function getTileChart(
   childPlaceType: string,
   svSpec: StatVarSpec[],
   eventTypeSpec: Record<string, EventTypeSpec>
-): Promise<string> {
+): Promise<SVGSVGElement> {
   // The name and types of a place are not used when drawing charts, so just
   // set default values for them.
   const place = {
@@ -357,9 +365,10 @@ function getTileChart(
         CONFIG.apiRoot
       );
     default:
-      return Promise.resolve(
+      console.log(
         `Chart of type ${_.escape(tileConfig.type)} is not supported.`
       );
+      return Promise.resolve(null);
   }
 }
 
@@ -380,6 +389,7 @@ app.disable("etag");
 app.get("/nodejs/query", (req: Request, res: Response) => {
   const startTime = process.hrtime.bigint();
   const query = req.query.q;
+  const useChartUrl = !!req.query.chartUrl;
   const urlRoot = `${req.protocol}://${req.get("host")}`;
   res.setHeader("Content-Type", "application/json");
   axios
@@ -429,7 +439,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 place,
                 enclosedPlaceType,
                 config["metadata"]["eventTypeSpec"],
-                urlRoot
+                urlRoot,
+                useChartUrl
               );
               break;
             default:
@@ -439,7 +450,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
                 place,
                 enclosedPlaceType,
                 svSpec,
-                urlRoot
+                urlRoot,
+                useChartUrl
               );
           }
           tilePromises.push(...blockTilePromises);
@@ -499,7 +511,7 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   res.setHeader("Content-Type", "text/html");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
-      res.status(200).send(chart);
+      res.status(200).send(chart.outerHTML);
     })
     .catch(() => {
       res.status(500).send("Error retrieving chart.");
