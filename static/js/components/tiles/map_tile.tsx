@@ -54,23 +54,25 @@ import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
 export interface MapTilePropType {
-  id: string;
-  title: string;
-  place: NamedTypedPlace;
-  enclosedPlaceType: string;
-  statVarSpec: StatVarSpec;
-  // Height, in px, for the SVG chart.
-  svgChartHeight: number;
-  // Extra classes to add to the container.
-  className?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
   // API root
   apiRoot?: string;
+  // Colors to use
+  colors?: string[];
+  // Extra classes to add to the container.
+  className?: string;
+  date?: string;
+  enclosedPlaceType: string;
+  id: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
   // Parent places of the current place showing map for
   parentPlaces?: NamedPlace[];
   // Specific date to show data for
-  date?: string;
+  place: NamedTypedPlace;
+  statVarSpec: StatVarSpec;
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
+  title: string;
 }
 
 interface RawData {
@@ -172,7 +174,11 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           />
         )}
         <div className="map" ref={mapContainer}></div>
-        <div className="legend" ref={legendContainer}></div>
+        <div
+          className="legend"
+          {...{ part: "legend" }}
+          ref={legendContainer}
+        ></div>
       </div>
     </ChartTileContainer>
   );
@@ -363,7 +369,10 @@ export function draw(
     mainStatVar,
     d3.min(dataValues),
     d3.mean(dataValues),
-    d3.max(dataValues)
+    d3.max(dataValues),
+    undefined,
+    undefined,
+    props.colors
   );
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Unavailable";

@@ -59,6 +59,8 @@ export interface BarTilePropType {
   className?: string;
   // A list of related places to show comparison with the main place.
   comparisonPlaces: string[];
+  // A list of specific colors to use
+  colors?: string[];
   enclosedPlaceType: string;
   horizontal?: boolean;
   id: string;
@@ -293,6 +295,7 @@ export function draw(
       chartData.dataGroup,
       formatNumber,
       {
+        colors: props.colors,
         lollipop: props.useLollipop,
         stacked: props.stacked,
         style: {
@@ -312,6 +315,7 @@ export function draw(
         chartData.dataGroup,
         formatNumber,
         {
+          colors: props.colors,
           lollipop: props.useLollipop,
           unit: chartData.unit,
         }
@@ -325,6 +329,7 @@ export function draw(
         chartData.dataGroup,
         formatNumber,
         {
+          colors: props.colors,
           lollipop: props.useLollipop,
           unit: chartData.unit,
         }

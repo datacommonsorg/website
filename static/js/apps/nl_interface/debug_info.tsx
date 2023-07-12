@@ -25,6 +25,7 @@ import { Col, Row } from "reactstrap";
 import {
   DebugInfo,
   MultiSVCandidate,
+  SearchResult,
   SVScores,
 } from "../../types/app/nl_interface_types";
 
@@ -157,7 +158,7 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
 
 export interface DebugInfoProps {
   debugData: any; // from the server response
-  pageConfig: any;
+  chartsData: SearchResult;
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
@@ -320,6 +321,26 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>
+              Place Query Source: {props.chartsData.placeSource}
+              {props.chartsData.pastSourceContext
+                ? "(" + props.chartsData.pastSourceContext + ")"
+                : ""}
+            </Col>
+          </Row>
+          <Row>
+            <Col>Variable Query Source: {props.chartsData.svSource}</Col>
+          </Row>
+          {props.chartsData.placeFallback && (
+            <Row>
+              <Col>
+                Place Fallback: &quot;{props.chartsData.placeFallback.origStr}
+                &quot; to &quot;{props.chartsData.placeFallback.newStr}&quot;
+              </Col>
+            </Row>
+          )}
+          <Row>
+            <Col>
+              <b>Counters:</b>
               <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
             </Col>
           </Row>
@@ -328,7 +349,13 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>
-              <pre>{JSON.stringify(props.pageConfig, null, 2)}</pre>
+              <pre>
+                {JSON.stringify(
+                  props.chartsData ? props.chartsData.config : null,
+                  null,
+                  2
+                )}
+              </pre>
             </Col>
           </Row>
         </div>

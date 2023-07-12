@@ -37,7 +37,15 @@ import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
 export interface LineTilePropType {
+  // API root
+  apiRoot?: string;
+  // Extra classes to add to the container.
+  className?: string;
+  // colors to use
+  colors?: string[];
   id: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
   title: string;
   place: NamedTypedPlace;
   statVarSpec: StatVarSpec[];
@@ -45,12 +53,6 @@ export interface LineTilePropType {
   svgChartHeight: number;
   // Width, in px, for the SVG chart.
   svgChartWidth?: number;
-  // Extra classes to add to the container.
-  className?: string;
-  // API root
-  apiRoot?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
 }
 
 interface LineChartData {
@@ -155,6 +157,7 @@ export function draw(
     false,
     formatNumber,
     {
+      colors: props.colors,
       unit: chartData.unit,
     }
   );
