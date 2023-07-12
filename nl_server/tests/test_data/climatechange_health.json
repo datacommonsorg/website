@@ -3,37 +3,29 @@
     "dc/topic/ClimateChange",
     "dc/topic/SDG_13",
     "dc/topic/ProjectedClimateExtremes",
-    "AirPollutant_Cancer_Risk",
-    "Annual_Emissions_GreenhouseGas",
+    "Count_Variable_Country_ClimateAndEnvironment",
     "dc/topic/Temperature",
-    "dc/topic/HeatIllnesses",
+    "Count_Variable_AdministrativeArea2_ClimateAndEnvironment",
+    "Annual_Emissions_GreenhouseGas",
     "Percent_Person_WithAsthma",
-    "Mean_Concentration_AirPollutant_Ozone",
-    "Mean_Concentration_AirPollutant_PM2.5",
+    "Count_Variable_AdministrativeArea1_ClimateAndEnvironment",
+    "AirPollutant_Cancer_Risk",
     "AirQualityIndex_AirPollutant",
-    "dc/topic/MedicalConditions",
-    "Percent_Person_Obesity",
-    "Count_Death_DiseasesOfTheRespiratorySystem",
-    "Percent_Person_Children_WithAsthma",
-    "Percent_Person_WithHighBloodPressure"
+    "Mean_Concentration_AirPollutant_PM2.5"
   ],
   "CosineScore": [
-    0.6368622779846191,
-    0.5196251273155212,
-    0.47297754883766174,
-    0.43958017230033875,
-    0.42653417587280273,
-    0.42473962903022766,
-    0.4200512766838074,
-    0.41305315494537354,
-    0.39470937848091125,
-    0.3769384026527405,
-    0.3748908042907715,
-    0.36869996786117554,
-    0.36539602279663086,
-    0.36451455950737,
-    0.36334702372550964,
-    0.3624771535396576
+    0.610525906085968,
+    0.5306791067123413,
+    0.49357253313064575,
+    0.4620784819126129,
+    0.4611642360687256,
+    0.4143370985984802,
+    0.4132007360458374,
+    0.4101061224937439,
+    0.4074740409851074,
+    0.3931882083415985,
+    0.374700665473938,
+    0.3742818236351013
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -41,40 +33,12 @@
       {
         "Parts": [
           {
-            "QueryPart": "factors like obesity blood pressure asthma impacted",
-            "SV": [
-              "Percent_Person_WithAsthma",
-              "Percent_Person_Children_WithAsthma"
-            ],
-            "CosineScore": [
-              0.5805703997612,
-              0.5368834137916565
-            ]
-          },
-          {
-            "QueryPart": "climate change",
-            "SV": [
-              "dc/topic/ClimateChange"
-            ],
-            "CosineScore": [
-              0.9999998211860657
-            ]
-          }
-        ],
-        "AggCosineScore": 0.7903,
-        "DelimBased": false
-      },
-      {
-        "Parts": [
-          {
             "QueryPart": "factors like obesity blood pressure asthma",
             "SV": [
-              "Percent_Person_WithAsthma",
-              "Percent_Person_Children_WithAsthma"
+              "Percent_Person_WithAsthma"
             ],
             "CosineScore": [
-              0.6373848915100098,
-              0.59091717004776
+              0.6585735082626343
             ]
           },
           {
@@ -83,42 +47,22 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.8820265531539917
+              0.8483978509902954
             ]
           }
         ],
-        "AggCosineScore": 0.7597,
+        "AggCosineScore": 0.7535,
         "DelimBased": false
       },
       {
         "Parts": [
           {
-            "QueryPart": "factors like obesity",
+            "QueryPart": "factors like obesity blood pressure asthma impacted",
             "SV": [
-              "Percent_Person_Obesity"
+              "Percent_Person_WithAsthma"
             ],
             "CosineScore": [
-              0.6803658604621887
-            ]
-          },
-          {
-            "QueryPart": "blood pressure",
-            "SV": [
-              "Percent_Person_WithHighBloodPressure"
-            ],
-            "CosineScore": [
-              0.6785509586334229
-            ]
-          },
-          {
-            "QueryPart": "asthma impacted",
-            "SV": [
-              "Percent_Person_WithAsthma",
-              "Percent_Person_Children_WithAsthma"
-            ],
-            "CosineScore": [
-              0.6243009567260742,
-              0.5818498134613037
+              0.6192178130149841
             ]
           },
           {
@@ -127,11 +71,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.9999998211860657
+              0.8683876991271973
             ]
           }
         ],
-        "AggCosineScore": 0.7458,
+        "AggCosineScore": 0.7438,
         "DelimBased": false
       },
       {
@@ -142,7 +86,7 @@
               "Percent_Person_Obesity"
             ],
             "CosineScore": [
-              0.6803658604621887
+              0.6845206618309021
             ]
           },
           {
@@ -151,18 +95,16 @@
               "Percent_Person_WithHighBloodPressure"
             ],
             "CosineScore": [
-              0.6785509586334229
+              0.599709153175354
             ]
           },
           {
             "QueryPart": "asthma",
             "SV": [
-              "Percent_Person_WithAsthma",
-              "Percent_Person_Children_WithAsthma"
+              "Percent_Person_WithAsthma"
             ],
             "CosineScore": [
-              0.7394216656684875,
-              0.7021639347076416
+              0.7993197441101074
             ]
           },
           {
@@ -171,11 +113,53 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.8820265531539917
+              0.8483978509902954
             ]
           }
         ],
-        "AggCosineScore": 0.7451,
+        "AggCosineScore": 0.733,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "factors like obesity blood",
+            "SV": [
+              "Percent_Person_Obesity"
+            ],
+            "CosineScore": [
+              0.6532008647918701
+            ]
+          },
+          {
+            "QueryPart": "pressure",
+            "SV": [
+              "Mean_BarometricPressure"
+            ],
+            "CosineScore": [
+              0.588537335395813
+            ]
+          },
+          {
+            "QueryPart": "asthma",
+            "SV": [
+              "Percent_Person_WithAsthma"
+            ],
+            "CosineScore": [
+              0.7993197441101074
+            ]
+          },
+          {
+            "QueryPart": "impacted climate change",
+            "SV": [
+              "dc/topic/ClimateChange"
+            ],
+            "CosineScore": [
+              0.8483978509902954
+            ]
+          }
+        ],
+        "AggCosineScore": 0.7224,
         "DelimBased": false
       },
       {
@@ -186,7 +170,7 @@
               "Percent_Person_Obesity"
             ],
             "CosineScore": [
-              0.6803658604621887
+              0.6845206618309021
             ]
           },
           {
@@ -195,7 +179,49 @@
               "Percent_Person_WithHighBloodPressure"
             ],
             "CosineScore": [
-              0.6785509586334229
+              0.599709153175354
+            ]
+          },
+          {
+            "QueryPart": "asthma impacted",
+            "SV": [
+              "Percent_Person_WithAsthma"
+            ],
+            "CosineScore": [
+              0.6948128938674927
+            ]
+          },
+          {
+            "QueryPart": "climate change",
+            "SV": [
+              "dc/topic/ClimateChange"
+            ],
+            "CosineScore": [
+              0.8683876991271973
+            ]
+          }
+        ],
+        "AggCosineScore": 0.7119,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "factors like obesity",
+            "SV": [
+              "Percent_Person_Obesity"
+            ],
+            "CosineScore": [
+              0.6845206618309021
+            ]
+          },
+          {
+            "QueryPart": "blood pressure",
+            "SV": [
+              "Percent_Person_WithHighBloodPressure"
+            ],
+            "CosineScore": [
+              0.599709153175354
             ]
           },
           {
@@ -204,11 +230,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.6582126617431641
+              0.6605470776557922
             ]
           }
         ],
-        "AggCosineScore": 0.6724,
+        "AggCosineScore": 0.6483,
         "DelimBased": true
       },
       {
@@ -220,8 +246,8 @@
               "Percent_Person_WithHighBloodPressure"
             ],
             "CosineScore": [
-              0.6228021383285522,
-              0.6013635396957397
+              0.6150636672973633,
+              0.5850149989128113
             ]
           },
           {
@@ -230,11 +256,11 @@
               "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.6582126617431641
+              0.6605470776557922
             ]
           }
         ],
-        "AggCosineScore": 0.6405,
+        "AggCosineScore": 0.6378,
         "DelimBased": false
       }
     ]
