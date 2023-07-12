@@ -174,7 +174,11 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           />
         )}
         <div className="map" ref={mapContainer}></div>
-        <div className="legend" ref={legendContainer}></div>
+        <div
+          className="legend"
+          {...{ part: "legend" }}
+          ref={legendContainer}
+        ></div>
       </div>
     </ChartTileContainer>
   );
