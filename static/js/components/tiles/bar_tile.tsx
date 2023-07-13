@@ -86,7 +86,7 @@ export interface BarTilePropType {
   yAxisMargin?: number;
 }
 
-interface BarChartData {
+export interface BarChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
   unit: string;
