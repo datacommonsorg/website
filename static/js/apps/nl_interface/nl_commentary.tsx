@@ -39,118 +39,168 @@ export function shouldHideCharts(respData: any): boolean {
   );
 }
 
+const MODES = {
+  UNFULFILLED_SV: 1,
+  UNRECOGNIZED_SV: 2,
+  DEFAULT_PLACE: 3,
+  PAST_PLACE: 4,
+  PAST_SV: 5,
+  PAST_PLACE_AND_SV: 6,
+  PAST_COMPARATIVE_PLACES: 7,
+  PAST_COMPARATIVE_PLACES_AND_SV: 8,
+  FALLBACK_SIMPLE: 9,
+  FALLBACK_PAST_PLACE_OR_SV: 10,
+};
+
 //
 // For more context, refer:
 //   https://docs.google.com/document/d/13-1zsYZm_RFkzhKb4GxVy7DQNU8ZiEYZSY8001R-GsU/edit
 //
 export function NLCommentary(props: NLCommentaryPropType): JSX.Element {
+  const isPlacePast = props.chartsData.placeSource === "PAST_QUERY";
+  const isPlacePartialPast =
+    props.chartsData.placeSource === "PARTIAL_PAST_QUERY";
+  const isSvPast = props.chartsData.svSource === "PAST_QUERY";
+  const isPlaceCur = props.chartsData.placeSource === "CURRENT_QUERY";
+  const isSvCur = props.chartsData.svSource === "CURRENT_QUERY";
+  const isSvUnfulfilled = props.chartsData.svSource === "UNFULFILLED";
+  const isSvUnrecognized = props.chartsData.svSource === "UNRECOGNIZED";
+  const isNonEarthDefaultPlace =
+    props.chartsData.placeSource === "DEFAULT" &&
+    props.chartsData.pastSourceContext !== "Earth";
+  const isFallback = props.chartsData.placeFallback;
+
+  let showMode = null;
+  if (isFallback) {
+    // Show message only if user hasn't yet clicked on show charts.
+    if (props.hideCharts) {
+      if (!isSvPast && !isPlacePast) {
+        showMode = MODES.FALLBACK_SIMPLE;
+      } else {
+        showMode = MODES.FALLBACK_PAST_PLACE_OR_SV;
+      }
+    }
+  } else {
+    if (isSvUnfulfilled) {
+      showMode = MODES.UNFULFILLED_SV;
+    } else if (isSvUnrecognized) {
+      showMode = MODES.UNRECOGNIZED_SV;
+    } else if (isPlacePartialPast) {
+      if (isSvPast) {
+        showMode = MODES.PAST_COMPARATIVE_PLACES_AND_SV;
+      } else {
+        showMode = MODES.PAST_COMPARATIVE_PLACES;
+      }
+    } else if (isPlacePast && isSvCur) {
+      showMode = MODES.PAST_PLACE;
+    } else if (isPlaceCur && isSvPast) {
+      showMode = MODES.PAST_SV;
+    } else if (isPlacePast && isSvPast) {
+      showMode = MODES.PAST_PLACE_AND_SV;
+    } else if (isNonEarthDefaultPlace && props.hideCharts) {
+      // For default place show message only if user hasn't yet clicked on show charts.
+      showMode = MODES.DEFAULT_PLACE;
+    }
+  }
+  if (showMode === null) {
+    return <></>;
+  }
   return (
-    <>
-      {!props.chartsData.placeFallback &&
-        ((props.chartsData.placeSource === "PAST_QUERY" &&
-          props.chartsData.svSource === "CURRENT_QUERY") ||
-          (props.chartsData.placeSource === "CURRENT_QUERY" &&
-            props.chartsData.svSource === "PAST_QUERY") ||
-          (props.chartsData.placeSource === "PAST_QUERY" &&
-            props.chartsData.svSource === "PAST_QUERY")) && (
-          <div className="nl-query-info">
-            Could not recognize any{" "}
-            {props.chartsData.placeSource === "CURRENT_QUERY" && (
-              <span>topic</span>
-            )}
-            {props.chartsData.svSource === "CURRENT_QUERY" && (
-              <span>place</span>
-            )}
-            {props.chartsData.svSource === "PAST_QUERY" &&
-              props.chartsData.placeSource === "PAST_QUERY" && (
-                <span>place or topic</span>
-              )}{" "}
-            in this query, but here are relevant statistics{" "}
-            {props.chartsData.pastSourceContext && (
-              <span>for {props.chartsData.pastSourceContext} </span>
-            )}
-            based on what you previously asked.
-          </div>
-        )}
-      {!props.chartsData.placeFallback &&
-        props.chartsData.placeSource === "PARTIAL_PAST_QUERY" && (
-          <div className="nl-query-info">
-            Using{" "}
-            {props.chartsData.svSource === "PAST_QUERY" && (
-              <span>topic and </span>
-            )}
-            places for comparison based on what you previously asked.
-          </div>
-        )}
-      {!props.chartsData.placeFallback &&
-        props.chartsData.svSource === "UNRECOGNIZED" && (
-          <div className="nl-query-info">
-            Could not recognize any topic from the query, but below are topic
-            categories with statistics for {props.chartsData.place.name} that
-            you could explore further.
-          </div>
-        )}
-      {!props.chartsData.placeFallback &&
-        props.chartsData.svSource === "UNFULFILLED" && (
-          <div className="nl-query-info">
-            Sorry, there were no relevant statistics about the topic for{" "}
-            {props.chartsData.place.name}. Below are topic categories with
-            statistics for {props.chartsData.place.name} that you could explore
-            further.
-          </div>
-        )}
-      {!props.chartsData.placeFallback &&
-        props.hideCharts &&
-        props.chartsData.placeSource === "DEFAULT" &&
-        props.chartsData.pastSourceContext !== "Earth" && (
-          <div className="nl-query-info">
-            Could not recognize any place in the query.&nbsp; Would you like to
-            see{" "}
-            <span
-              className="nl-query-info-click"
-              onClick={() => {
-                props.setHideCharts(false);
-              }}
-            >
-              relevant statistics for the default place
-              {props.chartsData.pastSourceContext && (
-                <span> &quot;{props.chartsData.pastSourceContext}&quot;</span>
-              )}
-            </span>{" "}
-            instead?
-          </div>
-        )}
-      {props.chartsData.placeFallback && props.hideCharts && (
-        <div className="nl-query-info">
-          {props.chartsData.placeSource !== "PAST_QUERY" &&
-            props.chartsData.svSource !== "PAST_QUERY" && (
-              <span>
-                Sorry, there were no relevant statistics on this topic for
-                &quot;{props.chartsData.placeFallback.origStr}&quot;.
-              </span>
-            )}
-          {(props.chartsData.placeSource === "PAST_QUERY" ||
-            props.chartsData.svSource === "PAST_QUERY") && (
-            <span>
-              Tried looking up relevant statistics for &quot;
-              {props.chartsData.placeFallback.origStr}&quot; based on your prior
-              queries, but found no results.
-            </span>
-          )}
-          <span>
-            &nbsp; Would you like to see{" "}
-            <span
-              className="nl-query-info-click"
-              onClick={() => {
-                props.setHideCharts(false);
-              }}
-            >
-              results for &quot;{props.chartsData.placeFallback.newStr}&quot;
-            </span>{" "}
-            instead?
-          </span>
-        </div>
+    <div className="nl-query-info">
+      {showMode === MODES.PAST_PLACE && (
+        <>
+          Could not recognize any place in this query, but here are relevant
+          statistics{maybeGetCtx("for")} based on what you previously asked.
+        </>
       )}
-    </>
+      {showMode === MODES.PAST_SV && (
+        <>
+          Could not recognize any topic in this query, but here are relevant
+          statistics{maybeGetCtx("for")} based on what you previously asked.
+        </>
+      )}
+      {showMode === MODES.PAST_PLACE_AND_SV && (
+        <>
+          Could not recognize any place or topic in this query, but here are
+          relevant statistics{maybeGetCtx("for")} based on what you previously
+          asked.
+        </>
+      )}
+      {showMode === MODES.PAST_COMPARATIVE_PLACES && (
+        <>Using places for comparison based on what you previously asked.</>
+      )}
+      {showMode === MODES.PAST_COMPARATIVE_PLACES_AND_SV && (
+        <>
+          Using topic and places for comparison based on what you previously
+          asked.
+        </>
+      )}
+      {showMode === MODES.UNRECOGNIZED_SV && (
+        <>
+          Could not recognize any topic from the query, but below are topic
+          categories with statistics for {props.chartsData.place.name} that you
+          could explore further.
+        </>
+      )}
+      {showMode === MODES.UNFULFILLED_SV && (
+        <>
+          Sorry, there were no relevant statistics about the topic for{" "}
+          {props.chartsData.place.name}. Below are topic categories with
+          statistics for {props.chartsData.place.name} that you could explore
+          further.
+        </>
+      )}
+      {showMode === MODES.DEFAULT_PLACE && (
+        <>
+          Could not recognize any place in the query.&nbsp; Would you like to
+          see{" "}
+          {wrapShowClick(
+            "relevant statistics for the default place" + maybeGetCtx("of")
+          )}{" "}
+          instead?
+        </>
+      )}
+      {showMode === MODES.FALLBACK_SIMPLE && (
+        <>
+          Sorry, there were no relevant statistics on this topic for{" "}
+          {props.chartsData.placeFallback.origStr}.&nbsp; Would you like to see{" "}
+          {wrapShowClick(
+            "results for " + props.chartsData.placeFallback.newStr
+          )}{" "}
+          instead?
+        </>
+      )}
+      {showMode === MODES.FALLBACK_PAST_PLACE_OR_SV && (
+        <>
+          Tried looking up relevant statistics for{" "}
+          {props.chartsData.placeFallback.origStr} based on your prior queries,
+          but found no results.&nbsp; Would you like to see{" "}
+          {wrapShowClick(
+            "results for " + props.chartsData.placeFallback.newStr
+          )}{" "}
+          instead?
+        </>
+      )}
+    </div>
   );
+
+  function wrapShowClick(words: string): JSX.Element {
+    return (
+      <span
+        className="nl-query-info-click"
+        onClick={() => {
+          props.setHideCharts(false);
+        }}
+      >
+        {words}
+      </span>
+    );
+  }
+
+  function maybeGetCtx(connector: string): string {
+    if (props.chartsData.pastSourceContext) {
+      return " " + connector + " " + props.chartsData.pastSourceContext;
+    }
+    return "";
+  }
 }
