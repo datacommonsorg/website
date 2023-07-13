@@ -31,12 +31,21 @@
  
  {% block content %}
  <section id="homepage-top">
-  <div id="search-container"></div>
+  <div class="container">
+    <div class="header">Public data tells incredible stories</div>
+    <div class="sub-header">
+      Working with public data doesn't have to be painful.<br/>
+      Data Commons is a free, unified database of over
+      <a href="https://docs.datacommons.org/datasets/" target="_blank" rel="noopener noreferrer">
+        175K public datasets
+      </a>.
+    </div>
+  </div>
  </section>
  
  <section>
   <div class="container">
-    <h2>Public data can tell incredible stories</h2>
+    <h2>Explore Data Commons</h2>
     <div class="topics-container">
       {% for topic in topics %}
           <a href="{{ topic['url'] }}" id="{{ topic['title']}}" class="topic-card">
