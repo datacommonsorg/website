@@ -93,10 +93,22 @@ class ChartType(IntEnum):
 
 class FulfillmentResult(str, Enum):
   """Where is a variable or place from?"""
+  # From the current user provided query.
   CURRENT_QUERY = "CURRENT_QUERY"
+  # From a prior query in the context.
+  # Importantly, no variable was recognized in the current query.
   PAST_QUERY = "PAST_QUERY"
+  # Subset of the places/variables used are from a past query.
+  # Importantly, there were recognized places/variables in the
+  # current query.
+  PARTIAL_PAST_QUERY = "PARTIAL_PAST_QUERY"
+  # From a preset default.
   DEFAULT = "DEFAULT"
+  # The thing was recognized but we couldn't fulfill it
+  # (most likely no data)
   UNFULFILLED = "UNFULFILLED"
+  # Nothing was recognized.  Typically, when there is no
+  # DEFAULT, it would be UNRECOGNIZED.
   UNRECOGNIZED = "UNRECOGNIZED"
 
 

@@ -210,11 +210,11 @@ USA_ONLY_MAP_TYPES = {
 }
 
 # This is only for US.
+# Avoid `CITY` -> `USA` since loading maps, etc. takes a really long time.
 DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
     ContainedInPlaceType.COUNTY: USA,
     ContainedInPlaceType.STATE: USA,
-    ContainedInPlaceType.CITY: USA,
 }
 
 EU_COUNTRIES = frozenset([

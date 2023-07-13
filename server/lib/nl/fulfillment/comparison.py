@@ -17,12 +17,12 @@ from typing import List
 
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import populate_charts_for_places
-from server.lib.nl.fulfillment.context import \
-    places_for_comparison_from_context
+from server.lib.nl.fulfillment.context import most_recent_places_from_context
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
@@ -31,15 +31,31 @@ def populate(uttr: Utterance) -> bool:
   # NOTE: The COMPARISON attribute has no additional parameters.  So start
   # by directly inferring the list of places to compare.
   state = PopulateState(uttr=uttr, main_cb=_populate_cb)
-  place_comparison_candidates = places_for_comparison_from_context(uttr)
-  for places_to_compare in place_comparison_candidates:
-    dcids = [p.dcid for p in places_to_compare]
-    uttr.counters.info('comparison_place_candidates', dcids)
-    if populate_charts_for_places(state, places_to_compare):
+  is_partial = False
+  places_to_compare = []
+  # Extend so we don't point to state.uttr.places and modify in-place.
+  places_to_compare.extend(state.uttr.places)
+  # If the current query has >1 place, we're good.  Otherwise look
+  # in context...
+  if len(places_to_compare) <= 1:
+    # Need to check context.
+    is_partial = True
+    for p in most_recent_places_from_context(uttr):
+      if not state.uttr.places or p.dcid != state.uttr.places[0].dcid:
+        places_to_compare.append(p)
+  dcids = [p.dcid for p in places_to_compare]
+  uttr.counters.info('comparison_place_candidates', dcids)
+  if len(places_to_compare) > 1:
+    # No fallback when doing multiple places.
+    if populate_charts_for_places(state,
+                                  places_to_compare,
+                                  disable_fallback=True):
+      if is_partial:
+        state.uttr.place_source = FulfillmentResult.PARTIAL_PAST_QUERY
       return True
     else:
       uttr.counters.err('comparison_failed_populate_places', dcids)
-  if not place_comparison_candidates:
+  else:
     uttr.counters.err('comparison_failed_to_find_multiple_places', 1)
   return False
 

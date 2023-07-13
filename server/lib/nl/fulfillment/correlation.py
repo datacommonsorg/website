@@ -73,28 +73,39 @@ def populate(uttr: Utterance) -> bool:
 
 
 def _populate_correlation_for_place_type(state: PopulateState) -> bool:
-  for pl in state.uttr.places:
-    if (_populate_correlation_for_place(state, pl)):
-      state.uttr.place_source = FulfillmentResult.CURRENT_QUERY
-      return True
-    else:
-      state.uttr.counters.err('correlation_failed_populate_main_place', pl.dcid)
-  for pl in places_from_context(state.uttr):
-    # Important to set this for maybe_set_fallback().
-    state.uttr.places = [pl]
-    if (_populate_correlation_for_place(state, pl)):
-      state.uttr.place_source = FulfillmentResult.PAST_QUERY
-      state.uttr.past_source_context = pl.name
-      return True
-    else:
-      state.uttr.counters.err('correlation_failed_populate_context_place',
-                              pl.dcid)
+  populate_attempted = False
+
+  if state.uttr.places:
+    for pl in state.uttr.places:
+      populate_attempted = True
+      if (_populate_correlation_for_place(state, pl)):
+        state.uttr.place_source = FulfillmentResult.CURRENT_QUERY
+        return True
+      else:
+        state.uttr.counters.err('correlation_failed_populate_main_place',
+                                pl.dcid)
+  else:
+    # Only if user has not provided a place, seek a place from the context.
+    # Otherwise the result seems unexpected to them.
+    for pl in places_from_context(state.uttr):
+      populate_attempted = True
+      if (_populate_correlation_for_place(state, pl)):
+        state.uttr.place_source = FulfillmentResult.PAST_QUERY
+        state.uttr.past_source_context = pl.name
+        return True
+      else:
+        state.uttr.counters.err('correlation_failed_populate_context_place',
+                                pl.dcid)
+
+  if populate_attempted:
+    return False
 
   default_place = get_default_contained_in_place(state)
   if default_place:
     result = _populate_correlation_for_place(state, default_place)
     if result:
       state.uttr.place_source = FulfillmentResult.DEFAULT
+      state.uttr.past_source_context = default_place.name
     return result
 
   return False
@@ -165,8 +176,6 @@ def _handle_svs_from_context(uttr: Utterance,
   context_svs = context_svs[:_MAX_CONTEXT_SVS]
   uttr.counters.info('correlation_main_svs', main_svs)
   uttr.counters.info('correlation_context_svs', context_svs)
-  logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
-  logging.info('Correlation Context SVs: %s', ', '.join(context_svs))
   return (main_svs, context_svs)
 
 
@@ -197,8 +206,6 @@ def _handle_multi_sv_in_uttr(uttr: Utterance,
   rhs_svs = final_svs[1][:_MAX_MAIN_SVS]
   uttr.counters.info(f'multisv_correlation_lhs_svs', lhs_svs)
   uttr.counters.info(f'multisv_correlation_rhs_svs', rhs_svs)
-  logging.info('[MultiSV] Correlation LHS SVs: %s', ', '.join(lhs_svs))
-  logging.info('[MultiSV] Correlation RHS SVs: %s', ', '.join(rhs_svs))
   return (lhs_svs, rhs_svs)
 
 

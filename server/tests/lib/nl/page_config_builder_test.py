@@ -288,7 +288,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
 
 COMPARISON_CONFIG = """
  metadata {
-   place_dcid: "geoId/06"
+   place_dcid: "geoId/32"
  }
  categories {
   description: "Here are some comparison charts about Count_Person_Male-name in Foo Place and Foo Place."
@@ -298,15 +298,15 @@ COMPARISON_CONFIG = """
          title: "Count_Person_Male-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block"
-         comparison_places: "geoId/06"
          comparison_places: "geoId/32"
+         comparison_places: "geoId/06"
        }
        tiles {
          title: "Per Capita Count_Person_Male-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block_pc"
-         comparison_places: "geoId/06"
          comparison_places: "geoId/32"
+         comparison_places: "geoId/06"
        }
      }
    }
@@ -316,15 +316,15 @@ COMPARISON_CONFIG = """
          title: "Count_Person_Female-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block"
-         comparison_places: "geoId/06"
          comparison_places: "geoId/32"
+         comparison_places: "geoId/06"
        }
        tiles {
          title: "Per Capita Count_Person_Female-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block_pc"
-         comparison_places: "geoId/06"
          comparison_places: "geoId/32"
+         comparison_places: "geoId/06"
        }
      }
    }
