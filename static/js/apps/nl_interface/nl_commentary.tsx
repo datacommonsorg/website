@@ -30,9 +30,11 @@ interface NLCommentaryPropType {
 
 export function shouldHideCharts(respData: any): boolean {
   const fb = respData["placeFallback"];
-  // If there's a valid fallback or if the place source is DEFAULT, we should hide.
+  // If there's a valid fallback or if the place source is DEFAULT but not Earth,
+  // we should hide.
   return (
-    ("origStr" in fb && "newStr" in fb) || respData["placeSource"] == "DEFAULT"
+    ("origStr" in fb && "newStr" in fb) ||
+    (respData["placeSource"] == "DEFAULT" && respData["pastSourceContext"] != "Earth")
   );
 }
 
