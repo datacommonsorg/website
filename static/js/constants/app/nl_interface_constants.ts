@@ -48,4 +48,4 @@ export const NL_DETECTOR_VALS = {
 
 export const MAX_QUERY_COUNT = 10;
 
-export const SVG_CHART_HEIGHT = 160;
+export const SVG_CHART_HEIGHT = 200;
