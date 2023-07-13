@@ -360,6 +360,13 @@ class RequestedDetectorType(str, Enum):
   Hybrid = "hybrid"
 
 
+class PlaceDetectorType(str, Enum):
+  # Represents the open-source NER implementation
+  NER = "ner"
+  # Represents the home-grown RecognizePlaces Recon API
+  DC = "dc"
+
+
 @dataclass
 class Detection:
   """Detection attributes."""
@@ -370,3 +377,4 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.Heuristic
+  place_detector: PlaceDetectorType = PlaceDetectorType.NER

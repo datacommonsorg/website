@@ -36,6 +36,7 @@ from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
@@ -75,6 +76,15 @@ def data():
 
   detector_type = request.args.get(
       'detector', default=RequestedDetectorType.Heuristic.value, type=str)
+
+  place_detector_type = request.args.get('place_detector',
+                                         default='ner',
+                                         type=str).lower()
+  if place_detector_type not in [PlaceDetectorType.NER, PlaceDetectorType.DC]:
+    logging.error(f'Unknown place_detector {place_detector_type}')
+    place_detector_type = PlaceDetectorType.NER
+  else:
+    place_detector_type = PlaceDetectorType(place_detector_type)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
@@ -121,8 +131,9 @@ def data():
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(detector_type, original_query, query,
-                                    prev_utterance, embeddings_index_type,
+  query_detection = detector.detect(detector_type, place_detector_type,
+                                    original_query, query, prev_utterance,
+                                    embeddings_index_type,
                                     query_detection_debug_logs, counters)
   counters.timeit('query_detection', start)
 
