@@ -8,7 +8,7 @@ visualizations in your web application.
 
 ## Usage
 
-Include `datacommons.js` and `datacommons.min.css` in your html's `<head>...</head>` tag. Then use `datacommons-*` [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) tags to add embedded Data Commons visualizations.
+Include `datacommons.js` and `datacommons.min.css` in your html's `<head>...</head>` tag. Then use `datacommons-*` [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) tags to add embedded data visualizations.
 
 Example:
 
