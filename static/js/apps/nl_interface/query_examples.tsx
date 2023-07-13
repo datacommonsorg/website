@@ -30,7 +30,18 @@ interface QueryExamplesPropType {
 }
 
 export function QueryExamples(props: QueryExamplesPropType): JSX.Element {
-  const [csvData, setCsvData] = useState<any>();
+  const [csvData, setCsvData] = useState<Array<Array<string>>>();
+
+  function fetchData(): void {
+    axios.get("/data/nl/topics.csv").then((resp) => {
+      Papa.parse(resp.data, {
+        complete: (result) => {
+          setCsvData(result["data"]);
+        },
+        worker: true,
+      });
+    });
+  }
 
   useEffect(() => {
     fetchData();
@@ -43,7 +54,7 @@ export function QueryExamples(props: QueryExamplesPropType): JSX.Element {
   const examples = [];
   if (csvData) {
     for (const row of csvData.slice(1)) {
-      if (row[0] == topic && row[2] == "yes") {
+      if (row[0] === topic && row[2] === "yes") {
         examples.push(row[1]);
       }
     }
@@ -67,15 +78,4 @@ export function QueryExamples(props: QueryExamplesPropType): JSX.Element {
       </div>
     </div>
   );
-
-  function fetchData(): void {
-    axios.get("/data/nl/topics.csv").then((resp) => {
-      Papa.parse(resp.data, {
-        complete: (result) => {
-          setCsvData(result["data"]);
-        },
-        worker: true,
-      });
-    });
-  }
 }
