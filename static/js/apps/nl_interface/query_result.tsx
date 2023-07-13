@@ -226,7 +226,11 @@ export const QueryResult = memo(function QueryResult(
             chartsData.pastSourceContext !== "Earth" && (
               <div className="nl-query-info">
                 Could not recognize any place, but here are relevant statistics
-                for the default place {chartsData.pastSourceContext}.
+                for the default place
+                {chartsData.pastSourceContext && (
+                  <span> {chartsData.pastSourceContext}</span>
+                )}
+                .
               </div>
             )}
           {chartsData &&

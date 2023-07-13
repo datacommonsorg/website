@@ -35,14 +35,16 @@ def populate(uttr: Utterance) -> bool:
   places_to_compare = []
   # Extend so we don't point to state.uttr.places and modify in-place.
   places_to_compare.extend(state.uttr.places)
+
   # If the current query has >1 place, we're good.  Otherwise look
   # in context...
   if len(places_to_compare) <= 1:
-    # Need to check context.
     is_partial = True
     for p in most_recent_places_from_context(uttr):
+      # Avoid adding duplicates
       if not state.uttr.places or p.dcid != state.uttr.places[0].dcid:
         places_to_compare.append(p)
+
   dcids = [p.dcid for p in places_to_compare]
   uttr.counters.info('comparison_place_candidates', dcids)
   if len(places_to_compare) > 1:

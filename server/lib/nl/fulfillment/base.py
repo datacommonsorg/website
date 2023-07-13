@@ -105,8 +105,9 @@ def populate_charts(state: PopulateState) -> bool:
     for pl in context.places_from_context(state.uttr):
       populate_attempted = True
       # Important to set this for maybe_set_fallback().
-      # But reset after populate_charts_for_places() esp
-      # in case of failure.
+      # But always reset after populate_charts_for_places(), so
+      # we don't propagate it to failover query-types as a
+      # main place.
       state.uttr.places = [pl]
       if (populate_charts_for_places(state, state.uttr.places)):
         state.uttr.places = []
@@ -116,8 +117,6 @@ def populate_charts(state: PopulateState) -> bool:
       else:
         state.uttr.places = []
         state.uttr.counters.err('failed_populate_context_place', pl.dcid)
-      # Must reset places when we fail to avoid fallback query-types
-      # from using this place.
 
   if populate_attempted:
     return False
@@ -188,8 +187,8 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
     return False
 
   if len(places) > 1:
-    # This is a worst case sanity check only because the
-    # only caller with num-places > 1 should disable fallback.
+    # This is a worst case sanity check because the only expected caller
+    # with num-places > 1 (comparison.py) should disable fallback.
     state.uttr.counters.err('failed_sanitycheck_fallbackwithtoomanyplaces', '')
     return False
 

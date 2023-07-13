@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from typing import Dict, List
 
 from server.lib.nl.common import constants
@@ -82,13 +81,12 @@ def has_place_in_context(uttr: Utterance) -> bool:
   return False
 
 
-# Computes a list of places for comparison from the most previous context.
+# Computes a list of places for comparison from the most recent previous context.
 def most_recent_places_from_context(uttr: Utterance) -> List[Place]:
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
     if prev.places:
-      logging.info(prev.places)
       return prev.places
     prev = prev.prev_utterance
     prev_uttr_count = prev_uttr_count + 1
