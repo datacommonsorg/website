@@ -214,7 +214,6 @@ def _remove_places(query, place_str_to_dcids: Dict[str, str]):
 #
 def _get_place_from_dcids(place_dcids: List[str],
                           debug_logs: Dict) -> List[Place]:
-  logging.info(f'{place_dcids}')
   place_info_result = dc.get_place_info(place_dcids)
   dcid2place = {}
   for res in place_info_result.get('data', []):
