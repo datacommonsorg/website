@@ -31,7 +31,7 @@ Example:
 </html>
 ```
 
-[Playground](https://lit.dev/playground/#gist=c0c88276739f4f6061807cc943937a14)
+[Playground](https://lit.dev/playground/#gist=c0c88276739f4f6061807cc943937a14) ([source](./examples/line-chart.html))
 
 ## Components
 
@@ -139,7 +139,7 @@ Example:
 </head>
 ```
 
-Playground
+[Playground](https://lit.dev/playground/#gist=719f5d71c2823ac3e58f504cb6ceccd3) ([source](./examples/map-styles.html))
 
 ## License
 
