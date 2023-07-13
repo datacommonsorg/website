@@ -24,12 +24,13 @@ import shared.lib.utils as utils
 
 
 #
-# The main entrypoint for place detection from a cleaned (no punctuations) query.
+# The main entrypoint for place detection using NER
+# from a cleaned (no punctuations) query.
 #
 # Uses NER to detect place names, recons to DCIDs, produces PlaceDetection object.
 #
-def detect_from_query(cleaned_query: str, orig_query: str,
-                      query_detection_debug_logs: Dict) -> PlaceDetection:
+def detect_from_query_ner(cleaned_query: str, orig_query: str,
+                          query_detection_debug_logs: Dict) -> PlaceDetection:
   # Step 1: find all relevant places and the name/type of the main place found.
   places_str_found = _detect_places(cleaned_query)
 
@@ -82,6 +83,64 @@ def detect_from_query(cleaned_query: str, orig_query: str,
   query_detection_debug_logs["query_transformations"] = {
       "place_detection_input": cleaned_query,
       "place_detection_with_places_removed": query,
+  }
+  return place_detection
+
+
+#
+# The main entrypoint for place detection using DC's Place
+# Recognition API from a cleaned (no punctuations) query.
+#
+# Uses NER to detect place names, recons to DCIDs, produces PlaceDetection object.
+#
+def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
+  query_items = dc.recognize_places(orig_query)
+
+  nonplace_query_parts = []
+  places_str = []
+  dcids = []
+
+  debug_logs["place_dcid_inference"] = {}
+  debug_logs["place_resolution"] = {}
+  debug_logs["dc_recognize_places"] = {}
+
+  for item in query_items:
+    if 'span' not in item:
+      continue
+    if 'places' in item and item['places'] and 'dcid' in item['places'][0]:
+      # Use the first DCID for now.
+      dcids.append(item['places'][0]['dcid'])
+      places_str.append(item['span'].lower())
+
+      # For logging, get all DCIDs:
+      debug_logs["dc_recognize_places"][item['span']] = [
+          d['dcid'] for d in item['places'] if 'dcid' in d
+      ]
+    else:
+      nonplace_query_parts.append(item['span'].lower())
+
+  resolved_places = []
+  if dcids:
+    resolved_places = _get_place_from_dcids(dcids,
+                                            debug_logs["place_resolution"])
+
+  main_place = None
+  if resolved_places:
+    main_place = resolved_places[0]
+
+  # Set PlaceDetection.
+  query_without_place_substr = ' '.join(nonplace_query_parts)
+  place_detection = PlaceDetection(
+      query_original=orig_query,
+      query_without_place_substr=query_without_place_substr,
+      query_places_mentioned=places_str,
+      places_found=resolved_places,
+      main_place=main_place)
+  _set_query_detection_debug_logs(place_detection, debug_logs)
+  # This only makes sense for this flow.
+  debug_logs["query_transformations"] = {
+      "place_detection_input": orig_query,
+      "place_detection_with_places_removed": query_without_place_substr,
   }
   return place_detection
 
@@ -155,6 +214,7 @@ def _remove_places(query, place_str_to_dcids: Dict[str, str]):
 #
 def _get_place_from_dcids(place_dcids: List[str],
                           debug_logs: Dict) -> List[Place]:
+  logging.info(f'{place_dcids}')
   place_info_result = dc.get_place_info(place_dcids)
   dcid2place = {}
   for res in place_info_result.get('data', []):

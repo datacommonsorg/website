@@ -37,6 +37,7 @@ export interface QueryResultProps {
   query: string;
   indexType: string;
   detector: string;
+  placeDetector: string;
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
@@ -82,10 +83,18 @@ export const QueryResult = memo(function QueryResult(
     if (props.detector) {
       detectorParam = "&detector=" + props.detector;
     }
+
+    let placeDetectorParam = "";
+    if (props.placeDetector) {
+      placeDetectorParam = "&place_detector=" + props.placeDetector;
+    }
     axios
-      .post(`/api/nl/data?q=${query}${indexParam}${detectorParam}`, {
-        contextHistory: props.contextHistory,
-      })
+      .post(
+        `/api/nl/data?q=${query}${indexParam}${detectorParam}${placeDetectorParam}`,
+        {
+          contextHistory: props.contextHistory,
+        }
+      )
       .then((resp) => {
         if (
           resp.data["context"] === undefined ||

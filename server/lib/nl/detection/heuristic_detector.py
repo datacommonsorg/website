@@ -25,14 +25,20 @@ from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import SimpleClassificationAttributes
 
 
-def detect(orig_query: str, cleaned_query: str, index_type: str,
+def detect(place_detector_type: PlaceDetectorType, orig_query: str,
+           cleaned_query: str, index_type: str,
            query_detection_debug_logs: Dict,
            counters: ctr.Counters) -> Detection:
-  place_detection = place.detect_from_query(cleaned_query, orig_query,
-                                            query_detection_debug_logs)
+  if place_detector_type == PlaceDetectorType.DC:
+    place_detection = place.detect_from_query_dc(orig_query,
+                                                 query_detection_debug_logs)
+  else:
+    place_detection = place.detect_from_query_ner(cleaned_query, orig_query,
+                                                  query_detection_debug_logs)
 
   query = place_detection.query_without_place_substr
 
@@ -101,4 +107,5 @@ def detect(orig_query: str, cleaned_query: str, index_type: str,
                    places_detected=place_detection,
                    svs_detected=sv_detection,
                    classifications=classifications,
-                   detector=ActualDetectorType.Heuristic)
+                   detector=ActualDetectorType.Heuristic,
+                   place_detector=place_detector_type)
