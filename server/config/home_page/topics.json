@@ -2,7 +2,7 @@
   {
     "id": "food",
     "title": "Food",
-    "description": "Discover the profound impact of climate change on agriculture centers worldwide",
+    "description": "Discover the food production and agriculture centers.",
     "url": "/nl#topic=food",
     "icon": "agriculture"
   },
@@ -58,7 +58,7 @@
   {
     "id": "health",
     "title": "Health",
-    "description": "Embark on a journey into the remarkable world of biomedical research and innovation.",
+    "description": "Explore various how health is affected by various social and bilogical factors",
     "url": "/nl#topic=health",
     "icon": "emergency"
   }

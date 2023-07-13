@@ -53,8 +53,9 @@ export function QueryExamples(props: QueryExamplesPropType): JSX.Element {
   }
   const examples = [];
   if (csvData) {
-    for (const row of csvData.slice(1)) {
-      if (row[0] === topic && row[2] === "yes") {
+    for (let row of csvData.slice(1)) {
+      row = row.map((x) => x.trim().toLowerCase());
+      if (row[1] && row[0] === topic && row[2] === "yes") {
         examples.push(row[1]);
       }
     }
