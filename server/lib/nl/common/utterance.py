@@ -95,20 +95,20 @@ class FulfillmentResult(str, Enum):
   """Where is a variable or place from?"""
   # From the current user provided query.
   CURRENT_QUERY = "CURRENT_QUERY"
-  # From a prior query in the context.
-  # Importantly, no variable was recognized in the current query.
+  # From a past user query in the context.
+  # Importantly, no place/variable was recognized in the current query.
   PAST_QUERY = "PAST_QUERY"
-  # Subset of the places/variables used are from a past query.
-  # Importantly, there were recognized places/variables in the
-  # current query.
+  # Subset of the places used are from a past query.
+  # (Not used for variables)
   PARTIAL_PAST_QUERY = "PARTIAL_PAST_QUERY"
-  # From a preset default.
+  # Place is from a preset default.  Importantly, no place
+  # was recognized in the current / past query.
+  # (Not used for variables)
   DEFAULT = "DEFAULT"
-  # The thing was recognized but we couldn't fulfill it
-  # (most likely no data)
+  # The thing was recognized but we couldn't fulfill it.
+  # (Not used with places)
   UNFULFILLED = "UNFULFILLED"
-  # Nothing was recognized.  Typically, when there is no
-  # DEFAULT, it would be UNRECOGNIZED.
+  # The thing was recognized in current / past query.
   UNRECOGNIZED = "UNRECOGNIZED"
 
 
