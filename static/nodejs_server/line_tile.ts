@@ -98,10 +98,10 @@ export async function getLineTileResult(
         null,
         urlRoot
       );
-    } else {
-      const svg = getLineChartSvg(tileProp, chartData);
-      result.svg = getSvgXml(svg);
+      return result;
     }
+    const svg = getLineChartSvg(tileProp, chartData);
+    result.svg = getSvgXml(svg);
     return result;
   } catch (e) {
     console.log("Failed to get line tile result for: " + id);

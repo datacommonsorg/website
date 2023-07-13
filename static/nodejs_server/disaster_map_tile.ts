@@ -132,10 +132,10 @@ export async function getDisasterMapTileResult(
         eventTypeSpec,
         urlRoot
       );
-    } else {
-      const svg = getDisasterMapSvg(tileProp, chartData, eventTypeSpec);
-      result.svg = getSvgXml(svg);
+      return result;
     }
+    const svg = getDisasterMapSvg(tileProp, chartData, eventTypeSpec);
+    result.svg = getSvgXml(svg);
     return result;
   } catch (e) {
     console.log("Failed to get disaster event map tile result for: " + id);

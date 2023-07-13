@@ -130,10 +130,10 @@ export async function getBarTileResult(
         null,
         urlRoot
       );
-    } else {
-      const svg = getBarChartSvg(tileProp, chartData);
-      result.svg = getSvgXml(svg);
+      return result;
     }
+    const svg = getBarChartSvg(tileProp, chartData);
+    result.svg = getSvgXml(svg);
     return result;
   } catch (e) {
     console.log("Failed to get bar tile result for: " + id);

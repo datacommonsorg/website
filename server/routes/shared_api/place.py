@@ -340,7 +340,7 @@ def child_fetch(parent_dcid):
 
 
 @bp.route('/parent')
-@cache.cache.memoize(timeout=cache.TIMEOUT, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def api_parent_places():
   dcid = request.args.get("dcid")
   result = parent_places([dcid])[dcid]

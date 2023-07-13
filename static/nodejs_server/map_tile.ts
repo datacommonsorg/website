@@ -146,10 +146,10 @@ export async function getMapTileResult(
         null,
         urlRoot
       );
-    } else {
-      const svg = getMapChartSvg(tileProp, chartData);
-      result.svg = getSvgXml(svg);
+      return result;
     }
+    const svg = getMapChartSvg(tileProp, chartData);
+    result.svg = getSvgXml(svg);
     return result;
   } catch (e) {
     console.log("Failed to get map tile result for: " + id);

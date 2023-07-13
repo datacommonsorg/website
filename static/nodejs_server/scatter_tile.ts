@@ -109,19 +109,19 @@ export async function getScatterTileResult(
         null,
         urlRoot
       );
-    } else {
-      const svgContainer = document.createElement("div");
-      draw(
-        chartData,
-        svgContainer,
-        SVG_HEIGHT,
-        null /* tooltipHtml */,
-        tileConfig.scatterTileSpec,
-        SVG_WIDTH
-      );
-      const svg = getProcessedSvg(svgContainer.querySelector("svg"));
-      result.svg = getSvgXml(svg);
+      return result;
     }
+    const svgContainer = document.createElement("div");
+    draw(
+      chartData,
+      svgContainer,
+      SVG_HEIGHT,
+      null /* tooltipHtml */,
+      tileConfig.scatterTileSpec,
+      SVG_WIDTH
+    );
+    const svg = getProcessedSvg(svgContainer.querySelector("svg"));
+    result.svg = getSvgXml(svg);
     return result;
   } catch (e) {
     console.log("Failed to get scatter tile result for: " + id);

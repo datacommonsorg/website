@@ -136,10 +136,10 @@ function getRankingUnitResult(
       null,
       urlRoot
     );
-  } else {
-    const svg = getRankingChartSvg(rankingGroup, sv, tileConfig);
-    result.svg = getSvgXml(svg);
+    return result;
   }
+  const svg = getRankingChartSvg(rankingGroup, sv, tileConfig);
+  result.svg = getSvgXml(svg);
   return result;
 }
 
