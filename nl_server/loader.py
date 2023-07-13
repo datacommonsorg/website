@@ -104,6 +104,9 @@ def load_embeddings(app, embeddings_map, models_downloaded_paths):
     if "_ft" in sz:
       assert existing_model_path, f"Could not find a finetuned model for finetuned embeddings ({sz}) version: {embeddings_map[sz]}"
 
+    print(
+        f"Building an Embeddings object with the model: {existing_model_path} (empty means default) and embeddings file ({sz}) version: {embeddings_map[sz]}."
+    )
     nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_map[sz]),
                                existing_model_path)
     app.config[embeddings_config_key(sz)] = nl_embeddings
