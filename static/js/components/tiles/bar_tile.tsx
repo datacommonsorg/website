@@ -86,7 +86,7 @@ export interface BarTilePropType {
   yAxisMargin?: number;
 }
 
-interface BarChartData {
+export interface BarChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
   unit: string;
@@ -296,6 +296,7 @@ export function draw(
       formatNumber,
       {
         colors: props.colors,
+        lollipop: props.useLollipop,
         stacked: props.stacked,
         style: {
           barHeight: props.barHeight,
@@ -315,6 +316,7 @@ export function draw(
         formatNumber,
         {
           colors: props.colors,
+          lollipop: props.useLollipop,
           unit: chartData.unit,
         }
       );

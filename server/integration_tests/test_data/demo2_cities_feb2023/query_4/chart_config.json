@@ -9,8 +9,8 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/0677000",
-                      "geoId/0665028"
+                      "geoId/0665028",
+                      "geoId/0677000"
                     ],
                     "statVarKey": [
                       "dc/6rltk4kf75612_multiple_place_bar_block",
@@ -25,8 +25,8 @@
                   },
                   {
                     "comparisonPlaces": [
-                      "geoId/0677000",
-                      "geoId/0665028"
+                      "geoId/0665028",
+                      "geoId/0677000"
                     ],
                     "statVarKey": [
                       "dc/6rltk4kf75612_multiple_place_bar_block_pc",
@@ -105,7 +105,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/0677000"
+        "geoId/0665028"
       ]
     }
   },
@@ -113,11 +113,11 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/0677000",
-    "name": "Sunnyvale",
+    "dcid": "geoId/0665028",
+    "name": "San Bruno",
     "place_type": "City"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PARTIAL_PAST_QUERY",
   "svSource": "PAST_QUERY"
 }

@@ -24,6 +24,7 @@ from server.lib.nl.detection import heuristic_detector
 from server.lib.nl.detection import llm_detector
 from server.lib.nl.detection import llm_fallback
 from server.lib.nl.detection.types import ActualDetectorType
+from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 
 _PALM_API_DETECTORS = [
@@ -38,9 +39,10 @@ _PALM_API_DETECTORS = [
 # For `hybrid` detection, it first calls Heuristic detector, and
 # based on `need_llm()`, decides to call the LLM detector.
 #
-def detect(detector_type: str, original_query: str, no_punct_query: str,
-           prev_utterance: Utterance, embeddings_index_type: str,
-           query_detection_debug_logs: Dict, counters: Counters):
+def detect(detector_type: str, place_detector_type: PlaceDetectorType,
+           original_query: str, no_punct_query: str, prev_utterance: Utterance,
+           embeddings_index_type: str, query_detection_debug_logs: Dict,
+           counters: Counters):
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #
@@ -61,7 +63,8 @@ def detect(detector_type: str, original_query: str, no_punct_query: str,
   #
   # Heuristic detection.
   #
-  heuristic_detection = heuristic_detector.detect(str(escape(original_query)),
+  heuristic_detection = heuristic_detector.detect(place_detector_type,
+                                                  str(escape(original_query)),
                                                   no_punct_query,
                                                   embeddings_index_type,
                                                   query_detection_debug_logs,

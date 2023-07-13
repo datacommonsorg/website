@@ -1,9 +1,8 @@
 <html>
   <head>
-    <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
     <link
       rel="stylesheet"
-      href="https://datacommons.org/css/nl_interface.min.css"
+      href="https://datacommons.org/css/datacommons.min.css"
     />
     <script src="https://datacommons.org/datacommons.js"></script>
     <style>
@@ -72,35 +71,35 @@
     <h2>Bar Chart</h2>
     <datacommons-bar
       title="Most populous states in the US"
-      place="country/USA"
+      parentPlace="country/USA"
       childPlaceType="State"
-      variable="Count_Person"
+      variables="Count_Person"
       maxPlaces="15"
     ></datacommons-bar>
     <datacommons-bar
       title="Population of select US states"
-      variable="Count_Person"
-      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
+      variables="Count_Person"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
       sort="ascending"
       colors="orange"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (grouped)"
-      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
       colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (stacked)"
-      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/05"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
       stacked
       colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender of select US states (horizontal, stacked, sorted descending)"
-      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
       stacked
       horizontal
       sort="descending"
@@ -109,8 +108,8 @@
     <datacommons-bar
       barHeight="6"
       title="Median income by gender (horizontal, grouped, sorted ascending)"
-      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      place="country/USA"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      parentPlace="country/USA"
       childPlaceType="State"
       horizontal
       sort="ascending"
@@ -121,16 +120,16 @@
     <datacommons-bar
       id="styled-bar"
       title="Styled: Mean Palmer Drought Severity Index in the USA"
-      place="country/USA"
+      parentPlace="country/USA"
       childPlaceType="State"
-      variable="Mean_PalmerDroughtSeverityIndex"
+      variables="Mean_PalmerDroughtSeverityIndex"
       maxPlaces="15"
     ></datacommons-bar>
     <datacommons-bar
       id="styled-bar-multivariable"
       title="Styled: Median income by gender of select US states (horizontal, stacked, sorted descending)"
-      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
       stacked
       horizontal
       sort="descending"
@@ -139,12 +138,12 @@
     <datacommons-pie
       title="California Farms by Size"
       place="geoId/06"
-      comparisonVariables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
+      variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
     ></datacommons-pie>
     <datacommons-pie
       title="California Farms by Size"
       place="geoId/06"
-      comparisonVariables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
+      variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
       donut
     ></datacommons-pie>
     <h2>Gauge</h2>
@@ -158,7 +157,7 @@
     <h2>Map</h2>
     <datacommons-map
       title="Population"
-      place="country/USA"
+      parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
       colors="red"
@@ -173,14 +172,14 @@
     <datacommons-map
       id="styled-map"
       title="Styled map: Three most populous US states"
-      place="country/USA"
+      parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
     ></datacommons-map>
     <h2>Map with year slider</h2>
     <datacommons-map
       title="Population"
-      place="country/USA"
+      parentPlace="country/USA"
       childPlaceType="State"
       subscribe="dc-map"
       variable="Count_Person"
@@ -194,16 +193,16 @@
     <h2>Ranking</h2>
     <datacommons-ranking
       title="US States with the Highest Population"
-      place="country/USA"
+      parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
     ></datacommons-ranking>
     <datacommons-ranking
       title="US States with the Lowest Population"
-      place="country/USA"
+      parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
-      showLowest="true"
+      showLowest
     ></datacommons-ranking>
     <h3>Line</h3>
     <datacommons-line
@@ -231,31 +230,47 @@
     <h2>Lollipop</h2>
     <datacommons-bar
       title="Population in States of United States"
-      place="country/USA"
+      parentPlace="country/USA"
       childPlaceType="State"
-      variable="Count_Person"
+      variables="Count_Person"
       lollipop
     ></datacommons-bar>
     <datacommons-bar
       title="Population in Alaska, Alabama, and Arizona"
-      variable="Count_Person"
-      comparisonPlaces="geoId/01 geoId/02 geoId/04"
+      variables="Count_Person"
+      places="geoId/01 geoId/02 geoId/04"
       lollipop
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for Alaska, Alabama, and Arizona"
-      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      comparisonPlaces="geoId/01 geoId/02 geoId/04"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04"
       lollipop
       colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
       title="Median income by gender for counties in Alaska"
-      comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      place="geoId/02"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      parentPlace="geoId/02"
       childPlaceType="County"
       lollipop
       colors="#4287f5 #f542a4"
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender for counties in Alaska (horizontal, stacked, lollipop)"
+      variables="Median_Income_Person Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      parentPlace="geoId/02"
+      childPlaceType="County"
+      lollipop
+      horizontal
+      stacked
+    ></datacommons-bar>
+    <datacommons-bar
+      title="Median income by gender of select US states (stacked, lollipop)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      stacked
+      lollipop
     ></datacommons-bar>
   </body>
 </html>

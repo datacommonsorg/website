@@ -34,7 +34,8 @@ class IntegrationTest(NLWebServerTestCase):
                    idx='small',
                    detector='hybrid',
                    check_place_detection=False,
-                   expected_detectors=[]):
+                   expected_detectors=[],
+                   place_detector='ner'):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -44,11 +45,12 @@ class IntegrationTest(NLWebServerTestCase):
     ctx = {}
     for i, q in enumerate(queries):
       print('Issuing ', test_dir, f'query[{i}]', q)
-      resp = requests.post(self.get_server_url() +
-                           f'/api/nl/data?q={q}&idx={idx}&detector={detector}',
-                           json={
-                               'contextHistory': ctx
-                           }).json()
+      resp = requests.post(
+          self.get_server_url() +
+          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}',
+          json={
+              'contextHistory': ctx
+          }).json()
 
       ctx = resp['context']
       dbg = resp['debug']
@@ -192,7 +194,8 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence('demo_climatetrace',
                       ['Which countries emit the most greenhouse gases?'])
 
-  def test_place_detection_e2e(self):
+  # This test uses NER.
+  def test_place_detection_e2e_ner(self):
     self.run_sequence('place_detection_e2e', [
         'tell me about palo alto',
         'US states which have that the cheapest houses',
@@ -202,6 +205,21 @@ class IntegrationTest(NLWebServerTestCase):
         'counties in the US with the most poverty',
     ],
                       check_place_detection=True)
+
+  # This test uses DC's Recognize Places API.
+  # TODO: "US" is not detected by RecognizePlaces.
+  # TODO: Also "mexico city" is wrongly detected.
+  def test_place_detection_e2e_dc(self):
+    self.run_sequence('place_detection_e2e_dc', [
+        'tell me about palo alto',
+        'US states which have that the cheapest houses',
+        'what about in florida',
+        'compare with california and new york state and washington state',
+        'show me the population of mexico city',
+        'counties in the US with the most poverty',
+    ],
+                      check_place_detection=True,
+                      place_detector='dc')
 
   def test_international(self):
     self.run_sequence('international', [

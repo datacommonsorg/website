@@ -15,7 +15,7 @@
  */
 
 /**
- * Functions for getting tile result for a map tile
+ * Functions for getting results for a map tile
  */
 
 // This import is unused in this file, but needed for draw functions
@@ -27,14 +27,77 @@ import {
   draw,
   fetchData,
   getReplacementStrings,
+  MapChartData,
+  MapTilePropType,
 } from "../js/components/tiles/map_tile";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import { TileConfig } from "../js/types/subject_page_proto_types";
 import { mapDataToCsv } from "../js/utils/chart_csv_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
-import { MAP_LEGEND_CONSTANT_WIDTH, SVG_HEIGHT, SVG_WIDTH } from "./constants";
+import {
+  CHART_ID,
+  MAP_LEGEND_CONSTANT_WIDTH,
+  SVG_HEIGHT,
+  SVG_WIDTH,
+} from "./constants";
 import { TileResult } from "./types";
-import { getProcessedSvg, getSources } from "./utils";
+import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+
+function getTileProp(
+  id: string,
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  statVarSpec: StatVarSpec,
+  apiRoot: string
+): MapTilePropType {
+  return {
+    id,
+    title: tileConfig.title,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
+    apiRoot,
+  };
+}
+
+function getMapChartSvg(
+  tileProp: MapTilePropType,
+  chartData: MapChartData
+): SVGSVGElement {
+  const legendContainer = document.createElement("div");
+  const mapContainer = document.createElement("div");
+  draw(chartData, tileProp, null, legendContainer, mapContainer, SVG_WIDTH);
+  // Get the width of the text in the legend
+  let legendTextWidth = 0;
+  Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
+    legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
+  });
+  const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
+  // Create a single merged svg to hold both the map and the legend svgs
+  const mergedSvg = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "svg"
+  );
+  mergedSvg.setAttribute("height", String(SVG_HEIGHT));
+  mergedSvg.setAttribute("width", String(SVG_WIDTH));
+  // Get the map svg and add it to the merged svg
+  const mapSvg = mapContainer.querySelector("svg");
+  const mapWidth = SVG_WIDTH - legendWidth;
+  mapSvg.setAttribute("width", String(mapWidth));
+  const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  mapG.appendChild(mapSvg);
+  mergedSvg.appendChild(mapG);
+  // Get the legend svg and add it to the merged svg
+  const legendSvg = legendContainer.querySelector("svg");
+  legendSvg.setAttribute("width", String(legendWidth));
+  const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  legendG.setAttribute("transform", `translate(${mapWidth})`);
+  legendG.appendChild(legendSvg);
+  mergedSvg.appendChild(legendG);
+  return getProcessedSvg(mergedSvg);
+}
 
 /**
  * Gets the Tile Result for a map tile
@@ -51,52 +114,21 @@ export async function getMapTileResult(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec,
-  apiRoot: string
+  apiRoot: string,
+  urlRoot: string,
+  useChartUrl: boolean
 ): Promise<TileResult> {
-  const tileProp = {
+  const tileProp = getTileProp(
     id,
-    title: tileConfig.title,
+    tileConfig,
     place,
     enclosedPlaceType,
     statVarSpec,
-    svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
-    apiRoot,
-  };
+    apiRoot
+  );
   try {
     const chartData = await fetchData(tileProp);
-    const legendContainer = document.createElement("div");
-    const mapContainer = document.createElement("div");
-    draw(chartData, tileProp, null, legendContainer, mapContainer, SVG_WIDTH);
-    // Get the width of the text in the legend
-    let legendTextWidth = 0;
-    Array.from(legendContainer.querySelectorAll("text")).forEach((node) => {
-      legendTextWidth = Math.max(node.getBBox().width, legendTextWidth);
-    });
-    const legendWidth = legendTextWidth + MAP_LEGEND_CONSTANT_WIDTH;
-    // Create a single merged svg to hold both the map and the legend svgs
-    const mergedSvg = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "svg"
-    );
-    mergedSvg.setAttribute("height", String(SVG_HEIGHT));
-    mergedSvg.setAttribute("width", String(SVG_WIDTH));
-    // Get the map svg and add it to the merged svg
-    const mapSvg = mapContainer.querySelector("svg");
-    const mapWidth = SVG_WIDTH - legendWidth;
-    mapSvg.setAttribute("width", String(mapWidth));
-    const mapG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    mapG.appendChild(mapSvg);
-    mergedSvg.appendChild(mapG);
-    // Get the legend svg and add it to the merged svg
-    const legendSvg = legendContainer.querySelector("svg");
-    legendSvg.setAttribute("width", String(legendWidth));
-    const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    legendG.setAttribute("transform", `translate(${mapWidth})`);
-    legendG.appendChild(legendSvg);
-    mergedSvg.appendChild(legendG);
-
-    return {
-      svg: getProcessedSvg(mergedSvg),
+    const result: TileResult = {
       data_csv: mapDataToCsv(chartData.geoJson, chartData.dataValues),
       srcs: getSources(chartData.sources),
       title: getChartTitle(
@@ -105,8 +137,54 @@ export async function getMapTileResult(
       ),
       type: "MAP",
     };
+    if (useChartUrl) {
+      result.chartUrl = getChartUrl(
+        tileConfig,
+        place.dcid,
+        [statVarSpec],
+        enclosedPlaceType,
+        null,
+        urlRoot
+      );
+      return result;
+    }
+    const svg = getMapChartSvg(tileProp, chartData);
+    result.svg = getSvgXml(svg);
+    return result;
   } catch (e) {
     console.log("Failed to get map tile result for: " + id);
+    return null;
+  }
+}
+
+/**
+ * Gets the map chart for a given tile config
+ * @param tileConfig the tile config for the chart
+ * @param place the place to get the chart for
+ * @param enclosedPlaceType the enclosed place type to get the chart for
+ * @param statVarSpec list of stat var specs to show in the chart
+ * @param apiRoot API root to use to fetch data
+ */
+export async function getMapChart(
+  tileConfig: TileConfig,
+  place: NamedTypedPlace,
+  enclosedPlaceType: string,
+  statVarSpec: StatVarSpec,
+  apiRoot: string
+): Promise<SVGSVGElement> {
+  const tileProp = getTileProp(
+    CHART_ID,
+    tileConfig,
+    place,
+    enclosedPlaceType,
+    statVarSpec,
+    apiRoot
+  );
+  try {
+    const chartData = await fetchData(tileProp);
+    return getMapChartSvg(tileProp, chartData);
+  } catch (e) {
+    console.log("Failed to get map chart.");
     return null;
   }
 }
