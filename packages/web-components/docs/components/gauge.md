@@ -42,8 +42,8 @@ Required:
 
 Optional:
 
-- `colors` _string_
+- `colors` _space-separated list of strings_
 
-  Optionally specify a custom chart color for the display variable.
+  Optionally specify a custom chart color scheme for the display variable. Will interpolate colors linearly depending on how many are passed in.
 
-  Value should follow CSS specification (keywords, rgb, rgba, hsl, #hex). Example `"#ff0000"`. Make sure color has no spaces. For example, use `rgba(255,0,0,0.3)` instead of `rgba(255, 0, 0, 0.3)`.
+  Values should follow CSS specification (keywords, rgb, rgba, hsl, #hex). Separate multiple values with spaces, e.g., `"#ff0000 #00ff00 #0000ff"`. Make sure individual colors have no spaces. For example, use `rgba(255,0,0,0.3)` instead of `rgba(255, 0, 0, 0.3)`.
