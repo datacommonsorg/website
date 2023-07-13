@@ -494,13 +494,21 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
 });
 
 app.get("/nodejs/chart", (req: Request, res: Response) => {
-  const place = req.query.place as string;
-  const enclosedPlaceType = req.query.enclosedPlaceType as string;
-  const svSpec = JSON.parse(req.query.svSpec as string);
+  const place = _.escape(req.query[CHART_URL_PARAMS.PLACE] as string);
+  const enclosedPlaceType = _.escape(
+    req.query[CHART_URL_PARAMS.ENCLOSED_PLACE_TYPE] as string
+  );
+  const svSpec = JSON.parse(
+    req.query[CHART_URL_PARAMS.STAT_VAR_SPEC] as string
+  );
   // Need to convert encoded # back to #.
-  const eventTypeSpecVal = (req.query.eventTypeSpec as string).replaceAll("%23", "#");
+  const eventTypeSpecVal = (
+    req.query[CHART_URL_PARAMS.EVENT_TYPE_SPEC] as string
+  ).replaceAll("%23", "#");
   const eventTypeSpec = JSON.parse(eventTypeSpecVal);
-  const tileConfig = JSON.parse(req.query.config as string );
+  const tileConfig = JSON.parse(
+    req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
+  );
   res.setHeader("Content-Type", "text/html");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
