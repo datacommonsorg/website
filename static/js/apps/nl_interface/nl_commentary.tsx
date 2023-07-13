@@ -34,10 +34,15 @@ export function shouldHideCharts(respData: any): boolean {
   // we should hide.
   return (
     ("origStr" in fb && "newStr" in fb) ||
-    (respData["placeSource"] == "DEFAULT" && respData["pastSourceContext"] != "Earth")
+    (respData["placeSource"] == "DEFAULT" &&
+      respData["pastSourceContext"] != "Earth")
   );
 }
 
+//
+// For more context, refer:
+//   https://docs.google.com/document/d/13-1zsYZm_RFkzhKb4GxVy7DQNU8ZiEYZSY8001R-GsU/edit
+//
 export function NLCommentary(props: NLCommentaryPropType): JSX.Element {
   return (
     <>
