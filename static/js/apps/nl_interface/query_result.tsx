@@ -27,6 +27,7 @@ import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { NlSessionContext } from "../../shared/context";
 import { SearchResult } from "../../types/app/nl_interface_types";
+import { stringifyFn } from "../../utils/axios";
 import {
   CHART_FEEDBACK_SENTIMENT,
   getFeedbackLink,
@@ -74,25 +75,27 @@ export const QueryResult = memo(function QueryResult(
 
   function fetchData(query: string): void {
     setIsLoading(true);
-    let indexParam = "";
+    const params = {
+      q: query,
+    };
     if (props.indexType) {
-      indexParam = "&idx=" + props.indexType;
+      params["idx"] = props.indexType;
     }
-
-    let detectorParam = "";
     if (props.detector) {
-      detectorParam = "&detector=" + props.detector;
+      params["detector"] = props.detector;
     }
-
-    let placeDetectorParam = "";
     if (props.placeDetector) {
-      placeDetectorParam = "&place_detector=" + props.placeDetector;
+      params["place_detector"] = props.placeDetector;
     }
     axios
       .post(
-        `/api/nl/data?q=${query}${indexParam}${detectorParam}${placeDetectorParam}`,
+        `/api/nl/data`,
         {
           contextHistory: props.contextHistory,
+        },
+        {
+          params,
+          paramsSerializer: stringifyFn,
         }
       )
       .then((resp) => {

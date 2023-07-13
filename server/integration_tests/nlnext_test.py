@@ -207,7 +207,8 @@ class IntegrationTest(NLWebServerTestCase):
                       check_place_detection=True)
 
   # This test uses DC's Recognize Places API.
-  # TODO: "US" is not detected by RecognizePlaces
+  # TODO: "US" is not detected by RecognizePlaces.
+  # TODO: Also "mexico city" is wrongly detected.
   def test_place_detection_e2e_dc(self):
     self.run_sequence('place_detection_e2e_dc', [
         'tell me about palo alto',
