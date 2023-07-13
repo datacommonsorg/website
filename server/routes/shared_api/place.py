@@ -339,9 +339,10 @@ def child_fetch(parent_dcid):
   return result
 
 
-@bp.route('/parent/<path:dcid>')
-@cache.cache.memoize(timeout=cache.TIMEOUT)
-def api_parent_places(dcid):
+@bp.route('/parent')
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+def api_parent_places():
+  dcid = request.args.get("dcid")
   result = parent_places([dcid])[dcid]
   return Response(json.dumps(result), 200, mimetype='application/json')
 
