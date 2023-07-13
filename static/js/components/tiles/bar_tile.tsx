@@ -88,7 +88,7 @@ export interface BarTilePropType {
   showExploreMore?: boolean;
 }
 
-interface BarChartData {
+export interface BarChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
   unit: string;

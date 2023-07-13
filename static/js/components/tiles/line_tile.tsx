@@ -59,7 +59,7 @@ export interface LineTilePropType {
   showExploreMore?: boolean;
 }
 
-interface LineChartData {
+export interface LineChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
   unit: string;

@@ -108,14 +108,24 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
       props.eventTypeSpec,
       props.columns
     );
-    fetchDisasterEventData(props, fetchData).then((disasterData) => {
+    fetchDisasterEventData(
+      props.id,
+      blockEventTypeSpecs.current,
+      props.place.dcid,
+      fetchData
+    ).then((disasterData) => {
       setDisasterEventData(disasterData);
     });
 
     function handleHashChange() {
       const spinnerId = getSpinnerId();
       loadSpinner(spinnerId);
-      fetchDisasterEventData(props, fetchData).then((disasterData) => {
+      fetchDisasterEventData(
+        props.id,
+        blockEventTypeSpecs.current,
+        props.place.dcid,
+        fetchData
+      ).then((disasterData) => {
         setDisasterEventData(disasterData);
         removeSpinner(spinnerId);
       });
@@ -214,37 +224,37 @@ function getDataFetchCacheKey(dataOptions: DisasterDataOptions): string {
 
 /**
  * Fetches disaster event data for a disaster event block
- * @param props the props for a disaster event block
+ * @param blockId id of the block
+ * @param eventTypeSpecs event type specs used in current block
+ * @param placeDcid dcid of the place to
  * @param fetchData function to use to fetch data with a given cache key and
  *                  data promise
  */
 export function fetchDisasterEventData(
-  props: DisasterEventBlockPropType,
+  blockId: string,
+  eventTypeSpecs: Record<string, EventTypeSpec>,
+  placeDcid: string,
   fetchData?: (
     cacheKey: string,
     dataPromise: () => Promise<any>
-  ) => Promise<any>
+  ) => Promise<any>,
+  apiRoot?: string
 ): Promise<Record<string, DisasterEventPointData>> {
   const promises = [];
   // list of spec ids that correspond to the spec id used for the promise at
   // that index in the list of promises.
   const specIds = [];
-  const blockEventTypeSpecs = getBlockEventTypeSpecs(
-    props.eventTypeSpec,
-    props.columns
-  );
-  Object.values(blockEventTypeSpecs).forEach((spec) => {
+  Object.values(eventTypeSpecs).forEach((spec) => {
     const specDataOptions = {
       eventTypeSpec: spec,
-      selectedDate: getDate(props.id),
-      severityFilters: getSeverityFilters(props.eventTypeSpec, props.id),
+      selectedDate: getDate(blockId),
+      severityFilters: getSeverityFilters(eventTypeSpecs, blockId),
       useCache: getUseCache(),
-      place: props.place.dcid,
+      place: placeDcid,
     };
     specIds.push(spec.id);
     const cacheKey = getDataFetchCacheKey(specDataOptions);
-    const promiseFn = () =>
-      fetchDisasterEventPoints(specDataOptions, props.apiRoot);
+    const promiseFn = () => fetchDisasterEventPoints(specDataOptions, apiRoot);
     const promise = fetchData ? fetchData(cacheKey, promiseFn) : promiseFn();
     promises.push(promise);
   });
@@ -265,7 +275,7 @@ export function fetchDisasterEventData(
 }
 
 // Gets all the relevant event type specs for a list of columns
-function getBlockEventTypeSpecs(
+export function getBlockEventTypeSpecs(
   fullEventTypeSpec: Record<string, EventTypeSpec>,
   columns: ColumnConfig[]
 ): Record<string, EventTypeSpec> {

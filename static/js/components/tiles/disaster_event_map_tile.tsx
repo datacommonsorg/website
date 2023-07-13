@@ -84,7 +84,7 @@ const PLACE_TYPE_GEOJSON_PROP = {
 };
 const EXPLORE_MORE_BASE_URL = "/disasters/";
 
-interface DisasterEventMapTilePropType {
+export interface DisasterEventMapTilePropType {
   // Id for this tile
   id: string;
   // Title for this tile
@@ -107,7 +107,7 @@ interface DisasterEventMapTilePropType {
   showExploreMore?: boolean;
 }
 
-interface DisasterMapChartData {
+export interface DisasterMapChartData {
   // Geojson data for the base map
   baseMapGeoJson: GeoJsonData;
   // Whether the base map is a map of just the current place. If false, the base

@@ -54,7 +54,7 @@ import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
-interface ScatterTilePropType {
+export interface ScatterTilePropType {
   id: string;
   title: string;
   place: NamedTypedPlace;

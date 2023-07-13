@@ -172,6 +172,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     status: props.debugData["status"],
     originalQuery: props.debugData["original_query"],
     detectionType: props.debugData["detection_type"],
+    placeDetectionType: props.debugData["place_detection_type"],
     placesDetected: props.debugData["places_detected"],
     placesResolved: props.debugData["places_resolved"],
     mainPlaceDCID: props.debugData["main_place_dcid"],
@@ -217,6 +218,10 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <b>Detection Type: </b> {debugInfo.detectionType}
+          </Row>
+          <Row>
+            <b>Place Detection Type: </b>{" "}
+            {debugInfo.placeDetectionType.toUpperCase()}
           </Row>
           <Row>
             <b>Original Query: </b> {debugInfo.originalQuery}

@@ -1,0 +1,10 @@
+{
+  "places_detected": [
+    "california",
+    "new york",
+    "washington"
+  ],
+  "places_resolved": "(name: California, dcid: geoId/06); (name: New York, dcid: geoId/36); (name: Washington, dcid: geoId/53); ",
+  "main_place_dcid": "geoId/06",
+  "main_place_name": "California"
+}
