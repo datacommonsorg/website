@@ -32,7 +32,7 @@ Required:
 
 - `title` _string_
 
-  Chart title
+  Chart title.
 
 - `variables` _space-separated list of strings_
 

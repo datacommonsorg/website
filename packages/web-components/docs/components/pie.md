@@ -18,17 +18,17 @@
 
 Required:
 
-- `date` _string_
-  - Specific date to show data for.
-  - Date should be formatted in ISO 8601 (e.g. "YYYY", "YYYY-MM", "YYYY-MM-DD")
-    and match the format used by the variable being plotted.
 - `place` _string_
-  - Type of child places to plot.
+
+  Place to plot. Example: `country/USA`.
+
 - `title` _string_
-  - Title of the chart.
+
+  Chart title.
+
 - `variables` _list of strings_
-  - List of variable DCIDs to plot
-  - Use the format `"dcid-1 dcid-2"` (space separated list).
+
+  Variables to plot. Example: `Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome`
 
 Optional:
 
@@ -39,7 +39,8 @@ Optional:
   Values should follow CSS specification (keywords, rgb, rgba, hsl, #hex). Separate multiple values with spaces, e.g., `"#ff0000 #00ff00 #0000ff"`. Make sure individual colors have no spaces. For example, use `rgba(255,0,0,0.3)` instead of `rgba(255, 0, 0, 0.3)`.
 
 - `donut` _boolean_
-  - Include to draw as a donut chart instead of a pie chart.
+
+  Include to draw as a donut chart instead of a pie chart.
 
 ### Examples
 
