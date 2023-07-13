@@ -8,7 +8,10 @@ must be included for the web components to work.
 
 ```html
 <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
-<link rel="stylesheet" href="https://datacommons.org/css/nl_interface.min.css" />
+<link
+  rel="stylesheet"
+  href="https://datacommons.org/css/nl_interface.min.css"
+/>
 <script src="https://datacommons.org/datacommons.js"></script>
 ```
 
@@ -18,16 +21,19 @@ must be included for the web components to work.
 <html>
   <head>
     <link rel="stylesheet" href="https://datacommons.org/css/ranking.min.css" />
-    <link rel="stylesheet" href="https://datacommons.org/css/nl_interface.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://datacommons.org/css/nl_interface.min.css"
+    />
     <script src="https://datacommons.org/datacommons.js"></script>
   </head>
   <body>
     <!-- Embed a bar chart of the population of US states-->
     <datacommons-bar
-        title="Population of US States"
-        place="country/USA"
-        childPlaceType="State"
-        variable="Count_Person"
+      title="Population of US States"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variables="Count_Person"
     ></datacommons-bar>
   </body>
 </html>
@@ -38,6 +44,7 @@ Each web component is a custom HTML element that takes a set of attributes.
 ## Bar Chart
 
 Element Syntax:
+
 ```html
 <datacommons-bar></datacommons-bar>
 ```
@@ -48,12 +55,13 @@ Required:
 
 - `childPlaceType` _string_
   - Type of child places to plot.
-- `place` _string_
-  - Type of child places to plot.
+- `parentPlace` _string_
+  - Parent place DCID
 - `title` _string_
   - Title of the chart.
 - `variable` _string_
-  - DCID of the variable to plot.
+  - One or more variable DCIDs to plot.
+  - Use the format `"dcid-1 dcid-2"` (space separated list).
 
 Optional:
 
@@ -66,14 +74,12 @@ Optional:
   - Use the format `"list-item-1 list-item-2"` (space separated list).
   - Make sure each color contains no spaces. For example, use `rgba(255,0,0,0.3)`
     instead of `rgba(255, 0, 0, 0.3)`.
-- `comparisonPlaces` _list of strings_
+- `places` _list of strings_
+
   - List of DCIDs of specific places to plot.
-  - If provided, `place` and `childPlaceType` will be ignored.
+  - If provided, `parentPlace` and `childPlaceType` will be ignored.
   - Use the format `"list-item-1 list-item-2"` (space separated list).
-- `comparisonVariables` _list of strings_
-  - List of DCIDs of multiple variables to plot.
-  - If provided, `variable` will be ignored.
-  - Use the format `"list-item-1 list-item-2"` (space separated list).
+
 - `maxPlaces` _number_
   - Maximum _number_ of child places to plot.
 - `sort` _string_
@@ -100,10 +106,10 @@ A bar chart of population for states in the US:
 
 ```html
 <datacommons-bar
-    title="Population of US States"
-    place="country/USA"
-    childPlaceType="State"
-    variable="Count_Person"
+  title="Population of US States"
+  ="country/USA"
+  childPlaceType="State"
+  variables="Count_Person"
 ></datacommons-bar>
 ```
 
@@ -111,9 +117,9 @@ A bar chart of population for specific US states:
 
 ```html
 <datacommons-bar
-    title="Population of US States"
-    variable="Count_Person"
-    comparisonPlaces="geoId/01 geoId/02"
+  title="Population of US States"
+  variables="Count_Person"
+  places="geoId/01 geoId/02"
 ></datacommons-bar>
 ```
 
@@ -121,10 +127,10 @@ A stacked bar chart of population for specific US states:
 
 ```html
 <datacommons-bar
-    title="Population of US States"
-    variableDcid="Count_Person"
-    comparisonPlaces="geoId/01 geoId/02"
-    stacked
+  title="Population of US States"
+  variableDcid="Count_Person"
+  places="geoId/01 geoId/02"
+  stacked
 ></datacommons-bar>
 ```
 
@@ -132,12 +138,12 @@ A horizontal, stacked bar chart of median income for specific US states:
 
 ```html
 <datacommons-bar
-    title="Median income by gender"
-    comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
-    comparisonPlaces="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
-    stacked
-    horizontal
-    sort="descending"
+  title="Median income by gender"
+  variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+  places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
+  stacked
+  horizontal
+  sort="descending"
 ></datacommons-bar>
 ```
 
@@ -145,17 +151,18 @@ A lollipop chart of population for states in the US:
 
 ```html
 <datacommons-bar
-    title="Population of US States"
-    place="country/USA"
-    childPlaceType="State"
-    variable="Count_Person"
-    lollipop
+  title="Population of US States"
+  parentPlace="country/USA"
+  childPlaceType="State"
+  variables="Count_Person"
+  lollipop
 ></datacommons-bar>
 ```
 
 ## Gauge Chart
 
 Element Syntax:
+
 ```html
 <datacommons-gauge></datacommons-gauge>
 ```
@@ -164,8 +171,6 @@ Element Syntax:
 
 Required:
 
-- `childPlaceType` _string_
-  - Type of child places to plot.
 - `max` _number_
   - Maximum value of the gauge's range.
 - `min` _number_
@@ -193,17 +198,18 @@ A gauge of the percentage of people who are internet users in the US
 
 ```html
 <datacommons-gauge
-    title="Percentage of US Population that are Internet Users"
-    place="country/USA"
-    variable="Count_Person_IsInternetUser_PerCapita"
-    min="0"
-    max="100"
+  title="Percentage of US Population that are Internet Users"
+  place="country/USA"
+  variable="Count_Person_IsInternetUser_PerCapita"
+  min="0"
+  max="100"
 ></datacommons-gauge>
 ```
 
 ## Line Chart
 
 Element Syntax:
+
 ```html
 <datacommons-line></datacommons-line>
 ```
@@ -233,17 +239,19 @@ Optional:
 ### Examples
 
 A line chart of how the population below poverty level in the US changed over time:
+
 ```html
 <datacommons-line
-    title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
-    place="country/USA"
-    variables="Count_Person_BelowPovertyLevelInThePast12Months"
+  title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+  place="country/USA"
+  variables="Count_Person_BelowPovertyLevelInThePast12Months"
 ></datacommons-line>
 ```
 
 ## Map Chart
 
 Element Syntax:
+
 ```html
 <datacommons-map></datacommons-map>
 ```
@@ -258,8 +266,8 @@ Required:
   - Specific date to show data for.
   - Date should be formatted in ISO 8601 (e.g. "YYYY", "YYYY-MM", "YYYY-MM-DD")
     and match the format used by the variable being plotted.
-- `place` _string_
-  - Type of child places to plot.
+- `parentPlace` _string_
+  - Parent place DCID
 - `title` _string_
   - Title of the chart.
 - `variable` _string_
@@ -290,10 +298,10 @@ A map of population below poverty level in US States:
 
 ```html
 <datacommons-map
-    title="Population Below Poverty Level Status in Past Year in States of United States"
-    place="country/USA"
-    childPlaceType="State"
-    variable="Count_Person_BelowPovertyLevelInThePast12Months"
+  title="Population Below Poverty Level Status in Past Year in States of United States"
+  parentPlace="country/USA"
+  childPlaceType="State"
+  variable="Count_Person_BelowPovertyLevelInThePast12Months"
 ></datacommons-map>
 ```
 
@@ -301,17 +309,18 @@ A map of population below poverty level in US States, in the year 2020:
 
 ```html
 <datacommons-map
-    title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
-    place="country/USA"
-    childPlaceType="State"
-    variable="Count_Person_BelowPovertyLevelInThePast12Months"
-    date="2020"
+  title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
+  parentPlace="country/USA"
+  childPlaceType="State"
+  variable="Count_Person_BelowPovertyLevelInThePast12Months"
+  date="2020"
 ></datacommons-map>
 ```
 
 ## Map Chart Time Slider
 
 Element Syntax:
+
 ```html
 <datacommons-slider></datacommons-slider>
 ```
@@ -336,25 +345,26 @@ A single slider controlling the date on a map, with event channel name "dc-map":
 ```html
 <!-- Date slider example  -->
 <datacommons-slider
-    max="2023"
-    min="1950"
-    publish="dc-year"
-    value="2023"
+  max="2023"
+  min="1950"
+  publish="dc-year"
+  value="2023"
 ></datacommons-slider>
 
 <!-- Map that subscribes to slider changes -->
 <datacommons-map
-    title="Population"
-    place="country/USA"
-    childPlaceType="State"
-    subscribe="dc-map"
-    variable="Count_Person"
+  title="Population"
+  parentPlace="country/USA"
+  childPlaceType="State"
+  subscribe="dc-map"
+  variable="Count_Person"
 ></datacommons-map>
 ```
 
 ## Pie / Donut Chart
 
 Element Syntax:
+
 ```html
 <datacommons-pie></datacommons-pie>
 ```
@@ -371,9 +381,9 @@ Required:
   - Type of child places to plot.
 - `title` _string_
   - Title of the chart.
-- `comparisonVariables` _list of strings_
-  - List of DCIDs of the variable to plot
-  - Use the format `"list-item-1 list-item-2"` (space separated list).
+- `variables` _list of strings_
+  - List of variable DCIDs to plot
+  - Use the format `"dcid-1 dcid-2"` (space separated list).
 
 Optional:
 
@@ -393,9 +403,9 @@ A pie chart of median income by gender in California
 
 ```html
 <datacommons-pie
-    title="Median Income by gender in California"
-    place="geoId/06"
-    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+  title="Median Income by gender in California"
+  place="geoId/06"
+  variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
 ></datacommons-pie>
 ```
 
@@ -403,16 +413,17 @@ A donut chart of median income by gender in California
 
 ```html
 <datacommons-pie
-    title="Median Income by gender in California"
-    place="geoId/06"
-    comparisonVariables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
-    donut
+  title="Median Income by gender in California"
+  place="geoId/06"
+  variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+  donut
 ></datacommons-pie>
 ```
 
 ## Ranking Chart
 
 Element Syntax:
+
 ```html
 <datacommons-ranking></datacommons-ranking>
 ```
@@ -423,8 +434,8 @@ Required:
 
 - `childPlaceType` _string_
   - Type of child places to plot.
-- `place` _string_
-  - Type of child places to plot.
+- `parentPlace` _string_
+  - Parent place DCID
 - `title` _string_
   - Title of the chart.
 - `variable` _string_
@@ -443,10 +454,10 @@ Show a ranking of US States by population, highest to lowest
 
 ```html
 <datacommons-ranking
-    title="US States with the Highest Population"
-    place="country/USA"
-    childPlaceType="State"
-    variable="Count_Person"
+  title="US States with the Highest Population"
+  parentPlace="country/USA"
+  childPlaceType="State"
+  variable="Count_Person"
 ></datacommons-ranking>
 ```
 
@@ -454,10 +465,10 @@ Show a ranking of US States by population, lowest to highest
 
 ```html
 <datacommons-ranking
-    title="US States with the Lowest Population"
-    place="country/USA"
-    childPlaceType="State"
-    variable="Count_Person"
-    showLowest=true
+  title="US States with the Lowest Population"
+  parentPlace="country/USA"
+  childPlaceType="State"
+  variable="Count_Person"
+  showLowest
 ></datacommons-ranking>
 ```

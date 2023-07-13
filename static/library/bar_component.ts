@@ -35,7 +35,7 @@ import { convertArrayAttribute } from "./utils";
  * <!-- Show a bar chart of population for states in the US -->
  * <datacommons-bar
  *      title="Population of US States"
- *      place="country/USA"
+ *      parentPlace="country/USA"
  *      childPlaceType="State"
  *      variable="Count_Person"
  * ></datacommons-bar>
@@ -44,20 +44,20 @@ import { convertArrayAttribute } from "./utils";
  * <datacommons-bar
  *      title="Population of US States"
  *      variable="Count_Person"
- *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      places="geoId/01 geoId/02"
  * ></datacommons-bar>
  *
  * <!-- Stacked bar chart of population for specific US states -->
  * <datacommons-bar
  *      title="Population of US States"
  *      variableDcid="Count_Person"
- *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      places="geoId/01 geoId/02"
  *      stacked
  * <!-- Horizontal stacked bar chart -->
  * <datacommons-bar
  *   title="Median income by gender"
- *   comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
- *   comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+ *   variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+ *   places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
  *   stacked
  *   horizontal
  *   sort="descending"
@@ -67,7 +67,7 @@ import { convertArrayAttribute } from "./utils";
  * <datacommons-bar
  *      title="Population of US States"
  *      variableDcid="Count_Person"
- *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      places="geoId/01 geoId/02"
  *      lollipop
  * ></datacommons-bar>
  */
@@ -98,20 +98,6 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
 
-  /* Optional: List of DCIDs of places to plot
-   * If provided, place and enclosePlaceType will be ignored
-   */
-  @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonPlaces?: string[];
-
-  /**
-   * Optional: List of DCIDs of statistical variables to plot
-   * If provided, the "variable" attribute will be ignored.
-   * !Important: variables provided must share the same unit
-   */
-  @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonVariables?: string[];
-
   /**
    * Optional: Render bars horizontally instead of vertically
    */
@@ -135,7 +121,13 @@ export class DatacommonsBarComponent extends LitElement {
    * DCID of the parent place
    * */
   @property()
-  place!: string;
+  parentPlace!: string;
+
+  /* Optional: List of DCIDs of places to plot
+   * If provided, place and enclosePlaceType will be ignored
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  places?: string[];
 
   /**
    * Optional: Bar chart sort order.
@@ -158,10 +150,10 @@ export class DatacommonsBarComponent extends LitElement {
   title!: string;
 
   /**
-   * DCID of the statistical variable to plot values for
+   * List of DCIDs of the statistical variable(s) to plot values for
    */
-  @property()
-  variable!: string;
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  variables?: string[];
 
   /**
    * Optional: Y axis margin to fit the axis label text.
@@ -171,9 +163,7 @@ export class DatacommonsBarComponent extends LitElement {
   yAxisMargin?: number;
 
   render(): HTMLElement {
-    const statVarDcids: string[] = this.comparisonVariables
-      ? this.comparisonVariables
-      : [this.variable];
+    const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
     statVarDcids.forEach((statVarDcid) => {
       statVarSpec.push({
@@ -189,13 +179,13 @@ export class DatacommonsBarComponent extends LitElement {
       apiRoot: DEFAULT_API_ENDPOINT,
       barHeight: this.barHeight,
       colors: this.colors,
-      comparisonPlaces: this.comparisonPlaces,
+      comparisonPlaces: this.places,
       enclosedPlaceType: this.childPlaceType,
       horizontal: this.horizontal,
       id: `chart-${_.uniqueId()}`,
       maxPlaces: this.maxPlaces,
       place: {
-        dcid: this.place,
+        dcid: this.parentPlace,
         name: "",
         types: [],
       },
