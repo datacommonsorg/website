@@ -33,7 +33,11 @@ import { SortType } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { placeSep, statVarSep, TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
+import {
+  placeSep,
+  statVarSep,
+  TIMELINE_URL_PARAM_KEYS,
+} from "../../tools/timeline/util";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { BarTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
