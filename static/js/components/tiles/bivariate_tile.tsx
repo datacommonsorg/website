@@ -212,7 +212,7 @@ export const fetchData = async (
     )
     .then((resp) => resp.data);
   const parentPlacesPromise = axios
-    .get(`/api/place/parent/${place.dcid}`)
+    .get(`/api/place/parent?dcid=${place.dcid}`)
     .then((resp) => resp.data);
   try {
     const [placeStats, population, placeNames, geoJson, parentPlaces] =

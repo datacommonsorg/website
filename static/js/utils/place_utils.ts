@@ -74,7 +74,7 @@ export function getParentPlacesPromise(
   apiRoot?: string
 ): Promise<Array<NamedTypedPlace>> {
   return axios
-    .get(`${apiRoot || ""}/api/place/parent/${placeDcid}`)
+    .get(`${apiRoot || ""}/api/place/parent?dcid=${placeDcid}`)
     .then((resp) => {
       const parentsData = resp.data;
       const filteredParentsData = parentsData.filter((parent) => {

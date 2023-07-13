@@ -29,6 +29,8 @@ export const SVG_HEIGHT = 300;
 // Width of the svg to render.
 export const SVG_WIDTH = 500;
 export const DOM_ID = "dom-id";
+// id to use for drawing charts.
+export const CHART_ID = "chart-id";
 // Font family to use for all the text on the charts. If this is updated, need
 // to also update CHAR_WIDTHS and CHAR_AVG_WIDTHS.
 export const FONT_FAMILY = "Roboto";
@@ -38,3 +40,11 @@ export const FONT_SIZE = "10px";
 // Width of the constant sized part of the map legend
 export const MAP_LEGEND_CONSTANT_WIDTH =
   LEGEND_IMG_WIDTH + LEGEND_MARGIN_RIGHT + LEGEND_TICK_LABEL_MARGIN;
+// Url params used for getting a single chart
+export const CHART_URL_PARAMS = {
+  TILE_CONFIG: "config",
+  PLACE: "place",
+  ENCLOSED_PLACE_TYPE: "enclosedPlaceType",
+  STAT_VAR_SPEC: "svSpec",
+  EVENT_TYPE_SPEC: "eventTypeSpec",
+};

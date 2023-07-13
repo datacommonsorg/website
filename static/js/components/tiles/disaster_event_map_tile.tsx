@@ -83,7 +83,7 @@ const PLACE_TYPE_GEOJSON_PROP = {
   EurostatNUTS3: "geoJsonCoordinatesDP1",
 };
 
-interface DisasterEventMapTilePropType {
+export interface DisasterEventMapTilePropType {
   // Id for this tile
   id: string;
   // Title for this tile
@@ -104,7 +104,7 @@ interface DisasterEventMapTilePropType {
   apiRoot?: string;
 }
 
-interface DisasterMapChartData {
+export interface DisasterMapChartData {
   // Geojson data for the base map
   baseMapGeoJson: GeoJsonData;
   // Whether the base map is a map of just the current place. If false, the base

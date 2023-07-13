@@ -459,7 +459,7 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/place/parent/geoId/10")
+    .calledWith("/api/place/parent?dcid=geoId/10")
     .mockResolvedValue({
       data: [{ dcid: "country/USA", type: "Country", name: "United States" }],
     });
