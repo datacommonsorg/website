@@ -184,6 +184,12 @@ $feedback-link-font-color: #70757a;
 
 .nl-query-info {
   padding: $query-vertical-padding;
+
+  .nl-query-info-click {
+    cursor: pointer;
+    font-style: italic;
+    text-decoration: underline;
+  }
 }
 
 .nl-history {
