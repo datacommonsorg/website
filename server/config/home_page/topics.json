@@ -1,55 +1,65 @@
-[{
-  "id": "agriculture",  
-  "title": "Agriculture",
+[
+  {
+    "id": "food",
+    "title": "Food",
     "description": "Discover the profound impact of climate change on agriculture centers worldwide",
-    "url": "/nl#topic=agriculture",
+    "url": "/nl#topic=food",
     "icon": "agriculture"
-}, {
-  "id": "education",
-  "title": "Education",
-  "description": "Uncover the transformative power of education in shaping individuals, communities, and societies.",
-  "url": "/nl#topic=education",
-  "icon": "school"
-}, {
-  "id": "demographics",
-  "title": "Demographics",
-  "description": "Uncover the fascinating story of human populations and their dynamics.",
-  "url": "/nl#topic=demographics",
-  "icon": "family_restroom"
-},{
-  "id": "crime",
-  "title": "Crime",
-  "description": "Uncover the complex world of crime and its impact on societies.",
-  "url": "/nl#topic=crime",
-  "icon": "gavel"
-},{
-  "id": "environment",
-  "title": "Environment",
-  "description": "Embark on a journey to understand the intricate relationship between human activities and the environment.",
-  "url": "/nl#topic=environment",
-  "icon": "public"
-},{
-  "id": "economy",
-  "title": "Economy",
-  "description": "Discover the intricate interplay between economic forces and societal well-being.",
-  "url": "/nl#topic=economy",
-  "icon": "area_chart"
-},{
-  "id": "housing",
-  "title": "Housing",
-  "description": "Explore the multifaceted world of housing and its profound impact on individuals and communities.",
-  "url": "/nl#topic=housing",
-  "icon": "house"
-},{
-  "id": "sustainability",
-  "title": "Sustainability",
-  "description": "Embark on a journey towards a sustainable future.",
-  "url": "/nl#topic=sustainability",
-  "icon": "eco"
-},{
-  "id": "biomedical",
-  "title": "Biomedical",
-  "description": "Embark on a journey into the remarkable world of biomedical research and innovation.",
-  "url": "/nl#topic=biomedical",
-  "icon": "emergency"
-}]
+  },
+  {
+    "id": "education",
+    "title": "Education",
+    "description": "Uncover the transformative power of education in shaping individuals, communities, and societies.",
+    "url": "/nl#topic=education",
+    "icon": "school"
+  },
+  {
+    "id": "demographics",
+    "title": "Demographics",
+    "description": "Uncover the fascinating story of human populations and their dynamics.",
+    "url": "/nl#topic=demographics",
+    "icon": "family_restroom"
+  },
+  {
+    "id": "crime",
+    "title": "Crime",
+    "description": "Uncover the complex world of crime and its impact on societies.",
+    "url": "/nl#topic=crime",
+    "icon": "gavel"
+  },
+  {
+    "id": "environment",
+    "title": "Environment",
+    "description": "Embark on a journey to understand the intricate relationship between human activities and the environment.",
+    "url": "/nl#topic=environment",
+    "icon": "public"
+  },
+  {
+    "id": "economy",
+    "title": "Economy",
+    "description": "Discover the intricate interplay between economic forces and societal well-being.",
+    "url": "/nl#topic=economy",
+    "icon": "area_chart"
+  },
+  {
+    "id": "housing",
+    "title": "Housing",
+    "description": "Explore the multifaceted world of housing and its profound impact on individuals and communities.",
+    "url": "/nl#topic=housing",
+    "icon": "house"
+  },
+  {
+    "id": "sustainability",
+    "title": "Sustainability",
+    "description": "Embark on a journey towards a sustainable future.",
+    "url": "/nl#topic=sustainability",
+    "icon": "eco"
+  },
+  {
+    "id": "health",
+    "title": "Health",
+    "description": "Embark on a journey into the remarkable world of biomedical research and innovation.",
+    "url": "/nl#topic=health",
+    "icon": "emergency"
+  }
+]
