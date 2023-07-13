@@ -186,12 +186,18 @@ export const QueryResult = memo(function QueryResult(
           )}
           {chartsData &&
             !chartsData.placeFallback &&
-            (chartsData.placeSource === "PAST_QUERY" ||
-              chartsData.svSource === "PAST_QUERY") && (
+            ((chartsData.placeSource === "PAST_QUERY" &&
+              chartsData.svSource === "CURRENT_QUERY") ||
+              (chartsData.placeSource === "CURRENT_QUERY" &&
+                chartsData.svSource === "PAST_QUERY") ||
+              (chartsData.placeSource === "PAST_QUERY" &&
+                chartsData.svSource === "PAST_QUERY")) && (
               <div className="nl-query-info">
                 Could not recognize any{" "}
-                {chartsData.placeSource !== "PAST_QUERY" && <span>topic</span>}
-                {chartsData.svSource !== "PAST_QUERY" && <span>place</span>}
+                {chartsData.placeSource === "CURRENT_QUERY" && (
+                  <span>topic</span>
+                )}
+                {chartsData.svSource === "CURRENT_QUERY" && <span>place</span>}
                 {chartsData.svSource === "PAST_QUERY" &&
                   chartsData.placeSource === "PAST_QUERY" && (
                     <span>place or topic</span>
@@ -201,6 +207,30 @@ export const QueryResult = memo(function QueryResult(
                   <span>for {chartsData.pastSourceContext} </span>
                 )}
                 based on what you previously asked.
+              </div>
+            )}
+          {chartsData &&
+            !chartsData.placeFallback &&
+            chartsData.placeSource === "PARTIAL_PAST_QUERY" && (
+              <div className="nl-query-info">
+                Using{" "}
+                {chartsData.svSource === "PAST_QUERY" && (
+                  <span>topic and </span>
+                )}
+                places for comparison based on what you previously asked.
+              </div>
+            )}
+          {chartsData &&
+            !chartsData.placeFallback &&
+            chartsData.placeSource === "DEFAULT" &&
+            chartsData.pastSourceContext !== "Earth" && (
+              <div className="nl-query-info">
+                Could not recognize any place, but here are relevant statistics
+                for the default place
+                {chartsData.pastSourceContext && (
+                  <span> {chartsData.pastSourceContext}</span>
+                )}
+                .
               </div>
             )}
           {chartsData &&
