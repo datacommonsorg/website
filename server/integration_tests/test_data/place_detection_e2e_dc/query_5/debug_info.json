@@ -1,0 +1,8 @@
+{
+  "places_detected": [
+    "mexico city"
+  ],
+  "places_resolved": "(name: Mexico, dcid: country/MEX); ",
+  "main_place_dcid": "country/MEX",
+  "main_place_name": "Mexico"
+}
