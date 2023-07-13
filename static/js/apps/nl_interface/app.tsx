@@ -23,6 +23,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   NL_DETECTOR_VALS,
   NL_INDEX_VALS,
+  NL_PLACE_DETECTOR_VALS,
   NL_URL_PARAMS,
 } from "../../constants/app/nl_interface_constants";
 import { getUrlToken, getUrlTokenOrDefault } from "../../utils/url_utils";
@@ -47,6 +48,12 @@ export function App(): JSX.Element {
   );
   const [detector, setDetector] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HEURISTIC)
+  );
+  const [placeDetector, setPlaceDetector] = useState(
+    getUrlTokenOrDefault(
+      NL_URL_PARAMS.PLACE_DETECTOR,
+      NL_PLACE_DETECTOR_VALS.NER
+    )
   );
   const urlPrompts = useRef(getUrlPrompts());
   // Timer used to input characters from a single prompt with
@@ -182,6 +189,7 @@ export function App(): JSX.Element {
         query={q}
         indexType={indexType}
         detector={detector}
+        placeDetector={placeDetector}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={false}
@@ -207,8 +215,10 @@ export function App(): JSX.Element {
           }}
           indexType={indexType}
           detector={detector}
+          placeDetector={placeDetector}
           setIndexType={setIndexType}
           setDetector={setDetector}
+          setPlaceDetector={setPlaceDetector}
         />
         {isStartState && <QueryHistory onItemClick={onQueryItemClick} />}
       </div>
