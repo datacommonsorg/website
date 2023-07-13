@@ -56,7 +56,7 @@ class TestEmbeddings(unittest.TestCase):
       print(
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
       )
-      # Using the default NER model.
+      # Building a new Embeddings object.
       cls.nl_embeddings = Embeddings(_get_embeddings_file_path())
 
   @parameterized.expand([
