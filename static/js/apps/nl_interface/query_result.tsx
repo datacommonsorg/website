@@ -281,7 +281,7 @@ export const QueryResult = memo(function QueryResult(
                 place={chartsData.place}
                 pageConfig={chartsData.config}
                 svgChartHeight={SVG_CHART_HEIGHT}
-                showData={props.showData}
+                showExploreMore={true}
               />
             </NlSessionContext.Provider>
           )}

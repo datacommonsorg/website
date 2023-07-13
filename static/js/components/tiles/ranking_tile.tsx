@@ -56,9 +56,8 @@ export interface RankingTilePropType {
   statVarSpec: StatVarSpec[];
   rankingMetadata: RankingTileSpec;
   className?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
   apiRoot?: string;
+  showExploreMore?: boolean;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -136,7 +135,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               showChartEmbed={showChartEmbed}
               statVar={statVar}
               title={props.title}
-              isDataTile={props.isDataTile}
+              showExploreMore={props.showExploreMore}
             />
           );
         })}

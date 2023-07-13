@@ -31,7 +31,6 @@ import {
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
@@ -42,7 +41,12 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
+import {
+  getPlaceChartData,
+  MAP_URL_PATH,
+  shouldShowBorder,
+  URL_PARAM_KEYS,
+} from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -50,7 +54,7 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
+import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -64,8 +68,6 @@ export interface MapTilePropType {
   date?: string;
   enclosedPlaceType: string;
   id: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
   // Parent places of the current place showing map for
   parentPlaces?: NamedPlace[];
   // Specific date to show data for
@@ -74,6 +76,8 @@ export interface MapTilePropType {
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
   title: string;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 interface RawData {
@@ -105,15 +109,6 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   );
   const [svgHeight, setSvgHeight] = useState(null);
 
-  function addSvgDataAttribute(): void {
-    const { svgXml } = getMergedSvg(svgContainer.current);
-    const dataDiv = svgContainer.current.getElementsByClassName(DATA_CSS_CLASS);
-    if (_.isEmpty(dataDiv)) {
-      return;
-    }
-    dataDiv[0].setAttribute("data-svg", svgXml);
-  }
-
   useEffect(() => {
     if (!mapChartData) {
       (async () => {
@@ -128,9 +123,6 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         legendContainer.current,
         mapContainer.current
       );
-      if (props.isDataTile) {
-        addSvgDataAttribute();
-      }
     }
   }, [mapChartData, props, svgContainer, legendContainer, mapContainer]);
 
@@ -173,21 +165,13 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(mapChartData)}
+      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
       <div
         className="svg-container"
         ref={svgContainer}
         style={{ minHeight: svgHeight }}
       >
-        {props.isDataTile && mapChartData && (
-          <div
-            className={DATA_CSS_CLASS}
-            data-csv={mapDataToCsv(
-              mapChartData.geoJson,
-              mapChartData.dataValues
-            )}
-          />
-        )}
         <div className="map" ref={mapContainer}></div>
         <div
           className="legend"
@@ -461,4 +445,18 @@ export function draw(
       false
     );
   }
+}
+
+function getExploreMoreUrl(props: MapTilePropType): string {
+  const params = {
+    [URL_PARAM_KEYS.SELECTED_PLACE_DCID]: props.place.dcid,
+    [URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE]: props.enclosedPlaceType,
+    [URL_PARAM_KEYS.PER_CAPITA]: props.statVarSpec.denom ? "1" : "",
+    [URL_PARAM_KEYS.STAT_VAR_DCID]: props.statVarSpec.statVar,
+    [URL_PARAM_KEYS.DENOM]: props.statVarSpec.denom,
+  };
+  const hashParams = Object.keys(params)
+    .sort()
+    .map((key) => `${key}=${params[key]}`);
+  return `${MAP_URL_PATH}#${hashParams.join("&")}`;
 }

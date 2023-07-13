@@ -46,6 +46,8 @@ interface ChartTileContainerProp {
   className?: string;
   // Whether or not this is the initial loading state.
   isInitialLoading?: boolean;
+  // Url to use for the explore more button.
+  exploreMoreUrl?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -80,6 +82,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       <ChartFooter
         sources={props.sources}
         handleEmbed={showEmbed ? handleEmbed : null}
+        exploreMoreUrl={props.exploreMoreUrl}
       />
       <NlChartFeedback id={props.id} />
       {showEmbed && <ChartEmbed ref={embedModalElement} />}

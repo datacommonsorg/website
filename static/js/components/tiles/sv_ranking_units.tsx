@@ -18,23 +18,23 @@
  * Component for rendering a ranking tile.
  */
 import _ from "lodash";
-import React, { RefObject, useEffect, useRef } from "react";
+import React, { RefObject, useRef } from "react";
 
 import { ASYNC_ELEMENT_CLASS } from "../../constants/css_constants";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
+import { TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
+import { placeSep } from "../../tools/timeline/util";
 import {
   RankingData,
   RankingGroup,
   RankingPoint,
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
-import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
-import { htmlToSvg } from "../../utils/svg_utils";
 import { formatString } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
 const RANKING_COUNT = 5;
+const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
 interface SvRankingUnitsProps {
   rankingData: RankingData;
@@ -49,8 +49,7 @@ interface SvRankingUnitsProps {
   ) => void;
   statVar: string;
   title?: string;
-  // Whether or not to render the data version of these units
-  isDataTile?: boolean;
+  showExploreMore?: boolean;
 }
 
 /**
@@ -92,66 +91,12 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
     );
   }
 
-  // Generates an svg from an html div element and attaches it to the tile data
-  // as a data-svg attribute.
-  function addSvgDataAttribute(
-    chartDiv: HTMLDivElement,
-    dataContainerClass: string
-  ): void {
-    const svg = htmlToSvg(
-      chartDiv.outerHTML,
-      chartDiv.offsetWidth,
-      chartDiv.offsetHeight,
-      ASYNC_ELEMENT_CLASS,
-      { "font-family": "sans-serif" }
-    );
-
-    const s = new XMLSerializer();
-    const svgXml = s.serializeToString(svg);
-    const dataContainer = document.getElementsByClassName(dataContainerClass);
-    if (_.isEmpty(dataContainer)) {
-      return;
-    }
-    const dataDiv = dataContainer[0].getElementsByClassName(DATA_CSS_CLASS);
-    if (_.isEmpty(dataDiv)) {
-      return;
-    }
-    dataDiv[0].setAttribute("data-svg", svgXml);
-  }
-
-  useEffect(() => {
-    if (!props.isDataTile) {
-      return;
-    }
-    if (highestRankingUnitRef.current) {
-      addSvgDataAttribute(
-        highestRankingUnitRef.current,
-        "highest-ranking-container"
-      );
-    }
-    if (lowestRankingUnitRef.current) {
-      addSvgDataAttribute(
-        lowestRankingUnitRef.current,
-        "lowest-ranking-container"
-      );
-    }
-  }, [props]);
-
   return (
     <React.Fragment>
       {rankingMetadata.showHighest && (
         <div
           className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
         >
-          {props.isDataTile && (
-            <div
-              className={DATA_CSS_CLASS}
-              data-csv={rankingPointsToCsv(
-                rankingGroup.points,
-                rankingGroup.svName
-              )}
-            />
-          )}
           {getRankingUnit(
             title,
             statVar,
@@ -163,6 +108,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           <ChartFooter
             sources={rankingGroup.sources}
             handleEmbed={() => handleEmbed(true)}
+            exploreMoreUrl={
+              props.showExploreMore ? getExploreMoreUrl(props, true) : ""
+            }
           />
         </div>
       )}
@@ -170,15 +118,6 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
         <div
           className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} lowest-ranking-container`}
         >
-          {props.isDataTile && (
-            <div
-              className={DATA_CSS_CLASS}
-              data-csv={rankingPointsToCsv(
-                rankingGroup.points,
-                rankingGroup.svName
-              )}
-            />
-          )}
           {getRankingUnit(
             title,
             statVar,
@@ -190,6 +129,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           <ChartFooter
             sources={rankingGroup.sources}
             handleEmbed={() => handleEmbed(false)}
+            exploreMoreUrl={
+              props.showExploreMore ? getExploreMoreUrl(props, false) : ""
+            }
           />
         </div>
       )}
@@ -272,4 +214,25 @@ export function getRankingUnit(
       }
     />
   );
+}
+
+function getExploreMoreUrl(
+  props: SvRankingUnitsProps,
+  isHighest: boolean
+): string {
+  const rankingGroup = props.rankingData[props.statVar];
+  const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
+  const places = isHighest
+    ? rankingGroup.points.slice(-rankingCount).map((point) => point.placeDcid)
+    : rankingGroup.points
+        .slice(0, rankingCount)
+        .map((point) => point.placeDcid);
+  const params = {
+    [TIMELINE_URL_PARAM_KEYS.PLACE]: places.join(placeSep),
+    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVar,
+  };
+  const hashParams = Object.keys(params)
+    .sort()
+    .map((key) => `${key}=${params[key]}`);
+  return `${EXPLORE_MORE_BASE_URL}#${hashParams.join("&")}`;
 }

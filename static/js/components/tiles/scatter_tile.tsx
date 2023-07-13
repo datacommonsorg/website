@@ -29,11 +29,21 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
-import { getStatWithinPlace } from "../../tools/scatter/util";
+import {
+  EmptyAxis,
+  EmptyPlace,
+  FieldToAbbreviation,
+  SHOW_POPULATION_OFF,
+} from "../../tools/scatter/context";
+import {
+  getStatWithinPlace,
+  SCATTER_URL_PATH,
+  updateHashAxis,
+  updateHashBoolean,
+  updateHashPlace,
+} from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
@@ -55,10 +65,10 @@ interface ScatterTilePropType {
   scatterTileSpec: ScatterTileSpec;
   // Extra classes to add to the container.
   className?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
   // API root
   apiRoot?: string;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 interface RawData {
@@ -131,6 +141,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(scatterChartData)}
+      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
       {scatterChartData && scatterChartData.errorMsg ? (
         <div className="error-msg" style={{ minHeight: props.svgChartHeight }}>
@@ -138,18 +149,6 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
         </div>
       ) : (
         <>
-          {props.isDataTile && scatterChartData && (
-            <div
-              className={DATA_CSS_CLASS}
-              data-csv={scatterDataToCsv(
-                scatterChartData.xStatVar.statVar,
-                scatterChartData.xStatVar.denom,
-                scatterChartData.yStatVar.statVar,
-                scatterChartData.yStatVar.denom,
-                scatterChartData.points
-              )}
-            />
-          )}
           <div
             id={props.id}
             className="scatter-svg-container"
@@ -394,4 +393,33 @@ export function draw(
     _.noop,
     getTooltipElement
   );
+}
+
+function getExploreMoreUrl(props: ScatterTilePropType): string {
+  const yStatVar = props.statVarSpec[0];
+  const xStatVar = props.statVarSpec[1];
+  const xAxis = {
+    ...EmptyAxis,
+    statVarDcid: xStatVar.statVar,
+    log: xStatVar.log,
+    perCapita: !!xStatVar.denom,
+    denom: xStatVar.denom,
+  };
+  const yAxis = {
+    ...EmptyAxis,
+    statVarDcid: yStatVar.statVar,
+    log: yStatVar.log,
+    perCapita: !!yStatVar.denom,
+    denom: yStatVar.denom,
+  };
+  const place = {
+    ...EmptyPlace,
+    enclosingPlace: props.place,
+    enclosedPlaceType: props.enclosedPlaceType,
+  };
+  let hash = updateHashAxis("", xAxis, true);
+  hash = updateHashAxis(hash, yAxis, false);
+  hash = updateHashPlace(hash, place);
+  hash = updateHashBoolean(hash, FieldToAbbreviation.showDensity, true);
+  return `${SCATTER_URL_PATH}#${hash}`;
 }

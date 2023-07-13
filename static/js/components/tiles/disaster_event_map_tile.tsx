@@ -82,6 +82,7 @@ const PLACE_TYPE_GEOJSON_PROP = {
   EurostatNUTS2: "geoJsonCoordinatesDP2",
   EurostatNUTS3: "geoJsonCoordinatesDP1",
 };
+const EXPLORE_MORE_BASE_URL = "/disasters/";
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -102,6 +103,8 @@ interface DisasterEventMapTilePropType {
   parentPlaces?: NamedPlace[];
   // API root
   apiRoot?: string;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 interface DisasterMapChartData {
@@ -189,6 +192,11 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
       className={`${CSS_SELECTOR_PREFIX}-tile`}
       allowEmbed={false}
       isInitialLoading={isInitialLoading}
+      exploreMoreUrl={
+        props.showExploreMore
+          ? `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`
+          : ""
+      }
     >
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
         <div className={`${CSS_SELECTOR_PREFIX}-chart-section`}>
