@@ -418,6 +418,28 @@
       "placeDcid": [
         "geoId/06"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "Utah",
+            "nlQuery": "cars per family in utah counties"
+          }
+        ]
+      },
+      "NL_RELATED_QUERY_TYPE": {
+        "items": [
+          {
+            "displayName": "Show highest",
+            "nlQuery": "cars per family in california counties - show highest"
+          },
+          {
+            "displayName": "Show lowest",
+            "nlQuery": "cars per family in california counties - show lowest"
+          }
+        ]
+      }
     }
   },
   "context": {},
