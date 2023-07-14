@@ -167,6 +167,9 @@ def query(sv, pl, sv_name, pl_name, counters):
   for i, s in enumerate(
       resp.get('debug', {}).get('sv_matching', {}).get('CosineScore', [])):
     if s < 0.5:
+      # An SV with this score is good as an SV with INF
+      # rank because the backend filters these.
+      # TODO: Maybe in future we mark them separate.
       continue
     if sv == resp['debug']['sv_matching']['SV'][i]:
       found_sv = True
@@ -176,6 +179,7 @@ def query(sv, pl, sv_name, pl_name, counters):
       else:
         counters[f'EmbeddingsSVRank_{i}'] += 1
   if not found_sv:
+    ret['EmbeddingsSVRank'] = -1
     counters['EmbeddingsSVRank_INF'] += 1
 
   idx = 0
