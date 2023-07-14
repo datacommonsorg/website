@@ -13,6 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This takes upto ~5 mins to run
 cat "bootstrap.sql" | bq query --use_legacy_sql=false \
   --format=csv --max_rows=100000 > data/bootstrap.csv

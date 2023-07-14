@@ -13,17 +13,18 @@ This produces a CSV with:
 SV,PlaceType,Place,SVDesc,PlaceName
 ```
 
+TODO: Add PaLM alt support
+
 ### System Test
 
 For every row of the above CSV:
-1. We construct a query using the SV desc and place name.
-   * Additionally we may include contained-in and ranking queries.
-2. In the chart config, check:
-   * If we have no result
+1. We construct a query using the SV desc and place name, and hit
+   `dev.datacommons.org`.
+2. Check the results for:
+   * If we have chart-config
    * If we got the place wrong
-   * What the rank of the SV is in the chart-config
-     (the first chart it shows up in)
-   * What the rank of the SV in the embedding results
+   * the rank of the SV is in the chart-config (i.e., first chart with it)
+   * the rank of the SV in the embedding results
 3. Produce a CSV with and some associated counters:
    ```
    Query,SV,Place,Exception,EmptyResult,WrongPlace,ChartSVRank,EmbeddingSVRank
@@ -59,4 +60,4 @@ be sure to run with a specific `run_name` and use that for all such runs.
 ./systest.sh <RUN_NAME>
 ```
 
-This will keep checkpointing counters and full results to `cache/
+This will keep checkpointing counters and full results to `checkpoint/`
