@@ -24,17 +24,19 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
+import { statVarSep, TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
+
+const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
 export interface LineTilePropType {
   // API root
@@ -53,6 +55,8 @@ export interface LineTilePropType {
   svgChartHeight: number;
   // Width, in px, for the SVG chart.
   svgChartWidth?: number;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 export interface LineChartData {
@@ -92,13 +96,8 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       allowEmbed={true}
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
+      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
-      {props.isDataTile && chartData && (
-        <div
-          className={DATA_CSS_CLASS}
-          data-csv={dataGroupsToCsv(chartData.dataGroup)}
-        />
-      )}
       <div
         id={props.id}
         className="svg-container"
@@ -219,4 +218,19 @@ function rawToChart(
     sources,
     unit,
   };
+}
+
+function getExploreMoreUrl(props: LineTilePropType): string {
+  const params = {
+    [TIMELINE_URL_PARAM_KEYS.PLACE]: props.place.dcid,
+    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVarSpec
+      .map((spec) => spec.statVar)
+      .join(statVarSep),
+  };
+  const hashParams = Object.keys(params)
+    .sort()
+    .map((key) => `${key}=${params[key]}`);
+  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
+    "&"
+  )}`;
 }

@@ -44,6 +44,8 @@ export enum ScatterChartType {
   MAP,
 }
 
+export const SCATTER_URL_PATH = "/tools/scatter";
+
 /**
  * Returns a promise that will get all the data from preferred sources for
  * a place type within a place for a list of stat vars.
@@ -298,7 +300,7 @@ export function updateHash(context: ContextType): void {
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
-    history.pushState({}, "", `/tools/scatter#${newHash}`);
+    history.pushState({}, "", `${SCATTER_URL_PATH}#${newHash}`);
   }
 }
 
@@ -318,7 +320,7 @@ function appendEntry(hash: string, key: string, value: string): string {
  * @param axis
  * @param isX
  */
-function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
+export function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
   if (_.isEqual(axis, EmptyAxis)) {
     return hash;
   }
@@ -354,7 +356,7 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
  * @param hash
  * @param place
  */
-function updateHashPlace(hash: string, place: PlaceInfo): string {
+export function updateHashPlace(hash: string, place: PlaceInfo): string {
   if (_.isEqual(place, EmptyPlace)) {
     return hash;
   }
