@@ -182,7 +182,10 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
           alert(
             `Sorry, we don't support ${props.selectedPlace.name}. Please select a different place.`
           );
-        } else if (newChildPlaceTypes.length === 1) {
+        } else if (
+          newChildPlaceTypes.length === 1 &&
+          !props.enclosedPlaceType
+        ) {
           props.onEnclosedPlaceTypeSelected(newChildPlaceTypes[0]);
         }
         setChildPlaceTypes(newChildPlaceTypes);
