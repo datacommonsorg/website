@@ -21,6 +21,13 @@
     "icon": "school"
   },
   {
+    "id": "environment",
+    "title": "Environment",
+    "description": "Embark on a journey to understand the intricate relationship between human activities and the environment.",
+    "url": "/nl#topic=environment",
+    "icon": "public"
+  },
+  {
     "id": "demographics",
     "title": "Demographics",
     "description": "Uncover the fascinating story of human populations and their dynamics.",
