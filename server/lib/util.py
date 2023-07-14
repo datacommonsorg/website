@@ -50,7 +50,8 @@ TOPIC_PAGE_CONFIGS = {
     'poverty': ['USA', 'India'],
     'dev': ['CA'],
     'sdg': ['sdg'],
-    'foodsecurity' : ['USA', 'CA']
+    'foodsecurity' : ['USA', 'CA'],
+    'dc2_1' : ['COL']
 }
 
 # Levels range from 0 (fastest, least compression), to 9 (slowest, most
