@@ -34,8 +34,8 @@ export function shouldHideCharts(respData: any): boolean {
   // we should hide.
   return (
     ("origStr" in fb && "newStr" in fb) ||
-    (respData["placeSource"] == "DEFAULT" &&
-      respData["pastSourceContext"] != "Earth")
+    (respData["placeSource"] === "DEFAULT" &&
+      respData["pastSourceContext"] !== "Earth")
   );
 }
 

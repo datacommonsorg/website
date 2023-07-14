@@ -48,6 +48,7 @@ import { ChartFooter } from "./chart_footer";
 
 const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
+const EXPLORE_MORE_BASE_URL = "/disasters/";
 
 interface TopEventTilePropType {
   id: string;
@@ -59,6 +60,8 @@ interface TopEventTilePropType {
   // Place type to show the event map for
   enclosedPlaceType: string;
   className?: string;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -209,6 +212,11 @@ export const TopEventTile = memo(function TopEventTile(
           <ChartFooter
             sources={sources}
             handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
+            exploreMoreUrl={
+              props.showExploreMore
+                ? `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`
+                : ""
+            }
           />
         </div>
       </div>
