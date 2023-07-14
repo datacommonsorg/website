@@ -305,13 +305,15 @@ def containedin(query: str) -> Union[NLClassifier, None]:
   query = query.lower()
   # Note again that place_type_to_enum is an OrderedDict.
   for place_type, place_enum in place_type_to_enum.items():
-    if place_type in query:
+    # Match as a word so city won't match electricity.
+    if re.search(rf"\b{place_type}\b", query):
+      # if place_type in query:
       contained_in_place_type = place_enum
       break
 
     nospace_place_type = place_type.replace(' ', '')
-    if nospace_place_type in constants.PLACE_TYPE_TO_PLURALS and \
-      constants.PLACE_TYPE_TO_PLURALS[nospace_place_type] in query:
+    plural = constants.PLACE_TYPE_TO_PLURALS.get(nospace_place_type)
+    if plural and re.search(rf"\b{plural}\b", query):
       contained_in_place_type = place_enum
       break
 

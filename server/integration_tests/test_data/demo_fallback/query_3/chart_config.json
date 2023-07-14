@@ -210,12 +210,12 @@
                       "geoId/06"
                     ],
                     "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
                       "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
                       "Count_CriminalActivities_Burglary_multiple_place_bar_block",
                       "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
                       "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
                       "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
@@ -227,12 +227,12 @@
                       "geoId/06"
                     ],
                     "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc",
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc"
                     ],
