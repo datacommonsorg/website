@@ -53,7 +53,7 @@ import { getMatchingObservation } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_DOMAIN_SEPARATOR = ":";
-const URL_PARAM_KEYS = {
+export const URL_PARAM_KEYS = {
   SELECTED_PLACE_DCID: "pd",
   ENCLOSED_PLACE_TYPE: "ept",
   MAP_POINTS_PLACE_TYPE: "ppt",
