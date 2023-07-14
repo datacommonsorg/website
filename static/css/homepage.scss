@@ -16,19 +16,19 @@
 
 /* Styles for the homepage */
 
-@import 'base';
+@import "base";
 
-$color-scatter: #FF8E6B;
-$color-map: #A0DCB0;
-$color-timeline: #FCBF71;
-$color-place: #6BC8DD;
-$color-font-dark: #3C4043;
+$color-scatter: #ff8e6b;
+$color-map: #a0dcb0;
+$color-timeline: #fcbf71;
+$color-place: #6bc8dd;
+$color-font-dark: #3c4043;
 
 #main-header,
 #main-footer {
-  background-color: #467BD5;
+  background-color: #467bd5;
 }
- 
+
 #main-footer {
   color: white;
 
@@ -36,19 +36,29 @@ $color-font-dark: #3C4043;
     color: white;
   }
 }
- 
+
 #homepage-top {
-  margin: -3rem auto 1.5rem;
-  height: 250px;
-  background-color: #0B57D0;
+  margin: 6rem auto;
   display: flex;
   align-items: center;
+  text-align: center;
+
+  .header {
+    font-size: 4rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+  }
+
+  .sub-header {
+    font-size: 1.75rem;
+    font-weight: 200;
+  }
 }
 
 #homepage section {
   padding: 24px;
 }
- 
+
 #homepage section .main {
   font-weight: bold;
 }
@@ -66,7 +76,7 @@ $color-font-dark: #3C4043;
   color: $color-font-dark;
   font-size: 24px;
   font-weight: 400;
-  border: 1px solid #C4C7C5;
+  border: 1px solid #c4c7c5;
   border-radius: 8px;
   text-align: center;
   display: flex;
@@ -80,7 +90,7 @@ $color-font-dark: #3C4043;
   text-decoration: none;
   box-shadow: $hover-box-shadow;
 }
- 
+
 #homepage .interact-buttons-container,
 #homepage .tool-buttons-container {
   display: grid;
@@ -96,7 +106,7 @@ $color-font-dark: #3C4043;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
- 
+
 // Styling for the search box
 #search-container {
   width: 100%;
@@ -137,12 +147,12 @@ $color-font-dark: #3C4043;
       font-size: 14px;
       height: fit-content;
       border-radius: 100px;
-      background-color: #0B57D0;
+      background-color: #0b57d0;
       color: white;
       margin-right: 5px;
       cursor: pointer;
     }
-  
+
     .search-button:hover {
       box-shadow: $hover-box-shadow;
     }
@@ -154,35 +164,35 @@ $color-font-dark: #3C4043;
   display: grid;
   gap: 16px;
   grid-template-columns: 1fr 1fr 1fr;
-  
+
   a.topic-card {
     color: $color-font-dark;
-    border: 2px solid #C2E7FF;
+    border: 2px solid #c2e7ff;
     border-radius: 12px;
     display: flex;
     flex: 0 0 30%;
     cursor: pointer;
-  
+
     .topic-card-body {
       display: flex;
       flex-direction: column;
       padding: 1rem;
       flex-grow: 1;
     }
-  
+
     .topic-card-title {
       font-size: 16px;
       font-weight: 500;
     }
-  
+
     .topic-card-description {
       font-size: 14px;
       font-weight: 400;
     }
-  
+
     .topic-card-icon {
       padding: 8px;
-      background-color: #C2E7FF;
+      background-color: #c2e7ff;
       width: 80px;
       min-height: 124px;
       height: 100%;
@@ -191,7 +201,7 @@ $color-font-dark: #3C4043;
       justify-content: center;
       border-radius: 0 10px 10px 0;
       flex-shrink: 0;
-  
+
       .material-icons-outlined {
         font-size: 24px;
         color: $color-font-dark;
@@ -214,18 +224,18 @@ $color-font-dark: #3C4043;
     gap: 32px;
     margin: 1rem;
   }
-  
+
   a.carousel-item-container {
     padding: 24px;
     flex: 1 0 240px;
     width: 0;
- 
+
     .image-container {
-     display: flex;
-     flex-grow: 1;
-     justify-content: center;
-     align-items: center;
-     margin-top: 0.5rem;
+      display: flex;
+      flex-grow: 1;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.5rem;
     }
   }
 
@@ -246,7 +256,7 @@ $color-font-dark: #3C4043;
       color: white;
       cursor: pointer;
     }
-  
+
     .material-icons-outlined:hover {
       box-shadow: $hover-box-shadow;
     }
@@ -260,7 +270,7 @@ $color-font-dark: #3C4043;
       padding: 1.5rem;
       border-radius: 4px 4px 0 0;
     }
-   
+
     span {
       padding: 8px;
     }
@@ -273,37 +283,37 @@ $color-font-dark: #3C4043;
     width: 100px;
     height: 100px;
   }
-  
+
   #scatter-button .img-container {
     background-color: $color-scatter;
 
     .tool-button-img {
-      background: url('/images/home-tool_icons.png') -50px 0;
+      background: url("/images/home-tool_icons.png") -50px 0;
     }
   }
-  
+
   #map-button .img-container {
     background-color: $color-map;
 
     .tool-button-img {
-      background: url('/images/home-tool_icons.png') -225px 0;
+      background: url("/images/home-tool_icons.png") -225px 0;
       width: 150px;
     }
   }
-  
+
   #timeline-button .img-container {
     background-color: $color-timeline;
 
     .tool-button-img {
-      background: url('/images/home-tool_icons.png') -450px 0;
+      background: url("/images/home-tool_icons.png") -450px 0;
     }
   }
-  
+
   #place-button .img-container {
     background-color: $color-place;
 
     .tool-button-img {
-      background: url('/images/home-tool_icons.png') -855px 0;
+      background: url("/images/home-tool_icons.png") -855px 0;
     }
   }
 }
@@ -315,7 +325,7 @@ $color-font-dark: #3C4043;
   a.interact-button {
     padding: 24px;
     flex-shrink: 0;
-  
+
     .material-icons-outlined {
       font-size: 40px;
       font-weight: 400;
@@ -323,5 +333,3 @@ $color-font-dark: #3C4043;
     }
   }
 }
-
- 
