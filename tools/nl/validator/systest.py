@@ -50,7 +50,7 @@ OUT_HEADER = [
     'EmbeddingsSVRank'
 ]
 
-CHECKPOINT_INTERVAL = 10
+CHECKPOINT_INTERVAL = 100
 
 
 @dataclass
