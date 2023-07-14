@@ -38,19 +38,19 @@ $color-font-dark: #3c4043;
 }
 
 #homepage-top {
-  margin: 8rem auto;
+  margin: 6rem auto;
   display: flex;
   align-items: center;
   text-align: center;
 
   .header {
-    font-size: 5rem;
+    font-size: 4rem;
     font-weight: 400;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .sub-header {
-    font-size: 32px;
+    font-size: 1.75rem;
     font-weight: 200;
   }
 }
