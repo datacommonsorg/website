@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from dataclasses import field
 import json
 import os
-from typing import Dict, List
+from typing import Dict, List, Set
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
@@ -26,6 +26,11 @@ import server.services.datacommons as dc
 
 # TODO: This is reading the file on every call.  Improve it!
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../../config/nl_page/chart_titles_by_sv.json"
+
+# Have an upper limit so we don't do too many existence checks.
+EXTENSION_SV_PRE_EXISTENCE_CHECK_LIMIT = 50
+# This is the number that we want to fit in a bar chart.
+EXTENSION_SV_POST_EXISTENCE_CHECK_LIMIT = 15
 
 
 @dataclass
@@ -76,6 +81,35 @@ def parse_svg(svg_dcid: str) -> SVG:
       res.pvs[p_lower] = v
     else:
       res.p = part.replace(part[0], part[0].lower(), 1)
+  return res
+
+
+# Given an SV object and SV info from DC API, check whether
+# their definitions are compatible.
+def _is_compatible(sv_obj: SV, new_sv: Dict) -> bool:
+  if 'definition' not in new_sv:
+    return False
+  new_sv_obj = parse_sv(new_sv['definition'])
+  if new_sv_obj.mp != sv_obj.mp:
+    return False
+  if new_sv_obj.st != sv_obj.st:
+    return False
+  if new_sv_obj.pt != sv_obj.pt:
+    return False
+  if new_sv_obj.md != sv_obj.md:
+    return False
+  if len(new_sv_obj.pvs) != len(sv_obj.pvs):
+    return False
+  return True
+
+
+# Limit to up to `limit` extended SVs.
+def limit_extended_svs(sv: str, ext_svs: Set[str], limit: int) -> Dict:
+  # Put the main SV first.
+  res = [sv]
+  if sv in ext_svs:
+    ext_svs.remove(sv)
+  res.extend(sorted(ext_svs)[:limit])
   return res
 
 
@@ -142,28 +176,24 @@ def extend_svs(svs: List[str]):
       svg_siblings_info = dc.get_variable_group_info(svg_siblings, [])
       for item in svg_siblings_info['data']:
         for sv_info in item['info'].get('childStatVars', []):
-          if 'definition' not in sv_info:
-            continue
-          curr_sv_obj = parse_sv(sv_info['definition'])
-          if curr_sv_obj.mp != sv_obj.mp:
-            continue
-          if curr_sv_obj.st != sv_obj.st:
-            continue
-          if curr_sv_obj.pt != sv_obj.pt:
-            continue
-          if curr_sv_obj.md != sv_obj.md:
-            continue
-          if len(curr_sv_obj.pvs) != len(sv_obj.pvs):
-            continue
-          res[sv].append(sv_info['id'])
+          if _is_compatible(sv_obj, sv_info):
+            res[sv].append(sv_info['id'])
     else:
-      # Can use the direct siblings of this sv
-      res[sv] = list(map(lambda x: x['id'], svg2childsvs[svg]))
+      # Can use the direct siblings of this sv, nevertheless perform
+      # SV compatibility check!
+      for new_sv_info in svg2childsvs[svg]:
+        if _is_compatible(sv_obj, new_sv_info):
+          res[sv].append(new_sv_info['id'])
     for sv2 in res[sv]:
       if sv2 == sv:
         continue
       reverse_map[sv2] = res[sv]
-  res_ordered = {sv: sorted(set(ext_svs)) for sv, ext_svs in res.items()}
+
+  # Limit the number of extended SVs.
+  res_ordered = {}
+  for sv, ext_svs in res.items():
+    res_ordered[sv] = limit_extended_svs(
+        sv, set(ext_svs), EXTENSION_SV_PRE_EXISTENCE_CHECK_LIMIT)
   return res_ordered
 
 
