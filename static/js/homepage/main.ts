@@ -21,7 +21,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { NlSearchBar } from "../components/nl_search_bar";
 import { Carousel } from "./carousel";
 
 window.onload = () => {
@@ -31,14 +30,6 @@ window.onload = () => {
 function renderPage(): void {
   const partnerItems = JSON.parse(
     document.getElementById("partners-container").dataset.items
-  );
-  // Render the search bar
-  ReactDOM.render(
-    React.createElement(NlSearchBar, {
-      inputId: "homepage-search-input",
-      placeholder: "You can ask something like “family earning in california”",
-    }),
-    document.getElementById("search-container")
   );
   // Render the carousel for the partners section
   ReactDOM.render(
