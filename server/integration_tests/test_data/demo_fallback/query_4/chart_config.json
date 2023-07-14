@@ -48,8 +48,8 @@
                       "country/USA"
                     ],
                     "statVarKey": [
-                      "Percent_Person_BingeDrinking_multiple_place_bar_block",
                       "Percent_Person_Obesity_multiple_place_bar_block",
+                      "Percent_Person_BingeDrinking_multiple_place_bar_block",
                       "Percent_Person_PhysicalInactivity_multiple_place_bar_block",
                       "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block",
                       "Percent_Person_Smoking_multiple_place_bar_block"
@@ -70,6 +70,7 @@
                       "country/USA"
                     ],
                     "statVarKey": [
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithAsthma_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
@@ -80,7 +81,6 @@
                       "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
                       "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
                     "title": "Physical Health Issues compared with other variables in United States (${date})",
