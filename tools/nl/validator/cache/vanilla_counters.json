@@ -1,1 +1,1 @@
-{"Total": 500, "Exception": 0, "WrongPlace": 133, "EmptyResult": 1, "SVRank_6-14": 1, "SVRank_15+": 0, "SVRank_INF": 2, "SVRank_0": 357, "SVRank_1": 1, "SVRank_2": 5, "SVRank_3": 0, "SVRank_4": 0, "SVRank_5": 0}
+{"Total": 5499, "Exception": 26, "WrongPlace": 1300, "EmptyResult": 48, "SVRank_6-14": 58, "SVRank_15+": 23, "SVRank_INF": 139, "SVRank_0": 3517, "SVRank_1": 31, "SVRank_2": 294, "SVRank_3": 5, "SVRank_4": 57, "SVRank_5": 1}

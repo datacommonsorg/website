@@ -46,10 +46,11 @@ CONFIG = 'detector=heuristic&idx=medium_ft&place_detector=ner'
 URL = 'https://dev.datacommons.org/api/nl/data?' + CONFIG
 
 OUT_HEADER = [
-    'Query', 'SV', 'Place', 'Exception', 'EmptyResult', 'WrongPlace', 'SVRank'
+    'Query', 'SV', 'Place', 'Exception', 'EmptyResult', 'WrongPlace', 'SVRank',
+    'EmbeddingsSVRank'
 ]
 
-CHECKPOINT_INTERVAL = 100
+CHECKPOINT_INTERVAL = 10
 
 
 @dataclass
@@ -113,18 +114,19 @@ def init_result(q, sv, pl):
       'EmptyResult': '',
       'WrongPlace': '',
       'SVRank': '',
+      'EmbeddingsSVRank': '',
   }
 
 
 def init_counters():
   counters = {}
   for c in [
-      'Total', 'Exception', 'WrongPlace', 'EmptyResult', 'SVRank_6-14',
-      'SVRank_15+', 'SVRank_INF'
+      'Total', 'Exception', 'EmptyResult', 'WrongPlace', 'SVRank_0',
+      'SVRank_1', 'SVRank_2', 'SVRank_3', 'SVRank_4', 'SVRank_5', 'SVRank_6-14',
+      'SVRank_15+', 'SVRank_INF', 'EmbeddingsSVRank_0', 'EmbeddingsSVRank_1',
+      'EmbeddingsSVRank_2', 'EmbeddingsSVRank_3+', 'EmbeddingsSVRank_INF'
   ]:
     counters[c] = 0
-  for i in range(6):
-    counters[f'SVRank_{i}'] = 0
   return counters
 
 
@@ -159,7 +161,21 @@ def query(sv, pl, sv_name, pl_name, counters):
   if p != pl:
     ret['WrongPlace'] = '*'
     counters['WrongPlace'] += 1
-    return ret
+
+  found_sv = False
+  for i, s in enumerate(resp.get('debug', {}).get('sv_matching', {}).get('CosineScore', [])):
+    if s < 0.5:
+      continue
+    if sv == resp['debug']['sv_matching']['SV'][i]:
+      found_sv = True
+      ret['EmbeddingsSVRank'] = i
+      if i >= 3:
+        counters['EmbeddingsSVRank_3+'] += 1
+      else:
+        counters[f'EmbeddingsSVRank_{i}'] += 1
+  if not found_sv:
+    counters['EmbeddingsSVRank_INF'] += 1
+
 
   idx = 0
   for cat in cfg.get('categories', []):
