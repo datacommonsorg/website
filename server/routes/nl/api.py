@@ -36,6 +36,7 @@ from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
@@ -53,8 +54,8 @@ bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 def data():
   """Data handler."""
   logging.info('NL Data API: Enter')
-  if (os.environ.get('FLASK_ENV') == 'production' or
-      not current_app.config['NL_MODEL']):
+  # NO production support yet.
+  if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
 
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
@@ -75,6 +76,15 @@ def data():
 
   detector_type = request.args.get(
       'detector', default=RequestedDetectorType.Heuristic.value, type=str)
+
+  place_detector_type = request.args.get('place_detector',
+                                         default='ner',
+                                         type=str).lower()
+  if place_detector_type not in [PlaceDetectorType.NER, PlaceDetectorType.DC]:
+    logging.error(f'Unknown place_detector {place_detector_type}')
+    place_detector_type = PlaceDetectorType.NER
+  else:
+    place_detector_type = PlaceDetectorType(place_detector_type)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   res = {
@@ -103,7 +113,6 @@ def data():
         data_dict=res,
         status="Aborted: Query was Empty.",
         query_detection=query_detection,
-        uttr_history=escaped_context_history,
         debug_counters=counters.get(),
         query_detection_debug_logs=query_detection_debug_logs)
     logging.info('NL Data API: Empty Exit')
@@ -122,8 +131,9 @@ def data():
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
-  query_detection = detector.detect(detector_type, original_query, query,
-                                    prev_utterance, embeddings_index_type,
+  query_detection = detector.detect(detector_type, place_detector_type,
+                                    original_query, query, prev_utterance,
+                                    embeddings_index_type,
                                     query_detection_debug_logs, counters)
   counters.timeit('query_detection', start)
 
@@ -142,6 +152,7 @@ def data():
     main_place = utterance.rankedCharts[0].places[0]
   else:
     page_config = {}
+    utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED
     main_place = Place(dcid='', name='', place_type='')
     logging.info('Found empty place for query "%s"',
                  query_detection.original_query)
@@ -157,7 +168,11 @@ def data():
           'place_type': main_place.place_type,
       },
       'config': page_config,
-      'context': context_history
+      'context': context_history,
+      'placeFallback': context_history[0]['placeFallback'],
+      'svSource': utterance.sv_source.value,
+      'placeSource': utterance.place_source.value,
+      'pastSourceContext': utterance.past_source_context,
   }
   status_str = "Successful"
   if utterance.rankedCharts:
@@ -169,7 +184,7 @@ def data():
       status_str += '**No SVs Found**.'
 
   data_dict = dbg.result_with_debug_info(data_dict, status_str, query_detection,
-                                         context_history, dbg_counters,
+                                         dbg_counters,
                                          query_detection_debug_logs)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
@@ -186,8 +201,8 @@ def data():
 
 @bp.route('/history')
 def history():
-  if (os.environ.get('FLASK_ENV') == 'production' or
-      not current_app.config['NL_MODEL']):
+  # No production support.
+  if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   return json.dumps(bt.read_success_rows())
 

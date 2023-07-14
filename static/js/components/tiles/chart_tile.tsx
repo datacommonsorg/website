@@ -62,6 +62,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
         props.className ? props.className : ""
       }`}
+      {...{ part: "container" }}
       ref={containerRef}
     >
       <div
@@ -72,7 +73,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         {
           /* If props.title is not empty, we want to render this header element
               even if title is empty to keep the space on the page */
-          props.title && <h4>{title}</h4>
+          props.title && <h4 {...{ part: "title" }}>{title}</h4>
         }
         {props.children}
       </div>

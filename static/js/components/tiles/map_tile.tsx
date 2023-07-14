@@ -21,7 +21,7 @@
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   addPolygonLayer,
@@ -52,25 +52,28 @@ import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 export interface MapTilePropType {
-  id: string;
-  title: string;
-  place: NamedTypedPlace;
-  enclosedPlaceType: string;
-  statVarSpec: StatVarSpec;
-  // Height, in px, for the SVG chart.
-  svgChartHeight: number;
-  // Extra classes to add to the container.
-  className?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
   // API root
   apiRoot?: string;
+  // Colors to use
+  colors?: string[];
+  // Extra classes to add to the container.
+  className?: string;
+  date?: string;
+  enclosedPlaceType: string;
+  id: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
   // Parent places of the current place showing map for
   parentPlaces?: NamedPlace[];
   // Specific date to show data for
-  date?: string;
+  place: NamedTypedPlace;
+  statVarSpec: StatVarSpec;
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
+  title: string;
 }
 
 interface RawData {
@@ -81,7 +84,7 @@ interface RawData {
   borderGeoJson?: GeoJsonData;
 }
 
-interface MapChartData {
+export interface MapChartData {
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
@@ -129,7 +132,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         addSvgDataAttribute();
       }
     }
-  }, [mapChartData, props]);
+  }, [mapChartData, props, svgContainer, legendContainer, mapContainer]);
 
   useEffect(() => {
     let svgHeight = props.svgChartHeight;
@@ -141,6 +144,20 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     }
     setSvgHeight(svgHeight);
   }, [props]);
+
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(mapChartData)) {
+      return;
+    }
+    draw(
+      mapChartData,
+      props,
+      svgContainer.current,
+      legendContainer.current,
+      mapContainer.current
+    );
+  }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
+  useDrawOnResize(drawFn, svgContainer.current);
 
   return (
     <ChartTileContainer
@@ -172,7 +189,11 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           />
         )}
         <div className="map" ref={mapContainer}></div>
-        <div className="legend" ref={legendContainer}></div>
+        <div
+          className="legend"
+          {...{ part: "legend" }}
+          ref={legendContainer}
+        ></div>
       </div>
     </ChartTileContainer>
   );
@@ -236,7 +257,7 @@ export const fetchData = async (
   const parentPlacesPromise = props.parentPlaces
     ? Promise.resolve(props.parentPlaces)
     : axios
-        .get(`${props.apiRoot || ""}/api/place/parent/${props.place.dcid}`)
+        .get(`${props.apiRoot || ""}/api/place/parent?dcid=${props.place.dcid}`)
         .then((resp) => resp.data);
   try {
     const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
@@ -354,16 +375,16 @@ export function draw(
   svgWidth?: number
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
-  let height = props.svgChartHeight;
-  if (svgContainer) {
-    height = Math.max(props.svgChartHeight, svgContainer.offsetHeight);
-  }
+  const height = props.svgChartHeight;
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,
     d3.min(dataValues),
     d3.mean(dataValues),
-    d3.max(dataValues)
+    d3.max(dataValues),
+    undefined,
+    undefined,
+    props.colors
   );
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Unavailable";
@@ -415,6 +436,7 @@ export function draw(
     height,
     projectionData
   );
+
   drawD3Map(
     mapContainer,
     chartData.geoJson,

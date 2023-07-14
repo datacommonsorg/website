@@ -71,13 +71,13 @@ EMBEDDINGS_SIZE = "medium"
 
 # Batch size determines the number of examples used together in a batch for
 # training. This can help speed up training time.
-BATCH_SIZE = 256
+BATCH_SIZE = 8
 
 # The params below are described in https://www.sbert.net/docs/package_reference/SentenceTransformer.html
 # Increasing NUM_EPOCHS can theoretically lead to better convergence of the estimated weights but
-# using 10 should be Ok.
-NUM_WARMUP_STEPS = 10
-NUM_EPOCHS = 10
+# using 50 should be Ok (but will be pretty slow if building the intermediate index too).
+NUM_WARMUP_STEPS = 0
+NUM_EPOCHS = 50
 
 VERY_HIGH_MATCH_SCORE = 0.95
 HIGH_MATCH_SCORE = 0.90
@@ -275,7 +275,6 @@ def finetune_model(model: Any, training_examples: List[InputExample]):
 
 
 def main(_):
-
   assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2
   assert FLAGS.start_from in [START_FROM_BASE, START_FROM_INTERMEDIATE]
   assert FLAGS.generate in [GENERATE_ALL, GENERATE_INTERMEDIATE, GENERATE_FINAL]

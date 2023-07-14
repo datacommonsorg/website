@@ -35,7 +35,7 @@ import { convertArrayAttribute } from "./utils";
  * <!-- Show a bar chart of population for states in the US -->
  * <datacommons-bar
  *      title="Population of US States"
- *      place="country/USA"
+ *      parentPlace="country/USA"
  *      childPlaceType="State"
  *      variable="Count_Person"
  * ></datacommons-bar>
@@ -44,20 +44,20 @@ import { convertArrayAttribute } from "./utils";
  * <datacommons-bar
  *      title="Population of US States"
  *      variable="Count_Person"
- *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      places="geoId/01 geoId/02"
  * ></datacommons-bar>
  *
  * <!-- Stacked bar chart of population for specific US states -->
  * <datacommons-bar
  *      title="Population of US States"
  *      variableDcid="Count_Person"
- *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      places="geoId/01 geoId/02"
  *      stacked
  * <!-- Horizontal stacked bar chart -->
  * <datacommons-bar
  *   title="Median income by gender"
- *   comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
- *   comparisonPlaces='["geoId/01", "geoId/02", "geoId/04", "geoId/20", "geoId/21" ,"geoId/22", "geoId/23", "geoId/24", "geoId/25" ]'
+ *   variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+ *   places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
  *   stacked
  *   horizontal
  *   sort="descending"
@@ -67,7 +67,7 @@ import { convertArrayAttribute } from "./utils";
  * <datacommons-bar
  *      title="Population of US States"
  *      variableDcid="Count_Person"
- *      comparisonPlaces='["geoId/01", "geoId/02"]'
+ *      places="geoId/01 geoId/02"
  *      lollipop
  * ></datacommons-bar>
  */
@@ -90,28 +90,28 @@ export class DatacommonsBarComponent extends LitElement {
   @property()
   childPlaceType!: string;
 
-  /* Optional: List of DCIDs of places to plot
-   * If provided, place and enclosePlaceType will be ignored
+  /**
+   * Optional: list of specific colors to use in the chart.
+   * The number of colors passed in should equal the number of variables.
+   * The order of colors should match the order of variables.
    */
   @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonPlaces: string[];
+  colors?: string[];
 
   /**
-   * Optional: List of DCIDs of statistical variables to plot
-   * If provided, the "variable" attribute will be ignored.
-   * !Important: variables provided must share the same unit
-   */
-  @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonVariables: string[];
-
-  /**
-   * Render bars horizontally instead of vertically
+   * Optional: Render bars horizontally instead of vertically
    */
   @property({ type: Boolean })
   horizontal?: boolean;
 
   /**
-   * Maximum number of child places or comparison places to display
+   * Optional: Draw as a lollipop chart instead of bars
+   */
+  @property({ type: Boolean })
+  lollipop: boolean;
+
+  /**
+   * Optional: Maximum number of child places or comparison places to display
    * Defaults to 7
    */
   @property({ type: Number })
@@ -121,10 +121,16 @@ export class DatacommonsBarComponent extends LitElement {
    * DCID of the parent place
    * */
   @property()
-  place!: string;
+  parentPlace!: string;
+
+  /* Optional: List of DCIDs of places to plot
+   * If provided, place and enclosePlaceType will be ignored
+   */
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  places?: string[];
 
   /**
-   * Bar chart sort order.
+   * Optional: Bar chart sort order.
    * Options: ascending, descending, ascendingPopulation, descendingPopulation
    * Default: descendingPopulation
    */
@@ -132,7 +138,7 @@ export class DatacommonsBarComponent extends LitElement {
   sort?: SortType;
 
   /**
-   * Draw as a stacked chart instead of grouped chart
+   * Optional: Draw as a stacked chart instead of grouped chart
    */
   @property({ type: Boolean })
   stacked?: boolean;
@@ -144,26 +150,20 @@ export class DatacommonsBarComponent extends LitElement {
   title!: string;
 
   /**
-   * DCID of the statistical variable to plot values for
+   * List of DCIDs of the statistical variable(s) to plot values for
    */
-  @property()
-  variable!: string;
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  variables?: string[];
 
   /**
-   * Y axis margin to fit the axis label text. Default: 60px
+   * Optional: Y axis margin to fit the axis label text.
+   * Default: 60px
    */
   @property({ type: Number })
   yAxisMargin?: number;
 
-  // Optional: Whether to render as a lollipop
-  // Set to true to render using lollipops instead of bars
-  @property({ type: Boolean })
-  lollipop: boolean;
-
   render(): HTMLElement {
-    const statVarDcids: string[] = this.comparisonVariables
-      ? this.comparisonVariables
-      : [this.variable];
+    const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
     statVarDcids.forEach((statVarDcid) => {
       statVarSpec.push({
@@ -176,15 +176,16 @@ export class DatacommonsBarComponent extends LitElement {
       });
     });
     const barTileProps: BarTilePropType = {
-      barHeight: this.barHeight,
       apiRoot: DEFAULT_API_ENDPOINT,
-      comparisonPlaces: this.comparisonPlaces,
-      horizontal: this.horizontal,
+      barHeight: this.barHeight,
+      colors: this.colors,
+      comparisonPlaces: this.places,
       enclosedPlaceType: this.childPlaceType,
+      horizontal: this.horizontal,
       id: `chart-${_.uniqueId()}`,
       maxPlaces: this.maxPlaces,
       place: {
-        dcid: this.place,
+        dcid: this.parentPlace,
         name: "",
         types: [],
       },

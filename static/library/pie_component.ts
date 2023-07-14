@@ -38,14 +38,14 @@ import { convertArrayAttribute } from "./utils";
  * <datacommons-pie
  *      title="Median Income by gender in California"
  *      place="geoId/06"
- *      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+ *      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
  * ></datacommons-pie>
  *
  * <!-- Show a donut chart of median income by gender in California -->
  * <datacommons-pie
  *      title="Median Income by gender in California"
  *      place="geoId/06"
- *      comparisonVariables='["Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"]'
+ *      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
  *      donut
  * ></datacommons-pie>
  */
@@ -56,28 +56,32 @@ export class DatacommonsPieComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
-  // Title of the chart
-  @property()
-  title!: string;
-
-  // DCID of the parent place
-  @property()
-  place!: string;
+  // Optional: Colors to use for statistical variables
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  colors?: string[];
 
   // List of DCIDs of statistical variables to plot
   // !Important: variables provided must cover all cases (sum of values takes
   //             up the full circle)
   @property({ type: Array<string>, converter: convertArrayAttribute })
-  comparisonVariables;
+  variables: string[];
 
   // Optional: Whether to draw as donut chart instead of a pie chart
   // Set to true to draw a donut chart
   @property({ type: Boolean })
-  donut;
+  donut?: boolean;
+
+  // DCID of the parent place
+  @property()
+  place!: string;
+
+  // Title of the chart
+  @property()
+  title!: string;
 
   render(): HTMLElement {
     const statVarSpec = [];
-    this.comparisonVariables.forEach((statVarDcid) => {
+    this.variables.forEach((statVarDcid) => {
       statVarSpec.push({
         denom: "",
         log: false,
@@ -89,6 +93,7 @@ export class DatacommonsPieComponent extends LitElement {
     });
     const donutTileProps: DonutTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       pie: !this.donut,
       place: {

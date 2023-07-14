@@ -42,8 +42,6 @@ class PlaceDetection:
   query_places_mentioned: List[str]
   places_found: List[Place]
   main_place: Place
-  using_default_place: bool = False
-  using_from_context: bool = False
 
 
 @dataclass
@@ -86,12 +84,6 @@ class RankingType(IntEnum):
   # Necessary for SVs where the top could be most positive or most negative
   # Ex: "Temperature extremes" -> show high and very low temperatures
   EXTREME = 5
-
-
-class BinaryClassificationResultType(IntEnum):
-  """Generic result of binary classification: Success/Failure."""
-  FAILURE = 0
-  SUCCESS = 1
 
 
 # Note: Inherit from `str` so that if the enum gets logged as json the serializer
@@ -368,6 +360,13 @@ class RequestedDetectorType(str, Enum):
   Hybrid = "hybrid"
 
 
+class PlaceDetectorType(str, Enum):
+  # Represents the open-source NER implementation
+  NER = "ner"
+  # Represents the home-grown RecognizePlaces Recon API
+  DC = "dc"
+
+
 @dataclass
 class Detection:
   """Detection attributes."""
@@ -378,3 +377,4 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.Heuristic
+  place_detector: PlaceDetectorType = PlaceDetectorType.NER

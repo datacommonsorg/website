@@ -27,16 +27,19 @@ import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { NlSessionContext } from "../../shared/context";
 import { SearchResult } from "../../types/app/nl_interface_types";
+import { stringifyFn } from "../../utils/axios";
 import {
   CHART_FEEDBACK_SENTIMENT,
   getFeedbackLink,
 } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
+import { NLCommentary, shouldHideCharts } from "./nl_commentary";
 
 export interface QueryResultProps {
   query: string;
   indexType: string;
   detector: string;
+  placeDetector: string;
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
@@ -50,6 +53,7 @@ export const QueryResult = memo(function QueryResult(
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
+  const [hideCharts, setHideCharts] = useState<boolean>(false);
   const scrollRef = createRef<HTMLDivElement>();
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
   const [isEmojiClicked, setIsEmojiClicked] = useState(false);
@@ -73,19 +77,29 @@ export const QueryResult = memo(function QueryResult(
 
   function fetchData(query: string): void {
     setIsLoading(true);
-    let indexParam = "";
+    const params = {
+      q: query,
+    };
     if (props.indexType) {
-      indexParam = "&idx=" + props.indexType;
+      params["idx"] = props.indexType;
     }
-
-    let detectorParam = "";
     if (props.detector) {
-      detectorParam = "&detector=" + props.detector;
+      params["detector"] = props.detector;
+    }
+    if (props.placeDetector) {
+      params["place_detector"] = props.placeDetector;
     }
     axios
-      .post(`/api/nl/data?q=${query}${indexParam}${detectorParam}`, {
-        contextHistory: props.contextHistory,
-      })
+      .post(
+        `/api/nl/data`,
+        {
+          contextHistory: props.contextHistory,
+        },
+        {
+          params,
+          paramsSerializer: stringifyFn,
+        }
+      )
       .then((resp) => {
         if (
           resp.data["context"] === undefined ||
@@ -103,8 +117,11 @@ export const QueryResult = memo(function QueryResult(
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
           let mainPlace = {};
-          // For NL Next, context does not contain the "main place".
           mainPlace = resp.data["place"];
+          const fb = resp.data["placeFallback"];
+          if (shouldHideCharts(resp.data)) {
+            setHideCharts(true);
+          }
           setChartsData({
             place: {
               dcid: mainPlace["dcid"],
@@ -116,13 +133,30 @@ export const QueryResult = memo(function QueryResult(
               !props.demoMode && "session" in resp.data
                 ? resp.data["session"]["id"]
                 : "",
+            svSource: resp.data["svSource"],
+            placeSource: resp.data["placeSource"],
+            pastSourceContext: resp.data["pastSourceContext"],
+            placeFallback:
+              "origStr" in fb && "newStr" in fb
+                ? {
+                    origStr: fb["origStr"],
+                    newStr: fb["newStr"],
+                  }
+                : null,
           });
         } else {
-          setErrorMsg("Sorry, we couldn't answer your question.");
+          // If there was no place recognized, we might end up with 0
+          // categories.  Check if that's the case, and provide a different
+          // error message.
+          if ("placeSource" in resp.data && resp.data["placeSource"]) {
+            setErrorMsg("Could not recognize any place in the query!");
+          } else {
+            setErrorMsg("Sorry, we couldn't answer your question.");
+          }
         }
-        // For NL Next, debug info is outside the context.
         const debugData = resp.data["debug"];
         if (debugData !== undefined) {
+          debugData["context"] = context;
           setDebugData(debugData);
         }
         setIsLoading(false);
@@ -164,10 +198,17 @@ export const QueryResult = memo(function QueryResult(
           {debugData && (
             <DebugInfo
               debugData={debugData}
-              pageConfig={chartsData ? chartsData.config : null}
+              chartsData={chartsData}
             ></DebugInfo>
           )}
-          {chartsData && chartsData.config && (
+          {chartsData && (
+            <NLCommentary
+              chartsData={chartsData}
+              hideCharts={hideCharts}
+              setHideCharts={setHideCharts}
+            />
+          )}
+          {chartsData && chartsData.config && !hideCharts && (
             <NlSessionContext.Provider value={chartsData.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}

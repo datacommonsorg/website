@@ -34,8 +34,10 @@ import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
 export interface GaugeTilePropType {
-  // Title at top of tile
-  title: string;
+  // API root
+  apiRoot?: string;
+  // colors to use
+  colors?: string[];
   // ID of the tile
   id: string;
   // Min height, in px, for the SVG chart
@@ -49,8 +51,8 @@ export interface GaugeTilePropType {
   };
   // Variable to show data for
   statVarSpec: StatVarSpec;
-  // API root
-  apiRoot?: string;
+  // Title at top of tile
+  title: string;
 }
 
 export interface GaugeChartData {
@@ -174,6 +176,9 @@ function draw(
     svgContainer.offsetWidth,
     chartData,
     formatNumber,
-    props.minSvgChartHeight
+    props.minSvgChartHeight,
+    {
+      colors: props.colors,
+    }
   );
 }

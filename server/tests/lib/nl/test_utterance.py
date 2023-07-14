@@ -31,6 +31,7 @@ SIMPLE_PLACE_ONLY_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
     'ranked_charts': [{
@@ -71,6 +72,7 @@ OVERVIEW_PLACE_ONLY_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
     'ranked_charts': [{
@@ -109,6 +111,7 @@ SIMPLE_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
@@ -168,6 +171,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
@@ -228,6 +232,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
@@ -311,6 +316,7 @@ COMPARISON_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.COMPARISON_ACROSS_PLACES,
     'ranked_charts': [{
@@ -327,12 +333,12 @@ COMPARISON_UTTR = {
         },
         'chart_type': ChartType.BAR_CHART,
         'places': [{
-            'dcid': 'geoId/06',
+            'dcid': 'geoId/32',
             'name': 'Foo Place',
             'place_type': 'State',
             'country': 'country/USA',
         }, {
-            'dcid': 'geoId/32',
+            'dcid': 'geoId/06',
             'name': 'Foo Place',
             'place_type': 'State',
             'country': 'country/USA',
@@ -353,12 +359,12 @@ COMPARISON_UTTR = {
         },
         'chart_type': ChartType.BAR_CHART,
         'places': [{
-            'dcid': 'geoId/06',
+            'dcid': 'geoId/32',
             'name': 'Foo Place',
             'place_type': 'State',
             'country': 'country/USA',
         }, {
-            'dcid': 'geoId/32',
+            'dcid': 'geoId/06',
             'name': 'Foo Place',
             'place_type': 'State',
             'country': 'country/USA',
@@ -379,6 +385,7 @@ CONTAINED_IN_UTTR = {
     }],
     'places': [],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CONTAINED_IN,
     'ranked_charts': [{
@@ -436,6 +443,7 @@ CORRELATION_UTTR = {
     }],
     'places': [],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CORRELATION_ACROSS_VARS,
     'ranked_charts': [{
@@ -497,6 +505,7 @@ MULTISV_CORRELATION_UTTR = {
         'place_type': 'State'
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CORRELATION_ACROSS_VARS,
     'ranked_charts': [{
@@ -537,6 +546,7 @@ RANKING_ACROSS_PLACES_UTTR = {
     }],
     'places': [],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.RANKING_ACROSS_PLACES,
     'ranked_charts': [{
@@ -573,6 +583,7 @@ RANKING_ACROSS_SVS_UTTR = {
     }],
     'places': [],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.RANKING_ACROSS_VARS,
     'ranked_charts': [{
@@ -613,6 +624,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
     }],
     'places': [],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.TIME_DELTA_ACROSS_VARS,
     'ranked_charts': [{
@@ -707,6 +719,7 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
@@ -771,6 +784,7 @@ EVENT_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
+    'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.EVENT,
     'ranked_charts': [{

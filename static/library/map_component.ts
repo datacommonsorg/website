@@ -25,6 +25,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 import { ChartEventDetail } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { convertArrayAttribute } from "./utils";
 
 /**
  * Web component for rendering map tile.
@@ -33,7 +34,7 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
  *
  * <datacommons-map
  *      title="Population Below Poverty Level Status in Past Year in States of United States (2020)"
- *      place="country/USA"
+ *      parentPlace="country/USA"
  *      childPlaceType="State"
  *      variable="Count_Person_BelowPovertyLevelInThePast12Months"
  *    ></datacommons-map>
@@ -45,25 +46,48 @@ export class DatacommonsMapComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
-  // Title of the chart
+  // Type of child place to rank (ex: State, County)
   @property()
-  title!: string;
+  childPlaceType!: string;
+
+  // Optional: color(s) to use
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  colors?: string[];
+
+  // Optional: specific date to show data for
+  @property()
+  date: string;
 
   // DCID of the parent place
   @property()
-  place!: string;
+  parentPlace!: string;
 
   /**
    * @deprecated
    * DCID of the parent place
-   * Deprecated. Use place instead.
+   * Deprecated. Use parentPlace instead.
+   */
+  @property()
+  place!: string;
+
+  // Optional: listen for value changes with this event name
+  @property()
+  subscribe: string;
+
+  // Title of the chart
+  @property()
+  title!: string;
+
+  // Statistical variable DCID
+  @property()
+  variable!: string;
+  /**
+   * @deprecated
+   * DCID of the parent place
+   * Deprecated. Use parentPlace instead.
    */
   @property()
   placeDcid: string;
-
-  // Type of child place to rank (ex: State, County)
-  @property()
-  childPlaceType!: string;
 
   /**
    * @deprecated
@@ -73,10 +97,6 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   enclosedPlaceType: string;
 
-  // Statistical variable DCID
-  @property()
-  variable!: string;
-
   /**
    * @deprecated
    * Statistical variable DCID
@@ -84,14 +104,6 @@ export class DatacommonsMapComponent extends LitElement {
    */
   @property()
   statVarDcid: string;
-
-  // Optional: specific date to show data for
-  @property()
-  date: string;
-
-  // Optional: listen for value changes with this event name
-  @property()
-  subscribe: string;
 
   firstUpdated(): void {
     if (this.subscribe) {
@@ -107,11 +119,12 @@ export class DatacommonsMapComponent extends LitElement {
   }
 
   render(): HTMLElement {
-    const place = this.place || this.placeDcid;
+    const place = this.parentPlace || this.place || this.placeDcid;
     const variable = this.variable || this.statVarDcid;
     const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
     const mapTileProps: MapTilePropType = {
       apiRoot: DEFAULT_API_ENDPOINT,
+      colors: this.colors,
       date: this.date,
       enclosedPlaceType: childPlaceType,
       id: `chart-${_.uniqueId()}`,
