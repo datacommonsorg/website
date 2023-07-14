@@ -25,7 +25,7 @@ import requests
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('input_csv', 'data/bootstrap.csv', 'Input tokens CSV file')
-flags.DEFINE_string('cache_dir', 'cache/', 'Generated queries file')
+flags.DEFINE_string('checkpoint_dir', 'checkpoint/', 'Generated files')
 flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
@@ -46,8 +46,8 @@ CONFIG = 'detector=heuristic&idx=medium_ft&place_detector=ner'
 URL = 'https://dev.datacommons.org/api/nl/data?' + CONFIG
 
 OUT_HEADER = [
-    'Query', 'SV', 'Place', 'Exception', 'EmptyResult', 'WrongPlace', 'SVRank',
-    'EmbeddingsSVRank'
+    'Query', 'SV', 'Place', 'Exception', 'EmptyResult', 'WrongPlace',
+    'ChartSVRank', 'EmbeddingsSVRank'
 ]
 
 CHECKPOINT_INTERVAL = 100
@@ -113,7 +113,7 @@ def init_result(q, sv, pl):
       'Exception': '',
       'EmptyResult': '',
       'WrongPlace': '',
-      'SVRank': '',
+      'ChartSVRank': '',
       'EmbeddingsSVRank': '',
   }
 
@@ -121,10 +121,11 @@ def init_result(q, sv, pl):
 def init_counters():
   counters = {}
   for c in [
-      'Total', 'Exception', 'EmptyResult', 'WrongPlace', 'SVRank_0',
-      'SVRank_1', 'SVRank_2', 'SVRank_3', 'SVRank_4', 'SVRank_5', 'SVRank_6-14',
-      'SVRank_15+', 'SVRank_INF', 'EmbeddingsSVRank_0', 'EmbeddingsSVRank_1',
-      'EmbeddingsSVRank_2', 'EmbeddingsSVRank_3+', 'EmbeddingsSVRank_INF'
+      'Total', 'Exception', 'EmptyResult', 'WrongPlace', 'ChartSVRank_0',
+      'ChartSVRank_1', 'ChartSVRank_2', 'ChartSVRank_3', 'ChartSVRank_4',
+      'ChartSVRank_5', 'ChartSVRank_6-14', 'ChartSVRank_15+', 'ChartSVRank_INF',
+      'EmbeddingsSVRank_0', 'EmbeddingsSVRank_1', 'EmbeddingsSVRank_2',
+      'EmbeddingsSVRank_3+', 'EmbeddingsSVRank_INF'
   ]:
     counters[c] = 0
   return counters
@@ -163,7 +164,8 @@ def query(sv, pl, sv_name, pl_name, counters):
     counters['WrongPlace'] += 1
 
   found_sv = False
-  for i, s in enumerate(resp.get('debug', {}).get('sv_matching', {}).get('CosineScore', [])):
+  for i, s in enumerate(
+      resp.get('debug', {}).get('sv_matching', {}).get('CosineScore', [])):
     if s < 0.5:
       continue
     if sv == resp['debug']['sv_matching']['SV'][i]:
@@ -176,7 +178,6 @@ def query(sv, pl, sv_name, pl_name, counters):
   if not found_sv:
     counters['EmbeddingsSVRank_INF'] += 1
 
-
   idx = 0
   for cat in cfg.get('categories', []):
     kmap = cat.get('statVarSpec', {})
@@ -185,18 +186,18 @@ def query(sv, pl, sv_name, pl_name, counters):
         for tile in col.get('tiles', []):
           for k in tile.get('statVarKey', []):
             if sv == kmap[k]['statVar']:
-              ret['SVRank'] = idx
+              ret['ChartSVRank'] = idx
               if idx >= 15:
-                counters['SVRank_15+'] += 1
+                counters['ChartSVRank_15+'] += 1
               elif idx >= 6:
-                counters['SVRank_6-14'] += 1
+                counters['ChartSVRank_6-14'] += 1
               else:
-                counters[f'SVRank_{idx}'] += 1
+                counters[f'ChartSVRank_{idx}'] += 1
               return ret
           idx += 1
 
-  ret['SVRank'] = -1
-  counters['SVRank_INF'] += 1
+  ret['ChartSVRank'] = -1
+  counters['ChartSVRank_INF'] += 1
   return ret
 
 
@@ -232,8 +233,8 @@ def run(ctx):
 
 
 def main(_):
-  output_csv = os.path.join(FLAGS.cache_dir, FLAGS.run_name + '.csv')
-  counters_json = os.path.join(FLAGS.cache_dir,
+  output_csv = os.path.join(FLAGS.checkpoint_dir, FLAGS.run_name + '.csv')
+  counters_json = os.path.join(FLAGS.checkpoint_dir,
                                FLAGS.run_name + '_counters.json')
   run(
       Context(bootstrap={},

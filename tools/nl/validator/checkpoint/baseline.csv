@@ -1,4 +1,4 @@
-Query,SV,Place,Exception,EmptyResult,WrongPlace,SVRank,EmbeddingsSVRank
+Query,SV,Place,Exception,EmptyResult,WrongPlace,ChartSVRank,EmbeddingsSVRank
 lifetime cancer risk in george county,AirPollutant_Cancer_Risk,geoId/28039,,,,6,3
 air quality index in pierce county,AirQualityIndex_AirPollutant,geoId/53053,,,,0,0
 winter wheat grain grown in north carolina,AmountFarmInventory_WinterWheatForGrain,geoId/37,,,,0,0
