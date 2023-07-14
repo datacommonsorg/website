@@ -33,6 +33,7 @@ import {
   getFeedbackLink,
 } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
+import { NLCommentary, shouldHideCharts } from "./nl_commentary";
 
 export interface QueryResultProps {
   query: string;
@@ -52,6 +53,7 @@ export const QueryResult = memo(function QueryResult(
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
+  const [hideCharts, setHideCharts] = useState<boolean>(false);
   const scrollRef = createRef<HTMLDivElement>();
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
   const [isEmojiClicked, setIsEmojiClicked] = useState(false);
@@ -117,6 +119,9 @@ export const QueryResult = memo(function QueryResult(
           let mainPlace = {};
           mainPlace = resp.data["place"];
           const fb = resp.data["placeFallback"];
+          if (shouldHideCharts(resp.data)) {
+            setHideCharts(true);
+          }
           setChartsData({
             place: {
               dcid: mainPlace["dcid"],
@@ -196,97 +201,14 @@ export const QueryResult = memo(function QueryResult(
               chartsData={chartsData}
             ></DebugInfo>
           )}
-          {chartsData &&
-            !chartsData.placeFallback &&
-            ((chartsData.placeSource === "PAST_QUERY" &&
-              chartsData.svSource === "CURRENT_QUERY") ||
-              (chartsData.placeSource === "CURRENT_QUERY" &&
-                chartsData.svSource === "PAST_QUERY") ||
-              (chartsData.placeSource === "PAST_QUERY" &&
-                chartsData.svSource === "PAST_QUERY")) && (
-              <div className="nl-query-info">
-                Could not recognize any{" "}
-                {chartsData.placeSource === "CURRENT_QUERY" && (
-                  <span>topic</span>
-                )}
-                {chartsData.svSource === "CURRENT_QUERY" && <span>place</span>}
-                {chartsData.svSource === "PAST_QUERY" &&
-                  chartsData.placeSource === "PAST_QUERY" && (
-                    <span>place or topic</span>
-                  )}{" "}
-                in this query, so here are relevant statistics{" "}
-                {chartsData.pastSourceContext && (
-                  <span>for {chartsData.pastSourceContext} </span>
-                )}
-                based on what you previously asked.
-              </div>
-            )}
-          {chartsData &&
-            !chartsData.placeFallback &&
-            chartsData.placeSource === "PARTIAL_PAST_QUERY" && (
-              <div className="nl-query-info">
-                Using{" "}
-                {chartsData.svSource === "PAST_QUERY" && (
-                  <span>topic and </span>
-                )}
-                places for comparison based on what you previously asked.
-              </div>
-            )}
-          {chartsData &&
-            !chartsData.placeFallback &&
-            chartsData.placeSource === "DEFAULT" &&
-            chartsData.pastSourceContext !== "Earth" && (
-              <div className="nl-query-info">
-                Could not recognize any place, but here are relevant statistics
-                for the default place
-                {chartsData.pastSourceContext && (
-                  <span> {chartsData.pastSourceContext}</span>
-                )}
-                .
-              </div>
-            )}
-          {chartsData &&
-            !chartsData.placeFallback &&
-            chartsData.svSource === "UNRECOGNIZED" && (
-              <div className="nl-query-info">
-                Could not recognize any topic from the query, but below are
-                topic categories with statistics for {chartsData.place.name}{" "}
-                that you could explore further.
-              </div>
-            )}
-          {chartsData &&
-            !chartsData.placeFallback &&
-            chartsData.svSource === "UNFULFILLED" && (
-              <div className="nl-query-info">
-                Sorry, there were no relevant statistics about the topic for{" "}
-                {chartsData.place.name}. Below are topic categories with
-                statistics for {chartsData.place.name} that you could explore
-                further.
-              </div>
-            )}
-          {chartsData && chartsData.placeFallback && (
-            <div className="nl-query-info">
-              {chartsData.placeSource !== "PAST_QUERY" &&
-                chartsData.svSource !== "PAST_QUERY" && (
-                  <span>
-                    Sorry, there were no relevant statistics on this topic for
-                    &quot;{chartsData.placeFallback.origStr}&quot;. &nbsp; Here
-                    are results for &quot;{chartsData.placeFallback.newStr}
-                    &quot; instead.
-                  </span>
-                )}
-              {(chartsData.placeSource === "PAST_QUERY" ||
-                chartsData.svSource === "PAST_QUERY") && (
-                <span>
-                  Tried looking up relevant statistics for &quot;
-                  {chartsData.placeFallback.origStr}&quot; based on your prior
-                  queries, but found no results. &nbsp; Here are results for
-                  &quot;{chartsData.placeFallback.newStr}&quot; instead.
-                </span>
-              )}
-            </div>
+          {chartsData && (
+            <NLCommentary
+              chartsData={chartsData}
+              hideCharts={hideCharts}
+              setHideCharts={setHideCharts}
+            />
           )}
-          {chartsData && chartsData.config && (
+          {chartsData && chartsData.config && !hideCharts && (
             <NlSessionContext.Provider value={chartsData.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
