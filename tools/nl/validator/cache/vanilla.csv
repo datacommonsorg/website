@@ -1,0 +1,501 @@
+Query,SV,Place,Exception,EmptyResult,WrongPlace,SVRank
+lifetime cancer risk in george county,AirPollutant_Cancer_Risk,geoId/28039,,,,6
+air quality index in pierce county,AirQualityIndex_AirPollutant,geoId/53053,,,,0
+winter wheat grain grown in north carolina,AmountFarmInventory_WinterWheatForGrain,geoId/37,,,,0
+percentage of population aged 15 years or more who consume alcohol in brazil,Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears,country/BRA,,,,0
+electricity used per capita in canada,Amount_Consumption_Electricity_PerCapita,country/CAN,,,,0
+energy used per capita in cambodia,Amount_Consumption_Energy_PerCapita,country/KHM,,,,0
+amount of consumption: renewable energy (as fraction of amount consumption energy) in iceland,Amount_Consumption_RenewableEnergy_AsFractionOf_Amount_Consumption_Energy,country/ISL,,,,0
+percent of total government expenditure spent on education in comoros,Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government,country/COM,,,,0
+percent of nominal gdp spent on education in spain,Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,country/ESP,,,,0
+healthcare expenditure per person in eswatini,Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person,country/SWZ,,,,0
+government expenditure on military activities in malaysia,Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government,country/MYS,,,,0
+percent of total government expenditure spent on military activities in burundi,Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,country/BDI,,,,0
+"amount of economic activity: expenditure activity, tertiary education expenditure, government (as fraction of amount economic activity expenditure activity education expenditure government) in afghanistan",Amount_EconomicActivity_ExpenditureActivity_TertiaryEducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government,country/AFG,,,,0
+gdp of the accommodation and food services industry in washington,Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue,geoId/53,,,,0
+gdp of the administrative and support and waste management services industry in alabama,Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue,geoId/01,,,,0
+"gdp of the agriculture, forestry, fishing and hunting industry in wyoming",Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue,geoId/56,,,,0
+"gdp of the arts, entertainment, and recreation industry in south dakota",Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue,geoId/46,,,,0
+gdp of the construction industry in texas,Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue,geoId/48,,,,0
+gdp of the educational services industry in colorado,Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue,geoId/08,,,,2
+gdp of the finance and insurance industry in washington,Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue,geoId/53,,,,0
+gdp of the health care and social assistance industry in arkansas,Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue,geoId/05,,,,0
+gdp of the information industry in alabama,Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue,geoId/01,,,,0
+gdp of the management of companies and enterprises industry in illinois,Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue,geoId/17,,,,0
+"gdp of the mining, quarrying, and oil and gas extraction industry in new jersey",Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue,geoId/34,,,,2
+"gdp of other services, except public administration industry in pennsylvania",Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue,geoId/42,,,,2
+"gdp of the professional, scientific, and technical services industry in maryland",Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue,geoId/24,,,,0
+gdp of the real estate and rental and leasing industry in arizona,Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue,geoId/04,,,,0
+gdp of the utilities industry in pennsylvania,Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue,geoId/42,,,,0
+gdp of the wholesale trade industry in arkansas,Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue,geoId/05,,,,0
+nominal gdp in mauritania,Amount_EconomicActivity_GrossDomesticProduction_Nominal,country/MRT,,,*,
+amount of economic activity (nominal): gross domestic production (per capita) in cyprus,Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person,country/CYP,,,,0
+nominal gdp per capita in uganda,Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita,country/UGA,,,,0
+amount of economic activity (real value): gross domestic production in maryland,Amount_EconomicActivity_GrossDomesticProduction_RealValue,geoId/24,,,,0
+gross national income based on purchasing power parity in guatemala,Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity,country/GTM,,,*,
+gross national income based on purchasing power parity per capita in lebanon,Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita,country/LBN,,,*,
+"amount of economic activity (real value): gross value added, agriculture, hunting, forestry, fishing in nigeria",Amount_EconomicActivity_GrossValueAdded_ISICAgricultureHuntingForestryFishing_RealValue,country/NGA,,,,0
+"amount of economic activity (real value): gross value added, construction in hungary",Amount_EconomicActivity_GrossValueAdded_ISICConstruction_RealValue,country/HUN,,,,0
+"amount of economic activity (real value): gross value added, manufacturing in equatorial guinea",Amount_EconomicActivity_GrossValueAdded_ISICManufacturing_RealValue,country/GNQ,,,,0
+"amount of economic activity (real value): gross value added, mining, manufacturing, utilities in chile",Amount_EconomicActivity_GrossValueAdded_ISICMiningManufacturingUtilities_RealValue,country/CHL,,,,0
+"amount of economic activity (real value): gross value added, other activities in bolivia",Amount_EconomicActivity_GrossValueAdded_ISICOtherActivities_RealValue,country/BOL,,,,0
+"amount of economic activity (real value): gross value added, transport, storage and communications in jordan",Amount_EconomicActivity_GrossValueAdded_ISICTransportStorageCommunications_RealValue,country/JOR,,,,0
+"amount of economic activity (real value): gross value added, wholesale, retail trade, restaurants and hotels in new zealand",Amount_EconomicActivity_GrossValueAdded_ISICWholesaleRetailTradeRestaurantsHotels_RealValue,country/NZL,,,,0
+amount of economic activity (real value): gross value added in kenya,Amount_EconomicActivity_GrossValueAdded_RealValue,country/KEN,,,,0
+co2 emissions per capita in thailand,Amount_Emissions_CarbonDioxide_PerCapita,country/THA,,,,0
+barley grown in wyoming,Amount_FarmInventory_BarleyForGrain,geoId/56,,,,0
+silage produced in oklahoma,Amount_FarmInventory_CornForSilageOrGreenchop,geoId/40,,,,0
+cotton grown in georgia,Amount_FarmInventory_Cotton,geoId/13,,,,0
+beans grown in oklahoma,Amount_FarmInventory_DryEdibleBeans,geoId/40,,,,0
+durum wheat grown in minnesota,Amount_FarmInventory_DurumWheatForGrain,geoId/27,,,,0
+forage produced in iowa,Amount_FarmInventory_Forage,geoId/19,,,,0
+oats grown in oklahoma,Amount_FarmInventory_OatsForGrain,geoId/40,,,,0
+spring wheat grown in wisconsin,Amount_FarmInventory_OtherSpringWheatForGrain,geoId/55,,,,2
+peanuts grown in mississippi,Amount_FarmInventory_PeanutsForNuts,geoId/28,,,,1
+pima cotton grown in new mexico,Amount_FarmInventory_PimaCotton,geoId/35,,,,0
+rice grown in california,Amount_FarmInventory_Rice,geoId/06,,,,0
+sorghum grown in missouri,Amount_FarmInventory_SorghumForGrain,geoId/29,,,,0
+sorghum for silage or greenchop grown in new hampshire,Amount_FarmInventory_SorghumForSilageOrGreenchop,geoId/33,,,,0
+sugarbeets grown in california,Amount_FarmInventory_SugarbeetsForSugar,geoId/06,,,,0
+sunflowerseed grown in arkansas,Amount_FarmInventory_SunflowerSeed,geoId/05,,,,0
+upland cotton grown in louisiana,Amount_FarmInventory_UplandCotton,geoId/22,,,,0
+wheat grown in illinois,Amount_FarmInventory_WheatForGrain,geoId/17,,,,0
+amount of production: electricity from nuclear sources (as fraction of amount production energy) in chile,Amount_Production_ElectricityFromNuclearSources_AsFractionOf_Amount_Production_Energy,country/CHL,,,,0
+amount of production: electricity from oil gas or coal sources (as fraction of amount production energy) in tanzania,Amount_Production_ElectricityFromOilGasOrCoalSources_AsFractionOf_Amount_Production_Energy,country/TZA,,,,0
+inward remittances in nepal,Amount_Remittance_InwardRemittance,country/NPL,,,,0
+inward remittances as a percentage of nominal gross domestic production in senegal,Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,country/SEN,,,,0
+outward remittances in barbados,Amount_Remittance_OutwardRemittance,country/BRB,,,,2
+stock value in sweden,Amount_Stock,country/SWE,,,,0
+stock value as a percentage of nominal gdp in chile,Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,country/CHL,,,,0
+corn grown in new jersey,Amout_FarmInventory_CornForGrain,geoId/34,,,,0
+stocks of fuel (annual change): aviation gasoline in guyana,AnnualChange_Stocks_Fuel_AviationGasoline,country/GUY,,,,0
+stocks of fuel (annual change): eia_bituminous coal in indonesia,AnnualChange_Stocks_Fuel_BituminousCoal,country/IDN,,,,0
+stocks of fuel (annual change): brown coal in croatia,AnnualChange_Stocks_Fuel_BrownCoal,country/HRV,,,,0
+stocks of fuel (annual change): coke oven coke in germany,AnnualChange_Stocks_Fuel_CokeOvenCoke,country/DEU,,,,0
+stocks of fuel (annual change): crude oil in romania,AnnualChange_Stocks_Fuel_CrudeOil,country/ROU,,,,0
+stocks of fuel (annual change): diesel oil in portugal,AnnualChange_Stocks_Fuel_DieselOil,country/PRT,,,,0
+stocks of fuel (annual change): fuel oil in russia,AnnualChange_Stocks_Fuel_FuelOil,country/RUS,,,,0
+stocks of fuel (annual change): hard coal in venezuela,AnnualChange_Stocks_Fuel_HardCoal,country/VEN,,,,0
+stocks of fuel (annual change): eia_kerosene in philippines,AnnualChange_Stocks_Fuel_Kerosene,country/PHL,,,,0
+stocks of fuel (annual change): kerosene jet fuel in sweden,AnnualChange_Stocks_Fuel_KeroseneJetFuel,country/SWE,,,,0
+stocks of fuel (annual change): liquefied petroleum gas in malaysia,AnnualChange_Stocks_Fuel_LiquifiedPetroleumGas,country/MYS,,,,0
+stocks of fuel (annual change): lubricants in greece,AnnualChange_Stocks_Fuel_Lubricants,country/GRC,,,,0
+stocks of fuel (annual change): motor gasoline in taiwan,AnnualChange_Stocks_Fuel_MotorGasoline,country/TWN,,,,0
+stocks of fuel (annual change): naphtha in brazil,AnnualChange_Stocks_Fuel_Naphtha,country/BRA,,,,0
+stocks of fuel (annual change): natural gas in netherlands,AnnualChange_Stocks_Fuel_NaturalGas,country/NLD,,,,0
+stocks of fuel (annual change): un_other bituminous coal in honduras,AnnualChange_Stocks_Fuel_OtherBituminousCoal,country/HND,,,*,
+stocks of fuel (annual change): un_other oil products in netherlands,AnnualChange_Stocks_Fuel_OtherOilProducts,country/NLD,,,,0
+stocks of fuel (annual change): petroleum coke in cuba,AnnualChange_Stocks_Fuel_PetroleumCoke,country/CUB,,,,0
+"annual amount emissions acetaldehyde, externalcombustion (1) in klickitat county",Annual_Amount_Emissions_Acetaldehyde_SCC_1_ExternalCombustion,geoId/53039,,,,0
+"annual amount emissions acetaldehyde, stationarysourcefuelcombustion (21) in bonner county",Annual_Amount_Emissions_Acetaldehyde_SCC_21_StationarySourceFuelCombustion,geoId/16017,,,,0
+"annual amount emissions acetaldehyde, mobilesources (22) in adair county",Annual_Amount_Emissions_Acetaldehyde_SCC_22_MobileSources,geoId/21001,,,*,
+"annual amount emissions acetaldehyde, industrialprocesses (23) in knox county",Annual_Amount_Emissions_Acetaldehyde_SCC_23_IndustrialProcesses,geoId/31107,,,*,
+"annual amount emissions acetaldehyde, solventutilization (24) in ralls county",Annual_Amount_Emissions_Acetaldehyde_SCC_24_SolventUtilization,geoId/29173,,,,0
+"annual amount emissions acetaldehyde, wastedisposaltreatmentandrecovery (26) in mahaska county",Annual_Amount_Emissions_Acetaldehyde_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/19123,,,,0
+"annual amount emissions acetaldehyde, naturalsources (27) in person county",Annual_Amount_Emissions_Acetaldehyde_SCC_27_NaturalSources,geoId/37145,,,,0
+"annual amount emissions acetaldehyde, miscellaneousareasources (28) in boise county",Annual_Amount_Emissions_Acetaldehyde_SCC_28_MiscellaneousAreaSources,geoId/16015,,,,0
+"annual amount emissions acetaldehyde, internalcombustionengines (2) in huron county",Annual_Amount_Emissions_Acetaldehyde_SCC_2_InternalCombustionEngines,geoId/39077,,,*,
+"annual amount emissions acetaldehyde, industrialprocesses (3) in nueces county",Annual_Amount_Emissions_Acetaldehyde_SCC_3_IndustrialProcesses,geoId/48355,,,,0
+"annual amount emissions acetaldehyde, petroleumandsolventevaporation (4) in la crosse county",Annual_Amount_Emissions_Acetaldehyde_SCC_4_PetroleumAndSolventEvaporation,geoId/55063,,,,0
+"annual amount emissions acetaldehyde, wastedisposal (5) in kings county",Annual_Amount_Emissions_Acetaldehyde_SCC_5_WasteDisposal,geoId/06031,,,,0
+"annual amount emissions ammonia, externalcombustion (1) in mahoning county",Annual_Amount_Emissions_Ammonia_SCC_1_ExternalCombustion,geoId/39099,,,,0
+"annual amount emissions ammonia, stationarysourcefuelcombustion (21) in franklin county",Annual_Amount_Emissions_Ammonia_SCC_21_StationarySourceFuelCombustion,geoId/19069,,,*,
+"annual amount emissions ammonia, mobilesources (22) in marshall county",Annual_Amount_Emissions_Ammonia_SCC_22_MobileSources,geoId/20117,,,*,
+"annual amount emissions ammonia, industrialprocesses (23) in cape may county",Annual_Amount_Emissions_Ammonia_SCC_23_IndustrialProcesses,geoId/34009,,,,0
+"annual amount emissions ammonia, solventutilization (24) in teton county",Annual_Amount_Emissions_Ammonia_SCC_24_SolventUtilization,geoId/16081,,,*,
+"annual amount emissions ammonia, storageandtransport (25) in jefferson county",Annual_Amount_Emissions_Ammonia_SCC_25_StorageAndTransport,geoId/21111,,,*,
+"annual amount emissions ammonia, wastedisposaltreatmentandrecovery (26) in vernon parish",Annual_Amount_Emissions_Ammonia_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/22115,,,,0
+"annual amount emissions ammonia, naturalsources (27) in madera county",Annual_Amount_Emissions_Ammonia_SCC_27_NaturalSources,geoId/06039,,,,0
+"annual amount emissions ammonia, miscellaneousareasources (28) in pike county",Annual_Amount_Emissions_Ammonia_SCC_28_MiscellaneousAreaSources,geoId/21195,,,*,
+"annual amount emissions ammonia, internalcombustionengines (2) in hamilton county",Annual_Amount_Emissions_Ammonia_SCC_2_InternalCombustionEngines,geoId/19079,,,*,
+"annual amount emissions ammonia, industrialprocesses (3) in poweshiek county",Annual_Amount_Emissions_Ammonia_SCC_3_IndustrialProcesses,geoId/19157,,,,0
+"annual amount emissions ammonia, petroleumandsolventevaporation (4) in salt lake county",Annual_Amount_Emissions_Ammonia_SCC_4_PetroleumAndSolventEvaporation,geoId/49035,,,,0
+"annual amount emissions ammonia, wastedisposal (5) in harris county",Annual_Amount_Emissions_Ammonia_SCC_5_WasteDisposal,geoId/48201,,,,0
+"annual amount emissions arsenic, externalcombustion (1) in snyder county",Annual_Amount_Emissions_Arsenic_SCC_1_ExternalCombustion,geoId/42109,,,,0
+"annual amount emissions arsenic, stationarysourcefuelcombustion (21) in crawford county",Annual_Amount_Emissions_Arsenic_SCC_21_StationarySourceFuelCombustion,geoId/29055,,,*,
+"annual amount emissions arsenic, mobilesources (22) in fairfax",Annual_Amount_Emissions_Arsenic_SCC_22_MobileSources,geoId/51600,,,*,
+"annual amount emissions arsenic, industrialprocesses (23) in lake county",Annual_Amount_Emissions_Arsenic_SCC_23_IndustrialProcesses,geoId/06033,,,*,
+"annual amount emissions arsenic, solventutilization (24) in bonner county",Annual_Amount_Emissions_Arsenic_SCC_24_SolventUtilization,geoId/16017,,,,0
+"annual amount emissions arsenic, wastedisposaltreatmentandrecovery (26) in butte county",Annual_Amount_Emissions_Arsenic_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/06007,,,,0
+"annual amount emissions arsenic, miscellaneousareasources (28) in vernon parish",Annual_Amount_Emissions_Arsenic_SCC_28_MiscellaneousAreaSources,geoId/22115,,,,0
+"annual amount emissions arsenic, internalcombustionengines (2) in sherman county",Annual_Amount_Emissions_Arsenic_SCC_2_InternalCombustionEngines,geoId/41055,,,*,
+"annual amount emissions arsenic, industrialprocesses (3) in whiteside county",Annual_Amount_Emissions_Arsenic_SCC_3_IndustrialProcesses,geoId/17195,,,,0
+"annual amount emissions arsenic, petroleumandsolventevaporation (4) in buchanan county",Annual_Amount_Emissions_Arsenic_SCC_4_PetroleumAndSolventEvaporation,geoId/29021,,,,0
+"annual amount emissions arsenic, wastedisposal (5) in montgomery county",Annual_Amount_Emissions_Arsenic_SCC_5_WasteDisposal,geoId/24031,,,*,
+"annual amount emissions asbestos, industrialprocesses (3) in dallas county",Annual_Amount_Emissions_Asbestos_SCC_3_IndustrialProcesses,geoId/48113,,,,0
+"annual amount emissions benzene, externalcombustion (1) in price county",Annual_Amount_Emissions_Benzene_SCC_1_ExternalCombustion,geoId/55099,,,,0
+"annual amount emissions benzene, stationarysourcefuelcombustion (21) in boone county",Annual_Amount_Emissions_Benzene_SCC_21_StationarySourceFuelCombustion,geoId/17007,,,*,
+"annual amount emissions benzene, mobilesources (22) in perry county",Annual_Amount_Emissions_Benzene_SCC_22_MobileSources,geoId/42099,,,,0
+"annual amount emissions benzene, industrialprocesses (23) in wayne county",Annual_Amount_Emissions_Benzene_SCC_23_IndustrialProcesses,geoId/42127,,,*,
+"annual amount emissions benzene, solventutilization (24) in carver county",Annual_Amount_Emissions_Benzene_SCC_24_SolventUtilization,geoId/27019,,,,0
+"annual amount emissions benzene, storageandtransport (25) in st. clair county",Annual_Amount_Emissions_Benzene_SCC_25_StorageAndTransport,geoId/29185,,,*,
+"annual amount emissions benzene, wastedisposaltreatmentandrecovery (26) in lewis county",Annual_Amount_Emissions_Benzene_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/16061,,,*,
+"annual amount emissions benzene, miscellaneousareasources (28) in blaine county",Annual_Amount_Emissions_Benzene_SCC_28_MiscellaneousAreaSources,geoId/16013,,,*,
+"annual amount emissions benzene, internalcombustionengines (2) in kennebec county",Annual_Amount_Emissions_Benzene_SCC_2_InternalCombustionEngines,geoId/23011,,,,0
+"annual amount emissions benzene, industrialprocesses (3) in hardin county",Annual_Amount_Emissions_Benzene_SCC_3_IndustrialProcesses,geoId/47071,,,*,
+"annual amount emissions benzene, petroleumandsolventevaporation (4) in dekalb county",Annual_Amount_Emissions_Benzene_SCC_4_PetroleumAndSolventEvaporation,geoId/13089,,,,0
+"annual amount emissions benzene, wastedisposal (5) in sampson county",Annual_Amount_Emissions_Benzene_SCC_5_WasteDisposal,geoId/37163,,,,0
+"annual amount emissions cadmium, externalcombustion (1) in perry county",Annual_Amount_Emissions_Cadmium_SCC_1_ExternalCombustion,geoId/17145,,,*,
+"annual amount emissions cadmium, stationarysourcefuelcombustion (21) in oktibbeha county",Annual_Amount_Emissions_Cadmium_SCC_21_StationarySourceFuelCombustion,geoId/28105,,,,0
+"annual amount emissions cadmium, mobilesources (22) in santa cruz county",Annual_Amount_Emissions_Cadmium_SCC_22_MobileSources,geoId/04023,,,*,
+"annual amount emissions cadmium, industrialprocesses (23) in payette county",Annual_Amount_Emissions_Cadmium_SCC_23_IndustrialProcesses,geoId/16075,,,,0
+"annual amount emissions cadmium, solventutilization (24) in benewah county",Annual_Amount_Emissions_Cadmium_SCC_24_SolventUtilization,geoId/16009,,,,0
+"annual amount emissions cadmium, wastedisposaltreatmentandrecovery (26) in contra costa county",Annual_Amount_Emissions_Cadmium_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/06013,,,,0
+"annual amount emissions cadmium, miscellaneousareasources (28) in jefferson county",Annual_Amount_Emissions_Cadmium_SCC_28_MiscellaneousAreaSources,geoId/31095,,,*,
+"annual amount emissions cadmium, internalcombustionengines (2) in mclean county",Annual_Amount_Emissions_Cadmium_SCC_2_InternalCombustionEngines,geoId/38055,,,*,
+"annual amount emissions cadmium, industrialprocesses (3) in trinity county",Annual_Amount_Emissions_Cadmium_SCC_3_IndustrialProcesses,geoId/06105,,,*,
+"annual amount emissions cadmium, petroleumandsolventevaporation (4) in sheboygan county",Annual_Amount_Emissions_Cadmium_SCC_4_PetroleumAndSolventEvaporation,geoId/55117,,,,0
+"annual amount emissions cadmium, wastedisposal (5) in trumbull county",Annual_Amount_Emissions_Cadmium_SCC_5_WasteDisposal,geoId/39155,,,,0
+"annual amount emissions carbon dioxide, externalcombustion (1) in camden county",Annual_Amount_Emissions_CarbonDioxide_SCC_1_ExternalCombustion,geoId/34007,,,*,
+"annual amount emissions carbon dioxide, mobilesources (22) in sitka",Annual_Amount_Emissions_CarbonDioxide_SCC_22_MobileSources,geoId/02220,,,,0
+"annual amount emissions carbon dioxide, miscellaneousareasources (28) in lawrence county",Annual_Amount_Emissions_CarbonDioxide_SCC_28_MiscellaneousAreaSources,geoId/42073,,,*,
+"annual amount emissions carbon dioxide, internalcombustionengines (2) in mccormick county",Annual_Amount_Emissions_CarbonDioxide_SCC_2_InternalCombustionEngines,geoId/45065,,,,0
+"annual amount emissions carbon dioxide, industrialprocesses (3) in randolph county",Annual_Amount_Emissions_CarbonDioxide_SCC_3_IndustrialProcesses,geoId/05121,,,*,
+"annual amount emissions carbon dioxide, petroleumandsolventevaporation (4) in richland county",Annual_Amount_Emissions_CarbonDioxide_SCC_4_PetroleumAndSolventEvaporation,geoId/39139,,,*,
+"annual amount emissions carbon dioxide, wastedisposal (5) in westchester county",Annual_Amount_Emissions_CarbonDioxide_SCC_5_WasteDisposal,geoId/36119,,,,0
+"annual amount emissions carbon monoxide, externalcombustion (1) in monroe county",Annual_Amount_Emissions_CarbonMonoxide_SCC_1_ExternalCombustion,geoId/42089,,,*,
+"annual amount emissions carbon monoxide, stationarysourcefuelcombustion (21) in caldwell county",Annual_Amount_Emissions_CarbonMonoxide_SCC_21_StationarySourceFuelCombustion,geoId/37027,,,*,
+"annual amount emissions carbon monoxide, mobilesources (22) in arthur county",Annual_Amount_Emissions_CarbonMonoxide_SCC_22_MobileSources,geoId/31005,,,,0
+"annual amount emissions carbon monoxide, industrialprocesses (23) in essex county",Annual_Amount_Emissions_CarbonMonoxide_SCC_23_IndustrialProcesses,geoId/34013,,,,0
+"annual amount emissions carbon monoxide, solventutilization (24) in hampshire county",Annual_Amount_Emissions_CarbonMonoxide_SCC_24_SolventUtilization,geoId/25015,,,*,
+"annual amount emissions carbon monoxide, storageandtransport (25) in clark county",Annual_Amount_Emissions_CarbonMonoxide_SCC_25_StorageAndTransport,geoId/32003,,,,0
+"annual amount emissions carbon monoxide, wastedisposaltreatmentandrecovery (26) in yukon-koyukuk census area",Annual_Amount_Emissions_CarbonMonoxide_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/02290,,,,0
+"annual amount emissions carbon monoxide, naturalsources (27) in montgomery county",Annual_Amount_Emissions_CarbonMonoxide_SCC_27_NaturalSources,geoId/28097,,,*,
+"annual amount emissions carbon monoxide, miscellaneousareasources (28) in aibonito",Annual_Amount_Emissions_CarbonMonoxide_SCC_28_MiscellaneousAreaSources,geoId/72009,,,*,
+"annual amount emissions carbon monoxide, internalcombustionengines (2) in pickens county",Annual_Amount_Emissions_CarbonMonoxide_SCC_2_InternalCombustionEngines,geoId/01107,,,*,
+"annual amount emissions carbon monoxide, industrialprocesses (3) in haywood county",Annual_Amount_Emissions_CarbonMonoxide_SCC_3_IndustrialProcesses,geoId/37087,,,,0
+"annual amount emissions carbon monoxide, petroleumandsolventevaporation (4) in garfield county",Annual_Amount_Emissions_CarbonMonoxide_SCC_4_PetroleumAndSolventEvaporation,geoId/08045,,,*,
+"annual amount emissions carbon monoxide, wastedisposal (5) in forsyth county",Annual_Amount_Emissions_CarbonMonoxide_SCC_5_WasteDisposal,geoId/37067,,,*,
+"annual amount of emissions: chemical and allied product manufacturing, non biogenic emission source, ammonia in georgia",Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_Ammonia,geoId/13,,,,0
+"annual amount of emissions: chemical and allied product manufacturing, non biogenic emission source, carbon monoxide in arizona",Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_CarbonMonoxide,geoId/04,,,,0
+"annual amount of emissions: chemical and allied product manufacturing, non biogenic emission source, oxides of nitrogen in new hampshire",Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/33,,,,0
+"annual amount of emissions: chemical and allied product manufacturing, non biogenic emission source, pm 10 in montana",Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_PM10,geoId/30,,,,0
+"annual amount of emissions: chemical and allied product manufacturing, non biogenic emission source, pm 2.5 in virginia",Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_PM2.5,geoId/51,,,,0
+"annual amount of emissions: chemical and allied product manufacturing, non biogenic emission source, sulfur dioxide in iowa",Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_SulfurDioxide,geoId/19,,,,0
+"annual amount of emissions: chemical and allied product manufacturing, non biogenic emission source, volatile organic compound in connecticut",Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/09,,,,0
+"annual amount emissions chlorane, externalcombustion (1) in beaver county",Annual_Amount_Emissions_Chlorane_SCC_1_ExternalCombustion,geoId/42007,,,,0
+"annual amount emissions chlorane, stationarysourcefuelcombustion (21) in san juan county",Annual_Amount_Emissions_Chlorane_SCC_21_StationarySourceFuelCombustion,geoId/35045,,,,0
+"annual amount emissions chlorane, industrialprocesses (23) in owyhee county",Annual_Amount_Emissions_Chlorane_SCC_23_IndustrialProcesses,geoId/16073,,,,0
+"annual amount emissions chlorane, solventutilization (24) in blue earth county",Annual_Amount_Emissions_Chlorane_SCC_24_SolventUtilization,geoId/27013,,,,0
+"annual amount emissions chlorane, wastedisposaltreatmentandrecovery (26) in cottle county",Annual_Amount_Emissions_Chlorane_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/48101,,,,0
+"annual amount emissions chlorane, miscellaneousareasources (28) in lea county",Annual_Amount_Emissions_Chlorane_SCC_28_MiscellaneousAreaSources,geoId/35025,,,,0
+"annual amount emissions chlorane, internalcombustionengines (2) in norfolk county",Annual_Amount_Emissions_Chlorane_SCC_2_InternalCombustionEngines,geoId/25021,,,*,
+"annual amount emissions chlorane, industrialprocesses (3) in montgomery county",Annual_Amount_Emissions_Chlorane_SCC_3_IndustrialProcesses,geoId/48339,,,*,
+"annual amount emissions chlorane, petroleumandsolventevaporation (4) in muscatine county",Annual_Amount_Emissions_Chlorane_SCC_4_PetroleumAndSolventEvaporation,geoId/19139,,,,0
+"annual amount emissions chlorane, wastedisposal (5) in dorchester county",Annual_Amount_Emissions_Chlorane_SCC_5_WasteDisposal,geoId/45035,,,,0
+"annual amount emissions chlorine, externalcombustion (1) in washington county",Annual_Amount_Emissions_Chlorine_SCC_1_ExternalCombustion,geoId/47179,,,*,
+"annual amount emissions chlorine, stationarysourcefuelcombustion (21) in monterey county",Annual_Amount_Emissions_Chlorine_SCC_21_StationarySourceFuelCombustion,geoId/06053,,,,0
+"annual amount emissions chlorine, mobilesources (22) in imperial county",Annual_Amount_Emissions_Chlorine_SCC_22_MobileSources,geoId/06025,,,,0
+"annual amount emissions chlorine, industrialprocesses (23) in yolo county",Annual_Amount_Emissions_Chlorine_SCC_23_IndustrialProcesses,geoId/06113,,,,0
+"annual amount emissions chlorine, wastedisposaltreatmentandrecovery (26) in shasta county",Annual_Amount_Emissions_Chlorine_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/06089,,,,0
+"annual amount emissions chlorine, miscellaneousareasources (28) in el dorado county",Annual_Amount_Emissions_Chlorine_SCC_28_MiscellaneousAreaSources,geoId/06017,,,,0
+"annual amount emissions chlorine, internalcombustionengines (2) in weber county",Annual_Amount_Emissions_Chlorine_SCC_2_InternalCombustionEngines,geoId/49057,,,,0
+"annual amount emissions chlorine, industrialprocesses (3) in middlesex county",Annual_Amount_Emissions_Chlorine_SCC_3_IndustrialProcesses,geoId/34023,,,,0
+"annual amount emissions chlorine, petroleumandsolventevaporation (4) in tulare county",Annual_Amount_Emissions_Chlorine_SCC_4_PetroleumAndSolventEvaporation,geoId/06107,,,,0
+"annual amount emissions chlorine, wastedisposal (5) in kern county",Annual_Amount_Emissions_Chlorine_SCC_5_WasteDisposal,geoId/06029,,,,0
+"annual amount emissions chloroform, externalcombustion (1) in oneida county",Annual_Amount_Emissions_Chloroform_SCC_1_ExternalCombustion,geoId/36065,,,,0
+"annual amount emissions chloroform, stationarysourcefuelcombustion (21) in teton county",Annual_Amount_Emissions_Chloroform_SCC_21_StationarySourceFuelCombustion,geoId/16081,,,*,
+"annual amount emissions chloroform, industrialprocesses (23) in pima county",Annual_Amount_Emissions_Chloroform_SCC_23_IndustrialProcesses,geoId/04019,,,,0
+"annual amount emissions chloroform, solventutilization (24) in bingham county",Annual_Amount_Emissions_Chloroform_SCC_24_SolventUtilization,geoId/16011,,,,0
+"annual amount emissions chloroform, wastedisposaltreatmentandrecovery (26) in simpson county",Annual_Amount_Emissions_Chloroform_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/28127,,,*,
+"annual amount emissions chloroform, miscellaneousareasources (28) in winona county",Annual_Amount_Emissions_Chloroform_SCC_28_MiscellaneousAreaSources,geoId/27169,,,,0
+"annual amount emissions chloroform, internalcombustionengines (2) in russell county",Annual_Amount_Emissions_Chloroform_SCC_2_InternalCombustionEngines,geoId/01113,,,*,
+"annual amount emissions chloroform, industrialprocesses (3) in pike county",Annual_Amount_Emissions_Chloroform_SCC_3_IndustrialProcesses,geoId/17149,,,,0
+"annual amount emissions chloroform, petroleumandsolventevaporation (4) in hunterdon county",Annual_Amount_Emissions_Chloroform_SCC_4_PetroleumAndSolventEvaporation,geoId/34019,,,,0
+"annual amount emissions chloroform, wastedisposal (5) in manatee county",Annual_Amount_Emissions_Chloroform_SCC_5_WasteDisposal,geoId/12081,,,,0
+"annual amount emissions chromium(6+), externalcombustion (1) in beauregard parish",Annual_Amount_Emissions_Chromium_6_SCC_1_ExternalCombustion,geoId/22011,,,,0
+"annual amount emissions chromium(6+), stationarysourcefuelcombustion (21) in norton",Annual_Amount_Emissions_Chromium_6_SCC_21_StationarySourceFuelCombustion,geoId/51720,,*,,
+"annual amount emissions chromium(6+), mobilesources (22) in marion county",Annual_Amount_Emissions_Chromium_6_SCC_22_MobileSources,geoId/19125,,,*,
+"annual amount emissions chromium(6+), industrialprocesses (23) in riverside county",Annual_Amount_Emissions_Chromium_6_SCC_23_IndustrialProcesses,geoId/06065,,,,0
+"annual amount emissions chromium(6+), solventutilization (24) in bannock county",Annual_Amount_Emissions_Chromium_6_SCC_24_SolventUtilization,geoId/16005,,,,0
+"annual amount emissions chromium(6+), wastedisposaltreatmentandrecovery (26) in cayuga county",Annual_Amount_Emissions_Chromium_6_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/36011,,,,0
+"annual amount emissions chromium(6+), miscellaneousareasources (28) in carter county",Annual_Amount_Emissions_Chromium_6_SCC_28_MiscellaneousAreaSources,geoId/29035,,,*,
+"annual amount emissions chromium(6+), internalcombustionengines (2) in franklin county",Annual_Amount_Emissions_Chromium_6_SCC_2_InternalCombustionEngines,geoId/39049,,,,0
+"annual amount emissions chromium(6+), industrialprocesses (3) in brown county",Annual_Amount_Emissions_Chromium_6_SCC_3_IndustrialProcesses,geoId/27015,,,*,
+"annual amount emissions chromium(6+), petroleumandsolventevaporation (4) in winnebago county",Annual_Amount_Emissions_Chromium_6_SCC_4_PetroleumAndSolventEvaporation,geoId/17201,,,,0
+"annual amount emissions chromium(6+), wastedisposal (5) in san diego county",Annual_Amount_Emissions_Chromium_6_SCC_5_WasteDisposal,geoId/06073,,,,0
+"annual amount emissions cobalt, externalcombustion (1) in petersburg",Annual_Amount_Emissions_Cobalt_SCC_1_ExternalCombustion,geoId/51730,,,,0
+"annual amount emissions cobalt, stationarysourcefuelcombustion (21) in baker county",Annual_Amount_Emissions_Cobalt_SCC_21_StationarySourceFuelCombustion,geoId/41001,,,*,
+"annual amount emissions cobalt, mobilesources (22) in yukon-koyukuk census area",Annual_Amount_Emissions_Cobalt_SCC_22_MobileSources,geoId/02290,,,,0
+"annual amount emissions cobalt, industrialprocesses (23) in franklin county",Annual_Amount_Emissions_Cobalt_SCC_23_IndustrialProcesses,geoId/16041,,,*,
+"annual amount emissions cobalt, solventutilization (24) in cassia county",Annual_Amount_Emissions_Cobalt_SCC_24_SolventUtilization,geoId/16031,,,,0
+"annual amount emissions cobalt, wastedisposaltreatmentandrecovery (26) in contra costa county",Annual_Amount_Emissions_Cobalt_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/06013,,,,0
+"annual amount emissions cobalt, miscellaneousareasources (28) in monroe county",Annual_Amount_Emissions_Cobalt_SCC_28_MiscellaneousAreaSources,geoId/55081,,,*,
+"annual amount emissions cobalt, internalcombustionengines (2) in oklahoma county",Annual_Amount_Emissions_Cobalt_SCC_2_InternalCombustionEngines,geoId/40109,,,,0
+"annual amount emissions cobalt, industrialprocesses (3) in humboldt county",Annual_Amount_Emissions_Cobalt_SCC_3_IndustrialProcesses,geoId/32013,,,*,
+"annual amount emissions cobalt, petroleumandsolventevaporation (4) in anoka county",Annual_Amount_Emissions_Cobalt_SCC_4_PetroleumAndSolventEvaporation,geoId/27003,,,,0
+"annual amount emissions cobalt, wastedisposal (5) in calhoun county",Annual_Amount_Emissions_Cobalt_SCC_5_WasteDisposal,geoId/26025,,,,0
+"annual amount emissions cyanide, externalcombustion (1) in warrick county",Annual_Amount_Emissions_Cyanide_SCC_1_ExternalCombustion,geoId/18173,,,,0
+"annual amount emissions cyanide, stationarysourcefuelcombustion (21) in ozaukee county",Annual_Amount_Emissions_Cyanide_SCC_21_StationarySourceFuelCombustion,geoId/55089,,,,0
+"annual amount emissions cyanide, industrialprocesses (23) in camas county",Annual_Amount_Emissions_Cyanide_SCC_23_IndustrialProcesses,geoId/16025,,,,0
+"annual amount emissions cyanide, solventutilization (24) in barry county",Annual_Amount_Emissions_Cyanide_SCC_24_SolventUtilization,geoId/26015,,,*,
+"annual amount emissions cyanide, wastedisposaltreatmentandrecovery (26) in jackson county",Annual_Amount_Emissions_Cyanide_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/27063,,,*,
+"annual amount emissions cyanide, miscellaneousareasources (28) in lyon county",Annual_Amount_Emissions_Cyanide_SCC_28_MiscellaneousAreaSources,geoId/27083,,,*,
+"annual amount emissions cyanide, internalcombustionengines (2) in kane county",Annual_Amount_Emissions_Cyanide_SCC_2_InternalCombustionEngines,geoId/17089,,,,0
+"annual amount emissions cyanide, industrialprocesses (3) in livingston county",Annual_Amount_Emissions_Cyanide_SCC_3_IndustrialProcesses,geoId/26093,,,,0
+"annual amount emissions cyanide, petroleumandsolventevaporation (4) in wapello county",Annual_Amount_Emissions_Cyanide_SCC_4_PetroleumAndSolventEvaporation,geoId/19179,,,,0
+"annual amount of emissions: epa_fuel combustion other, non biogenic emission source, ammonia in missouri",Annual_Amount_Emissions_EPAFuelCombustionOther_NonBiogenicEmissionSource_Ammonia,geoId/29,,,,0
+"annual amount of emissions: epa_fuel combustion other, non biogenic emission source, carbon monoxide in wyoming",Annual_Amount_Emissions_EPAFuelCombustionOther_NonBiogenicEmissionSource_CarbonMonoxide,geoId/56,,,,0
+"annual amount of emissions: epa_fuel combustion other, non biogenic emission source, oxides of nitrogen in new hampshire",Annual_Amount_Emissions_EPAFuelCombustionOther_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/33,,,,0
+"annual amount of emissions: epa_fuel combustion other, non biogenic emission source, pm 10 in utah",Annual_Amount_Emissions_EPAFuelCombustionOther_NonBiogenicEmissionSource_PM10,geoId/49,,,,0
+"annual amount of emissions: epa_fuel combustion other, non biogenic emission source, pm 2.5 in florida",Annual_Amount_Emissions_EPAFuelCombustionOther_NonBiogenicEmissionSource_PM2.5,geoId/12,,,,0
+"annual amount of emissions: epa_fuel combustion other, non biogenic emission source, sulfur dioxide in tennessee",Annual_Amount_Emissions_EPAFuelCombustionOther_NonBiogenicEmissionSource_SulfurDioxide,geoId/47,,,,0
+"annual amount of emissions: epa_fuel combustion other, non biogenic emission source, volatile organic compound in montana",Annual_Amount_Emissions_EPAFuelCombustionOther_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/30,,,,0
+"annual amount of emissions: epa_miscellaneous emission source, non biogenic emission source, ammonia in utah",Annual_Amount_Emissions_EPAMiscellaneousEmissionSource_NonBiogenicEmissionSource_Ammonia,geoId/49,,,,0
+"annual amount of emissions: epa_miscellaneous emission source, non biogenic emission source, carbon monoxide in kentucky",Annual_Amount_Emissions_EPAMiscellaneousEmissionSource_NonBiogenicEmissionSource_CarbonMonoxide,geoId/21,,,,0
+"annual amount of emissions: epa_miscellaneous emission source, non biogenic emission source, oxides of nitrogen in pennsylvania",Annual_Amount_Emissions_EPAMiscellaneousEmissionSource_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/42,,,,0
+"annual amount of emissions: epa_miscellaneous emission source, non biogenic emission source, pm 10 in new hampshire",Annual_Amount_Emissions_EPAMiscellaneousEmissionSource_NonBiogenicEmissionSource_PM10,geoId/33,,,,0
+"annual amount of emissions: epa_miscellaneous emission source, non biogenic emission source, pm 2.5 in virginia",Annual_Amount_Emissions_EPAMiscellaneousEmissionSource_NonBiogenicEmissionSource_PM2.5,geoId/51,,,,0
+"annual amount of emissions: epa_miscellaneous emission source, non biogenic emission source, sulfur dioxide in washington",Annual_Amount_Emissions_EPAMiscellaneousEmissionSource_NonBiogenicEmissionSource_SulfurDioxide,geoId/53,,,,0
+"annual amount of emissions: epa_miscellaneous emission source, non biogenic emission source, volatile organic compound in california",Annual_Amount_Emissions_EPAMiscellaneousEmissionSource_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/06,,,,0
+"annual amount of emissions: epa_other industrial processes, non biogenic emission source, ammonia in maine",Annual_Amount_Emissions_EPAOtherIndustrialProcesses_NonBiogenicEmissionSource_Ammonia,geoId/23,,,,0
+"annual amount of emissions: epa_other industrial processes, non biogenic emission source, carbon monoxide in colorado",Annual_Amount_Emissions_EPAOtherIndustrialProcesses_NonBiogenicEmissionSource_CarbonMonoxide,geoId/08,,,,0
+"annual amount of emissions: epa_other industrial processes, non biogenic emission source, oxides of nitrogen in new jersey",Annual_Amount_Emissions_EPAOtherIndustrialProcesses_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/34,,,,0
+"annual amount of emissions: epa_other industrial processes, non biogenic emission source, pm 10 in missouri",Annual_Amount_Emissions_EPAOtherIndustrialProcesses_NonBiogenicEmissionSource_PM10,geoId/29,,,,0
+"annual amount of emissions: epa_other industrial processes, non biogenic emission source, pm 2.5 in arkansas",Annual_Amount_Emissions_EPAOtherIndustrialProcesses_NonBiogenicEmissionSource_PM2.5,geoId/05,,,,0
+"annual amount of emissions: epa_other industrial processes, non biogenic emission source, sulfur dioxide in mississippi",Annual_Amount_Emissions_EPAOtherIndustrialProcesses_NonBiogenicEmissionSource_SulfurDioxide,geoId/28,,,,0
+"annual amount of emissions: epa_other industrial processes, non biogenic emission source, volatile organic compound in alabama",Annual_Amount_Emissions_EPAOtherIndustrialProcesses_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/01,,,,0
+"annual amount emissions fluorane, externalcombustion (1) in bay county",Annual_Amount_Emissions_Fluorane_SCC_1_ExternalCombustion,geoId/26017,,,*,
+"annual amount emissions fluorane, stationarysourcefuelcombustion (21) in beaver county",Annual_Amount_Emissions_Fluorane_SCC_21_StationarySourceFuelCombustion,geoId/40007,,,*,
+"annual amount emissions fluorane, industrialprocesses (23) in bonneville county",Annual_Amount_Emissions_Fluorane_SCC_23_IndustrialProcesses,geoId/16019,,,,0
+"annual amount emissions fluorane, solventutilization (24) in kauai county",Annual_Amount_Emissions_Fluorane_SCC_24_SolventUtilization,geoId/15007,,,,0
+"annual amount emissions fluorane, miscellaneousareasources (28) in ada county",Annual_Amount_Emissions_Fluorane_SCC_28_MiscellaneousAreaSources,geoId/16001,,,,0
+"annual amount emissions fluorane, internalcombustionengines (2) in chaves county",Annual_Amount_Emissions_Fluorane_SCC_2_InternalCombustionEngines,geoId/35005,,,,0
+"annual amount emissions fluorane, industrialprocesses (3) in bay county",Annual_Amount_Emissions_Fluorane_SCC_3_IndustrialProcesses,geoId/12005,,,,0
+"annual amount emissions fluorane, petroleumandsolventevaporation (4) in riverside county",Annual_Amount_Emissions_Fluorane_SCC_4_PetroleumAndSolventEvaporation,geoId/06065,,,,0
+"annual amount emissions fluorane, wastedisposal (5) in sussex county",Annual_Amount_Emissions_Fluorane_SCC_5_WasteDisposal,geoId/51183,,,*,
+"annual amount emissions formaldehyde, externalcombustion (1) in klickitat county",Annual_Amount_Emissions_Formaldehyde_SCC_1_ExternalCombustion,geoId/53039,,,,0
+"annual amount emissions formaldehyde, stationarysourcefuelcombustion (21) in crook county",Annual_Amount_Emissions_Formaldehyde_SCC_21_StationarySourceFuelCombustion,geoId/41013,,,,0
+"annual amount emissions formaldehyde, mobilesources (22) in haskell county",Annual_Amount_Emissions_Formaldehyde_SCC_22_MobileSources,geoId/20081,,,*,
+"annual amount emissions formaldehyde, industrialprocesses (23) in shawano county",Annual_Amount_Emissions_Formaldehyde_SCC_23_IndustrialProcesses,geoId/55115,,,,0
+"annual amount emissions formaldehyde, solventutilization (24) in jasper county",Annual_Amount_Emissions_Formaldehyde_SCC_24_SolventUtilization,geoId/13159,,,*,
+"annual amount emissions formaldehyde, wastedisposaltreatmentandrecovery (26) in barrow county",Annual_Amount_Emissions_Formaldehyde_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/13013,,,,0
+"annual amount emissions formaldehyde, naturalsources (27) in polk county",Annual_Amount_Emissions_Formaldehyde_SCC_27_NaturalSources,geoId/19153,,,*,
+"annual amount emissions formaldehyde, miscellaneousareasources (28) in hillsborough county",Annual_Amount_Emissions_Formaldehyde_SCC_28_MiscellaneousAreaSources,geoId/33011,,,*,
+"annual amount emissions formaldehyde, internalcombustionengines (2) in kanawha county",Annual_Amount_Emissions_Formaldehyde_SCC_2_InternalCombustionEngines,geoId/54039,,,,0
+"annual amount emissions formaldehyde, industrialprocesses (3) in rio arriba county",Annual_Amount_Emissions_Formaldehyde_SCC_3_IndustrialProcesses,geoId/35039,,,,0
+"annual amount emissions formaldehyde, petroleumandsolventevaporation (4) in contra costa county",Annual_Amount_Emissions_Formaldehyde_SCC_4_PetroleumAndSolventEvaporation,geoId/06013,,,,0
+"annual amount emissions formaldehyde, wastedisposal (5) in christian county",Annual_Amount_Emissions_Formaldehyde_SCC_5_WasteDisposal,geoId/17021,,,*,
+"annual amount of emissions: fuel combustion electric utility, non biogenic emission source, ammonia in colorado",Annual_Amount_Emissions_FuelCombustionElectricUtility_NonBiogenicEmissionSource_Ammonia,geoId/08,,,,0
+"annual amount of emissions: fuel combustion electric utility, non biogenic emission source, carbon monoxide in nebraska",Annual_Amount_Emissions_FuelCombustionElectricUtility_NonBiogenicEmissionSource_CarbonMonoxide,geoId/31,,,,0
+"annual amount of emissions: fuel combustion electric utility, non biogenic emission source, oxides of nitrogen in district of columbia",Annual_Amount_Emissions_FuelCombustionElectricUtility_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/11,,,*,
+"annual amount of emissions: fuel combustion electric utility, non biogenic emission source, pm 10 in new mexico",Annual_Amount_Emissions_FuelCombustionElectricUtility_NonBiogenicEmissionSource_PM10,geoId/35,,,,0
+"annual amount of emissions: fuel combustion electric utility, non biogenic emission source, pm 2.5 in minnesota",Annual_Amount_Emissions_FuelCombustionElectricUtility_NonBiogenicEmissionSource_PM2.5,geoId/27,,,,0
+"annual amount of emissions: fuel combustion electric utility, non biogenic emission source, sulfur dioxide in oklahoma",Annual_Amount_Emissions_FuelCombustionElectricUtility_NonBiogenicEmissionSource_SulfurDioxide,geoId/40,,,,0
+"annual amount of emissions: fuel combustion electric utility, non biogenic emission source, volatile organic compound in kentucky",Annual_Amount_Emissions_FuelCombustionElectricUtility_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/21,,,,0
+"annual amount of emissions: fuel combustion industrial, non biogenic emission source, ammonia in tennessee",Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_Ammonia,geoId/47,,,,0
+"annual amount of emissions: fuel combustion industrial, non biogenic emission source, carbon monoxide in virginia",Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_CarbonMonoxide,geoId/51,,,,0
+"annual amount of emissions: fuel combustion industrial, non biogenic emission source, oxides of nitrogen in indiana",Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/18,,,*,
+"annual amount of emissions: fuel combustion industrial, non biogenic emission source, pm 10 in nebraska",Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_PM10,geoId/31,,,,0
+"annual amount of emissions: fuel combustion industrial, non biogenic emission source, pm 2.5 in vermont",Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_PM2.5,geoId/50,,,,0
+"annual amount of emissions: fuel combustion industrial, non biogenic emission source, sulfur dioxide in nebraska",Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_SulfurDioxide,geoId/31,,,,0
+"annual amount of emissions: fuel combustion industrial, non biogenic emission source, volatile organic compound in iowa",Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/19,,,,0
+"annual amount emissions hexane, externalcombustion (1) in rock island county",Annual_Amount_Emissions_Hexane_SCC_1_ExternalCombustion,geoId/17161,,,,0
+"annual amount emissions hexane, stationarysourcefuelcombustion (21) in mayes county",Annual_Amount_Emissions_Hexane_SCC_21_StationarySourceFuelCombustion,geoId/40097,,,,0
+"annual amount emissions hexane, mobilesources (22) in barnes county",Annual_Amount_Emissions_Hexane_SCC_22_MobileSources,geoId/38003,,,,0
+"annual amount emissions hexane, industrialprocesses (23) in kern county",Annual_Amount_Emissions_Hexane_SCC_23_IndustrialProcesses,geoId/06029,,,,0
+"annual amount emissions hexane, solventutilization (24) in washington county",Annual_Amount_Emissions_Hexane_SCC_24_SolventUtilization,geoId/13303,,,*,
+"annual amount emissions hexane, storageandtransport (25) in st. clair county",Annual_Amount_Emissions_Hexane_SCC_25_StorageAndTransport,geoId/01115,,,*,
+"annual amount emissions hexane, wastedisposaltreatmentandrecovery (26) in oxford county",Annual_Amount_Emissions_Hexane_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/23017,,,*,
+"annual amount emissions hexane, miscellaneousareasources (28) in san luis obispo county",Annual_Amount_Emissions_Hexane_SCC_28_MiscellaneousAreaSources,geoId/06079,,,*,
+"annual amount emissions hexane, internalcombustionengines (2) in plumas county",Annual_Amount_Emissions_Hexane_SCC_2_InternalCombustionEngines,geoId/06063,,,,0
+"annual amount emissions hexane, industrialprocesses (3) in macon county",Annual_Amount_Emissions_Hexane_SCC_3_IndustrialProcesses,geoId/37113,,,*,
+"annual amount emissions hexane, petroleumandsolventevaporation (4) in brown county",Annual_Amount_Emissions_Hexane_SCC_4_PetroleumAndSolventEvaporation,geoId/48049,,,*,
+"annual amount emissions hexane, wastedisposal (5) in wayne county",Annual_Amount_Emissions_Hexane_SCC_5_WasteDisposal,geoId/37191,,,*,
+"annual amount of emissions: industrial and other processes, non biogenic emission source, ammonia in arizona",Annual_Amount_Emissions_IndustrialAndOtherProcesses_NonBiogenicEmissionSource_Ammonia,geoId/04,,,,0
+"annual amount of emissions: industrial and other processes, non biogenic emission source, carbon monoxide in iowa",Annual_Amount_Emissions_IndustrialAndOtherProcesses_NonBiogenicEmissionSource_CarbonMonoxide,geoId/19,,,,0
+"annual amount of emissions: industrial and other processes, non biogenic emission source, oxides of nitrogen in florida",Annual_Amount_Emissions_IndustrialAndOtherProcesses_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/12,,,,0
+"annual amount of emissions: industrial and other processes, non biogenic emission source, pm 10 in maine",Annual_Amount_Emissions_IndustrialAndOtherProcesses_NonBiogenicEmissionSource_PM10,geoId/23,,,,0
+"annual amount of emissions: industrial and other processes, non biogenic emission source, pm 2.5 in washington",Annual_Amount_Emissions_IndustrialAndOtherProcesses_NonBiogenicEmissionSource_PM2.5,geoId/53,,,,0
+"annual amount of emissions: industrial and other processes, non biogenic emission source, sulfur dioxide in hawaii",Annual_Amount_Emissions_IndustrialAndOtherProcesses_NonBiogenicEmissionSource_SulfurDioxide,geoId/15,,,,0
+"annual amount of emissions: industrial and other processes, non biogenic emission source, volatile organic compound in new york",Annual_Amount_Emissions_IndustrialAndOtherProcesses_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/36,,,*,
+"annual amount emissions lead, externalcombustion (1) in little river county",Annual_Amount_Emissions_Lead_SCC_1_ExternalCombustion,geoId/05081,,,*,
+"annual amount emissions lead, stationarysourcefuelcombustion (21) in franklin county",Annual_Amount_Emissions_Lead_SCC_21_StationarySourceFuelCombustion,geoId/50011,,,*,
+"annual amount emissions lead, mobilesources (22) in alameda county",Annual_Amount_Emissions_Lead_SCC_22_MobileSources,geoId/06001,,,,0
+"annual amount emissions lead, industrialprocesses (23) in lassen county",Annual_Amount_Emissions_Lead_SCC_23_IndustrialProcesses,geoId/06035,,,,0
+"annual amount emissions lead, solventutilization (24) in shoshone county",Annual_Amount_Emissions_Lead_SCC_24_SolventUtilization,geoId/16079,,,,0
+"annual amount emissions lead, storageandtransport (25) in morgan county",Annual_Amount_Emissions_Lead_SCC_25_StorageAndTransport,geoId/49029,,,*,
+"annual amount emissions lead, wastedisposaltreatmentandrecovery (26) in broome county",Annual_Amount_Emissions_Lead_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/36007,,,,0
+"annual amount emissions lead, miscellaneousareasources (28) in carlisle county",Annual_Amount_Emissions_Lead_SCC_28_MiscellaneousAreaSources,geoId/21039,,,,0
+"annual amount emissions lead, internalcombustionengines (2) in lynchburg",Annual_Amount_Emissions_Lead_SCC_2_InternalCombustionEngines,geoId/51680,,,,0
+"annual amount emissions lead, industrialprocesses (3) in oswego county",Annual_Amount_Emissions_Lead_SCC_3_IndustrialProcesses,geoId/36075,,,,0
+"annual amount emissions lead, petroleumandsolventevaporation (4) in monterey county",Annual_Amount_Emissions_Lead_SCC_4_PetroleumAndSolventEvaporation,geoId/06053,,,,0
+"annual amount emissions lead, wastedisposal (5) in lenawee county",Annual_Amount_Emissions_Lead_SCC_5_WasteDisposal,geoId/26091,,,,0
+"annual amount emissions manganese, externalcombustion (1) in dane county",Annual_Amount_Emissions_Manganese_SCC_1_ExternalCombustion,geoId/55025,,,,0
+"annual amount emissions manganese, stationarysourcefuelcombustion (21) in winona county",Annual_Amount_Emissions_Manganese_SCC_21_StationarySourceFuelCombustion,geoId/27169,,,,0
+"annual amount emissions manganese, mobilesources (22) in starr county",Annual_Amount_Emissions_Manganese_SCC_22_MobileSources,geoId/48427,,,,0
+"annual amount emissions manganese, industrialprocesses (23) in ventura county",Annual_Amount_Emissions_Manganese_SCC_23_IndustrialProcesses,geoId/06111,,,,0
+"annual amount emissions manganese, solventutilization (24) in caribou county",Annual_Amount_Emissions_Manganese_SCC_24_SolventUtilization,geoId/16029,,,,0
+"annual amount emissions manganese, wastedisposaltreatmentandrecovery (26) in santa barbara county",Annual_Amount_Emissions_Manganese_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/06083,,,,0
+"annual amount emissions manganese, miscellaneousareasources (28) in yuba county",Annual_Amount_Emissions_Manganese_SCC_28_MiscellaneousAreaSources,geoId/06115,,,,0
+"annual amount emissions manganese, internalcombustionengines (2) in linn county",Annual_Amount_Emissions_Manganese_SCC_2_InternalCombustionEngines,geoId/41043,,,*,
+"annual amount emissions manganese, industrialprocesses (3) in beltrami county",Annual_Amount_Emissions_Manganese_SCC_3_IndustrialProcesses,geoId/27007,,,,0
+"annual amount emissions manganese, petroleumandsolventevaporation (4) in rutherford county",Annual_Amount_Emissions_Manganese_SCC_4_PetroleumAndSolventEvaporation,geoId/47149,,,,0
+"annual amount emissions manganese, wastedisposal (5) in somerset county",Annual_Amount_Emissions_Manganese_SCC_5_WasteDisposal,geoId/23025,,,*,
+"annual amount emissions mercury, externalcombustion (1) in scotland county",Annual_Amount_Emissions_Mercury_SCC_1_ExternalCombustion,geoId/37165,,,,0
+"annual amount emissions mercury, stationarysourcefuelcombustion (21) in trousdale county",Annual_Amount_Emissions_Mercury_SCC_21_StationarySourceFuelCombustion,geoId/47169,,,,0
+"annual amount emissions mercury, mobilesources (22) in currituck county",Annual_Amount_Emissions_Mercury_SCC_22_MobileSources,geoId/37053,,,,0
+"annual amount emissions mercury, industrialprocesses (23) in ventura county",Annual_Amount_Emissions_Mercury_SCC_23_IndustrialProcesses,geoId/06111,,,,0
+"annual amount emissions mercury, solventutilization (24) in sibley county",Annual_Amount_Emissions_Mercury_SCC_24_SolventUtilization,geoId/27143,,,,0
+"annual amount emissions mercury, storageandtransport (25) in blue earth county",Annual_Amount_Emissions_Mercury_SCC_25_StorageAndTransport,geoId/27013,,,,0
+"annual amount emissions mercury, wastedisposaltreatmentandrecovery (26) in santa clara county",Annual_Amount_Emissions_Mercury_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/06085,,,,0
+"annual amount emissions mercury, miscellaneousareasources (28) in chippewa county",Annual_Amount_Emissions_Mercury_SCC_28_MiscellaneousAreaSources,geoId/27023,,,*,
+"annual amount emissions mercury, internalcombustionengines (2) in clayton county",Annual_Amount_Emissions_Mercury_SCC_2_InternalCombustionEngines,geoId/13063,,,,0
+"annual amount emissions mercury, industrialprocesses (3) in baker county",Annual_Amount_Emissions_Mercury_SCC_3_IndustrialProcesses,geoId/41001,,,*,
+"annual amount emissions mercury, petroleumandsolventevaporation (4) in macon county",Annual_Amount_Emissions_Mercury_SCC_4_PetroleumAndSolventEvaporation,geoId/17115,,,,0
+"annual amount emissions mercury, wastedisposal (5) in wayne county",Annual_Amount_Emissions_Mercury_SCC_5_WasteDisposal,geoId/37191,,,*,
+"annual amount of emissions: metals processing, non biogenic emission source, ammonia in idaho",Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_Ammonia,geoId/16,,,,0
+"annual amount of emissions: metals processing, non biogenic emission source, carbon monoxide in virginia",Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_CarbonMonoxide,geoId/51,,,,0
+"annual amount of emissions: metals processing, non biogenic emission source, oxides of nitrogen in california",Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/06,,,*,
+"annual amount of emissions: metals processing, non biogenic emission source, pm 10 in missouri",Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_PM10,geoId/29,,,,0
+"annual amount of emissions: metals processing, non biogenic emission source, pm 2.5 in virginia",Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_PM2.5,geoId/51,,,,0
+"annual amount of emissions: metals processing, non biogenic emission source, sulfur dioxide in michigan",Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_SulfurDioxide,geoId/26,,,,0
+"annual amount of emissions: metals processing, non biogenic emission source, volatile organic compound in rhode island",Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/44,,,,0
+"annual amount emissions methane, externalcombustion (1) in york county",Annual_Amount_Emissions_Methane_SCC_1_ExternalCombustion,geoId/42133,,,,0
+"annual amount emissions methane, mobilesources (22) in obion county",Annual_Amount_Emissions_Methane_SCC_22_MobileSources,geoId/47131,,,,0
+"annual amount emissions methane, miscellaneousareasources (28) in chautauqua county",Annual_Amount_Emissions_Methane_SCC_28_MiscellaneousAreaSources,geoId/36013,,,*,
+"annual amount emissions methane, internalcombustionengines (2) in coshocton county",Annual_Amount_Emissions_Methane_SCC_2_InternalCombustionEngines,geoId/39031,,,,0
+"annual amount emissions methane, industrialprocesses (3) in leake county",Annual_Amount_Emissions_Methane_SCC_3_IndustrialProcesses,geoId/28079,,,,0
+"annual amount emissions methane, petroleumandsolventevaporation (4) in shelby county",Annual_Amount_Emissions_Methane_SCC_4_PetroleumAndSolventEvaporation,geoId/39149,,,*,
+"annual amount emissions methane, wastedisposal (5) in dakota county",Annual_Amount_Emissions_Methane_SCC_5_WasteDisposal,geoId/27037,,,,0
+"annual amount emissions methanol, externalcombustion (1) in wayne county",Annual_Amount_Emissions_Methanol_SCC_1_ExternalCombustion,geoId/26163,,,,0
+"annual amount emissions methanol, mobilesources (22) in montgomery county",Annual_Amount_Emissions_Methanol_SCC_22_MobileSources,geoId/48339,,,*,
+"annual amount emissions methanol, industrialprocesses (23) in latah county",Annual_Amount_Emissions_Methanol_SCC_23_IndustrialProcesses,geoId/16057,,,,0
+"annual amount emissions methanol, solventutilization (24) in grundy county",Annual_Amount_Emissions_Methanol_SCC_24_SolventUtilization,geoId/17063,,,*,
+"annual amount emissions methanol, wastedisposaltreatmentandrecovery (26) in clackamas county",Annual_Amount_Emissions_Methanol_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/41005,,,,0
+"annual amount emissions methanol, naturalsources (27) in blanco county",Annual_Amount_Emissions_Methanol_SCC_27_NaturalSources,geoId/48031,,,,0
+"annual amount emissions methanol, miscellaneousareasources (28) in bingham county",Annual_Amount_Emissions_Methanol_SCC_28_MiscellaneousAreaSources,geoId/16011,,,,0
+"annual amount emissions methanol, internalcombustionengines (2) in lake county",Annual_Amount_Emissions_Methanol_SCC_2_InternalCombustionEngines,geoId/18089,,,*,
+"annual amount emissions methanol, industrialprocesses (3) in allen parish",Annual_Amount_Emissions_Methanol_SCC_3_IndustrialProcesses,geoId/22003,,,*,
+"annual amount emissions methanol, petroleumandsolventevaporation (4) in elk county",Annual_Amount_Emissions_Methanol_SCC_4_PetroleumAndSolventEvaporation,geoId/42047,,,*,
+"annual amount emissions methanol, wastedisposal (5) in lake of the woods county",Annual_Amount_Emissions_Methanol_SCC_5_WasteDisposal,geoId/27077,,,*,
+"annual amount emissions naphthalene, externalcombustion (1) in platte county",Annual_Amount_Emissions_Naphthalene_SCC_1_ExternalCombustion,geoId/56031,,,*,
+"annual amount emissions naphthalene, stationarysourcefuelcombustion (21) in charlottesville",Annual_Amount_Emissions_Naphthalene_SCC_21_StationarySourceFuelCombustion,geoId/51540,,,,0
+"annual amount emissions naphthalene, mobilesources (22) in madison county",Annual_Amount_Emissions_Naphthalene_SCC_22_MobileSources,geoId/17119,,,,0
+"annual amount emissions naphthalene, industrialprocesses (23) in howard county",Annual_Amount_Emissions_Naphthalene_SCC_23_IndustrialProcesses,geoId/29089,,,*,
+"annual amount emissions naphthalene, solventutilization (24) in gratiot county",Annual_Amount_Emissions_Naphthalene_SCC_24_SolventUtilization,geoId/26057,,,,0
+"annual amount emissions naphthalene, storageandtransport (25) in green county",Annual_Amount_Emissions_Naphthalene_SCC_25_StorageAndTransport,geoId/55045,,,,0
+"annual amount emissions naphthalene, wastedisposaltreatmentandrecovery (26) in turner county",Annual_Amount_Emissions_Naphthalene_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/13287,,,,0
+"annual amount emissions naphthalene, miscellaneousareasources (28) in sagadahoc county",Annual_Amount_Emissions_Naphthalene_SCC_28_MiscellaneousAreaSources,geoId/23023,,,,0
+"annual amount emissions naphthalene, internalcombustionengines (2) in wilson county",Annual_Amount_Emissions_Naphthalene_SCC_2_InternalCombustionEngines,geoId/47189,,,*,
+"annual amount emissions naphthalene, industrialprocesses (3) in nelson county",Annual_Amount_Emissions_Naphthalene_SCC_3_IndustrialProcesses,geoId/21179,,,*,
+"annual amount emissions naphthalene, petroleumandsolventevaporation (4) in adams county",Annual_Amount_Emissions_Naphthalene_SCC_4_PetroleumAndSolventEvaporation,geoId/17001,,,*,
+"annual amount emissions naphthalene, wastedisposal (5) in san bernardino county",Annual_Amount_Emissions_Naphthalene_SCC_5_WasteDisposal,geoId/06071,,,,0
+"annual amount of emissions: natural resource, biogenic emission source, ammonia in ventura county",Annual_Amount_Emissions_NaturalResource_BiogenicEmissionSource_Ammonia,geoId/06111,,,,0
+"annual amount of emissions: natural resource, biogenic emission source, carbon monoxide in renville county",Annual_Amount_Emissions_NaturalResource_BiogenicEmissionSource_CarbonMonoxide,geoId/38075,,,*,
+"annual amount of emissions: natural resource, biogenic emission source, oxides of nitrogen in albany county",Annual_Amount_Emissions_NaturalResource_BiogenicEmissionSource_OxidesOfNitrogen,geoId/56001,,,*,
+"annual amount of emissions: natural resource, biogenic emission source, volatile organic compound in king county",Annual_Amount_Emissions_NaturalResource_BiogenicEmissionSource_VolatileOrganicCompound,geoId/48269,,,*,
+"annual amount emissions nickel, externalcombustion (1) in effingham county",Annual_Amount_Emissions_Nickel_SCC_1_ExternalCombustion,geoId/17049,,,*,
+"annual amount emissions nickel, stationarysourcefuelcombustion (21) in brewster county",Annual_Amount_Emissions_Nickel_SCC_21_StationarySourceFuelCombustion,geoId/48043,,,,0
+"annual amount emissions nickel, mobilesources (22) in haywood county",Annual_Amount_Emissions_Nickel_SCC_22_MobileSources,geoId/37087,,,,0
+"annual amount emissions nickel, industrialprocesses (23) in san diego county",Annual_Amount_Emissions_Nickel_SCC_23_IndustrialProcesses,geoId/06073,,,,0
+"annual amount emissions nickel, solventutilization (24) in jefferson county",Annual_Amount_Emissions_Nickel_SCC_24_SolventUtilization,geoId/21111,,,*,
+"annual amount emissions nickel, wastedisposaltreatmentandrecovery (26) in steuben county",Annual_Amount_Emissions_Nickel_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/36101,,,,0
+"annual amount emissions nickel, miscellaneousareasources (28) in erath county",Annual_Amount_Emissions_Nickel_SCC_28_MiscellaneousAreaSources,geoId/48143,,,,0
+"annual amount emissions nickel, internalcombustionengines (2) in douglas county",Annual_Amount_Emissions_Nickel_SCC_2_InternalCombustionEngines,geoId/55031,,,*,
+"annual amount emissions nickel, industrialprocesses (3) in pierce county",Annual_Amount_Emissions_Nickel_SCC_3_IndustrialProcesses,geoId/53053,,,,0
+"annual amount emissions nickel, petroleumandsolventevaporation (4) in dekalb county",Annual_Amount_Emissions_Nickel_SCC_4_PetroleumAndSolventEvaporation,geoId/17037,,,*,
+"annual amount emissions nickel, wastedisposal (5) in harvey county",Annual_Amount_Emissions_Nickel_SCC_5_WasteDisposal,geoId/20079,,,,0
+"annual amount emissions nitrous oxide, externalcombustion (1) in christian county",Annual_Amount_Emissions_NitrousOxide_SCC_1_ExternalCombustion,geoId/21047,,,*,
+"annual amount emissions nitrous oxide, mobilesources (22) in ogle county",Annual_Amount_Emissions_NitrousOxide_SCC_22_MobileSources,geoId/17141,,,,0
+"annual amount emissions nitrous oxide, internalcombustionengines (2) in washington county",Annual_Amount_Emissions_NitrousOxide_SCC_2_InternalCombustionEngines,geoId/24043,,,*,
+"annual amount emissions nitrous oxide, industrialprocesses (3) in hamilton county",Annual_Amount_Emissions_NitrousOxide_SCC_3_IndustrialProcesses,geoId/12047,,,*,
+"annual amount emissions nitrous oxide, petroleumandsolventevaporation (4) in montgomery county",Annual_Amount_Emissions_NitrousOxide_SCC_4_PetroleumAndSolventEvaporation,geoId/42091,,,*,
+"annual amount emissions nitrous oxide, wastedisposal (5) in sussex county",Annual_Amount_Emissions_NitrousOxide_SCC_5_WasteDisposal,geoId/10005,,,*,
+"annual amount of emissions: non road engines and vehicles, non biogenic emission source, ammonia in louisiana",Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_Ammonia,geoId/22,,,,0
+"annual amount of emissions: non road engines and vehicles, non biogenic emission source, carbon monoxide in maryland",Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide,geoId/24,,,,0
+"annual amount of emissions: non road engines and vehicles, non biogenic emission source, oxides of nitrogen in vermont",Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/50,,,,0
+"annual amount of emissions: non road engines and vehicles, non biogenic emission source, pm 10 in oregon",Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_PM10,geoId/41,,,,0
+"annual amount of emissions: non road engines and vehicles, non biogenic emission source, pm 2.5 in wyoming",Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_PM2.5,geoId/56,,,,0
+"annual amount of emissions: non road engines and vehicles, non biogenic emission source, sulfur dioxide in virginia",Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_SulfurDioxide,geoId/51,,,,0
+"annual amount of emissions: non road engines and vehicles, non biogenic emission source, volatile organic compound in virginia",Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/51,,,,0
+"annual amount of emissions: on road vehicles, non biogenic emission source, ammonia in wyoming",Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia,geoId/56,,,,0
+"annual amount of emissions: on road vehicles, non biogenic emission source, carbon monoxide in minnesota",Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide,geoId/27,,,,0
+"annual amount of emissions: on road vehicles, non biogenic emission source, oxides of nitrogen in michigan",Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/26,,,,0
+"annual amount of emissions: on road vehicles, non biogenic emission source, pm 10 in north carolina",Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_PM10,geoId/37,,,,0
+"annual amount of emissions: on road vehicles, non biogenic emission source, pm 2.5 in tennessee",Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_PM2.5,geoId/47,,,,0
+"annual amount of emissions: on road vehicles, non biogenic emission source, sulfur dioxide in minnesota",Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_SulfurDioxide,geoId/27,,,,0
+"annual amount of emissions: on road vehicles, non biogenic emission source, volatile organic compound in connecticut",Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/09,,,,0
+"annual amount emissions oxides of nitrogen, externalcombustion (1) in waldo county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_1_ExternalCombustion,geoId/23027,,,,0
+"annual amount emissions oxides of nitrogen, stationarysourcefuelcombustion (21) in sawyer county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_21_StationarySourceFuelCombustion,geoId/55113,,,,0
+"annual amount emissions oxides of nitrogen, mobilesources (22) in sussex county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_22_MobileSources,geoId/51183,,,*,
+"annual amount emissions oxides of nitrogen, industrialprocesses (23) in sheboygan county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_23_IndustrialProcesses,geoId/55117,,,,0
+"annual amount emissions oxides of nitrogen, solventutilization (24) in plymouth county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_24_SolventUtilization,geoId/25023,,,*,
+"annual amount emissions oxides of nitrogen, storageandtransport (25) in santa barbara county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_25_StorageAndTransport,geoId/06083,,,,0
+"annual amount emissions oxides of nitrogen, wastedisposaltreatmentandrecovery (26) in fallon county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/30025,,,,0
+"annual amount emissions oxides of nitrogen, naturalsources (27) in caddo county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_27_NaturalSources,geoId/40015,,,,0
+"annual amount emissions oxides of nitrogen, miscellaneousareasources (28) in luce county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_28_MiscellaneousAreaSources,geoId/26095,,,,0
+"annual amount emissions oxides of nitrogen, internalcombustionengines (2) in sarpy county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_2_InternalCombustionEngines,geoId/31153,,,,0
+"annual amount emissions oxides of nitrogen, industrialprocesses (3) in wayne county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_3_IndustrialProcesses,geoId/18177,,,*,
+"annual amount emissions oxides of nitrogen, petroleumandsolventevaporation (4) in lee county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_4_PetroleumAndSolventEvaporation,geoId/01081,,,*,
+"annual amount emissions oxides of nitrogen, wastedisposal (5) in kankakee county",Annual_Amount_Emissions_OxidesOfNitrogen_SCC_5_WasteDisposal,geoId/17091,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, externalcombustion (1) in lagrange county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_1_ExternalCombustion,geoId/18087,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, stationarysourcefuelcombustion (21) in millard county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_21_StationarySourceFuelCombustion,geoId/49027,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, mobilesources (22) in dooly county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_22_MobileSources,geoId/13093,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, industrialprocesses (23) in caribou county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_23_IndustrialProcesses,geoId/16029,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, solventutilization (24) in clark county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_24_SolventUtilization,geoId/16033,,,*,
+"annual amount emissions oxo(oxochromiooxy)chromium, wastedisposaltreatmentandrecovery (26) in fulton county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/36035,,,*,
+"annual amount emissions oxo(oxochromiooxy)chromium, miscellaneousareasources (28) in tyrrell county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_28_MiscellaneousAreaSources,geoId/37177,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, internalcombustionengines (2) in mcminn county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_2_InternalCombustionEngines,geoId/47107,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, industrialprocesses (3) in richmond",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_3_IndustrialProcesses,geoId/51760,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, petroleumandsolventevaporation (4) in arapahoe county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_4_PetroleumAndSolventEvaporation,geoId/08005,,,,0
+"annual amount emissions oxo(oxochromiooxy)chromium, wastedisposal (5) in st. louis county",Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_5_WasteDisposal,geoId/29189,,,,0
+"annual amount emissions pm10, externalcombustion (1) in niagara county",Annual_Amount_Emissions_PM10_SCC_1_ExternalCombustion,geoId/36063,,,,0
+"annual amount emissions pm10, stationarysourcefuelcombustion (21) in placer county",Annual_Amount_Emissions_PM10_SCC_21_StationarySourceFuelCombustion,geoId/06061,,,,0
+"annual amount emissions pm10, mobilesources (22) in morehouse parish",Annual_Amount_Emissions_PM10_SCC_22_MobileSources,geoId/22067,,,*,
+"annual amount emissions pm10, industrialprocesses (23) in adair county",Annual_Amount_Emissions_PM10_SCC_23_IndustrialProcesses,geoId/21001,,,*,
+"annual amount emissions pm10, solventutilization (24) in norfolk county",Annual_Amount_Emissions_PM10_SCC_24_SolventUtilization,geoId/25021,,,*,
+"annual amount emissions pm10, storageandtransport (25) in jefferson county",Annual_Amount_Emissions_PM10_SCC_25_StorageAndTransport,geoId/21111,,,*,
+"annual amount emissions pm10, wastedisposaltreatmentandrecovery (26) in russell county",Annual_Amount_Emissions_PM10_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/21207,,,*,
+"annual amount emissions pm10, miscellaneousareasources (28) in lincoln county",Annual_Amount_Emissions_PM10_SCC_28_MiscellaneousAreaSources,geoId/41041,,,*,
+"annual amount emissions pm10, internalcombustionengines (2) in crowley county",Annual_Amount_Emissions_PM10_SCC_2_InternalCombustionEngines,geoId/08025,,,,0
+"annual amount emissions pm10, industrialprocesses (3) in marion county",Annual_Amount_Emissions_PM10_SCC_3_IndustrialProcesses,geoId/29127,,,*,
+"annual amount emissions pm10, petroleumandsolventevaporation (4) in putnam county",Annual_Amount_Emissions_PM10_SCC_4_PetroleumAndSolventEvaporation,geoId/18133,,,*,
+"annual amount emissions pm10, wastedisposal (5) in mclean county",Annual_Amount_Emissions_PM10_SCC_5_WasteDisposal,geoId/17113,,,,0
+"annual amount emissions pm10, mactsourcecategories (6) in st. charles parish",Annual_Amount_Emissions_PM10_SCC_6_MACTSourceCategories,geoId/22089,,,,0
+"annual amount emissions pm2.5, externalcombustion (1) in danville",Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion,geoId/51590,,,*,
+"annual amount emissions pm2.5, stationarysourcefuelcombustion (21) in kiowa county",Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion,geoId/20097,,,,0
+"annual amount emissions pm2.5, mobilesources (22) in la salle county",Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources,geoId/48283,,,,0
+"annual amount emissions pm2.5, industrialprocesses (23) in billings county",Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses,geoId/38007,,,,0
+"annual amount emissions pm2.5, solventutilization (24) in san bernardino county",Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization,geoId/06071,,,,0
+"annual amount emissions pm2.5, storageandtransport (25) in sacramento county",Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport,geoId/06067,,,,0
+"annual amount emissions pm2.5, wastedisposaltreatmentandrecovery (26) in franklin county",Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/21073,,,*,
+"annual amount emissions pm2.5, miscellaneousareasources (28) in sherman county",Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources,geoId/41055,,,*,
+"annual amount emissions pm2.5, internalcombustionengines (2) in ford county",Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines,geoId/20057,,,,0
+"annual amount emissions pm2.5, industrialprocesses (3) in marshall county",Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses,geoId/19127,,,*,
+"annual amount emissions pm2.5, petroleumandsolventevaporation (4) in warren county",Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation,geoId/34041,,,*,
+"annual amount emissions pm2.5, wastedisposal (5) in gloucester county",Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal,geoId/34015,,,,0
+"annual amount emissions pm2.5, mactsourcecategories (6) in cook county",Annual_Amount_Emissions_PM2.5_SCC_6_MACTSourceCategories,geoId/17031,,,,0
+"annual amount of emissions: petroleum and related industries, non biogenic emission source, ammonia in pennsylvania",Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_Ammonia,geoId/42,,,,0
+"annual amount of emissions: petroleum and related industries, non biogenic emission source, carbon monoxide in mississippi",Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_CarbonMonoxide,geoId/28,,,,0
+"annual amount of emissions: petroleum and related industries, non biogenic emission source, oxides of nitrogen in alaska",Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/02,,,,0
+"annual amount of emissions: petroleum and related industries, non biogenic emission source, pm 10 in virginia",Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_PM10,geoId/51,,,,0
+"annual amount of emissions: petroleum and related industries, non biogenic emission source, pm 2.5 in arkansas",Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_PM2.5,geoId/05,,,,0
+"annual amount of emissions: petroleum and related industries, non biogenic emission source, sulfur dioxide in missouri",Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_SulfurDioxide,geoId/29,,,,0
+"annual amount of emissions: petroleum and related industries, non biogenic emission source, volatile organic compound in florida",Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_VolatileOrganicCompound,geoId/12,,,,0
+"annual amount emissions phenol, externalcombustion (1) in montmorency county",Annual_Amount_Emissions_Phenol_SCC_1_ExternalCombustion,geoId/26119,,,,0
+"annual amount emissions phenol, stationarysourcefuelcombustion (21) in stokes county",Annual_Amount_Emissions_Phenol_SCC_21_StationarySourceFuelCombustion,geoId/37169,,,,0
+"annual amount emissions phenol, mobilesources (22) in bartow county",Annual_Amount_Emissions_Phenol_SCC_22_MobileSources,geoId/13015,,,,0
+"annual amount emissions phenol, industrialprocesses (23) in multnomah county",Annual_Amount_Emissions_Phenol_SCC_23_IndustrialProcesses,geoId/41051,,,,0
+"annual amount emissions phenol, solventutilization (24) in colusa county",Annual_Amount_Emissions_Phenol_SCC_24_SolventUtilization,geoId/06011,,,,0
+"annual amount emissions phenol, wastedisposaltreatmentandrecovery (26) in yellowstone county",Annual_Amount_Emissions_Phenol_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/30111,,,,0
+"annual amount emissions phenol, miscellaneousareasources (28) in custer county",Annual_Amount_Emissions_Phenol_SCC_28_MiscellaneousAreaSources,geoId/16037,,,*,
+"annual amount emissions phenol, internalcombustionengines (2) in antrim county",Annual_Amount_Emissions_Phenol_SCC_2_InternalCombustionEngines,geoId/26009,,,,0
+"annual amount emissions phenol, industrialprocesses (3) in dallas county",Annual_Amount_Emissions_Phenol_SCC_3_IndustrialProcesses,geoId/48113,,,,0
+"annual amount emissions phenol, petroleumandsolventevaporation (4) in mcdowell county",Annual_Amount_Emissions_Phenol_SCC_4_PetroleumAndSolventEvaporation,geoId/37111,,,*,
+"annual amount emissions phenol, wastedisposal (5) in schenectady county",Annual_Amount_Emissions_Phenol_SCC_5_WasteDisposal,geoId/36093,,,,0
+"annual amount emissions phosphorus, externalcombustion (1) in washington county",Annual_Amount_Emissions_Phosphorus_SCC_1_ExternalCombustion,geoId/23029,,,*,
+"annual amount emissions phosphorus, stationarysourcefuelcombustion (21) in wright county",Annual_Amount_Emissions_Phosphorus_SCC_21_StationarySourceFuelCombustion,geoId/27171,,,*,
+"annual amount emissions phosphorus, mobilesources (22) in kern county",Annual_Amount_Emissions_Phosphorus_SCC_22_MobileSources,geoId/06029,,,,0
+"annual amount emissions phosphorus, industrialprocesses (23) in humboldt county",Annual_Amount_Emissions_Phosphorus_SCC_23_IndustrialProcesses,geoId/06023,,,,0
+"annual amount emissions phosphorus, solventutilization (24) in plymouth county",Annual_Amount_Emissions_Phosphorus_SCC_24_SolventUtilization,geoId/19149,,,,0
+"annual amount emissions phosphorus, wastedisposaltreatmentandrecovery (26) in alameda county",Annual_Amount_Emissions_Phosphorus_SCC_26_WasteDisposalTreatmentAndRecovery,geoId/06001,,,,0
+"annual amount emissions phosphorus, miscellaneousareasources (28) in lassen county",Annual_Amount_Emissions_Phosphorus_SCC_28_MiscellaneousAreaSources,geoId/06035,,,,0
+"annual amount emissions phosphorus, internalcombustionengines (2) in colusa county",Annual_Amount_Emissions_Phosphorus_SCC_2_InternalCombustionEngines,geoId/06011,,,,0
+"annual amount emissions phosphorus, industrialprocesses (3) in st. lucie county",Annual_Amount_Emissions_Phosphorus_SCC_3_IndustrialProcesses,geoId/12111,,,,0
+"annual amount emissions phosphorus, petroleumandsolventevaporation (4) in bernalillo county",Annual_Amount_Emissions_Phosphorus_SCC_4_PetroleumAndSolventEvaporation,geoId/35001,,,,0
+"annual amount emissions phosphorus, wastedisposal (5) in stark county",Annual_Amount_Emissions_Phosphorus_SCC_5_WasteDisposal,geoId/39151,,,,0
+"annual amount of emissions: prescribed fire, non biogenic emission source, ammonia in tennessee",Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_Ammonia,geoId/47,,,,-1
+"annual amount of emissions: prescribed fire, non biogenic emission source, carbon monoxide in rhode island",Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_CarbonMonoxide,geoId/44,,,,0
+"annual amount of emissions: prescribed fire, non biogenic emission source, oxides of nitrogen in nevada",Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_OxidesOfNitrogen,geoId/32,,,*,
+"annual amount of emissions: prescribed fire, non biogenic emission source, pm 10 in indiana",Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_PM10,geoId/18,,,,-1
