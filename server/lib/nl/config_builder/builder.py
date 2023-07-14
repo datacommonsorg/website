@@ -24,6 +24,7 @@ from server.lib.nl.config_builder import event
 from server.lib.nl.config_builder import map
 from server.lib.nl.config_builder import ranking
 from server.lib.nl.config_builder import scatter
+from server.lib.nl.config_builder import suggestions
 from server.lib.nl.config_builder import timeline
 
 
@@ -140,4 +141,5 @@ def build(uttr: Utterance,
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
+  suggestions.add(uttr, builder.page_config)
   return builder.page_config

@@ -262,7 +262,40 @@ message Category {
   repeated Block blocks = 3;
 }
 
+message Suggestion {
+  enum Type {
+    // [crime in NY]
+    //    "Did you mean New York State?"
+    NL_PLACE_DISAMBIGUATION = 0;
+
+    // [asthma in sunnyvale]
+    //    "See results for Mountain View"
+    NL_RELATED_PLACE = 1;
+
+    // [women earnings in california]
+    //   "See results for Male Earnings"
+    //   "Compare with Male Earnings?"
+    NL_RELATED_VAR = 2;
+
+    // [women earnings in california counties]
+    //   "See ranking among the counties"
+    // [number of schools in california]
+    //   "See california schools per capita"
+    NL_RELATED_QUERY_TYPE = 3;
+  }
+
+  message Item {
+    string display_name = 1;
+    string nl_query = 2;
+  }
+  repeated Item items = 1;
+}
+
 message SubjectPageConfig {
   PageMetadata metadata = 1;
   repeated Category categories = 2;
+
+  // Various suggestions to present to the user. Currently used for NL.
+  // Keyed by Suggestion::Type (keys have to be strings).
+  map<string, Suggestion> suggestions = 3;
 }

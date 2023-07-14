@@ -77,6 +77,28 @@
       "placeDcid": [
         "geoId/53"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "California",
+            "nlQuery": "how many people are unemployed in zip codes of california state?"
+          }
+        ]
+      },
+      "NL_RELATED_QUERY_TYPE": {
+        "items": [
+          {
+            "displayName": "Show highest",
+            "nlQuery": "how many people are unemployed in zip codes of washington state? - show highest"
+          },
+          {
+            "displayName": "Show lowest",
+            "nlQuery": "how many people are unemployed in zip codes of washington state? - show lowest"
+          }
+        ]
+      }
     }
   },
   "context": {},
