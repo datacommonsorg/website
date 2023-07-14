@@ -24,6 +24,28 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Above Poverty Level Status in Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_pc"
+                    ],
+                    "title": "Per Capita Population Above Poverty Level Status in Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
@@ -35,6 +57,15 @@
             "denom": "Count_Person",
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
+          },
+          "Count_Person_AbovePovertyLevelInThePast12Months": {
+            "name": "Population Above Poverty Level Status in Past Year",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
+          },
+          "Count_Person_AbovePovertyLevelInThePast12Months_pc": {
+            "denom": "Count_Person",
+            "name": "Population Above Poverty Level Status in Past Year",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           }
         }
       }

@@ -361,3 +361,16 @@ class TestHeuristicTimeDeltaClassifier(unittest.TestCase):
     # If no matches, classifier returns None
     result = heuristic_classifiers.time_delta(query)
     self.assertIsNone(result)
+
+
+# TODO: Need unit-tests for containedin.
+class TestHeuristicContainedInClassifier(unittest.TestCase):
+
+  @parameterized.expand([
+      ("electricity in california"),
+      ("how tractable in poverty in santa clara?"),
+      ("how many housing contracts in san jose?"),
+      ("corporate publicities in utah"),
+  ])
+  def test_no_false_positives(self, query):
+    self.assertIsNone(heuristic_classifiers.containedin(query))

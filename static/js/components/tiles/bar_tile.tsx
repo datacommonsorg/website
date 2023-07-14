@@ -30,10 +30,14 @@ import {
   drawStackBarChart,
 } from "../../chart/draw";
 import { SortType } from "../../chart/types";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import {
+  placeSep,
+  statVarSep,
+  TIMELINE_URL_PARAM_KEYS,
+} from "../../tools/timeline/util";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { BarTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
@@ -49,6 +53,7 @@ const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
+const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
 export interface BarTilePropType {
   // API root
@@ -64,8 +69,6 @@ export interface BarTilePropType {
   enclosedPlaceType: string;
   horizontal?: boolean;
   id: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
   // Maximum number of places to display
   maxPlaces?: number;
   // The primary place of the page (disaster, topic, nl)
@@ -84,6 +87,8 @@ export interface BarTilePropType {
   useLollipop?: boolean;
   // Y-axis margin / text width
   yAxisMargin?: number;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 export interface BarChartData {
@@ -129,13 +134,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
       }
       isInitialLoading={_.isNull(barChartData)}
+      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
-      {props.isDataTile && barChartData && (
-        <div
-          className={DATA_CSS_CLASS}
-          data-csv={dataGroupsToCsv(barChartData.dataGroup)}
-        />
-      )}
       <div
         id={props.id}
         className="svg-container"
@@ -336,4 +336,22 @@ export function draw(
       );
     }
   }
+}
+
+function getExploreMoreUrl(props: BarTilePropType): string {
+  const params = {
+    [TIMELINE_URL_PARAM_KEYS.PLACE]: [
+      ...props.comparisonPlaces,
+      props.place.dcid,
+    ].join(placeSep),
+    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVarSpec
+      .map((spec) => spec.statVar)
+      .join(statVarSep),
+  };
+  const hashParams = Object.keys(params)
+    .sort()
+    .map((key) => `${key}=${params[key]}`);
+  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
+    "&"
+  )}`;
 }

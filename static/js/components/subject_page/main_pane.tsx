@@ -42,7 +42,8 @@ interface SubjectPageMainPanePropType {
   svgChartHeight?: number;
   // parent places of the place to show the page for.
   parentPlaces?: NamedPlace[];
-  showData?: boolean;
+  // Whether or not to show the explore more button on tiles.
+  showExploreMore?: boolean;
 }
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
@@ -94,7 +95,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
                       ? props.svgChartHeight
                       : SVG_CHART_HEIGHT
                   }
-                  showData={props.showData}
+                  showExploreMore={props.showExploreMore}
                   parentPlaces={props.parentPlaces}
                 />
               </ErrorBoundary>
