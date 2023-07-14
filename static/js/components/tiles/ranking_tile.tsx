@@ -136,6 +136,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               statVar={statVar}
               title={props.title}
               showExploreMore={props.showExploreMore}
+              apiRoot={props.apiRoot}
             />
           );
         })}

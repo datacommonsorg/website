@@ -421,5 +421,5 @@ function getExploreMoreUrl(props: ScatterTilePropType): string {
   hash = updateHashAxis(hash, yAxis, false);
   hash = updateHashPlace(hash, place);
   hash = updateHashBoolean(hash, FieldToAbbreviation.showDensity, true);
-  return `${SCATTER_URL_PATH}#${hash}`;
+  return `${props.apiRoot || ""}${SCATTER_URL_PATH}#${hash}`;
 }

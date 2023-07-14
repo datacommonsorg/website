@@ -351,5 +351,7 @@ function getExploreMoreUrl(props: BarTilePropType): string {
   const hashParams = Object.keys(params)
     .sort()
     .map((key) => `${key}=${params[key]}`);
-  return `${EXPLORE_MORE_BASE_URL}#${hashParams.join("&")}`;
+  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
+    "&"
+  )}`;
 }

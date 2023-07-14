@@ -65,6 +65,8 @@ interface BivariateTilePropType {
   className?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // API root
+  apiRoot?: string;
 }
 
 interface RawData {
@@ -385,5 +387,5 @@ function getExploreMoreUrl(props: BivariateTilePropType): string {
   hash = updateHashAxis(hash, yAxis, false);
   hash = updateHashPlace(hash, place);
   hash = updateHashBoolean(hash, FieldToAbbreviation.chartType, true);
-  return `${SCATTER_URL_PATH}#${hash}`;
+  return `${props.apiRoot || ""}${SCATTER_URL_PATH}#${hash}`;
 }

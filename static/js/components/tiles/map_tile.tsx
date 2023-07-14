@@ -458,5 +458,5 @@ function getExploreMoreUrl(props: MapTilePropType): string {
   const hashParams = Object.keys(params)
     .sort()
     .map((key) => `${key}=${params[key]}`);
-  return `${MAP_URL_PATH}#${hashParams.join("&")}`;
+  return `${props.apiRoot || ""}${MAP_URL_PATH}#${hashParams.join("&")}`;
 }
